@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="ru" data-lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Диагностический тест уровня английского от Pre-A1 до C2 — New Generation English. Проверка чтения, аудирования и грамматики онлайн.">
+  <title>New Generation English · Diagnostic Test</title>
+  <link rel="canonical" href="https://newgeneration-english.ru/diagnostic-test.html">
+  <link rel="stylesheet" href="system.css?v=36">
+  <link rel="stylesheet" href="assets/css/diagnostic-test.css?v=7">
+  <link rel="icon" type="image/svg+xml" href="assets/nge-favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FF5A1F">
+</head>
+<body>
+<script>
+  /* NGE STATE-BRIDGE — window.name as cross-page truth on file:// origin. */
+  (function(){
+    try {
+      var st = {};
+      try { st = (window.name && window.name.charAt(0) === "{") ? JSON.parse(window.name) : {}; } catch(_){}
+      var url = new URLSearchParams(location.search);
+      var theme = url.get("theme") || st.theme || localStorage.getItem("nge-theme") || "light";
+      var lang  = url.get("lang")  || st.lang  || localStorage.getItem("nge-lang")  || "";
+      var isLight = (theme === "light" || theme === "light-lab");
+      var isEn = (lang === "en");
+      if (isLight) document.body.classList.add("light");
+      if (isEn) document.body.classList.add("en");
+      var siteTheme = isLight ? "light" : "dark";
+      var lessonTheme = isLight ? "light-lab" : "black-lab";
+      var finalLang = isEn ? "en" : "ru";
+      window.name = JSON.stringify({ theme: lessonTheme, lang: finalLang });
+      try {
+        localStorage.setItem("nge-theme", siteTheme);
+        localStorage.setItem("nge-lang", finalLang);
+        localStorage.setItem("lesson-palette", lessonTheme);
+      } catch(_){}
+    } catch(_){}
+  })();
+</script>
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="New Generation English">
+      <div class="brand-mark">N</div>
+      <div>
+        <div class="brand-name">New Generation English</div>
+        <div class="brand-sub">Diagnostic system</div>
+      </div>
+    </a>
+    <nav class="topnav" id="topNav" aria-label="CEFR levels"></nav>
+    <button class="lang-btn" type="button" id="langBtn">RU / EN</button>
+  </header>
+
+  <main class="page">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">New Generation English · Diagnostic Test</div>
+        <h1>
+          Diagnostic Test <span>A1-C2</span>
+        </h1>
+        <p class="lead">
+          <span data-ru-text>Академическая входная диагностика по международной шкале CEFR. Каждый уровень проверяется по пяти областям: Reading, Listening, Writing, Speaking и Grammatical Range & Accuracy.</span>
+          <span data-en-text>The diagnostic test checks 5 core language areas: reading, listening, writing, speaking, and grammatical range/accuracy. It is not a pressure test; it helps us see where to begin.</span>
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#levels">
+            <span data-ru-text>Начать диагностику</span>
+            <span data-en-text>Start diagnostic</span>
+          </a>
+          <a class="btn" href="conditions.html">
+            <span data-ru-text>К условиям работы</span>
+            <span data-en-text>Work conditions</span>
+          </a>
+        </div>
+      </div>
+      <aside class="hero-panel" aria-label="Diagnostic aspects">
+        <div class="hero-panel-head">
+          <span>Test structure</span>
+          <span>A1-C2</span>
+        </div>
+        <ul class="aspect-list">
+          <li><b>01</b><span>Reading</span></li>
+          <li><b>02</b><span>Listening</span></li>
+          <li><b>03</b><span>Writing</span></li>
+          <li><b>04</b><span>Speaking</span></li>
+          <li><b>05</b><span>Grammatical Range & Accuracy</span></li>
+        </ul>
+      </aside>
+    </section>
+
+    <section class="section" id="levels">
+      <div class="section-head">
+        <div class="index-badge">
+          <strong>01</strong>
+          <small data-ru-text>диагностика</small>
+          <small data-en-text>diagnostic</small>
+        </div>
+        <div>
+          <div class="section-kicker">CEFR levels</div>
+          <h2>
+            <span data-ru-text>Выберите уровень для проверки</span>
+            <span data-en-text>Choose a level to test</span>
+          </h2>
+        </div>
+        <p class="section-copy">
+          <span data-ru-text>Можно начать с предполагаемого уровня. Если задания слишком лёгкие или слишком тяжёлые, откройте соседний уровень и сравните результат по пяти аспектам.</span>
+          <span data-en-text>Start with the level you expect. If the tasks feel too easy or too demanding, open the next level and compare your performance across the five aspects.</span>
+        </p>
+      </div>
+      <div class="level-nav" id="levelNav"></div>
+      <div class="level-stack" id="levelStack"></div>
+
+      <section class="after-test">
+        <h2>After the test</h2>
+        <p>
+          <span data-ru-text>После прохождения диагностики преподаватель анализирует ответы по пяти аспектам, видит сильные и слабые зоны и предлагает план: формат занятий, ритм, материалы и ближайшие учебные задачи.</span>
+          <span data-en-text>After the diagnostic test, the teacher reviews the answers across five areas, identifies strengths and gaps, and suggests a plan: lesson format, rhythm, materials, and the next learning priorities.</span>
+        </p>
+      </section>
+    </section>
+  </main>
+
+  <a href="#levels" id="backToLevels" class="back-to-levels" aria-label="Назад к выбору уровня">
+    <span data-ru-text>↑ К уровням</span>
+    <span data-en-text>↑ To levels</span>
+  </a>
+
+  <footer>New Generation English · Diagnostic Test · CEFR A1-C2</footer>
+
+  <script>
+    (function(){
+      var btn = document.getElementById('backToLevels');
+      var levels = document.getElementById('levels');
+      if (!btn || !levels) return;
+      function check(){
+        var rect = levels.getBoundingClientRect();
+        // Show when user scrolled past the levels section
+        if (rect.bottom < 0) btn.classList.add('show');
+        else btn.classList.remove('show');
+      }
+      window.addEventListener('scroll', check, { passive: true });
+      window.addEventListener('resize', check);
+      check();
+    })();
+  </script>
+  <script src="assets/js/diagnostic-test.js?v=11" defer></script>
+</body>
+</html>
