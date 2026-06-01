@@ -222,7 +222,9 @@ body{
 
 /* ========== Cities grid ========== */
 .cities-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:14px 0}
-.city-card{padding:18px;border-radius:14px;background:var(--surface-2);border:1px solid var(--line)}
+.city-card{padding:0;border-radius:14px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden;display:flex;flex-direction:column}
+.city-card-img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+.city-card-body{padding:18px}
 .city-card h4{font-family:var(--display);font-weight:800;font-size:1.1rem;margin-bottom:6px;color:var(--accent2)}
 .city-card.zurich{border-top:4px solid var(--accent)}
 .city-card.geneva{border-top:4px solid var(--alpine)}
@@ -524,7 +526,7 @@ footer{max-width:1240px;margin:50px auto 30px;padding:0 22px;text-align:center;c
 <!-- ============ 14 ============ -->
 <section class="section">
   <div class="section-hdr"><div class="num">14</div><h2>Listening 2 · The Watchmaker Apprentice</h2></div>
-  <div class="section-sub">dialogue · Léa (first-year apprentice) + interviewer</div>
+  <div class="section-sub">dialogue · Sophie (first-year apprentice) + interviewer</div>
   <div class="card">
     <audio controls preload="metadata" style="width:100%;margin:0 0 10px">
       <source src="assets/audio/audio-02-watchmaker.mp3" type="audio/mpeg">
@@ -532,10 +534,10 @@ footer{max-width:1240px;margin:50px auto 30px;padding:0 22px;text-align:center;c
     <div class="listening-box">
       <div class="speech-line">
         <span class="speaker-pin a">Interviewer</span>
-        <span class="speech-text" data-say="Léa, you are nineteen and you spend your days putting together tiny pieces of metal. Why?" data-speaker="hans">«Léa, you are nineteen and you spend your days putting together tiny pieces of metal. Why?»</span>
+        <span class="speech-text" data-say="Sophie, you are nineteen and you spend your days putting together tiny pieces of metal. Why?" data-speaker="hans">«Sophie, you are nineteen and you spend your days putting together tiny pieces of metal. Why?»</span>
       </div>
       <div class="speech-line">
-        <span class="speaker-pin b">Léa</span>
+        <span class="speaker-pin b">Sophie</span>
         <span class="speech-text" data-say="Because it's beautiful. A mechanical watch has about 200 parts. Some are smaller than a grain of sand. When everything is put together correctly, it ticks." data-speaker="anna">«Because it's beautiful. A mechanical watch has about <strong>200 parts</strong>. Some are smaller than a grain of sand. When everything is put together correctly, it ticks.»</span>
       </div>
       <div class="speech-line">
@@ -543,7 +545,7 @@ footer{max-width:1240px;margin:50px auto 30px;padding:0 22px;text-align:center;c
         <span class="speech-text" data-say="How long does it take to learn?" data-speaker="hans">«How long does it take to learn?»</span>
       </div>
       <div class="speech-line">
-        <span class="speaker-pin b">Léa</span>
+        <span class="speaker-pin b">Sophie</span>
         <span class="speech-text" data-say="The school is four years. After that, you can call yourself a watchmaker. But the masters say it takes twenty years before your hands really know what they're doing." data-speaker="anna">«The school is four years. After that, you can call yourself a watchmaker. But the masters say it takes <em>twenty years</em> before your hands really know what they're doing.»</span>
       </div>
       <div class="speech-line">
@@ -551,7 +553,7 @@ footer{max-width:1240px;margin:50px auto 30px;padding:0 22px;text-align:center;c
         <span class="speech-text" data-say="And do you wear a watch?" data-speaker="hans">«And do you wear a watch?»</span>
       </div>
       <div class="speech-line">
-        <span class="speaker-pin b">Léa</span>
+        <span class="speaker-pin b">Sophie</span>
         <span class="speech-text" data-say="An old one. From my grandfather. He bought it when he was twenty. I'll pass it to my child one day." data-speaker="anna">«An old one. From my grandfather. He bought it when he was twenty. I'll pass it to my child one day.»</span>
       </div>
     </div>
@@ -625,22 +627,31 @@ footer{max-width:1240px;margin:50px auto 30px;padding:0 22px;text-align:center;c
   <div class="card">
     <div class="cities-grid">
       <div class="city-card zurich">
-        <h4>🏦 Zurich</h4>
-        <p><strong>Population:</strong> 430,000 (largest city)<br>
-        <strong>Vibe:</strong> clean, expensive, efficient, German-speaking.<br>
-        <strong>Famous for:</strong> banks (UBS, Credit Suisse), ETH (a top engineering university), Lake Zurich. Often voted the <em>best city to live in</em> on Earth.</p>
+        <img class="city-card-img" src="assets/img/img-19a-zurich.png" alt="Zurich — old town churches and boats on the lake" onerror="this.style.display='none'">
+        <div class="city-card-body">
+          <h4>🏦 Zurich</h4>
+          <p><strong>Population:</strong> 430,000 (largest city)<br>
+          <strong>Vibe:</strong> clean, expensive, efficient, German-speaking.<br>
+          <strong>Famous for:</strong> banks (UBS, Credit Suisse), ETH (a top engineering university), Lake Zurich. Often voted the <em>best city to live in</em> on Earth.</p>
+        </div>
       </div>
       <div class="city-card geneva">
-        <h4>🕊 Geneva</h4>
-        <p><strong>Population:</strong> 200,000<br>
-        <strong>Vibe:</strong> elegant, international, French-speaking, full of diplomats.<br>
-        <strong>Famous for:</strong> the <em>United Nations</em> (European HQ), the Red Cross (founded here in 1863), WHO, the <em>Jet d'Eau</em> (a 140 m water jet on the lake), and just 30 minutes away — <strong>CERN</strong>, where the Higgs boson was discovered.</p>
+        <img class="city-card-img" src="assets/img/img-19b-geneva.png" alt="Geneva — Jet d'Eau on the lake with mountains in the distance" onerror="this.style.display='none'">
+        <div class="city-card-body">
+          <h4>🕊 Geneva</h4>
+          <p><strong>Population:</strong> 200,000<br>
+          <strong>Vibe:</strong> elegant, international, French-speaking, full of diplomats.<br>
+          <strong>Famous for:</strong> the <em>United Nations</em> (European HQ), the Red Cross (founded here in 1863), WHO, the <em>Jet d'Eau</em> (a 140 m water jet on the lake), and just 30 minutes away — <strong>CERN</strong>, where the Higgs boson was discovered.</p>
+        </div>
       </div>
       <div class="city-card bern">
-        <h4>🐻 Bern</h4>
-        <p><strong>Population:</strong> 134,000 (the capital — surprise!)<br>
-        <strong>Vibe:</strong> small, beautiful, medieval, German-speaking.<br>
-        <strong>Famous for:</strong> a perfectly preserved old town (UNESCO), a clock tower, real live bears in a pit, and the apartment where Einstein lived and wrote his theory of relativity in 1905.</p>
+        <img class="city-card-img" src="assets/img/img-19c-bern.png" alt="Bern at sunset — clock tower and bridge over Aare river" onerror="this.style.display='none'">
+        <div class="city-card-body">
+          <h4>🐻 Bern</h4>
+          <p><strong>Population:</strong> 134,000 (the capital — surprise!)<br>
+          <strong>Vibe:</strong> small, beautiful, medieval, German-speaking.<br>
+          <strong>Famous for:</strong> a perfectly preserved old town (UNESCO), a clock tower, real live bears in a pit, and the apartment where Einstein lived and wrote his theory of relativity in 1905.</p>
+        </div>
       </div>
     </div>
   </div>
