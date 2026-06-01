@@ -162,7 +162,9 @@ body{
 
 /* ========== Matching ========== */
 .three-col{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:8px}
-.faith-card{background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:18px}
+.faith-card{background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:0;overflow:hidden;display:flex;flex-direction:column}
+.faith-card-img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
+.faith-card-body{padding:16px 18px;flex:1}
 .faith-card h4{font-family:var(--display);font-weight:800;color:var(--accent2);margin-bottom:8px;display:flex;align-items:center;gap:10px}
 .faith-card.alps{border-left:4px solid var(--alpine)}
 .faith-card.alps h4{color:var(--alpine)}
@@ -231,6 +233,38 @@ body{
 .city-card.bern{border-top:4px solid var(--gold)}
 .city-card p{font-size:.88rem;color:var(--ink-soft)}
 
+/* ========== Hoverable translation words ========== */
+.tr{border-bottom:1px dashed var(--accent3);cursor:help;position:relative;transition:.18s}
+.tr:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.tr::after{content:attr(data-ru);position:absolute;bottom:100%;left:50%;transform:translateX(-50%) translateY(2px);background:var(--ink);color:#fff;padding:5px 11px;border-radius:8px;font-size:.78rem;font-family:var(--body);font-weight:600;white-space:nowrap;pointer-events:none;opacity:0;transition:.18s;z-index:90;letter-spacing:0}
+.tr:hover::after{opacity:1;transform:translateX(-50%) translateY(-6px)}
+.tr.added{background:rgba(220,38,38,.08);color:var(--accent2)}
+.tr.flying{animation:flyToVocab .55s ease-out forwards;pointer-events:none}
+@keyframes flyToVocab{
+  0%{transform:scale(1) translate(0,0);opacity:1}
+  60%{transform:scale(.6) translate(20vw,20vh);opacity:.7}
+  100%{transform:scale(.2) translate(40vw,40vh);opacity:0}
+}
+
+/* ========== Vocab box (floating) ========== */
+.vocab-box{position:fixed;bottom:20px;right:20px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;padding:14px 20px;border-radius:50px;box-shadow:0 10px 30px rgba(220,38,38,.32);font-family:var(--display);font-weight:800;cursor:pointer;z-index:95;user-select:none;display:flex;align-items:center;gap:10px;transition:.22s;font-size:.92rem}
+.vocab-box:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(220,38,38,.42)}
+.vocab-box.expanded{max-width:420px;width:calc(100% - 40px);border-radius:18px;flex-direction:column;align-items:stretch;padding:18px 20px;cursor:default}
+.vocab-box.expanded .vocab-title{cursor:pointer;display:flex;align-items:center;gap:8px;justify-content:space-between}
+.vocab-box .vocab-list{display:none;flex-direction:column;gap:5px;max-height:50vh;overflow-y:auto;margin-top:14px;padding-right:4px}
+.vocab-box.expanded .vocab-list{display:flex}
+.vocab-list .vocab-item{background:rgba(255,255,255,.13);padding:7px 12px;border-radius:8px;font-size:.85rem;display:flex;justify-content:space-between;gap:12px;align-items:baseline;line-height:1.3}
+.vocab-list .vocab-item .word{font-weight:800}
+.vocab-list .vocab-item .ru{font-weight:500;opacity:.92;font-size:.78rem;text-align:right}
+.vocab-list .vocab-item.empty{justify-content:center;font-style:italic;opacity:.7;font-size:.82rem;background:transparent}
+.vocab-actions{display:flex;gap:6px;margin-top:12px}
+.vocab-actions button{flex:1;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.2);padding:8px 12px;border-radius:8px;font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:.15s}
+.vocab-actions button:hover{background:rgba(255,255,255,.25)}
+
+@media(max-width:600px){
+  .vocab-box{bottom:14px;right:14px;left:14px;width:auto;justify-content:center}
+}
+
 /* ========== Footer ========== */
 footer{max-width:1240px;margin:50px auto 30px;padding:0 22px;text-align:center;color:var(--muted);font-size:.8rem;font-family:var(--mono);letter-spacing:.06em}
 </style>
@@ -269,9 +303,18 @@ footer{max-width:1240px;margin:50px auto 30px;padding:0 22px;text-align:center;c
   <div class="section-sub">what we are doing today · how long it takes · what you will leave with</div>
   <div class="card">
     <div class="three-col">
-      <div class="faith-card alps"><h4><span class="faith-mark">🏔</span>Alps</h4><p><strong>The Heart</strong> · Matterhorn, Heidi, skiing in Zermatt · vocab + speaking</p></div>
-      <div class="faith-card swiss"><h4><span class="faith-mark">🍫</span>Chocolate &amp; Cheese</h4><p><strong>The Taste</strong> · Lindt, Toblerone, Gruyère, fondue, raclette · reading + matching</p></div>
-      <div class="faith-card gold"><h4><span class="faith-mark">⏱</span>Watches &amp; Icons</h4><p><strong>The Craft</strong> · Rolex, Patek Philippe, Roger Federer · listening + speaking</p></div>
+      <div class="faith-card alps">
+        <img class="faith-card-img" src="assets/img/img-02-matterhorn.png" alt="Matterhorn at sunrise" onerror="this.style.display='none'">
+        <div class="faith-card-body"><h4><span class="faith-mark">🏔</span>Alps</h4><p><strong>The Heart</strong> · Matterhorn, Heidi, skiing in Zermatt · vocab + speaking</p></div>
+      </div>
+      <div class="faith-card swiss">
+        <img class="faith-card-img" src="assets/img/img-11b-cheese-chocolate-combo.png" alt="Swiss cheese and chocolate on a wooden board" onerror="this.style.display='none'">
+        <div class="faith-card-body"><h4><span class="faith-mark">🍫</span>Chocolate &amp; Cheese</h4><p><strong>The Taste</strong> · Lindt, Toblerone, Gruyère, fondue, raclette · reading + matching</p></div>
+      </div>
+      <div class="faith-card gold">
+        <img class="faith-card-img" src="assets/img/img-08-icons-combo.png" alt="Swiss watches with Matterhorn in the background and a tennis court" onerror="this.style.display='none'">
+        <div class="faith-card-body"><h4><span class="faith-mark">⏱</span>Watches &amp; Icons</h4><p><strong>The Craft</strong> · Rolex, Patek Philippe, Roger Federer · listening + speaking</p></div>
+      </div>
     </div>
     <div class="info" style="margin-top:14px"><strong>Grammar:</strong> <em>Present passive · modals (must / should / can) · 2nd conditional (if I lived…, I would…) · linking words (although, however, despite)</em></div>
   </div>
@@ -329,9 +372,9 @@ footer{max-width:1240px;margin:50px auto 30px;padding:0 22px;text-align:center;c
   <div class="card">
     <img class="lesson-img hero-img" src="assets/img/img-02-matterhorn.png" alt="Matterhorn peak at sunrise — classic triangular silhouette" onerror="this.style.display='none'">
     <div class="reading-text">
-      <p>If you ask anyone in the world to draw a Swiss mountain, they will probably draw a perfect triangle. That triangle is the <strong>Matterhorn</strong>, 4,478 metres tall, on the border between Switzerland and Italy. It is the most photographed mountain on Earth — and the one on every box of <em>Toblerone</em> chocolate.</p>
-      <p>But the Matterhorn is not alone. The Swiss Alps also have the <strong>Jungfrau</strong> («the young maiden», 4,158 m), the dark and dramatic <strong>Eiger</strong> («the ogre», 3,967 m), and the longest <em>glacier</em> in Europe, the <strong>Aletsch</strong>, a frozen river of ice 23 km long.</p>
-      <p>Almost <strong>60% of Switzerland</strong> is covered by mountains. People live in the <em>valleys</em>; the high <em>peaks</em> belong to climbers, skiers, and the occasional very brave goat.</p>
+      <p>If you ask anyone in the world to draw a Swiss mountain, they will probably <span class="tr" data-ru="нарисовать">draw</span> a perfect <span class="tr" data-ru="треугольник">triangle</span>. That triangle is the <strong>Matterhorn</strong>, 4,478 metres tall, on the <span class="tr" data-ru="граница">border</span> between Switzerland and Italy. It is the most <span class="tr" data-ru="сфотографированная">photographed</span> mountain on Earth — and the one on every box of <em>Toblerone</em> chocolate.</p>
+      <p>But the Matterhorn is not alone. The Swiss Alps also have the <strong>Jungfrau</strong> («the young <span class="tr" data-ru="девушка">maiden</span>», 4,158 m), the dark and <span class="tr" data-ru="драматичный">dramatic</span> <strong>Eiger</strong> («the <span class="tr" data-ru="людоед, чудовище">ogre</span>», 3,967 m), and the longest <em>glacier</em> in Europe, the <strong>Aletsch</strong>, a <span class="tr" data-ru="замёрзшая">frozen</span> river of ice 23 km long.</p>
+      <p>Almost <strong>60% of Switzerland</strong> is <span class="tr" data-ru="покрыто">covered</span> by mountains. People live in the <em>valleys</em>; the high <em>peaks</em> belong to <span class="tr" data-ru="альпинистам">climbers</span>, skiers, and the <span class="tr" data-ru="случайной, иногда встречающейся">occasional</span> very <span class="tr" data-ru="храброй">brave</span> goat.</p>
     </div>
   </div>
 </section>
@@ -359,11 +402,11 @@ footer{max-width:1240px;margin:50px auto 30px;padding:0 22px;text-align:center;c
   <div class="section-hdr"><div class="num">6</div><h2>Heidi — the story that defined Switzerland</h2></div>
   <div class="section-sub">reading · cultural icon</div>
   <div class="card">
-    <img class="lesson-img" src="assets/img/img-03-heidi-village.png" alt="Alpine village in summer with wooden chalets and meadows — Heidi-style" onerror="this.style.display='none'">
+    <img class="lesson-img" style="aspect-ratio:1/1;max-height:520px;width:auto;margin:10px auto 16px;display:block" src="assets/img/img-03-heidi-village.png" alt="Alpine chalet with red flowers, cows grazing in flower meadow, Matterhorn behind" onerror="this.style.display='none'">
     <div class="reading-text">
-      <p>In 1880 a Swiss writer named <strong>Johanna Spyri</strong> published a short book about a little girl. The girl's name was <strong>Heidi</strong>. She lived high in the Alps with her grandfather, drank fresh goat milk, and ran barefoot through wildflower meadows.</p>
-      <p>The book sold 50 million copies. It was translated into 50 languages. It became films, anime series, theme parks. For the whole world, <em>Heidi = Switzerland</em>.</p>
-      <p>If you visit the area around <strong>Maienfeld</strong> in eastern Switzerland today, you can find «Heidi's village» — with the chalet, the goats, and Grandfather's hut. The line between fiction and tourism is happily blurred.</p>
+      <p>In 1880 a Swiss writer named <strong>Johanna Spyri</strong> <span class="tr" data-ru="опубликовала">published</span> a short book about a little girl. The girl's name was <strong>Heidi</strong>. She lived high in the Alps with her grandfather, drank fresh goat milk, and ran <span class="tr" data-ru="босиком">barefoot</span> through wildflower <span class="tr" data-ru="луга, поля">meadows</span>.</p>
+      <p>The book sold 50 million <span class="tr" data-ru="экземпляров">copies</span>. It was <span class="tr" data-ru="переведена">translated</span> into 50 languages. It became films, anime series, <span class="tr" data-ru="тематические парки">theme parks</span>. For the whole world, <em>Heidi = Switzerland</em>.</p>
+      <p>If you visit the area around <strong>Maienfeld</strong> in eastern Switzerland today, you can find «Heidi's village» — with the chalet, the goats, and Grandfather's hut. The line between fiction and tourism is happily <span class="tr" data-ru="размыта, нечёткая">blurred</span>.</p>
     </div>
     <div class="info"><strong>Did you know?</strong> The author Johanna Spyri never owned the rights to the name «Heidi». In 1937 a Japanese company made an anime version that became one of the most beloved children's shows in Asia. In Japan, an entire generation grew up calling the Swiss Alps «Heidi mountains».</div>
   </div>
@@ -439,9 +482,9 @@ footer{max-width:1240px;margin:50px auto 30px;padding:0 22px;text-align:center;c
   <div class="card">
     <img class="lesson-img hero-img" src="assets/img/img-05-chocolate.png" alt="Swiss chocolate bars unwrapped — Lindt, Toblerone, dark squares" onerror="this.style.display='none'">
     <div class="reading-text">
-      <p>The Swiss did not invent chocolate. The Aztecs drank it as a bitter dark liquid hundreds of years before any European tasted it. But the Swiss did one thing that changed chocolate forever — in 1875 a man named <strong>Daniel Peter</strong> mixed <em>cocoa</em> with fresh Alpine milk. <strong>Milk chocolate</strong> was born.</p>
-      <p>A year later, a confectioner called <strong>Rudolph Lindt</strong> invented a machine that stirred chocolate for 72 hours. The result was <strong>smooth</strong> — so <em>smooth</em> it would <em>melt</em> on your tongue like silk. The Swiss had cracked the code.</p>
-      <p>Today the three biggest names are <strong>Lindt</strong> (founded 1845, the smooth one), <strong>Toblerone</strong> (those triangular bars shaped like the Matterhorn, since 1908), and <strong>Cailler</strong> (the oldest Swiss chocolate brand, since 1819). The average Swiss person eats <strong>11 kilograms of chocolate per year</strong> — about three times what most countries eat.</p>
+      <p>The Swiss did not <span class="tr" data-ru="изобрели">invent</span> chocolate. The Aztecs drank it as a <span class="tr" data-ru="горький">bitter</span> dark <span class="tr" data-ru="жидкость">liquid</span> hundreds of years before any European tasted it. But the Swiss did one thing that changed chocolate forever — in 1875 a man named <strong>Daniel Peter</strong> mixed <em>cocoa</em> with fresh Alpine milk. <strong>Milk chocolate</strong> was born.</p>
+      <p>A year later, a <span class="tr" data-ru="кондитер">confectioner</span> called <strong>Rudolph Lindt</strong> invented a machine that <span class="tr" data-ru="помешивал">stirred</span> chocolate for 72 hours. The result was <strong>smooth</strong> — so <em>smooth</em> it would <em>melt</em> on your <span class="tr" data-ru="язык">tongue</span> like <span class="tr" data-ru="шёлк">silk</span>. The Swiss had <span class="tr" data-ru="нашли секрет (букв. разгадали код)">cracked the code</span>.</p>
+      <p>Today the three biggest names are <strong>Lindt</strong> (founded 1845, the smooth one), <strong>Toblerone</strong> (those triangular bars shaped like the Matterhorn, since 1908), and <strong>Cailler</strong> (the oldest Swiss chocolate brand, since 1819). The <span class="tr" data-ru="средний (человек)">average</span> Swiss person eats <strong>11 kilograms of chocolate per year</strong> — about three times what most countries eat.</p>
     </div>
   </div>
 </section>
@@ -483,9 +526,9 @@ footer{max-width:1240px;margin:50px auto 30px;padding:0 22px;text-align:center;c
   <div class="card">
     <img class="lesson-img" src="assets/img/img-06-cheese-cave.png" alt="Cheese cave with rounds of Gruyère ageing on wooden shelves" onerror="this.style.display='none'">
     <div class="reading-text">
-      <p>Switzerland produces over <strong>450 types of cheese</strong>. The most famous three are <strong>Gruyère</strong> (nutty, slightly sweet, perfect for fondue), <strong>Emmental</strong> (the «Swiss cheese» from cartoons — the one with the big round holes), and <strong>Raclette</strong> (a soft cheese designed to be <em>melted</em>).</p>
-      <p>Why does Emmental have holes? For 100 years scientists argued. In 2015 they finally found the answer: tiny pieces of hay from the cow's barn fall into the milk during traditional cheese-making. As the cheese ages, the hay produces gas, and the gas creates the holes. Modern factories now add the «hay particles» on purpose.</p>
-      <p>Every winter Swiss families gather around two dishes: <strong>fondue</strong> (you dip bread into a pot of melted cheese mixed with wine) and <strong>raclette</strong> (a half-wheel of cheese is heated, then scraped onto boiled potatoes). Both are slow, social, and impossibly delicious.</p>
+      <p>Switzerland <span class="tr" data-ru="производит">produces</span> over <strong>450 types of cheese</strong>. The most famous three are <strong>Gruyère</strong> (<span class="tr" data-ru="с ореховым вкусом">nutty</span>, slightly sweet, perfect for fondue), <strong>Emmental</strong> (the «Swiss cheese» from cartoons — the one with the big round holes), and <strong>Raclette</strong> (a soft cheese designed to be <em>melted</em>).</p>
+      <p>Why does Emmental have holes? For 100 years scientists <span class="tr" data-ru="спорили">argued</span>. In 2015 they finally found the answer: tiny pieces of <span class="tr" data-ru="сено">hay</span> from the cow's <span class="tr" data-ru="хлев, сарай">barn</span> fall into the milk during traditional cheese-making. As the cheese ages, the hay produces gas, and the gas creates the holes. Modern factories now add the «hay <span class="tr" data-ru="частицы">particles</span>» <span class="tr" data-ru="намеренно, специально">on purpose</span>.</p>
+      <p>Every winter Swiss families <span class="tr" data-ru="собираются">gather</span> around two dishes: <strong>fondue</strong> (you <span class="tr" data-ru="макать">dip</span> bread into a pot of melted cheese mixed with wine) and <strong>raclette</strong> (a half-wheel of cheese is heated, then <span class="tr" data-ru="соскоблить">scraped</span> onto <span class="tr" data-ru="варёный">boiled</span> potatoes). Both are slow, social, and <span class="tr" data-ru="невероятно вкусные">impossibly delicious</span>.</p>
     </div>
     <div class="info"><strong>The fondue rule:</strong> if you drop your bread into the cheese pot, in Switzerland you owe the table a bottle of wine. In some Alpine villages, you have to kiss the person sitting next to you.</div>
   </div>
@@ -516,9 +559,9 @@ footer{max-width:1240px;margin:50px auto 30px;padding:0 22px;text-align:center;c
   <div class="card">
     <img class="lesson-img" src="assets/img/img-07-watchmaker.png" alt="Watchmaker's hands with tweezers assembling a tiny mechanical movement" onerror="this.style.display='none'">
     <div class="reading-text">
-      <p>The Swiss watch story begins not in the Alps but in <strong>Geneva</strong> in the 16th century. The city banned jewellery (too vain, said the religious leaders), so the jewellers had to find a new craft. They became <em>watchmakers</em>. Today, four centuries later, Switzerland makes only 2% of the world's watches by quantity — but <strong>50% of the world's watch value</strong>.</p>
-      <p>The most famous names: <strong>Rolex</strong> (the symbol of success), <strong>Patek Philippe</strong> (the most prestigious — they say «you never actually own one, you merely look after it for the next generation»), and <strong>Omega</strong> (the one that went to the Moon with the Apollo astronauts).</p>
-      <p>The label «<strong>Swiss made</strong>» is protected by law. To use it, at least 60% of the watch's value must be produced in Switzerland, and the mechanical movement must be assembled, adjusted, and tested there. It is one of the strongest <em>«Made in»</em> brands on Earth — a promise of <em>precision</em>.</p>
+      <p>The Swiss watch story begins not in the Alps but in <strong>Geneva</strong> in the 16th century. The city <span class="tr" data-ru="запретил">banned</span> jewellery (too <span class="tr" data-ru="тщеславно">vain</span>, said the religious leaders), so the jewellers had to find a new <span class="tr" data-ru="ремесло">craft</span>. They became <em>watchmakers</em>. Today, four centuries later, Switzerland makes only 2% of the world's watches by quantity — but <strong>50% of the world's watch value</strong>.</p>
+      <p>The most famous names: <strong>Rolex</strong> (the symbol of success), <strong>Patek Philippe</strong> (the most <span class="tr" data-ru="престижный">prestigious</span> — they say «you never actually own one, you <span class="tr" data-ru="просто, всего лишь">merely</span> look after it for the next generation»), and <strong>Omega</strong> (the one that went to the Moon with the Apollo astronauts).</p>
+      <p>The label «<strong>Swiss made</strong>» is <span class="tr" data-ru="защищён">protected</span> by law. To use it, at least 60% of the watch's value must be produced in Switzerland, and the mechanical movement must be <span class="tr" data-ru="собран">assembled</span>, <span class="tr" data-ru="отрегулирован">adjusted</span>, and tested there. It is one of the strongest <em>«Made in»</em> brands on Earth — a <span class="tr" data-ru="обещание">promise</span> of <em>precision</em>.</p>
     </div>
   </div>
 </section>
@@ -737,6 +780,78 @@ document.querySelectorAll('[data-say]').forEach(el => el.addEventListener('click
 
 // ───────── shuffle helper ─────────
 function shuffle(a) { const x = a.slice(); for (let i = x.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[x[i], x[j]] = [x[j], x[i]]; } return x; }
+
+// ───────── Hover-translation + Vocab box ─────────
+const VOCAB_KEY = 'switzerland-vocab';
+let vocabList = [];
+try { vocabList = JSON.parse(localStorage.getItem(VOCAB_KEY) || '[]'); } catch (_) {}
+function saveVocab() { localStorage.setItem(VOCAB_KEY, JSON.stringify(vocabList)); }
+function renderVocabBox() {
+  let box = document.getElementById('vocabBox');
+  if (!box) {
+    box = document.createElement('div');
+    box.id = 'vocabBox';
+    box.className = 'vocab-box';
+    document.body.appendChild(box);
+    box.addEventListener('click', e => {
+      if (e.target.tagName === 'BUTTON') return;
+      box.classList.toggle('expanded');
+      renderVocabBox();
+    });
+  }
+  if (box.classList.contains('expanded')) {
+    const itemsHTML = vocabList.length
+      ? vocabList.map(v => `<div class="vocab-item"><span class="word">${v.word}</span><span class="ru">${v.ru}</span></div>`).join('')
+      : '<div class="vocab-item empty">Нажми на любое подчёркнутое слово в тексте — оно прилетит сюда</div>';
+    box.innerHTML =
+      '<div class="vocab-title">📚 Мой словарик · <span>' + vocabList.length + (vocabList.length === 1 ? ' слово' : ' слов') + '</span></div>' +
+      '<div class="vocab-list">' + itemsHTML + '</div>' +
+      '<div class="vocab-actions">' +
+        '<button id="vocabCopy" type="button">Скопировать</button>' +
+        '<button id="vocabClear" type="button">Очистить</button>' +
+      '</div>';
+    document.getElementById('vocabCopy').addEventListener('click', e => { e.stopPropagation(); copyVocab(); });
+    document.getElementById('vocabClear').addEventListener('click', e => { e.stopPropagation(); clearVocab(); });
+  } else {
+    box.innerHTML = '📚 Мой словарик · <span>' + vocabList.length + '</span>';
+  }
+}
+function copyVocab() {
+  if (!vocabList.length) return;
+  const text = vocabList.map(v => v.word + ' — ' + v.ru).join('\n');
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = document.querySelector('#vocabCopy').textContent;
+    document.querySelector('#vocabCopy').textContent = '✓ Готово';
+    setTimeout(() => { document.querySelector('#vocabCopy') && (document.querySelector('#vocabCopy').textContent = orig); }, 1400);
+  });
+}
+function clearVocab() {
+  if (vocabList.length === 0) return;
+  if (!confirm('Очистить весь словарик? (' + vocabList.length + ' слов)')) return;
+  vocabList = [];
+  saveVocab();
+  document.querySelectorAll('.tr.added').forEach(el => el.classList.remove('added'));
+  renderVocabBox();
+}
+document.querySelectorAll('.tr[data-ru]').forEach(el => {
+  const word = el.textContent.trim();
+  if (vocabList.some(v => v.word === word)) el.classList.add('added');
+  el.addEventListener('click', e => {
+    e.stopPropagation();
+    const ru = el.getAttribute('data-ru');
+    if (vocabList.some(v => v.word === word)) return;
+    vocabList.push({ word, ru });
+    saveVocab();
+    el.classList.add('flying');
+    speak && speak(word);
+    setTimeout(() => {
+      el.classList.remove('flying');
+      el.classList.add('added');
+      renderVocabBox();
+    }, 550);
+  });
+});
+renderVocabBox();
 
 // ───────── flip cards (read full back side) ─────────
 document.querySelectorAll('.flip-card').forEach(c => c.addEventListener('click', () => {
