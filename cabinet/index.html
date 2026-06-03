@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Вход в кабинет — New Generation English">
+<link rel="icon" type="image/svg+xml" href="data:," id="nofavicon">
+<title>Вход · NG English</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@500;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./system.css?v=36">
+<link rel="stylesheet" href="./cabinet.css?v=25">
+</head>
+<body data-page="cabinet-login">
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem("nge-cabinet-theme");
+      if (saved === "light") document.body.classList.add("light");
+    } catch (e) {}
+  })();
+</script>
+
+<header class="topbar">
+  <a class="brand" href="https://newgeneration-english.ru/">
+    <div class="brand-mark">N</div>
+    <div>
+      <div class="brand-name"><span>NG ENGLISH</span></div>
+      <div class="brand-sub">Кабинет</div>
+    </div>
+  </a>
+  <div class="topbar-tools">
+    <a class="control-btn cab-home-link" href="https://newgeneration-english.ru/">Назад на главную</a>
+    <button class="control-btn control-btn--active" id="themeToggle" type="button" aria-label="Переключить тему">DARK</button>
+  </div>
+</header>
+
+<main class="page-shell cabinet-main">
+  <section class="cab-login" id="loginSection">
+    <h1>Вход в кабинет</h1>
+    <p class="cab-login-sub">Введите 4-значный PIN (ученик/родитель) или пароль (преподаватель).</p>
+    <form id="loginForm" autocomplete="off">
+      <input id="loginCode" type="text" placeholder="PIN или пароль" maxlength="40" autofocus required>
+      <button type="submit">Войти</button>
+      <div class="cab-login-error" id="loginError">Не подошло. Проверьте PIN или пароль.</div>
+    </form>
+
+    <p class="cab-login-hint">
+      Забыли PIN? Напишите Марии в <a href="https://t.me/MariaBurceva_English" target="_blank" rel="noreferrer">Telegram</a>.
+    </p>
+  </section>
+
+  <section class="cab-login cab-role-picker" id="rolePicker" style="display:none;">
+    <h1>Кто заходит?</h1>
+    <p class="cab-login-sub" id="rolePickerSub">Вы вошли как <b id="rolePickerName">—</b>. Выберите, в каком виде показать кабинет.</p>
+    <div class="cab-role-buttons">
+      <button type="button" class="cab-role-btn" data-role="student">
+        <span class="cab-role-icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 10c4-2 8-2 14 0 6-2 10-2 14 0v22c-4-2-8-2-14 0-6-2-10-2-14 0V10z"/>
+            <line x1="20" y1="10" x2="20" y2="32"/>
+            <path d="M10 15c2 0 4 .3 6 1"/>
+            <path d="M10 20c2 0 4 .3 6 1"/>
+            <path d="M24 16c2-.7 4-1 6-1"/>
+            <path d="M24 21c2-.7 4-1 6-1"/>
+          </svg>
+        </span>
+        <span class="cab-role-title">Я ученик</span>
+        <span class="cab-role-desc">профиль, расписание, темы уроков, домашка</span>
+      </button>
+      <button type="button" class="cab-role-btn" data-role="parent">
+        <span class="cab-role-icon" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="13" cy="12" r="3.5"/>
+            <path d="M7 33 V23 a6 6 0 0 1 12 0 V33"/>
+            <circle cx="27" cy="16" r="2.8"/>
+            <path d="M22 33 V25 a5 5 0 0 1 10 0 V33"/>
+            <path d="M16.5 24 Q19.5 23 22.5 25"/>
+          </svg>
+        </span>
+        <span class="cab-role-title">Я родитель</span>
+        <span class="cab-role-desc">абонемент, отчёты, оплата</span>
+      </button>
+    </div>
+    <p class="cab-login-hint">
+      <a href="#" id="rolePickerBack">← вернуться к вводу PIN</a>
+    </p>
+  </section>
+</main>
+<script src="./cabinet.js?v=28"></script>
+<script>
+  (function () {
+    var btn = document.getElementById("themeToggle");
+    function sync() { btn.textContent = document.body.classList.contains("light") ? "LITE" : "DARK"; }
+    sync();
+    btn.addEventListener("click", function () {
+      document.body.classList.toggle("light");
+      try { localStorage.setItem("nge-cabinet-theme", document.body.classList.contains("light") ? "light" : "dark"); } catch (e) {}
+      sync();
+    });
+  })();
+
+  var loginSection = document.getElementById("loginSection");
+  var rolePicker = document.getElementById("rolePicker");
+  var rolePickerName = document.getElementById("rolePickerName");
+
+  function showPicker(session) {
+    rolePickerName.textContent = session.name || "—";
+    loginSection.style.display = "none";
+    rolePicker.style.display = "";
+  }
+
+  function showLogin() {
+    rolePicker.style.display = "none";
+    loginSection.style.display = "";
+  }
+
+  // NOTE: auto-redirect-if-session-exists убрана — она ловила в петлю если
+  // в data.js сменились студенты, а сессия в localStorage старая.
+  // Теперь login.html всегда показывает форму. После PIN — редирект.
+  // Если хочешь явно очистить старую сессию, добавь ?reset=1 в URL.
+  if (location.search.indexOf("reset=1") >= 0) {
+    try { NGECabinet.clearSession(); localStorage.clear(); } catch(_) {}
+  }
+
+  document.getElementById("loginForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    var code = document.getElementById("loginCode").value;
+    var errEl = document.getElementById("loginError");
+    errEl.classList.remove("is-visible");
+    try {
+      var session = await NGECabinet.tryLogin(code);
+      if (!session) {
+        errEl.classList.add("is-visible");
+        return;
+      }
+      NGECabinet.setSession(session);
+      if (session.role === "teacher") { location.href = "./teacher.html"; return; }
+      if (session.role === "family") { showPicker(session); return; }
+      location.href = "./student.html";
+    } catch (err) {
+      errEl.textContent = "Ошибка: " + (err && err.message ? err.message : err);
+      errEl.classList.add("is-visible");
+    }
+  });
+
+  rolePicker.querySelectorAll(".cab-role-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var role = btn.getAttribute("data-role");
+      var s = NGECabinet.getSession();
+      if (!s) { showLogin(); return; }
+      var nextSession = Object.assign({}, s, { role: role });
+      NGECabinet.setSession(nextSession);
+      location.href = role === "parent" ? "./parent.html" : "./student.html";
+    });
+  });
+
+  document.getElementById("rolePickerBack").addEventListener("click", function (e) {
+    e.preventDefault();
+    NGECabinet.clearSession();
+    document.getElementById("loginCode").value = "";
+    showLogin();
+    document.getElementById("loginCode").focus();
+  });
+
+  /* Email magic-link removed in v3 (encrypted-vault architecture) —
+     access is via PIN/password only, which derives the vault decryption key. */
+</script>
+
+<footer class="footer legal-footer">
+  <div class="footer-legal">
+    <p class="footer-copy">&copy; New Generation English &middot; индивидуальные занятия английским языком &middot; <a href="mailto:whitenois@mail.ru">whitenois@mail.ru</a></p>
+    <p data-ru="Самозанятая Бурцева Мария Витальевна · ИНН 771771016209 · Российская Федерация · Реквизиты указаны в договоре на оказание услуг." data-en="Self-employed Maria V. Burtseva · INN 771771016209 · Russian Federation · Full details are specified in the service agreement.">Самозанятая Бурцева Мария Витальевна &middot; ИНН 771771016209 &middot; Российская Федерация &middot; Реквизиты указаны в договоре на оказание услуг.</p>
+    <p data-ru="В данном проекте термин «нейрошкола» используется как рабочее определение системы обучения, выстроенной вокруг логики восприятия ученика, а не как нейропсихологическая коррекция. Автор сайта не претендует ни на какие запатентованные названия. Все права защищены." data-en="In this project, the term “neuro-school” is used as a working definition of a learning system built around how each student perceives and processes language, not as neuropsychological correction. The site author does not claim any patented names. All rights reserved.">В данном проекте термин «нейрошкола» используется как рабочее определение системы обучения, выстроенной вокруг логики восприятия ученика, а не как нейропсихологическая коррекция. Автор сайта не претендует ни на какие запатентованные названия. Все права защищены.</p>
+    <p data-ru="Услуги оказываются в формате индивидуальных занятий и не являются лицензируемой образовательной деятельностью в соответствии с Федеральным законом № 273-ФЗ «Об образовании в Российской Федерации»." data-en="Services are provided as individual tutoring sessions and do not constitute licensed educational activity under Federal Law No. 273-FZ.">Услуги оказываются в формате индивидуальных занятий и не являются лицензируемой образовательной деятельностью в соответствии с Федеральным законом № 273-ФЗ «Об образовании в Российской Федерации».</p>
+  </div>
+</footer>
+</body>
+</html>
