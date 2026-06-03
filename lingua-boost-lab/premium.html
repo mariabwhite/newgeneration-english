@@ -11,6 +11,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800;900&family=Manrope:wght@400;500;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/canon-L.css?v=11" data-tag="canon-L-loaded">
+<link rel="stylesheet" href="./assets/mobile-fix.css?v=3" data-tag="linguaboost-mobile-fix-loaded">
 <style>
 /* ===== Palette (mockup-aligned) ===== */
 :root {
@@ -42,7 +44,7 @@
   --display:     "Unbounded", "Manrope", system-ui, sans-serif;
   --body-font:   "Manrope", system-ui, sans-serif;
 }
-[data-theme="dark"] {
+[data-theme="dark"], [data-theme="black-lab"], [data-theme="violet"] {
   --bg:          #0e0a18;
   --bg-hero:     #1a1326;
   --bg-card:     #1a1326;
@@ -87,65 +89,58 @@ main {
   gap: 28px;
 }
 
-/* ===== Simplified topbar (brand + 2 pills) ===== */
+/* ===== Topbar — full nav, override canon-L colors for light theme ===== */
 .canon-l-topbar {
-  background: var(--topbar-bg);
+  background: var(--topbar-bg) !important;
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
-.canon-l-mark {
-  background: linear-gradient(135deg, #ff8a42 0%, #ff5d2b 100%);
-  color: #fff;
-  position: relative;
-  overflow: hidden;
+/* Keep nav on one line at common desktop widths — compact gap + font */
+@media (max-width: 1240px) {
+  .canon-l-nav { gap: 14px !important; margin-left: 12px !important; }
+  .canon-l-link { font-size: 9px !important; letter-spacing: 0.14em !important; }
 }
-.canon-l-mark::after {
-  content: ""; position: absolute; right: 0; top: 0;
-  width: 12px; height: 12px;
-  background: var(--bg);
-  clip-path: polygon(100% 0, 0 0, 100% 100%);
+@media (max-width: 980px) {
+  .canon-l-nav { flex-wrap: nowrap !important; overflow-x: auto; scrollbar-width: none; }
+  .canon-l-nav::-webkit-scrollbar { display: none; }
 }
-.canon-l-name { color: var(--text); }
-.canon-l-sub { color: var(--faint); }
-.canon-l-tools { gap: 10px; }
-.canon-l-pill {
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  padding: 9px 16px;
-  border-radius: 10px;
-  background: var(--bg-card);
-  color: var(--text);
-  border: 1px solid var(--line-2);
-  transition: 0.15s;
-  display: inline-flex; align-items: center; gap: 6px;
-}
-.canon-l-pill:hover { border-color: var(--plum); color: var(--plum-deep); }
+/* canon-L.css defaults handle .canon-l-mark, .canon-l-name, .canon-l-sub, .canon-l-pill */
+/* We only need light-theme tweaks for the pills (catalog has its own light overrides via lab-theme-sync's themes) */
 
-/* ===== Hero — two-column ===== */
+/* ===== Hero — visible bordered card, image fills entire box ===== */
 .premium-hero {
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: clamp(16px, 3vw, 36px);
-  align-items: center;
-  padding: clamp(28px, 3.5vw, 44px);
-  background: var(--bg-hero);
-  border: 1px solid var(--line);
-  border-radius: 24px;
   position: relative;
+  background: var(--bg-card);
   overflow: hidden;
+  min-height: clamp(440px, 56vh, 580px);
+  display: flex;
+  align-items: stretch;
+  border-radius: 12px;
+  border: 1px solid var(--line-2);
 }
-.premium-hero::before {
-  content: "";
-  position: absolute; right: -10%; top: -20%;
-  width: 60%; height: 80%;
-  background: radial-gradient(circle, rgba(154,122,217,0.16), transparent 65%);
-  pointer-events: none;
+.premium-hero-copy {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(28px, 3.5vw, 52px);
+  max-width: clamp(520px, 55%, 720px);
+  /* Subtle vertical glass to keep text readable over busy image */
+  background: linear-gradient(90deg,
+    rgba(247, 245, 255, 0.92) 0%,
+    rgba(247, 245, 255, 0.82) 55%,
+    rgba(247, 245, 255, 0.0) 100%);
 }
-.premium-hero-copy { position: relative; z-index: 1; }
+[data-theme="dark"] .premium-hero-copy,
+[data-theme="black-lab"] .premium-hero-copy,
+[data-theme="violet"] .premium-hero-copy {
+  background: linear-gradient(90deg,
+    rgba(14, 10, 24, 0.85) 0%,
+    rgba(14, 10, 24, 0.72) 55%,
+    rgba(14, 10, 24, 0.0) 100%);
+}
 .hero-pill-row {
   display: flex; flex-wrap: wrap; gap: 10px;
   margin-bottom: clamp(18px, 2.5vw, 26px);
@@ -163,37 +158,69 @@ main {
   color: var(--plum-deep);
   border: 1px solid var(--plum-pill-border);
 }
-[data-theme="dark"] .hero-pill { color: var(--plum-2); }
+[data-theme="dark"] .hero-pill,
+[data-theme="black-lab"] .hero-pill,
+[data-theme="violet"] .hero-pill { color: var(--plum-2); }
+/* Orange "$ " prefix like catalog .hero-badge — Lab signature */
+.hero-pill.is-cmd::before {
+  content: "$ ";
+  color: var(--accent);
+  font-weight: 800;
+}
 .hero-pill.is-status {
   background: rgba(38,195,137,0.10);
   color: #1f8e60;
   border-color: rgba(38,195,137,0.40);
 }
-[data-theme="dark"] .hero-pill.is-status { color: #4fd9a4; }
+[data-theme="dark"] .hero-pill.is-status,
+[data-theme="black-lab"] .hero-pill.is-status,
+[data-theme="violet"] .hero-pill.is-status { color: #4fd9a4; }
 .hero-pill .dot {
   width: 8px; height: 8px; border-radius: 50%;
   background: var(--ok);
   box-shadow: 0 0 0 3px rgba(38,195,137,0.20);
 }
+/* Typography — bigger + bolder like catalog hero (visual match) */
 .premium-hero h1 {
   font-family: var(--display);
-  font-weight: 900;
-  font-size: clamp(2rem, 4.4vw, 3.4rem);
-  line-height: 1.04;
-  letter-spacing: -0.01em;
-  margin-bottom: clamp(18px, 2vw, 24px);
-  color: var(--text);
-}
-.premium-hero h1 .accent {
-  color: var(--plum);
-  font-style: italic;
+  font-size: clamp(2.5rem, 5vw, 4.4rem);
   font-weight: 800;
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+  margin: 0 0 20px;
+  color: var(--text);
+  text-shadow: 0 14px 72px rgba(154,122,217,0.28);
 }
+/* H1 accent — ORANGE, matches what catalog .accent-purple actually renders as */
+.premium-hero h1 .accent {
+  color: var(--accent);
+  font-weight: 800;
+  text-shadow: none;
+}
+[data-theme="dark"] .premium-hero h1 .accent,
+[data-theme="black-lab"] .premium-hero h1 .accent,
+[data-theme="violet"] .premium-hero h1 .accent {
+  color: var(--accent);
+  text-shadow:
+    0 2px 0 rgba(18, 10, 32, 0.85),
+    0 0 18px rgba(255, 138, 66, 0.40),
+    0 18px 44px rgba(255, 116, 48, 0.38);
+}
+/* Lead — match catalog .hero-copy .lead exactly */
 .premium-hero .lead {
-  font-size: clamp(0.98rem, 1.2vw, 1.1rem);
   color: var(--muted);
-  margin-bottom: clamp(22px, 2.5vw, 30px);
-  max-width: 560px;
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 0 0 28px;
+  max-width: 540px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+[data-theme="dark"] .premium-hero .lead,
+[data-theme="black-lab"] .premium-hero .lead,
+[data-theme="violet"] .premium-hero .lead {
+  color: #d9ccff;
+  text-shadow: 0 1px 16px rgba(7, 4, 13, 0.72);
 }
 .hero-meta {
   display: grid;
@@ -206,13 +233,35 @@ main {
   border: 1px solid var(--line);
   border-radius: 14px;
   background: var(--bg-card);
+  transition: transform 0.18s, border-color 0.18s;
 }
+.meta-card:hover { transform: translateY(-1px); }
 .meta-card .icon {
   width: 28px; height: 28px; flex-shrink: 0;
   display: grid; place-items: center;
   color: var(--plum-deep);
 }
-[data-theme="dark"] .meta-card .icon { color: var(--plum-2); }
+[data-theme="dark"] .meta-card .icon,
+[data-theme="black-lab"] .meta-card .icon,
+[data-theme="violet"] .meta-card .icon { color: var(--plum-2); }
+/* Per-card color variants — orange / plum / green rotation */
+.meta-card.is-orange { border-color: rgba(255,116,48,0.42); }
+.meta-card.is-orange .icon { color: var(--accent); }
+.meta-card.is-orange:hover { border-color: rgba(255,116,48,0.70); box-shadow: 0 6px 18px -10px rgba(255,116,48,0.40); }
+
+.meta-card.is-plum { border-color: rgba(154,122,217,0.42); }
+.meta-card.is-plum .icon { color: var(--plum-deep); }
+[data-theme="dark"] .meta-card.is-plum .icon,
+[data-theme="black-lab"] .meta-card.is-plum .icon,
+[data-theme="violet"] .meta-card.is-plum .icon { color: var(--plum-2); }
+.meta-card.is-plum:hover { border-color: rgba(154,122,217,0.70); box-shadow: 0 6px 18px -10px rgba(154,122,217,0.40); }
+
+.meta-card.is-green { border-color: rgba(38,195,137,0.42); }
+.meta-card.is-green .icon { color: #1f8e60; }
+[data-theme="dark"] .meta-card.is-green .icon,
+[data-theme="black-lab"] .meta-card.is-green .icon,
+[data-theme="violet"] .meta-card.is-green .icon { color: #4fd9a4; }
+.meta-card.is-green:hover { border-color: rgba(38,195,137,0.70); box-shadow: 0 6px 18px -10px rgba(38,195,137,0.40); }
 .meta-card .icon svg { width: 100%; height: 100%; }
 .meta-card .txt { display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
 .meta-card .main {
@@ -222,7 +271,8 @@ main {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text);
-  white-space: nowrap;
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 .meta-card .sub {
   font-family: var(--body-font);
@@ -233,29 +283,64 @@ main {
   letter-spacing: 0.02em;
 }
 
-/* Hero illustration — the waveform reference */
+/* Hero illustration — fills the entire hero box (no white zone) */
 .premium-hero-art {
-  position: relative;
-  border-radius: 18px;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   overflow: hidden;
-  aspect-ratio: 16/11;
-  background-color: var(--bg-card);
-  box-shadow: 0 30px 80px -20px rgba(122,95,207,0.30);
+  background-color: var(--bg-card-2);
 }
 .premium-hero-art img {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
-  transition: opacity .25s;
+  /* Сдвиг картинки немного левее — основной субъект (стеклянный планшет)
+     ближе к центру композиции вместо прижатого правого края */
+  object-position: 40% center;
+  transition: opacity .25s, filter .25s;
 }
-.premium-hero-art img.is-light { opacity: 1; }
-.premium-hero-art img.is-dark  { opacity: 0; }
-[data-theme="dark"] .premium-hero-art img.is-light { opacity: 0; }
-[data-theme="dark"] .premium-hero-art img.is-dark  { opacity: 1; }
+/* Light theme: small lift in brightness/saturation only */
+.premium-hero-art img.is-light { opacity: 1; filter: brightness(1.05) saturate(1.08); }
+.premium-hero-art img.is-dark  { opacity: 0; filter: none; }
+/* Dark theme: tone DOWN the neon-purple instead of boosting it */
+[data-theme="dark"] .premium-hero-art img.is-light,
+[data-theme="black-lab"] .premium-hero-art img.is-light,
+[data-theme="violet"] .premium-hero-art img.is-light { opacity: 0; }
+[data-theme="dark"] .premium-hero-art img.is-dark,
+[data-theme="black-lab"] .premium-hero-art img.is-dark,
+[data-theme="violet"] .premium-hero-art img.is-dark  { opacity: 1; filter: brightness(0.95) saturate(0.85); }
+/* Soft edge fade on the right where image bleeds beyond visible area */
+.premium-hero-art::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 65%, rgba(244,241,255,0.20) 100%);
+  pointer-events: none;
+}
+[data-theme="dark"] .premium-hero-art::after,
+[data-theme="black-lab"] .premium-hero-art::after,
+[data-theme="violet"] .premium-hero-art::after {
+  background: linear-gradient(90deg, transparent 65%, rgba(14,10,24,0.20) 100%);
+}
 
 @media (max-width: 900px) {
-  .premium-hero { grid-template-columns: 1fr; }
-  .premium-hero-art { aspect-ratio: 16/10; order: -1; }
+  .premium-hero { min-height: 520px; }
+  .premium-hero-copy {
+    max-width: 100%;
+    background: linear-gradient(180deg,
+      rgba(247,245,255,0.92) 0%,
+      rgba(247,245,255,0.82) 60%,
+      rgba(247,245,255,0.65) 100%);
+  }
+  [data-theme="dark"] .premium-hero-copy,
+[data-theme="black-lab"] .premium-hero-copy,
+[data-theme="violet"] .premium-hero-copy {
+    background: linear-gradient(180deg,
+      rgba(14,10,24,0.88) 0%,
+      rgba(14,10,24,0.75) 60%,
+      rgba(14,10,24,0.55) 100%);
+  }
+  .premium-hero-art img { object-position: center; }
 }
 
 /* ===== PIN strip — horizontal one-line ===== */
@@ -280,7 +365,9 @@ main {
   color: var(--plum-deep);
   background: var(--plum-soft);
 }
-[data-theme="dark"] .pin-strip .step-num { color: var(--plum-2); }
+[data-theme="dark"] .pin-strip .step-num,
+[data-theme="black-lab"] .pin-strip .step-num,
+[data-theme="violet"] .pin-strip .step-num { color: var(--plum-2); }
 .pin-strip .pin-label { display: flex; flex-direction: column; gap: 4px; }
 .pin-strip .pin-label .h {
   font-family: var(--display);
@@ -381,7 +468,9 @@ main {
   display: inline-grid; grid-template: repeat(2,4px) / repeat(2,4px); gap: 2px;
 }
 .catalog-pill .grid-icon span { background: var(--plum-deep); border-radius: 1px; }
-[data-theme="dark"] .catalog-pill .grid-icon span { background: var(--plum-2); }
+[data-theme="dark"] .catalog-pill .grid-icon span,
+[data-theme="black-lab"] .catalog-pill .grid-icon span,
+[data-theme="violet"] .catalog-pill .grid-icon span { background: var(--plum-2); }
 
 .cards {
   display: grid;
@@ -434,7 +523,9 @@ main {
   color: var(--plum-deep);
   border: 1px solid var(--plum-pill-border);
 }
-[data-theme="dark"] .card-tag { color: var(--plum-2); background: rgba(154,122,217,0.16); }
+[data-theme="dark"] .card-tag,
+[data-theme="black-lab"] .card-tag,
+[data-theme="violet"] .card-tag { color: var(--plum-2); background: rgba(154,122,217,0.16); }
 .card-body {
   padding: 18px 18px 20px;
   display: flex; flex-direction: column; gap: 10px;
@@ -475,8 +566,13 @@ main {
   margin-top: auto;
 }
 .card-open:hover { background: linear-gradient(180deg, #ff8a42 0%, #ff5d2b 100%); border-color: rgba(255,138,66,0.85); }
+.card.locked .card-cover { filter: blur(8px) saturate(0.6); }
+.card.locked .card-title { filter: blur(4px); user-select: none; }
+.card.locked .card-skills { filter: blur(3px); user-select: none; }
 .card.locked .card-open { pointer-events: none; background: var(--bg-card-2); color: var(--faint); border-color: var(--line-2); box-shadow: none; }
 .card.locked .card-open .arrow { opacity: 0.35; }
+.card:not(.locked) { border-color: var(--line-2); }
+.card:not(.locked) .card-cover { transition: filter 0.4s; }
 
 /* Hint block under PIN strip */
 .hint {
@@ -504,17 +600,33 @@ footer.premium-footer {
 
 <header class="canon-l-topbar">
   <a class="canon-l-brand" href="./index.html" aria-label="LinguaBoost Lab · Catalog">
-    <span class="canon-l-mark" aria-hidden="true">N</span>
+    <span class="canon-l-mark" aria-hidden="true">L</span>
     <span class="canon-l-copy">
-      <span class="canon-l-name">NG English</span>
-      <span class="canon-l-sub">LinguaBoost Lab · Premium</span>
+      <span class="canon-l-name">LinguaBoost</span>
+      <span class="canon-l-sub" data-ru="Lab · Premium" data-en="Lab · Premium">Lab · Premium</span>
     </span>
   </a>
+  <nav class="canon-l-nav" aria-label="Site navigation">
+    <a class="canon-l-link" href="../about-project.html" data-ru="О проекте" data-en="About">О проекте</a>
+    <a class="canon-l-link" href="../programs.html" data-ru="Программы" data-en="Programmes">Программы</a>
+    <a class="canon-l-link" href="../cases.html" data-ru="Кейсы и видео" data-en="Cases &amp; Video">Кейсы и видео</a>
+    <a class="canon-l-link" href="../conditions.html" data-ru="Условия" data-en="Terms">Условия</a>
+    <a class="canon-l-link" href="../blog.html" data-ru="Дневник и блог" data-en="Journal and blog">Дневник и блог</a>
+    <a class="canon-l-link is-active" href="./index.html" data-ru="Лаборатория" data-en="Lab">Лаборатория</a>
+  </nav>
   <div class="canon-l-tools">
-    <a class="canon-l-pill" href="./index.html" aria-label="Назад в каталог">← Каталог</a>
-    <button id="labThemeToggle" class="canon-l-pill theme-toggle" type="button" aria-label="Переключить тему" aria-pressed="false">◐ Тема</button>
+    <a class="canon-l-pill" href="https://cabinet.newgeneration-english.ru/login.html" aria-label="Войти в кабинет">CAB</a>
+    <button id="labThemeToggle" class="canon-l-pill theme-toggle" type="button" aria-label="Переключить тему" aria-pressed="false" data-ru="Тема" data-en="Theme">Theme</button>
+    <button id="langBtn" class="canon-l-pill lang-toggle" type="button" onclick="toggleLang()" aria-label="Toggle language" data-ru="EN" data-en="RU">EN</button>
   </div>
 </header>
+<nav class="canon-l-crumbs" aria-label="Breadcrumb">
+  <a href="../index.html" data-ru="Главная" data-en="Home">Главная</a>
+  <span class="canon-l-crumbs-sep">&middot;</span>
+  <a href="./index.html" data-ru="Каталог Lab" data-en="Lab Catalogue">Каталог Lab</a>
+  <span class="canon-l-crumbs-sep">&middot;</span>
+  <span class="canon-l-crumbs-here" data-ru="Premium" data-en="Premium">Premium</span>
+</nav>
 
 <main>
 
@@ -522,14 +634,14 @@ footer.premium-footer {
   <section class="premium-hero">
     <div class="premium-hero-copy">
       <div class="hero-pill-row">
-        <span class="hero-pill">Premium · доступ по приглашению</span>
+        <span class="hero-pill is-cmd">Premium · доступ по приглашению</span>
         <span class="hero-pill is-status"><span class="dot"></span>Лаборатория активна</span>
       </div>
       <h1>Платные уроки<br><span class="accent">лингвистической</span><br>лаборатории</h1>
       <p class="lead">Кинематографичные English-модули с озвучкой, интерактивными заданиями и форматами от ЕГЭ до IELTS / TOEFL / Olympiad.</p>
       <div class="hero-meta">
 
-        <div class="meta-card">
+        <div class="meta-card is-orange">
           <span class="icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
               <rect x="3" y="3" width="7" height="7" rx="1.5"/>
@@ -544,7 +656,7 @@ footer.premium-footer {
           </span>
         </div>
 
-        <div class="meta-card">
+        <div class="meta-card is-plum">
           <span class="icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
               <path d="M4 20V12"/><path d="M10 20V8"/><path d="M16 20V14"/><path d="M22 20V4"/>
@@ -556,7 +668,7 @@ footer.premium-footer {
           </span>
         </div>
 
-        <div class="meta-card">
+        <div class="meta-card is-green">
           <span class="icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
               <circle cx="12" cy="12" r="2"/>
@@ -571,7 +683,7 @@ footer.premium-footer {
           </span>
         </div>
 
-        <div class="meta-card">
+        <div class="meta-card is-plum">
           <span class="icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
               <path d="M2 12h2"/><path d="M6 8v8"/><path d="M10 5v14"/><path d="M14 8v8"/><path d="M18 11v2"/><path d="M22 12h-2" transform="translate(2 0)"/>
@@ -599,7 +711,7 @@ footer.premium-footer {
       <span class="h">Введи код доступа</span>
       <span class="s">Код открывает набор карточек и модулей лаборатории.</span>
     </div>
-    <input type="text" class="pin-input" id="pinInput" placeholder="_ _ _ _  -  _ _ _ _" autocomplete="off" spellcheck="false" maxlength="40">
+    <input type="text" class="pin-input" id="pinInput" placeholder="" autocomplete="off" spellcheck="false" maxlength="40">
     <button class="btn-action" id="pinBtn">Открыть лабораторию</button>
     <div class="pin-msg" id="pinMsg">Код регистронезависимый по буквам, чувствителен к дефисам и цифрам.</div>
   </section>
@@ -740,23 +852,60 @@ btn.addEventListener('click', tryUnlock);
 input.addEventListener('keypress', e => { if (e.key === 'Enter') tryUnlock(); });
 /* no auto-unlock — PIN must be entered each visit (по решению Маши, 03.06) */
 
-/* Theme toggle */
-const themeBtn = document.getElementById('labThemeToggle');
-function applyTheme(t) {
-  document.documentElement.setAttribute('data-theme', t);
-  try { localStorage.setItem('nge-theme', t); } catch(e) {}
-  if (themeBtn) themeBtn.setAttribute('aria-pressed', t === 'light' ? 'true' : 'false');
-}
-if (themeBtn) {
-  themeBtn.addEventListener('click', () => {
-    const cur = document.documentElement.getAttribute('data-theme') || 'light';
-    applyTheme(cur === 'light' ? 'dark' : 'light');
-  });
-}
-try {
-  const saved = localStorage.getItem('nge-theme');
-  if (saved) applyTheme(saved);
-} catch(e) {}
+/* Theme + language toggles — same pattern as Lab catalog (uses lab-theme-sync.js) */
+(function () {
+  function toggleLabTheme() {
+    if (!window.LinguaBoostTheme) return;
+    var current = window.LinguaBoostTheme.resolveLessonTheme();
+    var darkSet = { "black-lab": 1, "violet": 1 };
+    var isDark = !!darkSet[current];
+    var next = isDark ? "light-lab" : "black-lab";
+    /* premium is a lab page (not catalog) — use applyLessonTheme so the
+       data-theme value matches what lab-theme-sync sets on auto-init */
+    window.LinguaBoostTheme.applyLessonTheme(next);
+    updateThemeBtnText();
+  }
+  function updateThemeBtnText() {
+    var btn = document.getElementById("labThemeToggle");
+    if (!btn || !window.LinguaBoostTheme) return;
+    var current = window.LinguaBoostTheme.resolveLessonTheme();
+    var darkSet = { "black-lab": 1, "violet": 1 };
+    var isDark = !!darkSet[current];
+    btn.textContent = isDark ? "LIGHT" : "DARK";
+  }
+  window.toggleLang = function () {
+    var html = document.documentElement;
+    var cur = html.getAttribute("lang") || "ru";
+    var next = cur === "ru" ? "en" : "ru";
+    html.setAttribute("lang", next);
+    try { localStorage.setItem("nge-lang", next); } catch (e) {}
+    if (window.LinguaBoostTheme && typeof window.LinguaBoostTheme.applyLanguage === "function") {
+      window.LinguaBoostTheme.applyLanguage(next);
+    }
+    var btn = document.getElementById("langBtn");
+    if (btn) btn.textContent = next === "ru" ? "EN" : "RU";
+  };
+  function init() {
+    updateThemeBtnText();
+    var btn = document.getElementById("labThemeToggle");
+    if (btn && !btn.dataset.handlerBound) {
+      btn.dataset.handlerBound = "true";
+      btn.addEventListener("click", toggleLabTheme);
+    }
+    var langBtn = document.getElementById("langBtn");
+    if (langBtn) {
+      var lang = document.documentElement.getAttribute("lang") || "ru";
+      langBtn.textContent = lang === "ru" ? "EN" : "RU";
+    }
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+  /* Re-run after lab-theme-sync.js initializes (it runs on DOMContentLoaded too) */
+  window.addEventListener("load", function () { setTimeout(updateThemeBtnText, 50); });
+})();
 </script>
 
 </body>
