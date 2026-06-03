@@ -82,17 +82,16 @@ h1, h2, h3 { margin: 0; }
 
 main { max-width: 1180px; margin: 36px auto 80px; padding: 0 clamp(18px, 3vw, 28px); }
 
-/* ===== Hero with waveform reference images ===== */
+/* ===== Hero with waveform reference images (glassmorphism over full ref) ===== */
 .premium-hero {
   position: relative;
   border-radius: 22px;
   overflow: hidden;
   isolation: isolate;
   border: 1px solid var(--line);
-  min-height: 360px;
+  min-height: clamp(420px, 56vh, 580px);
   display: grid;
-  grid-template-columns: 1fr;
-  align-items: end;
+  align-items: center;
 }
 .premium-hero-bg {
   position: absolute;
@@ -106,20 +105,34 @@ main { max-width: 1180px; margin: 36px auto 80px; padding: 0 clamp(18px, 3vw, 28
 .premium-hero-bg.is-light { background-image: url("./assets/premium-hero-light.png"); opacity: 0; }
 [data-theme="light"] .premium-hero-bg.is-dark  { opacity: 0; }
 [data-theme="light"] .premium-hero-bg.is-light { opacity: 1; }
+/* No heavy overlay — let the waveform reference breathe. Only a subtle vignette for edge legibility. */
 .premium-hero::after {
   content: "";
   position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(180deg, rgba(14,10,24,0.05) 0%, rgba(14,10,24,0.65) 70%, rgba(14,10,24,0.88) 100%);
+  background: radial-gradient(ellipse at 30% 60%, rgba(14,10,24,0.30) 0%, rgba(14,10,24,0.05) 55%, transparent 80%);
   pointer-events: none;
 }
 [data-theme="light"] .premium-hero::after {
-  background: linear-gradient(180deg, rgba(247,245,255,0.05) 0%, rgba(247,245,255,0.60) 70%, rgba(247,245,255,0.88) 100%);
+  background: radial-gradient(ellipse at 30% 60%, rgba(247,245,255,0.45) 0%, rgba(247,245,255,0.10) 55%, transparent 80%);
 }
+/* Text sits on a glass panel — echoes the transparent panel from the reference itself */
 .premium-hero-copy {
   position: relative;
   z-index: 2;
-  padding: clamp(26px, 4vw, 44px);
-  max-width: 760px;
+  margin: clamp(28px, 4vw, 48px);
+  padding: clamp(22px, 3vw, 36px);
+  max-width: 600px;
+  background: rgba(14,10,24,0.42);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  border: 1px solid rgba(197,174,240,0.22);
+  border-radius: 18px;
+  box-shadow: 0 16px 50px rgba(14,10,24,0.35), inset 0 1px 0 rgba(255,255,255,0.04);
+}
+[data-theme="light"] .premium-hero-copy {
+  background: rgba(255,255,255,0.55);
+  border-color: rgba(122,95,207,0.22);
+  box-shadow: 0 16px 50px rgba(122,95,207,0.18), inset 0 1px 0 rgba(255,255,255,0.6);
 }
 .premium-hero .eyebrow {
   display: inline-block;
@@ -393,7 +406,7 @@ footer.premium-footer {
     <div class="premium-hero-bg is-light" aria-hidden="true"></div>
     <div class="premium-hero-copy">
       <span class="eyebrow" data-ru="Premium · доступ по коду" data-en="Premium · access by code">Premium · доступ по коду</span>
-      <h1 data-ru="Платные уроки <span class=&quot;accent&quot;>лингвистической</span> лаборатории" data-en="Paid modules of the <span class=&quot;accent&quot;>linguistic</span> lab">Платные уроки <span class="accent">лингвистической</span> лаборатории</h1>
+      <h1 data-i18n-mode="html" data-ru="Платные уроки <span class=&quot;accent&quot;>лингвистической</span> лаборатории" data-en="Paid modules of the <span class=&quot;accent&quot;>linguistic</span> lab">Платные уроки <span class="accent">лингвистической</span> лаборатории</h1>
       <p class="lead" data-ru="Кинематографичные модули с оригинальной озвучкой и форматами от ЕГЭ до IELTS / TOEFL / Olympiad. Доступ открывается одним кодом." data-en="Cinematic modules with original audio and formats from EGE to IELTS / TOEFL / Olympiad. Access opens with one code.">Кинематографичные модули с оригинальной озвучкой и форматами от ЕГЭ до IELTS / TOEFL / Olympiad. Доступ открывается одним кодом.</p>
       <div class="meta-row">
         <span class="meta-pill is-plum" data-ru="4 модуля" data-en="4 modules">4 модуля</span>
