@@ -4,12 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Lab Premium · NG English</title>
-<meta name="description" content="Премиум-коллекция авторских уроков NG English: Voyager, Switzerland, Jerusalem. Доступ по приглашению.">
+<meta name="description" content="Платные уроки лингвистической лаборатории NG English: Voyager, Switzerland, Jerusalem. Доступ по коду.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" type="image/svg+xml" href="../assets/nge-favicon-lab.svg">
+<script src="./assets/lab-theme-sync.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800;900&family=Manrope:wght@400;500;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/canon-L.css?v=11" data-tag="canon-L-loaded">
+<link rel="stylesheet" href="./assets/mobile-fix.css?v=3" data-tag="linguaboost-mobile-fix-loaded">
 <style>
 :root {
   --bg:        #0e0a18;
@@ -20,14 +23,18 @@
   --plum-2:    #c5aef0;
   --accent:    #ff9b2f;
   --accent-2:  #ffb055;
-  --accent-soft: rgba(154,122,217,0.10);
-  --accent-border: rgba(255,155,47,0.36);
-  --accent-on: #160b05;
   --text:      #f0ebff;
   --muted:     #bfaee0;
   --faint:     #8f7daa;
   --line:      rgba(197,174,240,0.12);
   --line-2:    rgba(197,174,240,0.22);
+  --topbar-bg: rgba(14,10,24,0.92);
+  --bg-radial-1: rgba(154,122,217,0.22);
+  --bg-radial-2: rgba(255,155,47,0.08);
+  --bg-radial-3: rgba(154,122,217,0.12);
+  --lb-text: #f0ebff;
+  --lb-muted: #8f7daa;
+  --lb-link-hover: #c5aef0;
   --ok:        #2ee59d;
   --miss:      #ff5c72;
   --mono:      "JetBrains Mono", Consolas, monospace;
@@ -42,13 +49,19 @@
   --text:      #1a1326;
   --muted:     #5f5a70;
   --faint:     #756d86;
+  --plum:      #7a5fcf;
+  --plum-2:    #4f3ea5;
   --line:      rgba(122,95,207,0.18);
   --line-2:    rgba(122,95,207,0.30);
+  --topbar-bg: rgba(247,245,255,0.92);
+  --bg-radial-1: rgba(122,95,207,0.22);
+  --bg-radial-2: rgba(255,90,31,0.10);
+  --bg-radial-3: rgba(122,95,207,0.14);
+  --lb-text: #1a1326;
+  --lb-muted: #756d86;
+  --lb-link-hover: #4f3ea5;
   --accent:    #ff5a1f;
   --accent-2:  #b43a0e;
-  --accent-soft: rgba(255,90,31,0.10);
-  --accent-border: rgba(255,90,31,0.38);
-  --accent-on: #1a1326;
 }
 * { box-sizing: border-box; }
 body {
@@ -56,238 +69,402 @@ body {
   font-family: var(--body-font);
   color: var(--text);
   background:
-    radial-gradient(circle at 76% 4%, rgba(154,122,217,0.10), transparent 34%),
-    radial-gradient(circle at 12% 36%, rgba(154,122,217,0.18), transparent 30%),
-    radial-gradient(circle at 88% 74%, rgba(154,122,217,0.06), transparent 38%),
+    radial-gradient(circle at 76% 4%,  var(--bg-radial-1), transparent 34%),
+    radial-gradient(circle at 12% 36%, var(--bg-radial-2), transparent 28%),
+    radial-gradient(circle at 88% 74%, var(--bg-radial-3), transparent 34%),
     var(--bg);
   min-height: 100vh;
   line-height: 1.6;
 }
 a { color: inherit; text-decoration: none; }
-.topbar {
-  position: sticky; top: 0; z-index: 100;
-  display: flex; align-items: center; gap: 1.2rem;
-  padding: 14px 28px; border-bottom: 1px solid var(--line);
-  background: rgba(14,10,24,0.92); backdrop-filter: blur(8px);
-}
-[data-theme="light"] .topbar { background: rgba(247,245,255,0.92); }
-.topbar-brand { display:flex; align-items:center; gap:10px; }
-.brand-mark { width:36px; height:36px; border-radius:9px; border-top-right-radius:0; background:var(--accent); color:#fff; display:grid; place-items:center; font-family:var(--display); font-weight:900; font-size:18px; position:relative; overflow:hidden; }
-.brand-mark::after { content:""; position:absolute; right:0; top:0; width:12px; height:12px; background:#fff; clip-path:polygon(100% 0, 0 0, 100% 100%); }
-.brand-copy { display:flex; flex-direction:column; line-height:1.1; }
-.brand-name { font-family:var(--display); font-weight:800; font-size:13px; letter-spacing:.06em; }
-.brand-sub { font-family:var(--mono); font-size:10px; letter-spacing:.18em; color:var(--faint); text-transform:uppercase; }
-.spacer { flex:1; }
-.btn-sm {
-  display:inline-flex; align-items:center; gap:6px;
-  padding:8px 14px; border:1px solid var(--line-2); border-radius:8px;
-  font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
-  color:var(--text); cursor:pointer; background:transparent; transition:.15s;
-}
-.btn-sm:hover { border-color:var(--accent); color:var(--accent-2); }
+img { display: block; max-width: 100%; }
+h1, h2, h3 { margin: 0; }
 
-main { max-width: 1100px; margin: 40px auto 80px; padding: 0 22px; }
+main { max-width: 1180px; margin: 36px auto 80px; padding: 0 clamp(18px, 3vw, 28px); }
 
-.hero {
-  border: 1px solid var(--accent-border);
-  background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
-  border-radius: 24px; padding: clamp(28px, 4vw, 48px);
-  position: relative; overflow: hidden;
+/* ===== Hero with waveform reference images ===== */
+.premium-hero {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid var(--line);
+  min-height: 360px;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: end;
 }
-.hero::before {
-  content:""; position:absolute; inset:0;
-  background: radial-gradient(circle at 92% 8%, rgba(154,122,217,0.18), transparent 38%);
-  pointer-events:none;
+.premium-hero-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+  transition: opacity .25s;
 }
-.eyebrow {
-  display:inline-block; font-family:var(--mono); font-size:11px;
-  letter-spacing:.22em; text-transform:uppercase; color:var(--plum-2);
-  padding:6px 14px; border:1px solid rgba(154,122,217,0.36); border-radius:50px;
-  background:rgba(154,122,217,0.10); margin-bottom:18px;
+.premium-hero-bg.is-dark  { background-image: url("./assets/premium-hero-dark.png"); opacity: 1; }
+.premium-hero-bg.is-light { background-image: url("./assets/premium-hero-light.png"); opacity: 0; }
+[data-theme="light"] .premium-hero-bg.is-dark  { opacity: 0; }
+[data-theme="light"] .premium-hero-bg.is-light { opacity: 1; }
+.premium-hero::after {
+  content: "";
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(180deg, rgba(14,10,24,0.05) 0%, rgba(14,10,24,0.65) 70%, rgba(14,10,24,0.88) 100%);
+  pointer-events: none;
 }
-.hero h1 {
-  font-family:var(--display); font-weight:900;
-  font-size: clamp(1.8rem, 5vw, 3rem); line-height:1.1; margin:0 0 14px;
+[data-theme="light"] .premium-hero::after {
+  background: linear-gradient(180deg, rgba(247,245,255,0.05) 0%, rgba(247,245,255,0.60) 70%, rgba(247,245,255,0.88) 100%);
 }
-.hero h1 .gold { color: var(--plum-2); }
-.hero p.lead {
-  font-size: clamp(1rem, 1.4vw, 1.15rem); color: var(--muted); max-width: 720px; margin: 0 0 22px;
+.premium-hero-copy {
+  position: relative;
+  z-index: 2;
+  padding: clamp(26px, 4vw, 44px);
+  max-width: 760px;
 }
-.meta-row { display:flex; flex-wrap:wrap; gap:12px; margin-bottom: 8px; position:relative; z-index:1; }
-.meta-pill {
-  font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase;
-  padding:6px 12px; border-radius:50px; border:1px solid var(--line-2); color:var(--muted);
+.premium-hero .eyebrow {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--plum-2);
+  padding: 5px 12px;
+  border: 1px solid rgba(154,122,217,0.42);
+  border-radius: 50px;
+  background: rgba(154,122,217,0.10);
+  margin-bottom: 16px;
 }
-.meta-pill.is-gold { border-color: rgba(154,122,217,0.40); color: var(--plum-2); background: rgba(154,122,217,0.10); }
+.premium-hero h1 {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(1.7rem, 4.4vw, 2.8rem);
+  line-height: 1.08;
+  margin: 0 0 12px;
+  color: var(--text);
+}
+.premium-hero h1 .accent { color: var(--plum-2); }
+.premium-hero .lead {
+  font-size: clamp(0.98rem, 1.3vw, 1.1rem);
+  color: var(--muted);
+  margin: 0 0 18px;
+  max-width: 620px;
+}
+.premium-hero .meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.premium-hero .meta-pill {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 5px 11px;
+  border-radius: 50px;
+  border: 1px solid var(--line-2);
+  color: var(--muted);
+  background: rgba(14,10,24,0.35);
+  backdrop-filter: blur(4px);
+}
+[data-theme="light"] .premium-hero .meta-pill {
+  background: rgba(255,255,255,0.55);
+}
+.premium-hero .meta-pill.is-plum {
+  border-color: rgba(154,122,217,0.42);
+  color: var(--plum-2);
+  background: rgba(154,122,217,0.14);
+}
 
-.section {
-  margin-top: 36px; padding: 28px; border:1px solid var(--line);
-  border-radius: 18px; background: var(--bg-card);
+/* ===== PIN section ===== */
+.premium-section {
+  margin-top: 28px;
+  padding: clamp(22px, 3vw, 32px);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--bg-card);
 }
-.section h2 { font-family:var(--display); font-size: clamp(1.2rem, 2.4vw, 1.5rem); margin: 0 0 16px; }
-.section h2 .num {
-  font-family:var(--mono); font-size:.6em; color:var(--plum-2); margin-right:10px;
-  padding:4px 8px; border:1px solid rgba(154,122,217,0.40); border-radius:6px;
-  letter-spacing:.12em; vertical-align: middle;
+.premium-section h2 {
+  font-family: var(--display);
+  font-size: clamp(1.15rem, 2.2vw, 1.4rem);
+  font-weight: 800;
+  margin: 0 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.premium-section h2 .num {
+  font-family: var(--mono);
+  font-size: 0.62em;
+  color: var(--plum-2);
+  padding: 4px 9px;
+  border: 1px solid rgba(154,122,217,0.42);
+  border-radius: 6px;
+  letter-spacing: 0.12em;
 }
 
-.pin-form { display:flex; flex-direction:column; gap:14px; max-width: 480px; }
-.pin-row { display:flex; gap:10px; }
+.pin-form { display: flex; flex-direction: column; gap: 12px; max-width: 520px; }
+.pin-row { display: flex; gap: 10px; }
 .pin-input {
-  flex:1; padding:14px 18px; border-radius:12px;
-  border:1px solid var(--line-2); background:var(--bg-card-2); color:var(--text);
-  font-family:var(--mono); font-size:1rem; letter-spacing:.1em; outline:none; transition:.15s;
+  flex: 1;
+  padding: 13px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--line-2);
+  background: var(--bg-card-2);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 0.98rem;
+  letter-spacing: 0.08em;
+  outline: none;
+  transition: 0.15s;
 }
 .pin-input:focus { border-color: var(--accent); background: var(--bg-2); }
-.pin-input.shake { animation: shake .4s; border-color: var(--miss); }
+.pin-input.shake { animation: shake 0.4s; border-color: var(--miss); }
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
   25% { transform: translateX(-6px); }
   75% { transform: translateX(6px); }
 }
-.btn-gold {
-  display:inline-flex; align-items:center;
-  min-height:40px; padding:0 16px; border-radius:8px;
-  border:1px solid rgba(255, 106, 31, 0.70);
-  background:linear-gradient(180deg, #ff7430 0%, #ff5125 100%);
-  color:#fff;
-  box-shadow:0 12px 26px rgba(255, 81, 37, 0.22);
-  font:800 12px/1 var(--mono); letter-spacing:.04em; text-transform:uppercase;
-  cursor:pointer; transition:all .15s;
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 106, 31, 0.70);
+  background: linear-gradient(180deg, #ff7430 0%, #ff5125 100%);
+  color: #fff;
+  box-shadow: 0 12px 26px rgba(255, 81, 37, 0.22);
+  font: 800 12px/1 var(--mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.15s;
+  text-decoration: none;
 }
-.btn-gold:hover { background:linear-gradient(180deg, #ff8a42 0%, #ff5d2b 100%); border-color:rgba(255,138,66,0.85); }
-.btn-gold:disabled { opacity:.5; cursor:wait; }
-.pin-msg { font-family:var(--mono); font-size:.85rem; color:var(--muted); min-height: 22px; }
+.btn-action:hover { background: linear-gradient(180deg, #ff8a42 0%, #ff5d2b 100%); border-color: rgba(255,138,66,0.85); }
+.btn-action:disabled { opacity: 0.5; cursor: wait; }
+.pin-msg { font-family: var(--mono); font-size: 0.83rem; color: var(--muted); min-height: 20px; }
 .pin-msg.is-error { color: var(--miss); }
 .pin-msg.is-ok { color: var(--ok); }
 
-.cards { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin-top: 8px; }
-.card {
-  position: relative;
-  padding: 22px 22px 24px;
-  background: var(--bg-card-2);
-  border: 1px solid var(--line-2);
-  border-radius: 16px;
-  transition: .2s;
-}
-.card.locked { filter: blur(8px) saturate(0.6); user-select:none; pointer-events:none; }
-.card .card-emoji { font-size: 2rem; margin-bottom: 10px; }
-.card .card-tag {
-  position: absolute; top: 16px; right: 16px;
-  font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase;
-  padding:4px 10px; border-radius:50px; border:1px solid rgba(154,122,217,0.42); color:var(--plum-2); background:rgba(154,122,217,0.10);
-}
-.card .card-title { font-family:var(--display); font-size:1.05rem; line-height:1.25; margin: 4px 0 8px; }
-.card .card-subtitle { font-size:.92rem; color: var(--muted); margin-bottom: 16px; }
-.card .card-open {
-  display:inline-flex; align-items:center;
-  min-height:40px; padding:0 16px; border-radius:8px;
-  border:1px solid rgba(255, 106, 31, 0.70);
-  background:linear-gradient(180deg, #ff7430 0%, #ff5125 100%);
-  color:#fff;
-  box-shadow:0 12px 26px rgba(255, 81, 37, 0.22);
-  font:800 12px/1 var(--mono); letter-spacing:.04em; text-transform:uppercase;
-  transition:all .15s; text-decoration:none;
-}
-.card .card-open:hover { background:linear-gradient(180deg, #ff8a42 0%, #ff5d2b 100%); border-color:rgba(255,138,66,0.85); }
-.card.unlocked { border-color: rgba(154,122,217,0.42); box-shadow: 0 4px 22px rgba(154,122,217,0.16); }
-
 .hint {
-  margin-top: 20px; padding: 16px 18px;
-  background: rgba(154,122,217,0.06); border-left: 3px solid var(--plum);
-  border-radius: 8px; font-size: .92rem; color: var(--muted);
+  margin-top: 18px;
+  padding: 14px 18px;
+  background: rgba(154,122,217,0.06);
+  border-left: 3px solid var(--plum);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--muted);
 }
 .hint b { color: var(--text); }
+.hint a { color: var(--accent-2); border-bottom: 1px dashed currentColor; }
 
-footer {
-  max-width: 1100px; margin: 40px auto 30px;
-  padding: 0 22px; text-align:center;
-  color: var(--faint); font-size: .85rem;
+/* ===== Lesson cards with image covers ===== */
+.cards {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  margin-top: 8px;
+}
+.card {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--bg-card-2);
+  overflow: hidden;
+  transition: 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+.card-cover {
+  position: relative;
+  aspect-ratio: 16/10;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--bg-card);
+}
+.card-cover::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(14,10,24,0.55) 100%);
+}
+[data-theme="light"] .card-cover::after {
+  background: linear-gradient(180deg, transparent 50%, rgba(247,245,255,0.50) 100%);
+}
+.card[data-id="voyager-l1"]   .card-cover { background-image: url("./assets/premium-card-voyager-l1.png"); }
+.card[data-id="voyager-l2"]   .card-cover { background-image: url("./assets/premium-card-voyager-l2.png"); }
+.card[data-id="switzerland"]  .card-cover { background-image: url("./assets/premium-card-switzerland.png"); }
+.card[data-id="jerusalem"]    .card-cover { background-image: url("./assets/premium-card-jerusalem.png"); }
+.card-tag {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 50px;
+  border: 1px solid rgba(154,122,217,0.50);
+  color: #fff;
+  background: rgba(26,19,38,0.72);
+  backdrop-filter: blur(6px);
+}
+.card-body {
+  padding: 18px 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.card-title {
+  font-family: var(--display);
+  font-size: 1.02rem;
+  line-height: 1.25;
+  font-weight: 800;
+  color: var(--text);
+}
+.card-subtitle {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin: 0;
+  flex: 1;
+}
+.card-open {
+  align-self: flex-start;
+  margin-top: 6px;
+}
+
+.card.locked .card-cover { filter: blur(10px) saturate(0.6); }
+.card.locked .card-title,
+.card.locked .card-subtitle { filter: blur(5px); user-select: none; }
+.card.locked .card-open { pointer-events: none; opacity: 0.4; }
+.card.unlocked { border-color: rgba(154,122,217,0.42); box-shadow: 0 6px 26px rgba(154,122,217,0.18); }
+.card.unlocked .card-cover { filter: none; }
+.card.unlocked .card-title,
+.card.unlocked .card-subtitle { filter: none; }
+
+footer.premium-footer {
+  max-width: 1180px;
+  margin: 40px auto 30px;
+  padding: 0 clamp(18px, 3vw, 28px);
+  text-align: center;
+  color: var(--faint);
+  font-size: 0.83rem;
 }
 </style>
 </head>
 <body>
 
-<header class="topbar">
-  <a class="topbar-brand" href="./index.html">
-    <span class="brand-mark">N</span>
-    <span class="brand-copy">
-      <span class="brand-name">NG English</span>
-      <span class="brand-sub">LinguaBoost Lab · Premium</span>
+<header class="canon-l-topbar">
+  <a class="canon-l-brand" href="./index.html" aria-label="LinguaBoost Lab · Catalog">
+    <span class="canon-l-mark" aria-hidden="true">L</span>
+    <span class="canon-l-copy">
+      <span class="canon-l-name">LinguaBoost</span>
+      <span class="canon-l-sub" data-ru="Lab · Premium" data-en="Lab · Premium">Lab · Premium</span>
     </span>
   </a>
-  <div class="spacer"></div>
-  <a class="btn-sm" href="./index.html">← Каталог</a>
-  <button class="btn-sm" id="themeBtn" aria-label="Сменить тему">◐ Тема</button>
+  <nav class="canon-l-nav" aria-label="Site navigation">
+    <a class="canon-l-link" href="../about-project.html" data-ru="О проекте" data-en="About">О проекте</a>
+    <a class="canon-l-link" href="../programs.html" data-ru="Программы" data-en="Programmes">Программы</a>
+    <a class="canon-l-link" href="../cases.html" data-ru="Кейсы и видео" data-en="Cases &amp; Video">Кейсы и видео</a>
+    <a class="canon-l-link" href="../conditions.html" data-ru="Условия" data-en="Terms">Условия</a>
+    <a class="canon-l-link" href="../blog.html" data-ru="Дневник и блог" data-en="Journal and blog">Дневник и блог</a>
+    <a class="canon-l-link is-active" href="./index.html" data-ru="Лаборатория" data-en="Lab">Лаборатория</a>
+  </nav>
+  <div class="canon-l-tools">
+    <a class="canon-l-pill" href="https://cabinet.newgeneration-english.ru/login.html" aria-label="Войти в кабинет">CAB</a>
+    <button id="labThemeToggle" class="canon-l-pill theme-toggle" type="button" aria-label="Переключить тему" aria-pressed="false" data-ru="Тема" data-en="Theme">Theme</button>
+    <button class="canon-l-pill lang-toggle" type="button" onclick="toggleLang()" aria-label="Toggle language" data-ru="EN" data-en="RU">RU</button>
+  </div>
 </header>
+<nav class="canon-l-crumbs" aria-label="Breadcrumb">
+  <a href="../index.html" data-ru="Главная" data-en="Home">Главная</a>
+  <span class="canon-l-crumbs-sep">&middot;</span>
+  <a href="./index.html" data-ru="Каталог Lab" data-en="Lab Catalogue">Каталог Lab</a>
+  <span class="canon-l-crumbs-sep">&middot;</span>
+  <span class="canon-l-crumbs-here" data-ru="Premium" data-en="Premium">Premium</span>
+</nav>
 
 <main>
 
-  <section class="hero">
-    <div class="eyebrow">Premium · доступ по приглашению</div>
-    <h1>Платные уроки <span class="gold">лингвистической</span> лаборатории</h1>
-    <p class="lead">Кинематографичные модули с оригинальной озвучкой и форматами от ЕГЭ до IELTS / TOEFL / Olympiad. Доступ по коду.</p>
-    <div class="meta-row">
-      <span class="meta-pill is-gold">4 модуля</span>
-      <span class="meta-pill">B1 → B2-plus</span>
-      <span class="meta-pill">оригинальный контент</span>
-      <span class="meta-pill">edge-tts audio</span>
+  <section class="premium-hero">
+    <div class="premium-hero-bg is-dark"  aria-hidden="true"></div>
+    <div class="premium-hero-bg is-light" aria-hidden="true"></div>
+    <div class="premium-hero-copy">
+      <span class="eyebrow" data-ru="Premium · доступ по коду" data-en="Premium · access by code">Premium · доступ по коду</span>
+      <h1 data-ru="Платные уроки <span class=&quot;accent&quot;>лингвистической</span> лаборатории" data-en="Paid modules of the <span class=&quot;accent&quot;>linguistic</span> lab">Платные уроки <span class="accent">лингвистической</span> лаборатории</h1>
+      <p class="lead" data-ru="Кинематографичные модули с оригинальной озвучкой и форматами от ЕГЭ до IELTS / TOEFL / Olympiad. Доступ открывается одним кодом." data-en="Cinematic modules with original audio and formats from EGE to IELTS / TOEFL / Olympiad. Access opens with one code.">Кинематографичные модули с оригинальной озвучкой и форматами от ЕГЭ до IELTS / TOEFL / Olympiad. Доступ открывается одним кодом.</p>
+      <div class="meta-row">
+        <span class="meta-pill is-plum" data-ru="4 модуля" data-en="4 modules">4 модуля</span>
+        <span class="meta-pill">B1 → B2-plus</span>
+        <span class="meta-pill" data-ru="оригинальный контент" data-en="original content">оригинальный контент</span>
+        <span class="meta-pill">edge-tts audio</span>
+      </div>
     </div>
   </section>
 
-  <section class="section">
-    <h2><span class="num">01</span>Введи свой код</h2>
+  <section class="premium-section">
+    <h2><span class="num">01</span><span data-ru="Введи свой код" data-en="Enter your code">Введи свой код</span></h2>
     <div class="pin-form">
       <div class="pin-row">
         <input type="text" class="pin-input" id="pinInput" placeholder="" autocomplete="off" spellcheck="false">
-        <button class="btn-gold" id="pinBtn">Открыть</button>
+        <button class="btn-action" id="pinBtn" data-ru="Открыть" data-en="Unlock">Открыть</button>
       </div>
-      <div class="pin-msg" id="pinMsg">Код регистронезависимый по буквам, чувствителен к дефисам и цифрам.</div>
+      <div class="pin-msg" id="pinMsg" data-ru="Код регистронезависимый по буквам, чувствителен к дефисам и цифрам." data-en="Code is case-insensitive for letters, sensitive to hyphens and digits.">Код регистронезависимый по буквам, чувствителен к дефисам и цифрам.</div>
     </div>
     <div class="hint">
-      <b>Нет кода?</b> Напиши Марии лично — в личных сообщениях или на <a href="mailto:maria.v.burtseva@gmail.com" style="color:var(--accent-2)">maria.v.burtseva@gmail.com</a> — и расскажи в двух словах, кто ты и что тебе интересно. Я отвечу быстро.
+      <b data-ru="Нет кода?" data-en="No code yet?">Нет кода?</b> <span data-ru="Напиши Марии лично — в личных сообщениях или на" data-en="Write to Maria directly — by private message or at">Напиши Марии лично — в личных сообщениях или на</span> <a href="mailto:maria.v.burtseva@gmail.com">maria.v.burtseva@gmail.com</a> — <span data-ru="и расскажи в двух словах, кто ты и что тебе интересно. Отвечу быстро." data-en="and tell me briefly who you are and what interests you. I reply quickly.">и расскажи в двух словах, кто ты и что тебе интересно. Отвечу быстро.</span>
     </div>
   </section>
 
-  <section class="section">
-    <h2><span class="num">02</span>Что внутри</h2>
+  <section class="premium-section">
+    <h2><span class="num">02</span><span data-ru="Что внутри" data-en="What's inside">Что внутри</span></h2>
     <div class="cards" id="cards">
       <article class="card locked" data-id="voyager-l1">
-        <div class="card-tag">B2+</div>
-        <div class="card-emoji">⏳</div>
-        <h3 class="card-title">Voyager L1 · Time, the watchmaker, neutrinos</h3>
-        <p class="card-subtitle">B2-plus · оригинальный рассказ + лекция по физике времени + IELTS/олимпиада</p>
-        <a class="card-open" href="#" rel="noopener">Открыть урок →</a>
+        <div class="card-cover" aria-hidden="true"></div>
+        <span class="card-tag">B2+</span>
+        <div class="card-body">
+          <h3 class="card-title" data-ru="Voyager L1 · Time, the watchmaker, neutrinos" data-en="Voyager L1 · Time, the watchmaker, neutrinos">Voyager L1 · Time, the watchmaker, neutrinos</h3>
+          <p class="card-subtitle" data-ru="B2-plus · оригинальный рассказ + лекция по физике времени + IELTS/олимпиада" data-en="B2-plus · original story + physics-of-time lecture + IELTS/olympiad">B2-plus · оригинальный рассказ + лекция по физике времени + IELTS/олимпиада</p>
+          <a class="card-open btn-action" href="#" rel="noopener" data-ru="Открыть урок →" data-en="Open lesson →">Открыть урок →</a>
+        </div>
       </article>
       <article class="card locked" data-id="voyager-l2">
-        <div class="card-tag">B2+</div>
-        <div class="card-emoji">🛸</div>
-        <h3 class="card-title">Voyager L2 · Are we alone? · Mia's signal</h3>
-        <p class="card-subtitle">B2-plus · SETI-квест в Атакаме · 3 аномалии в 3 разных формата · Matching headings + Word formation</p>
-        <a class="card-open" href="#" rel="noopener">Открыть урок →</a>
+        <div class="card-cover" aria-hidden="true"></div>
+        <span class="card-tag">B2+</span>
+        <div class="card-body">
+          <h3 class="card-title" data-ru="Voyager L2 · Are we alone? · Mia's signal" data-en="Voyager L2 · Are we alone? · Mia's signal">Voyager L2 · Are we alone? · Mia's signal</h3>
+          <p class="card-subtitle" data-ru="B2-plus · SETI-квест в Атакаме · 3 аномалии в 3 разных формата · Matching headings + Word formation" data-en="B2-plus · SETI quest in Atacama · 3 anomalies in 3 formats · Matching headings + Word formation">B2-plus · SETI-квест в Атакаме · 3 аномалии в 3 разных формата · Matching headings + Word formation</p>
+          <a class="card-open btn-action" href="#" rel="noopener" data-ru="Открыть урок →" data-en="Open lesson →">Открыть урок →</a>
+        </div>
       </article>
       <article class="card locked" data-id="switzerland">
-        <div class="card-tag">B1</div>
-        <div class="card-emoji">🇨🇭</div>
-        <h3 class="card-title">Switzerland · Mountains, Chocolate &amp; Time</h3>
-        <p class="card-subtitle">B1 · кинематографичный модуль про Швейцарию: горы, шоколад, часы · Watch-first + reading + vocabulary</p>
-        <a class="card-open" href="#" rel="noopener">Открыть урок →</a>
+        <div class="card-cover" aria-hidden="true"></div>
+        <span class="card-tag">B1</span>
+        <div class="card-body">
+          <h3 class="card-title" data-ru="Switzerland · Mountains, Chocolate &amp; Time" data-en="Switzerland · Mountains, Chocolate &amp; Time">Switzerland · Mountains, Chocolate &amp; Time</h3>
+          <p class="card-subtitle" data-ru="B1 · кинематографичный модуль про Швейцарию: горы, шоколад, часы · Watch-first + reading + vocabulary" data-en="B1 · cinematic Switzerland module: mountains, chocolate, watches · Watch-first + reading + vocabulary">B1 · кинематографичный модуль про Швейцарию: горы, шоколад, часы · Watch-first + reading + vocabulary</p>
+          <a class="card-open btn-action" href="#" rel="noopener" data-ru="Открыть урок →" data-en="Open lesson →">Открыть урок →</a>
+        </div>
       </article>
       <article class="card locked" data-id="jerusalem">
-        <div class="card-tag">B1</div>
-        <div class="card-emoji">🕌</div>
-        <h3 class="card-title">Jerusalem · A City of Three Faiths</h3>
-        <p class="card-subtitle">B1 · 17 секций про город трёх религий · narrator-аудио · Would + Modals · Speaking-focus</p>
-        <a class="card-open" href="#" rel="noopener">Открыть урок →</a>
+        <div class="card-cover" aria-hidden="true"></div>
+        <span class="card-tag">B1</span>
+        <div class="card-body">
+          <h3 class="card-title" data-ru="Jerusalem · A City of Three Faiths" data-en="Jerusalem · A City of Three Faiths">Jerusalem · A City of Three Faiths</h3>
+          <p class="card-subtitle" data-ru="B1 · 17 секций про город трёх религий · narrator-аудио · Would + Modals · Speaking-focus" data-en="B1 · 17 sections about a city of three faiths · narrator audio · Would + Modals · Speaking-focus">B1 · 17 секций про город трёх религий · narrator-аудио · Would + Modals · Speaking-focus</p>
+          <a class="card-open btn-action" href="#" rel="noopener" data-ru="Открыть урок →" data-en="Open lesson →">Открыть урок →</a>
+        </div>
       </article>
     </div>
   </section>
 
 </main>
 
-<footer>
+<footer class="premium-footer">
   NG English · LinguaBoost Lab Premium · 2026<br>
-  <small>Все материалы — авторские, перераспределение по платным курсам без согласования запрещено.</small>
+  <small data-ru="Все материалы — авторские, перераспределение по платным курсам без согласования запрещено." data-en="All materials are authorial; redistribution within paid courses without consent is prohibited.">Все материалы — авторские, перераспределение по платным курсам без согласования запрещено.</small>
 </footer>
 
 <script>
@@ -332,7 +509,6 @@ async function tryUnlock() {
   msg.className = 'pin-msg';
   try {
     const lessons = await decryptUrls(pin);
-    // success — unlock
     const byId = Object.fromEntries(lessons.map(l => [l.id, l]));
     cards.forEach(c => {
       const id = c.dataset.id;
@@ -358,18 +534,41 @@ async function tryUnlock() {
 btn.addEventListener('click', tryUnlock);
 input.addEventListener('keypress', e => { if (e.key === 'Enter') tryUnlock(); });
 
-// no auto-unlock — PIN must be entered each visit (по решению Маши, 03.06)
+/* no auto-unlock — PIN must be entered each visit (по решению Маши, 03.06) */
 
-// theme toggle (same logic as lab-theme-sync.js — minimal local copy)
-const themeBtn = document.getElementById('themeBtn');
+/* Language toggle (data-ru / data-en) — same convention as Lab catalog */
+function applyLang(lang) {
+  document.documentElement.setAttribute('lang', lang === 'en' ? 'en' : 'ru');
+  document.querySelectorAll('[data-ru][data-en]').forEach(el => {
+    const v = el.getAttribute(lang === 'en' ? 'data-en' : 'data-ru');
+    if (v != null) el.innerHTML = v;
+  });
+  const btn = document.querySelector('.lang-toggle');
+  if (btn) btn.textContent = lang === 'en' ? 'RU' : 'EN';
+  try { localStorage.setItem('nge-lang', lang); } catch(e) {}
+}
+function toggleLang() {
+  const cur = (document.documentElement.getAttribute('lang') || 'ru').startsWith('en') ? 'en' : 'ru';
+  applyLang(cur === 'en' ? 'ru' : 'en');
+}
+try {
+  const savedLang = localStorage.getItem('nge-lang');
+  if (savedLang === 'en') applyLang('en');
+} catch(e) {}
+
+/* Theme toggle — sync with Lab catalog */
+const themeBtn = document.getElementById('labThemeToggle');
 function applyTheme(t) {
   document.documentElement.setAttribute('data-theme', t);
   try { localStorage.setItem('nge-theme', t); } catch(e) {}
+  if (themeBtn) themeBtn.setAttribute('aria-pressed', t === 'light' ? 'true' : 'false');
 }
-themeBtn.addEventListener('click', () => {
-  const cur = document.documentElement.getAttribute('data-theme') || 'dark';
-  applyTheme(cur === 'dark' ? 'light' : 'dark');
-});
+if (themeBtn) {
+  themeBtn.addEventListener('click', () => {
+    const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+    applyTheme(cur === 'dark' ? 'light' : 'dark');
+  });
+}
 try {
   const saved = localStorage.getItem('nge-theme');
   if (saved) applyTheme(saved);
