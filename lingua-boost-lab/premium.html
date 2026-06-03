@@ -18,10 +18,11 @@
   --bg-card-2: #21172f;
   --plum:      #9a7ad9;
   --plum-2:    #c5aef0;
-  --gold:      #d9b85a;
-  --gold-2:    #f5d77a;
-  --gold-soft: rgba(217,184,90,0.10);
-  --gold-border: rgba(217,184,90,0.35);
+  --accent:    #ff9b2f;
+  --accent-2:  #ffb055;
+  --accent-soft: rgba(255,155,47,0.10);
+  --accent-border: rgba(255,155,47,0.36);
+  --accent-on: #160b05;
   --text:      #f0ebff;
   --muted:     #bfaee0;
   --faint:     #8f7daa;
@@ -43,10 +44,11 @@
   --faint:     #756d86;
   --line:      rgba(122,95,207,0.18);
   --line-2:    rgba(122,95,207,0.30);
-  --gold:      #b48c1e;
-  --gold-2:    #d9aa3e;
-  --gold-soft: rgba(180,140,30,0.10);
-  --gold-border: rgba(180,140,30,0.40);
+  --accent:    #ff5a1f;
+  --accent-2:  #b43a0e;
+  --accent-soft: rgba(255,90,31,0.10);
+  --accent-border: rgba(255,90,31,0.38);
+  --accent-on: #1a1326;
 }
 * { box-sizing: border-box; }
 body {
@@ -54,9 +56,9 @@ body {
   font-family: var(--body-font);
   color: var(--text);
   background:
-    radial-gradient(circle at 76% 4%, rgba(217,184,90,0.10), transparent 34%),
+    radial-gradient(circle at 76% 4%, rgba(255,155,47,0.10), transparent 34%),
     radial-gradient(circle at 12% 36%, rgba(154,122,217,0.18), transparent 30%),
-    radial-gradient(circle at 88% 74%, rgba(217,184,90,0.06), transparent 38%),
+    radial-gradient(circle at 88% 74%, rgba(255,155,47,0.06), transparent 38%),
     var(--bg);
   min-height: 100vh;
   line-height: 1.6;
@@ -70,7 +72,7 @@ a { color: inherit; text-decoration: none; }
 }
 [data-theme="light"] .topbar { background: rgba(247,245,255,0.92); }
 .topbar-brand { display:flex; align-items:center; gap:10px; }
-.brand-mark { width:36px; height:36px; border-radius:9px; border-top-right-radius:0; background:var(--gold); color:#160b05; display:grid; place-items:center; font-family:var(--display); font-weight:900; font-size:18px; }
+.brand-mark { width:36px; height:36px; border-radius:9px; border-top-right-radius:0; background:var(--accent); color:#160b05; display:grid; place-items:center; font-family:var(--display); font-weight:900; font-size:18px; }
 .brand-copy { display:flex; flex-direction:column; line-height:1.1; }
 .brand-name { font-family:var(--display); font-weight:800; font-size:13px; letter-spacing:.06em; }
 .brand-sub { font-family:var(--mono); font-size:10px; letter-spacing:.18em; color:var(--faint); text-transform:uppercase; }
@@ -81,32 +83,32 @@ a { color: inherit; text-decoration: none; }
   font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase;
   color:var(--text); cursor:pointer; background:transparent; transition:.15s;
 }
-.btn-sm:hover { border-color:var(--gold); color:var(--gold-2); }
+.btn-sm:hover { border-color:var(--accent); color:var(--accent-2); }
 
 main { max-width: 1100px; margin: 40px auto 80px; padding: 0 22px; }
 
 .hero {
-  border: 1px solid var(--gold-border);
+  border: 1px solid var(--accent-border);
   background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
   border-radius: 24px; padding: clamp(28px, 4vw, 48px);
   position: relative; overflow: hidden;
 }
 .hero::before {
   content:""; position:absolute; inset:0;
-  background: radial-gradient(circle at 92% 8%, rgba(217,184,90,0.14), transparent 38%);
+  background: radial-gradient(circle at 92% 8%, rgba(255,155,47,0.14), transparent 38%);
   pointer-events:none;
 }
 .eyebrow {
   display:inline-block; font-family:var(--mono); font-size:11px;
-  letter-spacing:.22em; text-transform:uppercase; color:var(--gold-2);
-  padding:6px 14px; border:1px solid var(--gold-border); border-radius:50px;
-  background:var(--gold-soft); margin-bottom:18px;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--accent-2);
+  padding:6px 14px; border:1px solid var(--accent-border); border-radius:50px;
+  background:var(--accent-soft); margin-bottom:18px;
 }
 .hero h1 {
   font-family:var(--display); font-weight:900;
   font-size: clamp(1.8rem, 5vw, 3rem); line-height:1.1; margin:0 0 14px;
 }
-.hero h1 .gold { color: var(--gold-2); }
+.hero h1 .gold { color: var(--accent-2); }
 .hero p.lead {
   font-size: clamp(1rem, 1.4vw, 1.15rem); color: var(--muted); max-width: 720px; margin: 0 0 22px;
 }
@@ -115,7 +117,7 @@ main { max-width: 1100px; margin: 40px auto 80px; padding: 0 22px; }
   font-family:var(--mono); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase;
   padding:6px 12px; border-radius:50px; border:1px solid var(--line-2); color:var(--muted);
 }
-.meta-pill.is-gold { border-color: var(--gold-border); color: var(--gold-2); background: var(--gold-soft); }
+.meta-pill.is-gold { border-color: var(--accent-border); color: var(--accent-2); background: var(--accent-soft); }
 
 .section {
   margin-top: 36px; padding: 28px; border:1px solid var(--line);
@@ -123,8 +125,8 @@ main { max-width: 1100px; margin: 40px auto 80px; padding: 0 22px; }
 }
 .section h2 { font-family:var(--display); font-size: clamp(1.2rem, 2.4vw, 1.5rem); margin: 0 0 16px; }
 .section h2 .num {
-  font-family:var(--mono); font-size:.6em; color:var(--gold-2); margin-right:10px;
-  padding:4px 8px; border:1px solid var(--gold-border); border-radius:6px;
+  font-family:var(--mono); font-size:.6em; color:var(--accent-2); margin-right:10px;
+  padding:4px 8px; border:1px solid var(--accent-border); border-radius:6px;
   letter-spacing:.12em; vertical-align: middle;
 }
 
@@ -135,7 +137,7 @@ main { max-width: 1100px; margin: 40px auto 80px; padding: 0 22px; }
   border:1px solid var(--line-2); background:var(--bg-card-2); color:var(--text);
   font-family:var(--mono); font-size:1rem; letter-spacing:.1em; outline:none; transition:.15s;
 }
-.pin-input:focus { border-color: var(--gold); background: var(--bg-2); }
+.pin-input:focus { border-color: var(--accent); background: var(--bg-2); }
 .pin-input.shake { animation: shake .4s; border-color: var(--miss); }
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
@@ -145,11 +147,11 @@ main { max-width: 1100px; margin: 40px auto 80px; padding: 0 22px; }
 .btn-gold {
   display:inline-flex; align-items:center; gap:8px;
   padding:14px 22px; border-radius:12px;
-  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-2) 100%);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
   color:#160b05; font-family:var(--display); font-weight:800; font-size:.95rem;
   border:none; cursor:pointer; transition:.15s; letter-spacing:.04em;
 }
-.btn-gold:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(217,184,90,0.32); }
+.btn-gold:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(255,155,47,0.32); }
 .btn-gold:disabled { opacity:.5; cursor:wait; }
 .pin-msg { font-family:var(--mono); font-size:.85rem; color:var(--muted); min-height: 22px; }
 .pin-msg.is-error { color: var(--miss); }
@@ -169,18 +171,18 @@ main { max-width: 1100px; margin: 40px auto 80px; padding: 0 22px; }
 .card .card-tag {
   position: absolute; top: 16px; right: 16px;
   font-family:var(--mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase;
-  padding:4px 10px; border-radius:50px; border:1px solid var(--gold-border); color:var(--gold-2); background:var(--gold-soft);
+  padding:4px 10px; border-radius:50px; border:1px solid var(--accent-border); color:var(--accent-2); background:var(--accent-soft);
 }
 .card .card-title { font-family:var(--display); font-size:1.05rem; line-height:1.25; margin: 4px 0 8px; }
 .card .card-subtitle { font-size:.92rem; color: var(--muted); margin-bottom: 16px; }
 .card .card-open {
   display:inline-flex; align-items:center; gap:6px;
   padding:10px 16px; border-radius:10px;
-  background: var(--gold); color:#160b05; font-family:var(--display); font-weight:700; font-size:.88rem;
+  background: var(--accent); color:#160b05; font-family:var(--display); font-weight:700; font-size:.88rem;
   letter-spacing:.04em; transition:.15s;
 }
-.card .card-open:hover { background: var(--gold-2); }
-.card.unlocked { border-color: var(--gold-border); box-shadow: 0 4px 22px rgba(217,184,90,0.10); }
+.card .card-open:hover { background: var(--accent-2); }
+.card.unlocked { border-color: var(--accent-border); box-shadow: 0 4px 22px rgba(255,155,47,0.10); }
 
 .hint {
   margin-top: 20px; padding: 16px 18px;
@@ -235,7 +237,7 @@ footer {
       <div class="pin-msg" id="pinMsg">Код регистронезависимый по буквам, чувствителен к дефисам и цифрам.</div>
     </div>
     <div class="hint">
-      <b>Нет кода?</b> Напиши Марии лично — в личных сообщениях или на <a href="mailto:maria.v.burtseva@gmail.com" style="color:var(--gold-2)">maria.v.burtseva@gmail.com</a> — и расскажи в двух словах, кто ты и что тебе интересно. Я отвечу быстро.
+      <b>Нет кода?</b> Напиши Марии лично — в личных сообщениях или на <a href="mailto:maria.v.burtseva@gmail.com" style="color:var(--accent-2)">maria.v.burtseva@gmail.com</a> — и расскажи в двух словах, кто ты и что тебе интересно. Я отвечу быстро.
     </div>
   </section>
 
