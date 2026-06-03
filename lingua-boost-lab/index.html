@@ -187,7 +187,8 @@ h3 { margin: 0; }/* Topbar */
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  /* Shift subject (laptop / plant / cube) slightly leftward, mirrors Premium hero crop */
+  object-position: 30% center;
   min-height: 380px;
 }.hero-copy {
   display: flex;
@@ -830,9 +831,10 @@ body {
   min-height: clamp(520px, 68vh, 760px);
   width: 100%;
   max-width: 100%;
-  border-radius: 0;
-  border-left: 0;
-  border-right: 0;
+  /* Restore bordered card to match Premium look (was: border-radius:0; sides:0) */
+  border-radius: 12px;
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
   background: var(--bg);
 }body.light .hero {
   background: #f8f6f2;
@@ -3814,6 +3816,26 @@ body.light .level-grid {
     padding-left: 16px !important;
     padding-right: 16px !important;
   }
+}
+
+/* ===== Frame the hero like Premium + shift image left (override line 1993+ !important block) ===== */
+.wrap .hero {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  border: 1px solid var(--line-2) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 4px 22px -8px rgba(122,95,207,0.18) !important;
+  overflow: hidden !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+/* Shift image leftward — original rule uses absolute positioning with right:clamp(72px,4.2vw,86px);
+   bump right value so image is pushed further away from the right edge (= visually leftward) */
+.wrap .hero .hero-banner img,
+.wrap .hero .hero-banner img.hero-bg {
+  right: clamp(140px, 12vw, 240px) !important;
 }
 </style>
 
