@@ -279,6 +279,8 @@ main {
   color: var(--faint);
   margin-top: 3px;
   letter-spacing: 0.02em;
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 /* Hero illustration — fills the entire hero box (no white zone) */
@@ -339,6 +341,22 @@ main {
       rgba(14,10,24,0.55) 100%);
   }
   .premium-hero-art img { object-position: center; }
+}
+
+/* Mobile-only — H1 не должен вылезать за viewport на узких экранах */
+@media (max-width: 520px) {
+  .premium-hero h1 {
+    font-size: clamp(1.85rem, 8.5vw, 2.6rem);
+    letter-spacing: -0.03em;
+  }
+  .premium-hero-copy {
+    padding: clamp(20px, 5vw, 28px);
+  }
+  .hero-meta {
+    grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+  }
+  .meta-card { padding: 10px 12px; }
+  .meta-card .main { font-size: 10.5px; letter-spacing: 0.06em; }
 }
 
 /* ===== PIN strip — horizontal one-line ===== */
