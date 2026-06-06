@@ -2564,12 +2564,12 @@ body.lb-canon-target .canon-l-hero.is-hero-kids .canon-l-hero-bg{
   </article>
 </section>
 <div class="canon-l-tracker" style="--lb-bg:#fff8f0; --lb-text:#2b1c12; --lb-muted:#6b4f3c; --lb-line:rgba(255,105,10,.22); --lb-pill-bg:#fff; --lb-pill-border:rgba(255,105,10,.45); --lb-link-hover:#ff690a; --lb-seg-bg:#fff; --lb-seg-border:rgba(255,105,10,.45); --lb-seg-btn:#ff690a;">
-  <span class="canon-l-tracker-step">Classroom Mission</span>
+  <span class="canon-l-tracker-step" data-ru="Миссия Classroom" data-en="Classroom Mission">Classroom Mission</span>
   <div class="canon-l-tracker-bar"><div class="canon-l-tracker-fill" id="progressFill"></div></div>
   <span class="canon-l-tracker-score" id="progressText">0 / 10 activities</span>
   <div class="canon-l-tracker-stars" id="starContainer" aria-label="Progress stars"></div>
   <span class="canon-l-tracker-score" id="scoreDisplay">0 / 10</span>
-  <button class="canon-l-tracker-reset" id="resetProgressBtn" type="button">Reset</button>
+  <button class="canon-l-tracker-reset" id="resetProgressBtn" type="button" data-ru="Сброс" data-en="Reset">Reset</button>
   </div>
 
   <!-- 1. COMIC STRIP -->
@@ -2984,7 +2984,10 @@ body.lb-canon-target .canon-l-hero.is-hero-kids .canon-l-hero-bg{
     const pf = document.getElementById('progressFill');
     const pt = document.getElementById('progressText');
     if(pf) pf.style.width = `${(starCount / ACTIVITIES) * 100}%`;
-    if(pt) pt.textContent = `${starCount} / ${ACTIVITIES} activities`;
+    if(pt){
+      const isEn = document.body.classList.contains('en');
+      pt.textContent = `${starCount} / ${ACTIVITIES} ${isEn ? 'activities' : 'занятий'}`;
+    }
     const ks = document.getElementById('kidStars');
     if(ks) ks.innerHTML = `${starCount} <span class="lb-ico lb-ico-star lb-ico-gold" aria-hidden="true"></span>`;
     ['tom','lily','mei'].forEach((friend) => {
