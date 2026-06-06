@@ -748,3 +748,90 @@ button, a.btn, a.module-link, a.hero-link, .draggable, .dropzone,
     justify-content: center !important;
   }
 }
+
+/* ============================================================
+   CANON-L-TOPBAR — mobile layout (2026-06-06)
+   Fixes Easter (and other canon-l-topbar lessons) where logo "LinguaBoost
+   Lab" was getting overlapped by RU/Theme pills on narrow screens.
+   Strategy:
+   - Force topbar to single flex row that doesn't wrap
+   - Brand on left, takes available space, truncates with ellipsis
+   - canon-l-nav (Catalog/Progress/Practice/Final) hidden on mobile
+   - Tools (lang + level pills) flex-shrink:0, always on right
+   - On tiny screens (<380px) hide the canon-l-sub subtitle line
+   ============================================================ */
+@media (max-width: 640px) {
+  .canon-l-topbar {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 8px 14px !important;
+    min-height: 56px !important;
+  }
+  .canon-l-brand {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+    overflow: hidden !important;
+    text-decoration: none !important;
+  }
+  .canon-l-mark {
+    flex: 0 0 32px !important;
+    width: 32px !important;
+    height: 32px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .canon-l-mark img,
+  .canon-l-mark svg {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+  }
+  .canon-l-copy {
+    display: flex !important;
+    flex-direction: column !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    justify-content: center !important;
+  }
+  .canon-l-name {
+    font-size: 13px !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  .canon-l-sub {
+    font-size: 9px !important;
+    line-height: 1.2 !important;
+    letter-spacing: .12em !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  .canon-l-nav {
+    display: none !important;
+  }
+  .canon-l-tools {
+    flex: 0 0 auto !important;
+    margin-left: auto !important;
+    display: flex !important;
+    gap: 6px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .canon-l-sub {
+    display: none !important;
+  }
+  .canon-l-tools .canon-l-pill {
+    min-width: 48px !important;
+    padding: 0 10px !important;
+    font-size: 10px !important;
+  }
+}
