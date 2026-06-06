@@ -724,17 +724,16 @@ button, a.btn, a.module-link, a.hero-link, .draggable, .dropzone,
   }
 
   /* 3. Level chips (.level) — equal cells in 3-col grid on Lab catalog */
-  .lingua-boost-lab .level-strip,
-  .lingua-boost-lab nav.level-strip,
-  .lingua-boost-lab .level-row,
-  body .level-strip {
+  .level-row {
     display: grid !important;
     grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
     gap: 8px !important;
-    padding-inline: 14px !important;
+    padding-inline: 0 !important;
+    margin-inline: 14px !important;
+    flex-wrap: unset !important;
   }
-  .lingua-boost-lab .level,
-  body a.level {
+  a.level,
+  .level-row .level {
     box-sizing: border-box !important;
     width: 100% !important;
     min-height: 44px !important;
@@ -746,6 +745,36 @@ button, a.btn, a.module-link, a.hero-link, .draggable, .dropzone,
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
+  }
+
+  /* 4. Hero section (Lab catalog) — banner becomes static instead of absolute,
+        sits below copy with equal side gutters, no edge-stick */
+  section.hero {
+    display: block !important;
+    position: relative !important;
+  }
+  section.hero > .hero-banner {
+    position: relative !important;
+    inset: auto !important;
+    width: calc(100% - 28px) !important;
+    max-width: calc(100% - 28px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 16px !important;
+    pointer-events: auto !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    aspect-ratio: 16 / 9 !important;
+    min-height: 0 !important;
+  }
+  section.hero > .hero-banner img.hero-bg {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center center !important;
+    min-height: 0 !important;
   }
 }
 
