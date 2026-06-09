@@ -1315,21 +1315,41 @@ a.level {
     overflow: visible !important;
     min-height: 600px !important;
   }
-  /* Grammar Arcade — heading max-width слишком узкий, "Gramma\nr" */
-  html body[class*="grammar-arcade"] .canon-l-hero-title,
-  html body[class*="lb-page-grammar"] .canon-l-hero-title {
+  /* Grammar Arcade — heading max-width слишком узкий, "Gramma\nr".
+     Inline на 2326 имеет 0,0,3,3; нужен 0,0,3,4+ — добавляю h1. */
+  html body.lb-canon-target main.wrap .canon-l-hero h1.canon-l-hero-title,
+  html body[class*="grammar-arcade"] main.wrap .canon-l-hero h1.canon-l-hero-title,
+  html body.lb-canon-target .canon-l-hero h1.canon-l-hero-title.canon-l-hero-title {
     max-width: 100% !important;
-    font-size: clamp(1.8rem, 8vw, 2.2rem) !important;
+    width: 100% !important;
+    font-size: clamp(1.8rem, 7vw, 2.2rem) !important;
     word-break: keep-all !important;
     overflow-wrap: normal !important;
     hyphens: none !important;
+    white-space: normal !important;
   }
-  /* Word Forge — слишком большой hero, сжать */
+  /* Word Forge — pills grid 2×2 (был столбец) + сжать hero */
   html body[class*="word-building"] .canon-l-hero,
   html body[class*="word-forge"] .canon-l-hero {
     min-height: 420px !important;
-    max-height: 560px !important;
+    max-height: 580px !important;
     overflow: hidden !important;
+  }
+  html body[class*="word-building"] .canon-l-hero-meta,
+  html body[class*="word-forge"] .canon-l-hero-meta {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+    max-width: 320px !important;
+    margin-top: 12px !important;
+  }
+  html body[class*="word-building"] .canon-l-hero-pill,
+  html body[class*="word-forge"] .canon-l-hero-pill {
+    min-height: 36px !important;
+    padding: 6px 10px !important;
+    font-size: 10.5px !important;
+    text-align: center !important;
+    justify-content: center !important;
   }
   /* Word Forge rail — обрезается слева/справа, добавить padding */
   html body[class*="word-building"] .rail,
