@@ -1270,7 +1270,63 @@ a.level {
    3) canon-l-hero-inner — relative, z-index:2 поверх bg
    4) canon-l-hero-meta — grid 2×2, всё помещается ВНУТРИ hero
    ============================================================ */
+/* ============================================================
+   PER-LESSON FIXES 2026-06-09 (last sweep)
+   ============================================================ */
 @media (max-width: 680px) {
+  /* Easter — bunny too close to title, push illustration right */
+  html body.lb-page-easter .canon-l-hero.is-hero-kids .canon-l-hero-bg {
+    object-position: 75% center !important;
+  }
+  /* Body & Grammar — 5-й pill GRAMMAR обрезается, расширяем grid */
+  html body.lb-canon-target .canon-l-hero.is-hero-kids .canon-l-hero-meta {
+    max-width: 320px !important;
+  }
+  html body.lb-canon-target .canon-l-hero.is-hero-kids .canon-l-hero-pill:nth-child(n+5) {
+    grid-column: 1 / -1 !important;
+    text-align: center !important;
+  }
+  /* Prepositions World — 3-я pill PLACE WORDS обрезана */
+  html body.lb-page-prepositions-world .canon-l-hero,
+  html body.lb-page-prepositions-of-place .canon-l-hero {
+    overflow: visible !important;
+    min-height: 600px !important;
+  }
+  /* Grammar Arcade — heading max-width слишком узкий, "Gramma\nr" */
+  html body[class*="grammar-arcade"] .canon-l-hero-title,
+  html body[class*="lb-page-grammar"] .canon-l-hero-title {
+    max-width: 100% !important;
+    font-size: clamp(1.8rem, 8vw, 2.2rem) !important;
+    word-break: keep-all !important;
+    overflow-wrap: normal !important;
+    hyphens: none !important;
+  }
+  /* Word Forge — слишком большой hero, сжать */
+  html body[class*="word-building"] .canon-l-hero,
+  html body[class*="word-forge"] .canon-l-hero {
+    min-height: 420px !important;
+    max-height: 560px !important;
+    overflow: hidden !important;
+  }
+  /* Word Forge rail — обрезается слева/справа, добавить padding */
+  html body[class*="word-building"] .rail,
+  html body[class*="word-forge"] .rail {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+  /* English Booster — pills в столбец, нужен grid + hide watermark */
+  html body.lb-page-english-booster .canon-l-hero-meta {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+    max-width: 320px !important;
+  }
+  html body.lb-page-english-booster .canon-l-hero-meta > * {
+    min-height: 38px !important;
+    padding: 6px 8px !important;
+    font-size: 10px !important;
+  }
+
   /* Apply to ALL canon-l-hero variants (kids / clean / soft) EXCEPT
      is-hero-drama which has its own perfect layout (Ancient China). */
   html body.lb-canon-target .canon-l-hero.is-hero-kids,
