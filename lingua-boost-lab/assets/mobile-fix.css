@@ -1240,54 +1240,67 @@ a.level {
 }
 
 /* ============================================================
-   HERO-KIDS — UNIFY canopy on mobile (2026-06-09)
-   Эталон: body-and-grammar-pink.html (см. file_230).
-   Проблемы: в Easter (a1/easter-english-lesson.html) кролик
-   обрезается снизу + пилюли уходят за край баннера. В Hello
-   (pre-a1/hello-classroom-fun.html) пилюли уровня выпадают
-   в серую область под hero на mobile.
-   Причина: лессон-локальные inline-CSS дают слишком маленький
-   min-height для hero на ≤650px + .canon-l-hero-meta рендерится
-   flex-wrap row → пилюли вылетают за карточку.
-   Лечение: единый эталон — min-height 570px + grid 2×2 для
-   pills, применяется ко ВСЕМ .canon-l-hero.is-hero-kids
-   независимо от lb-page-* класса.
+   HERO-KIDS — UNIFY canopy on mobile (2026-06-09 v3, REWORKED)
+   ------------------------------------------------------------
+   Эталон: body-and-grammar-pink.html @ file_230 (13:50).
+   Перевернутые проблемы: в Easter / Hello illustration исчезала
+   из-за `object-position: 62% center` (мальчик уехал за экран),
+   pills вылетали за hero card.
+   ------------------------------------------------------------
+   Решение (одно правило для ВСЕХ is-hero-kids):
+   1) canon-l-hero — position:relative, overflow:hidden,
+      min-height:640px (вмещает текст + 2×2 pills)
+   2) canon-l-hero-bg — абсолютный fill, object-position:center
+      (НЕ 62% — это уносит мальчика; пусть лессоны управляют
+      сами через свои overrides)
+   3) canon-l-hero-inner — relative, z-index:2 поверх bg
+   4) canon-l-hero-meta — grid 2×2, всё помещается ВНУТРИ hero
    ============================================================ */
-@media (max-width: 650px) {
-  body.lb-canon-target .canon-l-hero.is-hero-kids,
-  body[class*="lb-page-"] .canon-l-hero.is-hero-kids {
-    min-height: 570px !important;
+@media (max-width: 680px) {
+  html body.lb-canon-target .canon-l-hero.is-hero-kids,
+  html body[class*="lb-page-"] .canon-l-hero.is-hero-kids {
+    position: relative !important;
+    min-height: 640px !important;
     overflow: hidden !important;
     border-radius: 22px !important;
   }
-  body.lb-canon-target .canon-l-hero.is-hero-kids .canon-l-hero-bg,
-  body[class*="lb-page-"] .canon-l-hero.is-hero-kids .canon-l-hero-bg {
+  html body.lb-canon-target .canon-l-hero.is-hero-kids .canon-l-hero-bg,
+  html body[class*="lb-page-"] .canon-l-hero.is-hero-kids .canon-l-hero-bg {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 0 !important;
+    display: block !important;
     object-fit: cover !important;
-    object-position: 62% center !important;
     opacity: 1 !important;
   }
-  body.lb-canon-target .canon-l-hero.is-hero-kids .canon-l-hero-inner,
-  body[class*="lb-page-"] .canon-l-hero.is-hero-kids .canon-l-hero-inner {
-    max-width: 330px !important;
-    padding: 28px 12px !important;
+  html body.lb-canon-target .canon-l-hero.is-hero-kids .canon-l-hero-inner,
+  html body[class*="lb-page-"] .canon-l-hero.is-hero-kids .canon-l-hero-inner {
+    position: relative !important;
+    z-index: 2 !important;
+    max-width: 340px !important;
+    padding: 30px 14px 36px !important;
     box-sizing: border-box !important;
   }
-  body.lb-canon-target .canon-l-hero.is-hero-kids .canon-l-hero-meta,
-  body[class*="lb-page-"] .canon-l-hero.is-hero-kids .canon-l-hero-meta {
+  html body.lb-canon-target .canon-l-hero.is-hero-kids .canon-l-hero-meta,
+  html body[class*="lb-page-"] .canon-l-hero.is-hero-kids .canon-l-hero-meta {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
     gap: 8px !important;
     max-width: 300px !important;
     margin-top: 14px !important;
+    margin-bottom: 0 !important;
+    overflow: visible !important;
   }
-  body.lb-canon-target .canon-l-hero.is-hero-kids .canon-l-hero-pill,
-  body[class*="lb-page-"] .canon-l-hero.is-hero-kids .canon-l-hero-pill {
+  html body.lb-canon-target .canon-l-hero.is-hero-kids .canon-l-hero-pill,
+  html body[class*="lb-page-"] .canon-l-hero.is-hero-kids .canon-l-hero-pill {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     min-height: 36px !important;
     padding: 6px 10px !important;
-    font-size: 11px !important;
+    font-size: 10.5px !important;
     line-height: 1.2 !important;
     white-space: nowrap !important;
     text-align: center !important;
