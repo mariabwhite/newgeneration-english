@@ -994,33 +994,43 @@ button, a.btn, a.module-link, a.hero-link, .draggable, .dropzone,
 }
 
 /* ============================================================
-   LAB CATALOG LEVEL CHIPS — HARD SQUARE on ALL viewports
-   (2026-06-09) Маша: пилюли уровней должны быть КВАДРАТНЫМИ,
-   не круглыми. Override desktop default 10px → 4px so chips
-   look like square cells, not pills.
-   Scope: .level-row .level / a.level only — does NOT touch
-   topbar .canon-l-pill.canon-l-level (that one keeps its own
-   light-translucent unified style).
+   LAB CATALOG LEVEL CHIPS — SOFT SQUARE on ALL viewports
+   (2026-06-09 v2) Маша: «скруглены как везде на сайте» — 4px
+   слишком резко, возвращаю 10px (мягкий квадрат, как .control-btn
+   на главной и как .lbs-lang-btn по умолчанию в Lab catalog).
    ============================================================ */
 .level-row .level,
 a.level,
 .level-row a.level {
-  border-radius: 4px !important;
+  border-radius: 10px !important;
 }
 
 /* ============================================================
-   TOPBAR PILLS — HARD SQUARE on ALL viewports (2026-06-09)
-   Маша: CAB / THEME / RU / EN в шапке Lab — сейчас круглые
-   (canon-L.css базово border-radius:999px), должны быть мягкий
-   квадрат. Force 4px on every .canon-l-pill (CAB, lang-toggle,
-   theme-toggle, canon-l-level) regardless of theme / viewport.
+   TOPBAR PILLS — SOFT SQUARE + vertical alignment fix (2026-06-09 v2)
+   1) Was 999px (round) by canon-L.css default. Маша хочет мягкий
+      квадрат как везде на сайте — 10px.
+   2) Пилюля темы (<button>) рендерится на ~1mm выше CAB (<a>) и
+      EN (<button>) из-за разных default line-height / vertical-
+      align между <button> и <a>. Принудительно выравниваю по
+      flex center + margin 0.
    ============================================================ */
 .canon-l-pill,
 .canon-l-tools .canon-l-pill,
 [data-theme] .canon-l-pill,
 body.light .canon-l-pill,
 body.dark .canon-l-pill {
-  border-radius: 4px !important;
+  border-radius: 10px !important;
+}
+
+.canon-l-tools {
+  align-items: center !important;
+}
+.canon-l-tools > .canon-l-pill {
+  margin: 0 !important;
+  align-self: center !important;
+  vertical-align: middle !important;
+  line-height: 1 !important;
+  box-sizing: border-box !important;
 }
 
 
