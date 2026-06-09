@@ -2966,6 +2966,53 @@ html body footer.canon-l-footer .canon-l-footer-legal {
 /* Restaurant ? fixed rosegold palette, no dark variant.
    (Dark-mode overrides removed ? Сѓ СЌС‚РѕРіРѕ СѓСЂРѕРєР° РЅРµС‚ dark mode, С‚РµР�Р° Р¶С�СЃС‚РєРѕ
    С„РёРєСЃРёСЂСѓРµС‚СЃСЏ С‡РµСЂРµР· lab-theme-sync.js ? fixedDisplayThemes ? "rosegold".) */
-</style></body>
+</style>
+<style id="restaurant-hero-visual-mobile-fix-20260609">
+/* 2026-06-09: on mobile the chef illustration drifted BELOW the hero
+   instead of staying as background. Force .hero-visual to keep its
+   absolute-fill behavior at all viewport widths so the chef sits
+   inside the hero card (cream pocket on the left, chef on the right),
+   identical to desktop. */
+html body .hero {
+  position: relative !important;
+}
+@media (max-width: 920px) {
+  html body .hero {
+    position: relative !important;
+    overflow: hidden !important;
+    min-height: 360px !important;
+  }
+  html body .hero-inner {
+    position: relative !important;
+    z-index: 2 !important;
+  }
+  html body .hero-visual {
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    pointer-events: none !important;
+    display: block !important;
+  }
+  html body .hero-visual img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: right center !important;
+    display: block !important;
+    opacity: 1 !important;
+  }
+  html body .hero-inner > div:first-child {
+    position: relative !important;
+    z-index: 3 !important;
+  }
+}
+</style>
+</body>
 </html>
 
