@@ -19,14 +19,17 @@ img, video {
   height: auto;
 }
 
-/* Long English words / hashes / URLs must wrap on tiny screens */
+/* Long English words / hashes / URLs must wrap on tiny screens.
+   2026-06-09: hyphens:auto chopped hero titles into "Menu Archi-tect",
+   "Gram-mar Arcade", "уро-ки", "лингвистиче-ской". Now manual only —
+   browser inserts hyphen only at explicit &shy; in markup. */
 @media (max-width: 640px) {
   h1, h2, h3, h4, p, li, td, th, dt, dd,
   .lead, .hero-lead, .lesson-hero-lead,
   .module-title, .section-copy, .section-head h2 {
     overflow-wrap: anywhere;
     word-break: normal;
-    hyphens: auto;
+    hyphens: manual;
   }
 }
 
@@ -925,3 +928,68 @@ button, a.btn, a.module-link, a.hero-link, .draggable, .dropzone,
     display: none !important;
   }
 }
+
+/* ============================================================
+   UNIFICATION PASS 2026-06-09
+   ------------------------------------------------------------
+   Маша screenshots 09.06 12:35-12:45 — five recurring problems:
+   1) Topbar .canon-l-level (B1 pill) renders BLACK in Word Forge,
+      Grammar Arcade and Whispering Library — invisible on dark
+      Whisper background, ugly on light backgrounds. Should match
+      .lang-toggle (light translucent like RU/EN pill).
+   2) Hero soft-square buttons inconsistent radius/size across
+      lessons — unify to 12px with consistent padding.
+   3) Hero pills inside .canon-l-hero-meta sometimes overflow
+      the hero card on tiny screens — let them wrap and stay
+      readable instead of clipping.
+   ============================================================ */
+@media (max-width: 640px) {
+
+  /* 1. TOPBAR LEVEL PILL — light translucent style, matches lang-toggle.
+        Overrides any per-lesson dark variant (Whisper, Word Forge, etc.). */
+  .canon-l-topbar .canon-l-tools .canon-l-pill.canon-l-level,
+  .canon-l-topbar .canon-l-pill.canon-l-level {
+    background: rgba(255, 255, 255, 0.92) !important;
+    color: #1a1a1a !important;
+    border: 1px solid rgba(0, 0, 0, 0.10) !important;
+    font-weight: 700 !important;
+    letter-spacing: .04em !important;
+  }
+
+  /* 2. HERO PILLS — soft square, readable on any background,
+        prevent vertical clipping when wrapped on narrow screens. */
+  .canon-l-hero-meta {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    row-gap: 8px !important;
+    overflow: visible !important;
+  }
+  .canon-l-hero-meta > .canon-l-hero-pill {
+    background: rgba(255, 255, 255, 0.96) !important;
+    color: #1a1a1a !important;
+    border: 1px solid rgba(0, 0, 0, 0.10) !important;
+    border-radius: 12px !important;
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+  }
+
+  /* 3. HERO card itself — allow pills to render below the visual
+        instead of being chopped by overflow:hidden / fixed height. */
+  .canon-l-hero {
+    overflow: visible !important;
+  }
+  .canon-l-hero-inner {
+    padding-bottom: 28px !important;
+  }
+
+  /* 4. BUTTONS — universal soft-square radius across Lab lessons. */
+  .hero-cta, .hero-actions a, .hero-actions button,
+  .canon-l-hero a, .canon-l-hero button,
+  .canon-l-mission-card a, .canon-l-mission-card button,
+  .canon-l-cta, .lb-btn, .btn-primary, .btn-secondary {
+    border-radius: 12px !important;
+  }
+}
+
