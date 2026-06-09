@@ -1257,15 +1257,17 @@ a.level {
    4) canon-l-hero-meta — grid 2×2, всё помещается ВНУТРИ hero
    ============================================================ */
 @media (max-width: 680px) {
-  html body.lb-canon-target .canon-l-hero.is-hero-kids,
-  html body[class*="lb-page-"] .canon-l-hero.is-hero-kids {
+  /* Apply to ALL canon-l-hero variants (kids / clean / soft) EXCEPT
+     is-hero-drama which has its own perfect layout (Ancient China). */
+  html body.lb-canon-target .canon-l-hero:not(.is-hero-drama),
+  html body[class*="lb-page-"] .canon-l-hero:not(.is-hero-drama) {
     position: relative !important;
     min-height: 640px !important;
     overflow: hidden !important;
     border-radius: 22px !important;
   }
-  html body.lb-canon-target .canon-l-hero.is-hero-kids .canon-l-hero-bg,
-  html body[class*="lb-page-"] .canon-l-hero.is-hero-kids .canon-l-hero-bg {
+  html body.lb-canon-target .canon-l-hero:not(.is-hero-drama) .canon-l-hero-bg,
+  html body[class*="lb-page-"] .canon-l-hero:not(.is-hero-drama) .canon-l-hero-bg {
     position: absolute !important;
     inset: 0 !important;
     width: 100% !important;
@@ -1276,24 +1278,26 @@ a.level {
     object-position: right center !important;
     opacity: 1 !important;
   }
-  /* Lesson-specific bias for hero illustrations where character is
-     not on the right side. Override the right-center default. */
-  html body.lb-page-easter .canon-l-hero.is-hero-kids .canon-l-hero-bg {
+  /* Lesson-specific bias for hero illustrations. */
+  html body.lb-page-easter .canon-l-hero .canon-l-hero-bg {
     object-position: 60% center !important; /* bunny + basket centered-right */
   }
-  html body.lb-page-hello-classroom-fun .canon-l-hero.is-hero-kids .canon-l-hero-bg {
+  html body.lb-page-hello-classroom-fun .canon-l-hero .canon-l-hero-bg {
     object-position: right center !important; /* chef on the right */
   }
-  html body.lb-canon-target .canon-l-hero.is-hero-kids .canon-l-hero-inner,
-  html body[class*="lb-page-"] .canon-l-hero.is-hero-kids .canon-l-hero-inner {
+  html body.lb-page-english-booster .canon-l-hero .canon-l-hero-bg {
+    object-position: center center !important; /* kids in middle */
+  }
+  html body.lb-canon-target .canon-l-hero:not(.is-hero-drama) .canon-l-hero-inner,
+  html body[class*="lb-page-"] .canon-l-hero:not(.is-hero-drama) .canon-l-hero-inner {
     position: relative !important;
     z-index: 2 !important;
     max-width: 340px !important;
     padding: 30px 14px 36px !important;
     box-sizing: border-box !important;
   }
-  html body.lb-canon-target .canon-l-hero.is-hero-kids .canon-l-hero-meta,
-  html body[class*="lb-page-"] .canon-l-hero.is-hero-kids .canon-l-hero-meta {
+  html body.lb-canon-target .canon-l-hero:not(.is-hero-drama) .canon-l-hero-meta,
+  html body[class*="lb-page-"] .canon-l-hero:not(.is-hero-drama) .canon-l-hero-meta {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
     gap: 8px !important;
@@ -1302,8 +1306,8 @@ a.level {
     margin-bottom: 0 !important;
     overflow: visible !important;
   }
-  html body.lb-canon-target .canon-l-hero.is-hero-kids .canon-l-hero-pill,
-  html body[class*="lb-page-"] .canon-l-hero.is-hero-kids .canon-l-hero-pill {
+  html body.lb-canon-target .canon-l-hero:not(.is-hero-drama) .canon-l-hero-pill,
+  html body[class*="lb-page-"] .canon-l-hero:not(.is-hero-drama) .canon-l-hero-pill {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
