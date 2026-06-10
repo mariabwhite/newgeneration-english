@@ -3376,6 +3376,25 @@ body :is(.practice-item,.practice-q,.section-body,.block-intro,.minitask-detail)
   min-width: 0 !important;
   overflow-wrap: anywhere !important;
 }
+
+/* 2026-06-10: mobile touch UX для drag-элементов (tap-fallback уже есть в JS) */
+@media (hover:none){
+  body.lb-page-past-simple-adventure .drag-tile,
+  body.lb-page-past-simple-adventure .drop-zone,
+  body.lb-page-past-simple-adventure .phrase-capsule{
+    touch-action:manipulation!important;
+    -webkit-touch-callout:none!important;
+    -webkit-user-select:none!important;
+    user-select:none!important;
+    -webkit-user-drag:none!important;
+    min-height:44px!important;
+  }
+  body.lb-page-past-simple-adventure .drag-tile{cursor:pointer!important;}
+  body.lb-page-past-simple-adventure .drag-tile.is-picked,
+  body.lb-page-past-simple-adventure .phrase-capsule.is-picked{
+    outline:2px solid #ff8a3d!important;outline-offset:2px!important;
+  }
+}
 </style>
 </head>
 <body class="nge-unified-lab lb-grid-v2 lb-level-a1 lb-page-past-simple-adventure">
@@ -4124,6 +4143,8 @@ function initDrag(){
     tile.dataset.past = pair.past;
     tile.addEventListener('click', function(){
       if(tile.classList.contains('is-used')) return;
+      pool.querySelectorAll('.drag-tile.is-picked').forEach(function(t){ t.classList.remove('is-picked'); });
+      tile.classList.add('is-picked');
       draggedPast = tile.dataset.past;
       setText('dragFeedback', 'Now tap the matching base form.');
     });
