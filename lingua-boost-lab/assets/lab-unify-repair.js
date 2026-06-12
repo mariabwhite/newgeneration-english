@@ -1,4 +1,4 @@
-(function(){
+﻿(function(){
   var criticalCss = `
 @media (max-width: 720px) {
   .canon-l-hero,
@@ -31,14 +31,14 @@
   }
   .canon-l-hero-title,
   .canon-l-hero-title em {
-    /* break-word ломает только если слово реально не помещается,
-       не дробит по буквам как anywhere. Fixes Classroo/m, Pro/nouns. */
+    /* break-word Р»РѕРјР°РµС‚ С‚РѕР»СЊРєРѕ РµСЃР»Рё СЃР»РѕРІРѕ СЂРµР°Р»СЊРЅРѕ РЅРµ РїРѕРјРµС‰Р°РµС‚СЃСЏ,
+       РЅРµ РґСЂРѕР±РёС‚ РїРѕ Р±СѓРєРІР°Рј РєР°Рє anywhere. Fixes Classroo/m, Pro/nouns. */
     overflow-wrap: break-word !important;
     word-break: normal !important;
     hyphens: auto !important;
     -webkit-hyphens: auto !important;
-    /* Maria 27.05: «модули» (6 букв) разбивалось как «мо-/дули» на каталоге.
-       Не ломать короткие слова: минимум 8 букв всего, 4 до дефиса, 3 после. */
+    /* Maria 27.05: В«РјРѕРґСѓР»РёВ» (6 Р±СѓРєРІ) СЂР°Р·Р±РёРІР°Р»РѕСЃСЊ РєР°Рє В«РјРѕ-/РґСѓР»РёВ» РЅР° РєР°С‚Р°Р»РѕРіРµ.
+       РќРµ Р»РѕРјР°С‚СЊ РєРѕСЂРѕС‚РєРёРµ СЃР»РѕРІР°: РјРёРЅРёРјСѓРј 8 Р±СѓРєРІ РІСЃРµРіРѕ, 4 РґРѕ РґРµС„РёСЃР°, 3 РїРѕСЃР»Рµ. */
     -webkit-hyphenate-limit-before: 4;
     -webkit-hyphenate-limit-after: 3;
     -webkit-hyphenate-limit-lines: 2;
@@ -46,26 +46,26 @@
   }
   .canon-l-hero-meta {
     flex-wrap: wrap !important;
-    /* "$ LAB --LEVEL" badge breathing room — Maria 27.05 (повторно): «прилипает к A1, прячется за полосу».
-       Усилено до 36px, плюс margin-bottom чтобы A1 не липла к фиолетовой плашке. */
+    /* "$ LAB --LEVEL" badge breathing room вЂ” Maria 27.05 (РїРѕРІС‚РѕСЂРЅРѕ): В«РїСЂРёР»РёРїР°РµС‚ Рє A1, РїСЂСЏС‡РµС‚СЃСЏ Р·Р° РїРѕР»РѕСЃСѓВ».
+       РЈСЃРёР»РµРЅРѕ РґРѕ 36px, РїР»СЋСЃ margin-bottom С‡С‚РѕР±С‹ A1 РЅРµ Р»РёРїР»Р° Рє С„РёРѕР»РµС‚РѕРІРѕР№ РїР»Р°С€РєРµ. */
     margin-top: 36px !important;
     margin-bottom: 18px !important;
     scroll-margin-top: 100px;
   }
-  /* Hero block itself — больше воздуха сверху, чтобы Codex'овский fixed-topbar не наезжал */
+  /* Hero block itself вЂ” Р±РѕР»СЊС€Рµ РІРѕР·РґСѓС…Р° СЃРІРµСЂС…Сѓ, С‡С‚РѕР±С‹ Codex'РѕРІСЃРєРёР№ fixed-topbar РЅРµ РЅР°РµР·Р¶Р°Р» */
   .canon-l-hero {
     padding-top: 24px !important;
   }
-  /* A1/уровень-заголовок — отдельный gap от плашки */
+  /* A1/СѓСЂРѕРІРµРЅСЊ-Р·Р°РіРѕР»РѕРІРѕРє вЂ” РѕС‚РґРµР»СЊРЅС‹Р№ gap РѕС‚ РїР»Р°С€РєРё */
   .canon-l-hero-title {
     margin-top: 8px !important;
     font-size: clamp(2rem, 10vw, 2.6rem) !important;
     line-height: 0.98 !important;
   }
-  /* Lesson Flow карточки (1-5 шагов урока) — Maria 27.05 file_50:
-     текст «Активна / Lear-n / Итогово / Reading Check» обрезался справа.
-     Уменьшаем padding-left (был 86px под крупную иконку), убираем min-height,
-     разрешаем перенос по слогам. */
+  /* Lesson Flow РєР°СЂС‚РѕС‡РєРё (1-5 С€Р°РіРѕРІ СѓСЂРѕРєР°) вЂ” Maria 27.05 file_50:
+     С‚РµРєСЃС‚ В«РђРєС‚РёРІРЅР° / Lear-n / РС‚РѕРіРѕРІРѕ / Reading CheckВ» РѕР±СЂРµР·Р°Р»СЃСЏ СЃРїСЂР°РІР°.
+     РЈРјРµРЅСЊС€Р°РµРј padding-left (Р±С‹Р» 86px РїРѕРґ РєСЂСѓРїРЅСѓСЋ РёРєРѕРЅРєСѓ), СѓР±РёСЂР°РµРј min-height,
+     СЂР°Р·СЂРµС€Р°РµРј РїРµСЂРµРЅРѕСЃ РїРѕ СЃР»РѕРіР°Рј. */
   .flow-card {
     padding: 22px 14px 16px 66px !important;
     min-height: auto !important;
@@ -82,7 +82,7 @@
     max-width: 100%;
   }
   /* Unify lesson banner widths so blocks line up at one column width.
-     Maria 27.05: «все блоки разной ширины». */
+     Maria 27.05: В«РІСЃРµ Р±Р»РѕРєРё СЂР°Р·РЅРѕР№ С€РёСЂРёРЅС‹В». */
   .canon-l-hero,
   .canon-l-hero-inner,
   .canon-l-section,
@@ -113,8 +113,8 @@
     hyphens: auto !important;
     -webkit-hyphens: auto !important;
   }
-  /* P4: Lab topbar — scroll-away поведение как на main site (Codex db5e042).
-     На mobile топбар в нормальном потоке, уезжает вместе со страницей. */
+  /* P4: Lab topbar вЂ” scroll-away РїРѕРІРµРґРµРЅРёРµ РєР°Рє РЅР° main site (Codex db5e042).
+     РќР° mobile С‚РѕРїР±Р°СЂ РІ РЅРѕСЂРјР°Р»СЊРЅРѕРј РїРѕС‚РѕРєРµ, СѓРµР·Р¶Р°РµС‚ РІРјРµСЃС‚Рµ СЃРѕ СЃС‚СЂР°РЅРёС†РµР№. */
   .canon-l-topbar {
     position: relative !important;
     top: auto !important;
@@ -125,13 +125,13 @@
     -webkit-transform: none !important;
     will-change: auto !important;
   }
-  /* P6: Скрыть ghost concentric circles справа от уровней на каталоге Lab.
-     Maria 27.05 file_48: «o o» рядом с A1 смотрятся непонятно на mobile. */
+  /* P6: РЎРєСЂС‹С‚СЊ ghost concentric circles СЃРїСЂР°РІР° РѕС‚ СѓСЂРѕРІРЅРµР№ РЅР° РєР°С‚Р°Р»РѕРіРµ Lab.
+     Maria 27.05 file_48: В«o oВ» СЂСЏРґРѕРј СЃ A1 СЃРјРѕС‚СЂСЏС‚СЃСЏ РЅРµРїРѕРЅСЏС‚РЅРѕ РЅР° mobile. */
   .level-section::before {
     display: none !important;
   }
-  /* P2: Бургер-меню для .canon-l-nav на уроках. Maria 27.05: «ЦЕЛЬ/ГРАММАТИКА/
-     ПРАКТИКА/... — много, полоса жирная, РЕЗУЛЬТАТ обрезается. Сделай сэндвич». */
+  /* P2: Р‘СѓСЂРіРµСЂ-РјРµРЅСЋ РґР»СЏ .canon-l-nav РЅР° СѓСЂРѕРєР°С…. Maria 27.05: В«Р¦Р•Р›Р¬/Р“Р РђРњРњРђРўРРљРђ/
+     РџР РђРљРўРРљРђ/... вЂ” РјРЅРѕРіРѕ, РїРѕР»РѕСЃР° Р¶РёСЂРЅР°СЏ, Р Р•Р—РЈР›Р¬РўРђРў РѕР±СЂРµР·Р°РµС‚СЃСЏ. РЎРґРµР»Р°Р№ СЃСЌРЅРґРІРёС‡В». */
   .canon-l-nav.has-burger {
     position: relative !important;
   }
@@ -573,7 +573,7 @@
     }
   }
 }
-/* P2 desktop: бургер не нужен — табы помещаются */
+/* P2 desktop: Р±СѓСЂРіРµСЂ РЅРµ РЅСѓР¶РµРЅ вЂ” С‚Р°Р±С‹ РїРѕРјРµС‰Р°СЋС‚СЃСЏ */
 @media (min-width: 1025px) {
   .canon-l-burger { display: none !important; }
 }`;
@@ -586,10 +586,10 @@
     document.head.appendChild(style);
   }
 
-  /* Maria 27.05: «LinguaBoost Lab орёт при входе». Дополнительная защита:
-     при загрузке любой Lab-страницы немедленно отменяем любую речь, которая
-     могла начаться. Сам speak() в studio-shell/teaser вызывается только по клику,
-     но если где-то остался артефакт — этот стоп его перекроет. */
+  /* Maria 27.05: В«LinguaBoost Lab РѕСЂС‘С‚ РїСЂРё РІС…РѕРґРµВ». Р”РѕРїРѕР»РЅРёС‚РµР»СЊРЅР°СЏ Р·Р°С‰РёС‚Р°:
+     РїСЂРё Р·Р°РіСЂСѓР·РєРµ Р»СЋР±РѕР№ Lab-СЃС‚СЂР°РЅРёС†С‹ РЅРµРјРµРґР»РµРЅРЅРѕ РѕС‚РјРµРЅСЏРµРј Р»СЋР±СѓСЋ СЂРµС‡СЊ, РєРѕС‚РѕСЂР°СЏ
+     РјРѕРіР»Р° РЅР°С‡Р°С‚СЊСЃСЏ. РЎР°Рј speak() РІ studio-shell/teaser РІС‹Р·С‹РІР°РµС‚СЃСЏ С‚РѕР»СЊРєРѕ РїРѕ РєР»РёРєСѓ,
+     РЅРѕ РµСЃР»Рё РіРґРµ-С‚Рѕ РѕСЃС‚Р°Р»СЃСЏ Р°СЂС‚РµС„Р°РєС‚ вЂ” СЌС‚РѕС‚ СЃС‚РѕРї РµРіРѕ РїРµСЂРµРєСЂРѕРµС‚. */
   function stopAutoSpeech(){
     try {
       if (window.speechSynthesis) {
@@ -598,28 +598,28 @@
     } catch(_) {}
   }
 
-  /* P2: Бургер-меню для .canon-l-nav когда табов > 4 (уроки).
-     На каталоге Lab обычно 4 таба — не трогаем. На уроках — 6+ табов
-     («Цель/Грамматика/Практика/Задания/Чтение/Результат») обрезаются на mobile. */
+  /* P2: Р‘СѓСЂРіРµСЂ-РјРµРЅСЋ РґР»СЏ .canon-l-nav РєРѕРіРґР° С‚Р°Р±РѕРІ > 4 (СѓСЂРѕРєРё).
+     РќР° РєР°С‚Р°Р»РѕРіРµ Lab РѕР±С‹С‡РЅРѕ 4 С‚Р°Р±Р° вЂ” РЅРµ С‚СЂРѕРіР°РµРј. РќР° СѓСЂРѕРєР°С… вЂ” 6+ С‚Р°Р±РѕРІ
+     (В«Р¦РµР»СЊ/Р“СЂР°РјРјР°С‚РёРєР°/РџСЂР°РєС‚РёРєР°/Р—Р°РґР°РЅРёСЏ/Р§С‚РµРЅРёРµ/Р РµР·СѓР»СЊС‚Р°С‚В») РѕР±СЂРµР·Р°СЋС‚СЃСЏ РЅР° mobile. */
   function setupNavBurger(){
     var navs = document.querySelectorAll(".canon-l-nav");
     if (!navs.length) return;
     navs.forEach(function(nav){
       var links = nav.querySelectorAll(".canon-l-link");
-      if (links.length <= 4) return; // 4 и меньше — помещаются
-      if (nav.classList.contains("has-burger")) return; // уже обработан
+      if (links.length <= 4) return; // 4 Рё РјРµРЅСЊС€Рµ вЂ” РїРѕРјРµС‰Р°СЋС‚СЃСЏ
+      if (nav.classList.contains("has-burger")) return; // СѓР¶Рµ РѕР±СЂР°Р±РѕС‚Р°РЅ
 
       nav.classList.add("has-burger");
 
-      // Кнопка ☰
+      // РљРЅРѕРїРєР° в°
       var btn = document.createElement("button");
       btn.type = "button";
       btn.className = "canon-l-burger";
-      btn.setAttribute("aria-label", "Меню урока");
+      btn.setAttribute("aria-label", "РњРµРЅСЋ СѓСЂРѕРєР°");
       btn.setAttribute("aria-expanded", "false");
-      btn.innerHTML = '<span class="canon-l-burger-icon">☰</span><span>Меню</span>';
+      btn.innerHTML = '<span class="canon-l-burger-icon">в°</span><span>РњРµРЅСЋ</span>';
 
-      // Вставить кнопку перед nav
+      // Р’СЃС‚Р°РІРёС‚СЊ РєРЅРѕРїРєСѓ РїРµСЂРµРґ nav
       var tools = nav.parentNode.querySelector(".canon-l-tools");
       if(tools) tools.insertBefore(btn, tools.firstChild);
       else nav.parentNode.insertBefore(btn, nav);
@@ -636,7 +636,7 @@
         toggle();
       });
 
-      // Клик по ссылке закрывает меню (чтобы не висело при scroll)
+      // РљР»РёРє РїРѕ СЃСЃС‹Р»РєРµ Р·Р°РєСЂС‹РІР°РµС‚ РјРµРЅСЋ (С‡С‚РѕР±С‹ РЅРµ РІРёСЃРµР»Рѕ РїСЂРё scroll)
       links.forEach(function(link){
         link.addEventListener("click", function(){
           nav.classList.remove("is-open");
@@ -645,7 +645,7 @@
         });
       });
 
-      // Клик вне nav — закрыть
+      // РљР»РёРє РІРЅРµ nav вЂ” Р·Р°РєСЂС‹С‚СЊ
       document.addEventListener("click", function(e){
         if (!nav.contains(e.target) && !btn.contains(e.target)) {
           nav.classList.remove("is-open");
@@ -1003,7 +1003,7 @@ body[data-lb-page="english-booster"] .core-line-chip {
     text-transform: uppercase !important;
   }
 
-  /* HERO PILL EQUALIZATION — A1/BONUS/SCHOOL WORDS/PRONOUNS равной ширины в 2 колонки */
+  /* HERO PILL EQUALIZATION вЂ” A1/BONUS/SCHOOL WORDS/PRONOUNS СЂР°РІРЅРѕР№ С€РёСЂРёРЅС‹ РІ 2 РєРѕР»РѕРЅРєРё */
   html body .canon-l-hero-meta {
     display: grid !important;
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
@@ -1095,14 +1095,16 @@ body[data-lb-page="english-booster"] .core-line-chip {
   function lockMobileWidths(){
     classifyLesson();
     if(window.innerWidth > 720) return;
-    var mobileWidth = Math.max(280, window.innerWidth - 64) + "px";
-    document.querySelectorAll(".canon-l-hero, .canon-l-hero-inner").forEach(function(node){
+    var mobileWidth = Math.max(280, window.innerWidth - 28) + "px";
+    document.querySelectorAll(".canon-l-hero, .hero, .hero-mini, .module-hero, .lesson-hero, .core-hero, .main-hero, .canon-l-tracker, .wl-tracker, .tracker, .step-tracker, .progress-header, .booster-mission, .booster-map, .booster-report, .arcade-mission, .mission-card, .mission-brief, .round-card, .game-card, .canon-l-card, .lesson-foot, .tab-nav, .tab-content, .utility-strip, .core-smart-strip, #blocksContainer").forEach(function(node){
       node.style.setProperty("width", mobileWidth, "important");
       node.style.setProperty("inline-size", mobileWidth, "important");
       node.style.setProperty("max-width", mobileWidth, "important");
       node.style.setProperty("max-inline-size", mobileWidth, "important");
       node.style.setProperty("min-width", "0", "important");
       node.style.setProperty("box-sizing", "border-box", "important");
+      node.style.setProperty("margin-left", "auto", "important");
+      node.style.setProperty("margin-right", "auto", "important");
     });
     if(document.body && document.body.dataset.lbPage === "restaurant-menu"){
       var restaurantWidth = Math.max(280, window.innerWidth - 28) + "px";
@@ -1341,7 +1343,7 @@ body[data-lb-page="english-booster"] .core-line-chip {
       btn.className = "canon-l-burger";
       btn.setAttribute("aria-label", "Lesson menu");
       btn.setAttribute("aria-expanded", "false");
-      btn.innerHTML = '<span class="canon-l-burger-icon">☰</span><span>Menu</span>';
+      btn.innerHTML = '<span class="canon-l-burger-icon">в°</span><span>Menu</span>';
       nav.parentNode.insertBefore(btn, nav);
       function toggle(){
         var open = !nav.classList.contains("is-open");
@@ -1648,3 +1650,4 @@ body[data-lb-page="english-booster"] .core-line-chip {
     hideFooterLogos();
   }).observe(document.documentElement, { childList: true, subtree: true });
 })();
+
