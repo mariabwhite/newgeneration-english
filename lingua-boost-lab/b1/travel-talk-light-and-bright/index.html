@@ -110,19 +110,29 @@ button { font: inherit; cursor: pointer; }
 }
 .spacer { flex: 1; margin-left: auto; }
 .topbar > .btn-sm { margin-left: 8px; }
+.btn-short { display: none; }
+.btn-long { display: inline; }
+@media (max-width: 540px) {
+  .btn-short { display: inline; }
+  .btn-long { display: none; }
+}
 .btn-sm {
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 8px;
   font-family: var(--mono);
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+  cursor: pointer;
+  border: 1px solid rgba(0,0,0,0.15);
+  background: transparent;
   color: var(--text-2);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  padding: 8px 14px;
-  border-radius: 999px;
+  transition: all 0.16s;
   text-decoration: none;
-  transition: 0.18s;
+  display: inline-flex;
+  align-items: center;
 }
 .btn-sm:hover { border-color: var(--accent); color: var(--accent); }
 
@@ -1140,7 +1150,7 @@ details.homework[open] summary { margin-bottom: 12px; }
 details.homework .hw-body { color: var(--text-2); font-size: 0.94rem; }
 details.homework p { margin-bottom: 8px; }
 
-/* ─── FOOTER ─── */
+/* ─── FOOTER (как на главной — JetBrains Mono) ─── */
 footer {
   margin-top: 48px;
   padding: 26px clamp(16px, 4vw, 32px);
@@ -1148,15 +1158,17 @@ footer {
   border-top: 1px solid var(--line);
   text-align: center;
   color: var(--text-2);
-  font-size: 0.92rem;
-  font-family: var(--body);
+  font-size: 11.5px;
+  font-family: var(--mono);
+  font-weight: 500;
+  letter-spacing: 0.06em;
   line-height: 1.7;
 }
 footer strong { color: var(--accent2); font-weight: 700; }
 footer small {
   display: inline-block;
   margin-top: 6px;
-  font-size: 0.75rem;
+  font-size: 10px;
   color: var(--muted);
   font-family: var(--mono);
   letter-spacing: 0.08em;
@@ -1165,16 +1177,39 @@ footer small {
 
 /* ─── MOBILE ─── */
 @media (max-width: 820px) {
-  .wrap { padding: 20px 16px 60px; }
+  .wrap { padding: 18px 14px 50px; }
   .lab-hero { border-radius: 18px; }
-  .lab-hero-inner { padding: 32px 22px; min-height: 360px; }
-  .topbar-nav { display: none; }
-  .topbar { padding: 8px 14px; gap: 10px; }
-  .section { margin-bottom: 36px; }
+  .lab-hero-inner { padding: 28px 20px; min-height: 340px; }
+  .topbar { padding: 8px 12px; gap: 8px; }
+  .topbar .btn-sm { font-size: 9px; padding: 0 8px; min-height: 28px; letter-spacing: 0.08em; }
+  .brand-mark { width: 32px; height: 32px; font-size: 16px; }
+  .brand-name { font-size: 12.5px; letter-spacing: 0.05em; }
+  .brand-sub { font-size: 9.5px; letter-spacing: 0.16em; }
+
+  .section { margin-bottom: 28px; }
   .section-sub { margin-left: 0; }
   .flip-grid { grid-template-columns: repeat(2, 1fr); }
   .match-bank { grid-template-columns: 1fr; }
   .role-grid { grid-template-columns: 1fr; }
+
+  /* Progress 15 cells — scroll horizontally on mobile */
+  .progress-wrap { padding: 12px 14px; }
+  .star-bar {
+    overflow-x: auto;
+    overflow-y: hidden;
+    justify-content: flex-start;
+    gap: 5px;
+    padding-bottom: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent3) var(--surface-2);
+    mask-image: linear-gradient(90deg, var(--bg) 0, var(--bg) 95%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, var(--bg) 0, var(--bg) 95%, transparent 100%);
+  }
+  .star-bar::-webkit-scrollbar { height: 4px; }
+  .star-bar::-webkit-scrollbar-track { background: var(--surface-2); border-radius: 2px; }
+  .star-bar::-webkit-scrollbar-thumb { background: var(--accent3); border-radius: 2px; }
+  .star { width: 23px; height: 23px; font-size: 10.5px; flex-shrink: 0; }
+  .rail { gap: 2px; }
 }
 </style>
 </head>
@@ -1190,8 +1225,8 @@ footer small {
     </span>
   </a>
   <span class="spacer"></span>
-  <a class="btn-sm" href="../../index.html">All Lessons</a>
-  <a class="btn-sm" href="https://newgeneration-english.ru/">Back to main</a>
+  <a class="btn-sm" href="../../index.html"><span class="btn-long">All Lessons</span><span class="btn-short">All</span></a>
+  <a class="btn-sm" href="https://newgeneration-english.ru/"><span class="btn-long">Back to main</span><span class="btn-short">Main</span></a>
 </nav>
 
 <div class="wrap">
@@ -1440,7 +1475,9 @@ footer small {
       </div>
 
     </div>
-    <p style="font-size:0.9rem;color:var(--muted);font-style:italic;">Which one do you usually travel with? Tell your partner.</p>
+    <div class="role-situation" style="margin-top:14px;" data-say="Which bag do you travel with most often, and why this one?">
+      <strong>Talk:</strong> Which bag do you travel with most often, and <em>why this one</em>?
+    </div>
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════
@@ -1467,6 +1504,9 @@ footer small {
       </div>
       <div class="gap-text">
         When planning a journey, understanding the roles of tickets, passports, and <span class="gap" data-correct="boarding passes">____</span> is crucial for seamless travel. Managing <span class="gap" data-correct="luggage">____</span> effectively ensures comfort and convenience throughout the <span class="gap" data-correct="trip">____</span>, with baggage claim areas playing a significant role in returning <span class="gap" data-correct="belongings">____</span> to passengers. Customs and <span class="gap" data-correct="immigration">____</span> procedures regulate the flow of goods and people, while security checks at transportation <span class="gap" data-correct="hubs">____</span> maintain passenger <span class="gap" data-correct="safety">____</span>. Exploring different transportation <span class="gap" data-correct="modes">____</span>, such as airports, train stations, bus stations, ports, taxis, rental cars, ferries, and bicycles, provides insights into the diversity of travel options. Finally, even walking is a fundamental mode of transportation often utilized for short <span class="gap" data-correct="distances">____</span> or exercise. By comprehending the dynamics involved in travel, we can enhance our understanding of efficient and sustainable transportation <span class="gap" data-correct="systems">____</span>.
+      </div>
+      <div class="role-situation" style="margin-top:14px;" data-say="Which of these travel words was new for you, and where would you use it?">
+        <strong>Talk:</strong> Which of these words was <em>new</em> for you — and where would you use it?
       </div>
     </div>
   </section>
@@ -1570,6 +1610,10 @@ footer small {
       </div>
     </div>
 
+    <div class="role-situation" style="margin-top:14px;" data-say="Which of these five dialogues happens to you most often in real life?">
+      <strong>Talk:</strong> Which of these five dialogues happens to you <em>most often</em> in real life?
+    </div>
+
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════
@@ -1610,6 +1654,9 @@ footer small {
         <button class="speak-btn wo-check" type="button" data-wo-check="">✓ Check</button>
         <button class="speak-btn wo-reset" type="button" data-wo-reset="" style="background:var(--surface-2);color:var(--text-2);">↺ Reset</button>
       </div>
+      <div class="role-situation" style="margin-top:14px;" data-say="Which sentence was the trickiest to put together, and why?">
+        <strong>Talk:</strong> Which sentence was the <em>trickiest</em> to put together — and why?
+      </div>
     </div>
   </section>
 
@@ -1629,32 +1676,28 @@ footer small {
       <div class="listen-grid">
         <div class="listen-item">
           <div class="listen-label">Speaker 1</div>
-          <audio controls preload="none" src="assets/audio/audio-01-speaker-1.mp3"></audio>
-          <button class="speak-btn" data-script-id="sc1" data-voice="female">🔊 Listen now (browser voice)</button>
+          <button class="speak-btn" data-script-id="sc1" data-voice="female">▶ Listen</button>
           <button class="script-toggle" type="button" data-toggle="sc1">Show script</button>
           <div class="script-body" id="sc1">I love driving across the country. I travel alone, with just a small bag — easy and free. The best part? Chatting with people I meet on the way, at petrol stations and small cafés.</div>
         </div>
 
         <div class="listen-item">
           <div class="listen-label">Speaker 2</div>
-          <audio controls preload="none" src="assets/audio/audio-02-speaker-2.mp3"></audio>
-          <button class="speak-btn" data-script-id="sc2" data-voice="male">🔊 Listen now (browser voice)</button>
+          <button class="speak-btn" data-script-id="sc2" data-voice="male">▶ Listen</button>
           <button class="script-toggle" type="button" data-toggle="sc2">Show script</button>
           <div class="script-body" id="sc2">Honestly? I've never been abroad. I just don't see the point. My garden, my dog, my coffee in the morning — that's all I need. There really is no place like home.</div>
         </div>
 
         <div class="listen-item">
           <div class="listen-label">Speaker 3</div>
-          <audio controls preload="none" src="assets/audio/audio-03-speaker-3.mp3"></audio>
-          <button class="speak-btn" data-script-id="sc3" data-voice="female">🔊 Listen now (browser voice)</button>
+          <button class="speak-btn" data-script-id="sc3" data-voice="female">▶ Listen</button>
           <button class="script-toggle" type="button" data-toggle="sc3">Show script</button>
           <div class="script-body" id="sc3">Walking is the only way to really see a place. I travel with just one backpack — no big luggage. Trains? No thanks. They make me feel trapped.</div>
         </div>
 
         <div class="listen-item">
           <div class="listen-label">Speaker 4</div>
-          <audio controls preload="none" src="assets/audio/audio-04-speaker-4.mp3"></audio>
-          <button class="speak-btn" data-script-id="sc4" data-voice="male">🔊 Listen now (browser voice)</button>
+          <button class="speak-btn" data-script-id="sc4" data-voice="male">▶ Listen</button>
           <button class="script-toggle" type="button" data-toggle="sc4">Show script</button>
           <div class="script-body" id="sc4">I've never flown, and I don't like boats either. Trains and hotels — that's my style. I always pack a lot, three or four suitcases. And I love saying goodbye at the station — it feels romantic.</div>
         </div>
@@ -1688,9 +1731,9 @@ footer small {
         </div>
       </div>
 
-      <p style="font-size:0.85rem;color:var(--muted);margin-top:14px;font-style:italic;">
-        Audio coming via TTSMP3 — Maria will generate 4 voices (Joanna · Russell · Aditi · Kendra) so each speaker sounds different.
-      </p>
+      <div class="role-situation" style="margin-top:14px;" data-say="Which of the four speakers is the closest to your real travel style, and why?">
+        <strong>Talk:</strong> Which speaker is the <em>closest</em> to your real travel style — and why?
+      </div>
     </div>
   </section>
 
@@ -1833,6 +1876,9 @@ footer small {
         <li><span class="gap" data-correct="lift">____</span> is a word used mostly in British English.</li>
         <li>A person in a hotel or station who carries your luggage is a <span class="gap" data-correct="porter">____</span>.</li>
       </ol>
+      <div class="role-situation" style="margin-top:14px;" data-say="Which of these travel words will you actually use on your next trip?">
+        <strong>Talk:</strong> Which of these words will you <em>actually use</em> on your next trip?
+      </div>
     </div>
   </section>
 
