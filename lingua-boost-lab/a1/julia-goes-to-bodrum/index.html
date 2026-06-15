@@ -499,6 +499,10 @@ footer{max-width:980px;margin:40px auto 24px;padding:0 14px;text-align:center;co
 
     <h3 style="color:var(--mint)">⚡ Verbs · past forms</h3>
     <div id="recap-verbs" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px"></div>
+  
+    <h3 style="color:var(--accent2);margin-top:18px">📚 Big word list — tap any word!</h3>
+    <p style="font-size:.78rem;color:var(--muted);margin-bottom:8px">All the useful words and phrases from this lesson, grouped by topic.</p>
+    <div id="full-strip" style="line-height:2.2"></div>
   </div>
 </section>
 <!-- BLOCK 12 · MEMORY CHECK -->
@@ -1031,6 +1035,47 @@ if(rvbWrap){
     c.onclick = () => { say(v.p); setTimeout(()=>say(v.pa.replace('/',' or ')), 700); c.style.background='#e6f7e9'; };
     rvbWrap.appendChild(c);
   });
+}
+
+// FULL WORD LIST · clickable chips by category
+const fullStrip = document.getElementById('full-strip');
+if(fullStrip){
+  const groups = [
+    {t:'🏨 Hotel', items:['hotel','reception desk','receptionist','room','room key','single room','double room','floor','lift','lobby','balcony','bed','swimming pool','breakfast buffet','towel','suitcase','check-in','check-out','room number','reservation']},
+    {t:'🍳 Food', items:['breakfast','lunch','dinner','menu','buffet','ice cream','chocolate','strawberry','vanilla','lemon','pistachio','juice','coffee','tea','water','fruit','eggs','bread','toast','sandwich','snack']},
+    {t:'🏖️ Beach', items:['beach','sea','sand','sun','palm tree','seashell','crab','fish','boat','sailboat','swimsuit','goggles','sunglasses','sun hat','umbrella','bucket','ball']},
+    {t:'👨‍👩‍👧‍👦 People', items:['mum','dad','brother','sister','family','friend','child','kid','man','woman','boy','girl']},
+    {t:'🔢 Numbers 1-20', items:['one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen','twenty']},
+    {t:'🥇 Ordinal 1st-10th', items:['first','second','third','fourth','fifth','sixth','seventh','eighth','ninth','tenth']},
+    {t:'⚡ Verbs present', items:['go','see','find','take','eat','swim','walk','play','smile','want','ask','say','have','give','drink','sleep','run','come','look','stop','laugh','wake up','book','show','tell','bring','help','open','close','call','check','order']},
+    {t:'⚡ Verbs past', items:['went','saw','found','took','ate','swam','walked','played','smiled','wanted','asked','said','had','gave','drank','slept','laughed','came','was','were','wore','carried','counted','watched']},
+    {t:'🎨 Adjectives', items:['hot','cold','big','small','blue','pink','red','green','yellow','white','black','happy','sad','tired','clean','dirty','open','closed','nice','beautiful','delicious','fun','fast','slow','quiet','loud']},
+    {t:'🗣️ Polite phrases', items:['please','thank you','thanks','you are welcome','excuse me','sorry','hello','hi','goodbye','goodnight','good morning','good evening','sure','here you are','have a nice day','have a lovely stay']},
+    {t:'❓ Questions', items:['where','what','when','who','why','how','how much','how many','how old','what time','can you','could you','can I','may I','do you have']},
+    {t:'✈️ Travel', items:['holiday','trip','airport','plane','ticket','passport','taxi','bus','car','luggage','bag','map','phone','charger','password','Wi-Fi']},
+    {t:'🆘 If something is wrong', items:['I lost my key','There is no hot water','The lamp is broken','My room is dirty','I need a plaster','I do not understand','Can you help me?','Can I change my room?']}
+  ];
+  groups.forEach(g => {
+    const cat = document.createElement('div');
+    cat.style.cssText = 'margin:10px 0';
+    cat.innerHTML = '<div style="font-family:var(--display);font-weight:700;color:var(--accent);margin-bottom:4px;font-size:.95rem">'+g.t+'</div>';
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'display:flex;flex-wrap:wrap;gap:5px';
+    g.items.forEach(w => {
+      const chip = document.createElement('span');
+      chip.textContent = w;
+      chip.style.cssText = 'background:#fff;border:1.5px solid var(--accent3);color:var(--ink);padding:4px 10px;border-radius:99px;font-size:.82rem;font-weight:700;cursor:pointer;transition:.15s;display:inline-block';
+      chip.onclick = () => { say(w, 0.8); chip.style.background='#FFD3DE'; setTimeout(()=>{chip.style.background='#fff';},800); };
+      wrap.appendChild(chip);
+    });
+    cat.appendChild(wrap);
+    fullStrip.appendChild(cat);
+  });
+  const total = groups.reduce((s,g) => s + g.items.length, 0);
+  const totalEl = document.createElement('div');
+  totalEl.style.cssText = 'text-align:center;margin-top:12px;font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;color:var(--muted);font-weight:800';
+  totalEl.textContent = '✨ ' + total + ' WORDS & PHRASES';
+  fullStrip.appendChild(totalEl);
 }
 </script>
 </body>
