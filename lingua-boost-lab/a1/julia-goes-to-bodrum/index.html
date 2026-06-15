@@ -504,6 +504,11 @@ footer{max-width:980px;margin:40px auto 24px;padding:0 14px;text-align:center;co
     <p style="font-size:.78rem;color:var(--muted);margin-bottom:8px">All the useful words and phrases from this lesson, grouped by topic.</p>
     <div id="full-strip" style="line-height:2.2"></div>
   </div>
+  <div class="card">
+    <h3>🗺️ Tourist Q&A · match question to answer</h3>
+    <p style="font-size:.92rem;font-weight:700;color:var(--muted);margin-bottom:10px">Tap a question on the left, then tap the matching answer on the right!</p>
+    <div class="match-cols" id="tourist-match"></div>
+  </div>
 </section>
 <!-- BLOCK 12 · MEMORY CHECK -->
 <section class="section" id="block-12">
@@ -1097,6 +1102,58 @@ if(fullStrip){
   totalEl.textContent = '✨ ' + total + ' WORDS & PHRASES';
   fullStrip.appendChild(totalEl);
 }
+
+// TOURIST Q&A · matching exercise
+const touristPairs = [
+  ['Where is the beach?', 'It is near the sea'],
+  ['Can we go there?', 'Yes, we can go there'],
+  ['Can we take a photo?', 'Yes, of course, take a photo'],
+  ['How much is a taxi?', 'It is about 10 euros'],
+  ['Where is the shop?', 'It is on the left'],
+  ['Can we stop here?', 'Yes, we can stop here'],
+  ['What is this?', 'It is a small shop'],
+  ['Do you like this place?', 'Yes, it is a beautiful place'],
+  ['Where can we buy ice cream?', 'You can buy it near that cafe'],
+  ['Can we sit here?', 'Yes, we can sit and rest']
+];
+const tWrap = document.getElementById('tourist-match');
+if(tWrap){
+  const Q = touristPairs.map(p => p[0]);
+  const A = touristPairs.map(p => p[1]).sort(() => Math.random() - 0.5);
+  Q.forEach(q => {
+    const el = document.createElement('div');
+    el.className = 'match-item';
+    el.textContent = q;
+    el.dataset.match = q;
+    el.dataset.side = 'q';
+    el.onclick = () => handleTouristMatch(el, q);
+    tWrap.appendChild(el);
+  });
+  A.forEach(a => {
+    const el = document.createElement('div');
+    el.className = 'match-item';
+    el.textContent = a;
+    el.dataset.match = touristPairs.find(p => p[1] === a)[0];
+    el.dataset.side = 'a';
+    el.onclick = () => handleTouristMatch(el, a);
+    tWrap.appendChild(el);
+  });
+}
+let tSel = null;
+function handleTouristMatch(el, text){
+  say(text, 0.8);
+  if(el.classList.contains('matched')) return;
+  if(!tSel){ tSel = el; el.classList.add('selected'); return; }
+  if(tSel === el){ el.classList.remove('selected'); tSel = null; return; }
+  if(tSel.dataset.match === el.dataset.match && tSel.dataset.side !== el.dataset.side){
+    tSel.classList.remove('selected'); tSel.classList.add('matched'); el.classList.add('matched');
+    tSel = null;
+  } else {
+    el.classList.add('wrong');
+    setTimeout(() => { el.classList.remove('wrong'); tSel.classList.remove('selected'); tSel = null; }, 500);
+  }
+}
+
 </script>
 </body>
 </html>
