@@ -2181,7 +2181,7 @@ body.lb-page-core-trainer .core-smart-strip{
 
   body.lb-page-core-trainer .canon-l-topbar {
     box-sizing: border-box !important;
-    position: sticky !important;
+    position: fixed !important;
     top: 0 !important;
     z-index: 1000 !important;
     display: flex !important;
@@ -2657,5 +2657,48 @@ body.lb-page-core-trainer .core-smart-strip{
   }
   addEventListener('load',lockMissionUp);addEventListener('resize',lockMissionUp);
   [0,120,360,900,1800,3200,5200,7000,9000,12000,15000].forEach(function(ms){setTimeout(lockMissionUp,ms);});
+})();
+</script>
+<style id="codex-core-mobile-topbar-flush-20260615">
+@media (max-width: 820px) {
+  html body.lb-page-core-trainer {
+    padding-top: 58px !important;
+  }
+  html body.lb-page-core-trainer .canon-l-topbar {
+    position: fixed !important;
+    top: 0 !important;
+    margin-top: 0 !important;
+    transform: none !important;
+  }
+  html body.lb-page-core-trainer .hero-mini {
+    margin-top: 18px !important;
+  }
+}
+</style>
+<script id="codex-core-mobile-topbar-js-lock-20260615">
+(function(){
+  function lockCoreTopbar(){
+    if ((document.documentElement.clientWidth || innerWidth) > 820) return;
+    document.body.style.setProperty('padding-top','58px','important');
+    var bar = document.querySelector('body.lb-page-core-trainer .canon-l-topbar');
+    if (!bar) return;
+    var app = document.querySelector('body.lb-page-core-trainer .app-container');
+    if (app && bar.parentElement === app) {
+      document.body.insertBefore(bar, app);
+    }
+    bar.style.setProperty('position','fixed','important');
+    bar.style.setProperty('top','0','important');
+    bar.style.setProperty('left','0','important');
+    bar.style.setProperty('right','0','important');
+    bar.style.setProperty('z-index','8000','important');
+    bar.style.setProperty('margin-top','0','important');
+    bar.style.setProperty('transform','none','important');
+    bar.style.setProperty('width','100%','important');
+  }
+  lockCoreTopbar();
+  document.addEventListener('DOMContentLoaded',lockCoreTopbar);
+  addEventListener('load',lockCoreTopbar);
+  addEventListener('resize',lockCoreTopbar);
+  [80,220,520,1000,1800,3200,5200].forEach(function(ms){setTimeout(lockCoreTopbar,ms);});
 })();
 </script>

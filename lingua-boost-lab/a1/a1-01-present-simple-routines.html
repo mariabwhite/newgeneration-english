@@ -3235,6 +3235,41 @@ html[data-theme="violet"] body .level-bubble.level-bubble {
   box-shadow: none !important;
 }
 </style>
+<style id="codex-a1-routines-mobile-hide-palette-select-20260615">
+@media (max-width: 700px) {
+  body.lb-page-a1-01-present-simple-routines .canon-l-topbar .palette-select {
+    display: none !important;
+  }
+  body.lb-page-a1-01-present-simple-routines .canon-l-topbar .canon-l-tools {
+    gap: 8px !important;
+  }
+}
+</style>
 </body>
 </html>
-
+<script id="codex-mobile-topbar-burger-lock-20260615">
+(function(){
+  function lockTopbarBurger(){
+    document.querySelectorAll('.canon-l-topbar .palette-select').forEach(function(select){
+      select.style.setProperty('display','none','important');
+    });
+    document.querySelectorAll('.canon-l-topbar .canon-l-burger, .canon-l-topbar .canon-l-menu-toggle').forEach(function(btn){
+      btn.style.setProperty('font-size','0','important');
+      btn.style.setProperty('color','transparent','important');
+      btn.style.setProperty('width','40px','important');
+      btn.style.setProperty('min-width','40px','important');
+      btn.style.setProperty('height','31px','important');
+      btn.style.setProperty('background-image','linear-gradient(var(--lb-text,#2d1b36),var(--lb-text,#2d1b36)),linear-gradient(var(--lb-text,#2d1b36),var(--lb-text,#2d1b36)),linear-gradient(var(--lb-text,#2d1b36),var(--lb-text,#2d1b36))','important');
+      btn.style.setProperty('background-size','15px 2px,15px 2px,15px 2px','important');
+      btn.style.setProperty('background-position','center calc(50% - 5px),center,center calc(50% + 5px)','important');
+      btn.style.setProperty('background-repeat','no-repeat','important');
+      btn.style.setProperty('border-radius','10px','important');
+      btn.querySelectorAll('*').forEach(function(child){ child.style.setProperty('display','none','important'); });
+    });
+  }
+  lockTopbarBurger();
+  document.addEventListener('DOMContentLoaded',lockTopbarBurger);
+  addEventListener('load',lockTopbarBurger);
+  [80,220,520,1000,1800,3200,5200].forEach(function(ms){setTimeout(lockTopbarBurger,ms);});
+})();
+</script>
