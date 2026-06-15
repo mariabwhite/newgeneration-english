@@ -404,7 +404,7 @@ footer{max-width:980px;margin:40px auto 24px;padding:0 14px;text-align:center;co
     <p style="font-size:.92rem;font-weight:700;margin-bottom:8px">🏊 Julia and John had a race in the pool! Read, listen, and watch the comic:</p>
     <figure style="margin:10px 0;border-radius:14px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.12)"><img src="assets/pool-race-comic.png" alt="Pool race comic in three panels" style="width:100%;display:block"></figure>
     <div class="audio-row" style="background:linear-gradient(135deg,#FFD3DE,#A8D8F0)">
-      <audio controls preload="metadata" style="flex:1;min-width:200px"><source src="assets/pool-race-dialogue.mp3" type="audio/mpeg"></audio>
+      <audio controls preload="metadata" style="flex:1;min-width:200px"><source src="assets/pool-race-dialogue.mp3#t=4" type="audio/mpeg"></audio>
       <div><div class="label">🎧 The full dialogue</div></div>
     </div>
     <details style="margin:10px 0;background:#fff3df;border-radius:12px;padding:10px 14px"><summary style="cursor:pointer;font-weight:800;color:var(--accent2)">📖 Read the dialogue</summary>
@@ -482,6 +482,24 @@ footer{max-width:980px;margin:40px auto 24px;padding:0 14px;text-align:center;co
   </div>
 </section>
 
+<!-- RECAP · повторюшка -->
+<section class="section" id="recap">
+  <div class="section-head"><div class="n">📚</div><h2>Quick review · повторюшка ✨</h2></div>
+  <div class="section-sub">All words and phrases · tap each to hear</div>
+  <div class="card">
+    <h3 style="color:var(--accent2)">🧳 Hotel & holiday words</h3>
+    <div id="recap-vocab" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;margin-bottom:14px"></div>
+
+    <h3 style="color:var(--accent)">🗣️ Magic phrases</h3>
+    <div id="recap-phrases" style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px"></div>
+
+    <h3 style="color:var(--accent3)">🔢 Numbers ladder</h3>
+    <div id="recap-numbers" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px;margin-bottom:14px"></div>
+
+    <h3 style="color:var(--mint)">⚡ Verbs · past forms</h3>
+    <div id="recap-verbs" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px"></div>
+  </div>
+</section>
 <!-- BLOCK 12 · MEMORY CHECK -->
 <section class="section" id="block-12">
   <div class="section-head"><div class="n">12</div><h2>Memory check 🎯</h2></div>
@@ -913,6 +931,77 @@ memQ.forEach((item,i) => {
   mq.appendChild(block);
 });
 
+
+// ============================
+// RECAP / повторюшка
+// ============================
+const recapVocab = [
+  {en:'hotel', ru:'отель'},{en:'room', ru:'комната'},{en:'pool', ru:'бассейн'},
+  {en:'beach', ru:'пляж'},{en:'sea', ru:'море'},{en:'ice cream', ru:'мороженое'},
+  {en:'breakfast', ru:'завтрак'},{en:'suitcase', ru:'чемодан'},{en:'key', ru:'ключ'},
+  {en:'family', ru:'семья'},{en:'sun', ru:'солнце'},{en:'fish', ru:'рыба'},
+  {en:'seashell', ru:'ракушка'},{en:'crab', ru:'краб'}
+];
+const recapPhrases = [
+  {en:'Hello!', ru:'Привет!'},{en:'Good morning!', ru:'Доброе утро!'},
+  {en:'Thank you!', ru:'Спасибо!'},{en:'Where is the pool?', ru:'Где бассейн?'},
+  {en:'Can I have the key?', ru:'Можно мне ключ?'},
+  {en:'Can I have strawberry ice cream, please?', ru:'Можно клубничное мороженое, пожалуйста?'},
+  {en:'I want chocolate, please!', ru:'Хочу шоколадное, пожалуйста!'},
+  {en:'How much is it?', ru:'Сколько стоит?'},
+  {en:'Where is the beach?', ru:'Где пляж?'},{en:'Goodnight!', ru:'Спокойной ночи!'}
+];
+const recapNumbers = [
+  '1 · one · first','2 · two · second','3 · three · third','4 · four · fourth',
+  '5 · five · fifth','6 · six · sixth','7 · seven · seventh','8 · eight · eighth',
+  '9 · nine · ninth','10 · ten · tenth'
+];
+const recapVerbs = [
+  {p:'walk',pa:'walked'},{p:'play',pa:'played'},{p:'smile',pa:'smiled'},
+  {p:'go',pa:'went'},{p:'see',pa:'saw'},{p:'find',pa:'found'},
+  {p:'take',pa:'took'},{p:'eat',pa:'ate'},{p:'swim',pa:'swam'},{p:'be',pa:'was/were'}
+];
+
+const rvWrap = document.getElementById('recap-vocab');
+if(rvWrap){
+  recapVocab.forEach(v => {
+    const c = document.createElement('div');
+    c.style.cssText = 'background:#fff;border:2px solid #f3e3c4;border-radius:10px;padding:8px 10px;cursor:pointer;text-align:center;transition:.15s;font-size:.85rem';
+    c.innerHTML = '<div style="font-weight:800;color:var(--accent2)">'+v.en+'</div><div style="font-size:.78rem;color:var(--muted);margin-top:2px">'+v.ru+'</div>';
+    c.onclick = () => { say(v.en); c.style.background='#e8f5ff'; };
+    rvWrap.appendChild(c);
+  });
+}
+const rpWrap = document.getElementById('recap-phrases');
+if(rpWrap){
+  recapPhrases.forEach(p => {
+    const c = document.createElement('div');
+    c.style.cssText = 'background:#fff;border:2px solid #f3e3c4;border-radius:10px;padding:8px 12px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.85rem;transition:.15s';
+    c.innerHTML = '<div><div style="font-weight:800;color:var(--accent)">'+p.en+'</div><div style="font-size:.75rem;color:var(--muted)">'+p.ru+'</div></div><span style="font-size:1.1rem">🔊</span>';
+    c.onclick = () => { say(p.en, 0.7); c.style.background='#fff3df'; };
+    rpWrap.appendChild(c);
+  });
+}
+const rnWrap = document.getElementById('recap-numbers');
+if(rnWrap){
+  recapNumbers.forEach((n,i) => {
+    const c = document.createElement('div');
+    c.style.cssText = 'background:#fff;border:2px solid var(--accent3);border-radius:10px;padding:8px 10px;cursor:pointer;text-align:center;font-weight:800;font-size:.82rem;color:var(--ink);transition:.15s';
+    c.textContent = n;
+    c.onclick = () => { const parts = n.split(' · '); say(parts[1]); setTimeout(()=>say(parts[2]), 800); c.style.background='#fff7e8'; };
+    rnWrap.appendChild(c);
+  });
+}
+const rvbWrap = document.getElementById('recap-verbs');
+if(rvbWrap){
+  recapVerbs.forEach(v => {
+    const c = document.createElement('div');
+    c.style.cssText = 'background:#fff;border:2px solid #b8e0c8;border-radius:10px;padding:8px 10px;cursor:pointer;text-align:center;font-size:.85rem;font-weight:800;transition:.15s';
+    c.innerHTML = '<span style="color:var(--accent2)">'+v.p+'</span> → <span style="color:var(--accent)">'+v.pa+'</span>';
+    c.onclick = () => { say(v.p); setTimeout(()=>say(v.pa.replace('/',' or ')), 700); c.style.background='#e6f7e9'; };
+    rvbWrap.appendChild(c);
+  });
+}
 </script>
 </body>
 </html>
