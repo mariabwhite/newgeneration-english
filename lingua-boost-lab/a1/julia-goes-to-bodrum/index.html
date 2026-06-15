@@ -165,6 +165,16 @@ strong{font-weight:800}
 
 footer{max-width:980px;margin:40px auto 24px;padding:0 14px;text-align:center;color:var(--muted);font-size:.78rem;font-family:var(--mono);letter-spacing:.06em}
 .tts-hint{background:#fff3df;border-left:4px solid var(--accent3);padding:8px 12px;border-radius:0 10px 10px 0;font-size:.78rem;color:var(--muted);margin:10px 0}
+.mcq{padding:3px 8px;border:2px solid var(--accent3);border-radius:8px;background:#FFF6E6;font-family:inherit;font-weight:800;color:var(--accent);font-size:.95rem;cursor:pointer}
+.mcq:focus{outline:none;border-color:var(--accent)}
+.mcq.right{background:#e6f7e9;border-color:var(--ok);color:#2e7d32}
+.mcq.wrong{background:#fdecec;border-color:var(--miss);color:#c62828;animation:shake .35s}
+.flip-card{perspective:600px;cursor:pointer}
+.flip-inner{position:relative;width:100%;transition:.5s;transform-style:preserve-3d;text-align:center}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px;border-radius:14px}
+.flip-front{background:#fff;border:2px solid #f3e3c4}
+.flip-back{background:linear-gradient(135deg,var(--accent3),var(--accent));color:#fff;transform:rotateY(180deg);font-weight:800;font-size:.85rem}
 </style>
 </head>
 <body>
@@ -182,15 +192,7 @@ footer{max-width:980px;margin:40px auto 24px;padding:0 14px;text-align:center;co
 </nav>
 
 <section class="hero">
-  <div class="hero-card">
-    <h1>Julia Goes to Bodrum 🌴</h1>
-    <p class="sub">Hello, Julia! Today we go on holiday!</p>
-    <div class="tags">
-      <span class="tag">Numbers 1–10</span>
-      <span class="tag">Present + Past</span>
-      <span class="tag">🎤 Hotel phrases</span>
-    </div>
-  </div>
+  <figure style="margin:0;border-radius:24px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.18)"><img src="assets/lesson-header.png" alt="Julia Goes to Bodrum — A Holiday Adventure!" style="width:100%;display:block"></figure>
 </section>
 
 <div class="progress">
@@ -220,26 +222,18 @@ footer{max-width:980px;margin:40px auto 24px;padding:0 14px;text-align:center;co
   <div class="section-head"><div class="n">2</div><h2>Julia is in Bodrum 🌴</h2></div>
   <div class="section-sub">Story · Present Simple · tap any line to hear</div>
   <div class="card story">
-    <div class="scene">
-      <svg viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg">
-        <rect x="10" y="80" width="80" height="40" fill="#fff" stroke="#FF8FB1" stroke-width="2" rx="4"/>
-        <circle cx="50" cy="65" r="12" fill="#FFD9A8"/>
-        <path d="M40 65 Q50 80 60 65" fill="none" stroke="#2D3142" stroke-width="2"/>
-        <circle cx="160" cy="30" r="14" fill="#FFB84C"/>
-        <path d="M150 30 L130 30 M170 30 L190 30 M160 20 L160 5 M160 40 L160 55" stroke="#FFB84C" stroke-width="2"/>
-        <rect x="100" y="60" width="50" height="60" fill="#A8D8F0" stroke="#5BA9D8" stroke-width="2" rx="4"/>
-        <rect x="110" y="70" width="30" height="40" fill="#fff" stroke="#5BA9D8" stroke-width="1"/>
-      </svg>
-      <div class="scene-label">Day 2 · Bodrum · ice cream time</div>
-    </div>
-    <p><span class="speak-line" data-say="Julia is in Bodrum. It is day two.">Julia <span class="verb">is</span> in Bodrum. It is day two.</span></p>
-    <p><span class="speak-line" data-say="It is hot. The sea is blue.">It <span class="verb">is</span> hot. The sea <span class="verb">is</span> blue.</span></p>
-    <p><span class="speak-line" data-say="Julia is happy. John is happy too.">Julia <span class="verb">is</span> happy. John <span class="verb">is</span> happy too.</span></p>
-    <p><span class="speak-line" data-say="Julia wants ice cream. John wants ice cream too.">Julia <span class="verb">wants</span> ice cream. John <span class="verb">wants</span> ice cream too.</span></p>
-    <p><span class="speak-line" data-say="Where is the ice cream shop? Julia asks.">«Where <span class="verb">is</span> the ice cream shop?» Julia <span class="verb">asks</span>.</span></p>
-    <p><span class="speak-line" data-say="Look! Over there! Mum says.">«Look! Over there!» Mum <span class="verb">says</span>.</span></p>
-    <p><span class="speak-line" data-say="Julia sees a big sign. Ice cream!">Julia <span class="verb">sees</span> a big sign. <strong>ICE CREAM!</strong> 🍦</span></p>
-    <p><span class="speak-line" data-say="Lets go! Julia says. She is excited!">«Let's go!» Julia <span class="verb">says</span>. She <span class="verb">is</span> excited!</span></p>
+    <figure style="margin:10px 0;border-radius:14px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.12)"><img src="assets/ice-cream-shop.png" alt="Julia and John at the ice cream shop in Bodrum" style="width:100%;display:block"></figure>
+    <p style="font-size:.92rem;font-weight:700;color:var(--accent2);margin-bottom:10px">📖 Read with Julia. Some words are hiding — tap and choose the right one! 🎯</p>
+    <p><span class="speak-line" data-say="It is day two of the holiday. Julia is in Bodrum.">It is <select class="mcq" data-answer="day two"><option>day two</option><option>summer</option><option>Monday</option></select> of the holiday. Julia is in Bodrum.</span></p>
+    <p><span class="speak-line" data-say="The sun is hot. The sea is blue. The sky is blue too.">The sun is <select class="mcq" data-answer="hot"><option>cold</option><option>hot</option><option>wet</option></select>. The sea is blue. The sky is blue too.</span></p>
+    <p><span class="speak-line" data-say="Julia and John play on the beach. They find pretty seashells.">Julia and John play on the beach. They find pretty <select class="mcq" data-answer="seashells"><option>books</option><option>cars</option><option>seashells</option></select>. 🐚</span></p>
+    <p><span class="speak-line" data-say="Suddenly Julia stops. I want ice cream! she says.">Suddenly Julia stops. «I want <select class="mcq" data-answer="ice cream"><option>a fish</option><option>ice cream</option><option>a hat</option></select>!» she says. 🍦</span></p>
+    <p><span class="speak-line" data-say="Me too! says John. I want strawberry!">«Me too!» says John. «I want <select class="mcq" data-answer="strawberry"><option>chocolate</option><option>strawberry</option><option>vanilla</option></select>!» 🍓</span></p>
+    <p><span class="speak-line" data-say="Mum points. Look! Over there! Can you see the sign?">Mum points. «Look! <select class="mcq" data-answer="Over there"><option>Behind us</option><option>Over there</option><option>Inside the hotel</option></select>! Can you see the sign?»</span></p>
+    <p><span class="speak-line" data-say="Julia and John run to the shop. The man at the shop smiles. Hello! What do you want?">Julia and John run to the shop. The man at the shop <select class="mcq" data-answer="smiles"><option>cries</option><option>smiles</option><option>sleeps</option></select>. «Hello! What do you want?»</span></p>
+    <p><span class="speak-line" data-say="Can I have strawberry ice cream please? Julia asks. I want chocolate! John says.">«Can I have strawberry ice cream, please?» Julia <select class="mcq" data-answer="asks"><option>shouts</option><option>asks</option><option>sings</option></select>. «I want chocolate!» John says.</span></p>
+    <p><span class="speak-line" data-say="Sure! Here you are! the man says. He gives them two big ice creams.">«Sure! Here you are!» the man says. He gives them <select class="mcq" data-answer="two"><option>one</option><option>two</option><option>five</option></select> big ice creams.</span></p>
+    <p><span class="speak-line" data-say="Mmm! Delicious! says Julia. Best holiday ever!">«Mmm! <select class="mcq" data-answer="Delicious"><option>Cold</option><option>Boring</option><option>Delicious</option></select>!» says Julia. «Best holiday ever!» 🌴✨</span></p>
     <div class="tts-hint">💡 Tap any line to hear it · tap yellow word to learn the verb</div>
   </div>
 </section>
@@ -285,17 +279,7 @@ footer{max-width:980px;margin:40px auto 24px;padding:0 14px;text-align:center;co
   <div class="section-sub">Listen → record your voice → next phrase</div>
   <div class="card">
     <h3>Part A · Listen to the family</h3>
-    <div class="scene">
-      <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
-        <rect x="10" y="20" width="180" height="80" fill="#FFE9D6" stroke="#FFB84C" stroke-width="2" rx="6"/>
-        <rect x="80" y="50" width="40" height="50" fill="#5BA9D8" rx="2"/>
-        <text x="100" y="80" text-anchor="middle" font-family="Fredoka" font-size="18" fill="#fff" font-weight="700">25</text>
-        <circle cx="40" cy="50" r="10" fill="#FFD9A8"/>
-        <circle cx="160" cy="50" r="10" fill="#FFD9A8"/>
-        <text x="100" y="35" text-anchor="middle" font-family="Fredoka" font-size="10" fill="#2D3142" font-weight="700">SUN HOTEL</text>
-      </svg>
-      <div class="scene-label">Hotel reception</div>
-    </div>
+    <figure style="margin:10px 0;border-radius:14px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.12)"><img src="assets/hotel-reception.png" alt="Family at Sun Hotel reception in Bodrum" style="width:100%;display:block"></figure>
     <p style="font-size:.92rem;margin-bottom:8px"><strong>The receptionist tells Julia all about the hotel. Tap each line!</strong></p>
     <div id="hotel-listen-list"></div>
     <p style="margin-top:14px"><strong>✍️ Now write the numbers you heard:</strong></p>
@@ -308,22 +292,19 @@ footer{max-width:980px;margin:40px auto 24px;padding:0 14px;text-align:center;co
     <div class="gap-line">Pool is <span class="gap" data-answer="25" data-type="num">__</span> meters long</div>
     <div class="gap-line">We stay for <span class="gap" data-answer="7" data-type="num">__</span> days</div>
   </div>
-  <div class="say-back" id="say-back">
-    <h3 style="font-family:var(--display);color:#fff;text-shadow:1px 1px 0 rgba(0,0,0,.15);text-align:center;margin-bottom:10px">🎤 PART B · SAY IT BACK</h3>
-    <p style="text-align:center;font-size:.85rem;color:#fff;font-weight:700;margin-bottom:14px">Learn 8 hotel phrases. Listen → record yourself → next!</p>
-    <div id="sb-list" style="background:#fff;border-radius:14px;padding:10px;margin-bottom:10px"></div>
-    <div class="phrase-card">
-      <div class="situation" id="sb-situation">Get ready…</div>
-      <div class="phrase" id="sb-phrase" style="font-size:1.6rem;color:var(--accent);background:#FFF6E6;padding:14px;border-radius:12px;border:3px solid var(--accent)">Press start</div>
-      <div class="ctrl-row">
-        <button class="ctrl listen" id="sb-listen">🔊 Listen</button>
-        <button class="ctrl record" id="sb-record">🎤 My turn</button>
-        <button class="ctrl play-mine" id="sb-play-mine" disabled>▶ Hear me</button>
-        <button class="ctrl next" id="sb-next" disabled>→ Next</button>
+  <div style="background:linear-gradient(135deg,#FFD3DE,#FFB6CC);border-radius:18px;padding:20px;margin:14px 0;color:var(--ink);box-shadow:0 6px 20px rgba(255,143,177,.3)">
+    <h3 style="font-family:var(--display);color:#fff;text-shadow:1px 1px 0 rgba(0,0,0,.15);text-align:center;margin-bottom:6px">🎤 PART B · SAY-IT! Random phrases</h3>
+    <p style="text-align:center;font-size:.85rem;color:#fff;font-weight:700;margin-bottom:14px">Press the button → see a phrase → say it OUT LOUD → press again!</p>
+    <div style="background:#fff;border-radius:14px;padding:24px 16px;text-align:center;margin-bottom:10px">
+      <div id="rp-counter" style="font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;font-weight:800;color:var(--muted);margin-bottom:10px">PHRASE 0 OF 15</div>
+      <div id="rp-phrase" style="font-family:var(--display);font-size:1.8rem;font-weight:700;color:var(--accent);background:#FFF6E6;padding:18px 14px;border-radius:14px;border:3px solid var(--accent);margin-bottom:14px;min-height:60px;display:flex;align-items:center;justify-content:center">Press START</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+        <button id="rp-listen" class="ctrl listen" style="padding:10px 16px;border-radius:50px;border:none;font-family:var(--display);font-weight:700;font-size:.85rem;cursor:pointer;background:var(--accent3);color:#fff;display:none">🔊 Hear it</button>
+        <button id="rp-next" class="ctrl record" style="padding:14px 22px;border-radius:50px;border:none;font-family:var(--display);font-weight:700;font-size:1rem;cursor:pointer;background:var(--accent);color:#fff;box-shadow:0 4px 12px rgba(255,143,177,.4)">▶ START</button>
       </div>
     </div>
-    <div class="progress-bar"><div id="sb-bar"></div></div>
-    <div class="phrase-counter" id="sb-counter">Phrase 1 of 8</div>
+    <div style="height:6px;background:rgba(255,255,255,.5);border-radius:3px;overflow:hidden"><div id="rp-bar" style="height:100%;background:#fff;width:0%;transition:.4s"></div></div>
+    <p style="text-align:center;font-size:.78rem;color:#fff;font-weight:700;margin-top:10px">Maria slušaет — не записываемся, всё вживую! 👂</p>
   </div>
 </section>
 
@@ -333,29 +314,18 @@ footer{max-width:980px;margin:40px auto 24px;padding:0 14px;text-align:center;co
   <div class="section-sub">Story · Past Simple · yesterday on the beach</div>
   <div class="card story">
     <figure style="margin:10px 0;border-radius:14px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.12)"><img src="assets/beach-family.png" alt="Julia and her family walking on the beach in Bodrum" style="width:100%;display:block"></figure>
-    <p style="font-size:.95rem;font-weight:700;margin-bottom:10px">📝 Fill the verb! Tap a word from the bank, then tap the gap:</p>
-    <p class="gap-line">Yesterday Julia and her family <span class="gap" data-answer="walked" data-type="text">__</span> on the beach.</p>
-    <p class="gap-line">The sun <span class="gap" data-answer="was" data-type="text">__</span> hot.</p>
-    <p class="gap-line">Mum <span class="gap" data-answer="wore" data-type="text">__</span> a sun hat.</p>
-    <p class="gap-line">They <span class="gap" data-answer="saw" data-type="text">__</span> a small crab.</p>
-    <p class="gap-line">Julia <span class="gap" data-answer="found" data-type="text">__</span> 3 seashells.</p>
-    <p class="gap-line">They <span class="gap" data-answer="went" data-type="text">__</span> to the ice cream shop.</p>
-    <p class="gap-line">Julia <span class="gap" data-answer="ate" data-type="text">__</span> chocolate ice cream.</p>
-    <p class="gap-line">Dad <span class="gap" data-answer="took" data-type="text">__</span> a photo.</p>
-    <p class="gap-line">They <span class="gap" data-answer="swam" data-type="text">__</span> in the pool. They <span class="gap" data-answer="were" data-type="text">__</span> very happy!</p>
-    <div class="kid-bank">
-      <span class="kid-bank-word" data-word="walked">walked</span>
-      <span class="kid-bank-word" data-word="was">was</span>
-      <span class="kid-bank-word" data-word="wore">wore</span>
-      <span class="kid-bank-word" data-word="saw">saw</span>
-      <span class="kid-bank-word" data-word="found">found</span>
-      <span class="kid-bank-word" data-word="went">went</span>
-      <span class="kid-bank-word" data-word="ate">ate</span>
-      <span class="kid-bank-word" data-word="took">took</span>
-      <span class="kid-bank-word" data-word="swam">swam</span>
-      <span class="kid-bank-word" data-word="were">were</span>
-    </div>
-    <div class="tts-hint">💡 Tap a word in the bank, then tap the matching gap. Wrong word? It shakes!</div>
+    <p style="font-size:.95rem;font-weight:700;margin-bottom:10px">📝 Choose the right past-tense verb for each gap:</p>
+    <div class="gap-line">Yesterday Julia and her family <select class="mcq" data-answer="walked"><option>walks</option><option>walked</option><option>walking</option></select> on the beach.</div>
+    <div class="gap-line">The sun <select class="mcq" data-answer="was"><option>is</option><option>are</option><option>was</option></select> hot.</div>
+    <div class="gap-line">Mum <select class="mcq" data-answer="wore"><option>wore</option><option>wears</option><option>wearing</option></select> a sun hat.</div>
+    <div class="gap-line">They <select class="mcq" data-answer="saw"><option>see</option><option>saw</option><option>seen</option></select> a small crab.</div>
+    <div class="gap-line">Julia <select class="mcq" data-answer="found"><option>find</option><option>finds</option><option>found</option></select> 3 seashells.</div>
+    <div class="gap-line">They <select class="mcq" data-answer="went"><option>go</option><option>goes</option><option>went</option></select> to the ice cream shop.</div>
+    <div class="gap-line">Julia <select class="mcq" data-answer="ate"><option>eats</option><option>ate</option><option>eated</option></select> chocolate ice cream.</div>
+    <div class="gap-line">Dad <select class="mcq" data-answer="took"><option>take</option><option>took</option><option>taked</option></select> a photo.</div>
+    <div class="gap-line">They <select class="mcq" data-answer="swam"><option>swim</option><option>swims</option><option>swam</option></select> in the pool.</div>
+    <div class="gap-line">They <select class="mcq" data-answer="were"><option>are</option><option>was</option><option>were</option></select> very happy! 🌴</div>
+    <div class="tts-hint">💡 Pick a verb · right one turns green, wrong shakes red!</div>
   </div>
   <div class="card">
     <h3>🤔 True or False?</h3>
@@ -561,6 +531,13 @@ document.addEventListener('click', e => {
   if(t){ say(t.dataset.say); }
 });
 
+// MCQ in story
+document.querySelectorAll('.mcq').forEach(s => {
+  s.onchange = () => {
+    if(s.value === s.dataset.answer){ s.classList.add('right'); s.classList.remove('wrong'); say(s.value, 0.85); }
+    else { s.classList.add('wrong'); s.classList.remove('right'); }
+  };
+});
 // ============================
 // Progress dots
 // ============================
@@ -587,16 +564,27 @@ updateDots();
 // BLOCK 3 · Vocabulary
 // ============================
 const vocab = [
-  {w:'suitcase', e:'🧳'},{w:'ticket', e:'🎫'},{w:'airport', e:'✈️'},{w:'hotel', e:'🏨'},
-  {w:'pool', e:'🏊'},{w:'beach', e:'🏖️'},{w:'sea', e:'🌊'},{w:'ice cream', e:'🍦'}
+  {w:'suitcase', e:'🧳', q:'Where is my suitcase?'},
+  {w:'ticket', e:'🎫', q:'Where is the ticket?'},
+  {w:'airport', e:'✈️', q:'Are we at the airport?'},
+  {w:'hotel', e:'🏨', q:'Where is the hotel?'},
+  {w:'pool', e:'🏊', q:'Can I swim in the pool?'},
+  {w:'beach', e:'🏖️', q:'Let us go to the beach!'},
+  {w:'sea', e:'🌊', q:'The sea is blue!'},
+  {w:'ice cream', e:'🍦', q:'I want ice cream, please!'}
 ];
 const vgrid = document.getElementById('vocab-grid');
 vocab.forEach(v => {
-  const c = document.createElement('div');
-  c.className = 'vocab-card';
-  c.innerHTML = `<span class="emoji">${v.e}</span>${v.w}`;
-  c.onclick = () => { say(v.w); c.classList.add('played'); };
-  vgrid.appendChild(c);
+  const card = document.createElement('div');
+  card.className = 'flip-card';
+  card.style.cssText = 'min-height:120px;position:relative;border:none;padding:0;background:transparent';
+  card.innerHTML = '<div class="flip-inner" style="min-height:120px"><div class="flip-front"><span class="emoji" style="font-size:2rem;display:block;margin-bottom:4px">'+v.e+'</span><span style="font-size:.95rem;font-weight:700">'+v.w+'</span><span style="font-size:.62rem;color:var(--muted);margin-top:6px;font-weight:800;letter-spacing:.04em">tap to flip 🔄</span></div><div class="flip-back"><span style="font-size:1.6rem;margin-bottom:6px">'+v.e+'</span><span style="font-size:.92rem;line-height:1.3">'+v.q+'</span><span style="font-size:.6rem;margin-top:8px;opacity:.85;letter-spacing:.04em">SAY IT OUT LOUD!</span></div></div>';
+  let flipped = false;
+  card.onclick = () => {
+    if(!flipped){ say(v.w); card.classList.add('flipped'); setTimeout(()=>say(v.q, 0.75), 900); flipped = true; }
+    else { say(v.q, 0.75); card.classList.remove('flipped'); flipped = false; }
+  };
+  vgrid.appendChild(card);
 });
 
 // ============================
@@ -663,106 +651,40 @@ if(hList){
 // ============================
 // BLOCK 5 · SAY-IT-BACK with MediaRecorder
 // ============================
-const sbPhrases = [
-  {p:'Hello!', s:'You walk into the hotel'},
-  {p:'Good morning!', s:'You meet someone in the lift'},
-  {p:'Room twenty-five, please.', s:'At the reception desk'},
-  {p:'Can I have the key, please?', s:'Asking for your room key'},
-  {p:'Where is the pool?', s:'Looking for the swimming pool'},
-  {p:'Where is breakfast?', s:'Hungry in the morning'},
-  {p:'Thank you!', s:'After someone helps you'},
-  {p:'Goodnight!', s:'Before going to bed'}
+const rpPhrases = [
+  'Hello!','Good morning!','Goodnight!','Thank you!','Excuse me, please!',
+  'Room twenty-five, please.','Where is the pool?','Where is breakfast?','Can I have the key?',
+  'Can I have strawberry ice cream, please?','I want chocolate, please!','How much is it?',
+  'Where is the beach?','Where is the bathroom?','See you tomorrow!'
 ];
-function renderSbList(){
-  const el = document.getElementById('sb-list');
-  if(!el) return;
-  el.innerHTML = '<p style="font-weight:800;color:var(--muted);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;text-align:center">8 phrases · current is pink</p>';
-  const ol = document.createElement('ol');
-  ol.style.cssText='list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:5px';
-  sbPhrases.forEach((p,i) => {
-    const li = document.createElement('li');
-    li.dataset.idx=i;
-    li.style.cssText='padding:8px 10px;background:#FFF6E6;border-radius:8px;font-weight:700;display:flex;align-items:center;gap:8px;font-size:.92rem;transition:.2s;cursor:pointer';
-    li.innerHTML='<span style="width:22px;height:22px;border-radius:50%;background:var(--accent3);color:#fff;display:grid;place-items:center;font-size:.72rem;font-weight:800;flex-shrink:0">'+(i+1)+'</span><span class="ph">'+p.p+'</span>';
-    li.onclick = () => say(p.p, 0.7);
-    ol.appendChild(li);
-  });
-  el.appendChild(ol);
-}
-function highlightSbLi(){
-  const el = document.getElementById('sb-list');
-  if(!el) return;
-  el.querySelectorAll('li').forEach((li,i)=>{
-    const badge = li.querySelector('span');
-    if(i===sbIdx){ li.style.background='var(--accent)'; li.style.color='#fff'; badge.style.background='#fff'; badge.style.color='var(--accent)'; }
-    else if(i<sbIdx){ li.style.background='#e6f7e9'; li.style.color='#2e7d32'; badge.style.background='var(--ok)'; badge.style.color='#fff'; }
-    else { li.style.background='#FFF6E6'; li.style.color='var(--ink)'; badge.style.background='var(--accent3)'; badge.style.color='#fff'; }
-  });
-}
-let sbIdx = 0, sbRecorder = null, sbChunks = [], sbBlob = null, sbStream = null;
-const sbPhraseEl = document.getElementById('sb-phrase');
-const sbSitEl = document.getElementById('sb-situation');
-const sbCounter = document.getElementById('sb-counter');
-const sbBar = document.getElementById('sb-bar');
-const sbListen = document.getElementById('sb-listen');
-const sbRecord = document.getElementById('sb-record');
-const sbPlay = document.getElementById('sb-play-mine');
-const sbNext = document.getElementById('sb-next');
-
-function loadSbPhrase(){
-  const cur = sbPhrases[sbIdx];
-  sbPhraseEl.textContent = cur.p;
-  sbSitEl.textContent = cur.s.toUpperCase();
-  sbCounter.textContent = `Phrase ${sbIdx+1} of ${sbPhrases.length}`;
-  sbBar.style.width = ((sbIdx)/sbPhrases.length*100)+'%';
-  sbPlay.disabled = true; sbNext.disabled = true;
-  sbBlob = null;
-  highlightSbLi();
-}
-loadSbPhrase(); highlightSbLi();
-sbListen.onclick = () => say(sbPhrases[sbIdx].p, 0.7);
-sbRecord.onclick = async () => {
-  if(sbRecorder && sbRecorder.state === 'recording'){
-    sbRecorder.stop();
+let rpShown = 0;
+const rpCounter = document.getElementById('rp-counter');
+const rpPhrase = document.getElementById('rp-phrase');
+const rpListen = document.getElementById('rp-listen');
+const rpNext = document.getElementById('rp-next');
+const rpBar = document.getElementById('rp-bar');
+let rpRemaining = [...rpPhrases].sort(() => Math.random() - 0.5);
+function rpShow(){
+  if(rpRemaining.length === 0){
+    rpPhrase.textContent = '🎉 Great speaking!';
+    rpCounter.textContent = '✨ ALL 15 PHRASES DONE!';
+    rpListen.style.display = 'none';
+    rpNext.textContent = '🔄 Start again';
+    rpNext.onclick = () => { rpShown = 0; rpRemaining = [...rpPhrases].sort(()=>Math.random()-0.5); rpNext.textContent='▶ Next'; rpShow(); rpNext.onclick = rpShow; };
+    rpBar.style.width = '100%';
     return;
   }
-  try{
-    sbStream = await navigator.mediaDevices.getUserMedia({audio:true});
-    sbChunks = [];
-    sbRecorder = new MediaRecorder(sbStream);
-    sbRecorder.ondataavailable = e => sbChunks.push(e.data);
-    sbRecorder.onstop = () => {
-      sbBlob = new Blob(sbChunks, {type:'audio/webm'});
-      sbStream.getTracks().forEach(t => t.stop());
-      sbPlay.disabled = false; sbNext.disabled = false;
-      sbRecord.classList.remove('recording');
-      sbRecord.textContent = '🎤 Try again';
-    };
-    sbRecorder.start();
-    sbRecord.classList.add('recording');
-    sbRecord.textContent = '⏹ Stop';
-  } catch(err){
-    alert('Microphone is needed for this exercise. Please allow it!');
-  }
-};
-sbPlay.onclick = () => {
-  if(!sbBlob) return;
-  const url = URL.createObjectURL(sbBlob);
-  const a = new Audio(url); a.play();
-};
-sbNext.onclick = () => {
-  sbIdx++;
-  if(sbIdx >= sbPhrases.length){
-    sbPhraseEl.textContent = '🎉 All done!';
-    sbSitEl.textContent = 'YOU LEARNED 8 HOTEL PHRASES!';
-    sbCounter.textContent = '✨ Great speaking, Julia!';
-    sbBar.style.width = '100%';
-    sbListen.disabled = true; sbRecord.disabled = true; sbPlay.disabled = true; sbNext.disabled = true;
-    return;
-  }
-  sbRecord.textContent = '🎤 My turn';
-  loadSbPhrase();
-};
+  const phrase = rpRemaining.shift();
+  rpShown++;
+  rpPhrase.textContent = phrase;
+  rpCounter.textContent = 'PHRASE ' + rpShown + ' OF ' + rpPhrases.length;
+  rpListen.style.display = 'inline-flex';
+  rpListen.onclick = () => say(phrase, 0.75);
+  rpNext.textContent = '→ Next';
+  rpBar.style.width = (rpShown / rpPhrases.length * 100) + '%';
+  setTimeout(() => say(phrase, 0.75), 200);
+}
+rpNext.onclick = rpShow;
 
 // ============================
 // BLOCK 5 · Number gap fills
