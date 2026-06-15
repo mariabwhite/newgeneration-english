@@ -11,6 +11,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../assets/canon-L.css?v=11" data-tag="canon-L-loaded">
 <script src="../../assets/canon-L.js?v=5" defer></script>
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 <style>
 :root{
   --display:'Unbounded',ui-sans-serif,system-ui,sans-serif;
@@ -225,6 +226,35 @@ footer{max-width:1240px;margin:48px auto 28px;padding:0 clamp(16px,3vw,28px);tex
 .grader-unsupported{background:#FFF3E0;border:1px solid var(--warn);border-radius:10px;padding:12px 14px;font-size:.86rem;color:#7a4a00;margin-bottom:14px;display:none}
 .grader.unsupported .grader-unsupported{display:block}
 .grader.unsupported .grader-controls,.grader.unsupported .grader-transcript,.grader.unsupported .grader-stats,.grader.unsupported .grader-score{opacity:.4;pointer-events:none}
+.share-code{display:flex;align-items:center;gap:10px;background:#fff;border:1px dashed var(--accent);border-radius:10px;padding:10px 14px;margin:10px 0 0;flex-wrap:wrap}
+.share-code .code-label{font-family:var(--mono);font-size:.74rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.share-code .code-digits{font-family:var(--display);font-weight:800;font-size:1.6rem;letter-spacing:.18em;color:var(--accent3);background:var(--paper-2);padding:4px 14px;border-radius:8px;user-select:all}
+.share-code .code-status{font-family:var(--mono);font-size:.74rem;font-weight:700;color:var(--muted);letter-spacing:.04em}
+.share-code .code-status.connected{color:var(--ok)}
+.share-code .code-status.connecting{color:var(--warn)}
+.share-code .code-copy{background:transparent;color:var(--accent3);border:1px solid var(--accent);border-radius:6px;padding:4px 10px;font-family:var(--mono);font-size:.72rem;font-weight:800;cursor:pointer;letter-spacing:.06em;text-transform:uppercase}
+.share-code .code-copy:hover{background:var(--accent);color:#fff}
+
+/* === TEACHER MIRROR (when ?coach=NNNN is in URL) === */
+.teacher-mirror{background:#0E1A11;color:#E8F5E9;border:2px solid var(--accent2);border-radius:var(--radius-l);padding:clamp(18px,3vw,28px);box-shadow:0 12px 28px rgba(0,0,0,.25)}
+.teacher-mirror h3{color:var(--mint);font-family:var(--display);font-weight:800;margin:0 0 6px}
+.teacher-mirror .teacher-status{font-family:var(--mono);font-size:.78rem;font-weight:700;color:var(--leaf);letter-spacing:.06em;text-transform:uppercase}
+.teacher-mirror .teacher-status.live{color:#FF6B6B}
+.teacher-mirror .teacher-status.live::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:#FF6B6B;margin-right:6px;vertical-align:middle;animation:pulseRec 1.4s infinite;box-shadow:0 0 0 0 rgba(255,107,107,.6)}
+.teacher-mirror .checks li{color:#C8E6C9;border-top-color:#244029}
+.teacher-mirror .checks li.hit{color:var(--mint);background:rgba(165,214,167,.06)}
+.teacher-mirror .checks li .check-mark{background:#13241A;border-color:#244029;color:transparent}
+.teacher-mirror .checks li.hit .check-mark{background:var(--accent2);color:#0E1A11;border-color:var(--accent2)}
+.teacher-mirror .checks li .label-sub{color:#6E8A72}
+.teacher-mirror .checks li .check-pts{color:#6E8A72}
+.teacher-mirror .checks li.hit .check-pts{color:var(--mint)}
+.teacher-mirror .grader-transcript{background:#000;color:#E8F5E9;border:1px solid #244029}
+.teacher-mirror .grader-stats > div{background:#13241A;border-color:#244029;color:#E8F5E9}
+.teacher-mirror .grader-stats > div span{color:#6E8A72}
+.teacher-mirror .grader-stats > div strong{color:var(--mint)}
+.teacher-mirror .teacher-notes{background:#13241A;border:1px solid #244029;border-radius:10px;padding:10px;margin-top:12px}
+.teacher-mirror .teacher-notes textarea{width:100%;background:transparent;border:1px solid #244029;border-radius:6px;padding:8px;color:#E8F5E9;font-family:var(--body);font-size:.92rem;min-height:90px;resize:vertical;outline:none}
+.teacher-mirror .teacher-notes textarea:focus{border-color:var(--accent2)}
 
 /* === SHARED === */
 .shake{animation:shake .35s}
@@ -556,6 +586,13 @@ When I look at it, I feel a mix of admiration and a little bit of <strong>stage 
       <p class="grader-intro">Tap <strong>Start recording</strong> and answer the project task aloud. As you speak, the system checks the criteria the examiner is checking — in real time. Re-record as many times as you want. Nothing leaves your browser.</p>
 
       <div class="grader-unsupported">⚠️ Live speech recognition is not supported in this browser. Open in <strong>Chrome</strong> or <strong>Edge</strong> on desktop for the full coach. You can still type your answer below.</div>
+
+      <div class="share-code" id="share-code">
+        <span class="code-label">Teacher mirror code</span>
+        <span class="code-digits" id="share-digits">----</span>
+        <button class="code-copy" id="share-copy">Copy URL</button>
+        <span class="code-status" id="share-status">offline</span>
+      </div>
 
       <div class="grader-layout">
         <div class="grader-criteria">
@@ -960,6 +997,217 @@ function makeTimer(prepBtnId, talkBtnId, clockId, phaseId, prepSec, talkSec){
 makeTimer('t3-prep','t3-talk','t3-clock','t3-phase', 90, 120);
 makeTimer('t4-prep','t4-talk','t4-clock','t4-phase', 150, 180);
 
+/* ===================== TEACHER MODE — runs first, replaces page ===================== */
+function setupTeacherMode(code){
+  // Hide everything else
+  document.querySelectorAll('.hero, .progress, section.section, footer').forEach(el => el.style.display = 'none');
+  const main = document.createElement('div');
+  main.style.cssText = 'max-width:1240px;margin:24px auto;padding:0 clamp(16px,3vw,28px)';
+  main.innerHTML = `
+    <div class="teacher-mirror">
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px">
+        <div>
+          <h3 style="margin:0">Teacher Mirror · code ${code}</h3>
+          <p style="margin:4px 0 0;color:#A5C2A8;font-size:.86rem">Stage vs Screen · Speaking Task 4 · watching the student in real time</p>
+        </div>
+        <span class="teacher-status" id="tm-status" style="margin-left:auto">connecting…</span>
+      </div>
+      <div class="grader-layout">
+        <div class="grader-criteria" style="background:#13241A;border-color:#244029">
+          <h4 style="color:var(--mint)">Criteria · live</h4>
+          <ul class="checks" id="tm-checks">
+            <li data-cid="topic"><span class="check-mark">✓</span><span>Project topic mentioned<span class="label-sub">stage / screen / live performance</span></span><span class="check-pts">+1</span></li>
+            <li data-cid="photoA"><span class="check-mark">✓</span><span>Photo A described<span class="label-sub">first photo · stage</span></span><span class="check-pts">+1</span></li>
+            <li data-cid="photoB"><span class="check-mark">✓</span><span>Photo B described<span class="label-sub">second photo · phone / ring light</span></span><span class="check-pts">+1</span></li>
+            <li data-cid="diff"><span class="check-mark">✓</span><span>Two differences<span class="label-sub">however / whereas / unlike ≥ 2</span></span><span class="check-pts">+1</span></li>
+            <li data-cid="adv"><span class="check-mark">✓</span><span>Advantages<span class="label-sub">advantage / benefit / allows</span></span><span class="check-pts">+1</span></li>
+            <li data-cid="dis"><span class="check-mark">✓</span><span>Disadvantages<span class="label-sub">drawback / downside / limit</span></span><span class="check-pts">+1</span></li>
+            <li data-cid="pref"><span class="check-mark">✓</span><span>Preference + reason<span class="label-sub">I'd prefer + because</span></span><span class="check-pts">+1</span></li>
+            <li data-cid="concl"><span class="check-mark">✓</span><span>Conclusion<span class="label-sub">to conclude / overall</span></span><span class="check-pts">+1</span></li>
+          </ul>
+        </div>
+        <div class="grader-live">
+          <div class="grader-controls" style="background:#13241A;border-color:#244029">
+            <span style="font-family:var(--mono);font-size:.74rem;font-weight:900;letter-spacing:.06em;color:#A5C2A8;text-transform:uppercase">Elapsed</span>
+            <span class="grader-clock" id="tm-clock" style="background:#0E1A11;color:var(--mint)">--:--</span>
+            <span class="grader-status" id="tm-phase" style="color:#A5C2A8">waiting…</span>
+          </div>
+          <div class="grader-transcript" id="tm-transcript" aria-live="polite"></div>
+          <div class="grader-stats">
+            <div><span>Words</span><strong id="tm-words">0</strong></div>
+            <div><span>Pace · wpm</span><strong id="tm-pace">--</strong></div>
+            <div><span>Linkers</span><strong id="tm-linkers">0</strong></div>
+            <div><span>B2+ vocab</span><strong id="tm-b2">0</strong></div>
+            <div><span>Longest pause</span><strong id="tm-pause">0</strong>s</div>
+          </div>
+          <div class="grader-score">
+            <div>
+              <div class="score-label">Predicted</div>
+              <div class="score-big"><strong id="tm-score">—</strong><small>/ 10</small></div>
+            </div>
+            <div class="score-hint" id="tm-hint">When the student presses Start, you will see her speech here.</div>
+          </div>
+          <div class="teacher-notes">
+            <div style="font-family:var(--mono);font-size:.72rem;font-weight:900;letter-spacing:.1em;color:var(--mint);margin-bottom:6px;text-transform:uppercase">Teacher notes (local only)</div>
+            <textarea id="tm-notes" placeholder="Type private notes while she speaks — saved in your browser, not shared."></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(main);
+
+  // Persist teacher notes locally
+  const notes = document.getElementById('tm-notes');
+  const notesKey = 'tm-notes-' + code;
+  try { notes.value = localStorage.getItem(notesKey) || ''; } catch(_){}
+  notes.addEventListener('input', () => { try { localStorage.setItem(notesKey, notes.value); } catch(_){} });
+
+  // Connect as observer
+  if(typeof Peer === 'undefined'){
+    document.getElementById('tm-status').textContent = 'peer library failed to load';
+    document.getElementById('tm-status').classList.add('live');
+    return;
+  }
+  const peer = new Peer();
+  const tmStatus = document.getElementById('tm-status');
+  peer.on('open', () => {
+    tmStatus.textContent = 'connecting to student…';
+    const conn = peer.connect('nge-svs-2026-stage-screen-' + code, { reliable: true });
+    conn.on('open', () => {
+      tmStatus.textContent = 'LIVE';
+      tmStatus.classList.add('live');
+    });
+    conn.on('data', state => renderTeacherState(state));
+    conn.on('close', () => {
+      tmStatus.textContent = 'student disconnected';
+      tmStatus.classList.remove('live');
+    });
+    conn.on('error', e => { tmStatus.textContent = 'connection error: ' + (e.message || e.type || ''); });
+  });
+  peer.on('error', e => {
+    if(e.type === 'peer-unavailable'){
+      tmStatus.textContent = 'no student with code ' + code + ' yet — ask her to press Start';
+      // retry every 3 sec
+      setTimeout(() => location.reload(), 3500);
+    } else {
+      tmStatus.textContent = 'peer error: ' + e.type;
+    }
+  });
+}
+
+function renderTeacherState(state){
+  if(!state || state.kind !== 'student-state') return;
+  const fmt = ms => { const s = Math.max(0, Math.floor(ms/1000)); const m = Math.floor(s/60), r = s%60; return (m<10?'0':'')+m+':'+(r<10?'0':'')+r; };
+  const phase = document.getElementById('tm-phase');
+  const clock = document.getElementById('tm-clock');
+  if(clock) clock.textContent = fmt(state.elapsedMs);
+  if(phase) phase.textContent = state.running ? 'recording…' : (state.elapsedMs > 0 ? 'finished' : 'waiting…');
+  const trans = document.getElementById('tm-transcript');
+  if(trans){
+    trans.innerHTML = (state.finalText || '').replace(/</g,'&lt;') + (state.interimText ? ' <span class="interim">' + state.interimText.replace(/</g,'&lt;') + '</span>' : '');
+    trans.scrollTop = trans.scrollHeight;
+  }
+  document.getElementById('tm-words').textContent = state.words || 0;
+  document.getElementById('tm-pace').textContent = state.pace || '--';
+  document.getElementById('tm-linkers').textContent = state.linkers || 0;
+  document.getElementById('tm-b2').textContent = state.b2 || 0;
+  document.getElementById('tm-pause').textContent = state.pause || 0;
+  document.getElementById('tm-score').textContent = state.score || '—';
+  document.getElementById('tm-hint').textContent = state.hint || '';
+  document.querySelectorAll('#tm-checks li').forEach(li => {
+    li.classList.toggle('hit', !!(state.hits && state.hits[li.dataset.cid]));
+  });
+}
+
+/* ===================== TEACHER MIRROR via PeerJS (must run before grader) ===================== */
+const URL_PARAMS = new URLSearchParams(location.search);
+const TEACHER_CODE = URL_PARAMS.get('coach');
+const PEER_NAMESPACE = 'nge-svs-2026-stage-screen-';
+if(TEACHER_CODE){
+  document.addEventListener('DOMContentLoaded', () => setupTeacherMode(TEACHER_CODE));
+}
+const teacherConnections = [];
+let myPeer = null;
+let teacherShortCode = null;
+
+function newShortCode(){
+  return String(Math.floor(1000 + Math.random()*9000));
+}
+
+function shareUI(){
+  const wrap = document.getElementById('share-code');
+  const digits = document.getElementById('share-digits');
+  const status = document.getElementById('share-status');
+  const copy = document.getElementById('share-copy');
+  if(!wrap) return { setCode:()=>{}, setStatus:()=>{}, setConnected:()=>{} };
+  return {
+    setCode: c => { digits.textContent = c; },
+    setStatus: (s, cls) => { status.textContent = s; status.className = 'code-status' + (cls ? ' ' + cls : ''); },
+    bindCopy: code => {
+      copy.onclick = () => {
+        const url = location.origin + location.pathname + '?coach=' + code;
+        navigator.clipboard.writeText(url).then(() => {
+          copy.textContent = 'Copied!';
+          setTimeout(() => copy.textContent = 'Copy URL', 1800);
+        }).catch(() => {
+          copy.textContent = 'Select & Ctrl-C';
+        });
+      };
+    }
+  };
+}
+
+function ensureStudentPeer(){
+  if(myPeer) return;
+  if(typeof Peer === 'undefined') return;  // PeerJS not loaded
+  const code = newShortCode();
+  teacherShortCode = code;
+  const ui = shareUI();
+  ui.setCode(code);
+  ui.setStatus('connecting…', 'connecting');
+  ui.bindCopy(code);
+  try {
+    myPeer = new Peer(PEER_NAMESPACE + code);
+    myPeer.on('open', () => { ui.setStatus('waiting for teacher'); });
+    myPeer.on('connection', conn => {
+      conn.on('open', () => {
+        teacherConnections.push(conn);
+        ui.setStatus('teacher connected', 'connected');
+        broadcastState();
+      });
+      conn.on('close', () => {
+        const i = teacherConnections.indexOf(conn);
+        if(i >= 0) teacherConnections.splice(i, 1);
+        if(teacherConnections.length === 0) ui.setStatus('teacher disconnected');
+      });
+    });
+    myPeer.on('error', e => {
+      if(e.type === 'unavailable-id'){
+        // try again with new code
+        myPeer.destroy();
+        myPeer = null;
+        ensureStudentPeer();
+      } else if(e.type === 'network' || e.type === 'server-error'){
+        ui.setStatus('peer server unreachable');
+      } else {
+        ui.setStatus('peer error: ' + e.type);
+      }
+    });
+  } catch(_){ ui.setStatus('peer init failed'); }
+}
+
+function broadcastState(){
+  if(teacherConnections.length === 0) return;
+  const state = collectStateForTeacher();
+  for(const c of teacherConnections){
+    try { c.send(state); } catch(_){}
+  }
+}
+
+let _coachStateFn = () => ({ kind:'empty' });
+function collectStateForTeacher(){ return _coachStateFn(); }
+
 /* ===================== AI LIVE COACH (Task 4 grader) ===================== */
 (function(){
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -1208,7 +1456,29 @@ makeTimer('t4-prep','t4-talk','t4-clock','t4-phase', 150, 180);
     elHint.textContent = 'Press Start and read the 6-point plan above out loud. Do not stop for 3 minutes.';
   }
 
-  btnStart.addEventListener('click', start);
+  // Expose state for teacher mirror
+  _coachStateFn = () => ({
+    kind: 'student-state',
+    running: S.running,
+    elapsedMs: S.running ? (Date.now() - S.startTs) : 0,
+    finalText: S.finalText,
+    interimText: S.interimText,
+    longestPauseMs: S.longestPauseMs,
+    hits: { ...S.hits },
+    words: elWords.textContent,
+    pace: elPace.textContent,
+    linkers: elLinkers.textContent,
+    b2: elB2.textContent,
+    pause: elPause.textContent,
+    score: elScore.textContent,
+    hint: elHint.textContent
+  });
+
+  // Patch evaluate() so each tick also broadcasts to teacher(s)
+  const _origEvaluate = evaluate;
+  evaluate = function(){ _origEvaluate.apply(this, arguments); broadcastState(); };
+
+  btnStart.addEventListener('click', () => { ensureStudentPeer(); start(); });
   btnReset.addEventListener('click', reset);
 
   // ---- Fallback: grade typed text ----
