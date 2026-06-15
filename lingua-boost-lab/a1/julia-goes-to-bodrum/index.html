@@ -105,6 +105,11 @@ strong{font-weight:800}
 .match-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
 @media(max-width:540px){.match-cols:not(.match-2col){grid-template-columns:1fr}}
 .match-2col{grid-template-columns:1fr 1fr !important}
+.number-ladder{position:relative;padding-left:6px !important}
+.number-ladder::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:3px;background:linear-gradient(180deg,var(--accent2),var(--accent));border-radius:3px;opacity:.35}
+.ladder-step{margin-left:calc(var(--step-idx,0) * 18px) !important;min-width:min(220px, calc(100% - var(--step-idx,0) * 18px - 12px)) !important;transition:transform .15s}
+.ladder-step:hover{transform:translateX(4px)}
+@media(max-width:540px){.ladder-step{margin-left:calc(var(--step-idx,0) * 10px) !important;min-width:min(180px, calc(100% - var(--step-idx,0) * 10px - 12px)) !important;padding:6px 10px !important}}
 .match-item{background:#fff;border:2px solid #f3e3c4;border-radius:12px;padding:10px 14px;cursor:pointer;font-weight:700;font-size:.92rem;transition:.15s;text-align:center}
 .match-item:hover{border-color:var(--accent)}
 .match-item.selected{background:var(--accent);color:#fff;border-color:var(--accent);transform:scale(1.03)}
@@ -393,17 +398,20 @@ footer{max-width:1240px;margin:40px auto 24px;padding:0 clamp(16px,3vw,28px);tex
   <div class="section-head"><div class="n">9</div><h2>1st · 2nd · 3rd · Ordinal Numbers 🏆</h2></div>
   <div class="section-sub">First / Second / Third — who wins?</div>
   <div class="card">
-    <p style="text-align:center;font-weight:800;margin-bottom:8px">🏊 The Swimming Race in the Pool!</p>
-    <p style="text-align:center;font-size:.85rem;color:var(--muted);margin-bottom:10px">Drag the names to the pedestal:</p>
+    <p style="text-align:center;font-weight:800;margin-bottom:6px">🏊 Julia raced John in the pool!</p>
+    <p style="text-align:center;font-size:.85rem;color:var(--muted);margin-bottom:10px">Listen to the race result · then drag the names to the pedestal:</p>
+    <div class="audio-row" style="margin-bottom:10px">
+      <button class="play-btn" data-say="And the winner is Julia! Julia is first! John is second! Well done, both!">▶</button>
+      <div><div class="label">🏆 Race result</div><div class="text" style="font-size:.92rem">Listen — who is 1st? who is 2nd?</div></div>
+    </div>
     <div class="kid-bank">
       <span class="kid-bank-word" data-word="Julia" data-place="1">Julia</span>
       <span class="kid-bank-word" data-word="John" data-place="2">John</span>
-      <span class="kid-bank-word" data-word="Dad" data-place="3">Dad</span>
     </div>
     <div class="pedestal">
-      <div class="pod p2" data-place="2"><div class="place">2nd</div><div class="name-slot">drop name</div></div>
+      <div class="pod p2" data-place="2"><div class="place">🥈 2nd</div><div class="name-slot">drop name</div></div>
       <div class="pod p1" data-place="1"><div class="place">🥇 1st</div><div class="name-slot">drop name</div></div>
-      <div class="pod p3" data-place="3"><div class="place">3rd</div><div class="name-slot">drop name</div></div>
+      <div class="pod p3" style="visibility:hidden" data-place="3"></div>
     </div>
     <h3 style="margin-top:14px">Compare:</h3>
     <div class="verb-table" id="ord-table"></div>
@@ -427,7 +435,7 @@ footer{max-width:1240px;margin:40px auto 24px;padding:0 clamp(16px,3vw,28px);tex
     <p style="font-size:.92rem;font-weight:700;margin-bottom:8px">🏊 Julia and John had a race in the pool! Read, listen, and watch the comic:</p>
     <figure style="margin:10px 0;border-radius:14px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.12)"><img src="assets/pool-race-comic.png" alt="Pool race comic in three panels" style="width:100%;display:block"></figure>
     <div class="audio-row" style="background:linear-gradient(135deg,#FFD3DE,#A8D8F0)">
-      <audio controls preload="metadata" style="flex:1;min-width:200px"><source src="assets/pool-race-dialogue.mp3#t=4" type="audio/mpeg"></audio>
+      <audio id="pool-audio" controls preload="auto" style="flex:1;min-width:200px"><source src="assets/pool-race-dialogue.mp3" type="audio/mpeg"></audio>
       <div><div class="label">🎧 The full dialogue</div></div>
     </div>
     <details style="margin:10px 0;background:#fff3df;border-radius:12px;padding:10px 14px"><summary style="cursor:pointer;font-weight:800;color:var(--accent2)">📖 Read the dialogue</summary>
@@ -522,9 +530,11 @@ footer{max-width:1240px;margin:40px auto 24px;padding:0 clamp(16px,3vw,28px);tex
     <h3 style="color:var(--mint)">⚡ Verbs · past forms</h3>
     <div id="recap-verbs" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px"></div>
   
-    <h3 style="color:var(--accent2);margin-top:18px">📚 Big word list — tap any word!</h3>
-    <p style="font-size:.78rem;color:var(--muted);margin-bottom:8px">All the useful words and phrases from this lesson, grouped by topic.</p>
-    <div id="full-strip" style="line-height:2.2"></div>
+    <details style="margin-top:18px;background:linear-gradient(135deg,#fff8e1,#fff);border-radius:14px;padding:12px 14px;border:2px dashed var(--accent2)">
+      <summary style="cursor:pointer;font-weight:900;color:var(--accent2);font-size:1rem;list-style:none">📚 Revision · big word memo (for after the lesson) ▼</summary>
+      <p style="font-size:.82rem;color:var(--muted);margin:8px 0 6px"><strong>Это памятка для повторения дома</strong> — не для урока. Tap any word to hear it.</p>
+      <div id="full-strip" style="line-height:2.2"></div>
+    </details>
   </div>
   <div class="card">
     <h3>🗺️ Tourist Q&A · match question to answer</h3>
@@ -532,11 +542,22 @@ footer{max-width:1240px;margin:40px auto 24px;padding:0 clamp(16px,3vw,28px);tex
     <div class="match-cols" id="tourist-match"></div>
   </div>
 </section>
-<!-- BLOCK 12 · MEMORY CHECK -->
+<!-- BLOCK 12 · LISTENING STORY + MEMORY CHECK -->
 <section class="section" id="block-12">
-  <div class="section-head"><div class="n">12</div><h2>Memory check 🎯</h2></div>
-  <div class="section-sub">Quick quiz · then reward!</div>
+  <div class="section-head"><div class="n">12</div><h2>Julia's Bodrum day · listening 🎧</h2></div>
+  <div class="section-sub">Listen to the whole story · then check what you remember!</div>
   <div class="card">
+    <h3 style="margin-top:0;color:var(--accent)">🎧 The Story</h3>
+    <p style="font-size:.92rem;margin-bottom:10px">Tap ▶ and just <strong>listen</strong>. Don't read — close your eyes if you want!</p>
+    <div class="audio-row" style="background:linear-gradient(135deg,#FFC145,#FF7A45);color:#fff">
+      <button class="play-btn" id="story-play" style="background:#fff;color:var(--accent)">▶</button>
+      <div style="color:#fff"><div class="label" style="color:#fff;opacity:.9">🌴 Julia's day in Bodrum</div><div class="text" style="font-size:.85rem;color:#fff">About 50 seconds · listen and try to remember the numbers!</div></div>
+    </div>
+    <details style="margin-top:8px;background:#fff8e1;border-radius:10px;padding:8px 12px"><summary style="cursor:pointer;font-weight:800;color:var(--accent2);font-size:.88rem">📖 Show me the story text (only if it is hard!)</summary>
+      <p id="story-text" style="font-size:.92rem;line-height:1.5;margin-top:8px"></p>
+    </details>
+    <h3 style="margin-top:18px">Memory check 🎯</h3>
+    <p style="font-size:.88rem;color:var(--muted);margin-bottom:10px">Now answer · what do you remember from the lesson and the story?</p>
     <div id="memory-quiz"></div>
     <div class="reward" id="reward" style="display:none">
       <div class="stars">⭐ ⭐ ⭐</div>
@@ -580,6 +601,16 @@ document.addEventListener('click', e => {
   const t = e.target.closest('[data-say]');
   if(t){ say(t.dataset.say); }
 });
+
+// Pool race audio — skip first 4 seconds (intro silence)
+const poolAudio = document.getElementById('pool-audio');
+if(poolAudio){
+  let trimmed = false;
+  const goTo4 = () => { try { if(poolAudio.currentTime < 3.9){ poolAudio.currentTime = 4; } trimmed = true; } catch(e){} };
+  poolAudio.addEventListener('loadedmetadata', goTo4);
+  poolAudio.addEventListener('play', () => { if(!trimmed) goTo4(); });
+  poolAudio.addEventListener('ended', () => { trimmed = false; });
+}
 
 // MCQ in story
 document.querySelectorAll('.mcq').forEach(s => {
@@ -649,12 +680,17 @@ const nums = [
 let numQuizActive=false, numQuizTarget=null;
 const nCombo = document.getElementById('num-combo');
 if(nCombo){
-  nCombo.style.display='grid'; nCombo.style.gridTemplateColumns='repeat(2,1fr)'; nCombo.style.gap='8px';
-  nums.forEach(n => {
+  nCombo.classList.add('number-ladder');
+  nCombo.style.display='flex'; nCombo.style.flexDirection='column-reverse'; nCombo.style.gap='2px'; nCombo.style.padding='8px 0 4px';
+  nums.forEach((n,idx) => {
     const r = document.createElement('div');
-    r.className='num-card'; r.style.aspectRatio='unset'; r.style.padding='10px 8px';
+    r.className='num-card ladder-step'; r.style.aspectRatio='unset'; r.style.padding='8px 16px';
+    r.style.alignSelf='flex-start';
+    r.style.setProperty('--step-idx', idx);
+    r.style.borderRadius='12px 12px 4px 4px';
+    r.style.boxShadow='0 3px 0 var(--accent2), 0 4px 10px rgba(0,0,0,.08)';
     r.dataset.num=n.n;
-    r.innerHTML='<div style="display:flex;align-items:center;gap:8px;width:100%;justify-content:center"><span style="font-family:Fredoka;font-weight:700;font-size:1.8rem;color:var(--accent2)">'+n.n+'</span><span style="font-size:1.3rem">'+n.e+'</span></div><div style="display:flex;gap:6px;font-size:.78rem;font-weight:800;margin-top:4px;justify-content:center"><span style="color:var(--accent)">'+n.c+'</span><span style="color:var(--muted)">·</span><span style="color:var(--accent3)">'+n.o+'</span></div>';
+    r.innerHTML='<div style="display:flex;align-items:center;gap:10px;width:100%"><span style="font-family:Fredoka;font-weight:700;font-size:1.6rem;color:var(--accent2);min-width:28px;text-align:center">'+n.n+'</span><span style="font-size:1.2rem">'+n.e+'</span><span style="flex:1;display:flex;gap:6px;font-size:.78rem;font-weight:800;justify-content:flex-end"><span style="color:var(--accent)">'+n.c+'</span><span style="color:var(--muted)">·</span><span style="color:var(--accent3)">'+n.o+'</span></span></div>';
     r.onclick = () => {
       say(n.n+''); setTimeout(()=>say(n.c), 700); setTimeout(()=>say(n.o), 1500);
       if(numQuizActive && n.n===numQuizTarget){
@@ -959,12 +995,14 @@ document.querySelectorAll('#block-10 .choice').forEach(c => {
 // BLOCK 11 · Speaking questions
 // ============================
 const speakQs = [
-  {q:'How old are you?', hint:'I am ___'},
-  {q:'Do you like the beach?', hint:'Yes / No'},
-  {q:'Can you swim?', hint:'Yes / No'},
-  {q:'What is your favourite ice cream?', hint:'Chocolate / Strawberry / Lemon'},
-  {q:'What did you do yesterday?', hint:'I ___ (past tense!)'},
-  {q:'Where did you go last summer?', hint:'I went to ___'}
+  {q:'Do you like travelling?', hint:'Yes, I love it! / Not really…'},
+  {q:'Have you been to Bodrum?', hint:'Yes, I have / No, not yet'},
+  {q:'What are you looking forward to on the trip?', hint:'the sea · the pool · the ice cream · the hotel · the beach'},
+  {q:'What do you usually pack in your suitcase?', hint:'swimsuit · sun hat · book · phone · ___'},
+  {q:'What is your favourite thing about holidays?', hint:'I love ___ because ___'},
+  {q:'Where did you go on your last holiday?', hint:'I went to ___'},
+  {q:'What did you do there?', hint:'I swam / ate / saw / played ___'},
+  {q:'Where would you like to go next?', hint:'I want to go to ___'}
 ];
 const sq = document.getElementById('speak-questions');
 speakQs.forEach((item,i) => {
@@ -981,13 +1019,26 @@ speakQs.forEach((item,i) => {
 // ============================
 // BLOCK 12 · Memory check
 // ============================
+// ----- Listening story: Julia's day in Bodrum -----
+const storyText = "Hello! My name is Julia. I am in Bodrum with my family. Our hotel is called Sun Hotel. Our room number is twenty-five. It is on the second floor. Breakfast is at eight in the morning. I eat eggs and bread. After breakfast, I go to the pool with my brother John. We swim and we have a race. I am first! John is second! Then we walk to the beach. The beach is one minute away. I find three pretty seashells in the sand. We stay in Bodrum for seven days. I love it here!";
+const storyEl = document.getElementById('story-text');
+if(storyEl) storyEl.textContent = storyText;
+const storyBtn = document.getElementById('story-play');
+if(storyBtn){
+  storyBtn.onclick = () => { say(storyText, 0.82); };
+}
+
 const memQ = [
-  {q:'How many seashells did Julia find?', opts:['2','3','5'], ans:'3'},
-  {q:'What was the room number?', opts:['15','25','52'], ans:'25'},
-  {q:'Which floor?', opts:['first','second','third'], ans:'second'},
+  {q:'🎧 What is the hotel name?', opts:['Sun Hotel','Sea Hotel','Star Hotel'], ans:'Sun Hotel'},
+  {q:'🎧 Which floor is the room on?', opts:['first','second','third'], ans:'second'},
+  {q:'🎧 What is the room number?', opts:['15','25','52'], ans:'25'},
+  {q:'🎧 When is breakfast?', opts:['at 7','at 8','at 9'], ans:'at 8'},
+  {q:'🎧 How many seashells did Julia find?', opts:['2','3','5'], ans:'3'},
+  {q:'🎧 Who came FIRST in the race?', opts:['Julia','John','Mum'], ans:'Julia'},
+  {q:'🎧 How many days do they stay?', opts:['five','seven','ten'], ans:'seven'},
   {q:'Past of "go" = ?', opts:['goed','went','gone'], ans:'went'},
   {q:'Past of "eat" = ?', opts:['eated','ate','aten'], ans:'ate'},
-  {q:'Who was 1st in the swim race?', opts:['Julia','John','Dad'], ans:'Julia'}
+  {q:'Past of "swim" = ?', opts:['swimed','swam','swimmed'], ans:'swam'}
 ];
 const mq = document.getElementById('memory-quiz');
 let mScore = 0;
