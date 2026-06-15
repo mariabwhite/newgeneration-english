@@ -170,6 +170,62 @@ footer{max-width:1240px;margin:48px auto 28px;padding:0 clamp(16px,3vw,28px);tex
 .checklist .label{font-size:.92rem;line-height:1.5}
 .checklist .why{display:block;font-size:.76rem;color:var(--muted);margin-top:2px;font-style:italic}
 
+/* === AI LIVE COACH (Block 7 Task 4 grader) === */
+.grader{margin-top:14px;background:linear-gradient(180deg,#FFFDF0 0%,var(--paper-2) 100%);border:2px solid var(--accent);border-radius:var(--radius-l);padding:clamp(18px,3vw,28px);position:relative;overflow:hidden}
+.grader::before{content:"";position:absolute;top:0;right:0;width:160px;height:160px;background:radial-gradient(circle,rgba(165,214,167,.35),transparent 70%);pointer-events:none}
+.grader-title{display:flex;align-items:center;gap:10px;margin:0 0 4px}
+.grader-title h3{margin:0;font-family:var(--display);font-size:1.15rem;color:var(--accent3);font-weight:800}
+.grader-title .ai-pulse{width:10px;height:10px;border-radius:50%;background:var(--bad);box-shadow:0 0 0 0 rgba(198,40,40,.6);animation:pulseRec 1.4s infinite;display:none}
+.grader.is-rec .grader-title .ai-pulse{display:inline-block}
+@keyframes pulseRec{0%{box-shadow:0 0 0 0 rgba(198,40,40,.6)}70%{box-shadow:0 0 0 12px rgba(198,40,40,0)}100%{box-shadow:0 0 0 0 rgba(198,40,40,0)}}
+.grader-intro{font-size:.88rem;color:var(--muted);margin:0 0 14px;line-height:1.55}
+.grader-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:18px;position:relative}
+@media(max-width:780px){.grader-layout{grid-template-columns:1fr}}
+.grader-criteria{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}
+.grader-criteria h4{margin:0 0 10px;font-family:var(--display);font-size:.86rem;color:var(--accent3);font-weight:800;letter-spacing:-.01em}
+.checks{list-style:none;padding:0;margin:0}
+.checks li{display:grid;grid-template-columns:24px 1fr auto;align-items:center;gap:10px;padding:7px 0;font-size:.88rem;line-height:1.35;border-top:1px solid var(--line);transition:.2s}
+.checks li:first-child{border-top:0}
+.checks li.hit{color:var(--accent3);font-weight:700}
+.checks li .check-mark{width:22px;height:22px;border:2px solid var(--line);border-radius:5px;display:grid;place-items:center;color:transparent;font-weight:900;font-size:14px;transition:.2s;background:#fff}
+.checks li.hit .check-mark{background:var(--accent);color:#fff;border-color:var(--accent);transform:scale(1.05)}
+.checks li .check-pts{font-family:var(--mono);font-size:.7rem;font-weight:900;color:var(--muted);letter-spacing:.04em}
+.checks li.hit .check-pts{color:var(--ok)}
+.checks li .label-sub{display:block;font-size:.74rem;color:var(--faint);font-weight:600;margin-top:1px}
+.grader-live{display:flex;flex-direction:column;gap:12px}
+.grader-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.grader-btn{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:9px 16px;font-family:var(--display);font-weight:800;font-size:.86rem;letter-spacing:.02em;cursor:pointer;transition:.15s}
+.grader-btn:hover{background:var(--accent3)}
+.grader-btn.stop{background:var(--bad)}
+.grader-btn.stop:hover{background:#900}
+.grader-btn:disabled{opacity:.45;cursor:not-allowed}
+.grader-btn.outline{background:transparent;color:var(--muted);border:1px solid var(--muted)}
+.grader-clock{font-family:var(--mono);font-weight:900;font-size:1.1rem;color:var(--accent3);min-width:54px;text-align:center;background:var(--paper-2);padding:4px 8px;border-radius:6px}
+.grader-status{font-family:var(--mono);font-size:.74rem;font-weight:700;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+.grader-transcript{background:#0E1A11;color:#E8F5E9;border-radius:10px;padding:14px 16px;min-height:140px;max-height:240px;overflow-y:auto;font-size:.92rem;line-height:1.55;font-family:var(--body)}
+.grader-transcript:empty::before{content:"Live transcript appears here as you speak…";color:#6E8A72;font-style:italic}
+.grader-transcript .interim{opacity:.55;font-style:italic}
+.grader-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}
+.grader-stats > div{background:#fff;border:1px solid var(--line);border-radius:8px;padding:9px 12px;text-align:center}
+.grader-stats > div span{display:block;font-family:var(--mono);font-size:.64rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.grader-stats > div strong{display:block;font-family:var(--display);font-weight:800;font-size:1.2rem;color:var(--accent3);margin-top:2px}
+.grader-stats > div.warn strong{color:var(--warn)}
+.grader-stats > div.bad strong{color:var(--bad)}
+.grader-stats > div.ok strong{color:var(--ok)}
+.grader-score{background:linear-gradient(135deg,var(--accent3),var(--accent));color:#fff;border-radius:12px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;box-shadow:0 6px 18px rgba(46,125,50,.25)}
+.grader-score .score-label{font-family:var(--mono);font-size:.74rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase;opacity:.85}
+.grader-score .score-big{font-family:var(--display);font-weight:800;font-size:2.2rem;line-height:1;letter-spacing:-.02em}
+.grader-score .score-big strong{font-size:2.6rem;color:#fff}
+.grader-score .score-big small{font-size:1rem;opacity:.7;margin-left:2px}
+.grader-score .score-hint{font-size:.84rem;flex-basis:100%;opacity:.92;line-height:1.4;margin-top:4px}
+.grader-fallback{margin-top:14px;background:#fff;border:1px dashed var(--accent);border-radius:10px;padding:14px}
+.grader-fallback summary{cursor:pointer;font-family:var(--display);font-weight:700;color:var(--accent3);font-size:.88rem;letter-spacing:-.01em}
+.grader-fallback textarea{width:100%;min-height:120px;border:1px solid var(--line);border-radius:8px;padding:10px;font-family:var(--body);font-size:.92rem;resize:vertical;margin-top:10px;outline:none}
+.grader-fallback textarea:focus{border-color:var(--accent)}
+.grader-unsupported{background:#FFF3E0;border:1px solid var(--warn);border-radius:10px;padding:12px 14px;font-size:.86rem;color:#7a4a00;margin-bottom:14px;display:none}
+.grader.unsupported .grader-unsupported{display:block}
+.grader.unsupported .grader-controls,.grader.unsupported .grader-transcript,.grader.unsupported .grader-stats,.grader.unsupported .grader-score{opacity:.4;pointer-events:none}
+
 /* === SHARED === */
 .shake{animation:shake .35s}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
@@ -486,6 +542,66 @@ When I look at it, I feel a mix of admiration and a little bit of <strong>stage 
 
 <strong>To conclude</strong>, both formats are valid, but they shape very different kinds of artists — and the smartest performers of our generation are probably the ones who learn to live in both worlds.</div>
     </details>
+
+    <!-- ============== AI LIVE COACH ============== -->
+    <div class="grader" id="t4-grader">
+      <div class="grader-title">
+        <span class="ai-pulse"></span>
+        <h3>AI Live Coach · record yourself and get instant feedback</h3>
+      </div>
+      <p class="grader-intro">Tap <strong>Start recording</strong> and answer the project task aloud. As you speak, the system checks the criteria the examiner is checking — in real time. Re-record as many times as you want. Nothing leaves your browser.</p>
+
+      <div class="grader-unsupported">⚠️ Live speech recognition is not supported in this browser. Open in <strong>Chrome</strong> or <strong>Edge</strong> on desktop for the full coach. You can still type your answer below.</div>
+
+      <div class="grader-layout">
+        <div class="grader-criteria">
+          <h4>Criteria checklist · real-time</h4>
+          <ul class="checks" id="grader-checks">
+            <li data-cid="topic"><span class="check-mark">✓</span><span>Project topic mentioned<span class="label-sub">stage / screen / live performance / social media</span></span><span class="check-pts">+1</span></li>
+            <li data-cid="photoA"><span class="check-mark">✓</span><span>Photo A described<span class="label-sub">"in the first photo…" + concert/stage</span></span><span class="check-pts">+1</span></li>
+            <li data-cid="photoB"><span class="check-mark">✓</span><span>Photo B described<span class="label-sub">"in the second photo…" + phone/ring light</span></span><span class="check-pts">+1</span></li>
+            <li data-cid="diff"><span class="check-mark">✓</span><span>Two differences<span class="label-sub">however / whereas / in contrast / unlike</span></span><span class="check-pts">+1</span></li>
+            <li data-cid="adv"><span class="check-mark">✓</span><span>Advantages mentioned<span class="label-sub">advantage / benefit / strength / allows</span></span><span class="check-pts">+1</span></li>
+            <li data-cid="dis"><span class="check-mark">✓</span><span>Disadvantages mentioned<span class="label-sub">disadvantage / drawback / downside</span></span><span class="check-pts">+1</span></li>
+            <li data-cid="pref"><span class="check-mark">✓</span><span>Preference + reason<span class="label-sub">"I'd prefer / I'd choose…" + because</span></span><span class="check-pts">+1</span></li>
+            <li data-cid="concl"><span class="check-mark">✓</span><span>Conclusion<span class="label-sub">to conclude / in summary / overall</span></span><span class="check-pts">+1</span></li>
+          </ul>
+        </div>
+
+        <div class="grader-live">
+          <div class="grader-controls">
+            <button class="grader-btn" id="grader-start">▶ Start recording</button>
+            <span class="grader-clock" id="grader-clock">--:--</span>
+            <span class="grader-status" id="grader-status">tap to start · 3:00 max</span>
+            <button class="grader-btn outline" id="grader-reset" style="margin-left:auto">Reset</button>
+          </div>
+          <div class="grader-transcript" id="grader-transcript" aria-live="polite"></div>
+          <div class="grader-stats">
+            <div id="stat-words"><span>Words</span><strong id="g-words">0</strong></div>
+            <div id="stat-pace"><span>Pace · wpm</span><strong id="g-pace">--</strong></div>
+            <div id="stat-linkers"><span>Linkers used</span><strong id="g-linkers">0</strong></div>
+            <div id="stat-b2"><span>B2+ vocab</span><strong id="g-b2">0</strong></div>
+            <div id="stat-pause"><span>Longest pause</span><strong id="g-pause">0</strong>s</div>
+          </div>
+          <div class="grader-score">
+            <div>
+              <div class="score-label">Predicted score</div>
+              <div class="score-big"><strong id="g-score">—</strong><small>/ 10</small></div>
+            </div>
+            <div class="score-hint" id="g-hint">Press Start and read the 6-point plan above out loud. Don't stop for 3 minutes.</div>
+          </div>
+        </div>
+      </div>
+
+      <details class="grader-fallback">
+        <summary>Mic doesn't work? Type your answer instead</summary>
+        <textarea id="grader-fallback-text" placeholder="Type or paste your full Task 4 answer here…"></textarea>
+        <div class="row" style="margin-top:8px">
+          <button class="grader-btn" id="grader-grade-text">Grade my text</button>
+          <span class="grader-status" id="grader-fallback-status"></span>
+        </div>
+      </details>
+    </div>
   </div>
 </section>
 
@@ -839,6 +955,268 @@ function makeTimer(prepBtnId, talkBtnId, clockId, phaseId, prepSec, talkSec){
 }
 makeTimer('t3-prep','t3-talk','t3-clock','t3-phase', 90, 120);
 makeTimer('t4-prep','t4-talk','t4-clock','t4-phase', 150, 180);
+
+/* ===================== AI LIVE COACH (Task 4 grader) ===================== */
+(function(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const grader = document.getElementById('t4-grader');
+  if(!grader) return;
+  if(!SR){ grader.classList.add('unsupported'); }
+
+  const elTranscript = document.getElementById('grader-transcript');
+  const elClock = document.getElementById('grader-clock');
+  const elStatus = document.getElementById('grader-status');
+  const btnStart = document.getElementById('grader-start');
+  const btnReset = document.getElementById('grader-reset');
+  const btnGradeText = document.getElementById('grader-grade-text');
+  const txtFallback = document.getElementById('grader-fallback-text');
+  const stFallback = document.getElementById('grader-fallback-status');
+  const elScore = document.getElementById('g-score');
+  const elHint = document.getElementById('g-hint');
+  const elWords = document.getElementById('g-words');
+  const elPace = document.getElementById('g-pace');
+  const elLinkers = document.getElementById('g-linkers');
+  const elB2 = document.getElementById('g-b2');
+  const elPause = document.getElementById('g-pause');
+  const statPace = document.getElementById('stat-pace');
+  const statPause = document.getElementById('stat-pause');
+  const checks = [...document.querySelectorAll('#grader-checks li')];
+
+  // ---- Criteria ----
+  // Each criterion takes the LOWERCASE transcript and returns true once hit.
+  const linkerWords = ['however','whereas','in contrast','on the other hand','unlike','while','although','though','speaking of','in terms of','what is more','what\'s more','moreover','furthermore','additionally','besides','as well as'];
+  const b2Vocab = ['audience','rehearsal','rehearsals','choreography','performer','perform live','viral','mainstream','authentic','authenticity','exposure','engagement','content creator','content creators','influence','followers','fanbase','audition','stage fright','opening night','niche','popularity','spotlight','tour','choreograph','original','original','professional'];
+  const photoAhints = /(first photo|photo a|on the left|left photo|left picture|on stage|live stage|stage scene|theatre|theater|concert|guitar|microphone|spotlight|audience)/;
+  const photoBhints = /(second photo|photo b|on the right|right photo|right picture|ring light|phone|smartphone|filming|recording.{0,8}(video|herself)|tiktok|reels|live[- ]stream|at home|bedroom)/;
+  const topicHints = /(stage.{0,10}screen|live performance|social media|online|in person|virtual|on a stage|on the stage)/;
+  const diffMarkers = /(however|whereas|in contrast|on the other hand|unlike|while the second|while the first|but the second|but the first|compared to|differs)/g;
+  const advMarkers = /(advantage|benefit|strength|good thing|positive|allow|allows|gives.{1,15}(reach|chance|opportunity)|reach.{0,15}(millions|huge)|build.{0,10}(skill|resilience)|develop.{0,10}(skill|resilience|confidence))/;
+  const disMarkers = /(disadvantage|drawback|downside|weakness|negative|problem|limit|limited|hard to|difficult to|risk|stage fright|forgotten|forget)/;
+  const prefStart = /(i.?d? (prefer|choose|pick|go for)|i would (prefer|choose|pick|go for)|personally.{0,8}(prefer|choose|go))/;
+  const reasonMarker = /(because|since|as it|as they|due to|that is why|so that)/;
+  const conclMarkers = /(to conclude|in conclusion|to sum up|in summary|overall|all in all|to summarise|to summarize|finally|wrapping up)/;
+
+  // ---- Session state ----
+  const fresh = () => ({
+    running: false,
+    startTs: 0,
+    elapsedMs: 0,
+    finalText: '',
+    interimText: '',
+    lastSpeechTs: 0,
+    longestPauseMs: 0,
+    pauseTimerId: null,
+    hits: {},
+    rec: null,
+    autoStopId: null,
+    softTickId: null
+  });
+  let S = fresh();
+
+  function fmt(ms){
+    const s = Math.max(0, Math.floor(ms/1000));
+    const m = Math.floor(s/60), r = s%60;
+    return (m<10?'0':'')+m+':'+(r<10?'0':'')+r;
+  }
+  function wordCount(text){
+    return (text.trim().match(/\b[\w']+\b/g) || []).length;
+  }
+
+  function evaluate(){
+    const full = (S.finalText + ' ' + S.interimText).toLowerCase().replace(/\s+/g,' ').trim();
+    const wc = wordCount(full);
+    elWords.textContent = wc;
+
+    // pace
+    const elapsedMin = (Date.now() - S.startTs) / 60000;
+    const pace = elapsedMin > 0.05 ? Math.round(wc / elapsedMin) : 0;
+    if(S.running){
+      elPace.textContent = pace || '--';
+      statPace.classList.toggle('ok', pace >= 110 && pace <= 170);
+      statPace.classList.toggle('warn', pace > 0 && (pace < 90 || pace > 180));
+      statPace.classList.toggle('bad', pace > 0 && (pace < 70 || pace > 210));
+    }
+
+    // criteria checks (only flip TO hit, don't unflip)
+    function setHit(id, on){
+      if(on && !S.hits[id]){
+        S.hits[id] = true;
+        const li = checks.find(x => x.dataset.cid === id);
+        if(li) li.classList.add('hit');
+      }
+    }
+    setHit('topic',  topicHints.test(full));
+    setHit('photoA', photoAhints.test(full));
+    setHit('photoB', photoBhints.test(full));
+    const diffs = (full.match(diffMarkers) || []).length;
+    setHit('diff', diffs >= 2);
+    setHit('adv',   advMarkers.test(full));
+    setHit('dis',   disMarkers.test(full));
+    setHit('pref',  prefStart.test(full) && reasonMarker.test(full));
+    setHit('concl', conclMarkers.test(full));
+
+    // linker variety
+    const usedLinkers = new Set();
+    for(const l of linkerWords){ if(full.includes(l)) usedLinkers.add(l); }
+    elLinkers.textContent = usedLinkers.size;
+
+    // B2+ vocab variety
+    const usedB2 = new Set();
+    for(const w of b2Vocab){ if(full.includes(w)) usedB2.add(w); }
+    elB2.textContent = usedB2.size;
+
+    // pause stat
+    elPause.textContent = Math.round(S.longestPauseMs / 100) / 10;
+    statPause.classList.toggle('warn', S.longestPauseMs >= 2500 && S.longestPauseMs < 4000);
+    statPause.classList.toggle('bad', S.longestPauseMs >= 4000);
+
+    // score
+    let pts = 0;
+    for(const k of ['topic','photoA','photoB','diff','adv','dis','pref','concl']){ if(S.hits[k]) pts++; }
+    let bonus = 0;
+    if(usedLinkers.size >= 5) bonus += 1;
+    if(usedB2.size >= 4) bonus += 1;
+    const score = Math.min(10, pts + bonus);
+    elScore.textContent = score;
+
+    // hint
+    let hint;
+    const missing = checks.filter(li => !S.hits[li.dataset.cid]).map(li => li.querySelector('span:not(.check-mark):not(.check-pts):not(.label-sub)').firstChild.textContent.trim());
+    if(!S.running && wc === 0){
+      hint = 'Press Start and read the 6-point plan above out loud. Do not stop for 3 minutes.';
+    } else if(S.running){
+      if(missing.length){
+        hint = 'Still missing: ' + missing.slice(0,2).join(' · ') + (missing.length>2 ? ' · …' : '');
+      } else if(usedLinkers.size < 5){
+        hint = 'All criteria hit. Add more linker variety to push K2 up.';
+      } else {
+        hint = 'Strong run — keep this pace until conclusion.';
+      }
+    } else {
+      if(score >= 9) hint = 'Examiner-ready. Re-record once more to lock the pattern.';
+      else if(score >= 7) hint = 'Solid. Re-record and fix: ' + (missing.length ? missing.slice(0,2).join(', ') : 'add more linkers');
+      else if(score >= 5) hint = 'Half there. Reopen the 6-point plan and try again — make sure intro, both photos, preference + reason, conclusion all appear.';
+      else hint = 'Try again. Read each plan point aloud as you cover it.';
+    }
+    elHint.textContent = hint;
+  }
+
+  function trackPause(){
+    const now = Date.now();
+    if(S.lastSpeechTs){
+      const gap = now - S.lastSpeechTs;
+      if(gap > S.longestPauseMs) S.longestPauseMs = gap;
+    }
+  }
+
+  function renderTranscript(){
+    elTranscript.innerHTML = S.finalText.replace(/</g,'&lt;') +
+      (S.interimText ? ' <span class="interim">' + S.interimText.replace(/</g,'&lt;') + '</span>' : '');
+    elTranscript.scrollTop = elTranscript.scrollHeight;
+  }
+
+  function start(){
+    if(!SR){ return; }
+    if(S.running){ stop(); return; }
+    S = fresh();
+    S.running = true;
+    S.startTs = Date.now();
+    S.lastSpeechTs = S.startTs;
+    elTranscript.innerHTML = '';
+    btnStart.textContent = '■ Stop';
+    btnStart.classList.add('stop');
+    elStatus.textContent = 'recording · speak the answer';
+    grader.classList.add('is-rec');
+    checks.forEach(li => li.classList.remove('hit'));
+    elScore.textContent = '—';
+
+    S.rec = new SR();
+    S.rec.continuous = true;
+    S.rec.interimResults = true;
+    S.rec.lang = 'en-US';
+    S.rec.onresult = function(e){
+      let interim = '', final = '';
+      for(let i = e.resultIndex; i < e.results.length; i++){
+        const r = e.results[i];
+        if(r.isFinal){ final += r[0].transcript + ' '; }
+        else interim += r[0].transcript;
+      }
+      if(final){
+        S.finalText += final;
+        trackPause();
+        S.lastSpeechTs = Date.now();
+      }
+      S.interimText = interim;
+      renderTranscript();
+      evaluate();
+    };
+    S.rec.onerror = function(e){
+      if(e.error === 'not-allowed'){
+        elStatus.textContent = 'mic blocked — allow microphone in the URL bar';
+        stop();
+      } else if(e.error === 'no-speech'){
+        // silent — Chrome will auto-restart soon
+      }
+    };
+    S.rec.onend = function(){
+      // Chrome stops after ~60s of one session — restart while we're still "running"
+      if(S.running){
+        try { S.rec.start(); } catch(_){}
+      }
+    };
+    try { S.rec.start(); } catch(e){ elStatus.textContent = 'could not start mic'; stop(); return; }
+
+    // 3-min hard cap
+    S.autoStopId = setTimeout(stop, 3 * 60 * 1000);
+    // tick
+    S.softTickId = setInterval(() => {
+      elClock.textContent = fmt(Date.now() - S.startTs);
+      trackPause();
+      evaluate();
+    }, 250);
+  }
+
+  function stop(){
+    S.running = false;
+    grader.classList.remove('is-rec');
+    btnStart.textContent = '▶ Re-record';
+    btnStart.classList.remove('stop');
+    elStatus.textContent = 'done — review your score below or re-record';
+    if(S.rec){ try { S.rec.stop(); } catch(_){} }
+    if(S.autoStopId){ clearTimeout(S.autoStopId); S.autoStopId = null; }
+    if(S.softTickId){ clearInterval(S.softTickId); S.softTickId = null; }
+    evaluate();
+  }
+
+  function reset(){
+    if(S.running) stop();
+    S = fresh();
+    elTranscript.innerHTML = '';
+    elClock.textContent = '--:--';
+    elStatus.textContent = 'tap to start · 3:00 max';
+    btnStart.textContent = '▶ Start recording';
+    btnStart.classList.remove('stop');
+    elScore.textContent = '—';
+    elWords.textContent = '0'; elPace.textContent = '--'; elLinkers.textContent = '0'; elB2.textContent = '0'; elPause.textContent = '0';
+    checks.forEach(li => li.classList.remove('hit'));
+    statPace.classList.remove('ok','warn','bad');
+    statPause.classList.remove('warn','bad');
+    elHint.textContent = 'Press Start and read the 6-point plan above out loud. Do not stop for 3 minutes.';
+  }
+
+  btnStart.addEventListener('click', start);
+  btnReset.addEventListener('click', reset);
+
+  // ---- Fallback: grade typed text ----
+  btnGradeText.addEventListener('click', function(){
+    reset();
+    S.finalText = txtFallback.value || '';
+    S.startTs = Date.now() - 60000; // assume 1 min reading speed for pace
+    evaluate();
+    stFallback.textContent = 'Graded — see score above.';
+    setTimeout(() => stFallback.textContent = '', 4000);
+  });
+})();
 
 /* ===================== BLOCK 8 · Self-check ===================== */
 document.querySelectorAll('.checklist li').forEach(li => {
