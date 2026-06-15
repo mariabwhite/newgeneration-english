@@ -103,11 +103,14 @@ strong{font-weight:800}
 .tf-btn.no-on{background:#fdecec;border-color:var(--miss);color:#c62828}
 
 .match-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
-@media(max-width:540px){.match-cols{grid-template-columns:1fr}}
+@media(max-width:540px){.match-cols:not(.match-2col){grid-template-columns:1fr}}
+.match-2col{grid-template-columns:1fr 1fr !important}
 .match-item{background:#fff;border:2px solid #f3e3c4;border-radius:12px;padding:10px 14px;cursor:pointer;font-weight:700;font-size:.92rem;transition:.15s;text-align:center}
 .match-item:hover{border-color:var(--accent)}
 .match-item.selected{background:var(--accent);color:#fff;border-color:var(--accent);transform:scale(1.03)}
 .match-item.matched{background:#e6f7e9;border-color:var(--ok);color:#2e7d32;pointer-events:none;opacity:.7}
+.match-item.present-side:not(.selected):not(.matched){border-color:var(--accent);color:var(--accent)}
+.match-item.past-side:not(.selected):not(.matched){border-color:var(--accent3);color:var(--accent3)}
 
 .verb-table{display:grid;grid-template-columns:1fr 50px 1fr;gap:8px;margin:10px 0;background:#fff3df;padding:12px;border-radius:14px}
 .verb-cell{background:#fff;border:2px solid #f3e3c4;border-radius:10px;padding:8px 12px;font-weight:700;font-size:.9rem;display:flex;align-items:center;justify-content:center;cursor:pointer;text-align:center}
@@ -264,6 +267,20 @@ footer{max-width:1240px;margin:40px auto 24px;padding:0 clamp(16px,3vw,28px);tex
       <span class="kid-bank-word" data-word="second">second</span>
       <span class="kid-bank-word" data-word="third">third</span>
     </div>
+    <h3 style="margin-top:14px">🦆 Five little ducks in the pond!</h3>
+    <p style="font-size:.92rem;margin-bottom:8px">Julia counts the ducks. Tap each duck — say <strong>the number</strong> and <strong>the order</strong>!</p>
+    <div id="duck-row" style="display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin:10px 0 14px;font-size:2.6rem;line-height:1"></div>
+    <p style="font-size:.92rem;margin-bottom:8px">Now fill the gaps. Read and choose:</p>
+    <p class="gap-line">The <select class="mcq" data-answer="first"><option value="" disabled selected>—</option><option>second</option><option>first</option><option>third</option></select> duck is yellow. 🦆</p>
+    <p class="gap-line">The <select class="mcq" data-answer="second"><option value="" disabled selected>—</option><option>second</option><option>fifth</option><option>fourth</option></select> duck is brown. 🦆</p>
+    <p class="gap-line">The <select class="mcq" data-answer="third"><option value="" disabled selected>—</option><option>first</option><option>third</option><option>fifth</option></select> duck is white. 🦆</p>
+    <p class="gap-line">The <select class="mcq" data-answer="fourth"><option value="" disabled selected>—</option><option>fourth</option><option>second</option><option>third</option></select> duck is grey. 🦆</p>
+    <p class="gap-line">The <select class="mcq" data-answer="fifth"><option value="" disabled selected>—</option><option>first</option><option>fifth</option><option>fourth</option></select> duck is small. 🦆</p>
+    <p style="font-size:.92rem;margin:10px 0 6px"><strong>Now Julia counts them all:</strong> «one, two, three, four, five — five ducks!»</p>
+    <div class="audio-row" style="margin:6px 0">
+      <button class="play-btn" data-say="One, two, three, four, five — five little ducks!">▶</button>
+      <div><div class="label">Say it back!</div><div class="text" style="font-size:.92rem">one · two · three · four · five 🦆🦆🦆🦆🦆</div></div>
+    </div>
     <h3 style="margin-top:14px">🎧 Listen — which number?</h3>
     <div class="audio-row">
       <button class="play-btn" id="num-quiz-play">▶</button>
@@ -280,7 +297,7 @@ footer{max-width:1240px;margin:40px auto 24px;padding:0 clamp(16px,3vw,28px);tex
   <div class="card">
     <h3>Part A · Listen to the family</h3>
     <figure style="margin:10px 0;border-radius:14px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.12)"><img src="assets/hotel-reception.png" alt="Family at Sun Hotel reception in Bodrum" style="width:100%;display:block"></figure>
-    <p style="font-size:.92rem;margin-bottom:8px"><strong>The receptionist tells Julia all about the hotel. Tap each line!</strong></p>
+    <p style="font-size:.92rem;margin-bottom:8px"><strong>Julia asks the receptionist. Tap ▶ — listen — say the answer! If you are stuck — tap «💡 show answer».</strong></p>
     <div id="hotel-listen-list"></div>
     <p style="margin-top:14px"><strong>✍️ Now write the numbers you heard:</strong></p>
     <div class="gap-line">Room number is <select class="mcq" data-answer="25"><option value="" disabled selected>—</option><option>15</option><option>25</option><option>52</option></select></div>
@@ -362,7 +379,12 @@ footer{max-width:1240px;margin:40px auto 24px;padding:0 clamp(16px,3vw,28px);tex
   <div class="card">
     <div class="verb-table" id="irr-verbs"></div>
     <h3 style="margin-top:14px">Match present → past:</h3>
-    <div class="match-cols" id="irr-match"></div>
+    <p style="font-size:.85rem;color:var(--muted);margin:0 0 8px">Tap one word on the left, then its pair on the right.</p>
+    <div class="match-headers" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:6px">
+      <div style="text-align:center;font-weight:900;font-size:.78rem;color:var(--accent);letter-spacing:.06em;text-transform:uppercase">Present (now)</div>
+      <div style="text-align:center;font-weight:900;font-size:.78rem;color:var(--accent3);letter-spacing:.06em;text-transform:uppercase">Past (yesterday)</div>
+    </div>
+    <div class="match-cols match-2col" id="irr-match" style="grid-auto-flow:column;grid-template-rows:repeat(6,auto)"></div>
   </div>
 </section>
 
@@ -592,21 +614,21 @@ updateDots();
 // BLOCK 3 · Vocabulary
 // ============================
 const vocab = [
-  {w:'suitcase', e:'🧳', q:'Where is my suitcase?', ru:'Где мой чемодан?'},
-  {w:'ticket', e:'🎫', q:'Where is the ticket?', ru:'Где билет?'},
-  {w:'airport', e:'✈️', q:'Are we at the airport?', ru:'Мы в аэропорту?'},
-  {w:'hotel', e:'🏨', q:'Where is the hotel?', ru:'Где отель?'},
-  {w:'pool', e:'🏊', q:'Can I swim in the pool?', ru:'Можно поплавать в бассейне?'},
-  {w:'beach', e:'🏖️', q:'Let us go to the beach!', ru:'Пойдём на пляж!'},
-  {w:'sea', e:'🌊', q:'The sea is blue!', ru:'Море синее!'},
-  {w:'ice cream', e:'🍦', q:'I want ice cream, please!', ru:'Я хочу мороженое, пожалуйста!'}
+  {w:'suitcase', e:'🧳', personal:'А ты любишь собирать чемодан?', q:'Where is my suitcase?', ru:'Где мой чемодан?'},
+  {w:'ticket', e:'🎫', personal:'У тебя есть билет? Куда?', q:'Where is the ticket?', ru:'Где билет?'},
+  {w:'airport', e:'✈️', personal:'Ты летаешь на самолёте?', q:'Are we at the airport?', ru:'Мы в аэропорту?'},
+  {w:'hotel', e:'🏨', personal:'В каком отеле тебе понравилось?', q:'Where is the hotel?', ru:'Где отель?'},
+  {w:'pool', e:'🏊', personal:'А ты любишь плавать?', q:'Can I swim in the pool?', ru:'Можно поплавать в бассейне?'},
+  {w:'beach', e:'🏖️', personal:'Какой твой любимый пляж?', q:'Let us go to the beach!', ru:'Пойдём на пляж!'},
+  {w:'sea', e:'🌊', personal:'Какого цвета твоё море?', q:'The sea is blue!', ru:'Море синее!'},
+  {w:'ice cream', e:'🍦', personal:'Какое твоё любимое мороженое?', q:'I want ice cream, please!', ru:'Я хочу мороженое, пожалуйста!'}
 ];
 const vgrid = document.getElementById('vocab-grid');
 vocab.forEach(v => {
   const card = document.createElement('div');
   card.className = 'flip-card';
-  card.style.cssText = 'min-height:120px;position:relative;border:none;padding:0;background:transparent';
-  card.innerHTML = '<div class="flip-inner" style="min-height:120px"><div class="flip-front"><span class="emoji" style="font-size:2rem;display:block;margin-bottom:4px">'+v.e+'</span><span style="font-size:.95rem;font-weight:700">'+v.w+'</span><span style="font-size:.62rem;color:var(--muted);margin-top:6px;font-weight:800;letter-spacing:.04em">tap to flip 🔄</span></div><div class="flip-back"><span style="font-size:1.5rem;margin-bottom:4px">'+v.e+'</span><span style="font-size:.88rem;line-height:1.25;margin-bottom:4px">'+v.q+'</span><span style="font-size:.72rem;line-height:1.2;opacity:.95;font-weight:600;font-style:italic;margin-bottom:6px">'+v.ru+'</span><span style="font-size:.6rem;opacity:.85;letter-spacing:.04em">SAY IT! 🗣️</span></div></div>';
+  card.style.cssText = 'min-height:148px;position:relative;border:none;padding:0;background:transparent';
+  card.innerHTML = '<div class="flip-inner" style="min-height:148px"><div class="flip-front"><span class="emoji" style="font-size:2rem;display:block;margin-bottom:4px">'+v.e+'</span><span style="font-size:.95rem;font-weight:700">'+v.w+'</span><span style="font-size:.62rem;color:var(--muted);margin-top:6px;font-weight:800;letter-spacing:.04em">tap to flip 🔄</span></div><div class="flip-back"><span style="font-size:1.3rem;margin-bottom:2px">'+v.e+'</span><span style="font-size:.78rem;line-height:1.2;font-weight:800;color:#fff;background:rgba(255,255,255,.18);padding:4px 8px;border-radius:8px;margin-bottom:6px">'+v.personal+'</span><span style="font-size:.78rem;line-height:1.2;font-weight:700">'+v.q+'</span><span style="font-size:.68rem;line-height:1.15;opacity:.92;font-style:italic;margin-bottom:4px">'+v.ru+'</span><span style="font-size:.58rem;opacity:.85;letter-spacing:.04em">SAY IT! 🗣️</span></div></div>';
   let flipped = false;
   card.onclick = () => {
     if(!flipped){ say(v.w); card.classList.add('flipped'); setTimeout(()=>say(v.q, 0.75), 900); flipped = true; }
@@ -648,6 +670,24 @@ if(nCombo){
     nCombo.appendChild(r);
   });
 }
+// Five ducks — count + ordinal
+const duckRow = document.getElementById('duck-row');
+const duckOrder = ['first','second','third','fourth','fifth'];
+const duckCount = ['one','two','three','four','five'];
+if(duckRow){
+  duckOrder.forEach((ord,i) => {
+    const d = document.createElement('span');
+    d.textContent = '🦆';
+    d.style.cssText = 'cursor:pointer;transition:.15s;display:inline-block;padding:4px;border-radius:8px';
+    d.title = duckCount[i] + ' · ' + ord;
+    d.onclick = () => {
+      d.style.transform = 'scale(1.25)'; d.style.background='#fff5d6';
+      say(duckCount[i]); setTimeout(()=>say(ord), 700);
+      setTimeout(()=>{ d.style.transform=''; d.style.background=''; }, 1500);
+    };
+    duckRow.appendChild(d);
+  });
+}
 let numQuizRound=0, numQuizCorrect=0;
 const nqp = document.getElementById('num-quiz-play');
 if(nqp){
@@ -667,19 +707,45 @@ if(nqp){
     setTimeout(()=>say(useOrdinal?pick.o:pick.c),200);
   };
 }
-const hotelLines = [
-  'Welcome to Sun Hotel!','Your room is number twenty-five.','Floor two, please.',
-  'Breakfast is at eight in the morning.','Lunch is at twelve.','Dinner is at seven.',
-  'The pool opens at ten.','The pool is twenty-five meters long.','We are four people.',
-  'You stay for seven days.','The beach is one minute away.','Have a nice holiday!'
+const hotelQA = [
+  {q:'Welcome to which hotel?', a:'Sun Hotel.'},
+  {q:'What is your room number?', a:'Room number twenty-five.'},
+  {q:'Which floor, please?', a:'Floor two.'},
+  {q:'When is breakfast?', a:'Breakfast is at eight in the morning.'},
+  {q:'When is lunch?', a:'Lunch is at twelve.'},
+  {q:'When is dinner?', a:'Dinner is at seven.'},
+  {q:'When does the pool open?', a:'The pool opens at ten.'},
+  {q:'How long is the pool?', a:'The pool is twenty-five meters long.'},
+  {q:'How many people are you?', a:'We are four people.'},
+  {q:'How many days do you stay?', a:'We stay for seven days.'},
+  {q:'How far is the beach?', a:'The beach is one minute away.'},
+  {q:'What does she say at the end?', a:'Have a nice holiday!'}
 ];
 const hList = document.getElementById('hotel-listen-list');
 if(hList){
-  hotelLines.forEach((line,i) => {
+  hotelQA.forEach((p,i) => {
     const row = document.createElement('div');
-    row.className='audio-row'; row.style.margin='6px 0';
-    row.innerHTML='<button class="play-btn" data-say="'+line+'">▶</button><div style="flex:1"><div class="label">'+(i+1)+' of '+hotelLines.length+'</div><div class="text" style="font-size:.92rem">'+line+'</div></div>';
+    row.className='audio-row';
+    row.style.cssText = 'margin:8px 0;flex-wrap:wrap;align-items:flex-start';
+    const esc = s => s.replace(/"/g,'&quot;');
+    row.innerHTML =
+      '<button class="play-btn" data-say="'+esc(p.q)+'" title="Listen to the question">▶</button>'+
+      '<div style="flex:1;min-width:200px">'+
+        '<div class="label">'+(i+1)+' of '+hotelQA.length+' · Question</div>'+
+        '<div class="text" style="font-size:.92rem;font-weight:700">'+p.q+'</div>'+
+        '<div class="hint-stuck" data-stuck="'+i+'" style="display:none;margin-top:6px;padding:8px 10px;background:#fff5d6;border-radius:8px;border-left:3px solid var(--accent2);font-size:.88rem;font-weight:600;color:#7a4a00">💬 '+p.a+'</div>'+
+      '</div>'+
+      '<button class="reveal-btn" data-reveal="'+i+'" data-ans="'+esc(p.a)+'" style="background:var(--accent2);color:#fff;border:none;border-radius:8px;padding:6px 10px;font-weight:800;font-size:.78rem;cursor:pointer;align-self:center">💡 show answer</button>';
     hList.appendChild(row);
+  });
+  hList.querySelectorAll('.reveal-btn').forEach(b => {
+    b.onclick = () => {
+      const idx = b.dataset.reveal;
+      const ans = b.dataset.ans;
+      const hint = hList.querySelector('[data-stuck="'+idx+'"]');
+      if(hint){ hint.style.display='block'; }
+      say(ans);
+    };
   });
 }
 
@@ -829,17 +895,19 @@ irrVerbs.forEach(([p,past]) => {
   irrTab.appendChild(row);
 });
 
-// Match game
+// Match game · two clear columns: presents left (orange), pasts right (blue)
 const irrMatch = document.getElementById('irr-match');
 const presents = irrVerbs.map(v => v[0]);
 const pasts = irrVerbs.map(v => v[1]).sort(() => Math.random() - 0.5);
 presents.forEach(w => {
-  const el = document.createElement('div'); el.className = 'match-item'; el.textContent = w; el.dataset.match = w; el.dataset.side = 'p';
+  const el = document.createElement('div'); el.className = 'match-item present-side';
+  el.textContent = w; el.dataset.match = w; el.dataset.side = 'p';
   el.onclick = () => handleMatch(el, w);
   irrMatch.appendChild(el);
 });
 pasts.forEach(w => {
-  const el = document.createElement('div'); el.className = 'match-item'; el.textContent = w; el.dataset.match = irrVerbs.find(v=>v[1]===w)[0]; el.dataset.side = 's';
+  const el = document.createElement('div'); el.className = 'match-item past-side';
+  el.textContent = w; el.dataset.match = irrVerbs.find(v=>v[1]===w)[0]; el.dataset.side = 's';
   el.onclick = () => handleMatch(el, w);
   irrMatch.appendChild(el);
 });
