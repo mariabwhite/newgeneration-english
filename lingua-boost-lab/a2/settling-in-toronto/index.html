@@ -588,6 +588,34 @@ Thank you!</div>
   </div>
 </section>
 
+<!-- BLOCK 2.5 · RANDOM SCENARIO SPIN -->
+<section class="section" id="block-spin">
+  <div class="section-head"><div class="n">★</div><h2>Random situation · spin and speak<span class="section-tag">Drill</span></h2></div>
+  <div class="section-sub">Click the button · get a random scene · say what you would do. No two are the same.</div>
+  <div class="card">
+    <p style="font-size:.92rem;color:var(--muted);margin:0 0 14px">Each spin gives you a <strong>city</strong> + <strong>problem</strong> + <strong>who you ask</strong> + an <strong>opening line template</strong>. Read the template, then improvise one or two more sentences.</p>
+
+    <div id="spin-card" style="background:linear-gradient(135deg,var(--card-2),var(--paper-2));border:2px solid var(--accent);border-radius:14px;padding:22px 24px;margin:0 0 14px;min-height:170px;display:flex;flex-direction:column;justify-content:center">
+      <div id="spin-empty" style="text-align:center;color:var(--muted);font-style:italic;font-family:var(--display);font-size:1.06rem">Press the button below to get your first scenario.</div>
+      <div id="spin-active" style="display:none">
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px" id="spin-chips"></div>
+        <div style="font-family:var(--display);font-style:italic;font-size:1.18rem;color:var(--ink);line-height:1.4;margin-bottom:10px" id="spin-scene"></div>
+        <div style="background:#fff;border:1px dashed var(--accent);border-radius:8px;padding:12px 14px;margin-top:8px">
+          <div style="font-family:var(--mono);font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent3);margin-bottom:6px">Your opening line</div>
+          <div style="font-family:var(--mono);font-size:.94rem;color:var(--ink);line-height:1.6" id="spin-line"></div>
+          <button class="play-line" id="spin-say" data-say="" style="margin-top:8px">▶ Hear it</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="justify-content:center">
+      <button id="spin-btn" style="background:var(--maple);color:#fff;border:none;border-radius:8px;padding:12px 26px;font-family:var(--display);font-style:italic;font-weight:700;font-size:1rem;cursor:pointer;letter-spacing:.02em;box-shadow:0 4px 12px rgba(200,75,60,.3)">🎲 Spin a random scenario</button>
+      <button id="spin-count" style="background:transparent;color:var(--muted);border:1px solid var(--muted);border-radius:8px;padding:12px 18px;font-family:var(--mono);font-weight:800;font-size:.78rem;cursor:default">0 / 10</button>
+    </div>
+    <p style="font-size:.82rem;color:var(--muted);margin:12px 0 0;text-align:center;font-style:italic">Aim for 10 spins — by the last one your mouth knows the shape.</p>
+  </div>
+</section>
+
 <!-- BLOCK 4 · DIRECTIONS -->
 <section class="section" id="block-4">
   <div class="section-head"><div class="n">3</div><h2>Scene · asking for directions<span class="section-tag">Downtown</span></h2></div>
@@ -899,6 +927,64 @@ function updateDots(){
 }
 window.addEventListener('scroll', updateDots);
 updateDots();
+
+/* === Random scenario spinner (Block 2.5) === */
+const spinScenarios = [
+  {city:'Toronto', problem:'You have a strong headache', who:'pharmacist', line:'Excuse me, I have a strong headache. Can I have something for it, please?'},
+  {city:'Vancouver', problem:'You are lost downtown', who:'a friendly stranger', line:'Excuse me, I\'m looking for the SkyTrain station. How do I get there from here?'},
+  {city:'Montreal', problem:'You twisted your ankle', who:'a doctor at the walk-in clinic', line:'Hi, I twisted my ankle. I don\'t feel well. Could you check it, please?'},
+  {city:'Toronto', problem:'You need a SIM card with a Canadian number', who:'shop assistant', line:'Hi, I\'d like a prepaid SIM card, please. I need a Canadian number.'},
+  {city:'Vancouver', problem:'You see a man fall on the street', who:'911 operator', line:'I need an ambulance, please. There is a man on the street. He fell down.'},
+  {city:'Montreal', problem:'You feel dizzy and weak', who:'pharmacist', line:'Hi, I feel dizzy and very weak. Could you recommend something, please?'},
+  {city:'Toronto', problem:'You can\'t find a hospital', who:'a stranger', line:'Excuse me, I need some help. I\'m looking for the nearest hospital.'},
+  {city:'Vancouver', problem:'You want to order coffee for here', who:'barista', line:'Hi, I\'d like a medium latte, please. For here.'},
+  {city:'Montreal', problem:'You have a sore throat and a cough', who:'doctor', line:'Hi, I have a sore throat and a cough. It started yesterday.'},
+  {city:'Toronto', problem:'You need a bank machine', who:'a passer-by', line:'Excuse me, where is the nearest bank machine, please?'},
+  {city:'Vancouver', problem:'A child needs help — got lost', who:'911 operator', line:'I need help. There is a little child here alone. The child looks lost.'},
+  {city:'Montreal', problem:'You have an allergic reaction', who:'pharmacist', line:'Hi, I think I have an allergic reaction. My skin is itchy and red.'},
+  {city:'Toronto', problem:'You don\'t feel well on the metro', who:'a station attendant', line:'Excuse me, I don\'t feel well. Could you help me, please?'},
+  {city:'Vancouver', problem:'You need to call a taxi', who:'a hotel receptionist', line:'Excuse me, could you call a taxi for me, please? I need to go to the hospital.'},
+  {city:'Montreal', problem:'You have a high fever', who:'doctor', line:'Hi, I have a high fever. About thirty-nine degrees. It started this morning.'}
+];
+let spinIndex = 0;
+let spinSeen = 0;
+function shuffleArray(a){
+  const r = a.slice();
+  for(let i = r.length-1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i+1));
+    [r[i], r[j]] = [r[j], r[i]];
+  }
+  return r;
+}
+let spinQueue = shuffleArray(spinScenarios);
+const spinBtn = document.getElementById('spin-btn');
+const spinCountEl = document.getElementById('spin-count');
+const spinEmpty = document.getElementById('spin-empty');
+const spinActive = document.getElementById('spin-active');
+const spinChips = document.getElementById('spin-chips');
+const spinScene = document.getElementById('spin-scene');
+const spinLine = document.getElementById('spin-line');
+const spinSay = document.getElementById('spin-say');
+if(spinBtn){
+  spinBtn.onclick = () => {
+    if(spinIndex >= spinQueue.length){ spinQueue = shuffleArray(spinScenarios); spinIndex = 0; }
+    const s = spinQueue[spinIndex++];
+    spinSeen++;
+    spinCountEl.textContent = Math.min(spinSeen, 10) + ' / 10';
+    spinEmpty.style.display = 'none';
+    spinActive.style.display = 'block';
+    spinChips.innerHTML = '<span style="font-family:var(--mono);font-size:.66rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:var(--card);color:var(--accent3);padding:4px 8px;border-radius:5px;border:1px solid var(--line)">📍 '+s.city+'</span>'+
+      '<span style="font-family:var(--mono);font-size:.66rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:var(--card);color:var(--maple);padding:4px 8px;border-radius:5px;border:1px solid var(--line)">👤 '+s.who+'</span>';
+    spinScene.textContent = s.problem + '. You speak to ' + s.who + '.';
+    spinLine.textContent = '"' + s.line + '"';
+    spinSay.dataset.say = s.line;
+    say(s.line, 0.9);
+    if(spinSeen >= 10){
+      spinBtn.style.background = 'var(--accent3)';
+      spinBtn.textContent = '✓ Done — one more for fun?';
+    }
+  };
+}
 
 /* === City card pick (Block 1) === */
 document.querySelectorAll('.city-card').forEach(card => {
