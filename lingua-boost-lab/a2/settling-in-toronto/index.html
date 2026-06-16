@@ -51,15 +51,18 @@ body{font-family:var(--body);background:var(--paper);color:var(--ink);line-heigh
 .section{max-width:1180px;margin:0 auto 36px;padding:0 clamp(16px,3vw,28px)}
 footer{max-width:1180px;margin:48px auto 28px;padding:0 clamp(16px,3vw,28px);text-align:center;color:var(--muted);font-size:.78rem;font-family:var(--mono);letter-spacing:.06em}
 
-/* HERO */
-.hero-card{position:relative;border-radius:var(--radius-l);overflow:hidden;box-shadow:var(--shadow);background:linear-gradient(135deg,#4A6356 0%,#6B8E7F 50%,#A8B89F 100%);color:#FBF8F1;padding:48px clamp(22px,4vw,52px);min-height:260px;display:flex;flex-direction:column;justify-content:center}
-.hero-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 88% -10%,rgba(200,75,60,.25),transparent 55%),url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><g fill='%23C84B3C' opacity='.18'><path d='M100 30 L110 60 L140 55 L120 80 L145 100 L115 100 L110 130 L100 105 L90 130 L85 100 L55 100 L80 80 L60 55 L90 60 Z'/></g></svg>") right 30px top 30px / 140px no-repeat;pointer-events:none}
+/* HERO · raw banner */
+.hero-card{position:relative;border-radius:var(--radius-l);overflow:hidden;box-shadow:var(--shadow);background:#4A6356;line-height:0}
+.hero-card img.hero-bg{width:100%;height:auto;display:block}
 .hero-eyebrow{font-family:var(--mono);font-size:.72rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:#EDE6D6;position:relative;z-index:1}
 .hero-title{font-family:var(--display);font-size:clamp(1.9rem,4vw,2.8rem);font-weight:700;margin:8px 0 6px;line-height:1.06;letter-spacing:-.015em;color:#FBF8F1;position:relative;z-index:1}
 .hero-title em{font-style:italic;color:#F5D5A4;font-weight:500;font-family:var(--display)}
 .hero-lead{font-size:clamp(.96rem,1.5vw,1.04rem);max-width:680px;color:#EDE6D6;margin:0 0 18px;position:relative;z-index:1;line-height:1.6}
 .hero-meta{display:flex;flex-wrap:wrap;gap:8px;position:relative;z-index:1}
 .hero-tag{font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;background:rgba(251,248,241,.14);border:1px solid rgba(251,248,241,.32);padding:6px 12px;border-radius:6px;color:#FBF8F1;backdrop-filter:blur(6px)}
+.city-card:hover{background:var(--paper-2)}
+.city-card.picked{background:var(--paper-2);box-shadow:inset 0 0 0 2px var(--accent)}
+@media(max-width:780px){#city-cards{grid-template-columns:1fr !important} .city-card{border-right:none !important;border-bottom:1px solid var(--line)}}
 
 /* PROGRESS DOTS */
 .dots{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:8px}
@@ -230,16 +233,9 @@ button[data-say]:hover{background:var(--accent)}
 
 <!-- HERO -->
 <section class="hero">
+  <h1 class="visually-hidden" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">Settling In · first days in Canada · A2 Everyday English · 60 min · coffee, SIM card, directions, drugstore</h1>
   <div class="hero-card">
-    <div class="hero-eyebrow">A2 · Everyday English · 60 min</div>
-    <h1 class="hero-title">Settling In <em>· first days in Canada</em></h1>
-    <p class="hero-lead">Four short scenes from your very first week. Coffee, a SIM card, directions in the street, the drugstore. One grammar focus — polite requests with <strong>I'd like</strong> and <strong>I need</strong>. Every scene gives you a template you can read out loud and copy.</p>
-    <div class="hero-meta">
-      <span class="hero-tag">Adult learner</span>
-      <span class="hero-tag">Templates everywhere</span>
-      <span class="hero-tag">Polite requests focus</span>
-      <span class="hero-tag">No new grammar</span>
-    </div>
+    <img class="hero-bg" src="assets/hero-banner.png" alt="Settling In Toronto — first days in Canada. Hero banner: Toronto skyline with the CN Tower at golden hour, Yonge Street and Queen Street West signs, a Canadian flag, a planner with a checklist (coffee, SIM card, directions, drugstore, new life), sticky notes with I'd like / I'd like to / I need, a coffee cup, a Toronto postcard and a Canadian passport on a wooden table.">
   </div>
 </section>
 
@@ -273,22 +269,75 @@ button[data-say]:hover{background:var(--accent)}
 
 <!-- BLOCK 1 · WARM-UP -->
 <section class="section" id="block-1">
-  <div class="section-head"><div class="n">1</div><h2>Warm-up · three short questions<span class="section-tag">Speaking</span></h2></div>
-  <div class="section-sub">Tap to hear · then answer in one full sentence. No rush.</div>
-  <div class="card">
-    <div class="row">
-      <button data-say="Where in Canada would you like to live? Why?">▶</button>
-      <div style="flex:1;font-size:.96rem">Where in Canada would you like to live? Why?</div>
+  <div class="section-head"><div class="n">1</div><h2>Warm-up · pick a city, then three questions<span class="section-tag">Speaking</span></h2></div>
+  <div class="section-sub">First look at three Canadian cities · pick the one you like most · then answer the questions out loud</div>
+
+  <div class="card" style="padding:0;overflow:hidden">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0;border-bottom:1px solid var(--line)" id="city-cards">
+
+      <article class="city-card" data-city="toronto" style="padding:18px 22px;border-right:1px solid var(--line);cursor:pointer;transition:.18s">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:1.6rem">🏙</span>
+          <h3 style="margin:0;font-family:var(--display);font-size:1.2rem;color:var(--accent3);font-weight:700">Toronto</h3>
+          <span style="margin-left:auto;font-family:var(--mono);font-size:.66rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--maple)">East · Ontario</span>
+        </div>
+        <p style="margin:0 0 8px;font-size:.88rem;color:var(--muted);line-height:1.5">Canada's biggest city. Cosmopolitan, multicultural, busy. <strong>The CN Tower</strong>, Lake Ontario, four real seasons.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px">
+          <span style="font-family:var(--mono);font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:var(--paper-2);color:var(--accent3);border:1px solid var(--line);padding:4px 8px;border-radius:5px">cosmopolitan</span>
+          <span style="font-family:var(--mono);font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:var(--paper-2);color:var(--accent3);border:1px solid var(--line);padding:4px 8px;border-radius:5px">multicultural</span>
+          <span style="font-family:var(--mono);font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:var(--paper-2);color:var(--accent3);border:1px solid var(--line);padding:4px 8px;border-radius:5px">finance hub</span>
+        </div>
+        <div style="font-size:.78rem;color:var(--muted);line-height:1.4"><strong>Good if you like:</strong> big-city energy, many job opportunities, every cuisine in the world.</div>
+      </article>
+
+      <article class="city-card" data-city="vancouver" style="padding:18px 22px;border-right:1px solid var(--line);cursor:pointer;transition:.18s">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:1.6rem">🏔</span>
+          <h3 style="margin:0;font-family:var(--display);font-size:1.2rem;color:var(--accent3);font-weight:700">Vancouver</h3>
+          <span style="margin-left:auto;font-family:var(--mono);font-size:.66rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--maple)">West · BC</span>
+        </div>
+        <p style="margin:0 0 8px;font-size:.88rem;color:var(--muted);line-height:1.5">On the Pacific coast. Mild winters, mountains and ocean side by side. <strong>Stanley Park</strong>, ferries, rain.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px">
+          <span style="font-family:var(--mono);font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:var(--paper-2);color:var(--accent3);border:1px solid var(--line);padding:4px 8px;border-radius:5px">mild climate</span>
+          <span style="font-family:var(--mono);font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:var(--paper-2);color:var(--accent3);border:1px solid var(--line);padding:4px 8px;border-radius:5px">ocean + mountains</span>
+          <span style="font-family:var(--mono);font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:var(--paper-2);color:var(--accent3);border:1px solid var(--line);padding:4px 8px;border-radius:5px">expensive</span>
+        </div>
+        <div style="font-size:.78rem;color:var(--muted);line-height:1.4"><strong>Good if you like:</strong> nature within 30 minutes, calmer pace, Asian-Pacific food culture.</div>
+      </article>
+
+      <article class="city-card" data-city="montreal" style="padding:18px 22px;cursor:pointer;transition:.18s">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+          <span style="font-size:1.6rem">🥐</span>
+          <h3 style="margin:0;font-family:var(--display);font-size:1.2rem;color:var(--accent3);font-weight:700">Montreal</h3>
+          <span style="margin-left:auto;font-family:var(--mono);font-size:.66rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--maple)">East · Quebec</span>
+        </div>
+        <p style="margin:0 0 8px;font-size:.88rem;color:var(--muted);line-height:1.5">French-English city, European feel, the cheapest of the three. <strong>Old Montreal</strong>, cafés, festivals all summer.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px">
+          <span style="font-family:var(--mono);font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:var(--paper-2);color:var(--accent3);border:1px solid var(--line);padding:4px 8px;border-radius:5px">bilingual</span>
+          <span style="font-family:var(--mono);font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:var(--paper-2);color:var(--accent3);border:1px solid var(--line);padding:4px 8px;border-radius:5px">affordable</span>
+          <span style="font-family:var(--mono);font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:var(--paper-2);color:var(--accent3);border:1px solid var(--line);padding:4px 8px;border-radius:5px">cold winters</span>
+        </div>
+        <div style="font-size:.78rem;color:var(--muted);line-height:1.4"><strong>Good if you like:</strong> European architecture, cheaper rent, arts and music scene.</div>
+      </article>
+
     </div>
-    <div class="row">
-      <button data-say="What is the first place you want to visit when you arrive?">▶</button>
-      <div style="flex:1;font-size:.96rem">What is the first place you want to visit when you arrive?</div>
+
+    <div style="padding:18px clamp(18px,3vw,28px) 22px">
+      <p style="font-size:.92rem;margin:0 0 14px;font-family:var(--display);font-style:italic;color:var(--accent3)">Now answer aloud — pick ONE city above and use its name in your answer:</p>
+      <div class="row">
+        <button data-say="Which of these three cities would you like to live in? Why?">▶</button>
+        <div style="flex:1;font-size:.96rem">Which of these three cities would you like to live in? Why?</div>
+      </div>
+      <div class="row">
+        <button data-say="What is the first place you want to visit when you arrive?">▶</button>
+        <div style="flex:1;font-size:.96rem">What is the first place you want to visit when you arrive?</div>
+      </div>
+      <div class="row">
+        <button data-say="What do you usually order at a coffee shop?">▶</button>
+        <div style="flex:1;font-size:.96rem">What do you usually order at a coffee shop?</div>
+      </div>
+      <p style="font-size:.84rem;color:var(--muted);margin:12px 0 0">Use full sentences. <em>"I'd like to live in… because…"</em>, <em>"The first place I want to visit is…"</em>, <em>"I usually order…"</em>.</p>
     </div>
-    <div class="row">
-      <button data-say="What do you usually order at a coffee shop?">▶</button>
-      <div style="flex:1;font-size:.96rem">What do you usually order at a coffee shop?</div>
-    </div>
-    <p style="font-size:.84rem;color:var(--muted);margin:14px 0 0">Use: "I'd like to…", "I want to…", "I usually order…". Templates already in your pocket.</p>
   </div>
 </section>
 
@@ -594,6 +643,17 @@ function updateDots(){
 }
 window.addEventListener('scroll', updateDots);
 updateDots();
+
+/* === City card pick (Block 1) === */
+document.querySelectorAll('.city-card').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('.city-card').forEach(c => c.classList.remove('picked'));
+    card.classList.add('picked');
+    const city = card.dataset.city;
+    const label = card.querySelector('h3').textContent;
+    say('I would like to live in ' + label + '.', 0.9);
+  });
+});
 
 /* === VOCAB per scene === */
 const sceneVocab = {
