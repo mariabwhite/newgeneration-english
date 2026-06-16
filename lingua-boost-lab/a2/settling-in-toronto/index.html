@@ -1438,5 +1438,38 @@ function collectStateForTeacher(){ return _coachStateFn(); }
 })();
 </script>
 
+<!-- ===== MAKE BIGGER · click any image to zoom (lightbox) ===== -->
+<style>
+.lb-overlay{position:fixed;inset:0;background:rgba(15,20,30,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:9999;padding:24px;cursor:zoom-out;animation:lbFade .18s ease-out}
+.lb-overlay.on{display:flex}
+.lb-overlay img{max-width:96vw;max-height:92vh;width:auto;height:auto;border-radius:10px;box-shadow:0 18px 60px rgba(0,0,0,.5);object-fit:contain}
+.lb-overlay .lb-close{position:absolute;top:18px;right:18px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.32);color:#fff;font-size:1.4rem;font-weight:700;cursor:pointer;display:grid;place-items:center;line-height:1}
+.lb-overlay .lb-hint{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:rgba(255,255,255,.7);font-family:'JetBrains Mono',ui-monospace,monospace;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;pointer-events:none}
+@keyframes lbFade{from{opacity:0}to{opacity:1}}
+section img:not(.hero-bg){cursor:zoom-in;transition:filter .15s}
+section img:not(.hero-bg):hover{filter:brightness(1.04)}
+</style>
+<div class="lb-overlay" id="lbox" role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <button class="lb-close" id="lb-close" aria-label="Close">×</button>
+  <img id="lb-img" alt="">
+  <div class="lb-hint">Tap anywhere or press Esc to close</div>
+</div>
+<script>
+(function(){
+  const box = document.getElementById('lbox');
+  const img = document.getElementById('lb-img');
+  const close = document.getElementById('lb-close');
+  function open(src, alt){ img.src = src; img.alt = alt || ''; box.classList.add('on'); document.body.style.overflow='hidden'; }
+  function shut(){ box.classList.remove('on'); img.src=''; document.body.style.overflow=''; }
+  document.querySelectorAll('section img').forEach(el => {
+    if (el.classList.contains('hero-bg')) return;
+    el.addEventListener('click', () => open(el.currentSrc || el.src, el.alt));
+  });
+  box.addEventListener('click', shut);
+  close.addEventListener('click', e => { e.stopPropagation(); shut(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && box.classList.contains('on')) shut(); });
+})();
+</script>
+
 </body>
 </html>
