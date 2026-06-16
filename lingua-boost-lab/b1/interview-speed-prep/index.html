@@ -655,6 +655,26 @@ What brings me to this role is <strong>____ (one specific reason about the compa
   </div>
 </section>
 
+<!-- POLINA'S DRILL · 8 real director questions · record yourself, watch the transcript -->
+<section class="section" id="block-polina">
+  <div class="section-head"><div class="n" style="background:var(--accent);box-shadow:0 4px 12px rgba(91,139,182,.25)">★</div><h2>Polina's drill · your real director questions<span class="section-tag">Record · transcribe · screenshot</span></h2></div>
+  <div class="section-sub">Eight questions you actually heard. Tap ▶ to hear it in English · tap 🎤 to answer aloud · your speech appears below as text. Watch for clarity, not perfection. At the end — screenshot the whole block and send it.</div>
+
+  <div class="card">
+    <div style="background:var(--highlight);border-left:3px solid var(--accent);padding:12px 16px;border-radius:0 8px 8px 0;margin:0 0 16px;font-size:.9rem;line-height:1.55;color:var(--ink)">
+      <strong style="font-family:var(--display);color:var(--accent3)">How to use:</strong> open in <strong>Chrome</strong> or <strong>Edge</strong> (mic permission required). Press 🎤 once — speak. Press 🎤 again to stop. The transcript stays on the page, so you can re-record any answer or just keep going. Nothing leaves your browser.
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px" id="pq-list">
+      <!-- 8 question cards generated below -->
+    </div>
+
+    <div style="text-align:center;margin-top:18px">
+      <button id="pq-reset" style="background:transparent;color:var(--muted);border:1px solid var(--muted);border-radius:8px;padding:8px 18px;font-family:var(--mono);font-weight:800;font-size:.74rem;letter-spacing:.06em;cursor:pointer">Clear all transcripts</button>
+    </div>
+  </div>
+</section>
+
 <!-- BLOCK 3 · STAR method -->
 <section class="section" id="block-3">
   <div class="section-head"><div class="n">5</div><h2>STAR method · how senior people tell stories<span class="section-tag">Behavioural questions</span></h2></div>
@@ -1597,6 +1617,111 @@ function collectStateForTeacher(){ return _coachStateFn(); }
     S.finalText = txtFallback.value || '';
     S.startTs = Date.now() - 60000;
     evaluate();
+  });
+})();
+
+/* ===== POLINA'S DRILL · 8 real director questions with mic ===== */
+(function(){
+  const polinaQs = [
+    { q: "Tell me about something you are proud of.", note: "Pick one concrete achievement. Stay specific." },
+    { q: "Tell me about your experience with difficult negotiations.", note: "One real example. What was at stake, what you did, the outcome." },
+    { q: "What would you do if the business comes to you with a project idea, but you see legal restrictions?", note: "Risk-based approach. Explain → assess → suggest alternatives." },
+    { q: "What are your main strengths?", note: "Two or three. Each with a one-sentence example." },
+    { q: "What are your weaknesses?", note: "A real one + what you do to address it." },
+    { q: "Why do you want to change fields and move from medicine to agriculture?", note: "Transferable skills + your real motivation." },
+    { q: "Why do you want to join our company?", note: "One specific thing about THEIR business." },
+    { q: "Do you use AI tools in your work?", note: "Honest yes/no + how you use them + how you verify." }
+  ];
+
+  const list = document.getElementById('pq-list');
+  if(!list) return;
+
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  let activeRec = null;
+  let activeIdx = -1;
+
+  polinaQs.forEach((item, idx) => {
+    const card = document.createElement('div');
+    card.style.cssText = 'background:var(--card-2);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;padding:14px 18px';
+    card.innerHTML = `
+      <div style="display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-bottom:8px">
+        <span style="font-family:var(--mono);font-size:.66rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);background:#fff;padding:4px 10px;border-radius:5px;border:1px solid var(--accent2);flex-shrink:0">Q${idx+1}</span>
+        <div style="flex:1;min-width:200px">
+          <div style="font-family:var(--display);font-weight:600;font-size:1rem;color:var(--ink);line-height:1.4;margin-bottom:4px">${item.q}</div>
+          <div style="font-size:.82rem;color:var(--muted);font-style:italic;line-height:1.4">${item.note}</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+        <button data-listen="${idx}" data-say="${item.q.replace(/"/g,'&quot;')}" style="background:transparent;color:var(--accent3);border:1.5px solid var(--accent);border-radius:8px;padding:6px 14px;font-family:var(--mono);font-size:.74rem;font-weight:800;letter-spacing:.04em;cursor:pointer;width:auto;height:auto">▶ Listen</button>
+        <button data-mic="${idx}" id="pq-mic-${idx}" style="background:var(--accent3);color:#fff;border:none;border-radius:8px;padding:6px 14px;font-family:var(--mono);font-size:.74rem;font-weight:800;letter-spacing:.04em;cursor:pointer;width:auto;height:auto;display:inline-flex;align-items:center;gap:6px">🎤 Record</button>
+        <span id="pq-status-${idx}" style="font-family:var(--mono);font-size:.72rem;color:var(--muted);align-self:center;font-style:italic"></span>
+      </div>
+      <div id="pq-transcript-${idx}" style="background:#fff;border:1px dashed var(--accent2);border-radius:8px;padding:10px 14px;min-height:42px;font-size:.92rem;line-height:1.55;color:var(--ink);white-space:pre-wrap"></div>
+    `;
+    list.appendChild(card);
+  });
+
+  list.addEventListener('click', (e) => {
+    const micBtn = e.target.closest('[data-mic]');
+    if(!micBtn) return;
+    const idx = parseInt(micBtn.dataset.mic, 10);
+    const status = document.getElementById('pq-status-' + idx);
+    const transcript = document.getElementById('pq-transcript-' + idx);
+
+    if(!SR){
+      status.textContent = '⚠ Use Chrome or Edge for live mic';
+      return;
+    }
+
+    // Stop any currently active recognition
+    if(activeRec){
+      try { activeRec.stop(); } catch(_){}
+      if(activeIdx === idx){
+        activeRec = null;
+        activeIdx = -1;
+        return;
+      }
+    }
+
+    const rec = new SR();
+    rec.lang = 'en-US';
+    rec.interimResults = true;
+    rec.continuous = true;
+    activeRec = rec;
+    activeIdx = idx;
+
+    let finalText = transcript.textContent || '';
+    micBtn.innerHTML = '⏹ Stop';
+    micBtn.style.background = 'var(--bad)';
+    status.textContent = 'Listening…';
+
+    rec.onresult = (ev) => {
+      let interim = '';
+      for(let i = ev.resultIndex; i < ev.results.length; i++){
+        const r = ev.results[i];
+        if(r.isFinal){ finalText += (finalText ? ' ' : '') + r[0].transcript.trim(); }
+        else { interim += r[0].transcript; }
+      }
+      transcript.textContent = finalText + (interim ? ' ' + interim : '');
+    };
+    rec.onerror = (ev) => { status.textContent = 'Error: ' + ev.error; };
+    rec.onend = () => {
+      micBtn.innerHTML = '🎤 Record';
+      micBtn.style.background = 'var(--accent3)';
+      status.textContent = transcript.textContent ? 'Saved · tap 🎤 to add more' : 'Tap 🎤 to start';
+      if(activeIdx === idx){ activeRec = null; activeIdx = -1; }
+    };
+    rec.start();
+  });
+
+  document.getElementById('pq-reset').addEventListener('click', () => {
+    if(!confirm('Clear all transcripts in this block?')) return;
+    polinaQs.forEach((_, idx) => {
+      const t = document.getElementById('pq-transcript-' + idx);
+      const s = document.getElementById('pq-status-' + idx);
+      if(t) t.textContent = '';
+      if(s) s.textContent = '';
+    });
   });
 })();
 </script>
