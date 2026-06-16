@@ -87,10 +87,13 @@ footer{max-width:1180px;margin:48px auto 28px;padding:0 clamp(16px,3vw,28px);tex
 .step-label{display:inline-block;font-family:var(--mono);font-size:.66rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent3);background:var(--highlight);padding:4px 10px;border-radius:4px;margin:14px 0 8px}
 
 .vocab-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;margin-top:8px}
-.vw{background:var(--card-2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;cursor:pointer;transition:.15s;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.vw{background:var(--card-2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;cursor:pointer;transition:.15s;display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-height:54px}
 .vw:hover{border-color:var(--accent);background:var(--paper-2)}
-.vw .w{font-family:var(--display);font-weight:600;font-size:.98rem;color:var(--accent3)}
-.vw .ru{font-size:.78rem;color:var(--muted);font-style:italic}
+.vw .w{font-family:var(--display);font-weight:600;font-size:.98rem;color:var(--accent3);line-height:1.25;word-break:break-word}
+.vw .ru{font-size:.78rem;color:var(--muted);font-style:italic;line-height:1.3;word-break:break-word}
+
+/* Vocab chips used in Anticipate panel */
+.chip{display:inline-block;font-family:var(--mono);font-size:.74rem;font-weight:700;letter-spacing:.02em;background:#FFF;color:var(--accent3);border:1px solid var(--accent2);border-radius:14px;padding:3px 10px;line-height:1.45}
 
 .dialogue{background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:10px 0;font-size:.94rem;line-height:1.65}
 .dialogue p{margin:0 0 8px}
@@ -240,11 +243,73 @@ button[data-say]:hover{background:var(--accent)}
 <!-- PROGRESS DOTS -->
 <div class="progress"><div class="dots" id="dots" aria-hidden="true"></div></div>
 
-<!-- GRAMMAR FOCUS · interview voice -->
+<!-- MINIMUM-VIABLE RUN · what to hit if time is tight -->
 <section class="section">
-  <div class="grammar-focus">
-    <h3>Today's focus · the interview voice</h3>
-    <p style="margin:0 0 4px;font-size:.95rem;color:var(--muted)">Three openings that sound mature and confident. Use them when you answer. Avoid "well…" and "you know" — they make you sound junior.</p>
+  <div style="background:linear-gradient(135deg,#FFFFFF,#EAF1F8);border:1px solid var(--accent2);border-left:4px solid var(--accent);border-radius:0 14px 14px 0;padding:18px 22px;box-shadow:var(--shadow)">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+      <span style="font-family:var(--mono);font-size:.66rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent3);background:#FFF;padding:4px 10px;border-radius:5px;border:1px solid var(--accent2)">If time is tight · 60 min</span>
+      <span style="font-family:var(--display);font-size:1.05rem;color:var(--accent3);font-weight:600">The four blocks you must hit before tonight</span>
+    </div>
+    <ol style="margin:8px 0 0 22px;font-size:.92rem;line-height:1.75;color:var(--ink)">
+      <li><strong>⚠ Rescue phrases</strong> (~10 min) — your real shield. Memorise four.</li>
+      <li><strong>Block 1 · Self-introduction</strong> (~10 min) — say it three times out loud, with YOUR data.</li>
+      <li><strong>Block 6 · One STAR story</strong> (~10 min) — one real case, four sentences.</li>
+      <li><strong>Block 9 · Mock interview</strong> (~15 min) — run the director sequence once, end-to-end.</li>
+    </ol>
+    <p style="margin:10px 0 0;font-size:.84rem;color:var(--muted);font-style:italic">Everything else is bank — return to it tonight after the call, or tomorrow. The lesson stays open.</p>
+  </div>
+</section>
+
+<!-- BLOCK 1 · WARM-UP · 5 simple questions about yourself -->
+<section class="section" id="block-1">
+  <div class="section-head"><div class="n">1</div><h2>Warm-up · five simple questions about you<span class="section-tag">Speak first</span></h2></div>
+  <div class="section-sub">Soft start. Read each question, then speak your own answer aloud — full sentences, no rush. By question 5 your mouth is in English mode again.</div>
+  <div class="card">
+    <p style="font-size:.94rem;color:var(--muted);margin:0 0 14px;line-height:1.6">These are the questions every conversation opens with. Don't memorise an answer — just <strong>say each one out loud</strong> in your own words. A sample answer is given underneath each so you can hear the shape.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px">
+
+      <div style="background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+        <div style="font-family:var(--mono);font-size:.64rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:6px">Question 1 · who you are</div>
+        <div style="font-family:var(--display);font-weight:600;font-size:1rem;color:var(--ink);margin-bottom:8px">Tell me a little about yourself.</div>
+        <div class="row" style="margin:0"><button data-say="I'm Polina. I'm a corporate lawyer based in Moscow, with about ten years in Russian law and a focus on international clients.">▶</button><em style="font-size:.88rem;color:var(--muted)">"I'm Polina. I'm a corporate lawyer based in Moscow, with about ten years in Russian law and a focus on international clients."</em></div>
+      </div>
+
+      <div style="background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+        <div style="font-family:var(--mono);font-size:.64rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:6px">Question 2 · what you do</div>
+        <div style="font-family:var(--display);font-weight:600;font-size:1rem;color:var(--ink);margin-bottom:8px">What do you do — what's your role?</div>
+        <div class="row" style="margin:0"><button data-say="In my current role I handle corporate matters for a portfolio of international clients — mostly commercial disputes and contract work.">▶</button><em style="font-size:.88rem;color:var(--muted)">"In my current role I handle corporate matters for a portfolio of international clients — mostly commercial disputes and contract work."</em></div>
+      </div>
+
+      <div style="background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+        <div style="font-family:var(--mono);font-size:.64rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:6px">Question 3 · your day</div>
+        <div style="font-family:var(--display);font-weight:600;font-size:1rem;color:var(--ink);margin-bottom:8px">Walk me through a typical day at work.</div>
+        <div class="row" style="margin:0"><button data-say="A typical day is a mix of client calls in the morning, drafting and reviewing documents around lunch, and team coordination in the afternoon. No two days are exactly the same.">▶</button><em style="font-size:.88rem;color:var(--muted)">"A typical day is a mix of client calls in the morning, drafting and reviewing documents around lunch, and team coordination in the afternoon. No two days are exactly the same."</em></div>
+      </div>
+
+      <div style="background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+        <div style="font-family:var(--mono);font-size:.64rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:6px">Question 4 · your English</div>
+        <div style="font-family:var(--display);font-weight:600;font-size:1rem;color:var(--ink);margin-bottom:8px">How long have you been learning English?</div>
+        <div class="row" style="margin:0"><button data-say="I've been using English in my work for several years now, mostly with international clients and reviewing English-language contracts. I'm always working on staying sharp.">▶</button><em style="font-size:.88rem;color:var(--muted)">"I've been using English in my work for several years now, mostly with international clients and reviewing English-language contracts. I'm always working on staying sharp."</em></div>
+      </div>
+
+      <div style="background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+        <div style="font-family:var(--mono);font-size:.64rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:6px">Question 5 · what's keeping you busy</div>
+        <div style="font-family:var(--display);font-weight:600;font-size:1rem;color:var(--ink);margin-bottom:8px">What's been keeping you busy recently?</div>
+        <div class="row" style="margin:0"><button data-say="Lately I've been leading a few cross-border matters — a lot of contract work and coordination with foreign counsel. It's been intense but interesting.">▶</button><em style="font-size:.88rem;color:var(--muted)">"Lately I've been leading a few cross-border matters — a lot of contract work and coordination with foreign counsel. It's been intense but interesting."</em></div>
+      </div>
+
+    </div>
+
+    <p style="font-size:.84rem;color:var(--muted);margin:14px 0 0;font-style:italic">By now you should feel <strong>looser</strong>. The hard stuff comes next, but you are warmed up.</p>
+  </div>
+</section>
+
+<!-- TODAY'S FOCUS · THE INTERVIEW VOICE (unnumbered bridge between Warm-up and Rescue) -->
+<section class="section" id="block-voice">
+  <div class="section-head"><div class="n" style="background:var(--maple);box-shadow:0 4px 12px rgba(198,168,119,.25)">✦</div><h2>Today's focus · the interview voice<span class="section-tag">Three openings</span></h2></div>
+  <div class="section-sub">Three openings that sound mature and confident. Use them when you answer. Keep "well…" and "you know" rare — overused, they make you sound junior.</div>
+  <div class="card">
     <div class="formula">
       <span class="key">In my current role,</span>
       <span>(grounding · I lead / I handle / I oversee)</span>
@@ -265,62 +330,9 @@ button[data-say]:hover{background:var(--accent)}
   </div>
 </section>
 
-<!-- BLOCK 1 · EASY BUSINESS WARM-UP -->
-<section class="section" id="block-1">
-  <div class="section-head"><div class="n">1</div><h2>Warm-up · easy business clichés<span class="section-tag">Speak first</span></h2></div>
-  <div class="section-sub">Soft start. Eight phrases everyone uses at work. Listen · repeat · forget. By question 5 your mouth is in English mode again.</div>
-  <div class="card">
-    <p style="font-size:.94rem;color:var(--muted);margin:0 0 14px;line-height:1.6">These are <strong>warm-up clichés</strong>, not interview answers. Don't try to remember them. Just <strong>say each one out loud</strong> once. The point is to switch your mouth from Russian to English without effort.</p>
-
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px">
-      <div style="background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:12px 14px">
-        <div class="row" style="margin:0"><button data-say="Thanks for taking the time today, I really appreciate it.">▶</button><em style="font-size:.92rem">"Thanks for taking the time today, I really appreciate it."</em></div>
-      </div>
-      <div style="background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:12px 14px">
-        <div class="row" style="margin:0"><button data-say="How has your week been so far?">▶</button><em style="font-size:.92rem">"How has your week been so far?"</em></div>
-      </div>
-      <div style="background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:12px 14px">
-        <div class="row" style="margin:0"><button data-say="It's really nice to put a face to the name.">▶</button><em style="font-size:.92rem">"It's really nice to put a face to the name."</em></div>
-      </div>
-      <div style="background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:12px 14px">
-        <div class="row" style="margin:0"><button data-say="Can you hear me clearly on your side?">▶</button><em style="font-size:.92rem">"Can you hear me clearly on your side?"</em></div>
-      </div>
-      <div style="background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:12px 14px">
-        <div class="row" style="margin:0"><button data-say="I'm based in Moscow, and you?">▶</button><em style="font-size:.92rem">"I'm based in Moscow, and you?"</em></div>
-      </div>
-      <div style="background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:12px 14px">
-        <div class="row" style="margin:0"><button data-say="I've been looking forward to our conversation.">▶</button><em style="font-size:.92rem">"I've been looking forward to our conversation."</em></div>
-      </div>
-      <div style="background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:12px 14px">
-        <div class="row" style="margin:0"><button data-say="Where would you like to start?">▶</button><em style="font-size:.92rem">"Where would you like to start?"</em></div>
-      </div>
-      <div style="background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:12px 14px">
-        <div class="row" style="margin:0"><button data-say="Of course, happy to walk you through that.">▶</button><em style="font-size:.92rem">"Of course, happy to walk you through that."</em></div>
-      </div>
-    </div>
-
-    <div style="background:var(--highlight);border-left:3px solid var(--accent);padding:12px 14px;border-radius:0 8px 8px 0;margin-top:16px">
-      <div style="font-family:var(--mono);font-size:.66rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent3);margin-bottom:6px">Now warm up your topic — three easy questions</div>
-      <div class="row" style="margin:6px 0">
-        <button data-say="What's your area of practice?">▶</button>
-        <em style="font-size:.92rem">"What's your area of practice?"</em>
-      </div>
-      <div class="row" style="margin:6px 0">
-        <button data-say="How long have you been with your current firm?">▶</button>
-        <em style="font-size:.92rem">"How long have you been with your current firm?"</em>
-      </div>
-      <div class="row" style="margin:6px 0">
-        <button data-say="What's been keeping you busy lately?">▶</button>
-        <em style="font-size:.92rem">"What's been keeping you busy lately?"</em>
-      </div>
-    </div>
-    <p style="font-size:.84rem;color:var(--muted);margin:14px 0 0;font-style:italic">By now you should feel <strong>looser</strong>. The hard stuff comes next, but you are warmed up.</p>
-  </div>
-</section>
-
 <!-- BLOCK 1.5 · BUY-TIME RESCUE PHRASES -->
 <section class="section" id="block-rescue">
-  <div class="section-head"><div class="n">⚠</div><h2>Rescue phrases · when you don't understand or forget a word<span class="section-tag">Most important block</span></h2></div>
+  <div class="section-head"><div class="n">2</div><h2>Rescue phrases · when you don't understand or forget a word<span class="section-tag">Most important block</span></h2></div>
   <div class="section-sub">Memorise four of these. Say them with calm voice — and you never look bad. Senior candidates use them all the time.</div>
 
   <div class="card">
@@ -354,7 +366,7 @@ button[data-say]:hover{background:var(--accent)}
       <strong style="color:var(--bad);font-family:var(--display)">Avoid at all cost</strong>
       <ul style="margin:8px 0 0 18px;font-size:.9rem;line-height:1.7">
         <li><strong>"I don't know"</strong> — say <em>"I don't have direct experience with that, but my approach would be…"</em></li>
-        <li><strong>"Um", "well", "you know"</strong> — these mark you as junior. Replace with a pause and silence. Silence is mature.</li>
+        <li><strong>Constant "um", "well", "you know"</strong> — used in every sentence, they flatten you. A single "well" is fine. Replace the rest with a pause. Silence is mature.</li>
         <li><strong>"Maybe", "perhaps", "I think"</strong> in every sentence — replace with <em>"In my view…"</em>, <em>"From what I've seen…"</em></li>
       </ul>
     </div>
@@ -418,38 +430,137 @@ button[data-say]:hover{background:var(--accent)}
 
 <!-- BLOCK 1.7 · VOCABULARY LOAD -->
 <section class="section" id="block-vocab">
-  <div class="section-head"><div class="n">2</div><h2>Vocabulary load · 4 categories × 12 words<span class="section-tag">Tap to hear</span></h2></div>
+  <div class="section-head"><div class="n">3</div><h2>Vocabulary load · 4 categories<span class="section-tag">Tap to hear</span></h2></div>
   <div class="section-sub">Flip each card · say the word aloud · move on. Don't try to memorise all. Familiar shape = recognition tomorrow.</div>
 
   <div class="card">
     <details open style="margin-bottom:14px">
-      <summary style="cursor:pointer;font-family:var(--display);font-weight:700;color:var(--accent3);font-size:1.04rem;padding:6px 0">⚖ Legal practice · the words your director might use</summary>
-      <div class="vocab-row" data-scene="legal" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-top:10px"></div>
+      <summary style="cursor:pointer;font-family:var(--display);font-weight:700;color:var(--accent3);font-size:1.04rem;padding:6px 0">✦ Mature business chips · drop these in for instant gravitas</summary>
+      <div class="vocab-row" data-scene="vocab" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-top:10px"></div>
     </details>
 
     <details style="margin-bottom:14px">
-      <summary style="cursor:pointer;font-family:var(--display);font-weight:700;color:var(--accent3);font-size:1.04rem;padding:6px 0">💼 Business and management · how international companies talk</summary>
-      <div class="vocab-row" data-scene="business" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-top:10px"></div>
+      <summary style="cursor:pointer;font-family:var(--display);font-weight:700;color:var(--accent3);font-size:1.04rem;padding:6px 0">💼 Business and management · how international teams talk</summary>
+      <div class="vocab-row" data-scene="business" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-top:10px"></div>
     </details>
 
     <details style="margin-bottom:14px">
       <summary style="cursor:pointer;font-family:var(--display);font-weight:700;color:var(--accent3);font-size:1.04rem;padding:6px 0">🤝 Cultural fit · what the European director listens for</summary>
-      <div class="vocab-row" data-scene="culture" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-top:10px"></div>
+      <div class="vocab-row" data-scene="culture" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-top:10px"></div>
     </details>
 
     <details style="margin-bottom:14px">
       <summary style="cursor:pointer;font-family:var(--display);font-weight:700;color:var(--accent3);font-size:1.04rem;padding:6px 0">🛟 Filler-time · most important for tomorrow</summary>
-      <div class="vocab-row" data-scene="filler" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-top:10px"></div>
+      <div class="vocab-row" data-scene="filler" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;margin-top:10px"></div>
     </details>
+
+    <!-- ANTICIPATE · what the director will probably ask + the legal vocab attached -->
+    <div style="background:linear-gradient(135deg,#FFFFFF,#EAF1F8);border:1px solid var(--accent2);border-left:4px solid var(--accent3);border-radius:0 12px 12px 0;padding:18px 22px;margin-top:18px">
+      <h3 style="margin:0 0 6px;font-family:var(--display);color:var(--accent3);font-weight:600">Anticipate · what the director will probably ask</h3>
+      <p style="margin:0 0 14px;font-size:.9rem;color:var(--muted);line-height:1.55">Six questions a European director typically asks a Russian-law in-house counsel — paired with the basic legal vocabulary you'll likely need for each. Read · say the chips out loud · think how YOUR answer would start.</p>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px">
+
+        <div style="background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+          <div style="font-family:var(--mono);font-size:.64rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:6px">Q1 · your area</div>
+          <div style="font-family:var(--display);font-style:italic;font-size:.98rem;color:var(--ink);margin-bottom:10px;line-height:1.45">"How would you describe your area of practice?"</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+            <span class="chip">practice area</span>
+            <span class="chip">corporate law</span>
+            <span class="chip">commercial</span>
+            <span class="chip">litigation</span>
+            <span class="chip">contract work</span>
+            <span class="chip">disputes</span>
+          </div>
+          <div class="row" style="margin:0"><button class="play-line" data-say="My main practice area is corporate and commercial law, mostly contract work and disputes.">▶</button><em style="font-size:.84rem;color:var(--muted)">"My main practice area is corporate and commercial law, mostly contract work and disputes."</em></div>
+        </div>
+
+        <div style="background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+          <div style="font-family:var(--mono);font-size:.64rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:6px">Q2 · recent case</div>
+          <div style="font-family:var(--display);font-style:italic;font-size:.98rem;color:var(--ink);margin-bottom:10px;line-height:1.45">"Tell me about a recent matter you worked on."</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+            <span class="chip">a matter</span>
+            <span class="chip">a case</span>
+            <span class="chip">to draft</span>
+            <span class="chip">to negotiate</span>
+            <span class="chip">to settle</span>
+            <span class="chip">the outcome</span>
+          </div>
+          <div class="row" style="margin:0"><button class="play-line" data-say="A recent matter I worked on involved drafting and negotiating a commercial contract that we ultimately settled out of court.">▶</button><em style="font-size:.84rem;color:var(--muted)">"A recent matter I worked on involved drafting and negotiating a commercial contract that we ultimately settled out of court."</em></div>
+        </div>
+
+        <div style="background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+          <div style="font-family:var(--mono);font-size:.64rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:6px">Q3 · cross-border work</div>
+          <div style="font-family:var(--display);font-style:italic;font-size:.98rem;color:var(--ink);margin-bottom:10px;line-height:1.45">"How do you handle cross-border or international clients?"</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+            <span class="chip">cross-border</span>
+            <span class="chip">jurisdiction</span>
+            <span class="chip">foreign counsel</span>
+            <span class="chip">to coordinate</span>
+            <span class="chip">to align</span>
+            <span class="chip">local law</span>
+          </div>
+          <div class="row" style="margin:0"><button class="play-line" data-say="With cross-border matters, I coordinate with foreign counsel early and make sure local-law issues are flagged before structuring decisions are made.">▶</button><em style="font-size:.84rem;color:var(--muted)">"With cross-border matters, I coordinate with foreign counsel early and make sure local-law issues are flagged before structuring decisions are made."</em></div>
+        </div>
+
+        <div style="background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+          <div style="font-family:var(--mono);font-size:.64rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:6px">Q4 · regulators &amp; compliance</div>
+          <div style="font-family:var(--display);font-style:italic;font-size:.98rem;color:var(--ink);margin-bottom:10px;line-height:1.45">"How do you stay on top of regulatory changes in Russia?"</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+            <span class="chip">regulator</span>
+            <span class="chip">compliance</span>
+            <span class="chip">to monitor</span>
+            <span class="chip">a regulation</span>
+            <span class="chip">to advise on</span>
+            <span class="chip">impact</span>
+          </div>
+          <div class="row" style="margin:0"><button class="play-line" data-say="I monitor regulatory updates from the key Russian regulators weekly and advise the business on the impact before the changes take effect.">▶</button><em style="font-size:.84rem;color:var(--muted)">"I monitor regulatory updates from the key Russian regulators weekly and advise the business on the impact before the changes take effect."</em></div>
+        </div>
+
+        <div style="background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+          <div style="font-family:var(--mono);font-size:.64rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:6px">Q5 · risk vs business</div>
+          <div style="font-family:var(--display);font-style:italic;font-size:.98rem;color:var(--ink);margin-bottom:10px;line-height:1.45">"How do you balance legal risk with business needs?"</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+            <span class="chip">to mitigate risk</span>
+            <span class="chip">commercially sound</span>
+            <span class="chip">pragmatic</span>
+            <span class="chip">a stakeholder</span>
+            <span class="chip">priorities</span>
+            <span class="chip">to deliver value</span>
+          </div>
+          <div class="row" style="margin:0"><button class="play-line" data-say="I aim to be pragmatic: I flag the risk clearly, propose how to mitigate it, and then let the business make a commercially sound decision.">▶</button><em style="font-size:.84rem;color:var(--muted)">"I aim to be pragmatic: I flag the risk clearly, propose how to mitigate it, and then let the business make a commercially sound decision."</em></div>
+        </div>
+
+        <div style="background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+          <div style="font-family:var(--mono);font-size:.64rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:6px">Q6 · documents &amp; reporting</div>
+          <div style="font-family:var(--display);font-style:italic;font-size:.98rem;color:var(--ink);margin-bottom:10px;line-height:1.45">"What does a typical brief or memo from you look like?"</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+            <span class="chip">a brief</span>
+            <span class="chip">a memo</span>
+            <span class="chip">an opinion</span>
+            <span class="chip">key findings</span>
+            <span class="chip">recommendations</span>
+            <span class="chip">next steps</span>
+          </div>
+          <div class="row" style="margin:0"><button class="play-line" data-say="My memos are short and structured: key findings up front, two or three options with recommendations, and clear next steps.">▶</button><em style="font-size:.84rem;color:var(--muted)">"My memos are short and structured: key findings up front, two or three options with recommendations, and clear next steps."</em></div>
+        </div>
+
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- BLOCK 2 · TOP 5 QUESTIONS -->
+<!-- BLOCK 4 · TOP 5 QUESTIONS -->
 <section class="section" id="block-2">
-  <div class="section-head"><div class="n">2</div><h2>Top 5 questions · with model answers<span class="section-tag">Cultural-fit interview</span></h2></div>
+  <div class="section-head"><div class="n">4</div><h2>Top 5 questions · with model answers<span class="section-tag">Cultural-fit interview</span></h2></div>
   <div class="section-sub">For each question · listen → say YOUR version → polish wording. The model is a starting frame, not a script to memorise.</div>
 
   <div class="card">
+
+    <div style="background:#FFF7E1;border:1px solid var(--maple);border-left:4px solid var(--maple);border-radius:0 8px 8px 0;padding:12px 16px;margin:0 0 18px;font-size:.9rem;line-height:1.55;color:var(--ink)">
+      <strong style="font-family:var(--display);color:var(--accent3)">⚠ Не выучивайте модель наизусть.</strong> Любая биографическая деталь в модели — <em>лет стажа, тип сделок, имя клиента, что вы «читали в прессе»</em> — это пример формы. На реальном интервью директор задаст уточняющий вопрос, и придуманная деталь развалит ответ. Слушайте <strong>ритм и каркас</strong>. В свой ответ подставляйте <strong>только то, что действительно ваше</strong>.
+    </div>
+
     <div class="step-label">Question 1 · Opening</div>
     <div class="dialogue">
       <p><span class="them">Director:</span> <button class="play-line" data-say="Tell me a little about yourself.">▶</button>Tell me a little about yourself.</p>
@@ -493,7 +604,7 @@ What brings me to this role is <strong>____ (one specific reason about the compa
 
 <!-- BLOCK 3 · STAR method -->
 <section class="section" id="block-3">
-  <div class="section-head"><div class="n">3</div><h2>STAR method · how senior people tell stories<span class="section-tag">Behavioural questions</span></h2></div>
+  <div class="section-head"><div class="n">5</div><h2>STAR method · how senior people tell stories<span class="section-tag">Behavioural questions</span></h2></div>
   <div class="section-sub">Any question starting with "Tell me about a time…" or "Give me an example…" wants STAR.</div>
 
   <div class="card">
@@ -544,7 +655,7 @@ What brings me to this role is <strong>____ (one specific reason about the compa
 
 <!-- BLOCK 4 · YOUR QUESTIONS BACK -->
 <section class="section" id="block-4">
-  <div class="section-head"><div class="n">4</div><h2>Your questions back · the closer<span class="section-tag">Showing seniority</span></h2></div>
+  <div class="section-head"><div class="n">6</div><h2>Your questions back · the closer<span class="section-tag">Showing seniority</span></h2></div>
   <div class="section-sub">When the director says "Do you have any questions for me?" — never say "No". Ask two. Strong candidates close the interview with their own questions.</div>
 
   <div class="card">
@@ -577,7 +688,7 @@ I would be delighted to take the next step, and please let me know if there is a
 
 <!-- BLOCK 4.5 · RANDOM TOUGH-QUESTION SPINNER -->
 <section class="section" id="block-spin">
-  <div class="section-head"><div class="n">★</div><h2>Random tough question · spin and answer<span class="section-tag">Drill</span></h2></div>
+  <div class="section-head"><div class="n">7</div><h2>Random tough question · spin and answer<span class="section-tag">Drill</span></h2></div>
   <div class="section-sub">20 real questions European directors ask. Click · listen · answer aloud in 60-90 seconds. Aim for 10.</div>
   <div class="card">
     <p style="font-size:.92rem;color:var(--muted);margin:0 0 14px">Each spin gives you a question + a one-line strategy ("watch for…"). Don't try to give the perfect answer — just keep speaking, use the rescue phrases when you stumble.</p>
@@ -604,11 +715,10 @@ I would be delighted to take the next step, and please let me know if there is a
 
 <!-- BLOCK 5 · SPEAKING + AI LIVE COACH -->
 <section class="section" id="block-5">
-  <div class="section-head"><div class="n">5</div><h2>Free speaking · pick one scene and tell me about it<span class="section-tag">AI Live Coach</span></h2></div>
-  <div class="section-sub">Choose your favourite scene. Talk for about 60 seconds. The system listens.</div>
+  <div class="section-head"><div class="n">8</div><h2>Free speaking · pick one question and answer aloud<span class="section-tag">AI Live Coach</span></h2></div>
+  <div class="section-sub">Choose any of the Top 5 questions. Talk for about 60 seconds. The system listens.</div>
   <div class="card">
-    <p style="font-size:.95rem;margin:0 0 8px"><strong>Task:</strong> Choose <strong>one</strong> of today's scenes — pharmacy, doctor, or emergency. Tell me:</p>
-    <p style="font-size:.95rem;margin:0 0 8px">Pick <strong>one</strong> of the Top 5 questions. Answer as if the director just asked you. Aim for 60-90 seconds. The system listens for four things:</p>
+    <p style="font-size:.95rem;margin:0 0 8px"><strong>Task:</strong> Pick <strong>one</strong> of the Top 5 questions. Answer as if the director just asked you. Aim for 60-90 seconds. The system listens for four things:</p>
     <ol style="margin:0 0 0 22px;font-size:.94rem;line-height:1.8">
       <li><strong>You introduced yourself / current role</strong> ("In my current role I…" / "I'm a corporate lawyer…")</li>
       <li><strong>You named at least ONE concrete reason / example</strong> (specific company detail, real case, actual responsibility)</li>
@@ -686,8 +796,8 @@ I would be delighted to take the next step, and please let me know if there is a
 
 <!-- BLOCK 6 · MOCK INTERVIEW (THE FINALE) -->
 <section class="section" id="block-mock">
-  <div class="section-head"><div class="n">6</div><h2>Mock interview · the European director, live<span class="section-tag">Finale</span></h2></div>
-  <div class="section-sub">Five questions. The director speaks via TTS. You answer aloud. AI Live Coach above already tracks the criteria. This is the rehearsal.</div>
+  <div class="section-head"><div class="n">9</div><h2>Mock interview · the European director, live<span class="section-tag">Finale</span></h2></div>
+  <div class="section-sub">Five questions in sequence · 60-90 seconds each. The director (TTS) speaks · you answer aloud · move on. End-to-end run.</div>
 
   <div class="card">
     <p style="font-size:.94rem;margin:0 0 14px;color:var(--muted);line-height:1.6">Sit straight, take a breath. Press <strong>Start</strong>. The director will ask you five questions in sequence. After each, you have <strong>60-90 seconds</strong> to answer. Don't think about perfect English — think about <strong>structure, examples, and presence</strong>. The AI Coach in Block 5 above already records and grades — open it in a second tab if you want the live feedback.</p>
@@ -716,8 +826,8 @@ I would be delighted to take the next step, and please let me know if there is a
 
 <!-- BLOCK 7 · THANK-YOU EMAIL (THE CLOSE) -->
 <section class="section" id="block-email">
-  <div class="section-head"><div class="n">7</div><h2>Thank-you email · within 24 hours<span class="section-tag">Senior signal</span></h2></div>
-  <div class="section-sub">Most candidates skip this. The ones who get the offer don't. Three short paragraphs.</div>
+  <div class="section-head"><div class="n">10</div><h2>Thank-you email · within 24 hours<span class="section-tag">Optional · senior signal</span></h2></div>
+  <div class="section-sub">Optional — but a polite follow-up within 24 hours is a strong senior signal. Three short paragraphs.</div>
 
   <div class="card">
     <p style="font-size:.92rem;color:var(--muted);margin:0 0 14px;line-height:1.6">Send this to your recruiter <strong>within 24 hours</strong> of the interview, asking them to forward it to the director. Or directly to the director if you have their email. Keep it short. Keep it specific. One concrete reference to your conversation = senior signal.</p>
@@ -754,7 +864,7 @@ With kind regards,
 </section>
 
 <footer>
-  Settling In · A2 everyday English · NG English Lab · 2026
+  Interview Speed Prep · B1+ Business English · NG English Lab · 2026
 </footer>
 
 <script>
@@ -1130,7 +1240,7 @@ function setupTeacherMode(code){
       <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px">
         <div>
           <h3 style="margin:0">Teacher Mirror · code ${code}</h3>
-          <p style="margin:4px 0 0;color:#C4CBD0;font-size:.86rem">Settling In · Toronto · watching Elena live</p>
+          <p style="margin:4px 0 0;color:#C4CBD0;font-size:.86rem">Interview Speed Prep · watching Polina live</p>
         </div>
         <span class="teacher-status" id="tm-status" style="margin-left:auto">connecting…</span>
       </div>
@@ -1138,10 +1248,10 @@ function setupTeacherMode(code){
         <div class="grader-criteria" style="background:#3E444B;border-color:#4A5358">
           <h4 style="color:#F5D5A4">Four points · live</h4>
           <ul class="checks" id="tm-checks">
-            <li data-cid="where"><span class="check-mark">✓</span><span>Said WHERE<span class="label-sub">I'm at / I'm in</span></span><span class="check-pts">+1</span></li>
-            <li data-cid="want"><span class="check-mark">✓</span><span>Used I'd like / I need<span class="label-sub">today's focus</span></span><span class="check-pts">+1</span></li>
-            <li data-cid="detail"><span class="check-mark">✓</span><span>One detail<span class="label-sub">size / colour / time</span></span><span class="check-pts">+1</span></li>
-            <li data-cid="close"><span class="check-mark">✓</span><span>Polite closing<span class="label-sub">thank you / have a good day</span></span><span class="check-pts">+1</span></li>
+            <li data-cid="role"><span class="check-mark">✓</span><span>Introduced your role<span class="label-sub">In my current role / I'm a … lawyer / I handle</span></span><span class="check-pts">+1</span></li>
+            <li data-cid="reason"><span class="check-mark">✓</span><span>One concrete reason or example<span class="label-sub">a real case, a real responsibility</span></span><span class="check-pts">+1</span></li>
+            <li data-cid="star"><span class="check-mark">✓</span><span>STAR shape if behavioural<span class="label-sub">situation / task / action / result</span></span><span class="check-pts">+1</span></li>
+            <li data-cid="close"><span class="check-mark">✓</span><span>Polite close + question back<span class="label-sub">Thank you + May I ask…</span></span><span class="check-pts">+1</span></li>
           </ul>
         </div>
         <div class="grader-live">
