@@ -895,6 +895,17 @@ document.querySelectorAll('.mc-list').forEach(list => {
   });
 })();
 
+/* ===== ANSWER RANDOMIZATION on load (MCQ options + gap-fill banks) ===== */
+(function(){
+  function shuffleKids(parent, childSelector){
+    const kids = Array.from(childSelector ? parent.querySelectorAll(childSelector) : parent.children);
+    kids.sort(() => Math.random() - 0.5);
+    kids.forEach(k => parent.appendChild(k));
+  }
+  document.querySelectorAll('.mc-list .mc-opts').forEach(opts => shuffleKids(opts));
+  document.querySelectorAll('.bank[data-ex]').forEach(bank => shuffleKids(bank, '.bank-word'));
+})();
+
 /* ===== PROGRESS DOTS ===== */
 (function(){
   const dotsEl = document.getElementById('dots');
