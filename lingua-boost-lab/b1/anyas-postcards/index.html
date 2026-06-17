@@ -145,14 +145,13 @@ strong{color:var(--text);font-weight:800}
 .map-paths svg{width:100%;height:100%}
 .map-dots{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 @media(max-width:680px){.map-dots{grid-template-columns:repeat(2,1fr)}}
-.map-dot{background:var(--paper);border:2px solid var(--accent3);border-radius:14px;padding:18px 14px;cursor:pointer;transition:.25s;text-align:center;position:relative;font-family:var(--serif)}
-.map-dot:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(139,63,31,.18);border-color:var(--accent)}
-.map-dot.visited{background:linear-gradient(135deg,#FFE8B8,#FFD78A);border-color:var(--gold);box-shadow:0 4px 12px rgba(182,138,63,.25)}
-.map-dot.visited::after{content:'✓';position:absolute;top:6px;right:8px;color:var(--ok);font-weight:900;font-size:.9rem;font-family:var(--display)}
-.map-dot .flag{font-size:2.4rem;line-height:1;margin-bottom:6px}
-.map-dot .country{font-family:var(--mono);font-size:.66rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2);margin-bottom:2px}
-.map-dot .city{font-family:var(--serif);font-style:italic;font-size:1.1rem;font-weight:600;color:var(--text)}
-.map-dot .hint{font-size:.74rem;color:var(--muted);margin-top:4px;font-family:var(--body);font-style:normal}
+.map-dot{background:var(--paper);border:none;border-radius:10px;padding:0;cursor:pointer;transition:.25s;text-align:center;position:relative;overflow:hidden;box-shadow:0 4px 14px rgba(74,122,165,.12)}
+.map-dot:hover{transform:translateY(-3px) rotate(-0.5deg);box-shadow:0 8px 20px rgba(74,122,165,.22)}
+.map-dot.visited{outline:3px solid var(--accent);outline-offset:-3px}
+.map-dot.visited::after{content:'✓';position:absolute;top:8px;right:10px;color:#fff;font-weight:900;font-size:.78rem;font-family:var(--display);background:var(--ok);width:22px;height:22px;border-radius:50%;display:grid;place-items:center;box-shadow:0 2px 6px rgba(91,140,90,.4);z-index:2}
+.map-dot img.postcard-thumb{width:100%;height:auto;display:block;aspect-ratio:485/345;object-fit:cover}
+.map-dot .hint-overlay{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(180deg,transparent,rgba(46,51,64,.78));color:#FFE3DE;padding:8px 10px 6px;font-family:var(--mono);font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;opacity:0;transition:.22s}
+.map-dot:hover .hint-overlay,.map-dot.visited .hint-overlay{opacity:1}
 
 .clue-panel{margin-top:16px;background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:0 10px 10px 0;padding:16px 20px;display:none;animation:fadein .35s}
 .clue-panel.show{display:block}
@@ -268,7 +267,9 @@ footer{max-width:1180px;margin:50px auto 30px;padding:0 24px;text-align:center;c
 footer strong{color:var(--accent2);font-family:var(--display);font-weight:800;letter-spacing:0}
 footer .by{display:block;margin-top:6px;font-size:.7rem;opacity:.8}
 
-.closing{background:linear-gradient(135deg,var(--blue2),var(--blue));color:#FAF6F0;border:none;text-align:center;padding:30px 24px}
+.closing{background:linear-gradient(135deg,var(--blue2),var(--blue)),url('assets/img/closing-flatlay.png');background-blend-mode:multiply;background-size:cover;background-position:center;color:#FAF6F0;border:none;text-align:center;padding:36px 24px;position:relative}
+.closing::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(42,78,114,.55),rgba(42,78,114,.85));pointer-events:none;border-radius:14px}
+.closing > *{position:relative;z-index:1}
 .closing h3{color:#FFE3DE;justify-content:center;font-family:var(--serif);font-style:italic;font-weight:700;font-size:1.4rem}
 .closing p{font-family:var(--serif);font-style:italic;font-size:1.08rem;line-height:1.65;color:#FAF6F0;max-width:620px;margin:14px auto 0}
 .closing .stamp{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:#FFE3DE;margin-top:14px;display:inline-block;border:1px solid #FFE3DE;padding:5px 14px;border-radius:4px}
@@ -293,17 +294,7 @@ footer .by{display:block;margin-top:6px;font-size:.7rem;opacity:.8}
 
 <!-- ===== HERO ===== -->
 <div class="lab-hero">
-  <div class="hero-placeholder">
-    <div class="hero-eyebrow">Story Adventures · B1 · 90 min</div>
-    <h1 class="hero-title">Anya's Postcards <em>· six countries, one journey</em></h1>
-    <p class="hero-lead">Anya is travelling the world. Six countries, six clues, sixteen new words — and one grammar quest: Present Perfect &amp; Present Perfect Continuous. Read her diary. Follow her on the map. Walk into a Marrakech bazaar and choose what to say. Become a Tense Detective.</p>
-    <div class="hero-badges">
-      <span class="hero-badge">Travel Journal</span>
-      <span class="hero-badge">6 Countries</span>
-      <span class="hero-badge">Perfect Tenses</span>
-      <span class="hero-badge">Choose Your Path</span>
-    </div>
-  </div>
+  <img class="hero-banner" src="assets/img/hero-anyas-postcards.png" alt="Anya's Postcards · six countries, one journey. A girl with a travel journal and a backpack, surrounded by vintage postcards from Tokyo, Marrakech, Kyoto, Buenos Aires, Bali and Cape Town. Story Adventures · B1 · 90 min. Travel Journal · 6 Countries · Perfect Tenses · Choose Your Path.">
 </div>
 
 <!-- ===== META ===== -->
@@ -394,12 +385,12 @@ footer .by{display:block;margin-top:6px;font-size:.7rem;opacity:.8}
       <div class="map-complete" id="map-complete">✨ Six countries unlocked. Anya is proud of you. ✨</div>
     </div>
     <script type="application/json" id="map-data">[
-      {"flag":"🇹🇷","country":"Turkey","city":"Istanbul","hint":"Two continents, one city","clue":"A metropolis that has been bridging two continents for fifteen centuries.","word":"metropolis","ru":"мегаполис"},
-      {"flag":"🇲🇦","country":"Morocco","city":"Marrakech","hint":"A maze of colour","clue":"A bustling maze of colours, spices and silk — and a thousand voices haggling at once.","word":"bustling","ru":"шумный, живой"},
-      {"flag":"🇮🇩","country":"Indonesia","city":"Bali","hint":"Doorways to the gods","clue":"An island where almost every doorway leads to a small temple.","word":"island","ru":"остров"},
-      {"flag":"🇯🇵","country":"Japan","city":"Kyoto","hint":"Cherry blossoms, quiet streets","clue":"A charming city of cherry blossoms and centuries-old shrines.","word":"charming","ru":"очаровательный"},
-      {"flag":"🇦🇷","country":"Argentina","city":"Buenos Aires","hint":"Magnificent, and dancing","clue":"A magnificent metropolis that dances tango on its vast squares at midnight.","word":"magnificent","ru":"великолепный"},
-      {"flag":"🇿🇦","country":"South Africa","city":"Cape Town","hint":"Where two oceans meet","clue":"A city where the mountain protects the people below — and two oceans meet at its feet.","word":"protect","ru":"защитить"}
+      {"img":"postcard-turkey-istanbul.png","country":"Turkey","city":"Istanbul","hint":"Click to unlock","clue":"A metropolis that has been bridging two continents for fifteen centuries.","word":"metropolis","ru":"мегаполис"},
+      {"img":"postcard-morocco-marrakech.png","country":"Morocco","city":"Marrakech","hint":"Click to unlock","clue":"A bustling maze of colours, spices and silk — and a thousand voices haggling at once.","word":"bustling","ru":"шумный, живой"},
+      {"img":"postcard-indonesia-bali.png","country":"Indonesia","city":"Bali","hint":"Click to unlock","clue":"An island where almost every doorway leads to a small temple.","word":"island","ru":"остров"},
+      {"img":"postcard-japan-kyoto.png","country":"Japan","city":"Kyoto","hint":"Click to unlock","clue":"A charming city of cherry blossoms and centuries-old shrines.","word":"charming","ru":"очаровательный"},
+      {"img":"postcard-argentina-buenos.png","country":"Argentina","city":"Buenos Aires","hint":"Click to unlock","clue":"A magnificent metropolis that dances tango on its vast squares at midnight.","word":"magnificent","ru":"великолепный"},
+      {"img":"postcard-southafrica-capetown.png","country":"South Africa","city":"Cape Town","hint":"Click to unlock","clue":"A city where the mountain protects the people below — and two oceans meet at its feet.","word":"protect","ru":"защитить"}
     ]</script>
   </div>
 </section>
@@ -761,10 +752,8 @@ function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.rando
     dot.className = 'map-dot';
     dot.dataset.idx = idx;
     dot.innerHTML = `
-      <div class="flag">${s.flag}</div>
-      <div class="country">${s.country}</div>
-      <div class="city">${s.city}</div>
-      <div class="hint">${s.hint}</div>
+      <img class="postcard-thumb" src="assets/img/${s.img}" alt="${s.city}, ${s.country}">
+      <div class="hint-overlay">${s.hint}</div>
     `;
     grid.appendChild(dot);
   });
@@ -777,7 +766,7 @@ function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.rando
     dot.classList.add('visited');
     panel.classList.add('show');
     panel.innerHTML = `
-      <div class="clue-loc">${s.flag}  ${s.city}, ${s.country}</div>
+      <div class="clue-loc">${s.city}, ${s.country}</div>
       <div class="clue-text">"${s.clue}"</div>
       <div><span class="clue-word">${s.word}</span><span class="clue-ru">${s.ru}</span></div>
       <button class="play" data-say="${s.clue.replace(/"/g,'&quot;')}">▶ Hear Anya</button>
