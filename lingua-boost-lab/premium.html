@@ -1232,6 +1232,15 @@ const VAULT_VERSION = (document.querySelector('meta[name="vault-version"]')||{})
       return;
     } catch(e) { console.warn('[vault] silent re-decrypt failed (stale PIN?)'); }
   }
+
+  /* migration fallback: cached lessons from previous vault version exist but no stored PIN.
+     Use what we have (unlock existing cards) — new cards stay locked until PIN re-entered. */
+  if (cached) {
+    try {
+      autoUnlock(JSON.parse(cached));
+      msg.textContent += ' Новые модули — введи PIN ещё раз, чтобы открыть.';
+    } catch(e){}
+  }
 })();
 
 /* Theme + language toggles — same pattern as Lab catalog (uses lab-theme-sync.js) */
