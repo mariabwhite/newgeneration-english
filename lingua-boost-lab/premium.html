@@ -1176,7 +1176,53 @@ async function tryUnlock() {
 }
 btn.addEventListener('click', tryUnlock);
 input.addEventListener('keypress', e => { if (e.key === 'Enter') tryUnlock(); });
-/* no auto-unlock — PIN must be entered each visit (по решению Маши, 03.06) */
+
+/* ===== Maria-only auto-unlock (localStorage cache + URL hash bootstrap) =====
+   Маша заходит ОДИН РАЗ по ссылке с #u=<base64-pin>, после этого
+   список расшифрованных уроков сохраняется в localStorage этого браузера.
+   Следующие визиты unlock'аются автоматически без ввода PIN.
+   Очистить кэш: открыть DevTools console → localStorage.removeItem('nge-vault-cache')
+   ИЛИ зайти по #lock                                                       */
+async function autoUnlock(lessons) {
+  const byId = Object.fromEntries(lessons.map(l => [l.id, l]));
+  cards.forEach(c => {
+    const id = c.dataset.id; const l = byId[id]; if (!l) return;
+    const a = c.querySelector('.card-open');
+    a.href = l.url; c.classList.remove('locked');
+  });
+  msg.textContent = '✓ Лаборатория открыта (this browser remembers).';
+  msg.className = 'pin-msg is-ok';
+}
+
+(async function tryCacheUnlock(){
+  /* manual lock via hash */
+  if (location.hash === '#lock') {
+    localStorage.removeItem('nge-vault-cache');
+    location.hash = '';
+    msg.textContent = 'Кэш очищен. PIN нужен снова.';
+    msg.className = 'pin-msg';
+    return;
+  }
+
+  /* URL bootstrap: #u=<base64(pin)>  →  decrypt, cache, unlock */
+  const hashMatch = location.hash.match(/[#&]u=([^&]+)/);
+  if (hashMatch) {
+    try {
+      const pin = decodeURIComponent(atob(hashMatch[1]));
+      const lessons = await decryptUrls(pin);
+      localStorage.setItem('nge-vault-cache', JSON.stringify(lessons));
+      history.replaceState(null, '', location.pathname + location.search);
+      autoUnlock(lessons);
+      return;
+    } catch (e) { console.warn('[vault] bootstrap PIN failed'); }
+  }
+
+  /* persisted cache: silent unlock */
+  const cached = localStorage.getItem('nge-vault-cache');
+  if (cached) {
+    try { autoUnlock(JSON.parse(cached)); } catch(e){}
+  }
+})();
 
 /* Theme + language toggles — same pattern as Lab catalog (uses lab-theme-sync.js) */
 (function () {
