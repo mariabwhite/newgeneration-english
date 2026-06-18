@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Voyager · L3 — Whose mind?</title>
+<meta name="description" content="B2+ Lab lesson for Ivan. Original story + science listening on consciousness. Olympiad / IELTS / exam practice formats.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* L3 «Whose mind?» palette — violet lab + magenta + L1-echo gold */
+  --bg:#0c0820; --bg-2:#15103a; --surface:#1b1545; --card:#221a55; --surface-2:#2a2168;
+  --text:#f0e8d8; --muted:#b8a8d8; --faint:#7868a0;
+  --accent:#f5c842; --accent-2:#ffd966; --accent-on:#1a0e2e;     /* L1 echo gold — kept for callbacks */
+  --brand:#a07fff; --brand-2:#c4afff;                              /* phosphor lilac — primary */
+  --neural:#d946a0;                                                /* neural magenta — secondary */
+  --line:rgba(160,127,255,.16); --line-2:rgba(160,127,255,.30); --line-3:rgba(160,127,255,.44);
+  --ok:#34d88a; --miss:#ff5c72;
+  --glow1:rgba(160,127,255,.16); --glow2:rgba(217,70,160,.12);
+  --display:"Unbounded","Manrope",system-ui,sans-serif;
+  --body:"Manrope",system-ui,sans-serif;
+  --mono:"JetBrains Mono",Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6;
+  background-image:
+    radial-gradient(ellipse at 78% 0%,var(--glow1),transparent 50%),
+    radial-gradient(ellipse at 14% 90%,var(--glow2),transparent 50%);
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+
+/* Starfield — three drifting layers */
+#starfield{position:fixed;inset:0;z-index:0;pointer-events:none}
+.star{position:absolute;border-radius:50%;background:#fff;will-change:transform,opacity}
+.star.s1{width:1px;height:1px;opacity:.45}
+.star.s2{width:2px;height:2px;opacity:.65}
+.star.s3{width:3px;height:3px;opacity:.85;box-shadow:0 0 4px rgba(255,255,255,.55)}
+@keyframes twinkle{0%,100%{opacity:var(--op0,.3)}50%{opacity:var(--op1,.9)}}
+@keyframes drift-a{from{transform:translate(0,0)}to{transform:translate(160px,-200px)}}
+@keyframes drift-b{from{transform:translate(0,0)}to{transform:translate(-200px,240px)}}
+@keyframes drift-c{from{transform:translate(0,0)}to{transform:translate(260px,180px)}}
+
+/* Topbar */
+.topbar{
+  position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+  padding:12px clamp(16px,3vw,28px);
+  background:color-mix(in srgb,var(--bg) 92%,transparent);
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  transition:transform .26s ease;will-change:transform;
+}
+.topbar.tb-hidden{transform:translateY(-100%)}
+.brand{display:flex;align-items:center;gap:12px;flex-shrink:0;text-decoration:none}
+.brand-mark{width:36px;height:36px;border-radius:9px;border-top-right-radius:0;
+  background:var(--brand);color:#fff;
+  font-family:var(--display);font-weight:900;font-size:1.1rem;letter-spacing:-.04em;
+  display:grid;place-items:center;position:relative;overflow:hidden;flex-shrink:0}
+.brand-mark::after{content:"";position:absolute;right:0;top:0;width:12px;height:12px;
+  background:#fff;clip-path:polygon(100% 0,0 0,100% 100%)}
+.brand-copy{display:grid;gap:1px;min-width:0}
+.brand-name{font-family:var(--display);font-weight:800;font-size:.95rem;letter-spacing:-.01em;color:var(--text);line-height:1}
+.brand-sub{font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-top:2px}
+.spacer{flex:1}
+.pill{padding:5px 11px;border-radius:50px;font:700 9.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid var(--line-2);color:var(--muted);background:rgba(0,0,0,.25);white-space:nowrap}
+.pill.accent{background:color-mix(in srgb,var(--accent) 15%,transparent);border-color:var(--accent);color:var(--accent)}
+.pill.brand{background:color-mix(in srgb,var(--brand) 15%,transparent);border-color:var(--brand);color:var(--brand-2)}
+.pill.neural{background:color-mix(in srgb,var(--neural) 15%,transparent);border-color:var(--neural);color:#f4b8de}
+.btn-sm{height:32px;padding:0 12px;border-radius:8px;border:1px solid var(--line-2);background:var(--card);color:var(--muted);
+  font:700 10px/1 var(--mono);letter-spacing:.12em;cursor:pointer;transition:all .15s;
+  text-decoration:none;display:inline-flex;align-items:center;text-transform:uppercase}
+.btn-sm:hover{border-color:var(--brand);color:var(--brand-2)}
+
+/* Teacher / homework */
+body:not(.teacher-mode) details.teacher{display:none}
+details.teacher{margin:16px 0 6px;border:1px dashed rgba(245,200,66,.32);border-radius:10px;background:rgba(245,200,66,.04)}
+details.teacher summary{cursor:pointer;list-style:none;padding:9px 14px;font-family:var(--mono);font-size:10.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:8px;user-select:none}
+details.teacher summary::-webkit-details-marker{display:none}
+details.teacher summary::before{content:"♦ teacher";opacity:.9}
+details.teacher .t-body{padding:12px 16px 14px;color:var(--brand-2);font-size:.9rem;line-height:1.55}
+details.teacher .t-body ul{margin-left:18px}
+details.teacher .t-body strong{color:var(--accent-2)}
+details.homework{margin:24px 0 8px;border:1px solid var(--brand);border-radius:14px;background:rgba(160,127,255,.06);overflow:hidden}
+details.homework summary{cursor:pointer;list-style:none;padding:14px 18px;font-family:var(--display);font-size:1rem;font-weight:800;color:var(--brand-2);display:flex;align-items:center;gap:10px;user-select:none}
+details.homework summary::-webkit-details-marker{display:none}
+details.homework summary>span{opacity:.55;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-left:auto}
+details.homework[open] summary{border-bottom:1px solid var(--line-2)}
+details.homework .hw-body{padding:18px 20px 20px}
+.hw-list{display:flex;flex-direction:column;gap:8px;margin:8px 0 6px}
+.hw-row{background:var(--card);border:1px solid var(--line-2);border-radius:10px;padding:10px 14px;color:var(--text);font-size:.94rem;line-height:1.55}
+
+/* Tabs */
+.tab-row{display:flex;gap:4px;margin-bottom:14px;border-bottom:1px solid var(--line)}
+.tab-row .tab-btn{flex:1;background:transparent;border:none;color:var(--muted);
+  padding:11px 14px;font-family:var(--mono);font-size:10.5px;font-weight:800;
+  letter-spacing:.14em;text-transform:uppercase;cursor:pointer;
+  border-bottom:2px solid transparent;transition:.16s}
+.tab-row .tab-btn:hover{color:var(--brand-2)}
+.tab-row .tab-btn.active{color:var(--brand-2);border-bottom-color:var(--brand)}
+.tab-pane{display:none}
+.tab-pane.active{display:block;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* Audio */
+.listen-box audio{
+  width:100%;display:block;border-radius:10px;
+  filter:invert(.88) hue-rotate(180deg) saturate(.85);
+  background:var(--card)
+}
+
+/* Hero */
+.hero{max-width:1240px;margin:32px auto 12px;padding:0 clamp(16px,3vw,28px);position:relative;z-index:2}
+.hero-card{position:relative;border:1px solid var(--line-2);border-radius:24px;overflow:hidden;
+  background:linear-gradient(135deg,var(--bg-2) 0%,var(--surface) 60%,#1f1652 100%);
+  box-shadow:0 10px 40px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.04);
+  min-height:500px;padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px)}
+.hero-bg{position:absolute;inset:0;z-index:0;
+  background:url("assets/img-hero-mind.png") 72% center/cover no-repeat;
+  opacity:1}
+.hero-bg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(12,8,32,.98) 0%,rgba(12,8,32,.94) 42%,rgba(12,8,32,.40) 57%,rgba(12,8,32,.06) 72%,transparent 100%)}
+.hero-card > *:not(.hero-bg){position:relative;z-index:1}
+
+.lesson-img{width:100%;border-radius:14px;display:block;margin:0 0 18px;
+  border:1px solid var(--line-2);box-shadow:0 8px 24px rgba(0,0,0,.4);
+  aspect-ratio:16/9;object-fit:cover}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--brand-2);
+  display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--brand)}
+h1.hero-title{font-family:var(--display);font-weight:900;letter-spacing:-.04em;line-height:.96;
+  font-size:clamp(1.9rem,4.8vw,3.6rem);max-width:590px;margin-bottom:18px;color:var(--text)}
+h1.hero-title .grad{background:linear-gradient(120deg,var(--brand) 0%,var(--brand-2) 50%,var(--neural) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-lead{font-size:clamp(1rem,1.3vw,1.12rem);color:var(--muted);max-width:590px;line-height:1.55;margin-bottom:24px}
+.hero-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px;max-width:650px}
+.stat{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.stat-k{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+.stat-v{font-family:var(--display);font-weight:800;font-size:1.15rem;color:var(--brand-2);letter-spacing:-.01em}
+
+/* L1-echo callback dot — green like Voyager canon */
+.l1-echo{display:inline-flex;align-items:center;gap:7px;background:rgba(52,216,138,.10);border:1px solid rgba(52,216,138,.42);
+  color:#7be2a9;padding:5px 11px;border-radius:50px;font-family:var(--mono);font-size:.62rem;
+  font-weight:800;letter-spacing:.18em;text-transform:uppercase;margin-right:8px}
+.l1-echo::before{content:"";width:8px;height:8px;border-radius:50%;background:#34d88a;box-shadow:0 0 6px #34d88a}
+.l2-echo{display:inline-flex;align-items:center;gap:7px;background:rgba(245,200,66,.10);border:1px solid rgba(245,200,66,.42);
+  color:var(--accent-2);padding:5px 11px;border-radius:50px;font-family:var(--mono);font-size:.62rem;
+  font-weight:800;letter-spacing:.18em;text-transform:uppercase;margin-right:8px}
+.l2-echo::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 6px var(--accent)}
+
+/* Sections */
+.section{max-width:1240px;margin:0 auto 28px;padding:0 clamp(16px,3vw,28px);position:relative;z-index:2}
+.section-hdr{display:flex;align-items:center;gap:14px;margin:30px 0 14px;flex-wrap:wrap}
+.section-num{font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:.16em;
+  background:var(--brand);color:#fff;padding:5px 11px;border-radius:50px}
+.section-hdr h2{font-family:var(--display);font-weight:800;font-size:clamp(1.25rem,2.2vw,1.75rem);color:var(--text);letter-spacing:-.02em;line-height:1.1}
+.section-sub{font-size:.92rem;color:var(--muted);margin:0 0 14px 0;font-style:italic}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 24px;box-shadow:0 6px 28px rgba(0,0,0,.34)}
+.card h3{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--brand-2);margin:18px 0 10px;letter-spacing:.01em}
+.card h3:first-child{margin-top:0}
+.card p{margin-bottom:11px;color:var(--text)}
+.card .info{background:rgba(160,127,255,.07);border-left:3px solid var(--brand);padding:12px 16px;border-radius:8px;font-size:.92rem;color:var(--muted);margin:12px 0}
+.card .info strong{color:var(--brand-2)}
+.card .info.gold{background:rgba(245,200,66,.07);border-left-color:var(--accent)}
+.card .info.gold strong{color:var(--accent-2)}
+.card .src{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-weight:700}
+.card .src a{color:var(--brand-2)}
+
+/* Hover translation */
+.tr{border-bottom:1px dashed var(--brand);cursor:help;position:relative;transition:.18s}
+.tr:hover{color:var(--brand-2);border-bottom-color:var(--brand-2)}
+.tr::after{content:attr(data-ru);position:absolute;bottom:100%;left:50%;
+  transform:translateX(-50%) translateY(2px);background:var(--bg-2);color:var(--brand-2);
+  padding:5px 11px;border-radius:8px;font-size:.78rem;font-family:var(--body);font-weight:600;
+  white-space:nowrap;pointer-events:none;opacity:0;transition:.18s;z-index:90;
+  border:1px solid var(--line-2)}
+.tr:hover::after{opacity:1;transform:translateX(-50%) translateY(-6px)}
+.tr.added{background:rgba(160,127,255,.14);color:var(--brand-2)}
+
+.say-word{cursor:pointer;border-bottom:1px dashed var(--brand);padding:0 1px;transition:.15s}
+.say-word:hover{background:rgba(160,127,255,.10);color:var(--brand-2)}
+
+/* Vocab floating box */
+.vocab-box{position:fixed;bottom:20px;right:20px;background:linear-gradient(135deg,var(--brand),var(--neural));
+  color:#fff;padding:14px 20px;border-radius:50px;
+  box-shadow:0 10px 30px rgba(160,127,255,.36);
+  font-family:var(--display);font-weight:800;cursor:pointer;z-index:95;user-select:none;
+  display:flex;align-items:center;gap:10px;transition:.22s;font-size:.92rem}
+.vocab-box:hover{transform:translateY(-2px)}
+.vocab-box.expanded{max-width:420px;width:calc(100% - 40px);border-radius:18px;flex-direction:column;align-items:stretch;padding:18px 20px;cursor:default}
+.vocab-box .vocab-title{cursor:pointer;display:flex;align-items:center;gap:8px;justify-content:space-between}
+.vocab-box .vocab-list{display:none;flex-direction:column;gap:5px;max-height:50vh;overflow-y:auto;margin-top:14px;padding-right:4px}
+.vocab-box.expanded .vocab-list{display:flex}
+.vocab-list .vocab-item{background:rgba(255,255,255,.13);padding:7px 12px;border-radius:8px;font-size:.85rem;
+  display:flex;justify-content:space-between;gap:12px;align-items:baseline;line-height:1.3}
+.vocab-list .vocab-item .word{font-weight:800}
+.vocab-list .vocab-item .ru{font-weight:500;opacity:.92;font-size:.78rem;text-align:right}
+.vocab-list .vocab-item.empty{justify-content:center;font-style:italic;opacity:.7;font-size:.82rem;background:transparent}
+
+/* Sample */
+.sample{background:rgba(160,127,255,.07);border:1px solid rgba(160,127,255,.32);border-radius:14px;padding:16px 18px;margin:14px 0}
+.sample-h{font-family:var(--mono);font-size:10.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--brand-2);margin-bottom:10px}
+.sample p{color:var(--text);font-style:italic;line-height:1.65}
+.sample-phr{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+.sample-phr button{background:rgba(160,127,255,.10);border:1px solid var(--brand);color:var(--brand-2);
+  padding:7px 12px;border-radius:50px;font-size:.78rem;font-family:var(--body);font-weight:600;cursor:pointer;transition:.15s;text-align:left}
+.sample-phr button::before{content:"♪ ";color:var(--brand);font-weight:900}
+.sample-phr button:hover{background:var(--surface-2)}
+
+/* Story */
+.story{background:rgba(0,0,0,.22);border:1px solid var(--line);border-radius:14px;
+  padding:22px 24px;margin:14px 0;line-height:1.75}
+.story p{margin-bottom:14px;color:var(--text);font-size:1.02rem}
+.story em{color:var(--brand-2);font-style:italic}
+.story .case-stamp{font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--neural);
+  padding:5px 11px;background:rgba(217,70,160,.10);border:1px solid var(--neural);border-radius:6px;display:inline-block;margin-bottom:12px;font-weight:800}
+.story .quote-block{font-family:"Playfair Display",serif;font-style:italic;font-size:1.06rem;color:var(--accent-2);
+  border-left:3px solid var(--accent);padding:8px 16px;margin:14px 0;background:rgba(245,200,66,.04)}
+
+/* Listening */
+.listen-box{background:rgba(160,127,255,.06);border:1px solid var(--line-2);border-radius:14px;
+  padding:18px 20px;margin:14px 0;display:flex;flex-direction:column;gap:14px}
+.listen-script{font-size:.86rem;color:var(--faint);font-style:italic;line-height:1.6;
+  border-top:1px dashed var(--line-2);padding-top:12px;margin-top:6px;display:none}
+.listen-script.open{display:block}
+
+/* Questions */
+.q-row{display:flex;gap:10px;margin:14px 0 8px;align-items:flex-start}
+.q-num{font-family:var(--mono);font-size:11px;font-weight:800;
+  background:var(--brand);color:#fff;
+  width:24px;height:24px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;margin-top:2px}
+.q-text{flex:1;color:var(--text);line-height:1.5;font-size:.96rem}
+.tfg-opts,.mc-opts{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 0 34px}
+.tfg-opts button,.mc-opts button{background:var(--card);color:var(--muted);border:1px solid var(--line-2);
+  padding:7px 16px;border-radius:50px;font-family:var(--mono);font-size:.7rem;
+  font-weight:800;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:.18s;text-align:left}
+.tfg-opts button:hover,.mc-opts button:hover{border-color:var(--brand);color:var(--brand-2)}
+.tfg-opts button.right,.mc-opts button.right{background:var(--ok);color:#0a2316;border-color:var(--ok)}
+.tfg-opts button.wrong,.mc-opts button.wrong{background:var(--miss);color:#fff;border-color:var(--miss)}
+.mc-opts{flex-direction:column;align-items:stretch}
+.mc-opts button{text-transform:none;letter-spacing:.02em;font-family:var(--body);font-weight:600;font-size:.88rem;padding:9px 14px}
+
+/* Matching headings */
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+@media (max-width:720px){.match-grid{grid-template-columns:1fr}}
+.match-para{background:var(--card);border:1px solid var(--line-2);border-radius:12px;padding:14px 16px;font-size:.93rem;line-height:1.6;color:var(--text)}
+.match-para .pn{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--brand-2);font-weight:800;margin-bottom:8px}
+.match-para .pick{display:inline-block;margin-top:10px;background:transparent;border:1px dashed var(--brand);color:var(--brand-2);
+  padding:6px 12px;border-radius:6px;font-family:var(--mono);font-size:.7rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;cursor:default;min-width:140px;text-align:center}
+.match-para.right .pick{background:var(--ok);color:#0a2316;border-color:var(--ok);border-style:solid}
+.match-para.wrong .pick{background:var(--miss);color:#fff;border-color:var(--miss);border-style:solid}
+.heading-bank{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 18px}
+.heading-bank button{background:rgba(160,127,255,.10);border:1px solid var(--brand);color:var(--brand-2);
+  padding:7px 13px;border-radius:50px;font-family:var(--mono);font-size:.7rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:.15s}
+.heading-bank button:hover{background:var(--surface-2)}
+.heading-bank button.used{background:var(--card);color:var(--faint);border-color:var(--line-2);cursor:default;text-decoration:line-through}
+
+/* Cloze */
+.cloze p.cloze-text{background:rgba(0,0,0,.20);border:1px solid var(--line);border-radius:12px;padding:14px 16px;line-height:1.85;font-size:1rem;color:var(--text)}
+.cloze p.cloze-text .gap{display:inline-block;min-width:34px;padding:0 6px;border-bottom:2px dashed var(--brand);color:var(--brand-2);font-weight:800}
+.cloze-row{display:grid;grid-template-columns:32px 1fr;gap:10px;align-items:start;margin:10px 0}
+.cloze-num{font-family:var(--mono);font-size:11px;font-weight:800;background:var(--brand);color:#fff;width:28px;height:28px;border-radius:50%;display:grid;place-items:center}
+.cloze-opts{display:flex;flex-wrap:wrap;gap:6px}
+.cloze-opts button{background:var(--card);color:var(--muted);border:1px solid var(--line-2);padding:6px 12px;border-radius:50px;font-family:var(--mono);font-size:.74rem;font-weight:700;letter-spacing:.06em;cursor:pointer;transition:.15s}
+.cloze-opts button:hover{border-color:var(--brand);color:var(--brand-2)}
+.cloze-opts button.right{background:var(--ok);color:#0a2316;border-color:var(--ok)}
+.cloze-opts button.wrong{background:var(--miss);color:#fff;border-color:var(--miss)}
+.open-cloze{display:flex;flex-direction:column;gap:8px;margin:8px 0 4px}
+.open-cloze .oc-row{display:grid;grid-template-columns:32px 1fr;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line-2);border-radius:10px;padding:8px 12px}
+.open-cloze .oc-in{background:transparent;border:none;border-bottom:1px dashed var(--brand);color:var(--brand-2);font-family:var(--body);font-size:.96rem;font-weight:700;padding:4px 6px;outline:none;width:100%;max-width:240px}
+.open-cloze .oc-in:focus{border-bottom-color:var(--brand-2);background:rgba(160,127,255,.06)}
+.open-cloze .oc-in.right{border-bottom-color:var(--ok);color:var(--ok);border-bottom-style:solid}
+.open-cloze .oc-in.wrong{border-bottom-color:var(--miss);color:var(--miss);border-bottom-style:solid}
+
+/* Mini-write */
+.write{background:var(--card);border:1px solid var(--line-2);border-radius:14px;padding:16px;margin:14px 0}
+.write textarea{width:100%;min-height:160px;background:transparent;border:none;outline:none;
+  color:var(--text);font-family:var(--body);font-size:.96rem;line-height:1.55;resize:vertical}
+.write .write-meta{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-weight:700}
+
+/* IELTS cue card / Speaking */
+.cue-card{background:linear-gradient(135deg,rgba(160,127,255,.10),rgba(217,70,160,.05));
+  border:1px solid var(--line-2);border-radius:14px;padding:18px 20px;margin:14px 0}
+.cue-card .cue-h{font-family:var(--display);font-weight:800;color:var(--brand-2);margin-bottom:10px;font-size:1rem;letter-spacing:-.01em}
+.cue-card ul{list-style:none;padding:0;margin:8px 0 0}
+.cue-card li{padding:4px 0 4px 18px;position:relative;color:var(--text)}
+.cue-card li::before{content:"";position:absolute;left:4px;top:11px;width:6px;height:6px;border-radius:50%;background:var(--neural)}
+.timer{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;align-items:center}
+.timer button{background:var(--brand);color:#fff;border:none;
+  padding:10px 18px;border-radius:50px;font-family:var(--mono);font-size:.74rem;font-weight:800;
+  letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:.18s}
+.timer button:hover{transform:translateY(-1px)}
+.timer button.neural{background:var(--neural)}
+.timer .clock{font-family:var(--display);font-weight:900;color:var(--brand-2);font-size:1.2rem;letter-spacing:-.02em;
+  background:var(--card);border:1px solid var(--line-2);padding:6px 16px;border-radius:50px}
+
+/* Flip cards (vocab) */
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin:14px 0 8px}
+.flip-card{aspect-ratio:1/1.05;perspective:800px;cursor:pointer}
+.flip-inner{position:relative;width:100%;height:100%;transition:transform .55s;transform-style:preserve-3d}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-front,.flip-back{position:absolute;inset:0;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  padding:14px;text-align:center;-webkit-backface-visibility:hidden;backface-visibility:hidden;border:1px solid var(--line-2)}
+.flip-front{background:var(--card);color:var(--brand-2);font-family:var(--display);font-weight:800;font-size:1rem;flex-direction:column;gap:6px}
+.flip-front .pos{font-family:var(--mono);font-size:.62rem;color:var(--faint);letter-spacing:.16em;text-transform:uppercase;font-weight:700}
+.flip-back{background:var(--surface-2);color:var(--text);transform:rotateY(180deg);font-size:.86rem;line-height:1.4;flex-direction:column;gap:6px}
+.flip-back .ru{color:var(--neural);font-weight:700;font-size:.95rem}
+
+/* Blink-Morse decoder (Section 7 — artifact callback) */
+.morse-strip{background:#0a0618;border:1px solid var(--neural);border-radius:12px;padding:20px;margin:18px 0;
+  font-family:var(--mono);font-size:1.45rem;letter-spacing:.32em;color:var(--neural);text-align:center;
+  text-shadow:0 0 8px rgba(217,70,160,.55);overflow-x:auto;white-space:nowrap}
+.morse-key{display:grid;grid-template-columns:repeat(auto-fill,minmax(60px,1fr));gap:6px;margin:8px 0 12px}
+.morse-key .mk{background:var(--card);border:1px solid var(--line-2);border-radius:6px;padding:5px 8px;text-align:center;
+  font-family:var(--mono);font-size:.74rem;font-weight:700;color:var(--brand-2)}
+.morse-key .mk strong{color:var(--accent-2)}
+
+/* Footer */
+footer{max-width:1240px;margin:48px auto 28px;padding:0 22px;text-align:center;color:var(--faint);
+  font-size:.8rem;font-family:var(--mono);letter-spacing:.06em;position:relative;z-index:2}
+
+@media (max-width:720px){
+  .hero-card{min-height:0}
+  .hero-bg{background-position:66% center;opacity:.85}
+  .hero-bg::after{background:linear-gradient(90deg,rgba(12,8,32,.97) 0%,rgba(12,8,32,.88) 58%,rgba(12,8,32,.30) 100%)}
+  .hero-stats{grid-template-columns:1fr 1fr}
+  .vocab-box{bottom:14px;right:14px;left:14px;width:auto;justify-content:center}
+}
+</style>
+<style id="lb-canon-bar-20260612">
+nav.topbar, header.topbar, header.cmdbar { font-family: var(--display, 'Inter', system-ui, sans-serif) !important; }
+nav.topbar .brand-mark, header.topbar .brand-mark, header.cmdbar .brand-mark {
+  width: 40px !important; height: 40px !important; border-radius: 8px !important;
+  font-size: 22px !important; font-weight: 900 !important;
+  display: grid !important; place-items: center !important;
+}
+nav.topbar .brand-name, header.topbar .brand-name, header.cmdbar .brand-name {
+  font-size: 15px !important; font-weight: 800 !important; letter-spacing: 0.02em !important;
+}
+nav.topbar .brand-sub, header.topbar .brand-sub, header.cmdbar .brand-sub {
+  font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace !important;
+  font-size: 11px !important; font-weight: 700 !important;
+  letter-spacing: 0.12em !important; text-transform: uppercase !important;
+}
+nav.topbar .btn-sm, header.topbar .btn-sm, header.cmdbar .btn-sm,
+nav.topbar > .pill, header.topbar > .pill,
+nav.topbar .tool-pill, header.topbar .tool-pill {
+  min-width: 38px !important; height: 32px !important; min-height: 32px !important;
+  padding: 0 12px !important; border-radius: 8px !important;
+  font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace !important;
+  font-size: 11px !important; font-weight: 900 !important;
+  letter-spacing: 0.08em !important; text-transform: uppercase !important;
+  display: inline-flex !important; align-items: center !important; justify-content: center !important;
+  text-decoration: none !important;
+}
+footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace !important;
+  font-size: 11.5px !important; letter-spacing: 0.06em !important; }
+@media (max-width: 540px) {
+  nav.topbar .btn-sm, header.topbar .btn-sm {
+    font-size: 9px !important; padding: 0 8px !important;
+    min-height: 28px !important; height: 28px !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div id="starfield"></div>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <a class="brand" href="../../index.html">
+    <span class="brand-mark">N</span>
+    <span class="brand-copy">
+      <span class="brand-name">NG English</span>
+      <span class="brand-sub">LinguaBoost Lab · B2+</span>
+    </span>
+  </a>
+  <span class="pill brand">Voyager · L3</span>
+  <span class="pill accent">60 min</span>
+  <div class="spacer"></div>
+  <a class="btn-sm" href="../../index.html">All lessons</a>
+  <a class="btn-sm" href="../../../index.html">Main</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-card">
+    <div class="hero-bg"></div>
+    <div class="eyebrow">Voyager · Lesson 3 · Consciousness</div>
+    <h1 class="hero-title">Whose <span class="grad">mind</span> is locked in?</h1>
+    <p class="hero-lead">Dr Naomi Reyes runs a neuro lab inside the SETI building. Her newest case: a patient who can only blink. Her newest puzzle: his EEG traces are repeating a pattern she has seen before — twice.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px">
+      <span class="l1-echo">↩ L1 callback · watchmaker</span>
+      <span class="l2-echo">↩ L2 callback · Proxima signal</span>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-k">Level</div><div class="stat-v">B2+ / C1 entry</div></div>
+      <div class="stat"><div class="stat-k">Duration</div><div class="stat-v">~60 minutes</div></div>
+      <div class="stat"><div class="stat-k">Skills</div><div class="stat-v">Reading · Listening · Speaking · UoE · Writing</div></div>
+      <div class="stat"><div class="stat-k">Story arc</div><div class="stat-v">Episode 3 of 4</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 1 · WARM-UP -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">01</div><h2>Warm-up · the question Naomi can't put down</h2></div>
+  <div class="card">
+    <p style="color:var(--muted)">Last episode you decoded the SETI signal from Proxima Centauri. This episode opens on Earth — but the puzzle is just as alien.</p>
+
+    <div class="info gold">
+      <span class="l1-echo">L1 echo</span>
+      <p style="margin-top:8px"><strong>Recap from L1:</strong> the watchmaker's logbook ended with the phrase <em>"wound the wrong way for a very long time."</em> Keep that line in mind. It will come back today — but not from a clock.</p>
+    </div>
+
+    <h3>Before we open the case file</h3>
+    <p style="margin-bottom:6px">Answer these out loud (30 seconds each, no perfect grammar):</p>
+    <ol style="margin:8px 0 12px 20px;color:var(--text)">
+      <li>If you couldn't speak or move, only blink — how would you tell the world your name?</li>
+      <li>Is a brain that <em>thinks</em> but cannot <em>act</em> still a mind?</li>
+      <li>Can a person be "wound the wrong way"? What might that mean for someone other than a watchmaker?</li>
+    </ol>
+
+    <details class="teacher" open>
+      <summary>Teacher prep notes</summary>
+      <div class="t-body">
+        <ul>
+          <li>Q1 — let Ivan be playful. He may invent an alphabet. Note any modal use (<strong>would, could, might</strong>) for later UoE.</li>
+          <li>Q2 — early reading hook. Whatever he says, ask "Why?" once. Don't correct.</li>
+          <li>Q3 — connects directly to the final reveal. Note his answer; we'll return to it in Section 8.</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- 2 · VOCAB CARDS -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">02</div><h2>Vocab · 14 words from the case file</h2></div>
+  <p class="section-sub">Tap a card to flip. Add what you want to remember — they will surface again across reading, listening, and speaking.</p>
+  <div class="flip-grid" id="flipGrid">
+    <div class="flip-card" data-en="consciousness" data-pos="n." data-ru="сознание" data-def="awareness of yourself and the world around you"></div>
+    <div class="flip-card" data-en="locked-in syndrome" data-pos="n." data-ru="синдром &quot;запертого человека&quot;" data-def="full paralysis with intact awareness"></div>
+    <div class="flip-card" data-en="cognition" data-pos="n." data-ru="познавательная деятельность" data-def="the mental act of thinking, knowing, remembering"></div>
+    <div class="flip-card" data-en="neural activity" data-pos="n." data-ru="нейронная активность" data-def="electrical signals running between brain cells"></div>
+    <div class="flip-card" data-en="qualia" data-pos="n. pl." data-ru="квалиа · качества восприятия" data-def="the felt quality of an experience — what red looks like to you"></div>
+    <div class="flip-card" data-en="hard problem" data-pos="n." data-ru="трудная проблема (сознания)" data-def="why physical processes feel like anything at all"></div>
+    <div class="flip-card" data-en="sentient" data-pos="adj." data-ru="разумный, чувствующий" data-def="able to perceive and feel"></div>
+    <div class="flip-card" data-en="to deduce" data-pos="v." data-ru="выводить, делать вывод" data-def="reach a conclusion by reasoning from facts"></div>
+    <div class="flip-card" data-en="benchmark" data-pos="n." data-ru="эталон, точка отсчёта" data-def="a standard against which others are measured"></div>
+    <div class="flip-card" data-en="to harness" data-pos="v." data-ru="обуздать, поставить себе на службу" data-def="control and use something for a purpose"></div>
+    <div class="flip-card" data-en="to mirror" data-pos="v." data-ru="зеркально повторять" data-def="show a pattern that looks like another"></div>
+    <div class="flip-card" data-en="anomalous" data-pos="adj." data-ru="аномальный, выбивающийся" data-def="different from what is normal or expected"></div>
+    <div class="flip-card" data-en="threshold" data-pos="n." data-ru="порог" data-def="a point that must be crossed to enter a new state"></div>
+    <div class="flip-card" data-en="to wind (wound)" data-pos="v." data-ru="заводить (часы, пружину)" data-def="turn a key/handle to give energy to a spring"></div>
+  </div>
+
+  <details class="teacher">
+    <summary>Teacher prep notes</summary>
+    <div class="t-body">
+      <ul>
+        <li>"qualia" is intentionally hard — it's the philosophical word he needs in Section 4. Drill pronunciation: /ˈkwɑː.li.ə/.</li>
+        <li>"to wind/wound" is the L1 echo verb. Make him pronounce both forms aloud (/waɪnd/ → /waʊnd/) — different from the wound-injury homograph.</li>
+        <li>"hard problem" — encourage him to ask "hard for whom?" The reading answers it.</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+<!-- 3 · READING -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">03</div><h2>Reading · Case file 03/Marshall</h2></div>
+  <img class="lesson-img" src="assets/img-eeg-monitor.png" alt="EEG monitor with a violet trace" onerror="this.style.display='none'">
+  <div class="story">
+    <span class="case-stamp">Case file · 03/Marshall · Reyes Lab</span>
+    <p><strong>Patient:</strong> Marshall, Theodore J. · 58 · admitted after cerebellar stroke, March.<br>
+    <strong>Status:</strong> <span class="tr" data-ru="полная неподвижность, кроме век">complete motor paralysis except eyelids</span>. <span class="tr" data-ru="в сознании, реагирует">Conscious, responsive</span>. Communicates exclusively by <span class="tr" data-ru="моргание">blinking</span>.<br>
+    <strong>Profession (pre-stroke):</strong> theoretical physicist · amateur clockmaker.</p>
+
+    <p>I have been Dr Reyes' assistant for eleven weeks. I have watched her sit by Theo's bed for an hour at a time, asking yes/no questions. Yes is one blink. No is two. Sometimes she asks nothing, and just <span class="tr" data-ru="наблюдает за монитором ЭЭГ">watches the EEG monitor</span>.</p>
+
+    <p>The monitor has been showing something <span class="tr" data-ru="аномальный">anomalous</span>. A short pattern of <span class="tr" data-ru="всплески нейронной активности">neural activity</span> — three quick bursts, then a long pause, then two slow ones — repeating every nineteen seconds. It does not <span class="tr" data-ru="зеркально повторять">mirror</span> any standard motor or sensory rhythm. Theo's neurologist called it <em>"meaningless noise."</em></p>
+
+    <p>Dr Reyes does not think it is noise. She thinks Theo is <span class="tr" data-ru="обуздал">harnessing</span> his last living muscle group — the muscles that move his eyes and lids — to <span class="tr" data-ru="выводить">deduce</span> something. Counting. Spelling. Sending.</p>
+
+    <div class="quote-block">"He is wound, but he is wound the wrong way for a very long time. We are reading his clock from the front of the case. We need to open it from the back."</div>
+
+    <p style="color:var(--muted);font-size:.92rem"><em>— from Dr Reyes' lab notebook, entry 11.06</em></p>
+
+    <p>Yesterday she opened a drawer at his bedside. Inside: a leather-bound notebook. Theo's handwriting — pre-stroke. Most pages were physics. One page was underlined three times. It read:</p>
+
+    <div class="quote-block">"Time, like a spring, can be wound the wrong way for a very long time before anyone notices."</div>
+
+    <p>Dr Reyes read it twice. Then she came back to my desk and said, very quietly: <em>"He has been trying to tell us since March."</em></p>
+  </div>
+
+  <h3 style="font-family:var(--display);color:var(--brand-2);margin:14px 0 8px;font-size:1rem">Q · True / False / Not Given</h3>
+  <div id="reading-qs">
+    <div class="q-row"><div class="q-num">1</div><div class="q-text">Theo can move his eyes and eyelids but nothing else.
+      <div class="tfg-opts" data-ans="T"><button data-v="T">True</button><button data-v="F">False</button><button data-v="N">Not Given</button></div>
+    </div></div>
+    <div class="q-row"><div class="q-num">2</div><div class="q-text">The neurologist agrees with Dr Reyes that the pattern carries meaning.
+      <div class="tfg-opts" data-ans="F"><button data-v="T">True</button><button data-v="F">False</button><button data-v="N">Not Given</button></div>
+    </div></div>
+    <div class="q-row"><div class="q-num">3</div><div class="q-text">The repeating burst pattern matches a known motor rhythm.
+      <div class="tfg-opts" data-ans="F"><button data-v="T">True</button><button data-v="F">False</button><button data-v="N">Not Given</button></div>
+    </div></div>
+    <div class="q-row"><div class="q-num">4</div><div class="q-text">Theo was a professional watchmaker before the stroke.
+      <div class="tfg-opts" data-ans="F"><button data-v="T">True</button><button data-v="F">False</button><button data-v="N">Not Given</button></div>
+    </div></div>
+    <div class="q-row"><div class="q-num">5</div><div class="q-text">Dr Reyes thinks Theo has been signalling on purpose since March.
+      <div class="tfg-opts" data-ans="T"><button data-v="T">True</button><button data-v="F">False</button><button data-v="N">Not Given</button></div>
+    </div></div>
+    <div class="q-row"><div class="q-num">6</div><div class="q-text">The narrator has worked with Dr Reyes for over a year.
+      <div class="tfg-opts" data-ans="F"><button data-v="T">True</button><button data-v="F">False</button><button data-v="N">Not Given</button></div>
+    </div></div>
+  </div>
+</section>
+
+<!-- 4 · LISTENING -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">04</div><h2>Listening · podcast on the hard problem</h2></div>
+  <img class="lesson-img" src="assets/img-podcast-studio.png" alt="Podcast studio with violet lighting" onerror="this.style.display='none'">
+  <p class="section-sub">A 3-minute fragment from "Neuroethics Tonight." Two researchers debate whether brain activity is enough to define a mind.</p>
+  <div class="listen-box">
+    <audio controls preload="metadata">
+      <source src="assets/audio/listening-hard-problem.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn-sm" id="showScriptBtn">Show transcript</button></div>
+    <div class="listen-script" id="listenScript">
+      <p><strong>Host:</strong> Welcome back. With me — Dr Naomi Reyes of the SETI–Neuro Lab. Naomi, you've started saying that the "hard problem of consciousness" might be the wrong question. Why?</p>
+      <p><strong>Reyes:</strong> Because for forty years we have asked: <em>why does brain activity feel like anything at all?</em> That's a beautiful question. But it assumes the brain is the only place where the answer can come from.</p>
+      <p><strong>Host:</strong> You're suggesting consciousness doesn't have to ride on biology.</p>
+      <p><strong>Reyes:</strong> I'm suggesting we don't know. We've never had a clean benchmark — until now we couldn't even check whether a paralysed patient was conscious. Now we can. And what we're finding is that the threshold is far lower than we expected. Some patients we wrote off years ago — they were there. The whole time.</p>
+      <p><strong>Host:</strong> That has implications beyond medicine.</p>
+      <p><strong>Reyes:</strong> Of course. If sentience can be hidden inside a body that doesn't move, why couldn't it be hidden in a signal that doesn't seem to mean anything?</p>
+      <p><strong>Host:</strong> You're talking about the Proxima paper, aren't you.</p>
+      <p><strong>Reyes:</strong> I'm talking about not writing things off as noise. That's all.</p>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--display);color:var(--brand-2);margin:14px 0 8px;font-size:1rem">Q · Multiple choice</h3>
+  <div id="listening-qs">
+    <div class="q-row"><div class="q-num">1</div><div class="q-text">Why does Dr Reyes call the "hard problem" the wrong question?
+      <div class="mc-opts" data-ans="b">
+        <button data-v="a">Because nobody has been able to solve it for forty years.</button>
+        <button data-v="b">Because it assumes only the brain can produce consciousness.</button>
+        <button data-v="c">Because the answer is now known from her own research.</button>
+      </div>
+    </div></div>
+    <div class="q-row"><div class="q-num">2</div><div class="q-text">What does she say has changed recently in clinical practice?
+      <div class="mc-opts" data-ans="c">
+        <button data-v="a">Paralysed patients can now move again.</button>
+        <button data-v="b">Brain imaging has stopped being useful.</button>
+        <button data-v="c">We can now check whether a paralysed patient is conscious.</button>
+      </div>
+    </div></div>
+    <div class="q-row"><div class="q-num">3</div><div class="q-text">What does she imply about patients written off years ago?
+      <div class="mc-opts" data-ans="b">
+        <button data-v="a">Their families were notified of new options.</button>
+        <button data-v="b">Many were conscious the whole time, unnoticed.</button>
+        <button data-v="c">Their conditions have been reversed.</button>
+      </div>
+    </div></div>
+    <div class="q-row"><div class="q-num">4</div><div class="q-text">The host's final question connects her work to —
+      <div class="mc-opts" data-ans="a">
+        <button data-v="a">A paper about a signal from Proxima Centauri.</button>
+        <button data-v="b">A new drug treatment for stroke patients.</button>
+        <button data-v="c">A SETI satellite launch.</button>
+      </div>
+    </div></div>
+  </div>
+
+  <div class="info" style="margin-top:14px">
+    <span class="l2-echo">L2 echo</span>
+    <p style="margin-top:8px"><strong>Recap from L2:</strong> the team decoded a faint repeating pattern from Proxima Centauri. Naomi was named on the letter as a reviewer. She is the same person whose lab you just read about. The two stories were always one story.</p>
+  </div>
+</section>
+
+<!-- 5 · MATCHING HEADINGS · ЕГЭ-style -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">05</div><h2>Matching headings · ЕГЭ-style</h2></div>
+  <p class="section-sub">Six short paragraphs from a popular-science article about consciousness research. Pick one heading per paragraph. One heading is extra.</p>
+
+  <div class="heading-bank" id="headingBank">
+    <button data-h="A">A · A small muscle, a large question</button>
+    <button data-h="B">B · What the brain refuses to share</button>
+    <button data-h="C">C · The mistake of writing things off</button>
+    <button data-h="D">D · Why one yes is never enough</button>
+    <button data-h="E">E · Two labs, one corridor</button>
+    <button data-h="F">F · The benchmark we lacked</button>
+    <button data-h="G">G · A question of permission</button>
+  </div>
+
+  <div class="match-grid" id="matchGrid">
+    <div class="match-para" data-ans="A">
+      <div class="pn">Paragraph 1</div>
+      <p>In locked-in syndrome the eyelid does almost all the work the rest of the body cannot. A single eyelid lift can confirm a name. Two lifts can deny one. From those two answers, a competent listener can pull out an entire life — but only if the listener is willing to sit and ask.</p>
+      <div class="pick" data-fill="—">drop heading here</div>
+    </div>
+    <div class="match-para" data-ans="F">
+      <div class="pn">Paragraph 2</div>
+      <p>For decades we had no standard against which to measure who was "in" and who was "out." A patient who did not respond was assumed not to be there. The arrival of fMRI command paradigms changed that. Suddenly there was a measurable threshold — and it turned out the threshold was being crossed by people we'd written off.</p>
+      <div class="pick" data-fill="—">drop heading here</div>
+    </div>
+    <div class="match-para" data-ans="C">
+      <div class="pn">Paragraph 3</div>
+      <p>Clinical history has a habit of calling unfamiliar signals "noise." It is the cheapest possible label and the most expensive possible mistake. The signal Dr Reyes is tracking in her current patient was on the monitor for eleven weeks before anyone looked twice.</p>
+      <div class="pick" data-fill="—">drop heading here</div>
+    </div>
+    <div class="match-para" data-ans="E">
+      <div class="pn">Paragraph 4</div>
+      <p>The Reyes Lab and the SETI Signal Group share a building, a coffee machine, and one corridor. They did not share data — until this spring. A pattern visible in a single hospital bed and a pattern visible from four light-years away are now being compared side by side. It is too early to say whether they overlap.</p>
+      <div class="pick" data-fill="—">drop heading here</div>
+    </div>
+    <div class="match-para" data-ans="D">
+      <div class="pn">Paragraph 5</div>
+      <p>One affirmative blink, by itself, is data. Forty-eight in a structured sequence is a sentence. Dr Reyes' team logs every blink, time-stamped, against the EEG record. Random sequences cancel out. Real intention starts to lift off the page.</p>
+      <div class="pick" data-fill="—">drop heading here</div>
+    </div>
+    <div class="match-para" data-ans="G">
+      <div class="pn">Paragraph 6</div>
+      <p>Before any of this becomes therapy, ethics asks a harder question. If a patient can communicate but did not ask to be heard, are we entering their mind without invitation? The answer Dr Reyes gives is short: <em>"You don't break into a locked room. You wait until they open the door."</em></p>
+      <div class="pick" data-fill="—">drop heading here</div>
+    </div>
+  </div>
+  <p style="font-family:var(--mono);font-size:.78rem;color:var(--faint);margin-top:10px">Click a heading in the bank, then click the paragraph it fits. Headings can be re-clicked to clear.</p>
+</section>
+
+<!-- 6 · SPEAKING -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">06</div><h2>Speaking — pick the format</h2></div>
+  <div class="tab-row">
+    <button class="tab-btn active" data-tab="ielts">IELTS Speaking Part 2</button>
+    <button class="tab-btn" data-tab="olymp">All-Russian olympiad oral</button>
+  </div>
+
+  <div class="tab-pane active" data-pane="ielts">
+    <p style="color:var(--muted);font-size:.93rem;margin-bottom:12px">British Council IELTS format. <strong>1 minute prep · 1–2 minute monologue · 1 minute follow-up.</strong></p>
+    <div class="cue-card">
+      <div class="cue-h">Describe a time you struggled to make yourself understood</div>
+      <p style="color:var(--muted);margin:6px 0 0">You should say:</p>
+      <ul>
+        <li>what the situation was</li>
+        <li>who you were trying to communicate with</li>
+        <li>what got in the way (a language, an illness, technology, distance)</li>
+        <li>and explain what finally worked — or what you wish had worked.</li>
+      </ul>
+    </div>
+    <div class="timer">
+      <button id="iPrepBtn">Start 1 min prep</button>
+      <button class="neural" id="iSpeakBtn">Monologue — start 2 min</button>
+      <span class="clock" id="iClock">0:00</span>
+    </div>
+    <div class="sample">
+      <div class="sample-h">Model phrases (B2+ pivots)</div>
+      <div class="sample-phr">
+        <button class="say-word">I wouldn't say it was a language barrier, exactly — it was more a question of register</button>
+        <button class="say-word">What threw me off was that the other person could understand me but couldn't reply</button>
+        <button class="say-word">In hindsight, the breakthrough came from cutting the question in half</button>
+        <button class="say-word">It was a humbling reminder that communication doesn't always need full sentences</button>
+        <button class="say-word">If anything, the silence told me more than the words did</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane" data-pane="olymp">
+    <p style="color:var(--muted);font-size:.93rem;margin-bottom:12px">Real all-Russian olympiad oral format (regional / final stage). <strong>3 min prep · 2 min monologue · 2 min dialogue with the teacher.</strong></p>
+    <div class="cue-card">
+      <div class="cue-h">Topic — defend your position</div>
+      <p style="color:var(--text);font-size:1.02rem;margin:8px 0 6px">A machine that can pass every conversation test is conscious.</p>
+      <p style="color:var(--muted);margin:6px 0 0">Your monologue must contain:</p>
+      <ul>
+        <li>a clear position (agree / disagree / partly)</li>
+        <li>two reasons with one concrete example each</li>
+        <li>one objection you anticipate, and your response to it</li>
+        <li>a closing sentence connecting back to today's reading or listening</li>
+      </ul>
+    </div>
+    <div class="timer">
+      <button id="oPrepBtn">Start 3 min prep</button>
+      <button class="neural" id="oSpeakBtn">Monologue — start 2 min</button>
+      <button id="oDialBtn">Dialogue — start 2 min</button>
+      <span class="clock" id="oClock">0:00</span>
+    </div>
+    <div class="sample">
+      <div class="sample-h">Model phrases — high-control argumentation</div>
+      <div class="sample-phr">
+        <button class="say-word">My short answer is no — but the long answer is more interesting</button>
+        <button class="say-word">Passing a conversation test only proves the machine can perform language, not that it experiences anything</button>
+        <button class="say-word">Take Theo Marshall in today's reading — he can barely perform language at all, and yet there is no question he is conscious</button>
+        <button class="say-word">A counter-argument I anticipate is that we have no other test</button>
+        <button class="say-word">To which I would say: the absence of a test is not evidence of presence</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6.5 · SPEECH TRACKER -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">06+</div><h2>Speech tracker · check your pace</h2></div>
+  <p style="color:var(--muted);font-size:.94rem;margin-bottom:10px">Right after your monologue (IELTS or olympiad), press the mic and re-deliver it. The tracker counts your words and gives WPM with a verdict against B2+ targets.</p>
+  <div class="speech-tracker" data-mode="olympiad" data-max-sec="120" data-title="Voyager L3 · Speaking re-take · 2 min monologue"></div>
+</section>
+
+<!-- 7 · USE OF ENGLISH — Theo's blink-Morse -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">07</div><h2>Use of English · decoding Theo's last message</h2></div>
+  <p class="section-sub">Naomi's team finally extracted a five-word sentence from eleven weeks of blinks. They asked her to fact-check the English before publication. Help her finish the proof.</p>
+
+  <h3 style="font-family:var(--display);color:var(--brand-2);margin:14px 0 8px;font-size:1rem">7.1 · Cloze · Reyes' lab note</h3>
+  <div class="cloze">
+    <p class="cloze-text">If the pattern (<span class="gap" id="g1">__1__</span>) really intentional, then for nearly three months Theo (<span class="gap" id="g2">__2__</span>) telling us, again and again, that his mind was still wound. The team's first <span class="gap" id="g3">__3__</span> was disbelief; the second was anger that we (<span class="gap" id="g4">__4__</span>) caught it sooner. I keep thinking of the watchmaker his father (<span class="gap" id="g5">__5__</span>) — and of his own line about a spring that is wound the wrong way for a very long time before anyone notices.</p>
+
+    <div class="cloze-row"><div class="cloze-num">1</div><div class="cloze-opts" data-ans="is"><button data-v="was">was</button><button data-v="is">is</button><button data-v="will be">will be</button><button data-v="has been">has been</button></div></div>
+    <div class="cloze-row"><div class="cloze-num">2</div><div class="cloze-opts" data-ans="has been"><button data-v="was">was</button><button data-v="has been">has been</button><button data-v="had been">had been</button><button data-v="will be">will be</button></div></div>
+    <div class="cloze-row"><div class="cloze-num">3</div><div class="cloze-opts" data-ans="response"><button data-v="response">response</button><button data-v="responsible">responsible</button><button data-v="respond">respond</button><button data-v="responsive">responsive</button></div></div>
+    <div class="cloze-row"><div class="cloze-num">4</div><div class="cloze-opts" data-ans="hadn't"><button data-v="don't">don't</button><button data-v="didn't">didn't</button><button data-v="hadn't">hadn't</button><button data-v="wouldn't have">wouldn't have</button></div></div>
+    <div class="cloze-row"><div class="cloze-num">5</div><div class="cloze-opts" data-ans="had been"><button data-v="was">was</button><button data-v="has been">has been</button><button data-v="had been">had been</button><button data-v="would be">would be</button></div></div>
+  </div>
+
+  <h3 style="font-family:var(--display);color:var(--brand-2);margin:18px 0 8px;font-size:1rem">7.2 · Open cloze · the press release</h3>
+  <p style="color:var(--muted);font-size:.92rem;margin-bottom:10px">Type one word per gap.</p>
+  <div class="open-cloze">
+    <div class="oc-row"><div class="cloze-num">1</div><div><span style="color:var(--text)">The Reyes Lab has confirmed </span><input class="oc-in" data-ans="that"><span style="color:var(--text)"> a paralysed patient produced an intentional EEG signal.</span></div></div>
+    <div class="oc-row"><div class="cloze-num">2</div><div><span style="color:var(--text)">It is the first time </span><input class="oc-in" data-ans="such"><span style="color:var(--text)"> a signal has been mapped to a complete English sentence.</span></div></div>
+    <div class="oc-row"><div class="cloze-num">3</div><div><span style="color:var(--text)">The team relied </span><input class="oc-in" data-ans="on"><span style="color:var(--text)"> a blink-timed protocol developed in-house.</span></div></div>
+    <div class="oc-row"><div class="cloze-num">4</div><div><span style="color:var(--text)">Had the monitor been switched off at night, the pattern </span><input class="oc-in" data-ans="would"><span style="color:var(--text)"> never have been spotted.</span></div></div>
+    <div class="oc-row"><div class="cloze-num">5</div><div><span style="color:var(--text)">The patient himself has asked to remain </span><input class="oc-in" data-ans="anonymous"><span style="color:var(--text)"> until further notice.</span></div></div>
+  </div>
+
+  <h3 style="font-family:var(--display);color:var(--brand-2);margin:18px 0 8px;font-size:1rem">7.3 · The decoded strip · read aloud</h3>
+  <p style="color:var(--muted);font-size:.92rem;margin-bottom:6px">After eleven weeks of three short bursts and two long ones, decoded one letter at a time, this is what Theo had been sending.</p>
+  <div class="morse-strip">···   ·−   −·   −··   <span style="opacity:.5">/</span>   ·   ·−··   ·−·· <span style="opacity:.5">/</span>   ·−   −·−   ·−·· <span style="opacity:.5">/</span>   ··   ··· <span style="opacity:.5">/</span>   ·−−   ·−·· · −·  <span style="opacity:.5">/</span> ·− ·· ·· ·</div>
+  <p style="text-align:center;font-family:'Playfair Display',serif;font-style:italic;color:var(--accent-2);font-size:1.18rem;margin-bottom:8px">"Mind is still wound."</p>
+  <div class="info gold">
+    <span class="l1-echo">L1 echo · resolved</span>
+    <p style="margin-top:8px">"Wound the wrong way for a very long time" — the line from the watchmaker's logbook in L1 was Theo's line all along. He wrote it years ago; the watchmaker character was built on him. Naomi's discovery was that the mainspring of his mind, like the spring of a clock, was still alive. <strong>Still wound.</strong></p>
+  </div>
+</section>
+
+<!-- 8 · MINI-WRITE + OUTRO -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">08</div><h2>Mini-write · Naomi's letter to L4</h2></div>
+  <p class="section-sub">Naomi will write one final letter to her team before she goes public. Write it for her. ~120–150 words.</p>
+
+  <div class="write">
+    <textarea placeholder="To the team —&#10;&#10;We have a confirmation. Theo's blinks form a sentence. What I need to decide now, with you, is..."></textarea>
+    <div class="write-meta">
+      <span><strong>Target:</strong> 120–150 words · register: formal but personal · include at least 2 vocab cards</span>
+      <span class="wc">words: <strong>0</strong></span>
+    </div>
+  </div>
+
+  <details class="homework">
+    <summary>Homework · Voyager L3 <span>3 tasks</span></summary>
+    <div class="hw-body">
+      <h4 style="font-family:var(--display);color:var(--brand-2);font-size:.95rem;margin-bottom:8px">By next lesson</h4>
+      <div class="hw-list">
+        <div class="hw-row"><strong>1.</strong> Re-record your olympiad monologue from Section 6 once at home. Aim for 130–150 WPM (the speech tracker tells you).</div>
+        <div class="hw-row"><strong>2.</strong> Finish Naomi's letter (Section 8) and paste it into the cabinet.</div>
+        <div class="hw-row"><strong>3.</strong> Pick three vocab cards from Section 2 and write one sentence each using them — bring those sentences to L4.</div>
+      </div>
+    </div>
+  </details>
+
+  <div class="card" style="margin-top:24px">
+    <h3>Episode 3 of 4 · closing</h3>
+    <p>Three lessons, three signals: a watch wound the wrong way, a letter from Proxima, a mind still wound inside a still body. <strong>Voyager L4</strong> is the synthesis: the case Naomi has to make in front of an audience that does not believe her.</p>
+    <p style="color:var(--muted);font-style:italic;font-size:.96rem">Bring your homework. We open on the podium.</p>
+  </div>
+</section>
+
+<!-- Floating vocab box -->
+<div class="vocab-box" id="vocabBox">
+  <div class="vocab-title">
+    <span>📒 Today's lexicon · <span id="vocabCount">0</span></span>
+    <span style="font-size:.74rem;opacity:.7" id="vocabHint">tap to open</span>
+  </div>
+  <div class="vocab-list" id="vocabList">
+    <div class="vocab-item empty">Hover dashed underlines or tap vocab cards — they collect here.</div>
+  </div>
+</div>
+
+<footer>
+  © NG English · LinguaBoost Lab · Voyager L3 · Whose mind?
+</footer>
+
+<!-- Starfield JS -->
+<script>
+(function(){
+  var sf = document.getElementById('starfield');
+  if (!sf) return;
+  var layers = [
+    {n:40, cls:'s1', dur:'90s', anim:'drift-a'},
+    {n:24, cls:'s2', dur:'140s',anim:'drift-b'},
+    {n:12, cls:'s3', dur:'200s',anim:'drift-c'}
+  ];
+  layers.forEach(function(l){
+    var div = document.createElement('div');
+    div.style.position='absolute'; div.style.inset='0';
+    div.style.animation = l.anim + ' ' + l.dur + ' linear infinite';
+    for (var i=0;i<l.n;i++){
+      var s = document.createElement('span');
+      s.className = 'star ' + l.cls;
+      s.style.top  = (Math.random()*100) + '%';
+      s.style.left = (Math.random()*100) + '%';
+      s.style.setProperty('--op0', (.2+Math.random()*.4).toFixed(2));
+      s.style.setProperty('--op1', (.7+Math.random()*.3).toFixed(2));
+      s.style.animation = 'twinkle ' + (2+Math.random()*5).toFixed(1) + 's ease-in-out infinite';
+      s.style.animationDelay = (Math.random()*4).toFixed(1) + 's';
+      div.appendChild(s);
+    }
+    sf.appendChild(div);
+  });
+})();
+</script>
+
+<!-- Topbar hide on scroll down -->
+<script>
+(function(){
+  var tb = document.querySelector('.topbar'); if (!tb) return;
+  var last = 0;
+  window.addEventListener('scroll', function(){
+    var y = window.scrollY;
+    if (y > last && y > 80) tb.classList.add('tb-hidden');
+    else tb.classList.remove('tb-hidden');
+    last = y;
+  }, {passive:true});
+})();
+</script>
+
+<!-- Vocab box -->
+<script>
+(function(){
+  var box  = document.getElementById('vocabBox');
+  var list = document.getElementById('vocabList');
+  var ctr  = document.getElementById('vocabCount');
+  var hint = document.getElementById('vocabHint');
+  if (!box) return;
+  var added = {};
+  var title = box.querySelector('.vocab-title');
+  title.addEventListener('click', function(){
+    box.classList.toggle('expanded');
+    hint.textContent = box.classList.contains('expanded') ? 'tap title to close' : 'tap to open';
+  });
+  function add(en, ru){
+    if (!en || added[en]) return;
+    added[en] = ru || '';
+    var empty = list.querySelector('.vocab-item.empty');
+    if (empty) empty.remove();
+    var item = document.createElement('div');
+    item.className = 'vocab-item';
+    item.innerHTML = '<span class="word">'+en+'</span><span class="ru">'+(ru||'')+'</span>';
+    list.appendChild(item);
+    ctr.textContent = Object.keys(added).length;
+  }
+  document.querySelectorAll('.tr[data-ru]').forEach(function(el){
+    el.addEventListener('click', function(){
+      add(el.textContent.trim(), el.dataset.ru);
+      el.classList.add('added');
+    });
+  });
+  window.__addVocab = add;
+})();
+</script>
+
+<!-- Flip cards -->
+<script>
+(function(){
+  var grid = document.getElementById('flipGrid'); if (!grid) return;
+  Array.prototype.forEach.call(grid.children, function(card){
+    var en = card.dataset.en, pos = card.dataset.pos, ru = card.dataset.ru, def = card.dataset.def;
+    card.innerHTML =
+      '<div class="flip-inner">' +
+        '<div class="flip-front"><span>'+en+'</span><span class="pos">'+pos+'</span></div>' +
+        '<div class="flip-back"><span class="ru">'+ru+'</span><span>'+def+'</span></div>' +
+      '</div>';
+    card.addEventListener('click', function(){
+      card.classList.toggle('flipped');
+      if (card.classList.contains('flipped') && window.__addVocab) window.__addVocab(en, ru);
+    });
+  });
+})();
+</script>
+
+<!-- TFG + MC answer logic -->
+<script>
+(function(){
+  function wire(scope){
+    scope.querySelectorAll('.tfg-opts,.mc-opts').forEach(function(g){
+      var ans = (g.dataset.ans||'').toLowerCase();
+      g.querySelectorAll('button').forEach(function(b){
+        b.addEventListener('click', function(){
+          var v = (b.dataset.v||'').toLowerCase();
+          g.querySelectorAll('button').forEach(function(x){x.classList.remove('right','wrong')});
+          if (v === ans) b.classList.add('right');
+          else b.classList.add('wrong');
+        });
+      });
+    });
+  }
+  wire(document);
+})();
+</script>
+
+<!-- Heading-matching -->
+<script>
+(function(){
+  var bank = document.getElementById('headingBank');
+  var grid = document.getElementById('matchGrid');
+  if (!bank || !grid) return;
+  var selected = null;
+  bank.querySelectorAll('button').forEach(function(b){
+    b.addEventListener('click', function(){
+      if (b.classList.contains('used')) {
+        b.classList.remove('used'); selected = null;
+        bank.querySelectorAll('button').forEach(function(x){x.style.outline=''});
+        return;
+      }
+      bank.querySelectorAll('button').forEach(function(x){x.style.outline=''});
+      selected = b;
+      b.style.outline = '2px solid var(--neural)';
+    });
+  });
+  grid.querySelectorAll('.match-para').forEach(function(p){
+    var pick = p.querySelector('.pick');
+    pick.addEventListener('click', function(){
+      if (!selected) return;
+      pick.textContent = selected.textContent.split('·')[0].trim();
+      pick.dataset.h = selected.dataset.h;
+      selected.classList.add('used');
+      selected.style.outline = '';
+      // grade
+      if (selected.dataset.h === p.dataset.ans) { p.classList.add('right'); p.classList.remove('wrong'); }
+      else { p.classList.add('wrong'); p.classList.remove('right'); }
+      selected = null;
+    });
+  });
+})();
+</script>
+
+<!-- Cloze MCQ grading -->
+<script>
+(function(){
+  document.querySelectorAll('.cloze .cloze-opts').forEach(function(g){
+    var ans = (g.dataset.ans||'').toLowerCase();
+    g.querySelectorAll('button').forEach(function(b){
+      b.addEventListener('click', function(){
+        var v = (b.dataset.v||'').toLowerCase();
+        g.querySelectorAll('button').forEach(function(x){x.classList.remove('right','wrong')});
+        if (v === ans) b.classList.add('right');
+        else b.classList.add('wrong');
+      });
+    });
+  });
+  document.querySelectorAll('.open-cloze .oc-in').forEach(function(inp){
+    var ans = (inp.dataset.ans||'').toLowerCase().trim();
+    inp.addEventListener('blur', function(){
+      var v = (inp.value||'').toLowerCase().trim();
+      inp.classList.remove('right','wrong');
+      if (!v) return;
+      if (v === ans) inp.classList.add('right'); else inp.classList.add('wrong');
+    });
+  });
+})();
+</script>
+
+<!-- Transcript toggle -->
+<script>
+(function(){
+  var btn = document.getElementById('showScriptBtn');
+  var box = document.getElementById('listenScript');
+  if (!btn || !box) return;
+  btn.addEventListener('click', function(){
+    box.classList.toggle('open');
+    btn.textContent = box.classList.contains('open') ? 'Hide transcript' : 'Show transcript';
+  });
+})();
+</script>
+
+<!-- Word count -->
+<script>
+(function(){
+  document.querySelectorAll('.write').forEach(function(w){
+    var ta = w.querySelector('textarea');
+    var wc = w.querySelector('.wc strong');
+    if (!ta || !wc) return;
+    ta.addEventListener('input', function(){
+      var n = (ta.value.match(/\b[\w'-]+\b/g) || []).length;
+      wc.textContent = n;
+    });
+  });
+})();
+</script>
+
+<!-- Say-word TTS -->
+<script>
+(function(){
+  document.querySelectorAll('.say-word').forEach(function(el){
+    el.addEventListener('click', function(){
+      if (!('speechSynthesis' in window)) return;
+      var u = new SpeechSynthesisUtterance(el.textContent.trim());
+      u.lang = 'en-GB'; u.rate = .95;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    });
+  });
+})();
+</script>
+
+<!-- Speaking timers -->
+<script>
+(function(){
+  function attach(prepBtn, speakBtn, clockEl, prepSec, speakSec, dialBtn, dialSec){
+    var interval=null, end=0;
+    function fmt(s){var m=Math.floor(s/60),r=s%60;return m+':'+(r<10?'0':'')+r;}
+    function start(sec){
+      clearInterval(interval); end = Date.now() + sec*1000;
+      clockEl.textContent = fmt(sec);
+      interval = setInterval(function(){
+        var left = Math.max(0, Math.round((end - Date.now())/1000));
+        clockEl.textContent = fmt(left);
+        if (left<=0) clearInterval(interval);
+      }, 250);
+    }
+    if (prepBtn)  prepBtn.addEventListener('click', function(){start(prepSec)});
+    if (speakBtn) speakBtn.addEventListener('click', function(){start(speakSec)});
+    if (dialBtn)  dialBtn.addEventListener('click', function(){start(dialSec)});
+  }
+  attach(
+    document.getElementById('iPrepBtn'),
+    document.getElementById('iSpeakBtn'),
+    document.getElementById('iClock'),
+    60, 120
+  );
+  attach(
+    document.getElementById('oPrepBtn'),
+    document.getElementById('oSpeakBtn'),
+    document.getElementById('oClock'),
+    180, 120,
+    document.getElementById('oDialBtn'), 120
+  );
+})();
+</script>
+
+<!-- Tabs -->
+<script>
+(function(){
+  document.querySelectorAll('.tab-row').forEach(function(row){
+    var btns = row.querySelectorAll('.tab-btn');
+    var panes = row.parentElement.querySelectorAll('.tab-pane');
+    btns.forEach(function(b){
+      b.addEventListener('click', function(){
+        btns.forEach(function(x){x.classList.remove('active')});
+        panes.forEach(function(x){x.classList.remove('active')});
+        b.classList.add('active');
+        var key = b.dataset.tab;
+        panes.forEach(function(p){ if (p.dataset.pane === key) p.classList.add('active'); });
+      });
+    });
+  });
+})();
+</script>
+
+<script src="../../assets/lab-persist.js" defer></script>
+<script src="../../assets/speech-tracker.js" defer></script>
+</body>
+</html>
