@@ -1258,14 +1258,19 @@ const VAULT_VERSION = (document.querySelector('meta[name="vault-version"]')||{})
     } catch(e) { console.warn('[vault] silent re-decrypt failed (stale PIN?)'); }
   }
 
-  /* migration fallback: cached lessons from previous vault version exist but no stored PIN.
-     Use what we have (unlock existing cards) — new cards stay locked until PIN re-entered. */
-  if (cached) {
-    try {
-      autoUnlock(JSON.parse(cached));
-      msg.textContent += ' Новые модули — введи PIN ещё раз, чтобы открыть.';
-    } catch(e){}
+  /* Version bumped + no stored PIN to silently re-decrypt:
+     clear the stale cache entirely and prompt for PIN.
+     Showing a partially-unlocked old cache hides new lessons and confuses people. */
+  if (cached && cachedV && cachedV !== VAULT_VERSION) {
+    localStorage.removeItem('nge-vault-cache');
+    localStorage.removeItem('nge-vault-cache-v');
+    msg.textContent = 'Добавлены новые модули. Введи PIN ещё раз — кабинет обновится.';
+    msg.className = 'pin-msg';
+    if (input) input.focus();
+    return;
   }
+
+  /* First-time visit OR no cache at all — silent — login form already visible. */
 })();
 
 /* Theme + language toggles — same pattern as Lab catalog (uses lab-theme-sync.js) */
