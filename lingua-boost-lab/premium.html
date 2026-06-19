@@ -528,6 +528,19 @@ main {
 .card[data-id="trial-abroad"] .card-cover { background-image: url("./assets/premium-card-trial-abroad.png"); background-color: #5C3A1F; background-position: center; background-size: cover; position:relative; }
 .card[data-id="trial-abroad"] .card-cover::after { content:"OPEN"; position:absolute; top:14px; right:14px; font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:900; letter-spacing:.18em; background:#D4A852; color:#3F2A18; padding:3px 8px; border-radius:4px; }
 .card[data-id="travel-talk"]   .card-cover { background-image: url("./b1/travel-talk-light-and-bright/assets/img/img-hero-sunset.png"); background-color: #FF7B54; }
+/* Gradient covers for lessons without hero PNG yet (Voyager L3 violet, TOEFL navy-green) */
+.card[data-id="voyager-l3"] .card-cover {
+  background: linear-gradient(135deg, #1a0e2e 0%, #5a3d99 35%, #a07fff 65%, #d946a0 100%);
+}
+.card[data-id="toefl-ibt-format-tour"] .card-cover {
+  background: linear-gradient(135deg, #0a1c2e 0%, #15324f 45%, #2E7D32 100%);
+}
+/* Override the locked blur+desaturate for gradient covers — there's no image to "preview-blur";
+   blurring a gradient just produces a milky pastel that kills the title-text contrast */
+.card.locked[data-id="voyager-l3"] .card-cover,
+.card.locked[data-id="toefl-ibt-format-tour"] .card-cover {
+  filter: saturate(1.1) !important;
+}
 .card-num {
   position: absolute; top: 12px; left: 12px;
   font-family: var(--mono);
@@ -799,7 +812,7 @@ footer.premium-footer {
         </article>
 
         <article class="card locked" data-id="voyager-l3">
-          <div class="card-cover" aria-hidden="true" style="background:linear-gradient(135deg,#221a55 0%,#a07fff 55%,#d946a0 100%);">
+          <div class="card-cover" aria-hidden="true">
             <span class="card-num">L3</span>
             <span class="card-tag">B2+</span>
           </div>
@@ -1059,7 +1072,7 @@ footer.premium-footer {
         </article>
 
         <article class="card locked" data-id="toefl-ibt-format-tour">
-          <div class="card-cover" aria-hidden="true" style="background:linear-gradient(135deg,#0a1c2e 0%,#15324f 55%,#2E7D32 100%);">
+          <div class="card-cover" aria-hidden="true">
             <span class="card-num">02</span>
             <span class="card-tag">B1+/B2</span>
           </div>
