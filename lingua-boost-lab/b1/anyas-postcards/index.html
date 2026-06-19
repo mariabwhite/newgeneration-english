@@ -1072,7 +1072,17 @@ footer .by{display:block;margin-top:6px;font-size:.7rem;opacity:.8}
       <div class="hw-meta">target: 10–12 sentences · words: <strong class="hw-wc">0</strong></div>
     </div>
 
-    <p style="margin-top:18px;font-family:var(--mono);font-size:.74rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;text-align:center">Bring this open on your screen to our next lesson — we'll go through together.</p>
+    <!-- Share-link block -->
+    <div class="hw-share">
+      <h3 style="font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--accent);margin:24px 0 10px;letter-spacing:-.01em">📤 Send your homework to Maria</h3>
+      <p style="font-size:.9rem;color:var(--muted);font-family:var(--serif);margin-bottom:10px">When you've finished — sign your name, press the button, and send the link to Maria on WhatsApp or Telegram. She'll open it and see exactly what you typed, with the auto-check already done.</p>
+      <input id="hw-name" placeholder="Your name (e.g. Anya M.)" style="background:var(--paper);border:1.5px solid var(--line);color:var(--ink);font-family:var(--serif);font-size:.95rem;padding:9px 14px;border-radius:8px;outline:none;width:100%;max-width:320px;margin-bottom:10px;display:block">
+      <button id="hw-share-btn" style="background:var(--accent);color:var(--paper);border:none;padding:11px 20px;border-radius:50px;font-family:var(--mono);font-size:.78rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:.18s">📤 Share homework link</button>
+      <textarea id="hw-link" readonly rows="2" style="display:none;width:100%;margin-top:10px;background:var(--card-2);border:1px dashed var(--line);color:var(--muted);font-family:var(--mono);font-size:.72rem;padding:8px 12px;border-radius:6px;resize:none"></textarea>
+      <div id="hw-share-msg" style="font-family:var(--mono);font-size:.72rem;color:var(--accent);margin-top:8px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;min-height:1em"></div>
+    </div>
+
+    <p style="margin-top:18px;font-family:var(--mono);font-size:.74rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;text-align:center">Or bring this tab open on your screen to our next lesson — we'll go through together.</p>
   </div>
 </section>
 
@@ -1410,6 +1420,120 @@ function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.rando
       wc.textContent = n;
     });
   }
+})();
+
+/* ===== HOMEWORK SHARE — build link with student answers ===== */
+(function(){
+  const shareBtn = document.getElementById('hw-share-btn');
+  if (!shareBtn) return;
+  const nameInp  = document.getElementById('hw-name');
+  const linkOut  = document.getElementById('hw-link');
+  const msgEl    = document.getElementById('hw-share-msg');
+
+  function b64url(str){
+    return btoa(unescape(encodeURIComponent(str)))
+      .replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+  }
+  function collectPayload(){
+    const inputs = Array.from(document.querySelectorAll('#sec-8 .hw-in'));
+    const text = (document.querySelector('#sec-8 .hw-text') || {}).value || '';
+    return {
+      v: 1,
+      name: (nameInp.value || '').trim(),
+      ts: Date.now(),
+      vals: inputs.map(i => i.value || ''),
+      text: text
+    };
+  }
+  function buildURL(payload){
+    const code = b64url(JSON.stringify(payload));
+    return location.origin + location.pathname + '#hw=' + code;
+  }
+
+  shareBtn.addEventListener('click', async () => {
+    if (!(nameInp.value || '').trim()){
+      msgEl.textContent = '✋ Please sign your name first';
+      nameInp.focus();
+      return;
+    }
+    const url = buildURL(collectPayload());
+    linkOut.value = url;
+    linkOut.style.display = 'block';
+
+    /* try native share — works on mobile */
+    if (navigator.share){
+      try {
+        await navigator.share({
+          title: "Anya's Postcards — my homework",
+          text: nameInp.value.trim() + " — homework, Anya's Postcards",
+          url: url
+        });
+        msgEl.textContent = '✓ Sent. Maria will open the link.';
+        return;
+      } catch(e){ /* user cancelled or blocked — fall through */ }
+    }
+    /* fallback: copy to clipboard */
+    try {
+      await navigator.clipboard.writeText(url);
+      msgEl.textContent = '✓ Link copied — paste it to Maria on WhatsApp / Telegram';
+    } catch(e){
+      linkOut.select();
+      msgEl.textContent = '↑ Copy the link above and paste it to Maria';
+    }
+  });
+})();
+
+/* ===== HOMEWORK READER — decode #hw= and fill the form ===== */
+(function(){
+  const m = (location.hash || '').match(/[#&]hw=([^&]+)/);
+  if (!m) return;
+  function b64urlDecode(s){
+    s = s.replace(/-/g,'+').replace(/_/g,'/');
+    const pad = (4 - s.length % 4) % 4;
+    return decodeURIComponent(escape(atob(s + '='.repeat(pad))));
+  }
+  let data;
+  try { data = JSON.parse(b64urlDecode(m[1])); }
+  catch(e){ console.warn('[hw] bad share link'); return; }
+
+  /* wait for DOM-ready handlers above to attach blur listeners */
+  function fill(){
+    const inputs = Array.from(document.querySelectorAll('#sec-8 .hw-in'));
+    (data.vals || []).forEach((v, i) => {
+      if (inputs[i] && v != null){
+        inputs[i].value = v;
+        inputs[i].dispatchEvent(new Event('blur'));
+      }
+    });
+    const ta = document.querySelector('#sec-8 .hw-text');
+    if (ta && data.text){
+      ta.value = data.text;
+      ta.dispatchEvent(new Event('input'));
+    }
+
+    /* banner above the homework card */
+    const card = document.querySelector('#sec-8 .card');
+    if (card){
+      const dt = data.ts ? new Date(data.ts).toLocaleString('ru-RU') : '';
+      const banner = document.createElement('div');
+      banner.style.cssText = 'background:linear-gradient(135deg,#FBF5E4,#FFE8B8);border:2px dashed #C58E2D;border-radius:12px;padding:14px 18px;margin-bottom:18px;font-family:var(--mono);font-size:.84rem;color:#5a3a13;font-weight:700;text-align:center;letter-spacing:.04em';
+      banner.innerHTML = '📥 Homework from <strong>' + (data.name || 'student').replace(/[<>&"]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c])) + '</strong>' + (dt ? ' · sent ' + dt : '');
+      card.insertBefore(banner, card.firstChild);
+    }
+
+    /* hide the student-side share controls when teacher is viewing */
+    const shareWrap = document.querySelector('.hw-share');
+    if (shareWrap) shareWrap.style.display = 'none';
+
+    /* scroll to homework after a beat */
+    setTimeout(() => {
+      const s = document.getElementById('sec-8');
+      if (s) s.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 350);
+  }
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', fill);
+  } else { fill(); }
 })();
 
 /* ===== QUESTION CHAIN TABS ===== */
