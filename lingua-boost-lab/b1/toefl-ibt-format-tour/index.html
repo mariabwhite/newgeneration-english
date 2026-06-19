@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>TOEFL iBT · Format Tour — Lab</title>
+<meta name="description" content="B1+/B2 Lab lesson — exam format walkthrough for TOEFL iBT. Sample tasks for Reading, Listening, Writing, Speaking. Based on the official ETS Test Overview.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a1c2e; --bg-2:#102841; --surface:#15324f; --card:#1c405f; --surface-2:#22516e;
+  --text:#eaf2fa; --muted:#9bb4c9; --faint:#5a7a96;
+  --accent:#2E7D32; --accent-2:#66bb6a; --accent-on:#0a1612;
+  --brand:#42a5f5; --brand-2:#90caf9;
+  --line:rgba(102,187,106,.16); --line-2:rgba(102,187,106,.32);
+  --ok:#42d889; --miss:#ff5c72;
+  --display:"Unbounded","Manrope",system-ui,sans-serif;
+  --body:"Manrope",system-ui,sans-serif;
+  --mono:"JetBrains Mono",Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.65;
+  background-image:radial-gradient(ellipse at 80% 0%,rgba(46,125,50,.16),transparent 50%),
+                   radial-gradient(ellipse at 10% 90%,rgba(66,165,245,.12),transparent 50%);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+/* Topbar */
+.topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;padding:12px clamp(16px,3vw,28px);
+  background:color-mix(in srgb,var(--bg) 92%,transparent);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.brand-mark{width:40px;height:40px;border-radius:8px;border-top-right-radius:0;background:var(--accent);color:#fff;
+  font-family:var(--display);font-weight:900;font-size:22px;display:grid;place-items:center;position:relative;overflow:hidden}
+.brand-mark::after{content:"";position:absolute;right:0;top:0;width:14px;height:14px;background:#fff;clip-path:polygon(100% 0,0 0,100% 100%)}
+.brand-copy{display:grid;gap:1px}
+.brand-name{font-family:var(--display);font-weight:800;font-size:15px;color:var(--text);line-height:1}
+.brand-sub{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-top:2px}
+.spacer{flex:1}
+.pill{padding:5px 11px;border-radius:50px;font:700 9.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid var(--line-2);color:var(--muted);background:rgba(0,0,0,.25);white-space:nowrap}
+.pill.accent{background:rgba(46,125,50,.18);border-color:var(--accent);color:var(--accent-2)}
+.pill.brand{background:rgba(66,165,245,.18);border-color:var(--brand);color:var(--brand-2)}
+.btn-sm{height:32px;padding:0 12px;border-radius:8px;border:1px solid var(--line-2);background:var(--card);color:var(--muted);
+  font:700 11px/1 var(--mono);letter-spacing:.08em;cursor:pointer;display:inline-flex;align-items:center;text-transform:uppercase;text-decoration:none}
+.btn-sm:hover{border-color:var(--accent);color:var(--accent-2)}
+
+/* Hero */
+.hero{max-width:1240px;margin:32px auto 12px;padding:0 clamp(16px,3vw,28px);position:relative;z-index:2}
+.hero-card{position:relative;border:1px solid var(--line-2);border-radius:24px;overflow:hidden;
+  background:linear-gradient(135deg,var(--bg-2) 0%,var(--surface) 60%,#0d2138 100%);
+  box-shadow:0 10px 40px rgba(0,0,0,.4);padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px);min-height:400px}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-2);
+  display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--accent-2)}
+h1.hero-title{font-family:var(--display);font-weight:900;letter-spacing:-.04em;line-height:.96;
+  font-size:clamp(1.9rem,4.8vw,3.6rem);max-width:760px;margin-bottom:18px;color:var(--text)}
+h1.hero-title .grad{background:linear-gradient(120deg,var(--accent-2) 0%,#a5d6a7 60%,#dcedc8 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-lead{font-size:clamp(1rem,1.3vw,1.12rem);color:var(--muted);max-width:740px;line-height:1.55;margin-bottom:24px}
+.hero-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px;max-width:680px}
+.stat{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.stat-k{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+.stat-v{font-family:var(--display);font-weight:800;font-size:1.15rem;color:var(--accent-2);letter-spacing:-.01em}
+
+/* Sections */
+.section{max-width:1240px;margin:0 auto 28px;padding:0 clamp(16px,3vw,28px);position:relative;z-index:2}
+.section-hdr{display:flex;align-items:center;gap:14px;margin:30px 0 14px;flex-wrap:wrap}
+.section-num{font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:.16em;
+  background:var(--accent);color:#fff;padding:5px 11px;border-radius:50px}
+.section-hdr h2{font-family:var(--display);font-weight:800;font-size:clamp(1.25rem,2.2vw,1.75rem);color:var(--text);letter-spacing:-.02em;line-height:1.1}
+.section-sub{font-size:.92rem;color:var(--muted);margin:0 0 14px 0;font-style:italic}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 24px;box-shadow:0 6px 28px rgba(0,0,0,.32)}
+.card h3{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--accent-2);margin:18px 0 10px;letter-spacing:.01em}
+.card h3:first-child{margin-top:0}
+.card p{margin-bottom:11px;color:var(--text)}
+.card .info{background:rgba(102,187,106,.07);border-left:3px solid var(--accent);padding:12px 16px;border-radius:8px;font-size:.92rem;color:var(--muted);margin:12px 0}
+.card .info strong{color:var(--accent-2)}
+.card .src{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-weight:700}
+
+/* Hover translation */
+.tr{border-bottom:1px dashed var(--brand);cursor:help;position:relative;transition:.18s}
+.tr:hover{color:var(--brand-2);border-bottom-color:var(--brand-2)}
+.tr::after{content:attr(data-ru);position:absolute;bottom:100%;left:50%;
+  transform:translateX(-50%) translateY(2px);background:var(--bg-2);color:var(--brand-2);
+  padding:5px 11px;border-radius:8px;font-size:.78rem;font-weight:600;
+  white-space:nowrap;pointer-events:none;opacity:0;transition:.18s;z-index:90;
+  border:1px solid var(--line-2)}
+.tr:hover::after{opacity:1;transform:translateX(-50%) translateY(-6px)}
+
+/* Section format card — for each TOEFL skill */
+.skill-card{display:grid;grid-template-columns:160px 1fr;gap:24px;background:var(--card);border:1px solid var(--line);
+  border-radius:14px;padding:18px 22px;margin:14px 0}
+@media(max-width:680px){.skill-card{grid-template-columns:1fr}}
+.skill-side{display:flex;flex-direction:column;gap:8px;padding-right:18px;border-right:1px solid var(--line)}
+@media(max-width:680px){.skill-side{border-right:none;border-bottom:1px solid var(--line);padding-right:0;padding-bottom:12px}}
+.skill-side .num{font-family:var(--display);font-size:2.5rem;font-weight:900;color:var(--accent-2);line-height:1}
+.skill-side .label{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);font-weight:800}
+.skill-side .time{font-family:var(--mono);font-size:.86rem;color:var(--text);font-weight:700;margin-top:4px}
+.skill-body h4{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--text);margin-bottom:6px}
+.skill-body p{font-size:.93rem;line-height:1.55;color:var(--muted);margin-bottom:10px}
+.tasks-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.tasks-list span{background:rgba(102,187,106,.12);border:1px solid var(--line-2);color:var(--accent-2);
+  padding:5px 11px;border-radius:50px;font-family:var(--mono);font-size:.72rem;font-weight:700}
+
+/* MCQ */
+.mcq-row{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
+.mcq-q{font-size:.96rem;color:var(--text);margin-bottom:10px;line-height:1.55}
+.mcq-opts{display:flex;flex-direction:column;gap:6px}
+.mcq-opts button{background:var(--surface-2);border:1px solid var(--line-2);color:var(--text);padding:9px 14px;border-radius:10px;
+  font-family:var(--body);font-size:.92rem;cursor:pointer;text-align:left;transition:.18s}
+.mcq-opts button:hover{border-color:var(--accent);color:var(--accent-2)}
+.mcq-opts button.right{background:rgba(66,216,137,.18);border-color:var(--ok);color:var(--ok)}
+.mcq-opts button.wrong{background:rgba(255,92,114,.18);border-color:var(--miss);color:var(--miss)}
+.mcq-note{display:none;margin-top:10px;font-family:var(--mono);font-size:.78rem;color:var(--muted);font-style:italic;
+  background:rgba(66,165,245,.08);border-left:3px solid var(--brand);padding:8px 12px;border-radius:0 8px 8px 0}
+.mcq-row.revealed .mcq-note{display:block}
+
+/* Sample passage */
+.passage{background:var(--bg-2);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin:12px 0;
+  font-family:"Playfair Display",Georgia,serif;font-size:1.02rem;line-height:1.75;color:var(--text)}
+.passage .src-line{font-family:var(--mono);font-size:.72rem;color:var(--faint);text-transform:uppercase;letter-spacing:.16em;
+  border-top:1px dashed var(--line);padding-top:10px;margin-top:14px;font-weight:700}
+
+/* Scoring grid */
+.score-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:14px 0}
+.score-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;text-align:center}
+.score-card .skill{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-2);font-weight:800;margin-bottom:6px}
+.score-card .range{font-family:var(--display);font-size:1.6rem;font-weight:900;color:var(--text);letter-spacing:-.02em;line-height:1}
+.score-card .total{font-family:var(--mono);font-size:.74rem;color:var(--faint);margin-top:6px}
+
+/* Cue card */
+.cue-card{background:linear-gradient(135deg,rgba(102,187,106,.10),rgba(66,165,245,.06));
+  border:1px solid var(--line-2);border-radius:14px;padding:18px 20px;margin:14px 0}
+.cue-card .cue-h{font-family:var(--display);font-weight:800;color:var(--accent-2);margin-bottom:10px;font-size:1rem}
+.cue-card ul{list-style:none;padding:0;margin:8px 0 0}
+.cue-card li{padding:4px 0 4px 18px;position:relative;color:var(--text)}
+.cue-card li::before{content:"";position:absolute;left:4px;top:11px;width:6px;height:6px;border-radius:50%;background:var(--brand)}
+
+/* Write */
+.write{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:14px 0}
+.write textarea{width:100%;min-height:160px;background:transparent;border:none;outline:none;
+  color:var(--text);font-family:var(--body);font-size:.96rem;line-height:1.55;resize:vertical}
+.write-meta{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-weight:700}
+
+footer{max-width:1240px;margin:48px auto 28px;padding:0 22px;text-align:center;color:var(--faint);
+  font-size:.8rem;font-family:var(--mono);letter-spacing:.06em}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a class="brand" href="../../index.html">
+    <span class="brand-mark">N</span>
+    <span class="brand-copy">
+      <span class="brand-name">NG English</span>
+      <span class="brand-sub">LinguaBoost Lab · B1+</span>
+    </span>
+  </a>
+  <span class="pill accent">Exam Lab</span>
+  <span class="pill brand">90 min</span>
+  <div class="spacer"></div>
+  <a class="btn-sm" href="../../index.html">All lessons</a>
+  <a class="btn-sm" href="../../../index.html">Main</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-card">
+    <div class="eyebrow">Exam Lab · TOEFL iBT</div>
+    <h1 class="hero-title">TOEFL iBT · <span class="grad">format tour</span></h1>
+    <p class="hero-lead">Walk through the four sections — Reading, Listening, Writing, Speaking — exactly as they appear in the updated 2025 ETS test. Sample tasks · scoring · what the examiner is looking for. By the end of 90 minutes you will know what each task wants from you and how to prepare.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-k">Level</div><div class="stat-v">B1+ / B2 entry</div></div>
+      <div class="stat"><div class="stat-k">Duration</div><div class="stat-v">~90 minutes</div></div>
+      <div class="stat"><div class="stat-k">Total test time</div><div class="stat-v">&lt; 2 hours</div></div>
+      <div class="stat"><div class="stat-k">Sections</div><div class="stat-v">4 (R · L · W · S)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 1 · OVERVIEW -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">01</div><h2>What the TOEFL test measures</h2></div>
+  <div class="card">
+    <p>The updated TOEFL iBT test measures <span class="tr" data-ru="оценивает">assesses</span> the four language skills — reading, listening, writing, and speaking — and gives universities a reliable picture of your English ability in academic and campus-life contexts.</p>
+    <p>The test takes <strong>under two hours</strong> to complete. Scores are available in <strong>72 hours</strong>. The test can be taken at home or at a test centre.</p>
+
+    <h3>Two things to remember about the format</h3>
+    <ul style="margin:10px 0 14px 22px;color:var(--text)">
+      <li><strong>Reading and Listening are multistage adaptive.</strong> Your performance on the first part decides the difficulty of the second part — the test fits itself to your level.</li>
+      <li>Order is fixed: <strong>Reading → Listening → Writing → Speaking</strong>.</li>
+    </ul>
+
+    <div class="info">
+      <strong>Why this matters:</strong> on test day you can't skip back to a previous section. Plan your energy: Reading and Listening burn focus; Writing eats your hands; Speaking comes last when you are tired. We will mirror that order in practice sessions.
+    </div>
+
+    <div class="src">Source · <strong>ETS Updated TOEFL iBT Test Overview</strong> (2025)</div>
+  </div>
+</section>
+
+<!-- 2 · STRUCTURE -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">02</div><h2>The four sections at a glance</h2></div>
+  <p class="section-sub">Each card shows you the task types you'll meet and how long the section runs.</p>
+
+  <div class="skill-card">
+    <div class="skill-side">
+      <div class="num">R</div>
+      <div class="label">Reading</div>
+      <div class="time">50 items · 30 min</div>
+    </div>
+    <div class="skill-body">
+      <h4>Reading section</h4>
+      <p>Multistage adaptive. You read short and long passages — both academic and from daily life. The questions check vocabulary, sentence building and overall comprehension.</p>
+      <div class="tasks-list">
+        <span>Complete the Words</span>
+        <span>Read in Daily Life</span>
+        <span>Read an Academic Passage</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="skill-card">
+    <div class="skill-side">
+      <div class="num">L</div>
+      <div class="label">Listening</div>
+      <div class="time">47 items · ~30 min</div>
+    </div>
+    <div class="skill-body">
+      <h4>Listening section</h4>
+      <p>Multistage adaptive. Short responses, full conversations, public announcements and academic talks. The exam tests both <em>literal understanding</em> and <em>inference</em>.</p>
+      <div class="tasks-list">
+        <span>Listen and Choose a Response</span>
+        <span>Listen to a Conversation</span>
+        <span>Listen to an Announcement</span>
+        <span>Listen to an Academic Talk</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="skill-card">
+    <div class="skill-side">
+      <div class="num">W</div>
+      <div class="label">Writing</div>
+      <div class="time">~20 min</div>
+    </div>
+    <div class="skill-body">
+      <h4>Writing section</h4>
+      <p>Three task types reproduce real-world writing situations: building sentences from cues, drafting professional emails, and contributing to an online academic discussion.</p>
+      <div class="tasks-list">
+        <span>Build a Sentence</span>
+        <span>Write an Email</span>
+        <span>Write for an Academic Discussion</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="skill-card">
+    <div class="skill-side">
+      <div class="num">S</div>
+      <div class="label">Speaking</div>
+      <div class="time">~16 min</div>
+    </div>
+    <div class="skill-body">
+      <h4>Speaking section</h4>
+      <p>Comes last. Two task types: a controlled reproduction task that tests your pronunciation and fluency, and a free interview that asks you to express opinions and personal experiences.</p>
+      <div class="tasks-list">
+        <span>Listen and Repeat</span>
+        <span>Take an Interview</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · READING SAMPLE -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">03</div><h2>Reading — sample task with inference</h2></div>
+  <p class="section-sub">Read the passage below, then answer the question. ETS-style format · academic passage.</p>
+
+  <div class="card">
+    <div class="passage">
+      Most modern cities sit on layers of older settlements. Beneath the streets of central Mexico City, for example, archaeologists have uncovered the foundations of Tenochtitlan — the Aztec capital that was destroyed and built over in the sixteenth century. Construction crews working on subway lines or office basements occasionally still pull up stone carvings and ceramic vessels that were last touched five hundred years ago. The city government, recognising the value of these finds, requires builders to halt work and call in a state archaeologist whenever they encounter pre-colonial material. This rule protects history but slows construction. Builders complain about the delays; archaeologists insist the delays are worth it.
+      <div class="src-line">Adapted academic passage · ETS Reading task format</div>
+    </div>
+
+    <div class="mcq-row" data-ans="b">
+      <div class="mcq-q"><strong>1.</strong> What can be <em>inferred</em> about the relationship between builders and archaeologists in Mexico City?</div>
+      <div class="mcq-opts">
+        <button data-v="a">They work as equal partners on every construction project.</button>
+        <button data-v="b">Their goals are in tension — historical preservation versus building speed.</button>
+        <button data-v="c">Archaeologists oversee all builders and review their plans in advance.</button>
+        <button data-v="d">The two groups rarely come into contact because subway work is done by independent crews.</button>
+      </div>
+      <div class="mcq-note">→ The text says <em>"Builders complain about the delays; archaeologists insist the delays are worth it"</em> — that's a textbook inference cue for a conflict-of-priorities answer.</div>
+    </div>
+
+    <div class="mcq-row" data-ans="c">
+      <div class="mcq-q"><strong>2.</strong> Which sentence best states the <strong>main idea</strong> of the passage?</div>
+      <div class="mcq-opts">
+        <button data-v="a">Mexico City is too old to support modern construction projects.</button>
+        <button data-v="b">Subway construction has revealed many beautiful Aztec carvings.</button>
+        <button data-v="c">The presence of buried archaeological material creates both opportunity and friction in modern urban construction.</button>
+        <button data-v="d">Stone carvings and ceramics from Tenochtitlan are stored in subway tunnels.</button>
+      </div>
+      <div class="mcq-note">→ Main-idea answers must cover the <em>whole</em> passage, not one detail. (a) is too negative; (b) and (d) are detail-level. (c) captures the duality the passage describes.</div>
+    </div>
+
+    <div class="info">
+      <strong>Why this matters:</strong> TOEFL Reading is mostly about <em>understanding what the text says without imposing your own opinion</em>. Inference questions look for the answer that the text <strong>logically supports</strong>, not the one that sounds smartest.
+    </div>
+  </div>
+</section>
+
+<!-- 4 · LISTENING -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">04</div><h2>Listening — what to expect</h2></div>
+  <p class="section-sub">The Listening section tests how well you process spoken English in academic and campus contexts. Below — a script of an academic talk and a sample question.</p>
+
+  <div class="card">
+    <h3>Sample task · academic talk excerpt</h3>
+    <div class="passage" style="font-family:var(--body);font-style:italic;font-size:.95rem">
+      "…so when we say that mass and energy are equivalent, we don't mean they are the same thing. We mean that one can be converted into the other under the right conditions. The famous equation, of course, is E equals m c squared. The c squared part is what makes the equation feel so dramatic — because the speed of light, squared, is a very large number. So even a small amount of mass, fully converted, releases enormous energy. This is the principle behind both nuclear power and, unfortunately, nuclear weapons…"
+      <div class="src-line">ETS Listening · academic talk format</div>
+    </div>
+
+    <div class="mcq-row" data-ans="b">
+      <div class="mcq-q"><strong>1.</strong> What is the professor's <strong>main point</strong> about E = mc²?</div>
+      <div class="mcq-opts">
+        <button data-v="a">Mass and energy are identical and can be used interchangeably.</button>
+        <button data-v="b">A small mass, fully converted, can release a very large amount of energy because c² is enormous.</button>
+        <button data-v="c">Nuclear power is more important than nuclear weapons.</button>
+        <button data-v="d">The speed of light is the most important measurement in physics.</button>
+      </div>
+      <div class="mcq-note">→ Listen for the <em>"because"</em> chain. The professor explains why the equation feels dramatic — c² being a large number. That logical link is the heart of the talk.</div>
+    </div>
+
+    <h3 style="margin-top:18px">Three habits that fix Listening score quickly</h3>
+    <ul style="margin:10px 0 14px 22px;color:var(--text)">
+      <li><strong>Predict before you hear</strong>. After reading the question, guess what type of answer you need (date · cause · contrast · example).</li>
+      <li><strong>Listen for signposts</strong>. <em>"In other words…"</em> · <em>"The main point here is…"</em> · <em>"On the other hand…"</em> — these phrases tell you what is coming.</li>
+      <li><strong>Take notes in chains, not lists</strong>. Write <em>cause → effect → example</em>, not bullet points. The exam tests how ideas connect.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 5 · WRITING -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">05</div><h2>Writing — three real-world situations</h2></div>
+  <p class="section-sub">The 2025 updated Writing section mirrors actual academic and professional writing — building sentences, sending emails, and posting in an online discussion.</p>
+
+  <div class="card">
+    <h3>Task type 1 · Build a Sentence</h3>
+    <p>You are given a short set of cues — keywords, a verb, sometimes a tense marker — and asked to assemble a grammatical sentence. Tests sentence-level control under time pressure.</p>
+    <div class="info"><strong>Example cue:</strong> <em>scientists / discover / new species / Amazon / last year</em><br><em>Sample answer:</em> <strong>Last year scientists discovered a new species in the Amazon.</strong></div>
+
+    <h3>Task type 2 · Write an Email</h3>
+    <p>A short, real-world email — to a professor, an HR contact, a service provider. Tests register (formal/semi-formal), clear structure, and polite tone.</p>
+    <div class="cue-card">
+      <div class="cue-h">Practice prompt</div>
+      <p style="color:var(--muted);margin:6px 0 6px">You have just enrolled in a postgraduate programme abroad. The international student office sent a welcome email. Write a reply that:</p>
+      <ul>
+        <li>thanks the office for the welcome</li>
+        <li>asks about the deadline for submitting your housing preferences</li>
+        <li>mentions one practical concern (dietary needs · accessibility · time zone for orientation)</li>
+        <li>closes politely with a request for a confirmation reply</li>
+      </ul>
+    </div>
+    <div class="write">
+      <textarea placeholder="Dear International Student Office,&#10;&#10;Thank you very much for…"></textarea>
+      <div class="write-meta"><span><strong>Target:</strong> 80–120 words · register: semi-formal · clear structure</span><span class="wc">words: <strong>0</strong></span></div>
+    </div>
+
+    <h3>Task type 3 · Write for an Academic Discussion</h3>
+    <p>A simulated online forum: the professor opens a discussion with a prompt; two classmates have replied; you add a substantial post that builds on or respectfully challenges what was said.</p>
+    <div class="cue-card">
+      <div class="cue-h">Prompt</div>
+      <p style="color:var(--muted);margin:6px 0 6px"><em>Professor:</em> Should governments invest more in public transport, even if it raises taxes? Why or why not?</p>
+      <p style="color:var(--muted);margin:6px 0 6px"><em>Classmate A:</em> Yes, definitely. Cities cannot continue to grow if everyone insists on driving alone.</p>
+      <p style="color:var(--muted);margin:6px 0 6px"><em>Classmate B:</em> I disagree. Public transport in rural areas is empty most of the day. The investment doesn't reach everyone.</p>
+      <p style="color:var(--muted);margin:6px 0"><strong>Your task:</strong> Write 120–150 words that take a position, address one of the classmates, and add a specific example.</p>
+    </div>
+    <div class="write">
+      <textarea placeholder="I think both points have merit, but I lean toward…"></textarea>
+      <div class="write-meta"><span><strong>Target:</strong> 120–150 words · take a position · cite a specific example</span><span class="wc">words: <strong>0</strong></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · SPEAKING -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">06</div><h2>Speaking — controlled vs. free</h2></div>
+  <p class="section-sub">Two very different task families. One tests your accent and fluency mechanics; the other tests your ability to hold an opinion in real time.</p>
+
+  <div class="card">
+    <h3>Task type 1 · Listen and Repeat</h3>
+    <p>You hear a short sentence. You repeat it. The system measures pronunciation accuracy, prosody (rhythm and intonation) and intelligibility.</p>
+    <div class="info"><strong>What to drill at home:</strong> shadowing — repeat aloud, in real time, after BBC or VOA audio. 5 minutes a day for a month moves your score visibly.</div>
+
+    <h3>Task type 2 · Take an Interview</h3>
+    <p>A simulated conversation. The system asks you about your background, your opinion on a topic, your experience. You speak freely for 20–60 seconds.</p>
+    <div class="cue-card">
+      <div class="cue-h">Mock interview question</div>
+      <p style="color:var(--text);margin:6px 0">Tell me about a time when you had to learn a new skill quickly. What did you do, how did you organise your time, and what would you do differently now?</p>
+    </div>
+    <p style="margin-top:14px"><strong>The structure that always works</strong> — <em>Situation · Action · Result · Reflection</em> (SARR). Open with what was happening, say what you did, name the outcome, close with what you learned. Examiners love SARR; learn to do it in 45 seconds.</p>
+  </div>
+</section>
+
+<!-- 7 · SCORING -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">07</div><h2>Scoring — quick reference</h2></div>
+  <p class="section-sub">Each section is scored on its own scale. Final total is the sum of the four section scores.</p>
+
+  <div class="score-grid">
+    <div class="score-card"><div class="skill">Reading</div><div class="range">0 – 30</div><div class="total">multistage adaptive</div></div>
+    <div class="score-card"><div class="skill">Listening</div><div class="range">0 – 30</div><div class="total">multistage adaptive</div></div>
+    <div class="score-card"><div class="skill">Writing</div><div class="range">0 – 30</div><div class="total">human + AI rated</div></div>
+    <div class="score-card"><div class="skill">Speaking</div><div class="range">0 – 30</div><div class="total">human + AI rated</div></div>
+    <div class="score-card" style="background:rgba(46,125,50,.18);border-color:var(--accent)"><div class="skill" style="color:#fff">Total</div><div class="range" style="color:var(--accent-2)">0 – 120</div><div class="total">all four sections</div></div>
+  </div>
+
+  <div class="info" style="margin-top:14px">
+    <strong>Typical thresholds for management/business programmes:</strong> <em>~78</em> entry-level acceptance · <em>~87–95</em> competitive · <em>~100+</em> top schools. Bocconi, for example, asks for 105.
+  </div>
+</section>
+
+<!-- 8 · SPEAKING FINALE + HOMEWORK -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">08</div><h2>Speaking finale · pick one task</h2></div>
+  <p class="section-sub">Choose one. Speak for <strong>60–90 seconds</strong> · about <strong>10–12 sentences</strong>. Record if you can — replay afterwards and notice your filler words.</p>
+
+  <div class="card">
+    <div class="cue-card">
+      <div class="cue-h">Task A · Skill-acquisition story (SARR)</div>
+      <p style="color:var(--text);margin:6px 0">Tell me about a skill you learned in the last two years. Situation · Action · Result · Reflection.</p>
+    </div>
+    <div class="cue-card">
+      <div class="cue-h">Task B · Take a position</div>
+      <p style="color:var(--text);margin:6px 0">Should companies require employees to be physically present in the office at least three days a week? Take a position, give two reasons with concrete examples, anticipate one counter-argument.</p>
+    </div>
+    <div class="cue-card">
+      <div class="cue-h">Task C · Describe a place</div>
+      <p style="color:var(--text);margin:6px 0">Describe a place where you do your best thinking. What is it about that place that helps you focus?</p>
+    </div>
+
+    <h3 style="margin-top:24px">📚 Homework — between now and the next lesson</h3>
+    <ol style="margin:10px 0 14px 22px;color:var(--text)">
+      <li><strong>Shadow-reading × 5 days.</strong> Pick one 5-minute BBC Learning English clip. Listen once, then repeat aloud line by line, matching pace and intonation. Five days, same clip.</li>
+      <li><strong>One full sample task per skill.</strong> Reading academic passage (15 min) · Listening academic talk (10 min) · Writing email + discussion (30 min) · Speaking interview (10 min recorded).</li>
+      <li><strong>One Editor's Email.</strong> Write a 100-word formal email asking a professor for a meeting next week. Bring it to the next lesson — we'll edit together.</li>
+    </ol>
+
+    <div class="info">
+      <strong>Next time we will:</strong> walk through a full sample Reading section under timed conditions, debrief together, then build a personal score-improvement plan based on which question types tripped you up.
+    </div>
+  </div>
+</section>
+
+<footer>
+  © NG English · LinguaBoost Lab · Exam Lab · TOEFL iBT Format Tour
+</footer>
+
+<!-- Hover ru -->
+<script>
+(function(){
+  document.querySelectorAll('.tr[data-ru]').forEach(function(el){
+    el.addEventListener('click', function(){ el.classList.toggle('flash'); });
+  });
+})();
+</script>
+
+<!-- Generic MCQ -->
+<script>
+(function(){
+  document.querySelectorAll('.mcq-row').forEach(function(row){
+    var ans = (row.dataset.ans||'').toLowerCase();
+    row.querySelectorAll('.mcq-opts button').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var v = (btn.dataset.v||'').toLowerCase();
+        row.querySelectorAll('.mcq-opts button').forEach(function(b){b.classList.remove('right','wrong')});
+        if (v === ans) { btn.classList.add('right'); row.classList.add('revealed'); }
+        else btn.classList.add('wrong');
+      });
+    });
+  });
+})();
+</script>
+
+<!-- Word count -->
+<script>
+(function(){
+  document.querySelectorAll('.write').forEach(function(w){
+    var ta = w.querySelector('textarea');
+    var wc = w.querySelector('.wc strong');
+    if (!ta || !wc) return;
+    ta.addEventListener('input', function(){
+      var n = (ta.value.match(/\b[\w'-]+\b/g) || []).length;
+      wc.textContent = n;
+    });
+  });
+})();
+</script>
+
+<script src="../../assets/lab-persist.js" defer></script>
+</body>
+</html>
