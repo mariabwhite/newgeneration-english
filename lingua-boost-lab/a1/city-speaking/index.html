@@ -19,7 +19,9 @@
   --display:"Unbounded","Manrope",system-ui,sans-serif;
   --body:"Manrope",system-ui,sans-serif;
   --mono:"JetBrains Mono",Consolas,monospace;
+  --demo-top-width:min(100% - 28px,1240px);
 }
+@media(max-width:820px){:root{--demo-top-width:min(100% - 20px,1240px)}}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.65;min-height:100vh}
@@ -44,8 +46,8 @@ a{color:inherit;text-decoration:none}
   font:700 11px/1 var(--mono);letter-spacing:.08em;cursor:pointer;display:inline-flex;align-items:center;text-transform:uppercase;text-decoration:none}
 .btn-sm:hover{border-color:var(--accent);color:var(--accent)}
 
-/* Hero */
-.hero{max-width:1180px;margin:32px auto 12px;padding:0 clamp(16px,3vw,28px)}
+/* Hero — jerusalem-style spacing */
+.hero{width:var(--demo-top-width);max-width:1240px;margin:32px auto 12px;padding:0 12px}
 .hero-card{position:relative;border:1px solid var(--line);border-radius:24px;overflow:hidden;
   background:linear-gradient(135deg,var(--surface) 0%,var(--card) 60%,var(--surface-2) 100%);
   box-shadow:0 4px 24px rgba(0,0,0,.04);padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px);min-height:340px}
@@ -62,7 +64,7 @@ h1.hero-title .grad{color:var(--accent)}
 .stat-v{font-family:var(--display);font-weight:800;font-size:1.1rem;color:var(--accent);letter-spacing:-.01em}
 
 /* Sections */
-.section{max-width:1180px;margin:0 auto 28px;padding:0 clamp(16px,3vw,28px)}
+.section{width:var(--demo-top-width);max-width:1240px;margin:0 auto 28px;padding:0 12px}
 .section-hdr{display:flex;align-items:center;gap:14px;margin:30px 0 14px;flex-wrap:wrap}
 .section-num{font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:.16em;
   background:var(--accent);color:#fff;padding:5px 11px;border-radius:50px}
@@ -222,7 +224,76 @@ h1.hero-title .grad{color:var(--accent)}
   letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-weight:700}
 .hw-meta .wc strong{color:var(--accent)}
 
-footer{max-width:1180px;margin:48px auto 28px;padding:0 22px;text-align:center;color:var(--faint);
+/* Flip cards (used in section 02 adjectives) */
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin:14px 0 8px}
+.flip-card{aspect-ratio:1/.9;perspective:800px;cursor:pointer}
+.flip-inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-front,.flip-back{position:absolute;inset:0;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  padding:14px;text-align:center;-webkit-backface-visibility:hidden;backface-visibility:hidden;border:1px solid var(--line)}
+.flip-front{background:var(--card);color:var(--accent);font-family:var(--display);font-weight:800;font-size:1rem;flex-direction:column;gap:6px}
+.flip-front .pos{font-family:var(--mono);font-size:.62rem;color:var(--faint);letter-spacing:.16em;text-transform:uppercase;font-weight:700}
+.flip-back{background:var(--accent);color:#fff;transform:rotateY(180deg);font-size:.86rem;line-height:1.4;flex-direction:column;gap:6px}
+.flip-back .ru{font-weight:700;font-size:1rem;font-family:var(--display)}
+.flip-back .ex{font-size:.74rem;opacity:.92;font-style:italic;line-height:1.4}
+
+/* Bank — for gap-fill exercises */
+.bank{display:flex;flex-wrap:wrap;gap:6px;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:10px 0 14px}
+.bank-word{font-family:var(--mono);font-weight:700;font-size:.82rem;background:#fff;color:var(--accent);padding:5px 11px;border-radius:50px;border:1px solid var(--line-2);letter-spacing:.02em}
+.bank-word.used{opacity:.25;text-decoration:line-through}
+
+/* Cloze (gap-fill) */
+.cloze-row{display:grid;grid-template-columns:36px 1fr;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);
+  border-radius:10px;padding:10px 14px;margin:8px 0}
+.cloze-num{font-family:var(--mono);font-size:11px;font-weight:800;background:var(--accent);color:#fff;width:30px;height:30px;border-radius:50%;display:grid;place-items:center}
+.cloze-text{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.94rem;color:var(--ink);line-height:1.55}
+.cloze-in{background:transparent;border:none;border-bottom:1.5px dashed var(--accent);color:var(--accent);
+  font-family:var(--body);font-weight:700;padding:3px 8px;min-width:110px;max-width:200px;font-size:.94rem;outline:none}
+.cloze-in:focus{border-bottom-color:var(--brand);background:var(--brand-soft)}
+.cloze-in.right{border-bottom-color:var(--ok);color:var(--ok);border-bottom-style:solid;background:rgba(91,168,114,.10)}
+.cloze-in.wrong{border-bottom-color:var(--miss);color:var(--miss);border-bottom-style:solid;background:rgba(196,90,90,.10)}
+
+/* MCQ */
+.mcq-row{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
+.mcq-q{font-size:.95rem;color:var(--ink);margin-bottom:10px;line-height:1.55}
+.mcq-q .blank{display:inline-block;min-width:60px;padding:0 8px;border-bottom:2px dashed var(--accent);font-weight:700;color:var(--accent);text-align:center}
+.mcq-opts{display:flex;flex-wrap:wrap;gap:6px}
+.mcq-opts button{background:var(--surface-2);border:1.5px solid var(--line-2);color:var(--ink);padding:8px 14px;border-radius:8px;
+  font-family:var(--body);font-size:.9rem;font-weight:600;cursor:pointer;transition:.18s;min-width:80px}
+.mcq-opts button:hover{border-color:var(--accent);color:var(--accent)}
+.mcq-opts button.right{background:var(--ok);color:#fff;border-color:var(--ok)}
+.mcq-opts button.wrong{background:var(--miss);color:#fff;border-color:var(--miss)}
+.mcq-note{display:none;margin-top:10px;font-family:var(--mono);font-size:.76rem;color:var(--muted);font-style:italic;
+  background:var(--brand-soft);border-left:3px solid var(--brand);padding:8px 12px;border-radius:0 8px 8px 0}
+.mcq-row.revealed .mcq-note{display:block}
+
+/* Match-row (click pairs left ↔ right) */
+.match-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+@media(max-width:600px){.match-row{grid-template-columns:1fr}}
+.match-col{display:flex;flex-direction:column;gap:8px}
+.match-card{background:var(--card);border:1.5px solid var(--line);border-radius:10px;padding:10px 14px;
+  font-family:var(--body);font-size:.92rem;color:var(--ink);cursor:pointer;text-align:left;transition:.15s;font-weight:600}
+.match-card:hover{border-color:var(--accent);transform:translateX(2px)}
+.match-card.sel{background:var(--brand-soft);border-color:var(--brand);color:var(--brand)}
+.match-card.match{background:var(--ok);color:#fff;border-color:var(--ok);pointer-events:none;font-weight:700}
+.match-card.bad{background:var(--miss);color:#fff;border-color:var(--miss);animation:badPulse .35s}
+@keyframes badPulse{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+
+/* Reorder (drag-pills into slot) */
+.reorder{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
+.ro-target{font-family:var(--mono);font-size:.72rem;color:var(--faint);letter-spacing:.04em;margin-bottom:10px}
+.ro-target em{font-family:var(--body);font-style:italic;color:var(--muted)}
+.ro-slot{min-height:42px;border:1.5px dashed var(--line-2);border-radius:8px;padding:8px 10px;display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;background:#fff;align-content:flex-start}
+.ro-slot.right{border-color:var(--ok);background:rgba(91,168,114,.08);border-style:solid}
+.ro-slot.wrong{border-color:var(--miss);background:rgba(196,90,90,.06);border-style:solid}
+.ro-bank{display:flex;flex-wrap:wrap;gap:5px}
+.ro-pill{background:#fff;border:1.5px solid var(--line-2);color:var(--ink);padding:6px 11px;border-radius:50px;
+  font-family:var(--body);font-size:.86rem;font-weight:600;cursor:pointer;transition:.12s;font-family:var(--mono)}
+.ro-pill:hover{border-color:var(--accent);color:var(--accent)}
+.ro-pill.placed{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.ro-pill.used{opacity:.25;pointer-events:none}
+
+footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;padding:0 12px;text-align:center;color:var(--faint);
   font-size:.8rem;font-family:var(--mono);letter-spacing:.06em}
 </style>
 </head>
@@ -290,56 +361,31 @@ footer{max-width:1180px;margin:48px auto 28px;padding:0 22px;text-align:center;c
   </div>
 </section>
 
-<!-- 2 · WARMUP · BUILDING QUESTIONS -->
+<!-- 2 · ADJECTIVES — vivid city language -->
 <section class="section">
-  <div class="section-hdr"><div class="section-num">02</div><h2>Warmup · 8 правильно построенных вопросов</h2></div>
-  <p class="section-sub">До сих пор ты в основном <strong>отвечал</strong>. Сегодня учимся <strong>спрашивать</strong>. Это даёт тебе власть в разговоре — ты ведёшь беседу, а не догоняешь её. Прочти каждую карточку вслух, потом сразу повтори вопрос без подсказки.</p>
+  <div class="section-hdr"><div class="section-num">02</div><h2>Adjectives · how to make any place come alive</h2></div>
+  <p class="section-sub">До сих пор ты говорил «<em>there is a park</em>». Скучно. Сегодня — <strong>прилагательные для мест</strong>. Это специи, без которых речь пресная. 12 карточек: тап → перевод + пример. Произнеси каждое 2 раза вслух.</p>
 
-  <div class="qb-grid">
-    <div class="qb-card">
-      <div class="qb-form">Do + you + V?</div>
-      <div class="qb-q">Do you live in a big city?</div>
-      <div class="qb-ex">Habit / fact. → <em>Do you work near here? Do you drink coffee?</em></div>
-    </div>
-    <div class="qb-card">
-      <div class="qb-form">Are + you + V-ing?</div>
-      <div class="qb-q">Are you walking right now?</div>
-      <div class="qb-ex">What's happening at this moment. → <em>Are you working? Are you waiting?</em></div>
-    </div>
-    <div class="qb-card">
-      <div class="qb-form">Is there / Are there?</div>
-      <div class="qb-q">Is there a café near here?</div>
-      <div class="qb-ex">Does X exist here? → <em>Are there shops in your street? Is there a bank on the corner?</em></div>
-    </div>
-    <div class="qb-card">
-      <div class="qb-form">Where do / Where are?</div>
-      <div class="qb-q">Where do you usually go on Sundays?</div>
-      <div class="qb-ex">Place questions. → <em>Where are you going now? Where do you work?</em></div>
-    </div>
-    <div class="qb-card">
-      <div class="qb-form">What is / What are?</div>
-      <div class="qb-q">What is your favourite place in the city?</div>
-      <div class="qb-ex">Asking about a thing. → <em>What are you doing today? What is near your house?</em></div>
-    </div>
-    <div class="qb-card">
-      <div class="qb-form">How often do?</div>
-      <div class="qb-q">How often do you go to the park?</div>
-      <div class="qb-ex">Frequency. → <em>How often do you take the bus? How often do you eat out?</em></div>
-    </div>
-    <div class="qb-card">
-      <div class="qb-form">Can you tell me…?</div>
-      <div class="qb-q">Can you tell me where the bank is?</div>
-      <div class="qb-ex">Polite ask. → <em>Can you tell me how to get to the metro? Can you show me on the map?</em></div>
-    </div>
-    <div class="qb-card">
-      <div class="qb-form">Why do / Why are?</div>
-      <div class="qb-q">Why do people love this city?</div>
-      <div class="qb-ex">Reason. → <em>Why are you smiling? Why do you live here?</em></div>
-    </div>
+  <div class="flip-grid" id="adjGrid">
+    <div class="flip-card" data-en="modern" data-pos="adj." data-ru="современный" data-ex="It is a modern part of the city."></div>
+    <div class="flip-card" data-en="busy" data-pos="adj." data-ru="оживлённый, шумный" data-ex="My street is busy in the morning."></div>
+    <div class="flip-card" data-en="quiet" data-pos="adj." data-ru="тихий" data-ex="There is a quiet park near my house."></div>
+    <div class="flip-card" data-en="crowded" data-pos="adj." data-ru="многолюдный" data-ex="The metro is very crowded at 6 p.m."></div>
+    <div class="flip-card" data-en="lively" data-pos="adj." data-ru="живой, бойкий" data-ex="Saturday evening — the area is lively."></div>
+    <div class="flip-card" data-en="historic" data-pos="adj." data-ru="исторический" data-ex="There are historic buildings in the centre."></div>
+    <div class="flip-card" data-en="expensive" data-pos="adj." data-ru="дорогой" data-ex="This is an expensive neighbourhood."></div>
+    <div class="flip-card" data-en="affordable" data-pos="adj." data-ru="доступный, недорогой" data-ex="My area is affordable for young families."></div>
+    <div class="flip-card" data-en="safe" data-pos="adj." data-ru="безопасный" data-ex="It is a safe place to walk at night."></div>
+    <div class="flip-card" data-en="green" data-pos="adj." data-ru="зелёный (с природой)" data-ex="My district is green — lots of trees."></div>
+    <div class="flip-card" data-en="convenient" data-pos="adj." data-ru="удобный (по расположению)" data-ex="The location is convenient — everything is nearby."></div>
+    <div class="flip-card" data-en="charming" data-pos="adj." data-ru="очаровательный, милый" data-ex="There is a charming café on my street."></div>
   </div>
 
-  <div class="card" style="margin-top:8px">
-    <p style="margin:0;font-size:.93rem;color:var(--muted)"><strong>Speaking drill · 90 seconds:</strong> прочти 8 вопросов вслух подряд. Затем закрой страницу мысленно и задай 8 вопросов про мой район — мне. Не повторяй формы — используй все 8 разных.</p>
+  <div class="card" style="margin-top:14px">
+    <h3 style="margin:0 0 10px 0;font-size:.96rem">Drill · build 6 vivid sentences</h3>
+    <p style="margin:0 0 8px 0;font-size:.92rem;color:var(--muted)">Combine: <strong>noun</strong> (park, café, street, metro, district, museum) + <strong>at least 1 adjective</strong> + <strong>Present Simple / It is</strong>. Type 6 sentences, save automatically.</p>
+    <textarea data-ex="adj-builder" placeholder="1. The metro is crowded in the morning, but it is convenient.&#10;2. There is a charming café on my street.&#10;3. ..."></textarea>
+    <div class="hw-meta" style="margin-top:6px"><span>Goal: 6 sentences · at least 4 different adjectives</span><span class="wc">words: <strong>0</strong></span></div>
   </div>
 </section>
 
@@ -877,73 +923,134 @@ footer{max-width:1180px;margin:48px auto 28px;padding:0 22px;text-align:center;c
   </div>
 </section>
 
-<!-- 15 · HOMEWORK WITH AUTO-SAVING EXERCISES -->
+<!-- 15 · HOMEWORK · 5 real exercises with auto-check -->
 <section class="section">
-  <div class="section-hdr"><div class="section-num">15</div><h2>📚 Homework · auto-saves on this page</h2></div>
-  <p class="section-sub">Прогресс по каждому заданию сохраняется автоматически — заполняешь когда есть минута, к следующему уроку всё на месте. Кнопка <strong>Done</strong> = задание сделано.</p>
+  <div class="section-hdr"><div class="section-num">15</div><h2>📚 Homework · 5 exercises</h2></div>
+  <p class="section-sub">Пять реальных заданий с проверкой — не текстарей. Зелёный = верно. Красный = поправь и попробуй снова. К следующему уроку всё должно быть зелёным.</p>
 
+  <!-- HW-01 · Vocab gap-fill (future words) -->
   <div class="hw">
-    <div class="hw-head">
-      <div class="hw-title"><span class="hw-tag">01</span>Window log · 6 sentences</div>
-      <button class="hw-done-btn">Done</button>
+    <div class="hw-head"><div class="hw-title"><span class="hw-tag">01</span>Future vocab · fill the gaps</div></div>
+    <div class="hw-instructions">8 sentences. Choose the right word from the box. Each word is used <strong>once</strong>.</div>
+    <div class="bank">
+      <span class="bank-word">flying car</span>
+      <span class="bank-word">self-driving car</span>
+      <span class="bank-word">drone</span>
+      <span class="bank-word">robot</span>
+      <span class="bank-word">green roof</span>
+      <span class="bank-word">solar panel</span>
+      <span class="bank-word">eco district</span>
+      <span class="bank-word">skyscraper</span>
     </div>
-    <div class="hw-instructions">Look out of your window. Write <em>6 sentences</em> describing what you see — using <strong>There is / are</strong>, <strong>It is</strong>, <strong>I see</strong>, <strong>People are V-ing</strong>.</div>
-    <textarea placeholder="From my window I can see..."></textarea>
-    <div class="hw-meta"><span>Target: 6 sentences</span><span class="wc">words: <strong>0</strong></span></div>
+    <div class="cloze-row"><div class="cloze-num">1</div><div class="cloze-text">My package will arrive in 10 minutes — the <input class="cloze-in" data-ans="drone" placeholder="?"> is already on the way.</div></div>
+    <div class="cloze-row"><div class="cloze-num">2</div><div class="cloze-text">In 2050 you will not need a driver — your <input class="cloze-in" data-ans="self-driving car" placeholder="?"> will know the route.</div></div>
+    <div class="cloze-row"><div class="cloze-num">3</div><div class="cloze-text">The new <input class="cloze-in" data-ans="skyscraper" placeholder="?"> downtown will be 80 floors tall.</div></div>
+    <div class="cloze-row"><div class="cloze-num">4</div><div class="cloze-text">There is a small garden on the building — a real <input class="cloze-in" data-ans="green roof" placeholder="?">.</div></div>
+    <div class="cloze-row"><div class="cloze-num">5</div><div class="cloze-text">Every house in the future will have a <input class="cloze-in" data-ans="solar panel" placeholder="?"> on the roof.</div></div>
+    <div class="cloze-row"><div class="cloze-num">6</div><div class="cloze-text">In a quiet <input class="cloze-in" data-ans="eco district" placeholder="?"> the air is clean and the streets are green.</div></div>
+    <div class="cloze-row"><div class="cloze-num">7</div><div class="cloze-text">Children of 2076 will think a <input class="cloze-in" data-ans="flying car" placeholder="?"> is as normal as a bicycle today.</div></div>
+    <div class="cloze-row"><div class="cloze-num">8</div><div class="cloze-text">At this café, a <input class="cloze-in" data-ans="robot" placeholder="?"> brings you coffee — and it does not get tired.</div></div>
   </div>
 
+  <!-- HW-02 · Adjective match -->
   <div class="hw">
-    <div class="hw-head">
-      <div class="hw-title"><span class="hw-tag">02</span>Park chain · 4 forms in 30 sec</div>
-      <button class="hw-done-btn">Done</button>
+    <div class="hw-head"><div class="hw-title"><span class="hw-tag">02</span>Adjective match · click pairs</div></div>
+    <div class="hw-instructions">Click an adjective on the left, then click the place it fits best on the right. 8 pairs total. Wrong pair = both flash red and unselect.</div>
+    <div class="match-row" id="match1">
+      <div class="match-col">
+        <button class="match-card" data-pair="A">crowded</button>
+        <button class="match-card" data-pair="B">historic</button>
+        <button class="match-card" data-pair="C">quiet</button>
+        <button class="match-card" data-pair="D">expensive</button>
+        <button class="match-card" data-pair="E">green</button>
+        <button class="match-card" data-pair="F">convenient</button>
+        <button class="match-card" data-pair="G">charming</button>
+        <button class="match-card" data-pair="H">modern</button>
+      </div>
+      <div class="match-col">
+        <button class="match-card right-col" data-pair="A">metro at 6 p.m.</button>
+        <button class="match-card right-col" data-pair="B">old town with stone churches</button>
+        <button class="match-card right-col" data-pair="C">small library on a side street</button>
+        <button class="match-card right-col" data-pair="D">luxury district with designer shops</button>
+        <button class="match-card right-col" data-pair="E">park with old trees and a pond</button>
+        <button class="match-card right-col" data-pair="F">a flat 5 minutes from the metro</button>
+        <button class="match-card right-col" data-pair="G">tiny family café on the corner</button>
+        <button class="match-card right-col" data-pair="H">brand-new business centre</button>
+      </div>
     </div>
-    <div class="hw-instructions">Write a chain of <em>4 sentences about any park</em> — one sentence per form: <strong>There is</strong> · <strong>It is</strong> · <strong>I + V (usually)</strong> · <strong>I am + V-ing (now)</strong>. To class — read aloud in 30 seconds.</div>
-    <textarea placeholder="There is a park near... It is... I usually... Right now I am..."></textarea>
-    <div class="hw-meta"><span>4 sentences · all 4 forms</span><span class="wc">words: <strong>0</strong></span></div>
   </div>
 
+  <!-- HW-03 · Will vs going to · MCQ -->
   <div class="hw">
-    <div class="hw-head">
-      <div class="hw-title"><span class="hw-tag">03</span>Going-to plans · 8 weeks of summer</div>
-      <button class="hw-done-btn">Done</button>
+    <div class="hw-head"><div class="hw-title"><span class="hw-tag">03</span>Will or going to? · 6 questions</div></div>
+    <div class="hw-instructions">Read the situation carefully. Click the right form. Wrong click = red, the explanation appears.</div>
+
+    <div class="mcq-row" data-ans="a">
+      <div class="mcq-q"><strong>1.</strong> "It's hot in here." → "OK, I <span class="blank">___</span> open the window."</div>
+      <div class="mcq-opts"><button data-v="a">will</button><button data-v="b">am going to</button></div>
+      <div class="mcq-note">→ Decision born this second → <strong>will</strong></div>
     </div>
-    <div class="hw-instructions">Write <em>8 sentences with going to</em> — one for each week of July and August. Real or imagined plans, doesn't matter — just commit to a verb.</div>
-    <textarea placeholder="In the first week of July I am going to... In the second week..."></textarea>
-    <div class="hw-meta"><span>8 sentences · all with going to</span><span class="wc">words: <strong>0</strong></span></div>
+    <div class="mcq-row" data-ans="b">
+      <div class="mcq-q"><strong>2.</strong> Look at those black clouds — it <span class="blank">___</span> rain.</div>
+      <div class="mcq-opts"><button data-v="a">will</button><button data-v="b">is going to</button></div>
+      <div class="mcq-note">→ Evidence in front of you → <strong>is going to</strong></div>
+    </div>
+    <div class="mcq-row" data-ans="b">
+      <div class="mcq-q"><strong>3.</strong> I bought the tickets last week. I <span class="blank">___</span> visit my brother on Saturday.</div>
+      <div class="mcq-opts"><button data-v="a">will</button><button data-v="b">am going to</button></div>
+      <div class="mcq-note">→ Plan made earlier (tickets already bought) → <strong>am going to</strong></div>
+    </div>
+    <div class="mcq-row" data-ans="a">
+      <div class="mcq-q"><strong>4.</strong> In 100 years, robots <span class="blank">___</span> work in most cafés.</div>
+      <div class="mcq-opts"><button data-v="a">will</button><button data-v="b">are going to</button></div>
+      <div class="mcq-note">→ Prediction about the future world → <strong>will</strong> (both work, but <em>will</em> is cleaner for distant predictions)</div>
+    </div>
+    <div class="mcq-row" data-ans="a">
+      <div class="mcq-q"><strong>5.</strong> "I forgot my keys!" → "Don't worry, I <span class="blank">___</span> bring mine."</div>
+      <div class="mcq-opts"><button data-v="a">will</button><button data-v="b">am going to</button></div>
+      <div class="mcq-note">→ Offer / decision now → <strong>will</strong></div>
+    </div>
+    <div class="mcq-row" data-ans="b">
+      <div class="mcq-q"><strong>6.</strong> She <span class="blank">___</span> have a baby. Look, the bump is huge.</div>
+      <div class="mcq-opts"><button data-v="a">will</button><button data-v="b">is going to</button></div>
+      <div class="mcq-note">→ Visible evidence → <strong>is going to</strong></div>
+    </div>
   </div>
 
+  <!-- HW-04 · Sentence reorder -->
   <div class="hw">
-    <div class="hw-head">
-      <div class="hw-title"><span class="hw-tag">04</span>Five will-predictions about 2050</div>
-      <button class="hw-done-btn">Done</button>
-    </div>
-    <div class="hw-instructions">Five predictions using <strong>will</strong>. Topics: where you will live · what you will work as · what cars will be like · what food people will eat · what the weather will be like.</div>
-    <textarea placeholder="In 2050 I will live in... I will work as... Cars will be... People will eat... The weather will be..."></textarea>
-    <div class="hw-meta"><span>5 sentences · all with will</span><span class="wc">words: <strong>0</strong></span></div>
+    <div class="hw-head"><div class="hw-title"><span class="hw-tag">04</span>Build the sentence · drag the words</div></div>
+    <div class="hw-instructions">Click words in the right order. 4 future sentences. Click any pill again to put it back.</div>
+
+    <div class="reorder" data-target="In 2076 there will be flying cars in the sky."><div class="ro-target">Target: <em>In 2076 there will be flying cars in the sky.</em></div><div class="ro-slot"></div><div class="ro-bank"><button class="ro-pill">be</button><button class="ro-pill">In 2076</button><button class="ro-pill">in</button><button class="ro-pill">there</button><button class="ro-pill">sky</button><button class="ro-pill">cars</button><button class="ro-pill">will</button><button class="ro-pill">flying</button><button class="ro-pill">the</button></div></div>
+
+    <div class="reorder" data-target="I am going to live in a green eco district."><div class="ro-target">Target: <em>I am going to live in a green eco district.</em></div><div class="ro-slot"></div><div class="ro-bank"><button class="ro-pill">a</button><button class="ro-pill">live</button><button class="ro-pill">I</button><button class="ro-pill">eco</button><button class="ro-pill">going</button><button class="ro-pill">to</button><button class="ro-pill">district</button><button class="ro-pill">am</button><button class="ro-pill">in</button><button class="ro-pill">green</button></div></div>
+
+    <div class="reorder" data-target="My city will be quieter because of self-driving cars."><div class="ro-target">Target: <em>My city will be quieter because of self-driving cars.</em></div><div class="ro-slot"></div><div class="ro-bank"><button class="ro-pill">because</button><button class="ro-pill">cars</button><button class="ro-pill">be</button><button class="ro-pill">city</button><button class="ro-pill">self-driving</button><button class="ro-pill">will</button><button class="ro-pill">My</button><button class="ro-pill">of</button><button class="ro-pill">quieter</button></div></div>
+
+    <div class="reorder" data-target="Tomorrow I am going to walk in the park."><div class="ro-target">Target: <em>Tomorrow I am going to walk in the park.</em></div><div class="ro-slot"></div><div class="ro-bank"><button class="ro-pill">to</button><button class="ro-pill">in</button><button class="ro-pill">going</button><button class="ro-pill">walk</button><button class="ro-pill">am</button><button class="ro-pill">the</button><button class="ro-pill">park</button><button class="ro-pill">I</button><button class="ro-pill">Tomorrow</button></div></div>
   </div>
 
+  <!-- HW-05 · City scene mini quiz -->
   <div class="hw">
-    <div class="hw-head">
-      <div class="hw-title"><span class="hw-tag">05</span>Future city chain · 6 sentences with new vocab</div>
-      <button class="hw-done-btn">Done</button>
-    </div>
-    <div class="hw-instructions">Write <em>6 sentences about the city of the future</em>, each using one of the 8 new words from section 12 (flying car · self-driving car · drone · robot · green roof · solar panel · eco district · skyscraper). To class — say aloud in 60 seconds.</div>
-    <textarea placeholder="In the future there will be... People will use... My city will have..."></textarea>
-    <div class="hw-meta"><span>6 sentences · 5 new words minimum</span><span class="wc">words: <strong>0</strong></span></div>
+    <div class="hw-head"><div class="hw-title"><span class="hw-tag">05</span>City scene quiz · what is it called?</div></div>
+    <div class="hw-instructions">Quick recap on the 10 things from section 03. Type the English word.</div>
+    <div class="cloze-row"><div class="cloze-num">1</div><div class="cloze-text">A tall building, often 30+ floors: <input class="cloze-in" data-ans="skyscraper" placeholder="?"></div></div>
+    <div class="cloze-row"><div class="cloze-num">2</div><div class="cloze-text">A place where people wait for the bus: <input class="cloze-in" data-ans="bus stop" placeholder="?"></div></div>
+    <div class="cloze-row"><div class="cloze-num">3</div><div class="cloze-text">Red, amber, green — control the cars: <input class="cloze-in" data-ans="traffic lights" placeholder="?"></div></div>
+    <div class="cloze-row"><div class="cloze-num">4</div><div class="cloze-text">A small structure over a river or road: <input class="cloze-in" data-ans="bridge" placeholder="?"></div></div>
+    <div class="cloze-row"><div class="cloze-num">5</div><div class="cloze-text">A building full of art and history: <input class="cloze-in" data-ans="museum" placeholder="?"></div></div>
+    <div class="cloze-row"><div class="cloze-num">6</div><div class="cloze-text">A green area with grass and trees in the city: <input class="cloze-in" data-ans="park" placeholder="?"></div></div>
   </div>
 
+  <!-- Voice memo (one short item at the end) -->
   <div class="hw">
-    <div class="hw-head">
-      <div class="hw-title"><span class="hw-tag">06</span>Voice memo · directions to the nearest café</div>
-      <button class="hw-done-btn">Done</button>
-    </div>
-    <div class="hw-instructions">On your phone, record a 60-second voice memo: <em>directions from your home to the nearest café</em>. Use <strong>go straight · turn right/left · next to · opposite · on the corner</strong>. Bring the recording to the next lesson.</div>
-    <textarea placeholder="(optional: write a script here first, then record from it)"></textarea>
-    <div class="hw-meta"><span>1 minute audio · use 5+ direction words</span><span class="wc">words: <strong>0</strong></span></div>
+    <div class="hw-head"><div class="hw-title"><span class="hw-tag">06</span>Voice memo · your city of the future</div><button class="hw-done-btn">Done</button></div>
+    <div class="hw-instructions">Record a <strong>60-second voice memo</strong> on your phone: «<em>My city in 2076</em>». Use minimum <strong>5 future words</strong> from this lesson + <strong>3 adjectives</strong> from section 02. Send to me before the next lesson.</div>
   </div>
 
   <div class="card" style="margin-top:14px;background:var(--accent-soft);border-left:3px solid var(--accent)">
-    <p style="margin:0;font-size:.94rem;color:var(--muted)"><strong>Next lesson (July 5 · "Yesterday in my city"):</strong> вводим <em>Past Simple</em> через сюжет «что я делал вчера / в прошлое воскресенье». 5 базовых неправильных глаголов — went, was, had, saw, did. После этого ты сможешь говорить про любой период жизни — past, present, future.</p>
+    <p style="margin:0;font-size:.94rem;color:var(--muted)"><strong>Next lesson (5 июля · "Yesterday in my city"):</strong> мягко вводим <em>Past Simple</em> через сюжет «что я делал вчера / в прошлое воскресенье». 5 базовых неправильных глаголов — went, was, had, saw, did. Закроем три времени.</p>
   </div>
 </section>
 
@@ -1026,6 +1133,130 @@ footer{max-width:1180px;margin:48px auto 28px;padding:0 22px;text-align:center;c
     ta.addEventListener('input', tick);
     /* restore after lab-persist */
     setTimeout(tick, 400);
+  });
+})();
+</script>
+
+<!-- Flip cards (section 02 adjectives) -->
+<script>
+(function(){
+  var grid = document.getElementById('adjGrid'); if (!grid) return;
+  Array.prototype.forEach.call(grid.children, function(card){
+    var en = card.dataset.en, pos = card.dataset.pos, ru = card.dataset.ru, ex = card.dataset.ex;
+    card.innerHTML =
+      '<div class="flip-inner">' +
+        '<div class="flip-front"><span>'+en+'</span><span class="pos">'+pos+'</span></div>' +
+        '<div class="flip-back"><span class="ru">'+ru+'</span><span class="ex">'+ex+'</span></div>' +
+      '</div>';
+    card.addEventListener('click', function(){ card.classList.toggle('flipped'); });
+  });
+})();
+</script>
+
+<!-- Cloze (gap-fill) auto-check on blur · accept multi-word answers -->
+<script>
+(function(){
+  document.querySelectorAll('.cloze-in').forEach(function(inp){
+    var ans = (inp.dataset.ans || '').toLowerCase().trim();
+    function check(){
+      var v = (inp.value || '').toLowerCase().trim();
+      inp.classList.remove('right','wrong');
+      if (!v) return;
+      var ok = v === ans || v.replace(/[\s-]+/g,'') === ans.replace(/[\s-]+/g,'');
+      if (ok) {
+        inp.classList.add('right');
+        /* mark used in nearest bank */
+        var bank = inp.closest('.hw') && inp.closest('.hw').querySelector('.bank');
+        if (bank) bank.querySelectorAll('.bank-word').forEach(function(w){
+          if (w.textContent.toLowerCase().trim() === ans) w.classList.add('used');
+        });
+      } else inp.classList.add('wrong');
+    }
+    inp.addEventListener('blur', check);
+    inp.addEventListener('change', check);
+  });
+})();
+</script>
+
+<!-- MCQ click logic -->
+<script>
+(function(){
+  document.querySelectorAll('.mcq-row').forEach(function(row){
+    var ans = (row.dataset.ans || '').toLowerCase();
+    row.querySelectorAll('.mcq-opts button').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var v = (btn.dataset.v || '').toLowerCase();
+        row.querySelectorAll('.mcq-opts button').forEach(function(b){b.classList.remove('right','wrong')});
+        if (v === ans) { btn.classList.add('right'); row.classList.add('revealed'); }
+        else { btn.classList.add('wrong'); row.classList.add('revealed'); }
+      });
+    });
+  });
+})();
+</script>
+
+<!-- Match pairs (click left, then right → check) -->
+<script>
+(function(){
+  document.querySelectorAll('.match-row').forEach(function(row){
+    var sel = null;
+    row.querySelectorAll('.match-card').forEach(function(card){
+      card.addEventListener('click', function(){
+        if (card.classList.contains('match')) return;
+        if (!sel) { sel = card; card.classList.add('sel'); return; }
+        if (sel === card) { card.classList.remove('sel'); sel = null; return; }
+        /* one must be from each column */
+        var sameCol = (sel.classList.contains('right-col') === card.classList.contains('right-col'));
+        if (sameCol) { sel.classList.remove('sel'); sel = card; card.classList.add('sel'); return; }
+        if (sel.dataset.pair === card.dataset.pair) {
+          sel.classList.remove('sel'); sel.classList.add('match');
+          card.classList.add('match');
+          sel = null;
+        } else {
+          sel.classList.remove('sel'); sel.classList.add('bad');
+          card.classList.add('bad');
+          var a = sel, b = card;
+          setTimeout(function(){ a.classList.remove('bad'); b.classList.remove('bad'); }, 400);
+          sel = null;
+        }
+      });
+    });
+  });
+})();
+</script>
+
+<!-- Reorder pills · click pill → moves to slot, click placed → returns -->
+<script>
+(function(){
+  document.querySelectorAll('.reorder').forEach(function(ro){
+    var target = (ro.dataset.target || '').trim();
+    var slot = ro.querySelector('.ro-slot');
+    var bank = ro.querySelector('.ro-bank');
+    function rebuild(){
+      var built = Array.prototype.map.call(slot.children, function(p){return p.textContent.trim()}).join(' ');
+      if (built === target) { slot.classList.add('right'); slot.classList.remove('wrong'); }
+      else if (slot.children.length === bank.children.length + slot.children.length /*all placed*/ ) { /* never */ }
+      else if (slot.children.length === (bank.querySelectorAll('.ro-pill').length + slot.children.length)) { /* unreachable */ }
+      else { slot.classList.remove('right','wrong'); }
+      /* final state check: when all pills moved, evaluate */
+      var totalPills = ro.querySelectorAll('.ro-pill').length;
+      var placedCount = slot.children.length;
+      if (placedCount === totalPills && built !== target) {
+        slot.classList.add('wrong'); slot.classList.remove('right');
+      }
+    }
+    bank.querySelectorAll('.ro-pill').forEach(function(pill){
+      pill.addEventListener('click', function(){
+        if (pill.parentElement === bank) {
+          pill.classList.add('placed');
+          slot.appendChild(pill);
+        } else {
+          pill.classList.remove('placed');
+          bank.appendChild(pill);
+        }
+        rebuild();
+      });
+    });
   });
 })();
 </script>
