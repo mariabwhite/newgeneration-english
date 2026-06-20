@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Around the City · Directions — Adult Basics · NG English</title>
+<meta name="description" content="A1-A2 Lab-урок для взрослых · ориентация в городе, объяснение дороги, повторение DO vs ARE, Simple vs Continuous, артикль the.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f4ef; --bg-2:#ecebe2; --surface:#ffffff; --card:#fbf9f3; --surface-2:#f1eee4;
+  --ink:#1c2024; --muted:#5a6068; --faint:#8a8f97;
+  --accent:#0e7c66; --accent-2:#1ba18a; --accent-soft:rgba(14,124,102,.10);
+  --brand:#c98a3f; --brand-soft:rgba(201,138,63,.12);
+  --line:rgba(28,32,36,.10); --line-2:rgba(28,32,36,.20);
+  --ok:#5ba872; --miss:#c45a5a;
+  --display:"Unbounded","Manrope",system-ui,sans-serif;
+  --body:"Manrope",system-ui,sans-serif;
+  --mono:"JetBrains Mono",Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.65;min-height:100vh}
+a{color:inherit;text-decoration:none}
+
+/* Topbar */
+.topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;padding:12px clamp(16px,3vw,28px);
+  background:color-mix(in srgb,var(--bg) 92%,transparent);border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
+.brand{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.brand-mark{width:40px;height:40px;border-radius:8px;border-top-right-radius:0;background:var(--accent);color:#fff;
+  font-family:var(--display);font-weight:900;font-size:22px;display:grid;place-items:center;position:relative;overflow:hidden}
+.brand-mark::after{content:"";position:absolute;right:0;top:0;width:14px;height:14px;background:#fff;clip-path:polygon(100% 0,0 0,100% 100%)}
+.brand-copy{display:grid;gap:1px}
+.brand-name{font-family:var(--display);font-weight:800;font-size:15px;line-height:1}
+.brand-sub{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-top:2px}
+.spacer{flex:1}
+.pill{padding:5px 11px;border-radius:50px;font:700 9.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid var(--line-2);color:var(--muted);background:rgba(0,0,0,.04);white-space:nowrap}
+.pill.accent{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.pill.brand{background:var(--brand-soft);border-color:var(--brand);color:var(--brand)}
+.btn-sm{height:32px;padding:0 12px;border-radius:8px;border:1px solid var(--line-2);background:var(--card);color:var(--muted);
+  font:700 11px/1 var(--mono);letter-spacing:.08em;cursor:pointer;display:inline-flex;align-items:center;text-transform:uppercase;text-decoration:none}
+.btn-sm:hover{border-color:var(--accent);color:var(--accent)}
+
+/* Hero */
+.hero{max-width:1180px;margin:32px auto 12px;padding:0 clamp(16px,3vw,28px)}
+.hero-card{position:relative;border:1px solid var(--line);border-radius:24px;overflow:hidden;
+  background:linear-gradient(135deg,var(--surface) 0%,var(--card) 60%,var(--surface-2) 100%);
+  box-shadow:0 4px 24px rgba(0,0,0,.04);padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px);min-height:340px}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);
+  display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--accent)}
+h1.hero-title{font-family:var(--display);font-weight:900;letter-spacing:-.04em;line-height:.98;
+  font-size:clamp(1.9rem,4.5vw,3.4rem);max-width:760px;margin-bottom:18px;color:var(--ink)}
+h1.hero-title .grad{color:var(--accent)}
+.hero-lead{font-size:clamp(1rem,1.3vw,1.1rem);color:var(--muted);max-width:680px;line-height:1.6;margin-bottom:24px}
+.hero-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px;max-width:640px}
+.stat{background:rgba(255,255,255,.6);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.stat-k{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+.stat-v{font-family:var(--display);font-weight:800;font-size:1.1rem;color:var(--accent);letter-spacing:-.01em}
+
+/* Sections */
+.section{max-width:1180px;margin:0 auto 28px;padding:0 clamp(16px,3vw,28px)}
+.section-hdr{display:flex;align-items:center;gap:14px;margin:30px 0 14px;flex-wrap:wrap}
+.section-num{font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:.16em;
+  background:var(--accent);color:#fff;padding:5px 11px;border-radius:50px}
+.section-hdr h2{font-family:var(--display);font-weight:800;font-size:clamp(1.25rem,2.2vw,1.7rem);color:var(--ink);letter-spacing:-.02em;line-height:1.1}
+.section-sub{font-size:.94rem;color:var(--muted);margin:0 0 14px 0;font-style:italic}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 24px;box-shadow:0 2px 14px rgba(0,0,0,.03)}
+.card h3{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--accent);margin:18px 0 10px}
+.card h3:first-child{margin-top:0}
+.card p{margin-bottom:11px;color:var(--ink)}
+.card .info{background:var(--accent-soft);border-left:3px solid var(--accent);padding:12px 16px;border-radius:8px;font-size:.93rem;color:var(--muted);margin:12px 0}
+.card .info strong{color:var(--accent)}
+.card .src{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-weight:700}
+
+/* Vocab cards (flip) */
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin:14px 0 8px}
+.flip-card{aspect-ratio:1/.9;perspective:800px;cursor:pointer}
+.flip-inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-front,.flip-back{position:absolute;inset:0;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  padding:14px;text-align:center;-webkit-backface-visibility:hidden;backface-visibility:hidden;border:1px solid var(--line)}
+.flip-front{background:var(--card);color:var(--accent);font-family:var(--display);font-weight:800;font-size:1rem;flex-direction:column;gap:6px}
+.flip-front .pos{font-family:var(--mono);font-size:.62rem;color:var(--faint);letter-spacing:.16em;text-transform:uppercase;font-weight:700}
+.flip-back{background:var(--accent);color:#fff;transform:rotateY(180deg);font-size:.92rem;line-height:1.4;flex-direction:column;gap:6px}
+.flip-back .ru{font-weight:700;font-size:1.05rem;font-family:var(--display)}
+.flip-back .ex{font-size:.78rem;opacity:.92;font-style:italic;line-height:1.4}
+
+/* MCQ */
+.mcq-row{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
+.mcq-q{font-size:.96rem;color:var(--ink);margin-bottom:10px;line-height:1.55}
+.mcq-q .blank{display:inline-block;min-width:60px;padding:0 8px;border-bottom:2px dashed var(--accent);font-weight:700;color:var(--accent);text-align:center}
+.mcq-opts{display:flex;flex-wrap:wrap;gap:6px}
+.mcq-opts button{background:var(--surface-2);border:1.5px solid var(--line-2);color:var(--ink);padding:8px 14px;border-radius:8px;
+  font-family:var(--body);font-size:.92rem;font-weight:600;cursor:pointer;transition:.18s;min-width:80px}
+.mcq-opts button:hover{border-color:var(--accent);color:var(--accent)}
+.mcq-opts button.right{background:var(--ok);color:#fff;border-color:var(--ok)}
+.mcq-opts button.wrong{background:var(--miss);color:#fff;border-color:var(--miss)}
+.mcq-note{display:none;margin-top:10px;font-family:var(--mono);font-size:.78rem;color:var(--muted);font-style:italic;
+  background:var(--brand-soft);border-left:3px solid var(--brand);padding:8px 12px;border-radius:0 8px 8px 0}
+.mcq-row.revealed .mcq-note{display:block}
+
+/* Open-cloze (fill in) */
+.cloze-row{display:grid;grid-template-columns:36px 1fr;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);
+  border-radius:10px;padding:10px 14px;margin:8px 0}
+.cloze-num{font-family:var(--mono);font-size:11px;font-weight:800;background:var(--accent);color:#fff;width:30px;height:30px;border-radius:50%;display:grid;place-items:center}
+.cloze-text{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:.96rem;color:var(--ink);line-height:1.5}
+.cloze-in{background:transparent;border:none;border-bottom:1.5px dashed var(--accent);color:var(--accent);
+  font-family:var(--body);font-weight:700;padding:3px 8px;min-width:80px;max-width:160px;font-size:.96rem;outline:none}
+.cloze-in:focus{border-bottom-color:var(--brand);background:var(--brand-soft)}
+.cloze-in.right{border-bottom-color:var(--ok);color:var(--ok);border-bottom-style:solid}
+.cloze-in.wrong{border-bottom-color:var(--miss);color:var(--miss);border-bottom-style:solid}
+
+/* Dialog */
+.dialog{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:14px 0}
+.dialog .line{display:grid;grid-template-columns:60px 1fr;gap:14px;padding:6px 0;align-items:start}
+.dialog .who{font-family:var(--mono);font-size:.74rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);text-align:right;padding-top:3px}
+.dialog .who.local{color:var(--accent)}
+.dialog .what{color:var(--ink);font-size:.98rem;line-height:1.55}
+.dialog .ru{font-size:.78rem;color:var(--faint);font-style:italic;margin-top:2px}
+
+/* Speaking prompts */
+.prompts{display:flex;flex-direction:column;gap:10px;margin:12px 0}
+.prompt{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--brand);
+  padding:14px 18px;border-radius:0 10px 10px 0;font-size:.96rem;display:flex;align-items:flex-start;gap:12px;line-height:1.55}
+.prompt .play{width:30px;height:30px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;
+  flex-shrink:0;font-size:.8rem;border:none;cursor:pointer;font-family:var(--mono);font-weight:800;transition:.15s}
+.prompt .play:hover{transform:scale(1.08);background:var(--accent)}
+.prompt .num{font-family:var(--mono);font-weight:900;color:var(--brand);font-size:.84rem;flex-shrink:0;width:22px;padding-top:3px}
+
+/* Mini-write */
+.write{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:14px 0}
+.write textarea{width:100%;min-height:140px;background:transparent;border:none;outline:none;
+  color:var(--ink);font-family:var(--body);font-size:.96rem;line-height:1.55;resize:vertical}
+.write-meta{display:flex;justify-content:space-between;margin-top:8px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-weight:700}
+
+/* Reveal answer */
+details.reveal{margin-top:10px;background:var(--brand-soft);border:1px dashed var(--brand);border-radius:8px;padding:8px 12px;font-size:.88rem}
+details.reveal summary{cursor:pointer;font-family:var(--mono);font-weight:800;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);list-style:none}
+details.reveal summary::-webkit-details-marker{display:none}
+details.reveal[open] summary{margin-bottom:8px}
+details.reveal .ans{color:var(--ink);font-family:var(--body);line-height:1.55}
+
+footer{max-width:1180px;margin:48px auto 28px;padding:0 22px;text-align:center;color:var(--faint);
+  font-size:.8rem;font-family:var(--mono);letter-spacing:.06em}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a class="brand" href="../../index.html">
+    <span class="brand-mark">N</span>
+    <span class="brand-copy">
+      <span class="brand-name">NG English</span>
+      <span class="brand-sub">LinguaBoost Lab · A1+</span>
+    </span>
+  </a>
+  <span class="pill accent">Adult Basics</span>
+  <span class="pill brand">90 min</span>
+  <div class="spacer"></div>
+  <a class="btn-sm" href="../../index.html">All lessons</a>
+  <a class="btn-sm" href="../../../index.html">Main</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-card">
+    <div class="eyebrow">Adult Basics · About You · Lesson</div>
+    <h1 class="hero-title">Around the city · <span class="grad">asking for directions</span></h1>
+    <p class="hero-lead">Городская лексика — улицы, парки, кафе, остановки. Учимся спрашивать дорогу и объяснять её обратно. Параллельно закрепляем три самые частые ловушки: <strong>Do</strong> vs <strong>Are</strong>, <strong>Present Simple</strong> vs <strong>Present Continuous</strong>, артикль <strong>the</strong> с местами.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-k">Уровень</div><div class="stat-v">A1+ / A2 (взрослые)</div></div>
+      <div class="stat"><div class="stat-k">Длительность</div><div class="stat-v">~90 минут</div></div>
+      <div class="stat"><div class="stat-k">Фокус</div><div class="stat-v">Speaking + закрепление грамматики</div></div>
+      <div class="stat"><div class="stat-k">Навыки</div><div class="stat-v">Vocab · Speaking · Listening · Writing</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 1 · VOCAB -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">01</div><h2>Слова дня · 12 направлений и мест</h2></div>
+  <p class="section-sub">Нажми карточку — она перевернётся. Покажет перевод и пример. Произнеси каждое вслух 2 раза.</p>
+  <div class="flip-grid" id="flipGrid">
+    <div class="flip-card" data-en="go straight" data-pos="phr." data-ru="идти прямо" data-ex="Go straight on this street."></div>
+    <div class="flip-card" data-en="turn left" data-pos="phr." data-ru="поверни налево" data-ex="At the corner, turn left."></div>
+    <div class="flip-card" data-en="turn right" data-pos="phr." data-ru="поверни направо" data-ex="Turn right at the bank."></div>
+    <div class="flip-card" data-en="opposite" data-pos="prep." data-ru="напротив" data-ex="The café is opposite the museum."></div>
+    <div class="flip-card" data-en="next to" data-pos="prep." data-ru="рядом, рядом с" data-ex="The shop is next to the bank."></div>
+    <div class="flip-card" data-en="between" data-pos="prep." data-ru="между" data-ex="The park is between two streets."></div>
+    <div class="flip-card" data-en="behind" data-pos="prep." data-ru="за, позади" data-ex="My house is behind the school."></div>
+    <div class="flip-card" data-en="in front of" data-pos="prep." data-ru="перед" data-ex="A bus stop is in front of the cinema."></div>
+    <div class="flip-card" data-en="on the corner" data-pos="phr." data-ru="на углу" data-ex="The bank is on the corner."></div>
+    <div class="flip-card" data-en="cross the street" data-pos="phr." data-ru="перейти улицу" data-ex="Cross the street at the lights."></div>
+    <div class="flip-card" data-en="traffic lights" data-pos="n." data-ru="светофор" data-ex="Wait at the traffic lights."></div>
+    <div class="flip-card" data-en="round the corner" data-pos="phr." data-ru="за углом" data-ex="The post office is round the corner."></div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <p style="font-size:.92rem;color:var(--muted);margin-bottom:0"><strong>Скажи вслух за 60 секунд:</strong> поверни направо · поверни налево · прямо · напротив · рядом · между · за · перед · на углу · перейди улицу · светофор · за углом. Повтори трижды.</p>
+  </div>
+</section>
+
+<!-- 2 · LISTENING / READING DIALOG -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">02</div><h2>Диалог · турист спрашивает дорогу</h2></div>
+  <p class="section-sub">Прочитай диалог сначала тихо, потом вслух за обе роли. Обрати внимание, как местный объясняет дорогу — короткие предложения, простой порядок слов.</p>
+
+  <div class="dialog">
+    <div class="line"><div class="who">Tourist</div><div class="what">Excuse me, where is the post office?<div class="ru">Извините, где почта?</div></div></div>
+    <div class="line"><div class="who local">Local</div><div class="what">Go straight on this street.<div class="ru">Идите прямо по этой улице.</div></div></div>
+    <div class="line"><div class="who local">Local</div><div class="what">Then turn left at the traffic lights.<div class="ru">Затем поверните налево на светофоре.</div></div></div>
+    <div class="line"><div class="who local">Local</div><div class="what">The post office is on the corner, opposite the bank.<div class="ru">Почта на углу, напротив банка.</div></div></div>
+    <div class="line"><div class="who">Tourist</div><div class="what">Is it far?<div class="ru">Это далеко?</div></div></div>
+    <div class="line"><div class="who local">Local</div><div class="what">No, only five minutes on foot.<div class="ru">Нет, всего пять минут пешком.</div></div></div>
+    <div class="line"><div class="who">Tourist</div><div class="what">Thank you very much!<div class="ru">Большое спасибо!</div></div></div>
+  </div>
+</section>
+
+<!-- 3 · DO vs ARE drill -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">03</div><h2>Закрепляем · <em>Do</em> или <em>Are</em>?</h2></div>
+  <p class="section-sub">Самая частая ловушка. <strong>Do</strong> — для глаголов действия (live, go, like, work). <strong>Are</strong> — для прилагательных, профессий, местоположения, длинных форм (-ing).</p>
+
+  <div class="mcq-row" data-ans="a">
+    <div class="mcq-q"><strong>1.</strong> <span class="blank">___</span> you live in the city?</div>
+    <div class="mcq-opts"><button data-v="a">Do</button><button data-v="b">Are</button></div>
+    <div class="mcq-note">→ <em>live</em> — обычное действие → <strong>Do you live</strong></div>
+  </div>
+
+  <div class="mcq-row" data-ans="b">
+    <div class="mcq-q"><strong>2.</strong> <span class="blank">___</span> you walking now?</div>
+    <div class="mcq-opts"><button data-v="a">Do</button><button data-v="b">Are</button></div>
+    <div class="mcq-note">→ <em>walking</em> (-ing) → <strong>Are you walking</strong></div>
+  </div>
+
+  <div class="mcq-row" data-ans="a">
+    <div class="mcq-q"><strong>3.</strong> <span class="blank">___</span> you like coffee?</div>
+    <div class="mcq-opts"><button data-v="a">Do</button><button data-v="b">Are</button></div>
+    <div class="mcq-note">→ <em>like</em> — обычное действие → <strong>Do you like</strong></div>
+  </div>
+
+  <div class="mcq-row" data-ans="b">
+    <div class="mcq-q"><strong>4.</strong> <span class="blank">___</span> they at home?</div>
+    <div class="mcq-opts"><button data-v="a">Do</button><button data-v="b">Are</button></div>
+    <div class="mcq-note">→ <em>at home</em> — где они → <strong>Are they at home</strong></div>
+  </div>
+
+  <div class="mcq-row" data-ans="a">
+    <div class="mcq-q"><strong>5.</strong> <span class="blank">___</span> she work in the centre?</div>
+    <div class="mcq-opts"><button data-v="a">Does</button><button data-v="b">Is</button></div>
+    <div class="mcq-note">→ <em>work</em> — действие (she = 3 лицо → <em>Does</em>) → <strong>Does she work</strong></div>
+  </div>
+
+  <div class="mcq-row" data-ans="b">
+    <div class="mcq-q"><strong>6.</strong> <span class="blank">___</span> she a doctor?</div>
+    <div class="mcq-opts"><button data-v="a">Does</button><button data-v="b">Is</button></div>
+    <div class="mcq-note">→ профессия (a doctor) → <strong>Is she a doctor</strong></div>
+  </div>
+
+  <div class="mcq-row" data-ans="b">
+    <div class="mcq-q"><strong>7.</strong> <span class="blank">___</span> they cooking dinner?</div>
+    <div class="mcq-opts"><button data-v="a">Do</button><button data-v="b">Are</button></div>
+    <div class="mcq-note">→ <em>cooking</em> (-ing) → <strong>Are they cooking</strong></div>
+  </div>
+
+  <div class="mcq-row" data-ans="a">
+    <div class="mcq-q"><strong>8.</strong> <span class="blank">___</span> he drive a car?</div>
+    <div class="mcq-opts"><button data-v="a">Does</button><button data-v="b">Is</button></div>
+    <div class="mcq-note">→ <em>drive</em> — действие → <strong>Does he drive</strong></div>
+  </div>
+</section>
+
+<!-- 4 · Simple vs Continuous -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">04</div><h2>Закрепляем · Present Simple или Continuous?</h2></div>
+  <p class="section-sub"><strong>Simple</strong> — что обычно, регулярно, всегда. Сигналы: <em>every day, usually, often, sometimes, never</em>. <strong>Continuous</strong> — что прямо сейчас. Сигналы: <em>now, at the moment, look!</em></p>
+
+  <div class="mcq-row" data-ans="b">
+    <div class="mcq-q"><strong>1.</strong> Right now, she <span class="blank">___</span> in the park.</div>
+    <div class="mcq-opts"><button data-v="a">walks</button><button data-v="b">is walking</button></div>
+    <div class="mcq-note">→ <em>right now</em> → Continuous → <strong>is walking</strong></div>
+  </div>
+
+  <div class="mcq-row" data-ans="a">
+    <div class="mcq-q"><strong>2.</strong> I usually <span class="blank">___</span> coffee in the morning.</div>
+    <div class="mcq-opts"><button data-v="a">drink</button><button data-v="b">am drinking</button></div>
+    <div class="mcq-note">→ <em>usually</em> → Simple → <strong>drink</strong></div>
+  </div>
+
+  <div class="mcq-row" data-ans="b">
+    <div class="mcq-q"><strong>3.</strong> Look! It <span class="blank">___</span> outside.</div>
+    <div class="mcq-opts"><button data-v="a">rains</button><button data-v="b">is raining</button></div>
+    <div class="mcq-note">→ <em>Look!</em> = прямо сейчас → Continuous → <strong>is raining</strong></div>
+  </div>
+
+  <div class="mcq-row" data-ans="a">
+    <div class="mcq-q"><strong>4.</strong> He <span class="blank">___</span> to work every day.</div>
+    <div class="mcq-opts"><button data-v="a">walks</button><button data-v="b">is walking</button></div>
+    <div class="mcq-note">→ <em>every day</em> → Simple → <strong>walks</strong> (3 лицо + s)</div>
+  </div>
+
+  <div class="mcq-row" data-ans="b">
+    <div class="mcq-q"><strong>5.</strong> They <span class="blank">___</span> a movie at the moment.</div>
+    <div class="mcq-opts"><button data-v="a">watch</button><button data-v="b">are watching</button></div>
+    <div class="mcq-note">→ <em>at the moment</em> → Continuous → <strong>are watching</strong></div>
+  </div>
+
+  <div class="mcq-row" data-ans="a">
+    <div class="mcq-q"><strong>6.</strong> She always <span class="blank">___</span> her keys at home.</div>
+    <div class="mcq-opts"><button data-v="a">forgets</button><button data-v="b">is forgetting</button></div>
+    <div class="mcq-note">→ <em>always</em> → Simple → <strong>forgets</strong></div>
+  </div>
+
+  <div class="mcq-row" data-ans="b">
+    <div class="mcq-q"><strong>7.</strong> "Where is John?" — "He <span class="blank">___</span> dinner now."</div>
+    <div class="mcq-opts"><button data-v="a">cooks</button><button data-v="b">is cooking</button></div>
+    <div class="mcq-note">→ <em>now</em> → Continuous → <strong>is cooking</strong></div>
+  </div>
+
+  <div class="mcq-row" data-ans="a">
+    <div class="mcq-q"><strong>8.</strong> I never <span class="blank">___</span> milk in my coffee.</div>
+    <div class="mcq-opts"><button data-v="a">put</button><button data-v="b">am putting</button></div>
+    <div class="mcq-note">→ <em>never</em> → Simple → <strong>put</strong></div>
+  </div>
+</section>
+
+<!-- 5 · the / no the with places -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">05</div><h2>Артикль · <em>the</em> с местами</h2></div>
+  <p class="section-sub">Правило простое: <strong>the + конкретное место</strong> (the bank, the park, the museum). <strong>Без артикля</strong> — work, home, school, bed (как привычная деятельность, не «здание»).</p>
+
+  <div class="cloze-row">
+    <div class="cloze-num">1</div>
+    <div class="cloze-text">I go to <input class="cloze-in" data-ans="the" placeholder="?"> park every Sunday.</div>
+  </div>
+  <div class="cloze-row">
+    <div class="cloze-num">2</div>
+    <div class="cloze-text">She goes to <input class="cloze-in" data-ans="—" placeholder="?"> work at 9 a.m. <em style="color:var(--faint);font-size:.8rem">(если без артикля — поставь длинное тире <strong>—</strong>)</em></div>
+  </div>
+  <div class="cloze-row">
+    <div class="cloze-num">3</div>
+    <div class="cloze-text">The shop is opposite <input class="cloze-in" data-ans="the" placeholder="?"> bank.</div>
+  </div>
+  <div class="cloze-row">
+    <div class="cloze-num">4</div>
+    <div class="cloze-text">He stays at <input class="cloze-in" data-ans="—" placeholder="?"> home in the evening.</div>
+  </div>
+  <div class="cloze-row">
+    <div class="cloze-num">5</div>
+    <div class="cloze-text">My children go to <input class="cloze-in" data-ans="—" placeholder="?"> school by bus.</div>
+  </div>
+  <div class="cloze-row">
+    <div class="cloze-num">6</div>
+    <div class="cloze-text">Wait for me at <input class="cloze-in" data-ans="the" placeholder="?"> bus stop next to the café.</div>
+  </div>
+  <div class="cloze-row">
+    <div class="cloze-num">7</div>
+    <div class="cloze-text">She is sitting in <input class="cloze-in" data-ans="the" placeholder="?"> kitchen now.</div>
+  </div>
+  <div class="cloze-row">
+    <div class="cloze-num">8</div>
+    <div class="cloze-text">We go to <input class="cloze-in" data-ans="—" placeholder="?"> bed late on Fridays.</div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <p style="font-size:.92rem;color:var(--muted);margin:0"><strong>Запомни связку:</strong> work, home, school, bed — <strong>без the</strong> (когда говорим про процесс, не про здание). Все остальные конкретные места — <strong>the</strong>: the park, the bank, the museum, the post office, the corner, the bus stop, the café.</p>
+  </div>
+</section>
+
+<!-- 6 · ROLE-PLAY -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">06</div><h2>Role-play · ты местный, объясни дорогу</h2></div>
+  <p class="section-sub">Представь: к тебе подходит турист и спрашивает дорогу. Используй слова из секции 1. Объясни каждую дорогу <strong>4–5 предложениями</strong>.</p>
+
+  <div class="card">
+    <p><strong>Карта в голове</strong> — ты стоишь у выхода из метро. Перед тобой главная улица. На углу справа — кафе. За кафе — банк. Дальше прямо — парк. Через дорогу от парка — музей. Слева от музея — почта.</p>
+
+    <div class="prompts" style="margin-top:14px">
+      <div class="prompt"><button class="play" data-say="Excuse me, where is the post office?">▶</button><span class="num">1.</span><span>Турист: <em>"Excuse me, where is the post office?"</em></span></div>
+      <div class="prompt"><button class="play" data-say="How do I get to the park?">▶</button><span class="num">2.</span><span>Турист: <em>"How do I get to the park?"</em></span></div>
+      <div class="prompt"><button class="play" data-say="Is the museum near here?">▶</button><span class="num">3.</span><span>Турист: <em>"Is the museum near here?"</em></span></div>
+      <div class="prompt"><button class="play" data-say="Where can I get a coffee?">▶</button><span class="num">4.</span><span>Турист: <em>"Where can I get a coffee?"</em></span></div>
+    </div>
+
+    <details class="reveal">
+      <summary>▾ Модельный ответ на #1 (post office)</summary>
+      <div class="ans">"Go straight on this street. Turn right at the corner — there is a café. The bank is next to the café. Continue straight to the park. The post office is opposite the museum, on the left."</div>
+    </details>
+  </div>
+</section>
+
+<!-- 7 · MINI-WRITE -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">07</div><h2>Mini-write · твоя дорога до ближайшего кафе</h2></div>
+  <p class="section-sub">Напиши 5–7 предложений: <strong>как пройти от твоего дома до ближайшего кафе</strong>. Используй <em>go straight, turn left/right, next to, opposite, on the corner</em>. Простые предложения. Не пиши сложно.</p>
+  <div class="write">
+    <textarea placeholder="My nearest café is...&#10;Go out of my building. Turn..."></textarea>
+    <div class="write-meta"><span><strong>Цель:</strong> 5–7 предложений, минимум 3 разных предлога/направления</span><span class="wc">words: <strong>0</strong></span></div>
+  </div>
+</section>
+
+<!-- 8 · SPEAKING FINALE -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">08</div><h2>Speaking finale · 4 вопроса про твой город</h2></div>
+  <p class="section-sub">Ответь на каждый вопрос вслух полным предложением. Не короткими "yes/no". Нажми ▶ если хочешь сначала услышать вопрос.</p>
+
+  <div class="prompts">
+    <div class="prompt"><button class="play" data-say="What is near your house? Tell me three places.">▶</button><span class="num">1.</span><span><strong>What is near your house?</strong> Tell me three places. <em>(Подсказка: There is/are a … near my house.)</em></span></div>
+    <div class="prompt"><button class="play" data-say="Where do you usually go on Sunday morning?">▶</button><span class="num">2.</span><span><strong>Where do you usually go on Sunday morning?</strong> <em>(I usually go to the …)</em></span></div>
+    <div class="prompt"><button class="play" data-say="What are you doing right now?">▶</button><span class="num">3.</span><span><strong>What are you doing right now?</strong> <em>(I am … now.)</em></span></div>
+    <div class="prompt"><button class="play" data-say="Is your city big or small? What do you like in it?">▶</button><span class="num">4.</span><span><strong>Is your city big or small? What do you like in it?</strong> <em>(My city is … I like …)</em></span></div>
+  </div>
+</section>
+
+<!-- 9 · HOMEWORK -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">09</div><h2>📚 Homework · до следующего урока</h2></div>
+  <div class="card">
+    <ol style="margin:10px 0 14px 22px;line-height:1.8;color:var(--ink)">
+      <li><strong>Перечитай секции 3 и 4</strong> вслух. Если делаешь ошибку — возвращайся к строке-объяснению.</li>
+      <li><strong>Запиши в тетрадь</strong> 12 слов из секции 1 — перевод + один свой пример с каждым словом.</li>
+      <li><strong>Сними короткое видео</strong> (1–2 минуты) — описание дороги от дома до магазина. Принесёшь на урок.</li>
+      <li><strong>Подготовь рассказ</strong> на 8–10 предложений про свой район: что есть рядом, что ты обычно делаешь, что делаешь прямо сейчас. Будем разбирать на следующей встрече.</li>
+    </ol>
+    <div class="info">
+      <strong>На следующем уроке (28 июня · кофе в городе):</strong> заказ кофе, фразы <em>I would like a cappuccino · To go please · How much is it?</em> Будем тренировать на ролёвке «бариста + клиент».
+    </div>
+  </div>
+</section>
+
+<footer>
+  © NG English · LinguaBoost Lab · Adult Basics · Around the City
+</footer>
+
+<!-- Flip cards JS -->
+<script>
+(function(){
+  var grid = document.getElementById('flipGrid'); if (!grid) return;
+  Array.prototype.forEach.call(grid.children, function(card){
+    var en = card.dataset.en, pos = card.dataset.pos, ru = card.dataset.ru, ex = card.dataset.ex;
+    card.innerHTML =
+      '<div class="flip-inner">' +
+        '<div class="flip-front"><span>'+en+'</span><span class="pos">'+pos+'</span></div>' +
+        '<div class="flip-back"><span class="ru">'+ru+'</span><span class="ex">'+ex+'</span></div>' +
+      '</div>';
+    card.addEventListener('click', function(){ card.classList.toggle('flipped'); });
+  });
+})();
+</script>
+
+<!-- MCQ -->
+<script>
+(function(){
+  document.querySelectorAll('.mcq-row').forEach(function(row){
+    var ans = (row.dataset.ans || '').toLowerCase();
+    row.querySelectorAll('.mcq-opts button').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var v = (btn.dataset.v || '').toLowerCase();
+        row.querySelectorAll('.mcq-opts button').forEach(function(b){b.classList.remove('right','wrong')});
+        if (v === ans) { btn.classList.add('right'); row.classList.add('revealed'); }
+        else btn.classList.add('wrong');
+      });
+    });
+  });
+})();
+</script>
+
+<!-- Cloze fill -->
+<script>
+(function(){
+  document.querySelectorAll('.cloze-in').forEach(function(inp){
+    var ans = (inp.dataset.ans || '').toLowerCase().trim();
+    inp.addEventListener('blur', function(){
+      var v = (inp.value || '').toLowerCase().trim();
+      inp.classList.remove('right','wrong');
+      if (!v) return;
+      var alt = ans === '—' ? ['—','-','—','no','none',''] : [ans];
+      if (alt.includes(v)) inp.classList.add('right'); else inp.classList.add('wrong');
+    });
+  });
+})();
+</script>
+
+<!-- TTS for speaking prompts -->
+<script>
+(function(){
+  document.querySelectorAll('.prompt .play').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if (!('speechSynthesis' in window)) return;
+      var text = btn.dataset.say || btn.parentElement.textContent.trim();
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-GB'; u.rate = .92;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    });
+  });
+})();
+</script>
+
+<!-- Word counter -->
+<script>
+(function(){
+  document.querySelectorAll('.write').forEach(function(w){
+    var ta = w.querySelector('textarea');
+    var wc = w.querySelector('.wc strong');
+    if (!ta || !wc) return;
+    ta.addEventListener('input', function(){
+      var n = (ta.value.match(/\b[\w'-]+\b/g) || []).length;
+      wc.textContent = n;
+    });
+  });
+})();
+</script>
+
+<script src="../../assets/lab-persist.js" defer></script>
+</body>
+</html>
