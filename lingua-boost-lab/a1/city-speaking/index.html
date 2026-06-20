@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Мой город сегодня и через 50 лет · 90 минут спикинга + Future intro — Adult Basics · NG English</title>
-<meta name="description" content="A1+ Lab-урок для взрослых · большой speaking-марафон. Активируем всё что знаешь: There is/are, It is, Present Simple, Present Continuous, this/that/these/those. Плюс мягкий ввод Future: will / going to через тему «город будущего». 15 блоков, ~90 минут.">
+<title>My city — today and 50 years from now · Speaking + Future intro — Adult Basics · NG English</title>
+<meta name="description" content="A1+ Lab-урок для взрослых · спикинг-марафон по теме «город» с активацией There is/are, It is, Present Simple/Continuous + мягкий ввод Future (will / going to) через тему «город будущего». 15 интерактивных блоков, ~90 минут.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -82,34 +82,64 @@ h1.hero-title .grad{color:var(--accent)}
 .frame.b2{border-left-color:var(--brand)}
 .frame.b2 .when{color:var(--brand)}
 
-/* Demonstratives drill */
-.demo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin:12px 0}
-.demo{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:8px;cursor:pointer;transition:.18s;position:relative}
-.demo:hover{border-color:var(--accent);transform:translateY(-1px)}
-.demo .word{font-family:var(--display);font-weight:900;font-size:1.4rem;color:var(--accent);letter-spacing:-.02em}
-.demo .rule{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
-.demo .ex{font-size:.86rem;color:var(--ink);line-height:1.45;font-style:italic}
-.demo .play-mini{position:absolute;top:10px;right:10px;width:26px;height:26px;border-radius:50%;background:var(--brand);color:#fff;
-  border:none;display:grid;place-items:center;font-size:.72rem;cursor:pointer;font-family:var(--mono);font-weight:800}
-.demo .play-mini:hover{background:var(--accent);transform:scale(1.08)}
+/* Question builder (sec 02) */
+.qb-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin:14px 0}
+.qb-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.qb-card .qb-q{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--accent);margin-bottom:8px}
+.qb-card .qb-form{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;color:var(--brand);background:var(--brand-soft);padding:6px 10px;border-radius:6px;display:inline-block;margin-bottom:6px;font-weight:700}
+.qb-card .qb-ex{font-size:.88rem;color:var(--muted);font-style:italic;line-height:1.55}
 
-/* Scene description block */
-.scene{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:14px 0}
-.scene-pic{aspect-ratio:16/9;background:linear-gradient(135deg,#2a5fa3 0%,#5b8fc4 35%,#9bb6c9 70%,#c98a3f 100%);
-  border-radius:12px;position:relative;margin-bottom:14px;overflow:hidden;display:grid;place-items:center;color:#fff;
-  font-family:var(--display);font-weight:900;font-size:clamp(1rem,2vw,1.4rem);letter-spacing:-.01em;text-align:center;padding:20px}
-.scene-pic .label{background:rgba(0,0,0,.35);padding:10px 18px;border-radius:50px;backdrop-filter:blur(4px);font-size:.9em}
-.scene-prompts{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-top:12px}
-.scene-prompt{background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:.92rem;display:flex;align-items:center;gap:10px}
-.scene-prompt .key{font-family:var(--mono);font-size:.72rem;color:var(--accent);font-weight:800;letter-spacing:.1em;text-transform:uppercase;flex-shrink:0}
-.scene-prompt .txt{color:var(--muted)}
-.timer-btn{background:var(--accent);color:#fff;border:none;padding:10px 18px;border-radius:10px;font-family:var(--mono);font-weight:800;
-  font-size:.86rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;margin-top:12px;display:inline-flex;align-items:center;gap:8px;transition:.15s}
-.timer-btn:hover{background:var(--accent-2)}
-.timer-btn.running{background:var(--brand)}
-.timer-display{display:inline-block;margin-left:14px;font-family:var(--mono);font-weight:800;font-size:1.1rem;color:var(--brand);letter-spacing:.06em;vertical-align:middle}
+/* Clickable scene with hotspots */
+.scene-clickable{position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;
+  background:linear-gradient(135deg,#2a5fa3 0%,#5b8fc4 30%,#9bb6c9 60%,#c98a3f 85%,#e8b87a 100%);margin:14px 0;
+  box-shadow:inset 0 -30px 80px rgba(0,0,0,.25),inset 0 30px 60px rgba(255,255,255,.10)}
+.scene-clickable .scene-caption{position:absolute;bottom:14px;left:14px;background:rgba(0,0,0,.45);padding:8px 14px;border-radius:50px;
+  color:#fff;font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;backdrop-filter:blur(6px);max-width:84%}
+.hotspot{position:absolute;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.85);
+  display:grid;place-items:center;cursor:pointer;border:2px solid #fff;box-shadow:0 4px 14px rgba(0,0,0,.3);
+  font-family:var(--mono);font-weight:900;font-size:.84rem;color:var(--accent);transition:.2s;z-index:2}
+.hotspot:hover{transform:scale(1.18);background:#fff}
+.hotspot.visited{background:var(--accent);color:#fff;border-color:#fff}
+.hotspot.visited::after{content:"✓";position:absolute;top:-4px;right:-4px;width:18px;height:18px;border-radius:50%;background:var(--ok);color:#fff;font-size:.66rem;display:grid;place-items:center;font-weight:900}
+.hotspot-label{position:absolute;background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 12px;
+  font-family:var(--body);font-size:.84rem;font-weight:700;color:var(--ink);box-shadow:0 6px 20px rgba(0,0,0,.18);
+  display:none;z-index:3;white-space:nowrap;pointer-events:none}
+.hotspot-label::before{content:"";position:absolute;width:10px;height:10px;background:#fff;border-left:1px solid var(--line);border-top:1px solid var(--line);
+  transform:rotate(45deg);top:-6px;left:14px}
+.hotspot.visited + .hotspot-label{display:block;animation:popIn .25s ease-out}
+@keyframes popIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.scene-progress{margin-top:10px;font-family:var(--mono);font-size:.78rem;color:var(--muted);letter-spacing:.06em}
+.scene-progress strong{color:var(--accent)}
 
-/* Pair-speaking side notes */
+/* Video grid (sec 04) */
+.video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:14px 0}
+.vid-card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.vid-card video{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:#000}
+.vid-card .vid-body{padding:14px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.vid-card .vid-num{font-family:var(--mono);font-size:.74rem;font-weight:800;letter-spacing:.12em;color:var(--brand);text-transform:uppercase}
+.vid-card .vid-prompt{font-family:var(--display);font-weight:800;font-size:.96rem;color:var(--ink);line-height:1.3}
+.vid-card .vid-hint{font-size:.84rem;color:var(--muted);font-style:italic;line-height:1.5}
+.vid-card .vid-actions{display:flex;gap:6px;margin-top:auto;padding-top:8px}
+.vid-card .vid-btn{flex:1;background:var(--accent);color:#fff;border:none;padding:7px 10px;border-radius:8px;
+  font-family:var(--mono);font-weight:800;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.15s}
+.vid-card .vid-btn:hover{background:var(--accent-2)}
+.vid-card .vid-btn.done{background:var(--ok)}
+.vid-card .vid-btn.done::before{content:"✓ "}
+.vid-card .vid-btn.secondary{background:transparent;color:var(--brand);border:1px solid var(--brand);flex:0 0 36px;padding:7px 6px}
+.vid-card .vid-btn.secondary:hover{background:var(--brand);color:#fff}
+
+/* Dialog */
+.dialog{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:14px 0}
+.dialog .line{display:grid;grid-template-columns:70px 1fr 30px;gap:12px;padding:8px 0;align-items:start}
+.dialog .who{font-family:var(--mono);font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);text-align:right;padding-top:4px}
+.dialog .who.b{color:var(--accent)}
+.dialog .what{color:var(--ink);font-size:.96rem;line-height:1.55}
+.dialog .play-line{width:26px;height:26px;border-radius:50%;background:var(--surface-2);color:var(--accent);border:1px solid var(--line-2);
+  display:grid;place-items:center;font-size:.7rem;cursor:pointer;font-family:var(--mono);font-weight:800;transition:.15s}
+.dialog .play-line:hover{background:var(--accent);color:#fff}
+.dialog-meta{font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;color:var(--faint);margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-style:italic}
+
+/* Pair speaking side-notes */
 .pair-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
 @media(max-width:700px){.pair-grid{grid-template-columns:1fr}}
 .pair-side{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;border-top:5px solid var(--accent)}
@@ -128,22 +158,17 @@ h1.hero-title .grad{color:var(--accent)}
 .pair-q .body-q{flex:1}
 .pair-q .body-q em{color:var(--faint);font-size:.84rem;display:block;margin-top:2px}
 
-/* Dialog replay */
-.dialog{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:14px 0}
-.dialog .line{display:grid;grid-template-columns:70px 1fr 30px;gap:12px;padding:8px 0;align-items:start}
-.dialog .who{font-family:var(--mono);font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);text-align:right;padding-top:4px}
-.dialog .who.b{color:var(--accent)}
-.dialog .what{color:var(--ink);font-size:.96rem;line-height:1.55}
-.dialog .play-line{width:26px;height:26px;border-radius:50%;background:var(--surface-2);color:var(--accent);border:1px solid var(--line-2);
-  display:grid;place-items:center;font-size:.7rem;cursor:pointer;font-family:var(--mono);font-weight:800;transition:.15s}
-.dialog .play-line:hover{background:var(--accent);color:#fff}
-
-/* Monologue panel */
-.mono{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:0 14px 14px 0;padding:18px 22px;margin:14px 0}
-.mono h4{font-family:var(--display);font-weight:800;color:var(--brand);margin-bottom:8px}
-.mono ul{margin:8px 0 12px 22px;font-size:.94rem;color:var(--ink);line-height:1.7}
-.mono ul li{margin:3px 0}
-.mono .hint{font-family:var(--mono);font-size:.78rem;color:var(--faint);font-style:italic;letter-spacing:.04em}
+/* Anchored monologue (sec 07) — story walk */
+.walk{display:grid;gap:10px;margin:14px 0;counter-reset:walk}
+.walk-step{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px 14px 60px;position:relative;counter-increment:walk}
+.walk-step::before{content:counter(walk);position:absolute;left:14px;top:14px;width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;
+  font-family:var(--mono);font-weight:900;display:grid;place-items:center;font-size:.86rem}
+.walk-step .walk-head{font-family:var(--display);font-weight:800;font-size:.95rem;color:var(--ink);margin-bottom:6px}
+.walk-step .walk-frame{font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;color:var(--brand);font-weight:700;background:var(--brand-soft);padding:3px 8px;border-radius:5px;display:inline-block;margin-right:8px}
+.walk-step .walk-body{font-size:.9rem;color:var(--muted);line-height:1.55;margin-top:4px}
+.walk-step textarea{width:100%;min-height:46px;margin-top:8px;background:#fff;border:1px solid var(--line);border-radius:8px;
+  padding:8px 10px;color:var(--ink);font-family:var(--body);font-size:.92rem;line-height:1.5;resize:vertical;outline:none}
+.walk-step textarea:focus{border-color:var(--accent);background:#fff}
 
 /* Speaking prompts */
 .prompts{display:flex;flex-direction:column;gap:10px;margin:12px 0}
@@ -154,6 +179,48 @@ h1.hero-title .grad{color:var(--accent)}
 .prompt .play:hover{transform:scale(1.08);background:var(--accent)}
 .prompt .num{font-family:var(--mono);font-weight:900;color:var(--brand);font-size:.84rem;flex-shrink:0;width:22px;padding-top:3px}
 .prompt em{color:var(--faint);font-size:.86rem;font-style:italic;display:block;margin-top:3px}
+.prompt-done-btn{margin-left:auto;background:transparent;border:1px solid var(--line-2);color:var(--muted);padding:4px 10px;border-radius:6px;
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;cursor:pointer;font-weight:800;text-transform:uppercase;flex-shrink:0}
+.prompt-done-btn.done{background:var(--ok);color:#fff;border-color:var(--ok)}
+.prompt-done-btn.done::before{content:"✓ "}
+
+/* Future vocab simplified */
+.demo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin:12px 0}
+.demo{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:8px;cursor:pointer;transition:.18s;position:relative}
+.demo:hover{border-color:var(--accent);transform:translateY(-1px)}
+.demo .word{font-family:var(--display);font-weight:900;font-size:1.3rem;color:var(--accent);letter-spacing:-.02em}
+.demo .rule{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.demo .ex{font-size:.86rem;color:var(--ink);line-height:1.45;font-style:italic}
+.demo .play-mini{position:absolute;top:10px;right:10px;width:26px;height:26px;border-radius:50%;background:var(--brand);color:#fff;
+  border:none;display:grid;place-items:center;font-size:.72rem;cursor:pointer;font-family:var(--mono);font-weight:800}
+.demo .play-mini:hover{background:var(--accent);transform:scale(1.08)}
+
+/* Future clickable scene */
+.scene-future{position:relative;width:100%;aspect-ratio:16/9;border-radius:14px;overflow:hidden;margin:14px 0;
+  background:linear-gradient(135deg,#0a1530 0%,#1a2d6e 25%,#3454b0 50%,#7b5fb6 70%,#d4a04f 92%,#f6c97b 100%);
+  box-shadow:inset 0 -40px 100px rgba(0,0,0,.35),inset 0 30px 60px rgba(180,200,255,.08)}
+.scene-future .scene-caption{position:absolute;bottom:14px;left:14px;background:rgba(0,0,0,.55);padding:8px 14px;border-radius:50px;
+  color:#fff;font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;backdrop-filter:blur(6px);max-width:84%}
+.scene-future .hotspot{background:rgba(255,210,140,.92);color:#3a2010}
+.scene-future .hotspot.visited{background:#d4a04f;color:#fff}
+
+/* Homework auto-saving exercises */
+.hw{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:10px 0}
+.hw-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+.hw-title{font-family:var(--display);font-weight:800;font-size:1rem;color:var(--ink);flex:1}
+.hw-title .hw-tag{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;font-weight:800;background:var(--accent);color:#fff;padding:3px 8px;border-radius:50px;text-transform:uppercase;margin-right:8px;display:inline-block;vertical-align:middle}
+.hw-done-btn{background:transparent;border:1px solid var(--line-2);color:var(--muted);padding:6px 12px;border-radius:8px;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;cursor:pointer;font-weight:800;text-transform:uppercase;flex-shrink:0;height:32px}
+.hw-done-btn.done{background:var(--ok);color:#fff;border-color:var(--ok)}
+.hw-done-btn.done::before{content:"✓ "}
+.hw-instructions{font-size:.92rem;color:var(--muted);line-height:1.55;margin-bottom:10px}
+.hw-instructions em{color:var(--ink);font-style:italic}
+.hw textarea{width:100%;min-height:80px;background:var(--card);border:1px solid var(--line);border-radius:8px;
+  padding:10px 12px;color:var(--ink);font-family:var(--body);font-size:.94rem;line-height:1.55;resize:vertical;outline:none}
+.hw textarea:focus{border-color:var(--accent);background:#fff}
+.hw-meta{display:flex;justify-content:space-between;margin-top:6px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-weight:700}
+.hw-meta .wc strong{color:var(--accent)}
 
 footer{max-width:1180px;margin:48px auto 28px;padding:0 22px;text-align:center;color:var(--faint);
   font-size:.8rem;font-family:var(--mono);letter-spacing:.06em}
@@ -178,404 +245,710 @@ footer{max-width:1180px;margin:48px auto 28px;padding:0 22px;text-align:center;c
 
 <section class="hero">
   <div class="hero-card">
-    <div class="eyebrow">Adult Basics · About You · Speaking Marathon + Future Intro</div>
-    <h1 class="hero-title">Мой город — сегодня и <span class="grad">через 50 лет</span></h1>
-    <p class="hero-lead">Большая часть урока — рот открыт, не закрывается. Активируем ВСЁ что ты уже знаешь: <strong>There is / are</strong>, <strong>It is</strong>, <strong>Present Simple / Continuous</strong>, <strong>this / that / these / those</strong>. В финале — мягкий ввод <strong>Future</strong> (will + going to) через тему «город будущего»: летающие машины, дроны, эко-районы и твои планы на следующий год.</p>
+    <div class="eyebrow">Adult Basics · About Your City · Speaking + Future</div>
+    <h1 class="hero-title">My city — today and <span class="grad">50 years from now</span></h1>
+    <p class="hero-lead">15 интерактивных блоков · ~90 минут. Активируем всё что у тебя уже работает: <strong>There is / are</strong>, <strong>It is</strong>, <strong>Present Simple / Continuous</strong>. Учимся <strong>задавать вопросы</strong> и говорить через <strong>опоры</strong>, а не «из пустоты». В финале — мягко открываем будущее: <strong>will</strong> и <strong>going to</strong>.</p>
     <div class="hero-stats">
       <div class="stat"><div class="stat-k">Уровень</div><div class="stat-v">A1+ (взрослые)</div></div>
       <div class="stat"><div class="stat-k">Длительность</div><div class="stat-v">~90 минут · 15 блоков</div></div>
-      <div class="stat"><div class="stat-k">Формат</div><div class="stat-v">Speaking-марафон + ввод Future</div></div>
-      <div class="stat"><div class="stat-k">Что нового</div><div class="stat-v">will · going to · city of the future</div></div>
+      <div class="stat"><div class="stat-k">Формат</div><div class="stat-v">Speaking + интерактив + ввод Future</div></div>
+      <div class="stat"><div class="stat-k">Прогресс</div><div class="stat-v">Сохраняется на сайте</div></div>
     </div>
   </div>
 </section>
 
 <!-- 1 · CORE MODEL RECAP -->
 <section class="section">
-  <div class="section-hdr"><div class="section-num">01</div><h2>Базовая формула · с этого начинается всё</h2></div>
-  <p class="section-sub">Перед стартом проговори вслух каждую рамку. Это не упражнение, это твой компас на 60 минут.</p>
+  <div class="section-hdr"><div class="section-num">01</div><h2>Базовая формула · с этого начинается весь урок</h2></div>
+  <p class="section-sub">Перед стартом проговори вслух каждую рамку. Это твой компас на 90 минут.</p>
 
   <div class="frame-grid">
     <div class="frame">
-      <div class="when">1 · Что существует</div>
+      <div class="when">1 · What exists</div>
       <div class="pat">There is / There are</div>
       <div class="ex">There is a park. There are many shops.</div>
     </div>
     <div class="frame">
-      <div class="when">2 · Какая ситуация</div>
+      <div class="when">2 · The situation</div>
       <div class="pat">It is</div>
       <div class="ex">It is cold. It is a big city.</div>
     </div>
     <div class="frame b2">
-      <div class="when">3 · Обычно, всегда</div>
+      <div class="when">3 · Usually, always</div>
       <div class="pat">I + V (Present Simple)</div>
       <div class="ex">I work in the city. I drink coffee every morning.</div>
     </div>
     <div class="frame b2">
-      <div class="when">4 · Прямо сейчас</div>
+      <div class="when">4 · Right now</div>
       <div class="pat">I am + V-ing (Continuous)</div>
       <div class="ex">I am walking now. I am drinking coffee.</div>
     </div>
   </div>
 
   <div class="card" style="margin-top:8px">
-    <p style="margin:0;font-size:.94rem;color:var(--muted)"><strong>Главная цепочка из 4 фраз про любое место:</strong> &nbsp; «<em>There is a market. It is cold. I wear a coat. I am wearing boots now.</em>» &nbsp; — собери такую цепочку про свой район за 30 секунд. Вслух.</p>
+    <p style="margin:0;font-size:.94rem;color:var(--muted)"><strong>Чейн из 4 фраз про любое место:</strong> &nbsp; «<em>There is a market. It is cold. I wear a coat. I am wearing boots now.</em>» &nbsp; — собери такую цепочку про свой район за 30 секунд. Вслух.</p>
   </div>
 </section>
 
-<!-- 2 · DEMONSTRATIVES QUICK DRILL -->
+<!-- 2 · WARMUP · BUILDING QUESTIONS -->
 <section class="section">
-  <div class="section-hdr"><div class="section-num">02</div><h2>This / That / These / Those · быстрая разминка</h2></div>
-  <p class="section-sub">Эти 4 слова ты подзабыл. Правило простое: <strong>this/that</strong> — один предмет, <strong>these/those</strong> — много. <strong>this/these</strong> — рядом, <strong>that/those</strong> — далеко. Нажми ▶ — услышь, повтори.</p>
+  <div class="section-hdr"><div class="section-num">02</div><h2>Warmup · 8 правильно построенных вопросов</h2></div>
+  <p class="section-sub">До сих пор ты в основном <strong>отвечал</strong>. Сегодня учимся <strong>спрашивать</strong>. Это даёт тебе власть в разговоре — ты ведёшь беседу, а не догоняешь её. Прочти каждую карточку вслух, потом сразу повтори вопрос без подсказки.</p>
 
-  <div class="demo-grid">
-    <div class="demo">
-      <button class="play-mini" data-say="This is my street.">▶</button>
-      <span class="word">this</span>
-      <span class="rule">1 · близко</span>
-      <span class="ex">This is my street.</span>
+  <div class="qb-grid">
+    <div class="qb-card">
+      <div class="qb-form">Do + you + V?</div>
+      <div class="qb-q">Do you live in a big city?</div>
+      <div class="qb-ex">Habit / fact. → <em>Do you work near here? Do you drink coffee?</em></div>
     </div>
-    <div class="demo">
-      <button class="play-mini" data-say="That is the park.">▶</button>
-      <span class="word">that</span>
-      <span class="rule">1 · далеко</span>
-      <span class="ex">That is the park.</span>
+    <div class="qb-card">
+      <div class="qb-form">Are + you + V-ing?</div>
+      <div class="qb-q">Are you walking right now?</div>
+      <div class="qb-ex">What's happening at this moment. → <em>Are you working? Are you waiting?</em></div>
     </div>
-    <div class="demo">
-      <button class="play-mini" data-say="These are buildings.">▶</button>
-      <span class="word">these</span>
-      <span class="rule">много · близко</span>
-      <span class="ex">These are buildings.</span>
+    <div class="qb-card">
+      <div class="qb-form">Is there / Are there?</div>
+      <div class="qb-q">Is there a café near here?</div>
+      <div class="qb-ex">Does X exist here? → <em>Are there shops in your street? Is there a bank on the corner?</em></div>
     </div>
-    <div class="demo">
-      <button class="play-mini" data-say="Those are cars.">▶</button>
-      <span class="word">those</span>
-      <span class="rule">много · далеко</span>
-      <span class="ex">Those are cars.</span>
+    <div class="qb-card">
+      <div class="qb-form">Where do / Where are?</div>
+      <div class="qb-q">Where do you usually go on Sundays?</div>
+      <div class="qb-ex">Place questions. → <em>Where are you going now? Where do you work?</em></div>
+    </div>
+    <div class="qb-card">
+      <div class="qb-form">What is / What are?</div>
+      <div class="qb-q">What is your favourite place in the city?</div>
+      <div class="qb-ex">Asking about a thing. → <em>What are you doing today? What is near your house?</em></div>
+    </div>
+    <div class="qb-card">
+      <div class="qb-form">How often do?</div>
+      <div class="qb-q">How often do you go to the park?</div>
+      <div class="qb-ex">Frequency. → <em>How often do you take the bus? How often do you eat out?</em></div>
+    </div>
+    <div class="qb-card">
+      <div class="qb-form">Can you tell me…?</div>
+      <div class="qb-q">Can you tell me where the bank is?</div>
+      <div class="qb-ex">Polite ask. → <em>Can you tell me how to get to the metro? Can you show me on the map?</em></div>
+    </div>
+    <div class="qb-card">
+      <div class="qb-form">Why do / Why are?</div>
+      <div class="qb-q">Why do people love this city?</div>
+      <div class="qb-ex">Reason. → <em>Why are you smiling? Why do you live here?</em></div>
     </div>
   </div>
 
-  <div class="card" style="margin-top:10px">
-    <p style="margin:0;font-size:.93rem;color:var(--ink)"><strong>Speaking drill (60 секунд, вслух):</strong> представь, что показываешь пальцем. Каждое предложение — 4 раза с разным словом из квадрата.</p>
-    <ul style="margin:10px 0 0 20px;font-size:.92rem;color:var(--muted);line-height:1.8">
-      <li><strong>This is</strong> a coffee cup. → <em>This</em> · <em>That</em> · <em>These</em> · <em>Those</em></li>
-      <li><strong>This is</strong> my bag / those are my friends / these are my keys / that is my house</li>
-      <li>Покажи на 4 вещи рядом и 4 вещи далеко — назови каждую правильным словом</li>
-    </ul>
+  <div class="card" style="margin-top:8px">
+    <p style="margin:0;font-size:.93rem;color:var(--muted)"><strong>Speaking drill · 90 seconds:</strong> прочти 8 вопросов вслух подряд. Затем закрой страницу мысленно и задай 8 вопросов про мой район — мне. Не повторяй формы — используй все 8 разных.</p>
   </div>
 </section>
 
-<!-- 3 · SCENE DESCRIPTION -->
-<section class="section">
-  <div class="section-hdr"><div class="section-num">03</div><h2>Опиши сцену · 8 предложений вслух</h2></div>
-  <p class="section-sub">Перед тобой типичная городская сцена. Опиши её — минимум <strong>8 предложений</strong>, используя ВСЕ 4 базовые формы из секции 01. Без письма. Только речью.</p>
+<!-- 3 · CLICKABLE CITY SCENE -->
+<section class="section" id="sec-clickable">
+  <div class="section-hdr"><div class="section-num">03</div><h2>Tap the city · 10 кружков на сцене</h2></div>
+  <p class="section-sub">Нажми каждый кружок по очереди — открой слово. Под картинкой произнеси полное предложение: <strong>«This is a / There is a …»</strong> + слово. Зелёная галочка = слово сказано вслух.</p>
 
-  <div class="scene">
-    <div class="scene-pic">
-      <div class="label">🏙️ Городская улица · утро будни · кафе на углу, светофор, остановка, несколько людей идут на работу</div>
-    </div>
-    <p style="margin:0 0 8px 0;font-size:.94rem;color:var(--muted)"><strong>Структура твоего рассказа · 4 шага:</strong></p>
-    <div class="scene-prompts">
-      <div class="scene-prompt"><span class="key">There is/are</span><span class="txt">что есть на картинке</span></div>
-      <div class="scene-prompt"><span class="key">It is</span><span class="txt">погода / атмосфера / какая улица</span></div>
-      <div class="scene-prompt"><span class="key">Present Simple</span><span class="txt">что эти люди ОБЫЧНО делают</span></div>
-      <div class="scene-prompt"><span class="key">Present Continuous</span><span class="txt">что они делают ПРЯМО СЕЙЧАС</span></div>
-    </div>
-    <button class="timer-btn" data-min="2">⏱ Запустить таймер · 2 минуты</button>
-    <span class="timer-display" id="timer1">02:00</span>
+  <div class="scene-clickable" id="cityScene">
+    <!-- decorative SVG city silhouette -->
+    <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" style="position:absolute;inset:0;width:100%;height:100%">
+      <!-- sun glow -->
+      <radialGradient id="sun" cx="80%" cy="30%" r="40%"><stop offset="0%" stop-color="#fff5dc" stop-opacity=".55"/><stop offset="100%" stop-color="#fff5dc" stop-opacity="0"/></radialGradient>
+      <rect width="1600" height="900" fill="url(#sun)"/>
+      <!-- distant skyline -->
+      <g fill="#3a4d70" opacity=".55">
+        <rect x="40" y="380" width="80" height="380"/>
+        <rect x="140" y="320" width="100" height="440"/>
+        <rect x="260" y="360" width="70" height="400"/>
+        <rect x="350" y="270" width="120" height="490"/>
+        <rect x="490" y="340" width="80" height="420"/>
+        <rect x="590" y="300" width="100" height="460"/>
+        <rect x="710" y="360" width="70" height="400"/>
+        <rect x="800" y="240" width="140" height="520"/>
+        <rect x="960" y="320" width="90" height="440"/>
+        <rect x="1070" y="280" width="110" height="480"/>
+        <rect x="1200" y="350" width="80" height="410"/>
+        <rect x="1300" y="290" width="100" height="470"/>
+        <rect x="1420" y="330" width="80" height="430"/>
+      </g>
+      <!-- mid skyline -->
+      <g fill="#243559" opacity=".75">
+        <rect x="0" y="500" width="160" height="260"/>
+        <rect x="170" y="460" width="200" height="300"/>
+        <rect x="390" y="480" width="170" height="280"/>
+        <rect x="580" y="420" width="220" height="340"/>
+        <rect x="820" y="450" width="180" height="310"/>
+        <rect x="1020" y="430" width="200" height="330"/>
+        <rect x="1240" y="470" width="190" height="290"/>
+        <rect x="1450" y="440" width="150" height="320"/>
+      </g>
+      <!-- street level -->
+      <rect x="0" y="700" width="1600" height="200" fill="#1c2540"/>
+      <!-- road -->
+      <rect x="0" y="760" width="1600" height="70" fill="#0d1424"/>
+      <g fill="#d4a04f">
+        <rect x="60" y="790" width="80" height="6"/>
+        <rect x="220" y="790" width="80" height="6"/>
+        <rect x="380" y="790" width="80" height="6"/>
+        <rect x="540" y="790" width="80" height="6"/>
+        <rect x="700" y="790" width="80" height="6"/>
+        <rect x="860" y="790" width="80" height="6"/>
+        <rect x="1020" y="790" width="80" height="6"/>
+        <rect x="1180" y="790" width="80" height="6"/>
+        <rect x="1340" y="790" width="80" height="6"/>
+        <rect x="1500" y="790" width="80" height="6"/>
+      </g>
+      <!-- shopfronts -->
+      <g>
+        <rect x="50" y="640" width="180" height="120" fill="#5b3b1f"/>
+        <rect x="60" y="660" width="60" height="60" fill="#f6c97b" opacity=".7"/>
+        <rect x="140" y="660" width="60" height="60" fill="#f6c97b" opacity=".7"/>
+        <text x="140" y="635" font-family="Manrope" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">CAFÉ</text>
+      </g>
+      <g>
+        <rect x="260" y="640" width="180" height="120" fill="#2a4c5e"/>
+        <rect x="280" y="660" width="40" height="60" fill="#9ac5d4" opacity=".7"/>
+        <rect x="340" y="660" width="40" height="60" fill="#9ac5d4" opacity=".7"/>
+        <rect x="390" y="660" width="40" height="60" fill="#9ac5d4" opacity=".7"/>
+        <text x="350" y="635" font-family="Manrope" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">BANK</text>
+      </g>
+      <g>
+        <rect x="1060" y="640" width="220" height="120" fill="#3a2a55"/>
+        <rect x="1080" y="660" width="50" height="60" fill="#e8b87a" opacity=".7"/>
+        <rect x="1150" y="660" width="50" height="60" fill="#e8b87a" opacity=".7"/>
+        <rect x="1220" y="660" width="50" height="60" fill="#e8b87a" opacity=".7"/>
+        <text x="1170" y="635" font-family="Manrope" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">MUSEUM</text>
+      </g>
+      <!-- traffic lights pole -->
+      <g><rect x="850" y="650" width="8" height="110" fill="#222"/><circle cx="854" cy="660" r="9" fill="#c45a5a"/><circle cx="854" cy="685" r="9" fill="#f6c97b"/><circle cx="854" cy="710" r="9" fill="#5ba872"/></g>
+      <!-- bus stop -->
+      <g><rect x="520" y="690" width="80" height="6" fill="#1ba18a"/><rect x="555" y="696" width="10" height="64" fill="#1ba18a"/><text x="560" y="685" font-family="Manrope" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">BUS</text></g>
+      <!-- park trees -->
+      <g><circle cx="1370" cy="690" r="40" fill="#3d6a45"/><rect x="1366" y="710" width="8" height="50" fill="#5c3f1f"/></g>
+      <g><circle cx="1450" cy="700" r="32" fill="#3d6a45"/><rect x="1446" y="720" width="8" height="40" fill="#5c3f1f"/></g>
+      <g><circle cx="1510" cy="695" r="35" fill="#3d6a45"/><rect x="1506" y="715" width="8" height="45" fill="#5c3f1f"/></g>
+      <!-- person walking -->
+      <g><circle cx="730" cy="690" r="10" fill="#f0d6b7"/><rect x="725" y="700" width="10" height="30" fill="#5b6fc9"/><rect x="722" y="730" width="6" height="20" fill="#1a1a2a"/><rect x="732" y="730" width="6" height="20" fill="#1a1a2a"/></g>
+      <!-- bridge over corner -->
+      <g><path d="M 1280 760 L 1340 720 L 1400 760" stroke="#5c3f1f" stroke-width="4" fill="none"/></g>
+    </svg>
+    <!-- hotspots positioned over scene -->
+    <span class="hotspot map-dot" data-word="skyscraper" data-pron="That is a skyscraper." data-ex="It is tall and modern. Many people work inside." style="left:50%;top:34%">1</span>
+    <span class="hotspot-label" style="left:50%;top:24%;transform:translateX(-50%)">skyscraper · небоскрёб</span>
+
+    <span class="hotspot map-dot" data-word="café" data-pron="There is a café on the corner." data-ex="People drink coffee and have breakfast here." style="left:9%;top:73%">2</span>
+    <span class="hotspot-label" style="left:9%;top:63%;transform:translateX(-25%)">café · кафе</span>
+
+    <span class="hotspot map-dot" data-word="bank" data-pron="The bank is next to the café." data-ex="I take out money here on Mondays." style="left:21%;top:73%">3</span>
+    <span class="hotspot-label" style="left:21%;top:63%;transform:translateX(-25%)">bank · банк</span>
+
+    <span class="hotspot map-dot" data-word="bus stop" data-pron="There is a bus stop in front of the café." data-ex="People are waiting for the bus." style="left:35%;top:78%">4</span>
+    <span class="hotspot-label" style="left:35%;top:66%;transform:translateX(-30%)">bus stop · остановка</span>
+
+    <span class="hotspot map-dot" data-word="traffic lights" data-pron="There are traffic lights at the corner." data-ex="Wait at the red light. Cross at the green." style="left:53%;top:76%">5</span>
+    <span class="hotspot-label" style="left:53%;top:65%;transform:translateX(-30%)">traffic lights · светофор</span>
+
+    <span class="hotspot map-dot" data-word="man" data-pron="A man is crossing the street." data-ex="He is wearing a blue jacket and dark trousers." style="left:46%;top:78%">6</span>
+    <span class="hotspot-label" style="left:46%;top:88%;transform:translateX(-30%)">man crossing · мужчина переходит</span>
+
+    <span class="hotspot map-dot" data-word="museum" data-pron="The museum is opposite the park." data-ex="It is open from Tuesday to Sunday." style="left:73%;top:73%">7</span>
+    <span class="hotspot-label" style="left:73%;top:63%;transform:translateX(-30%)">museum · музей</span>
+
+    <span class="hotspot map-dot" data-word="park" data-pron="There is a park on the right." data-ex="Children are playing under the trees." style="left:88%;top:78%">8</span>
+    <span class="hotspot-label" style="left:88%;top:68%;transform:translateX(-50%)">park · парк</span>
+
+    <span class="hotspot map-dot" data-word="bridge" data-pron="There is a bridge round the corner." data-ex="It goes over the small river." style="left:84%;top:84%">9</span>
+    <span class="hotspot-label" style="left:84%;top:94%;transform:translateX(-50%)">bridge · мост</span>
+
+    <span class="hotspot map-dot" data-word="trees" data-pron="There are many trees in the park." data-ex="It is green and quiet there in the morning." style="left:95%;top:74%">10</span>
+    <span class="hotspot-label" style="left:88%;top:64%;transform:translateX(-50%)">trees · деревья</span>
+
+    <div class="scene-caption">A typical morning street · find 10 things and say a sentence for each</div>
   </div>
-
-  <div class="card">
-    <p style="margin:0;font-size:.92rem;color:var(--muted)"><strong>Модельный ответ (одна из возможных версий) — посмотри ТОЛЬКО после того, как сам сказал:</strong></p>
-    <details style="margin-top:10px">
-      <summary style="cursor:pointer;font-family:var(--mono);font-weight:800;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brand)">▾ Показать пример</summary>
-      <p style="margin-top:10px;font-style:italic;color:var(--ink);line-height:1.7">«<em>There is a café on the corner. There are traffic lights and a bus stop. There are people on the street. It is a busy morning. It is cold today. People here usually go to work at 9 a.m. They usually drink coffee at this café. Now a woman is waiting at the bus stop. A man is crossing the street. Two friends are talking near the café. I am looking at this scene from my window.</em>»</p>
-      <p style="margin-top:6px;font-family:var(--mono);font-size:.76rem;color:var(--faint);letter-spacing:.06em">11 предложений · все 4 формы покрыты</p>
-    </details>
-  </div>
-</section>
-
-<!-- 4 · CONTINUOUS ACTIVATION ON FACES -->
-<section class="section">
-  <div class="section-hdr"><div class="section-num">04</div><h2>Continuous-разминка · 6 кадров «что происходит сейчас»</h2></div>
-  <p class="section-sub">6 быстрых ситуаций. На каждую — одно предложение в <strong>Present Continuous</strong> вслух. Нажми ▶ — услышь подсказку.</p>
-
-  <div class="prompts">
-    <div class="prompt"><button class="play" data-say="A man is walking. He is talking on his phone.">▶</button><span class="num">1.</span><span><strong>Мужчина с телефоном идёт по улице</strong> · <em>(A man is walking. He …)</em></span></div>
-    <div class="prompt"><button class="play" data-say="A woman is sitting at the cafe. She is drinking coffee.">▶</button><span class="num">2.</span><span><strong>Женщина за столиком в кафе</strong> · <em>(A woman is sitting … She …)</em></span></div>
-    <div class="prompt"><button class="play" data-say="Two children are running in the park. They are playing with a ball.">▶</button><span class="num">3.</span><span><strong>Двое детей в парке с мячом</strong> · <em>(Two children are … They are …)</em></span></div>
-    <div class="prompt"><button class="play" data-say="An old man is sitting on a bench. He is reading a newspaper.">▶</button><span class="num">4.</span><span><strong>Пожилой мужчина на лавочке с газетой</strong> · <em>(An old man is … He is …)</em></span></div>
-    <div class="prompt"><button class="play" data-say="A bus is coming to the bus stop. People are waiting.">▶</button><span class="num">5.</span><span><strong>Автобус подъезжает, люди ждут</strong> · <em>(A bus is … People are …)</em></span></div>
-    <div class="prompt"><button class="play" data-say="It is raining. People are walking with umbrellas.">▶</button><span class="num">6.</span><span><strong>Идёт дождь, у людей зонтики</strong> · <em>(It is … People are …)</em></span></div>
-  </div>
-</section>
-
-<!-- 5 · DIALOG REPLAY (shop + cafe) -->
-<section class="section">
-  <div class="section-hdr"><div class="section-num">05</div><h2>Прогон двух диалогов · ты уже их знаешь</h2></div>
-  <p class="section-sub">Не учим — просто говорим. Прочитай каждый диалог вслух <strong>за обе роли</strong>. Потом — за себя одного, представляя что вторая сторона отвечает. ▶ — услышь как звучит.</p>
-
-  <h3 style="font-family:var(--display);font-weight:800;font-size:1rem;color:var(--accent);margin:18px 0 8px">🛍️ В магазине · покупаешь куртку</h3>
-  <div class="dialog">
-    <div class="line"><div class="who">Customer</div><div class="what">Hello! I am looking for a jacket.</div><button class="play-line" data-say="Hello! I am looking for a jacket.">▶</button></div>
-    <div class="line"><div class="who b">Assistant</div><div class="what">What size do you need?</div><button class="play-line" data-say="What size do you need?">▶</button></div>
-    <div class="line"><div class="who">Customer</div><div class="what">I need a large size.</div><button class="play-line" data-say="I need a large size.">▶</button></div>
-    <div class="line"><div class="who b">Assistant</div><div class="what">Try this one. It is warm and light.</div><button class="play-line" data-say="Try this one. It is warm and light.">▶</button></div>
-    <div class="line"><div class="who">Customer</div><div class="what">It is too small. Do you have a bigger size?</div><button class="play-line" data-say="It is too small. Do you have a bigger size?">▶</button></div>
-    <div class="line"><div class="who b">Assistant</div><div class="what">Yes, here you are.</div><button class="play-line" data-say="Yes, here you are.">▶</button></div>
-    <div class="line"><div class="who">Customer</div><div class="what">It fits well. How much is it?</div><button class="play-line" data-say="It fits well. How much is it?">▶</button></div>
-    <div class="line"><div class="who b">Assistant</div><div class="what">It is forty euros. Will you take it?</div><button class="play-line" data-say="It is forty euros. Will you take it?">▶</button></div>
-    <div class="line"><div class="who">Customer</div><div class="what">Yes, I will take it. Can I pay by card?</div><button class="play-line" data-say="Yes, I will take it. Can I pay by card?">▶</button></div>
-    <div class="line"><div class="who b">Assistant</div><div class="what">Of course. Here is your receipt.</div><button class="play-line" data-say="Of course. Here is your receipt.">▶</button></div>
-  </div>
-
-  <h3 style="font-family:var(--display);font-weight:800;font-size:1rem;color:var(--accent);margin:22px 0 8px">☕ В кофейне · заказ на вынос</h3>
-  <div class="dialog">
-    <div class="line"><div class="who">Customer</div><div class="what">Hi! Can I have a large latte, please?</div><button class="play-line" data-say="Hi! Can I have a large latte, please?">▶</button></div>
-    <div class="line"><div class="who b">Barista</div><div class="what">Sure. For here or to-go?</div><button class="play-line" data-say="Sure. For here or to-go?">▶</button></div>
-    <div class="line"><div class="who">Customer</div><div class="what">To-go, please. And a bagel.</div><button class="play-line" data-say="To-go, please. And a bagel.">▶</button></div>
-    <div class="line"><div class="who b">Barista</div><div class="what">Anything else?</div><button class="play-line" data-say="Anything else?">▶</button></div>
-    <div class="line"><div class="who">Customer</div><div class="what">No, that is all. How much is it?</div><button class="play-line" data-say="No, that is all. How much is it?">▶</button></div>
-    <div class="line"><div class="who b">Barista</div><div class="what">It is six euros fifty. Card or cash?</div><button class="play-line" data-say="It is six euros fifty. Card or cash?">▶</button></div>
-    <div class="line"><div class="who">Customer</div><div class="what">Card, please. What is the Wi-Fi password?</div><button class="play-line" data-say="Card, please. What is the Wi-Fi password?">▶</button></div>
-    <div class="line"><div class="who b">Barista</div><div class="what">It is on the receipt. Have a nice day!</div><button class="play-line" data-say="It is on the receipt. Have a nice day!">▶</button></div>
-  </div>
+  <div class="scene-progress">Progress: <strong><span id="sceneCount">0</span> / 10</strong> · keep tapping and speaking until you complete the row</div>
 
   <div class="card" style="margin-top:14px">
-    <p style="margin:0;font-size:.93rem;color:var(--muted)"><strong>Drill:</strong> прогонишь каждый диалог 3 раза. Первый — медленно. Второй — без подсказок (закрой текст). Третий — переверни роли. На третьем разе ты — продавец/бариста.</p>
+    <p style="margin:0;font-size:.93rem;color:var(--muted)"><strong>Speaking drill:</strong> после того как открыл все 10 — закрой страницу мысленно и опиши сцену с нуля 8 предложениями подряд. Используй все 4 формы из секции 01.</p>
   </div>
 </section>
 
-<!-- 6 · PAIR SPEAKING SIDE-NOTES -->
+<!-- 4 · VIDEO CONTINUOUS WARMUP -->
 <section class="section">
-  <div class="section-hdr"><div class="section-num">06</div><h2>Pair speaking · ты и я задаём друг другу вопросы</h2></div>
-  <p class="section-sub">Я — Student A, ты — Student B. У каждого свой список из 10 вопросов. Партнёр не видит твои. Отвечать <strong>полным предложением</strong> по подсказанному шаблону, не «yes / no».</p>
+  <div class="section-hdr"><div class="section-num">04</div><h2>Continuous live · 5 видео-кадров</h2></div>
+  <p class="section-sub">Каждое видео — 3-5 секунд. Смотри и сразу говори ОДНО предложение в <strong>Present Continuous</strong> вслух. ▶ услышь подсказку · отметь «Done» когда сказал.</p>
+
+  <div class="video-grid">
+    <div class="vid-card">
+      <video autoplay muted loop playsinline src="../../b1/modals-deep-dive/assets/video/clips/02-sister-walking-with-little-brother-to-school.mp4"></video>
+      <div class="vid-body">
+        <span class="vid-num">01</span>
+        <span class="vid-prompt">Two people on the street</span>
+        <span class="vid-hint">They are walking. Where? Why? Who?</span>
+        <div class="vid-actions">
+          <button class="vid-btn done-toggle">Done</button>
+          <button class="vid-btn secondary play" data-say="A sister is walking with her little brother to school. They are holding hands.">▶</button>
+        </div>
+      </div>
+    </div>
+    <div class="vid-card">
+      <video autoplay muted loop playsinline src="../../b1/modals-deep-dive/assets/video/clips/05-tired-student-cup-of-tea.mp4"></video>
+      <div class="vid-body">
+        <span class="vid-num">02</span>
+        <span class="vid-prompt">A student with a cup</span>
+        <span class="vid-hint">She is sitting. She is holding… She is feeling…</span>
+        <div class="vid-actions">
+          <button class="vid-btn done-toggle">Done</button>
+          <button class="vid-btn secondary play" data-say="She is sitting at her desk. She is drinking tea. She is feeling tired.">▶</button>
+        </div>
+      </div>
+    </div>
+    <div class="vid-card">
+      <video autoplay muted loop playsinline src="../../b1/modals-deep-dive/assets/video/clips/06-confident-young-woman-speaking.mp4"></video>
+      <div class="vid-body">
+        <span class="vid-num">03</span>
+        <span class="vid-prompt">A woman is talking</span>
+        <span class="vid-hint">She is speaking. To whom? About what? How does she look?</span>
+        <div class="vid-actions">
+          <button class="vid-btn done-toggle">Done</button>
+          <button class="vid-btn secondary play" data-say="A young woman is speaking confidently. She is presenting something. She is looking straight at the camera.">▶</button>
+        </div>
+      </div>
+    </div>
+    <div class="vid-card">
+      <video autoplay muted loop playsinline src="../../b1/modals-deep-dive/assets/video/clips/09-opening-umbrella-in-rain.mp4"></video>
+      <div class="vid-body">
+        <span class="vid-num">04</span>
+        <span class="vid-prompt">Opening an umbrella</span>
+        <span class="vid-hint">It is… She is… Why is she doing this?</span>
+        <div class="vid-actions">
+          <button class="vid-btn done-toggle">Done</button>
+          <button class="vid-btn secondary play" data-say="It is raining. She is opening her umbrella. She is going somewhere in a hurry.">▶</button>
+        </div>
+      </div>
+    </div>
+    <div class="vid-card">
+      <video autoplay muted loop playsinline src="../../b1/modals-deep-dive/assets/video/clips/10-hand-reaching-door-handle.mp4"></video>
+      <div class="vid-body">
+        <span class="vid-num">05</span>
+        <span class="vid-prompt">A hand on a door handle</span>
+        <span class="vid-hint">Someone is opening… Where? What is behind it?</span>
+        <div class="vid-actions">
+          <button class="vid-btn done-toggle">Done</button>
+          <button class="vid-btn secondary play" data-say="Someone is opening a door. Maybe they are entering a shop or a café.">▶</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · CITY DIALOGUES (directions) -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">05</div><h2>Two city dialogues · asking the way</h2></div>
+  <p class="section-sub">Не магазин и не кофейня — те будут на следующих уроках. Сегодня — <strong>spotting your way around the city</strong>. Прочти каждый диалог вслух за обе роли. Потом за одну роль, представляя ответы другой.</p>
+
+  <h3 style="font-family:var(--display);font-weight:800;font-size:1rem;color:var(--accent);margin:18px 0 8px">🚶 At the corner · asking for the metro</h3>
+  <div class="dialog">
+    <div class="line"><div class="who">You</div><div class="what">Excuse me, can you tell me how to get to the metro?</div><button class="play-line" data-say="Excuse me, can you tell me how to get to the metro?">▶</button></div>
+    <div class="line"><div class="who b">Local</div><div class="what">Sure. Go straight on this street for two blocks.</div><button class="play-line" data-say="Sure. Go straight on this street for two blocks.">▶</button></div>
+    <div class="line"><div class="who">You</div><div class="what">OK, straight for two blocks. And then?</div><button class="play-line" data-say="OK, straight for two blocks. And then?">▶</button></div>
+    <div class="line"><div class="who b">Local</div><div class="what">Then turn right at the traffic lights. The metro is next to the bank.</div><button class="play-line" data-say="Then turn right at the traffic lights. The metro is next to the bank.">▶</button></div>
+    <div class="line"><div class="who">You</div><div class="what">Is it far?</div><button class="play-line" data-say="Is it far?">▶</button></div>
+    <div class="line"><div class="who b">Local</div><div class="what">No, only five minutes on foot.</div><button class="play-line" data-say="No, only five minutes on foot.">▶</button></div>
+    <div class="line"><div class="who">You</div><div class="what">Great. Thank you very much!</div><button class="play-line" data-say="Great. Thank you very much!">▶</button></div>
+    <div class="line"><div class="who b">Local</div><div class="what">You're welcome. Have a nice day!</div><button class="play-line" data-say="You're welcome. Have a nice day!">▶</button></div>
+  </div>
+  <div class="dialog-meta">Учи структуру: <em>Excuse me → ask → confirm → check distance → thank</em></div>
+
+  <h3 style="font-family:var(--display);font-weight:800;font-size:1rem;color:var(--accent);margin:22px 0 8px">🗺️ A tourist asks you · you are local</h3>
+  <div class="dialog">
+    <div class="line"><div class="who">Tourist</div><div class="what">Hi! I'm a bit lost. Where is the museum?</div><button class="play-line" data-say="Hi! I'm a bit lost. Where is the museum?">▶</button></div>
+    <div class="line"><div class="who b">You</div><div class="what">The museum? It's not far. Are you on foot?</div><button class="play-line" data-say="The museum? It's not far. Are you on foot?">▶</button></div>
+    <div class="line"><div class="who">Tourist</div><div class="what">Yes, I'm walking.</div><button class="play-line" data-say="Yes, I'm walking.">▶</button></div>
+    <div class="line"><div class="who b">You</div><div class="what">OK. Go past the park. The museum is on the other side, opposite the bridge.</div><button class="play-line" data-say="OK. Go past the park. The museum is on the other side, opposite the bridge.">▶</button></div>
+    <div class="line"><div class="who">Tourist</div><div class="what">Is it open today?</div><button class="play-line" data-say="Is it open today?">▶</button></div>
+    <div class="line"><div class="who b">You</div><div class="what">I think so. It usually opens at ten.</div><button class="play-line" data-say="I think so. It usually opens at ten.">▶</button></div>
+    <div class="line"><div class="who">Tourist</div><div class="what">Perfect. Thanks a lot!</div><button class="play-line" data-say="Perfect. Thanks a lot!">▶</button></div>
+    <div class="line"><div class="who b">You</div><div class="what">No problem. Enjoy your visit!</div><button class="play-line" data-say="No problem. Enjoy your visit!">▶</button></div>
+  </div>
+  <div class="dialog-meta">Drill · 3 passes: первый медленно с подсказками · второй без подсказок · третий — переверни роли, ты идёшь в обратной паре.</div>
+</section>
+
+<!-- 6 · PAIR SPEAKING -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">06</div><h2>Pair speaking · you and I take turns</h2></div>
+  <p class="section-sub">У каждого своя колонка — 10 вопросов про город и обычный день. Партнёр не видит твои. Отвечай <strong>полным предложением</strong> по шаблону, не «yes / no».</p>
 
   <div class="pair-grid">
     <div class="pair-side">
-      <h4>🅰️ Student A — questions for you</h4>
-      <span class="hide-warn">Это мои вопросы — я задам тебе</span>
-      <div class="pair-q"><span class="num-q">1.</span><button class="play" data-say="Do you live in a city or a village?">▶</button><div class="body-q">Do you live in a city or a village? <em>(I live in …)</em></div></div>
-      <div class="pair-q"><span class="num-q">2.</span><button class="play" data-say="What is there near your house?">▶</button><div class="body-q">What is there near your house? <em>(There is … There are …)</em></div></div>
-      <div class="pair-q"><span class="num-q">3.</span><button class="play" data-say="Is your city big or small?">▶</button><div class="body-q">Is your city big or small? <em>(It is …)</em></div></div>
-      <div class="pair-q"><span class="num-q">4.</span><button class="play" data-say="What do you usually do on weekends?">▶</button><div class="body-q">What do you usually do on weekends? <em>(I usually …)</em></div></div>
-      <div class="pair-q"><span class="num-q">5.</span><button class="play" data-say="Where do you go on Sunday morning?">▶</button><div class="body-q">Where do you go on Sunday morning? <em>(I go to …)</em></div></div>
-      <div class="pair-q"><span class="num-q">6.</span><button class="play" data-say="Is it cold or warm today?">▶</button><div class="body-q">Is it cold or warm today? <em>(It is …)</em></div></div>
+      <h4>🅰️ Student A · I ask you</h4>
+      <span class="hide-warn">these are my questions to you</span>
+      <div class="pair-q"><span class="num-q">1.</span><button class="play" data-say="Do you live in a city, a town or a village?">▶</button><div class="body-q">Do you live in a city, a town or a village? <em>(I live in …)</em></div></div>
+      <div class="pair-q"><span class="num-q">2.</span><button class="play" data-say="What three things are near your house?">▶</button><div class="body-q">What three things are near your house? <em>(There is a … There is a … There are …)</em></div></div>
+      <div class="pair-q"><span class="num-q">3.</span><button class="play" data-say="Is your area quiet or noisy?">▶</button><div class="body-q">Is your area quiet or noisy? <em>(It is …)</em></div></div>
+      <div class="pair-q"><span class="num-q">4.</span><button class="play" data-say="How do you get to work — on foot, by bus, or by car?">▶</button><div class="body-q">How do you get to work — on foot, by bus, or by car? <em>(I usually …)</em></div></div>
+      <div class="pair-q"><span class="num-q">5.</span><button class="play" data-say="Where do you usually have lunch on weekdays?">▶</button><div class="body-q">Where do you usually have lunch on weekdays? <em>(I usually have lunch at / in …)</em></div></div>
+      <div class="pair-q"><span class="num-q">6.</span><button class="play" data-say="What is the weather like today in your city?">▶</button><div class="body-q">What is the weather like today in your city? <em>(It is …)</em></div></div>
       <div class="pair-q"><span class="num-q">7.</span><button class="play" data-say="What are you wearing right now?">▶</button><div class="body-q">What are you wearing right now? <em>(I am wearing …)</em></div></div>
-      <div class="pair-q"><span class="num-q">8.</span><button class="play" data-say="Are there many people in your area?">▶</button><div class="body-q">Are there many people in your area? <em>(Yes, there are … / No, …)</em></div></div>
-      <div class="pair-q"><span class="num-q">9.</span><button class="play" data-say="Can you walk to a shop from your house?">▶</button><div class="body-q">Can you walk to a shop from your house? <em>(Yes, I can. The shop is …)</em></div></div>
+      <div class="pair-q"><span class="num-q">8.</span><button class="play" data-say="Are there many cafés in your area?">▶</button><div class="body-q">Are there many cafés in your area? <em>(Yes, there are … / No, …)</em></div></div>
+      <div class="pair-q"><span class="num-q">9.</span><button class="play" data-say="Can you walk to a park from your house?">▶</button><div class="body-q">Can you walk to a park from your house? <em>(Yes, I can. It takes … / No, …)</em></div></div>
       <div class="pair-q"><span class="num-q">10.</span><button class="play" data-say="What are you doing right now, besides talking to me?">▶</button><div class="body-q">What are you doing right now, besides talking to me? <em>(I am … now.)</em></div></div>
     </div>
 
     <div class="pair-side b">
-      <h4>🅱️ Student B — questions for me</h4>
-      <span class="hide-warn">Это твои вопросы — задаёшь мне</span>
+      <h4>🅱️ Student B · you ask me</h4>
+      <span class="hide-warn">these are your questions to me</span>
       <div class="pair-q"><span class="num-q">1.</span><button class="play" data-say="Where do you live?">▶</button><div class="body-q">Where do you live? <em>(I live in …)</em></div></div>
-      <div class="pair-q"><span class="num-q">2.</span><button class="play" data-say="What is your favourite place in the city?">▶</button><div class="body-q">What is your favourite place in the city? <em>(My favourite place is …)</em></div></div>
-      <div class="pair-q"><span class="num-q">3.</span><button class="play" data-say="Do you have a café near your home?">▶</button><div class="body-q">Do you have a café near your home? <em>(Yes, I do. / No, …)</em></div></div>
-      <div class="pair-q"><span class="num-q">4.</span><button class="play" data-say="What do you usually wear in cold weather?">▶</button><div class="body-q">What do you usually wear in cold weather? <em>(I usually wear …)</em></div></div>
-      <div class="pair-q"><span class="num-q">5.</span><button class="play" data-say="Where are you going tomorrow?">▶</button><div class="body-q">Where are you going tomorrow? <em>(I am going to …)</em></div></div>
-      <div class="pair-q"><span class="num-q">6.</span><button class="play" data-say="What is the weather today in your city?">▶</button><div class="body-q">What is the weather today in your city? <em>(It is …)</em></div></div>
-      <div class="pair-q"><span class="num-q">7.</span><button class="play" data-say="How often do you go to the park?">▶</button><div class="body-q">How often do you go to the park? <em>(I go … / I never go …)</em></div></div>
-      <div class="pair-q"><span class="num-q">8.</span><button class="play" data-say="Do you prefer the city or the countryside?">▶</button><div class="body-q">Do you prefer the city or the countryside? <em>(I prefer …)</em></div></div>
-      <div class="pair-q"><span class="num-q">9.</span><button class="play" data-say="Are you wearing a jacket now?">▶</button><div class="body-q">Are you wearing a jacket now? <em>(Yes, I am … / No, I am wearing …)</em></div></div>
-      <div class="pair-q"><span class="num-q">10.</span><button class="play" data-say="Is your city quiet or noisy?">▶</button><div class="body-q">Is your city quiet or noisy? <em>(It is …)</em></div></div>
+      <div class="pair-q"><span class="num-q">2.</span><button class="play" data-say="What is your favourite place in your city, and why?">▶</button><div class="body-q">What is your favourite place in your city, and why? <em>(My favourite place is …)</em></div></div>
+      <div class="pair-q"><span class="num-q">3.</span><button class="play" data-say="Is there a metro or a bus near your home?">▶</button><div class="body-q">Is there a metro or a bus near your home? <em>(Yes, there is … / No …)</em></div></div>
+      <div class="pair-q"><span class="num-q">4.</span><button class="play" data-say="How often do you visit a museum or an exhibition?">▶</button><div class="body-q">How often do you visit a museum or an exhibition? <em>(I … / I rarely …)</em></div></div>
+      <div class="pair-q"><span class="num-q">5.</span><button class="play" data-say="Where are you going tomorrow evening?">▶</button><div class="body-q">Where are you going tomorrow evening? <em>(I am going to …)</em></div></div>
+      <div class="pair-q"><span class="num-q">6.</span><button class="play" data-say="What do you usually do on Saturday morning?">▶</button><div class="body-q">What do you usually do on Saturday morning? <em>(On Saturday I usually …)</em></div></div>
+      <div class="pair-q"><span class="num-q">7.</span><button class="play" data-say="Do you prefer the city centre or the suburbs?">▶</button><div class="body-q">Do you prefer the city centre or the suburbs? <em>(I prefer … because …)</em></div></div>
+      <div class="pair-q"><span class="num-q">8.</span><button class="play" data-say="What time do you usually leave home in the morning?">▶</button><div class="body-q">What time do you usually leave home in the morning? <em>(I usually leave at …)</em></div></div>
+      <div class="pair-q"><span class="num-q">9.</span><button class="play" data-say="Are you reading any book at the moment?">▶</button><div class="body-q">Are you reading any book at the moment? <em>(Yes, I am reading … / No, I am not …)</em></div></div>
+      <div class="pair-q"><span class="num-q">10.</span><button class="play" data-say="Is your city changing fast or slowly these days?">▶</button><div class="body-q">Is your city changing fast or slowly these days? <em>(It is changing …)</em></div></div>
     </div>
   </div>
 </section>
 
-<!-- 7 · FREE MONOLOGUE -->
+<!-- 7 · ANCHORED MONOLOGUE · WALK -->
 <section class="section">
-  <div class="section-hdr"><div class="section-num">07</div><h2>Свободный монолог · 90 секунд без остановки</h2></div>
-  <p class="section-sub">Самая жёсткая часть урока. Тема — <strong>«Моё воскресенье в городе»</strong>. Говоришь <strong>не останавливаясь 90 секунд</strong>. Не страшно ошибаться — страшно молчать.</p>
+  <div class="section-hdr"><div class="section-num">07</div><h2>A walk through your day · 8 anchored steps</h2></div>
+  <p class="section-sub">Не «расскажи свободно» — это никогда не работает. Дам 8 шагов, заполни каждый одной строкой по-английски, потом прочти всё подряд вслух как один связный рассказ. Текст сохраняется автоматически — придёшь завтра, ничего не пропадёт.</p>
 
-  <div class="mono">
-    <h4>Подсказки-цепочка (не используй все, выбери что подходит):</h4>
-    <ul>
-      <li>Я обычно встаю в … · I usually get up at …</li>
-      <li>Мой район / моя улица — это … · My area / my street is …</li>
-      <li>Рядом с моим домом есть … · There is / There are … near my house</li>
-      <li>Обычно по воскресеньям я … · On Sundays I usually …</li>
-      <li>Я часто хожу в … / Я никогда не хожу в … · I often go to … / I never go to …</li>
-      <li>Сейчас за окном … · It is … outside now</li>
-      <li>Сегодня я делаю … / еду в … · Today I am … / I am going to …</li>
-      <li>Я люблю свой город потому что … · I like my city because …</li>
-    </ul>
-    <p class="hint">⏱ Цель — 8–10 предложений за 90 секунд. Если запнулся — следующая мысль, не лечи прошлую.</p>
-    <button class="timer-btn" data-min="1.5">⏱ Запустить таймер · 90 секунд</button>
-    <span class="timer-display" id="timer2">01:30</span>
+  <div class="walk">
+    <div class="walk-step">
+      <div class="walk-head"><span class="walk-frame">There is / are</span>What is near your home?</div>
+      <div class="walk-body">e.g. <em>Near my home there is a small park and there are two cafés on my street.</em></div>
+      <textarea placeholder="Near my home there is..."></textarea>
+    </div>
+    <div class="walk-step">
+      <div class="walk-head"><span class="walk-frame">It is</span>What is your area like today?</div>
+      <div class="walk-body">e.g. <em>Today it is sunny but a bit windy.</em></div>
+      <textarea placeholder="Today it is..."></textarea>
+    </div>
+    <div class="walk-step">
+      <div class="walk-head"><span class="walk-frame">I usually + V</span>What do you usually do in the morning?</div>
+      <div class="walk-body">e.g. <em>I usually get up at 7 and I drink coffee in the kitchen.</em></div>
+      <textarea placeholder="I usually..."></textarea>
+    </div>
+    <div class="walk-step">
+      <div class="walk-head"><span class="walk-frame">I + V on Sundays</span>What about Sundays — what's different?</div>
+      <div class="walk-body">e.g. <em>On Sundays I do not work. I walk in the park and I read.</em></div>
+      <textarea placeholder="On Sundays I..."></textarea>
+    </div>
+    <div class="walk-step">
+      <div class="walk-head"><span class="walk-frame">I am + V-ing</span>What are you doing right now (literally, now)?</div>
+      <div class="walk-body">e.g. <em>Right now I am sitting at my desk and I am answering these questions.</em></div>
+      <textarea placeholder="Right now I am..."></textarea>
+    </div>
+    <div class="walk-step">
+      <div class="walk-head"><span class="walk-frame">There are + people</span>What are the people in your city like?</div>
+      <div class="walk-body">e.g. <em>There are many busy people on the streets in the morning.</em></div>
+      <textarea placeholder="There are..."></textarea>
+    </div>
+    <div class="walk-step">
+      <div class="walk-head"><span class="walk-frame">My favourite + because</span>Your favourite place and why?</div>
+      <div class="walk-body">e.g. <em>My favourite place is the small bookshop on the corner because it is quiet.</em></div>
+      <textarea placeholder="My favourite place is..."></textarea>
+    </div>
+    <div class="walk-step">
+      <div class="walk-head"><span class="walk-frame">I like / I do not like</span>One thing you love + one thing you don't?</div>
+      <div class="walk-body">e.g. <em>I like the cafés but I do not like the traffic in the city centre.</em></div>
+      <textarea placeholder="I like... but I do not like..."></textarea>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:8px">
+    <p style="margin:0;font-size:.93rem;color:var(--muted)"><strong>Then:</strong> прочти все 8 предложений подряд вслух — это твой связный 60-секундный монолог про город. Если в одной строке запнулся — следующая, не лечи прошлую.</p>
   </div>
 </section>
 
-<!-- 8 · SPEAKING FINALE ROUND 1 (TODAY) -->
+<!-- 8 · SPEAKING FINALE ROUND 1 -->
 <section class="section">
-  <div class="section-hdr"><div class="section-num">08</div><h2>Speaking finale · Round 1 · твой город сегодня</h2></div>
-  <p class="section-sub">Завершаем «настоящий» блок. Ответь полным предложением, минимум <strong>2–3 предложения на каждый вопрос</strong>. ▶ — услышь вопрос. После этого переходим к Future.</p>
+  <div class="section-hdr"><div class="section-num">08</div><h2>Speaking finale · Round 1 · today</h2></div>
+  <p class="section-sub">Шесть необычных вопросов. Не «опиши свой город» — конкретные ситуации. Ответь <strong>2-3 предложениями</strong> на каждый. ▶ — услышь вопрос. ✓ Done — когда сказал вслух.</p>
 
   <div class="prompts">
-    <div class="prompt"><button class="play" data-say="Describe your favourite place in the city. Why do you like it?">▶</button><span class="num">1.</span><span><strong>Describe your favourite place in the city. Why do you like it?</strong> <em>(My favourite place is … It is … I like it because …)</em></span></div>
-    <div class="prompt"><button class="play" data-say="What is a typical Sunday for you?">▶</button><span class="num">2.</span><span><strong>What is a typical Sunday for you?</strong> <em>(On Sunday I usually … Then I … In the evening I …)</em></span></div>
-    <div class="prompt"><button class="play" data-say="Tell me about your home. How many rooms? What is in your favourite room?">▶</button><span class="num">3.</span><span><strong>Tell me about your home.</strong> How many rooms? What is in your favourite room? <em>(I live in … There is … There are …)</em></span></div>
-    <div class="prompt"><button class="play" data-say="What is the weather like today, and what are you wearing because of it?">▶</button><span class="num">4.</span><span><strong>What is the weather like today, and what are you wearing because of it?</strong> <em>(It is … so I am wearing …)</em></span></div>
-    <div class="prompt"><button class="play" data-say="Do you prefer the city or the countryside? Why?">▶</button><span class="num">5.</span><span><strong>Do you prefer the city or the countryside? Why?</strong> <em>(I prefer … because …)</em></span></div>
-    <div class="prompt"><button class="play" data-say="What are you doing tomorrow? Tell me three things.">▶</button><span class="num">6.</span><span><strong>What are you doing tomorrow? Tell me three things.</strong> <em>(Tomorrow I am … Then I am … In the evening I am …)</em></span></div>
+    <div class="prompt"><button class="play" data-say="A friend from another country is visiting you for one day. Where do you take them?">▶</button><span class="num">1.</span><span><strong>A friend from another country is visiting you for one day.</strong> Where do you take them? <em>(In the morning I take them to … For lunch we go to … In the evening …)</em></span><button class="prompt-done-btn">Done</button></div>
+    <div class="prompt"><button class="play" data-say="Imagine your city had no cars for one week. What would change?">▶</button><span class="num">2.</span><span><strong>Imagine your city had no cars for one week.</strong> What changes? <em>(It is quieter. People are walking. The streets are …)</em></span><button class="prompt-done-btn">Done</button></div>
+    <div class="prompt"><button class="play" data-say="What is one thing in your city that always makes you smile?">▶</button><span class="num">3.</span><span><strong>What is one thing in your city that always makes you smile?</strong> <em>(There is a … I like it because …)</em></span><button class="prompt-done-btn">Done</button></div>
+    <div class="prompt"><button class="play" data-say="Tell me about a place in your city you do not like. Why?">▶</button><span class="num">4.</span><span><strong>Tell me about a place in your city you do not like.</strong> Why? <em>(I do not like … because it is … and there are too many …)</em></span><button class="prompt-done-btn">Done</button></div>
+    <div class="prompt"><button class="play" data-say="What does your street look like at 7 a.m. compared to 7 p.m.?">▶</button><span class="num">5.</span><span><strong>What does your street look like at 7 a.m. compared to 7 p.m.?</strong> <em>(At 7 a.m. there are … At 7 p.m. it is … and people are …)</em></span><button class="prompt-done-btn">Done</button></div>
+    <div class="prompt"><button class="play" data-say="If a tourist had only one photo to take in your city, what should they photograph and why?">▶</button><span class="num">6.</span><span><strong>If a tourist had only one photo to take in your city — what should they photograph?</strong> Why? <em>(They should take a photo of … because it is …)</em></span><button class="prompt-done-btn">Done</button></div>
   </div>
 </section>
 
 <!-- 9 · FUTURE INTRO -->
 <section class="section">
-  <div class="section-hdr"><div class="section-num">09</div><h2>Future · will или going to · правило за 60 секунд</h2></div>
-  <p class="section-sub">Два способа говорить про будущее. Разница не в значении, а в том, <strong>откуда взялась идея</strong>. Сначала разберём, потом — погоним.</p>
+  <div class="section-hdr"><div class="section-num">09</div><h2>Future · will vs going to · rule in 60 seconds</h2></div>
+  <p class="section-sub">Two ways to talk about future. The difference is not in meaning — it is <strong>where the idea came from</strong>. Read the four frames out loud first, then we drill.</p>
 
   <div class="frame-grid">
     <div class="frame b2">
-      <div class="when">will · решение прямо сейчас</div>
+      <div class="when">will · decision right now</div>
       <div class="pat">I will + V</div>
-      <div class="ex">"It is cold." — "OK, I will close the window." (idea was born now)</div>
+      <div class="ex">"It is cold." — "OK, I will close the window." (idea was born this second)</div>
     </div>
     <div class="frame b2">
-      <div class="when">will · предсказание</div>
+      <div class="when">will · prediction</div>
       <div class="pat">It will + V</div>
       <div class="ex">Robots will work in cafés in 50 years.</div>
     </div>
     <div class="frame">
-      <div class="when">going to · план</div>
+      <div class="when">going to · existing plan</div>
       <div class="pat">I am going to + V</div>
       <div class="ex">I am going to visit my parents on Sunday. (decided earlier)</div>
     </div>
     <div class="frame">
-      <div class="when">going to · очевидно сейчас</div>
+      <div class="when">going to · evidence in front of you</div>
       <div class="pat">It is going to + V</div>
-      <div class="ex">Look at the sky — it is going to rain. (you see the signs)</div>
+      <div class="ex">Look at the sky — it is going to rain. (you see the signs now)</div>
     </div>
   </div>
 
   <div class="card" style="margin-top:8px">
-    <p style="margin:0 0 8px 0;font-size:.94rem;color:var(--ink)"><strong>Короткое правило в одну строку:</strong></p>
-    <p style="margin:0;font-size:.93rem;color:var(--muted)">— <strong>will</strong> = мысль родилась прямо сейчас (решение, обещание) или это предсказание про мир.<br>— <strong>going to</strong> = план был раньше, или ты видишь очевидные признаки сейчас.</p>
-    <p style="margin:10px 0 0 0;font-size:.92rem;color:var(--muted);font-style:italic">Ошибиться не страшно — носители часто меняют одно на другое. Главное — начать говорить про будущее.</p>
+    <p style="margin:0;font-size:.94rem;color:var(--ink)"><strong>Short rule in one line:</strong></p>
+    <p style="margin:6px 0 0;font-size:.93rem;color:var(--muted)">— <strong>will</strong> = idea born now (decision, promise) OR prediction about the world.<br>— <strong>going to</strong> = plan made earlier, OR signs are showing it now.</p>
+    <p style="margin:10px 0 0 0;font-size:.92rem;color:var(--muted);font-style:italic">Native speakers mix these all the time. Start using both — accuracy will follow.</p>
   </div>
 </section>
 
 <!-- 10 · WILL DRILL -->
 <section class="section">
-  <div class="section-hdr"><div class="section-num">10</div><h2>Will-drill · 6 спонтанных решений и предсказаний</h2></div>
-  <p class="section-sub">Прочитай ситуацию вслух и реагируй <strong>с will</strong>. Без подготовки — первое что приходит в голову. ▶ — услышь подсказку.</p>
+  <div class="section-hdr"><div class="section-num">10</div><h2>Will-drill · 6 decisions and predictions</h2></div>
+  <p class="section-sub">Read the situation out loud and react <strong>with will</strong>. No preparation — first thing that comes to mind. ▶ to hear the prompt. ✓ Done when said.</p>
 
   <div class="prompts">
-    <div class="prompt"><button class="play" data-say="The doorbell is ringing. What will you do?">▶</button><span class="num">1.</span><span><strong>The doorbell is ringing.</strong> What will you do? <em>(I will open / I will check who it is …)</em></span></div>
-    <div class="prompt"><button class="play" data-say="I am thirsty. What will you offer me?">▶</button><span class="num">2.</span><span><strong>Я говорю: "I am thirsty."</strong> Что предложишь? <em>(I will bring you water / I will make tea …)</em></span></div>
-    <div class="prompt"><button class="play" data-say="What will the weather be like tomorrow in your city?">▶</button><span class="num">3.</span><span><strong>What will the weather be like tomorrow?</strong> <em>(It will be … I think it will …)</em></span></div>
-    <div class="prompt"><button class="play" data-say="What will cities look like in 100 years?">▶</button><span class="num">4.</span><span><strong>What will cities look like in 100 years?</strong> <em>(Cities will be … People will …)</em></span></div>
-    <div class="prompt"><button class="play" data-say="Promise me one thing for next week.">▶</button><span class="num">5.</span><span><strong>Promise me one thing for next week.</strong> <em>(I will … I promise.)</em></span></div>
-    <div class="prompt"><button class="play" data-say="Will people still read paper books in 50 years?">▶</button><span class="num">6.</span><span><strong>Will people still read paper books in 50 years?</strong> <em>(Yes, they will … / No, they won't because …)</em></span></div>
+    <div class="prompt"><button class="play" data-say="The doorbell is ringing. What will you do?">▶</button><span class="num">1.</span><span><strong>The doorbell is ringing.</strong> What will you do? <em>(I will open … / I will check who it is …)</em></span><button class="prompt-done-btn">Done</button></div>
+    <div class="prompt"><button class="play" data-say="I say: I am thirsty. What will you offer me?">▶</button><span class="num">2.</span><span><strong>I say: "I am thirsty."</strong> What will you offer me? <em>(I will bring you water … / I will make tea …)</em></span><button class="prompt-done-btn">Done</button></div>
+    <div class="prompt"><button class="play" data-say="What will the weather be like tomorrow in your city?">▶</button><span class="num">3.</span><span><strong>What will the weather be like tomorrow?</strong> <em>(It will be … I think it will …)</em></span><button class="prompt-done-btn">Done</button></div>
+    <div class="prompt"><button class="play" data-say="What will cities look like in 100 years? Two predictions.">▶</button><span class="num">4.</span><span><strong>What will cities look like in 100 years?</strong> Two predictions. <em>(Cities will be … People will …)</em></span><button class="prompt-done-btn">Done</button></div>
+    <div class="prompt"><button class="play" data-say="Promise me one thing for next week.">▶</button><span class="num">5.</span><span><strong>Promise me one thing for next week.</strong> <em>(I will … I promise.)</em></span><button class="prompt-done-btn">Done</button></div>
+    <div class="prompt"><button class="play" data-say="Will people still read paper books in 50 years? Why or why not?">▶</button><span class="num">6.</span><span><strong>Will people still read paper books in 50 years?</strong> Why or why not? <em>(Yes, they will … / No, they will not because …)</em></span><button class="prompt-done-btn">Done</button></div>
   </div>
 </section>
 
 <!-- 11 · GOING TO DRILL -->
 <section class="section">
-  <div class="section-hdr"><div class="section-num">11</div><h2>Going to-drill · 6 твоих планов</h2></div>
-  <p class="section-sub">Расскажи о планах — что ты <strong>уже решил раньше</strong>. ▶ — услышь вопрос.</p>
+  <div class="section-hdr"><div class="section-num">11</div><h2>Going-to-drill · 6 plans you've already made</h2></div>
+  <p class="section-sub">Tell me what you <strong>already decided</strong> earlier. Use <strong>going to</strong>. Full sentences. ▶ to hear the question.</p>
 
   <div class="prompts">
-    <div class="prompt"><button class="play" data-say="What are you going to do tonight?">▶</button><span class="num">1.</span><span><strong>What are you going to do tonight?</strong> <em>(I am going to … then I am going to …)</em></span></div>
-    <div class="prompt"><button class="play" data-say="What are you going to do this weekend?">▶</button><span class="num">2.</span><span><strong>What are you going to do this weekend?</strong> <em>(On Saturday I am going to … On Sunday …)</em></span></div>
-    <div class="prompt"><button class="play" data-say="Are you going to visit anyone this summer?">▶</button><span class="num">3.</span><span><strong>Are you going to visit anyone this summer?</strong> <em>(Yes, I am going to visit … / No, I am going to stay …)</em></span></div>
-    <div class="prompt"><button class="play" data-say="Look outside. Is it going to rain or be sunny?">▶</button><span class="num">4.</span><span><strong>Look outside. Is it going to rain or be sunny?</strong> <em>(It is going to … because I can see …)</em></span></div>
-    <div class="prompt"><button class="play" data-say="What are you going to learn next month in English?">▶</button><span class="num">5.</span><span><strong>What are you going to learn next month in English?</strong> <em>(I am going to learn … and …)</em></span></div>
-    <div class="prompt"><button class="play" data-say="What big thing are you going to do this year?">▶</button><span class="num">6.</span><span><strong>What big thing are you going to do this year?</strong> <em>(I am going to … because …)</em></span></div>
+    <div class="prompt"><button class="play" data-say="What are you going to do tonight?">▶</button><span class="num">1.</span><span><strong>What are you going to do tonight?</strong> <em>(I am going to … then I am going to …)</em></span><button class="prompt-done-btn">Done</button></div>
+    <div class="prompt"><button class="play" data-say="What are you going to do this weekend? Two specific plans.">▶</button><span class="num">2.</span><span><strong>What are you going to do this weekend?</strong> Two specific plans. <em>(On Saturday I am going to … On Sunday …)</em></span><button class="prompt-done-btn">Done</button></div>
+    <div class="prompt"><button class="play" data-say="Are you going to travel anywhere this summer?">▶</button><span class="num">3.</span><span><strong>Are you going to travel anywhere this summer?</strong> <em>(Yes, I am going to visit … / No, I am going to stay in …)</em></span><button class="prompt-done-btn">Done</button></div>
+    <div class="prompt"><button class="play" data-say="Look outside. Is it going to rain or be sunny in the next hour?">▶</button><span class="num">4.</span><span><strong>Look outside.</strong> Is it going to rain or be sunny in the next hour? <em>(It is going to … because I can see …)</em></span><button class="prompt-done-btn">Done</button></div>
+    <div class="prompt"><button class="play" data-say="What are you going to learn next month in English?">▶</button><span class="num">5.</span><span><strong>What are you going to learn next month in English?</strong> <em>(I am going to learn … and …)</em></span><button class="prompt-done-btn">Done</button></div>
+    <div class="prompt"><button class="play" data-say="What is the biggest thing you are going to do this year?">▶</button><span class="num">6.</span><span><strong>What is the biggest thing you are going to do this year?</strong> <em>(I am going to … because …)</em></span><button class="prompt-done-btn">Done</button></div>
   </div>
 </section>
 
-<!-- 12 · CITY OF THE FUTURE VOCAB -->
+<!-- 12 · CITY OF FUTURE · BASE VOCAB -->
 <section class="section">
-  <div class="section-hdr"><div class="section-num">12</div><h2>Город будущего · 14 новых слов</h2></div>
-  <p class="section-sub">Лексика для финального speaking-блока. Нажми ▶ — услышь произношение. Не учи зубрёжкой — просто проговори каждое 2 раза вслух.</p>
+  <div class="section-hdr"><div class="section-num">12</div><h2>City of the future · 8 core words</h2></div>
+  <p class="section-sub">Не учебник лексики — это <strong>база</strong>. 8 слов, которые откроют тебе разговор про будущее. ▶ hear the word · say it twice out loud.</p>
 
   <div class="demo-grid">
-    <div class="demo"><button class="play-mini" data-say="flying car">▶</button><span class="word">flying car</span><span class="rule">транспорт</span><span class="ex">летающая машина</span></div>
-    <div class="demo"><button class="play-mini" data-say="self-driving car">▶</button><span class="word">self-driving car</span><span class="rule">транспорт</span><span class="ex">беспилотный автомобиль</span></div>
-    <div class="demo"><button class="play-mini" data-say="drone">▶</button><span class="word">drone</span><span class="rule">технология</span><span class="ex">дрон, беспилотник</span></div>
-    <div class="demo"><button class="play-mini" data-say="robot">▶</button><span class="word">robot</span><span class="rule">технология</span><span class="ex">робот</span></div>
-    <div class="demo"><button class="play-mini" data-say="solar panel">▶</button><span class="word">solar panel</span><span class="rule">энергия</span><span class="ex">солнечная панель</span></div>
-    <div class="demo"><button class="play-mini" data-say="vertical farm">▶</button><span class="word">vertical farm</span><span class="rule">место</span><span class="ex">вертикальная ферма</span></div>
-    <div class="demo"><button class="play-mini" data-say="green roof">▶</button><span class="word">green roof</span><span class="rule">место</span><span class="ex">зелёная крыша</span></div>
-    <div class="demo"><button class="play-mini" data-say="eco district">▶</button><span class="word">eco district</span><span class="rule">место</span><span class="ex">эко-район</span></div>
-    <div class="demo"><button class="play-mini" data-say="electric scooter">▶</button><span class="word">electric scooter</span><span class="rule">транспорт</span><span class="ex">электросамокат</span></div>
-    <div class="demo"><button class="play-mini" data-say="charging station">▶</button><span class="word">charging station</span><span class="rule">место</span><span class="ex">зарядная станция</span></div>
-    <div class="demo"><button class="play-mini" data-say="smart street">▶</button><span class="word">smart street</span><span class="rule">место</span><span class="ex">умная улица</span></div>
-    <div class="demo"><button class="play-mini" data-say="holographic sign">▶</button><span class="word">holographic sign</span><span class="rule">технология</span><span class="ex">голографическая вывеска</span></div>
-    <div class="demo"><button class="play-mini" data-say="underground train">▶</button><span class="word">underground train</span><span class="rule">транспорт</span><span class="ex">подземный поезд / метро</span></div>
-    <div class="demo"><button class="play-mini" data-say="skyscraper">▶</button><span class="word">skyscraper</span><span class="rule">место</span><span class="ex">небоскрёб (повтор)</span></div>
+    <div class="demo"><button class="play-mini" data-say="flying car">▶</button><span class="word">flying car</span><span class="rule">transport</span><span class="ex">летающая машина</span></div>
+    <div class="demo"><button class="play-mini" data-say="self-driving car">▶</button><span class="word">self-driving car</span><span class="rule">transport</span><span class="ex">беспилотник</span></div>
+    <div class="demo"><button class="play-mini" data-say="drone">▶</button><span class="word">drone</span><span class="rule">tech</span><span class="ex">дрон</span></div>
+    <div class="demo"><button class="play-mini" data-say="robot">▶</button><span class="word">robot</span><span class="rule">tech</span><span class="ex">робот</span></div>
+    <div class="demo"><button class="play-mini" data-say="green roof">▶</button><span class="word">green roof</span><span class="rule">place</span><span class="ex">зелёная крыша</span></div>
+    <div class="demo"><button class="play-mini" data-say="solar panel">▶</button><span class="word">solar panel</span><span class="rule">energy</span><span class="ex">солнечная панель</span></div>
+    <div class="demo"><button class="play-mini" data-say="eco district">▶</button><span class="word">eco district</span><span class="rule">place</span><span class="ex">эко-район</span></div>
+    <div class="demo"><button class="play-mini" data-say="skyscraper">▶</button><span class="word">skyscraper</span><span class="rule">place</span><span class="ex">небоскрёб</span></div>
   </div>
 </section>
 
-<!-- 13 · FUTURE SCENE DESCRIPTION -->
+<!-- 13 · FUTURE SCENE -->
 <section class="section">
-  <div class="section-hdr"><div class="section-num">13</div><h2>Сцена «город через 50 лет» · опиши 10 предложениями</h2></div>
-  <p class="section-sub">Представь свой город в 2076. Опиши вслух минимум <strong>10 предложениями</strong>, используя <strong>will / going to + новую лексику</strong>. Структурируй по 4 ключам ниже.</p>
+  <div class="section-hdr"><div class="section-num">13</div><h2>Tap the future · 6 things in the city of 2076</h2></div>
+  <p class="section-sub">Same kind of tap-and-name game — but the city is 50 years from now. Кликни каждый кружок · опиши вслух предложением с <strong>will</strong> или <strong>going to</strong>.</p>
 
-  <div class="scene">
-    <div class="scene-pic" style="background:linear-gradient(135deg,#0d1b3a 0%,#2a3e8c 30%,#5b6fc9 55%,#c98a3f 85%,#f6c97b 100%)">
-      <div class="label">🌆 Год 2076 · твой город — летающие машины над крышами, зелёные небоскрёбы, дроны-курьеры, эко-районы вдоль набережной</div>
-    </div>
-    <p style="margin:0 0 8px 0;font-size:.94rem;color:var(--muted)"><strong>Структура твоего рассказа · 4 шага:</strong></p>
-    <div class="scene-prompts">
-      <div class="scene-prompt"><span class="key">There will be</span><span class="txt">что появится в городе</span></div>
-      <div class="scene-prompt"><span class="key">It will be</span><span class="txt">каким станет (cleaner, faster, greener)</span></div>
-      <div class="scene-prompt"><span class="key">People will</span><span class="txt">что будут делать люди (work, travel, live)</span></div>
-      <div class="scene-prompt"><span class="key">I am going to</span><span class="txt">твой личный план — где будешь жить, что делать</span></div>
-    </div>
-    <button class="timer-btn" data-min="2">⏱ Запустить таймер · 2 минуты</button>
-    <span class="timer-display" id="timer3">02:00</span>
+  <div class="scene-future" id="futureScene">
+    <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" style="position:absolute;inset:0;width:100%;height:100%">
+      <radialGradient id="fSun" cx="20%" cy="20%" r="35%"><stop offset="0%" stop-color="#f6c97b" stop-opacity=".5"/><stop offset="100%" stop-color="#f6c97b" stop-opacity="0"/></radialGradient>
+      <rect width="1600" height="900" fill="url(#fSun)"/>
+      <!-- far towers with green tops -->
+      <g>
+        <rect x="100" y="240" width="90" height="520" fill="#1a2d6e"/>
+        <ellipse cx="145" cy="240" rx="60" ry="30" fill="#3d6a45"/>
+        <rect x="220" y="180" width="110" height="580" fill="#243559"/>
+        <ellipse cx="275" cy="180" rx="70" ry="35" fill="#3d6a45"/>
+        <rect x="370" y="280" width="80" height="480" fill="#1a2d6e"/>
+        <ellipse cx="410" cy="280" rx="55" ry="28" fill="#3d6a45"/>
+        <rect x="490" y="140" width="140" height="620" fill="#3454b0"/>
+        <ellipse cx="560" cy="140" rx="90" ry="40" fill="#3d6a45"/>
+        <rect x="660" y="220" width="90" height="540" fill="#243559"/>
+        <ellipse cx="705" cy="220" rx="60" ry="30" fill="#3d6a45"/>
+        <rect x="780" y="160" width="120" height="600" fill="#3454b0"/>
+        <ellipse cx="840" cy="160" rx="80" ry="38" fill="#3d6a45"/>
+        <rect x="930" y="200" width="100" height="560" fill="#243559"/>
+        <ellipse cx="980" cy="200" rx="65" ry="32" fill="#3d6a45"/>
+        <rect x="1060" y="260" width="90" height="500" fill="#1a2d6e"/>
+        <ellipse cx="1105" cy="260" rx="60" ry="30" fill="#3d6a45"/>
+        <rect x="1180" y="120" width="130" height="640" fill="#3454b0"/>
+        <ellipse cx="1245" cy="120" rx="85" ry="40" fill="#3d6a45"/>
+        <rect x="1340" y="220" width="110" height="540" fill="#243559"/>
+        <ellipse cx="1395" cy="220" rx="70" ry="35" fill="#3d6a45"/>
+        <rect x="1480" y="260" width="100" height="500" fill="#1a2d6e"/>
+        <ellipse cx="1530" cy="260" rx="60" ry="30" fill="#3d6a45"/>
+      </g>
+      <!-- solar panels glinting (rooftop rectangles) -->
+      <g fill="#d4a04f" opacity=".85">
+        <rect x="105" y="240" width="80" height="14"/>
+        <rect x="225" y="180" width="100" height="14"/>
+        <rect x="495" y="140" width="130" height="14"/>
+        <rect x="785" y="160" width="110" height="14"/>
+        <rect x="1185" y="120" width="120" height="14"/>
+      </g>
+      <!-- flying cars (sleek hover shapes) -->
+      <g>
+        <ellipse cx="290" cy="380" rx="40" ry="12" fill="#f6c97b"/>
+        <ellipse cx="290" cy="388" rx="42" ry="6" fill="#d4a04f" opacity=".55"/>
+        <ellipse cx="1050" cy="450" rx="50" ry="14" fill="#f6c97b"/>
+        <ellipse cx="1050" cy="458" rx="52" ry="7" fill="#d4a04f" opacity=".55"/>
+        <ellipse cx="600" cy="330" rx="35" ry="10" fill="#fff5dc"/>
+        <ellipse cx="600" cy="337" rx="37" ry="5" fill="#d4a04f" opacity=".55"/>
+      </g>
+      <!-- drones -->
+      <g fill="#fff5dc">
+        <circle cx="450" cy="500" r="6"/><circle cx="442" cy="496" r="3" opacity=".5"/><circle cx="458" cy="496" r="3" opacity=".5"/>
+        <circle cx="880" cy="540" r="6"/><circle cx="872" cy="536" r="3" opacity=".5"/><circle cx="888" cy="536" r="3" opacity=".5"/>
+        <circle cx="1200" cy="480" r="6"/><circle cx="1192" cy="476" r="3" opacity=".5"/><circle cx="1208" cy="476" r="3" opacity=".5"/>
+      </g>
+      <!-- smart street -->
+      <rect x="0" y="780" width="1600" height="120" fill="#0a1530"/>
+      <rect x="0" y="800" width="1600" height="50" fill="#1a2d6e"/>
+      <g fill="#f6c97b" opacity=".8">
+        <rect x="60" y="820" width="80" height="4"/>
+        <rect x="220" y="820" width="80" height="4"/>
+        <rect x="380" y="820" width="80" height="4"/>
+        <rect x="540" y="820" width="80" height="4"/>
+        <rect x="700" y="820" width="80" height="4"/>
+        <rect x="860" y="820" width="80" height="4"/>
+        <rect x="1020" y="820" width="80" height="4"/>
+        <rect x="1180" y="820" width="80" height="4"/>
+        <rect x="1340" y="820" width="80" height="4"/>
+        <rect x="1500" y="820" width="80" height="4"/>
+      </g>
+      <!-- e-scooter -->
+      <g><rect x="730" y="720" width="50" height="6" fill="#7b5fb6"/><circle cx="735" cy="740" r="8" fill="#222"/><circle cx="775" cy="740" r="8" fill="#222"/><rect x="752" y="690" width="4" height="34" fill="#7b5fb6"/><rect x="745" y="685" width="16" height="6" fill="#7b5fb6"/></g>
+    </svg>
+    <span class="hotspot map-dot" data-word="flying car" data-pron="There will be flying cars above the streets." data-ex="People will travel above the traffic." style="left:18%;top:45%">1</span>
+    <span class="hotspot-label" style="left:18%;top:35%;transform:translateX(-30%)">flying car · летающая машина</span>
+
+    <span class="hotspot map-dot" data-word="green roof" data-pron="Most skyscrapers will have green roofs." data-ex="There will be small gardens on every building." style="left:34%;top:18%">2</span>
+    <span class="hotspot-label" style="left:34%;top:8%;transform:translateX(-30%)">green roof · зелёная крыша</span>
+
+    <span class="hotspot map-dot" data-word="solar panel" data-pron="There will be solar panels on every building." data-ex="The city will use clean energy." style="left:50%;top:14%">3</span>
+    <span class="hotspot-label" style="left:50%;top:4%;transform:translateX(-30%)">solar panel · солнечная панель</span>
+
+    <span class="hotspot map-dot" data-word="drone" data-pron="Drones will deliver food and packages." data-ex="They will fly over the city day and night." style="left:55%;top:60%">4</span>
+    <span class="hotspot-label" style="left:55%;top:50%;transform:translateX(-30%)">drone · дрон</span>
+
+    <span class="hotspot map-dot" data-word="electric scooter" data-pron="People will use electric scooters in the streets." data-ex="It is going to be quieter and cleaner." style="left:48%;top:83%">5</span>
+    <span class="hotspot-label" style="left:48%;top:73%;transform:translateX(-30%)">e-scooter · электросамокат</span>
+
+    <span class="hotspot map-dot" data-word="skyscraper" data-pron="The skyscrapers will be taller and greener." data-ex="They will house thousands of people." style="left:78%;top:25%">6</span>
+    <span class="hotspot-label" style="left:78%;top:15%;transform:translateX(-30%)">skyscraper · небоскрёб</span>
+
+    <div class="scene-caption">The city in 2076 · tap 6 things and say a sentence with <strong>will</strong> or <strong>going to</strong></div>
   </div>
+  <div class="scene-progress">Progress: <strong><span id="futureCount">0</span> / 6</strong></div>
 
-  <div class="card">
-    <p style="margin:0;font-size:.92rem;color:var(--muted)"><strong>Модельный ответ — смотри ТОЛЬКО после собственной попытки:</strong></p>
-    <details style="margin-top:10px">
-      <summary style="cursor:pointer;font-family:var(--mono);font-weight:800;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brand)">▾ Показать пример</summary>
-      <p style="margin-top:10px;font-style:italic;color:var(--ink);line-height:1.7">«<em>In 2076 there will be flying cars and many drones in the sky. There will be vertical farms on the green roofs of skyscrapers. The streets will be smart — they will know where I am. It will be cleaner because there will be no old cars, only electric ones and self-driving cars. People will work less because robots will help in cafés and shops. Many people will live in eco districts near the river. I am going to live in a small flat on the 40th floor. I am going to use an electric scooter every day. I will not drive a normal car — I will use a self-driving one. It is going to be a calmer city, I think.</em>»</p>
-      <p style="margin-top:6px;font-family:var(--mono);font-size:.76rem;color:var(--faint);letter-spacing:.06em">12 предложений · will · going to · 8 новых слов</p>
-    </details>
+  <div class="card" style="margin-top:14px">
+    <p style="margin:0;font-size:.93rem;color:var(--muted)"><strong>Then:</strong> опиши всю сцену 8 предложениями подряд. Структура: что появится (<em>There will be …</em>) → каким станет город (<em>It will be …</em>) → что будут делать люди (<em>People will …</em>) → твой личный план (<em>I am going to …</em>).</p>
   </div>
 </section>
 
-<!-- 14 · SPEAKING FINALE ROUND 2 (FUTURE) -->
+<!-- 14 · SPEAKING FINALE ROUND 2 -->
 <section class="section">
-  <div class="section-hdr"><div class="section-num">14</div><h2>Speaking finale · Round 2 · твоё будущее и мира</h2></div>
-  <p class="section-sub">Финальный круг по будущему. 6 вопросов · ответь полным предложением, минимум <strong>2–3 предложения на каждый</strong>. ▶ — услышь вопрос.</p>
+  <div class="section-hdr"><div class="section-num">14</div><h2>Speaking finale · Round 2 · your future</h2></div>
+  <p class="section-sub">Six final questions on the future. Same rule — 2-3 sentences each. ▶ hear · ✓ Done when said.</p>
 
   <div class="prompts">
-    <div class="prompt"><button class="play" data-say="Where are you going to live in 10 years? Same city or somewhere new?">▶</button><span class="num">1.</span><span><strong>Where are you going to live in 10 years?</strong> Same city or somewhere new? <em>(I am going to live in … because …)</em></span></div>
-    <div class="prompt"><button class="play" data-say="Will robots take over cafés and shops in 30 years? What do you think?">▶</button><span class="num">2.</span><span><strong>Will robots take over cafés and shops in 30 years?</strong> What do you think? <em>(Yes, they will … / No, because …)</em></span></div>
-    <div class="prompt"><button class="play" data-say="What is your big plan for next year?">▶</button><span class="num">3.</span><span><strong>What is your big plan for next year?</strong> <em>(I am going to … because …)</em></span></div>
-    <div class="prompt"><button class="play" data-say="Will people still drive normal cars in 50 years?">▶</button><span class="num">4.</span><span><strong>Will people still drive normal cars in 50 years?</strong> <em>(I think people will / will not … because …)</em></span></div>
-    <div class="prompt"><button class="play" data-say="Describe the perfect city of the future. What will it have? What will it not have?">▶</button><span class="num">5.</span><span><strong>Describe the perfect city of the future.</strong> What will it have? What will it not have? <em>(My perfect city will have … It will not have …)</em></span></div>
-    <div class="prompt"><button class="play" data-say="Are you going to learn another language after English? Which one?">▶</button><span class="num">6.</span><span><strong>Are you going to learn another language after English? Which one?</strong> <em>(I am going to learn … because …)</em></span></div>
+    <div class="prompt"><button class="play" data-say="Where are you going to live in 10 years — same city or somewhere new?">▶</button><span class="num">1.</span><span><strong>Where are you going to live in 10 years?</strong> Same city or somewhere new? <em>(I am going to live in … because …)</em></span><button class="prompt-done-btn">Done</button></div>
+    <div class="prompt"><button class="play" data-say="Will robots take over cafés and shops in 30 years? What do you think?">▶</button><span class="num">2.</span><span><strong>Will robots take over cafés and shops in 30 years?</strong> What do you think? <em>(Yes, they will … / No, because …)</em></span><button class="prompt-done-btn">Done</button></div>
+    <div class="prompt"><button class="play" data-say="What is one big plan you have for next year?">▶</button><span class="num">3.</span><span><strong>What is one big plan you have for next year?</strong> <em>(I am going to … because …)</em></span><button class="prompt-done-btn">Done</button></div>
+    <div class="prompt"><button class="play" data-say="Will people still drive normal cars in 50 years?">▶</button><span class="num">4.</span><span><strong>Will people still drive normal cars in 50 years?</strong> <em>(I think people will / will not … because …)</em></span><button class="prompt-done-btn">Done</button></div>
+    <div class="prompt"><button class="play" data-say="Describe the perfect city of the future. What will it have? What will it not have?">▶</button><span class="num">5.</span><span><strong>Describe the perfect city of the future.</strong> What will it have? What will it NOT have? <em>(My perfect city will have … It will not have …)</em></span><button class="prompt-done-btn">Done</button></div>
+    <div class="prompt"><button class="play" data-say="Are you going to learn another language after English? Which one and why?">▶</button><span class="num">6.</span><span><strong>Are you going to learn another language after English?</strong> Which one and why? <em>(I am going to learn … because …)</em></span><button class="prompt-done-btn">Done</button></div>
   </div>
 </section>
 
-<!-- 15 · HOMEWORK -->
+<!-- 15 · HOMEWORK WITH AUTO-SAVING EXERCISES -->
 <section class="section">
-  <div class="section-hdr"><div class="section-num">15</div><h2>📚 Homework · до следующего урока</h2></div>
-  <div class="card">
-    <ol style="margin:10px 0 14px 22px;line-height:1.8;color:var(--ink)">
-      <li><strong>Видео из окна — 2 минуты.</strong> Сними короткое видео того, что видишь из окна. Расскажи: <em>There is … It is … People usually … Now they are …</em> Все 4 базовые формы.</li>
-      <li><strong>8 предложений в Present Continuous</strong> — что происходит у тебя дома прямо сейчас. Голосом или текстом. Пример: «<em>My phone is charging. The kettle is boiling. I am writing this sentence.</em>»</li>
-      <li><strong>Прогон диалогов из секции 05</strong> — каждый диалог 3 раза вслух (медленно / без подсказок / переверни роли). На следующем уроке — на скорость.</li>
-      <li><strong>Демо-цепочка про парк.</strong> Собери цепочку «<em>There is / It is / I + V / I am V-ing</em>» про любой парк. 4 предложения. На урок — голосом за 30 секунд.</li>
-      <li><strong>8 предложений с going to — твои планы на лето.</strong> По одному на каждую неделю июля и августа. Пример: «<em>In the first week of July I am going to … In the second week I am going to …</em>»</li>
-      <li><strong>5 предсказаний с will про 2050 год.</strong> Где будешь жить · кем работать · какие машины будут · какая еда · какая погода. Пример: «<em>In 2050 I will live in … I will work as … There will be …</em>»</li>
-      <li><strong>Цепочка «город будущего».</strong> Минимум 6 предложений, обязательно используя 5 новых слов из секции 12. На урок — вслух за 60 секунд.</li>
-    </ol>
-    <div style="background:var(--accent-soft);border-left:3px solid var(--accent);padding:12px 16px;border-radius:0 8px 8px 0;font-size:.93rem;color:var(--muted)">
-      <strong>На следующем уроке (5 июля):</strong> мягко вводим <em>Past Simple</em> через сюжет «вчера / прошлое воскресенье в городе». 5 базовых неправильных глаголов (went, was, had, saw, did). Закроем три времени — past, present, future — и сможешь говорить про любой период жизни.
+  <div class="section-hdr"><div class="section-num">15</div><h2>📚 Homework · auto-saves on this page</h2></div>
+  <p class="section-sub">Прогресс по каждому заданию сохраняется автоматически — заполняешь когда есть минута, к следующему уроку всё на месте. Кнопка <strong>Done</strong> = задание сделано.</p>
+
+  <div class="hw">
+    <div class="hw-head">
+      <div class="hw-title"><span class="hw-tag">01</span>Window log · 6 sentences</div>
+      <button class="hw-done-btn">Done</button>
     </div>
+    <div class="hw-instructions">Look out of your window. Write <em>6 sentences</em> describing what you see — using <strong>There is / are</strong>, <strong>It is</strong>, <strong>I see</strong>, <strong>People are V-ing</strong>.</div>
+    <textarea placeholder="From my window I can see..."></textarea>
+    <div class="hw-meta"><span>Target: 6 sentences</span><span class="wc">words: <strong>0</strong></span></div>
+  </div>
+
+  <div class="hw">
+    <div class="hw-head">
+      <div class="hw-title"><span class="hw-tag">02</span>Park chain · 4 forms in 30 sec</div>
+      <button class="hw-done-btn">Done</button>
+    </div>
+    <div class="hw-instructions">Write a chain of <em>4 sentences about any park</em> — one sentence per form: <strong>There is</strong> · <strong>It is</strong> · <strong>I + V (usually)</strong> · <strong>I am + V-ing (now)</strong>. To class — read aloud in 30 seconds.</div>
+    <textarea placeholder="There is a park near... It is... I usually... Right now I am..."></textarea>
+    <div class="hw-meta"><span>4 sentences · all 4 forms</span><span class="wc">words: <strong>0</strong></span></div>
+  </div>
+
+  <div class="hw">
+    <div class="hw-head">
+      <div class="hw-title"><span class="hw-tag">03</span>Going-to plans · 8 weeks of summer</div>
+      <button class="hw-done-btn">Done</button>
+    </div>
+    <div class="hw-instructions">Write <em>8 sentences with going to</em> — one for each week of July and August. Real or imagined plans, doesn't matter — just commit to a verb.</div>
+    <textarea placeholder="In the first week of July I am going to... In the second week..."></textarea>
+    <div class="hw-meta"><span>8 sentences · all with going to</span><span class="wc">words: <strong>0</strong></span></div>
+  </div>
+
+  <div class="hw">
+    <div class="hw-head">
+      <div class="hw-title"><span class="hw-tag">04</span>Five will-predictions about 2050</div>
+      <button class="hw-done-btn">Done</button>
+    </div>
+    <div class="hw-instructions">Five predictions using <strong>will</strong>. Topics: where you will live · what you will work as · what cars will be like · what food people will eat · what the weather will be like.</div>
+    <textarea placeholder="In 2050 I will live in... I will work as... Cars will be... People will eat... The weather will be..."></textarea>
+    <div class="hw-meta"><span>5 sentences · all with will</span><span class="wc">words: <strong>0</strong></span></div>
+  </div>
+
+  <div class="hw">
+    <div class="hw-head">
+      <div class="hw-title"><span class="hw-tag">05</span>Future city chain · 6 sentences with new vocab</div>
+      <button class="hw-done-btn">Done</button>
+    </div>
+    <div class="hw-instructions">Write <em>6 sentences about the city of the future</em>, each using one of the 8 new words from section 12 (flying car · self-driving car · drone · robot · green roof · solar panel · eco district · skyscraper). To class — say aloud in 60 seconds.</div>
+    <textarea placeholder="In the future there will be... People will use... My city will have..."></textarea>
+    <div class="hw-meta"><span>6 sentences · 5 new words minimum</span><span class="wc">words: <strong>0</strong></span></div>
+  </div>
+
+  <div class="hw">
+    <div class="hw-head">
+      <div class="hw-title"><span class="hw-tag">06</span>Voice memo · directions to the nearest café</div>
+      <button class="hw-done-btn">Done</button>
+    </div>
+    <div class="hw-instructions">On your phone, record a 60-second voice memo: <em>directions from your home to the nearest café</em>. Use <strong>go straight · turn right/left · next to · opposite · on the corner</strong>. Bring the recording to the next lesson.</div>
+    <textarea placeholder="(optional: write a script here first, then record from it)"></textarea>
+    <div class="hw-meta"><span>1 minute audio · use 5+ direction words</span><span class="wc">words: <strong>0</strong></span></div>
+  </div>
+
+  <div class="card" style="margin-top:14px;background:var(--accent-soft);border-left:3px solid var(--accent)">
+    <p style="margin:0;font-size:.94rem;color:var(--muted)"><strong>Next lesson (July 5 · "Yesterday in my city"):</strong> вводим <em>Past Simple</em> через сюжет «что я делал вчера / в прошлое воскресенье». 5 базовых неправильных глаголов — went, was, had, saw, did. После этого ты сможешь говорить про любой период жизни — past, present, future.</p>
   </div>
 </section>
 
 <footer>
-  © NG English · LinguaBoost Lab · Adult Basics · Мой город — сегодня и через 50 лет · Speaking + Future intro · 15 блоков
+  © NG English · LinguaBoost Lab · Adult Basics · My city — today and 50 years from now · 15 blocks
 </footer>
 
 <!-- TTS for all ▶ buttons -->
@@ -593,33 +966,66 @@ footer{max-width:1180px;margin:48px auto 28px;padding:0 22px;text-align:center;c
 })();
 </script>
 
-<!-- Timer buttons -->
+<!-- Clickable scene · hotspot tap + TTS + progress counter -->
 <script>
 (function(){
-  document.querySelectorAll('.timer-btn').forEach(function(btn){
-    var min = parseFloat(btn.dataset.min || '1');
-    var total = Math.round(min * 60);
-    var display = btn.parentElement.querySelector('.timer-display');
-    var iv = null;
-    function fmt(s){ var m = Math.floor(s/60); var r = s%60; return (m<10?'0':'')+m+':'+(r<10?'0':'')+r; }
-    btn.addEventListener('click', function(){
-      if (iv){ clearInterval(iv); iv = null; btn.classList.remove('running'); btn.textContent = '⏱ Запустить таймер · ' + (min === 1.5 ? '90 секунд' : min + ' минуты'); display.textContent = fmt(total); return; }
-      var left = total;
-      btn.classList.add('running');
-      btn.textContent = '⏹ Стоп';
-      display.textContent = fmt(left);
-      iv = setInterval(function(){
-        left--;
-        display.textContent = fmt(left);
-        if (left <= 0){
-          clearInterval(iv); iv = null;
-          btn.classList.remove('running');
-          btn.textContent = '✓ Готово · ещё раз?';
-          display.textContent = '00:00';
-          try{ var u = new SpeechSynthesisUtterance('Time is up'); u.lang='en-GB'; u.rate=.92; speechSynthesis.speak(u); }catch(_){}
+  function wireScene(sceneId, counterId, total){
+    var scene = document.getElementById(sceneId);
+    var counter = document.getElementById(counterId);
+    if (!scene || !counter) return;
+    function recount(){
+      var done = scene.querySelectorAll('.hotspot.visited').length;
+      counter.textContent = done;
+    }
+    scene.querySelectorAll('.hotspot').forEach(function(dot){
+      dot.addEventListener('click', function(){
+        dot.classList.toggle('visited');
+        if (dot.classList.contains('visited') && dot.dataset.pron && 'speechSynthesis' in window){
+          var u = new SpeechSynthesisUtterance(dot.dataset.pron);
+          u.lang = 'en-GB'; u.rate = .9;
+          speechSynthesis.cancel(); speechSynthesis.speak(u);
         }
-      }, 1000);
+        recount();
+      });
     });
+    /* restore after lab-persist runs */
+    setTimeout(recount, 400);
+  }
+  wireScene('cityScene', 'sceneCount', 10);
+  wireScene('futureScene', 'futureCount', 6);
+})();
+</script>
+
+<!-- Done-toggle buttons (prompt-done-btn, vid-btn.done-toggle, hw-done-btn) -->
+<script>
+(function(){
+  document.querySelectorAll('.prompt-done-btn, .hw-done-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      b.classList.toggle('done');
+    });
+  });
+  document.querySelectorAll('.done-toggle').forEach(function(b){
+    b.addEventListener('click', function(){
+      b.classList.toggle('done');
+    });
+  });
+})();
+</script>
+
+<!-- Word counter for homework textareas -->
+<script>
+(function(){
+  document.querySelectorAll('.hw, .write').forEach(function(w){
+    var ta = w.querySelector('textarea');
+    var wc = w.querySelector('.wc strong');
+    if (!ta || !wc) return;
+    function tick(){
+      var n = (ta.value.match(/\b[\w'-]+\b/g) || []).length;
+      wc.textContent = n;
+    }
+    ta.addEventListener('input', tick);
+    /* restore after lab-persist */
+    setTimeout(tick, 400);
   });
 })();
 </script>
