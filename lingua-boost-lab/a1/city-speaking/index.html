@@ -50,7 +50,9 @@ a{color:inherit;text-decoration:none}
 .hero{width:var(--demo-top-width);max-width:1240px;margin:32px auto 12px;padding:0 12px}
 .hero-card{position:relative;border:1px solid var(--line);border-radius:24px;overflow:hidden;
   background:linear-gradient(135deg,var(--surface) 0%,var(--card) 60%,var(--surface-2) 100%);
-  box-shadow:0 4px 24px rgba(0,0,0,.04);padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px);min-height:340px}
+  box-shadow:0 4px 24px rgba(0,0,0,.04);min-height:340px}
+.hero-img{width:100%;aspect-ratio:16/7;object-fit:cover;display:block;border-bottom:1px solid var(--line)}
+.hero-body{padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px)}
 .eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);
   display:flex;align-items:center;gap:10px;margin-bottom:18px}
 .eyebrow::before{content:"";width:28px;height:1px;background:var(--accent)}
@@ -316,6 +318,8 @@ footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;paddin
 
 <section class="hero">
   <div class="hero-card">
+    <img class="hero-img" src="./assets/hero.png" alt="My city today and 50 years from now — split scene of a contemporary European street and a futuristic city with green skyscrapers">
+    <div class="hero-body">
     <div class="eyebrow">Adult Basics · About Your City · Speaking + Future</div>
     <h1 class="hero-title">My city — today and <span class="grad">50 years from now</span></h1>
     <p class="hero-lead">15 интерактивных блоков · ~90 минут. Активируем всё что у тебя уже работает: <strong>There is / are</strong>, <strong>It is</strong>, <strong>Present Simple / Continuous</strong>. Учимся <strong>задавать вопросы</strong> и говорить через <strong>опоры</strong>, а не «из пустоты». В финале — мягко открываем будущее: <strong>will</strong> и <strong>going to</strong>.</p>
@@ -324,6 +328,7 @@ footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;paddin
       <div class="stat"><div class="stat-k">Длительность</div><div class="stat-v">~90 минут · 15 блоков</div></div>
       <div class="stat"><div class="stat-k">Формат</div><div class="stat-v">Speaking + интерактив + ввод Future</div></div>
       <div class="stat"><div class="stat-k">Прогресс</div><div class="stat-v">Сохраняется на сайте</div></div>
+    </div>
     </div>
   </div>
 </section>
@@ -382,10 +387,19 @@ footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;paddin
   </div>
 
   <div class="card" style="margin-top:14px">
-    <h3 style="margin:0 0 10px 0;font-size:.96rem">Drill · build 6 vivid sentences</h3>
-    <p style="margin:0 0 8px 0;font-size:.92rem;color:var(--muted)">Combine: <strong>noun</strong> (park, café, street, metro, district, museum) + <strong>at least 1 adjective</strong> + <strong>Present Simple / It is</strong>. Type 6 sentences, save automatically.</p>
-    <textarea data-ex="adj-builder" placeholder="1. The metro is crowded in the morning, but it is convenient.&#10;2. There is a charming café on my street.&#10;3. ..."></textarea>
-    <div class="hw-meta" style="margin-top:6px"><span>Goal: 6 sentences · at least 4 different adjectives</span><span class="wc">words: <strong>0</strong></span></div>
+    <h3 style="margin:0 0 10px 0;font-size:.96rem">Speaking drill · 8 questions about your city</h3>
+    <p style="margin:0 0 12px 0;font-size:.92rem;color:var(--muted)">Answer out loud, full sentence, <strong>at least one adjective</strong> from above in each answer. ▶ to hear the question · ✓ Done when you've said it.</p>
+
+    <div class="prompts">
+      <div class="prompt"><button class="play" data-say="What is your city like? Is it busy or quiet?">▶</button><span class="num">1.</span><span><strong>What is your city like?</strong> Is it busy or quiet? <em>(My city is …)</em></span><button class="prompt-done-btn">Done</button></div>
+      <div class="prompt"><button class="play" data-say="Is your district safe at night?">▶</button><span class="num">2.</span><span><strong>Is your district safe at night?</strong> <em>(Yes, it is … / No, it is not very …)</em></span><button class="prompt-done-btn">Done</button></div>
+      <div class="prompt"><button class="play" data-say="Is the metro crowded in the morning or in the evening?">▶</button><span class="num">3.</span><span><strong>Is the metro crowded</strong> in the morning or in the evening? <em>(The metro is …)</em></span><button class="prompt-done-btn">Done</button></div>
+      <div class="prompt"><button class="play" data-say="What transport is most convenient where you live?">▶</button><span class="num">4.</span><span><strong>What transport is the most convenient</strong> where you live? <em>(The most convenient transport is … because …)</em></span><button class="prompt-done-btn">Done</button></div>
+      <div class="prompt"><button class="play" data-say="Is there a charming place near your home? Describe it.">▶</button><span class="num">5.</span><span><strong>Is there a charming place near your home?</strong> Describe it. <em>(There is a … It is …)</em></span><button class="prompt-done-btn">Done</button></div>
+      <div class="prompt"><button class="play" data-say="Is the city centre lively or quiet on Saturday evenings?">▶</button><span class="num">6.</span><span><strong>Is the city centre lively or quiet</strong> on Saturday evenings? <em>(On Saturday evenings the centre is …)</em></span><button class="prompt-done-btn">Done</button></div>
+      <div class="prompt"><button class="play" data-say="Is your neighbourhood expensive or affordable?">▶</button><span class="num">7.</span><span><strong>Is your neighbourhood expensive or affordable?</strong> <em>(My neighbourhood is … because …)</em></span><button class="prompt-done-btn">Done</button></div>
+      <div class="prompt"><button class="play" data-say="Is your area green? What kind of trees and parks are there?">▶</button><span class="num">8.</span><span><strong>Is your area green?</strong> What kind of trees and parks are there? <em>(My area is … There are …)</em></span><button class="prompt-done-btn">Done</button></div>
+    </div>
   </div>
 </section>
 
