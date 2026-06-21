@@ -295,6 +295,31 @@ h1.hero-title .grad{color:var(--accent)}
 .ro-pill.placed{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
 .ro-pill.used{opacity:.25;pointer-events:none}
 
+/* Dialogue scramble */
+.scramble{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:14px 0}
+.scramble-slot{min-height:60px;border:1.5px dashed var(--line-2);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:6px;background:#fff;margin-bottom:14px}
+.scramble-slot.right{border-color:var(--ok);background:rgba(91,168,114,.06);border-style:solid}
+.scramble-slot.wrong{border-color:var(--miss);background:rgba(196,90,90,.04);border-style:solid}
+.scramble-slot:empty::before{content:"Click a phrase below to start";display:block;font-family:var(--mono);font-size:.78rem;color:var(--faint);letter-spacing:.04em;font-style:italic;text-align:center;padding:14px}
+.scramble-bank{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.scr-line{background:#fff;border:1.5px solid var(--line-2);color:var(--ink);padding:10px 14px 10px 42px;border-radius:10px;text-align:left;
+  font-family:var(--body);font-size:.92rem;line-height:1.45;cursor:pointer;transition:.15s;position:relative;display:block;width:100%;font-weight:500}
+.scr-line:hover{border-color:var(--accent);transform:translateX(2px)}
+.scr-line.placed{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.scr-line.used{opacity:.3;pointer-events:none}
+.scr-play{position:absolute;left:8px;top:50%;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;background:var(--brand);color:#fff;
+  display:grid;place-items:center;font-size:.72rem;font-family:var(--mono);font-weight:800;cursor:pointer;border:none}
+.scr-play:hover{background:var(--accent)}
+.scramble-feedback{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding-top:10px;border-top:1px dashed var(--line)}
+.scramble-check,.scramble-play-all{background:var(--accent);color:#fff;border:none;padding:9px 16px;border-radius:8px;font-family:var(--mono);font-weight:800;
+  font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:.15s}
+.scramble-check:hover,.scramble-play-all:hover{background:var(--accent-2)}
+.scramble-play-all{background:var(--brand)}
+.scramble-play-all:hover{background:#b07532}
+.scramble-msg{font-family:var(--mono);font-size:.82rem;color:var(--muted);letter-spacing:.04em}
+.scramble-msg.ok{color:var(--ok);font-weight:700}
+.scramble-msg.bad{color:var(--miss);font-weight:700}
+
 footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;padding:0 12px;text-align:center;color:var(--faint);
   font-size:.8rem;font-family:var(--mono);letter-spacing:.06em}
 </style>
@@ -336,7 +361,7 @@ footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;paddin
 <!-- 1 · CORE MODEL RECAP -->
 <section class="section">
   <div class="section-hdr"><div class="section-num">01</div><h2>The core formula · everything starts here</h2></div>
-  <p class="section-sub">Перед стартом проговори вслух каждую рамку. Это твой компас на 90 минут.</p>
+  <p class="section-sub">Before you start, say each frame out loud. This is your compass for the next 90 minutes.</p>
 
   <div class="frame-grid">
     <div class="frame">
@@ -369,7 +394,7 @@ footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;paddin
 <!-- 2 · ADJECTIVES — vivid city language -->
 <section class="section">
   <div class="section-hdr"><div class="section-num">02</div><h2>Adjectives · how to make any place come alive</h2></div>
-  <p class="section-sub">До сих пор ты говорил «<em>there is a park</em>». Скучно. Сегодня — <strong>прилагательные для мест</strong>. Это специи, без которых речь пресная. 12 карточек: тап → перевод + пример. Произнеси каждое 2 раза вслух.</p>
+  <p class="section-sub">Until now you said «<em>there is a park</em>». Boring. Today — <strong>adjectives for places</strong>. They are the spice your speech needs. 12 cards: tap → translation + example. Say each one twice out loud.</p>
 
   <div class="flip-grid" id="adjGrid">
     <div class="flip-card" data-en="modern" data-pos="adj." data-ru="современный" data-ex="It is a modern part of the city."></div>
@@ -406,7 +431,7 @@ footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;paddin
 <!-- 3 · CLICKABLE CITY SCENE -->
 <section class="section" id="sec-clickable">
   <div class="section-hdr"><div class="section-num">03</div><h2>Tap the city · 10 spots to find and name</h2></div>
-  <p class="section-sub">Нажми каждый кружок по очереди — открой слово. Под картинкой произнеси полное предложение: <strong>«This is a / There is a …»</strong> + слово. Зелёная галочка = слово сказано вслух.</p>
+  <p class="section-sub">Tap each dot in turn — reveal the word. Below the scene, say a full sentence: <strong>«This is a / There is a …»</strong> + the word. Green tick = you said it out loud.</p>
 
   <div class="scene-clickable" id="cityScene">
     <!-- decorative SVG city silhouette -->
@@ -534,7 +559,7 @@ footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;paddin
 <!-- 4 · VIDEO CONTINUOUS WARMUP -->
 <section class="section">
   <div class="section-hdr"><div class="section-num">04</div><h2>Continuous live · 5 real video clips</h2></div>
-  <p class="section-sub">Каждое видео — 3-5 секунд. Смотри и сразу говори ОДНО предложение в <strong>Present Continuous</strong> вслух. ▶ услышь подсказку · отметь «Done» когда сказал.</p>
+  <p class="section-sub">Each clip is 3–5 seconds. Watch and say <strong>one sentence in Present Continuous</strong> out loud. ▶ hear the model · ✓ Done when you've said it.</p>
 
   <div class="video-grid">
     <div class="vid-card">
@@ -600,42 +625,64 @@ footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;paddin
   </div>
 </section>
 
-<!-- 5 · CITY DIALOGUES (directions) -->
+<!-- 5 · CITY DIALOGUES (directions across the map) -->
 <section class="section">
-  <div class="section-hdr"><div class="section-num">05</div><h2>Two city dialogues · asking the way</h2></div>
-  <p class="section-sub">Не магазин и не кофейня — те будут на следующих уроках. Сегодня — <strong>spotting your way around the city</strong>. Прочти каждый диалог вслух за обе роли. Потом за одну роль, представляя ответы другой.</p>
+  <div class="section-hdr"><div class="section-num">05</div><h2>Two city dialogues · using the map</h2></div>
+  <p class="section-sub">Two real conversations across our city. <strong>Read each dialogue aloud, both roles.</strong> Then read it again playing one role only — the other side speaks in your head. ▶ to hear how it sounds.</p>
 
-  <h3 style="font-family:var(--display);font-weight:800;font-size:1rem;color:var(--accent);margin:18px 0 8px">🚶 At the corner · asking for the metro</h3>
+  <h3 style="font-family:var(--display);font-weight:800;font-size:1rem;color:var(--accent);margin:18px 0 8px">📚 At the bus stop · how to reach the library</h3>
   <div class="dialog">
-    <div class="line"><div class="who">You</div><div class="what">Excuse me, can you tell me how to get to the metro?</div><button class="play-line" data-say="Excuse me, can you tell me how to get to the metro?">▶</button></div>
-    <div class="line"><div class="who b">Local</div><div class="what">Sure. Go straight on this street for two blocks.</div><button class="play-line" data-say="Sure. Go straight on this street for two blocks.">▶</button></div>
-    <div class="line"><div class="who">You</div><div class="what">OK, straight for two blocks. And then?</div><button class="play-line" data-say="OK, straight for two blocks. And then?">▶</button></div>
-    <div class="line"><div class="who b">Local</div><div class="what">Then turn right at the traffic lights. The metro is next to the bank.</div><button class="play-line" data-say="Then turn right at the traffic lights. The metro is next to the bank.">▶</button></div>
-    <div class="line"><div class="who">You</div><div class="what">Is it far?</div><button class="play-line" data-say="Is it far?">▶</button></div>
-    <div class="line"><div class="who b">Local</div><div class="what">No, only five minutes on foot.</div><button class="play-line" data-say="No, only five minutes on foot.">▶</button></div>
-    <div class="line"><div class="who">You</div><div class="what">Great. Thank you very much!</div><button class="play-line" data-say="Great. Thank you very much!">▶</button></div>
-    <div class="line"><div class="who b">Local</div><div class="what">You're welcome. Have a nice day!</div><button class="play-line" data-say="You're welcome. Have a nice day!">▶</button></div>
+    <div class="line"><div class="who">You</div><div class="what">Excuse me, is the library near here?</div><button class="play-line" data-say="Excuse me, is the library near here?">▶</button></div>
+    <div class="line"><div class="who b">Local</div><div class="what">Yes, it's just over the bridge. Two minutes on foot.</div><button class="play-line" data-say="Yes, it's just over the bridge. Two minutes on foot.">▶</button></div>
+    <div class="line"><div class="who">You</div><div class="what">Great. Do I cross at the traffic lights?</div><button class="play-line" data-say="Great. Do I cross at the traffic lights?">▶</button></div>
+    <div class="line"><div class="who b">Local</div><div class="what">Exactly. Cross there, then go past the park.</div><button class="play-line" data-say="Exactly. Cross there, then go past the park.">▶</button></div>
+    <div class="line"><div class="who">You</div><div class="what">Is the library opposite the cinema?</div><button class="play-line" data-say="Is the library opposite the cinema?">▶</button></div>
+    <div class="line"><div class="who b">Local</div><div class="what">Yes, right opposite. You can't miss it.</div><button class="play-line" data-say="Yes, right opposite. You can't miss it.">▶</button></div>
+    <div class="line"><div class="who">You</div><div class="what">Thanks a lot — have a good day!</div><button class="play-line" data-say="Thanks a lot — have a good day!">▶</button></div>
+    <div class="line"><div class="who b">Local</div><div class="what">You too. Bye!</div><button class="play-line" data-say="You too. Bye!">▶</button></div>
   </div>
-  <div class="dialog-meta">Учи структуру: <em>Excuse me → ask → confirm → check distance → thank</em></div>
+  <h3 style="font-family:var(--display);font-weight:800;font-size:1rem;color:var(--accent);margin:22px 0 8px">🏟️ Outside the train station · directions to the stadium</h3>
+  <div class="dialog">
+    <div class="line"><div class="who">Tourist</div><div class="what">Hi! How do I get to the stadium from here?</div><button class="play-line" data-say="Hi! How do I get to the stadium from here?">▶</button></div>
+    <div class="line"><div class="who b">You</div><div class="what">The stadium? Are you walking or driving?</div><button class="play-line" data-say="The stadium? Are you walking or driving?">▶</button></div>
+    <div class="line"><div class="who">Tourist</div><div class="what">I'm walking. Is it far?</div><button class="play-line" data-say="I'm walking. Is it far?">▶</button></div>
+    <div class="line"><div class="who b">You</div><div class="what">About fifteen minutes. Go past the supermarket and the post office.</div><button class="play-line" data-say="About fifteen minutes. Go past the supermarket and the post office.">▶</button></div>
+    <div class="line"><div class="who">Tourist</div><div class="what">And then?</div><button class="play-line" data-say="And then?">▶</button></div>
+    <div class="line"><div class="who b">You</div><div class="what">Turn left at the church. The stadium is next to the car park.</div><button class="play-line" data-say="Turn left at the church. The stadium is next to the car park.">▶</button></div>
+    <div class="line"><div class="who">Tourist</div><div class="what">Perfect. Thanks for your help!</div><button class="play-line" data-say="Perfect. Thanks for your help!">▶</button></div>
+    <div class="line"><div class="who b">You</div><div class="what">Enjoy the match!</div><button class="play-line" data-say="Enjoy the match!">▶</button></div>
+  </div>
+</section>
 
-  <h3 style="font-family:var(--display);font-weight:800;font-size:1rem;color:var(--accent);margin:22px 0 8px">🗺️ A tourist asks you · you are local</h3>
-  <div class="dialog">
-    <div class="line"><div class="who">Tourist</div><div class="what">Hi! I'm a bit lost. Where is the museum?</div><button class="play-line" data-say="Hi! I'm a bit lost. Where is the museum?">▶</button></div>
-    <div class="line"><div class="who b">You</div><div class="what">The museum? It's not far. Are you on foot?</div><button class="play-line" data-say="The museum? It's not far. Are you on foot?">▶</button></div>
-    <div class="line"><div class="who">Tourist</div><div class="what">Yes, I'm walking.</div><button class="play-line" data-say="Yes, I'm walking.">▶</button></div>
-    <div class="line"><div class="who b">You</div><div class="what">OK. Go past the park. The museum is on the other side, opposite the bridge.</div><button class="play-line" data-say="OK. Go past the park. The museum is on the other side, opposite the bridge.">▶</button></div>
-    <div class="line"><div class="who">Tourist</div><div class="what">Is it open today?</div><button class="play-line" data-say="Is it open today?">▶</button></div>
-    <div class="line"><div class="who b">You</div><div class="what">I think so. It usually opens at ten.</div><button class="play-line" data-say="I think so. It usually opens at ten.">▶</button></div>
-    <div class="line"><div class="who">Tourist</div><div class="what">Perfect. Thanks a lot!</div><button class="play-line" data-say="Perfect. Thanks a lot!">▶</button></div>
-    <div class="line"><div class="who b">You</div><div class="what">No problem. Enjoy your visit!</div><button class="play-line" data-say="No problem. Enjoy your visit!">▶</button></div>
+<!-- 5B · DIALOGUE SCRAMBLE -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">5B</div><h2>Dialogue scramble · put the phrases in order</h2></div>
+  <p class="section-sub">8 phrases from a city conversation, shuffled. Click them <strong>in the right order</strong>. Click ▶ next to any phrase to hear it. When all 8 are placed correctly — green. Wrong order — red. Drag-back: click a phrase in the answer slot to return it.</p>
+
+  <div class="scramble" id="scramble1" data-order='["A","B","C","D","E","F","G","H"]'>
+    <div class="scramble-slot" data-zone="slot"></div>
+    <div class="scramble-bank" data-zone="bank">
+      <button class="scr-line" data-k="E" data-say="And then? How do I get to the museum?"><span class="scr-play" data-say="And then? How do I get to the museum?">▶</span><span class="scr-text">And then? How do I get to the museum?</span></button>
+      <button class="scr-line" data-k="A" data-say="Excuse me, can you help me? I am lost."><span class="scr-play" data-say="Excuse me, can you help me? I am lost.">▶</span><span class="scr-text">Excuse me, can you help me? I am lost.</span></button>
+      <button class="scr-line" data-k="H" data-say="No problem! Have a nice day."><span class="scr-play" data-say="No problem! Have a nice day.">▶</span><span class="scr-text">No problem! Have a nice day.</span></button>
+      <button class="scr-line" data-k="C" data-say="The museum? Sure. Go straight to the bridge."><span class="scr-play" data-say="The museum? Sure. Go straight to the bridge.">▶</span><span class="scr-text">The museum? Sure. Go straight to the bridge.</span></button>
+      <button class="scr-line" data-k="G" data-say="Great, thank you so much!"><span class="scr-play" data-say="Great, thank you so much!">▶</span><span class="scr-text">Great, thank you so much!</span></button>
+      <button class="scr-line" data-k="B" data-say="Of course. Where are you going?"><span class="scr-play" data-say="Of course. Where are you going?">▶</span><span class="scr-text">Of course. Where are you going?</span></button>
+      <button class="scr-line" data-k="F" data-say="Cross the bridge, then turn right. The museum is opposite the cafe."><span class="scr-play" data-say="Cross the bridge, then turn right. The museum is opposite the cafe.">▶</span><span class="scr-text">Cross the bridge, then turn right. The museum is opposite the cafe.</span></button>
+      <button class="scr-line" data-k="D" data-say="OK — straight to the bridge."><span class="scr-play" data-say="OK — straight to the bridge.">▶</span><span class="scr-text">OK — straight to the bridge.</span></button>
+    </div>
+    <div class="scramble-feedback">
+      <button class="scramble-check" type="button">Check order</button>
+      <button class="scramble-play-all" type="button">▶ Play full dialogue</button>
+      <span class="scramble-msg"></span>
+    </div>
   </div>
-  <div class="dialog-meta">Drill · 3 passes: первый медленно с подсказками · второй без подсказок · третий — переверни роли, ты идёшь в обратной паре.</div>
 </section>
 
 <!-- 6 · PAIR SPEAKING -->
 <section class="section">
   <div class="section-hdr"><div class="section-num">06</div><h2>Pair speaking · you and I take turns</h2></div>
-  <p class="section-sub">У каждого своя колонка — 10 вопросов про город и обычный день. Партнёр не видит твои. Отвечай <strong>полным предложением</strong> по шаблону, не «yes / no».</p>
+  <p class="section-sub">Each side has 10 questions about the city and your normal day. Partner can't see yours. Answer in <strong>full sentences</strong> using the template — never «yes / no».</p>
 
   <div class="pair-grid">
     <div class="pair-side">
@@ -673,7 +720,7 @@ footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;paddin
 <!-- 7 · ANCHORED MONOLOGUE · WALK -->
 <section class="section">
   <div class="section-hdr"><div class="section-num">07</div><h2>A walk through your day · 8 anchored steps</h2></div>
-  <p class="section-sub">Не «расскажи свободно» — это никогда не работает. Дам 8 шагов, заполни каждый одной строкой по-английски, потом прочти всё подряд вслух как один связный рассказ. Текст сохраняется автоматически — придёшь завтра, ничего не пропадёт.</p>
+  <p class="section-sub">Not «just talk freely» — that never works. Fill each step with one English line, then read them all aloud as one connected story. Your text saves automatically — come back tomorrow, nothing is lost.</p>
 
   <div class="walk">
     <div class="walk-step">
@@ -726,7 +773,7 @@ footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;paddin
 <!-- 8 · SPEAKING FINALE ROUND 1 -->
 <section class="section">
   <div class="section-hdr"><div class="section-num">08</div><h2>Speaking finale · Round 1 · today</h2></div>
-  <p class="section-sub">Шесть необычных вопросов. Не «опиши свой город» — конкретные ситуации. Ответь <strong>2-3 предложениями</strong> на каждый. ▶ — услышь вопрос. ✓ Done — когда сказал вслух.</p>
+  <p class="section-sub">Six unusual questions. Not «describe your city» — specific situations. Answer in <strong>2-3 sentences</strong> each. ▶ to hear · ✓ Done when said.</p>
 
   <div class="prompts">
     <div class="prompt"><button class="play" data-say="A friend from another country is visiting you for one day. Where do you take them?">▶</button><span class="num">1.</span><span><strong>A friend from another country is visiting you for one day.</strong> Where do you take them? <em>(In the morning I take them to … For lunch we go to … In the evening …)</em></span><button class="prompt-done-btn">Done</button></div>
@@ -806,7 +853,7 @@ footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;paddin
 <!-- 12 · CITY OF FUTURE · BASE VOCAB -->
 <section class="section">
   <div class="section-hdr"><div class="section-num">12</div><h2>City of the future · 8 core words</h2></div>
-  <p class="section-sub">Не учебник лексики — это <strong>база</strong>. 8 слов, которые откроют тебе разговор про будущее. ▶ hear the word · say it twice out loud.</p>
+  <p class="section-sub">Not a vocab textbook — this is your <strong>base</strong>. 8 words that open the future conversation. ▶ hear the word · say it twice out loud.</p>
 
   <div class="demo-grid">
     <div class="demo"><button class="play-mini" data-say="flying car">▶</button><span class="word">flying car</span><span class="rule">transport</span><span class="ex">летающая машина</span></div>
@@ -823,7 +870,7 @@ footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;paddin
 <!-- 13 · FUTURE SCENE -->
 <section class="section">
   <div class="section-hdr"><div class="section-num">13</div><h2>Tap the future · 6 things in the city of 2076</h2></div>
-  <p class="section-sub">Same kind of tap-and-name game — but the city is 50 years from now. Кликни каждый кружок · опиши вслух предложением с <strong>will</strong> или <strong>going to</strong>.</p>
+  <p class="section-sub">Same tap-and-name game — but the city is 50 years from now. Tap each dot · describe it out loud with <strong>will</strong> or <strong>going to</strong>.</p>
 
   <div class="scene-future" id="futureScene">
     <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" style="position:absolute;inset:0;width:100%;height:100%">
@@ -940,7 +987,7 @@ footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;paddin
 <!-- 15 · HOMEWORK · 5 real exercises with auto-check -->
 <section class="section">
   <div class="section-hdr"><div class="section-num">15</div><h2>📚 Homework · 5 exercises</h2></div>
-  <p class="section-sub">Пять реальных заданий с проверкой — не текстарей. Зелёный = верно. Красный = поправь и попробуй снова. К следующему уроку всё должно быть зелёным.</p>
+  <p class="section-sub">Five real exercises with auto-check — no textareas. Green = right. Red = fix and try again. By next class, everything should be green.</p>
 
   <!-- HW-01 · Vocab gap-fill (future words) -->
   <div class="hw">
@@ -1269,6 +1316,102 @@ footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;paddin
           bank.appendChild(pill);
         }
         rebuild();
+      });
+    });
+  });
+})();
+</script>
+
+<!-- Dialogue scramble: click bank line → moves to slot · click slot line → returns to bank · Check button validates · Play-all reads in order -->
+<script>
+(function(){
+  document.querySelectorAll('.scramble').forEach(function(sc){
+    var correct;
+    try { correct = JSON.parse(sc.dataset.order); } catch(e){ correct = []; }
+    var slot = sc.querySelector('.scramble-slot');
+    var bank = sc.querySelector('.scramble-bank');
+    var msg  = sc.querySelector('.scramble-msg');
+    var checkBtn = sc.querySelector('.scramble-check');
+    var playAllBtn = sc.querySelector('.scramble-play-all');
+
+    function speak(text){
+      if (!('speechSynthesis' in window)) return null;
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-GB'; u.rate = .92;
+      return u;
+    }
+    function speakNow(text){
+      var u = speak(text); if (!u) return;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }
+
+    /* hook play buttons inside lines */
+    sc.querySelectorAll('.scr-play').forEach(function(p){
+      p.addEventListener('click', function(e){
+        e.stopPropagation();
+        speakNow(p.dataset.say || '');
+      });
+    });
+
+    /* shuffle bank order on page load (visual scramble) */
+    var items = Array.prototype.slice.call(bank.children);
+    items.sort(function(){ return Math.random() - .5; });
+    items.forEach(function(el){ bank.appendChild(el); });
+
+    /* line click → move between bank and slot */
+    sc.querySelectorAll('.scr-line').forEach(function(line){
+      line.addEventListener('click', function(e){
+        if (e.target.classList.contains('scr-play')) return; // don't move when clicking play button
+        if (line.parentElement === bank) {
+          line.classList.add('placed');
+          slot.appendChild(line);
+        } else {
+          line.classList.remove('placed');
+          bank.appendChild(line);
+        }
+        slot.classList.remove('right','wrong');
+        msg.textContent = ''; msg.className = 'scramble-msg';
+      });
+    });
+
+    /* Check: compare ordered keys against correct sequence */
+    checkBtn.addEventListener('click', function(){
+      var placed = Array.prototype.map.call(slot.children, function(l){ return l.dataset.k; });
+      if (placed.length < correct.length) {
+        msg.textContent = '⚠ Place all ' + correct.length + ' phrases first (' + placed.length + ' / ' + correct.length + ')';
+        msg.className = 'scramble-msg bad';
+        slot.classList.add('wrong'); slot.classList.remove('right');
+        return;
+      }
+      var same = placed.length === correct.length && placed.every(function(k, i){ return k === correct[i]; });
+      if (same) {
+        slot.classList.add('right'); slot.classList.remove('wrong');
+        msg.textContent = '✓ Perfect! Now read it all in order, then tap Play to compare with the audio.';
+        msg.className = 'scramble-msg ok';
+      } else {
+        slot.classList.add('wrong'); slot.classList.remove('right');
+        msg.textContent = '✗ Wrong order — read it again and look at the dialogue pattern.';
+        msg.className = 'scramble-msg bad';
+      }
+    });
+
+    /* Play full dialog in the order currently in slot — or by correct order if slot is empty */
+    playAllBtn.addEventListener('click', function(){
+      var lines;
+      if (slot.children.length) {
+        lines = Array.prototype.map.call(slot.children, function(l){ return l.dataset.say; });
+      } else {
+        /* read in correct order from bank */
+        var byKey = {};
+        sc.querySelectorAll('.scr-line').forEach(function(l){ byKey[l.dataset.k] = l.dataset.say; });
+        lines = correct.map(function(k){ return byKey[k]; });
+      }
+      if (!('speechSynthesis' in window)) return;
+      speechSynthesis.cancel();
+      lines.forEach(function(text){
+        var u = new SpeechSynthesisUtterance(text);
+        u.lang = 'en-GB'; u.rate = .9;
+        speechSynthesis.speak(u);
       });
     });
   });
