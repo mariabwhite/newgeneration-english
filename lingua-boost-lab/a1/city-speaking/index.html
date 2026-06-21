@@ -321,6 +321,26 @@ h1.hero-title .grad{color:var(--accent)}
 .grammar-block .grammar-rule strong{color:var(--brand)}
 .grammar-block .grammar-instructions{font-size:.92rem;color:var(--muted);margin-bottom:10px;font-style:italic}
 
+/* Gap-fill dialogue (sec 05 cafe) */
+.gapdlg{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:10px 0 14px}
+.dlg-bank{display:flex;flex-wrap:wrap;gap:6px;background:var(--surface-2);border:1px dashed var(--line-2);border-radius:10px;padding:10px 12px;margin-bottom:14px}
+.gap-pill{background:#fff;border:1.5px solid var(--line-2);color:var(--ink);padding:7px 12px;border-radius:50px;font-family:var(--body);font-size:.86rem;font-weight:600;cursor:pointer;transition:.15s}
+.gap-pill:hover{border-color:var(--brand);color:var(--brand)}
+.gap-pill.sel{background:var(--brand-soft);border-color:var(--brand);color:var(--brand);transform:translateY(-1px)}
+.gap-pill.used{opacity:.3;pointer-events:none;text-decoration:line-through}
+.dlg-gap{display:inline-block;min-width:160px;min-height:22px;padding:3px 12px;border:1.5px dashed var(--brand);border-radius:50px;font-family:var(--body);font-size:.92rem;font-weight:600;color:var(--brand);background:var(--brand-soft);vertical-align:middle;line-height:1.4;cursor:pointer}
+.dlg-gap.filled{border-style:solid}
+.dlg-gap.right{background:rgba(91,168,114,.12);border-color:var(--ok);color:var(--ok)}
+.dlg-gap.wrong{background:rgba(196,90,90,.12);border-color:var(--miss);color:var(--miss)}
+.dlg-gap:empty::before{content:"___ click a phrase ___";color:var(--faint);font-style:italic;font-weight:500;letter-spacing:.04em}
+.dlg-feedback{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
+.dlg-check,.dlg-playall{background:var(--accent);color:#fff;border:none;padding:8px 14px;border-radius:8px;font-family:var(--mono);font-weight:800;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:.15s}
+.dlg-check:hover,.dlg-playall:hover{background:var(--accent-2)}
+.dlg-playall{background:var(--brand)}.dlg-playall:hover{background:#b07532}
+.dlg-msg{font-family:var(--mono);font-size:.78rem;color:var(--muted);letter-spacing:.04em}
+.dlg-msg.ok{color:var(--ok);font-weight:700}
+.dlg-msg.bad{color:var(--miss);font-weight:700}
+
 /* Dialogue scramble */
 .scramble{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin:14px 0}
 .scramble-slot{min-height:60px;border:1.5px dashed var(--line-2);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:6px;background:#fff;margin-bottom:14px}
@@ -653,11 +673,90 @@ footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;paddin
   </div>
 </section>
 
-<!-- 5 · CITY DIALOGUES (directions across the map) -->
+<!-- 5 · CAFE / PAYMENT DIALOGUES with gap-fill -->
 <section class="section">
-  <div class="section-hdr"><div class="section-num">05</div><h2>Two city dialogues · using the map</h2></div>
-  <p class="section-sub">Two real conversations across our city. <strong>Read each dialogue aloud, both roles.</strong> Then read it again playing one role only — the other side speaks in your head. ▶ to hear how it sounds.</p>
+  <div class="section-hdr"><div class="section-num">05</div><h2>Café · order, pay, ask · drop the missing phrase</h2></div>
+  <p class="section-sub">Two café dialogues with <strong>missing phrases</strong>. Click a phrase from the bank, then click the empty slot where it goes. Click a placed phrase to send it back. ▶ next to any line plays the audio.</p>
 
+  <h3 style="font-family:var(--display);font-weight:800;font-size:1rem;color:var(--accent);margin:18px 0 8px">☕ Dialogue 1 · ordering a coffee + carrot cake</h3>
+
+  <div class="gapdlg" data-key="dlg1">
+    <div class="dlg-bank">
+      <button class="gap-pill" data-k="P1">Can I have a large latte, please?</button>
+      <button class="gap-pill" data-k="P2">Is the carrot cake gluten-free?</button>
+      <button class="gap-pill" data-k="P3">Could you heat this up for me?</button>
+      <button class="gap-pill" data-k="P4">Could I get this to-go?</button>
+      <button class="gap-pill" data-k="P5">Can I pay by card?</button>
+    </div>
+    <div class="dialog">
+      <div class="line"><div class="who">You</div><div class="what"><span class="dlg-gap" data-correct="P1"></span></div><button class="play-line" data-say="Can I have a large latte, please?">▶</button></div>
+      <div class="line"><div class="who b">Barista</div><div class="what">Sure. What milk?</div><button class="play-line" data-say="Sure. What milk?">▶</button></div>
+      <div class="line"><div class="who">You</div><div class="what">Oat milk, please. And a carrot cake. <span class="dlg-gap" data-correct="P2"></span></div><button class="play-line" data-say="Oat milk, please. And a carrot cake. Is the carrot cake gluten-free?">▶</button></div>
+      <div class="line"><div class="who b">Barista</div><div class="what">Yes, it's gluten-free.</div><button class="play-line" data-say="Yes, it's gluten-free.">▶</button></div>
+      <div class="line"><div class="who">You</div><div class="what">Perfect. <span class="dlg-gap" data-correct="P3"></span></div><button class="play-line" data-say="Perfect. Could you heat this up for me?">▶</button></div>
+      <div class="line"><div class="who b">Barista</div><div class="what">Of course. For here or to go?</div><button class="play-line" data-say="Of course. For here or to go?">▶</button></div>
+      <div class="line"><div class="who">You</div><div class="what"><span class="dlg-gap" data-correct="P4"></span></div><button class="play-line" data-say="Could I get this to-go?">▶</button></div>
+      <div class="line"><div class="who b">Barista</div><div class="what">Sure. That's eight euros twenty.</div><button class="play-line" data-say="Sure. That's eight euros twenty.">▶</button></div>
+      <div class="line"><div class="who">You</div><div class="what"><span class="dlg-gap" data-correct="P5"></span></div><button class="play-line" data-say="Can I pay by card?">▶</button></div>
+      <div class="line"><div class="who b">Barista</div><div class="what">Yes, of course. Tap here.</div><button class="play-line" data-say="Yes, of course. Tap here.">▶</button></div>
+    </div>
+    <div class="dlg-feedback">
+      <button class="dlg-check" type="button">Check</button>
+      <button class="dlg-playall" type="button">▶ Play full dialogue</button>
+      <span class="dlg-msg"></span>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--display);font-weight:800;font-size:1rem;color:var(--accent);margin:22px 0 8px">🪑 Dialogue 2 · sitting down · water · Wi-Fi</h3>
+
+  <div class="gapdlg" data-key="dlg2">
+    <div class="dlg-bank">
+      <button class="gap-pill" data-k="Q1">Is this seat taken?</button>
+      <button class="gap-pill" data-k="Q2">Can I have a glass of water, please?</button>
+      <button class="gap-pill" data-k="Q3">What's the Wi-Fi password?</button>
+      <button class="gap-pill" data-k="Q4">Could I get some extra napkins?</button>
+      <button class="gap-pill" data-k="Q5">Do you offer any loyalty discounts?</button>
+    </div>
+    <div class="dialog">
+      <div class="line"><div class="who">You</div><div class="what">Excuse me. <span class="dlg-gap" data-correct="Q1"></span></div><button class="play-line" data-say="Excuse me. Is this seat taken?">▶</button></div>
+      <div class="line"><div class="who b">Customer</div><div class="what">No, go ahead.</div><button class="play-line" data-say="No, go ahead.">▶</button></div>
+      <div class="line"><div class="who">You</div><div class="what">Thanks. <span class="dlg-gap" data-correct="Q2"></span></div><button class="play-line" data-say="Thanks. Can I have a glass of water, please?">▶</button></div>
+      <div class="line"><div class="who b">Server</div><div class="what">Still or sparkling?</div><button class="play-line" data-say="Still or sparkling?">▶</button></div>
+      <div class="line"><div class="who">You</div><div class="what">Still, please. One more thing — <span class="dlg-gap" data-correct="Q3"></span></div><button class="play-line" data-say="Still, please. One more thing — what's the Wi-Fi password?">▶</button></div>
+      <div class="line"><div class="who b">Server</div><div class="what">It's on the receipt. Anything else?</div><button class="play-line" data-say="It's on the receipt. Anything else?">▶</button></div>
+      <div class="line"><div class="who">You</div><div class="what"><span class="dlg-gap" data-correct="Q4"></span></div><button class="play-line" data-say="Could I get some extra napkins?">▶</button></div>
+      <div class="line"><div class="who b">Server</div><div class="what">Right away.</div><button class="play-line" data-say="Right away.">▶</button></div>
+      <div class="line"><div class="who">You</div><div class="what">And one quick question — <span class="dlg-gap" data-correct="Q5"></span></div><button class="play-line" data-say="And one quick question — do you offer any loyalty discounts?">▶</button></div>
+      <div class="line"><div class="who b">Server</div><div class="what">Yes, with our app — five percent off every visit.</div><button class="play-line" data-say="Yes, with our app — five percent off every visit.">▶</button></div>
+    </div>
+    <div class="dlg-feedback">
+      <button class="dlg-check" type="button">Check</button>
+      <button class="dlg-playall" type="button">▶ Play full dialogue</button>
+      <span class="dlg-msg"></span>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px">
+    <h3 style="margin:0 0 8px;font-size:.96rem">Vocab from these dialogues</h3>
+    <p style="margin:0;font-size:.9rem;color:var(--muted);line-height:1.7">
+      <strong>payment</strong> · оплата &nbsp;|&nbsp;
+      <strong>pay</strong> · платить &nbsp;|&nbsp;
+      <strong>cash</strong> · наличные &nbsp;|&nbsp;
+      <strong>tip</strong> · чаевые &nbsp;|&nbsp;
+      <strong>herbal (tea)</strong> · травяной &nbsp;|&nbsp;
+      <strong>mocha</strong> · мокко &nbsp;|&nbsp;
+      <strong>special offers of the day</strong> · спецпредложения &nbsp;|&nbsp;
+      <strong>loyalty discount</strong> · скидка для постоянных &nbsp;|&nbsp;
+      <strong>gluten-free</strong> · без глютена &nbsp;|&nbsp;
+      <strong>to-go</strong> · с собой &nbsp;|&nbsp;
+      <strong>still / sparkling</strong> · без газа / с газом &nbsp;|&nbsp;
+      <strong>bathroom key</strong> · ключ от туалета
+    </p>
+  </div>
+</section>
+
+<!-- LEGACY directions dialogues - hidden -->
+<section class="section" style="display:none">
   <h3 style="font-family:var(--display);font-weight:800;font-size:1rem;color:var(--accent);margin:18px 0 8px">📚 At the bus stop · how to reach the library</h3>
   <div class="dialog">
     <div class="line"><div class="who">You</div><div class="what">Excuse me, is the library near here?</div><button class="play-line" data-say="Excuse me, is the library near here?">▶</button></div>
@@ -1415,6 +1514,77 @@ footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;paddin
           bank.appendChild(pill);
         }
         rebuild();
+      });
+    });
+  });
+})();
+</script>
+
+<!-- Gap-fill dialogue (sec 05 cafe): click bank pill, then click empty gap to drop it in. Click filled gap to send back. -->
+<script>
+(function(){
+  document.querySelectorAll('.gapdlg').forEach(function(g){
+    var bank = g.querySelector('.dlg-bank');
+    var sel = null;
+    function setSel(p){
+      if (sel) sel.classList.remove('sel');
+      sel = p; if (sel) sel.classList.add('sel');
+    }
+    bank.querySelectorAll('.gap-pill').forEach(function(p){
+      p.addEventListener('click', function(){
+        if (p.classList.contains('used')) return;
+        if (sel === p) { setSel(null); return; }
+        setSel(p);
+      });
+    });
+    g.querySelectorAll('.dlg-gap').forEach(function(gap){
+      gap.addEventListener('click', function(){
+        /* if filled, return pill to bank */
+        if (gap.classList.contains('filled')) {
+          var k = gap.dataset.k;
+          var pill = bank.querySelector('.gap-pill[data-k="'+k+'"]');
+          if (pill) pill.classList.remove('used');
+          gap.textContent = '';
+          gap.classList.remove('filled','right','wrong');
+          delete gap.dataset.k;
+          return;
+        }
+        /* if no pill selected, do nothing */
+        if (!sel) return;
+        /* place selected pill text into this gap */
+        gap.textContent = sel.textContent;
+        gap.classList.add('filled');
+        gap.dataset.k = sel.dataset.k;
+        sel.classList.add('used');
+        setSel(null);
+      });
+    });
+    /* Check button */
+    g.querySelector('.dlg-check').addEventListener('click', function(){
+      var gaps = g.querySelectorAll('.dlg-gap');
+      var allFilled = true, allRight = true, anyWrong = false;
+      gaps.forEach(function(gap){
+        gap.classList.remove('right','wrong');
+        if (!gap.classList.contains('filled')) { allFilled = false; return; }
+        if (gap.dataset.k === gap.dataset.correct) gap.classList.add('right');
+        else { gap.classList.add('wrong'); allRight = false; anyWrong = true; }
+      });
+      var msg = g.querySelector('.dlg-msg');
+      if (!allFilled) { msg.textContent = '⚠ Fill all gaps first'; msg.className = 'dlg-msg bad'; }
+      else if (allRight) { msg.textContent = '✓ Perfect! Now play the full dialogue.'; msg.className = 'dlg-msg ok'; }
+      else { msg.textContent = '✗ Some are wrong — read the lines around them, then swap.'; msg.className = 'dlg-msg bad'; }
+    });
+    /* Play full dialogue — speak every <.line .what> in order */
+    g.querySelector('.dlg-playall').addEventListener('click', function(){
+      if (!('speechSynthesis' in window)) return;
+      speechSynthesis.cancel();
+      var lines = g.querySelectorAll('.dialog .line');
+      lines.forEach(function(l){
+        var btn = l.querySelector('.play-line');
+        var text = btn ? btn.dataset.say : l.querySelector('.what').textContent;
+        var u = new SpeechSynthesisUtterance(text);
+        u.lang = 'en-GB'; u.rate = .92;
+        speechSynthesis.speak(u);
       });
     });
   });
