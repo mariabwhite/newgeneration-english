@@ -401,6 +401,24 @@
     }
     const goal = student.goal ? `<div class="cab-card-row"><span class="cab-row-label">Цель</span><span class="cab-row-value">${_esc(student.goal)}</span></div>` : "";
     const parent = student.parent_name ? `<div class="cab-card-row"><span class="cab-row-label">Родитель</span><span class="cab-row-value">${_esc(student.parent_name)}</span></div>` : "";
+    const payment = (window.NGE_DATA && window.NGE_DATA.payment) || {};
+    const isAdult = !!student.is_adult;
+    /* Adults pay themselves → show payment card in student view (no separate parent view) */
+    const paymentCard = isAdult ? `
+        <article class="cab-card">
+          <h3>Оплата</h3>
+          ${student.price_per_lesson ? `<div class="cab-card-row"><span class="cab-row-label">Цена занятия</span><span class="cab-row-value">${_esc(student.price_per_lesson)} ₽</span></div>` : ""}
+          ${student.payment_status ? `<div class="cab-card-row"><span class="cab-row-label">Статус</span><span class="cab-row-value">${_esc(student.payment_status)}</span></div>` : ""}
+          <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 8px;">
+            ${payment.telegram ? `<a class="cab-action-btn cab-action-btn--primary" href="${_esc(payment.telegram)}" target="_blank" rel="noreferrer">💬 Написать Марии в Telegram</a>` : ""}
+            <button class="cab-action-btn cab-action-btn--text" type="button" data-action="toggle-bank-details">Реквизиты для оплаты ▾</button>
+          </div>
+          <div class="cab-bank-details" style="display:none;">
+            ${payment.phone ? `<div class="cab-card-row"><span class="cab-row-label">СБП</span><span class="cab-row-value"><code>${_esc(payment.phone)}</code></span></div>` : ""}
+            ${payment.recipient ? `<div class="cab-card-row"><span class="cab-row-label">Получатель</span><span class="cab-row-value">${_esc(payment.recipient)}</span></div>` : ""}
+            ${payment.bank ? `<div class="cab-card-row"><span class="cab-row-label">Банк</span><span class="cab-row-value">${_esc(payment.bank)}</span></div>` : ""}
+          </div>
+        </article>` : "";
     container.innerHTML = `
       <div class="cab-hero">
         <h1>${_esc(_greetingForStudent(student))}</h1>
@@ -420,6 +438,8 @@
 
         ${_renderAbonementCard(student, { studentView: true })}
 
+        ${paymentCard}
+
         ${_renderHomeworkCard(student)}
 
         ${_renderContractsCard(student)}
@@ -430,6 +450,16 @@
       </div>
 
     `;
+    /* Wire up payment details toggle (only present for adults) */
+    container.querySelectorAll('[data-action="toggle-bank-details"]').forEach(btn => {
+      btn.addEventListener("click", () => {
+        const details = container.querySelector(".cab-bank-details");
+        if (!details) return;
+        const isOpen = details.style.display !== "none";
+        details.style.display = isOpen ? "none" : "block";
+        btn.textContent = isOpen ? "Реквизиты для оплаты ▾" : "Реквизиты для оплаты ▴";
+      });
+    });
 
     _wireHomeworkCheckboxes(container, student);
   }
