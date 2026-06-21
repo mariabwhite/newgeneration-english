@@ -1460,9 +1460,20 @@
     return `<div class="cab-contract-files">${items}</div>`;
   }
 
+  function _renderExternalPlatformsCard(student) {
+    const platforms = (student && student.external_platforms) || [];
+    if (!platforms.length) return "";
+    const items = platforms.map(p => {
+      const note = p.note ? `<div class="cab-platform-note">${_esc(p.note)}</div>` : "";
+      return `<a class="cab-platform-link" href="${_esc(p.url)}" target="_blank" rel="noopener"><div class="cab-platform-name">🌐 ${_esc(p.name)}</div>${note}<div class="cab-platform-arrow">→</div></a>`;
+    }).join("");
+    return `<article class="cab-card"><h3>🔗 Дополнительные платформы</h3><div class="cab-platforms-list">${items}</div></article>`;
+  }
+
   function _renderContractsCard(student) {
     const allContracts = (window.NGE_DATA && window.NGE_DATA.contracts) || {};
-    const contracts = allContracts[student.id];
+    // Support BOTH legacy global contracts map AND per-student contracts on student object
+    const contracts = (student && student.contracts) || allContracts[student.id];
     if (!contracts) return "";
 
     if (contracts.byParent) {
@@ -1529,6 +1540,7 @@
         </article>
 
         ${_renderContractsCard(student)}
+        ${_renderExternalPlatformsCard(student)}
 
         ${_renderLessonsCard(student, { interactive: false })}
       </div>
