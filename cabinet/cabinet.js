@@ -422,6 +422,10 @@
 
         ${_renderHomeworkCard(student)}
 
+        ${_renderContractsCard(student)}
+
+        ${_renderExternalPlatformsCard(student)}
+
         ${_renderLessonsCard(student, { interactive: true })}
       </div>
 
