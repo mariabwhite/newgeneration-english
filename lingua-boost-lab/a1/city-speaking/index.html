@@ -49,21 +49,23 @@ a{color:inherit;text-decoration:none}
 /* Hero — jerusalem-style spacing */
 .hero{width:var(--demo-top-width);max-width:1240px;margin:32px auto 12px;padding:0 12px}
 .hero-card{position:relative;border:1px solid var(--line);border-radius:24px;overflow:hidden;
-  background:linear-gradient(135deg,var(--surface) 0%,var(--card) 60%,var(--surface-2) 100%);
-  box-shadow:0 4px 24px rgba(0,0,0,.04);min-height:340px}
-.hero-img{width:100%;aspect-ratio:16/7;object-fit:cover;display:block;border-bottom:1px solid var(--line)}
+  background-image:url('./assets/hero.png');background-size:cover;background-position:center;
+  box-shadow:0 4px 24px rgba(0,0,0,.08);min-height:420px;color:#fff}
+.hero-card::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(8,14,32,.78) 0%,rgba(8,14,32,.55) 55%,rgba(40,30,15,.55) 100%);z-index:1}
+.hero-card > *{position:relative;z-index:2}
+.hero-img{display:none}
 .hero-body{padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px)}
-.eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#f6c97b;
   display:flex;align-items:center;gap:10px;margin-bottom:18px}
-.eyebrow::before{content:"";width:28px;height:1px;background:var(--accent)}
+.eyebrow::before{content:"";width:28px;height:1px;background:#f6c97b}
 h1.hero-title{font-family:var(--display);font-weight:900;letter-spacing:-.04em;line-height:.98;
-  font-size:clamp(1.9rem,4.5vw,3.4rem);max-width:760px;margin-bottom:18px;color:var(--ink)}
-h1.hero-title .grad{color:var(--accent)}
-.hero-lead{font-size:clamp(1rem,1.3vw,1.1rem);color:var(--muted);max-width:680px;line-height:1.6;margin-bottom:24px}
+  font-size:clamp(1.9rem,4.5vw,3.4rem);max-width:760px;margin-bottom:18px;color:#fff}
+h1.hero-title .grad{color:#7eddc8}
+.hero-lead{font-size:clamp(1rem,1.3vw,1.1rem);color:rgba(255,255,255,.86);max-width:680px;line-height:1.6;margin-bottom:24px}
 .hero-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px;max-width:640px}
-.stat{background:rgba(255,255,255,.6);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
-.stat-k{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
-.stat-v{font-family:var(--display);font-weight:800;font-size:1.1rem;color:var(--accent);letter-spacing:-.01em}
+.stat{background:rgba(255,255,255,.13);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.22);border-radius:14px;padding:14px 16px}
+.stat-k{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:6px}
+.stat-v{font-family:var(--display);font-weight:800;font-size:1.1rem;color:#fff;letter-spacing:-.01em}
 
 /* Sections */
 .section{width:var(--demo-top-width);max-width:1240px;margin:0 auto 28px;padding:0 12px}
@@ -321,6 +323,24 @@ h1.hero-title .grad{color:var(--accent)}
 .grammar-block .grammar-rule strong{color:var(--brand)}
 .grammar-block .grammar-instructions{font-size:.92rem;color:var(--muted);margin-bottom:10px;font-style:italic}
 
+/* Finale storyboard cards (sec 14) */
+.finale-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin:14px 0}
+.finale-card{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--brand);border-radius:0 10px 10px 0;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.finale-card .play{background:var(--brand);color:#fff;border:none;padding:7px 12px;border-radius:8px;font-family:var(--mono);font-weight:800;font-size:.72rem;letter-spacing:.08em;cursor:pointer;text-transform:uppercase;align-self:flex-start}
+.finale-card .play:hover{background:var(--accent)}
+.finale-card span{font-size:.85rem;color:var(--muted);font-style:italic;line-height:1.45}
+.finale-card .prompt-done-btn{align-self:flex-start;margin-top:auto}
+
+/* Vocab pills (sec 05 cafe vocab) — tap to hear */
+.vocab-pills{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 16px}
+.voc-pill{background:var(--card);border:1.5px solid var(--line-2);border-radius:50px;padding:8px 14px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;transition:.15s;min-width:120px;font-family:var(--body)}
+.voc-pill:hover{border-color:var(--brand);background:var(--brand-soft);transform:translateY(-1px)}
+.voc-pill:active{transform:translateY(0)}
+.voc-pill.heard{border-color:var(--ok);background:rgba(91,168,114,.10)}
+.voc-pill .voc-en{font-family:var(--display);font-weight:800;font-size:.92rem;color:var(--ink);letter-spacing:-.01em;line-height:1.15}
+.voc-pill .voc-ru{font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.04em;line-height:1.1}
+.voc-pill.heard .voc-en::before{content:"✓ ";color:var(--ok)}
+
 /* Drag-and-drop city map (sec 03) */
 .dragmap{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}
 .dm-board{position:relative;width:100%;aspect-ratio:1/1;max-width:780px;margin:0 auto 14px;border-radius:14px;overflow:hidden;background:#cfdfe6}
@@ -413,12 +433,12 @@ footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;paddin
     <div class="hero-body">
     <div class="eyebrow">Adult Basics · About Your City · Speaking + Future</div>
     <h1 class="hero-title">My city — today and <span class="grad">50 years from now</span></h1>
-    <p class="hero-lead">15 интерактивных блоков · ~90 минут. Активируем всё что у тебя уже работает: <strong>There is / are</strong>, <strong>It is</strong>, <strong>Present Simple / Continuous</strong>. Учимся <strong>задавать вопросы</strong> и говорить через <strong>опоры</strong>, а не «из пустоты». В финале — мягко открываем будущее: <strong>will</strong> и <strong>going to</strong>.</p>
+    <p class="hero-lead">15 interactive blocks · ~90 minutes. Activate everything that already works for you: <strong>There is / are</strong>, <strong>It is</strong>, <strong>Present Simple / Continuous</strong>. Learn to <strong>ask questions</strong> and speak with <strong>scaffolds</strong> — not «from nothing». In the finale we softly open the future: <strong>will</strong> and <strong>going to</strong>.</p>
     <div class="hero-stats">
-      <div class="stat"><div class="stat-k">Уровень</div><div class="stat-v">A1+ (взрослые)</div></div>
-      <div class="stat"><div class="stat-k">Длительность</div><div class="stat-v">~90 минут · 15 блоков</div></div>
-      <div class="stat"><div class="stat-k">Формат</div><div class="stat-v">Speaking + интерактив + ввод Future</div></div>
-      <div class="stat"><div class="stat-k">Прогресс</div><div class="stat-v">Сохраняется на сайте</div></div>
+      <div class="stat"><div class="stat-k">Level</div><div class="stat-v">A1+ (adults)</div></div>
+      <div class="stat"><div class="stat-k">Length</div><div class="stat-v">~90 min · 15 blocks</div></div>
+      <div class="stat"><div class="stat-k">Format</div><div class="stat-v">Speaking + interactive + Future intro</div></div>
+      <div class="stat"><div class="stat-k">Progress</div><div class="stat-v">Saved on this page</div></div>
     </div>
     </div>
   </div>
@@ -664,22 +684,20 @@ footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;paddin
     </div>
   </div>
 
-  <div class="card" style="margin-top:14px">
-    <h3 style="margin:0 0 8px;font-size:.96rem">Vocab from these dialogues</h3>
-    <p style="margin:0;font-size:.9rem;color:var(--muted);line-height:1.7">
-      <strong>payment</strong> · оплата &nbsp;|&nbsp;
-      <strong>pay</strong> · платить &nbsp;|&nbsp;
-      <strong>cash</strong> · наличные &nbsp;|&nbsp;
-      <strong>tip</strong> · чаевые &nbsp;|&nbsp;
-      <strong>herbal (tea)</strong> · травяной &nbsp;|&nbsp;
-      <strong>mocha</strong> · мокко &nbsp;|&nbsp;
-      <strong>special offers of the day</strong> · спецпредложения &nbsp;|&nbsp;
-      <strong>loyalty discount</strong> · скидка для постоянных &nbsp;|&nbsp;
-      <strong>gluten-free</strong> · без глютена &nbsp;|&nbsp;
-      <strong>to-go</strong> · с собой &nbsp;|&nbsp;
-      <strong>still / sparkling</strong> · без газа / с газом &nbsp;|&nbsp;
-      <strong>bathroom key</strong> · ключ от туалета
-    </p>
+  <h3 style="font-family:var(--display);font-weight:800;font-size:1rem;color:var(--accent);margin:22px 0 8px">🔊 Vocab from these dialogues · tap to hear</h3>
+  <div class="vocab-pills">
+    <button class="voc-pill" data-say="payment"><span class="voc-en">payment</span><span class="voc-ru">оплата</span></button>
+    <button class="voc-pill" data-say="pay"><span class="voc-en">pay</span><span class="voc-ru">платить</span></button>
+    <button class="voc-pill" data-say="cash"><span class="voc-en">cash</span><span class="voc-ru">наличные</span></button>
+    <button class="voc-pill" data-say="tip"><span class="voc-en">tip</span><span class="voc-ru">чаевые</span></button>
+    <button class="voc-pill" data-say="herbal tea"><span class="voc-en">herbal (tea)</span><span class="voc-ru">травяной</span></button>
+    <button class="voc-pill" data-say="mocha"><span class="voc-en">mocha</span><span class="voc-ru">мокко</span></button>
+    <button class="voc-pill" data-say="special offers of the day"><span class="voc-en">special offers</span><span class="voc-ru">спецпредложения</span></button>
+    <button class="voc-pill" data-say="loyalty discount"><span class="voc-en">loyalty discount</span><span class="voc-ru">скидка для постоянных</span></button>
+    <button class="voc-pill" data-say="gluten-free"><span class="voc-en">gluten-free</span><span class="voc-ru">без глютена</span></button>
+    <button class="voc-pill" data-say="to-go"><span class="voc-en">to-go</span><span class="voc-ru">с собой</span></button>
+    <button class="voc-pill" data-say="still or sparkling"><span class="voc-en">still / sparkling</span><span class="voc-ru">без газа / с газом</span></button>
+    <button class="voc-pill" data-say="bathroom key"><span class="voc-en">bathroom key</span><span class="voc-ru">ключ от туалета</span></button>
   </div>
 </section>
 
@@ -932,120 +950,53 @@ footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;paddin
   </div>
 </section>
 
-<!-- 13 · FUTURE SCENE -->
-<section class="section">
-  <div class="section-hdr"><div class="section-num">13</div><h2>Tap the future · 6 things in the city of 2076</h2></div>
-  <p class="section-sub">Same tap-and-name game — but the city is 50 years from now. Tap each dot · describe it out loud with <strong>will</strong> or <strong>going to</strong>.</p>
+<!-- 13 · FUTURE DRAG-DROP -->
+<section class="section" id="sec-future">
+  <div class="section-hdr"><div class="section-num">13</div><h2>Tap the future · drag 8 future things into the city of 2076</h2></div>
+  <p class="section-sub">Same drag-and-drop game — but the city is 50 years from now. Drag a sticker onto the matching place on the map. Right drop = green pulse + voice. Wrong drop = red flash.</p>
 
-  <div class="scene-future" id="futureScene">
-    <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" style="position:absolute;inset:0;width:100%;height:100%">
-      <radialGradient id="fSun" cx="20%" cy="20%" r="35%"><stop offset="0%" stop-color="#f6c97b" stop-opacity=".5"/><stop offset="100%" stop-color="#f6c97b" stop-opacity="0"/></radialGradient>
-      <rect width="1600" height="900" fill="url(#fSun)"/>
-      <!-- far towers with green tops -->
-      <g>
-        <rect x="100" y="240" width="90" height="520" fill="#1a2d6e"/>
-        <ellipse cx="145" cy="240" rx="60" ry="30" fill="#3d6a45"/>
-        <rect x="220" y="180" width="110" height="580" fill="#243559"/>
-        <ellipse cx="275" cy="180" rx="70" ry="35" fill="#3d6a45"/>
-        <rect x="370" y="280" width="80" height="480" fill="#1a2d6e"/>
-        <ellipse cx="410" cy="280" rx="55" ry="28" fill="#3d6a45"/>
-        <rect x="490" y="140" width="140" height="620" fill="#3454b0"/>
-        <ellipse cx="560" cy="140" rx="90" ry="40" fill="#3d6a45"/>
-        <rect x="660" y="220" width="90" height="540" fill="#243559"/>
-        <ellipse cx="705" cy="220" rx="60" ry="30" fill="#3d6a45"/>
-        <rect x="780" y="160" width="120" height="600" fill="#3454b0"/>
-        <ellipse cx="840" cy="160" rx="80" ry="38" fill="#3d6a45"/>
-        <rect x="930" y="200" width="100" height="560" fill="#243559"/>
-        <ellipse cx="980" cy="200" rx="65" ry="32" fill="#3d6a45"/>
-        <rect x="1060" y="260" width="90" height="500" fill="#1a2d6e"/>
-        <ellipse cx="1105" cy="260" rx="60" ry="30" fill="#3d6a45"/>
-        <rect x="1180" y="120" width="130" height="640" fill="#3454b0"/>
-        <ellipse cx="1245" cy="120" rx="85" ry="40" fill="#3d6a45"/>
-        <rect x="1340" y="220" width="110" height="540" fill="#243559"/>
-        <ellipse cx="1395" cy="220" rx="70" ry="35" fill="#3d6a45"/>
-        <rect x="1480" y="260" width="100" height="500" fill="#1a2d6e"/>
-        <ellipse cx="1530" cy="260" rx="60" ry="30" fill="#3d6a45"/>
-      </g>
-      <!-- solar panels glinting (rooftop rectangles) -->
-      <g fill="#d4a04f" opacity=".85">
-        <rect x="105" y="240" width="80" height="14"/>
-        <rect x="225" y="180" width="100" height="14"/>
-        <rect x="495" y="140" width="130" height="14"/>
-        <rect x="785" y="160" width="110" height="14"/>
-        <rect x="1185" y="120" width="120" height="14"/>
-      </g>
-      <!-- flying cars (sleek hover shapes) -->
-      <g>
-        <ellipse cx="290" cy="380" rx="40" ry="12" fill="#f6c97b"/>
-        <ellipse cx="290" cy="388" rx="42" ry="6" fill="#d4a04f" opacity=".55"/>
-        <ellipse cx="1050" cy="450" rx="50" ry="14" fill="#f6c97b"/>
-        <ellipse cx="1050" cy="458" rx="52" ry="7" fill="#d4a04f" opacity=".55"/>
-        <ellipse cx="600" cy="330" rx="35" ry="10" fill="#fff5dc"/>
-        <ellipse cx="600" cy="337" rx="37" ry="5" fill="#d4a04f" opacity=".55"/>
-      </g>
-      <!-- drones -->
-      <g fill="#fff5dc">
-        <circle cx="450" cy="500" r="6"/><circle cx="442" cy="496" r="3" opacity=".5"/><circle cx="458" cy="496" r="3" opacity=".5"/>
-        <circle cx="880" cy="540" r="6"/><circle cx="872" cy="536" r="3" opacity=".5"/><circle cx="888" cy="536" r="3" opacity=".5"/>
-        <circle cx="1200" cy="480" r="6"/><circle cx="1192" cy="476" r="3" opacity=".5"/><circle cx="1208" cy="476" r="3" opacity=".5"/>
-      </g>
-      <!-- smart street -->
-      <rect x="0" y="780" width="1600" height="120" fill="#0a1530"/>
-      <rect x="0" y="800" width="1600" height="50" fill="#1a2d6e"/>
-      <g fill="#f6c97b" opacity=".8">
-        <rect x="60" y="820" width="80" height="4"/>
-        <rect x="220" y="820" width="80" height="4"/>
-        <rect x="380" y="820" width="80" height="4"/>
-        <rect x="540" y="820" width="80" height="4"/>
-        <rect x="700" y="820" width="80" height="4"/>
-        <rect x="860" y="820" width="80" height="4"/>
-        <rect x="1020" y="820" width="80" height="4"/>
-        <rect x="1180" y="820" width="80" height="4"/>
-        <rect x="1340" y="820" width="80" height="4"/>
-        <rect x="1500" y="820" width="80" height="4"/>
-      </g>
-      <!-- e-scooter -->
-      <g><rect x="730" y="720" width="50" height="6" fill="#7b5fb6"/><circle cx="735" cy="740" r="8" fill="#222"/><circle cx="775" cy="740" r="8" fill="#222"/><rect x="752" y="690" width="4" height="34" fill="#7b5fb6"/><rect x="745" y="685" width="16" height="6" fill="#7b5fb6"/></g>
-    </svg>
-    <span class="hotspot map-dot" data-word="flying car" data-pron="There will be flying cars above the streets." data-ex="People will travel above the traffic." style="left:18%;top:45%">1</span>
-    <span class="hotspot-label" style="left:18%;top:35%;transform:translateX(-30%)">flying car · летающая машина</span>
-
-    <span class="hotspot map-dot" data-word="green roof" data-pron="Most skyscrapers will have green roofs." data-ex="There will be small gardens on every building." style="left:34%;top:18%">2</span>
-    <span class="hotspot-label" style="left:34%;top:8%;transform:translateX(-30%)">green roof · зелёная крыша</span>
-
-    <span class="hotspot map-dot" data-word="solar panel" data-pron="There will be solar panels on every building." data-ex="The city will use clean energy." style="left:50%;top:14%">3</span>
-    <span class="hotspot-label" style="left:50%;top:4%;transform:translateX(-30%)">solar panel · солнечная панель</span>
-
-    <span class="hotspot map-dot" data-word="drone" data-pron="Drones will deliver food and packages." data-ex="They will fly over the city day and night." style="left:55%;top:60%">4</span>
-    <span class="hotspot-label" style="left:55%;top:50%;transform:translateX(-30%)">drone · дрон</span>
-
-    <span class="hotspot map-dot" data-word="electric scooter" data-pron="People will use electric scooters in the streets." data-ex="It is going to be quieter and cleaner." style="left:48%;top:83%">5</span>
-    <span class="hotspot-label" style="left:48%;top:73%;transform:translateX(-30%)">e-scooter · электросамокат</span>
-
-    <span class="hotspot map-dot" data-word="skyscraper" data-pron="The skyscrapers will be taller and greener." data-ex="They will house thousands of people." style="left:78%;top:25%">6</span>
-    <span class="hotspot-label" style="left:78%;top:15%;transform:translateX(-30%)">skyscraper · небоскрёб</span>
-
-    <div class="scene-caption">The city in 2076 · tap 6 things and say a sentence with <strong>will</strong> or <strong>going to</strong></div>
-  </div>
-  <div class="scene-progress">Progress: <strong><span id="futureCount">0</span> / 6</strong></div>
-
-  <div class="card" style="margin-top:14px">
-    <p style="margin:0;font-size:.93rem;color:var(--muted)"><strong>Then:</strong> опиши всю сцену 8 предложениями подряд. Структура: что появится (<em>There will be …</em>) → каким станет город (<em>It will be …</em>) → что будут делать люди (<em>People will …</em>) → твой личный план (<em>I am going to …</em>).</p>
+  <div class="dragmap" id="dragmap2">
+    <div class="dm-board">
+      <img class="dm-bg" src="./assets/city-future-map.png" alt="Future city map with 8 numbered places">
+      <span class="dm-zone" data-word="flying-car"        style="left:14%;top:24%"></span>
+      <span class="dm-zone" data-word="self-driving-car"  style="left:33%;top:81%"></span>
+      <span class="dm-zone" data-word="drone"             style="left:48%;top:18%"></span>
+      <span class="dm-zone" data-word="robot"             style="left:64%;top:71%"></span>
+      <span class="dm-zone" data-word="skyscraper"        style="left:82%;top:34%"></span>
+      <span class="dm-zone" data-word="solar-panel"       style="left:81%;top:58%"></span>
+      <span class="dm-zone" data-word="eco-district"      style="left:18%;top:60%"></span>
+      <span class="dm-zone" data-word="green-roof"        style="left:54%;top:52%"></span>
+    </div>
+    <div class="dm-bank-wrap">
+      <h4 class="dm-bank-h">Stickers — drag onto the future city</h4>
+      <div class="dm-bank" id="dmBank2">
+        <span class="dm-sticker" data-word="flying-car"       draggable="true"><img src="./assets/stickers/future-flying-car.png" alt="flying car"></span>
+        <span class="dm-sticker" data-word="self-driving-car" draggable="true"><img src="./assets/stickers/future-self-driving-car.png" alt="self-driving car"></span>
+        <span class="dm-sticker" data-word="drone"            draggable="true"><img src="./assets/stickers/future-drone.png" alt="drone"></span>
+        <span class="dm-sticker" data-word="robot"            draggable="true"><img src="./assets/stickers/future-robot.png" alt="robot"></span>
+        <span class="dm-sticker" data-word="green-roof"       draggable="true"><img src="./assets/stickers/future-green-roof.png" alt="green roof"></span>
+        <span class="dm-sticker" data-word="solar-panel"      draggable="true"><img src="./assets/stickers/future-solar-panel.png" alt="solar panel"></span>
+        <span class="dm-sticker" data-word="eco-district"     draggable="true"><img src="./assets/stickers/future-eco-district.png" alt="eco district"></span>
+        <span class="dm-sticker" data-word="skyscraper"       draggable="true"><img src="./assets/stickers/future-skyscraper.png" alt="skyscraper"></span>
+      </div>
+    </div>
+    <div class="dm-progress">Progress: <strong><span id="dmCount2">0</span> / 8</strong> · drop each future thing on its spot</div>
   </div>
 </section>
-
-<!-- 14 · SPEAKING FINALE ROUND 2 -->
+<!-- 14 · SPEAKING FINALE ROUND 2 — storyboard cards -->
 <section class="section">
   <div class="section-hdr"><div class="section-num">14</div><h2>Speaking finale · Round 2 · your future</h2></div>
-  <p class="section-sub">Six final questions on the future. Same rule — 2-3 sentences each. ▶ hear · ✓ Done when said.</p>
+  <p class="section-sub">Six final questions on the future. Each card on the comic strip = one question. Tap the card to hear it · mark Done when you've answered out loud.</p>
 
-  <div class="prompts">
-    <div class="prompt"><button class="play" data-say="Where are you going to live in 10 years — same city or somewhere new?">▶</button><span class="num">1.</span><span><strong>Where are you going to live in 10 years?</strong> Same city or somewhere new? <em>(I am going to live in … because …)</em></span><button class="prompt-done-btn">Done</button></div>
-    <div class="prompt"><button class="play" data-say="Will robots take over cafés and shops in 30 years? What do you think?">▶</button><span class="num">2.</span><span><strong>Will robots take over cafés and shops in 30 years?</strong> What do you think? <em>(Yes, they will … / No, because …)</em></span><button class="prompt-done-btn">Done</button></div>
-    <div class="prompt"><button class="play" data-say="What is one big plan you have for next year?">▶</button><span class="num">3.</span><span><strong>What is one big plan you have for next year?</strong> <em>(I am going to … because …)</em></span><button class="prompt-done-btn">Done</button></div>
-    <div class="prompt"><button class="play" data-say="Will people still drive normal cars in 50 years?">▶</button><span class="num">4.</span><span><strong>Will people still drive normal cars in 50 years?</strong> <em>(I think people will / will not … because …)</em></span><button class="prompt-done-btn">Done</button></div>
-    <div class="prompt"><button class="play" data-say="Describe the perfect city of the future. What will it have? What will it not have?">▶</button><span class="num">5.</span><span><strong>Describe the perfect city of the future.</strong> What will it have? What will it NOT have? <em>(My perfect city will have … It will not have …)</em></span><button class="prompt-done-btn">Done</button></div>
-    <div class="prompt"><button class="play" data-say="Are you going to learn another language after English? Which one and why?">▶</button><span class="num">6.</span><span><strong>Are you going to learn another language after English?</strong> Which one and why? <em>(I am going to learn … because …)</em></span><button class="prompt-done-btn">Done</button></div>
+  <img class="section-storyboard" src="./assets/finale-round2-storyboard.png" alt="6-frame comic strip showing the questions for the final round about the future">
+
+  <div class="finale-cards">
+    <div class="finale-card"><button class="play" data-say="Where are you going to live in 10 years? Same city or somewhere new?">▶ Hear card 1</button><span>(I am going to live in … because …)</span><button class="prompt-done-btn">Done</button></div>
+    <div class="finale-card"><button class="play" data-say="Will robots take over cafés and shops in 30 years? What do you think?">▶ Hear card 2</button><span>(Yes, they will … / No, because …)</span><button class="prompt-done-btn">Done</button></div>
+    <div class="finale-card"><button class="play" data-say="What is one big plan you have for next year?">▶ Hear card 3</button><span>(I am going to … because …)</span><button class="prompt-done-btn">Done</button></div>
+    <div class="finale-card"><button class="play" data-say="Will people still drive normal cars in 50 years?">▶ Hear card 4</button><span>(I think people will / will not … because …)</span><button class="prompt-done-btn">Done</button></div>
+    <div class="finale-card"><button class="play" data-say="Describe the perfect city of the future. What will it have and what will it not have?">▶ Hear card 5</button><span>(My perfect city will have … It will not have …)</span><button class="prompt-done-btn">Done</button></div>
+    <div class="finale-card"><button class="play" data-say="Are you going to learn another language after English? Which one and why?">▶ Hear card 6</button><span>(I am going to learn … because …)</span><button class="prompt-done-btn">Done</button></div>
   </div>
 </section>
 
@@ -1183,6 +1134,44 @@ footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;paddin
 <footer>
   © NG English · LinguaBoost Lab · Adult Basics · My city — today and 50 years from now · 15 blocks
 </footer>
+
+<!-- Bank-word click → put into next empty cloze input within the same .hw -->
+<script>
+(function(){
+  document.querySelectorAll('.bank').forEach(function(bank){
+    var hw = bank.closest('.hw') || bank.parentElement;
+    bank.querySelectorAll('.bank-word').forEach(function(w){
+      w.style.cursor = 'pointer';
+      w.title = 'Click to fill the next empty gap';
+      w.addEventListener('click', function(){
+        if (w.classList.contains('used')) return;
+        var inputs = hw.querySelectorAll('.cloze-in');
+        var empty = Array.prototype.find.call(inputs, function(i){ return !i.value.trim(); });
+        if (!empty) return;
+        empty.value = w.textContent.trim();
+        /* trigger blur to run validation */
+        empty.dispatchEvent(new Event('change'));
+        empty.dispatchEvent(new Event('blur'));
+      });
+    });
+  });
+})();
+</script>
+
+<!-- Vocab pills · click to hear -->
+<script>
+(function(){
+  document.querySelectorAll('.voc-pill').forEach(function(p){
+    p.addEventListener('click', function(){
+      p.classList.add('heard');
+      if (!('speechSynthesis' in window)) return;
+      var u = new SpeechSynthesisUtterance(p.dataset.say || p.textContent.trim());
+      u.lang = 'en-GB'; u.rate = .9;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    });
+  });
+})();
+</script>
 
 <!-- TTS for all ▶ buttons -->
 <script>
