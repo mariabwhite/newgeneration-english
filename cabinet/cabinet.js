@@ -1260,7 +1260,7 @@
     const month = student.subscription_month || _currentMonthISO();
     const todayISO = _todayISO();
     const monthLessons = lessons
-      .filter(l => l.date && l.date.startsWith(month))
+      .filter(l => l.date && (l.date.startsWith(month) || l.is_makeup))
       .sort((a, b) => a.date.localeCompare(b.date));
 
     if (!monthLessons.length) return "";
