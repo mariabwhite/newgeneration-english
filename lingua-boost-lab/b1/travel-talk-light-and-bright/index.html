@@ -1557,23 +1557,106 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
       <div class="section-num">6</div>
       <h2>Smart Planning · 8 steps before you go</h2>
     </div>
-    <p class="section-sub">Read · pick your top 3 · tell your partner</p>
+    <p class="section-sub">Put the 8 steps in the right order · then talk about your top 3</p>
     <div class="card card-top">
-      <p data-say="Planning a journey can be an exciting and rewarding experience. Here are eight steps to help you plan well.">Planning a journey can be an exciting and rewarding experience. Here are eight steps to help you plan well. <em style="color:var(--muted);font-size:0.82rem">(tap to hear)</em></p>
-      <ol class="q-list" style="margin-top:12px;">
-        <li data-say="Decide your destination. Whether it's a city, a beach, or a mountain region — have a clear place in mind."><strong>Decide your destination</strong> — city, beach, or mountains. Have a clear place in mind.</li>
-        <li data-say="Set a budget. Decide how much you can spend, then plan transport and stays around that number."><strong>Set a budget</strong> — decide what you can spend, then plan transport and stays around it.</li>
-        <li data-say="Research transport options. Compare flights, trains, buses, or driving by price, time, and convenience."><strong>Research transport</strong> — compare flights, trains, buses, or driving by price, time, and convenience.</li>
-        <li data-say="Choose accommodation. Look at location, reviews, and price. Try Booking dot com or Airbnb."><strong>Choose accommodation</strong> — location, reviews, and price. Booking, Airbnb, or local options.</li>
-        <li data-say="Check travel requirements. Passport, visa, vaccinations — what does your destination require?"><strong>Check requirements</strong> — passport, visa, vaccinations.</li>
-        <li data-say="Pack wisely. Think about weather, length of the trip, and what activities you'll do."><strong>Pack wisely</strong> — weather, length of trip, planned activities.</li>
-        <li data-say="Create a small itinerary. Map out your days, but leave room for spontaneity."><strong>Make a small itinerary</strong> — map days, but leave room for spontaneity.</li>
-        <li data-say="Buy travel insurance. It protects you from emergencies, cancellations, and lost luggage."><strong>Buy travel insurance</strong> — emergencies, cancellations, lost luggage.</li>
-      </ol>
+      <p data-say="Planning a journey can be an exciting and rewarding experience. Here are eight steps to help you plan well. Drag them into the right order.">Planning a journey can be an exciting and rewarding experience. Here are eight steps to help you plan well. <strong>Drag them into the right order.</strong> <em style="color:var(--muted);font-size:0.82rem">(tap any step to hear it)</em></p>
+
+      <div class="plan-puzzle" id="planPuzzle" data-correct-order="1,2,3,4,5,6,7,8">
+        <div class="plan-slot-zone" data-zone="slot"></div>
+        <div class="plan-bank" data-zone="bank">
+          <button class="plan-step" data-k="4" data-say="Choose accommodation. Look at location, reviews, and price. Try Booking or Airbnb."><span class="plan-step-num">▶</span><span class="plan-step-text"><strong>Choose accommodation</strong> — location, reviews, and price. Booking, Airbnb, or local options.</span></button>
+          <button class="plan-step" data-k="7" data-say="Create a small itinerary. Map out your days, but leave room for spontaneity."><span class="plan-step-num">▶</span><span class="plan-step-text"><strong>Make a small itinerary</strong> — map days, but leave room for spontaneity.</span></button>
+          <button class="plan-step" data-k="1" data-say="Decide your destination. Whether it's a city, a beach, or a mountain region — have a clear place in mind."><span class="plan-step-num">▶</span><span class="plan-step-text"><strong>Decide your destination</strong> — city, beach, or mountains. Have a clear place in mind.</span></button>
+          <button class="plan-step" data-k="6" data-say="Pack wisely. Think about weather, length of the trip, and what activities you'll do."><span class="plan-step-num">▶</span><span class="plan-step-text"><strong>Pack wisely</strong> — weather, length of trip, planned activities.</span></button>
+          <button class="plan-step" data-k="2" data-say="Set a budget. Decide how much you can spend, then plan transport and stays around that number."><span class="plan-step-num">▶</span><span class="plan-step-text"><strong>Set a budget</strong> — decide what you can spend, then plan transport and stays around it.</span></button>
+          <button class="plan-step" data-k="8" data-say="Buy travel insurance. It protects you from emergencies, cancellations, and lost luggage."><span class="plan-step-num">▶</span><span class="plan-step-text"><strong>Buy travel insurance</strong> — emergencies, cancellations, lost luggage.</span></button>
+          <button class="plan-step" data-k="5" data-say="Check travel requirements. Passport, visa, vaccinations — what does your destination require?"><span class="plan-step-num">▶</span><span class="plan-step-text"><strong>Check requirements</strong> — passport, visa, vaccinations.</span></button>
+          <button class="plan-step" data-k="3" data-say="Research transport options. Compare flights, trains, buses, or driving by price, time, and convenience."><span class="plan-step-num">▶</span><span class="plan-step-text"><strong>Research transport</strong> — compare flights, trains, buses, or driving by price, time, and convenience.</span></button>
+        </div>
+        <div class="plan-actions">
+          <button class="plan-check" type="button">Check order</button>
+          <span class="plan-msg"></span>
+        </div>
+      </div>
+
       <div class="role-situation" style="margin-top:14px;">
         <strong>Now talk:</strong> Which 3 steps are most important for <em>you</em>? Why? Tell your partner. Then ask: «Which step do you usually skip?»
       </div>
     </div>
+
+    <style>
+    .plan-puzzle { margin-top: 14px; }
+    .plan-slot-zone { min-height: 60px; border: 1.5px dashed rgba(0,0,0,.2); border-radius: 10px; padding: 8px 10px; background: #fff; margin-bottom: 12px; display: flex; flex-direction: column; gap: 6px; counter-reset: planorder; }
+    .plan-slot-zone:empty::before { content: "Click a step below to start. They'll appear here in your chosen order."; color: #999; font-style: italic; font-size: 0.86rem; padding: 14px; text-align: center; display: block; }
+    .plan-slot-zone.right { border-color: #5ba872; background: rgba(91,168,114,.06); border-style: solid; }
+    .plan-slot-zone.wrong { border-color: #c45a5a; background: rgba(196,90,90,.04); border-style: solid; }
+    .plan-bank { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+    .plan-step { background: #fff; border: 1.5px solid rgba(0,0,0,.2); color: #1c2024; padding: 11px 14px; border-radius: 10px; text-align: left; font-size: 0.94rem; line-height: 1.45; cursor: pointer; transition: .12s; display: flex; gap: 10px; align-items: flex-start; width: 100%; font-family: inherit; }
+    .plan-step:hover { border-color: #0e7c66; transform: translateX(2px); }
+    .plan-step.placed { background: rgba(14,124,102,.08); border-color: #0e7c66; }
+    .plan-step.placed::before { counter-increment: planorder; content: counter(planorder) ". "; color: #0e7c66; font-weight: 800; font-family: 'JetBrains Mono', monospace; margin-right: 4px; }
+    .plan-step-num { color: #c98a3f; font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 0.78rem; flex-shrink: 0; padding-top: 2px; }
+    .plan-step-text { flex: 1; }
+    .plan-actions { display: flex; gap: 10px; align-items: center; padding-top: 8px; border-top: 1px dashed rgba(0,0,0,.1); flex-wrap: wrap; }
+    .plan-check { background: #0e7c66; color: #fff; border: none; padding: 9px 16px; border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-weight: 800; font-size: 0.76rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: .15s; }
+    .plan-check:hover { background: #1ba18a; }
+    .plan-msg { font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #666; }
+    .plan-msg.ok { color: #5ba872; font-weight: 700; }
+    .plan-msg.bad { color: #c45a5a; font-weight: 700; }
+    </style>
+
+    <script>
+    (function(){
+      var p = document.getElementById('planPuzzle');
+      if (!p) return;
+      var slot = p.querySelector('.plan-slot-zone');
+      var bank = p.querySelector('.plan-bank');
+      var checkBtn = p.querySelector('.plan-check');
+      var msg = p.querySelector('.plan-msg');
+      var correct = (p.dataset.correctOrder || '').split(',');
+      p.querySelectorAll('.plan-step').forEach(function(s){
+        s.addEventListener('click', function(e){
+          if (e.target.classList.contains('plan-step-num')) {
+            e.stopPropagation();
+            if ('speechSynthesis' in window) {
+              var u = new SpeechSynthesisUtterance(s.dataset.say || '');
+              u.lang = 'en-GB'; u.rate = .9;
+              speechSynthesis.cancel(); speechSynthesis.speak(u);
+            }
+            return;
+          }
+          if (s.parentElement === bank) {
+            s.classList.add('placed');
+            slot.appendChild(s);
+          } else {
+            s.classList.remove('placed');
+            bank.appendChild(s);
+          }
+          slot.classList.remove('right','wrong');
+          msg.textContent = '';
+        });
+      });
+      checkBtn.addEventListener('click', function(){
+        var placed = Array.prototype.map.call(slot.children, function(c){ return c.dataset.k; });
+        if (placed.length < correct.length) {
+          msg.textContent = '⚠ Place all 8 steps first (' + placed.length + ' / 8)';
+          msg.className = 'plan-msg bad';
+          slot.classList.add('wrong');
+          return;
+        }
+        var same = placed.length === correct.length && placed.every(function(k,i){ return k === correct[i]; });
+        if (same) {
+          slot.classList.add('right'); slot.classList.remove('wrong');
+          msg.textContent = '✓ Perfect order. Now talk about your top 3.';
+          msg.className = 'plan-msg ok';
+        } else {
+          slot.classList.add('wrong'); slot.classList.remove('right');
+          msg.textContent = '✗ Not yet — think logically: what comes BEFORE you book anything?';
+          msg.className = 'plan-msg bad';
+        }
+      });
+    })();
+    </script>
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════
