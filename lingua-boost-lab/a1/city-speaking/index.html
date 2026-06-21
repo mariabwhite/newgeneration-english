@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -321,6 +321,26 @@ h1.hero-title .grad{color:var(--accent)}
 .grammar-block .grammar-rule strong{color:var(--brand)}
 .grammar-block .grammar-instructions{font-size:.92rem;color:var(--muted);margin-bottom:10px;font-style:italic}
 
+/* Drag-and-drop city map (sec 03) */
+.dragmap{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0}
+.dm-board{position:relative;width:100%;aspect-ratio:1/1;max-width:780px;margin:0 auto 14px;border-radius:14px;overflow:hidden;background:#cfdfe6}
+.dm-bg{width:100%;height:100%;object-fit:cover;display:block;user-select:none;pointer-events:none}
+.dm-zone{position:absolute;width:14%;aspect-ratio:1/1;border-radius:50%;border:2px dashed rgba(255,255,255,0);transform:translate(-50%,-50%);transition:.15s;background:rgba(255,255,255,0)}
+.dm-zone.hover{border-color:#fff;background:rgba(255,255,255,.25);box-shadow:0 0 0 4px rgba(14,124,102,.25)}
+.dm-zone.filled{border-color:rgba(91,168,114,.85);box-shadow:0 0 0 4px rgba(91,168,114,.45),0 0 16px rgba(91,168,114,.4);animation:correctPulse .35s ease-out}
+@keyframes correctPulse{0%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.18)}100%{transform:translate(-50%,-50%) scale(1)}}
+.dm-bank-wrap{padding:6px 8px 0}
+.dm-bank-h{font-family:var(--mono);font-weight:800;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);margin:6px 0 8px}
+.dm-bank{display:flex;flex-wrap:wrap;gap:8px;padding:10px;background:var(--surface-2);border:1.5px dashed var(--line-2);border-radius:12px;min-height:80px;justify-content:center}
+.dm-sticker{display:inline-block;width:80px;height:80px;border-radius:50%;cursor:grab;transition:.15s;background:#fff;overflow:hidden;border:2px solid var(--line-2);box-shadow:0 2px 6px rgba(0,0,0,.08);user-select:none}
+.dm-sticker img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;user-select:none;-webkit-user-drag:none}
+.dm-sticker:hover{transform:translateY(-2px) scale(1.05);border-color:var(--accent);box-shadow:0 6px 14px rgba(0,0,0,.18)}
+.dm-sticker:active{cursor:grabbing}
+.dm-sticker.dragging{opacity:.4}
+.dm-sticker.placed{opacity:.25;pointer-events:none;transform:scale(.85)}
+.dm-progress{font-family:var(--mono);font-size:.78rem;color:var(--muted);letter-spacing:.06em;margin-top:10px;text-align:center}
+.dm-progress strong{color:var(--accent);font-size:.92rem}
+
 /* Gap-fill dialogue (sec 05 cafe) */
 .gapdlg{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:10px 0 14px}
 .dlg-bank{display:flex;flex-wrap:wrap;gap:6px;background:var(--surface-2);border:1px dashed var(--line-2);border-radius:10px;padding:10px 12px;margin-bottom:14px}
@@ -433,7 +453,7 @@ footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;paddin
   </div>
 
   <div class="card" style="margin-top:8px">
-    <p style="margin:0;font-size:.94rem;color:var(--muted)"><strong>Чейн из 4 фраз про любое место:</strong> &nbsp; «<em>There is a market. It is cold. I wear a coat. I am wearing boots now.</em>» &nbsp; — собери такую цепочку про свой район за 30 секунд. Вслух.</p>
+    <p style="margin:0;font-size:.94rem;color:var(--muted)"><strong>One chain of 4 sentences for any place:</strong> &nbsp; «<em>There is a market. It is cold. I wear a coat. I am wearing boots now.</em>» &nbsp; — build such a chain about your area in 30 seconds. Out loud.</p>
   </div>
 </section>
 
@@ -474,136 +494,44 @@ footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;paddin
   </div>
 </section>
 
-<!-- 3 · CLICKABLE CITY SCENE -->
+<!-- 3 · CLICKABLE CITY SCENE — drag stickers onto the map -->
 <section class="section" id="sec-clickable">
-  <div class="section-hdr"><div class="section-num">03</div><h2>Tap the city · 10 spots to find and name</h2></div>
-  <p class="section-sub">Look at the map. Tap each dot in turn — hear the word + say a full sentence aloud: <strong>«There is a … / This is a …»</strong>. Green tick = you said it.</p>
+  <div class="section-hdr"><div class="section-num">03</div><h2>Tap the city · drag the stickers to the right spots</h2></div>
+  <p class="section-sub">Pick a sticker from the box and drop it on the matching place on the map. Correct = the slot turns green and the word is spoken. Wrong = the sticker bounces back.</p>
 
-  <div class="scene-clickable" id="cityScene" style="background-image:url('./assets/city-map.png');background-size:cover;background-position:center;background-color:#cfdfe6;aspect-ratio:16/9">
-    <!-- Real city map illustration is the background (city-map.png). Stylized SVG removed. -->
-    <svg style="display:none">
-    <svg style="display:none">
-      <!-- sun glow -->
-      <radialGradient id="sun" cx="80%" cy="30%" r="40%"><stop offset="0%" stop-color="#fff5dc" stop-opacity=".55"/><stop offset="100%" stop-color="#fff5dc" stop-opacity="0"/></radialGradient>
-      <rect width="1600" height="900" fill="url(#sun)"/>
-      <!-- distant skyline -->
-      <g fill="#3a4d70" opacity=".55">
-        <rect x="40" y="380" width="80" height="380"/>
-        <rect x="140" y="320" width="100" height="440"/>
-        <rect x="260" y="360" width="70" height="400"/>
-        <rect x="350" y="270" width="120" height="490"/>
-        <rect x="490" y="340" width="80" height="420"/>
-        <rect x="590" y="300" width="100" height="460"/>
-        <rect x="710" y="360" width="70" height="400"/>
-        <rect x="800" y="240" width="140" height="520"/>
-        <rect x="960" y="320" width="90" height="440"/>
-        <rect x="1070" y="280" width="110" height="480"/>
-        <rect x="1200" y="350" width="80" height="410"/>
-        <rect x="1300" y="290" width="100" height="470"/>
-        <rect x="1420" y="330" width="80" height="430"/>
-      </g>
-      <!-- mid skyline -->
-      <g fill="#243559" opacity=".75">
-        <rect x="0" y="500" width="160" height="260"/>
-        <rect x="170" y="460" width="200" height="300"/>
-        <rect x="390" y="480" width="170" height="280"/>
-        <rect x="580" y="420" width="220" height="340"/>
-        <rect x="820" y="450" width="180" height="310"/>
-        <rect x="1020" y="430" width="200" height="330"/>
-        <rect x="1240" y="470" width="190" height="290"/>
-        <rect x="1450" y="440" width="150" height="320"/>
-      </g>
-      <!-- street level -->
-      <rect x="0" y="700" width="1600" height="200" fill="#1c2540"/>
-      <!-- road -->
-      <rect x="0" y="760" width="1600" height="70" fill="#0d1424"/>
-      <g fill="#d4a04f">
-        <rect x="60" y="790" width="80" height="6"/>
-        <rect x="220" y="790" width="80" height="6"/>
-        <rect x="380" y="790" width="80" height="6"/>
-        <rect x="540" y="790" width="80" height="6"/>
-        <rect x="700" y="790" width="80" height="6"/>
-        <rect x="860" y="790" width="80" height="6"/>
-        <rect x="1020" y="790" width="80" height="6"/>
-        <rect x="1180" y="790" width="80" height="6"/>
-        <rect x="1340" y="790" width="80" height="6"/>
-        <rect x="1500" y="790" width="80" height="6"/>
-      </g>
-      <!-- shopfronts -->
-      <g>
-        <rect x="50" y="640" width="180" height="120" fill="#5b3b1f"/>
-        <rect x="60" y="660" width="60" height="60" fill="#f6c97b" opacity=".7"/>
-        <rect x="140" y="660" width="60" height="60" fill="#f6c97b" opacity=".7"/>
-        <text x="140" y="635" font-family="Manrope" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">CAFÉ</text>
-      </g>
-      <g>
-        <rect x="260" y="640" width="180" height="120" fill="#2a4c5e"/>
-        <rect x="280" y="660" width="40" height="60" fill="#9ac5d4" opacity=".7"/>
-        <rect x="340" y="660" width="40" height="60" fill="#9ac5d4" opacity=".7"/>
-        <rect x="390" y="660" width="40" height="60" fill="#9ac5d4" opacity=".7"/>
-        <text x="350" y="635" font-family="Manrope" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">BANK</text>
-      </g>
-      <g>
-        <rect x="1060" y="640" width="220" height="120" fill="#3a2a55"/>
-        <rect x="1080" y="660" width="50" height="60" fill="#e8b87a" opacity=".7"/>
-        <rect x="1150" y="660" width="50" height="60" fill="#e8b87a" opacity=".7"/>
-        <rect x="1220" y="660" width="50" height="60" fill="#e8b87a" opacity=".7"/>
-        <text x="1170" y="635" font-family="Manrope" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">MUSEUM</text>
-      </g>
-      <!-- traffic lights pole -->
-      <g><rect x="850" y="650" width="8" height="110" fill="#222"/><circle cx="854" cy="660" r="9" fill="#c45a5a"/><circle cx="854" cy="685" r="9" fill="#f6c97b"/><circle cx="854" cy="710" r="9" fill="#5ba872"/></g>
-      <!-- bus stop -->
-      <g><rect x="520" y="690" width="80" height="6" fill="#1ba18a"/><rect x="555" y="696" width="10" height="64" fill="#1ba18a"/><text x="560" y="685" font-family="Manrope" font-size="12" font-weight="700" fill="#fff" text-anchor="middle">BUS</text></g>
-      <!-- park trees -->
-      <g><circle cx="1370" cy="690" r="40" fill="#3d6a45"/><rect x="1366" y="710" width="8" height="50" fill="#5c3f1f"/></g>
-      <g><circle cx="1450" cy="700" r="32" fill="#3d6a45"/><rect x="1446" y="720" width="8" height="40" fill="#5c3f1f"/></g>
-      <g><circle cx="1510" cy="695" r="35" fill="#3d6a45"/><rect x="1506" y="715" width="8" height="45" fill="#5c3f1f"/></g>
-      <!-- person walking -->
-      <g><circle cx="730" cy="690" r="10" fill="#f0d6b7"/><rect x="725" y="700" width="10" height="30" fill="#5b6fc9"/><rect x="722" y="730" width="6" height="20" fill="#1a1a2a"/><rect x="732" y="730" width="6" height="20" fill="#1a1a2a"/></g>
-      <!-- bridge over corner -->
-      <g><path d="M 1280 760 L 1340 720 L 1400 760" stroke="#5c3f1f" stroke-width="4" fill="none"/></g>
-    </svg>
-    </svg>
-    <!-- hotspots positioned over scene -->
-    <span class="hotspot map-dot" data-word="skyscraper" data-pron="That is a skyscraper." data-ex="It is tall and modern. Many people work inside." style="left:50%;top:34%">1</span>
-    <span class="hotspot-label" style="left:50%;top:24%;transform:translateX(-50%)">skyscraper · небоскрёб</span>
-
-    <span class="hotspot map-dot" data-word="café" data-pron="There is a café on the corner." data-ex="People drink coffee and have breakfast here." style="left:9%;top:73%">2</span>
-    <span class="hotspot-label" style="left:9%;top:63%;transform:translateX(-25%)">café · кафе</span>
-
-    <span class="hotspot map-dot" data-word="bank" data-pron="The bank is next to the café." data-ex="I take out money here on Mondays." style="left:21%;top:73%">3</span>
-    <span class="hotspot-label" style="left:21%;top:63%;transform:translateX(-25%)">bank · банк</span>
-
-    <span class="hotspot map-dot" data-word="bus stop" data-pron="There is a bus stop in front of the café." data-ex="People are waiting for the bus." style="left:35%;top:78%">4</span>
-    <span class="hotspot-label" style="left:35%;top:66%;transform:translateX(-30%)">bus stop · остановка</span>
-
-    <span class="hotspot map-dot" data-word="traffic lights" data-pron="There are traffic lights at the corner." data-ex="Wait at the red light. Cross at the green." style="left:53%;top:76%">5</span>
-    <span class="hotspot-label" style="left:53%;top:65%;transform:translateX(-30%)">traffic lights · светофор</span>
-
-    <span class="hotspot map-dot" data-word="man" data-pron="A man is crossing the street." data-ex="He is wearing a blue jacket and dark trousers." style="left:46%;top:78%">6</span>
-    <span class="hotspot-label" style="left:46%;top:88%;transform:translateX(-30%)">man crossing · мужчина переходит</span>
-
-    <span class="hotspot map-dot" data-word="museum" data-pron="The museum is opposite the park." data-ex="It is open from Tuesday to Sunday." style="left:73%;top:73%">7</span>
-    <span class="hotspot-label" style="left:73%;top:63%;transform:translateX(-30%)">museum · музей</span>
-
-    <span class="hotspot map-dot" data-word="park" data-pron="There is a park on the right." data-ex="Children are playing under the trees." style="left:88%;top:78%">8</span>
-    <span class="hotspot-label" style="left:88%;top:68%;transform:translateX(-50%)">park · парк</span>
-
-    <span class="hotspot map-dot" data-word="bridge" data-pron="There is a bridge round the corner." data-ex="It goes over the small river." style="left:84%;top:84%">9</span>
-    <span class="hotspot-label" style="left:84%;top:94%;transform:translateX(-50%)">bridge · мост</span>
-
-    <span class="hotspot map-dot" data-word="trees" data-pron="There are many trees in the park." data-ex="It is green and quiet there in the morning." style="left:95%;top:74%">10</span>
-    <span class="hotspot-label" style="left:88%;top:64%;transform:translateX(-50%)">trees · деревья</span>
-
-    <div class="scene-caption">A typical morning street · find 10 things and say a sentence for each</div>
-  </div>
-  <div class="scene-progress">Progress: <strong><span id="sceneCount">0</span> / 10</strong> · keep tapping and speaking until you complete the row</div>
-
-  <div class="card" style="margin-top:14px">
-    <p style="margin:0;font-size:.93rem;color:var(--muted)"><strong>Speaking drill:</strong> после того как открыл все 10 — закрой страницу мысленно и опиши сцену с нуля 8 предложениями подряд. Используй все 4 формы из секции 01.</p>
+  <div class="dragmap" id="dragmap1">
+    <div class="dm-board">
+      <img class="dm-bg" src="./assets/city-map.png" alt="City map with labeled places">
+      <!-- 10 drop zones, positioned over the city-map labels. data-word matches sticker filename. -->
+      <span class="dm-zone" data-word="library"        style="left:10%;top:34%"></span>
+      <span class="dm-zone" data-word="cinema"         style="left:24%;top:34%"></span>
+      <span class="dm-zone" data-word="stadium"        style="left:38%;top:34%"></span>
+      <span class="dm-zone" data-word="church"         style="left:52%;top:34%"></span>
+      <span class="dm-zone" data-word="bridge"         style="left:14%;top:55%"></span>
+      <span class="dm-zone" data-word="supermarket"    style="left:55%;top:55%"></span>
+      <span class="dm-zone" data-word="cafe"           style="left:75%;top:55%"></span>
+      <span class="dm-zone" data-word="park"           style="left:12%;top:78%"></span>
+      <span class="dm-zone" data-word="bus-stop"       style="left:9%;top:91%"></span>
+      <span class="dm-zone" data-word="traffic-lights" style="left:38%;top:80%"></span>
+    </div>
+    <div class="dm-bank-wrap">
+      <h4 class="dm-bank-h">Stickers — drag onto the map</h4>
+      <div class="dm-bank" id="dmBank1">
+        <span class="dm-sticker" data-word="library"        draggable="true"><img src="./assets/stickers/sticker-library.png" alt="library"></span>
+        <span class="dm-sticker" data-word="cinema"         draggable="true"><img src="./assets/stickers/sticker-cinema.png" alt="cinema"></span>
+        <span class="dm-sticker" data-word="stadium"        draggable="true"><img src="./assets/stickers/sticker-stadium.png" alt="stadium"></span>
+        <span class="dm-sticker" data-word="church"         draggable="true"><img src="./assets/stickers/sticker-church.png" alt="church"></span>
+        <span class="dm-sticker" data-word="bridge"         draggable="true"><img src="./assets/stickers/sticker-bridge.png" alt="bridge"></span>
+        <span class="dm-sticker" data-word="supermarket"    draggable="true"><img src="./assets/stickers/sticker-supermarket.png" alt="supermarket"></span>
+        <span class="dm-sticker" data-word="cafe"           draggable="true"><img src="./assets/stickers/sticker-cafe.png" alt="cafe"></span>
+        <span class="dm-sticker" data-word="park"           draggable="true"><img src="./assets/stickers/sticker-park.png" alt="park"></span>
+        <span class="dm-sticker" data-word="bus-stop"       draggable="true"><img src="./assets/stickers/sticker-bus-stop.png" alt="bus stop"></span>
+        <span class="dm-sticker" data-word="traffic-lights" draggable="true"><img src="./assets/stickers/sticker-traffic-lights.png" alt="traffic lights"></span>
+      </div>
+    </div>
+    <div class="dm-progress">Progress: <strong><span id="dmCount">0</span> / 10</strong> · drop each sticker on its spot</div>
   </div>
 </section>
-
 <!-- 4 · VIDEO CONTINUOUS WARMUP -->
 <section class="section">
   <div class="section-hdr"><div class="section-num">04</div><h2>Continuous live · 5 real video clips</h2></div>
@@ -778,31 +706,6 @@ footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;paddin
     <div class="line"><div class="who b">You</div><div class="what">Turn left at the church. The stadium is next to the car park.</div><button class="play-line" data-say="Turn left at the church. The stadium is next to the car park.">▶</button></div>
     <div class="line"><div class="who">Tourist</div><div class="what">Perfect. Thanks for your help!</div><button class="play-line" data-say="Perfect. Thanks for your help!">▶</button></div>
     <div class="line"><div class="who b">You</div><div class="what">Enjoy the match!</div><button class="play-line" data-say="Enjoy the match!">▶</button></div>
-  </div>
-</section>
-
-<!-- 5B · DIALOGUE SCRAMBLE -->
-<section class="section">
-  <div class="section-hdr"><div class="section-num">5B</div><h2>Dialogue scramble · put the phrases in order</h2></div>
-  <p class="section-sub">8 phrases from a city conversation, shuffled. Click them <strong>in the right order</strong>. Click ▶ next to any phrase to hear it. When all 8 are placed correctly — green. Wrong order — red. Drag-back: click a phrase in the answer slot to return it.</p>
-
-  <div class="scramble" id="scramble1" data-order='["A","B","C","D","E","F","G","H"]'>
-    <div class="scramble-slot" data-zone="slot"></div>
-    <div class="scramble-bank" data-zone="bank">
-      <button class="scr-line" data-k="E" data-say="And then? How do I get to the museum?"><span class="scr-play" data-say="And then? How do I get to the museum?">▶</span><span class="scr-text">And then? How do I get to the museum?</span></button>
-      <button class="scr-line" data-k="A" data-say="Excuse me, can you help me? I am lost."><span class="scr-play" data-say="Excuse me, can you help me? I am lost.">▶</span><span class="scr-text">Excuse me, can you help me? I am lost.</span></button>
-      <button class="scr-line" data-k="H" data-say="No problem! Have a nice day."><span class="scr-play" data-say="No problem! Have a nice day.">▶</span><span class="scr-text">No problem! Have a nice day.</span></button>
-      <button class="scr-line" data-k="C" data-say="The museum? Sure. Go straight to the bridge."><span class="scr-play" data-say="The museum? Sure. Go straight to the bridge.">▶</span><span class="scr-text">The museum? Sure. Go straight to the bridge.</span></button>
-      <button class="scr-line" data-k="G" data-say="Great, thank you so much!"><span class="scr-play" data-say="Great, thank you so much!">▶</span><span class="scr-text">Great, thank you so much!</span></button>
-      <button class="scr-line" data-k="B" data-say="Of course. Where are you going?"><span class="scr-play" data-say="Of course. Where are you going?">▶</span><span class="scr-text">Of course. Where are you going?</span></button>
-      <button class="scr-line" data-k="F" data-say="Cross the bridge, then turn right. The museum is opposite the cafe."><span class="scr-play" data-say="Cross the bridge, then turn right. The museum is opposite the cafe.">▶</span><span class="scr-text">Cross the bridge, then turn right. The museum is opposite the cafe.</span></button>
-      <button class="scr-line" data-k="D" data-say="OK — straight to the bridge."><span class="scr-play" data-say="OK — straight to the bridge.">▶</span><span class="scr-text">OK — straight to the bridge.</span></button>
-    </div>
-    <div class="scramble-feedback">
-      <button class="scramble-check" type="button">Check order</button>
-      <button class="scramble-play-all" type="button">▶ Play full dialogue</button>
-      <span class="scramble-msg"></span>
-    </div>
   </div>
 </section>
 
@@ -1356,6 +1259,98 @@ footer{width:var(--demo-top-width);max-width:1240px;margin:48px auto 28px;paddin
     ta.addEventListener('input', tick);
     /* restore after lab-persist */
     setTimeout(tick, 400);
+  });
+})();
+</script>
+
+<!-- Drag-and-drop city map (section 03) — stickers → zones → TTS + green pulse -->
+<script>
+(function(){
+  document.querySelectorAll('.dragmap').forEach(function(dm){
+    var bank = dm.querySelector('.dm-bank');
+    var zones = dm.querySelectorAll('.dm-zone');
+    var counter = dm.querySelector('.dm-progress strong');
+    var total = zones.length;
+
+    function speak(text){
+      if (!('speechSynthesis' in window)) return;
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-GB'; u.rate = .92;
+      speechSynthesis.cancel(); speechSynthesis.speak(u);
+    }
+    function readableWord(w){
+      return w.replace(/-/g, ' ');
+    }
+    function updateProgress(){
+      counter.textContent = dm.querySelectorAll('.dm-zone.filled').length;
+    }
+
+    /* HTML5 drag + touch fallback */
+    var dragged = null;
+    dm.querySelectorAll('.dm-sticker').forEach(function(s){
+      s.addEventListener('dragstart', function(e){
+        if (s.classList.contains('placed')) { e.preventDefault(); return; }
+        dragged = s;
+        s.classList.add('dragging');
+        try { e.dataTransfer.setData('text/plain', s.dataset.word); } catch(_){}
+        e.dataTransfer.effectAllowed = 'move';
+      });
+      s.addEventListener('dragend', function(){
+        s.classList.remove('dragging');
+        dragged = null;
+        zones.forEach(function(z){ z.classList.remove('hover'); });
+      });
+
+      /* Touch fallback for mobile — simple click-to-pick, click-zone-to-drop */
+      s.addEventListener('click', function(){
+        if (s.classList.contains('placed')) return;
+        document.querySelectorAll('.dm-sticker.sel').forEach(function(x){if(x!==s)x.classList.remove('sel')});
+        s.classList.toggle('sel');
+      });
+    });
+
+    zones.forEach(function(z){
+      z.addEventListener('dragover', function(e){
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        z.classList.add('hover');
+      });
+      z.addEventListener('dragleave', function(){ z.classList.remove('hover'); });
+      z.addEventListener('drop', function(e){
+        e.preventDefault();
+        z.classList.remove('hover');
+        if (!dragged) return;
+        var w = dragged.dataset.word;
+        if (w === z.dataset.word) {
+          z.classList.add('filled');
+          dragged.classList.add('placed');
+          speak(readableWord(w));
+          updateProgress();
+        } else {
+          /* wrong — flash red briefly */
+          z.style.boxShadow = '0 0 0 4px rgba(196,90,90,.55)';
+          setTimeout(function(){ z.style.boxShadow=''; }, 350);
+        }
+      });
+
+      /* Touch fallback drop: click on zone to drop the selected sticker */
+      z.addEventListener('click', function(){
+        var sel = dm.querySelector('.dm-sticker.sel');
+        if (!sel) return;
+        var w = sel.dataset.word;
+        if (w === z.dataset.word) {
+          z.classList.add('filled');
+          sel.classList.add('placed'); sel.classList.remove('sel');
+          speak(readableWord(w));
+          updateProgress();
+        } else {
+          z.style.boxShadow = '0 0 0 4px rgba(196,90,90,.55)';
+          setTimeout(function(){ z.style.boxShadow=''; }, 350);
+        }
+      });
+    });
+
+    setTimeout(updateProgress, 400);
   });
 })();
 </script>
