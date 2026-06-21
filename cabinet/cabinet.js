@@ -408,15 +408,13 @@
         <article class="cab-card">
           <h3>Оплата</h3>
           ${student.price_per_lesson ? `<div class="cab-card-row"><span class="cab-row-label">Цена занятия</span><span class="cab-row-value">${_esc(student.price_per_lesson)} ₽</span></div>` : ""}
+          ${student.monthly_package ? `<div class="cab-card-row"><span class="cab-row-label">Абонемент</span><span class="cab-row-value">${_esc(student.monthly_package)} ₽ / ${_esc(student.lessons_in_package || 4)} ур.</span></div>` : ""}
           ${student.payment_status ? `<div class="cab-card-row"><span class="cab-row-label">Статус</span><span class="cab-row-value">${_esc(student.payment_status)}</span></div>` : ""}
+          ${payment.phone ? `<div class="cab-card-row"><span class="cab-row-label">СБП по тел.</span><span class="cab-row-value"><code>${_esc(payment.phone)}</code></span></div>` : ""}
+          ${payment.recipient ? `<div class="cab-card-row"><span class="cab-row-label">Получатель</span><span class="cab-row-value">${_esc(payment.recipient)}</span></div>` : ""}
+          ${payment.bank ? `<div class="cab-card-row"><span class="cab-row-label">Банк</span><span class="cab-row-value">${_esc(payment.bank)}</span></div>` : ""}
           <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 8px;">
             ${payment.telegram ? `<a class="cab-action-btn cab-action-btn--primary" href="${_esc(payment.telegram)}" target="_blank" rel="noreferrer">💬 Написать Марии в Telegram</a>` : ""}
-            <button class="cab-action-btn cab-action-btn--text" type="button" data-action="toggle-bank-details">Реквизиты для оплаты ▾</button>
-          </div>
-          <div class="cab-bank-details" style="display:none;">
-            ${payment.phone ? `<div class="cab-card-row"><span class="cab-row-label">СБП</span><span class="cab-row-value"><code>${_esc(payment.phone)}</code></span></div>` : ""}
-            ${payment.recipient ? `<div class="cab-card-row"><span class="cab-row-label">Получатель</span><span class="cab-row-value">${_esc(payment.recipient)}</span></div>` : ""}
-            ${payment.bank ? `<div class="cab-card-row"><span class="cab-row-label">Банк</span><span class="cab-row-value">${_esc(payment.bank)}</span></div>` : ""}
           </div>
         </article>` : "";
     container.innerHTML = `
