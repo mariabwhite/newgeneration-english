@@ -438,6 +438,8 @@
 
         ${paymentCard}
 
+        ${_renderLastLessonRecapCard(student)}
+
         ${_renderHomeworkCard(student)}
 
         ${_renderContractsCard(student)}
@@ -1308,6 +1310,38 @@
       <article class="cab-card cab-card--wide">
         <h3>Уроки · ${_esc(_monthLabelFromISO(month))}</h3>
         <ul class="cab-lessons-list">${rows}</ul>
+      </article>
+    `;
+  }
+
+  /* ---------- last-lesson recap card · «Что проходили сегодня» + Домашка ---------- */
+  function _renderLastLessonRecapCard(student) {
+    const lessons = Array.isArray(student.lessons) ? student.lessons : [];
+    // Most recent completed lesson with a recap
+    const last = lessons
+      .filter(l => l.status === "completed" && l.recap && l.recap.trim())
+      .sort((a, b) => (b.date || "").localeCompare(a.date || ""))[0];
+    if (!last) return "";
+    const dateStr = _formatLessonDate(last.date);
+    const dow = _dowFromISO(last.date);
+    const topic = last.topic ? `<div class="cab-recap-topic">${_esc(last.topic)}</div>` : "";
+    const recapHtml = _esc(last.recap).replace(/\n/g, "<br>");
+    let hwBtn = "";
+    if (last.homework && last.homework.module_url) {
+      const title = last.homework.module_title || "Открыть домашку";
+      hwBtn = `<a class="cab-recap-hw-btn" href="${_esc(last.homework.module_url)}" target="_blank" rel="noreferrer">${_esc(title)} →</a>`;
+    } else if (last.homework && last.homework.text) {
+      hwBtn = `<span class="cab-recap-hw-btn cab-recap-hw-btn--text">📝 Домашка в тексте ↓</span>`;
+    }
+    return `
+      <article class="cab-card">
+        <div class="cab-recap-head">
+          <h3>📖 Что проходили на последнем уроке</h3>
+          ${hwBtn}
+        </div>
+        <div class="cab-recap-meta">${dateStr} · ${dow}</div>
+        ${topic}
+        <div class="cab-recap-body">${recapHtml}</div>
       </article>
     `;
   }
