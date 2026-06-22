@@ -755,19 +755,20 @@ document.querySelectorAll('.mcq').forEach(s => {
 // Progress dots
 // ============================
 const dotsEl = document.getElementById('dots');
-for(let i=1;i<=12;i++){
+const blocks = [...document.querySelectorAll('.section[id^="block-"]')];
+blocks.forEach((b, idx) => {
+  const i = idx + 1;
   const d = document.createElement('div');
   d.className = 'dot'; d.dataset.block = i;
-  d.onclick = () => document.getElementById('block-'+i).scrollIntoView({behavior:'smooth',block:'start'});
+  d.onclick = () => b.scrollIntoView({behavior:'smooth',block:'start'});
   dotsEl.appendChild(d);
-}
-const blocks = [...document.querySelectorAll('.section[id^="block-"]')];
+});
 function updateDots(){
   const top = window.scrollY + 200;
   blocks.forEach((b,i)=>{
-    const r = b.getBoundingClientRect();
     const inView = b.offsetTop <= top;
-    dotsEl.children[i].classList.toggle('lit', inView);
+    const dot = dotsEl.children[i];
+    if (dot) dot.classList.toggle('lit', inView);
   });
 }
 window.addEventListener('scroll', updateDots);
