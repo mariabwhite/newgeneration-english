@@ -1517,11 +1517,10 @@
         const child = data.child ? ` · ${data.child}` : "";
         inner += `<div class="cab-contract-section"><div class="cab-contract-parent">${_esc(parentName)}${_esc(child)}</div>${_renderContractFiles(data)}</div>`;
       });
-      return `<article class="cab-card"><h3>📄 Договоры</h3><p class="cab-card-note">Подписанные документы хранятся для прозрачности. Клик по странице — открыть в полный размер.</p>${inner}</article>`;
+      return `<article class="cab-card"><h3>📄 Договоры</h3>${inner}</article>`;
     }
 
-    const noteHtml = contracts.note ? `<p class="cab-card-note">${_esc(contracts.note)}</p>` : "";
-    return `<article class="cab-card"><h3>📄 Договор</h3><p class="cab-card-note">Подписанные документы хранятся для прозрачности. Клик по странице — открыть в полный размер.</p>${noteHtml}${_renderContractFiles(contracts)}</article>`;
+    return `<article class="cab-card"><h3>📄 Договор</h3>${_renderContractFiles(contracts)}</article>`;
   }
 
   function renderParent(container, student) {
