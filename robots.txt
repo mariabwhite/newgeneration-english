@@ -7,6 +7,11 @@ Disallow: /_archive/
 Disallow: /_internal/
 Disallow: /_backups/
 Disallow: /audit-shots/
+Disallow: /TT_promo_shots/
+Disallow: /TT_scenes/
+Disallow: /TT_shots2/
+Disallow: /_audit-mobile-2026-06-10/
+Disallow: /_FOR-CLAUDE-DESIGN/
 
 # Параметризованные дубли (?theme=, ?lang= — UX-механика, не SEO)
 Disallow: /*?theme=
@@ -14,4 +19,29 @@ Disallow: /*?lang=
 Disallow: /*?*&theme=
 Disallow: /*?*&lang=
 
+# Поисковикам — явный путь к картам
 Sitemap: https://newgeneration-english.ru/sitemap.xml
+Sitemap: https://newgeneration-english.ru/sitemap-images.xml
+
+# Поисковым ботам — приоритеты крупных движков
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Yandex
+Allow: /
+Crawl-delay: 0
+Clean-param: theme&lang /
+
+User-agent: Bingbot
+Allow: /
+
+# Запрещаем мусорным AI-ботам которые не уважают noindex
+User-agent: GPTBot
+Disallow: /cabinet/
+User-agent: ClaudeBot
+Disallow: /cabinet/
+User-agent: CCBot
+Disallow: /cabinet/
+User-agent: Google-Extended
+Disallow: /cabinet/
