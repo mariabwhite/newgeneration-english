@@ -13,7 +13,8 @@
   var FLAGS = ['done','correct','wrong','filled','miss','missed','used',
                'selected','sel','revealed','visited','picked','guessed',
                'match','show','shown','placed','hit','ok','heard','spoken',
-               'lit','bad','hover','active','recording'];
+               'lit','bad','hover','active','recording',
+               'flipped','scored','show-sample'];
   var FLAG_SET = Object.create(null);
   FLAGS.forEach(function(f){ FLAG_SET[f] = 1; });
 
@@ -25,7 +26,12 @@
     '.choice-card', '.script-card', '.map-dot', '.postcard',
     '.detective-pill', '.q-row',
     'textarea', '.writing-area', '.oge-transcript', '.oge-results',
-    '.utw-card', '.transcript', '.progress-dot', '.rail-step'
+    '.utw-card', '.transcript', '.progress-dot', '.rail-step',
+    /* TOEFL Format Tour + future Lab canon */
+    '.vocab-card', '.mic-feedback', '.mic-transcript',
+    '.builder-status', '.target-line .slot', '.gapfill input',
+    '.mcq-opts button', '.mcq-row', '.write', '.builder',
+    '.tutor-input', '.check-result'
   ].join(',');
 
   /* derive a stable DOM path: prefer id, then walk to data-ex / id / section */
@@ -94,7 +100,12 @@
           || el.classList.contains('ord-slot')
           || el.classList.contains('oge-transcript')
           || el.classList.contains('transcript')
-          || el.classList.contains('dict-answer')) {
+          || el.classList.contains('dict-answer')
+          || el.classList.contains('mic-feedback')
+          || el.classList.contains('mic-transcript')
+          || el.classList.contains('builder-status')
+          || el.classList.contains('check-result')
+          || (el.classList.contains('slot') && el.classList.contains('filled'))) {
         savedText = el.textContent || '';
       }
       if (!flags.length && !hasVal && !hasPlaced && savedText === null) continue;
