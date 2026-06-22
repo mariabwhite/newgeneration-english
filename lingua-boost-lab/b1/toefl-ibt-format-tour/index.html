@@ -100,12 +100,16 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent-2) 0%,#a5d6a7
 .skill-side{display:flex;flex-direction:column;gap:8px;padding-right:18px;border-right:1px solid var(--line)}
 @media(max-width:680px){.skill-side{border-right:none;border-bottom:1px solid var(--line);padding-right:0;padding-bottom:12px}}
 .skill-side .num{font-family:var(--display);font-size:2.5rem;font-weight:900;color:var(--accent-2);line-height:1}
-.skill-side .skill-icon{width:110px;height:110px;background-size:cover;background-position:center;align-self:center;
-  -webkit-mask-image:radial-gradient(circle, #000 48%, transparent 80%);
-  mask-image:radial-gradient(circle, #000 48%, transparent 80%)}
-@media(max-width:680px){.skill-side .skill-icon{width:88px;height:88px}}
-.hero-banner{width:100%;max-width:660px;margin:18px auto 0;border-radius:14px;display:block;
-  box-shadow:0 6px 26px rgba(0,0,0,.4)}
+.skill-side .skill-icon{width:120px;height:120px;background-size:contain;background-repeat:no-repeat;background-position:center;align-self:center;border-radius:12px}
+@media(max-width:680px){.skill-side .skill-icon{width:96px;height:96px}}
+/* Hero card layout: banner full-bleed at top of card */
+.hero-card{padding-top:0;display:flex;flex-direction:column}
+.hero-banner{width:100%;display:block;border-radius:24px 24px 0 0;margin:0 -1px -1px;
+  border-bottom:1px solid var(--line-2)}
+.hero-card .eyebrow,.hero-card h1.hero-title,.hero-card .hero-lead,.hero-card .hero-stats{padding-left:0;padding-right:0}
+.hero-card > :not(.hero-banner){margin-left:clamp(22px,4vw,52px);margin-right:clamp(22px,4vw,52px)}
+.hero-card > .eyebrow{margin-top:clamp(28px,4.5vw,52px)}
+.hero-card > .hero-stats{margin-bottom:clamp(22px,4vw,40px)}
 .skill-side .label{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);font-weight:800}
 .skill-side .time{font-family:var(--mono);font-size:.86rem;color:var(--text);font-weight:700;margin-top:4px}
 .skill-body h4{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--text);margin-bottom:6px}
@@ -316,6 +320,7 @@ footer a{color:var(--brand-2);text-decoration:underline}
 
 <section class="hero">
   <div class="hero-card">
+    <img class="hero-banner" src="./assets/img/hero-banner.png" alt="Four TOEFL skills: Reading · Listening · Writing · Speaking">
     <div class="eyebrow">Exam Lab · Updated TOEFL iBT 2025</div>
     <h1 class="hero-title">TOEFL iBT · <span class="grad">format tour</span></h1>
     <p class="hero-lead">Walk through the updated 2025 TOEFL iBT exactly as it is in the official ETS overview. All four sections — Reading, Listening, Writing, Speaking — with real sample tasks, real scoring, and real rubrics. By the end of 90 minutes you will know what each task wants from you, what the examiner is scoring, and where to start your preparation.</p>
@@ -325,7 +330,6 @@ footer a{color:var(--brand-2);text-decoration:underline}
       <div class="stat"><div class="stat-k">Test time</div><div class="stat-v">&lt; 2 hours</div></div>
       <div class="stat"><div class="stat-k">New band scale</div><div class="stat-v">1 – 6 (CEFR aligned)</div></div>
     </div>
-    <img class="hero-banner" src="./assets/img/hero-banner.png" alt="Four TOEFL skills: Reading · Listening · Writing · Speaking">
   </div>
 </section>
 
@@ -603,27 +607,19 @@ footer a{color:var(--brand-2);text-decoration:underline}
   <div class="card">
     <div class="task-tag">ETS sample task · supermarket / play</div>
 
-    <div class="audio-row">
-      <span class="audio-label">▶ Conversation</span>
-      <audio controls preload="metadata">
-        <source src="./assets/audio/02-conversation-supermarket.mp3" type="audio/mpeg">
-      </audio>
-    </div>
+    <p style="color:var(--muted);font-size:.92rem;margin:6px 0 10px"><em>Read the conversation between a Woman and a Man. Catch the implied meaning before you answer the question below.</em></p>
 
-    <details style="margin:10px 0;color:var(--muted);font-size:.92rem">
-      <summary style="cursor:pointer;font-family:var(--mono);font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brand-2);font-weight:700">Transcript (open after first listen)</summary>
-      <div style="background:var(--bg-2);border-left:3px solid var(--brand);padding:12px 16px;border-radius:0 8px 8px 0;margin-top:8px;line-height:1.7">
-        <p><strong>Woman:</strong> Need anything from the supermarket?</p>
-        <p><strong>Man:</strong> Huh? Aren't we getting ready to go see that play in a few minutes?</p>
-        <p><strong>Woman:</strong> That's tomorrow.</p>
-        <p><strong>Man:</strong> Oh. Wow, I'd forget my head if it wasn't screwed on… Guess I don't need to change my clothes after all.</p>
-        <p><strong>Woman:</strong> So, you weren't planning to prepare dinner?</p>
-        <p><strong>Man:</strong> No, but I can. What do you want?</p>
-        <p><strong>Woman:</strong> Just something light and healthy. So, can you go shopping instead?</p>
-        <p><strong>Man:</strong> Yeah, sure. How about salmon and salad? Want anything else?</p>
-        <p><strong>Woman:</strong> No, that's good. Thanks!</p>
-      </div>
-    </details>
+    <div style="background:var(--bg-2);border-left:3px solid var(--brand);padding:14px 18px;border-radius:0 10px 10px 0;line-height:1.75;color:var(--text);font-size:.96rem">
+      <p style="margin:4px 0"><strong style="color:var(--brand-2)">Woman:</strong> Need anything from the supermarket?</p>
+      <p style="margin:4px 0"><strong style="color:var(--accent-2)">Man:</strong> Huh? Aren't we getting ready to go see that play in a few minutes?</p>
+      <p style="margin:4px 0"><strong style="color:var(--brand-2)">Woman:</strong> That's tomorrow.</p>
+      <p style="margin:4px 0"><strong style="color:var(--accent-2)">Man:</strong> Oh. Wow, I'd forget my head if it wasn't screwed on… Guess I don't need to change my clothes after all.</p>
+      <p style="margin:4px 0"><strong style="color:var(--brand-2)">Woman:</strong> So, you weren't planning to prepare dinner?</p>
+      <p style="margin:4px 0"><strong style="color:var(--accent-2)">Man:</strong> No, but I can. What do you want?</p>
+      <p style="margin:4px 0"><strong style="color:var(--brand-2)">Woman:</strong> Just something light and healthy. So, can you go shopping instead?</p>
+      <p style="margin:4px 0"><strong style="color:var(--accent-2)">Man:</strong> Yeah, sure. How about salmon and salad? Want anything else?</p>
+      <p style="margin:4px 0"><strong style="color:var(--brand-2)">Woman:</strong> No, that's good. Thanks!</p>
+    </div>
 
     <div class="mcq-row" data-ans="c">
       <div class="mcq-q"><strong>1.</strong> What does the woman <em>imply</em> she was about to do?</div>
