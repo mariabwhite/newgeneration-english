@@ -984,7 +984,19 @@ Q4. I think city governments should really try to create more parks. Parks provi
       <div class="total-val"><span id="total-val">0</span><span class="max"> / <span id="total-max">45</span></span></div>
       <div class="total-sub">auto-scored: gap-fill · MCQ · sentence builder · mic-drill &nbsp;·&nbsp; tutor-scored: email · discussion · interview</div>
     </div>
-    <p style="color:var(--muted);font-size:.92rem;margin-top:14px"><strong>Auto-saved.</strong> All your answers, flipped cards, scores and tutor inputs are remembered in your browser for this lesson. To start fresh — use the <strong>↺ Reset progress</strong> button in the bottom-right corner of the page.</p>
+    <div class="cefr-result" style="margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:14px">
+      <div style="background:var(--bg-2);border:1px solid var(--line-2);border-radius:12px;padding:14px 18px;text-align:center">
+        <div style="font-family:var(--mono);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-2);font-weight:800;margin-bottom:6px">Mapped band score</div>
+        <div style="font-family:var(--display);font-weight:900;font-size:2rem;color:var(--text);line-height:1"><span id="cefr-band">—</span></div>
+        <div style="font-family:var(--mono);font-size:.7rem;color:var(--faint);margin-top:4px">1–6 scale (CEFR aligned)</div>
+      </div>
+      <div style="background:rgba(46,125,50,.18);border:1px solid var(--accent);border-radius:12px;padding:14px 18px;text-align:center">
+        <div style="font-family:var(--mono);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:#fff;font-weight:800;margin-bottom:6px">CEFR level</div>
+        <div style="font-family:var(--display);font-weight:900;font-size:2rem;color:var(--accent-2);line-height:1"><span id="cefr-level">—</span></div>
+        <div style="font-family:var(--mono);font-size:.7rem;color:var(--muted);margin-top:4px">auto-derived from total</div>
+      </div>
+    </div>
+    <p style="color:var(--muted);font-size:.92rem;margin-top:14px"><strong>How scoring works.</strong> Auto-tasks (MCQ, gap-fill, builder, mic-drill) count each correct as 1 point. Tutor-tasks (email, discussion, interview) — Maria fills the score 0–5 / 0–4 by rubric. The total maps to the band 1–6 and CEFR level by Table 2 from sec 15. <strong>Auto-saved.</strong> ↺ Reset progress button at bottom-right.</p>
   </div>
 </section>
 
@@ -1448,6 +1460,27 @@ function recountAll(){
   var tm = document.getElementById('total-max');
   if (t) t.textContent = sum;
   if (tm) tm.textContent = mx;
+  // CEFR band mapping — percentage → band 1..6 → level
+  var pct = mx > 0 ? sum / mx : 0;
+  var band = '—', level = '—';
+  if (sum > 0 && mx > 0) {
+    // TOEFL-style 1–6 banded scale by percentage tiers
+    if      (pct >= 0.95) { band = '6';    level = 'C2'; }
+    else if (pct >= 0.85) { band = '5.5';  level = 'C1'; }
+    else if (pct >= 0.75) { band = '5';    level = 'C1'; }
+    else if (pct >= 0.65) { band = '4.5';  level = 'B2'; }
+    else if (pct >= 0.55) { band = '4';    level = 'B2'; }
+    else if (pct >= 0.45) { band = '3.5';  level = 'B1'; }
+    else if (pct >= 0.35) { band = '3';    level = 'B1'; }
+    else if (pct >= 0.25) { band = '2.5';  level = 'A2'; }
+    else if (pct >= 0.15) { band = '2';    level = 'A2'; }
+    else if (pct >= 0.08) { band = '1.5';  level = 'A1'; }
+    else                  { band = '1';    level = 'A1'; }
+  }
+  var bandEl = document.getElementById('cefr-band');
+  var lvlEl = document.getElementById('cefr-level');
+  if (bandEl) bandEl.textContent = band;
+  if (lvlEl) lvlEl.textContent = level;
 }
 document.addEventListener('click', function(){ setTimeout(recountAll, 50); }, true);
 document.addEventListener('input', function(){ setTimeout(recountAll, 50); }, true);
