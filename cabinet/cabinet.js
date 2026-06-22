@@ -438,8 +438,6 @@
 
         ${paymentCard}
 
-        ${_renderLastLessonRecapCard(student)}
-
         ${_renderHomeworkCard(student)}
 
         ${_renderContractsCard(student)}
