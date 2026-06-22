@@ -46,20 +46,23 @@ a{color:inherit;text-decoration:none}
   font:700 11px/1 var(--mono);letter-spacing:.08em;cursor:pointer;display:inline-flex;align-items:center;text-transform:uppercase;text-decoration:none}
 .btn-sm:hover{border-color:var(--accent);color:var(--accent-2)}
 
-/* Hero */
+/* Hero — картинка фоном на весь блок, надписи поверх */
 .hero{max-width:1240px;margin:32px auto 12px;padding:0 clamp(16px,3vw,28px);position:relative;z-index:2}
 .hero-card{position:relative;border:1px solid var(--line-2);border-radius:24px;overflow:hidden;
-  background:linear-gradient(135deg,var(--bg-2) 0%,var(--surface) 60%,#0d2138 100%);
-  box-shadow:0 10px 40px rgba(0,0,0,.4);padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px);min-height:400px}
+  background-image:linear-gradient(135deg,rgba(10,28,46,.86) 0%,rgba(15,40,64,.78) 50%,rgba(10,28,46,.92) 100%),url('./assets/img/hero-banner.png');
+  background-size:cover;background-position:center;background-repeat:no-repeat;
+  box-shadow:0 10px 40px rgba(0,0,0,.4);padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px);min-height:420px}
 .eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-2);
-  display:flex;align-items:center;gap:10px;margin-bottom:18px}
+  display:flex;align-items:center;gap:10px;margin-bottom:18px;position:relative;z-index:2}
 .eyebrow::before{content:"";width:28px;height:1px;background:var(--accent-2)}
 h1.hero-title{font-family:var(--display);font-weight:900;letter-spacing:-.04em;line-height:.96;
-  font-size:clamp(1.9rem,4.8vw,3.6rem);max-width:760px;margin-bottom:18px;color:var(--text)}
+  font-size:clamp(1.9rem,4.8vw,3.6rem);max-width:760px;margin-bottom:18px;color:var(--text);position:relative;z-index:2;
+  text-shadow:0 2px 18px rgba(0,0,0,.6)}
 h1.hero-title .grad{background:linear-gradient(120deg,var(--accent-2) 0%,#a5d6a7 60%,#dcedc8 100%);
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.hero-lead{font-size:clamp(1rem,1.3vw,1.12rem);color:var(--muted);max-width:740px;line-height:1.55;margin-bottom:24px}
-.hero-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px;max-width:680px}
+.hero-lead{font-size:clamp(1rem,1.3vw,1.12rem);color:var(--muted);max-width:740px;line-height:1.55;margin-bottom:24px;position:relative;z-index:2;
+  text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.hero-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px;max-width:680px;position:relative;z-index:2}
 .stat{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
 .stat-k{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
 .stat-v{font-family:var(--display);font-weight:800;font-size:1.15rem;color:var(--accent-2);letter-spacing:-.01em}
@@ -102,14 +105,6 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent-2) 0%,#a5d6a7
 .skill-side .num{font-family:var(--display);font-size:2.5rem;font-weight:900;color:var(--accent-2);line-height:1}
 .skill-side .skill-icon{width:120px;height:120px;background-size:contain;background-repeat:no-repeat;background-position:center;align-self:center;border-radius:12px}
 @media(max-width:680px){.skill-side .skill-icon{width:96px;height:96px}}
-/* Hero card layout: banner full-bleed at top of card */
-.hero-card{padding-top:0;display:flex;flex-direction:column}
-.hero-banner{width:100%;display:block;border-radius:24px 24px 0 0;margin:0 -1px -1px;
-  border-bottom:1px solid var(--line-2)}
-.hero-card .eyebrow,.hero-card h1.hero-title,.hero-card .hero-lead,.hero-card .hero-stats{padding-left:0;padding-right:0}
-.hero-card > :not(.hero-banner){margin-left:clamp(22px,4vw,52px);margin-right:clamp(22px,4vw,52px)}
-.hero-card > .eyebrow{margin-top:clamp(28px,4.5vw,52px)}
-.hero-card > .hero-stats{margin-bottom:clamp(22px,4vw,40px)}
 .skill-side .label{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);font-weight:800}
 .skill-side .time{font-family:var(--mono);font-size:.86rem;color:var(--text);font-weight:700;margin-top:4px}
 .skill-body h4{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--text);margin-bottom:6px}
@@ -314,7 +309,6 @@ footer a{color:var(--brand-2);text-decoration:underline}
 
 <section class="hero">
   <div class="hero-card">
-    <img class="hero-banner" src="./assets/img/hero-banner.png" alt="Four TOEFL skills: Reading · Listening · Writing · Speaking">
     <div class="eyebrow">Exam Lab · Updated TOEFL iBT 2025</div>
     <h1 class="hero-title">TOEFL iBT · <span class="grad">format tour</span></h1>
     <p class="hero-lead">Walk through the updated 2025 TOEFL iBT exactly as it is in the official ETS overview. All four sections — Reading, Listening, Writing, Speaking — with real sample tasks, real scoring, and real rubrics. By the end of 90 minutes you will know what each task wants from you, what the examiner is scoring, and where to start your preparation.</p>
@@ -941,13 +935,6 @@ Best regards.</div>
 
   <div class="card">
     <div class="task-tag">ETS sample task · research study on urban life</div>
-
-    <div class="audio-row">
-      <span class="audio-label">▶ Interviewer (intro + 4 questions)</span>
-      <audio controls preload="metadata">
-        <source src="./assets/audio/06-interview-urban.mp3" type="audio/mpeg">
-      </audio>
-    </div>
 
     <p style="color:var(--muted);font-size:.92rem;font-style:italic;margin:10px 0"><em>"You have agreed to take part in a research study about urban life. You will have a short online interview with a researcher. The researcher will ask you some questions."</em></p>
 
