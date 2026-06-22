@@ -1489,7 +1489,8 @@
       }
       return `<a href="${_esc(url)}" target="_blank" rel="noreferrer" class="cab-contract-link">📄 ${_esc(label)}</a>`;
     }).join("");
-    return `<div class="cab-contract-files">${items}</div>`;
+    const warn = `<p class="cab-contract-warn">⚠ <strong>Документ не зашифрован.</strong> Ссылка скрыта случайным именем — найти прямой URL посторонний не сможет. Не пересылайте ссылку третьим лицам.</p>`;
+    return `<div class="cab-contract-files">${items}</div>${warn}`;
   }
 
   function _renderExternalPlatformsCard(student) {
