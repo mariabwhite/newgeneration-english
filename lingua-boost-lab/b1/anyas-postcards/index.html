@@ -1101,78 +1101,6 @@ footer .by{display:block;margin-top:6px;font-size:.7rem;opacity:.8}
   </div>
 </section>
 
-<!-- ===== LESSON SCORE + CEFR ===== -->
-<section class="section" id="sec-total">
-  <div class="section-hdr"><div class="num">★</div><h2>Lesson score · total</h2></div>
-  <div class="card paper">
-    <div style="background:linear-gradient(135deg,rgba(255,189,90,.18),rgba(66,165,245,.10));border:1px solid var(--accent2,#FFBD5A);border-radius:14px;padding:18px 22px;text-align:center">
-      <div style="font-family:var(--mono);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent,#FF7A45);font-weight:800;margin-bottom:10px">Your progress on this lesson</div>
-      <div style="font-family:var(--display,serif);font-weight:900;font-size:2.4rem;color:var(--blue2,#264D78);line-height:1"><span id="total-val">0</span><span style="color:#888;font-size:1.4rem;font-weight:700"> / <span id="total-max">0</span></span></div>
-      <div style="font-family:var(--mono);font-size:.74rem;color:#888;margin-top:8px;letter-spacing:.1em">auto-scored across all exercises in this lesson</div>
-    </div>
-    <div style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
-      <div style="background:#fff;border:1px solid #eee;border-radius:10px;padding:12px 16px;text-align:center">
-        <div style="font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:#666;font-weight:800;margin-bottom:6px">Band score</div>
-        <div style="font-family:var(--display,serif);font-weight:900;font-size:1.6rem;color:var(--blue2,#264D78);line-height:1"><span id="cefr-band">—</span></div>
-        <div style="font-family:var(--mono);font-size:.66rem;color:#999;margin-top:4px">1–6 scale</div>
-      </div>
-      <div style="background:rgba(255,189,90,.18);border:1px solid var(--accent2,#FFBD5A);border-radius:10px;padding:12px 16px;text-align:center">
-        <div style="font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent,#FF7A45);font-weight:800;margin-bottom:6px">CEFR level</div>
-        <div style="font-family:var(--display,serif);font-weight:900;font-size:1.6rem;color:var(--accent,#FF7A45);line-height:1"><span id="cefr-level">—</span></div>
-        <div style="font-family:var(--mono);font-size:.66rem;color:#999;margin-top:4px">auto-derived</div>
-      </div>
-    </div>
-    <p style="font-size:.84rem;color:#888;text-align:center;margin-top:12px;line-height:1.5"><strong>Auto-saved.</strong> Все ответы и прогресс запоминаются. Сброс — ↺ Reset progress справа внизу.</p>
-  </div>
-</section>
-
-<script>
-(function(){
-  function recountAndMap(){
-    // Универсальный счёт по типам упражнений: matched / correct / right / lit / done / .mc-opt.selected / placed
-    const root = document.body;
-    let sum = 0;
-    sum += root.querySelectorAll('.matched').length;          // match games
-    sum += root.querySelectorAll('.mcq-opts button.right, .mcq-opts button.correct').length; // MCQ
-    sum += root.querySelectorAll('.gap-input.correct, .gap-input.right, .gap.correct').length; // gap-fills
-    sum += root.querySelectorAll('.tf-btn.right').length;     // T/F
-    sum += root.querySelectorAll('.detective-pill.picked.correct, .detective-pill.right').length;
-    sum += root.querySelectorAll('.choice.right, .choice.correct').length;
-    // de-duplicate ceiling: cap to reasonable max via total
-    const mx = root.querySelectorAll('.match-card, .mcq-row, .mcq-opts, .gap-input, .gap, .tf-q, .detective-pill, .choice-row').length;
-    // Better: count target slots, not contents
-    const targets = root.querySelectorAll('.mcq-row').length
-                  + root.querySelectorAll('.gap-input').length
-                  + (root.querySelectorAll('.match-card').length / 2 | 0)
-                  + root.querySelectorAll('.tf-q').length;
-    const total = Math.max(targets, 1);
-    document.getElementById('total-val').textContent = Math.min(sum, total);
-    document.getElementById('total-max').textContent = total;
-    const pct = total > 0 ? Math.min(sum, total) / total : 0;
-    let band = '—', level = '—';
-    if (sum > 0) {
-      if      (pct >= 0.95) { band = '6';   level = 'C2'; }
-      else if (pct >= 0.85) { band = '5.5'; level = 'C1'; }
-      else if (pct >= 0.75) { band = '5';   level = 'C1'; }
-      else if (pct >= 0.65) { band = '4.5'; level = 'B2'; }
-      else if (pct >= 0.55) { band = '4';   level = 'B2'; }
-      else if (pct >= 0.45) { band = '3.5'; level = 'B1'; }
-      else if (pct >= 0.35) { band = '3';   level = 'B1'; }
-      else if (pct >= 0.25) { band = '2.5'; level = 'A2'; }
-      else if (pct >= 0.15) { band = '2';   level = 'A2'; }
-      else if (pct >= 0.08) { band = '1.5'; level = 'A1'; }
-      else                  { band = '1';   level = 'A1'; }
-    }
-    document.getElementById('cefr-band').textContent = band;
-    document.getElementById('cefr-level').textContent = level;
-  }
-  document.addEventListener('click', () => setTimeout(recountAndMap, 80), true);
-  document.addEventListener('input', () => setTimeout(recountAndMap, 80), true);
-  setTimeout(recountAndMap, 600);
-  setTimeout(recountAndMap, 1800);
-})();
-</script>
-
 <!-- ===== FOOTER ===== -->
 <footer>
   <strong>Story Adventures</strong> · Anya's Postcards · B1 · 90 min<br>
@@ -1663,5 +1591,6 @@ function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.rando
 </script>
 <script src="../../assets/lab-persist.js" defer></script>
 
+<script src="../../assets/lab-total.js" defer></script>
 </body>
 </html>
