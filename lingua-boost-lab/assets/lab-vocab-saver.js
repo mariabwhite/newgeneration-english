@@ -81,10 +81,10 @@
         ? list.map(function (v) {
             return '<div class="lv-item"><span class="w">' + escapeHtml(v.word) + '</span><span class="r">' + escapeHtml(v.ru) + '</span></div>';
           }).join('')
-        : '<div class="lv-empty">Тапни «+» на любой карточке или подчёркнутом слове в тексте — добавится сюда</div>';
+        : '<div class="lv-empty">Tap «+» on any card or underlined word in the text — it lands here</div>';
       box.innerHTML = ''
-        + '<button class="lv-close" title="свернуть">×</button>'
-        + '<div class="lv-title">📒 Мой словарик · <span>' + list.length + '</span></div>'
+        + '<button class="lv-close" title="collapse">×</button>'
+        + '<div class="lv-title">📒 My Vocabulary · <span>' + list.length + '</span></div>'
         + '<div class="lv-list">' + items + '</div>'
         + '<div class="lv-actions"><button id="lvCopy">📋 Copy</button><button id="lvClear" class="danger">🗑 Clear</button></div>';
       box.querySelector('.lv-close').addEventListener('click', function (e) { e.stopPropagation(); box.classList.remove('expanded'); renderBox(); });
@@ -102,7 +102,7 @@
       box.querySelector('#lvClear').addEventListener('click', function (e) {
         e.stopPropagation();
         if (!list.length) return;
-        if (!confirm('Очистить словарик? (' + list.length + ' слов)')) return;
+        if (!confirm('Clear vocabulary? (' + list.length + ' words)')) return;
         list = [];
         save();
         document.querySelectorAll('.lv-added, .lv-add-btn.added').forEach(function (el) {
@@ -112,7 +112,7 @@
         renderBox();
       });
     } else {
-      box.innerHTML = '📒 Словарик · <span style="color:#2BB673">' + list.length + '</span>';
+      box.innerHTML = '📒 Vocabulary · <span style="color:#2BB673">' + list.length + '</span>';
     }
   }
 
@@ -148,7 +148,7 @@
       var btn = document.createElement('button');
       btn.className = 'lv-add-btn';
       btn.type = 'button';
-      btn.title = 'Добавить в словарик';
+      btn.title = 'Add to vocabulary';
       btn.textContent = '+';
       if (list.some(function (v) { return v.word === word; })) { btn.classList.add('added'); btn.textContent = '✓'; }
       btn.addEventListener('click', function (e) {
