@@ -20,6 +20,14 @@
 /assets/*.jpg
   Cache-Control: public, max-age=2592000
 
+# Legacy cabinet path is redirected to cabinet.newgeneration-english.ru.
+# Do not cache old HTML while the redirect is rolling out.
+/cabinet/*
+  Cache-Control: no-cache, must-revalidate, no-store
+
+/cabinet/*.html
+  Cache-Control: no-cache, must-revalidate, no-store
+
 # Lab assets (per-lesson PNG/MP3/SVG) — длинный кэш, неизменяемые
 /lingua-boost-lab/*/assets/*
   Cache-Control: public, max-age=2592000
