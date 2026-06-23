@@ -405,16 +405,43 @@ body.light .program-card:hover {
       <p class="lead" data-ru="В классе мы учимся контролировать каждое слово. В путешествии язык становится инструментом, а не целью. Ты перестаёшь бояться ошибок, потому что важнее понять и быть понятым. Это переключает восприятие и часто даёт больше прогресса, чем месяцы спокойных занятий." data-en="In the classroom, we learn to control every word. When you travel, language becomes a tool rather than a goal. You stop being afraid of mistakes because understanding and being understood matter more. This shift often brings more progress than months of quiet study.">В классе мы учимся контролировать каждое слово. В путешествии язык становится инструментом, а не целью. Ты перестаёшь бояться ошибок, потому что важнее понять и быть понятым. Это переключает восприятие и часто даёт больше прогресса, чем месяцы спокойных занятий.</p>
     </div>
 
+    <!-- ПУТЕВОДИТЕЛИ — ряд кружков -->
+    <style>
+      .guides-circles{display:flex;flex-wrap:wrap;gap:24px;justify-content:flex-start;padding:8px 0 28px;margin:0}
+      .guide-circle{flex:0 0 auto;text-align:center;text-decoration:none;color:inherit;display:flex;flex-direction:column;align-items:center;width:104px;transition:transform .18s ease}
+      .guide-circle:hover{transform:translateY(-2px)}
+      .guide-circle-img{display:block;width:88px;height:88px;border-radius:50%;background-size:cover;background-position:center;border:3px solid var(--accent,#FF5A1F);box-shadow:0 4px 12px rgba(0,0,0,.12);margin-bottom:10px;transition:border-color .18s ease, transform .18s ease}
+      .guide-circle:hover .guide-circle-img{border-color:#c9a356;transform:scale(1.04)}
+      .guide-circle-label{display:block;font-size:13px;line-height:1.25;font-weight:700;letter-spacing:.01em}
+      .guide-circle-flag{display:block;font-size:18px;line-height:1;margin-bottom:2px}
+      @media(max-width:540px){.guide-circle{width:84px}.guide-circle-img{width:72px;height:72px;border-width:2.5px}.guide-circle-label{font-size:12px}}
+    </style>
     <section class="content-block" id="guides">
       <div class="content-block-header">
-        <h2 class="content-block-title" data-ru="Читать далее" data-en="Read further">Читать далее</h2>
-        <p class="lead" data-ru="Большие материалы из поездок — собранные на месте, с прицельными темами, контактами и ценами." data-en="Long-form, on-site travel guides — focused topics, contacts and prices.">Большие материалы из поездок — собранные на месте, с прицельными темами, контактами и ценами.</p>
+        <h2 class="content-block-title" data-ru="Путеводители" data-en="Field guides">Путеводители</h2>
+        <p class="lead" data-ru="Большие путеводители по странам — собранные на месте, с темами, контактами и ценами. Открой и используй офлайн." data-en="Long-form country field guides — built on-site, with topics, contacts and prices. Open and use offline.">Большие путеводители по странам — собранные на месте, с темами, контактами и ценами. Открой и используй офлайн.</p>
+      </div>
+      <nav class="guides-circles" aria-label="Travel guides by country">
+        <a class="guide-circle" href="travel/montenegro/ru/" aria-label="Открыть путеводитель по Черногории">
+          <span class="guide-circle-img" style="background-image:url('travel/montenegro/images/kotor-bay-aerial.jpg');"></span>
+          <span class="guide-circle-flag">🇲🇪</span>
+          <span class="guide-circle-label" data-ru="Черногория" data-en="Montenegro">Черногория</span>
+        </a>
+        <!-- Следующие страны: добавляются такой же `<a class="guide-circle">…</a>` карточкой -->
+      </nav>
+    </section>
+
+    <!-- СТАТЬИ ПРО ПУТЕШЕСТВИЯ — сетка карточек -->
+    <section class="content-block" id="travel-articles">
+      <div class="content-block-header">
+        <h2 class="content-block-title" data-ru="Статьи про путешествия" data-en="Travel articles">Статьи про путешествия</h2>
+        <p class="lead" data-ru="Личные заметки из поездок — не туристические открытки, а взгляд изнутри: где жила, что заметила, что бы повторила." data-en="Personal travel notes — not postcards, but the view from inside: where I stayed, what I noticed, what I'd do again.">Личные заметки из поездок — не туристические открытки, а взгляд изнутри: где жила, что заметила, что бы повторила.</p>
       </div>
       <div class="program-grid">
         <article class="program-card has-cover">
           <a class="card-cover" href="travel/montenegro/ru/playworking/" aria-label="Открыть личный travelog про Playworking" style="background-image:url('travel/montenegro/images/playworking/06-maria-on-boat.jpg');"></a>
           <div class="card-body">
-            <div class="tag" data-ru="Июнь 2026 · личный travelog" data-en="June 2026 · personal travelog">Июнь 2026 · личный travelog</div>
+            <div class="tag" data-ru="Июнь 2026 · Черногория" data-en="June 2026 · Montenegro">Июнь 2026 · Черногория</div>
             <h3 data-ru="Playworking — лагерь, который я нашла случайно" data-en="Playworking — the coliving I found by accident">Playworking — лагерь, который я нашла случайно</h3>
             <ul class="program-list">
               <li data-ru="Случайно нашла, осталась на три недели" data-en="Found it by accident, stayed for three weeks">Случайно нашла, осталась на три недели</li>
@@ -425,20 +452,7 @@ body.light .program-card:hover {
             <p style="margin-top:20px;"><a class="btn btn-primary" href="travel/montenegro/ru/playworking/" data-ru="Читать статью →" data-en="Read the article →">Читать статью →</a></p>
           </div>
         </article>
-        <article class="program-card has-cover">
-          <a class="card-cover" href="travel/montenegro/" aria-label="Open the Budva &amp; Sveti Stefan field guide" style="background-image:url('travel/montenegro/images/budva-old-town-poster.png?v=20260619');"></a>
-          <div class="card-body">
-            <div class="tag" data-ru="Июнь 2026" data-en="June 2026">Июнь 2026</div>
-            <h3 data-ru="Черногория · путеводитель" data-en="Montenegro · field guide">Черногория · путеводитель</h3>
-            <ul class="program-list">
-              <li data-ru="Бухта Котор, Луштица, Тиват, Будва, Свети-Стефан" data-en="Bay of Kotor, Luštica, Tivat, Budva, Sveti Stefan">Бухта Котор, Луштица, Тиват, Будва, Свети-Стефан</li>
-              <li data-ru="Пршут и Негуши, Вранац, оливковые рощи Луштицы" data-en="Pršut and Njeguši, Vranac, Luštica olive groves">Пршут и Негуши, Вранац, оливковые рощи Луштицы</li>
-              <li data-ru="Коворкинги, языковые клубы, настолки, события июня-июля 2026" data-en="Coworkings, language clubs, board games, June–July 2026 events">Коворкинги, языковые клубы, настолки, события июня-июля 2026</li>
-            </ul>
-<p class="program-result" data-ru="Главы по местам, еде и людям + детальные путеводители по Бухте Котор, Луштице, Тивату, Будве, Свети-Стефану." data-en="Chapters on places, food and people + detailed sub-guides to Bay of Kotor, Luštica, Tivat, Budva, Sveti Stefan.">Главы по местам, еде и людям + детальные путеводители по Бухте Котор, Луштице, Тивату, Будве, Свети-Стефану.</p>
-            <p style="margin-top:20px;"><a class="btn btn-primary" href="travel/montenegro/" data-ru="Открыть путеводитель →" data-en="Open the field guide →">Открыть путеводитель →</a></p>
-          </div>
-        </article>
+        <!-- Следующие статьи: добавляются такой же `<article class="program-card has-cover">…</article>` -->
       </div>
     </section>
 
