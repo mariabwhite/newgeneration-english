@@ -7,6 +7,7 @@
    - .vocab-card[data-word]  (TOEFL/Tom Sawyer/Bella/etc canon flip-cards)
    - .vocab-card[data-back]  (Julia Bodrum/julia-vampire/inline canon)
    - .flip-card[data-word]   (Jerusalem canon)
+   - .vw .w + .ru            (Settling-Toronto cheat-sheet canon — TTS phrase boxes)
    Drop-in: <script src="../../assets/lab-vocab-saver.js" defer></script>
 */
 (function () {
@@ -156,6 +157,30 @@
         if (uniqAdd(word, back)) { btn.classList.add('added'); btn.textContent = '✓'; renderBox(); }
       });
       card.appendChild(btn);
+    });
+
+    // 3. .vw boxes — phrase + RU meaning (settling-in-toronto cheat-sheet canon)
+    document.querySelectorAll('.vw').forEach(function (box) {
+      if (box.querySelector('.lv-add-btn')) return;
+      var wEl = box.querySelector('.w');
+      var rEl = box.querySelector('.ru');
+      if (!wEl || !rEl) return;
+      var word = (wEl.textContent || '').trim();
+      var ru = (rEl.textContent || '').trim();
+      if (!word) return;
+
+      box.classList.add('lv-host');
+      var btn = document.createElement('button');
+      btn.className = 'lv-add-btn';
+      btn.type = 'button';
+      btn.title = 'Add to vocabulary';
+      btn.textContent = '+';
+      if (list.some(function (v) { return v.word === word; })) { btn.classList.add('added'); btn.textContent = '✓'; }
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (uniqAdd(word, ru)) { btn.classList.add('added'); btn.textContent = '✓'; renderBox(); }
+      });
+      box.appendChild(btn);
     });
   }
 

@@ -789,29 +789,44 @@ document.getElementById('prep-check').addEventListener('click', () => {
   <div class="section-sub">Read each instruction. Find what's wrong. Suggest a correct version.</div>
   <img src="./assets/img/directions-3d-wrong-route.png" alt="Split cartoon · LEFT: sly teacher giving absurd route — through a bakery tunnel + swimming the river. RIGHT: confused student with finger raised + sensible route over a bridge past the bakery." style="width:100%;width:100%;border-radius:14px;display:block;margin:0 0 16px;box-shadow:0 4px 18px rgba(0,0,0,.12)">
   <div class="card">
-    <details style="background:#fff;border:1px solid #ddd;border-radius:10px;padding:12px 16px;margin-bottom:10px">
-      <summary style="font-weight:700;color:#FF5A1F;cursor:pointer">🗺 Example 1 · museum</summary>
-      <p style="margin-top:10px"><strong>Teacher:</strong> "To get to the museum, go straight ahead, then turn <em>right</em> at the bank. It's <em>behind</em> the supermarket."</p>
-      <p style="color:#666;font-style:italic">What's wrong? → Should be <strong>turn left</strong> at the bank. The museum is <strong>next to</strong> the supermarket, not behind it.</p>
-    </details>
-    <details style="background:#fff;border:1px solid #ddd;border-radius:10px;padding:12px 16px;margin-bottom:10px">
-      <summary style="font-weight:700;color:#FF5A1F;cursor:pointer">🗺 Example 2 · library</summary>
-      <p style="margin-top:10px"><strong>Teacher:</strong> "If you want to reach the library, walk <em>through the river</em>, then go up the stairs."</p>
-      <p style="color:#666;font-style:italic">What's wrong? → We don't walk through rivers! It should be <strong>over the bridge</strong>, then up the stairs.</p>
-    </details>
-    <details style="background:#fff;border:1px solid #ddd;border-radius:10px;padding:12px 16px;margin-bottom:10px">
-      <summary style="font-weight:700;color:#FF5A1F;cursor:pointer">🗺 Example 3 · bus stop</summary>
-      <p style="margin-top:10px"><strong>Teacher:</strong> "To get to the bus stop, go <em>under</em> the bakery, then take the second left."</p>
-      <p style="color:#666;font-style:italic">What's wrong? → We can't go under a bakery! You probably mean <strong>past the bakery</strong> or <strong>along the street</strong> and turn left.</p>
-    </details>
-    <details style="background:#fff;border:1px solid #ddd;border-radius:10px;padding:12px 16px;margin-bottom:10px">
-      <summary style="font-weight:700;color:#FF5A1F;cursor:pointer">🗺 Example 4 · train station</summary>
-      <p style="margin-top:10px"><strong>Teacher:</strong> "The train station is <em>on the other side of the cinema</em>. Just walk <em>behind</em> it."</p>
-      <p style="color:#666;font-style:italic">What's wrong? → It's <strong>in front of</strong> the cinema, not behind it.</p>
-    </details>
-    <p style="font-size:.88rem;color:var(--muted);margin-top:14px"><strong>Useful expressions to use:</strong> turn left / right at… · go straight ahead · next to / behind / in front of / opposite · go past / go along / go across / through · at the corner · on the left-hand side · diagonally across from</p>
+    <p style="font-size:.92rem;color:var(--muted);margin-bottom:12px"><strong>Read each instruction. Pick what's wrong.</strong> Click reveals the correction.</p>
+    <div id="wrong-dir-quiz"></div>
+    <script type="application/json" id="wrong-dir-data">[
+      {"text":"🗺 To get to the museum, go straight ahead, then turn <em>right</em> at the bank. It's <em>behind</em> the supermarket.","ans":"a","opts":[{"v":"a","label":"Should be turn LEFT at the bank; museum is NEXT TO the supermarket, not behind."},{"v":"b","label":"Direction is fine — but the museum is on a different street."},{"v":"c","label":"Nothing is wrong, the instruction is correct."}]},
+      {"text":"🗺 If you want to reach the library, walk <em>through the river</em>, then go up the stairs.","ans":"b","opts":[{"v":"a","label":"You should go past the river, then turn left."},{"v":"b","label":"We don't walk through rivers — it should be OVER THE BRIDGE, then up the stairs."},{"v":"c","label":"The library doesn't have stairs, go straight in."}]},
+      {"text":"🗺 To get to the bus stop, go <em>under</em> the bakery, then take the second left.","ans":"c","opts":[{"v":"a","label":"Should be turn right after the bakery."},{"v":"b","label":"The bus stop is opposite, not after."},{"v":"c","label":"We can't go UNDER a bakery — should be PAST the bakery or ALONG the street."}]},
+      {"text":"🗺 The train station is <em>on the other side of the cinema</em>. Just walk <em>behind</em> it.","ans":"a","opts":[{"v":"a","label":"The station is IN FRONT OF the cinema, not behind it."},{"v":"b","label":"You need to walk through the cinema first."},{"v":"c","label":"There's no train station near the cinema."}]}
+    ]</script>
+    <p style="font-size:.88rem;color:var(--muted);margin-top:14px"><strong>Useful expressions:</strong> turn left / right at… · go straight ahead · next to / behind / in front of / opposite · go past / go along / go across / through · at the corner · on the left-hand side · diagonally across from</p>
   </div>
 </section>
+<script>
+(function(){
+  const data = JSON.parse(document.getElementById('wrong-dir-data').textContent);
+  const c = document.getElementById('wrong-dir-quiz');
+  data.forEach((item, i) => {
+    const shuffled = item.opts.slice().sort(() => Math.random() - 0.5);
+    const row = document.createElement('div');
+    row.className = 'mcq-row';
+    row.dataset.ans = item.ans;
+    row.style.cssText = 'background:#fff;border:1px solid #ddd;border-radius:10px;padding:14px 18px;margin-bottom:12px';
+    row.innerHTML = '<div style="margin-bottom:10px;font-family:Georgia,serif;font-size:.96rem;color:#3a2e1a"><strong>'+(i+1)+'.</strong> '+item.text+'</div>'
+      + '<div style="display:flex;flex-direction:column;gap:6px">'
+      + shuffled.map(o => '<button class="wd-opt" data-v="'+o.v+'" style="background:#fffaef;border:1px solid #c9a96e;color:#3a2e1a;padding:9px 14px;border-radius:8px;font-family:Georgia,serif;text-align:left;cursor:pointer;font-size:.92rem;line-height:1.4">'+o.label+'</button>').join('')
+      + '</div>';
+    c.appendChild(row);
+  });
+  c.addEventListener('click', e => {
+    const btn = e.target.closest('.wd-opt');
+    if (!btn) return;
+    const row = btn.closest('.mcq-row');
+    const correct = row.dataset.ans;
+    row.querySelectorAll('.wd-opt').forEach(b => { b.style.background='#fffaef'; b.style.borderColor='#c9a96e'; b.style.color='#3a2e1a'; b.classList.remove('correct','wrong'); });
+    if (btn.dataset.v === correct) { btn.style.background='#d4edda'; btn.style.borderColor='#28a745'; btn.style.color='#155724'; btn.classList.add('correct'); }
+    else { btn.style.background='#f8d7da'; btn.style.borderColor='#dc3545'; btn.style.color='#721c24'; btn.classList.add('wrong'); }
+  });
+})();
+</script>
 
 <!-- BLOCK 4e · PREPOSITIONS GRAMMAR QUIZ -->
 <section class="section" id="block-4e">
@@ -1877,6 +1892,6 @@ section img:not(.hero-bg):hover{filter:brightness(1.04)}
 
 <script src="../../assets/lab-persist.js" defer></script>
 <script src="../../assets/lab-total.js" defer></script>
-<script src="../../assets/lab-vocab-saver.js" defer></script>
+<script src="../../assets/lab-vocab-saver.js?v=2" defer></script>
 </body>
 </html>
