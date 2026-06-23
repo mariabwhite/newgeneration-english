@@ -19,3 +19,43 @@
 
 /assets/*.jpg
   Cache-Control: public, max-age=2592000
+
+# Lab assets (per-lesson PNG/MP3/SVG) — длинный кэш, неизменяемые
+/lingua-boost-lab/*/assets/*
+  Cache-Control: public, max-age=2592000
+
+/lingua-boost-lab/*/*/assets/*
+  Cache-Control: public, max-age=2592000
+
+# Lab JS-библиотеки (lab-total / lab-persist / lab-vocab-saver) — bump через ?v=
+/lingua-boost-lab/assets/*.js
+  Cache-Control: public, max-age=2592000
+
+# Lab HTML и каталог — НЕ кэшировать (Маша правит каждый день)
+/lingua-boost-lab/
+  Cache-Control: no-cache, must-revalidate
+
+/lingua-boost-lab/index.html
+  Cache-Control: no-cache, must-revalidate
+
+/lingua-boost-lab/*.html
+  Cache-Control: no-cache, must-revalidate
+
+/lingua-boost-lab/*/
+  Cache-Control: no-cache, must-revalidate
+
+/lingua-boost-lab/*/*.html
+  Cache-Control: no-cache, must-revalidate
+
+/lingua-boost-lab/*/*/
+  Cache-Control: no-cache, must-revalidate
+
+/lingua-boost-lab/*/*/*.html
+  Cache-Control: no-cache, must-revalidate
+
+/lingua-boost-lab/*/*/*/*.html
+  Cache-Control: no-cache, must-revalidate
+
+# Premium vault — без кэша (ротации PIN, обновления)
+/lingua-boost-lab/premium.html
+  Cache-Control: no-cache, must-revalidate, no-store
