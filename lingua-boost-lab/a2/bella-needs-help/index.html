@@ -590,6 +590,344 @@ I'm on <strong>____ (___ Street, near ___)</strong>.
   </div>
 </section>
 
+<!-- BLOCK 6 · WORD FORMATION -->
+<section class="section" id="block-6">
+  <div class="section-head"><div class="n">6</div><h2>Word formation · noun → adj / verb<span class="section-tag">Grammar in context</span></h2></div>
+  <div class="section-sub">Make the right form from the noun in brackets. Type your answer. Check with the button.</div>
+  <div class="card">
+    <div class="gapfill" id="wf-1" style="background:#fff;border:1.5px solid #c9a96e;border-radius:14px;padding:18px 22px;font-family:Georgia,serif;line-height:2;color:#3a2e1a;font-size:1rem">
+      <p>1. This medicine relieves <input data-a="aching" placeholder="..." style="width:120px"> joints. (ache)</p>
+      <p>2. The injection was very <input data-a="painful" placeholder="..." style="width:120px">. (pain)</p>
+      <p>3. She works in the <input data-a="medical" placeholder="..." style="width:140px"> centre downtown. (medicine)</p>
+      <p>4. He's <input data-a="allergic" placeholder="..." style="width:120px"> to penicillin. (allergy)</p>
+      <p>5. The doctor prescribed three different <input data-a="medications" placeholder="..." style="width:160px">. (medicine)</p>
+      <p>6. I take this <input data-a="medication" placeholder="..." style="width:160px"> twice a day. (medicine)</p>
+      <div style="display:flex;align-items:center;margin-top:14px;gap:14px">
+        <button id="wf-check" style="font:800 11px/1 monospace;letter-spacing:.1em;text-transform:uppercase;background:#FF7A45;color:#fff;border:none;padding:10px 18px;border-radius:8px;cursor:pointer">Check</button>
+        <span id="wf-result" style="font:800 .82rem/1 monospace;color:#666"></span>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+#wf-1 input{font:600 .96rem Georgia,serif;background:#fffaef;color:#1a1a1a;border:1.5px solid #c9a96e;border-radius:6px;padding:3px 8px;outline:none;text-align:center;margin:0 4px}
+#wf-1 input.right{background:#d4edda;border-color:#28a745;color:#155724}
+#wf-1 input.wrong{background:#f8d7da;border-color:#dc3545;color:#721c24}
+</style>
+<script>
+document.getElementById('wf-check').addEventListener('click', () => {
+  const inputs = document.querySelectorAll('#wf-1 input[data-a]');
+  let ok = 0;
+  inputs.forEach(i => {
+    const v = (i.value||'').trim().toLowerCase();
+    const a = (i.dataset.a||'').toLowerCase();
+    i.classList.remove('right','wrong');
+    if (v === a) { i.classList.add('right'); ok++; } else i.classList.add('wrong');
+  });
+  document.getElementById('wf-result').textContent = ok + ' / ' + inputs.length + ' correct';
+});
+</script>
+
+<!-- BLOCK 7 · BONUS DIALOGUE · FOOD POISONING -->
+<section class="section" id="block-7">
+  <div class="section-head"><div class="n">7</div><h2>Bonus · Bella at the doctor's again · food poisoning<span class="section-tag">Stomach issues</span></h2></div>
+  <div class="section-sub">Two weeks later. Bella tried street food. Now she has stomach pain and nausea.</div>
+  <div class="card">
+    <div class="dialogue">
+      <p><span class="them">Doctor:</span> <button class="play-line" data-say="Good morning, what's bothering you?">▶</button>Good morning, what's bothering you?</p>
+      <p><span class="you">Bella:</span> <button class="play-line" data-say="I have severe stomach pain and nausea. I also vomited twice last night.">▶</button>I have severe <strong>stomach pain</strong> and <strong>nausea</strong>. I also <strong>vomited</strong> twice last night.</p>
+      <p><span class="them">Doctor:</span> <button class="play-line" data-say="Did you eat anything unusual? Any fever?">▶</button>Did you eat anything unusual? Any fever?</p>
+      <p><span class="you">Bella:</span> <button class="play-line" data-say="I had street food yesterday. My temperature is normal.">▶</button>I had <strong>street food</strong> yesterday. My temperature is normal.</p>
+      <p><span class="them">Doctor:</span> <button class="play-line" data-say="It could be food poisoning. Drink plenty of fluids and take these anti-nausea pills. Return if symptoms persist.">▶</button>It could be <strong>food poisoning</strong>. Drink plenty of fluids and take these <strong>anti-nausea pills</strong>. Return if symptoms persist.</p>
+      <p><span class="you">Bella:</span> <button class="play-line" data-say="Should I follow a special diet?">▶</button>Should I follow a special diet?</p>
+      <p><span class="them">Doctor:</span> <button class="play-line" data-say="Stick to bland foods like toast and rice for 24 hours.">▶</button>Stick to <strong>bland foods</strong> like toast and rice for 24 hours.</p>
+    </div>
+    <div class="template-card" style="margin-top:14px">
+      <h4>Your turn · describe your own stomach problem</h4>
+      <div class="tpl">I have <strong>____ (stomach pain / nausea / diarrhea)</strong>.
+I also <strong>____ (vomited / felt dizzy)</strong> this morning.
+I ate <strong>____ (street food / something unusual)</strong> yesterday.
+Could it be food poisoning?</div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOCK 8 · TYPES OF DOCTORS · MATCH -->
+<section class="section" id="block-8">
+  <div class="section-head"><div class="n">8</div><h2>Types of doctors · who treats what?<span class="section-tag">Vocabulary</span></h2></div>
+  <div class="section-sub">Tap a doctor on the left, then their specialty on the right.</div>
+  <div class="card">
+    <div class="match-cols" style="display:grid;grid-template-columns:1fr 1.4fr;gap:12px">
+      <div id="docs-left"></div>
+      <div id="docs-right"></div>
+    </div>
+    <script type="application/json" id="docs-data">[
+      {"w":"GP / Family Doctor","d":"general checkups, colds, and referrals to specialists"},
+      {"w":"Pediatrician","d":"treats children and teenagers"},
+      {"w":"Dermatologist","d":"skin, hair, and nail issues (rash, acne)"},
+      {"w":"Cardiologist","d":"heart and blood pressure problems"},
+      {"w":"ENT (Otolaryngologist)","d":"ear, nose, and throat infections"},
+      {"w":"Oncologist","d":"cancer diagnosis and treatment"}
+    ]</script>
+  </div>
+</section>
+
+<!-- BLOCK 9 · MEDICAL FACILITIES · MATCH -->
+<section class="section" id="block-9">
+  <div class="section-head"><div class="n">9</div><h2>10 types of medical facilities<span class="section-tag">Where to go</span></h2></div>
+  <div class="section-sub">Match each facility on the left with its definition on the right.</div>
+  <div class="card">
+    <div class="match-cols" style="display:grid;grid-template-columns:1fr 1.4fr;gap:12px">
+      <div id="facil-left"></div>
+      <div id="facil-right"></div>
+    </div>
+    <script type="application/json" id="facil-data">[
+      {"w":"Emergency Room (ER)","d":"place for serious injuries and illnesses 24/7"},
+      {"w":"Clinic","d":"private practice where doctors see patients by appointment"},
+      {"w":"Maternity Hospital","d":"facility for childbirth and newborn care"},
+      {"w":"Ambulatory Surgery Center","d":"outpatient surgeries without overnight stay"},
+      {"w":"Cardiology Center","d":"hospital unit for heart-related emergencies"},
+      {"w":"Nursing Home","d":"long-term care for elderly or disabled patients"},
+      {"w":"Oncology Center","d":"specialized hospital for cancer diagnosis and therapy"},
+      {"w":"Urgent Care Center","d":"walk-in facility for minor illnesses like colds"},
+      {"w":"VA Hospital","d":"government-run hospital for veterans and military"},
+      {"w":"Psychiatric Hospital","d":"facility for mental health treatment and therapy"}
+    ]</script>
+  </div>
+</section>
+
+<!-- BLOCK 10 · MEDICAL VOCABULARY GAP-FILL · 6 GROUPS -->
+<section class="section" id="block-10">
+  <div class="section-head"><div class="n">10</div><h2>Medical vocab · 6 mini-quizzes<span class="section-tag">Practice</span></h2></div>
+  <div class="section-sub">Fill the gap with the right word. Click Check after each group.</div>
+  <div class="card">
+
+    <h3 style="color:#FF5A1F;margin-top:8px">1️⃣ Types of doctors</h3>
+    <div class="gapfill" id="g1" style="background:#fffaef;border-left:4px solid #FF7A45;padding:14px 18px;border-radius:0 10px 10px 0;font-family:Georgia,serif;line-height:2;font-size:.96rem">
+      <p>1. For regular checkups, you visit your <input data-a="GP" style="width:100px">.</p>
+      <p>2. If your child has a fever, take them to a <input data-a="pediatrician" style="width:140px">.</p>
+      <p>3. A <input data-a="dermatologist" style="width:140px"> can help with acne or skin rashes.</p>
+      <p>4. People with heart problems need to see a <input data-a="cardiologist" style="width:140px">.</p>
+      <p>5. When you have ear pain, you might need an <input data-a="ENT" style="width:100px">.</p>
+      <p>6. Cancer patients receive treatment from an <input data-a="oncologist" style="width:140px">.</p>
+      <button class="med-check" data-target="g1" style="font:800 11px/1 monospace;letter-spacing:.1em;text-transform:uppercase;background:#FF7A45;color:#fff;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;margin-top:10px">Check</button><span class="med-res" id="g1-res" style="margin-left:12px;font:800 .8rem/1 monospace;color:#666"></span>
+    </div>
+
+    <h3 style="color:#FF5A1F;margin-top:18px">2️⃣ Medical facilities</h3>
+    <div class="gapfill" id="g2" style="background:#fffaef;border-left:4px solid #FF7A45;padding:14px 18px;border-radius:0 10px 10px 0;font-family:Georgia,serif;line-height:2;font-size:.96rem">
+      <p>1. For a broken arm, go to the <input data-a="ER" style="width:100px"> immediately.</p>
+      <p>2. You can get vaccinated at a local <input data-a="clinic" style="width:120px">.</p>
+      <p>3. Pregnant women give birth at a <input data-a="maternity hospital" style="width:180px">.</p>
+      <p>4. Minor surgeries are done at an <input data-a="Ambulatory Surgery Center" style="width:240px">.</p>
+      <p>5. Elderly people often live in a <input data-a="nursing home" style="width:160px">.</p>
+      <p>6. Soldiers receive care at a <input data-a="VA hospital" style="width:140px">.</p>
+      <button class="med-check" data-target="g2" style="font:800 11px/1 monospace;letter-spacing:.1em;text-transform:uppercase;background:#FF7A45;color:#fff;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;margin-top:10px">Check</button><span class="med-res" id="g2-res" style="margin-left:12px;font:800 .8rem/1 monospace;color:#666"></span>
+    </div>
+
+    <h3 style="color:#FF5A1F;margin-top:18px">3️⃣ Pharmacy &amp; medications</h3>
+    <div class="gapfill" id="g3" style="background:#fffaef;border-left:4px solid #FF7A45;padding:14px 18px;border-radius:0 10px 10px 0;font-family:Georgia,serif;line-height:2;font-size:.96rem">
+      <p>1. Strong medicines require a <input data-a="prescription" style="width:160px"> from your doctor.</p>
+      <p>2. You can buy <input data-a="OTC" style="width:100px"> drugs without seeing a doctor.</p>
+      <p>3. The <input data-a="generic" style="width:120px"> version costs less but works the same.</p>
+      <p>4. This medicine may cause <input data-a="side effects" style="width:160px"> like dizziness.</p>
+      <p>5. The <input data-a="dosage" style="width:120px"> instructions say take one pill every 8 hours.</p>
+      <p>6. For allergies, you can take <input data-a="antihistamines" style="width:160px">.</p>
+      <button class="med-check" data-target="g3" style="font:800 11px/1 monospace;letter-spacing:.1em;text-transform:uppercase;background:#FF7A45;color:#fff;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;margin-top:10px">Check</button><span class="med-res" id="g3-res" style="margin-left:12px;font:800 .8rem/1 monospace;color:#666"></span>
+    </div>
+
+    <h3 style="color:#FF5A1F;margin-top:18px">4️⃣ Symptoms &amp; conditions</h3>
+    <div class="gapfill" id="g4" style="background:#fffaef;border-left:4px solid #FF7A45;padding:14px 18px;border-radius:0 10px 10px 0;font-family:Georgia,serif;line-height:2;font-size:.96rem">
+      <p>1. If your <input data-a="throat" style="width:100px"> hurts when swallowing, you might be sick.</p>
+      <p>2. A high <input data-a="fever" style="width:100px"> means your body is fighting infection.</p>
+      <p>3. She has a terrible <input data-a="headache" style="width:120px"> and needs to rest.</p>
+      <p>4. After eating bad food, he had <input data-a="nausea" style="width:120px"> all night.</p>
+      <p>5. The child fell and has a <input data-a="cast" style="width:100px"> on his arm.</p>
+      <p>6. Pollen causes a <input data-a="runny nose" style="width:140px"> for many people.</p>
+      <button class="med-check" data-target="g4" style="font:800 11px/1 monospace;letter-spacing:.1em;text-transform:uppercase;background:#FF7A45;color:#fff;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;margin-top:10px">Check</button><span class="med-res" id="g4-res" style="margin-left:12px;font:800 .8rem/1 monospace;color:#666"></span>
+    </div>
+
+    <h3 style="color:#FF5A1F;margin-top:18px">5️⃣ First-aid kit items</h3>
+    <div class="gapfill" id="g5" style="background:#fffaef;border-left:4px solid #FF7A45;padding:14px 18px;border-radius:0 10px 10px 0;font-family:Georgia,serif;line-height:2;font-size:.96rem">
+      <p>1. Clean cuts with <input data-a="antiseptic wipes" style="width:180px"> before covering them.</p>
+      <p>2. Cover small wounds with <input data-a="plasters" style="width:140px">.</p>
+      <p>3. For serious bleeding, use <input data-a="gauze pads" style="width:140px"> to stop it.</p>
+      <p>4. Secure bandages with <input data-a="medical tape" style="width:160px">.</p>
+      <p>5. Check temperature with a <input data-a="thermometer" style="width:160px">.</p>
+      <p>6. Put <input data-a="hydrocortisone cream" style="width:200px"> on itchy insect bites.</p>
+      <button class="med-check" data-target="g5" style="font:800 11px/1 monospace;letter-spacing:.1em;text-transform:uppercase;background:#FF7A45;color:#fff;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;margin-top:10px">Check</button><span class="med-res" id="g5-res" style="margin-left:12px;font:800 .8rem/1 monospace;color:#666"></span>
+    </div>
+
+    <h3 style="color:#FF5A1F;margin-top:18px">6️⃣ Insurance terms</h3>
+    <div class="gapfill" id="g6" style="background:#fffaef;border-left:4px solid #FF7A45;padding:14px 18px;border-radius:0 10px 10px 0;font-family:Georgia,serif;line-height:2;font-size:.96rem">
+      <p>1. Some treatments need <input data-a="prior authorization" style="width:180px"> before they're covered.</p>
+      <p>2. That hospital is <input data-a="out-of-network" style="width:160px">, so it costs more.</p>
+      <p>3. They sent a <input data-a="claim denial" style="width:140px"> saying they won't pay the bill.</p>
+      <p>4. My <input data-a="copay" style="width:100px"> is $25 for each doctor's visit.</p>
+      <p>5. We need to file an <input data-a="appeal" style="width:120px"> to challenge their decision.</p>
+      <p>6. The <input data-a="insurance claim" style="width:160px"> process can take several weeks.</p>
+      <button class="med-check" data-target="g6" style="font:800 11px/1 monospace;letter-spacing:.1em;text-transform:uppercase;background:#FF7A45;color:#fff;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;margin-top:10px">Check</button><span class="med-res" id="g6-res" style="margin-left:12px;font:800 .8rem/1 monospace;color:#666"></span>
+    </div>
+
+  </div>
+</section>
+<style>
+.gapfill input{font:600 .94rem Georgia,serif;background:#fff;color:#1a1a1a;border:1.5px solid #c9a96e;border-radius:6px;padding:3px 8px;outline:none;text-align:center;margin:0 3px}
+.gapfill input.right{background:#d4edda;border-color:#28a745;color:#155724}
+.gapfill input.wrong{background:#f8d7da;border-color:#dc3545;color:#721c24}
+</style>
+<script>
+document.querySelectorAll('button.med-check').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const box = document.getElementById(btn.dataset.target);
+    if (!box) return;
+    const inputs = box.querySelectorAll('input[data-a]');
+    let ok = 0;
+    inputs.forEach(i => {
+      const v = (i.value||'').trim().toLowerCase();
+      const a = (i.dataset.a||'').toLowerCase();
+      i.classList.remove('right','wrong');
+      if (v === a) { i.classList.add('right'); ok++; } else i.classList.add('wrong');
+    });
+    const res = document.getElementById(btn.dataset.target + '-res');
+    if (res) res.textContent = ok + ' / ' + inputs.length;
+  });
+});
+</script>
+
+<!-- BLOCK 11 · TRAVEL INSURANCE VOCAB -->
+<section class="section" id="block-11">
+  <div class="section-head"><div class="n">11</div><h2>Travel insurance · vocab match<span class="section-tag">Insurance B2</span></h2></div>
+  <div class="section-sub">Tap the term on the left, then the definition on the right.</div>
+  <div class="card">
+    <div class="match-cols" style="display:grid;grid-template-columns:1fr 1.5fr;gap:12px">
+      <div id="ins-left"></div>
+      <div id="ins-right"></div>
+    </div>
+    <script type="application/json" id="ins-data">[
+      {"w":"Travel insurance","d":"covers unexpected events during a trip — illness, accidents, cancellations"},
+      {"w":"Policyholder","d":"the person who owns the insurance policy"},
+      {"w":"Claim","d":"a formal request to get money back from your insurer"},
+      {"w":"Reimbursement","d":"the money paid back to you after you spend it (e.g., for medication)"},
+      {"w":"Excess / Deductible","d":"the amount you pay out of pocket before insurance pays"},
+      {"w":"Coverage","d":"what is included in your insurance plan"},
+      {"w":"Pre-existing condition","d":"a medical issue you already had before the trip"},
+      {"w":"Proof of purchase","d":"a receipt or document showing what you paid for"},
+      {"w":"Insurance provider","d":"the company giving you the insurance"},
+      {"w":"Claim form","d":"the official document you fill in to get reimbursement"}
+    ]</script>
+  </div>
+</section>
+
+<!-- BLOCK 12 · HOSPITAL STORIES · 3 LISTENING-STYLE GAP-FILLS -->
+<section class="section" id="block-12">
+  <div class="section-head"><div class="n">12</div><h2>Hospital abroad · 3 stories<span class="section-tag">Reading + gap-fill</span></h2></div>
+  <div class="section-sub">Read each story and fill the gaps. Use the buttons under each text to check.</div>
+  <div class="card">
+
+    <h3 style="color:#FF5A1F">🇯🇵 1. Anna in Japan · sushi surprise</h3>
+    <div class="gapfill" id="story-anna" style="background:#fffaef;border-left:4px solid #FF7A45;padding:14px 18px;border-radius:0 10px 10px 0;font-family:Georgia,serif;line-height:1.9">
+      Anna was visiting Tokyo on vacation. On her <input data-a="second day" style="width:130px">, she had dinner at a small sushi restaurant. A few hours later, her lips started <input data-a="swelling" style="width:120px">, and she felt <input data-a="dizzy" style="width:100px">. Her friend called an <input data-a="ambulance" style="width:120px">, and she was taken to the nearest hospital.
+      At the <input data-a="ER" style="width:80px">, the doctor asked if she had any known allergies. Anna said she wasn't sure, but she had never eaten <input data-a="shellfish" style="width:120px"> before. It turned out she had an <input data-a="allergic reaction" style="width:160px"> to shellfish.
+      The doctors treated her quickly, and she stayed in the hospital for one night. Luckily, she had <input data-a="travel insurance" style="width:160px">, so everything was covered.
+      <button class="med-check" data-target="story-anna" style="font:800 11px/1 monospace;letter-spacing:.1em;text-transform:uppercase;background:#FF7A45;color:#fff;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;margin-top:10px">Check</button><span class="med-res" id="story-anna-res" style="margin-left:12px;font:800 .8rem/1 monospace;color:#666"></span>
+    </div>
+
+    <h3 style="color:#FF5A1F;margin-top:18px">🇩🇪 2. Omar in Berlin · twisted ankle</h3>
+    <div class="gapfill" id="story-omar" style="background:#fffaef;border-left:4px solid #FF7A45;padding:14px 18px;border-radius:0 10px 10px 0;font-family:Georgia,serif;line-height:1.9">
+      Omar was in Berlin for a student exchange program. One weekend, he played football and twisted his <input data-a="ankle" style="width:100px"> badly.
+      He couldn't walk and had to go to the hospital. At reception, nobody spoke English very well, so he used a <input data-a="translation app" style="width:160px"> to explain what had happened.
+      The doctor sent him for an <input data-a="X-ray" style="width:100px">. He had a minor <input data-a="fracture" style="width:120px"> and was given <input data-a="crutches" style="width:120px"> and painkillers.
+      The hospital asked for his <input data-a="European Health Insurance Card" style="width:240px">, which he luckily had with him.
+      <button class="med-check" data-target="story-omar" style="font:800 11px/1 monospace;letter-spacing:.1em;text-transform:uppercase;background:#FF7A45;color:#fff;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;margin-top:10px">Check</button><span class="med-res" id="story-omar-res" style="margin-left:12px;font:800 .8rem/1 monospace;color:#666"></span>
+    </div>
+
+    <h3 style="color:#FF5A1F;margin-top:18px">🇲🇽 3. Lucia in Mexico · food poisoning</h3>
+    <div class="gapfill" id="story-lucia" style="background:#fffaef;border-left:4px solid #FF7A45;padding:14px 18px;border-radius:0 10px 10px 0;font-family:Georgia,serif;line-height:1.9">
+      Lucia was <input data-a="volunteering" style="width:140px"> in a small town in Mexico. One evening, she <input data-a="ate" style="width:80px"> some street tacos and woke up in the night with <input data-a="stomach pain" style="width:140px">, vomiting, and a high fever.
+      She was taken to the local hospital by her <input data-a="host family" style="width:140px">. The hospital was clean but small, and most of the staff only spoke Spanish.
+      Lucia used basic Spanish and hand gestures to explain her symptoms. They gave her an <input data-a="IV drip" style="width:120px"> and some medicine.
+      She didn't have insurance, so she had to pay in cash – about 70 dollars. She recovered quickly and learned to be more careful with <input data-a="street food" style="width:140px">.
+      <button class="med-check" data-target="story-lucia" style="font:800 11px/1 monospace;letter-spacing:.1em;text-transform:uppercase;background:#FF7A45;color:#fff;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;margin-top:10px">Check</button><span class="med-res" id="story-lucia-res" style="margin-left:12px;font:800 .8rem/1 monospace;color:#666"></span>
+    </div>
+  </div>
+</section>
+
+<!-- BLOCK 13 · INSURANCE CASE STUDIES · MARIA / DAVID / AISHA -->
+<section class="section" id="block-13">
+  <div class="section-head"><div class="n">13</div><h2>Insurance battles · 3 case studies<span class="section-tag">Storytelling + claim vocab</span></h2></div>
+  <div class="section-sub">Three real-life appeal stories. Read each, fill the gaps, then discuss what you would do.</div>
+  <div class="card">
+
+    <h3 style="color:#FF5A1F">1️⃣ Maria vs. the "out-of-network" trap</h3>
+    <div class="gapfill" id="story-maria" style="background:#fffaef;border-left:4px solid #FF7A45;padding:14px 18px;border-radius:0 10px 10px 0;font-family:Georgia,serif;line-height:1.9">
+      "I needed <input data-a="a specialized blood test" style="width:200px">, and my doctor sent me to LabCorp. When I got the bill — $1,200! — my insurance denied it because LabCorp wasn't in-network. But here's the catch: NO <input data-a="in-network labs" style="width:160px"> in my area offered this test!
+      I called my insurer 3 times. First call: 'Sorry, rules are rules.' Second call: I <input data-a="demanded a supervisor" style="width:200px">. Third call: sent proof of calling 5 other labs.
+      Result: after 3 weeks, they agreed to cover 80%! Lesson: if no in-network option exists, FIGHT — with <input data-a="receipts" style="width:120px">!"
+      <button class="med-check" data-target="story-maria" style="font:800 11px/1 monospace;letter-spacing:.1em;text-transform:uppercase;background:#FF7A45;color:#fff;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;margin-top:10px">Check</button><span class="med-res" id="story-maria-res" style="margin-left:12px;font:800 .8rem/1 monospace;color:#666"></span>
+    </div>
+
+    <h3 style="color:#FF5A1F;margin-top:18px">2️⃣ David's ER nightmare · "not an emergency"?</h3>
+    <div class="gapfill" id="story-david" style="background:#fffaef;border-left:4px solid #FF7A45;padding:14px 18px;border-radius:0 10px 10px 0;font-family:Georgia,serif;line-height:1.9">
+      "One night I woke up with <input data-a="crushing chest pain" style="width:200px"> and couldn't breathe. Rushed to the ER — turned out to be <input data-a="a severe panic attack" style="width:220px">, but the doctor said it could've been a heart attack.
+      Then the bill came: $3,500. Insurance denied it, saying '<input data-a="non-emergency" style="width:140px">.' Are you kidding?!
+      My move: got my ER doctor to write a letter — 'Symptoms matched life-threatening conditions.' Filed an appeal with the state insurance board.
+      Result: 2 months later — <input data-a="FULL COVERAGE" style="width:160px">! Lesson: doctors' notes are GOLD. Never take 'no' from a call center!"
+      <button class="med-check" data-target="story-david" style="font:800 11px/1 monospace;letter-spacing:.1em;text-transform:uppercase;background:#FF7A45;color:#fff;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;margin-top:10px">Check</button><span class="med-res" id="story-david-res" style="margin-left:12px;font:800 .8rem/1 monospace;color:#666"></span>
+    </div>
+
+    <h3 style="color:#FF5A1F;margin-top:18px">3️⃣ Aisha's MRI saga · missing paperwork</h3>
+    <div class="gapfill" id="story-aisha" style="background:#fffaef;border-left:4px solid #FF7A45;padding:14px 18px;border-radius:0 10px 10px 0;font-family:Georgia,serif;line-height:1.9">
+      "My <input data-a="GP" style="width:80px"> ordered an MRI for my <input data-a="chronic back pain" style="width:180px">. The hospital did it, but… surprise! $2,800 denial because my doctor 'forgot' to get <input data-a="pre-authorization" style="width:180px">.
+      How I won: called the hospital's <input data-a="billing department" style="width:160px">. They admitted it was THEIR job to remind doctors. They wrote an appeal letter for me: '<input data-a="Our fault, not the patient's" style="width:240px">.' Sent it to insurance with a complaint to my state's health commissioner.
+      Result: 6 weeks later — paid in full! Lesson: hospitals can be your <input data-a="allies" style="width:100px">. Make them work for YOU!"
+      <button class="med-check" data-target="story-aisha" style="font:800 11px/1 monospace;letter-spacing:.1em;text-transform:uppercase;background:#FF7A45;color:#fff;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;margin-top:10px">Check</button><span class="med-res" id="story-aisha-res" style="margin-left:12px;font:800 .8rem/1 monospace;color:#666"></span>
+    </div>
+
+    <h3 style="color:#FF5A1F;margin-top:24px">💬 Discussion · pick 3 questions</h3>
+    <ol style="line-height:2;font-size:.96rem;padding-left:22px;color:#3a2e1a">
+      <li>Have you ever had to deal with an insurance claim denial? What happened?</li>
+      <li>Would you fight a denied claim, or just pay to avoid hassle? Why?</li>
+      <li>Which of the three stories (Maria, David, Aisha) surprises you most? Why?</li>
+      <li>Should hospitals be responsible for insurance paperwork mistakes?</li>
+      <li>Is private insurance fair, or should healthcare be universal?</li>
+      <li>If your $5,000 surgery was denied but appealing meant 10+ hours of paperwork — would you do it?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- Match-game wiring for blocks 8, 9, 11 -->
+<script>
+(function(){
+  function buildMatch(dataId, leftId, rightId){
+    const data = JSON.parse(document.getElementById(dataId).textContent);
+    const shuffle = arr => arr.map(v=>[Math.random(),v]).sort((a,b)=>a[0]-b[0]).map(p=>p[1]);
+    const L = document.getElementById(leftId), R = document.getElementById(rightId);
+    shuffle(data.slice()).forEach(d=>{ const c=document.createElement('div'); c.className='match-card'; c.style.cssText='background:#fff;border:1.5px solid #c9a96e;color:#3a2e1a;padding:10px 14px;border-radius:10px;cursor:pointer;font-size:.92rem;margin-bottom:8px;transition:.18s;font-weight:700'; c.textContent=d.w; c.dataset.k=d.w; L.appendChild(c); });
+    shuffle(data.slice()).forEach(d=>{ const c=document.createElement('div'); c.className='match-card'; c.style.cssText='background:#fff;border:1.5px solid #c9a96e;color:#3a2e1a;padding:10px 14px;border-radius:10px;cursor:pointer;font-size:.86rem;margin-bottom:8px;transition:.18s'; c.textContent=d.d; c.dataset.k=d.w; R.appendChild(c); });
+    let sel=null;
+    [L,R].forEach(col => col.addEventListener('click', e => {
+      const c = e.target.closest('.match-card'); if (!c) return;
+      if (c.classList.contains('matched')) return;
+      if (!sel) { sel=c; c.style.background='rgba(66,165,245,.2)'; c.style.borderColor='#42a5f5'; return; }
+      if (sel===c) { sel.style.background='#fff'; sel.style.borderColor='#c9a96e'; sel=null; return; }
+      if (sel.parentElement===c.parentElement) { sel.style.background='#fff'; sel.style.borderColor='#c9a96e'; sel=c; c.style.background='rgba(66,165,245,.2)'; c.style.borderColor='#42a5f5'; return; }
+      if (sel.dataset.k===c.dataset.k) {
+        sel.classList.add('matched'); c.classList.add('matched');
+        sel.style.background='#d4edda'; sel.style.borderColor='#28a745'; sel.style.color='#155724'; sel.style.opacity='.85';
+        c.style.background='#d4edda'; c.style.borderColor='#28a745'; c.style.color='#155724'; c.style.opacity='.85';
+        sel=null;
+      } else {
+        c.style.background='#f8d7da'; c.style.borderColor='#dc3545';
+        setTimeout(()=>{ c.style.background='#fff'; c.style.borderColor='#c9a96e'; sel.style.background='#fff'; sel.style.borderColor='#c9a96e'; sel=null; }, 500);
+      }
+    }));
+  }
+  buildMatch('docs-data','docs-left','docs-right');
+  buildMatch('facil-data','facil-left','facil-right');
+  buildMatch('ins-data','ins-left','ins-right');
+})();
+</script>
+
 <!-- CTA -->
 <section class="section">
   <div class="cta-card">
