@@ -1,11 +1,9 @@
-/* lab-sync.js — Supabase Realtime two-way sync for Lab lessons.
-   Teacher and student joined to the same channel see each other's:
-     • TOC clicks (one scrolls → other scrolls)
-     • Section submits + scores
-   Cross-device: phone, tablet, Yandex, Chrome — single channel via URL ?sync=<roomId>.
-
-   Activation: open URL with ?sync=<roomId>&role=teacher|student
-   Without ?sync=, the script is a no-op (regular solo lesson). */
+/* lab-sync.js v3 — Realtime sync (optional) + always-on persist to Supabase.
+   • С URL ?sync=<roomId>&role=teacher|student — двусторонняя live-комната
+     (TOC scroll, dom-state, section-submit broadcast).
+   • Без ?sync — solo-mode: ничего не транслируется, но КАЖДЫЙ submit пишется
+     в Supabase lab_submissions с stable per-browser solo-id. Маша видит
+     аналитику по всем ученикам в teacher-lab.html. */
 (function(){
   if (window.__labSyncLoaded) return;
   window.__labSyncLoaded = true;
@@ -18,9 +16,24 @@
     return m ? decodeURIComponent(m[1]) : null;
   }
 
-  var roomId = qs('sync');
-  if (!roomId) return; // solo mode — no sync
-  var role = qs('role') || 'student';
+  var syncParam = qs('sync');
+  var soloMode  = !syncParam;
+  var role      = qs('role') || (soloMode ? 'solo' : 'student');
+  var roomId;
+  if (soloMode) {
+    try {
+      var stored = localStorage.getItem('lab-solo-id');
+      if (!stored) {
+        stored = 'solo-' + Math.random().toString(36).slice(2,10);
+        localStorage.setItem('lab-solo-id', stored);
+      }
+      roomId = stored;
+    } catch(e) {
+      roomId = 'solo-' + Date.now().toString(36);
+    }
+  } else {
+    roomId = syncParam;
+  }
 
   function loadSDK(){
     return new Promise(function(resolve, reject){
@@ -51,182 +64,169 @@
   }
 
   ready(function(){
-    var statusBadge = badge('🔌 connecting…', '#6b7280');
+    var statusBadge = soloMode ? null : badge('🔌 connecting…', '#6b7280');
 
     loadSDK().then(function(sb){
-      var client = sb.createClient(SUPABASE_URL, SUPABASE_ANON);
-      var channel = client.channel('lab-sync:'+roomId, {
-        config: { broadcast: { self: false } }
-      });
-
-      var sectionEls = [];
-      var observer = null;
+      var client  = sb.createClient(SUPABASE_URL, SUPABASE_ANON);
+      var channel = null;
       var muteOutgoing = false;
 
-      // --- Incoming events ---
-      channel
-        .on('broadcast', { event: 'scroll-to' }, function(payload){
-          var p = payload.payload || {};
-          var el = document.getElementById(p.id);
-          if (el) {
-            muteOutgoing = true;
-            el.scrollIntoView({ behavior:'smooth', block:'start' });
-            setTimeout(function(){ muteOutgoing = false; }, 1200);
-          }
-        })
-        .on('broadcast', { event: 'section-submit' }, function(payload){
-          var p = payload.payload || {};
-          if (role !== 'teacher') return; // teacher sees student's submits
-          var note = badge('📋 '+p.role+' сдал '+p.section+' · '+p.score+'/'+p.total, '#0033A0');
-          setTimeout(function(){ note.remove(); }, 5000);
-        })
-        .subscribe(function(status){
-          if (status === 'SUBSCRIBED') {
-            statusBadge.textContent = '🟢 '+role+' · room '+roomId;
-            statusBadge.style.background = role === 'teacher' ? '#D52B1E' : '#2E7D32';
-          } else if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
-            statusBadge.textContent = '🔴 sync error';
-            statusBadge.style.background = '#6b7280';
-          }
+      if (!soloMode) {
+        channel = client.channel('lab-sync:'+roomId, {
+          config: { broadcast: { self: false } }
         });
 
-      // --- Live DOM-state sync · каждое действие ученика → у учителя ---
-      // Передаём изменения классов (.right/.wrong/.filled/.matched/.correct/.selected)
-      // и значения input/textarea на tracked-элементах.
-      // Учитель применяет то же самое к своему DOM.
-      var TRACK_SEL = '.gap,.match-item,.match-card,.mcq-opts button,.mc-opts button,' +
-        '.tfns-row button,.mc-item button,.wf-row input,.gapfill input,.bank-word,' +
-        '.classify-item,.ord-pill,.predict-card,.choice-card,.vocab-card,.dict-input,' +
-        '.builder button,textarea,.match-row select';
-      var TRACK_CLASSES = ['right','wrong','filled','matched','correct','selected',
-        'used','revealed','flipped','picked','show','shown','sel','ok','hit'];
-
-      function pathOf(el){
-        // Стабильный path по id или index chain до section[id]
-        if (!el || el === document.body) return null;
-        if (el.id) return '#'+el.id;
-        var parts = [];
-        var n = el;
-        while (n && n !== document.body) {
-          var p = n.parentElement;
-          if (!p) return null;
-          var idx = Array.prototype.indexOf.call(p.children, n);
-          parts.unshift(idx);
-          if (p.id) { parts.unshift('#'+p.id); return parts.join('/'); }
-          if (p.tagName === 'SECTION' && p.id) { parts.unshift('#'+p.id); return parts.join('/'); }
-          n = p;
-        }
-        return null;
-      }
-      function resolve(path){
-        if (!path) return null;
-        var parts = path.split('/');
-        var first = parts.shift();
-        var root = first[0] === '#' ? document.getElementById(first.slice(1)) : null;
-        if (!root) return null;
-        var n = root;
-        for (var i=0; i<parts.length; i++){
-          var idx = parseInt(parts[i], 10);
-          if (isNaN(idx)) continue;
-          n = n.children[idx];
-          if (!n) return null;
-        }
-        return n;
-      }
-      function pickFlags(el){
-        var keep = [];
-        if (!el.classList) return keep;
-        for (var i=0; i<TRACK_CLASSES.length; i++) {
-          if (el.classList.contains(TRACK_CLASSES[i])) keep.push(TRACK_CLASSES[i]);
-        }
-        return keep;
-      }
-
-      var sendThrottle = {}; // path -> last-sent-ts
-      function maybeSend(el){
-        var path = pathOf(el);
-        if (!path) return;
-        var now = Date.now();
-        if (sendThrottle[path] && now - sendThrottle[path] < 120) return;
-        sendThrottle[path] = now;
-        var payload = { path: path, classes: pickFlags(el) };
-        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') payload.value = el.value || '';
-        if (el.tagName === 'SELECT') payload.value = el.value || '';
-        if (el.textContent && el.matches && (el.matches('.gap') || el.matches('.match-item'))) {
-          payload.text = el.textContent.slice(0, 80);
-        }
-        channel.send({ type:'broadcast', event:'dom-state', payload: payload });
-      }
-
-      // Apply incoming state
-      channel.on('broadcast', { event:'dom-state' }, function(p){
-        var data = p.payload || {};
-        var el = resolve(data.path);
-        if (!el) return;
-        muteOutgoing = true;
-        // Reset tracked classes then re-apply
-        TRACK_CLASSES.forEach(function(c){ if (el.classList) el.classList.remove(c); });
-        (data.classes || []).forEach(function(c){ el.classList && el.classList.add(c); });
-        if ('value' in data && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT')) {
-          el.value = data.value;
-        }
-        if (data.text && el.matches && (el.matches('.gap') || el.matches('.match-item'))) {
-          el.textContent = data.text;
-        }
-        setTimeout(function(){ muteOutgoing = false; }, 200);
-      });
-
-      // Watch classList changes on tracked elements
-      function bindLiveSync(){
-        var nodes = document.querySelectorAll(TRACK_SEL);
-        nodes.forEach(function(el){
-          if (el.__syncBound) return;
-          el.__syncBound = true;
-          var mo = new MutationObserver(function(){
-            if (muteOutgoing) return;
-            maybeSend(el);
-          });
-          mo.observe(el, { attributes:true, attributeFilter:['class'], childList:true, characterData:true, subtree:true });
-          // input/textarea also fire on input
-          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') {
-            el.addEventListener('input', function(){ if (!muteOutgoing) maybeSend(el); });
-            el.addEventListener('change', function(){ if (!muteOutgoing) maybeSend(el); });
-          }
-        });
-      }
-      bindLiveSync();
-      // Re-bind when DOM grows (sym-grid, dynamic content)
-      var bodyObs = new MutationObserver(function(){ bindLiveSync(); });
-      bodyObs.observe(document.body, { childList:true, subtree:true });
-
-      // --- Outgoing: TOC click broadcasts scroll target ---
-      function bindTocBroadcast(){
-        var toc = document.querySelector('.lp-toc');
-        if (!toc) {
-          // Lab-pilot hasn't created TOC yet — wait
-          return setTimeout(bindTocBroadcast, 300);
-        }
-        sectionEls = [].slice.call(document.querySelectorAll('section.section'));
-        toc.querySelectorAll('.lp-toc-btn').forEach(function(btn, i){
-          btn.addEventListener('click', function(){
-            if (muteOutgoing) return;
-            var sec = sectionEls[i];
-            if (sec && sec.id) {
-              channel.send({
-                type: 'broadcast', event: 'scroll-to',
-                payload: { id: sec.id, idx: i, role: role }
-              });
+        channel
+          .on('broadcast', { event: 'scroll-to' }, function(payload){
+            var p = payload.payload || {};
+            var el = document.getElementById(p.id);
+            if (el) {
+              muteOutgoing = true;
+              el.scrollIntoView({ behavior:'smooth', block:'start' });
+              setTimeout(function(){ muteOutgoing = false; }, 1200);
             }
-          }, true);
-        });
-      }
-      bindTocBroadcast();
+          })
+          .on('broadcast', { event: 'section-submit' }, function(payload){
+            var p = payload.payload || {};
+            if (role !== 'teacher') return;
+            var note = badge('📋 '+p.role+' сдал '+p.section+' · '+p.score+'/'+p.total, '#0033A0');
+            setTimeout(function(){ note.remove(); }, 5000);
+          })
+          .subscribe(function(status){
+            if (status === 'SUBSCRIBED') {
+              statusBadge.textContent = '🟢 '+role+' · room '+roomId;
+              statusBadge.style.background = role === 'teacher' ? '#D52B1E' : '#2E7D32';
+            } else if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
+              statusBadge.textContent = '🔴 sync error';
+              statusBadge.style.background = '#6b7280';
+            }
+          });
 
-      // --- Outgoing: Submit · broadcast live + persist to Supabase ---
+        var TRACK_SEL = '.gap,.match-item,.match-card,.mcq-opts button,.mc-opts button,' +
+          '.tfns-row button,.mc-item button,.wf-row input,.gapfill input,.bank-word,' +
+          '.classify-item,.ord-pill,.predict-card,.choice-card,.vocab-card,.dict-input,' +
+          '.builder button,textarea,.match-row select';
+        var TRACK_CLASSES = ['right','wrong','filled','matched','correct','selected',
+          'used','revealed','flipped','picked','show','shown','sel','ok','hit'];
+
+        function pathOf(el){
+          if (!el || el === document.body) return null;
+          if (el.id) return '#'+el.id;
+          var parts = [];
+          var n = el;
+          while (n && n !== document.body) {
+            var p = n.parentElement;
+            if (!p) return null;
+            var idx = Array.prototype.indexOf.call(p.children, n);
+            parts.unshift(idx);
+            if (p.id) { parts.unshift('#'+p.id); return parts.join('/'); }
+            if (p.tagName === 'SECTION' && p.id) { parts.unshift('#'+p.id); return parts.join('/'); }
+            n = p;
+          }
+          return null;
+        }
+        function resolve(path){
+          if (!path) return null;
+          var parts = path.split('/');
+          var first = parts.shift();
+          var root = first[0] === '#' ? document.getElementById(first.slice(1)) : null;
+          if (!root) return null;
+          var n = root;
+          for (var i=0; i<parts.length; i++){
+            var idx = parseInt(parts[i], 10);
+            if (isNaN(idx)) continue;
+            n = n.children[idx];
+            if (!n) return null;
+          }
+          return n;
+        }
+        function pickFlags(el){
+          var keep = [];
+          if (!el.classList) return keep;
+          for (var i=0; i<TRACK_CLASSES.length; i++) {
+            if (el.classList.contains(TRACK_CLASSES[i])) keep.push(TRACK_CLASSES[i]);
+          }
+          return keep;
+        }
+
+        var sendThrottle = {};
+        function maybeSend(el){
+          var path = pathOf(el);
+          if (!path) return;
+          var now = Date.now();
+          if (sendThrottle[path] && now - sendThrottle[path] < 120) return;
+          sendThrottle[path] = now;
+          var payload = { path: path, classes: pickFlags(el) };
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') payload.value = el.value || '';
+          if (el.tagName === 'SELECT') payload.value = el.value || '';
+          if (el.textContent && el.matches && (el.matches('.gap') || el.matches('.match-item'))) {
+            payload.text = el.textContent.slice(0, 80);
+          }
+          channel.send({ type:'broadcast', event:'dom-state', payload: payload });
+        }
+
+        channel.on('broadcast', { event:'dom-state' }, function(p){
+          var data = p.payload || {};
+          var el = resolve(data.path);
+          if (!el) return;
+          muteOutgoing = true;
+          TRACK_CLASSES.forEach(function(c){ if (el.classList) el.classList.remove(c); });
+          (data.classes || []).forEach(function(c){ el.classList && el.classList.add(c); });
+          if ('value' in data && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT')) {
+            el.value = data.value;
+          }
+          if (data.text && el.matches && (el.matches('.gap') || el.matches('.match-item'))) {
+            el.textContent = data.text;
+          }
+          setTimeout(function(){ muteOutgoing = false; }, 200);
+        });
+
+        function bindLiveSync(){
+          var nodes = document.querySelectorAll(TRACK_SEL);
+          nodes.forEach(function(el){
+            if (el.__syncBound) return;
+            el.__syncBound = true;
+            var mo = new MutationObserver(function(){
+              if (muteOutgoing) return;
+              maybeSend(el);
+            });
+            mo.observe(el, { attributes:true, attributeFilter:['class'], childList:true, characterData:true, subtree:true });
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') {
+              el.addEventListener('input', function(){ if (!muteOutgoing) maybeSend(el); });
+              el.addEventListener('change', function(){ if (!muteOutgoing) maybeSend(el); });
+            }
+          });
+        }
+        bindLiveSync();
+        var bodyObs = new MutationObserver(function(){ bindLiveSync(); });
+        bodyObs.observe(document.body, { childList:true, subtree:true });
+
+        function bindTocBroadcast(){
+          var toc = document.querySelector('.lp-toc');
+          if (!toc) return setTimeout(bindTocBroadcast, 300);
+          var sectionEls = [].slice.call(document.querySelectorAll('section.section'));
+          toc.querySelectorAll('.lp-toc-btn').forEach(function(btn, i){
+            btn.addEventListener('click', function(){
+              if (muteOutgoing) return;
+              var sec = sectionEls[i];
+              if (sec && sec.id) {
+                channel.send({
+                  type: 'broadcast', event: 'scroll-to',
+                  payload: { id: sec.id, idx: i, role: role }
+                });
+              }
+            }, true);
+          });
+        }
+        bindTocBroadcast();
+      } // end if !soloMode
+
+      // --- Submit handler — работает В ОБОИХ режимах.
+      //     Solo: только persist в lab_submissions.
+      //     Sync: broadcast + persist.
       document.addEventListener('click', function(e){
         var b = e.target.closest('.lp-submit');
         if (!b) return;
-        // Wait until lab-pilot renders the report
         setTimeout(async function(){
           var sec = b.closest('section.section');
           if (!sec) return;
@@ -244,9 +244,9 @@
             section_id: sec.id, section_title: title.slice(0,80),
             score: +m[1], total: +m[2], role: role, ts: Date.now()
           };
-          // Live broadcast
-          channel.send({ type:'broadcast', event:'section-submit', payload: payload });
-          // Persist (history)
+          if (channel) {
+            channel.send({ type:'broadcast', event:'section-submit', payload: payload });
+          }
           try {
             await client.from('lab_submissions').insert({
               room_id: roomId,
@@ -261,8 +261,10 @@
         }, 400);
       });
     }).catch(function(err){
-      statusBadge.textContent = '🔴 '+err.message;
-      statusBadge.style.background = '#6b7280';
+      if (statusBadge) {
+        statusBadge.textContent = '🔴 '+err.message;
+        statusBadge.style.background = '#6b7280';
+      }
     });
   });
 })();
