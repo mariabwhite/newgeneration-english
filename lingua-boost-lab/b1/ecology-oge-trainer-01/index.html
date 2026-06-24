@@ -40,6 +40,13 @@ body{background:var(--bg);font-family:var(--body);color:var(--text);min-height:1
 .hero-card{position:relative;border:1px solid var(--line-2);border-radius:24px;overflow:hidden;
   background:linear-gradient(135deg,#0f2419 0%,#143922 40%,#1a4f2e 100%);
   box-shadow:0 10px 40px rgba(0,0,0,.4);padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px);min-height:380px}
+.hero-bg{position:absolute;inset:0;background:url("./img/hero-forest-lake.jpg") center/cover no-repeat;opacity:.42;z-index:0}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,31,23,.35) 0%,rgba(15,36,25,.78) 100%)}
+.section-img{display:block;width:100%;height:auto;max-height:300px;object-fit:cover;border-radius:14px;border:1px solid var(--line);margin:0 0 16px;box-shadow:0 6px 18px rgba(0,0,0,.32)}
+.section-img.tall{max-height:380px}
+.img-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:0 0 16px}
+@media(max-width:560px){.img-grid-2{grid-template-columns:1fr}}
+.img-grid-2 .section-img{margin:0}
 .hero-deco{position:absolute;font-size:11rem;opacity:.08;pointer-events:none}
 .hero-deco.dl{top:-30px;right:-20px}
 .hero-deco.br{bottom:-50px;left:-20px;font-size:8rem}
@@ -171,6 +178,7 @@ footer{max-width:1240px;margin:40px auto 24px;padding:0 clamp(16px,3vw,28px);tex
 
 <section class="hero">
   <div class="hero-card">
+    <div class="hero-bg" aria-hidden="true"></div>
     <div class="hero-deco dl">🌿</div>
     <div class="hero-deco br">📝</div>
     <span class="eyebrow">ОГЭ · format trainer · ecology theme</span>
@@ -255,6 +263,10 @@ footer{max-width:1240px;margin:40px auto 24px;padding:0 clamp(16px,3vw,28px);tex
   <div class="section-hdr"><div class="section-num exam">R10</div><h2>Чтение · Task 10 · Match 7 headings to 6 texts</h2></div>
   <p class="section-sub">Установите соответствие между заголовками 1-7 и текстами A-F. Один заголовок лишний.</p>
   <div class="card">
+    <div class="img-grid-2">
+      <img class="section-img" src="./img/seedling.jpg" alt="Hands holding small plant seedling in soil · urban greening, sustainability" loading="lazy">
+      <img class="section-img" src="./img/wind-turbines.jpg" alt="Wind turbines on grass field at sunset · renewable energy" loading="lazy">
+    </div>
     <span class="task-num">10</span> <span class="task-tag">Reading · headings · 6 texts + 7 headings</span>
     <p><strong>Headings:</strong></p>
     <ol style="padding-left:22px;line-height:1.8;font-size:.93rem;margin-bottom:14px">
@@ -277,6 +289,7 @@ footer{max-width:1240px;margin:40px auto 24px;padding:0 clamp(16px,3vw,28px);tex
   <div class="section-hdr"><div class="section-num exam">R11-17</div><h2>Чтение · Tasks 11-17 · True / False / Not stated · 7</h2></div>
   <p class="section-sub">Прочитайте текст. В заданиях 11-17 запишите 1 — True, 2 — False, 3 — Not stated.</p>
   <div class="card">
+    <img class="section-img tall" src="./img/pollution-forest.jpg" alt="Plastic bottles and trash scattered on forest floor · pollution" loading="lazy">
     <span class="task-num">11-17</span> <span class="task-tag">Reading · T/F/NS · 7 statements</span>
     <div class="passage">
       <p>The planet is facing a set of environmental challenges that are closely connected to the way we live, produce, and consume. Air pollution from vehicles and factories contributes to respiratory diseases and smog, especially in large cities. At the same time, greenhouse gas emissions trap heat in the atmosphere, leading to rising temperatures, more frequent extreme weather, and melting ice caps.</p>
