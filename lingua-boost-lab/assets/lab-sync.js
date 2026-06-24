@@ -90,6 +90,115 @@
           }
         });
 
+      // --- Live DOM-state sync · каждое действие ученика → у учителя ---
+      // Передаём изменения классов (.right/.wrong/.filled/.matched/.correct/.selected)
+      // и значения input/textarea на tracked-элементах.
+      // Учитель применяет то же самое к своему DOM.
+      var TRACK_SEL = '.gap,.match-item,.match-card,.mcq-opts button,.mc-opts button,' +
+        '.tfns-row button,.mc-item button,.wf-row input,.gapfill input,.bank-word,' +
+        '.classify-item,.ord-pill,.predict-card,.choice-card,.vocab-card,.dict-input,' +
+        '.builder button,textarea,.match-row select';
+      var TRACK_CLASSES = ['right','wrong','filled','matched','correct','selected',
+        'used','revealed','flipped','picked','show','shown','sel','ok','hit'];
+
+      function pathOf(el){
+        // Стабильный path по id или index chain до section[id]
+        if (!el || el === document.body) return null;
+        if (el.id) return '#'+el.id;
+        var parts = [];
+        var n = el;
+        while (n && n !== document.body) {
+          var p = n.parentElement;
+          if (!p) return null;
+          var idx = Array.prototype.indexOf.call(p.children, n);
+          parts.unshift(idx);
+          if (p.id) { parts.unshift('#'+p.id); return parts.join('/'); }
+          if (p.tagName === 'SECTION' && p.id) { parts.unshift('#'+p.id); return parts.join('/'); }
+          n = p;
+        }
+        return null;
+      }
+      function resolve(path){
+        if (!path) return null;
+        var parts = path.split('/');
+        var first = parts.shift();
+        var root = first[0] === '#' ? document.getElementById(first.slice(1)) : null;
+        if (!root) return null;
+        var n = root;
+        for (var i=0; i<parts.length; i++){
+          var idx = parseInt(parts[i], 10);
+          if (isNaN(idx)) continue;
+          n = n.children[idx];
+          if (!n) return null;
+        }
+        return n;
+      }
+      function pickFlags(el){
+        var keep = [];
+        if (!el.classList) return keep;
+        for (var i=0; i<TRACK_CLASSES.length; i++) {
+          if (el.classList.contains(TRACK_CLASSES[i])) keep.push(TRACK_CLASSES[i]);
+        }
+        return keep;
+      }
+
+      var sendThrottle = {}; // path -> last-sent-ts
+      function maybeSend(el){
+        var path = pathOf(el);
+        if (!path) return;
+        var now = Date.now();
+        if (sendThrottle[path] && now - sendThrottle[path] < 120) return;
+        sendThrottle[path] = now;
+        var payload = { path: path, classes: pickFlags(el) };
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') payload.value = el.value || '';
+        if (el.tagName === 'SELECT') payload.value = el.value || '';
+        if (el.textContent && el.matches && (el.matches('.gap') || el.matches('.match-item'))) {
+          payload.text = el.textContent.slice(0, 80);
+        }
+        channel.send({ type:'broadcast', event:'dom-state', payload: payload });
+      }
+
+      // Apply incoming state
+      channel.on('broadcast', { event:'dom-state' }, function(p){
+        var data = p.payload || {};
+        var el = resolve(data.path);
+        if (!el) return;
+        muteOutgoing = true;
+        // Reset tracked classes then re-apply
+        TRACK_CLASSES.forEach(function(c){ if (el.classList) el.classList.remove(c); });
+        (data.classes || []).forEach(function(c){ el.classList && el.classList.add(c); });
+        if ('value' in data && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT')) {
+          el.value = data.value;
+        }
+        if (data.text && el.matches && (el.matches('.gap') || el.matches('.match-item'))) {
+          el.textContent = data.text;
+        }
+        setTimeout(function(){ muteOutgoing = false; }, 200);
+      });
+
+      // Watch classList changes on tracked elements
+      function bindLiveSync(){
+        var nodes = document.querySelectorAll(TRACK_SEL);
+        nodes.forEach(function(el){
+          if (el.__syncBound) return;
+          el.__syncBound = true;
+          var mo = new MutationObserver(function(){
+            if (muteOutgoing) return;
+            maybeSend(el);
+          });
+          mo.observe(el, { attributes:true, attributeFilter:['class'], childList:true, characterData:true, subtree:true });
+          // input/textarea also fire on input
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') {
+            el.addEventListener('input', function(){ if (!muteOutgoing) maybeSend(el); });
+            el.addEventListener('change', function(){ if (!muteOutgoing) maybeSend(el); });
+          }
+        });
+      }
+      bindLiveSync();
+      // Re-bind when DOM grows (sym-grid, dynamic content)
+      var bodyObs = new MutationObserver(function(){ bindLiveSync(); });
+      bodyObs.observe(document.body, { childList:true, subtree:true });
+
       // --- Outgoing: TOC click broadcasts scroll target ---
       function bindTocBroadcast(){
         var toc = document.querySelector('.lp-toc');
