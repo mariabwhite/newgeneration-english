@@ -150,12 +150,11 @@ h1.hero-title .grad-red{color:var(--red)}
 
 /* Symbols grid */
 .sym-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px;margin:14px 0}
-.sym-card{background:#fff;border:2px solid var(--line-2);border-radius:14px;padding:16px 12px;text-align:center;cursor:pointer;transition:.18s}
-.sym-card:hover{border-color:var(--blue);transform:translateY(-2px)}
-.sym-card.flipped{background:linear-gradient(135deg,#fff,rgba(0,51,160,.04));border-color:var(--blue)}
-.sym-card .emoji{font-size:2.4rem;display:block;margin-bottom:6px}
-.sym-card .name{font-family:var(--display);font-weight:700;color:var(--ink);font-size:.95rem;margin-bottom:4px}
-.sym-card .desc{font-size:.78rem;color:var(--muted);line-height:1.4;display:none}
+.sym-card{background:#fff;border:1.5px solid var(--line-2);border-radius:14px;padding:0;text-align:center;cursor:pointer;transition:.18s;overflow:hidden}
+.sym-card:hover{border-color:var(--blue);transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,51,160,.12)}
+.sym-card.flipped{border-color:var(--blue);box-shadow:0 8px 20px rgba(0,51,160,.18)}
+.sym-card .sym-img{display:block;width:100%;height:auto;aspect-ratio:1/0.94;object-fit:cover}
+.sym-card .desc{font-size:.78rem;color:var(--muted);line-height:1.4;display:none;padding:8px 12px 12px;border-top:1px solid var(--line)}
 .sym-card.flipped .desc{display:block}
 
 /* Bio cards */
@@ -384,8 +383,8 @@ footer{max-width:1240px;margin:40px auto 24px;padding:0 clamp(16px,3vw,28px);tex
   <p class="section-sub">Official + unofficial symbols. Tap any card to see the meaning.</p>
   <div class="card">
     <div class="img-grid-2">
-      <img class="section-img" src="./img/kamchatka.jpg" alt="Kamchatka · volcanic landscape in mist" loading="lazy">
-      <img class="section-img" src="./img/baikal-veins.jpg" alt="Lake Baikal · cracked blue ice patterns" loading="lazy">
+      <img class="section-img" src="./img/kremlin-panorama.png" alt="Kremlin · Saint Basil's Cathedral · Russian flag · golden autumn" loading="lazy">
+      <img class="section-img" src="./img/russian-still-life.png" alt="Russian symbols still life · matryoshka, samovar, balalaika, valenki, ushanka, bear" loading="lazy">
     </div>
     <span class="task-tag">12 cards · flip to reveal</span>
     <div class="sym-grid" id="sym-grid"></div>
@@ -883,23 +882,23 @@ function resetGap(cardId, bankId, scoreId){
 
 // ===== 05 · Symbols grid =====
 const symbols = [
-  {e:'🇷🇺', n:'The Flag', d:'White (nobility) · Blue (honesty) · Red (courage).'},
-  {e:'🦅', n:'Coat of Arms', d:'Double-headed eagle — connection between Europe and Asia.'},
-  {e:'🪆', n:'Matryoshka', d:'Nesting dolls — symbol of motherhood and family.'},
-  {e:'🌳', n:'Birch Tree', d:'White-barked tree deeply rooted in Russian folklore.'},
-  {e:'🎵', n:'Balalaika', d:'Triangular three-stringed folk instrument.'},
-  {e:'🫖', n:'Samovar', d:'Decorated metal urn for boiling water for tea.'},
-  {e:'🐻', n:'Russian Bear', d:'National personification — strength and resilience.'},
-  {e:'🏛️', n:'The Kremlin', d:'Fortress and political heart of Moscow.'},
-  {e:'🎩', n:'Ushanka', d:'Fur hat with ear-flaps for harsh winters.'},
-  {e:'👢', n:'Valenki', d:'Traditional felt winter boots.'},
-  {e:'🎀', n:'Kokoshnik', d:'Traditional Russian female headdress.'},
-  {e:'🐟', n:'Caviar', d:'Salted fish roe — Russian delicacy.'}
+  {f:'flag',          n:'The Flag',     d:'White (nobility) · Blue (honesty) · Red (courage).'},
+  {f:'coat-of-arms',  n:'Coat of Arms', d:'Double-headed eagle — connection between Europe and Asia.'},
+  {f:'matryoshka',    n:'Matryoshka',   d:'Nesting dolls — symbol of motherhood and family.'},
+  {f:'birch-tree',    n:'Birch Tree',   d:'White-barked tree deeply rooted in Russian folklore.'},
+  {f:'balalaika',     n:'Balalaika',    d:'Triangular three-stringed folk instrument.'},
+  {f:'samovar',       n:'Samovar',      d:'Decorated metal urn for boiling water for tea.'},
+  {f:'russian-bear',  n:'Russian Bear', d:'National personification — strength and resilience.'},
+  {f:'kremlin',       n:'The Kremlin',  d:'Fortress and political heart of Moscow.'},
+  {f:'ushanka',       n:'Ushanka',      d:'Fur hat with ear-flaps for harsh winters.'},
+  {f:'valenki',       n:'Valenki',      d:'Traditional felt winter boots.'},
+  {f:'kokoshnik',     n:'Kokoshnik',    d:'Traditional Russian female headdress.'},
+  {f:'caviar',        n:'Caviar',       d:'Salted fish roe — Russian delicacy.'}
 ];
 const symEl = document.getElementById('sym-grid');
 symbols.forEach(s=>{
   const card=document.createElement('div'); card.className='sym-card';
-  card.innerHTML=`<span class="emoji">${s.e}</span><div class="name">${s.n}</div><div class="desc">${s.d}</div>`;
+  card.innerHTML=`<img class="sym-img" src="./img/symbols/${s.f}.png" alt="${s.n}" loading="lazy"><div class="desc">${s.d}</div>`;
   card.onclick=()=>{ card.classList.toggle('flipped'); say(s.n); };
   symEl.appendChild(card);
 });
