@@ -146,11 +146,25 @@
       try { localStorage.setItem(KEY, JSON.stringify(snap())); } catch(e){}
     }, 350);
   }
+  /* synchronous save — for unload / hide / blur (no debounce, guaranteed flush) */
+  function saveNow(){
+    clearTimeout(saveT);
+    try { localStorage.setItem(KEY, JSON.stringify(snap())); } catch(e){}
+  }
 
-  /* event hooks */
+  /* event hooks — debounced save on interaction */
   ['click','input','change','keyup'].forEach(function(ev){
     document.addEventListener(ev, save, true);
   });
+  /* flush save BEFORE tab closes / hides — even if 350ms debounce hasn't fired.
+     This is the main cause of "lost progress": user clicks an answer then
+     closes the tab within 350ms — debounce never fires, nothing saved. */
+  window.addEventListener('pagehide', saveNow);
+  window.addEventListener('beforeunload', saveNow);
+  document.addEventListener('visibilitychange', function(){
+    if (document.visibilityState === 'hidden') saveNow();
+  });
+  window.addEventListener('blur', saveNow);
 
   /* restore once DOM + lesson init are ready */
   function onReady(){
