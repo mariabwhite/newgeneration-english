@@ -7,14 +7,15 @@
 <title>Russia · My Homeland — OGE Trainer · LinguaBoost Lab</title>
 <meta name="description" content="B1+ OGE trainer about Russia — geography, history, symbols, biographies, Swan Lake, OGE Letter Task 35 and Speaking. Built for Daniella.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Fredoka:wght@500;700&family=Playfair+Display:wght@600;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&family=Playfair+Display:wght@600;800&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#fbfaf7;--bg-2:#f3f0e8;--surface:#ffffff;--surface-2:#fbfbf9;--card:#ffffff;
   --line:#e3deca;--line-2:#cfc7a8;--blue:#0033a0;--blue-2:#1a4cbf;--blue-3:#3a6ddb;
   --red:#d52b1e;--red-2:#e74c3c;--red-3:#fadbd8;--ink:#1a1f2e;--muted:#5a6273;--faint:#8a92a3;
   --ok:#1d8f3c;--miss:#c0392b;--gold:#c9a35c;
-  --display:'Fredoka','Nunito',sans-serif;--body:'Nunito',sans-serif;--mono:'SFMono-Regular',Consolas,monospace;
+  --display:'Unbounded','Manrope',system-ui,sans-serif;--body:'Manrope',system-ui,sans-serif;--mono:'JetBrains Mono',Consolas,monospace;
   --serif:'Playfair Display',Georgia,serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -43,6 +44,16 @@ body{background:var(--bg);font-family:var(--body);color:var(--ink);min-height:10
 .hero-stripes .s1{background:#fff}
 .hero-stripes .s2{background:linear-gradient(180deg,rgba(0,51,160,.12),rgba(0,51,160,.18))}
 .hero-stripes .s3{background:linear-gradient(180deg,rgba(213,43,30,.12),rgba(213,43,30,.18))}
+.hero-bg{position:absolute;inset:0;background:url("./img/hero-russia.webp") center/cover no-repeat;opacity:.32;z-index:1}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.85) 0%,rgba(255,255,255,.55) 45%,rgba(255,255,255,.78) 100%)}
+.section-img{display:block;width:100%;height:auto;max-height:300px;object-fit:cover;border-radius:14px;border:1px solid var(--line);margin:0 0 16px;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+.section-img.tall{max-height:380px}
+.img-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:0 0 16px}
+@media(max-width:560px){.img-grid-2{grid-template-columns:1fr}}
+.img-grid-2 .section-img{margin:0}
+.bio-with-img{display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:start}
+.bio-with-img .bio-portrait{width:120px;height:150px;object-fit:cover;border-radius:10px;border:1px solid var(--line);box-shadow:0 4px 12px rgba(0,0,0,.10)}
+@media(max-width:540px){.bio-with-img{grid-template-columns:1fr}.bio-with-img .bio-portrait{width:140px;height:170px}}
 .hero-inner{position:relative;z-index:2;padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px)}
 .hero-deco{position:absolute;font-size:11rem;opacity:.10;pointer-events:none}
 .hero-deco.dl{top:-30px;right:10px}
@@ -229,6 +240,7 @@ footer{max-width:1240px;margin:40px auto 24px;padding:0 clamp(16px,3vw,28px);tex
 <section class="hero">
   <div class="hero-card">
     <div class="hero-stripes"><div class="s1"></div><div class="s2"></div><div class="s3"></div></div>
+    <div class="hero-bg" aria-hidden="true"></div>
     <div class="hero-inner">
       <div class="hero-deco dl">🪆</div>
       <div class="hero-deco br">🏛️</div>
@@ -368,6 +380,10 @@ footer{max-width:1240px;margin:40px auto 24px;padding:0 clamp(16px,3vw,28px);tex
   <div class="section-hdr"><div class="section-num">05</div><h2>Russian symbols · tap to flip 🪆</h2></div>
   <p class="section-sub">Official + unofficial symbols. Tap any card to see the meaning.</p>
   <div class="card">
+    <div class="img-grid-2">
+      <img class="section-img" src="./img/kizhi-island.jpg" alt="Kizhi Pogost · wooden Transfiguration Church on Kizhi Island, Karelia · UNESCO World Heritage" loading="lazy">
+      <img class="section-img" src="./img/matrioshka.jpg" alt="Matryoshka · traditional Russian nesting dolls" loading="lazy">
+    </div>
     <span class="task-tag">12 cards · flip to reveal</span>
     <div class="sym-grid" id="sym-grid"></div>
   </div>
@@ -381,16 +397,21 @@ footer{max-width:1240px;margin:40px auto 24px;padding:0 clamp(16px,3vw,28px);tex
     <span class="task-tag red">5 biographies · read + discuss</span>
     <div class="bio-grid">
       <div class="bio-card">
-        <h4>Alexander Pushkin</h4>
-        <div class="bio-meta">1799-1837 · poet</div>
-        <ul>
-          <li>Born in Moscow into a noble family</li>
-          <li>Composed his first poem at age 8</li>
-          <li>Published <em>"Ruslan and Lyudmila"</em> in 1820 and became famous</li>
-          <li>Created literary Russian language</li>
-          <li>Died after a duel</li>
-          <li>Best-known work: <em>"Eugene Onegin"</em> (1823–1831)</li>
-        </ul>
+        <div class="bio-with-img">
+          <img class="bio-portrait" src="./img/pushkin.jpg" alt="Alexander Pushkin · portrait" loading="lazy">
+          <div>
+            <h4>Alexander Pushkin</h4>
+            <div class="bio-meta">1799-1837 · poet</div>
+            <ul>
+              <li>Born in Moscow into a noble family</li>
+              <li>Composed his first poem at age 8</li>
+              <li>Published <em>"Ruslan and Lyudmila"</em> in 1820 and became famous</li>
+              <li>Created literary Russian language</li>
+              <li>Died after a duel</li>
+              <li>Best-known work: <em>"Eugene Onegin"</em> (1823–1831)</li>
+            </ul>
+          </div>
+        </div>
       </div>
       <div class="bio-card">
         <h4>Peter Tchaikovsky</h4>
@@ -496,6 +517,7 @@ footer{max-width:1240px;margin:40px auto 24px;padding:0 clamp(16px,3vw,28px);tex
   <div class="section-hdr"><div class="section-num red">08</div><h2>Russian holidays · match descriptions 🎉</h2></div>
   <p class="section-sub">Match each holiday with its description.</p>
   <div class="card">
+    <img class="section-img tall" src="./img/holidays.jpg" alt="Russian holidays · New Year, Easter, Maslenitsa, Victory Day" loading="lazy">
     <span class="task-tag red">10 holidays · match descriptions</span>
     <div class="match-cols" id="holidays-match"></div>
     <div class="score-badge"><span>Matched</span> <span class="val" id="hol-score">0</span> <span style="opacity:.6">/ 10</span></div>
