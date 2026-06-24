@@ -614,10 +614,11 @@ footer a{color:var(--brand-2);text-decoration:underline}
 
     <p style="color:var(--muted);font-size:.92rem;margin:6px 0 10px"><em>Tap ▶ to listen. Try the question below first — only then open the script to verify.</em></p>
 
-    <div class="audio-row" id="conv-tts-row">
+    <div class="audio-row">
       <span class="audio-label">▶ Conversation</span>
-      <button id="conv-play" type="button" style="flex:1;background:var(--accent);color:#fff;border:none;border-radius:10px;padding:10px 16px;font:700 12px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;cursor:pointer">▶ Play conversation (two voices)</button>
-      <button id="conv-stop" type="button" style="background:var(--surface-2);color:var(--muted);border:1px solid var(--line-2);border-radius:10px;padding:10px 14px;font:700 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;cursor:pointer">Stop</button>
+      <audio controls preload="metadata">
+        <source src="./assets/audio/02-listen-conversation.mp3" type="audio/mpeg">
+      </audio>
     </div>
 
     <details style="margin:10px 0">
@@ -1212,68 +1213,6 @@ Q4. I think city governments should really try to create more parks. Parks provi
         else btn.classList.add('wrong');
       });
     });
-  });
-})();
-</script>
-
-<!-- Conversation TTS (Section 07) — two voices, no mp3 -->
-<script>
-(function(){
-  var playBtn = document.getElementById('conv-play');
-  var stopBtn = document.getElementById('conv-stop');
-  if (!playBtn || !window.speechSynthesis) return;
-
-  var script = [
-    { who:'w', text:'Need anything from the supermarket?' },
-    { who:'m', text:"Huh? Aren't we getting ready to go see that play in a few minutes?" },
-    { who:'w', text:"That's tomorrow." },
-    { who:'m', text:"Oh. Wow, I'd forget my head if it wasn't screwed on. Guess I don't need to change my clothes after all." },
-    { who:'w', text:"So, you weren't planning to prepare dinner?" },
-    { who:'m', text:"No, but I can. What do you want?" },
-    { who:'w', text:"Just something light and healthy. So, can you go shopping instead?" },
-    { who:'m', text:"Yeah, sure. How about salmon and salad? Want anything else?" },
-    { who:'w', text:"No, that's good. Thanks!" }
-  ];
-
-  var voiceW = null, voiceM = null;
-  function pickVoices(){
-    var voices = window.speechSynthesis.getVoices();
-    var en = voices.filter(function(v){ return /^en/i.test(v.lang); });
-    voiceW = en.find(function(v){ return /female|samantha|victoria|kate|serena|tessa|moira|fiona|karen|zira|hazel/i.test(v.name); })
-          || en.find(function(v){ return /uk|gb|gb-female/i.test(v.lang+v.name); })
-          || en[0] || voices[0];
-    voiceM = en.find(function(v){ return /male|daniel|alex|fred|tom|david|mark|aaron|oliver/i.test(v.name) && v !== voiceW; })
-          || en.find(function(v){ return v !== voiceW; })
-          || en[1] || voices[1] || voices[0];
-  }
-  if (window.speechSynthesis.getVoices().length) pickVoices();
-  else window.speechSynthesis.onvoiceschanged = pickVoices;
-
-  var stopped = false;
-  function speakLine(idx){
-    if (stopped || idx >= script.length){ playBtn.textContent = '▶ Play conversation (two voices)'; playBtn.disabled = false; return; }
-    var line = script[idx];
-    var u = new SpeechSynthesisUtterance(line.text);
-    u.voice = (line.who === 'w') ? voiceW : voiceM;
-    u.rate = 0.92;
-    u.pitch = (line.who === 'w') ? 1.15 : 0.92;
-    u.onend = function(){ speakLine(idx + 1); };
-    u.onerror = function(){ speakLine(idx + 1); };
-    window.speechSynthesis.speak(u);
-  }
-  playBtn.addEventListener('click', function(){
-    if (!voiceW || !voiceM) pickVoices();
-    window.speechSynthesis.cancel();
-    stopped = false;
-    playBtn.textContent = '⏸ Speaking…';
-    playBtn.disabled = true;
-    speakLine(0);
-  });
-  stopBtn.addEventListener('click', function(){
-    stopped = true;
-    window.speechSynthesis.cancel();
-    playBtn.textContent = '▶ Play conversation (two voices)';
-    playBtn.disabled = false;
   });
 })();
 </script>
