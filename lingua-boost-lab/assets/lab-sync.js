@@ -1,9 +1,8 @@
-/* lab-sync.js v3 — Realtime sync (optional) + always-on persist to Supabase.
-   • С URL ?sync=<roomId>&role=teacher|student — двусторонняя live-комната
-     (TOC scroll, dom-state, section-submit broadcast).
-   • Без ?sync — solo-mode: ничего не транслируется, но КАЖДЫЙ submit пишется
-     в Supabase lab_submissions с stable per-browser solo-id. Маша видит
-     аналитику по всем ученикам в teacher-lab.html. */
+/* lab-sync.js v4 — Realtime sync (optional) + always-on persist + identity.
+   • С URL ?sync=<roomId>&role=teacher|student — двусторонняя live-комната.
+   • Без ?sync — solo-mode: каждый submit идёт в Supabase lab_submissions.
+   • На первый submit спрашивает имя ученика → сохраняет в localStorage,
+     room_id становится 'student-<slug>'. Маша фильтрует по нему в БД. */
 (function(){
   if (window.__labSyncLoaded) return;
   window.__labSyncLoaded = true;
@@ -21,15 +20,24 @@
   var role      = qs('role') || (soloMode ? 'solo' : 'student');
   var roomId;
   if (soloMode) {
-    try {
-      var stored = localStorage.getItem('lab-solo-id');
-      if (!stored) {
-        stored = 'solo-' + Math.random().toString(36).slice(2,10);
-        localStorage.setItem('lab-solo-id', stored);
+    // Если имя уже сохранено — используем сразу 'student-<slug>'.
+    // Иначе временный solo-* до первого submit, на котором спросим имя.
+    var savedName = '';
+    try { savedName = localStorage.getItem('lab-student-name') || ''; } catch(e){}
+    if (savedName) {
+      roomId = 'student-' + slugify(savedName);
+      role = 'solo:' + savedName;
+    } else {
+      try {
+        var stored = localStorage.getItem('lab-solo-id');
+        if (!stored) {
+          stored = 'solo-' + Math.random().toString(36).slice(2,10);
+          localStorage.setItem('lab-solo-id', stored);
+        }
+        roomId = stored;
+      } catch(e) {
+        roomId = 'solo-' + Date.now().toString(36);
       }
-      roomId = stored;
-    } catch(e) {
-      roomId = 'solo-' + Date.now().toString(36);
     }
   } else {
     roomId = syncParam;
@@ -50,6 +58,93 @@
   function ready(fn){
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);
     else fn();
+  }
+
+  function slugify(s){
+    return (s||'').toLowerCase().replace(/[^a-zа-яё0-9]+/gi,'-').replace(/^-+|-+$/g,'').slice(0,30);
+  }
+
+  // ---- Identity (имя ученика) ----
+  function getStoredName(){
+    try { return localStorage.getItem('lab-student-name') || ''; } catch(e){ return ''; }
+  }
+  function saveName(n){
+    try { localStorage.setItem('lab-student-name', n); } catch(e){}
+  }
+
+  function injectIdentityStyle(){
+    if (document.getElementById('lab-identity-style')) return;
+    var s = document.createElement('style');
+    s.id = 'lab-identity-style';
+    s.textContent = ''+
+      '.lab-id-overlay{position:fixed;inset:0;background:rgba(20,15,40,.55);'+
+        'backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);'+
+        'z-index:99998;display:flex;align-items:center;justify-content:center;'+
+        'animation:labIdFade .25s ease-out}'+
+      '@keyframes labIdFade{from{opacity:0}to{opacity:1}}'+
+      '.lab-id-modal{background:linear-gradient(135deg,#fbf8ff 0%,#f0e9ff 100%);'+
+        'border:1px solid #d4c0f7;border-left:5px solid #7c3aed;'+
+        'border-radius:18px;padding:28px 32px;max-width:420px;width:92vw;'+
+        'box-shadow:0 24px 60px rgba(124,58,237,.32);font-family:"Manrope",sans-serif}'+
+      '[data-lab-theme="dark"] .lab-id-modal{background:linear-gradient(135deg,#1e1a2e 0%,#241c3e 100%);'+
+        'border-color:#5b3aa8;color:#f3eee5}'+
+      '.lab-id-modal h3{margin:0 0 8px;font:800 1.25rem/1.25 "Manrope",sans-serif;color:#4a2d8a}'+
+      '[data-lab-theme="dark"] .lab-id-modal h3{color:#e9d6ff}'+
+      '.lab-id-modal p{margin:0 0 16px;font:500 .92rem/1.55 "Manrope",sans-serif;color:#4a3a6b}'+
+      '[data-lab-theme="dark"] .lab-id-modal p{color:#c5b8e6}'+
+      '.lab-id-input{width:100%;box-sizing:border-box;padding:13px 16px;border-radius:10px;'+
+        'border:1.5px solid #d4c0f7;background:#fff;font:600 1rem/1.3 "Manrope",sans-serif;'+
+        'color:#1a1f2e;outline:none;transition:border-color .15s}'+
+      '.lab-id-input:focus{border-color:#7c3aed;box-shadow:0 0 0 4px rgba(124,58,237,.12)}'+
+      '[data-lab-theme="dark"] .lab-id-input{background:#15102a;border-color:#5b3aa8;color:#f3eee5}'+
+      '.lab-id-actions{display:flex;gap:10px;margin-top:16px;justify-content:flex-end}'+
+      '.lab-id-btn{padding:11px 18px;border-radius:10px;border:0;cursor:pointer;'+
+        'font:700 .88rem/1 "Manrope",sans-serif;transition:transform .15s,box-shadow .15s}'+
+      '.lab-id-skip{background:transparent;color:#7c3aed;border:1.5px solid #d4c0f7}'+
+      '.lab-id-ok{background:linear-gradient(135deg,#7c3aed 0%,#a855f7 100%);color:#fff}'+
+      '.lab-id-ok:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(124,58,237,.42)}'+
+      '.lab-id-ok:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}';
+    document.head.appendChild(s);
+  }
+
+  function askName(){
+    return new Promise(function(resolve){
+      injectIdentityStyle();
+      var existing = getStoredName();
+      if (existing) return resolve(existing);
+
+      var overlay = document.createElement('div');
+      overlay.className = 'lab-id-overlay';
+      overlay.innerHTML =
+        '<div class="lab-id-modal">'+
+          '<h3>Как тебя зовут?</h3>'+
+          '<p>Имя нужно один раз — чтобы наставник видел твои результаты по всем урокам.</p>'+
+          '<input type="text" class="lab-id-input" placeholder="Например, Тимофей" maxlength="40">'+
+          '<div class="lab-id-actions">'+
+            '<button type="button" class="lab-id-btn lab-id-skip">Пропустить</button>'+
+            '<button type="button" class="lab-id-btn lab-id-ok" disabled>Продолжить</button>'+
+          '</div>'+
+        '</div>';
+      document.body.appendChild(overlay);
+      var input = overlay.querySelector('.lab-id-input');
+      var ok = overlay.querySelector('.lab-id-ok');
+      var skip = overlay.querySelector('.lab-id-skip');
+      setTimeout(function(){ input.focus(); }, 30);
+      function finish(name){
+        if (name) saveName(name);
+        overlay.remove();
+        resolve(name || '');
+      }
+      input.addEventListener('input', function(){
+        ok.disabled = input.value.trim().length < 2;
+      });
+      input.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' && !ok.disabled) finish(input.value.trim());
+        if (e.key === 'Escape') finish('');
+      });
+      ok.addEventListener('click', function(){ if (!ok.disabled) finish(input.value.trim()); });
+      skip.addEventListener('click', function(){ finish(''); });
+    });
   }
 
   function badge(text, color){
@@ -222,7 +317,7 @@
       } // end if !soloMode
 
       // --- Submit handler — работает В ОБОИХ режимах.
-      //     Solo: только persist в lab_submissions.
+      //     Solo: спросить имя на первом submit, потом persist в lab_submissions.
       //     Sync: broadcast + persist.
       document.addEventListener('click', function(e){
         var b = e.target.closest('.lp-submit');
@@ -235,6 +330,16 @@
           var stats = report.querySelector('.lp-stats');
           var m = (stats && stats.textContent || '').match(/(\d+)\s*\/\s*(\d+)/);
           if (!m) return;
+
+          // В solo-режиме — на первом submit без имени всплывёт модалка.
+          if (soloMode && /^solo-/.test(roomId)) {
+            var nm = await askName();
+            if (nm) {
+              roomId = 'student-' + slugify(nm);
+              role = 'solo:' + nm;
+            }
+          }
+
           var title = (sec.querySelector('h2') || {textContent:sec.id}).textContent.trim();
           var misses = [];
           report.querySelectorAll('.lp-item').forEach(function(item){
