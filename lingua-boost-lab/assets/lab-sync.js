@@ -113,12 +113,12 @@
       }
       bindTocBroadcast();
 
-      // --- Outgoing: Submit broadcasts result to teacher ---
+      // --- Outgoing: Submit · broadcast live + persist to Supabase ---
       document.addEventListener('click', function(e){
         var b = e.target.closest('.lp-submit');
         if (!b) return;
         // Wait until lab-pilot renders the report
-        setTimeout(function(){
+        setTimeout(async function(){
           var sec = b.closest('section.section');
           if (!sec) return;
           var report = sec.querySelector('.lp-report');
@@ -127,10 +127,28 @@
           var m = (stats && stats.textContent || '').match(/(\d+)\s*\/\s*(\d+)/);
           if (!m) return;
           var title = (sec.querySelector('h2') || {textContent:sec.id}).textContent.trim();
-          channel.send({
-            type:'broadcast', event:'section-submit',
-            payload: { section: title.slice(0,60), score: +m[1], total: +m[2], role: role, ts: Date.now() }
+          var misses = [];
+          report.querySelectorAll('.lp-item').forEach(function(item){
+            misses.push(item.textContent.replace(/\s+/g,' ').trim().slice(0, 200));
           });
+          var payload = {
+            section_id: sec.id, section_title: title.slice(0,80),
+            score: +m[1], total: +m[2], role: role, ts: Date.now()
+          };
+          // Live broadcast
+          channel.send({ type:'broadcast', event:'section-submit', payload: payload });
+          // Persist (history)
+          try {
+            await client.from('lab_submissions').insert({
+              room_id: roomId,
+              lesson_path: location.pathname,
+              section_id: sec.id,
+              section_title: title.slice(0,80),
+              student_role: role,
+              score: +m[1], total: +m[2],
+              misses: misses
+            });
+          } catch (e) { console.warn('[lab-sync] persist failed', e); }
         }, 400);
       });
     }).catch(function(err){
