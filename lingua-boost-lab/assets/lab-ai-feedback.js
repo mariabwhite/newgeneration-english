@@ -131,10 +131,13 @@
   }
 
   ready(function(){
+    // Feature flag — кнопки рисуются только если явно включено.
+    // Edge Function lab-ai-review не задеплоена (требует ANTHROPIC_API_KEY на Anthropic Console).
+    // Включить точечно: ?ai=on в URL, или глобально window.LAB_AI_ENABLED=true перед загрузкой.
+    var enabled = window.LAB_AI_ENABLED === true || /[?&]ai=on(?:&|$)/.test(location.search);
+    if (!enabled) return;
     injectStyle();
-    // writing — textarea внутри .write блока или generic textarea (lesson-level)
     document.querySelectorAll('.write textarea, textarea.writing-area, textarea[data-write]').forEach(attachWriting);
-    // speaking — каждая .mic-row
     document.querySelectorAll('.mic-row').forEach(attachSpeaking);
   });
 })();
