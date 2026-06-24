@@ -1047,22 +1047,33 @@ document.querySelectorAll('.vocab-card').forEach(c=>c.addEventListener('click',(
   if(!SR){document.querySelectorAll('.mic-btn').forEach(b=>{b.disabled=true;b.title='Need Chrome/Edge';});return;}
   function norm(s){return s.toLowerCase().replace(/[.,!?;:"'’]/g,'').replace(/\s+/g,' ').trim();}
   function sim(a,b){const sa=new Set(a.split(' ')),sb=new Set(b.split(' '));let inter=0;sa.forEach(w=>{if(sb.has(w))inter++;});const u=new Set([...sa,...sb]).size;return u?inter/u:0;}
+  function wpmLabel(wpm){
+    if (wpm < 100) return wpm+' WPM · можно быстрее (норма 130-160)';
+    if (wpm <= 170) return wpm+' WPM · норма (130-160)';
+    return wpm+' WPM · быстро (норма 130-160)';
+  }
   document.querySelectorAll('.mic-row').forEach(row=>{
     const target=norm(row.dataset.target||'');
     const btn=row.querySelector('.mic-btn');
     const fb=row.querySelector('.mic-feedback');
     const tr=row.querySelector('.mic-transcript');
-    let rec=null;
+    let rec=null, t0=0;
     btn.addEventListener('click',()=>{
       if(rec){try{rec.stop();}catch(e){}rec=null;btn.classList.remove('rec');btn.innerHTML='🎙 Record';return;}
       rec=new SR();rec.lang='en-US';rec.interimResults=false;rec.maxAlternatives=1;
       btn.classList.add('rec');btn.innerHTML='■ Stop';fb.className='mic-feedback';fb.textContent='';tr.textContent='';
+      rec.onstart=()=>{ t0=Date.now(); };
       rec.onresult=ev=>{
+        const dt=Math.max(.4,(Date.now()-t0)/1000);
         const heard=norm(ev.results[0][0].transcript);tr.textContent='"'+heard+'"';
+        const words=(heard.match(/\S+/g)||[]).length;
+        const wpm=Math.round(words/dt*60);
         const score=sim(heard,target);
-        if(score>=.85){fb.textContent='✓ Match · '+Math.round(score*100)+'%';fb.className='mic-feedback shown';}
-        else if(score>=.6){fb.textContent='~ Close · '+Math.round(score*100)+'%';fb.className='mic-feedback shown';}
-        else{fb.textContent='✗ Missed · '+Math.round(score*100)+'%';fb.className='mic-feedback miss shown';}
+        const wpmStr = words>=2 ? ' · '+wpmLabel(wpm) : '';
+        if(score>=.85){fb.textContent='✓ Match · '+Math.round(score*100)+'%'+wpmStr;fb.className='mic-feedback shown';}
+        else if(score>=.6){fb.textContent='~ Close · '+Math.round(score*100)+'%'+wpmStr;fb.className='mic-feedback shown';}
+        else{fb.textContent='✗ Missed · '+Math.round(score*100)+'%'+wpmStr;fb.className='mic-feedback miss shown';}
+        row.dataset.score=score; row.dataset.wpm=wpm; row.dataset.attempted='1';
       };
       rec.onerror=()=>{fb.textContent='✗ Mic error';fb.className='mic-feedback miss shown';};
       rec.onend=()=>{btn.classList.remove('rec');btn.innerHTML='🎙 Record';rec=null;};
@@ -1081,8 +1092,10 @@ document.querySelectorAll('.write').forEach(w=>{
 });
 </script>
 
+<link rel="stylesheet" href="../../assets/lab-pilot.css?v=1">
 <script src="../../assets/lab-persist.js?v=2" defer></script>
 <script src="../../assets/lab-total.js" defer></script>
 <script src="../../assets/lab-vocab-saver.js" defer></script>
+<script src="../../assets/lab-pilot.js?v=1" defer></script>
 </body>
 </html>
