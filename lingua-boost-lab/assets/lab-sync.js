@@ -1,8 +1,10 @@
-/* lab-sync.js v4 — Realtime sync (optional) + always-on persist + identity.
+/* lab-sync.js v5 — Realtime sync + persist + identity + ALWAYS-ON firehose.
    • С URL ?sync=<roomId>&role=teacher|student — двусторонняя live-комната.
    • Без ?sync — solo-mode: каждый submit идёт в Supabase lab_submissions.
-   • На первый submit спрашивает имя ученика → сохраняет в localStorage,
-     room_id становится 'student-<slug>'. Маша фильтрует по нему в БД. */
+   • Имя ученика → 'student-<slug>' room_id (модалка на первый submit).
+   • НОВОЕ v5: ВСЕГДА (и в solo, и в sync) broadcast'им действия ученика в
+     общий канал 'lab-firehose-v1'. Маша открывает teacher-live.html —
+     видит ленту всех учеников по всем урокам в реальном времени. */
 (function(){
   if (window.__labSyncLoaded) return;
   window.__labSyncLoaded = true;
@@ -158,14 +160,101 @@
     return el;
   }
 
+  // ---- Tracking helpers (shared by sync + firehose) ----
+  var TRACK_SEL = '.gap,.match-item,.match-card,.mcq-opts button,.mc-opts button,' +
+    '.tfns-row button,.mc-item button,.wf-row input,.gapfill input,.bank-word,' +
+    '.classify-item,.ord-pill,.predict-card,.choice-card,.vocab-card,.dict-input,' +
+    '.builder button,textarea,.match-row select';
+  var TRACK_CLASSES = ['right','wrong','filled','matched','correct','selected',
+    'used','revealed','flipped','picked','show','shown','sel','ok','hit'];
+
+  function pathOf(el){
+    if (!el || el === document.body) return null;
+    if (el.id) return '#'+el.id;
+    var parts = [];
+    var n = el;
+    while (n && n !== document.body) {
+      var p = n.parentElement;
+      if (!p) return null;
+      var idx = Array.prototype.indexOf.call(p.children, n);
+      parts.unshift(idx);
+      if (p.id) { parts.unshift('#'+p.id); return parts.join('/'); }
+      if (p.tagName === 'SECTION' && p.id) { parts.unshift('#'+p.id); return parts.join('/'); }
+      n = p;
+    }
+    return null;
+  }
+  function resolvePath(path){
+    if (!path) return null;
+    var parts = path.split('/');
+    var first = parts.shift();
+    var root = first[0] === '#' ? document.getElementById(first.slice(1)) : null;
+    if (!root) return null;
+    var n = root;
+    for (var i=0; i<parts.length; i++){
+      var idx = parseInt(parts[i], 10);
+      if (isNaN(idx)) continue;
+      n = n.children[idx];
+      if (!n) return null;
+    }
+    return n;
+  }
+  function pickFlags(el){
+    var keep = [];
+    if (!el.classList) return keep;
+    for (var i=0; i<TRACK_CLASSES.length; i++) {
+      if (el.classList.contains(TRACK_CLASSES[i])) keep.push(TRACK_CLASSES[i]);
+    }
+    return keep;
+  }
+  function elContext(el){
+    // Краткий человеческий контекст для firehose — что за элемент тронут.
+    var sec = el.closest && el.closest('section.section');
+    var secTitle = sec && (sec.querySelector('h2')?.textContent || sec.querySelector('h3')?.textContent || '');
+    var kind = (el.classList && (el.classList.contains('gap') ? 'gap' :
+      el.classList.contains('mcq-opts') || (el.parentNode && el.parentNode.classList && el.parentNode.classList.contains('mcq-opts')) ? 'mcq' :
+      el.classList.contains('tfns-row') || (el.parentNode && el.parentNode.classList && el.parentNode.classList.contains('tfns-row')) ? 'tfns' :
+      el.tagName === 'TEXTAREA' ? 'writing' :
+      el.tagName === 'INPUT' ? 'input' :
+      el.classList.contains('match-item') ? 'match' :
+      el.classList.contains('mic-row') ? 'mic' : 'other')) || 'other';
+    return {
+      kind: kind,
+      section_id: sec ? sec.id : '',
+      section_title: (secTitle||'').replace(/\s+/g,' ').trim().slice(0,90),
+      tag: el.tagName
+    };
+  }
+
   ready(function(){
     var statusBadge = soloMode ? null : badge('🔌 connecting…', '#6b7280');
+    var name = '';
+    try { name = localStorage.getItem('lab-student-name') || ''; } catch(e){}
 
     loadSDK().then(function(sb){
-      var client  = sb.createClient(SUPABASE_URL, SUPABASE_ANON);
-      var channel = null;
+      var client    = sb.createClient(SUPABASE_URL, SUPABASE_ANON);
+      var channel   = null;            // sync-room channel (?sync=)
+      var firehose  = null;            // global firehose for teacher-live.html
       var muteOutgoing = false;
 
+      // ---- Firehose: ВСЕГДА (solo + sync) ----
+      firehose = client.channel('lab-firehose-v1', { config: { broadcast: { self: false } } });
+      firehose.subscribe(function(status){
+        if (status === 'SUBSCRIBED') {
+          // Heartbeat — урок открыт
+          firehose.send({
+            type: 'broadcast', event: 'lesson-open',
+            payload: {
+              room_id: roomId, name: name || '', role: role,
+              lesson_path: location.pathname,
+              lesson_title: (document.querySelector('.lab-hero h1, .hero h1, h1')?.textContent || document.title || '').trim().slice(0,120),
+              ua: navigator.userAgent.slice(0,60), ts: Date.now()
+            }
+          });
+        }
+      });
+
+      // ---- Sync-room (двусторонний urok) ----
       if (!soloMode) {
         channel = client.channel('lab-sync:'+roomId, {
           config: { broadcast: { self: false } }
@@ -184,8 +273,23 @@
           .on('broadcast', { event: 'section-submit' }, function(payload){
             var p = payload.payload || {};
             if (role !== 'teacher') return;
-            var note = badge('📋 '+p.role+' сдал '+p.section+' · '+p.score+'/'+p.total, '#0033A0');
+            var note = badge('📋 '+p.role+' сдал '+p.section_title+' · '+p.score+'/'+p.total, '#0033A0');
             setTimeout(function(){ note.remove(); }, 5000);
+          })
+          .on('broadcast', { event:'dom-state' }, function(p){
+            var data = p.payload || {};
+            var el = resolvePath(data.path);
+            if (!el) return;
+            muteOutgoing = true;
+            TRACK_CLASSES.forEach(function(c){ if (el.classList) el.classList.remove(c); });
+            (data.classes || []).forEach(function(c){ el.classList && el.classList.add(c); });
+            if ('value' in data && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT')) {
+              el.value = data.value;
+            }
+            if (data.text && el.matches && (el.matches('.gap') || el.matches('.match-item'))) {
+              el.textContent = data.text;
+            }
+            setTimeout(function(){ muteOutgoing = false; }, 200);
           })
           .subscribe(function(status){
             if (status === 'SUBSCRIBED') {
@@ -196,107 +300,55 @@
               statusBadge.style.background = '#6b7280';
             }
           });
+      }
 
-        var TRACK_SEL = '.gap,.match-item,.match-card,.mcq-opts button,.mc-opts button,' +
-          '.tfns-row button,.mc-item button,.wf-row input,.gapfill input,.bank-word,' +
-          '.classify-item,.ord-pill,.predict-card,.choice-card,.vocab-card,.dict-input,' +
-          '.builder button,textarea,.match-row select';
-        var TRACK_CLASSES = ['right','wrong','filled','matched','correct','selected',
-          'used','revealed','flipped','picked','show','shown','sel','ok','hit'];
+      // ---- Live broadcast ученика — ВСЕГДА в firehose + (если sync) в room ----
+      var sendThrottle = {};
+      function maybeSend(el){
+        if (role === 'teacher') return; // учитель не транслирует свои действия
+        var path = pathOf(el);
+        if (!path) return;
+        var now = Date.now();
+        if (sendThrottle[path] && now - sendThrottle[path] < 180) return;
+        sendThrottle[path] = now;
+        var ctx = elContext(el);
+        var basePayload = {
+          path: path, classes: pickFlags(el),
+          kind: ctx.kind, section_id: ctx.section_id, section_title: ctx.section_title, tag: ctx.tag
+        };
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') basePayload.value = (el.value || '').slice(0,160);
+        if (el.tagName === 'SELECT') basePayload.value = el.value || '';
+        if (el.textContent && el.matches && (el.matches('.gap') || el.matches('.match-item'))) {
+          basePayload.text = el.textContent.slice(0, 80);
+        }
+        if (channel) channel.send({ type:'broadcast', event:'dom-state', payload: basePayload });
+        // В firehose добавляем identity + lesson context
+        var fhPayload = Object.assign({
+          room_id: roomId, name: name || '', role: role,
+          lesson_path: location.pathname, ts: now
+        }, basePayload);
+        firehose.send({ type:'broadcast', event:'dom-state', payload: fhPayload });
+      }
 
-        function pathOf(el){
-          if (!el || el === document.body) return null;
-          if (el.id) return '#'+el.id;
-          var parts = [];
-          var n = el;
-          while (n && n !== document.body) {
-            var p = n.parentElement;
-            if (!p) return null;
-            var idx = Array.prototype.indexOf.call(p.children, n);
-            parts.unshift(idx);
-            if (p.id) { parts.unshift('#'+p.id); return parts.join('/'); }
-            if (p.tagName === 'SECTION' && p.id) { parts.unshift('#'+p.id); return parts.join('/'); }
-            n = p;
+      function bindLiveSync(){
+        document.querySelectorAll(TRACK_SEL).forEach(function(el){
+          if (el.__syncBound) return;
+          el.__syncBound = true;
+          var mo = new MutationObserver(function(){ if (!muteOutgoing) maybeSend(el); });
+          mo.observe(el, { attributes:true, attributeFilter:['class'], childList:true, characterData:true, subtree:true });
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') {
+            el.addEventListener('input', function(){ if (!muteOutgoing) maybeSend(el); });
+            el.addEventListener('change', function(){ if (!muteOutgoing) maybeSend(el); });
           }
-          return null;
-        }
-        function resolve(path){
-          if (!path) return null;
-          var parts = path.split('/');
-          var first = parts.shift();
-          var root = first[0] === '#' ? document.getElementById(first.slice(1)) : null;
-          if (!root) return null;
-          var n = root;
-          for (var i=0; i<parts.length; i++){
-            var idx = parseInt(parts[i], 10);
-            if (isNaN(idx)) continue;
-            n = n.children[idx];
-            if (!n) return null;
-          }
-          return n;
-        }
-        function pickFlags(el){
-          var keep = [];
-          if (!el.classList) return keep;
-          for (var i=0; i<TRACK_CLASSES.length; i++) {
-            if (el.classList.contains(TRACK_CLASSES[i])) keep.push(TRACK_CLASSES[i]);
-          }
-          return keep;
-        }
-
-        var sendThrottle = {};
-        function maybeSend(el){
-          var path = pathOf(el);
-          if (!path) return;
-          var now = Date.now();
-          if (sendThrottle[path] && now - sendThrottle[path] < 120) return;
-          sendThrottle[path] = now;
-          var payload = { path: path, classes: pickFlags(el) };
-          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') payload.value = el.value || '';
-          if (el.tagName === 'SELECT') payload.value = el.value || '';
-          if (el.textContent && el.matches && (el.matches('.gap') || el.matches('.match-item'))) {
-            payload.text = el.textContent.slice(0, 80);
-          }
-          channel.send({ type:'broadcast', event:'dom-state', payload: payload });
-        }
-
-        channel.on('broadcast', { event:'dom-state' }, function(p){
-          var data = p.payload || {};
-          var el = resolve(data.path);
-          if (!el) return;
-          muteOutgoing = true;
-          TRACK_CLASSES.forEach(function(c){ if (el.classList) el.classList.remove(c); });
-          (data.classes || []).forEach(function(c){ el.classList && el.classList.add(c); });
-          if ('value' in data && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT')) {
-            el.value = data.value;
-          }
-          if (data.text && el.matches && (el.matches('.gap') || el.matches('.match-item'))) {
-            el.textContent = data.text;
-          }
-          setTimeout(function(){ muteOutgoing = false; }, 200);
         });
+      }
+      bindLiveSync();
+      var bodyObs = new MutationObserver(function(){ bindLiveSync(); });
+      bodyObs.observe(document.body, { childList:true, subtree:true });
 
-        function bindLiveSync(){
-          var nodes = document.querySelectorAll(TRACK_SEL);
-          nodes.forEach(function(el){
-            if (el.__syncBound) return;
-            el.__syncBound = true;
-            var mo = new MutationObserver(function(){
-              if (muteOutgoing) return;
-              maybeSend(el);
-            });
-            mo.observe(el, { attributes:true, attributeFilter:['class'], childList:true, characterData:true, subtree:true });
-            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') {
-              el.addEventListener('input', function(){ if (!muteOutgoing) maybeSend(el); });
-              el.addEventListener('change', function(){ if (!muteOutgoing) maybeSend(el); });
-            }
-          });
-        }
-        bindLiveSync();
-        var bodyObs = new MutationObserver(function(){ bindLiveSync(); });
-        bodyObs.observe(document.body, { childList:true, subtree:true });
-
-        function bindTocBroadcast(){
+      // ---- TOC broadcast (только sync) ----
+      if (!soloMode) {
+        (function bindTocBroadcast(){
           var toc = document.querySelector('.lp-toc');
           if (!toc) return setTimeout(bindTocBroadcast, 300);
           var sectionEls = [].slice.call(document.querySelectorAll('section.section'));
@@ -312,9 +364,8 @@
               }
             }, true);
           });
-        }
-        bindTocBroadcast();
-      } // end if !soloMode
+        })();
+      }
 
       // --- Submit handler — работает В ОБОИХ режимах.
       //     Solo: спросить имя на первом submit, потом persist в lab_submissions.
@@ -337,6 +388,7 @@
             if (nm) {
               roomId = 'student-' + slugify(nm);
               role = 'solo:' + nm;
+              name = nm;
             }
           }
 
@@ -347,10 +399,14 @@
           });
           var payload = {
             section_id: sec.id, section_title: title.slice(0,80),
-            score: +m[1], total: +m[2], role: role, ts: Date.now()
+            score: +m[1], total: +m[2], role: role, name: name||'', ts: Date.now(),
+            room_id: roomId, lesson_path: location.pathname
           };
           if (channel) {
             channel.send({ type:'broadcast', event:'section-submit', payload: payload });
+          }
+          if (firehose) {
+            firehose.send({ type:'broadcast', event:'section-submit', payload: payload });
           }
           try {
             await client.from('lab_submissions').insert({
