@@ -238,9 +238,11 @@
     b.className = 'lab-hw-add';
     b.textContent = '+';
     b.title = 'Положить в домашку';
+    b.addEventListener('mousedown', function(e){ e.preventDefault(); e.stopPropagation(); }, true);
     b.addEventListener('click', function(e){
       e.preventDefault();
       e.stopPropagation();
+      e.stopImmediatePropagation();
       var item = describe(host, kind);
       var arr = loadHw();
       // защита от дубля — по section_id + question

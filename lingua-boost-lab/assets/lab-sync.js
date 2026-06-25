@@ -375,38 +375,39 @@
         document.getElementById('labTeacherAdd').addEventListener('click', teacherEnter);
         document.getElementById('labTeacherWord').addEventListener('keydown', function(e){ if (e.key === 'Enter') teacherEnter(); });
 
-        // Click handler на любое слово в тексте
-        var TEACHER_HOSTS = '.card, .reading, .story, .passage, .lab-bridge';
-        document.addEventListener('click', function(e){
-          var host = e.target.closest && e.target.closest(TEACHER_HOSTS);
-          if (!host) return;
-          var tag = e.target.tagName;
-          if (/^(BUTTON|A|INPUT|TEXTAREA|SELECT)$/.test(tag)) return;
-          var word = (function(){
+        // SELECTION-based add: только если Маша выделила слово мышью.
+        // Никакого click-to-vocab по любому слову — слишком хаотично.
+        document.addEventListener('mouseup', function(){
+          setTimeout(function(){
             var sel = window.getSelection();
-            if (sel && sel.toString().trim()) {
-              var t = sel.toString().trim();
-              if (t.length >= 2 && t.length <= 40) return t;
-            }
-            var range;
-            if (document.caretPositionFromPoint) { var pos = document.caretPositionFromPoint(e.clientX, e.clientY); if (pos) { range = document.createRange(); range.setStart(pos.offsetNode, pos.offset); range.setEnd(pos.offsetNode, pos.offset); } }
-            else if (document.caretRangeFromPoint) { range = document.caretRangeFromPoint(e.clientX, e.clientY); }
-            if (!range || range.startContainer.nodeType !== 3) return null;
-            var text = range.startContainer.nodeValue;
-            var i = range.startOffset;
-            var re = /[a-zA-Zа-яА-ЯёЁ\-]/;
-            var start = i, end = i;
-            while (start > 0 && re.test(text[start-1])) start--;
-            while (end < text.length && re.test(text[end])) end++;
-            return text.slice(start, end).trim();
-          })();
-          if (!word || word.length < 2 || word.length > 40) return;
-          e.preventDefault();
-          e.stopPropagation();
-          pushWord(word);
-          e.target.classList.add('lab-click-flash');
-          setTimeout(function(){ e.target.classList.remove('lab-click-flash'); }, 800);
-        }, true);
+            var text = sel ? sel.toString().trim() : '';
+            if (!text || text.length < 2 || text.length > 40) return;
+            if (/\s{2,}/.test(text)) return;
+            // floating "+ в словарь" near selection
+            var existing = document.querySelector('.lab-teacher-add-float');
+            if (existing) existing.remove();
+            var range = sel.getRangeAt(0);
+            var r = range.getBoundingClientRect();
+            var fb = document.createElement('button');
+            fb.className = 'lab-teacher-add-float';
+            fb.type = 'button';
+            fb.textContent = '+ в словарь · ' + text;
+            fb.style.cssText = 'position:absolute;z-index:99996;'+
+              'padding:8px 14px;border-radius:50px;border:0;cursor:pointer;'+
+              'background:linear-gradient(135deg,#f59e0b 0%,#fbbf24 100%);color:#1a1a2e;'+
+              'font:800 .82rem/1 "Manrope",sans-serif;'+
+              'box-shadow:0 8px 22px rgba(245,158,11,.42);'+
+              'left:' + Math.min(window.innerWidth - 220, r.right + 8) + 'px;'+
+              'top:' + (r.top + window.scrollY - 8) + 'px';
+            document.body.appendChild(fb);
+            fb.addEventListener('click', function(){
+              pushWord(text);
+              fb.remove();
+              window.getSelection().removeAllRanges();
+            });
+            setTimeout(function(){ if (fb.parentNode) fb.remove(); }, 5000);
+          }, 80);
+        });
       }
 
       // Observer mode (teacher iframe) — listen и применять к локальному DOM
