@@ -31,10 +31,10 @@
     var s = document.createElement('style');
     s.id = 'lab-vb-style';
     s.textContent = ''+
-      '.lab-vocab-section{margin:24px auto;padding:20px 22px;border-radius:14px;'+
-        'background:linear-gradient(135deg,#fbf8ff 0%,#f1ebff 100%);'+
-        'border:1px solid #d4c0f7;font-family:"Manrope",sans-serif;'+
-        'max-width:1100px;width:calc(100% - 32px);box-sizing:border-box}'+
+      '.lab-vocab-section{margin:24px auto !important;padding:20px 22px !important;border-radius:14px !important;'+
+        'background:linear-gradient(135deg,#fbf8ff 0%,#f1ebff 100%) !important;'+
+        'border:1px solid #d4c0f7 !important;font-family:"Manrope",sans-serif !important;'+
+        'max-width:980px !important;width:auto !important;box-sizing:border-box !important;display:block !important}'+
       '[data-lab-theme="dark"] .lab-vocab-section{background:linear-gradient(135deg,#1e1a2e 0%,#241c3e 100%);'+
         'border-color:#5b3aa8;color:#f3eee5}'+
       '.lab-vocab-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:12px}'+

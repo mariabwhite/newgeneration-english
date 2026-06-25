@@ -322,12 +322,32 @@
         });
         saveHw(arr);
         refreshFabCount();
-        // Подсветить плюсики как ✓
         items.forEach(function(host){
           var b = host.querySelector('.lab-hw-add');
           if (b) { b.classList.add('added'); b.textContent = '✓'; }
         });
         toast('📚 ' + added + ' заданий из секции — в домашку');
+        // BROADCAST ученику — двусторонняя секция
+        try {
+          var freshItems = [];
+          items.forEach(function(host){
+            var kind = host.__hwKind || 'other';
+            freshItems.push(describe(host, kind));
+          });
+          if (!window.supabase) return;
+          var c = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+          var ch = c.channel('lab-firehose-v1', { config:{ broadcast:{ self:false }}});
+          ch.subscribe(function(s){
+            if (s === 'SUBSCRIBED') {
+              ch.send({ type:'broadcast', event:'homework-section-push', payload: {
+                lesson_path: location.pathname,
+                section_id: sec.id || '',
+                items: freshItems, ts: Date.now()
+              }});
+              setTimeout(function(){ ch.unsubscribe(); }, 700);
+            }
+          });
+        } catch(e){}
       });
       // Размещение: после section-head или в начале секции
       var head = sec.querySelector('.section-head, .section-hdr');
@@ -532,7 +552,6 @@
 
   ready(function(){
     injectStyle();
-    // Учительский режим — body class чтобы CSS делал плюсики всегда видимыми
     try {
       if (localStorage.getItem('lab-teacher-mode') === 'on') {
         document.body.classList.add('lab-teacher-on');
@@ -541,6 +560,31 @@
     buildFab();
     scanAndDecorate();
     refreshFabCount();
+    // Listener — ученик принимает homework-section-push от учителя
+    (function hookHwReceive(){
+      if (!window.supabase) return setTimeout(hookHwReceive, 400);
+      try {
+        var c = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+        var ch = c.channel('lab-firehose-v1', { config:{ broadcast:{ self:false }}});
+        ch.on('broadcast', { event:'homework-section-push' }, function(p){
+          var data = p.payload || {};
+          if (data.lesson_path !== location.pathname) return;
+          if (!Array.isArray(data.items) || !data.items.length) return;
+          var arr = loadHw();
+          var added = 0;
+          data.items.forEach(function(it){
+            var dup = arr.some(function(x){ return x.section_id===it.section_id && x.question===it.question && x.kind===it.kind; });
+            if (!dup) { arr.push(it); added++; }
+          });
+          if (added) {
+            saveHw(arr);
+            refreshFabCount();
+            toast('📚 Учитель закинул в домашку: ' + added + ' заданий');
+          }
+        });
+        ch.subscribe();
+      } catch(e){}
+    })();
     // Если урок дорисовывается динамически — переоблететь
     var mo = new MutationObserver(function(){ scanAndDecorate(); });
     mo.observe(document.body, { childList: true, subtree: true });
