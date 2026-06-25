@@ -207,10 +207,11 @@
   function findOrBuildSection(){
     // Если в уроке уже есть статичный vocab section — используем его
     var existing = document.querySelector('section.vocabulary, .vocab-section, section[id*="vocab"]');
-    if (existing) return null; // не дублируем — статичная секция важнее
+    if (existing) return null;
     var sec = document.createElement('section');
     sec.className = 'section lab-vocab-section';
     sec.id = 'auto-vocab';
+    sec.style.cssText = 'width:100%;max-width:none;box-sizing:border-box';
     sec.innerHTML =
       '<div class="lab-vocab-h">'+
         '<h2>📖 Vocabulary</h2>'+
@@ -218,13 +219,20 @@
       '</div>'+
       '<div class="lab-vocab-grid" id="vocabGrid"></div>'+
       (teacherMode ? '<div style="margin-top:18px"><button class="lab-vocab-add-btn" id="vocabAddBtn">+ добавить своё слово</button></div>' : '');
-    // Вставка: после hero, до первой содержательной секции
-    var hero = document.querySelector('.lab-hero, .hero, section.section');
-    if (hero) {
-      hero.parentNode.insertBefore(sec, hero.nextSibling);
-    } else {
-      document.body.insertBefore(sec, document.body.firstChild);
+    // Цель: вставить рядом с другими section.section (т.е. в тот же контейнер).
+    // Самый надёжный способ — взять родителя первой section.section и вставить туда.
+    var firstSection = document.querySelector('section.section');
+    if (firstSection && firstSection.parentNode) {
+      firstSection.parentNode.insertBefore(sec, firstSection);
+      return sec;
     }
+    // Fallback — main / .container / .wrap / .lesson
+    var main = document.querySelector('main, .container, .wrap, .lesson, .lesson-container');
+    if (main) {
+      main.insertBefore(sec, main.firstChild);
+      return sec;
+    }
+    document.body.insertBefore(sec, document.body.firstChild);
     return sec;
   }
 

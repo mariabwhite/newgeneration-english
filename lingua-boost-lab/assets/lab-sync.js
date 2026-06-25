@@ -285,9 +285,38 @@
       }
 
       // TEACHER mode прямо в уроке (без cabinet, без iframe)
-      // Жёлтая полоса сверху + input «+ слово» + click-on-word на тексте.
-      // Broadcast vocab-push по lesson_path (все ученики на этом уроке получат).
+      // Жёлтая полоса + input + click-on-word + ВИДИТ что делает ученик
+      // на этом же lesson_path в реальном времени.
       if (teacherMode && !observeMode) {
+        // Слушаем dom-state events от учеников на этом же уроке
+        firehose.on('broadcast', { event:'dom-state' }, function(p){
+          var data = p.payload || {};
+          if (data.lesson_path !== location.pathname) return;
+          if (data.role === 'teacher' || data.role === 'observer') return;
+          var el = resolvePath(data.path);
+          if (!el) return;
+          muteOutgoing = true;
+          TRACK_CLASSES.forEach(function(c){ if (el.classList) el.classList.remove(c); });
+          (data.classes || []).forEach(function(c){ el.classList && el.classList.add(c); });
+          if ('value' in data && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT')) {
+            el.value = data.value;
+          }
+          if (data.text && el.matches && (el.matches('.gap') || el.matches('.match-item'))) {
+            el.textContent = data.text;
+          }
+          if (el.classList) {
+            el.classList.add('lab-observe-flash');
+            setTimeout(function(){ el.classList.remove('lab-observe-flash'); }, 800);
+          }
+          setTimeout(function(){ muteOutgoing = false; }, 200);
+        });
+        // Стиль flash для подсветки изменений ученика
+        if (!document.getElementById('lab-teacher-flash-style')) {
+          var fs = document.createElement('style');
+          fs.id = 'lab-teacher-flash-style';
+          fs.textContent = '.lab-observe-flash{box-shadow:0 0 0 3px rgba(251,191,36,.55) !important;transition:box-shadow .8s ease-out}';
+          document.head.appendChild(fs);
+        }
         if (!document.getElementById('lab-teacher-style')) {
           var ts2 = document.createElement('style');
           ts2.id = 'lab-teacher-style';
