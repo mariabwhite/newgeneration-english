@@ -38,7 +38,10 @@
     var sum = 0;
     sum += document.querySelectorAll('.matched, .match-card.matched').length;
     sum += document.querySelectorAll('.mcq-opts button.right, .mcq-opts button.correct').length;
+    sum += document.querySelectorAll('.mc-opts button.right, .mc-opts button.correct, .tfg-opts button.right, .tfg-opts button.correct').length;
+    sum += document.querySelectorAll('.cloze-opts button.right, .cloze-opts button.correct').length;
     sum += document.querySelectorAll('.gap-input.correct, .gap-input.right, .gap.correct, .gap.right, .gapfill input.correct').length;
+    sum += document.querySelectorAll('.wf-in.right, .wf-in.correct, .oc-in.right, .oc-in.correct, .tr-in.right, .tr-in.correct, .byo-row input.right, .byo-row input.correct').length;
     sum += document.querySelectorAll('.tf-btn.right, .tf-btn.correct').length;
     sum += document.querySelectorAll('.choice.right, .choice.correct, .mc-opt.right, .mc-opt.correct').length;
     sum += document.querySelectorAll('.detective-pill.right, .detective-pill.picked.correct').length;
@@ -56,8 +59,10 @@
 
     var targets = 0;
     targets += document.querySelectorAll('.mcq-row').length;
+    targets += document.querySelectorAll('.mc-row, .tfg-row, .cloze-row').length;
     targets += document.querySelectorAll('.gap-input').length;
     targets += document.querySelectorAll('.gapfill input').length;
+    targets += document.querySelectorAll('.wf-in, .oc-in, .tr-in, .byo-row input').length;
     targets += (document.querySelectorAll('.match-card').length / 2 | 0);
     targets += document.querySelectorAll('.tf-q, .tf-item').length;
     targets += document.querySelectorAll('.detective-pill').length;
