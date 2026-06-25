@@ -9,8 +9,10 @@
 (function(){
   if (window.__labHwLoaded) return;
   window.__labHwLoaded = true;
-  // Observer mode (учитель в iframe) — никакого UI домашки не нужно
-  if (/[?&]observe=/.test(location.search)) return;
+  // Observer mode (учитель в iframe) — UI домашки виден, но клики silent
+  // (не пишут в БД от имени ученика и не broadcast'ят). Учитель ВИДИТ
+  // те же кнопки что и ученик, чтобы понимать что у того на экране.
+  var observerView = /[?&]observe=/.test(location.search);
 
   var SUPABASE_URL  = "https://iqzlphbvmfgoygnozbya.supabase.co";
   var SUPABASE_ANON = "sb_publishable_hYhBk3xS90uouUFd_DZWUw_sOv-6JGO";
@@ -387,6 +389,7 @@
   }
 
   async function sendHomework(){
+    if (observerView) { toast('👁 Observer · просто смотрю как ученик отправит'); return; }
     var arr = loadHw();
     if (!arr.length) return;
     var sendBtn = overlayEl.querySelector('.lab-hw-send');

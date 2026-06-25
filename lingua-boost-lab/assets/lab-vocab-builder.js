@@ -524,12 +524,11 @@
   }
 
   function init(){
-    if (observeMode) return; // observer не трогаем
     injectStyle();
     renderVocab();
     highlightInText();
     if (teacherMode) hookSelection();
-    hookFirehosePush();
+    if (!observeMode) hookFirehosePush();
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
