@@ -938,6 +938,16 @@ document.querySelectorAll('.gapfill button.check').forEach(btn=>{
 document.querySelectorAll('.builder').forEach(builder=>{
   const target=builder.dataset.answer||'';
   const slots=builder.querySelectorAll('.target-line .slot');
+  // shuffle word-bank so the correct order is not telegraphed
+  const bankEl=builder.querySelector('.word-bank');
+  if(bankEl){
+    const kids=Array.from(bankEl.children);
+    for(let i=kids.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      [kids[i],kids[j]]=[kids[j],kids[i]];
+    }
+    kids.forEach(k=>bankEl.appendChild(k));
+  }
   const bank=builder.querySelectorAll('.word-bank button');
   const status=builder.querySelector('.builder-status');
   const checkBtn=builder.querySelector('[data-act="check"]');
