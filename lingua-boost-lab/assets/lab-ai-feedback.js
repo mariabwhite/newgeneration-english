@@ -96,6 +96,28 @@
       const target = row.dataset.target || '';
       if (txt.length >= 3) out.push({ kind: 'speaking', text: txt, target: target });
     });
+    // AI Live Coach (Дана) и любой [data-transcript] — забираем то что распознала речь
+    section.querySelectorAll('.grader-transcript, [data-transcript]').forEach(el => {
+      // снимаем interim-span курсивы
+      const clone = el.cloneNode(true);
+      clone.querySelectorAll('.interim').forEach(n => n.remove());
+      const txt = (clone.textContent || '').replace(/\s+/g,' ').trim();
+      if (txt.length >= 5) out.push({ kind: 'speech-coach', text: txt });
+    });
+    // Persisted transcripts из lab-coach-persist
+    try {
+      const prefix = 'lab-script:' + location.pathname + ':';
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (!k || k.indexOf(prefix) !== 0) continue;
+        const saved = (localStorage.getItem(k) || '').trim();
+        if (saved.length >= 5) {
+          // Только если это persisted текст относится к этой секции (мы сохраняем без section binding, добавим все)
+          // dedupe — пропустим если уже есть
+          if (!out.some(o => o.text === saved)) out.push({ kind: 'speech-coach-persisted', text: saved });
+        }
+      }
+    } catch(e){}
     section.querySelectorAll('input[type="text"]').forEach(inp => {
       if (inp.closest('.gap, .gapfill, .wf-row, .builder')) return;
       const v = (inp.value || '').trim();

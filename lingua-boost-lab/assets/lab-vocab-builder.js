@@ -31,6 +31,8 @@
     var s = document.createElement('style');
     s.id = 'lab-vb-style';
     s.textContent = ''+
+      /* Старые кастомные vocab-FAB у Вани и др. — наш модуль их заменяет */
+      '.vocab-box,.vocab-bag,.my-vocab-fab{display:none !important}'+
       '.lab-vocab-section{margin:24px auto !important;padding:20px 22px !important;border-radius:14px !important;'+
         'background:linear-gradient(135deg,#fbf8ff 0%,#f1ebff 100%) !important;'+
         'border:1px solid #d4c0f7 !important;font-family:"Manrope",sans-serif !important;'+
