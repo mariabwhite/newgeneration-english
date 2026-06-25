@@ -40,6 +40,10 @@
         'max-width:1100px !important;width:auto !important;display:block !important;box-sizing:border-box;'+
         'box-shadow:0 10px 40px rgba(0,0,0,.32)}'+
       '@media(max-width:600px){.lab-coach-section{margin:14px 8px !important;padding:14px !important}}'+
+      '.lc-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:18px;align-items:start}'+
+      '@media(max-width:780px){.lc-grid{grid-template-columns:1fr}}'+
+      '.lc-crit-h{font:800 .78rem/1 "JetBrains Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:#fbbf24;margin-bottom:10px;opacity:.85}'+
+      '.lc-left,.lc-right{min-width:0}'+
       '.lab-coach-toggle{cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px}'+
       '.lab-coach-toggle h2{margin:0;font:800 1rem/1.2 "Manrope",sans-serif;color:#fbbf24}'+
       '.lab-coach-toggle .meta{font:600 .8rem/1 "JetBrains Mono",monospace;color:rgba(251,191,36,.6);letter-spacing:.06em}'+
@@ -59,7 +63,8 @@
       '.lc-btn.lc-analyze{background:linear-gradient(135deg,#7c3aed 0%,#a855f7 100%)}'+
       '.lc-btn:disabled{opacity:.55;cursor:wait;transform:none}'+
 
-      '.lc-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin:10px 0}'+
+      '.lc-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:10px 0}'+
+      '@media(max-width:780px){.lc-stats{grid-template-columns:repeat(auto-fit,minmax(80px,1fr))}}'+
       '.lc-stat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:8px 12px}'+
       '.lc-stat .lc-lbl{font:700 .68rem/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:rgba(251,191,36,.6);margin-bottom:3px}'+
       '.lc-stat .lc-val{font:800 1.1rem/1 "Manrope",sans-serif;color:#fbbf24}'+
@@ -311,25 +316,32 @@
         '<span class="meta">click to collapse</span>'+
       '</div>'+
       '<div class="lab-coach-body">'+
-        '<div style="background:rgba(251,191,36,.10);border:1px solid rgba(251,191,36,.32);border-radius:10px;padding:11px 14px;margin-bottom:12px;color:var(--text,#fbbf24);font:600 .92rem/1.55 Manrope"><strong style="color:#fbbf24">📋 Task:</strong> '+esc(state.task)+'</div>'+
-        '<div class="lc-row">'+
-          '<button type="button" class="lc-btn lc-record">🎙 Record</button>'+
-          '<button type="button" class="lc-btn lc-analyze" disabled>🤖 AI review</button>'+
-        '</div>'+
-        '<div class="lc-stats">'+
-          '<div class="lc-stat"><div class="lc-lbl">Words</div><div class="lc-val">0</div></div>'+
-          '<div class="lc-stat"><div class="lc-lbl">Pace · WPM</div><div class="lc-val">—</div></div>'+
-          '<div class="lc-stat"><div class="lc-lbl">Linkers</div><div class="lc-val">0</div></div>'+
-          '<div class="lc-stat"><div class="lc-lbl">B2+ vocab</div><div class="lc-val">0</div></div>'+
-          '<div class="lc-stat"><div class="lc-lbl">Longest pause</div><div class="lc-val">0.0s</div></div>'+
-        '</div>'+
-        '<div class="lc-transcript grader-transcript" data-transcript></div>'+
-        '<div class="lc-criteria">'+
-          state.criteria.map(function(c){
-            return '<div class="lc-crit"><div class="lc-tick">✓</div><div style="flex:1"><div class="lc-crit-text">'+esc(c.label)+'</div>'+
-              (c.hint ? '<div class="lc-crit-hint">'+esc(c.hint)+'</div>' : '')+
-              '</div></div>';
-          }).join('')+
+        '<div style="background:rgba(251,191,36,.10);border:1px solid rgba(251,191,36,.32);border-radius:10px;padding:11px 14px;margin-bottom:14px;color:var(--text,#fbbf24);font:600 .92rem/1.55 Manrope"><strong style="color:#fbbf24">📋 Task:</strong> '+esc(state.task)+'</div>'+
+        '<div class="lc-grid">'+
+          '<div class="lc-left">'+
+            '<div class="lc-crit-h">Criteria · real time</div>'+
+            '<div class="lc-criteria">'+
+              state.criteria.map(function(c){
+                return '<div class="lc-crit"><div class="lc-tick">✓</div><div style="flex:1"><div class="lc-crit-text">'+esc(c.label)+'</div>'+
+                  (c.hint ? '<div class="lc-crit-hint">'+esc(c.hint)+'</div>' : '')+
+                  '</div></div>';
+              }).join('')+
+            '</div>'+
+          '</div>'+
+          '<div class="lc-right">'+
+            '<div class="lc-row">'+
+              '<button type="button" class="lc-btn lc-record">🎙 Start recording</button>'+
+              '<button type="button" class="lc-btn lc-analyze" disabled>🤖 AI review</button>'+
+            '</div>'+
+            '<div class="lc-transcript grader-transcript" data-transcript></div>'+
+            '<div class="lc-stats">'+
+              '<div class="lc-stat"><div class="lc-lbl">Words</div><div class="lc-val">0</div></div>'+
+              '<div class="lc-stat"><div class="lc-lbl">Pace · WPM</div><div class="lc-val">—</div></div>'+
+              '<div class="lc-stat"><div class="lc-lbl">Linkers</div><div class="lc-val">0</div></div>'+
+              '<div class="lc-stat"><div class="lc-lbl">B2+ vocab</div><div class="lc-val">0</div></div>'+
+              '<div class="lc-stat"><div class="lc-lbl">Pause</div><div class="lc-val">0.0s</div></div>'+
+            '</div>'+
+          '</div>'+
         '</div>'+
       '</div>';
 
