@@ -261,15 +261,15 @@
   }
 
   function scanAndDecorate(){
-    document.querySelectorAll('.mcq-row, .mc-item').forEach(function(el){ addBtn(el, 'mcq'); });
-    document.querySelectorAll('.tfns-row').forEach(function(el){ addBtn(el, 'tfns'); });
-    document.querySelectorAll('.gap').forEach(function(el){ addBtn(el, 'gap'); });
-    document.querySelectorAll('.wf-row').forEach(function(el){ addBtn(el, 'wf'); });
-    document.querySelectorAll('.match-item, .match-card, .match-row').forEach(function(el){ addBtn(el, 'match'); });
-    document.querySelectorAll('.builder').forEach(function(el){ addBtn(el, 'builder'); });
-    document.querySelectorAll('.mic-row').forEach(function(el){ addBtn(el, 'mic'); });
-    document.querySelectorAll('.write textarea, textarea.writing-area, textarea[data-write]').forEach(function(el){ addBtn(el, 'writing'); });
-    document.querySelectorAll('.vocab-card').forEach(function(el){ addBtn(el, 'vocab'); });
+    document.querySelectorAll('.mcq-row, .mc-item, .choice-row, .choice-card, .qcard, .question-card, .q-item').forEach(function(el){ addBtn(el, 'mcq'); });
+    document.querySelectorAll('.tfns-row, .tf-row, .tf-item').forEach(function(el){ addBtn(el, 'tfns'); });
+    document.querySelectorAll('.gap, .gram-gap, .gapfill, .cloze-gap').forEach(function(el){ addBtn(el, 'gap'); });
+    document.querySelectorAll('.wf-row, .wordform-row').forEach(function(el){ addBtn(el, 'wf'); });
+    document.querySelectorAll('.match-item, .match-card, .match-row, .pair-row').forEach(function(el){ addBtn(el, 'match'); });
+    document.querySelectorAll('.builder, .reorder-row, .order-row').forEach(function(el){ addBtn(el, 'builder'); });
+    document.querySelectorAll('.mic-row, .speech-row, .speak-row').forEach(function(el){ addBtn(el, 'mic'); });
+    document.querySelectorAll('.write textarea, textarea.writing-area, textarea[data-write], .open-writing textarea, .free-write textarea').forEach(function(el){ addBtn(el, 'writing'); });
+    document.querySelectorAll('.vocab-card, .word-card, .vocabulary-item').forEach(function(el){ addBtn(el, 'vocab'); });
   }
 
   var fabEl = null, overlayEl = null;
