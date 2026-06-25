@@ -54,7 +54,7 @@
     var s = document.createElement('style');
     s.id = 'lab-hw-style';
     s.textContent = ''+
-      '.lab-hw-add{position:absolute;top:-10px;left:-10px;right:auto;width:26px;height:26px;border-radius:50%;'+
+      '.lab-hw-add{position:absolute;top:4px;right:4px;left:auto;width:26px;height:26px;border-radius:50%;'+
         'background:linear-gradient(135deg,#fff 0%,#fef3c7 100%);'+
         'border:1.5px solid #f59e0b;color:#92400e;cursor:pointer;'+
         'display:inline-flex;align-items:center;justify-content:center;'+
@@ -286,6 +286,9 @@
     document.querySelectorAll('.mic-row, .speech-row, .speak-row').forEach(function(el){ addBtn(el, 'mic'); });
     document.querySelectorAll('.write textarea, textarea.writing-area, textarea[data-write], .open-writing textarea, .free-write textarea').forEach(function(el){ addBtn(el, 'writing'); });
     document.querySelectorAll('.vocab-card, .word-card, .vocabulary-item').forEach(function(el){ addBtn(el, 'vocab'); });
+    // Modals и подобные — диктант / трансформация / cloze
+    document.querySelectorAll('.dict-row, .dictation-row').forEach(function(el){ addBtn(el, 'gap'); });
+    document.querySelectorAll('.trans-row, .transform-row, .rewrite-row').forEach(function(el){ addBtn(el, 'builder'); });
     decorateSections();
   }
 
