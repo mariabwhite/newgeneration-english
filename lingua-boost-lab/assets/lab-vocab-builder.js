@@ -1,4 +1,4 @@
-/* lab-vocab-builder.js v1 — Универсальный словарь для Lab-уроков.
+/* lab-vocab-builder.js v3 — Универсальный словарь + LIVE PUSH от учителя.
 
    Урок объявляет:
      window.LAB_VOCAB = [
@@ -410,12 +410,126 @@
     }, 50);
   }
 
+  // ---- LIVE PUSH (v3): учитель шлёт слово через firehose,
+  //      ученик ловит → авто-обогащает Pollinations'ом → добавляет к vocab.
+  function getStudentRoom(){
+    try {
+      var name = localStorage.getItem('lab-student-name');
+      if (name) {
+        return 'student-' + (name||'').toLowerCase().replace(/[^a-zа-яё0-9]+/gi,'-').replace(/^-+|-+$/g,'').slice(0,30);
+      }
+      var solo = localStorage.getItem('lab-solo-id');
+      if (solo) return solo;
+    } catch(e){}
+    return '';
+  }
+
+  async function enrichWord(word){
+    try {
+      var resp = await fetch('https://text.pollinations.ai/openai', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({
+          model:'openai', private:true, seed: Math.floor(Math.random()*1e6),
+          messages: [
+            { role:'system', content: 'Ты лингвист. Дай для слова: IPA (British), краткий русский перевод (1-3 слова), короткий пример в одном предложении. Ответ СТРОГО в формате JSON без markdown: {"ipa":"/.../","ru":"...","example":"..."}' },
+            { role:'user', content: 'Слово: ' + word }
+          ]
+        })
+      });
+      if (!resp.ok) return {};
+      var data = await resp.json().catch(function(){ return {}; });
+      var text = data?.choices?.[0]?.message?.content || '';
+      var m = text.match(/\{[\s\S]*\}/);
+      if (m) try { return JSON.parse(m[0]); } catch(e){}
+    } catch(e){}
+    return {};
+  }
+
+  async function addPushedWord(word){
+    if (!word) return;
+    word = String(word).trim();
+    if (!word) return;
+    var extras = loadExtras();
+    if (extras.some(function(x){ return (x.word||'').toLowerCase() === word.toLowerCase(); })) return;
+    var item = { word: word, ipa: '', ru: '', example: '' };
+    extras.push(item);
+    saveExtras(extras);
+    // Re-render immediately
+    var existing = document.getElementById('auto-vocab');
+    if (existing) existing.remove();
+    renderVocab();
+    document.querySelectorAll('p, li').forEach(function(el){ el.__vbHighlighted = false; });
+    highlightInText();
+
+    // Тёплый flash + toast
+    showWordToast('✨ Учитель добавил слово: ' + word);
+
+    // Enrich in background — IPA + RU + example
+    var enrichment = await enrichWord(word);
+    if (enrichment && (enrichment.ipa || enrichment.ru)) {
+      var fresh = loadExtras();
+      var idx = fresh.findIndex(function(x){ return (x.word||'').toLowerCase() === word.toLowerCase(); });
+      if (idx >= 0) {
+        fresh[idx].ipa = enrichment.ipa || '';
+        fresh[idx].ru = enrichment.ru || '';
+        fresh[idx].example = enrichment.example || '';
+        saveExtras(fresh);
+        var section = document.getElementById('auto-vocab');
+        if (section) section.remove();
+        renderVocab();
+        document.querySelectorAll('p, li').forEach(function(el){ el.__vbHighlighted = false; });
+        highlightInText();
+      }
+    }
+  }
+
+  function showWordToast(msg){
+    var t = document.querySelector('.vocab-push-toast');
+    if (!t) {
+      t = document.createElement('div');
+      t.className = 'vocab-push-toast';
+      t.style.cssText = 'position:fixed;left:50%;bottom:32px;transform:translateX(-50%);'+
+        'background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;padding:12px 22px;border-radius:50px;'+
+        'font:800 .92rem/1.4 "Manrope",sans-serif;z-index:99999;box-shadow:0 8px 30px rgba(124,58,237,.45);'+
+        'opacity:0;transition:opacity .25s';
+      document.body.appendChild(t);
+    }
+    t.textContent = msg;
+    requestAnimationFrame(function(){ t.style.opacity = '1'; });
+    clearTimeout(t.__tt);
+    t.__tt = setTimeout(function(){ t.style.opacity = '0'; }, 3200);
+  }
+
+  function hookFirehosePush(){
+    if (observeMode) return;
+    var myRoom = getStudentRoom();
+    if (!myRoom) return;
+    var SUPABASE_URL  = "https://iqzlphbvmfgoygnozbya.supabase.co";
+    var SUPABASE_ANON = "sb_publishable_hYhBk3xS90uouUFd_DZWUw_sOv-6JGO";
+    function bind(){
+      if (!window.supabase) return setTimeout(bind, 400);
+      try {
+        var c = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+        var ch = c.channel('lab-firehose-v1', { config:{ broadcast:{ self:false }}});
+        ch.on('broadcast', { event:'vocab-push' }, function(p){
+          var data = p.payload || {};
+          if (data.room_id !== myRoom) return;
+          if (!data.word) return;
+          addPushedWord(data.word);
+        });
+        ch.subscribe();
+      } catch(e){}
+    }
+    bind();
+  }
+
   function init(){
     if (observeMode) return; // observer не трогаем
     injectStyle();
     renderVocab();
     highlightInText();
     if (teacherMode) hookSelection();
+    hookFirehosePush();
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

@@ -332,14 +332,47 @@
             'transition:box-shadow .8s ease-out}'+
             '.lab-observe-banner{position:fixed;top:0;left:0;right:0;z-index:100000;'+
             'padding:6px 14px;background:linear-gradient(90deg,#f59e0b,#fbbf24);'+
-            'color:#1a1a2e;font:800 11px/1 "JetBrains Mono",monospace;letter-spacing:.18em;'+
-            'text-transform:uppercase;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.3)}';
+            'color:#1a1a2e;font:800 11px/1.4 "JetBrains Mono",monospace;letter-spacing:.16em;'+
+            'text-transform:uppercase;display:flex;align-items:center;justify-content:center;'+
+            'gap:8px;box-shadow:0 2px 12px rgba(0,0,0,.3);flex-wrap:wrap}';
           document.head.appendChild(os);
           var banner = document.createElement('div');
           banner.className = 'lab-observe-banner';
-          banner.textContent = '👁 Observer · смотрю как ' + observeId.replace(/^student-/, '') + ' заполняет урок';
+          banner.innerHTML =
+            '<span>👁 Observer · ' + observeId.replace(/^student-/, '') + '</span>' +
+            '<span style="display:inline-flex;align-items:center;gap:6px;margin-left:18px">'+
+              '<input id="labQuickWord" type="text" placeholder="+ слово ученику" '+
+                'style="padding:5px 12px;border-radius:50px;border:0;background:rgba(255,255,255,.92);color:#1a1a2e;'+
+                'font:700 12px/1.3 \'Manrope\',sans-serif;outline:none;width:220px">'+
+              '<button id="labQuickAdd" type="button" '+
+                'style="padding:6px 12px;border-radius:50px;border:0;cursor:pointer;'+
+                'background:#1a1a2e;color:#fbbf24;font:800 11px/1 \'JetBrains Mono\',monospace;letter-spacing:.12em;text-transform:uppercase">'+
+                '➕ enter</button>'+
+            '</span>';
           document.body.appendChild(banner);
-          document.body.style.paddingTop = '32px';
+          document.body.style.paddingTop = '40px';
+          // Quick add — пушит слово ученику через firehose
+          function quickPush(){
+            var inp = document.getElementById('labQuickWord');
+            var w = (inp.value || '').trim();
+            if (w.length < 2) return;
+            firehose.send({ type:'broadcast', event:'vocab-push', payload: {
+              room_id: observeId, word: w, ts: Date.now()
+            }});
+            inp.value = '';
+            // Visual feedback
+            var orig = inp.style.background;
+            inp.style.background = '#22c55e';
+            inp.placeholder = '✓ отправлено: ' + w;
+            setTimeout(function(){
+              inp.style.background = orig || 'rgba(255,255,255,.92)';
+              inp.placeholder = '+ слово ученику';
+            }, 1100);
+          }
+          document.getElementById('labQuickAdd').addEventListener('click', quickPush);
+          document.getElementById('labQuickWord').addEventListener('keydown', function(e){
+            if (e.key === 'Enter') quickPush();
+          });
         }
       }
 
