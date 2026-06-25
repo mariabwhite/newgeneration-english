@@ -33,11 +33,11 @@
     s.textContent = ''+
       /* Старые кастомные vocab-FAB у Вани и др. — наш модуль их заменяет */
       '.vocab-box,.vocab-bag,.my-vocab-fab{display:none !important}'+
-      '.lab-vocab-section{margin:24px auto !important;padding:20px 22px !important;border-radius:14px !important;'+
+      '.lab-vocab-section{margin:24px 0 !important;padding:20px 22px !important;border-radius:14px !important;'+
         'background:color-mix(in srgb, var(--accent, #7c3aed) 8%, var(--surface, rgba(15,20,30,.82))) !important;'+
         'border:1px solid color-mix(in srgb, var(--accent, #7c3aed) 30%, transparent) !important;'+
         'font-family:"Manrope",sans-serif !important;color:var(--text, #f3eee5) !important;'+
-        'max-width:1240px !important;width:100% !important;box-sizing:border-box !important;display:block !important}'+
+        'width:auto !important;box-sizing:border-box !important;display:block !important}'+
       '[data-lab-theme="dark"] .lab-vocab-section{background:linear-gradient(135deg,#1e1a2e 0%,#241c3e 100%);'+
         'border-color:#5b3aa8;color:#f3eee5}'+
       '.lab-vocab-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:12px}'+
@@ -258,8 +258,6 @@
     var sec = document.createElement('section');
     sec.className = 'section lab-vocab-section';
     sec.id = 'auto-vocab';
-    // Inline style — единая ширина 1240 центрированная по body, как у lab-total
-    sec.style.cssText = 'max-width:1240px;margin:24px auto;padding:20px clamp(16px,3vw,28px);box-sizing:border-box';
     sec.innerHTML =
       '<div class="lab-vocab-h">'+
         '<h2>📖 Vocabulary</h2>'+
@@ -267,14 +265,18 @@
       '</div>'+
       '<div class="lab-vocab-grid" id="vocabGrid"></div>'+
       (teacherMode ? '<div style="margin-top:18px"><button class="lab-vocab-add-btn" id="vocabAddBtn">+ добавить своё слово</button></div>' : '');
-    // ЕДИНАЯ стратегия со speech-tester и lab-total: вставка перед <footer>.
-    // Это даёт всем блокам одну ширину (max-width:1240px, margin:auto, центр body).
-    var anchor = document.querySelector('footer') || document.body.lastElementChild;
-    if (anchor && anchor.parentNode) {
-      anchor.parentNode.insertBefore(sec, anchor);
-    } else {
-      document.body.appendChild(sec);
+    // Vocabulary section ВНУТРИ контейнера секций урока (та же ширина что у других .section).
+    var firstSection = document.querySelector('section.section');
+    if (firstSection && firstSection.parentNode) {
+      firstSection.parentNode.insertBefore(sec, firstSection);
+      return sec;
     }
+    var main = document.querySelector('main, .container, .wrap, .lesson, .lesson-container');
+    if (main) {
+      main.insertBefore(sec, main.firstChild);
+      return sec;
+    }
+    document.body.insertBefore(sec, document.body.firstChild);
     return sec;
   }
 
