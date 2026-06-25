@@ -286,6 +286,7 @@
     document.querySelectorAll('.mic-row, .speech-row, .speak-row').forEach(function(el){ addBtn(el, 'mic'); });
     document.querySelectorAll('.write textarea, textarea.writing-area, textarea[data-write], .open-writing textarea, .free-write textarea').forEach(function(el){ addBtn(el, 'writing'); });
     document.querySelectorAll('.vocab-card, .word-card, .vocabulary-item').forEach(function(el){ addBtn(el, 'vocab'); });
+    document.querySelectorAll('.cue-card, .post, .prompt-card, .task-card, .speaking-task, .writing-task').forEach(function(el){ addBtn(el, 'builder'); });
     // Modals и подобные — диктант / трансформация / cloze
     document.querySelectorAll('.dict-row, .dictation-row').forEach(function(el){ addBtn(el, 'gap'); });
     document.querySelectorAll('.trans-row, .transform-row, .rewrite-row').forEach(function(el){ addBtn(el, 'builder'); });

@@ -38,46 +38,45 @@
         'border:1px solid color-mix(in srgb, var(--accent, #7c3aed) 25%, transparent);'+
         'font-family:"Manrope",sans-serif;color:var(--text, #f3eee5);'+
         'box-sizing:border-box;display:block}'+
-      '[data-lab-theme="dark"] .lab-vocab-section{background:linear-gradient(135deg,#1e1a2e 0%,#241c3e 100%);'+
-        'border-color:#5b3aa8;color:#f3eee5}'+
+      '[data-lab-theme="dark"] .lab-vocab-section{background:var(--card, var(--surface, #1b232d));'+
+        'border-color:var(--line, color-mix(in srgb, var(--accent, #7c3aed) 35%, transparent));color:var(--text, #f3eee5)}'+
       '.lab-vocab-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:12px}'+
-      '.lab-vocab-h h2{font:800 1.1rem/1.2 "Manrope",sans-serif !important;color:var(--accent, #fbbf24);margin:0 !important}'+
-      '.lab-vocab-h h2{margin:0;font:800 1.25rem/1.2 "Manrope",sans-serif;color:#4a2d8a;display:flex;align-items:center;gap:10px}'+
-      '[data-lab-theme="dark"] .lab-vocab-h h2{color:#e9d6ff}'+
-      '.lab-vocab-h .meta{font:600 .82rem/1.4 "JetBrains Mono",monospace;letter-spacing:.08em;color:#6b46c1}'+
-      '[data-lab-theme="dark"] .lab-vocab-h .meta{color:#c5a3ff}'+
+      '.lab-vocab-h h2{margin:0 !important;font:800 1.25rem/1.2 "Manrope",sans-serif !important;color:var(--accent, #fbbf24) !important;display:flex;align-items:center;gap:10px}'+
+      '[data-lab-theme="dark"] .lab-vocab-h h2{color:var(--accent, #e9d6ff) !important}'+
+      '.lab-vocab-h .meta{font:600 .82rem/1.4 "JetBrains Mono",monospace;letter-spacing:.08em;color:color-mix(in srgb, var(--accent, #6b46c1) 70%, var(--text, #1a1f2e))}'+
+      '[data-lab-theme="dark"] .lab-vocab-h .meta{color:color-mix(in srgb, var(--accent, #c5a3ff) 72%, var(--text, #f3eee5))}'+
       '.lab-vocab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;width:100%}'+
 '@media(max-width:600px){.lab-vocab-grid{grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}}'+
 '@media(max-width:600px){.lab-vocab-section{margin:14px 8px !important;padding:14px 14px !important}}'+
-      '.vocab-card{position:relative;background:#fff;border:1.5px solid #d4c0f7;border-radius:10px;'+
+      '.lab-vocab-section .vocab-card{position:relative;background:var(--surface, var(--card, #fff));border:1.5px solid var(--line, color-mix(in srgb, var(--accent, #7c3aed) 25%, transparent));border-radius:10px;'+
         'padding:10px 12px;cursor:pointer;transition:transform .15s,box-shadow .15s;perspective:600px;min-height:74px}'+
-      '[data-lab-theme="dark"] .vocab-card{background:#15102a;border-color:#5b3aa8}'+
-      '.vocab-card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(124,58,237,.18)}'+
-      '.vocab-card .face{display:block}'+
-      '.vocab-card.flipped .front{display:none}'+
-      '.vocab-card:not(.flipped) .back{display:none}'+
-      '.vocab-card .word{font:800 1.05rem/1.2 "Manrope",sans-serif;color:#1a1f2e;margin-bottom:4px}'+
-      '[data-lab-theme="dark"] .vocab-card .word{color:#f3eee5}'+
-      '.vocab-card .ipa{font:500 .88rem/1.4 "JetBrains Mono",monospace;color:#7c3aed;margin-bottom:6px}'+
-      '[data-lab-theme="dark"] .vocab-card .ipa{color:#c5a3ff}'+
-      '.vocab-card .ru{font:700 .94rem/1.4 "Manrope",sans-serif;color:#4a2d8a;margin-bottom:4px}'+
-      '[data-lab-theme="dark"] .vocab-card .ru{color:#e9d6ff}'+
-      '.vocab-card .ex{font:500 .82rem/1.5 "Manrope",sans-serif;color:#64748b;font-style:italic}'+
-      '[data-lab-theme="dark"] .vocab-card .ex{color:#9aa0ab}'+
-      '.vocab-card .speak{position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;'+
-        'border:0;background:#7c3aed;color:#fff;cursor:pointer;font-size:14px;'+
+      '[data-lab-theme="dark"] .lab-vocab-section .vocab-card{background:var(--surface, var(--card, #15102a));border-color:var(--line, #5b3aa8)}'+
+      '.lab-vocab-section .vocab-card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.14)}'+
+      '.lab-vocab-section .vocab-card .face{display:block}'+
+      '.lab-vocab-section .vocab-card.flipped .front{display:none}'+
+      '.lab-vocab-section .vocab-card:not(.flipped) .back{display:none}'+
+      '.lab-vocab-section .vocab-card .word{font:800 1.05rem/1.2 "Manrope",sans-serif;color:var(--text, #1a1f2e);margin-bottom:4px}'+
+      '[data-lab-theme="dark"] .lab-vocab-section .vocab-card .word{color:var(--text, #f3eee5)}'+
+      '.lab-vocab-section .vocab-card .ipa{font:500 .88rem/1.4 "JetBrains Mono",monospace;color:var(--accent, #7c3aed);margin-bottom:6px}'+
+      '[data-lab-theme="dark"] .lab-vocab-section .vocab-card .ipa{color:var(--accent, #c5a3ff)}'+
+      '.lab-vocab-section .vocab-card .ru{font:700 .94rem/1.4 "Manrope",sans-serif;color:var(--accent, #4a2d8a);margin-bottom:4px}'+
+      '[data-lab-theme="dark"] .lab-vocab-section .vocab-card .ru{color:var(--accent, #e9d6ff)}'+
+      '.lab-vocab-section .vocab-card .ex{font:500 .82rem/1.5 "Manrope",sans-serif;color:var(--muted, #64748b);font-style:italic}'+
+      '[data-lab-theme="dark"] .lab-vocab-section .vocab-card .ex{color:var(--muted, #9aa0ab)}'+
+      '.lab-vocab-section .vocab-card .speak{position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;'+
+        'border:0;background:var(--accent, #7c3aed);color:#fff;cursor:pointer;font-size:14px;'+
         'box-shadow:0 2px 6px rgba(124,58,237,.32);display:flex;align-items:center;justify-content:center}'+
-      '.vocab-card .speak:hover{background:#a855f7;transform:scale(1.08)}'+
-      '.vocab-card .extra-mark{position:absolute;top:8px;right:42px;font:800 .68rem/1 "JetBrains Mono",monospace;'+
+      '.lab-vocab-section .vocab-card .speak:hover{filter:brightness(1.08);transform:scale(1.08)}'+
+      '.lab-vocab-section .vocab-card .extra-mark{position:absolute;top:8px;right:42px;font:800 .68rem/1 "JetBrains Mono",monospace;'+
         'letter-spacing:.14em;color:#f59e0b;background:#fef3c7;padding:3px 7px;border-radius:50px}'+
-      '[data-lab-theme="dark"] .vocab-card .extra-mark{background:#451a03;color:#fbbf24}'+
+      '[data-lab-theme="dark"] .lab-vocab-section .vocab-card .extra-mark{background:#451a03;color:#fbbf24}'+
       /* Кнопка удалить — только для учителя */
-      '.vocab-card .vc-del{position:absolute;top:-6px;left:-6px;width:24px;height:24px;border-radius:50%;'+
+      '.lab-vocab-section .vocab-card .vc-del{position:absolute;top:-6px;left:-6px;width:24px;height:24px;border-radius:50%;'+
         'background:#ef4444;color:#fff;border:0;cursor:pointer;'+
         'display:none;align-items:center;justify-content:center;font:800 14px/1 system-ui;'+
         'box-shadow:0 2px 6px rgba(239,68,68,.45);z-index:6}'+
-      '.vocab-card .vc-del:hover{background:#dc2626;transform:scale(1.12)}'+
-      'body.lab-teacher-on .vocab-card .vc-del{display:flex}'+
+      '.lab-vocab-section .vocab-card .vc-del:hover{background:#dc2626;transform:scale(1.12)}'+
+      'body.lab-teacher-on .lab-vocab-section .vocab-card .vc-del{display:flex}'+
 
       '.lab-vocab-add-btn{padding:9px 16px;border-radius:10px;border:1.5px dashed #7c3aed;'+
         'background:transparent;color:#7c3aed;cursor:pointer;'+
@@ -253,6 +252,7 @@
 
   function findOrBuildSection(){
     // Если в уроке уже есть статичный vocab section — используем его
+    if (document.getElementById('auto-vocab')) return document.getElementById('auto-vocab');
     var existing = document.querySelector(
       'section.vocabulary, .vocab-section, section[id*="vocab"], '+
       '[id*="vocab"], .vocab-grid, .vocab-list, .vocabulary-block, '+
@@ -260,7 +260,7 @@
     );
     // Также если на странице уже есть хоть одна .vocab-card — Vocabulary считается родной
     if (!existing && document.querySelector('.vocab-card')) existing = document.querySelector('.vocab-card').closest('section, .container, .card, div');
-    if (existing) return null;
+    if (existing && !loadExtras().length && !Array.isArray(window.LAB_VOCAB)) return null;
     var sec = document.createElement('section');
     sec.className = 'section lab-vocab-section';
     sec.id = 'auto-vocab';
