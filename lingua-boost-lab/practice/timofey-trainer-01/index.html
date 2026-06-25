@@ -112,11 +112,13 @@ h1.hero-title .grad{background:linear-gradient(120deg,#9ee0a3,#dcedc8);-webkit-b
 .classify-pool{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
 .classify-pool .chip{background:var(--card);border:1.5px solid var(--line-2);padding:8px 14px;border-radius:50px;cursor:pointer;font-size:.92rem;color:var(--text);transition:.18s}
 .classify-pool .chip:hover{border-color:var(--accent)}
+.classify-pool .chip.selected{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 24%,transparent);transform:translateY(-1px)}
 .classify-pool .chip.placed{opacity:.35;pointer-events:none}
 .classify-pool .chip.correct{background:rgba(66,216,137,.18);border-color:var(--ok);color:var(--ok)}
 .classify-pool .chip.wrong{background:rgba(255,92,114,.18);border-color:var(--miss);color:var(--miss)}
 .classify-bins{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
-.classify-bin{background:var(--bg-2);border:2px dashed var(--line-2);border-radius:12px;padding:14px;min-height:120px}
+.classify-bin{background:var(--bg-2);border:2px dashed var(--line-2);border-radius:12px;padding:14px;min-height:120px;cursor:pointer;transition:.18s}
+.classify-bin:hover,.classify-bin.ready{border-color:var(--accent);background:color-mix(in srgb,var(--bg-2) 84%,var(--accent) 16%)}
 .classify-bin h4{color:var(--accent-2);font-family:var(--display);font-size:.95rem;margin-bottom:10px;text-align:center;font-weight:800}
 .classify-bin .placed-items{display:flex;flex-wrap:wrap;gap:6px;min-height:60px}
 .classify-bin .placed-items > span{background:var(--surface);border:1px solid var(--line);padding:6px 10px;border-radius:50px;font-size:.86rem;cursor:pointer}
@@ -488,7 +490,7 @@ footer{max-width:1240px;margin:48px auto 28px;padding:0 22px;text-align:center;c
 <!-- 5 · -ING CLASSIFY -->
 <section class="section">
   <div class="section-hdr"><div class="section-num">06</div><h2>-ing forms · 3 functions</h2></div>
-  <p class="section-sub">Tap each -ing phrase to send it to the correct bin: gerund (= noun), participle (= adjective), continuous (= part of a tense).</p>
+  <p class="section-sub">Tap an -ing phrase, then tap the correct bin: gerund (= noun), participle (= adjective), continuous (= part of a tense).</p>
   <div class="card">
     <div class="info">
       <strong>3-in-1 rule:</strong> one ending <em>-ing</em> can be a <strong>gerund</strong> (noun: <em>Hiking is fun</em>), a <strong>participle</strong> (adjective: <em>a charming café</em>) or part of a <strong>Continuous</strong> tense (<em>I am preparing</em>). Open the scheme in the notes block above if you forget.
@@ -523,7 +525,7 @@ footer{max-width:1240px;margin:48px auto 28px;padding:0 22px;text-align:center;c
         <div class="placed-items"></div>
       </div>
     </div>
-    <p style="font-size:.8rem;color:var(--muted);margin-top:8px"><em>Tap a chip → it lands in the first empty bin. Tap a chip inside a bin → it returns to the pool. When all are placed → click "Check".</em></p>
+    <p style="font-size:.8rem;color:var(--muted);margin-top:8px"><em>Tap a chip → choose a bin. Tap a chip inside a bin → it returns to the pool. When all are placed → click "Check".</em></p>
     <div style="display:flex;gap:10px;align-items:center;margin-top:10px">
       <button id="cl-check" style="font:800 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--accent);color:#fff;border:none;padding:10px 16px;border-radius:8px;cursor:pointer">Check</button>
       <span id="cl-result" style="font:800 .78rem/1 var(--mono);color:var(--accent-2)"></span>
@@ -875,18 +877,44 @@ document.querySelectorAll('.gapfill button.check').forEach(btn=>{
 (function(){
   const pool=document.getElementById('cl-pool');
   const bins=document.querySelectorAll('.classify-bin');
+  if(!pool || !bins.length)return;
+  let selected=null;
+
+  function clearSelection(){
+    if(selected)selected.classList.remove('selected');
+    selected=null;
+    bins.forEach(b=>b.classList.remove('ready'));
+  }
+
+  function placeChip(bin){
+    if(!selected)return;
+    const sourceChip=selected;
+    const placed=document.createElement('span');
+    placed.innerHTML=sourceChip.innerHTML;
+    placed.dataset.cls=sourceChip.dataset.cls;
+    placed.addEventListener('click',()=>{
+      sourceChip.classList.remove('placed','correct','wrong');
+      placed.remove();
+    });
+    bin.querySelector('.placed-items').appendChild(placed);
+    sourceChip.classList.add('placed');
+    clearSelection();
+  }
+
   pool.querySelectorAll('.chip').forEach(chip=>{
     chip.addEventListener('click',()=>{
       if(chip.classList.contains('placed'))return;
-      const firstEmpty=Array.from(bins).find(b=>b.querySelector('.placed-items').children.length<5);
-      if(!firstEmpty)return;
-      const placed=document.createElement('span');
-      placed.innerHTML=chip.innerHTML;
-      placed.dataset.cls=chip.dataset.cls;
-      placed.dataset.binBefore=firstEmpty.dataset.bin;
-      placed.addEventListener('click',()=>{chip.classList.remove('placed','correct','wrong');placed.remove();});
-      firstEmpty.querySelector('.placed-items').appendChild(placed);
-      chip.classList.add('placed');
+      if(selected===chip){clearSelection();return;}
+      clearSelection();
+      selected=chip;
+      chip.classList.add('selected');
+      bins.forEach(b=>b.classList.add('ready'));
+    });
+  });
+  bins.forEach(bin=>{
+    bin.addEventListener('click',event=>{
+      if(event.target.closest('.placed-items > span'))return;
+      placeChip(bin);
     });
   });
   document.getElementById('cl-check').addEventListener('click',()=>{
