@@ -529,6 +529,12 @@
     highlightInText();
     if (teacherMode) hookSelection();
     if (!observeMode) hookFirehosePush();
+    // Локальное мгновенное обновление словаря в iframe Маши
+    // когда она набирает word в observer banner + Enter.
+    window.addEventListener('lab-local-vocab-push', function(e){
+      var w = e.detail && e.detail.word;
+      if (w) addPushedWord(w);
+    });
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

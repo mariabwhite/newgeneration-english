@@ -356,11 +356,13 @@
             var inp = document.getElementById('labQuickWord');
             var w = (inp.value || '').trim();
             if (w.length < 2) return;
+            // 1. Broadcast ученику через firehose
             firehose.send({ type:'broadcast', event:'vocab-push', payload: {
               room_id: observeId, word: w, ts: Date.now()
             }});
+            // 2. Локально (в iframe Маши) — пинаем lab-vocab-builder синхронно
+            window.dispatchEvent(new CustomEvent('lab-local-vocab-push', { detail: { word: w }}));
             inp.value = '';
-            // Visual feedback
             var orig = inp.style.background;
             inp.style.background = '#22c55e';
             inp.placeholder = '✓ отправлено: ' + w;
