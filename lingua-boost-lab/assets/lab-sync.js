@@ -1,4 +1,4 @@
-/* lab-sync.js v6 — Realtime sync + persist + identity + firehose + observer.
+/* lab-sync.js v7 — Realtime sync + persist + identity + firehose + observer + teleport.
    • С URL ?sync=<roomId>&role=teacher|student — двусторонняя live-комната.
    • Без ?sync — solo-mode: каждый submit идёт в Supabase lab_submissions.
    • Имя ученика → 'student-<slug>' room_id (модалка на первый submit).
@@ -244,8 +244,65 @@
       // ---- Firehose: ВСЕГДА (solo + sync + observer) ----
       firehose = client.channel('lab-firehose-v1', { config: { broadcast: { self: false } } });
 
+      // ===== TELEPORT (v7) =====
+      // Ученик слушает firehose 'scroll-to-student' event со своим room_id —
+      // плавно прокручивается к указанной секции + жёлтый flash.
+      if (!observeMode) {
+        firehose.on('broadcast', { event:'scroll-to-student' }, function(p){
+          var data = p.payload || {};
+          if (data.room_id !== roomId) return;
+          var sec = data.section_id ? document.getElementById(data.section_id) : null;
+          if (!sec) {
+            // fallback по индексу
+            var sections = document.querySelectorAll('section.section');
+            if (typeof data.idx === 'number' && sections[data.idx]) sec = sections[data.idx];
+          }
+          if (!sec) return;
+          sec.scrollIntoView({behavior:'smooth', block:'start'});
+          if (!document.getElementById('lab-teleport-style')) {
+            var ts = document.createElement('style');
+            ts.id = 'lab-teleport-style';
+            ts.textContent = '@keyframes labTeleport{0%{box-shadow:0 0 0 0 rgba(251,191,36,.85)}'+
+              '40%{box-shadow:0 0 0 14px rgba(251,191,36,.0)}100%{box-shadow:0 0 0 0 rgba(251,191,36,0)}}'+
+              '.lab-teleport-flash{animation:labTeleport 1.3s ease-out 2;border-radius:14px}';
+            document.head.appendChild(ts);
+          }
+          sec.classList.add('lab-teleport-flash');
+          setTimeout(function(){ sec.classList.remove('lab-teleport-flash'); }, 2700);
+        });
+      }
+
       // Observer mode (teacher iframe) — listen и применять к локальному DOM
       if (observeMode) {
+        // Перехват TOC-кликов в iframe — вместо локального scroll, broadcast'им ученику
+        setTimeout(function bindTocTeleport(){
+          var toc = document.querySelector('.lp-toc');
+          if (!toc) return setTimeout(bindTocTeleport, 400);
+          var sectionEls = [].slice.call(document.querySelectorAll('section.section'));
+          toc.querySelectorAll('.lp-toc-btn').forEach(function(btn, i){
+            btn.addEventListener('click', function(e){
+              e.stopPropagation();
+              var sec = sectionEls[i];
+              if (!sec || !sec.id) return;
+              firehose.send({ type:'broadcast', event:'scroll-to-student', payload: {
+                room_id: observeId, section_id: sec.id, idx: i, ts: Date.now()
+              }});
+              // Локально тоже скроллим в iframe чтобы Маша видела куда отправила
+              sec.scrollIntoView({behavior:'smooth', block:'start'});
+              // Жёлтый burst в углу iframe
+              var pop = document.createElement('div');
+              pop.style.cssText = 'position:fixed;left:50%;top:60px;transform:translateX(-50%);'+
+                'z-index:99999;padding:8px 18px;border-radius:50px;'+
+                'background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1a1a2e;'+
+                'font:800 11px/1 "JetBrains Mono",monospace;letter-spacing:.16em;text-transform:uppercase;'+
+                'box-shadow:0 8px 22px rgba(245,158,11,.42)';
+              pop.textContent = '🛸 teleported ученика к ' + sec.id;
+              document.body.appendChild(pop);
+              setTimeout(function(){ pop.remove(); }, 1800);
+            }, true);
+          });
+        }, 600);
+
         firehose.on('broadcast', { event:'dom-state' }, function(p){
           var data = p.payload || {};
           if (data.room_id !== observeId) return;
