@@ -45,8 +45,8 @@
       '.lc-crit-h{font:800 .78rem/1 "JetBrains Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:#fbbf24;margin-bottom:10px;opacity:.85}'+
       '.lc-left,.lc-right{min-width:0}'+
       '.lab-coach-toggle{cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px}'+
-      '.lab-coach-toggle h2{margin:0;font:800 1rem/1.2 "Manrope",sans-serif;color:#fbbf24}'+
-      '.lab-coach-toggle .meta{font:600 .8rem/1 "JetBrains Mono",monospace;color:rgba(251,191,36,.6);letter-spacing:.06em}'+
+      '.lab-coach-toggle h2{margin:0;font:800 1rem/1.2 "Manrope",sans-serif;color:var(--accent, #fbbf24)}'+
+      '.lab-coach-toggle .meta{font:600 .8rem/1 "JetBrains Mono",monospace;color:color-mix(in srgb, var(--accent, #fbbf24) 60%, transparent);letter-spacing:.06em}'+
       '.lab-coach-body{display:none;margin-top:14px}'+
       '.lab-coach-section.expanded .lab-coach-body{display:block}'+
 
