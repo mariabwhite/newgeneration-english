@@ -33,11 +33,11 @@
     s.id = 'lab-coach-style';
     s.textContent = ''+
       '.lab-coach-section{margin:24px auto !important;padding:20px 24px !important;border-radius:16px !important;'+
-        'background:var(--surface, rgba(15,20,30,.82)) !important;'+
-        'border:1px solid var(--line, rgba(255,255,255,.14)) !important;'+
+        'background:rgba(8,12,20,.92) !important;'+
+        'border:1px solid color-mix(in srgb, var(--accent, #fbbf24) 35%, transparent) !important;'+
         'backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);'+
-        'color:var(--text, #f3eee5) !important;font-family:"Manrope",sans-serif !important;'+
-        'max-width:1240px !important;width:100% !important;display:block !important;box-sizing:border-box;'+
+        'color:#f3eee5 !important;font-family:"Manrope",sans-serif !important;'+
+        'max-width:1180px !important;width:calc(100% - 24px) !important;display:block !important;box-sizing:border-box;'+
         'box-shadow:0 10px 40px rgba(0,0,0,.32)}'+
       '@media(max-width:600px){.lab-coach-section{margin:14px 8px !important;padding:14px !important}}'+
       '.lc-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:18px;align-items:start}'+
@@ -318,7 +318,7 @@
         '<span class="meta">click to collapse</span>'+
       '</div>'+
       '<div class="lab-coach-body">'+
-        '<div style="background:rgba(251,191,36,.10);border:1px solid rgba(251,191,36,.32);border-radius:10px;padding:11px 14px;margin-bottom:14px;color:var(--text,#fbbf24);font:600 .92rem/1.55 Manrope"><strong style="color:#fbbf24">📋 Task:</strong> '+esc(state.task)+'</div>'+
+        '<div style="background:color-mix(in srgb, var(--accent, #fbbf24) 14%, transparent);border:1px solid color-mix(in srgb, var(--accent, #fbbf24) 45%, transparent);border-radius:10px;padding:13px 16px;margin-bottom:14px;color:#fff;font:700 1rem/1.55 Manrope;text-shadow:0 1px 2px rgba(0,0,0,.4)"><strong style="color:var(--accent, #fbbf24);font-size:.85rem;letter-spacing:.14em;display:block;margin-bottom:6px;text-transform:uppercase">📋 Task</strong>'+esc(state.task)+'</div>'+
         '<div class="lc-grid">'+
           '<div class="lc-left">'+
             '<div class="lc-crit-h">Criteria · real time</div>'+
