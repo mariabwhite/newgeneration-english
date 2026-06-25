@@ -258,7 +258,8 @@
     var sec = document.createElement('section');
     sec.className = 'section lab-vocab-section';
     sec.id = 'auto-vocab';
-    sec.style.cssText = 'width:100%;max-width:none;box-sizing:border-box';
+    // Inline style — единая ширина 1240 центрированная по body, как у lab-total
+    sec.style.cssText = 'max-width:1240px;margin:24px auto;padding:20px clamp(16px,3vw,28px);box-sizing:border-box';
     sec.innerHTML =
       '<div class="lab-vocab-h">'+
         '<h2>📖 Vocabulary</h2>'+
@@ -266,20 +267,14 @@
       '</div>'+
       '<div class="lab-vocab-grid" id="vocabGrid"></div>'+
       (teacherMode ? '<div style="margin-top:18px"><button class="lab-vocab-add-btn" id="vocabAddBtn">+ добавить своё слово</button></div>' : '');
-    // Цель: вставить рядом с другими section.section (т.е. в тот же контейнер).
-    // Самый надёжный способ — взять родителя первой section.section и вставить туда.
-    var firstSection = document.querySelector('section.section');
-    if (firstSection && firstSection.parentNode) {
-      firstSection.parentNode.insertBefore(sec, firstSection);
-      return sec;
+    // ЕДИНАЯ стратегия со speech-tester и lab-total: вставка перед <footer>.
+    // Это даёт всем блокам одну ширину (max-width:1240px, margin:auto, центр body).
+    var anchor = document.querySelector('footer') || document.body.lastElementChild;
+    if (anchor && anchor.parentNode) {
+      anchor.parentNode.insertBefore(sec, anchor);
+    } else {
+      document.body.appendChild(sec);
     }
-    // Fallback — main / .container / .wrap / .lesson
-    var main = document.querySelector('main, .container, .wrap, .lesson, .lesson-container');
-    if (main) {
-      main.insertBefore(sec, main.firstChild);
-      return sec;
-    }
-    document.body.insertBefore(sec, document.body.firstChild);
     return sec;
   }
 

@@ -310,6 +310,8 @@
     var section = document.createElement('section');
     section.className = 'section lab-coach-section';
     section.id = 'lab-speech-coach';
+    // Inline style — единая ширина 1240 по body как у lab-total и vocab
+    section.style.cssText = 'max-width:1240px;margin:24px auto;padding:20px clamp(16px,3vw,28px);box-sizing:border-box';
     section.innerHTML =
       '<div class="lab-coach-toggle">'+
         '<h2>🎙 Speech Coach · record yourself and get instant feedback</h2>'+
@@ -362,10 +364,10 @@
     section.querySelector('.lc-analyze').addEventListener('click', function(){ analyze(section); });
 
     // Insert: перед последней section или в конце container
-    var sections = document.querySelectorAll('section.section');
-    if (sections.length) {
-      var last = sections[sections.length - 1];
-      last.parentNode.insertBefore(section, last.nextSibling);
+    // ЕДИНАЯ стратегия с lab-total и lab-vocab-builder — вставка перед <footer>.
+    var anchor = document.querySelector('footer') || document.body.lastElementChild;
+    if (anchor && anchor.parentNode) {
+      anchor.parentNode.insertBefore(section, anchor);
     } else {
       document.body.appendChild(section);
     }
