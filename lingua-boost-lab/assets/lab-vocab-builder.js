@@ -31,19 +31,21 @@
     var s = document.createElement('style');
     s.id = 'lab-vb-style';
     s.textContent = ''+
-      '.lab-vocab-section{margin:32px 0;padding:26px;border-radius:16px;'+
+      '.lab-vocab-section{margin:24px auto;padding:20px 22px;border-radius:14px;'+
         'background:linear-gradient(135deg,#fbf8ff 0%,#f1ebff 100%);'+
-        'border:1px solid #d4c0f7;font-family:"Manrope",sans-serif}'+
+        'border:1px solid #d4c0f7;font-family:"Manrope",sans-serif;'+
+        'max-width:1100px;width:calc(100% - 32px);box-sizing:border-box}'+
       '[data-lab-theme="dark"] .lab-vocab-section{background:linear-gradient(135deg,#1e1a2e 0%,#241c3e 100%);'+
         'border-color:#5b3aa8;color:#f3eee5}'+
-      '.lab-vocab-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:12px}'+
+      '.lab-vocab-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:12px}'+
+      '.lab-vocab-h h2{font:800 1.1rem/1.2 "Manrope",sans-serif !important;color:#4a2d8a;margin:0 !important}'+
       '.lab-vocab-h h2{margin:0;font:800 1.25rem/1.2 "Manrope",sans-serif;color:#4a2d8a;display:flex;align-items:center;gap:10px}'+
       '[data-lab-theme="dark"] .lab-vocab-h h2{color:#e9d6ff}'+
       '.lab-vocab-h .meta{font:600 .82rem/1.4 "JetBrains Mono",monospace;letter-spacing:.08em;color:#6b46c1}'+
       '[data-lab-theme="dark"] .lab-vocab-h .meta{color:#c5a3ff}'+
-      '.lab-vocab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;width:100%}'+
-      '.vocab-card{position:relative;background:#fff;border:1.5px solid #d4c0f7;border-radius:12px;'+
-        'padding:14px 16px;cursor:pointer;transition:transform .15s,box-shadow .15s;perspective:600px;min-height:100px}'+
+      '.lab-vocab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;width:100%}'+
+      '.vocab-card{position:relative;background:#fff;border:1.5px solid #d4c0f7;border-radius:10px;'+
+        'padding:10px 12px;cursor:pointer;transition:transform .15s,box-shadow .15s;perspective:600px;min-height:74px}'+
       '[data-lab-theme="dark"] .vocab-card{background:#15102a;border-color:#5b3aa8}'+
       '.vocab-card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(124,58,237,.18)}'+
       '.vocab-card .face{display:block}'+
