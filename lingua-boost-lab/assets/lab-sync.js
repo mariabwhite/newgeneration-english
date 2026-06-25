@@ -20,10 +20,22 @@
   }
 
   var syncParam   = qs('sync');
-  var observeId   = qs('observe');  // NEW v6: пассивное зеркало для учителя
+  var observeId   = qs('observe');  // v6: пассивное зеркало
   var observeMode = !!observeId;
-  var soloMode    = !syncParam && !observeMode;
-  var role        = qs('role') || (observeMode ? 'observer' : (soloMode ? 'solo' : 'student'));
+
+  // v10: Учительский режим прямо в уроке.
+  // Включается ?teacher=on (запоминается в localStorage), выключается ?teacher=off.
+  var teacherParam = qs('teacher');
+  try {
+    if (teacherParam === 'on') localStorage.setItem('lab-teacher-mode', 'on');
+    if (teacherParam === 'off') localStorage.removeItem('lab-teacher-mode');
+  } catch(e){}
+  var teacherMode = false;
+  try { teacherMode = (localStorage.getItem('lab-teacher-mode') === 'on'); } catch(e){}
+
+  var soloMode    = !syncParam && !observeMode && !teacherMode;
+  var role        = qs('role') ||
+    (observeMode ? 'observer' : (teacherMode ? 'teacher' : (soloMode ? 'solo' : 'student')));
   var roomId;
   if (soloMode) {
     // Если имя уже сохранено — используем сразу 'student-<slug>'.
@@ -270,6 +282,102 @@
           sec.classList.add('lab-teleport-flash');
           setTimeout(function(){ sec.classList.remove('lab-teleport-flash'); }, 2700);
         });
+      }
+
+      // TEACHER mode прямо в уроке (без cabinet, без iframe)
+      // Жёлтая полоса сверху + input «+ слово» + click-on-word на тексте.
+      // Broadcast vocab-push по lesson_path (все ученики на этом уроке получат).
+      if (teacherMode && !observeMode) {
+        if (!document.getElementById('lab-teacher-style')) {
+          var ts2 = document.createElement('style');
+          ts2.id = 'lab-teacher-style';
+          ts2.textContent = '.lab-teacher-banner{position:fixed;top:0;left:0;right:0;z-index:100000;'+
+            'padding:6px 14px;background:linear-gradient(90deg,#f59e0b,#fbbf24);'+
+            'color:#1a1a2e;font:800 11px/1.4 "JetBrains Mono",monospace;letter-spacing:.16em;'+
+            'text-transform:uppercase;display:flex;align-items:center;justify-content:center;'+
+            'gap:8px;box-shadow:0 2px 12px rgba(0,0,0,.3);flex-wrap:wrap}'+
+            '.card p, .card li, .reading p, .story p, .passage p, p.lead, .card .stmt, .card .question, .card .q-text {cursor:crosshair !important}'+
+            '.lab-click-flash{background:#fbbf24 !important;color:#1a1a2e !important;'+
+            'border-radius:4px;padding:1px 5px;transition:background .15s,color .15s;'+
+            'box-shadow:0 0 0 3px rgba(251,191,36,.45)}';
+          document.head.appendChild(ts2);
+        }
+        var tBanner = document.createElement('div');
+        tBanner.className = 'lab-teacher-banner';
+        tBanner.innerHTML =
+          '<span>🎓 Teacher · ' + location.pathname.replace('/lingua-boost-lab/','').replace(/\/$/,'').slice(0,40) + '</span>' +
+          '<span style="display:inline-flex;align-items:center;gap:6px;margin-left:14px">'+
+            '<input id="labTeacherWord" type="text" placeholder="+ слово в корзиночку (или кликни в текст)" '+
+              'style="padding:5px 12px;border-radius:50px;border:0;background:rgba(255,255,255,.92);color:#1a1a2e;'+
+              'font:700 12px/1.3 \'Manrope\',sans-serif;outline:none;width:280px">'+
+            '<button id="labTeacherAdd" type="button" '+
+              'style="padding:6px 12px;border-radius:50px;border:0;cursor:pointer;'+
+              'background:#1a1a2e;color:#fbbf24;font:800 11px/1 \'JetBrains Mono\',monospace;letter-spacing:.12em;text-transform:uppercase">'+
+              '➕ enter</button>'+
+          '</span>'+
+          '<span style="margin-left:14px;opacity:.85">click слово в тексте → в корзинку</span>'+
+          '<a href="?teacher=off" style="margin-left:14px;padding:4px 10px;border-radius:50px;background:rgba(26,26,46,.8);color:#fbbf24;text-decoration:none;font:800 10px/1 \'JetBrains Mono\',monospace;letter-spacing:.12em">выкл</a>';
+        document.body.appendChild(tBanner);
+        document.body.style.paddingTop = '40px';
+
+        function pushWord(w){
+          if (!w || w.length < 2) return;
+          w = w.replace(/[^a-zA-Zа-яА-ЯёЁ\- ]/g,'').trim();
+          if (!w) return;
+          firehose.send({ type:'broadcast', event:'vocab-push', payload: {
+            word: w, lesson_path: location.pathname, ts: Date.now()
+          }});
+          window.dispatchEvent(new CustomEvent('lab-local-vocab-push', { detail: { word: w }}));
+        }
+        function teacherEnter(){
+          var inp = document.getElementById('labTeacherWord');
+          var w = (inp.value || '').trim();
+          if (!w) return;
+          pushWord(w);
+          inp.value = '';
+          var orig = inp.style.background;
+          inp.style.background = '#22c55e';
+          inp.placeholder = '✓ ' + w + ' — в корзинке у всех';
+          setTimeout(function(){
+            inp.style.background = orig || 'rgba(255,255,255,.92)';
+            inp.placeholder = '+ слово в корзиночку (или кликни в текст)';
+          }, 1300);
+        }
+        document.getElementById('labTeacherAdd').addEventListener('click', teacherEnter);
+        document.getElementById('labTeacherWord').addEventListener('keydown', function(e){ if (e.key === 'Enter') teacherEnter(); });
+
+        // Click handler на любое слово в тексте
+        var TEACHER_HOSTS = '.card, .reading, .story, .passage, .lab-bridge';
+        document.addEventListener('click', function(e){
+          var host = e.target.closest && e.target.closest(TEACHER_HOSTS);
+          if (!host) return;
+          var tag = e.target.tagName;
+          if (/^(BUTTON|A|INPUT|TEXTAREA|SELECT)$/.test(tag)) return;
+          var word = (function(){
+            var sel = window.getSelection();
+            if (sel && sel.toString().trim()) {
+              var t = sel.toString().trim();
+              if (t.length >= 2 && t.length <= 40) return t;
+            }
+            var range;
+            if (document.caretPositionFromPoint) { var pos = document.caretPositionFromPoint(e.clientX, e.clientY); if (pos) { range = document.createRange(); range.setStart(pos.offsetNode, pos.offset); range.setEnd(pos.offsetNode, pos.offset); } }
+            else if (document.caretRangeFromPoint) { range = document.caretRangeFromPoint(e.clientX, e.clientY); }
+            if (!range || range.startContainer.nodeType !== 3) return null;
+            var text = range.startContainer.nodeValue;
+            var i = range.startOffset;
+            var re = /[a-zA-Zа-яА-ЯёЁ\-]/;
+            var start = i, end = i;
+            while (start > 0 && re.test(text[start-1])) start--;
+            while (end < text.length && re.test(text[end])) end++;
+            return text.slice(start, end).trim();
+          })();
+          if (!word || word.length < 2 || word.length > 40) return;
+          e.preventDefault();
+          e.stopPropagation();
+          pushWord(word);
+          e.target.classList.add('lab-click-flash');
+          setTimeout(function(){ e.target.classList.remove('lab-click-flash'); }, 800);
+        }, true);
       }
 
       // Observer mode (teacher iframe) — listen и применять к локальному DOM

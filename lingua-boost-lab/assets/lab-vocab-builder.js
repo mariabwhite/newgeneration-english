@@ -503,7 +503,7 @@
   function hookFirehosePush(){
     if (observeMode) return;
     var myRoom = getStudentRoom();
-    if (!myRoom) return;
+    var myLesson = location.pathname;
     var SUPABASE_URL  = "https://iqzlphbvmfgoygnozbya.supabase.co";
     var SUPABASE_ANON = "sb_publishable_hYhBk3xS90uouUFd_DZWUw_sOv-6JGO";
     function bind(){
@@ -513,8 +513,11 @@
         var ch = c.channel('lab-firehose-v1', { config:{ broadcast:{ self:false }}});
         ch.on('broadcast', { event:'vocab-push' }, function(p){
           var data = p.payload || {};
-          if (data.room_id !== myRoom) return;
           if (!data.word) return;
+          // Принимаем если: моё имя совпадает ИЛИ урок совпадает (broadcast на урок)
+          var byRoom = myRoom && data.room_id && data.room_id === myRoom;
+          var byLesson = data.lesson_path && data.lesson_path === myLesson;
+          if (!byRoom && !byLesson) return;
           addPushedWord(data.word);
         });
         ch.subscribe();
