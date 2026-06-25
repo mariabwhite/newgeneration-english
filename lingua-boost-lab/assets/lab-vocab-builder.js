@@ -265,9 +265,20 @@
       '</div>'+
       '<div class="lab-vocab-grid" id="vocabGrid"></div>'+
       (teacherMode ? '<div style="margin-top:18px"><button class="lab-vocab-add-btn" id="vocabAddBtn">+ добавить своё слово</button></div>' : '');
-    // Vocabulary section ВНУТРИ контейнера секций урока (та же ширина что у других .section).
+    // Vocabulary должна совпадать по ширине с другими .section урока.
+    // Берём первую .section и КОПИРУЕМ её max-width / margin / padding.
     var firstSection = document.querySelector('section.section');
     if (firstSection && firstSection.parentNode) {
+      try {
+        var cs = window.getComputedStyle(firstSection);
+        var mw = cs.maxWidth;
+        var ml = cs.marginLeft;
+        var mr = cs.marginRight;
+        if (mw && mw !== 'none') sec.style.maxWidth = mw;
+        if (ml) sec.style.marginLeft = ml;
+        if (mr) sec.style.marginRight = mr;
+        // паддинги берём свои, чтобы карточкам было где жить
+      } catch(e){}
       firstSection.parentNode.insertBefore(sec, firstSection);
       return sec;
     }
