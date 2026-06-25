@@ -205,6 +205,13 @@
       var label = host.previousElementSibling;
       item.question = short(txt(label) || 'Open writing', 200);
       item.student_answer = short(host.value || '', 500);
+    } else if (kind === 'vocab') {
+      var word = host.dataset.word || (host.querySelector('.word, .vocab-front .word')?.textContent || '').trim();
+      var meaning = (host.querySelector('.meaning, .vocab-back .meaning')?.textContent || '').trim();
+      var example = (host.querySelector('.ex, .vocab-back .ex')?.textContent || '').trim();
+      item.question = short('📖 ' + word, 200);
+      item.correct = short(meaning, 200);
+      item.student_answer = short(example, 200);
     }
     return item;
   }
@@ -262,6 +269,7 @@
     document.querySelectorAll('.builder').forEach(function(el){ addBtn(el, 'builder'); });
     document.querySelectorAll('.mic-row').forEach(function(el){ addBtn(el, 'mic'); });
     document.querySelectorAll('.write textarea, textarea.writing-area, textarea[data-write]').forEach(function(el){ addBtn(el, 'writing'); });
+    document.querySelectorAll('.vocab-card').forEach(function(el){ addBtn(el, 'vocab'); });
   }
 
   var fabEl = null, overlayEl = null;
@@ -286,7 +294,7 @@
   }
 
   function kindLabel(k){
-    return ({mcq:'Тест',tfns:'True / False / NS',gap:'Пропуск',wf:'Word formation',match:'Match',builder:'Sentence',mic:'Speaking',writing:'Writing'}[k] || k);
+    return ({mcq:'Тест',tfns:'True / False / NS',gap:'Пропуск',wf:'Word formation',match:'Match',builder:'Sentence',mic:'Speaking',writing:'Writing',vocab:'Слово'}[k] || k);
   }
 
   function renderList(){

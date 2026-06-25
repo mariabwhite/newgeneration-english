@@ -143,11 +143,36 @@
     try { localStorage.setItem(extraKey(), JSON.stringify(arr)); } catch(e){}
   }
 
+  function harvestStaticCards(){
+    // Если в уроке уже есть статичные .vocab-card (как у Тимофея, A1 и др.) —
+    // вытаскиваем word + meaning + example, чтобы подсветка в тексте работала
+    // без дублирования секции.
+    var out = [];
+    document.querySelectorAll('.vocab-card').forEach(function(card){
+      var word = card.dataset.word ||
+                 (card.querySelector('.word, .vocab-front .word')?.textContent || '').trim();
+      if (!word) return;
+      var meaning = (card.querySelector('.meaning, .vocab-back .meaning, .vocab-back .ru')?.textContent || '').trim();
+      var example = (card.querySelector('.ex, .vocab-back .ex, .vocab-back .example')?.textContent || '').trim();
+      var ipa = (card.querySelector('.ipa')?.textContent || '').trim();
+      out.push({ word: word, ipa: ipa, ru: meaning, example: example, __static: true });
+    });
+    return out;
+  }
+
   function getVocab(){
     var fromPage = Array.isArray(window.LAB_VOCAB) ? window.LAB_VOCAB.slice() : [];
+    var fromStatic = harvestStaticCards();
     var extras = loadExtras();
     extras.forEach(function(e){ e.__extra = true; });
-    return fromPage.concat(extras);
+    // dedupe по lowercased word
+    var seen = {};
+    return fromPage.concat(fromStatic).concat(extras).filter(function(v){
+      var k = (v.word || '').toLowerCase();
+      if (!k || seen[k]) return false;
+      seen[k] = true;
+      return true;
+    });
   }
 
   function buildCard(item){
