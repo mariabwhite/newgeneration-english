@@ -10,12 +10,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f6f7fb; --bg-2:#ffffff; --surface:#ffffff; --card:#fcfbf7; --surface-2:#eef0f7;
-  --text:#1c2230; --muted:#5a6580; --faint:#98a0b0;
-  --accent:#c9a26b; --accent-2:#a07d3e; --accent-on:#14110a;
-  --brand:#4f6bd6; --brand-2:#3955b8;
-  --line:rgba(201,162,107,.18); --line-2:rgba(201,162,107,.36);
-  --ok:#2e9b67; --miss:#d9425a;
+  --bg:#0f1620; --bg-2:#16202d; --surface:#1c2a3a; --card:#243245; --surface-2:#2c3d52;
+  --text:#eaf2fa; --muted:#9bb4c9; --faint:#5a7a96;
+  --accent:#6ec97f; --accent-2:#95d8a3; --accent-on:#0a1612;
+  --brand:#c9a26b; --brand-2:#e0bf86;
+  --line:rgba(110,201,127,.16); --line-2:rgba(110,201,127,.32);
+  --ok:#42d889; --miss:#ff5c72;
   --display:"Unbounded","Manrope",system-ui,sans-serif;
   --body:"Manrope",system-ui,sans-serif;
   --mono:"JetBrains Mono",Consolas,monospace;
@@ -23,8 +23,8 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:var(--body);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.65;
-  background-image:radial-gradient(ellipse at 80% 0%,rgba(201,162,107,.10),transparent 55%),
-                   radial-gradient(ellipse at 10% 90%,rgba(79,107,214,.06),transparent 55%);overflow-x:hidden}
+  background-image:radial-gradient(ellipse at 80% 0%,rgba(110,201,127,.10),transparent 55%),
+                   radial-gradient(ellipse at 10% 90%,rgba(110,201,127,.07),transparent 55%);overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 
 /* Topbar */
@@ -40,8 +40,8 @@ a{color:inherit;text-decoration:none}
 .spacer{flex:1}
 .pill{padding:5px 11px;border-radius:50px;font:700 9.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
   border:1px solid var(--line-2);color:var(--muted);background:rgba(0,0,0,.25);white-space:nowrap}
-.pill.accent{background:rgba(201,162,107,.18);border-color:var(--accent);color:var(--accent-2)}
-.pill.brand{background:rgba(79,107,214,.18);border-color:var(--brand);color:var(--brand-2)}
+.pill.accent{background:rgba(110,201,127,.18);border-color:var(--accent);color:var(--accent-2)}
+.pill.brand{background:rgba(201,162,107,.18);border-color:var(--brand);color:var(--brand-2)}
 .btn-sm{height:32px;padding:0 12px;border-radius:8px;border:1px solid var(--line-2);background:var(--card);color:var(--muted);
   font:700 11px/1 var(--mono);letter-spacing:.08em;cursor:pointer;display:inline-flex;align-items:center;text-transform:uppercase;text-decoration:none}
 .btn-sm:hover{border-color:var(--accent);color:var(--accent-2)}
@@ -49,12 +49,12 @@ a{color:inherit;text-decoration:none}
 /* Hero — image фоном на весь блок, надписи поверх */
 .hero{max-width:1240px;margin:32px auto 12px;padding:0 clamp(16px,3vw,28px);position:relative;z-index:2}
 .hero-card{position:relative;border:1px solid var(--line-2);border-radius:24px;overflow:hidden;
-  background-image:linear-gradient(135deg,rgba(10,28,46,.38) 0%,rgba(15,40,64,.22) 50%,rgba(10,28,46,.55) 100%),url('./assets/img/hero-banner.png');
-  background-size:cover;background-position:center;background-repeat:no-repeat;
-  box-shadow:0 10px 40px rgba(0,0,0,.4);padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px);min-height:420px}
+  background-image:linear-gradient(95deg,rgba(15,22,32,.92) 0%,rgba(15,22,32,.72) 30%,rgba(15,22,32,.32) 55%,rgba(15,22,32,.08) 80%),url('./assets/hero-science-disc.png');
+  background-size:cover;background-position:right center;background-repeat:no-repeat;
+  box-shadow:0 10px 40px rgba(0,0,0,.4);padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px);min-height:460px}
 .eyebrow{font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-2);
   display:inline-flex;align-items:center;gap:10px;margin-bottom:18px;position:relative;z-index:2;
-  background:rgba(201,162,107,.32);border:1px solid var(--accent);padding:7px 14px;border-radius:50px;backdrop-filter:blur(10px);
+  background:rgba(110,201,127,.32);border:1px solid var(--accent);padding:7px 14px;border-radius:50px;backdrop-filter:blur(10px);
   box-shadow:0 4px 14px rgba(0,0,0,.3)}
 h1.hero-title{font-family:var(--display);font-weight:900;letter-spacing:-.04em;line-height:.96;
   font-size:clamp(1.9rem,4.8vw,3.6rem);max-width:760px;margin-bottom:20px;color:#fff;position:relative;z-index:2;
@@ -80,13 +80,13 @@ h1.hero-title .grad{color:#8ee3b5;background:none;-webkit-text-fill-color:#8ee3b
 .card h3{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--accent-2);margin:18px 0 10px;letter-spacing:.01em}
 .card h3:first-child{margin-top:0}
 .card p{margin-bottom:11px;color:var(--text)}
-.card .info{background:rgba(160,125,62,.07);border-left:3px solid var(--accent);padding:12px 16px;border-radius:8px;font-size:.92rem;color:var(--muted);margin:12px 0}
+.card .info{background:rgba(149,216,163,.07);border-left:3px solid var(--accent);padding:12px 16px;border-radius:8px;font-size:.92rem;color:var(--muted);margin:12px 0}
 .card .info strong{color:var(--accent-2)}
 .card .src{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-weight:700}
 
 /* Sub-task label (inside cards) */
 .task-tag{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
-  background:rgba(79,107,214,.16);color:var(--brand-2);border:1px solid var(--brand);border-radius:50px;padding:4px 10px;margin-bottom:8px}
+  background:rgba(201,162,107,.16);color:var(--brand-2);border:1px solid var(--brand);border-radius:50px;padding:4px 10px;margin-bottom:8px}
 
 /* Hover translation */
 .tr{border-bottom:1px dashed var(--brand);cursor:help;position:relative;transition:.18s}
@@ -112,7 +112,7 @@ h1.hero-title .grad{color:#8ee3b5;background:none;-webkit-text-fill-color:#8ee3b
 .skill-body h4{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--text);margin-bottom:6px}
 .skill-body p{font-size:.93rem;line-height:1.55;color:var(--muted);margin-bottom:10px}
 .tasks-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.tasks-list span{background:rgba(160,125,62,.12);border:1px solid var(--line-2);color:var(--accent-2);
+.tasks-list span{background:rgba(149,216,163,.12);border:1px solid var(--line-2);color:var(--accent-2);
   padding:5px 11px;border-radius:50px;font-family:var(--mono);font-size:.72rem;font-weight:700}
 
 /* MCQ */
@@ -125,7 +125,7 @@ h1.hero-title .grad{color:#8ee3b5;background:none;-webkit-text-fill-color:#8ee3b
 .mcq-opts button.correct{background:rgba(66,216,137,.18);border-color:var(--ok);color:var(--ok)}
 .mcq-opts button.wrong{background:rgba(255,92,114,.18);border-color:var(--miss);color:var(--miss)}
 .mcq-note{display:none;margin-top:10px;font-family:var(--mono);font-size:.78rem;color:var(--muted);font-style:italic;
-  background:rgba(79,107,214,.08);border-left:3px solid var(--brand);padding:8px 12px;border-radius:0 8px 8px 0}
+  background:rgba(201,162,107,.08);border-left:3px solid var(--brand);padding:8px 12px;border-radius:0 8px 8px 0}
 .mcq-row.revealed .mcq-note{display:block}
 
 /* Sample passage */
@@ -152,7 +152,7 @@ h1.hero-title .grad{color:#8ee3b5;background:none;-webkit-text-fill-color:#8ee3b
 .gapfill input{display:inline-block;width:64px;font:600 .96rem var(--body);background:var(--bg-2);color:var(--text);
   border:1px solid var(--line-2);border-radius:6px;padding:3px 8px;outline:none;text-align:left;vertical-align:baseline;
   margin:0 2px;letter-spacing:.02em}
-.gapfill input:focus{border-color:var(--accent);box-shadow:0 0 0 2px rgba(201,162,107,.2)}
+.gapfill input:focus{border-color:var(--accent);box-shadow:0 0 0 2px rgba(110,201,127,.2)}
 .gapfill input.correct{background:rgba(66,216,137,.18);border-color:var(--ok);color:var(--ok)}
 .gapfill input.wrong{background:rgba(255,92,114,.18);border-color:var(--miss);color:var(--miss)}
 .gapfill .check-row{display:flex;gap:10px;margin-top:14px;font-family:var(--body);font-size:.9rem;align-items:center}
@@ -180,12 +180,12 @@ h1.hero-title .grad{color:#8ee3b5;background:none;-webkit-text-fill-color:#8ee3b
 .builder .builder-status{font-family:var(--mono);font-size:.78rem;color:var(--faint);font-weight:700;letter-spacing:.1em}
 .builder .builder-status.ok{color:var(--ok)}
 .builder .builder-status.miss{color:var(--miss)}
-.builder .sample-reveal{display:none;margin-top:12px;background:rgba(79,107,214,.08);border-left:3px solid var(--brand);
+.builder .sample-reveal{display:none;margin-top:12px;background:rgba(201,162,107,.08);border-left:3px solid var(--brand);
   padding:10px 14px;border-radius:0 8px 8px 0;font-size:.92rem;color:var(--muted)}
 .builder.show-sample .sample-reveal{display:block}
 
 /* Cue card */
-.cue-card{background:linear-gradient(135deg,rgba(160,125,62,.10),rgba(79,107,214,.06));
+.cue-card{background:linear-gradient(135deg,rgba(149,216,163,.10),rgba(201,162,107,.06));
   border:1px solid var(--line-2);border-radius:14px;padding:18px 20px;margin:14px 0}
 .cue-card .cue-h{font-family:var(--display);font-weight:800;color:var(--accent-2);margin-bottom:10px;font-size:1rem}
 .cue-card ul{list-style:none;padding:0;margin:8px 0 0}
@@ -200,8 +200,8 @@ h1.hero-title .grad{color:#8ee3b5;background:none;-webkit-text-fill-color:#8ee3b
   letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-weight:700}
 .write .sample-toggle{font:700 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;
   background:transparent;color:var(--brand-2);border:1px solid var(--brand);padding:5px 10px;border-radius:6px;cursor:pointer;margin-top:8px}
-.write .sample-toggle:hover{background:rgba(79,107,214,.12)}
-.write .sample-reveal{display:none;margin-top:12px;background:rgba(79,107,214,.08);border-left:3px solid var(--brand);
+.write .sample-toggle:hover{background:rgba(201,162,107,.12)}
+.write .sample-reveal{display:none;margin-top:12px;background:rgba(201,162,107,.08);border-left:3px solid var(--brand);
   padding:12px 16px;border-radius:0 8px 8px 0;color:var(--muted);font-size:.92rem;font-style:italic;line-height:1.6;white-space:pre-line}
 .write.show-sample .sample-reveal{display:block}
 
@@ -240,7 +240,7 @@ h1.hero-title .grad{color:#8ee3b5;background:none;-webkit-text-fill-color:#8ee3b
 .score-badge .lbl{color:var(--muted)}
 .score-badge .val{color:var(--accent-2);font-size:.92rem}
 .score-badge .max{color:var(--faint)}
-.score-badge.scored{background:rgba(201,162,107,.12);border-color:var(--accent)}
+.score-badge.scored{background:rgba(110,201,127,.12);border-color:var(--accent)}
 .score-badge.tutor{border-style:dashed;color:var(--brand-2)}
 .score-badge.tutor .val{color:var(--brand-2)}
 .score-badge .tutor-input{width:42px;padding:3px 6px;text-align:center;background:transparent;border:1px solid var(--brand);
@@ -261,7 +261,7 @@ h1.hero-title .grad{color:#8ee3b5;background:none;-webkit-text-fill-color:#8ee3b
 .vocab-card .vocab-back .ex{font-style:italic;color:var(--faint);font-size:.78rem;line-height:1.45}
 
 /* Total scoring summary */
-.total-score{background:linear-gradient(135deg,rgba(201,162,107,.18),rgba(79,107,214,.12));
+.total-score{background:linear-gradient(135deg,rgba(110,201,127,.18),rgba(201,162,107,.12));
   border:1px solid var(--accent);border-radius:14px;padding:18px 22px;margin:14px 0;text-align:center}
 .total-score .total-h{font-family:var(--mono);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-2);font-weight:800;margin-bottom:10px}
 .total-score .total-val{font-family:var(--display);font-weight:900;font-size:2.4rem;color:var(--text);line-height:1}
@@ -272,8 +272,8 @@ h1.hero-title .grad{color:#8ee3b5;background:none;-webkit-text-fill-color:#8ee3b
 .cefr-table{width:100%;border-collapse:collapse;margin:14px 0;font-family:var(--body);font-size:.92rem;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
 .cefr-table th,.cefr-table td{text-align:center;padding:9px 8px;border-bottom:1px solid var(--line)}
 .cefr-table th{font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-2);background:var(--bg-2);font-weight:800}
-.cefr-table td.lvl{font-family:var(--display);font-weight:800;color:var(--accent-2);background:rgba(201,162,107,.08)}
-.cefr-table tr:hover td{background:rgba(160,125,62,.06)}
+.cefr-table td.lvl{font-family:var(--display);font-weight:800;color:var(--accent-2);background:rgba(110,201,127,.08)}
+.cefr-table tr:hover td{background:rgba(149,216,163,.06)}
 @media(max-width:680px){
   .cefr-table{display:block;width:100%;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-collapse:separate}
   .cefr-table th,.cefr-table td{padding:8px 6px;font-size:.78rem;white-space:nowrap}
@@ -1332,7 +1332,7 @@ Q4. I think city governments should really try to create more parks. Parks provi
       <div class="score-card"><div class="skill">Listening</div><div class="range">1 – 6</div><div class="total">raw 0–30 mapped</div></div>
       <div class="score-card"><div class="skill">Writing</div><div class="range">1 – 6</div><div class="total">raw 0–20 mapped</div></div>
       <div class="score-card"><div class="skill">Speaking</div><div class="range">1 – 6</div><div class="total">raw 0–55 mapped</div></div>
-      <div class="score-card" style="background:rgba(201,162,107,.18);border-color:var(--accent)"><div class="skill" style="color:#fff">Overall</div><div class="range" style="color:var(--accent-2)">1 – 6</div><div class="total">average of 4 bands</div></div>
+      <div class="score-card" style="background:rgba(110,201,127,.18);border-color:var(--accent)"><div class="skill" style="color:#fff">Overall</div><div class="range" style="color:var(--accent-2)">1 – 6</div><div class="total">average of 4 bands</div></div>
     </div>
 
     <h3>Mapping to CEFR levels</h3>
@@ -1374,7 +1374,7 @@ Q4. I think city governments should really try to create more parks. Parks provi
       <strong>MyBest scores:</strong> Your report shows your highest section scores in any test administration within the last 2 years — averaged into a "MyBest" overall band. Many universities accept this combined score.
     </div>
 
-    <div class="info" style="background:rgba(79,107,214,.08);border-left-color:var(--brand)">
+    <div class="info" style="background:rgba(201,162,107,.08);border-left-color:var(--brand)">
       <strong>Typical thresholds for management / business programmes</strong> (old 0–120 scale, still common in admissions): <em>78</em> entry-level acceptance · <em>87–95</em> competitive · <em>100+</em> top schools (Bocconi asks 105). On the new band scale that's roughly <em>4.0 → 4.5 → 5.0</em>.
     </div>
   </div>
