@@ -236,7 +236,7 @@
     state.recording = true;
     var btn = box.querySelector('.lc-record');
     btn.classList.add('recording');
-    btn.textContent = '⏹ Остановить';
+    btn.textContent = '⏹ Stop';
     box.querySelector('.lc-analyze').disabled = true;
   }
 
@@ -245,7 +245,7 @@
     if (state.rec) { try { state.rec.stop(); } catch(_){} }
     var btn = box.querySelector('.lc-record');
     btn.classList.remove('recording');
-    btn.textContent = '🎙 Запись';
+    btn.textContent = '🎙 Record';
     box.querySelector('.lc-analyze').disabled = false;
     // Force persist через CustomEvent для lab-coach-persist
     setTimeout(function(){
@@ -293,7 +293,7 @@
       alert('AI разбор не получилось: ' + e.message);
     }
     btn.disabled = false;
-    btn.textContent = '🤖 AI разбор речи';
+    btn.textContent = '🤖 AI review';
   }
 
   function buildUI(criteriaObj){
@@ -304,18 +304,18 @@
     section.id = 'lab-speech-coach';
     section.innerHTML =
       '<div class="lab-coach-toggle">'+
-        '<h2>🎙 Speech Coach · запиши себя и получи разбор</h2>'+
-        '<span class="meta">click чтобы развернуть</span>'+
+        '<h2>🎙 Speech Coach · record yourself and get instant feedback</h2>'+
+        '<span class="meta">click to collapse</span>'+
       '</div>'+
       '<div class="lab-coach-body">'+
-        '<div style="background:#162820;border:1px solid #244029;border-radius:8px;padding:10px 14px;margin-bottom:10px;color:#7bd9a7;font:600 .9rem/1.5 Manrope">📋 <strong>Задание:</strong> '+esc(state.task)+'</div>'+
+        '<div style="background:#162820;border:1px solid #244029;border-radius:8px;padding:10px 14px;margin-bottom:10px;color:#7bd9a7;font:600 .9rem/1.5 Manrope">📋 <strong>Task:</strong> '+esc(state.task)+'</div>'+
         '<div class="lc-row">'+
-          '<button type="button" class="lc-btn lc-record">🎙 Запись</button>'+
-          '<button type="button" class="lc-btn lc-analyze" disabled>🤖 AI разбор речи</button>'+
+          '<button type="button" class="lc-btn lc-record">🎙 Record</button>'+
+          '<button type="button" class="lc-btn lc-analyze" disabled>🤖 AI review</button>'+
         '</div>'+
         '<div class="lc-stats">'+
           '<div class="lc-stat"><div class="lc-lbl">Words</div><div class="lc-val">0</div></div>'+
-          '<div class="lc-stat"><div class="lc-lbl">WPM</div><div class="lc-val">—</div></div>'+
+          '<div class="lc-stat"><div class="lc-lbl">Pace · WPM</div><div class="lc-val">—</div></div>'+
           '<div class="lc-stat"><div class="lc-lbl">Linkers</div><div class="lc-val">0</div></div>'+
           '<div class="lc-stat"><div class="lc-lbl">B2+ vocab</div><div class="lc-val">0</div></div>'+
           '<div class="lc-stat"><div class="lc-lbl">Longest pause</div><div class="lc-val">0.0s</div></div>'+
