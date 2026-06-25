@@ -152,10 +152,25 @@
     injectStyle();
     var meta = lessonMeta();
     var sections = document.querySelectorAll('section.section');
-    // Stagger requests чтобы Pollinations не задушило (1 sec между)
+    // Сначала рендерим из кэша синхронно — мгновенно видно
+    sections.forEach(function(sec){
+      if (sec.__qsProcessed) return;
+      if (shouldSkip(sec)) { sec.__qsProcessed = true; return; }
+      var h2 = sec.querySelector('h2');
+      var title = (h2?.textContent || '').trim();
+      if (!title) { sec.__qsProcessed = true; return; }
+      var k = key(sec.id || title.slice(0,40));
+      var cached = loadCached(k);
+      if (cached && cached.length) {
+        sec.__qsProcessed = true;
+        render(sec, cached, { cached: true });
+      }
+    });
+    // Затем — догенериваем недостающие со staggered 400ms
     var i = 0;
     sections.forEach(function(sec){
-      setTimeout(function(){ processOne(sec, meta); }, i * 1000);
+      if (sec.__qsProcessed) return;
+      setTimeout(function(){ processOne(sec, meta); }, i * 400);
       i++;
     });
   });
