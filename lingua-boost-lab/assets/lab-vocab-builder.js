@@ -38,7 +38,7 @@
         'background:color-mix(in srgb, var(--accent, #7c3aed) 7%, var(--card, var(--surface, rgba(15,20,30,.82))));'+
         'border:1px solid color-mix(in srgb, var(--accent, #7c3aed) 25%, transparent);'+
         'font-family:"Manrope",sans-serif;color:var(--text, #f3eee5);'+
-        'box-sizing:border-box;display:block;margin-left:clamp(24px,2.2vw,36px);margin-right:clamp(24px,2.2vw,36px)}'+
+        'box-sizing:border-box;display:block;width:100%;margin-left:0;margin-right:0}'+
       '[data-lab-theme="dark"] .lab-vocab-panel{background:var(--card, var(--surface, #1b232d));'+
         'border-color:var(--line, color-mix(in srgb, var(--accent, #7c3aed) 35%, transparent));color:var(--text, #f3eee5)}'+
       '.lab-vocab-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:12px}'+

@@ -70,7 +70,8 @@
       '.lab-hw-section-btn{padding:8px 14px;border-radius:50px;border:1.5px solid #f59e0b;'+
         'background:#fff;color:#92400e;cursor:pointer;'+
         'font:800 11px/1 "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase;'+
-        'display:none;align-items:center;gap:6px;transition:all .15s}'+
+        'display:none;align-items:center;justify-content:center;gap:6px;transition:all .15s;'+
+        'box-sizing:border-box;max-width:100%;white-space:normal;text-align:center;line-height:1.2}'+
       'body.lab-teacher-on .lab-hw-section-btn{display:inline-flex}'+
       '.lab-hw-section-btn:hover{background:#f59e0b;color:#fff;transform:translateY(-1px)}'+
       '.lab-hw-add:hover{background:#f59e0b;color:#fff;box-shadow:0 4px 14px rgba(245,158,11,.42);transform:scale(1.08)}'+
@@ -91,6 +92,9 @@
       '.lab-hw-fab.empty .lab-hw-fab-btn{background:#475569;opacity:.65;'+
         'box-shadow:0 4px 12px rgba(0,0,0,.18)}'+
       '.lab-hw-fab.empty .n{color:#475569}'+
+      '@media (max-width:680px){.lab-hw-fab{right:max(10px,env(safe-area-inset-right));bottom:96px;max-width:calc(100vw - 20px)}'+
+        '.lab-hw-fab-btn{max-width:calc(100vw - 20px);min-height:38px;padding:9px 12px;font-size:10px;letter-spacing:.08em;white-space:normal;text-align:center;line-height:1.15;justify-content:center}'+
+        '.lab-hw-section-btn{padding:7px 10px;font-size:9.5px;letter-spacing:.06em;max-width:100%}}'+
 
       '.lab-hw-overlay{position:fixed;inset:0;background:rgba(20,15,40,.62);'+
         'backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);'+
