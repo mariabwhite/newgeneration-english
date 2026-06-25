@@ -41,7 +41,7 @@
       '[data-lab-theme="dark"] .lab-vocab-h h2{color:#e9d6ff}'+
       '.lab-vocab-h .meta{font:600 .82rem/1.4 "JetBrains Mono",monospace;letter-spacing:.08em;color:#6b46c1}'+
       '[data-lab-theme="dark"] .lab-vocab-h .meta{color:#c5a3ff}'+
-      '.lab-vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}'+
+      '.lab-vocab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;width:100%}'+
       '.vocab-card{position:relative;background:#fff;border:1.5px solid #d4c0f7;border-radius:12px;'+
         'padding:14px 16px;cursor:pointer;transition:transform .15s,box-shadow .15s;perspective:600px;min-height:100px}'+
       '[data-lab-theme="dark"] .vocab-card{background:#15102a;border-color:#5b3aa8}'+
@@ -64,6 +64,13 @@
       '.vocab-card .extra-mark{position:absolute;top:8px;right:42px;font:800 .68rem/1 "JetBrains Mono",monospace;'+
         'letter-spacing:.14em;color:#f59e0b;background:#fef3c7;padding:3px 7px;border-radius:50px}'+
       '[data-lab-theme="dark"] .vocab-card .extra-mark{background:#451a03;color:#fbbf24}'+
+      /* Кнопка удалить — только для учителя */
+      '.vocab-card .vc-del{position:absolute;top:-6px;left:-6px;width:24px;height:24px;border-radius:50%;'+
+        'background:#ef4444;color:#fff;border:0;cursor:pointer;'+
+        'display:none;align-items:center;justify-content:center;font:800 14px/1 system-ui;'+
+        'box-shadow:0 2px 6px rgba(239,68,68,.45);z-index:6}'+
+      '.vocab-card .vc-del:hover{background:#dc2626;transform:scale(1.12)}'+
+      'body.lab-teacher-on .vocab-card .vc-del{display:flex}'+
 
       '.lab-vocab-add-btn{padding:9px 16px;border-radius:10px;border:1.5px dashed #7c3aed;'+
         'background:transparent;color:#7c3aed;cursor:pointer;'+
@@ -180,6 +187,7 @@
     card.className = 'vocab-card';
     card.dataset.word = item.word || '';
     card.innerHTML =
+      '<button class="vc-del" type="button" title="Удалить слово">×</button>' +
       (item.__extra ? '<div class="extra-mark">⭐ teacher</div>' : '') +
       '<button class="speak" type="button" title="Прослушать">🔊</button>' +
       '<div class="face front">'+
@@ -191,7 +199,7 @@
         (item.example ? '<div class="ex">'+esc(item.example)+'</div>' : '') +
       '</div>';
     card.addEventListener('click', function(e){
-      if (e.target.closest('.speak')) return;
+      if (e.target.closest('.speak') || e.target.closest('.vc-del')) return;
       card.classList.toggle('flipped');
     });
     card.querySelector('.speak').addEventListener('click', function(e){
@@ -201,7 +209,39 @@
       }
       ttsSay(item.word);
     });
+    card.querySelector('.vc-del').addEventListener('click', function(e){
+      e.stopPropagation();
+      removeWord(item.word);
+    });
     return card;
+  }
+
+  function removeWord(word){
+    if (!word) return;
+    var fresh = loadExtras().filter(function(x){ return (x.word||'').toLowerCase() !== word.toLowerCase(); });
+    saveExtras(fresh);
+    // Re-render
+    var section = document.getElementById('auto-vocab');
+    if (section) section.remove();
+    renderVocab();
+    document.querySelectorAll('p, li').forEach(function(el){ el.__vbHighlighted = false; });
+    highlightInText();
+    // Broadcast remove ученику
+    try {
+      var SUPABASE_URL  = "https://iqzlphbvmfgoygnozbya.supabase.co";
+      var SUPABASE_ANON = "sb_publishable_hYhBk3xS90uouUFd_DZWUw_sOv-6JGO";
+      if (!window.supabase) return;
+      var c = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+      var ch = c.channel('lab-firehose-v1', { config:{ broadcast:{ self:false }}});
+      ch.subscribe(function(s){
+        if (s === 'SUBSCRIBED') {
+          ch.send({ type:'broadcast', event:'vocab-remove', payload: {
+            word: word, lesson_path: location.pathname, ts: Date.now()
+          }});
+          setTimeout(function(){ ch.unsubscribe(); }, 600);
+        }
+      });
+    } catch(e){}
   }
 
   function findOrBuildSection(){
@@ -522,11 +562,22 @@
         ch.on('broadcast', { event:'vocab-push' }, function(p){
           var data = p.payload || {};
           if (!data.word) return;
-          // Принимаем если: моё имя совпадает ИЛИ урок совпадает (broadcast на урок)
           var byRoom = myRoom && data.room_id && data.room_id === myRoom;
           var byLesson = data.lesson_path && data.lesson_path === myLesson;
           if (!byRoom && !byLesson) return;
           addPushedWord(data.word);
+        });
+        ch.on('broadcast', { event:'vocab-remove' }, function(p){
+          var data = p.payload || {};
+          if (!data.word) return;
+          if (data.lesson_path && data.lesson_path !== myLesson) return;
+          var fresh = loadExtras().filter(function(x){ return (x.word||'').toLowerCase() !== String(data.word).toLowerCase(); });
+          saveExtras(fresh);
+          var section = document.getElementById('auto-vocab');
+          if (section) section.remove();
+          renderVocab();
+          document.querySelectorAll('p, li').forEach(function(el){ el.__vbHighlighted = false; });
+          highlightInText();
         });
         ch.subscribe();
       } catch(e){}

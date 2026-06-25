@@ -65,6 +65,12 @@
       /* В учительском режиме — все плюсики ВСЕГДА видны */
       'body.lab-teacher-on .lab-hw-add{opacity:1;transform:scale(1)}'+
       'body.lab-teacher-on .lab-hw-add:hover{transform:scale(1.12);background:#f59e0b;color:#fff}'+
+      '.lab-hw-section-btn{padding:8px 14px;border-radius:50px;border:1.5px solid #f59e0b;'+
+        'background:#fff;color:#92400e;cursor:pointer;'+
+        'font:800 11px/1 "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase;'+
+        'display:none;align-items:center;gap:6px;transition:all .15s}'+
+      'body.lab-teacher-on .lab-hw-section-btn{display:inline-flex}'+
+      '.lab-hw-section-btn:hover{background:#f59e0b;color:#fff;transform:translateY(-1px)}'+
       '.lab-hw-add:hover{background:#f59e0b;color:#fff;box-shadow:0 4px 14px rgba(245,158,11,.42);transform:scale(1.08)}'+
       '.lab-hw-add.added{background:linear-gradient(135deg,#fde68a 0%,#fbbf24 100%);color:#78350f}'+
       '.lab-hw-add.added::after{content:""}'+
@@ -224,6 +230,7 @@
   function addBtn(host, kind){
     if (host.__hwHost) return;
     host.__hwHost = true;
+    host.__hwKind = kind;
     host.classList.add('lab-hw-host');
     if (getComputedStyle(host).position === 'static') host.style.position = 'relative';
     var b = document.createElement('button');
@@ -275,6 +282,62 @@
     document.querySelectorAll('.mic-row, .speech-row, .speak-row').forEach(function(el){ addBtn(el, 'mic'); });
     document.querySelectorAll('.write textarea, textarea.writing-area, textarea[data-write], .open-writing textarea, .free-write textarea').forEach(function(el){ addBtn(el, 'writing'); });
     document.querySelectorAll('.vocab-card, .word-card, .vocabulary-item').forEach(function(el){ addBtn(el, 'vocab'); });
+    decorateSections();
+  }
+
+  // Кнопка «📚 весь блок в домашку» на каждой секции
+  function decorateSections(){
+    document.querySelectorAll('section.section').forEach(function(sec){
+      if (sec.__hwSecBtn) return;
+      sec.__hwSecBtn = true;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'lab-hw-section-btn';
+      btn.innerHTML = '📚 всю секцию в домашку';
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        var items = sec.querySelectorAll('.lab-hw-host');
+        if (!items.length) { toast('В этой секции нечего добавить'); return; }
+        var arr = loadHw();
+        var added = 0;
+        items.forEach(function(host){
+          var kind = host.__hwKind || '';
+          if (!kind) {
+            if (host.matches('.mcq-row, .mc-item, .choice-row, .choice-card, .qcard, .question-card, .q-item')) kind='mcq';
+            else if (host.matches('.tfns-row, .tf-row, .tf-item')) kind='tfns';
+            else if (host.matches('.gap, .gram-gap, .gapfill, .cloze-gap')) kind='gap';
+            else if (host.matches('.wf-row, .wordform-row')) kind='wf';
+            else if (host.matches('.match-item, .match-card, .match-row, .pair-row')) kind='match';
+            else if (host.matches('.builder, .reorder-row, .order-row')) kind='builder';
+            else if (host.matches('.mic-row, .speech-row, .speak-row')) kind='mic';
+            else if (host.matches('textarea')) kind='writing';
+            else if (host.matches('.vocab-card, .word-card, .vocabulary-item')) kind='vocab';
+            else kind='other';
+          }
+          var item = describe(host, kind);
+          var dup = arr.some(function(x){ return x.section_id===item.section_id && x.question===item.question && x.kind===item.kind; });
+          if (!dup) { arr.push(item); added++; }
+        });
+        saveHw(arr);
+        refreshFabCount();
+        // Подсветить плюсики как ✓
+        items.forEach(function(host){
+          var b = host.querySelector('.lab-hw-add');
+          if (b) { b.classList.add('added'); b.textContent = '✓'; }
+        });
+        toast('📚 ' + added + ' заданий из секции — в домашку');
+      });
+      // Размещение: после section-head или в начале секции
+      var head = sec.querySelector('.section-head, .section-hdr');
+      if (head) {
+        head.style.position = head.style.position || 'relative';
+        btn.style.cssText = 'margin-top:8px;display:inline-flex';
+        head.appendChild(btn);
+      } else {
+        btn.style.cssText = 'display:inline-flex;margin:10px 0';
+        sec.insertBefore(btn, sec.firstChild);
+      }
+    });
   }
 
   var fabEl = null, overlayEl = null;
