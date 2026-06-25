@@ -386,12 +386,38 @@
     injectStyle();
     state.level = (location.pathname.match(/lingua-boost-lab\/([a-z0-9\-]+)\//) || [,''])[1].toUpperCase();
 
-    // 1. Inline config из HTML урока (приоритет — Maria's hand-crafted criteria)
+    // 1. Inline config (приоритет — Maria's hand-crafted criteria)
     var inline = loadInlineConfig();
     if (inline) { buildUI(inline); return; }
 
-    // 2. Без inline config — модуль молчит. Урок явно opt-in.
-    return;
+    // 2. Cached авто-config из прошлой сессии
+    var cached = loadCachedCriteria();
+    if (cached && cached.task && Array.isArray(cached.criteria)) {
+      buildUI(cached);
+      return;
+    }
+
+    // 3. Авто-генерация через Pollinations
+    var ctx = lessonContext();
+    if (!ctx.title) return;
+    var loader = document.createElement('section');
+    loader.className = 'section lab-coach-section';
+    loader.innerHTML = '<div class="lab-coach-toggle"><h2>🎙 Speech Coach</h2><span class="meta">preparing…</span></div><div class="lc-loading">⏳ generating criteria for this lesson…</div>';
+    var sections = document.querySelectorAll('section.section');
+    if (sections.length) {
+      var last = sections[sections.length - 1];
+      last.parentNode.insertBefore(loader, last.nextSibling);
+    } else {
+      document.body.appendChild(loader);
+    }
+    try {
+      var obj = await generateCriteria(ctx);
+      saveCachedCriteria(obj);
+      loader.remove();
+      buildUI(obj);
+    } catch(e) {
+      loader.querySelector('.lc-loading').textContent = '⚠ Speech Coach unavailable right now. Refresh in a minute.';
+    }
   }
 
   ready(function(){
