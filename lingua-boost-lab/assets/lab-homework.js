@@ -1,10 +1,11 @@
-/* lab-homework.js v1 — «Положить в домашку».
+/* lab-homework.js v2 — «Положить в домашку».
    У каждого упражнения появляется маленькая кнопка ➕ — клик добавляет
    задание в личную домашку ученика. FAB «📚 Моя домашка · N» снизу справа
-   открывает overlay со списком. Кнопка «📤 Отправить учителю» шлёт batch
-   в Supabase lab_submissions с section_id='homework-batch' (без новой
-   таблицы — чтобы не делать миграцию посреди ночи). Маша видит batches
-   в teacher-lab.html отдельной плашкой. */
+   открывает overlay со списком. Кнопка «📤 Отправить учителю» шлёт batch:
+     1. INSERT в Supabase lab_submissions (section_id='homework-batch') ← ОСНОВНОЕ
+     2. Broadcast в lab-firehose-v1 (teacher-live.html сразу видит)
+     3. Опциональный POST в локальный AI Hub (127.0.0.1:8765) для TG-уведомления
+        — silent fail если Hub лежит. Hub НЕ основной канал. */
 (function(){
   if (window.__labHwLoaded) return;
   window.__labHwLoaded = true;
@@ -420,6 +421,19 @@
             setTimeout(function(){ fh.unsubscribe(); }, 800);
           }
         });
+      } catch(e){}
+      // Опциональный POST в локальный AI Hub (если запущен на этой машине)
+      // — silent fail. Hub не основной, основное persist уже сработало выше.
+      try {
+        var hubMsg = '📚 Новая домашка от ' + (name || 'ученика') +
+                     ' · ' + arr.length + ' заданий · ' +
+                     short(title, 60);
+        fetch('http://127.0.0.1:8765/api/send-telegram', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: hubMsg }),
+          mode: 'no-cors'
+        }).catch(function(){});
       } catch(e){}
     } catch(e) { err = e.message || String(e); }
     sendBtn.disabled = false;
