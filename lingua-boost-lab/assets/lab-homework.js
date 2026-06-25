@@ -62,6 +62,9 @@
         'opacity:0;transform:scale(.85);transition:all .18s ease-out;z-index:5}'+
       '.lab-hw-host{position:relative}'+
       '.lab-hw-host:hover .lab-hw-add,.lab-hw-add.added{opacity:1;transform:scale(1)}'+
+      /* В учительском режиме — все плюсики ВСЕГДА видны */
+      'body.lab-teacher-on .lab-hw-add{opacity:1;transform:scale(1)}'+
+      'body.lab-teacher-on .lab-hw-add:hover{transform:scale(1.12);background:#f59e0b;color:#fff}'+
       '.lab-hw-add:hover{background:#f59e0b;color:#fff;box-shadow:0 4px 14px rgba(245,158,11,.42);transform:scale(1.08)}'+
       '.lab-hw-add.added{background:linear-gradient(135deg,#fde68a 0%,#fbbf24 100%);color:#78350f}'+
       '.lab-hw-add.added::after{content:""}'+
@@ -464,6 +467,12 @@
 
   ready(function(){
     injectStyle();
+    // Учительский режим — body class чтобы CSS делал плюсики всегда видимыми
+    try {
+      if (localStorage.getItem('lab-teacher-mode') === 'on') {
+        document.body.classList.add('lab-teacher-on');
+      }
+    } catch(e){}
     buildFab();
     scanAndDecorate();
     refreshFabCount();
