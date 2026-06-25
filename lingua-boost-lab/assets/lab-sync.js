@@ -1,10 +1,12 @@
-/* lab-sync.js v5 — Realtime sync + persist + identity + ALWAYS-ON firehose.
+/* lab-sync.js v6 — Realtime sync + persist + identity + firehose + observer.
    • С URL ?sync=<roomId>&role=teacher|student — двусторонняя live-комната.
    • Без ?sync — solo-mode: каждый submit идёт в Supabase lab_submissions.
    • Имя ученика → 'student-<slug>' room_id (модалка на первый submit).
-   • НОВОЕ v5: ВСЕГДА (и в solo, и в sync) broadcast'им действия ученика в
-     общий канал 'lab-firehose-v1'. Маша открывает teacher-live.html —
-     видит ленту всех учеников по всем урокам в реальном времени. */
+   • ВСЕГДА broadcast в общий канал 'lab-firehose-v1' (teacher-live видит).
+   • НОВОЕ v6: URL ?observe=<student-id> — пассивный режим зеркала.
+     Iframe подписан на firehose, фильтрует dom-state events от этого
+     ученика, применяет их к своему DOM. Маша видит как ученик
+     заполняет форму в реальном времени без всякого ?sync= setup. */
 (function(){
   if (window.__labSyncLoaded) return;
   window.__labSyncLoaded = true;
@@ -17,9 +19,11 @@
     return m ? decodeURIComponent(m[1]) : null;
   }
 
-  var syncParam = qs('sync');
-  var soloMode  = !syncParam;
-  var role      = qs('role') || (soloMode ? 'solo' : 'student');
+  var syncParam   = qs('sync');
+  var observeId   = qs('observe');  // NEW v6: пассивное зеркало для учителя
+  var observeMode = !!observeId;
+  var soloMode    = !syncParam && !observeMode;
+  var role        = qs('role') || (observeMode ? 'observer' : (soloMode ? 'solo' : 'student'));
   var roomId;
   if (soloMode) {
     // Если имя уже сохранено — используем сразу 'student-<slug>'.
@@ -237,11 +241,54 @@
       var firehose  = null;            // global firehose for teacher-live.html
       var muteOutgoing = false;
 
-      // ---- Firehose: ВСЕГДА (solo + sync) ----
+      // ---- Firehose: ВСЕГДА (solo + sync + observer) ----
       firehose = client.channel('lab-firehose-v1', { config: { broadcast: { self: false } } });
+
+      // Observer mode (teacher iframe) — listen и применять к локальному DOM
+      if (observeMode) {
+        firehose.on('broadcast', { event:'dom-state' }, function(p){
+          var data = p.payload || {};
+          if (data.room_id !== observeId) return;
+          var el = resolvePath(data.path);
+          if (!el) return;
+          muteOutgoing = true;
+          TRACK_CLASSES.forEach(function(c){ if (el.classList) el.classList.remove(c); });
+          (data.classes || []).forEach(function(c){ el.classList && el.classList.add(c); });
+          if ('value' in data && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT')) {
+            el.value = data.value;
+          }
+          if (data.text && el.matches && (el.matches('.gap') || el.matches('.match-item'))) {
+            el.textContent = data.text;
+          }
+          // Visual ping — мягкий жёлтый flash чтобы Маша видела что обновилось
+          if (el.classList) {
+            el.classList.add('lab-observe-flash');
+            setTimeout(function(){ el.classList.remove('lab-observe-flash'); }, 800);
+          }
+          setTimeout(function(){ muteOutgoing = false; }, 200);
+        });
+        // Indicator стиль
+        if (!document.getElementById('lab-observe-style')) {
+          var os = document.createElement('style');
+          os.id = 'lab-observe-style';
+          os.textContent = '.lab-observe-flash{box-shadow:0 0 0 3px rgba(251,191,36,.55) !important;'+
+            'transition:box-shadow .8s ease-out}'+
+            '.lab-observe-banner{position:fixed;top:0;left:0;right:0;z-index:100000;'+
+            'padding:6px 14px;background:linear-gradient(90deg,#f59e0b,#fbbf24);'+
+            'color:#1a1a2e;font:800 11px/1 "JetBrains Mono",monospace;letter-spacing:.18em;'+
+            'text-transform:uppercase;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,.3)}';
+          document.head.appendChild(os);
+          var banner = document.createElement('div');
+          banner.className = 'lab-observe-banner';
+          banner.textContent = '👁 Observer · смотрю как ' + observeId.replace(/^student-/, '') + ' заполняет урок';
+          document.body.appendChild(banner);
+          document.body.style.paddingTop = '32px';
+        }
+      }
+
       firehose.subscribe(function(status){
-        if (status === 'SUBSCRIBED') {
-          // Heartbeat — урок открыт
+        if (status === 'SUBSCRIBED' && !observeMode) {
+          // Heartbeat — урок открыт (только от ученика, не от observer)
           firehose.send({
             type: 'broadcast', event: 'lesson-open',
             payload: {
@@ -305,7 +352,7 @@
       // ---- Live broadcast ученика — ВСЕГДА в firehose + (если sync) в room ----
       var sendThrottle = {};
       function maybeSend(el){
-        if (role === 'teacher') return; // учитель не транслирует свои действия
+        if (role === 'teacher' || observeMode) return; // учитель и observer не транслируют
         var path = pathOf(el);
         if (!path) return;
         var now = Date.now();
@@ -370,7 +417,9 @@
       // --- Submit handler — работает В ОБОИХ режимах.
       //     Solo: спросить имя на первом submit, потом persist в lab_submissions.
       //     Sync: broadcast + persist.
+      //     Observer: silent (учитель не сдаёт за ученика).
       document.addEventListener('click', function(e){
+        if (observeMode) return;
         var b = e.target.closest('.lp-submit');
         if (!b) return;
         setTimeout(async function(){

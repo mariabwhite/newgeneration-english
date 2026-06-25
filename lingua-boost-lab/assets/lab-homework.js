@@ -9,6 +9,8 @@
 (function(){
   if (window.__labHwLoaded) return;
   window.__labHwLoaded = true;
+  // Observer mode (учитель в iframe) — никакого UI домашки не нужно
+  if (/[?&]observe=/.test(location.search)) return;
 
   var SUPABASE_URL  = "https://iqzlphbvmfgoygnozbya.supabase.co";
   var SUPABASE_ANON = "sb_publishable_hYhBk3xS90uouUFd_DZWUw_sOv-6JGO";

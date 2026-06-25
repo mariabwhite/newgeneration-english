@@ -6,6 +6,8 @@
 (function(){
   if (window.__labAiLoaded) return;
   window.__labAiLoaded = true;
+  // Observer mode (учитель в iframe) — AI plate ученика не показывать
+  if (/[?&]observe=/.test(location.search)) return;
 
   // Bесплатный openAI-compatible endpoint, не требует ключа.
   // Запасной — другая модель той же платформы.
