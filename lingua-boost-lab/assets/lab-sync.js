@@ -321,11 +321,14 @@
           var ts2 = document.createElement('style');
           ts2.id = 'lab-teacher-style';
           ts2.textContent = '.lab-teacher-banner{position:fixed;top:0;left:0;right:0;z-index:100000;'+
-            'padding:6px 14px;background:linear-gradient(90deg,#f59e0b,#fbbf24);'+
-            'color:#1a1a2e;font:800 11px/1.4 "JetBrains Mono",monospace;letter-spacing:.16em;'+
+            'padding:6px 10px;background:linear-gradient(90deg,#f59e0b,#fbbf24);'+
+            'color:#1a1a2e;font:800 11px/1.4 "JetBrains Mono",monospace;letter-spacing:.14em;'+
             'text-transform:uppercase;display:flex;align-items:center;justify-content:center;'+
             'gap:8px;box-shadow:0 2px 12px rgba(0,0,0,.3);flex-wrap:wrap}'+
-            '.card p, .card li, .reading p, .story p, .passage p, p.lead, .card .stmt, .card .question, .card .q-text {cursor:crosshair !important}'+
+            /* Mobile — компактнее, в две строки */
+            '@media(max-width:600px){.lab-teacher-banner{padding:6px 8px;font-size:10px;letter-spacing:.08em;gap:6px}'+
+            '.lab-teacher-banner #labTeacherWord{width:160px !important;font-size:11px !important}'+
+            '.lab-teacher-banner a[href*="teacher=off"]{padding:3px 8px !important;font-size:9px !important}}'+
             '.lab-click-flash{background:#fbbf24 !important;color:#1a1a2e !important;'+
             'border-radius:4px;padding:1px 5px;transition:background .15s,color .15s;'+
             'box-shadow:0 0 0 3px rgba(251,191,36,.45)}';

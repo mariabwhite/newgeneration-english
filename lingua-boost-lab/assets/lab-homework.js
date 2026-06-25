@@ -54,7 +54,7 @@
     var s = document.createElement('style');
     s.id = 'lab-hw-style';
     s.textContent = ''+
-      '.lab-hw-add{position:absolute;top:6px;right:6px;width:30px;height:30px;border-radius:50%;'+
+      '.lab-hw-add{position:absolute;top:-10px;left:-10px;right:auto;width:26px;height:26px;border-radius:50%;'+
         'background:linear-gradient(135deg,#fff 0%,#fef3c7 100%);'+
         'border:1.5px solid #f59e0b;color:#92400e;cursor:pointer;'+
         'display:inline-flex;align-items:center;justify-content:center;'+
@@ -62,6 +62,8 @@
         'opacity:0;transform:scale(.85);transition:all .18s ease-out;z-index:5}'+
       '.lab-hw-host{position:relative}'+
       '.lab-hw-host:hover .lab-hw-add,.lab-hw-add.added{opacity:1;transform:scale(1)}'+
+      /* На touch-устройствах нет hover — плюсики всегда видны (mobile/tablet) */
+      '@media (hover:none){.lab-hw-add{opacity:1;transform:scale(1)}}'+
       /* В учительском режиме — все плюсики ВСЕГДА видны */
       'body.lab-teacher-on .lab-hw-add{opacity:1;transform:scale(1)}'+
       'body.lab-teacher-on .lab-hw-add:hover{transform:scale(1.12);background:#f59e0b;color:#fff}'+

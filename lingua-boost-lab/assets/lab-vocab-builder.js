@@ -46,6 +46,8 @@
       '.lab-vocab-h .meta{font:600 .82rem/1.4 "JetBrains Mono",monospace;letter-spacing:.08em;color:#6b46c1}'+
       '[data-lab-theme="dark"] .lab-vocab-h .meta{color:#c5a3ff}'+
       '.lab-vocab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;width:100%}'+
+'@media(max-width:600px){.lab-vocab-grid{grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}}'+
+'@media(max-width:600px){.lab-vocab-section{margin:14px 8px !important;padding:14px 14px !important}}'+
       '.vocab-card{position:relative;background:#fff;border:1.5px solid #d4c0f7;border-radius:10px;'+
         'padding:10px 12px;cursor:pointer;transition:transform .15s,box-shadow .15s;perspective:600px;min-height:74px}'+
       '[data-lab-theme="dark"] .vocab-card{background:#15102a;border-color:#5b3aa8}'+
