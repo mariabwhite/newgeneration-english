@@ -33,7 +33,7 @@
     s.textContent = ''+
       /* Старые кастомные vocab-FAB у Вани и др. — наш модуль их заменяет */
       '.vocab-box,.vocab-bag,.my-vocab-fab{display:none !important}'+
-      '.lab-vocab-section{background:transparent !important;border:0 !important;padding:0 clamp(16px,3vw,28px) !important;box-sizing:border-box;display:block}'+
+      '.lab-vocab-section{background:transparent !important;border:0 !important;box-sizing:border-box;display:block}'+
       '.lab-vocab-panel{padding:20px 22px;border-radius:14px;'+
         'background:color-mix(in srgb, var(--accent, #7c3aed) 7%, var(--card, var(--surface, rgba(15,20,30,.82))));'+
         'border:1px solid color-mix(in srgb, var(--accent, #7c3aed) 25%, transparent);'+
@@ -48,7 +48,7 @@
       '[data-lab-theme="dark"] .lab-vocab-h .meta{color:color-mix(in srgb, var(--accent, #c5a3ff) 72%, var(--text, #f3eee5))}'+
       '.lab-vocab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;width:100%}'+
 '@media(max-width:600px){.lab-vocab-grid{grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}}'+
-'@media(max-width:600px){.lab-vocab-section{padding:0 clamp(12px,4vw,18px) !important}.lab-vocab-panel{padding:14px 14px !important}}'+
+'@media(max-width:600px){.lab-vocab-panel{padding:14px 14px !important}}'+
       '.lab-vocab-section .vocab-card{position:relative;background:var(--surface, var(--card, #fff));border:1.5px solid var(--line, color-mix(in srgb, var(--accent, #7c3aed) 25%, transparent));border-radius:10px;'+
         'padding:10px 12px;cursor:pointer;transition:transform .15s,box-shadow .15s;perspective:600px;min-height:74px}'+
       '[data-lab-theme="dark"] .lab-vocab-section .vocab-card{background:var(--surface, var(--card, #15102a));border-color:var(--line, #5b3aa8)}'+
