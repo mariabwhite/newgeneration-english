@@ -34,6 +34,7 @@
       /* Старые кастомные vocab-FAB у Вани и др. — наш модуль их заменяет */
       '.vocab-box,.vocab-bag,.my-vocab-fab{display:none !important}'+
       '.lab-vocab-section{background:transparent !important;border:0 !important;box-sizing:border-box;display:block}'+
+      '.lab-vocab-section.lab-vocab-tight-8 .lab-vocab-panel{width:calc(100% - 8px);margin-left:auto;margin-right:auto}'+
       '.lab-vocab-panel{padding:20px 22px;border-radius:14px;'+
         'background:color-mix(in srgb, var(--accent, #7c3aed) 7%, var(--card, var(--surface, rgba(15,20,30,.82))));'+
         'border:1px solid color-mix(in srgb, var(--accent, #7c3aed) 25%, transparent);'+
@@ -264,6 +265,7 @@
     if (existing && !loadExtras().length && !Array.isArray(window.LAB_VOCAB)) return null;
     var sec = document.createElement('section');
     sec.className = 'section lab-vocab-section';
+    if (/\/modals-deep-dive\/?/.test(location.pathname)) sec.className += ' lab-vocab-tight-8';
     sec.id = 'auto-vocab';
     sec.innerHTML =
       '<div class="lab-vocab-panel">'+
