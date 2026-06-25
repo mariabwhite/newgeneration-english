@@ -148,13 +148,54 @@
     }
   }
 
+  function fallbackQuestions(title){
+    var t = title.toLowerCase();
+    var generic = [
+      'In 30 seconds, tell me what this section is about in your own words.',
+      'Give one example from your life that fits this topic.',
+      'What was the trickiest word here and why?'
+    ];
+    return generic;
+  }
+
   ready(function(){
     injectStyle();
     var meta = lessonMeta();
     var sections = document.querySelectorAll('section.section');
-    // Параллельно: cache рендер + auto-gen всех сразу (Pollinations справляется)
+    // 1. СИНХРОННО сразу рендерим placeholder с generic questions — будет видно мгновенно
     sections.forEach(function(sec){
-      processOne(sec, meta);
+      if (sec.__qsProcessed) return;
+      if (shouldSkip(sec)) { sec.__qsProcessed = true; return; }
+      var h2 = sec.querySelector('h2');
+      var title = (h2?.textContent || '').trim();
+      if (!title) return;
+      var k = key(sec.id || title.slice(0,40));
+      var cached = loadCached(k);
+      if (cached && cached.length) {
+        sec.__qsProcessed = true;
+        render(sec, cached, { cached: true });
+      } else {
+        // Generic fallback — сразу видно, потом AI уточнит
+        sec.__qsTemp = render(sec, fallbackQuestions(title), { cached: false });
+      }
+    });
+    // 2. Параллельно догоняем AI-questions
+    sections.forEach(function(sec){
+      if (!sec.__qsTemp) return;
+      var h2 = sec.querySelector('h2');
+      var title = (h2?.textContent || '').trim();
+      var k = key(sec.id || title.slice(0,40));
+      var p = sec.querySelector('p, li, .section-sub, .stmt');
+      var excerpt = ((p?.textContent) || '').replace(/\s+/g,' ').trim().slice(0, 200);
+      generateQuestions(title, excerpt, meta.title, meta.level).then(function(qs){
+        if (qs && qs.length) {
+          saveCached(k, qs);
+          // Заменить fallback на AI
+          var oldBox = sec.querySelector('.lab-qs');
+          if (oldBox) oldBox.remove();
+          render(sec, qs, { cached: false });
+        }
+      }).catch(function(){});
     });
   });
 })();
