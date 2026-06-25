@@ -37,7 +37,7 @@
         'border:1px solid var(--line, rgba(255,255,255,.14)) !important;'+
         'backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);'+
         'color:var(--text, #f3eee5) !important;font-family:"Manrope",sans-serif !important;'+
-        'max-width:1100px !important;width:auto !important;display:block !important;box-sizing:border-box;'+
+        'max-width:1240px !important;width:100% !important;display:block !important;box-sizing:border-box;'+
         'box-shadow:0 10px 40px rgba(0,0,0,.32)}'+
       '@media(max-width:600px){.lab-coach-section{margin:14px 8px !important;padding:14px !important}}'+
       '.lc-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:18px;align-items:start}'+

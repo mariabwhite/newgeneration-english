@@ -34,13 +34,14 @@
       /* Старые кастомные vocab-FAB у Вани и др. — наш модуль их заменяет */
       '.vocab-box,.vocab-bag,.my-vocab-fab{display:none !important}'+
       '.lab-vocab-section{margin:24px auto !important;padding:20px 22px !important;border-radius:14px !important;'+
-        'background:linear-gradient(135deg,#fbf8ff 0%,#f1ebff 100%) !important;'+
-        'border:1px solid #d4c0f7 !important;font-family:"Manrope",sans-serif !important;'+
-        'max-width:980px !important;width:auto !important;box-sizing:border-box !important;display:block !important}'+
+        'background:color-mix(in srgb, var(--accent, #7c3aed) 8%, var(--surface, rgba(15,20,30,.82))) !important;'+
+        'border:1px solid color-mix(in srgb, var(--accent, #7c3aed) 30%, transparent) !important;'+
+        'font-family:"Manrope",sans-serif !important;color:var(--text, #f3eee5) !important;'+
+        'max-width:1240px !important;width:100% !important;box-sizing:border-box !important;display:block !important}'+
       '[data-lab-theme="dark"] .lab-vocab-section{background:linear-gradient(135deg,#1e1a2e 0%,#241c3e 100%);'+
         'border-color:#5b3aa8;color:#f3eee5}'+
       '.lab-vocab-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:12px}'+
-      '.lab-vocab-h h2{font:800 1.1rem/1.2 "Manrope",sans-serif !important;color:#4a2d8a;margin:0 !important}'+
+      '.lab-vocab-h h2{font:800 1.1rem/1.2 "Manrope",sans-serif !important;color:var(--accent, #fbbf24);margin:0 !important}'+
       '.lab-vocab-h h2{margin:0;font:800 1.25rem/1.2 "Manrope",sans-serif;color:#4a2d8a;display:flex;align-items:center;gap:10px}'+
       '[data-lab-theme="dark"] .lab-vocab-h h2{color:#e9d6ff}'+
       '.lab-vocab-h .meta{font:600 .82rem/1.4 "JetBrains Mono",monospace;letter-spacing:.08em;color:#6b46c1}'+
