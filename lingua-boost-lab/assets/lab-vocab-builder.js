@@ -253,7 +253,13 @@
 
   function findOrBuildSection(){
     // Если в уроке уже есть статичный vocab section — используем его
-    var existing = document.querySelector('section.vocabulary, .vocab-section, section[id*="vocab"]');
+    var existing = document.querySelector(
+      'section.vocabulary, .vocab-section, section[id*="vocab"], '+
+      '[id*="vocab"], .vocab-grid, .vocab-list, .vocabulary-block, '+
+      '.vocab-cards, .vocab-table, [class*="vocab-grid"]'
+    );
+    // Также если на странице уже есть хоть одна .vocab-card — Vocabulary считается родной
+    if (!existing && document.querySelector('.vocab-card')) existing = document.querySelector('.vocab-card').closest('section, .container, .card, div');
     if (existing) return null;
     var sec = document.createElement('section');
     sec.className = 'section lab-vocab-section';
