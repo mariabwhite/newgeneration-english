@@ -22,7 +22,7 @@
   "use strict";
 
   const SESSION_KEY = "nge_session_v2";              // {role, studentId?, name} — public UI shape
-  const VAULT_PAYLOAD_KEY = "nge_vault_payload_v1";  // decrypted JSON, sessionStorage only
+  const VAULT_PAYLOAD_KEY = "nge_vault_payload_v2";  // decrypted JSON, sessionStorage only
   const INDEX_URL = "./vault/index.json";
 
   /* ---------- crypto helpers ---------- */
@@ -1464,7 +1464,8 @@
     opts = opts || {};
     const studentView = !!opts.studentView; // в кабинете ребёнка — скрываем цены и статус оплаты
     const total = student.lessons_in_package;
-    const used = student.lessons_used_this_month || 0;
+    const rawUsed = student.lessons_used_this_month || 0;
+    const used = total ? Math.min(rawUsed, total) : rawUsed;
     const remaining = total ? Math.max(total - used, 0) : null;
     const month = student.subscription_month || _currentMonthLabel();
     const pkg = student.monthly_package;
