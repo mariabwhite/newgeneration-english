@@ -33,11 +33,11 @@
     s.textContent = ''+
       /* Старые кастомные vocab-FAB у Вани и др. — наш модуль их заменяет */
       '.vocab-box,.vocab-bag,.my-vocab-fab{display:none !important}'+
-      '.lab-vocab-section{margin:24px 0 !important;padding:20px 22px !important;border-radius:14px !important;'+
-        'background:color-mix(in srgb, var(--accent, #7c3aed) 8%, var(--surface, rgba(15,20,30,.82))) !important;'+
-        'border:1px solid color-mix(in srgb, var(--accent, #7c3aed) 30%, transparent) !important;'+
-        'font-family:"Manrope",sans-serif !important;color:var(--text, #f3eee5) !important;'+
-        'width:auto !important;box-sizing:border-box !important;display:block !important}'+
+      '.lab-vocab-section{padding:20px 22px;border-radius:14px;'+
+        'background:color-mix(in srgb, var(--accent, #7c3aed) 7%, var(--card, var(--surface, rgba(15,20,30,.82))));'+
+        'border:1px solid color-mix(in srgb, var(--accent, #7c3aed) 25%, transparent);'+
+        'font-family:"Manrope",sans-serif;color:var(--text, #f3eee5);'+
+        'box-sizing:border-box;display:block}'+
       '[data-lab-theme="dark"] .lab-vocab-section{background:linear-gradient(135deg,#1e1a2e 0%,#241c3e 100%);'+
         'border-color:#5b3aa8;color:#f3eee5}'+
       '.lab-vocab-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:12px}'+

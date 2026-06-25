@@ -383,9 +383,88 @@
     return null;
   }
 
+  function buildUIAt(anchor, cfg){
+    // Аналог buildUI, но рендерит coach в указанном anchor вместо в конец.
+    state.criteria = cfg.criteria;
+    state.task = cfg.task;
+    var section = document.createElement('section');
+    section.className = 'section lab-coach-section';
+    section.style.cssText = 'max-width:1240px;margin:24px auto;padding:20px clamp(16px,3vw,28px);box-sizing:border-box';
+    section.innerHTML = '';
+    document.body.insertBefore(section, document.body.firstChild); // tmp position
+    // Reuse buildUI rendering by calling it; but it inserts at end. Workaround:
+    var tmpFirst = document.querySelectorAll('section.section')[0];
+    if (anchor && anchor.parentNode) anchor.parentNode.insertBefore(section, anchor.nextSibling);
+    // Build inner content via buildUI shell
+    buildUIInner(section, cfg);
+  }
+
+  function buildUIInner(section, cfg){
+    state.criteria = cfg.criteria;
+    state.task = cfg.task;
+    section.innerHTML =
+      '<div class="lab-coach-toggle">'+
+        '<h2>🎙 Speech Coach · record yourself and get instant feedback</h2>'+
+        '<span class="meta">click to collapse</span>'+
+      '</div>'+
+      '<div class="lab-coach-body">'+
+        '<div style="background:color-mix(in srgb, var(--accent, #fbbf24) 14%, transparent);border:1px solid color-mix(in srgb, var(--accent, #fbbf24) 45%, transparent);border-radius:10px;padding:13px 16px;margin-bottom:14px;color:var(--text,#fff);font:700 1rem/1.55 Manrope"><strong style="color:var(--accent, #fbbf24);font-size:.85rem;letter-spacing:.14em;display:block;margin-bottom:6px;text-transform:uppercase">📋 Task</strong>'+esc(cfg.task)+'</div>'+
+        '<div class="lc-grid">'+
+          '<div class="lc-left">'+
+            '<div class="lc-crit-h">Criteria · real time</div>'+
+            '<div class="lc-criteria">'+
+              cfg.criteria.map(function(c){
+                return '<div class="lc-crit"><div class="lc-tick">✓</div><div style="flex:1"><div class="lc-crit-text">'+esc(c.label)+'</div>'+
+                  (c.hint ? '<div class="lc-crit-hint">'+esc(c.hint)+'</div>' : '')+
+                  '</div></div>';
+              }).join('')+
+            '</div>'+
+          '</div>'+
+          '<div class="lc-right">'+
+            '<div class="lc-row">'+
+              '<button type="button" class="lc-btn lc-record">🎙 Start recording</button>'+
+              '<button type="button" class="lc-btn lc-analyze" disabled>🤖 AI review</button>'+
+            '</div>'+
+            '<div class="lc-transcript grader-transcript" data-transcript></div>'+
+            '<div class="lc-stats">'+
+              '<div class="lc-stat"><div class="lc-lbl">Words</div><div class="lc-val">0</div></div>'+
+              '<div class="lc-stat"><div class="lc-lbl">Pace · WPM</div><div class="lc-val">—</div></div>'+
+              '<div class="lc-stat"><div class="lc-lbl">Linkers</div><div class="lc-val">0</div></div>'+
+              '<div class="lc-stat"><div class="lc-lbl">B2+ vocab</div><div class="lc-val">0</div></div>'+
+              '<div class="lc-stat"><div class="lc-lbl">Pause</div><div class="lc-val">0.0s</div></div>'+
+            '</div>'+
+          '</div>'+
+        '</div>'+
+      '</div>';
+    section.querySelector('.lab-coach-toggle').addEventListener('click', function(){
+      section.classList.toggle('expanded');
+    });
+    section.classList.add('expanded');
+    section.querySelector('.lc-record').addEventListener('click', function(){
+      if (state.recording) stopRecognition(section);
+      else { state.criteria = cfg.criteria; state.task = cfg.task; startRecognition(section); }
+    });
+    section.querySelector('.lc-analyze').addEventListener('click', function(){
+      state.criteria = cfg.criteria; state.task = cfg.task; analyze(section);
+    });
+  }
+
   async function init(){
     injectStyle();
     state.level = (location.pathname.match(/lingua-boost-lab\/([a-z0-9\-]+)\//) || [,''])[1].toUpperCase();
+
+    // MULTI: inline <div data-coach-config="{...}"> или <script data-coach-config>...</script>
+    var multi = document.querySelectorAll('[data-coach-config]');
+    if (multi && multi.length) {
+      multi.forEach(function(el){
+        var raw = el.getAttribute('data-coach-config') || el.textContent || '';
+        try {
+          var cfg = JSON.parse(raw);
+          if (cfg.task && Array.isArray(cfg.criteria)) buildUIInner(el, cfg);
+        } catch(e){}
+      });
+      return;
+    }
 
     // 1. Inline config (приоритет — Maria's hand-crafted criteria)
     var inline = loadInlineConfig();
