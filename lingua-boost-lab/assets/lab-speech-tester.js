@@ -32,11 +32,11 @@
     var s = document.createElement('style');
     s.id = 'lab-coach-style';
     s.textContent = ''+
-      '.lab-coach-section{margin:24px auto !important;padding:20px 24px !important;border-radius:16px !important;'+
+      '.lab-coach-section{margin:18px 0 !important;padding:20px 24px !important;border-radius:16px !important;'+
         'background:var(--card, var(--surface, #1b232d)) !important;'+
         'border:1px solid var(--line, color-mix(in srgb, var(--accent, #fbbf24) 35%, transparent)) !important;'+
         'color:var(--text, #f3eee5) !important;font-family:"Manrope",sans-serif !important;'+
-        'max-width:1180px !important;width:calc(100% - 24px) !important;display:block !important;box-sizing:border-box;'+
+        'width:auto !important;display:block !important;box-sizing:border-box;'+
         'box-shadow:0 8px 28px rgba(0,0,0,.18)}'+
       '@media(max-width:600px){.lab-coach-section{margin:14px 8px !important;padding:14px !important}}'+
       '.lc-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:18px;align-items:start}'+
@@ -400,6 +400,10 @@
   }
 
   function buildUIInner(section, cfg){
+    section.classList.add('lab-coach-section');
+    if (!section.classList.contains('section') && section.parentElement && section.parentElement.tagName === 'BODY') {
+      section.classList.add('section');
+    }
     state.criteria = cfg.criteria;
     state.task = cfg.task;
     section.innerHTML =
