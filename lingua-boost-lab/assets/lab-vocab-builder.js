@@ -33,12 +33,13 @@
     s.textContent = ''+
       /* Старые кастомные vocab-FAB у Вани и др. — наш модуль их заменяет */
       '.vocab-box,.vocab-bag,.my-vocab-fab{display:none !important}'+
-      '.lab-vocab-section{padding:20px 22px;border-radius:14px;'+
+      '.lab-vocab-section{background:transparent !important;border:0 !important;padding:0 clamp(16px,3vw,28px) !important;box-sizing:border-box;display:block}'+
+      '.lab-vocab-panel{padding:20px 22px;border-radius:14px;'+
         'background:color-mix(in srgb, var(--accent, #7c3aed) 7%, var(--card, var(--surface, rgba(15,20,30,.82))));'+
         'border:1px solid color-mix(in srgb, var(--accent, #7c3aed) 25%, transparent);'+
         'font-family:"Manrope",sans-serif;color:var(--text, #f3eee5);'+
         'box-sizing:border-box;display:block}'+
-      '[data-lab-theme="dark"] .lab-vocab-section{background:var(--card, var(--surface, #1b232d));'+
+      '[data-lab-theme="dark"] .lab-vocab-panel{background:var(--card, var(--surface, #1b232d));'+
         'border-color:var(--line, color-mix(in srgb, var(--accent, #7c3aed) 35%, transparent));color:var(--text, #f3eee5)}'+
       '.lab-vocab-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:12px}'+
       '.lab-vocab-h h2{margin:0 !important;font:800 1.25rem/1.2 "Manrope",sans-serif !important;color:var(--accent, #fbbf24) !important;display:flex;align-items:center;gap:10px}'+
@@ -47,7 +48,7 @@
       '[data-lab-theme="dark"] .lab-vocab-h .meta{color:color-mix(in srgb, var(--accent, #c5a3ff) 72%, var(--text, #f3eee5))}'+
       '.lab-vocab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;width:100%}'+
 '@media(max-width:600px){.lab-vocab-grid{grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}}'+
-'@media(max-width:600px){.lab-vocab-section{margin:14px 8px !important;padding:14px 14px !important}}'+
+'@media(max-width:600px){.lab-vocab-section{padding:0 clamp(12px,4vw,18px) !important}.lab-vocab-panel{padding:14px 14px !important}}'+
       '.lab-vocab-section .vocab-card{position:relative;background:var(--surface, var(--card, #fff));border:1.5px solid var(--line, color-mix(in srgb, var(--accent, #7c3aed) 25%, transparent));border-radius:10px;'+
         'padding:10px 12px;cursor:pointer;transition:transform .15s,box-shadow .15s;perspective:600px;min-height:74px}'+
       '[data-lab-theme="dark"] .lab-vocab-section .vocab-card{background:var(--surface, var(--card, #15102a));border-color:var(--line, #5b3aa8)}'+
@@ -265,12 +266,14 @@
     sec.className = 'section lab-vocab-section';
     sec.id = 'auto-vocab';
     sec.innerHTML =
-      '<div class="lab-vocab-h">'+
-        '<h2>📖 Vocabulary</h2>'+
-        '<div class="meta"><span id="vocabCount">0</span> слов · кликни карточку, чтобы перевернуть</div>'+
-      '</div>'+
-      '<div class="lab-vocab-grid" id="vocabGrid"></div>'+
-      (teacherMode ? '<div style="margin-top:18px"><button class="lab-vocab-add-btn" id="vocabAddBtn">+ добавить своё слово</button></div>' : '');
+      '<div class="lab-vocab-panel">'+
+        '<div class="lab-vocab-h">'+
+          '<h2>📖 Vocabulary</h2>'+
+          '<div class="meta"><span id="vocabCount">0</span> слов · кликни карточку, чтобы перевернуть</div>'+
+        '</div>'+
+        '<div class="lab-vocab-grid" id="vocabGrid"></div>'+
+        (teacherMode ? '<div style="margin-top:18px"><button class="lab-vocab-add-btn" id="vocabAddBtn">+ добавить своё слово</button></div>' : '')+
+      '</div>';
     // Vocabulary в общий контейнер первой .section, без clone-стилей (раньше съезжало влево).
     var firstSection = document.querySelector('section.section');
     if (firstSection && firstSection.parentNode) {
