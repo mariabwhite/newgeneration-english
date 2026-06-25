@@ -32,14 +32,17 @@
     var s = document.createElement('style');
     s.id = 'lab-coach-style';
     s.textContent = ''+
-      '.lab-coach-section{margin:24px auto !important;padding:18px 22px !important;border-radius:14px !important;'+
-        'background:linear-gradient(135deg,#0E1A11 0%,#162820 100%);border:1px solid #244029;'+
-        'color:#E8F5E9;font-family:"Manrope",sans-serif !important;'+
-        'max-width:980px !important;width:auto !important;display:block !important;box-sizing:border-box}'+
+      '.lab-coach-section{margin:24px auto !important;padding:20px 24px !important;border-radius:16px !important;'+
+        'background:var(--surface, rgba(15,20,30,.82)) !important;'+
+        'border:1px solid var(--line, rgba(255,255,255,.14)) !important;'+
+        'backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);'+
+        'color:var(--text, #f3eee5) !important;font-family:"Manrope",sans-serif !important;'+
+        'max-width:1100px !important;width:auto !important;display:block !important;box-sizing:border-box;'+
+        'box-shadow:0 10px 40px rgba(0,0,0,.32)}'+
       '@media(max-width:600px){.lab-coach-section{margin:14px 8px !important;padding:14px !important}}'+
       '.lab-coach-toggle{cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px}'+
-      '.lab-coach-toggle h2{margin:0;font:800 1rem/1.2 "Manrope",sans-serif;color:#7bd9a7}'+
-      '.lab-coach-toggle .meta{font:600 .8rem/1 "JetBrains Mono",monospace;color:#6E8A72;letter-spacing:.06em}'+
+      '.lab-coach-toggle h2{margin:0;font:800 1rem/1.2 "Manrope",sans-serif;color:#fbbf24}'+
+      '.lab-coach-toggle .meta{font:600 .8rem/1 "JetBrains Mono",monospace;color:rgba(251,191,36,.6);letter-spacing:.06em}'+
       '.lab-coach-body{display:none;margin-top:14px}'+
       '.lab-coach-section.expanded .lab-coach-body{display:block}'+
 
@@ -57,27 +60,27 @@
       '.lc-btn:disabled{opacity:.55;cursor:wait;transform:none}'+
 
       '.lc-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin:10px 0}'+
-      '.lc-stat{background:#162820;border:1px solid #244029;border-radius:10px;padding:8px 12px}'+
-      '.lc-stat .lc-lbl{font:700 .68rem/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#6E8A72;margin-bottom:3px}'+
-      '.lc-stat .lc-val{font:800 1.1rem/1 "Manrope",sans-serif;color:#7bd9a7}'+
+      '.lc-stat{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:8px 12px}'+
+      '.lc-stat .lc-lbl{font:700 .68rem/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:rgba(251,191,36,.6);margin-bottom:3px}'+
+      '.lc-stat .lc-val{font:800 1.1rem/1 "Manrope",sans-serif;color:#fbbf24}'+
 
-      '.lc-transcript{background:#000;color:#E8F5E9;border:1px solid #244029;border-radius:10px;'+
+      '.lc-transcript{background:#000;color:#E8F5E9;border:1px solid rgba(255,255,255,.14);border-radius:10px;'+
         'padding:12px 14px;min-height:110px;max-height:240px;overflow-y:auto;font:500 .92rem/1.55 "Manrope",sans-serif;'+
         'margin:10px 0}'+
-      '.lc-transcript:empty::before{content:"Live transcript появится здесь когда ты начнёшь говорить…";color:#6E8A72;font-style:italic}'+
+      '.lc-transcript:empty::before{content:"Live transcript появится здесь когда ты начнёшь говорить…";color:rgba(251,191,36,.6);font-style:italic}'+
       '.lc-transcript .interim{opacity:.55;font-style:italic}'+
 
       '.lc-criteria{display:flex;flex-direction:column;gap:6px;margin:10px 0}'+
       '.lc-crit{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:8px;'+
-        'background:#162820;border-left:3px solid #475569;transition:all .2s}'+
+        'background:rgba(255,255,255,.05);border-left:3px solid #475569;transition:all .2s}'+
       '.lc-crit.hit{border-left-color:#22c55e;background:#0f1f15}'+
       '.lc-crit .lc-tick{width:22px;height:22px;border-radius:50%;background:#334155;color:#fff;'+
         'display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;font-weight:800}'+
       '.lc-crit.hit .lc-tick{background:#22c55e}'+
       '.lc-crit .lc-crit-text{flex:1;font:600 .9rem/1.45 "Manrope",sans-serif;color:#E8F5E9}'+
-      '.lc-crit .lc-crit-hint{font:500 .76rem/1.3 "Manrope",sans-serif;color:#6E8A72;font-style:italic;margin-top:2px}'+
+      '.lc-crit .lc-crit-hint{font:500 .76rem/1.3 "Manrope",sans-serif;color:rgba(251,191,36,.6);font-style:italic;margin-top:2px}'+
 
-      '.lc-loading{color:#6E8A72;font:600 .82rem/1.4 "Manrope",sans-serif;text-align:center;padding:14px}'+
+      '.lc-loading{color:rgba(251,191,36,.6);font:600 .82rem/1.4 "Manrope",sans-serif;text-align:center;padding:14px}'+
       '.lc-loading::before{content:"⏳ ";margin-right:6px}'+
       '.lc-analysis{background:linear-gradient(135deg,#1e1a2e 0%,#241c3e 100%);border:1px solid #5b3aa8;'+
         'border-left:4px solid #7c3aed;border-radius:10px;padding:14px 16px;margin-top:10px;'+
@@ -308,7 +311,7 @@
         '<span class="meta">click to collapse</span>'+
       '</div>'+
       '<div class="lab-coach-body">'+
-        '<div style="background:#162820;border:1px solid #244029;border-radius:8px;padding:10px 14px;margin-bottom:10px;color:#7bd9a7;font:600 .9rem/1.5 Manrope">📋 <strong>Task:</strong> '+esc(state.task)+'</div>'+
+        '<div style="background:rgba(251,191,36,.10);border:1px solid rgba(251,191,36,.32);border-radius:10px;padding:11px 14px;margin-bottom:12px;color:var(--text,#fbbf24);font:600 .92rem/1.55 Manrope"><strong style="color:#fbbf24">📋 Task:</strong> '+esc(state.task)+'</div>'+
         '<div class="lc-row">'+
           '<button type="button" class="lc-btn lc-record">🎙 Record</button>'+
           '<button type="button" class="lc-btn lc-analyze" disabled>🤖 AI review</button>'+
