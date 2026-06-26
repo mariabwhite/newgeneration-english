@@ -43,6 +43,17 @@ a{color:inherit;text-decoration:none}
 .ltab .ltab-count{background:rgba(255,255,255,.18);padding:2px 8px;border-radius:50px;font-size:10px;min-width:20px;text-align:center}
 .ltab.is-active .ltab-count{background:rgba(255,255,255,.32);color:#fff}
 @media(max-width:680px){.lesson-tabs{padding:6px 6px;gap:6px;top:54px}.ltab{padding:7px 12px;font-size:9.5px;letter-spacing:.08em}}
+/* Mobile hero — center the image, lighter gradient overlay so it's actually visible */
+@media(max-width:680px){
+  .hero-card{
+    background-position:center 25% !important;
+    background-image:linear-gradient(180deg,rgba(26,13,46,.18) 0%,rgba(26,13,46,.45) 45%,rgba(26,13,46,.92) 100%),url('./assets/img/hero-banner-w02.jpg') !important;
+    min-height:260px !important;padding:20px 18px !important
+  }
+  .hero-card h1.hero-title{font-size:1.5rem;line-height:1.05;margin-bottom:10px}
+  .hero-card .eyebrow{padding:5px 10px;font-size:10px;letter-spacing:.16em}
+  .hero-card .hero-lead{font-size:.86rem;padding:12px 14px}
+}
 .brand{display:flex;align-items:center;gap:12px}
 .brand-mark{width:40px;height:40px;border-radius:8px;border-top-right-radius:0;background:var(--accent);color:#fff;
   font-family:var(--display);font-weight:900;font-size:22px;display:grid;place-items:center;position:relative;overflow:hidden}
@@ -516,6 +527,31 @@ footer{max-width:1240px;margin:48px auto 28px;padding:0 22px;text-align:center;c
         <button data-v="d">had waited</button>
       </div>
       <div class="mcq-note">→ "Last Friday" + завершённое действие → <strong>Past Simple</strong>.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 4b · IRREGULAR VERBS REVIEW · V1/V2/V3 table drill -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">4b</div><h2>Irregular verbs · V1 / V2 / V3 · 12 verbs</h2></div>
+  <p class="section-sub">Read the base form, then type the Past Simple (V2) and Past Participle (V3). Case-insensitive. Click <strong>Check all</strong>.</p>
+  <div class="card">
+    <div class="task-tag">12 verbs · type V2 and V3</div>
+    <table id="irreg-table" style="width:100%;border-collapse:collapse;font-family:var(--body);font-size:.92rem;margin:8px 0">
+      <thead>
+        <tr style="background:var(--bg-2)">
+          <th style="text-align:left;padding:10px 8px;font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-2);border-bottom:1px solid var(--line-2)">V1 · base</th>
+          <th style="text-align:left;padding:10px 8px;font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-2);border-bottom:1px solid var(--line-2)">V2 · Past Simple</th>
+          <th style="text-align:left;padding:10px 8px;font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-2);border-bottom:1px solid var(--line-2)">V3 · Past Participle</th>
+        </tr>
+      </thead>
+      <tbody id="irreg-body"></tbody>
+    </table>
+    <div style="display:flex;gap:10px;margin-top:12px;align-items:center;flex-wrap:wrap">
+      <button id="irreg-check" style="font:800 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--accent);color:#fff;border:none;padding:10px 16px;border-radius:8px;cursor:pointer">Check all</button>
+      <button id="irreg-reset" style="font:800 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--surface-2);color:var(--muted);border:1px solid var(--line-2);padding:10px 16px;border-radius:8px;cursor:pointer">Reset</button>
+      <button id="irreg-reveal" style="font:800 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;background:transparent;color:var(--brand-2);border:1px solid var(--brand);padding:10px 16px;border-radius:8px;cursor:pointer">Reveal all</button>
+      <span id="irreg-result" style="font:800 .78rem/1 var(--mono);color:var(--accent-2)"></span>
     </div>
   </div>
 </section>
@@ -1351,6 +1387,66 @@ document.querySelectorAll('.write').forEach(w=>{
     });
     document.getElementById('vmcq-result').textContent = '';
   });
+})();
+</script>
+
+<!-- 4b · IRREGULAR VERBS TABLE -->
+<script>
+(function(){
+  var body = document.getElementById('irreg-body');
+  if (!body) return;
+  var verbs = [
+    {v1:'go', v2:'went', v3:'gone'},
+    {v1:'speak', v2:'spoke', v3:'spoken'},
+    {v1:'take', v2:'took', v3:'taken'},
+    {v1:'eat', v2:'ate', v3:'eaten'},
+    {v1:'write', v2:'wrote', v3:'written'},
+    {v1:'give', v2:'gave', v3:'given'},
+    {v1:'meet', v2:'met', v3:'met'},
+    {v1:'read', v2:'read', v3:'read'},
+    {v1:'see', v2:'saw', v3:'seen'},
+    {v1:'do', v2:'did', v3:'done'},
+    {v1:'begin', v2:'began', v3:'begun'},
+    {v1:'find', v2:'found', v3:'found'}
+  ];
+  var inpStyle = 'background:var(--bg-2);color:var(--text);border:1.5px solid var(--line-2);border-radius:6px;padding:6px 10px;font-family:var(--body);font-size:.92rem;width:100%;max-width:160px';
+  verbs.forEach(function(v,i){
+    var tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td style="padding:8px;border-bottom:1px solid var(--line);font-weight:700;color:var(--accent-2)">'+v.v1+'</td>' +
+      '<td style="padding:8px;border-bottom:1px solid var(--line)"><input type="text" data-expect="'+v.v2+'" placeholder="V2" autocomplete="off" style="'+inpStyle+'"></td>' +
+      '<td style="padding:8px;border-bottom:1px solid var(--line)"><input type="text" data-expect="'+v.v3+'" placeholder="V3" autocomplete="off" style="'+inpStyle+'"></td>';
+    body.appendChild(tr);
+  });
+  function check(){
+    var ok=0,total=0;
+    body.querySelectorAll('input').forEach(function(inp){
+      total++;
+      var exp = (inp.dataset.expect||'').toLowerCase().trim();
+      var val = (inp.value||'').toLowerCase().trim();
+      var match = val && val === exp;
+      inp.style.borderColor = val ? (match ? 'var(--ok)' : 'var(--miss)') : 'var(--line-2)';
+      inp.style.color = val ? (match ? 'var(--ok)' : 'var(--miss)') : 'var(--text)';
+      if (match) ok++;
+    });
+    document.getElementById('irreg-result').textContent = ok + ' / ' + total + ' correct';
+  }
+  function reset(){
+    body.querySelectorAll('input').forEach(function(inp){
+      inp.value='';inp.style.borderColor='var(--line-2)';inp.style.color='var(--text)';
+    });
+    document.getElementById('irreg-result').textContent = '';
+  }
+  function reveal(){
+    body.querySelectorAll('input').forEach(function(inp){
+      inp.value = inp.dataset.expect;
+      inp.style.borderColor='var(--brand)';inp.style.color='var(--brand-2)';
+    });
+    document.getElementById('irreg-result').textContent = '— revealed —';
+  }
+  document.getElementById('irreg-check').addEventListener('click', check);
+  document.getElementById('irreg-reset').addEventListener('click', reset);
+  document.getElementById('irreg-reveal').addEventListener('click', reveal);
 })();
 </script>
 
