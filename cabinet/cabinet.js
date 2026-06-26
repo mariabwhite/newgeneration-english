@@ -440,7 +440,7 @@
 
         ${_renderHomeworkCard(student)}
 
-        ${_renderContractsCard(student)}
+        ${_renderContractsCard(student, { studentView: true })}
 
         ${_renderExternalPlatformsCard(student)}
 
@@ -1536,11 +1536,14 @@
     return `<article class="cab-card"><h3>🔗 Дополнительные платформы</h3><div class="cab-platforms-list">${items}</div></article>`;
   }
 
-  function _renderContractsCard(student) {
+  function _renderContractsCard(student, opts) {
+    opts = opts || {};
     const allContracts = (window.NGE_DATA && window.NGE_DATA.contracts) || {};
     // Support BOTH legacy global contracts map AND per-student contracts on student object
     const contracts = (student && student.contracts) || allContracts[student.id];
     if (!contracts) return "";
+    // parentOnly flag — hides the card in the student dashboard (kept for parent view)
+    if (contracts.parentOnly && opts.studentView) return "";
 
     if (contracts.byParent) {
       // Pair: render section per parent (each mom sees her own + partner's)
