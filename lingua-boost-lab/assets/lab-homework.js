@@ -70,9 +70,8 @@
       '.lab-hw-section-btn{padding:8px 14px;border-radius:50px;border:1.5px solid #f59e0b;'+
         'background:#fff;color:#92400e;cursor:pointer;'+
         'font:800 11px/1 "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase;'+
-        'display:none;align-items:center;justify-content:center;gap:6px;transition:all .15s;'+
-        'box-sizing:border-box;max-width:100%;white-space:normal;text-align:center;line-height:1.2}'+
-      'body.lab-teacher-on .lab-hw-section-btn{display:inline-flex}'+
+        'display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:all .15s;'+
+        'box-sizing:border-box;max-width:100%;white-space:normal;text-align:center;line-height:1.2;margin:14px auto 0}'+
       '.lab-hw-section-btn:hover{background:#f59e0b;color:#fff;transform:translateY(-1px)}'+
       '.lab-hw-add:hover{background:#f59e0b;color:#fff;box-shadow:0 4px 14px rgba(245,158,11,.42);transform:scale(1.08)}'+
       '.lab-hw-add.added{background:linear-gradient(135deg,#fde68a 0%,#fbbf24 100%);color:#78350f}'+
