@@ -567,8 +567,9 @@ footer{max-width:1240px;margin:48px auto 28px;padding:0 22px;text-align:center;c
       </div>
     </div>
     <p style="font-size:.8rem;color:var(--muted);margin-top:8px"><em>Tap a chip → choose a bin. Tap a chip inside a bin → it returns to the pool. When all are placed → click "Check".</em></p>
-    <div style="display:flex;gap:10px;align-items:center;margin-top:10px">
+    <div style="display:flex;gap:10px;align-items:center;margin-top:10px;flex-wrap:wrap">
       <button id="cl-check" style="font:800 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--accent);color:#fff;border:none;padding:10px 16px;border-radius:8px;cursor:pointer">Check</button>
+      <button id="cl-reset" style="font:800 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--surface-2);color:var(--muted);border:1px solid var(--line-2);padding:10px 16px;border-radius:8px;cursor:pointer">Reset</button>
       <span id="cl-result" style="font:800 .78rem/1 var(--mono);color:var(--accent-2)"></span>
     </div>
   </div>
@@ -982,6 +983,15 @@ document.querySelectorAll('.gapfill button.check').forEach(btn=>{
     });
     document.getElementById('cl-result').textContent=ok+' / '+total+' correct';
   });
+  const resetBtn = document.getElementById('cl-reset');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      bins.forEach(b => { b.querySelectorAll('.placed-items > span').forEach(s => s.remove()); });
+      pool.querySelectorAll('.chip').forEach(c => c.classList.remove('placed','selected','correct','wrong'));
+      clearSelection();
+      document.getElementById('cl-result').textContent = '';
+    });
+  }
 })();
 </script>
 
