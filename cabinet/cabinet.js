@@ -1258,9 +1258,14 @@
     if (!lessons.length) return "";
 
     const month = student.subscription_month || _currentMonthISO();
+    const hasSummerPlan = !!student.summer_plan_note;
     const todayISO = _todayISO();
     const monthLessons = lessons
-      .filter(l => l.date && (l.date.startsWith(month) || l.is_makeup))
+      .filter(l => {
+        if (!l.date) return false;
+        if (hasSummerPlan) return l.date >= "2026-06-01" && l.date <= "2026-08-31";
+        return l.date.startsWith(month) || l.is_makeup;
+      })
       .sort((a, b) => a.date.localeCompare(b.date));
 
     if (!monthLessons.length) return "";
@@ -1306,7 +1311,7 @@
 
     return `
       <article class="cab-card cab-card--wide">
-        <h3>Уроки · ${_esc(_monthLabelFromISO(month))}</h3>
+        <h3>Уроки · ${_esc(hasSummerPlan ? "лето 2026" : _monthLabelFromISO(month))}</h3>
         <ul class="cab-lessons-list">${rows}</ul>
       </article>
     `;
