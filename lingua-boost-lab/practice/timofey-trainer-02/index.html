@@ -27,7 +27,9 @@ body{font-family:var(--body);background:var(--bg);color:var(--text);min-height:1
 a{color:inherit;text-decoration:none}
 
 .topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;padding:12px clamp(16px,3vw,28px);
-  background:color-mix(in srgb,var(--bg) 92%,transparent);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+  background:color-mix(in srgb,var(--bg) 92%,transparent);border-bottom:1px solid var(--line);backdrop-filter:blur(14px);
+  transition:transform .26s cubic-bezier(.4,.0,.2,1);will-change:transform}
+.topbar.is-hidden{transform:translateY(-100%)}
 .brand{display:flex;align-items:center;gap:12px}
 .brand-mark{width:40px;height:40px;border-radius:8px;border-top-right-radius:0;background:var(--accent);color:#fff;
   font-family:var(--display);font-weight:900;font-size:22px;display:grid;place-items:center;position:relative;overflow:hidden}
@@ -270,6 +272,36 @@ footer{max-width:1240px;margin:48px auto 28px;padding:0 22px;text-align:center;c
       <div class="vocab-card" data-word="rubric"><div class="vocab-inner"><div class="vocab-front"><div class="word">rubric</div><div class="pos">noun</div></div><div class="vocab-back"><div class="meaning">критерий оценки</div><div class="ex">Read the rubric before writing.</div></div></div></div>
       <div class="vocab-card" data-word="band score"><div class="vocab-inner"><div class="vocab-front"><div class="word">band score</div><div class="pos">noun</div></div><div class="vocab-back"><div class="meaning">балл по шкале (IELTS)</div><div class="ex">Target band score 6.5.</div></div></div></div>
       <div class="vocab-card" data-word="elaboration"><div class="vocab-inner"><div class="vocab-front"><div class="word">elaboration</div><div class="pos">noun</div></div><div class="vocab-back"><div class="meaning">развёртывание идей, разработка</div><div class="ex">Examiners reward elaboration.</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2b · VOCAB MCQ · pick from all 30 -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">1b</div><h2>Vocabulary MCQ · pick the right word from the bank · 10 sentences</h2></div>
+  <p class="section-sub">All 30 vocabulary words are in each dropdown (shuffled). Pick the one that fits the sentence. Click <strong>Check all</strong> when ready.</p>
+  <div class="card">
+    <div class="task-tag">10 sentences · pick from all 30 vocab words</div>
+    <div id="vmcq-list"></div>
+    <div style="display:flex;gap:10px;margin-top:14px;align-items:center;flex-wrap:wrap">
+      <button id="vmcq-check" style="font:800 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--accent);color:#fff;border:none;padding:10px 16px;border-radius:8px;cursor:pointer">Check all</button>
+      <button id="vmcq-reset" style="font:800 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--surface-2);color:var(--muted);border:1px solid var(--line-2);padding:10px 16px;border-radius:8px;cursor:pointer">Reset</button>
+      <span id="vmcq-result" style="font:800 .78rem/1 var(--mono);color:var(--accent-2)"></span>
+    </div>
+  </div>
+</section>
+
+<!-- 2c · VOCAB GAP-FILL · type the word -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">1c</div><h2>Vocabulary · type the missing word · 10 sentences</h2></div>
+  <p class="section-sub">Read the sentence and type the missing word. Case-insensitive. Click <strong>Check all</strong> when ready.</p>
+  <div class="card">
+    <div class="task-tag">10 sentences · type the word</div>
+    <div id="vgap-list"></div>
+    <div style="display:flex;gap:10px;margin-top:14px;align-items:center;flex-wrap:wrap">
+      <button id="vgap-check" style="font:800 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--accent);color:#fff;border:none;padding:10px 16px;border-radius:8px;cursor:pointer">Check all</button>
+      <button id="vgap-reset" style="font:800 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--surface-2);color:var(--muted);border:1px solid var(--line-2);padding:10px 16px;border-radius:8px;cursor:pointer">Reset</button>
+      <span id="vgap-result" style="font:800 .78rem/1 var(--mono);color:var(--accent-2)"></span>
     </div>
   </div>
 </section>
@@ -1176,5 +1208,136 @@ document.querySelectorAll('.write').forEach(w=>{
 </script>
 <script src="../../assets/lab-speech-tester.js?v=11" defer></script>
 <script src="../../assets/lab-quick-speak.js?v=4" defer></script>
+
+<!-- TOPBAR auto-hide on scroll-down, show on scroll-up -->
+<script>
+(function(){
+  var tb = document.querySelector('.topbar');
+  if (!tb) return;
+  var lastY = window.scrollY;
+  var ticking = false;
+  window.addEventListener('scroll', function(){
+    if (ticking) return;
+    requestAnimationFrame(function(){
+      var y = window.scrollY;
+      if (y > lastY + 4 && y > 80) tb.classList.add('is-hidden');
+      else if (y < lastY - 4) tb.classList.remove('is-hidden');
+      lastY = y;
+      ticking = false;
+    });
+    ticking = true;
+  }, { passive: true });
+})();
+</script>
+
+<!-- 1b · VOCAB MCQ (pick from all 30) -->
+<script>
+(function(){
+  var list = document.getElementById('vmcq-list');
+  if (!list) return;
+  var vocab = ["road markings","circle","oncoming traffic","hiking","economic sphere","crediting","banking","finance","management","sales","logistics","enterprise logistics","corporate economics","ATM machine","schedule","tutor","education","do the tasks","pace","speed","split","share","divide","supplies","labelling","intelligible","response","rubric","band score","elaboration"];
+  var items = [
+    {s:"The shop's daily ___ helps the team plan the day.", a:"schedule"},
+    {s:"Many companies offer ___ to employees who want to grow.", a:"education"},
+    {s:"___ is the discipline that studies how goods move from factory to customer.", a:"logistics"},
+    {s:"Without proper ___, products can't be tracked at customs.", a:"labelling"},
+    {s:"My ___ helps me prepare for IELTS twice a week.", a:"tutor"},
+    {s:"We agreed to ___ the bill three ways at the restaurant.", a:"split"},
+    {s:"A clear speaking ___ makes IELTS Part 3 easier to follow.", a:"pace"},
+    {s:"Try to add ___ when answering Speaking Part 3 questions.", a:"elaboration"},
+    {s:"Hiking on faded ___ at night is dangerous.", a:"road markings"},
+    {s:"The bank's ___ department issues consumer loans.", a:"crediting"}
+  ];
+  function shuffle(a){var x=a.slice();for(var i=x.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=x[i];x[i]=x[j];x[j]=t;}return x;}
+  items.forEach(function(it,i){
+    var wrap = document.createElement('div');
+    wrap.style.cssText='background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:10px 0';
+    var qHTML = '<div style="font-size:.95rem;color:var(--text);line-height:1.5"><strong>'+(i+1)+'.</strong> '+it.s+'</div>';
+    var sel = document.createElement('select');
+    sel.dataset.expect = it.a;
+    sel.style.cssText='background:var(--bg-2);color:var(--text);border:1.5px solid var(--line-2);border-radius:8px;padding:8px 10px;font-family:var(--body);font-size:.92rem;margin-top:8px;width:100%;max-width:420px';
+    var opts = '<option value="">— pick —</option>';
+    shuffle(vocab).forEach(function(w){ opts += '<option value="'+w+'">'+w+'</option>'; });
+    sel.innerHTML = opts;
+    wrap.innerHTML = qHTML;
+    wrap.appendChild(sel);
+    list.appendChild(wrap);
+  });
+  document.getElementById('vmcq-check').addEventListener('click', function(){
+    var ok=0, total=0;
+    list.querySelectorAll('select').forEach(function(s){
+      total++;
+      var match = s.value && s.value.toLowerCase().trim() === s.dataset.expect.toLowerCase().trim();
+      s.style.borderColor = s.value ? (match ? 'var(--ok)' : 'var(--miss)') : 'var(--line-2)';
+      s.style.color = s.value ? (match ? 'var(--ok)' : 'var(--miss)') : 'var(--text)';
+      if (match) ok++;
+    });
+    document.getElementById('vmcq-result').textContent = ok + ' / ' + total + ' correct';
+  });
+  document.getElementById('vmcq-reset').addEventListener('click', function(){
+    list.querySelectorAll('select').forEach(function(s){
+      s.value = '';
+      s.style.borderColor = 'var(--line-2)';
+      s.style.color = 'var(--text)';
+    });
+    document.getElementById('vmcq-result').textContent = '';
+  });
+})();
+</script>
+
+<!-- 1c · VOCAB GAP-FILL TYPE-IN -->
+<script>
+(function(){
+  var list = document.getElementById('vgap-list');
+  if (!list) return;
+  var items = [
+    {s:"After work I sometimes go ___ with friends in the mountains.", a:["hiking"]},
+    {s:"The ___ machine at the airport accepts foreign cards.", a:["ATM","atm"]},
+    {s:"Let's ___ the team into two groups before lunch.", a:["split","divide"]},
+    {s:"She works in the ___ sphere — banking, finance, you name it.", a:["economic"]},
+    {s:"My ___ told me to focus on speaking.", a:["tutor"]},
+    {s:"Read the ___ before writing — it tells you what examiners look for.", a:["rubric"]},
+    {s:"Our enterprise ___ covers warehouses and shipping.", a:["logistics"]},
+    {s:"The ___ on the road were repainted last week.", a:["road markings","markings"]},
+    {s:"Could you ___ your screen so I can see the slides?", a:["share"]},
+    {s:"We had to ___ the budget between four teams.", a:["split","divide","share"]}
+  ];
+  items.forEach(function(it,i){
+    var wrap = document.createElement('div');
+    wrap.style.cssText='background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:10px 0';
+    var qHTML = '<div style="font-size:.95rem;color:var(--text);line-height:1.5"><strong>'+(i+1)+'.</strong> '+it.s+'</div>';
+    var inp = document.createElement('input');
+    inp.type = 'text';
+    inp.dataset.expect = it.a.join('|');
+    inp.placeholder = 'Type the word here';
+    inp.autocomplete = 'off';
+    inp.style.cssText='background:var(--bg-2);color:var(--text);border:1.5px solid var(--line-2);border-radius:8px;padding:8px 12px;font-family:var(--body);font-size:.92rem;margin-top:8px;width:100%;max-width:420px';
+    wrap.innerHTML = qHTML;
+    wrap.appendChild(inp);
+    list.appendChild(wrap);
+  });
+  document.getElementById('vgap-check').addEventListener('click', function(){
+    var ok=0, total=0;
+    list.querySelectorAll('input').forEach(function(inp){
+      total++;
+      var expects = inp.dataset.expect.split('|').map(function(x){return x.toLowerCase().trim();});
+      var val = (inp.value || '').toLowerCase().trim();
+      var match = val && expects.indexOf(val) !== -1;
+      inp.style.borderColor = val ? (match ? 'var(--ok)' : 'var(--miss)') : 'var(--line-2)';
+      inp.style.color = val ? (match ? 'var(--ok)' : 'var(--miss)') : 'var(--text)';
+      if (match) ok++;
+    });
+    document.getElementById('vgap-result').textContent = ok + ' / ' + total + ' correct';
+  });
+  document.getElementById('vgap-reset').addEventListener('click', function(){
+    list.querySelectorAll('input').forEach(function(inp){
+      inp.value = '';
+      inp.style.borderColor = 'var(--line-2)';
+      inp.style.color = 'var(--text)';
+    });
+    document.getElementById('vgap-result').textContent = '';
+  });
+})();
+</script>
 </body>
 </html>
