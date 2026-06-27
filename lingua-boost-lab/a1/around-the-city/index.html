@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Around the City · Directions — Adult Basics · NG English</title>
-<meta name="description" content="A1-A2 Lab-урок для взрослых · ориентация в городе, объяснение дороги, повторение DO vs ARE, Simple vs Continuous, артикль the.">
+<title>Around the City · Directions + Hotel · Adult Basics · NG English</title>
+<meta name="description" content="A1-A2 Lab-урок для взрослых · ориентация в городе, объяснение дороги, заселение в отель, типы номеров, hotel facilities, чтение отзыва, DO vs ARE, Simple vs Continuous, артикль the."></meta>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -27,7 +27,35 @@ a{color:inherit;text-decoration:none}
 
 /* Topbar */
 .topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;padding:12px clamp(16px,3vw,28px);
-  background:color-mix(in srgb,var(--bg) 92%,transparent);border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
+  background:color-mix(in srgb,var(--bg) 92%,transparent);border-bottom:1px solid var(--line);backdrop-filter:blur(10px);
+  transition:transform .26s cubic-bezier(.4,.0,.2,1);will-change:transform}
+.topbar.is-hidden{transform:translateY(-100%)}
+/* Lesson / Homework tabs (ProgressMe-style) */
+.lesson-tabs{position:sticky;top:62px;z-index:99;display:flex;gap:8px;justify-content:center;
+  background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);padding:10px 12px;transition:top .26s cubic-bezier(.4,.0,.2,1)}
+.topbar.is-hidden + .lesson-tabs{top:0}
+.ltab{padding:9px 18px;border-radius:50px;border:1.5px solid var(--line-2);background:var(--card);
+  color:var(--muted);font:800 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;
+  cursor:pointer;transition:.18s;display:inline-flex;align-items:center;gap:8px}
+.ltab:hover{border-color:var(--accent);color:var(--accent-2)}
+.ltab.is-active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 4px 12px color-mix(in srgb,var(--accent) 40%,transparent)}
+.ltab .ltab-count{background:rgba(255,255,255,.18);padding:2px 8px;border-radius:50px;font-size:10px;min-width:20px;text-align:center}
+.ltab.is-active .ltab-count{background:rgba(255,255,255,.32);color:#fff}
+@media(max-width:680px){
+  .lesson-tabs{padding:6px 6px;gap:6px;top:54px}.ltab{padding:7px 12px;font-size:9.5px;letter-spacing:.08em}
+  .topbar{gap:8px;padding:8px 12px}.brand-mark{width:32px;height:32px;font-size:18px}
+  .brand-name{font-size:13px}.brand-sub{display:none}
+  .pill{padding:4px 8px;font-size:8.5px;letter-spacing:.08em}.pill:nth-of-type(2){display:none}
+  .btn-sm{height:28px;padding:0 8px;font-size:9.5px}
+}
+/* Cloze fill inputs */
+.cloze p{margin:8px 0;line-height:1.8}
+.cloze-in{display:inline-block;min-width:80px;padding:3px 8px;border:1px solid var(--line-2);
+  border-radius:6px;font:600 .94rem var(--body);background:var(--bg-2);color:var(--ink);outline:none;text-align:center}
+.cloze-in:focus{border-color:var(--accent);background:#fff}
+.cloze-in.right{background:rgba(91,168,114,.18);border-color:var(--ok);color:var(--ok)}
+.cloze-in.wrong{background:rgba(196,90,90,.16);border-color:var(--miss);color:var(--miss)}
 .brand{display:flex;align-items:center;gap:12px;flex-shrink:0}
 .brand-mark{width:40px;height:40px;border-radius:8px;border-top-right-radius:0;background:var(--accent);color:#fff;
   font-family:var(--display);font-weight:900;font-size:22px;display:grid;place-items:center;position:relative;overflow:hidden}
@@ -169,6 +197,11 @@ footer{max-width:1180px;margin:48px auto 28px;padding:0 22px;text-align:center;c
   <div class="spacer"></div>
   <a class="btn-sm" href="../../index.html">All lessons</a>
   <a class="btn-sm" href="../../../index.html">Main</a>
+</nav>
+
+<nav class="lesson-tabs" role="tablist" aria-label="Lesson / Homework">
+  <button class="ltab is-active" data-tab="lesson" type="button">📖 Урок</button>
+  <button class="ltab" data-tab="homework" type="button">📚 Моя домашка <span class="ltab-count" id="ltab-hw-count">0</span></button>
 </nav>
 
 <section class="hero">
@@ -423,9 +456,214 @@ footer{max-width:1180px;margin:48px auto 28px;padding:0 22px;text-align:center;c
   </div>
 </section>
 
-<!-- 9 · HOMEWORK -->
+<!-- 9 · Hotel check-in dialogue · Orlando + Receptionist -->
 <section class="section">
-  <div class="section-hdr"><div class="section-num">09</div><h2>📚 Homework · before our next class</h2></div>
+  <div class="section-hdr"><div class="section-num">09</div><h2>Hotel check-in · Orlando arrives in London</h2></div>
+  <p class="section-sub">Listen, then fill the gaps with the right phrase. Lowercase is fine.</p>
+  <div class="card">
+    <p style="font-style:italic;color:var(--muted);margin-bottom:14px">Orlando arrives at his hotel after a long flight. He needs to check in.</p>
+    <div class="cloze">
+      <p><strong>Receptionist:</strong> Hello, <input class="cloze-in" data-ans="what's" size="8"> your name?</p>
+      <p><strong>Orlando:</strong> Orlando Martinez.</p>
+      <p><strong>Receptionist:</strong> Great. What's your <input class="cloze-in" data-ans="surname" size="9">?</p>
+      <p><strong>Orlando:</strong> Martinez.</p>
+      <p><strong>Receptionist:</strong> How do you <input class="cloze-in" data-ans="spell" size="6"> it?</p>
+      <p><strong>Orlando:</strong> M – A – R – T – I – N – E – Z.</p>
+      <p><strong>Receptionist:</strong> And what's your <input class="cloze-in" data-ans="phone" size="6"> number?</p>
+      <p><strong>Orlando:</strong> Just a <input class="cloze-in" data-ans="minute" size="7">. It's 2-0-2-5-0-9-6-9-9-5.</p>
+      <p><strong>Receptionist:</strong> Sorry, can you <input class="cloze-in" data-ans="repeat" size="8"> it, please?</p>
+      <p><strong>Orlando:</strong> Sure: 2-0-2-5-0-9-6-9-9-5.</p>
+      <p><strong>Receptionist:</strong> Thank you. Your room number is 78.</p>
+      <p><strong>Orlando:</strong> That's <input class="cloze-in" data-ans="right" size="6">. Thank you!</p>
+    </div>
+    <div class="info" style="background:var(--accent-soft);border-left:3px solid var(--accent);padding:12px 16px;border-radius:0 8px 8px 0;margin-top:14px;font-size:.94rem;color:var(--muted)">
+      <strong>Useful phrases:</strong> How do you spell it? · Sorry, can you repeat? · Just a minute. · That's right.
+    </div>
+  </div>
+</section>
+
+<!-- 10 · Room types -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">10</div><h2>Room types · single, twin, double</h2></div>
+  <p class="section-sub">Match each description with the right room type.</p>
+  <div class="card">
+    <div class="mcq-row" data-ans="b">
+      <p class="mcq-q"><strong>1.</strong> A room in a hotel for one person — what kind?</p>
+      <div class="mcq-opts"><button data-v="a">A double room</button><button data-v="b">A single room</button><button data-v="c">A twin room</button></div>
+    </div>
+    <div class="mcq-row" data-ans="c">
+      <p class="mcq-q"><strong>2.</strong> A room for two people, with two beds — what kind?</p>
+      <div class="mcq-opts"><button data-v="a">A double room</button><button data-v="b">A single room</button><button data-v="c">A twin room</button></div>
+    </div>
+    <div class="mcq-row" data-ans="a">
+      <p class="mcq-q"><strong>3.</strong> A room for two people, with one big bed — what kind?</p>
+      <div class="mcq-opts"><button data-v="a">A double room</button><button data-v="b">A single room</button><button data-v="c">A twin room</button></div>
+    </div>
+    <div class="info" style="background:var(--brand-soft);border-left:3px solid var(--brand);padding:12px 16px;border-radius:0 8px 8px 0;margin-top:14px;font-size:.94rem;color:var(--muted)">
+      <strong>Discuss:</strong> Which room is the best choice for two friends? For a couple? For someone who travels alone?
+    </div>
+  </div>
+</section>
+
+<!-- 11 · Hotel facilities -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">11</div><h2>Hotel facilities · 12 amenities</h2></div>
+  <p class="section-sub">Type the room or thing for each function. Lowercase is fine.</p>
+  <div class="card">
+    <div class="cloze">
+      <p>1. You use it if your hair is wet → a <input class="cloze-in" data-ans="hair dryer" size="12"></p>
+      <p>2. You can buy snacks or drinks here → a <input class="cloze-in" data-ans="vending machine" size="15"></p>
+      <p>3. You use it to watch films and news → a <input class="cloze-in" data-ans="television" size="12"></p>
+      <p>4. You use it when the room is hot or cold → <input class="cloze-in" data-ans="air conditioner" size="15"></p>
+      <p>5. You use it after washing to make clothes smooth → an <input class="cloze-in" data-ans="iron" size="8"></p>
+      <p>6. A small outdoor area near your room → a <input class="cloze-in" data-ans="balcony" size="10"></p>
+      <p>7. You sleep here → a <input class="cloze-in" data-ans="bedroom" size="10"></p>
+      <p>8. You take a shower or use the toilet here → a <input class="cloze-in" data-ans="bathroom" size="10"></p>
+      <p>9. A place with trees and flowers outside → a <input class="cloze-in" data-ans="garden" size="10"></p>
+      <p>10. A room for guests and TV → a <input class="cloze-in" data-ans="living room" size="12"></p>
+      <p>11. A safe place for your things → a <input class="cloze-in" data-ans="locker" size="10"></p>
+      <p>12. You cook food here → a <input class="cloze-in" data-ans="kitchen" size="10"></p>
+    </div>
+  </div>
+</section>
+
+<!-- 12 · Booking phrases -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">12</div><h2>Booking phrases · finish the sentence</h2></div>
+  <p class="section-sub">Pick the right ending for each booking phrase.</p>
+  <div class="card">
+    <div class="mcq-row" data-ans="c">
+      <p class="mcq-q"><strong>1.</strong> Can you tell me ...</p>
+      <div class="mcq-opts"><button data-v="a">if I cancel the reservation?</button><button data-v="b">from the city centre?</button><button data-v="c">a little bit about the flat?</button></div>
+    </div>
+    <div class="mcq-row" data-ans="b">
+      <p class="mcq-q"><strong>2.</strong> What types of ...</p>
+      <div class="mcq-opts"><button data-v="a">for the room?</button><button data-v="b">rooms do you have?</button><button data-v="c">view there?</button></div>
+    </div>
+    <div class="mcq-row" data-ans="b">
+      <p class="mcq-q"><strong>3.</strong> We're coming ...</p>
+      <div class="mcq-opts"><button data-v="a">a balcony.</button><button data-v="b">on the 1st of March.</button><button data-v="c">a single room.</button></div>
+    </div>
+    <div class="mcq-row" data-ans="a">
+      <p class="mcq-q"><strong>4.</strong> Is it far ...</p>
+      <div class="mcq-opts"><button data-v="a">from the city centre?</button><button data-v="b">included?</button><button data-v="c">I pay for it?</button></div>
+    </div>
+    <div class="mcq-row" data-ans="b">
+      <p class="mcq-q"><strong>5.</strong> Is breakfast ...</p>
+      <div class="mcq-opts"><button data-v="a">a balcony.</button><button data-v="b">included?</button><button data-v="c">view there?</button></div>
+    </div>
+    <div class="mcq-row" data-ans="c">
+      <p class="mcq-q"><strong>6.</strong> How should ...</p>
+      <div class="mcq-opts"><button data-v="a">we cancel the reservation?</button><button data-v="b">hostel offer?</button><button data-v="c">I pay for it?</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- 13 · Hostel admin dialogue · TF comprehension -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">13</div><h2>Hostel admin · True or False</h2></div>
+  <p class="section-sub">Read the dialogue between guest and hostel admin. Then choose True / False.</p>
+  <div class="card">
+    <div style="background:var(--surface-2);border-left:3px solid var(--accent);padding:14px 18px;border-radius:0 8px 8px 0;margin-bottom:14px;line-height:1.7">
+      <p><strong>Guest:</strong> Hi! Is there a free double room on the 4th of June?</p>
+      <p><strong>Admin:</strong> Oh, I'm afraid there are no double rooms for this date. But there are free beds in a room for eight people.</p>
+      <p><strong>Guest:</strong> Oh really? That's bad. OK. We want to book two beds in that room.</p>
+      <p><strong>Admin:</strong> Great! Now I need some details ...</p>
+      <p><strong>Guest:</strong> Um, is it far from the city centre?</p>
+      <p><strong>Admin:</strong> No, it's just a ten-minute walk from here.</p>
+      <p><strong>Guest:</strong> So ... what does your hostel offer?</p>
+      <p><strong>Admin:</strong> First, there's free Wi-Fi everywhere. Then, there are lockers, a television, a hair dryer, an iron and air conditioning in every room. There are also some vending machines on the first floor.</p>
+      <p><strong>Guest:</strong> Is there a kitchen?</p>
+      <p><strong>Admin:</strong> Sorry, no. But there are lots of nice restaurants around.</p>
+    </div>
+    <div class="mcq-row" data-ans="b">
+      <p class="mcq-q"><strong>1.</strong> The hostel has free double rooms on 4 June.</p>
+      <div class="mcq-opts"><button data-v="a">True</button><button data-v="b">False</button></div>
+    </div>
+    <div class="mcq-row" data-ans="a">
+      <p class="mcq-q"><strong>2.</strong> The hostel is a ten-minute walk from the city centre.</p>
+      <div class="mcq-opts"><button data-v="a">True</button><button data-v="b">False</button></div>
+    </div>
+    <div class="mcq-row" data-ans="a">
+      <p class="mcq-q"><strong>3.</strong> There is free Wi-Fi everywhere in the hostel.</p>
+      <div class="mcq-opts"><button data-v="a">True</button><button data-v="b">False</button></div>
+    </div>
+    <div class="mcq-row" data-ans="b">
+      <p class="mcq-q"><strong>4.</strong> The hostel has a kitchen for guests.</p>
+      <div class="mcq-opts"><button data-v="a">True</button><button data-v="b">False</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 · Hotel review · Grand View Hotel -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">14</div><h2>Hotel review · Grand View Hotel</h2></div>
+  <p class="section-sub">Read a real guest review, then answer 5 comprehension questions.</p>
+  <div class="card">
+    <div style="background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 22px;font-family:Georgia,serif;font-size:1.02rem;line-height:1.7;margin-bottom:18px">
+      <p style="font-style:italic">"I recently stayed at the <strong>Grand View Hotel</strong> for three nights. Overall, it was a great experience.</p>
+      <p style="font-style:italic;margin-top:12px">The check-in was quick and easy. The receptionist was very polite and explained everything clearly. I had booked a double room in advance, and it was ready when I arrived. The room was clean, spacious, and had a beautiful view of the city.</p>
+      <p style="font-style:italic;margin-top:12px">Every morning, I enjoyed the breakfast buffet. One evening, I tried room service — the food was delicious, and the menu had many options. The waiter even recommended their special pasta dish, which I ordered and loved!</p>
+      <p style="font-style:italic;margin-top:12px">At check-out, the bill was correct, and the process was smooth. I left a small tip for the housekeeping staff because they did an excellent job keeping my room tidy."</p>
+    </div>
+    <div class="mcq-row" data-ans="c">
+      <p class="mcq-q"><strong>1.</strong> What type of room did the guest book?</p>
+      <div class="mcq-opts"><button data-v="a">A single room</button><button data-v="b">A twin room</button><button data-v="c">A double room</button></div>
+    </div>
+    <div class="mcq-row" data-ans="a">
+      <p class="mcq-q"><strong>2.</strong> How was the check-in process?</p>
+      <div class="mcq-opts"><button data-v="a">Quick and easy</button><button data-v="b">Slow and confusing</button><button data-v="c">Free of charge</button></div>
+    </div>
+    <div class="mcq-row" data-ans="b">
+      <p class="mcq-q"><strong>3.</strong> What food did the waiter recommend?</p>
+      <div class="mcq-opts"><button data-v="a">Pizza</button><button data-v="b">A special pasta dish</button><button data-v="c">Soup</button></div>
+    </div>
+    <div class="mcq-row" data-ans="b">
+      <p class="mcq-q"><strong>4.</strong> Why did the guest leave a tip?</p>
+      <div class="mcq-opts"><button data-v="a">For the receptionist</button><button data-v="b">For the housekeeping staff</button><button data-v="c">For the chef</button></div>
+    </div>
+    <div class="mcq-row" data-ans="a">
+      <p class="mcq-q"><strong>5.</strong> Would the guest recommend this hotel?</p>
+      <div class="mcq-opts"><button data-v="a">Yes, definitely</button><button data-v="b">Only for couples</button><button data-v="c">No</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- 15 · Tenses · hotel context -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">15</div><h2>Tenses · hotel context · 6 sentences</h2></div>
+  <p class="section-sub">Choose the correct tense for each hotel sentence.</p>
+  <div class="card">
+    <div class="mcq-row" data-ans="b">
+      <p class="mcq-q"><strong>1.</strong> Right now the receptionist ___ in a new guest.</p>
+      <div class="mcq-opts"><button data-v="a">checks</button><button data-v="b">is checking</button><button data-v="c">checked</button></div>
+    </div>
+    <div class="mcq-row" data-ans="c">
+      <p class="mcq-q"><strong>2.</strong> I ___ at this hotel three times last year.</p>
+      <div class="mcq-opts"><button data-v="a">stay</button><button data-v="b">am staying</button><button data-v="c">stayed</button></div>
+    </div>
+    <div class="mcq-row" data-ans="b">
+      <p class="mcq-q"><strong>3.</strong> They ___ room service ten minutes ago.</p>
+      <div class="mcq-opts"><button data-v="a">have ordered</button><button data-v="b">ordered</button><button data-v="c">are ordering</button></div>
+    </div>
+    <div class="mcq-row" data-ans="b">
+      <p class="mcq-q"><strong>4.</strong> Look! The cleaners ___ on the room now.</p>
+      <div class="mcq-opts"><button data-v="a">work</button><button data-v="b">are working</button><button data-v="c">worked</button></div>
+    </div>
+    <div class="mcq-row" data-ans="a">
+      <p class="mcq-q"><strong>5.</strong> I usually ___ breakfast at 8 a.m.</p>
+      <div class="mcq-opts"><button data-v="a">have</button><button data-v="b">am having</button><button data-v="c">had</button></div>
+    </div>
+    <div class="mcq-row" data-ans="b">
+      <p class="mcq-q"><strong>6.</strong> Look! The bellboy ___ your bags upstairs.</p>
+      <div class="mcq-opts"><button data-v="a">takes</button><button data-v="b">is taking</button><button data-v="c">took</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- 16 · HOMEWORK -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">16</div><h2>📚 Homework · before our next class</h2></div>
   <div class="card">
     <ol style="margin:10px 0 14px 22px;line-height:1.8;color:var(--ink)">
       <li><strong>Перечитай секции 3 и 4</strong> вслух. Если делаешь ошибку — возвращайся к строке-объяснению.</li>
@@ -519,6 +757,57 @@ footer{max-width:1180px;margin:48px auto 28px;padding:0 22px;text-align:center;c
       wc.textContent = n;
     });
   });
+})();
+</script>
+
+<!-- LESSON / HOMEWORK tabs (ProgressMe style) -->
+<script>
+(function(){
+  var tabs = document.querySelectorAll('.ltab');
+  var hwCount = document.getElementById('ltab-hw-count');
+  if (!tabs.length) return;
+  function setActive(name){ tabs.forEach(function(t){ t.classList.toggle('is-active', t.dataset.tab === name); }); }
+  function getHwKey(){ return 'lab_hw_v1_' + location.pathname; }
+  function refreshCount(){
+    try { var arr = JSON.parse(localStorage.getItem(getHwKey()) || '[]'); if (hwCount) hwCount.textContent = arr.length; } catch(e){}
+  }
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      var name = t.dataset.tab;
+      setActive(name);
+      if (name === 'homework') {
+        var fab = document.querySelector('.lab-hw-fab button, .lab-hw-fab .lab-hw-fab-btn');
+        if (fab) fab.click();
+      } else {
+        document.querySelectorAll('.lab-hw-overlay.show').forEach(function(o){ o.classList.remove('show'); });
+      }
+    });
+  });
+  refreshCount(); setInterval(refreshCount, 1500);
+  document.addEventListener('click', function(e){
+    if (e.target.classList && e.target.classList.contains('lab-hw-overlay')) setActive('lesson');
+    if (e.target.closest('.lab-hw-close, .lab-hw-modal-close, [data-lab-hw-close]')) setActive('lesson');
+  });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') setActive('lesson'); });
+})();
+</script>
+
+<!-- TOPBAR auto-hide on scroll-down, show on scroll-up -->
+<script>
+(function(){
+  var tb = document.querySelector('.topbar');
+  if (!tb) return;
+  var lastY = window.scrollY, ticking = false;
+  window.addEventListener('scroll', function(){
+    if (ticking) return;
+    requestAnimationFrame(function(){
+      var y = window.scrollY;
+      if (y > lastY + 4 && y > 80) tb.classList.add('is-hidden');
+      else if (y < lastY - 4) tb.classList.remove('is-hidden');
+      lastY = y; ticking = false;
+    });
+    ticking = true;
+  }, { passive: true });
 })();
 </script>
 
