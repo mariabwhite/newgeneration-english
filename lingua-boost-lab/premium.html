@@ -535,13 +535,7 @@ main {
 /* Around the City + City Speaking — real AI illustrations (1672x941) */
 .card[data-id="around-the-city"] .card-cover { background-image: url("./assets/premium-card-around-the-city.png"); background-color: #1c3d34; background-position: center; background-size: cover; }
 .card[data-id="city-speaking"] .card-cover { background-image: url("./assets/premium-card-city-speaking.png"); background-color: #0d1b3a; background-position: center; background-size: cover; }
-/* Hide HTML overlays — these images may have their own labels baked in (but only if needed) */
-/* Override the locked blur+desaturate for gradient covers — there's no image to "preview-blur";
-   blurring a gradient just produces a milky pastel that kills the title-text contrast */
-.card.locked[data-id="around-the-city"] .card-cover,
-.card.locked[data-id="city-speaking"] .card-cover {
-  filter: saturate(1.05) !important;
-}
+/* Cards are always visible. The Vault only controls whether buttons have real URLs. */
 .card-num {
   position: absolute; top: 12px; left: 12px;
   font-family: var(--mono);
@@ -609,13 +603,14 @@ main {
   margin-top: auto;
 }
 .card-open:hover { background: linear-gradient(180deg, #ff8a42 0%, #ff5d2b 100%); border-color: rgba(255,138,66,0.85); }
-.card.locked .card-cover { filter: blur(8px) saturate(0.6); }
-.card.locked .card-title { filter: blur(4px); user-select: none; }
-.card.locked .card-skills { filter: blur(3px); user-select: none; }
-.card.locked .card-open { pointer-events: none; background: var(--bg-card-2); color: var(--faint); border-color: var(--line-2); box-shadow: none; }
-.card.locked .card-open .arrow { opacity: 0.35; }
-.card:not(.locked) { border-color: var(--line-2); }
-.card:not(.locked) .card-cover { transition: filter 0.4s; }
+.card.locked .card-open {
+  background: linear-gradient(180deg, #ff7430 0%, #ff5125 100%);
+  color: #fff;
+  border-color: rgba(255, 106, 31, 0.70);
+  box-shadow: 0 10px 22px rgba(255, 81, 37, 0.22);
+}
+.card.is-authorized { border-color: var(--line-2); }
+.card .card-cover { transition: filter 0.4s; }
 
 /* Hint block under PIN strip */
 .hint {
@@ -1267,6 +1262,7 @@ function logoutPremiumVault(message) {
   sessionStorage.removeItem('nge-vault-cache');
   cards.forEach(c => {
     c.classList.add('locked');
+    c.classList.remove('is-authorized');
     const a = c.querySelector('.card-open');
     if (a) a.href = '#';
   });
@@ -1295,6 +1291,7 @@ async function tryUnlock() {
       const a = c.querySelector('.card-open');
       a.href = l.url;
       c.classList.remove('locked');
+      c.classList.add('is-authorized');
     });
     msg.textContent = '✓ Код принят. Лаборатория открыта — выберите модуль.';
     msg.className = 'pin-msg is-ok';
@@ -1311,6 +1308,18 @@ async function tryUnlock() {
 btn.addEventListener('click', tryUnlock);
 input.addEventListener('keypress', e => { if (e.key === 'Enter') tryUnlock(); });
 logoutBtn.addEventListener('click', () => logoutPremiumVault('Доступ сброшен. PIN удалён из этого браузера.'));
+cards.forEach(c => {
+  const a = c.querySelector('.card-open');
+  if (!a) return;
+  a.addEventListener('click', e => {
+    if (c.classList.contains('locked') || a.getAttribute('href') === '#') {
+      e.preventDefault();
+      msg.textContent = 'Введите PIN, чтобы открыть этот урок.';
+      msg.className = 'pin-msg is-error';
+      input.focus();
+    }
+  });
+});
 
 /* ===== Maria-only auto-unlock (localStorage cache + URL hash bootstrap) =====
    Маша заходит ОДИН РАЗ по ссылке с #u=<base64-pin>, после этого
@@ -1323,7 +1332,7 @@ async function autoUnlock(lessons) {
   cards.forEach(c => {
     const id = c.dataset.id; const l = byId[id]; if (!l) return;
     const a = c.querySelector('.card-open');
-    a.href = l.url; c.classList.remove('locked');
+    a.href = l.url; c.classList.remove('locked'); c.classList.add('is-authorized');
   });
   msg.textContent = '✓ Лаборатория открыта (this browser remembers).';
   msg.className = 'pin-msg is-ok';
