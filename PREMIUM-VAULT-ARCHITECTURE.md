@@ -151,6 +151,36 @@
 - после PIN кнопки получают реальные URL;
 - после сброса доступа реальные URL удаляются, но карточки остаются видимыми.
 
+## Guard на прямые ссылки уроков
+
+Важно: GitHub Pages отдает HTML-файлы публично, поэтому это не серверная защита контента. Это клиентский guard от обычного обхода через прямую ссылку.
+
+Каждый premium-урок должен подключать:
+
+```html
+<script src="/lingua-boost-lab/assets/premium-lesson-guard.js"></script>
+```
+
+Guard проверяет `localStorage.nge-vault-cache`. Если текущий URL урока не найден в расшифрованном списке разрешенных уроков, страница перенаправляет пользователя на:
+
+`/lingua-boost-lab/premium.html?next=<lesson-url>#login`
+
+После успешного PIN `premium.html` сохраняет доступ и возвращает пользователя в исходный урок из `next`.
+
+Проверка guard:
+
+```powershell
+node scripts/apply-premium-guard.mjs --check
+```
+
+Применение guard ко всем published premium-урокам:
+
+```powershell
+node scripts/apply-premium-guard.mjs
+```
+
+Для настоящей защиты от технического обхода нужен backend/Auth/Cloudflare Access или другой серверный слой, который решает, отдавать HTML урока или нет.
+
 ## Быстрая диагностика
 
 Если урок не открывается:
@@ -163,6 +193,7 @@
 6. Очищен ли старый кэш через `#lock`?
 7. Запушен ли обновленный `premium.html`?
 8. Проходит ли `node scripts/audit-premium-links.mjs --live`?
+9. Проходит ли `node scripts/apply-premium-guard.mjs --check`?
 
 ## Текущее исправление
 
@@ -173,8 +204,11 @@
 - добавлен `premium-lessons.json`;
 - добавлен `scripts/build-premium-vault.mjs`;
 - добавлен `scripts/audit-premium-links.mjs`;
+- добавлен `scripts/apply-premium-guard.mjs`;
+- добавлен `lingua-boost-lab/assets/premium-lesson-guard.js`;
 - Vault пересобран из manifest;
 - версия Vault: `v20260627-24-premium-lessons`;
 - проверка: `premium check OK: 24 published lessons, 24 cards`;
 - проверка ссылок: `premium link audit OK: 24 lessons, 0 warnings, live checked`;
+- проверка guard: `premium guard check OK: 24 lessons`;
 - добавлена полная делогинизация: кнопка `Сбросить доступ` и `premium.html#lock` чистят `nge-vault-cache`, `nge-vault-cache-v`, `nge-vault-pin` и удаляют реальные URL с кнопок, не скрывая карточки.

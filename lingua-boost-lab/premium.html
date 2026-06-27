@@ -1249,6 +1249,31 @@ const logoutBtn = document.getElementById('vaultLogoutBtn');
 const msg   = document.getElementById('pinMsg');
 const cards = document.querySelectorAll('.card');
 
+function safeNextUrl() {
+  const next = new URLSearchParams(location.search).get('next');
+  if (!next) return '';
+  try {
+    const url = new URL(next, location.origin);
+    if (url.origin !== location.origin) return '';
+    if (!url.pathname.startsWith('/lingua-boost-lab/')) return '';
+    if (url.pathname.endsWith('/premium.html')) return '';
+    return url.pathname + url.search + url.hash;
+  } catch (e) {
+    return '';
+  }
+}
+
+function rememberPremiumAccess(lessons, pin) {
+  localStorage.setItem('nge-vault-cache', JSON.stringify(lessons));
+  localStorage.setItem('nge-vault-cache-v', VAULT_VERSION);
+  if (pin) localStorage.setItem('nge-vault-pin', pin);
+}
+
+function redirectToRequestedLesson() {
+  const next = safeNextUrl();
+  if (next) window.location.replace(next);
+}
+
 function logoutPremiumVault(message) {
   localStorage.removeItem('nge-vault-cache');
   localStorage.removeItem('nge-vault-cache-v');
@@ -1276,6 +1301,7 @@ async function tryUnlock() {
   msg.className = 'pin-msg';
   try {
     const lessons = await decryptUrls(pin);
+    rememberPremiumAccess(lessons, pin);
     const byId = Object.fromEntries(lessons.map(l => [l.id, l]));
     cards.forEach(c => {
       const id = c.dataset.id;
@@ -1289,6 +1315,7 @@ async function tryUnlock() {
     msg.className = 'pin-msg is-ok';
     input.value = '';
     btn.disabled = false;
+    redirectToRequestedLesson();
   } catch (e) {
     btn.disabled = false;
     input.classList.add('shake');
@@ -1328,6 +1355,7 @@ async function autoUnlock(lessons) {
   });
   msg.textContent = '✓ Лаборатория открыта (this browser remembers).';
   msg.className = 'pin-msg is-ok';
+  redirectToRequestedLesson();
 }
 
 /* version tag — bump it whenever Vault.ct/iv change, so cached browsers re-decrypt */

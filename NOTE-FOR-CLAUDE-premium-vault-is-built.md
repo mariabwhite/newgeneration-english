@@ -41,6 +41,12 @@ New premium lesson flow:
    node scripts/audit-premium-links.mjs --live
    ```
 
+6. Ensure direct-link guard is installed:
+
+   ```powershell
+   node scripts/apply-premium-guard.mjs --check
+   ```
+
 ## What the build script does
 
 - Reads `premium-lessons.json`.
@@ -69,11 +75,25 @@ New premium lesson flow:
 - removes real lesson URLs from buttons;
 - keeps cards visible: no blur, no hidden titles, no disabled-looking cards.
 
+## Direct lesson links
+
+Every premium lesson page must include:
+
+`/lingua-boost-lab/assets/premium-lesson-guard.js`
+
+The guard checks `localStorage.nge-vault-cache`. Without an authorized cache for the current lesson URL, direct lesson links redirect back to `premium.html?next=...#login`.
+
+After successful PIN entry, `premium.html` stores the cache and redirects to the requested `next` lesson.
+
+This is a client-side guard for GitHub Pages, not real server-side content protection. Strong protection requires backend/Auth/Cloudflare Access or another server layer.
+
 ## Current verified state
 
 `premium check OK: 24 published lessons, 24 cards`
 
 `premium link audit OK: 24 lessons, 0 warnings, live checked`
+
+`premium guard check OK: 24 lessons`
 
 The lesson `travel-talk-2` is included:
 
