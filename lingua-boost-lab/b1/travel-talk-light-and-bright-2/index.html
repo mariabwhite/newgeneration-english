@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Travel Talk · Light & Bright 2 — B1 speaking lab on airports, hotel check-in, lost luggage and travel emergencies. Continuation of Light Bright 1. New Generation English.">
+<title>Travel Talk · Light &amp; Bright 2 | LinguaBoost Lab · B1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@500;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TRAVEL TALK · LIGHT & BRIGHT 2 — B1 Speaking Lab
+   Palette: Evening Sky (deep navy + soft sky + warm ivory + gold)
+   Continuation of Light & Bright 1. Evening flight / blue hour mood.
+   ============================================================ */
+
+:root {
+  --bg:        #F5EFE0;
+  --surface:   #FFFCF4;
+  --surface-2: #ECE5D2;
+  --card:      #FBF6E8;
+  --accent:    #1B2F4E;
+  --accent-2:  #2A4970;
+  --accent-soft: rgba(27, 47, 78, 0.10);
+  --sky:       #7AB3C7;
+  --sky-soft:  rgba(122, 179, 199, 0.15);
+  --gold:      #D9A55E;
+  --gold-soft: rgba(217, 165, 94, 0.14);
+  --ink:       #161E2D;
+  --text-2:    #4A5468;
+  --muted:     #7D8294;
+  --faint:     #9CA0AC;
+  --line:      rgba(22, 30, 45, 0.10);
+  --line-2:    rgba(22, 30, 45, 0.20);
+  --ok:        #4F9A6B;
+  --miss:      #C4655A;
+  --radius:    18px;
+  --shadow:    0 4px 20px rgba(27, 47, 78, 0.10);
+  --shadow-lg: 0 12px 40px rgba(27, 47, 78, 0.18);
+  --display:   "Unbounded", "Manrope", sans-serif;
+  --body:      "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:      "JetBrains Mono", Consolas, monospace;
+  --demo-top-width: min(100% - 28px, 1240px);
+}
+@media(max-width:820px){:root{--demo-top-width:min(100% - 20px,1240px)}}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.65;min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+button{font:inherit;cursor:pointer}
+::selection{background:var(--gold);color:#fff}
+
+/* Topbar */
+.topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;padding:12px clamp(16px,3vw,28px);
+  background:color-mix(in srgb,var(--bg) 92%,transparent);border-bottom:1px solid var(--line);backdrop-filter:blur(10px);
+  transition:transform .26s cubic-bezier(.4,.0,.2,1);will-change:transform}
+.topbar.is-hidden{transform:translateY(-100%)}
+.brand{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.brand-mark{width:40px;height:40px;border-radius:8px;border-top-right-radius:0;background:var(--accent);color:#fff;
+  font-family:var(--display);font-weight:900;font-size:22px;display:grid;place-items:center;position:relative;overflow:hidden}
+.brand-mark::after{content:"";position:absolute;right:0;top:0;width:14px;height:14px;background:#fff;clip-path:polygon(100% 0,0 0,100% 100%)}
+.brand-copy{display:grid;gap:1px}
+.brand-name{font-family:var(--display);font-weight:800;font-size:15px;line-height:1}
+.brand-sub{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-top:2px}
+.spacer{flex:1}
+.pill{padding:5px 11px;border-radius:50px;font:700 9.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid var(--line-2);color:var(--muted);background:rgba(0,0,0,.04);white-space:nowrap}
+.pill.accent{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.pill.gold{background:var(--gold-soft);border-color:var(--gold);color:var(--gold)}
+.btn-sm{height:32px;padding:0 12px;border-radius:8px;border:1px solid var(--line-2);background:var(--card);color:var(--muted);
+  font:700 11px/1 var(--mono);letter-spacing:.08em;cursor:pointer;display:inline-flex;align-items:center;text-transform:uppercase;text-decoration:none}
+.btn-sm:hover{border-color:var(--accent);color:var(--accent)}
+
+/* Lesson / Homework tabs */
+.lesson-tabs{position:sticky;top:62px;z-index:99;display:flex;gap:8px;justify-content:center;
+  background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);padding:10px 12px;transition:top .26s cubic-bezier(.4,.0,.2,1)}
+.topbar.is-hidden + .lesson-tabs{top:0}
+.ltab{padding:9px 18px;border-radius:50px;border:1.5px solid var(--line-2);background:var(--card);
+  color:var(--muted);font:800 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;
+  cursor:pointer;transition:.18s;display:inline-flex;align-items:center;gap:8px}
+.ltab:hover{border-color:var(--accent);color:var(--accent)}
+.ltab.is-active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 4px 12px color-mix(in srgb,var(--accent) 40%,transparent)}
+.ltab .ltab-count{background:rgba(255,255,255,.18);padding:2px 8px;border-radius:50px;font-size:10px;min-width:20px;text-align:center}
+.ltab.is-active .ltab-count{background:rgba(255,255,255,.32);color:#fff}
+
+@media(max-width:680px){
+  .lesson-tabs{padding:6px 6px;gap:6px;top:54px}.ltab{padding:7px 12px;font-size:9.5px;letter-spacing:.08em}
+  .topbar{gap:8px;padding:8px 12px}.brand-mark{width:32px;height:32px;font-size:18px}
+  .brand-name{font-size:13px}.brand-sub{display:none}
+  .pill{padding:4px 8px;font-size:8.5px;letter-spacing:.08em}.pill:nth-of-type(2){display:none}
+  .btn-sm{height:28px;padding:0 8px;font-size:9.5px}
+}
+
+/* Hero */
+.hero{width:var(--demo-top-width);max-width:1240px;margin:32px auto 12px;padding:0 12px}
+.hero-card{position:relative;border:1px solid var(--line);border-radius:24px;overflow:hidden;
+  background:linear-gradient(135deg,#0F1B30 0%,#1B2F4E 35%,#2A4970 65%,#5B7FA8 92%,#7AB3C7 100%);
+  box-shadow:var(--shadow-lg);min-height:420px;color:#fff;isolation:isolate}
+.hero-card::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 75% 30%,rgba(217,165,94,.25) 0%,rgba(0,0,0,0) 60%);z-index:1}
+.hero-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,27,48,.1) 0%,rgba(15,27,48,0) 40%,rgba(15,27,48,.6) 100%);z-index:1}
+.hero-card > *{position:relative;z-index:2}
+.hero-stars{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.7}
+.hero-stars::before,.hero-stars::after{content:"✦ ✦   ✦ ✦ ✦   ✦ ✦";position:absolute;color:rgba(245,239,224,.55);font-size:9px;letter-spacing:.4em;animation:twinkle 3.8s ease-in-out infinite}
+.hero-stars::before{top:8%;left:14%}
+.hero-stars::after{top:22%;right:10%;animation-delay:1.4s}
+@keyframes twinkle{0%,100%{opacity:.4}50%{opacity:.95}}
+.hero-body{padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px);min-height:420px;display:flex;flex-direction:column;justify-content:center}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--gold)}
+h1.hero-title{font-family:var(--display);font-weight:900;letter-spacing:-.04em;line-height:.98;font-size:clamp(1.9rem,4.5vw,3.4rem);max-width:760px;margin-bottom:18px;color:#fff}
+h1.hero-title .grad{color:var(--sky)}
+.hero-lead{font-size:clamp(1rem,1.3vw,1.1rem);color:rgba(255,255,255,.86);max-width:680px;line-height:1.6;margin-bottom:24px}
+.hero-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px;max-width:640px}
+.stat{background:rgba(255,255,255,.10);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.22);border-radius:14px;padding:14px 16px}
+.stat-k{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:6px}
+.stat-v{font-family:var(--display);font-weight:800;font-size:1.1rem;color:#fff;letter-spacing:-.01em}
+
+@media(max-width:680px){
+  .hero{margin:18px auto 12px;padding:0 8px}
+  .hero-card{min-height:360px}
+  .hero-body{padding:24px 22px;min-height:360px}
+  h1.hero-title{font-size:1.85rem}
+  .hero-lead{font-size:.96rem}
+  .hero-stats{grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  .stat{padding:11px 13px}
+  .stat-v{font-size:.94rem}
+}
+
+/* Sections */
+.section{width:var(--demo-top-width);max-width:1240px;margin:0 auto 28px;padding:0 12px}
+.section-hdr{display:flex;align-items:center;gap:14px;margin:30px 0 14px;flex-wrap:wrap}
+.section-num{font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:.16em;background:var(--accent);color:#fff;padding:5px 11px;border-radius:50px}
+.section-hdr h2{font-family:var(--display);font-weight:800;font-size:clamp(1.25rem,2.2vw,1.7rem);color:var(--ink);letter-spacing:-.02em;line-height:1.1}
+.section-sub{font-size:.94rem;color:var(--muted);margin:0 0 14px 0;font-style:italic}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 24px;box-shadow:0 2px 14px rgba(27,47,78,.04)}
+.card h3{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--accent);margin:18px 0 10px}
+.card h3:first-child{margin-top:0}
+.card p{margin-bottom:11px;color:var(--ink)}
+.info{background:var(--sky-soft);border-left:3px solid var(--sky);padding:12px 16px;border-radius:8px;font-size:.93rem;color:var(--text-2);margin:12px 0}
+.info strong{color:var(--accent)}
+
+/* Recap frames (mirror of around-the-city Section 00) */
+.frame-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:14px 0}
+.frame{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;padding:14px 16px}
+.frame .when{font-family:var(--mono);font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.frame .pat{font-family:var(--display);font-weight:800;font-size:1rem;color:var(--ink);margin-bottom:4px;letter-spacing:-.01em}
+.frame .ex{font-size:.84rem;color:var(--muted);font-style:italic;line-height:1.45}
+.frame.gold{border-left-color:var(--gold)}
+.frame.gold .when{color:var(--gold)}
+.frame.sky{border-left-color:var(--sky)}
+.frame.sky .when{color:var(--sky)}
+
+/* Welcome / warm-up prompt cards */
+.prompts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:14px 0}
+.prompt-card{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--sky);border-radius:0 14px 14px 0;padding:16px 18px;display:flex;flex-direction:column;gap:8px;min-height:120px}
+.prompt-card.gold{border-left-color:var(--gold)}
+.prompt-card.accent{border-left-color:var(--accent)}
+.prompt-card .pc-num{font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:.14em;color:var(--accent);text-transform:uppercase}
+.prompt-card.gold .pc-num{color:var(--gold)}
+.prompt-card.sky .pc-num,.prompt-card:not(.gold):not(.accent) .pc-num{color:var(--sky)}
+.prompt-card .pc-q{font-family:var(--display);font-weight:800;font-size:1rem;color:var(--ink);line-height:1.3}
+.prompt-card .pc-hint{font-size:.86rem;color:var(--muted);font-style:italic;line-height:1.5;margin-top:auto}
+.prompt-card .pc-tts{margin-top:8px;background:var(--accent);color:#fff;border:none;padding:6px 12px;border-radius:6px;font-family:var(--mono);font-weight:800;font-size:.66rem;letter-spacing:.1em;cursor:pointer;align-self:flex-start;text-transform:uppercase}
+.prompt-card .pc-tts:hover{background:var(--accent-2)}
+
+/* Mood board photo placeholders (replace with real photos when assets arrive) */
+.mood-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:14px 0}
+.mood-card{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:4/3;cursor:pointer;border:1px solid var(--line);transition:.22s;box-shadow:0 2px 10px rgba(27,47,78,.08)}
+.mood-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(27,47,78,.18)}
+.mood-card .mood-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.mood-card .mood-bg.placeholder{background:linear-gradient(135deg,#1B2F4E 0%,#5B7FA8 60%,#D9A55E 100%);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:3.5rem;color:rgba(255,255,255,.4)}
+.mood-card .mood-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(15,27,48,.78) 100%);z-index:2}
+.mood-card .mood-label{position:absolute;bottom:12px;left:14px;right:14px;z-index:3;color:#fff}
+.mood-card .mood-label-k{font-family:var(--mono);font-size:9.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.mood-card .mood-label-v{font-family:var(--display);font-weight:800;font-size:.98rem;line-height:1.2}
+.mood-card.picked{outline:3px solid var(--gold);outline-offset:-3px}
+.mood-card.picked .mood-label-k::after{content:" · picked";color:#fff}
+
+/* Footer */
+footer{padding:40px 16px;text-align:center;color:var(--faint);font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;border-top:1px solid var(--line);margin-top:40px}
+</style>
+</head>
+<body>
+
+<header class="topbar" id="lab-topbar">
+  <a class="brand" href="../../index.html">
+    <div class="brand-mark">N</div>
+    <div class="brand-copy">
+      <div class="brand-name">NG English</div>
+      <div class="brand-sub">LinguaBoost Lab</div>
+    </div>
+  </a>
+  <span class="pill accent">B1 · 90 min</span>
+  <span class="pill gold">Lesson 02</span>
+  <div class="spacer"></div>
+  <a class="btn-sm" href="../travel-talk-light-and-bright/">← Light Bright 1</a>
+</header>
+
+<nav class="lesson-tabs" role="tablist" aria-label="Lesson / Homework">
+  <button class="ltab is-active" data-tab="lesson" type="button">📖 Lesson</button>
+  <button class="ltab" data-tab="homework" type="button">📚 My homework <span class="ltab-count" id="ltab-hw-count">0</span></button>
+</nav>
+
+<section class="hero">
+  <div class="hero-card">
+    <div class="hero-stars"></div>
+    <div class="hero-body">
+      <div class="eyebrow">B1 Speaking · Lesson 02 · evening flight</div>
+      <h1 class="hero-title">Travel Talk · <span class="grad">Light &amp; Bright 2</span></h1>
+      <p class="hero-lead">Evening flight, hotel lobby at midnight, a missing suitcase. Continuation of Light Bright 1 — same speaking lab, new scenarios. Airports, hotel check-in, lost luggage, and the small talk you wish you knew last time.</p>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-k">Level</div><div class="stat-v">B1 · adults &amp; teens</div></div>
+        <div class="stat"><div class="stat-k">Duration</div><div class="stat-v">~90 minutes</div></div>
+        <div class="stat"><div class="stat-k">Focus</div><div class="stat-v">Airports + Hotels + Emergencies</div></div>
+        <div class="stat"><div class="stat-k">Linked to</div><div class="stat-v">Light Bright 1</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 00 · RECAP BRIDGE FROM Light Bright 1 -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">00</div><h2>📍 Recap · from Lesson 01</h2></div>
+  <p class="section-sub">Quick recall from Light Bright 1. We build on this today — same lab energy, new scenarios.</p>
+  <div class="card">
+    <p style="margin-bottom:14px"><strong>In Light Bright 1</strong> we worked on:</p>
+    <div class="frame-grid">
+      <div class="frame">
+        <div class="when">Vocab</div>
+        <div class="pat">Bag types &amp; travel words</div>
+        <div class="ex">backpack, suitcase, trolley, carry-on, tote, handbag, trunk.</div>
+      </div>
+      <div class="frame gold">
+        <div class="when">Small talk</div>
+        <div class="pat">5 mini-dialogues</div>
+        <div class="ex">starters, follow-ups, polite goodbye.</div>
+      </div>
+      <div class="frame sky">
+        <div class="when">Phrasal verbs</div>
+        <div class="pat">set off · take off · drop by</div>
+        <div class="ex">eight travel phrasals we'll re-use today.</div>
+      </div>
+      <div class="frame">
+        <div class="when">Speaking</div>
+        <div class="pat">Story card + Mini-debate</div>
+        <div class="ex">how to open and close a travel story.</div>
+      </div>
+    </div>
+    <div class="info">
+      <strong>Today we add:</strong> airport check-in vocab (gate, boarding pass, carry-on, security), hotel check-in dialogues, lost luggage emergency, and 3 real role-plays at baggage claim, hotel reception and on the street.
+    </div>
+  </div>
+</section>
+
+<!-- 01 · WELCOME ON BOARD -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">01</div><h2>Welcome on board</h2></div>
+  <p class="section-sub">One quick warm-up question before we taxi to the runway. Pick a card and say your answer aloud.</p>
+  <div class="prompts">
+    <div class="prompt-card sky">
+      <div class="pc-num">Card 01</div>
+      <div class="pc-q">What is the last airport you walked through?</div>
+      <div class="pc-hint">Name it, the city, the time of day. Domestic or international?</div>
+      <button class="pc-tts" data-say="What is the last airport you walked through?">▶ Hear</button>
+    </div>
+    <div class="prompt-card gold">
+      <div class="pc-num">Card 02</div>
+      <div class="pc-q">Window seat or aisle seat?</div>
+      <div class="pc-hint">Give two reasons. Use «I prefer …» and «I'd rather …».</div>
+      <button class="pc-tts" data-say="Window seat or aisle seat? Give two reasons.">▶ Hear</button>
+    </div>
+    <div class="prompt-card accent">
+      <div class="pc-num">Card 03</div>
+      <div class="pc-q">Have you ever lost luggage?</div>
+      <div class="pc-hint">If yes — what was inside? If no — what would you do first?</div>
+      <button class="pc-tts" data-say="Have you ever lost luggage? What was inside?">▶ Hear</button>
+    </div>
+  </div>
+</section>
+
+<!-- 02 · WARM-UP · AT THE GATE -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">02</div><h2>Warm-up · At the gate</h2></div>
+  <p class="section-sub">One hour before boarding. What do you actually do? Pick three actions in order — say each one as a full sentence.</p>
+  <div class="card">
+    <p style="margin-bottom:14px"><strong>The list (pick &amp; order):</strong></p>
+    <ul style="list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin:10px 0">
+      <li style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:.92rem">☕ grab a coffee</li>
+      <li style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:.92rem">📱 check the boarding pass</li>
+      <li style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:.92rem">🛍️ walk through duty-free</li>
+      <li style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:.92rem">🪑 find a quiet seat</li>
+      <li style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:.92rem">💧 fill a water bottle</li>
+      <li style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:.92rem">📧 text someone</li>
+      <li style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:.92rem">🎧 put on headphones</li>
+      <li style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:.92rem">📚 pick a book</li>
+      <li style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:.92rem">🕐 watch the gate screen</li>
+    </ul>
+    <div class="info"><strong>Speaking task:</strong> «First, I usually … . Then I … . Right before boarding, I always … .» Two minutes. Say it twice — second time faster.</div>
+  </div>
+</section>
+
+<!-- 03 · MOOD BOARD · TRIP MOMENTS -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">03</div><h2>Mood Board · Trip moments</h2></div>
+  <p class="section-sub">Tap the card that matches your last trip. Then tell us why in 4–6 sentences. Try to include one phrasal verb and one feeling.</p>
+  <div class="mood-grid">
+    <div class="mood-card" data-mood="airport">
+      <div class="mood-bg placeholder">✈️</div>
+      <div class="mood-veil"></div>
+      <div class="mood-label"><div class="mood-label-k">Mood 01</div><div class="mood-label-v">Airport at dawn</div></div>
+    </div>
+    <div class="mood-card" data-mood="lobby">
+      <div class="mood-bg placeholder">🏨</div>
+      <div class="mood-veil"></div>
+      <div class="mood-label"><div class="mood-label-k">Mood 02</div><div class="mood-label-v">Hotel lobby at midnight</div></div>
+    </div>
+    <div class="mood-card" data-mood="street">
+      <div class="mood-bg placeholder">🌃</div>
+      <div class="mood-veil"></div>
+      <div class="mood-label"><div class="mood-label-k">Mood 03</div><div class="mood-label-v">A new city after rain</div></div>
+    </div>
+    <div class="mood-card" data-mood="claim">
+      <div class="mood-bg placeholder">🧳</div>
+      <div class="mood-veil"></div>
+      <div class="mood-label"><div class="mood-label-k">Mood 04</div><div class="mood-label-v">Baggage claim · suitcase missing</div></div>
+    </div>
+  </div>
+  <div class="info"><strong>Speaking template:</strong> «I picked … because … . The last time I felt this was when … . On that trip I had to … .» 4–6 sentences. Add one phrasal verb from Light Bright 1 (set off / take off / look around / head back).</div>
+</section>
+
+<footer>
+  © NG English · LinguaBoost Lab · B1 · Travel Talk Light &amp; Bright 2 · evening flight
+</footer>
+
+<!-- Topbar autohide on scroll -->
+<script>
+(function(){
+  var bar = document.getElementById('lab-topbar');
+  if(!bar) return;
+  var lastY = window.scrollY;
+  var ticking = false;
+  window.addEventListener('scroll', function(){
+    if(ticking) return;
+    window.requestAnimationFrame(function(){
+      var y = window.scrollY;
+      if(y > 120 && y > lastY) bar.classList.add('is-hidden');
+      else bar.classList.remove('is-hidden');
+      lastY = y;
+      ticking = false;
+    });
+    ticking = true;
+  }, {passive:true});
+})();
+</script>
+
+<!-- Lesson / Homework tabs (basic stub — full pack added in Push 6) -->
+<script>
+(function(){
+  document.querySelectorAll('.ltab').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var name = btn.dataset.tab;
+      document.querySelectorAll('.ltab').forEach(function(b){ b.classList.toggle('is-active', b === btn); });
+      // homework overlay will plug in via lab-homework.js when full pack is added
+    });
+  });
+})();
+</script>
+
+<!-- Mood board picker -->
+<script>
+(function(){
+  document.querySelectorAll('.mood-card').forEach(function(card){
+    card.addEventListener('click', function(){ card.classList.toggle('picked'); });
+  });
+})();
+</script>
+
+<!-- TTS via Web Speech (English voices) -->
+<script>
+(function(){
+  if (!('speechSynthesis' in window)) return;
+  document.querySelectorAll('[data-say]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      try{ window.speechSynthesis.cancel(); }catch(e){}
+      var u = new SpeechSynthesisUtterance(btn.dataset.say);
+      u.lang = 'en-US';
+      u.rate = 0.95;
+      window.speechSynthesis.speak(u);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
