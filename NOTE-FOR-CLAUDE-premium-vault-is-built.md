@@ -74,6 +74,15 @@ New premium lesson flow:
 - clears `nge-vault-pin`;
 - removes real lesson URLs from buttons;
 - keeps cards visible: no blur, no hidden titles, no disabled-looking cards.
+- PIN is not persisted as `nge-vault-pin`; successful login stores only decrypted lesson access plus vault version.
+
+## Student login
+
+Students should enter through:
+
+`/lingua-boost-lab/login.html`
+
+The login page fetches the current Vault from `premium.html`, decrypts it with the PIN, stores `nge-vault-cache` and `nge-vault-cache-v`, removes any old `nge-vault-pin`, and redirects to `next` or the premium catalog.
 
 ## Direct lesson links
 
@@ -81,9 +90,9 @@ Every premium lesson page must include:
 
 `/lingua-boost-lab/assets/premium-lesson-guard.js`
 
-The guard checks `localStorage.nge-vault-cache`. Without an authorized cache for the current lesson URL, direct lesson links redirect back to `premium.html?next=...#login`.
+The guard checks `localStorage.nge-vault-cache`. Without an authorized cache for the current lesson URL, direct lesson links redirect back to `login.html?next=...`.
 
-After successful PIN entry, `premium.html` stores the cache and redirects to the requested `next` lesson.
+After successful PIN entry, `login.html` stores the cache and redirects to the requested `next` lesson.
 
 This is a client-side guard for GitHub Pages, not real server-side content protection. Strong protection requires backend/Auth/Cloudflare Access or another server layer.
 

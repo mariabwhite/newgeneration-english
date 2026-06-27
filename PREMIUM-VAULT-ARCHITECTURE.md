@@ -163,9 +163,15 @@
 
 Guard проверяет `localStorage.nge-vault-cache`. Если текущий URL урока не найден в расшифрованном списке разрешенных уроков, страница перенаправляет пользователя на:
 
-`/lingua-boost-lab/premium.html?next=<lesson-url>#login`
+`/lingua-boost-lab/login.html?next=<lesson-url>`
 
-После успешного PIN `premium.html` сохраняет доступ и возвращает пользователя в исходный урок из `next`.
+После успешного PIN `login.html` сохраняет доступ и возвращает пользователя в исходный урок из `next`.
+
+Ученикам лучше давать вход:
+
+`/lingua-boost-lab/login.html`
+
+`premium.html` остается каталогом уроков и тоже умеет принимать PIN, но отдельный login проще для учеников.
 
 Проверка guard:
 
@@ -180,6 +186,17 @@ node scripts/apply-premium-guard.mjs
 ```
 
 Для настоящей защиты от технического обхода нужен backend/Auth/Cloudflare Access или другой серверный слой, который решает, отдавать HTML урока или нет.
+
+## Хранение доступа
+
+PIN не должен храниться в браузере.
+
+После успешного входа сохраняются только:
+
+- `nge-vault-cache` — расшифрованный список доступных уроков;
+- `nge-vault-cache-v` — версия Vault.
+
+`nge-vault-pin` удаляется при входе и сбросе доступа.
 
 ## Быстрая диагностика
 
@@ -206,9 +223,11 @@ node scripts/apply-premium-guard.mjs
 - добавлен `scripts/audit-premium-links.mjs`;
 - добавлен `scripts/apply-premium-guard.mjs`;
 - добавлен `lingua-boost-lab/assets/premium-lesson-guard.js`;
+- добавлен `lingua-boost-lab/login.html`;
 - Vault пересобран из manifest;
 - версия Vault: `v20260627-24-premium-lessons`;
 - проверка: `premium check OK: 24 published lessons, 24 cards`;
 - проверка ссылок: `premium link audit OK: 24 lessons, 0 warnings, live checked`;
 - проверка guard: `premium guard check OK: 24 lessons`;
 - добавлена полная делогинизация: кнопка `Сбросить доступ` и `premium.html#lock` чистят `nge-vault-cache`, `nge-vault-cache-v`, `nge-vault-pin` и удаляют реальные URL с кнопок, не скрывая карточки.
+- PIN больше не сохраняется как `nge-vault-pin`; доступ держится на расшифрованном списке уроков.

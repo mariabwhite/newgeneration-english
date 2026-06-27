@@ -1263,10 +1263,9 @@ function safeNextUrl() {
   }
 }
 
-function rememberPremiumAccess(lessons, pin) {
+function rememberPremiumAccess(lessons) {
   localStorage.setItem('nge-vault-cache', JSON.stringify(lessons));
   localStorage.setItem('nge-vault-cache-v', VAULT_VERSION);
-  if (pin) localStorage.setItem('nge-vault-pin', pin);
 }
 
 function redirectToRequestedLesson() {
@@ -1301,7 +1300,7 @@ async function tryUnlock() {
   msg.className = 'pin-msg';
   try {
     const lessons = await decryptUrls(pin);
-    rememberPremiumAccess(lessons, pin);
+    rememberPremiumAccess(lessons);
     const byId = Object.fromEntries(lessons.map(l => [l.id, l]));
     cards.forEach(c => {
       const id = c.dataset.id;
@@ -1375,9 +1374,7 @@ const VAULT_VERSION = (document.querySelector('meta[name="vault-version"]')||{})
     try {
       const pin = decodeURIComponent(atob(hashMatch[1]));
       const lessons = await decryptUrls(pin);
-      localStorage.setItem('nge-vault-cache', JSON.stringify(lessons));
-      localStorage.setItem('nge-vault-cache-v', VAULT_VERSION);
-      localStorage.setItem('nge-vault-pin', pin);  /* stored for silent re-decrypt on version bump */
+      rememberPremiumAccess(lessons);
       history.replaceState(null, '', location.pathname + location.search);
       autoUnlock(lessons);
       return;
@@ -1389,18 +1386,6 @@ const VAULT_VERSION = (document.querySelector('meta[name="vault-version"]')||{})
   const cached  = localStorage.getItem('nge-vault-cache');
   if (cached && cachedV === VAULT_VERSION) {
     try { autoUnlock(JSON.parse(cached)); return; } catch(e){}
-  }
-
-  /* version bumped: silent re-decrypt with stored PIN (this browser was authorised before) */
-  const storedPin = localStorage.getItem('nge-vault-pin');
-  if (storedPin) {
-    try {
-      const lessons = await decryptUrls(storedPin);
-      localStorage.setItem('nge-vault-cache', JSON.stringify(lessons));
-      localStorage.setItem('nge-vault-cache-v', VAULT_VERSION);
-      autoUnlock(lessons);
-      return;
-    } catch(e) { console.warn('[vault] silent re-decrypt failed (stale PIN?)'); }
   }
 
   /* migration fallback: cached lessons from previous vault version exist but no stored PIN.

@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  var premiumPage = "/lingua-boost-lab/premium.html";
+  var premiumPage = "/lingua-boost-lab/login.html";
   var cacheKey = "nge-vault-cache";
 
   function normalizePath(value) {
@@ -45,7 +45,7 @@
   }
 
   if (!hasAccess()) {
-    var target = premiumPage + "?next=" + encodeURIComponent(window.location.pathname + window.location.search) + "#login";
+    var target = premiumPage + "?next=" + encodeURIComponent(window.location.pathname + window.location.search);
     window.location.replace(target);
   }
 })();
