@@ -67,25 +67,24 @@
   function injectStyles() {
     if (document.getElementById('nge-cookie-banner-style')) return;
     var css =
-      '#nge-cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;z-index:99999;' +
-      'background:#1B2F4E;color:#F5EFE0;border:1px solid rgba(255,255,255,.10);border-radius:14px;' +
-      'box-shadow:0 12px 40px rgba(0,0,0,.35);' +
-      'padding:18px 22px;max-width:760px;margin:0 auto;font:400 14px/1.55 "Manrope",system-ui,sans-serif;' +
-      'transform:translateY(20px);opacity:0;transition:opacity .35s ease, transform .35s ease}' +
+      '#nge-cookie-banner{position:fixed;left:12px;right:12px;bottom:12px;z-index:99999;' +
+      'background:#1B2F4E;color:#F5EFE0;border:1px solid rgba(255,255,255,.10);border-radius:10px;' +
+      'box-shadow:0 8px 24px rgba(0,0,0,.30);' +
+      'padding:10px 14px;max-width:560px;margin:0 auto;font:400 12.5px/1.45 "Manrope",system-ui,sans-serif;' +
+      'transform:translateY(14px);opacity:0;transition:opacity .25s ease, transform .25s ease}' +
       '#nge-cookie-banner.show{transform:translateY(0);opacity:1}' +
-      '#nge-cookie-banner .nge-cb-row{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap}' +
-      '#nge-cookie-banner .nge-cb-text{flex:1;min-width:260px}' +
-      '#nge-cookie-banner .nge-cb-text strong{color:#FFFFFF;font-weight:700}' +
+      '#nge-cookie-banner .nge-cb-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}' +
+      '#nge-cookie-banner .nge-cb-text{flex:1;min-width:220px}' +
       '#nge-cookie-banner .nge-cb-text a{color:#D9A55E;text-decoration:underline}' +
       '#nge-cookie-banner .nge-cb-text a:hover{color:#F4C77A}' +
-      '#nge-cookie-banner .nge-cb-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}' +
-      '#nge-cookie-banner button{font:700 13px/1 "Manrope",system-ui,sans-serif;border-radius:8px;cursor:pointer;padding:11px 18px;border:1px solid transparent;transition:filter .15s, transform .1s}' +
+      '#nge-cookie-banner .nge-cb-actions{display:flex;gap:6px;align-items:center;flex-shrink:0}' +
+      '#nge-cookie-banner button{font:700 11.5px/1 "Manrope",system-ui,sans-serif;border-radius:6px;cursor:pointer;padding:7px 12px;border:1px solid transparent;transition:filter .15s, transform .1s;white-space:nowrap}' +
       '#nge-cookie-banner button:active{transform:translateY(1px)}' +
       '#nge-cookie-banner .nge-cb-accept{background:#FF5A1F;color:#fff;border-color:#FF5A1F}' +
       '#nge-cookie-banner .nge-cb-accept:hover{filter:brightness(1.08)}' +
-      '#nge-cookie-banner .nge-cb-deny{background:transparent;color:#F5EFE0;border-color:rgba(245,239,224,.45)}' +
-      '#nge-cookie-banner .nge-cb-deny:hover{background:rgba(245,239,224,.08);border-color:rgba(245,239,224,.7)}' +
-      '@media(max-width:600px){#nge-cookie-banner{left:8px;right:8px;bottom:8px;padding:14px 16px}#nge-cookie-banner .nge-cb-actions{width:100%}}';
+      '#nge-cookie-banner .nge-cb-deny{background:transparent;color:rgba(245,239,224,.75);border-color:rgba(245,239,224,.35)}' +
+      '#nge-cookie-banner .nge-cb-deny:hover{background:rgba(245,239,224,.08);color:#F5EFE0;border-color:rgba(245,239,224,.6)}' +
+      '@media(max-width:540px){#nge-cookie-banner{left:8px;right:8px;bottom:8px;padding:10px 12px;font-size:12px}#nge-cookie-banner .nge-cb-actions{width:100%}#nge-cookie-banner .nge-cb-actions button{flex:1}}';
     var s = document.createElement('style');
     s.id = 'nge-cookie-banner-style';
     s.textContent = css;
@@ -103,15 +102,13 @@
     banner.setAttribute('aria-labelledby', 'nge-cb-title');
     banner.innerHTML =
       '<div class="nge-cb-row">' +
-        '<div class="nge-cb-text">' +
-          '<strong id="nge-cb-title">Cookies и Яндекс.Метрика</strong><br>' +
-          'Мы используем cookies и счётчик <strong>Яндекс.Метрики</strong> (обезличенная статистика, серверы в РФ) для анализа посещений и улучшения сайта. ' +
-          'Нажав «Принять все», вы соглашаетесь с обработкой по нашей <a href="' + PRIVACY_URL + '" target="_blank" rel="noopener">Политике конфиденциальности</a>. ' +
-          'Без согласия аналитика не загружается, технические cookies продолжают работать для корректной работы сайта.' +
+        '<div class="nge-cb-text" id="nge-cb-title">' +
+          '🍪 Используем cookies и Яндекс.Метрику (статистика, серверы в РФ). ' +
+          '<a href="' + PRIVACY_URL + '" target="_blank" rel="noopener">Политика</a>' +
         '</div>' +
         '<div class="nge-cb-actions">' +
-          '<button type="button" class="nge-cb-deny" data-nge-cb="deny">Только необходимые</button>' +
-          '<button type="button" class="nge-cb-accept" data-nge-cb="accept">Принять все</button>' +
+          '<button type="button" class="nge-cb-deny" data-nge-cb="deny">Только нужные</button>' +
+          '<button type="button" class="nge-cb-accept" data-nge-cb="accept">Принять</button>' +
         '</div>' +
       '</div>';
 
