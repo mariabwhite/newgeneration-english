@@ -67,6 +67,12 @@
 
 `site-public-clean/lingua-boost-lab/premium-lessons.json`
 
+В manifest:
+
+- `series` — смысловая серия/семейство урока;
+- `section` — фактическая HTML-секция `premium.html` (`data-series`), куда должна попасть карточка;
+- если `section` не задан, сборщик использует `series`.
+
 Сборщик:
 
 `scripts/build-premium-vault.mjs`
@@ -79,7 +85,7 @@
 
 3. Добавить урок в `premium-lessons.json`.
 
-4. Запустить сборку. Если карточки с таким `id` еще нет, сборщик вставит ее в секцию по `series`.
+4. Запустить сборку. Если карточки с таким `id` еще нет, сборщик вставит ее в секцию по `section`, а если `section` не задан — по `series`.
 
 5. Запустить пересборку:
 

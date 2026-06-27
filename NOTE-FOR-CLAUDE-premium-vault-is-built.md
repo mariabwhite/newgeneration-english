@@ -16,6 +16,8 @@ New premium lesson flow:
 
    `site-public-clean/lingua-boost-lab/premium-lessons.json`
 
+   Use `series` for the course/content family and `section` for the actual `premium.html` `data-series` bucket. If they are the same, `section` may be omitted.
+
 3. Run:
 
    ```powershell
@@ -38,6 +40,7 @@ New premium lesson flow:
 - Checks duplicate ids.
 - Checks physical lesson targets.
 - Checks premium cards.
+- Checks that each card is in the expected `data-series` section.
 - Inserts missing cards into the proper `data-series` section.
 - Builds encrypted Vault from manifest.
 - Updates `vault-version`.
