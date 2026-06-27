@@ -34,6 +34,13 @@ New premium lesson flow:
    Remove-Item Env:\PREMIUM_PIN
    ```
 
+5. Audit lesson links:
+
+   ```powershell
+   node scripts/audit-premium-links.mjs
+   node scripts/audit-premium-links.mjs --live
+   ```
+
 ## What the build script does
 
 - Reads `premium-lessons.json`.
@@ -45,6 +52,10 @@ New premium lesson flow:
 - Builds encrypted Vault from manifest.
 - Updates `vault-version`.
 - Fails `--check` if manifest, HTML cards and Vault drift apart.
+
+## Link audit
+
+`scripts/audit-premium-links.mjs` checks that every published premium lesson URL maps to a local file. With `--live`, it also checks the live `https://newgeneration-english.ru` URL.
 
 ## Logout / de-login
 
@@ -61,6 +72,8 @@ New premium lesson flow:
 ## Current verified state
 
 `premium check OK: 24 published lessons, 24 cards`
+
+`premium link audit OK: 24 lessons, 0 warnings, live checked`
 
 The lesson `travel-talk-2` is included:
 

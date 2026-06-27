@@ -103,13 +103,25 @@
    Remove-Item Env:\PREMIUM_PIN
    ```
 
-7. Проверить `premium.html` в браузере:
+7. Проверить ссылки уроков:
+
+   ```powershell
+   node scripts/audit-premium-links.mjs
+   ```
+
+   И, если нужен live-аудит домена:
+
+   ```powershell
+   node scripts/audit-premium-links.mjs --live
+   ```
+
+8. Проверить `premium.html` в браузере:
 
    - ввести PIN заново;
    - если браузер держал старый кэш, открыть `premium.html#lock`, затем снова ввести PIN;
    - новый урок должен получить активную кнопку с реальным URL.
 
-8. Закоммитить и запушить `site-public-clean`.
+9. Закоммитить и запушить `site-public-clean`.
 
 ## Почему нужен `vault-version`
 
@@ -150,6 +162,7 @@
 5. Поднята ли `vault-version`?
 6. Очищен ли старый кэш через `#lock`?
 7. Запушен ли обновленный `premium.html`?
+8. Проходит ли `node scripts/audit-premium-links.mjs --live`?
 
 ## Текущее исправление
 
@@ -159,7 +172,9 @@
 - добавлена запись Vault для `travel-talk-2`;
 - добавлен `premium-lessons.json`;
 - добавлен `scripts/build-premium-vault.mjs`;
+- добавлен `scripts/audit-premium-links.mjs`;
 - Vault пересобран из manifest;
 - версия Vault: `v20260627-24-premium-lessons`;
 - проверка: `premium check OK: 24 published lessons, 24 cards`;
+- проверка ссылок: `premium link audit OK: 24 lessons, 0 warnings, live checked`;
 - добавлена полная делогинизация: кнопка `Сбросить доступ` и `premium.html#lock` чистят `nge-vault-cache`, `nge-vault-cache-v`, `nge-vault-pin` и удаляют реальные URL с кнопок, не скрывая карточки.
