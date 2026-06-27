@@ -77,21 +77,23 @@ a{color:inherit;text-decoration:none}
 @media(max-width:820px){:root{--demo-top-width:min(100% - 20px,1240px)}}
 .hero{width:var(--demo-top-width);max-width:1240px;margin:32px auto 12px;padding:0 12px}
 .hero-card{position:relative;border:1px solid var(--line);border-radius:24px;overflow:hidden;
-  background:linear-gradient(135deg,var(--surface) 0%,var(--card) 60%,var(--surface-2) 100%);
-  box-shadow:0 4px 24px rgba(0,0,0,.04);min-height:340px}
-.hero-img{width:100%;aspect-ratio:16/7;object-fit:cover;display:block;border-bottom:1px solid var(--line)}
+  background-image:url('./assets/hero.png');background-size:cover;background-position:center;
+  box-shadow:0 4px 24px rgba(0,0,0,.08);min-height:420px;color:#fff}
+.hero-card::before{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(8,14,32,.78) 0%,rgba(8,14,32,.55) 55%,rgba(40,30,15,.55) 100%);z-index:1}
+.hero-card > *{position:relative;z-index:2}
+.hero-img{display:none}
 .hero-body{padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px)}
-.eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#f6c97b;
   display:flex;align-items:center;gap:10px;margin-bottom:18px}
-.eyebrow::before{content:"";width:28px;height:1px;background:var(--accent)}
+.eyebrow::before{content:"";width:28px;height:1px;background:#f6c97b}
 h1.hero-title{font-family:var(--display);font-weight:900;letter-spacing:-.04em;line-height:.98;
-  font-size:clamp(1.9rem,4.5vw,3.4rem);max-width:760px;margin-bottom:18px;color:var(--ink)}
-h1.hero-title .grad{color:var(--accent)}
-.hero-lead{font-size:clamp(1rem,1.3vw,1.1rem);color:var(--muted);max-width:680px;line-height:1.6;margin-bottom:24px}
+  font-size:clamp(1.9rem,4.5vw,3.4rem);max-width:760px;margin-bottom:18px;color:#fff}
+h1.hero-title .grad{color:#7eddc8}
+.hero-lead{font-size:clamp(1rem,1.3vw,1.1rem);color:rgba(255,255,255,.86);max-width:680px;line-height:1.6;margin-bottom:24px}
 .hero-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:18px;max-width:640px}
-.stat{background:rgba(255,255,255,.6);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
-.stat-k{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
-.stat-v{font-family:var(--display);font-weight:800;font-size:1.1rem;color:var(--accent);letter-spacing:-.01em}
+.stat{background:rgba(255,255,255,.13);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.22);border-radius:14px;padding:14px 16px}
+.stat-k{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:6px}
+.stat-v{font-family:var(--display);font-weight:800;font-size:1.1rem;color:#fff;letter-spacing:-.01em}
 
 /* Sections */
 .section{width:var(--demo-top-width);max-width:1240px;margin:0 auto 28px;padding:0 12px}
@@ -206,17 +208,50 @@ footer{max-width:1180px;margin:48px auto 28px;padding:0 22px;text-align:center;c
 
 <section class="hero">
   <div class="hero-card">
-    <img class="hero-img" src="./assets/hero.png" alt="Around the city — asking for directions, a woman with a phone map and a man pointing at a signpost on a European street">
     <div class="hero-body">
-    <div class="eyebrow">Adult Basics · About You · Lesson</div>
-    <h1 class="hero-title">Around the city · <span class="grad">asking for directions</span></h1>
-    <p class="hero-lead">City vocabulary — streets, parks, cafés, bus stops. Learn how to ask the way and give directions back. Reinforce three common traps: <strong>Do</strong> vs <strong>Are</strong>, <strong>Present Simple</strong> vs <strong>Present Continuous</strong>, and the article <strong>the</strong> with places.</p>
+    <div class="eyebrow">Adult Basics · Lesson 02 · продолжение city-speaking</div>
+    <h1 class="hero-title">Around the city · <span class="grad">directions &amp; hotel</span></h1>
+    <p class="hero-lead">Продолжение урока «Мой город». Теперь учимся <strong>двигаться по городу</strong> и <strong>селиться в отеле</strong>. Опираемся на <em>There is/are</em>, <em>Present Simple/Continuous</em> и предлоги места — всё, что прошли в city-speaking — и расширяем до предлогов движения, hotel check-in и описаний номеров.</p>
     <div class="hero-stats">
       <div class="stat"><div class="stat-k">Level</div><div class="stat-v">A1+ / A2 (взрослые)</div></div>
       <div class="stat"><div class="stat-k">Длительность</div><div class="stat-v">~90 минут</div></div>
-      <div class="stat"><div class="stat-k">Фокус</div><div class="stat-v">Speaking + закрепление грамматики</div></div>
-      <div class="stat"><div class="stat-k">Навыки</div><div class="stat-v">Vocab · Speaking · Listening · Writing</div></div>
+      <div class="stat"><div class="stat-k">Фокус</div><div class="stat-v">Directions + Hotel + Speaking</div></div>
+      <div class="stat"><div class="stat-k">Связка с</div><div class="stat-v">city-speaking (Lesson 01)</div></div>
     </div>
+    </div>
+  </div>
+</section>
+
+<!-- 00 · RECAP BRIDGE FROM city-speaking -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">00</div><h2>📍 Recap · что было в прошлый раз</h2></div>
+  <p class="section-sub">Короткое напоминание из «Мой город — сегодня и через 50 лет». На это сегодня будем опираться.</p>
+  <div class="card">
+    <p style="margin-bottom:14px"><strong>В city-speaking</strong> мы тренировали:</p>
+    <div class="frame-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+      <div style="background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;padding:14px 16px">
+        <div style="font-family:var(--mono);font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:6px">Grammar</div>
+        <div style="font-family:var(--display);font-weight:800;font-size:1rem;color:var(--ink);margin-bottom:4px">There is / There are</div>
+        <div style="font-size:.85rem;color:var(--muted);font-style:italic">There is a café on the corner.<br>There are two banks near my house.</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;padding:14px 16px">
+        <div style="font-family:var(--mono);font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:6px">Tense</div>
+        <div style="font-family:var(--display);font-weight:800;font-size:1rem;color:var(--ink);margin-bottom:4px">Present Simple vs Continuous</div>
+        <div style="font-size:.85rem;color:var(--muted);font-style:italic">I live near the park.<br>I'm walking to the museum now.</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:0 12px 12px 0;padding:14px 16px">
+        <div style="font-family:var(--mono);font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--brand);margin-bottom:6px">Vocab</div>
+        <div style="font-family:var(--display);font-weight:800;font-size:1rem;color:var(--ink);margin-bottom:4px">City adjectives + places</div>
+        <div style="font-size:.85rem;color:var(--muted);font-style:italic">lively, busy, modern, crowded, convenient, nearby</div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:0 12px 12px 0;padding:14px 16px">
+        <div style="font-family:var(--mono);font-size:10.5px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--brand);margin-bottom:6px">Prepositions</div>
+        <div style="font-family:var(--display);font-weight:800;font-size:1rem;color:var(--ink);margin-bottom:4px">Place: opposite, next to, between</div>
+        <div style="font-size:.85rem;color:var(--muted);font-style:italic">The bank is opposite the post office.</div>
+      </div>
+    </div>
+    <div class="info" style="background:var(--accent-soft);border-left:3px solid var(--accent);padding:12px 16px;border-radius:8px;margin-top:16px">
+      <strong>Сегодня добавляем:</strong> предлоги <em>движения</em> (to, from, into, through, across), hotel check-in vocab + диалоги, описание номеров (size, view, comfort). А grammar-база — та же.
     </div>
   </div>
 </section>
