@@ -32,3 +32,19 @@
 - `GATE_PIN_HASH` в `api/gate/enter.ts` = sha256 текущего gate-PIN. Если PIN ротируется — пересчитать хэш и закоммитить.
 - Rate-limit: 5 неправильных попыток / 15 минут / IP. Хранится в cookie `nge_gate_attempts`.
 - `SESSION_SECRET` НЕ должен попасть в git — он только в Cloudflare env vars.
+
+## Premium Lab login/logout — актуальная схема 2026-06-28
+
+Для Premium Lab используется отдельная схема поверх Supabase:
+
+- `api/premium-login.js` — принимает PIN, проверяет его через `premium_gate_state`, создаёт session в `premium_sessions`, ставит HttpOnly cookie `ngp_session`, возвращает список опубликованных уроков.
+- `api/premium-lessons.js` — проверяет `ngp_session` и отдаёт опубликованные уроки из `lingua-boost-lab/premium-lessons.json`.
+- `api/premium-logout.js` — удаляет session из Supabase, чистит cookie `ngp_session`, редиректит на login.
+- `_shared/premium-auth.js` — общая логика cookie, Supabase REST, verifyPin, verifySession, revokeSession, safeNextUrl.
+
+Связанный frontend:
+
+- `lingua-boost-lab/login.html` — страница ввода PIN.
+- `lingua-boost-lab/premium.html` — каталог Premium Lab.
+
+Последняя frontend-правка в `premium.html`: вместо отдельных ссылок `Сбросить доступ` и `Войти` сделана одна кнопка `Войти` / `Выйти` в верхней панели и footer. Кнопка без доступа ведёт на login, с доступом чистит локальный vault-cache и вызывает `/api/premium-logout`.

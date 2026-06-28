@@ -533,6 +533,8 @@ footer.premium-footer {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
+  cursor: pointer;
+  appearance: none;
 }
 .footer-login:hover {
   background: linear-gradient(180deg, #ff8a42 0%, #ff5d2b 100%);
@@ -558,8 +560,7 @@ footer.premium-footer {
     <a class="canon-l-link is-active" href="./index.html" data-ru="Лаборатория" data-en="Lab">Лаборатория</a>
   </nav>
   <div class="canon-l-tools">
-    <a class="canon-l-pill" href="./login.html?next=%2Flingua-boost-lab%2Fpremium.html" data-reset-premium aria-label="Сбросить доступ">Сбросить</a>
-    <a class="canon-l-pill" href="./login.html?next=%2Flingua-boost-lab%2Fpremium.html" aria-label="Войти в premium">Войти</a>
+    <button class="canon-l-pill" type="button" data-premium-auth aria-label="Войти или выйти из premium">Войти</button>
     <a class="canon-l-pill" href="/cabinet/login.html" aria-label="Войти в кабинет">CAB</a>
     <button id="labThemeToggle" class="canon-l-pill theme-toggle" type="button" aria-label="Переключить тему" aria-pressed="false" data-ru="Тема" data-en="Theme">Theme</button>
     <button id="langBtn" class="canon-l-pill lang-toggle" type="button" onclick="toggleLang()" aria-label="Toggle language" data-ru="EN" data-en="RU">EN</button>
@@ -1116,8 +1117,7 @@ footer.premium-footer {
   NG English · LinguaBoost Lab Library · 2026<br>
   <small>Все материалы — авторские, перераспределение по платным курсам без согласования запрещено.</small>
   <div>
-    <a class="footer-login" href="./login.html?next=%2Flingua-boost-lab%2Fpremium.html" data-reset-premium style="margin-right:10px;">Сбросить доступ</a>
-    <a class="footer-login" href="./login.html?next=%2Flingua-boost-lab%2Fpremium.html">Войти в premium</a>
+    <button class="footer-login" type="button" data-premium-auth>Войти</button>
   </div>
 </footer>
 
@@ -1145,6 +1145,8 @@ async function decryptUrls(pin) {
 const cards = document.querySelectorAll('.card');
 let serverLessonsMode = null;
 const loginPage = '/lingua-boost-lab/login.html';
+const premiumAuthButtons = [...document.querySelectorAll('[data-premium-auth]')];
+let premiumHasAccess = false;
 
 async function loadServerLessons() {
   try {
@@ -1194,17 +1196,29 @@ function redirectToLogin() {
   window.location.replace(target);
 }
 
+function setPremiumAuthState(hasAccess) {
+  premiumHasAccess = !!hasAccess;
+  premiumAuthButtons.forEach((button) => {
+    button.textContent = premiumHasAccess ? 'Выйти' : 'Войти';
+    button.setAttribute('aria-label', premiumHasAccess ? 'Выйти из premium' : 'Войти в premium');
+  });
+}
+
 function clearPremiumCache() {
   localStorage.removeItem('nge-vault-cache');
   localStorage.removeItem('nge-vault-cache-v');
   localStorage.removeItem('nge-vault-pin');
   sessionStorage.removeItem('nge-vault-cache');
   sessionStorage.removeItem('nge-vault-cache-v');
+  setPremiumAuthState(false);
 }
 
-document.querySelectorAll('[data-reset-premium]').forEach((link) => {
-  link.addEventListener('click', async (event) => {
-    event.preventDefault();
+premiumAuthButtons.forEach((button) => {
+  button.addEventListener('click', async () => {
+    if (!premiumHasAccess) {
+      redirectToLogin();
+      return;
+    }
     clearPremiumCache();
     try {
       await fetch('/api/premium-logout?next=' + encodeURIComponent('/lingua-boost-lab/login.html'), {
@@ -1239,6 +1253,7 @@ function applyLessons(lessons) {
     const a = c.querySelector('.card-open');
     a.href = l.url; c.classList.add('is-authorized');
   });
+  setPremiumAuthState(true);
 }
 
 /* version tag — bump it whenever Vault.ct/iv change, so cached browsers re-decrypt */
@@ -1263,6 +1278,7 @@ async function bootstrapAccess(){
     if (server.authorized) {
       applyLessons(server.lessons);
     } else {
+      setPremiumAuthState(false);
       redirectToLogin();
     }
     return;
@@ -1282,6 +1298,7 @@ async function bootstrapAccess(){
     } catch(e){}
   }
   if (!cached) {
+    setPremiumAuthState(false);
     redirectToLogin();
   }
 }
