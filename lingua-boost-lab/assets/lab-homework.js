@@ -54,8 +54,30 @@
       }
     } catch(e){}
   }
+  // TTL на имя: 2 часа.
+  // Маша через свой Chrome ведёт уроки с разными учениками подряд —
+  // без TTL имя «залипает» (первая Даниэлла остаётся навсегда),
+  // и Hub-уведомление приходит от неё для всех.
+  var NAME_TTL_MS = 2 * 60 * 60 * 1000;
   function getName(){
-    try { return localStorage.getItem('lab-student-name') || ''; } catch(e){ return ''; }
+    try {
+      var raw = localStorage.getItem('lab-student-name');
+      if (!raw) return '';
+      // legacy: было просто имя строкой
+      if (raw[0] !== '{') return raw;
+      var data = JSON.parse(raw);
+      if (!data.name || !data.ts) return '';
+      if (Date.now() - data.ts > NAME_TTL_MS) {
+        localStorage.removeItem('lab-student-name');
+        return '';
+      }
+      return data.name;
+    } catch(e){ return ''; }
+  }
+  function setName(name){
+    try {
+      localStorage.setItem('lab-student-name', JSON.stringify({ name: name, ts: Date.now() }));
+    } catch(e){}
   }
   function roomFor(name){
     return name ? 'student-' + slugify(name) : (function(){
@@ -506,9 +528,9 @@
     if (n) return n;
     // Если ученик ещё не вводил имя — спросим коротко прямо здесь
     return new Promise(function(resolve){
-      var name = window.prompt('Как тебя зовут? (один раз, чтобы учитель видел домашку)') || '';
+      var name = window.prompt('Как тебя зовут? (учитель увидит это имя в уведомлении)') || '';
       name = name.trim();
-      if (name) { try { localStorage.setItem('lab-student-name', name); } catch(e){} }
+      if (name) setName(name);
       resolve(name);
     });
   }
@@ -563,13 +585,31 @@
       // Опциональный POST в локальный AI Hub (если запущен на этой машине)
       // — silent fail. Hub не основной, основное persist уже сработало выше.
       try {
-        var hubMsg = '📚 Новая домашка от ' + (name || 'ученика') +
-                     ' · ' + arr.length + ' заданий · ' +
-                     short(title, 60);
+        var lines = arr.map(function(it, i){
+          var n = (i+1) + '.';
+          var kind = '[' + kindLabel(it.kind) + ']';
+          var q = short(it.question || '(без вопроса)', 90);
+          // для vocab уже в question = 📖 word + (перевод подсасывается в renderList) —
+          // тут добавим перевод явно, если он есть и не зашит в question
+          if (it.kind === 'vocab' && it.correct && q.indexOf(' — ') === -1) {
+            q = q + ' — ' + short(it.correct, 60);
+          }
+          var extras = [];
+          if (it.kind !== 'vocab' && it.correct) extras.push('✓ ' + short(it.correct, 60));
+          if (it.kind !== 'vocab' && it.student_answer) extras.push('✗ ' + short(it.student_answer, 60));
+          var tail = extras.length ? '  (' + extras.join(' · ') + ')' : '';
+          return n + ' ' + kind + ' ' + q + tail;
+        });
+        var header = '📚 Новая домашка от ' + (name || 'ученика') +
+                     ' · ' + arr.length + ' заданий\n' +
+                     '🔗 Урок: ' + short(title, 90) + '\n' +
+                     '\n' + lines.join('\n');
+        // Telegram максимум 4096; режем мягко
+        if (header.length > 3800) header = header.slice(0, 3780) + '\n…(обрезано)';
         fetch('http://127.0.0.1:8765/api/send-telegram', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text: hubMsg }),
+          body: JSON.stringify({ text: header }),
           mode: 'no-cors'
         }).catch(function(){});
       } catch(e){}
