@@ -225,32 +225,61 @@
 
     // Перед сбором отчёта — авто-прокликать «Проверить» и проставить классы
     // на text inputs которые ученик заполнил, но не нажал Check.
+    // Поддержанные варианты текстов кнопок (всё, что встречается в библиотеке):
+    //   Проверить / Проверь / Сдать / Сверить / Ответить / Готово / Готова /
+    //   Check / Check Now / Check answers / Check sentence / Check vocabulary / …
+    //   Done / Submit
+    // Маркеры результата: right / correct / ok = верно; wrong / miss / fail = неверно.
+    const VERB_HEAD_RE = /^(проверить|проверь|сдать|сверить|ответить|готов[оа]?|check|verify|done|submit)\b/i;
+    function isCheckBtn(btn){
+      if (btn.disabled) return false;
+      // Чёрный список — кнопки, которые не должны быть «авто-проверкой»
+      if (btn.classList.contains('lp-submit') || btn.classList.contains('play-line') ||
+          btn.classList.contains('lab-hw-add') || btn.classList.contains('lab-hw-rm') ||
+          btn.classList.contains('lp-fab-btn') || btn.classList.contains('lp-close') ||
+          btn.classList.contains('reset') || btn.classList.contains('btn-reset') ||
+          btn.classList.contains('hint') || btn.classList.contains('reveal') ||
+          btn.classList.contains('show-answer')) return false;
+      // Белый список классов — сразу true
+      if (btn.classList.contains('check-btn') || btn.classList.contains('btn-check')) return true;
+      const t = (btn.textContent || '').replace(/\s+/g,' ').trim();
+      if (!t) return false;
+      if (t.length > 40) return false;          // длинные = не кнопка, а текст
+      if (/[.!?]$/.test(t)) return false;        // предложения с точкой = не кнопка
+      return VERB_HEAD_RE.test(t);
+    }
+    function hasStatus(el){
+      return el.classList.contains('right') || el.classList.contains('correct') ||
+             el.classList.contains('ok')    || el.classList.contains('wrong')   ||
+             el.classList.contains('miss')  || el.classList.contains('fail');
+    }
+    function normaliseStatusClasses(section){
+      // collect ниже ловит right/wrong/correct/filled — добавим псевдонимы
+      section.querySelectorAll('.ok').forEach(el => el.classList.add('right'));
+      section.querySelectorAll('.miss, .fail').forEach(el => el.classList.add('wrong'));
+    }
     function autoCheckSection(section){
-      // 1) Кнопки «Проверить / Check / Готово» — клик
-      const verbRe = /^\s*(проверить|проверь|check( answer)?|готов[оа]?|done|submit)\s*$/i;
+      // 1) Все кнопки «Проверить / Check ...» — клик
       section.querySelectorAll('button').forEach(btn => {
-        // не трогаем reset/clear/play/наши собственные lp-submit
-        if (btn.classList.contains('lp-submit') || btn.classList.contains('play-line') ||
-            btn.classList.contains('lab-hw-add') || btn.disabled) return;
-        const t = (btn.textContent || '').replace(/\s+/g,' ').trim();
-        if (verbRe.test(t)) {
-          try { btn.click(); } catch(e){}
-        }
+        if (isCheckBtn(btn)) { try { btn.click(); } catch(e){} }
       });
-      // 2) Text inputs (gapfill / wf-row) — если есть value и data-answer, проставить класс
+      // 2) Text inputs (gapfill / wf-row / любые input[type=text]) —
+      //    если есть value и data-answer, проставить класс
+      const norm = s => s.toLowerCase().replace(/[.,!?;:]+$/, '').replace(/\s+/g,' ').trim();
       section.querySelectorAll('input[type="text"], .gapfill input, .wf-row input').forEach(inp => {
-        if (inp.classList.contains('right') || inp.classList.contains('correct') || inp.classList.contains('wrong')) return;
-        const ans = (inp.dataset.answer || '').trim();
+        if (hasStatus(inp)) return;
+        const ans = (inp.dataset.answer || inp.dataset.ans || '').trim();
         const user = (inp.value || '').trim();
         if (!ans || !user) return;
-        // сравниваем без учёта регистра, ведущих/хвостовых пробелов и точки
-        const norm = s => s.toLowerCase().replace(/[.,!?;:]+$/, '').trim();
-        inp.classList.add(norm(ans) === norm(user) ? 'right' : 'wrong');
+        // допускаем несколько правильных вариантов: «a/b» или «a|b»
+        const variants = ans.split(/[\/|]/).map(norm).filter(Boolean);
+        const userN = norm(user);
+        inp.classList.add(variants.indexOf(userN) >= 0 ? 'right' : 'wrong');
       });
-      // 3) Match selects — если есть value, но нет статуса, проверить через data-answer
-      section.querySelectorAll('.match-row select').forEach(sel => {
-        if (sel.classList.contains('right') || sel.classList.contains('wrong')) return;
-        const ans = (sel.dataset.answer || '').trim();
+      // 3) Select-based match — если есть value, но нет статуса, проверить через data-answer
+      section.querySelectorAll('select').forEach(sel => {
+        if (hasStatus(sel)) return;
+        const ans = (sel.dataset.answer || sel.dataset.ans || '').trim();
         const user = (sel.value || '').trim();
         if (!ans || !user) return;
         sel.classList.add(ans === user ? 'right' : 'wrong');
@@ -259,6 +288,7 @@
 
     function renderReport(section, container){
       autoCheckSection(section);
+      normaliseStatusClasses(section);
       const r = collect(section);
       if (!r.total) {
         container.innerHTML = '<div class="lp-good">ℹ В этом разделе нет автоматически оцениваемых заданий — пройди вручную и обсуди с учителем.</div>';
@@ -278,6 +308,7 @@
       let html = '';
       sections.forEach((s, i) => {
         autoCheckSection(s);
+        normaliseStatusClasses(s);
         const r = collect(s);
         if (!r.total) return;
         totT += r.total; totC += r.correct;

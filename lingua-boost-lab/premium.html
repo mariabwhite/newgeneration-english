@@ -558,6 +558,7 @@ footer.premium-footer {
     <a class="canon-l-link is-active" href="./index.html" data-ru="Лаборатория" data-en="Lab">Лаборатория</a>
   </nav>
   <div class="canon-l-tools">
+    <a class="canon-l-pill" href="./login.html?next=%2Flingua-boost-lab%2Fpremium.html" data-reset-premium aria-label="Сбросить доступ">Сбросить</a>
     <a class="canon-l-pill" href="./login.html?next=%2Flingua-boost-lab%2Fpremium.html" aria-label="Войти в premium">Войти</a>
     <a class="canon-l-pill" href="/cabinet/login.html" aria-label="Войти в кабинет">CAB</a>
     <button id="labThemeToggle" class="canon-l-pill theme-toggle" type="button" aria-label="Переключить тему" aria-pressed="false" data-ru="Тема" data-en="Theme">Theme</button>
@@ -1115,6 +1116,7 @@ footer.premium-footer {
   NG English · LinguaBoost Lab Library · 2026<br>
   <small>Все материалы — авторские, перераспределение по платным курсам без согласования запрещено.</small>
   <div>
+    <a class="footer-login" href="./login.html?next=%2Flingua-boost-lab%2Fpremium.html" data-reset-premium style="margin-right:10px;">Сбросить доступ</a>
     <a class="footer-login" href="./login.html?next=%2Flingua-boost-lab%2Fpremium.html">Войти в premium</a>
   </div>
 </footer>
@@ -1195,9 +1197,24 @@ function redirectToLogin() {
 function clearPremiumCache() {
   localStorage.removeItem('nge-vault-cache');
   localStorage.removeItem('nge-vault-cache-v');
+  localStorage.removeItem('nge-vault-pin');
   sessionStorage.removeItem('nge-vault-cache');
   sessionStorage.removeItem('nge-vault-cache-v');
 }
+
+document.querySelectorAll('[data-reset-premium]').forEach((link) => {
+  link.addEventListener('click', async (event) => {
+    event.preventDefault();
+    clearPremiumCache();
+    try {
+      await fetch('/api/premium-logout?next=' + encodeURIComponent('/lingua-boost-lab/login.html'), {
+        credentials: 'include',
+        cache: 'no-store',
+      });
+    } catch (error) {}
+    location.replace('/lingua-boost-lab/login.html');
+  });
+});
 
 cards.forEach(c => {
   const a = c.querySelector('.card-open');

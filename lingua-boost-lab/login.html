@@ -307,17 +307,21 @@ async function login(event) {
 }
 
 async function resetAccess() {
-  if (serverMode) {
-    location.href = '/api/premium-logout?next=' + encodeURIComponent('/lingua-boost-lab/login.html');
-    return;
-  }
   localStorage.removeItem(cacheKey);
   localStorage.removeItem(cacheVersionKey);
+  localStorage.removeItem('nge-vault-pin');
   sessionStorage.removeItem(cacheKey);
+  sessionStorage.removeItem(cacheVersionKey);
   msg.textContent = 'Доступ сброшен.';
   msg.className = 'msg';
   input.value = '';
-  input.focus();
+  try {
+    await fetch('/api/premium-logout?next=' + encodeURIComponent('/lingua-boost-lab/login.html'), {
+      credentials: 'include',
+      cache: 'no-store',
+    });
+  } catch (error) {}
+  location.replace('/lingua-boost-lab/login.html');
 }
 
 loginForm.addEventListener('submit', login);
