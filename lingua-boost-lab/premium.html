@@ -743,7 +743,7 @@ footer.premium-footer {
       <span class="h">Введи код доступа</span>
       <span class="s">Код открывает набор карточек и модулей лаборатории.</span>
     </div>
-    <input type="text" class="pin-input" id="pinInput" placeholder="" autocomplete="off" spellcheck="false" maxlength="40">
+    <input type="text" class="pin-input" id="pinInput" placeholder="" autocomplete="off" spellcheck="false" maxlength="40" autofocus>
     <button class="btn-action" id="pinBtn">Открыть лабораторию</button>
     <button class="btn-action" id="vaultLogoutBtn" type="button">Сбросить доступ</button>
     <div class="pin-msg" id="pinMsg">Код регистронезависимый по буквам, чувствителен к дефисам и цифрам.</div>
@@ -1298,6 +1298,20 @@ function redirectToRequestedLesson() {
   if (next) window.location.replace(next);
 }
 
+function presentPinPrompt(message) {
+  if (message) {
+    msg.textContent = message;
+    msg.className = 'pin-msg';
+  }
+  const strip = document.querySelector('.pin-strip');
+  if (strip && typeof strip.scrollIntoView === 'function') {
+    strip.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  }
+  if (input && typeof input.focus === 'function') {
+    input.focus({ preventScroll: true });
+  }
+}
+
 function logoutPremiumVault(message) {
   localStorage.removeItem('nge-vault-cache');
   localStorage.removeItem('nge-vault-cache-v');
@@ -1315,6 +1329,7 @@ function logoutPremiumVault(message) {
   if (input) input.value = '';
   msg.textContent = message || 'Доступ сброшен. Введите PIN заново.';
   msg.className = 'pin-msg';
+  presentPinPrompt(msg.textContent);
 }
 
 async function tryUnlock() {
@@ -1431,8 +1446,7 @@ async function bootstrapAccess(){
     if (server.authorized) {
       applyLessons(server.lessons, '✓ Серверный доступ открыт.');
     } else {
-      msg.textContent = 'Введите PIN, чтобы открыть уроки.';
-      msg.className = 'pin-msg';
+      presentPinPrompt('Введите PIN, чтобы открыть уроки.');
     }
     return;
   }
@@ -1463,8 +1477,11 @@ async function bootstrapAccess(){
     try {
       applyLessons(JSON.parse(cached), '✓ Лаборатория открыта.');
       msg.textContent += ' Новые модули — введи PIN ещё раз, чтобы открыть.';
+      presentPinPrompt(msg.textContent);
     } catch(e){}
   }
+
+  presentPinPrompt('Введите PIN, чтобы открыть уроки.');
 }
 
 bootstrapAccess();
