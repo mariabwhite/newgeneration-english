@@ -33,8 +33,8 @@
   --line: rgba(197,174,240,0.24);
 }
 * { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; }
 body {
-  margin: 0;
   min-height: 100vh;
   display: grid;
   place-items: center;
@@ -50,11 +50,10 @@ body {
 .login {
   width: 100%;
   max-width: min(300px, calc(100vw - 32px));
-  min-width: 0;
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 12px;
-  padding: clamp(24px, 5vw, 38px);
+  padding: 26px 18px 22px;
   box-shadow: 0 24px 70px rgba(25, 18, 42, 0.18);
   overflow: hidden;
 }
@@ -65,7 +64,7 @@ body {
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 h1 {
   margin: 0 0 10px;
@@ -74,22 +73,25 @@ h1 {
   line-height: 1.05;
 }
 p {
-  margin: 0 0 22px;
+  margin: 0 0 18px;
   color: var(--muted);
   font-size: 15px;
+  line-height: 1.45;
   overflow-wrap: anywhere;
 }
+form { margin: 0; }
 label {
   display: block;
+  margin: 0 0 8px;
   font-family: var(--mono);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.13em;
   text-transform: uppercase;
-  margin-bottom: 8px;
 }
 input {
   width: 100%;
+  min-width: 0;
   min-height: 52px;
   border-radius: 10px;
   border: 1px solid var(--line);
@@ -98,7 +100,6 @@ input {
   font: 700 18px var(--mono);
   padding: 0 14px;
   outline: none;
-  min-width: 0;
 }
 input:focus {
   border-color: rgba(255,116,48,0.72);
@@ -142,19 +143,25 @@ a { background: transparent; }
   margin-top: 18px;
   width: 100%;
 }
+@media (max-width: 430px) {
+  .login { max-width: calc(100vw - 24px); padding: 22px 16px 18px; }
+}
 </style>
 </head>
 <body>
   <main class="login">
     <div class="eyebrow">NG English · Premium</div>
     <h1>Вход в Lab</h1>
-    <p>Введите PIN. После входа уроки будут открываться в этом браузере.</p>
-    <label for="pinInput">PIN</label>
-    <input id="pinInput" type="text" autocomplete="off" spellcheck="false" maxlength="40" autofocus>
-    <div class="actions">
-      <button id="loginBtn" type="button">Открыть</button>
-      <a href="./premium.html">Каталог</a>
-    </div>
+    <p id="lead">Введите PIN. После входа уроки будут открываться в этом браузере.</p>
+    <form id="loginForm" novalidate>
+      <input type="hidden" id="nextInput" name="next" value="">
+      <label for="pinInput">PIN</label>
+      <input id="pinInput" name="pin" type="text" autocomplete="off" spellcheck="false" maxlength="40" autofocus>
+      <div class="actions">
+        <button id="loginBtn" type="submit" disabled>Открыть</button>
+        <a href="./premium.html">Каталог</a>
+      </div>
+    </form>
     <div class="msg" id="msg">PIN чувствителен к дефисам и цифрам.</div>
     <button class="reset" id="resetBtn" type="button">Сбросить доступ</button>
   </main>
@@ -162,11 +169,14 @@ a { background: transparent; }
 <script>
 const cacheKey = 'nge-vault-cache';
 const cacheVersionKey = 'nge-vault-cache-v';
-const pinKey = 'nge-vault-pin';
+const loginForm = document.getElementById('loginForm');
 const input = document.getElementById('pinInput');
 const btn = document.getElementById('loginBtn');
 const resetBtn = document.getElementById('resetBtn');
 const msg = document.getElementById('msg');
+const nextInput = document.getElementById('nextInput');
+const lead = document.getElementById('lead');
+let serverMode = null;
 
 function b64(s) {
   return Uint8Array.from(atob(s), c => c.charCodeAt(0));
@@ -183,6 +193,35 @@ function safeNextUrl() {
     return url.pathname + url.search + url.hash;
   } catch (e) {
     return './premium.html';
+  }
+}
+
+function setReady(ready) {
+  btn.disabled = !ready;
+}
+
+async function probeServerMode() {
+  try {
+    const response = await fetch('/api/premium-lessons', {
+      credentials: 'include',
+      cache: 'no-store',
+    });
+    if (response.status === 404) {
+      serverMode = false;
+      setReady(true);
+      return;
+    }
+    serverMode = true;
+    if (response.ok) {
+      location.replace(safeNextUrl());
+      return;
+    }
+    lead.textContent = 'Серверный вход активен. Введите PIN.';
+    setReady(true);
+  } catch (error) {
+    serverMode = false;
+    lead.textContent = 'Локальный режим. Введите PIN.';
+    setReady(true);
   }
 }
 
@@ -213,7 +252,38 @@ async function decryptUrls(pin) {
   return { lessons: JSON.parse(new TextDecoder().decode(plain)), version: vault.version };
 }
 
-async function login() {
+async function serverLogin(pin) {
+  const response = await fetch('/api/premium-login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify({ pin, next: safeNextUrl() }),
+  });
+  const payload = await response.json().catch(() => ({}));
+  if (!response.ok || !payload.ok) {
+    throw new Error(payload.error || 'SERVER_LOGIN_FAILED');
+  }
+  msg.textContent = 'Доступ открыт.';
+  msg.className = 'msg is-ok';
+  input.value = '';
+  const redirectTo = payload.redirectTo || safeNextUrl();
+  if (redirectTo && redirectTo !== '/lingua-boost-lab/login.html') {
+    location.replace(redirectTo);
+  }
+}
+
+async function localLogin(pin) {
+  const result = await decryptUrls(pin);
+  localStorage.setItem(cacheKey, JSON.stringify(result.lessons));
+  localStorage.setItem(cacheVersionKey, result.version);
+  msg.textContent = 'Доступ открыт.';
+  msg.className = 'msg is-ok';
+  input.value = '';
+  location.replace(safeNextUrl());
+}
+
+async function login(event) {
+  event.preventDefault();
   const pin = input.value.trim();
   if (!pin) {
     msg.textContent = 'Введите PIN.';
@@ -224,13 +294,11 @@ async function login() {
   msg.textContent = 'Проверяю...';
   msg.className = 'msg';
   try {
-    const result = await decryptUrls(pin);
-    localStorage.setItem(cacheKey, JSON.stringify(result.lessons));
-    localStorage.setItem(cacheVersionKey, result.version);
-    localStorage.removeItem(pinKey);
-    msg.textContent = 'Доступ открыт.';
-    msg.className = 'msg is-ok';
-    location.replace(safeNextUrl());
+    if (serverMode === true) {
+      await serverLogin(pin);
+    } else {
+      await localLogin(pin);
+    }
   } catch (error) {
     btn.disabled = false;
     msg.textContent = 'PIN не подошел. Проверьте дефисы и цифры.';
@@ -238,10 +306,13 @@ async function login() {
   }
 }
 
-function resetAccess() {
+async function resetAccess() {
+  if (serverMode) {
+    location.href = '/api/premium-logout?next=' + encodeURIComponent('/lingua-boost-lab/login.html');
+    return;
+  }
   localStorage.removeItem(cacheKey);
   localStorage.removeItem(cacheVersionKey);
-  localStorage.removeItem(pinKey);
   sessionStorage.removeItem(cacheKey);
   msg.textContent = 'Доступ сброшен.';
   msg.className = 'msg';
@@ -249,11 +320,11 @@ function resetAccess() {
   input.focus();
 }
 
-btn.addEventListener('click', login);
-input.addEventListener('keydown', event => {
-  if (event.key === 'Enter') login();
-});
+loginForm.addEventListener('submit', login);
 resetBtn.addEventListener('click', resetAccess);
+nextInput.value = safeNextUrl();
+setReady(false);
+probeServerMode();
 </script>
 </body>
 </html>

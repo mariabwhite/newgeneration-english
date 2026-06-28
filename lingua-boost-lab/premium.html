@@ -1248,6 +1248,31 @@ const btn   = document.getElementById('pinBtn');
 const logoutBtn = document.getElementById('vaultLogoutBtn');
 const msg   = document.getElementById('pinMsg');
 const cards = document.querySelectorAll('.card');
+let serverLessonsMode = null;
+
+async function loadServerLessons() {
+  try {
+    const response = await fetch('/api/premium-lessons', {
+      credentials: 'include',
+      cache: 'no-store',
+    });
+    if (response.status === 404) return null;
+    if (response.status === 401 || response.status === 403) {
+      serverLessonsMode = true;
+      return { authorized: false, status: response.status };
+    }
+    if (!response.ok) {
+      serverLessonsMode = true;
+      return { authorized: false, status: response.status };
+    }
+    const payload = await response.json();
+    if (!payload || !Array.isArray(payload.lessons)) return null;
+    serverLessonsMode = true;
+    return { authorized: true, version: payload.version || VAULT_VERSION, lessons: payload.lessons };
+  } catch (error) {
+    return null;
+  }
+}
 
 function safeNextUrl() {
   const next = new URLSearchParams(location.search).get('next');
@@ -1276,8 +1301,12 @@ function redirectToRequestedLesson() {
 function logoutPremiumVault(message) {
   localStorage.removeItem('nge-vault-cache');
   localStorage.removeItem('nge-vault-cache-v');
-  localStorage.removeItem('nge-vault-pin');
   sessionStorage.removeItem('nge-vault-cache');
+  sessionStorage.removeItem('nge-vault-cache-v');
+  if (serverLessonsMode) {
+    location.href = '/api/premium-logout?next=' + encodeURIComponent('/lingua-boost-lab/login.html');
+    return;
+  }
   cards.forEach(c => {
     c.classList.remove('is-authorized');
     const a = c.querySelector('.card-open');
@@ -1299,17 +1328,42 @@ async function tryUnlock() {
   msg.textContent = 'Проверяю…';
   msg.className = 'pin-msg';
   try {
+    const response = await fetch('/api/premium-login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ pin, next: safeNextUrl() || '/lingua-boost-lab/premium.html' }),
+    }).catch(() => null);
+
+    if (response && response.status !== 404) {
+      serverLessonsMode = true;
+      const payload = await response.json().catch(() => ({}));
+      if (!response.ok || !payload.ok) {
+        btn.disabled = false;
+        input.classList.add('shake');
+        setTimeout(() => input.classList.remove('shake'), 400);
+        msg.textContent = payload.error === 'PIN_INVALID'
+          ? '✗ Код не подошёл. Проверь дефисы и регистр.'
+          : '✗ Серверный вход недоступен.';
+        msg.className = 'pin-msg is-error';
+        return;
+      }
+      if (Array.isArray(payload.lessons)) {
+        applyLessons(payload.lessons);
+      }
+      msg.textContent = '✓ Серверный доступ открыт.';
+      msg.className = 'pin-msg is-ok';
+      input.value = '';
+      btn.disabled = false;
+      if (payload.redirectTo && payload.redirectTo !== '/lingua-boost-lab/premium.html') {
+        location.replace(payload.redirectTo);
+      }
+      return;
+    }
+
     const lessons = await decryptUrls(pin);
     rememberPremiumAccess(lessons);
-    const byId = Object.fromEntries(lessons.map(l => [l.id, l]));
-    cards.forEach(c => {
-      const id = c.dataset.id;
-      const l = byId[id];
-      if (!l) return;
-      const a = c.querySelector('.card-open');
-      a.href = l.url;
-      c.classList.add('is-authorized');
-    });
+    applyLessons(lessons);
     msg.textContent = '✓ Код принят. Лаборатория открыта — выберите модуль.';
     msg.className = 'pin-msg is-ok';
     input.value = '';
@@ -1339,20 +1393,19 @@ cards.forEach(c => {
   });
 });
 
-/* ===== Maria-only auto-unlock (localStorage cache + URL hash bootstrap) =====
-   Маша заходит ОДИН РАЗ по ссылке с #u=<base64-pin>, после этого
-   список расшифрованных уроков сохраняется в localStorage этого браузера.
-   Следующие визиты unlock'аются автоматически без ввода PIN.
-   Очистить кэш: открыть DevTools console → localStorage.removeItem('nge-vault-cache')
-   ИЛИ зайти по #lock                                                       */
-async function autoUnlock(lessons) {
+function applyLessons(lessons, message) {
   const byId = Object.fromEntries(lessons.map(l => [l.id, l]));
+  cards.forEach(c => {
+    c.classList.remove('is-authorized');
+    const a = c.querySelector('.card-open');
+    if (a) a.href = '#';
+  });
   cards.forEach(c => {
     const id = c.dataset.id; const l = byId[id]; if (!l) return;
     const a = c.querySelector('.card-open');
     a.href = l.url; c.classList.add('is-authorized');
   });
-  msg.textContent = '✓ Лаборатория открыта (this browser remembers).';
+  msg.textContent = message || '✓ Лаборатория открыта.';
   msg.className = 'pin-msg is-ok';
   redirectToRequestedLesson();
 }
@@ -1360,11 +1413,27 @@ async function autoUnlock(lessons) {
 /* version tag — bump it whenever Vault.ct/iv change, so cached browsers re-decrypt */
 const VAULT_VERSION = (document.querySelector('meta[name="vault-version"]')||{}).content || 'v0';
 
-(async function tryCacheUnlock(){
+async function bootstrapAccess(){
   /* manual lock via hash */
   if (location.hash === '#lock') {
+    const server = await loadServerLessons();
+    if (server !== null) {
+      location.href = '/api/premium-logout?next=' + encodeURIComponent('/lingua-boost-lab/login.html');
+      return;
+    }
     logoutPremiumVault('Кэш очищен. PIN нужен снова.');
     location.hash = '';
+    return;
+  }
+
+  const server = await loadServerLessons();
+  if (server) {
+    if (server.authorized) {
+      applyLessons(server.lessons, '✓ Серверный доступ открыт.');
+    } else {
+      msg.textContent = 'Введите PIN, чтобы открыть уроки.';
+      msg.className = 'pin-msg';
+    }
     return;
   }
 
@@ -1376,7 +1445,7 @@ const VAULT_VERSION = (document.querySelector('meta[name="vault-version"]')||{})
       const lessons = await decryptUrls(pin);
       rememberPremiumAccess(lessons);
       history.replaceState(null, '', location.pathname + location.search);
-      autoUnlock(lessons);
+      applyLessons(lessons, '✓ Лаборатория открыта.');
       return;
     } catch (e) { console.warn('[vault] bootstrap PIN failed'); }
   }
@@ -1385,18 +1454,20 @@ const VAULT_VERSION = (document.querySelector('meta[name="vault-version"]')||{})
   const cachedV = localStorage.getItem('nge-vault-cache-v');
   const cached  = localStorage.getItem('nge-vault-cache');
   if (cached && cachedV === VAULT_VERSION) {
-    try { autoUnlock(JSON.parse(cached)); return; } catch(e){}
+    try { applyLessons(JSON.parse(cached), '✓ Лаборатория открыта.'); return; } catch(e){}
   }
 
   /* migration fallback: cached lessons from previous vault version exist but no stored PIN.
-     Use what we have (unlock existing cards) — new cards stay locked until PIN re-entered. */
+     Use what we have; newer lessons stay inactive until PIN is entered again. */
   if (cached) {
     try {
-      autoUnlock(JSON.parse(cached));
+      applyLessons(JSON.parse(cached), '✓ Лаборатория открыта.');
       msg.textContent += ' Новые модули — введи PIN ещё раз, чтобы открыть.';
     } catch(e){}
   }
-})();
+}
+
+bootstrapAccess();
 
 /* Theme + language toggles — same pattern as Lab catalog (uses lab-theme-sync.js) */
 (function () {

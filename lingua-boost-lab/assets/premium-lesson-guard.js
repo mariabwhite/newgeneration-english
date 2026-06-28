@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  var premiumPage = "/lingua-boost-lab/login.html";
+  var loginPage = "/lingua-boost-lab/login.html";
   var cacheKey = "nge-vault-cache";
 
   function normalizePath(value) {
@@ -23,7 +23,7 @@
     return path;
   }
 
-  function hasAccess() {
+  function localHasAccess() {
     var raw = "";
     try {
       raw = localStorage.getItem(cacheKey);
@@ -44,8 +44,35 @@
     }
   }
 
-  if (!hasAccess()) {
-    var target = premiumPage + "?next=" + encodeURIComponent(window.location.pathname + window.location.search);
-    window.location.replace(target);
+  async function serverHasAccess() {
+    try {
+      var response = await fetch("/api/premium-lessons", {
+        credentials: "include",
+        cache: "no-store",
+      });
+
+      if (response.status === 404) return null;
+      if (!response.ok) return false;
+
+      var payload = await response.json();
+      if (!payload || !Array.isArray(payload.lessons)) return false;
+
+      var here = currentPath();
+      return payload.lessons.some(function (lesson) {
+        return normalizePath(lesson && lesson.url) === here;
+      });
+    } catch (error) {
+      return null;
+    }
   }
+
+  (async function () {
+    var server = await serverHasAccess();
+    if (server === true) return;
+
+    if (server === false || (server === null && !localHasAccess())) {
+      var target = loginPage + "?next=" + encodeURIComponent(window.location.pathname + window.location.search);
+      window.location.replace(target);
+    }
+  })();
 })();
