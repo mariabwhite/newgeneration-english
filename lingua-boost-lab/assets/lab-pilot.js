@@ -223,7 +223,42 @@
       return html;
     }
 
+    // Перед сбором отчёта — авто-прокликать «Проверить» и проставить классы
+    // на text inputs которые ученик заполнил, но не нажал Check.
+    function autoCheckSection(section){
+      // 1) Кнопки «Проверить / Check / Готово» — клик
+      const verbRe = /^\s*(проверить|проверь|check( answer)?|готов[оа]?|done|submit)\s*$/i;
+      section.querySelectorAll('button').forEach(btn => {
+        // не трогаем reset/clear/play/наши собственные lp-submit
+        if (btn.classList.contains('lp-submit') || btn.classList.contains('play-line') ||
+            btn.classList.contains('lab-hw-add') || btn.disabled) return;
+        const t = (btn.textContent || '').replace(/\s+/g,' ').trim();
+        if (verbRe.test(t)) {
+          try { btn.click(); } catch(e){}
+        }
+      });
+      // 2) Text inputs (gapfill / wf-row) — если есть value и data-answer, проставить класс
+      section.querySelectorAll('input[type="text"], .gapfill input, .wf-row input').forEach(inp => {
+        if (inp.classList.contains('right') || inp.classList.contains('correct') || inp.classList.contains('wrong')) return;
+        const ans = (inp.dataset.answer || '').trim();
+        const user = (inp.value || '').trim();
+        if (!ans || !user) return;
+        // сравниваем без учёта регистра, ведущих/хвостовых пробелов и точки
+        const norm = s => s.toLowerCase().replace(/[.,!?;:]+$/, '').trim();
+        inp.classList.add(norm(ans) === norm(user) ? 'right' : 'wrong');
+      });
+      // 3) Match selects — если есть value, но нет статуса, проверить через data-answer
+      section.querySelectorAll('.match-row select').forEach(sel => {
+        if (sel.classList.contains('right') || sel.classList.contains('wrong')) return;
+        const ans = (sel.dataset.answer || '').trim();
+        const user = (sel.value || '').trim();
+        if (!ans || !user) return;
+        sel.classList.add(ans === user ? 'right' : 'wrong');
+      });
+    }
+
     function renderReport(section, container){
+      autoCheckSection(section);
       const r = collect(section);
       if (!r.total) {
         container.innerHTML = '<div class="lp-good">ℹ В этом разделе нет автоматически оцениваемых заданий — пройди вручную и обсуди с учителем.</div>';
@@ -242,6 +277,7 @@
       let totT = 0, totC = 0, totM = 0;
       let html = '';
       sections.forEach((s, i) => {
+        autoCheckSection(s);
         const r = collect(s);
         if (!r.total) return;
         totT += r.total; totC += r.correct;
