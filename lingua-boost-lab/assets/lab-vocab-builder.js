@@ -68,8 +68,9 @@
         'border:0;background:var(--accent, #7c3aed);color:#fff;cursor:pointer;font-size:14px;'+
         'box-shadow:0 2px 6px rgba(124,58,237,.32);display:flex;align-items:center;justify-content:center}'+
       '.lab-vocab-section .vocab-card .speak:hover{filter:brightness(1.08);transform:scale(1.08)}'+
-      '.lab-vocab-section .vocab-card .extra-mark{position:absolute;top:8px;right:42px;font:800 .68rem/1 "JetBrains Mono",monospace;'+
-        'letter-spacing:.14em;color:#f59e0b;background:#fef3c7;padding:3px 7px;border-radius:50px}'+
+      '.lab-vocab-section .vocab-card .extra-mark{position:absolute;top:8px;left:8px;width:22px;height:22px;'+
+        'border-radius:50%;background:#fef3c7;color:#f59e0b;font:800 12px/1 system-ui;padding:0;letter-spacing:0;'+
+        'display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(245,158,11,.25)}'+
       '[data-lab-theme="dark"] .lab-vocab-section .vocab-card .extra-mark{background:#451a03;color:#fbbf24}'+
       /* Кнопка удалить — только для учителя */
       '.lab-vocab-section .vocab-card .vc-del{position:absolute;top:-6px;left:-6px;width:24px;height:24px;border-radius:50%;'+
@@ -195,7 +196,7 @@
     card.dataset.word = item.word || '';
     card.innerHTML =
       '<button class="vc-del" type="button" title="Удалить слово">×</button>' +
-      (item.__extra ? '<div class="extra-mark">⭐ teacher</div>' : '') +
+      (item.__extra ? '<div class="extra-mark" title="Слово добавлено учителем">⭐</div>' : '') +
       '<button class="speak" type="button" title="Прослушать">🔊</button>' +
       '<div class="face front">'+
         '<div class="word">'+esc(item.word)+'</div>'+
