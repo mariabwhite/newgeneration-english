@@ -156,6 +156,47 @@
   }
   function saveExtras(arr){
     try { localStorage.setItem(extraKey(), JSON.stringify(arr)); } catch(e){}
+    // Облачный snapshot — только в teacher mode, чтобы Клод мог
+    // подтянуть текущий teacher-vocab из Supabase, не дергая Машу за скрины.
+    if (typeof teacherMode !== 'undefined' && teacherMode) {
+      try { cloudSyncExtras(arr); } catch(e){}
+    }
+  }
+
+  // Снапшот teacher-vocab в Supabase lab_submissions с section_id='teacher-vocab-snapshot'.
+  // Последний snapshot по lesson_path = актуальный teacher-vocab урока.
+  // Тротлится 1 запрос/3 сек, чтобы быстрая серия add'ов не штамповала кучу записей.
+  var __vbCloudTimer = null;
+  var __vbCloudPending = null;
+  function cloudSyncExtras(arr){
+    __vbCloudPending = arr;
+    if (__vbCloudTimer) return;
+    __vbCloudTimer = setTimeout(function(){
+      var payload = __vbCloudPending; __vbCloudPending = null; __vbCloudTimer = null;
+      var SUPABASE_URL  = "https://iqzlphbvmfgoygnozbya.supabase.co";
+      var SUPABASE_ANON = "sb_publishable_hYhBk3xS90uouUFd_DZWUw_sOv-6JGO";
+      var body = {
+        room_id: 'teacher-vocab',
+        lesson_path: location.pathname,
+        section_id: 'teacher-vocab-snapshot',
+        section_title: '⭐ teacher vocab snapshot',
+        student_role: 'teacher',
+        score: 0,
+        total: (payload || []).length,
+        misses: payload || []
+      };
+      fetch(SUPABASE_URL + '/rest/v1/lab_submissions', {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_ANON,
+          'Authorization': 'Bearer ' + SUPABASE_ANON,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify(body),
+        mode: 'cors'
+      }).catch(function(){});
+    }, 3000);
   }
 
   function harvestStaticCards(){
