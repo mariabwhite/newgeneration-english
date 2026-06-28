@@ -363,102 +363,6 @@ main {
   .meta-card .main { font-size: 10.5px; letter-spacing: 0.06em; }
 }
 
-/* ===== PIN strip — horizontal one-line ===== */
-.pin-strip {
-  display: grid;
-  grid-template-columns: auto 1fr auto auto;
-  gap: clamp(14px, 2vw, 22px);
-  align-items: center;
-  padding: clamp(18px, 2.5vw, 26px) clamp(20px, 3vw, 32px);
-  background: var(--bg-card);
-  border: 1px solid var(--line);
-  border-radius: 20px;
-}
-.pin-strip .step-num {
-  font-family: var(--mono);
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  padding: 10px 14px;
-  border-radius: 10px;
-  border: 1px solid var(--line-2);
-  color: var(--plum-deep);
-  background: var(--plum-soft);
-}
-[data-theme="dark"] .pin-strip .step-num,
-[data-theme="black-lab"] .pin-strip .step-num,
-[data-theme="violet"] .pin-strip .step-num { color: var(--plum-2); }
-.pin-strip .pin-label { display: flex; flex-direction: column; gap: 4px; }
-.pin-strip .pin-label .h {
-  font-family: var(--display);
-  font-weight: 800;
-  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
-  color: var(--text);
-}
-.pin-strip .pin-label .s {
-  font-size: 0.9rem;
-  color: var(--muted);
-}
-.pin-input {
-  min-width: clamp(220px, 30vw, 360px);
-  padding: 14px 18px;
-  border-radius: 12px;
-  border: 1px solid var(--line-2);
-  background: var(--bg-input);
-  color: var(--text);
-  font-family: var(--mono);
-  font-size: 1rem;
-  letter-spacing: 0.22em;
-  outline: none;
-  transition: 0.15s;
-  text-align: center;
-}
-.pin-input::placeholder { color: var(--faint); letter-spacing: 0.22em; }
-.pin-input:focus { border-color: var(--plum); box-shadow: 0 0 0 3px var(--plum-soft); }
-.pin-input.shake { animation: shake 0.4s; border-color: var(--miss); }
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-6px); }
-  75% { transform: translateX(6px); }
-}
-.btn-action {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  min-height: 46px;
-  padding: 0 22px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 106, 31, 0.70);
-  background: linear-gradient(180deg, #ff7430 0%, #ff5125 100%);
-  color: #fff;
-  box-shadow: 0 12px 26px rgba(255, 81, 37, 0.24);
-  font: 700 12px/1 var(--mono);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: 0.15s;
-  text-decoration: none;
-  white-space: nowrap;
-}
-.btn-action:hover { background: linear-gradient(180deg, #ff8a42 0%, #ff5d2b 100%); border-color: rgba(255,138,66,0.85); }
-.btn-action:disabled { opacity: 0.5; cursor: wait; }
-.pin-msg {
-  grid-column: 2 / -1;
-  font-family: var(--mono);
-  font-size: 0.85rem;
-  color: var(--faint);
-  margin-top: -6px;
-  letter-spacing: 0.02em;
-}
-.pin-msg.is-error { color: var(--miss); }
-.pin-msg.is-ok { color: var(--ok); }
-
-@media (max-width: 760px) {
-  .pin-strip { grid-template-columns: 1fr; }
-  .pin-strip .step-num { justify-self: start; }
-  .pin-msg { grid-column: 1; }
-  .pin-input { min-width: 100%; }
-  .btn-action { width: 100%; }
-}
-
 /* ===== Catalog ===== */
 .catalog-head {
   display: flex; align-items: center; justify-content: space-between;
@@ -606,18 +510,6 @@ main {
 .card.is-authorized { border-color: var(--line-2); }
 .card .card-cover { transition: filter 0.4s; }
 
-/* Hint block under PIN strip */
-.hint {
-  padding: 14px 18px;
-  background: var(--plum-soft);
-  border-left: 3px solid var(--plum);
-  border-radius: 10px;
-  font-size: 0.9rem;
-  color: var(--muted);
-}
-.hint b { color: var(--text); }
-.hint a { color: var(--accent); border-bottom: 1px dashed currentColor; }
-
 footer.premium-footer {
   max-width: 1320px;
   margin: 40px auto 30px;
@@ -625,6 +517,25 @@ footer.premium-footer {
   text-align: center;
   color: var(--faint);
   font-size: 0.83rem;
+}
+.footer-login {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 14px;
+  min-height: 42px;
+  padding: 0 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 106, 31, 0.70);
+  background: linear-gradient(180deg, #ff7430 0%, #ff5125 100%);
+  color: #fff;
+  font: 700 12px/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.footer-login:hover {
+  background: linear-gradient(180deg, #ff8a42 0%, #ff5d2b 100%);
 }
 </style>
 </head>
@@ -647,6 +558,7 @@ footer.premium-footer {
     <a class="canon-l-link is-active" href="./index.html" data-ru="Лаборатория" data-en="Lab">Лаборатория</a>
   </nav>
   <div class="canon-l-tools">
+    <a class="canon-l-pill" href="./login.html?next=%2Flingua-boost-lab%2Fpremium.html" aria-label="Войти в premium">Войти</a>
     <a class="canon-l-pill" href="/cabinet/login.html" aria-label="Войти в кабинет">CAB</a>
     <button id="labThemeToggle" class="canon-l-pill theme-toggle" type="button" aria-label="Переключить тему" aria-pressed="false" data-ru="Тема" data-en="Theme">Theme</button>
     <button id="langBtn" class="canon-l-pill lang-toggle" type="button" onclick="toggleLang()" aria-label="Toggle language" data-ru="EN" data-en="RU">EN</button>
@@ -735,24 +647,6 @@ footer.premium-footer {
       <img class="is-dark"  src="./assets/premium-hero-dark.png"  alt="">
     </div>
   </section>
-
-  <!-- ===== PIN STRIP ===== -->
-  <section class="pin-strip" aria-label="Введи код доступа">
-    <span class="step-num">01</span>
-    <div class="pin-label">
-      <span class="h">Введи код доступа</span>
-      <span class="s">Код открывает набор карточек и модулей лаборатории.</span>
-    </div>
-    <input type="text" class="pin-input" id="pinInput" placeholder="" autocomplete="off" spellcheck="false" maxlength="40" autofocus>
-    <button class="btn-action" id="pinBtn">Открыть лабораторию</button>
-    <button class="btn-action" id="vaultLogoutBtn" type="button">Сбросить доступ</button>
-    <div class="pin-msg" id="pinMsg">Код регистронезависимый по буквам, чувствителен к дефисам и цифрам.</div>
-  </section>
-
-  <!-- ===== HINT ===== -->
-  <div class="hint">
-    <b>Нет кода?</b> Напиши Марии лично — в личных сообщениях или на <a href="mailto:maria.v.burtseva@gmail.com">maria.v.burtseva@gmail.com</a> — и расскажи в двух словах, кто ты и что тебе интересно. Отвечу быстро.
-  </div>
 
   <!-- ===== CATALOG ===== -->
   <div class="catalog-head">
@@ -1220,6 +1114,9 @@ footer.premium-footer {
 <footer class="premium-footer">
   NG English · LinguaBoost Lab Library · 2026<br>
   <small>Все материалы — авторские, перераспределение по платным курсам без согласования запрещено.</small>
+  <div>
+    <a class="footer-login" href="./login.html?next=%2Flingua-boost-lab%2Fpremium.html">Войти в premium</a>
+  </div>
 </footer>
 
 <script>
@@ -1243,12 +1140,9 @@ async function decryptUrls(pin) {
   return JSON.parse(new TextDecoder().decode(plain));
 }
 
-const input = document.getElementById('pinInput');
-const btn   = document.getElementById('pinBtn');
-const logoutBtn = document.getElementById('vaultLogoutBtn');
-const msg   = document.getElementById('pinMsg');
 const cards = document.querySelectorAll('.card');
 let serverLessonsMode = null;
+const loginPage = '/lingua-boost-lab/login.html';
 
 async function loadServerLessons() {
   try {
@@ -1276,15 +1170,15 @@ async function loadServerLessons() {
 
 function safeNextUrl() {
   const next = new URLSearchParams(location.search).get('next');
-  if (!next) return '';
+  if (!next) return '/lingua-boost-lab/premium.html';
   try {
     const url = new URL(next, location.origin);
-    if (url.origin !== location.origin) return '';
-    if (!url.pathname.startsWith('/lingua-boost-lab/')) return '';
-    if (url.pathname.endsWith('/premium.html')) return '';
+    if (url.origin !== location.origin) return '/lingua-boost-lab/premium.html';
+    if (!url.pathname.startsWith('/lingua-boost-lab/')) return '/lingua-boost-lab/premium.html';
+    if (url.pathname.endsWith('/login.html')) return '/lingua-boost-lab/premium.html';
     return url.pathname + url.search + url.hash;
   } catch (e) {
-    return '';
+    return '/lingua-boost-lab/premium.html';
   }
 }
 
@@ -1293,122 +1187,30 @@ function rememberPremiumAccess(lessons) {
   localStorage.setItem('nge-vault-cache-v', VAULT_VERSION);
 }
 
-function redirectToRequestedLesson() {
-  const next = safeNextUrl();
-  if (next) window.location.replace(next);
+function redirectToLogin() {
+  const target = loginPage + '?next=' + encodeURIComponent('/lingua-boost-lab/premium.html');
+  window.location.replace(target);
 }
 
-function presentPinPrompt(message) {
-  if (message) {
-    msg.textContent = message;
-    msg.className = 'pin-msg';
-  }
-  const strip = document.querySelector('.pin-strip');
-  if (strip && typeof strip.scrollIntoView === 'function') {
-    strip.scrollIntoView({ block: 'center', behavior: 'smooth' });
-  }
-  if (input && typeof input.focus === 'function') {
-    input.focus({ preventScroll: true });
-  }
-}
-
-function logoutPremiumVault(message) {
+function clearPremiumCache() {
   localStorage.removeItem('nge-vault-cache');
   localStorage.removeItem('nge-vault-cache-v');
   sessionStorage.removeItem('nge-vault-cache');
   sessionStorage.removeItem('nge-vault-cache-v');
-  if (serverLessonsMode) {
-    location.href = '/api/premium-logout?next=' + encodeURIComponent('/lingua-boost-lab/login.html');
-    return;
-  }
-  cards.forEach(c => {
-    c.classList.remove('is-authorized');
-    const a = c.querySelector('.card-open');
-    if (a) a.href = '#';
-  });
-  if (input) input.value = '';
-  msg.textContent = message || 'Доступ сброшен. Введите PIN заново.';
-  msg.className = 'pin-msg';
-  presentPinPrompt(msg.textContent);
 }
 
-async function tryUnlock() {
-  const pin = input.value.trim();
-  if (!pin) {
-    msg.textContent = 'Введи код, который тебе прислали.';
-    msg.className = 'pin-msg is-error';
-    return;
-  }
-  btn.disabled = true;
-  msg.textContent = 'Проверяю…';
-  msg.className = 'pin-msg';
-  try {
-    const response = await fetch('/api/premium-login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify({ pin, next: safeNextUrl() || '/lingua-boost-lab/premium.html' }),
-    }).catch(() => null);
-
-    if (response && response.status !== 404) {
-      serverLessonsMode = true;
-      const payload = await response.json().catch(() => ({}));
-      if (!response.ok || !payload.ok) {
-        btn.disabled = false;
-        input.classList.add('shake');
-        setTimeout(() => input.classList.remove('shake'), 400);
-        msg.textContent = payload.error === 'PIN_INVALID'
-          ? '✗ Код не подошёл. Проверь дефисы и регистр.'
-          : '✗ Серверный вход недоступен.';
-        msg.className = 'pin-msg is-error';
-        return;
-      }
-      if (Array.isArray(payload.lessons)) {
-        applyLessons(payload.lessons);
-      }
-      msg.textContent = '✓ Серверный доступ открыт.';
-      msg.className = 'pin-msg is-ok';
-      input.value = '';
-      btn.disabled = false;
-      if (payload.redirectTo && payload.redirectTo !== '/lingua-boost-lab/premium.html') {
-        location.replace(payload.redirectTo);
-      }
-      return;
-    }
-
-    const lessons = await decryptUrls(pin);
-    rememberPremiumAccess(lessons);
-    applyLessons(lessons);
-    msg.textContent = '✓ Код принят. Лаборатория открыта — выберите модуль.';
-    msg.className = 'pin-msg is-ok';
-    input.value = '';
-    btn.disabled = false;
-    redirectToRequestedLesson();
-  } catch (e) {
-    btn.disabled = false;
-    input.classList.add('shake');
-    setTimeout(() => input.classList.remove('shake'), 400);
-    msg.textContent = '✗ Код не подошёл. Проверь дефисы и регистр.';
-    msg.className = 'pin-msg is-error';
-  }
-}
-btn.addEventListener('click', tryUnlock);
-input.addEventListener('keypress', e => { if (e.key === 'Enter') tryUnlock(); });
-logoutBtn.addEventListener('click', () => logoutPremiumVault('Доступ сброшен. PIN удалён из этого браузера.'));
 cards.forEach(c => {
   const a = c.querySelector('.card-open');
   if (!a) return;
   a.addEventListener('click', e => {
     if (a.getAttribute('href') === '#') {
       e.preventDefault();
-      msg.textContent = 'Введите PIN, чтобы открыть этот урок.';
-      msg.className = 'pin-msg is-error';
-      input.focus();
+      redirectToLogin();
     }
   });
 });
 
-function applyLessons(lessons, message) {
+function applyLessons(lessons) {
   const byId = Object.fromEntries(lessons.map(l => [l.id, l]));
   cards.forEach(c => {
     c.classList.remove('is-authorized');
@@ -1420,9 +1222,6 @@ function applyLessons(lessons, message) {
     const a = c.querySelector('.card-open');
     a.href = l.url; c.classList.add('is-authorized');
   });
-  msg.textContent = message || '✓ Лаборатория открыта.';
-  msg.className = 'pin-msg is-ok';
-  redirectToRequestedLesson();
 }
 
 /* version tag — bump it whenever Vault.ct/iv change, so cached browsers re-decrypt */
@@ -1436,52 +1235,38 @@ async function bootstrapAccess(){
       location.href = '/api/premium-logout?next=' + encodeURIComponent('/lingua-boost-lab/login.html');
       return;
     }
-    logoutPremiumVault('Кэш очищен. PIN нужен снова.');
+    clearPremiumCache();
     location.hash = '';
+    redirectToLogin();
     return;
   }
 
   const server = await loadServerLessons();
   if (server) {
     if (server.authorized) {
-      applyLessons(server.lessons, '✓ Серверный доступ открыт.');
+      applyLessons(server.lessons);
     } else {
-      presentPinPrompt('Введите PIN, чтобы открыть уроки.');
+      redirectToLogin();
     }
     return;
-  }
-
-  /* URL bootstrap: #u=<base64(pin)>  →  decrypt, cache, unlock */
-  const hashMatch = location.hash.match(/[#&]u=([^&]+)/);
-  if (hashMatch) {
-    try {
-      const pin = decodeURIComponent(atob(hashMatch[1]));
-      const lessons = await decryptUrls(pin);
-      rememberPremiumAccess(lessons);
-      history.replaceState(null, '', location.pathname + location.search);
-      applyLessons(lessons, '✓ Лаборатория открыта.');
-      return;
-    } catch (e) { console.warn('[vault] bootstrap PIN failed'); }
   }
 
   /* persisted cache: silent unlock — only if version matches current vault */
   const cachedV = localStorage.getItem('nge-vault-cache-v');
   const cached  = localStorage.getItem('nge-vault-cache');
   if (cached && cachedV === VAULT_VERSION) {
-    try { applyLessons(JSON.parse(cached), '✓ Лаборатория открыта.'); return; } catch(e){}
+    try { applyLessons(JSON.parse(cached)); return; } catch(e){}
   }
 
-  /* migration fallback: cached lessons from previous vault version exist but no stored PIN.
-     Use what we have; newer lessons stay inactive until PIN is entered again. */
+  /* migration fallback: cached lessons from previous vault version exist. */
   if (cached) {
     try {
-      applyLessons(JSON.parse(cached), '✓ Лаборатория открыта.');
-      msg.textContent += ' Новые модули — введи PIN ещё раз, чтобы открыть.';
-      presentPinPrompt(msg.textContent);
+      applyLessons(JSON.parse(cached));
     } catch(e){}
   }
-
-  presentPinPrompt('Введите PIN, чтобы открыть уроки.');
+  if (!cached) {
+    redirectToLogin();
+  }
 }
 
 bootstrapAccess();

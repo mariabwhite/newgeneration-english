@@ -411,13 +411,23 @@
     clearBtn.style.display = '';
     list.innerHTML = arr.map(function(it, i){
       var lines = [];
+      var isVocab = it.kind === 'vocab';
+      var qText = it.question || '(без вопроса)';
+      if (isVocab && it.correct && qText.indexOf(' — ') === -1) {
+        qText = qText + ' — ' + it.correct;
+      }
       if (it.section_title) lines.push('<div class="lab-hw-meta"><b>Раздел:</b> '+escapeHTML(it.section_title)+'</div>');
-      if (it.correct) lines.push('<div class="lab-hw-meta"><b>Правильный ответ:</b> '+escapeHTML(it.correct)+'</div>');
-      if (it.student_answer) lines.push('<div class="lab-hw-meta"><b>Мой ответ был:</b> '+escapeHTML(it.student_answer)+'</div>');
+      if (isVocab) {
+        if (it.correct) lines.push('<div class="lab-hw-meta"><b>Перевод:</b> '+escapeHTML(it.correct)+'</div>');
+        if (it.student_answer) lines.push('<div class="lab-hw-meta"><b>Пример:</b> '+escapeHTML(it.student_answer)+'</div>');
+      } else {
+        if (it.correct) lines.push('<div class="lab-hw-meta"><b>Правильный ответ:</b> '+escapeHTML(it.correct)+'</div>');
+        if (it.student_answer) lines.push('<div class="lab-hw-meta"><b>Мой ответ был:</b> '+escapeHTML(it.student_answer)+'</div>');
+      }
       return '<div class="lab-hw-item" data-i="'+i+'">'+
         '<button type="button" class="lab-hw-rm" title="Убрать">×</button>'+
         '<span class="lab-hw-kind">'+escapeHTML(kindLabel(it.kind))+'</span>'+
-        '<div class="lab-hw-q">'+escapeHTML(it.question || '(без вопроса)')+'</div>'+
+        '<div class="lab-hw-q">'+escapeHTML(qText)+'</div>'+
         lines.join('')+
       '</div>';
     }).join('');
