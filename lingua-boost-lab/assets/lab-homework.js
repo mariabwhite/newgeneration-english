@@ -29,12 +29,30 @@
   function hwKey(){
     return 'lab-hw:' + location.pathname;
   }
+  var HW_TTL_MS = 48 * 60 * 60 * 1000; // 48 ч: задание считается «протухшим»
   function loadHw(){
     try { return JSON.parse(localStorage.getItem(hwKey()) || '[]'); }
     catch(e){ return []; }
   }
   function saveHw(arr){
     try { localStorage.setItem(hwKey(), JSON.stringify(arr)); } catch(e){}
+  }
+  // При загрузке урока — если самой свежей записи в домашке больше 48 ч,
+  // считаем что ученик уже отыграл прошлый урок и не отправил → чистим.
+  // Иначе мамы/ученики шлют скрины со старыми карточками.
+  function purgeStale(){
+    try {
+      var arr = JSON.parse(localStorage.getItem(hwKey()) || '[]');
+      if (!arr.length) return;
+      var freshest = 0;
+      for (var i = 0; i < arr.length; i++) {
+        var t = +arr[i].ts || 0;
+        if (t > freshest) freshest = t;
+      }
+      if (freshest && (Date.now() - freshest) > HW_TTL_MS) {
+        localStorage.setItem(hwKey(), '[]');
+      }
+    } catch(e){}
   }
   function getName(){
     try { return localStorage.getItem('lab-student-name') || ''; } catch(e){ return ''; }
@@ -570,6 +588,7 @@
   }
 
   ready(function(){
+    purgeStale(); // 48 ч TTL — чтобы старые карточки не висели в чужих скринах
     injectStyle();
     try {
       if (localStorage.getItem('lab-teacher-mode') === 'on') {
