@@ -440,7 +440,7 @@
 
         ${_renderHomeworkCard(student)}
 
-        ${_renderMaterialsCard(student)}
+        ${_renderMaterialsCard(student, { studentView: true })}
 
         ${_renderContractsCard(student, { studentView: true })}
 
@@ -1519,6 +1519,12 @@
   }
 
   function _renderContractFiles(data) {
+    if (!data.files || !data.files.length) {
+      const missingText = data.missing
+        ? "Подписанный документ пока не загружен. Нужно подписать договор оказания услуг и согласие на обработку персональных данных; после подписи документ будет закреплён здесь."
+        : "Документы пока не загружены.";
+      return `<p class="cab-contract-warn cab-contract-warn--missing">⚠ <strong>${_esc(missingText)}</strong></p>`;
+    }
     const items = (data.files || []).map(f => {
       const url = `./${data.folder}/${f}`;
       const label = _prettifyContractFilename(f);
@@ -1543,7 +1549,9 @@
     return `<article class="cab-card"><h3>🔗 Дополнительные платформы</h3><div class="cab-platforms-list">${items}</div></article>`;
   }
 
-  function _renderMaterialsCard(student) {
+  function _renderMaterialsCard(student, opts) {
+    opts = opts || {};
+    if (opts.studentView && !(student && student.is_adult)) return "";
     const m = student && student.materials;
     if (!m || !m.folder || !Array.isArray(m.files) || !m.files.length) return "";
     const note = m.note ? `<p class="cab-card-note">${_esc(m.note)}</p>` : "";
@@ -1554,6 +1562,17 @@
       return `<a href="${_esc(url)}" target="_blank" rel="noreferrer" class="cab-contract-link">${_esc(label)}</a>`;
     }).join("");
     return `<article class="cab-card"><h3>📚 Материалы курса</h3>${note}<div class="cab-contract-files">${items}</div></article>`;
+  }
+
+  function _renderSecurityNoticeCard() {
+    return `
+      <article class="cab-card" style="border-color:#ff5a36;background:#fff4f0;">
+        <h3 style="color:#ff4f24;">🔐 Данные защищены</h3>
+        <p class="cab-card-note" style="color:#7b2818;">
+          Кабинет работает через зашифрованный vault: данные расшифровываются только после ввода PIN. Без PIN посторонний не видит личные материалы, отчёты и документы.
+        </p>
+      </article>
+    `;
   }
 
   function _renderContractsCard(student, opts) {
@@ -1576,7 +1595,8 @@
       return `<article class="cab-card"><h3>📄 Договоры</h3>${inner}</article>`;
     }
 
-    return `<article class="cab-card"><h3>📄 Договор</h3>${_renderContractFiles(contracts)}</article>`;
+    const noteHtml = contracts.note ? `<p class="cab-card-note">${_esc(contracts.note)}</p>` : "";
+    return `<article class="cab-card"><h3>📄 Договор</h3>${noteHtml}${_renderContractFiles(contracts)}</article>`;
   }
 
   function renderParent(container, student) {
@@ -1604,9 +1624,11 @@
 
         ${_renderAbonementCard(student)}
 
-        ${_renderReportsCard(student, (window.NGE_DATA && window.NGE_DATA.reports) || [], payment)}
+        ${_renderSecurityNoticeCard()}
 
         ${_renderMaterialsCard(student)}
+
+        ${_renderReportsCard(student, (window.NGE_DATA && window.NGE_DATA.reports) || [], payment)}
 
         <article class="cab-card">
           <h3>Оплата</h3>
