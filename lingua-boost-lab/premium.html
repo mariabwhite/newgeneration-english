@@ -1159,6 +1159,30 @@ let serverLessonsMode = null;
 const loginPage = '/lingua-boost-lab/login.html';
 const premiumAuthButtons = [...document.querySelectorAll('[data-premium-auth]')];
 let premiumHasAccess = false;
+let publicLessonsById = {};
+
+function normalizeLessonUrl(url) {
+  if (!url) return '/lingua-boost-lab/premium.html';
+  try {
+    const resolved = new URL(url, window.location.origin + '/lingua-boost-lab/');
+    if (resolved.origin !== window.location.origin) return '/lingua-boost-lab/premium.html';
+    if (!resolved.pathname.startsWith('/lingua-boost-lab/')) return '/lingua-boost-lab/premium.html';
+    if (resolved.pathname.endsWith('/login.html')) return '/lingua-boost-lab/premium.html';
+    return resolved.pathname + resolved.search + resolved.hash;
+  } catch (error) {
+    return '/lingua-boost-lab/premium.html';
+  }
+}
+
+async function loadPublicLessonIndex() {
+  try {
+    const response = await fetch('/lingua-boost-lab/premium-lessons.json', { cache: 'no-store' });
+    if (!response.ok) return;
+    const lessons = await response.json();
+    if (!Array.isArray(lessons)) return;
+    publicLessonsById = Object.fromEntries(lessons.filter(l => l && l.id).map(l => [l.id, l]));
+  } catch (error) {}
+}
 
 async function loadServerLessons() {
   try {
@@ -1203,8 +1227,8 @@ function rememberPremiumAccess(lessons) {
   localStorage.setItem('nge-vault-cache-v', VAULT_VERSION);
 }
 
-function redirectToLogin() {
-  const target = loginPage + '?next=' + encodeURIComponent('/lingua-boost-lab/premium.html');
+function redirectToLogin(nextUrl) {
+  const target = loginPage + '?next=' + encodeURIComponent(normalizeLessonUrl(nextUrl || '/lingua-boost-lab/premium.html'));
   window.location.replace(target);
 }
 
@@ -1248,7 +1272,8 @@ cards.forEach(c => {
   a.addEventListener('click', e => {
     if (a.getAttribute('href') === '#') {
       e.preventDefault();
-      redirectToLogin();
+      const lesson = publicLessonsById[c.dataset.id];
+      redirectToLogin(lesson && lesson.url);
     }
   });
 });
@@ -1272,6 +1297,8 @@ function applyLessons(lessons) {
 const VAULT_VERSION = (document.querySelector('meta[name="vault-version"]')||{}).content || 'v0';
 
 async function bootstrapAccess(){
+  await loadPublicLessonIndex();
+
   /* manual lock via hash */
   if (location.hash === '#lock') {
     const server = await loadServerLessons();
