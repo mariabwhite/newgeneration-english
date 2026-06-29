@@ -32,13 +32,13 @@
     var s = document.createElement('style');
     s.id = 'lab-coach-style';
     s.textContent = ''+
-      '.lab-coach-section{margin:18px 0 !important;padding:20px 24px !important;border-radius:16px !important;'+
+      '.lab-coach-section{margin:24px auto !important;padding:20px 24px !important;border-radius:16px !important;'+
         'background:var(--card, var(--surface, #1b232d)) !important;'+
         'border:1px solid var(--line, color-mix(in srgb, var(--accent, #fbbf24) 35%, transparent)) !important;'+
         'color:var(--text, #f3eee5) !important;font-family:"Manrope",sans-serif !important;'+
-        'width:auto !important;display:block !important;box-sizing:border-box;'+
+        'max-width:1240px !important;width:calc(100% - 32px) !important;display:block !important;box-sizing:border-box !important;'+
         'box-shadow:0 8px 28px rgba(0,0,0,.18)}'+
-      '@media(max-width:600px){.lab-coach-section{margin:14px 8px !important;padding:14px !important}}'+
+      '@media(max-width:600px){.lab-coach-section{margin:14px auto !important;padding:14px !important;width:calc(100% - 16px) !important}}'+
       '.lc-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:18px;align-items:start}'+
       '@media(max-width:780px){.lc-grid{grid-template-columns:1fr}}'+
       '.lc-crit-h{font:800 .78rem/1 "JetBrains Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--accent, #fbbf24);margin-bottom:10px;opacity:.85}'+
