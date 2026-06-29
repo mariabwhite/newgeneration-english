@@ -1,4 +1,4 @@
-/**
+﻿/**
  * NG English · cabinet · v3 (2026-06-03) — encrypted vault
  *
  * Replaces v2's public data.js with a per-user encrypted vault on GitHub Pages.
@@ -439,6 +439,8 @@
         ${paymentCard}
 
         ${_renderHomeworkCard(student)}
+
+        ${_renderMaterialsCard(student)}
 
         ${_renderContractsCard(student, { studentView: true })}
 
@@ -1541,6 +1543,19 @@
     return `<article class="cab-card"><h3>🔗 Дополнительные платформы</h3><div class="cab-platforms-list">${items}</div></article>`;
   }
 
+  function _renderMaterialsCard(student) {
+    const m = student && student.materials;
+    if (!m || !m.folder || !Array.isArray(m.files) || !m.files.length) return "";
+    const note = m.note ? `<p class="cab-card-note">${_esc(m.note)}</p>` : "";
+    const items = m.files.map(f => {
+      const file = typeof f === "string" ? f : f.name;
+      const label = typeof f === "string" ? _prettifyContractFilename(f) : (f.label || _prettifyContractFilename(f.name));
+      const url = `./${m.folder}/${file}`;
+      return `<a href="${_esc(url)}" target="_blank" rel="noreferrer" class="cab-contract-link">${_esc(label)}</a>`;
+    }).join("");
+    return `<article class="cab-card"><h3>📚 Материалы курса</h3>${note}<div class="cab-contract-files">${items}</div></article>`;
+  }
+
   function _renderContractsCard(student, opts) {
     opts = opts || {};
     const allContracts = (window.NGE_DATA && window.NGE_DATA.contracts) || {};
@@ -1590,6 +1605,8 @@
         ${_renderAbonementCard(student)}
 
         ${_renderReportsCard(student, (window.NGE_DATA && window.NGE_DATA.reports) || [], payment)}
+
+        ${_renderMaterialsCard(student)}
 
         <article class="cab-card">
           <h3>Оплата</h3>
