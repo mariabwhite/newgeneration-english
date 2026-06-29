@@ -1551,11 +1551,17 @@
 
   function _renderMaterialsCard(student, opts) {
     opts = opts || {};
-    if (opts.studentView && !(student && student.is_adult)) return "";
     const m = student && student.materials;
     if (!m || !m.folder || !Array.isArray(m.files) || !m.files.length) return "";
+    const files = opts.studentView
+      ? m.files.filter(f => {
+          if (typeof f === "string") return true;
+          return !f.audience || f.audience === "all" || f.audience === "student";
+        })
+      : m.files;
+    if (!files.length) return "";
     const note = m.note ? `<p class="cab-card-note">${_esc(m.note)}</p>` : "";
-    const items = m.files.map(f => {
+    const items = files.map(f => {
       const file = typeof f === "string" ? f : f.name;
       const label = typeof f === "string" ? _prettifyContractFilename(f) : (f.label || _prettifyContractFilename(f.name));
       const url = `./${m.folder}/${file}`;
