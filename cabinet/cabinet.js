@@ -1,186 +1,28 @@
-﻿/**
- * NG English · cabinet · v3 (2026-06-03) — encrypted vault
+/**
+ * NG English · cabinet · MVP v2 (2026-05-16)
  *
- * Replaces v2's public data.js with a per-user encrypted vault on GitHub Pages.
+ * Single module that replaces the old zoo:
+ *   app.js, core.js, student.js, teacher.js, parent.js, *-standalone.js
  *
- * Architecture:
- *   - public/index.json — lists {hash, blob} pairs, no PII, no names, no PINs.
- *   - public/vault/*.enc — AES-256-GCM ciphertext, one per user.
- *   - Login: user types PIN/password → PBKDF2 derives AES key (600 000 iters)
- *           → first 16 hex chars of SHA-256(key) = lookup hash → matched in index
- *           → fetch matched blob → AES-GCM decrypt → payload in sessionStorage.
- *   - Without correct PIN/password, blob is undecryptable random bytes.
+ * Reads ./data.json (snapshot from Notion).
+ * Auth: 4-digit PIN per student, password for teacher. Session in localStorage.
  *
- * All subsequent renders use the decrypted payload from sessionStorage.
- * Closing the tab wipes sessionStorage; a fresh tab requires re-login.
- *
- * NB: 4-digit PINs are weak against offline brute force (~hours on a GPU)
- *     — for sensitive accounts switch to 8+ char password in source data.js
- *     and re-run scripts/gen-vault.js.
+ * Security note: this is MVP. data.json ships to the browser, so anyone who
+ * downloads it can read all PINs and student records. For production, move to
+ * a serverless proxy that holds the Notion API key.
  */
 (function () {
   "use strict";
 
-  const SESSION_KEY = "nge_session_v2";              // {role, studentId?, name} — public UI shape
-  const VAULT_PAYLOAD_KEY = "nge_vault_payload_v2";  // decrypted JSON, sessionStorage only
-  const INDEX_URL = "./vault/index.json";
-
-  /* ---------- crypto helpers ---------- */
-
-  function b64ToBytes(b64) {
-    const bin = atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
-    return arr;
-  }
-
-  async function sha256(input) {
-    const data = typeof input === "string" ? new TextEncoder().encode(input) : input;
-    const buf = await crypto.subtle.digest("SHA-256", data);
-    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
-  }
-
-  async function pbkdf2Bytes(password, salt, iterations, length) {
-    const km = await crypto.subtle.importKey(
-      "raw",
-      new TextEncoder().encode(password),
-      "PBKDF2",
-      false,
-      ["deriveBits"]
-    );
-    const bits = await crypto.subtle.deriveBits(
-      { name: "PBKDF2", salt, iterations, hash: "SHA-256" },
-      km,
-      length * 8
-    );
-    return new Uint8Array(bits);
-  }
-
-  async function aesGcmDecrypt(combined, keyBytes) {
-    // combined = iv(12) || ciphertext || authTag(16); WebCrypto wants ct||tag concatenated.
-    const iv = combined.slice(0, 12);
-    const ctAndTag = combined.slice(12);
-    const cryptoKey = await crypto.subtle.importKey(
-      "raw",
-      keyBytes,
-      { name: "AES-GCM" },
-      false,
-      ["decrypt"]
-    );
-    const plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv }, cryptoKey, ctAndTag);
-    return new TextDecoder().decode(plain);
-  }
-
-  /* ---------- vault load ---------- */
-
-  let _indexCache = null;
-  async function fetchIndex() {
-    if (_indexCache) return _indexCache;
-    const r = await fetch(INDEX_URL + "?nc=" + Date.now(), { cache: "no-store" });
-    if (!r.ok) throw new Error("index.json не загрузился (" + r.status + ")");
-    _indexCache = await r.json();
-    return _indexCache;
-  }
+  const SESSION_KEY = "nge_session_v2";
 
   /**
-   * Attempts login. On success:
-   *   - decrypts vault blob
-   *   - writes decrypted payload to sessionStorage (lives until tab close)
-   *   - writes minimal public session to localStorage
-   *   - returns session object
-   * Returns null on wrong PIN/password.
-   */
-  async function tryLogin(code) {
-    const trimmed = String(code).trim();
-    if (!trimmed) return null;
-
-    const index = await fetchIndex();
-    const salt = b64ToBytes(index.salt);
-    const iter = index.iter;
-
-    // PIN (4 digits) → use as-is; otherwise SHA-256 the input (matches gen-vault.js for teacher).
-    const pbkdf2Input = /^\d{4}$/.test(trimmed) ? trimmed : await sha256(trimmed);
-
-    const key = await pbkdf2Bytes(pbkdf2Input, salt, iter, 32);
-    const keyHashHex = await sha256(key);
-    const lookup = keyHashHex.slice(0, 16);
-
-    const match = index.users.find(u => u.hash === lookup);
-    if (!match) return null;
-
-    // Fetch encrypted blob
-    const blobUrl = "./vault/" + match.blob + "?nc=" + Date.now();
-    const r = await fetch(blobUrl, { cache: "no-store" });
-    if (!r.ok) return null;
-    const buf = new Uint8Array(await r.arrayBuffer());
-
-    // Decrypt
-    let payloadJson;
-    try {
-      payloadJson = await aesGcmDecrypt(buf, key);
-    } catch (_) {
-      return null; // wrong key (shouldn't happen if hash matched, but guard)
-    }
-    const payload = JSON.parse(payloadJson);
-
-    // Store decrypted payload in sessionStorage (auto-clears on tab close).
-    sessionStorage.setItem(VAULT_PAYLOAD_KEY, payloadJson);
-
-    // Build public session (NO data, just UI hints) for localStorage.
-    let session;
-    if (payload.role === "family") {
-      session = {
-        role: "family",                              // user picks student/parent in login.html
-        studentId: payload.student.id,
-        name: payload.student.name,
-      };
-    } else {
-      session = {
-        role: "teacher",
-        name: (payload.teacher && payload.teacher.name) || "Учитель",
-      };
-    }
-    setSession(session);
-    return session;
-  }
-
-  /**
-   * Reads decrypted payload from sessionStorage. If absent → bounce to login.
-   * Shapes the data to match the structure that the rest of cabinet.js expects
-   * (legacy NGE_DATA shape: { teacher, payment, students[], reports[], labModules[] }).
+   * Data is loaded via <script src="./data.js"> which sets window.NGE_DATA.
+   * (fetch() doesn't work on file:// in Chrome/Edge.)
    */
   async function loadData() {
-    const raw = sessionStorage.getItem(VAULT_PAYLOAD_KEY);
-    if (!raw) {
-      // sessionStorage cleared (tab restart / direct nav) — go re-login
-      if (!location.pathname.endsWith("/login.html") && !location.pathname.endsWith("/")) {
-        location.href = "./login.html";
-      }
-      throw new Error("Vault payload missing — login required");
-    }
-    const payload = JSON.parse(raw);
-
-    if (payload.role === "family") {
-      // For family role, present a shape compatible with rest of code:
-      return {
-        version: 3,
-        teacher: { name: payload.teacher_name },
-        payment: payload.payment,
-        students: [payload.student],            // single-element array
-        reports: payload.reports || [],          // already filtered to this student in vault
-        labModules: [],                          // family doesn't see lab modules list
-      };
-    }
-
-    // teacher role: payload already has full shape
-    return {
-      version: 3,
-      teacher: payload.teacher,
-      payment: payload.payment,
-      students: payload.students || [],
-      reports: payload.reports || [],
-      labModules: payload.labModules || [],
-    };
+    if (window.NGE_DATA) return window.NGE_DATA;
+    throw new Error("data.js не подгрузился — проверь подключение <script src='./data.js'> до cabinet.js");
   }
 
   /* ---------- session ---------- */
@@ -198,15 +40,50 @@
   }
 
   function clearSession() {
-    try {
-      localStorage.removeItem(SESSION_KEY);
-      sessionStorage.removeItem(VAULT_PAYLOAD_KEY);
-    } catch (_) {}
+    try { localStorage.removeItem(SESSION_KEY); } catch (_) {}
   }
 
   function signOut() {
     clearSession();
     location.href = "./login.html";
+  }
+
+  /* ---------- auth ---------- */
+
+  async function sha256(str) {
+    const enc = new TextEncoder().encode(str);
+    const buf = await crypto.subtle.digest("SHA-256", enc);
+    return Array.from(new Uint8Array(buf))
+      .map(b => b.toString(16).padStart(2, "0"))
+      .join("");
+  }
+
+  /**
+   * Try to sign in with `code`. Returns session object or null.
+   * If `code` looks like a 4-digit PIN — match student by pin.
+   * Otherwise — treat as teacher password (hash + compare).
+   */
+  async function tryLogin(code) {
+    const data = await loadData();
+    const trimmed = String(code).trim();
+
+    // 4-digit PIN → family (PIN shared between student and parent;
+    // login.html shows a picker right after to set the final role).
+    if (/^\d{4}$/.test(trimmed)) {
+      const student = data.students.find(s => s.pin === trimmed);
+      if (student) {
+        return { role: "family", studentId: student.id, name: student.name };
+      }
+      return null;
+    }
+
+    // Teacher password
+    const hashHex = await sha256(trimmed);
+    if (hashHex === data.teacher.passwordHash) {
+      return { role: "teacher", name: data.teacher.name };
+    }
+
+    return null;
   }
 
   /* ---------- guard ---------- */
@@ -401,22 +278,6 @@
     }
     const goal = student.goal ? `<div class="cab-card-row"><span class="cab-row-label">Цель</span><span class="cab-row-value">${_esc(student.goal)}</span></div>` : "";
     const parent = student.parent_name ? `<div class="cab-card-row"><span class="cab-row-label">Родитель</span><span class="cab-row-value">${_esc(student.parent_name)}</span></div>` : "";
-    const payment = (window.NGE_DATA && window.NGE_DATA.payment) || {};
-    const isAdult = !!student.is_adult;
-    /* Adults pay themselves → show payment card in student view (no separate parent view) */
-    const paymentCard = isAdult ? `
-        <article class="cab-card">
-          <h3>Оплата</h3>
-          ${student.price_per_lesson ? `<div class="cab-card-row"><span class="cab-row-label">Цена занятия</span><span class="cab-row-value">${_esc(student.price_per_lesson)} ₽</span></div>` : ""}
-          ${student.monthly_package ? `<div class="cab-card-row"><span class="cab-row-label">Абонемент</span><span class="cab-row-value">${_esc(student.monthly_package)} ₽ / ${_esc(student.lessons_in_package || 4)} ур.</span></div>` : ""}
-          ${student.payment_status ? `<div class="cab-card-row"><span class="cab-row-label">Статус</span><span class="cab-row-value">${_esc(student.payment_status)}</span></div>` : ""}
-          ${payment.phone ? `<div class="cab-card-row"><span class="cab-row-label">СБП по тел.</span><span class="cab-row-value"><code>${_esc(payment.phone)}</code></span></div>` : ""}
-          ${payment.recipient ? `<div class="cab-card-row"><span class="cab-row-label">Получатель</span><span class="cab-row-value">${_esc(payment.recipient)}</span></div>` : ""}
-          ${payment.bank ? `<div class="cab-card-row"><span class="cab-row-label">Банк</span><span class="cab-row-value">${_esc(payment.bank)}</span></div>` : ""}
-          <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 8px;">
-            ${payment.telegram ? `<a class="cab-action-btn cab-action-btn--primary" href="${_esc(payment.telegram)}" target="_blank" rel="noreferrer">💬 Написать Марии в Telegram</a>` : ""}
-          </div>
-        </article>` : "";
     container.innerHTML = `
       <div class="cab-hero">
         <h1>${_esc(_greetingForStudent(student))}</h1>
@@ -436,30 +297,17 @@
 
         ${_renderAbonementCard(student, { studentView: true })}
 
-        ${paymentCard}
-
         ${_renderHomeworkCard(student)}
 
-        ${_renderMaterialsCard(student, { studentView: true })}
-
-        ${_renderContractsCard(student, { studentView: true })}
-
         ${_renderExternalPlatformsCard(student)}
+
+        ${_renderMaterialsCard(student, { studentView: true })}
+        ${_renderContractsCard(student, { studentView: true })}
 
         ${_renderLessonsCard(student, { interactive: true })}
       </div>
 
     `;
-    /* Wire up payment details toggle (only present for adults) */
-    container.querySelectorAll('[data-action="toggle-bank-details"]').forEach(btn => {
-      btn.addEventListener("click", () => {
-        const details = container.querySelector(".cab-bank-details");
-        if (!details) return;
-        const isOpen = details.style.display !== "none";
-        details.style.display = isOpen ? "none" : "block";
-        btn.textContent = isOpen ? "Реквизиты для оплаты ▾" : "Реквизиты для оплаты ▴";
-      });
-    });
 
     _wireHomeworkCheckboxes(container, student);
   }
@@ -1253,6 +1101,23 @@
     return { cls: "is-future", label: "запланирован" };
   }
 
+  function _renderExternalPlatformsCard(student) {
+    const platforms = Array.isArray(student && student.external_platforms) ? student.external_platforms : [];
+    if (!platforms.length) return "";
+    const items = platforms.map(p => {
+      const name = p.name || p.title || "—";
+      const url  = p.url || "#";
+      const note = p.note || "";
+      const safeUrl = /^https?:\/\//.test(url) ? url : "#";
+      const target = safeUrl === "#" ? "" : 'target="_blank" rel="noreferrer"';
+      return `<a class="cab-platform-link" href="${_esc(safeUrl)}" ${target}>
+        <span class="cab-platform-name">${_esc(name)}</span>
+        ${note ? `<span class="cab-platform-note">${_esc(note)}</span>` : ""}
+      </a>`;
+    }).join("");
+    return `<article class="cab-card cab-card--platforms"><h3>🔗 Закреплённые ресурсы</h3><div class="cab-platforms-list">${items}</div></article>`;
+  }
+
   function _renderLessonsCard(student, opts) {
     opts = opts || {};
     const interactive = !!opts.interactive;
@@ -1266,7 +1131,7 @@
       .filter(l => {
         if (!l.date) return false;
         if (hasSummerPlan) return l.date >= "2026-06-01" && l.date <= "2026-08-31";
-        return l.date.startsWith(month) || l.is_makeup;
+        return l.date.startsWith(month);
       })
       .sort((a, b) => a.date.localeCompare(b.date));
 
@@ -1315,38 +1180,6 @@
       <article class="cab-card cab-card--wide">
         <h3>Уроки · ${_esc(hasSummerPlan ? "лето 2026" : _monthLabelFromISO(month))}</h3>
         <ul class="cab-lessons-list">${rows}</ul>
-      </article>
-    `;
-  }
-
-  /* ---------- last-lesson recap card · «Что проходили сегодня» + Домашка ---------- */
-  function _renderLastLessonRecapCard(student) {
-    const lessons = Array.isArray(student.lessons) ? student.lessons : [];
-    // Most recent completed lesson with a recap
-    const last = lessons
-      .filter(l => l.status === "completed" && l.recap && l.recap.trim())
-      .sort((a, b) => (b.date || "").localeCompare(a.date || ""))[0];
-    if (!last) return "";
-    const dateStr = _formatLessonDate(last.date);
-    const dow = _dowFromISO(last.date);
-    const topic = last.topic ? `<div class="cab-recap-topic">${_esc(last.topic)}</div>` : "";
-    const recapHtml = _esc(last.recap).replace(/\n/g, "<br>");
-    let hwBtn = "";
-    if (last.homework && last.homework.module_url) {
-      const title = last.homework.module_title || "Открыть домашку";
-      hwBtn = `<a class="cab-recap-hw-btn" href="${_esc(last.homework.module_url)}" target="_blank" rel="noreferrer">${_esc(title)} →</a>`;
-    } else if (last.homework && last.homework.text) {
-      hwBtn = `<span class="cab-recap-hw-btn cab-recap-hw-btn--text">📝 Домашка в тексте ↓</span>`;
-    }
-    return `
-      <article class="cab-card">
-        <div class="cab-recap-head">
-          <h3>📖 Что проходили на последнем уроке</h3>
-          ${hwBtn}
-        </div>
-        <div class="cab-recap-meta">${dateStr} · ${dow}</div>
-        ${topic}
-        <div class="cab-recap-body">${recapHtml}</div>
       </article>
     `;
   }
@@ -1471,8 +1304,7 @@
     opts = opts || {};
     const studentView = !!opts.studentView; // в кабинете ребёнка — скрываем цены и статус оплаты
     const total = student.lessons_in_package;
-    const rawUsed = student.lessons_used_this_month || 0;
-    const used = total ? Math.min(rawUsed, total) : rawUsed;
+    const used = student.lessons_used_this_month || 0;
     const remaining = total ? Math.max(total - used, 0) : null;
     const month = student.subscription_month || _currentMonthLabel();
     const pkg = student.monthly_package;
@@ -1535,18 +1367,7 @@
       }
       return `<a href="${_esc(url)}" target="_blank" rel="noreferrer" class="cab-contract-link">📄 ${_esc(label)}</a>`;
     }).join("");
-    const warn = `<p class="cab-contract-warn">⚠ <strong>Документ не зашифрован.</strong> Ссылка скрыта случайным именем — найти прямой URL посторонний не сможет. Не пересылайте ссылку третьим лицам.</p>`;
-    return `<div class="cab-contract-files">${items}</div>${warn}`;
-  }
-
-  function _renderExternalPlatformsCard(student) {
-    const platforms = (student && student.external_platforms) || [];
-    if (!platforms.length) return "";
-    const items = platforms.map(p => {
-      const note = p.note ? `<div class="cab-platform-note">${_esc(p.note)}</div>` : "";
-      return `<a class="cab-platform-link" href="${_esc(p.url)}" target="_blank" rel="noopener"><div class="cab-platform-name">🌐 ${_esc(p.name)}</div>${note}<div class="cab-platform-arrow">→</div></a>`;
-    }).join("");
-    return `<article class="cab-card"><h3>🔗 Дополнительные платформы</h3><div class="cab-platforms-list">${items}</div></article>`;
+    return `<div class="cab-contract-files">${items}</div>`;
   }
 
   function _renderMaterialsCard(student, opts) {
@@ -1562,9 +1383,9 @@
     if (!files.length) return "";
     const note = m.note ? `<p class="cab-card-note">${_esc(m.note)}</p>` : "";
     const items = files.map(f => {
-      const file = typeof f === "string" ? f : f.name;
+      const file  = typeof f === "string" ? f : f.name;
       const label = typeof f === "string" ? _prettifyContractFilename(f) : (f.label || _prettifyContractFilename(f.name));
-      const url = `./${m.folder}/${file}`;
+      const url   = `./${m.folder}/${file}`;
       return `<a href="${_esc(url)}" target="_blank" rel="noreferrer" class="cab-contract-link">${_esc(label)}</a>`;
     }).join("");
     return `<article class="cab-card"><h3>📚 Материалы курса</h3>${note}<div class="cab-contract-files">${items}</div></article>`;
@@ -1598,11 +1419,11 @@
         const child = data.child ? ` · ${data.child}` : "";
         inner += `<div class="cab-contract-section"><div class="cab-contract-parent">${_esc(parentName)}${_esc(child)}</div>${_renderContractFiles(data)}</div>`;
       });
-      return `<article class="cab-card"><h3>📄 Договоры</h3>${inner}</article>`;
+      return `<article class="cab-card"><h3>📄 Договоры</h3><p class="cab-card-note">Подписанные документы хранятся для прозрачности. Клик по странице — открыть в полный размер.</p>${inner}</article>`;
     }
 
     const noteHtml = contracts.note ? `<p class="cab-card-note">${_esc(contracts.note)}</p>` : "";
-    return `<article class="cab-card"><h3>📄 Договор</h3>${noteHtml}${_renderContractFiles(contracts)}</article>`;
+    return `<article class="cab-card"><h3>📄 Договор</h3><p class="cab-card-note">Подписанные документы хранятся для прозрачности. Клик по странице — открыть в полный размер.</p>${noteHtml}${_renderContractFiles(contracts)}</article>`;
   }
 
   function renderParent(container, student) {
@@ -1658,7 +1479,6 @@
         </article>
 
         ${_renderContractsCard(student)}
-        ${_renderExternalPlatformsCard(student)}
 
         ${_renderLessonsCard(student, { interactive: false })}
       </div>

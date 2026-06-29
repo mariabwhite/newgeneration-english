@@ -861,19 +861,7 @@ body.light .lab-card {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 16px;
   margin-bottom: 28px;
-  align-items: start;
 }
-
-/* EXTERNAL PLATFORMS — links to outside platforms (Progressme etc) */
-.cab-platforms-list { display: grid; gap: 10px; margin-top: 8px; }
-.cab-platform-link { display: flex; align-items: center; gap: 12px; padding: 12px 16px;
-  background: var(--bg-card-2, rgba(0,0,0,.03)); border: 1px solid var(--line); border-radius: 12px;
-  text-decoration: none; color: inherit; transition: .15s; }
-.cab-platform-link:hover { transform: translateX(2px); border-color: var(--accent, #0e7c66);
-  background: var(--accent-soft, rgba(14,124,102,.10)); }
-.cab-platform-name { font-weight: 800; font-size: .98rem; }
-.cab-platform-note { font-size: .82rem; color: var(--muted, #666); margin-top: 2px; flex: 1; }
-.cab-platform-arrow { font-size: 1.2rem; color: var(--accent, #0e7c66); font-weight: 700; margin-left: auto; }
 
 .cab-card {
   background: var(--bg-card);
@@ -1504,23 +1492,20 @@ body.light .cab-bank-details .cab-card-row { border-color: rgba(0, 0, 0, 0.08); 
 .cab-lesson-hw {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  border-radius: 50px;
-  background: linear-gradient(135deg, #FF7A45, #FF5A1F);
-  color: #fff;
-  font-size: 12px;
-  font-weight: 800;
+  padding: 3px 9px;
+  border-radius: 6px;
+  background: rgba(255, 90, 31, 0.14);
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 700;
   text-decoration: none;
-  letter-spacing: 0.04em;
-  box-shadow: 0 3px 10px rgba(255, 90, 31, 0.32);
-  transition: transform 0.16s, box-shadow 0.16s;
+  letter-spacing: 0.02em;
+  transition: background 0.15s ease;
   white-space: nowrap;
 }
 
 .cab-lesson-hw:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(255, 90, 31, 0.45);
+  background: rgba(255, 90, 31, 0.26);
 }
 
 .cab-lesson-hw--text {
@@ -1590,41 +1575,62 @@ body.light .cab-bank-details .cab-card-row { border-color: rgba(0, 0, 0, 0.08); 
   white-space: nowrap;
 }
 
+/* external platforms card (pinned links) */
+.cab-card--platforms { background: linear-gradient(135deg, rgba(255,90,31,.08), rgba(255,193,69,.06)); border: 1px solid rgba(255,90,31,.35); }
+.cab-card--platforms h3 { color: var(--accent); }
+.cab-platforms-list { display:flex; flex-direction:column; gap:10px; margin-top:8px; }
+.cab-platform-link { display:flex; flex-direction:column; gap:4px; padding:12px 14px; background:#fff; border:1px solid rgba(255,90,31,.3); border-radius:10px; text-decoration:none; color:var(--text); transition:.18s; }
+.cab-platform-link:hover { border-color:var(--accent); background:rgba(255,90,31,.05); transform:translateX(2px); }
+.cab-platform-name { font-weight:800; font-size:14px; color:var(--accent); }
+.cab-platform-note { font-size:12px; color:var(--muted); line-height:1.5; }
+body.dark .cab-platform-link { background:rgba(0,0,0,.15); color:#fff; }
+
 /* status variants */
 .cab-lesson-row.is-completed {
-  border-color: rgba(43, 182, 115, 0.35);
-  background: rgba(43, 182, 115, 0.06);
+  border-color: rgba(43, 182, 115, 0.6);
+  background: rgba(43, 182, 115, 0.14);
 }
 .cab-lesson-row.is-completed .cab-lesson-num {
-  color: #2BB673;
-  border-color: rgba(43, 182, 115, 0.4);
+  color: #1a8f56;
+  border-color: rgba(43, 182, 115, 0.65);
+  background: rgba(43, 182, 115, 0.18);
+  font-weight: 800;
 }
 .cab-lesson-row.is-completed .cab-lesson-badge {
-  background: rgba(43, 182, 115, 0.16);
-  color: #2BB673;
+  background: rgba(43, 182, 115, 0.28);
+  color: #1a8f56;
+  font-weight: 700;
 }
 
 .cab-lesson-row.is-today {
   border-color: var(--accent);
-  background: rgba(255, 90, 31, 0.08);
-  box-shadow: 0 0 0 1px rgba(255, 90, 31, 0.25);
+  background: rgba(255, 90, 31, 0.14);
+  box-shadow: 0 0 0 2px rgba(255, 90, 31, 0.35);
 }
 .cab-lesson-row.is-today .cab-lesson-badge {
-  background: rgba(255, 90, 31, 0.18);
+  background: rgba(255, 90, 31, 0.28);
   color: var(--accent);
+  font-weight: 800;
 }
 
 .cab-lesson-row.is-pending {
-  border-color: rgba(255, 193, 69, 0.4);
-  background: rgba(255, 193, 69, 0.05);
+  border-color: rgba(255, 193, 69, 0.65);
+  background: rgba(255, 193, 69, 0.14);
 }
 .cab-lesson-row.is-pending .cab-lesson-badge {
-  background: rgba(255, 193, 69, 0.18);
-  color: #FFC145;
+  background: rgba(255, 193, 69, 0.30);
+  color: #b88420;
+  font-weight: 700;
 }
 
 .cab-lesson-row.is-future {
-  opacity: 0.6;
+  opacity: 0.95;
+  border-color: rgba(255, 193, 69, 0.45);
+  background: rgba(255, 193, 69, 0.08);
+}
+.cab-lesson-row.is-future .cab-lesson-badge {
+  background: rgba(255, 193, 69, 0.22);
+  color: #b88420;
 }
 
 .cab-lesson-row.is-missed {
@@ -2035,7 +2041,6 @@ body.light .cab-hw-allgreen { color: #1a6a3a; }
   font-size: 13px;
   line-height: 1.55;
   color: var(--text-2);
-  white-space: pre-line;
 }
 
 .cab-hw-link {
@@ -2118,85 +2123,6 @@ body.light .cab-hw-allgreen { color: #1a6a3a; }
   color: var(--text-2, #6b6560);
   margin: 6px 0 14px;
   line-height: 1.55;
-}
-
-.cab-recap-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  flex-wrap: wrap;
-  margin-bottom: 4px;
-}
-.cab-recap-head h3 {
-  margin: 0;
-}
-.cab-recap-hw-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: linear-gradient(135deg, #FF7A45, #FF5A1F);
-  color: #fff;
-  padding: 9px 16px;
-  border-radius: 50px;
-  font-size: 0.86rem;
-  font-weight: 700;
-  text-decoration: none;
-  letter-spacing: 0.01em;
-  box-shadow: 0 4px 14px rgba(255, 90, 31, 0.32);
-  transition: transform 0.16s, box-shadow 0.16s;
-  white-space: nowrap;
-}
-.cab-recap-hw-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(255, 90, 31, 0.42);
-}
-.cab-recap-hw-btn--text {
-  background: #f3f4f6;
-  color: #444;
-  box-shadow: none;
-  cursor: default;
-}
-.cab-recap-meta {
-  font-family: var(--font-mono, "JetBrains Mono", monospace);
-  font-size: 0.74rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #888;
-  font-weight: 700;
-  margin-bottom: 10px;
-}
-.cab-recap-topic {
-  font-weight: 800;
-  font-size: 1.02rem;
-  color: var(--ink, #1a1a1a);
-  margin-bottom: 12px;
-  line-height: 1.4;
-}
-.cab-recap-body {
-  font-size: 0.96rem;
-  line-height: 1.7;
-  color: #2a2a2a;
-  background: linear-gradient(135deg, #fffaef, #fff5dc);
-  border-left: 4px solid #FF7A45;
-  border-radius: 4px 10px 10px 4px;
-  padding: 14px 18px;
-}
-
-.cab-contract-warn {
-  margin: 12px 0 0;
-  padding: 9px 13px;
-  background: rgba(220, 38, 38, 0.08);
-  border-left: 3px solid #DC2626;
-  border-radius: 4px 8px 8px 4px;
-  color: #B91C1C;
-  font-size: 0.82rem;
-  line-height: 1.5;
-  font-family: var(--font-body, system-ui, sans-serif);
-}
-.cab-contract-warn strong {
-  color: #991B1B;
-  font-weight: 700;
 }
 
 .cab-contract-files {

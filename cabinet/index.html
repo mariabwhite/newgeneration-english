@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <meta name="description" content="Вход в кабинет — New Generation English">
 <link rel="icon" type="image/svg+xml" href="data:," id="nofavicon">
 <title>Вход · NG English</title>
@@ -10,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@500;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./system.css?v=36">
-<link rel="stylesheet" href="./cabinet.css?v=26">
+<link rel="stylesheet" href="./cabinet.css?v=26568">
 </head>
 <body data-page="cabinet-login">
 <script>
@@ -46,8 +49,20 @@
       <div class="cab-login-error" id="loginError">Не подошло. Проверьте PIN или пароль.</div>
     </form>
 
+    <div style="margin:24px 0 18px;text-align:center;color:var(--cab-muted, #888);font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;font-family:'JetBrains Mono', monospace;">
+      — или —
+    </div>
+
+    <form id="emailForm" autocomplete="off">
+      <input id="emailInput" type="email" placeholder="ваш email" maxlength="120" required>
+      <button type="submit">Прислать ссылку для входа</button>
+      <div class="cab-login-error" id="emailError" style="display:none">—</div>
+      <div class="cab-login-error" id="emailOk" style="display:none;color:#4caf50">✓ Письмо отправлено. Откройте почту и кликните по ссылке.</div>
+    </form>
+
     <p class="cab-login-hint">
-      Забыли PIN? Напишите Марии в <a href="https://t.me/MariaBurceva_English" target="_blank" rel="noreferrer">Telegram</a>.
+      Забыли PIN? Напишите Марии в <a href="https://t.me/MariaBurceva_English" target="_blank" rel="noreferrer">Telegram</a>.<br>
+      Вход по email — ссылка приходит на почту, не нужно помнить пароль.
     </p>
   </section>
 
@@ -88,7 +103,10 @@
     </p>
   </section>
 </main>
-<script src="./cabinet.js?v=33"></script>
+
+<script src="./data.js?v=69"></script>
+<script src="./cabinet.js?v=7387"></script>
+<script src="./supabase-client.js?v=1"></script>
 <script>
   (function () {
     var btn = document.getElementById("themeToggle");
@@ -164,8 +182,33 @@
     document.getElementById("loginCode").focus();
   });
 
-  /* Email magic-link removed in v3 (encrypted-vault architecture) —
-     access is via PIN/password only, which derives the vault decryption key. */
+  // ----------- Email magic-link login (Supabase Auth) -----------
+  // Авто-редирект если уже залогинен — убран чтобы избежать loops
+  // если профиль/роль не отдаёт корректный путь.
+
+  document.getElementById("emailForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    var emailEl = document.getElementById("emailInput");
+    var errEl = document.getElementById("emailError");
+    var okEl = document.getElementById("emailOk");
+    var btn = e.target.querySelector("button[type=submit]");
+    errEl.style.display = "none";
+    okEl.style.display = "none";
+    btn.disabled = true;
+    btn.textContent = "Отправляю…";
+    try {
+      var redirectTo = location.origin + location.pathname.replace(/[^\/]+$/, "") + "auth-callback.html";
+      var res = await window.NGESupa.sendMagicLink(emailEl.value.trim(), redirectTo);
+      if (res && res.error) throw res.error;
+      okEl.style.display = "";
+    } catch (err) {
+      errEl.textContent = "Ошибка: " + (err && err.message ? err.message : err);
+      errEl.style.display = "";
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Прислать ссылку для входа";
+    }
+  });
 </script>
 
 <footer class="footer legal-footer">
