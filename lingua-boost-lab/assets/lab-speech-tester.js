@@ -32,13 +32,18 @@
     var s = document.createElement('style');
     s.id = 'lab-coach-style';
     s.textContent = ''+
-      '.lab-coach-section{margin:24px auto !important;padding:20px 24px !important;border-radius:16px !important;'+
+      '.lab-coach-section{margin-left:auto !important;margin-right:auto !important;margin-top:24px !important;margin-bottom:24px !important;'+
+        'padding:20px 24px !important;border-radius:16px !important;'+
         'background:var(--card, var(--surface, #1b232d)) !important;'+
         'border:1px solid var(--line, color-mix(in srgb, var(--accent, #fbbf24) 35%, transparent)) !important;'+
         'color:var(--text, #f3eee5) !important;font-family:"Manrope",sans-serif !important;'+
-        'max-width:1240px !important;width:calc(100% - 32px) !important;display:block !important;box-sizing:border-box !important;'+
+        'max-width:1240px !important;width:calc(100% - 32px) !important;'+
+        'display:block !important;box-sizing:border-box !important;'+
+        'align-self:center !important;justify-self:center !important;'+
+        'position:relative !important;left:auto !important;right:auto !important;'+
+        'float:none !important;clear:both !important;transform:none !important;'+
         'box-shadow:0 8px 28px rgba(0,0,0,.18)}'+
-      '@media(max-width:600px){.lab-coach-section{margin:14px auto !important;padding:14px !important;width:calc(100% - 16px) !important}}'+
+      '@media(max-width:600px){.lab-coach-section{margin-top:14px !important;margin-bottom:14px !important;padding:14px !important;width:calc(100% - 16px) !important}}'+
       '.lc-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:18px;align-items:start}'+
       '@media(max-width:780px){.lc-grid{grid-template-columns:1fr}}'+
       '.lc-crit-h{font:800 .78rem/1 "JetBrains Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--accent, #fbbf24);margin-bottom:10px;opacity:.85}'+
@@ -310,7 +315,7 @@
     section.className = 'section lab-coach-section';
     section.id = 'lab-speech-coach';
     // Inline style — единая ширина 1240 по body как у lab-total и vocab
-    section.style.cssText = 'max-width:1240px;margin:24px auto;padding:20px clamp(16px,3vw,28px);box-sizing:border-box';
+    section.style.cssText = 'max-width:1240px;width:calc(100% - 32px);margin-left:auto;margin-right:auto;margin-top:24px;margin-bottom:24px;padding:20px clamp(16px,3vw,28px);box-sizing:border-box;display:block;align-self:center;justify-self:center;float:none;clear:both;position:relative;left:auto;right:auto;transform:none'
     section.innerHTML =
       '<div class="lab-coach-toggle">'+
         '<h2>🎙 Speech Coach · record yourself and get instant feedback</h2>'+
@@ -370,6 +375,17 @@
     } else {
       document.body.appendChild(section);
     }
+    // Hot-fix: если родитель flex/grid и алайн не center — wrap в центрирующий div
+    try {
+      var p = section.parentElement;
+      if (p) {
+        var cs = getComputedStyle(p);
+        if (cs.display === 'flex' || cs.display === 'grid') {
+          section.style.alignSelf = 'center';
+          section.style.justifySelf = 'center';
+        }
+      }
+    } catch(_){}
   }
 
   function loadInlineConfig(){
@@ -389,7 +405,7 @@
     state.task = cfg.task;
     var section = document.createElement('section');
     section.className = 'section lab-coach-section';
-    section.style.cssText = 'max-width:1240px;margin:24px auto;padding:20px clamp(16px,3vw,28px);box-sizing:border-box';
+    section.style.cssText = 'max-width:1240px;width:calc(100% - 32px);margin-left:auto;margin-right:auto;margin-top:24px;margin-bottom:24px;padding:20px clamp(16px,3vw,28px);box-sizing:border-box;display:block;align-self:center;justify-self:center;float:none;clear:both;position:relative;left:auto;right:auto;transform:none'
     section.innerHTML = '';
     document.body.insertBefore(section, document.body.firstChild); // tmp position
     // Reuse buildUI rendering by calling it; but it inserts at end. Workaround:
