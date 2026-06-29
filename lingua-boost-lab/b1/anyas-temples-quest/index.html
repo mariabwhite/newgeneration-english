@@ -781,6 +781,51 @@ footer .by{display:block;margin-top:6px;font-size:.7rem;opacity:.8}
       {"text":"Look at those grey clouds above Varanasi — it is going to rain tonight.","tense":"goingto"}
     ]</script>
   </div>
+
+  <!-- Mini follow-up MCQ after the sort: pick the correct verb form -->
+  <div class="card paper" style="margin-top:14px">
+    <h3 style="font-family:var(--display);font-weight:800;font-size:1rem;color:var(--accent);margin-bottom:10px;letter-spacing:-.01em">After-detective check · 6 quick MCQs</h3>
+    <p style="font-size:.88rem;color:var(--muted);font-family:var(--serif);margin-bottom:12px;font-style:italic">Same kind of sentences, but now you build them. Pick the form that fits the time word.</p>
+    <div class="tense-mcq">
+
+      <div class="mcq-row" data-ans="a">
+        <div class="mcq-q">1. The Golden Temple ___ free meals to over 100,000 people every single day.</div>
+        <div class="mcq-opts"><button data-v="a">serves</button><button data-v="b">is serving</button><button data-v="c">has served</button></div>
+        <div class="mcq-note">→ "every single day" = routine → <strong>Present Simple</strong></div>
+      </div>
+
+      <div class="mcq-row" data-ans="b">
+        <div class="mcq-q">2. Look — right now a monk ___ a candle in front of the Reclining Buddha.</div>
+        <div class="mcq-opts"><button data-v="a">lights</button><button data-v="b">is lighting</button><button data-v="c">has been lighting</button></div>
+        <div class="mcq-note">→ "right now" = action in progress → <strong>Present Continuous</strong></div>
+      </div>
+
+      <div class="mcq-row" data-ans="c">
+        <div class="mcq-q">3. Anya ___ four sacred sites already on this trip.</div>
+        <div class="mcq-opts"><button data-v="a">visits</button><button data-v="b">is visiting</button><button data-v="c">has visited</button></div>
+        <div class="mcq-note">→ "already" + count = result → <strong>Present Perfect</strong></div>
+      </div>
+
+      <div class="mcq-row" data-ans="c">
+        <div class="mcq-q">4. Pilgrims ___ to the Ganges for more than three thousand years.</div>
+        <div class="mcq-opts"><button data-v="a">come</button><button data-v="b">have come</button><button data-v="c">have been coming</button></div>
+        <div class="mcq-note">→ "for more than 3000 years" + still going → <strong>Present Perfect Continuous</strong></div>
+      </div>
+
+      <div class="mcq-row" data-ans="a">
+        <div class="mcq-q">5. — I'm tired. — Sit down, I ___ get you some tea right now.</div>
+        <div class="mcq-opts"><button data-v="a">'ll</button><button data-v="b">'m going to</button><button data-v="c">am</button></div>
+        <div class="mcq-note">→ decision made at the moment of speaking → <strong>WILL</strong></div>
+      </div>
+
+      <div class="mcq-row" data-ans="b">
+        <div class="mcq-q">6. Anya has packed her backpack — tomorrow she ___ fly to Amritsar.</div>
+        <div class="mcq-opts"><button data-v="a">will</button><button data-v="b">is going to</button><button data-v="c">flies</button></div>
+        <div class="mcq-note">→ a plan made BEFORE (backpack ready) → <strong>BE GOING TO</strong></div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
 <!-- ════════════════════════════════════════════════════════════════════ -->
@@ -1624,7 +1669,11 @@ function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.rando
     dot.className = 'map-dot';
     dot.dataset.idx = idx;
     dot.innerHTML = `
-      <img class="postcard-thumb" src="assets/img/${s.img}" alt="${s.city}, ${s.country}">
+      <div class="dot-card" style="aspect-ratio:485/345;background:linear-gradient(135deg,var(--card-2),var(--paper));display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;padding:14px;text-align:center">
+        <div style="font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent2);font-weight:800">${s.country}</div>
+        <div style="font-family:var(--serif);font-style:italic;font-size:1.02rem;color:var(--text);line-height:1.2">${s.city}</div>
+        <button class="play" type="button" data-say="${s.city}" style="background:var(--accent);color:var(--paper);border:none;border-radius:50%;width:30px;height:30px;font-size:.78rem;cursor:pointer;display:grid;place-items:center;box-shadow:0 2px 8px rgba(139,63,31,.22)">▶</button>
+      </div>
       <div class="hint-overlay">${s.hint}</div>
     `;
     grid.appendChild(dot);
