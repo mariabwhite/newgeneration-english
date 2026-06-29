@@ -329,7 +329,7 @@ footer .by{display:block;margin-top:6px;font-size:.7rem;opacity:.8}
 
 <!-- ===== HERO ===== -->
 <div class="lab-hero">
-  <img class="hero-banner" src="assets/img/hero-temples-quest.png?v=1" alt="Anya's Temples Quest · six sacred stones, one expedition. An 11-year-old girl in a traveller's outfit with a leather notebook, surrounded by tiny illustrations of Hagia Sophia, the Western Wall (Jerusalem), the Pyramids of Cairo, Varanasi temples, the Golden Temple of Amritsar and Wat Pho in Bangkok. B1 · 90 min · all four present tenses + will + going to." style="width:100%;height:auto;display:block">
+  <img class="hero-banner" src="assets/img/hero-temples-quest.png?v=3" alt="Anya's Temples Quest · six sacred stones, one expedition. A girl with a pink hoodie and a travel notebook sits at a desk full of sketches, a compass and postcards. Around her, dreamy clouds show six sacred buildings: the Taj Mahal, the Golden Temple, the Blue Mosque, Varanasi ghats at sunset, a Chinese-Thai temple, an Indian gopuram." style="width:100%;height:auto;display:block">
 </div>
 
 <!-- ===== META ===== -->
@@ -1463,8 +1463,10 @@ footer .by{display:block;margin-top:6px;font-size:.7rem;opacity:.8}
   </div>
   <div class="section-sub">Read the short story below at your own pace. Press ▶ on any line to hear it. Then do the two mini-tasks under the text: <strong>A.</strong> five True/False questions, <strong>B.</strong> five grammar gaps — pick the right tense.</div>
 
-  <div class="card paper">
-    <div class="diary" style="font-style:normal">
+  <div class="card paper" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start">
+    <style>@media(max-width:780px){#sec-9 .card.paper:first-of-type{grid-template-columns:1fr !important}}</style>
+    <img src="assets/img/nine-tailed-fox.png?v=1" alt="The Legend of the Nine-Tailed Fox — a Japanese folktale illustration. A magnificent white fox with nine glowing tails sits on a stone lantern beside a temple at night, full moon above, red lanterns, cherry blossoms, a wooden torii gate in the background." style="display:block;width:100%;height:auto;border-radius:12px;box-shadow:0 6px 20px rgba(74,122,165,.18);position:sticky;top:14px">
+    <div class="diary" style="font-style:normal;margin:0;padding:18px 22px">
       <p style="font-family:var(--serif);font-style:italic;color:var(--accent2);margin-bottom:14px"><button class="play" data-say="The Fox at the Temple Gate. A short story.">▶</button> <strong>The Fox at the Temple Gate</strong></p>
 
       <p><button class="play" data-say="Every morning at half past five, a small red fox visits the back gate of the Wat Pho temple in Bangkok. The monks have been seeing her for nearly six years now. They do not know where she comes from, but they always leave a small bowl of rice and water for her under the wooden door.">▶</button> Every morning at half past five, a small red <strong>fox</strong> visits the back gate of the Wat Pho temple in Bangkok. The monks <strong>have been seeing</strong> her for nearly six years now. They do not know where she comes from, but they always leave a small bowl of rice and water for her under the wooden door.</p>
@@ -1672,11 +1674,8 @@ function shuffle(a){ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.rando
     dot.className = 'map-dot';
     dot.dataset.idx = idx;
     dot.innerHTML = `
-      <div class="dot-card" style="aspect-ratio:485/345;background:linear-gradient(135deg,var(--card-2),var(--paper));display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;padding:14px;text-align:center">
-        <div style="font-family:var(--mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent2);font-weight:800">${s.country}</div>
-        <div style="font-family:var(--serif);font-style:italic;font-size:1.02rem;color:var(--text);line-height:1.2">${s.city}</div>
-        <button class="play" type="button" data-say="${s.city}" style="background:var(--accent);color:var(--paper);border:none;border-radius:50%;width:30px;height:30px;font-size:.78rem;cursor:pointer;display:grid;place-items:center;box-shadow:0 2px 8px rgba(139,63,31,.22)">▶</button>
-      </div>
+      <img class="postcard-thumb" src="assets/img/${s.img}" alt="${s.city}, ${s.country}">
+      <div class="dot-label" style="padding:8px 10px;text-align:center;background:var(--paper);border-top:1px dashed var(--line);font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2);font-weight:800;line-height:1.3">${s.city}</div>
       <div class="hint-overlay">${s.hint}</div>
     `;
     grid.appendChild(dot);
