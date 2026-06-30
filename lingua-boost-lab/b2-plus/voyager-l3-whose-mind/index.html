@@ -715,6 +715,221 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
   <div class="speech-tracker" data-mode="olympiad" data-max-sec="120" data-title="Voyager L3 · Speaking re-take · 2 min monologue"></div>
 </section>
 
+<!-- ═══════════ SPEAK MISSION · 3 questions + WPM + recorder ═══════════ -->
+<style>
+.speak-mission{margin:40px auto;max-width:1240px;padding:0 clamp(16px,3vw,28px);position:relative;z-index:2}
+.speak-card{background:var(--card);border:1px solid var(--line-2);border-radius:18px;padding:clamp(20px,3vw,32px);box-shadow:0 12px 40px rgba(0,0,0,.32),0 0 0 1px var(--line) inset;position:relative;overflow:hidden}
+.speak-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--brand),var(--neural));border-radius:18px 18px 0 0}
+.speak-card-hdr{display:flex;align-items:center;gap:14px;margin-bottom:10px;flex-wrap:wrap}
+.speak-num{background:var(--brand);color:#fff;border-radius:8px;padding:5px 12px;font:800 11px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase}
+.speak-card-hdr h2{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(1.2rem,2.4vw,1.55rem);color:var(--text);letter-spacing:-.01em}
+.speak-sub{font-size:.94rem;color:var(--muted);margin-bottom:22px;line-height:1.6}
+.speak-sub strong{color:var(--accent-2)}
+.speak-q{background:var(--surface);border-left:3px solid var(--brand);border-radius:0 12px 12px 0;padding:14px 18px;margin:20px 0 10px;font-family:var(--display);font-size:clamp(1rem,1.5vw,1.08rem);line-height:1.55;color:var(--text);font-weight:500}
+.speak-q .q-num{font-family:var(--mono);font-weight:800;color:var(--brand-2);margin-right:10px;font-size:.78rem;letter-spacing:.18em}
+.speak-q strong{color:var(--accent-2);font-weight:700}
+.mic-row{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;background:var(--surface-2);border:1px solid var(--line-2);border-radius:12px;padding:14px 16px;margin:10px 0;transition:border-color .15s}
+.mic-row:focus-within,.mic-row:hover{border-color:var(--line-3)}
+.mic-text{font-size:.92rem;line-height:1.5;color:var(--text)}
+.mic-text strong{color:var(--brand-2);font-weight:700}
+.mic-meta{display:flex;flex-direction:column;align-items:flex-end;gap:2px;font:700 11px/1.4 var(--mono);color:var(--muted);min-width:110px;text-align:right}
+.mic-feedback{color:var(--brand-2);font-weight:800}
+.mic-transcript{font-style:italic;color:var(--brand-2);font-size:.86rem;margin-top:10px;grid-column:1 / -1;border-top:1px dashed var(--line-2);padding-top:10px;line-height:1.6;min-height:1.2em}
+.mic-btn{padding:11px 20px;border-radius:10px;border:none;background:var(--brand);color:#fff;font:800 11px/1 var(--mono);cursor:pointer;text-transform:uppercase;letter-spacing:.14em;box-shadow:0 0 0 0 var(--brand);transition:.15s}
+.mic-btn:hover{background:var(--brand-2);box-shadow:0 0 24px rgba(160,127,255,.40)}
+.mic-btn.rec{background:var(--miss);color:#fff;animation:pulse-mic 1.2s infinite}
+@keyframes pulse-mic{0%,100%{box-shadow:0 0 0 0 rgba(255,92,114,.55)}50%{box-shadow:0 0 0 14px rgba(255,92,114,0)}}
+.tts-q-btn{padding:7px 12px;border:1px solid var(--neural);background:transparent;color:#f4b8de;border-radius:8px;font:700 10px/1 var(--mono);cursor:pointer;letter-spacing:.14em;text-transform:uppercase;margin-left:10px;vertical-align:middle;transition:.15s}
+.tts-q-btn:hover{background:var(--neural);color:#fff}
+.speak-sample-toggle{margin-top:22px;padding:12px 22px;background:transparent;border:1px dashed var(--brand);color:var(--brand-2);border-radius:10px;font:800 11px/1 var(--mono);cursor:pointer;letter-spacing:.16em;text-transform:uppercase;transition:.15s}
+.speak-sample-toggle:hover{background:var(--surface);color:var(--accent)}
+.speak-sample{display:none;margin-top:14px;padding:18px 20px;background:var(--surface);border-radius:12px;border:1px solid var(--line-2);font-family:var(--body);font-size:.94rem;line-height:1.7;white-space:pre-line;color:var(--text)}
+.speak-sample.show{display:block}
+.speak-tip{font-size:.86rem;color:var(--muted);margin-top:18px;padding:12px 16px;background:rgba(160,127,255,.07);border:1px solid var(--line);border-radius:10px;line-height:1.6}
+.speak-tip strong{color:var(--accent-2)}
+@media(max-width:640px){
+  .mic-row{grid-template-columns:1fr}
+  .mic-meta{align-items:flex-start;text-align:left}
+  .tts-q-btn{display:inline-block;margin:8px 0 0}
+}
+</style>
+
+<section class="speak-mission" id="speak-mission">
+  <div class="speak-card">
+    <div class="speak-card-hdr">
+      <span class="speak-num">SPEAK</span>
+      <h2>🎙 Mission · Three questions, your voice on record</h2>
+    </div>
+    <p class="speak-sub">Goal: 60–90 seconds per answer · target 130–160 words per minute · use the vocab cards from this lesson. Click <strong>🔊 Listen</strong> to hear the question, then <strong>🎙 Record</strong> and speak. WPM and transcript appear automatically.</p>
+
+    <div class="speak-q">
+      <span class="q-num">Q1</span>
+      Theo's body has not moved in three years, yet Naomi's data shows his mind is still wound. <strong>Who, in your view, should now have the right to speak for Theo — his wife, his doctors, his lawyer, or no one at all — and why?</strong>
+      <button class="tts-q-btn" type="button" data-tts="Theo's body has not moved in three years, yet Naomi's data shows his mind is still wound. Who, in your view, should now have the right to speak for Theo — his wife, his doctors, his lawyer, or no one at all — and why?">🔊 Listen</button>
+    </div>
+    <div class="mic-row" data-q="1">
+      <div class="mic-text"><strong>Speak now (60–90 s):</strong> who · why them · one objection from the other side · how you would limit their authority.</div>
+      <div class="mic-meta">
+        <div class="mic-feedback" id="sp-fb-1">— ready —</div>
+      </div>
+      <button class="mic-btn" type="button" data-mic="1">🎙 Record</button>
+      <div class="mic-transcript" id="sp-tr-1"></div>
+    </div>
+
+    <div class="speak-q">
+      <span class="q-num">Q2</span>
+      Suppose a clinic offered you a chip that could read one other person's mind — but only one — for sixty seconds, once in your life. <strong>Whose mind would you read, and would you tell them you had been inside?</strong>
+      <button class="tts-q-btn" type="button" data-tts="Suppose a clinic offered you a chip that could read one other person's mind for sixty seconds, once in your life. Whose mind would you read, and would you tell them you had been inside?">🔊 Listen</button>
+    </div>
+    <div class="mic-row" data-q="2">
+      <div class="mic-text"><strong>Speak now (60–90 s):</strong> who · what you most want to learn · whether you would confess · what you fear they would do.</div>
+      <div class="mic-meta">
+        <div class="mic-feedback" id="sp-fb-2">— ready —</div>
+      </div>
+      <button class="mic-btn" type="button" data-mic="2">🎙 Record</button>
+      <div class="mic-transcript" id="sp-tr-2"></div>
+    </div>
+
+    <div class="speak-q">
+      <span class="q-num">Q3</span>
+      Naomi can release her findings tomorrow morning to the world's press, or wait six months for peer review while Theo lies in his bed. <strong>Which path would you choose for her, and which one principle do you put first — speed, certainty, or Theo himself?</strong>
+      <button class="tts-q-btn" type="button" data-tts="Naomi can release her findings tomorrow morning, or wait six months for peer review while Theo lies in his bed. Which path would you choose for her, and which one principle do you put first — speed, certainty, or Theo himself?">🔊 Listen</button>
+    </div>
+    <div class="mic-row" data-q="3">
+      <div class="mic-text"><strong>Speak now (60–90 s):</strong> the path · the principle · the cost you accept · what would change your mind.</div>
+      <div class="mic-meta">
+        <div class="mic-feedback" id="sp-fb-3">— ready —</div>
+      </div>
+      <button class="mic-btn" type="button" data-mic="3">🎙 Record</button>
+      <div class="mic-transcript" id="sp-tr-3"></div>
+    </div>
+
+    <div class="speak-q" style="border-left-color:var(--neural);background:rgba(217,70,160,.06)">
+      <span class="q-num" style="color:#f4b8de">CHALLENGE A · Devil's advocate</span>
+      Now take the <strong>opposite</strong> position to your own answer in Q1 — and defend it as if you believed it. <strong>Sixty seconds.</strong>
+      Use these five vocab cards at least once each: <em>consciousness · witness · override · consent · evidence</em>.
+      <button class="tts-q-btn" type="button" data-tts="Now take the opposite position to your own answer in question one, and defend it as if you believed it. Sixty seconds. Use these five vocab cards at least once each: consciousness, witness, override, consent, evidence.">🔊 Listen</button>
+    </div>
+    <div class="mic-row" data-q="4">
+      <div class="mic-text"><strong>Speak now (60 s):</strong> opposite stance · two reasons for it · concede where your old position was right · finish with one sentence that begins «In fact, …».</div>
+      <div class="mic-meta">
+        <div class="mic-feedback" id="sp-fb-4">— ready —</div>
+      </div>
+      <button class="mic-btn" type="button" data-mic="4">🎙 Record</button>
+      <div class="mic-transcript" id="sp-tr-4"></div>
+    </div>
+
+    <div class="speak-q" style="border-left-color:var(--accent);background:rgba(245,200,66,.06)">
+      <span class="q-num" style="color:var(--accent-2)">CHALLENGE B · The press conference</span>
+      You <em>are</em> Naomi. Ninety minutes before the press conference, you record a ninety-second opening statement. <strong>Ninety seconds.</strong>
+      Grammar gate (at least one of each): <em>reported speech</em> («Theo had said that…»), <em>perfect modal</em> («we should have noticed…»), <em>emphatic inversion</em> («Never had we…»).
+      <button class="tts-q-btn" type="button" data-tts="You are Naomi. Ninety minutes before the press conference, you record a ninety-second opening statement. Grammar gate: at least one reported speech, one perfect modal, and one emphatic inversion.">🔊 Listen</button>
+    </div>
+    <div class="mic-row" data-q="5">
+      <div class="mic-text"><strong>Speak now (90 s) — four beats:</strong> what happened · what is scientifically certain · what it means for Theo as a person · what you ask of the room.</div>
+      <div class="mic-meta">
+        <div class="mic-feedback" id="sp-fb-5">— ready —</div>
+      </div>
+      <button class="mic-btn" type="button" data-mic="5">🎙 Record</button>
+      <div class="mic-transcript" id="sp-tr-5"></div>
+    </div>
+
+    <button class="speak-sample-toggle" type="button" id="speak-sample-toggle">Show sample answers (after your own attempt)</button>
+    <div class="speak-sample" id="speak-sample">
+Q1 — Who speaks for Theo.
+For the moment I'd give that right to his wife — but with a strict guard-rail. She knew him before the accident, she has watched him for three years, and she has nothing to gain that he himself wouldn't have wanted. The doctors can authenticate the signal, but only she can authenticate the man. My limit: any decision that is final — turning off support, releasing his name, agreeing to surgery — has to be co-signed by an independent ethics panel. One objection I hear is that grief makes families unreliable narrators; my answer is that strangers in white coats make even worse ones, because they have a method but no memory of who the patient was.
+
+Q2 — One mind for sixty seconds.
+I think I would read my mother's mind, not when she is alive, but on the last evening before I leave home for good. Sixty seconds — that's enough for one feeling and one sentence. What I would want to learn is not her secret but her version of me: how she actually sees the daughter she is letting go of. Would I tell her afterwards? No. I'd carry it. To confess would shift the weight onto her, and the entire point of the chip would have been a private correction of my own picture, not a renegotiation of hers.
+
+Q3 — Release now, or wait six months.
+I would choose to wait, but only on one condition — that Theo himself, through the channel we have, is asked. The principle I put first is Theo, not speed and not certainty. Speed buys reputation for Naomi but exposes him to a circus he can't refuse; certainty serves science but treats him as a data point. If Theo blinks "go", we go on Monday. If he blinks "wait", we wait, even if it costs the discovery. What would change my mind: if a slower rival lab were about to publish first — then publication protects him, because it puts his name on his own evidence.
+
+CHALLENGE A — Devil's advocate (opposite to Q1).
+Suppose I argued the opposite — that no one, not even the wife, should have the right to speak for Theo. My first reason is consciousness: we now have evidence that he is awake, so a witness is no longer needed; he is his own witness. My second reason is consent: every signature she gives in his name is a small override of a man we have just learned can still think. Where my old position was right is the panic argument — Theo cannot file his own paperwork tomorrow, and somebody has to. In fact, my real conclusion is narrower than either side: she signs only what cannot wait, and everything else waits for him.
+
+CHALLENGE B — Naomi's ninety seconds.
+Ladies and gentlemen — three years ago Theo Marshall stopped answering us. Two months ago, I told my team that I had seen a pattern in his EEG that I could not explain. Today I can. Theo had said, in a paper he wrote before the accident, that he wanted his data released the moment the data spoke. The data has spoken. We should have caught the signal earlier — eleven weeks earlier, to be precise — and that delay is on this lab. Never had any of us seen a sentence assembled this slowly, one blink at a time, by a man we had assumed silent. The sentence is short: "Mind is still wound." I am not here to ask you to celebrate. I am here to ask you to be patient — with Theo, with the science, and with the family that has carried this longer than any of us.
+    </div>
+
+    <div class="speak-tip">
+      💡 Норма WPM для B2+: <strong>130–160 слов/мин</strong>. Меньше 100 — слишком медленно. Больше 180 — глотаешь окончания. Транскрипт под каждым ответом — твоё распознавание; если там «…» вместо слова, значит дикция размыта именно там.
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  // TTS for questions
+  document.querySelectorAll('.tts-q-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if (!window.speechSynthesis) return;
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(btn.dataset.tts || '');
+      var voices = window.speechSynthesis.getVoices().filter(function(v){ return /^en/i.test(v.lang); });
+      u.voice = voices.find(function(v){ return /uk|gb/i.test(v.lang); }) || voices[0] || null;
+      u.rate = 0.92; u.pitch = 1.0;
+      window.speechSynthesis.speak(u);
+    });
+  });
+
+  // Mic recorder + Web Speech recognition + WPM
+  function setupMic(qid){
+    var btn = document.querySelector('.mic-btn[data-mic="' + qid + '"]');
+    var fb = document.getElementById('sp-fb-' + qid);
+    var tr = document.getElementById('sp-tr-' + qid);
+    if (!btn) return;
+    var Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!Rec) { btn.disabled = true; btn.textContent = '🎙 N/A'; fb.textContent = 'Recognition not supported in this browser'; return; }
+    var rec = null, on = false, startTs = 0, finalText = '';
+    btn.addEventListener('click', function(){
+      if (on) { if (rec) rec.stop(); return; }
+      finalText = '';
+      tr.textContent = '';
+      rec = new Rec();
+      rec.lang = 'en-GB';
+      rec.interimResults = true;
+      rec.continuous = true;
+      rec.onstart = function(){
+        on = true; startTs = Date.now();
+        btn.classList.add('rec'); btn.textContent = '⏸ STOP';
+        fb.textContent = '● recording…';
+      };
+      rec.onend = function(){
+        on = false;
+        btn.classList.remove('rec'); btn.textContent = '🎙 Record';
+        var elapsed = (Date.now() - startTs) / 1000;
+        var words = (finalText.trim().match(/\b[\w'-]+\b/g) || []).length;
+        var wpm = elapsed > 0 ? Math.round(words / (elapsed / 60)) : 0;
+        var rating = wpm < 100 ? '🐌 slow' : (wpm > 180 ? '⚡ too fast' : '✅ on target');
+        fb.innerHTML = words + ' words · ' + Math.round(elapsed) + ' s<br>' +
+                       '<span style="color:var(--brand-2)">' + wpm + ' WPM</span> ' + rating;
+      };
+      rec.onerror = function(e){ fb.textContent = '⚠ ' + (e.error || 'error'); };
+      rec.onresult = function(e){
+        var interim = '';
+        for (var i = e.resultIndex; i < e.results.length; i++) {
+          if (e.results[i].isFinal) finalText += e.results[i][0].transcript + ' ';
+          else interim += e.results[i][0].transcript;
+        }
+        tr.textContent = (finalText + interim).trim();
+      };
+      rec.start();
+    });
+  }
+  setupMic(1); setupMic(2); setupMic(3); setupMic(4); setupMic(5);
+
+  var toggle = document.getElementById('speak-sample-toggle');
+  var sample = document.getElementById('speak-sample');
+  if (toggle && sample) {
+    toggle.addEventListener('click', function(){
+      sample.classList.toggle('show');
+      toggle.textContent = sample.classList.contains('show') ? 'Hide sample answers' : 'Show sample answers (after your own attempt)';
+    });
+  }
+})();
+</script>
+
 <!-- 7 · USE OF ENGLISH — Theo's blink-Morse -->
 <section class="section">
   <div class="section-hdr"><div class="section-num">07</div><h2>Use of English · decoding Theo's last message</h2></div>
@@ -778,8 +993,8 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
 
   <div class="card" style="margin-top:24px">
     <h3>Episode 3 of 4 · closing</h3>
-    <p>Three lessons, three signals: a watch wound the wrong way, a letter from Proxima, a mind still wound inside a still body. <strong>Voyager L4</strong> is the synthesis: the case Naomi has to make in front of an audience that does not believe her.</p>
-    <p style="color:var(--muted);font-style:italic;font-size:.96rem">Bring your homework. We open on the podium.</p>
+    <p>Three lessons, three signals: a watch wound the wrong way, a letter from Proxima, a mind still wound inside a still body. <strong>Voyager L4 · The night the letter arrived</strong> picks up the envelope you finish writing tonight — Theo reads it, and the room he is reading in turns out not to be empty.</p>
+    <p style="color:var(--muted);font-style:italic;font-size:.96rem">Finish the letter for homework. We open on the answer.</p>
   </div>
 </section>
 
@@ -821,12 +1036,12 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
     <span class="title">L2 · Are we alone? · Mia's signal</span>
   </a>
   <div class="voyager-nav-series">
-    <span class="badge">Voyager · 3 / 3</span>
+    <span class="badge">Voyager · 3 / 4</span>
     <span>Whose Mind?</span>
   </div>
-  <a class="voyager-nav-link next" href="../voyager-l4-watchmaker-paradox/" rel="next">
+  <a class="voyager-nav-link next" href="../voyager-l4-letter-arrived/" rel="next">
     <span class="dir">Next →</span>
-    <span class="title">L4 · The Watchmaker's Paradox · Mia returns to 1987</span>
+    <span class="title">L4 · The night the letter arrived · Theo reads Naomi</span>
   </a>
 </nav>
 
