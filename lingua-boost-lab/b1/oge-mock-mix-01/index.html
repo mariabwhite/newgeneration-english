@@ -420,12 +420,16 @@ Masha</div>
   <p class="section-sub">Match each English word to its Russian translation. Three blocks: chores · birthdays · ecology. Click options to reveal the answer.</p>
   <div class="card">
     <span class="task-num">P-V</span><span class="task-tag">Match · 3 темы · 30 пар</span>
-    <h3 style="font-family:var(--display);color:var(--accent-2);margin:14px 0 8px">🧹 Household chores</h3>
+    <h3 style="font-family:var(--display);color:var(--accent-2);margin:14px 0 8px">🧹 Household chores · list match (EN → RU)</h3>
+    <p class="section-sub" style="margin-bottom:8px">Choose the Russian translation from the dropdown.</p>
     <div id="pv-chores"></div>
-    <h3 style="font-family:var(--display);color:var(--accent-2);margin:18px 0 8px">🎂 Birthdays &amp; celebrations</h3>
+    <h3 style="font-family:var(--display);color:var(--accent-2);margin:22px 0 8px">🎂 Birthdays &amp; celebrations · multiple choice</h3>
+    <p class="section-sub" style="margin-bottom:8px">Pick the right meaning of the English phrase.</p>
     <div id="pv-birthdays"></div>
-    <h3 style="font-family:var(--display);color:var(--accent-2);margin:18px 0 8px">🌱 Ecology</h3>
-    <div id="pv-ecology"></div>
+    <h3 style="font-family:var(--display);color:var(--accent-2);margin:22px 0 8px">🌱 Ecology · fill in the text (drag the word into the gap)</h3>
+    <p class="section-sub" style="margin-bottom:8px">Drag a word from the bank into the gap. Or click bank → click gap.</p>
+    <div id="pv-ecology-bank" style="display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px;padding:12px;background:var(--surface-2);border:1px dashed var(--accent);border-radius:10px"></div>
+    <div id="pv-ecology" class="passage" style="line-height:2.4"></div>
     <div class="score-badge"><span>Score</span> <span class="val" id="pv-score">0</span> <span style="opacity:.6">/ 30</span></div>
   </div>
 </section>
@@ -1043,72 +1047,168 @@ document.getElementById('sp3-play').onclick = () => {
   say(text, {rate:0.94});
 };
 
-/* ============== PRACTICE · Vocabulary deep work (3 themes, 30 pairs) ============== */
-const vocabSets = {
-  'pv-chores': [
-    {en:'do the washing-up', ru:'мыть посуду'},
-    {en:'do the laundry', ru:'стирать'},
-    {en:'make the bed', ru:'застилать кровать'},
-    {en:'take out the rubbish', ru:'выносить мусор'},
-    {en:'vacuum the carpet', ru:'пылесосить ковёр'},
-    {en:'mop the floor', ru:'мыть пол'},
-    {en:'dust the shelves', ru:'вытирать пыль с полок'},
-    {en:'fold clothes', ru:'складывать одежду'},
-    {en:'iron clothes', ru:'гладить одежду'},
-    {en:'share responsibilities', ru:'делить обязанности'}
-  ],
-  'pv-birthdays': [
-    {en:'throw a party', ru:'устроить вечеринку'},
-    {en:'decorate with balloons', ru:'украшать шарами'},
-    {en:'blow out the candles', ru:'задувать свечи'},
-    {en:'make a wish', ru:'загадывать желание'},
-    {en:'handmade gift', ru:'подарок ручной работы'},
-    {en:'organise a surprise party', ru:'устроить сюрприз-вечеринку'},
-    {en:'birthday traditions', ru:'традиции дня рождения'},
-    {en:'name days', ru:'именины'},
-    {en:'lucky numbers', ru:'счастливые числа'},
-    {en:'virtual party', ru:'онлайн-вечеринка'}
-  ],
-  'pv-ecology': [
-    {en:'pollution', ru:'загрязнение'},
-    {en:'to pollute', ru:'загрязнять'},
-    {en:'recycling', ru:'переработка'},
-    {en:'to sort the rubbish', ru:'сортировать мусор'},
-    {en:'climate change', ru:'изменение климата'},
-    {en:'global warming', ru:'глобальное потепление'},
-    {en:'renewable energy', ru:'возобновляемая энергия'},
-    {en:'eco-friendly', ru:'экологичный'},
-    {en:'deforestation', ru:'вырубка лесов'},
-    {en:'endangered species', ru:'исчезающие виды'}
-  ]
-};
-function buildVocabBlock(boxId, pairs){
-  const box = document.getElementById(boxId);
-  const ruShuffled = [...pairs].sort(() => Math.random() - 0.5);
-  pairs.forEach((p, i) => {
-    const row = document.createElement('div');
-    row.className = 'match-row';
-    row.innerHTML = `
-      <span class="label" style="grid-column:1">${i+1}</span>
-      <span class="stmt"><strong>${p.en}</strong></span>
-      <select data-a="${p.ru}">
-        <option value="" disabled selected>—</option>
-        ${ruShuffled.map(x => `<option value="${x.ru}">${x.ru}</option>`).join('')}
-      </select>`;
-    const sel = row.querySelector('select');
-    sel.onchange = () => {
-      sel.classList.remove('right','wrong');
-      if (sel.value === sel.dataset.a) sel.classList.add('right');
-      else sel.classList.add('wrong');
-      const total = document.querySelectorAll('#pv-chores select.right, #pv-birthdays select.right, #pv-ecology select.right').length;
-      document.getElementById('pv-score').textContent = total;
-    };
-    box.appendChild(row);
-  });
+/* ============== PRACTICE · Vocabulary deep work · 3 разных формата ============== */
+/* Tally functions */
+function pvUpdateScore() {
+  const a = document.querySelectorAll('#pv-chores select.right').length;
+  const b = document.querySelectorAll('#pv-birthdays .pv-mcq-row.correct').length;
+  const c = document.querySelectorAll('#pv-ecology .pv-gap.right').length;
+  document.getElementById('pv-score').textContent = a + b + c;
 }
-buildVocabBlock('pv-chores', vocabSets['pv-chores']);
-buildVocabBlock('pv-birthdays', vocabSets['pv-birthdays']);
-buildVocabBlock('pv-ecology', vocabSets['pv-ecology']);
+
+/* === 1. CHORES — list match (EN → RU dropdown) === */
+const choresList = [
+  {en:'do the washing-up', ru:'мыть посуду'},
+  {en:'do the laundry', ru:'стирать'},
+  {en:'make the bed', ru:'застилать кровать'},
+  {en:'take out the rubbish', ru:'выносить мусор'},
+  {en:'vacuum the carpet', ru:'пылесосить ковёр'},
+  {en:'mop the floor', ru:'мыть пол'},
+  {en:'dust the shelves', ru:'вытирать пыль с полок'},
+  {en:'fold clothes', ru:'складывать одежду'},
+  {en:'iron clothes', ru:'гладить одежду'},
+  {en:'share responsibilities', ru:'делить обязанности'}
+];
+const choresBox = document.getElementById('pv-chores');
+const choresShuffled = [...choresList].sort(() => Math.random() - 0.5);
+choresList.forEach((p, i) => {
+  const row = document.createElement('div');
+  row.className = 'match-row';
+  row.innerHTML = `
+    <span class="label">${i+1}</span>
+    <span class="stmt"><strong>${p.en}</strong></span>
+    <select data-a="${p.ru}">
+      <option value="" disabled selected>—</option>
+      ${choresShuffled.map(x => `<option value="${x.ru}">${x.ru}</option>`).join('')}
+    </select>`;
+  const sel = row.querySelector('select');
+  sel.onchange = () => {
+    sel.classList.remove('right','wrong');
+    if (sel.value === sel.dataset.a) sel.classList.add('right');
+    else sel.classList.add('wrong');
+    pvUpdateScore();
+  };
+  choresBox.appendChild(row);
+});
+
+/* === 2. BIRTHDAYS — multiple choice (3 options each) === */
+const birthdaysMCQ = [
+  {q:'throw a party', opts:['пойти на вечеринку','устроить вечеринку','пропустить вечеринку'], a:1},
+  {q:'decorate with balloons', opts:['убирать шары','украшать шарами','покупать шары'], a:1},
+  {q:'blow out the candles', opts:['зажигать свечи','задувать свечи','считать свечи'], a:1},
+  {q:'make a wish', opts:['получать подарок','загадывать желание','петь песню'], a:1},
+  {q:'handmade gift', opts:['дорогой подарок','подарок ручной работы','подарок из магазина'], a:1},
+  {q:'organise a surprise party', opts:['отказаться от сюрприза','устроить сюрприз-вечеринку','скрыть сюрприз'], a:1},
+  {q:'birthday traditions', opts:['традиции дня рождения','день рождения друга','тортик на праздник'], a:0},
+  {q:'name days', opts:['тёзки','именины','имена гостей'], a:1},
+  {q:'lucky numbers', opts:['номер телефона','счастливые числа','много гостей'], a:1},
+  {q:'virtual party', opts:['большая вечеринка','онлайн-вечеринка','тихая вечеринка'], a:1}
+];
+const bdBox = document.getElementById('pv-birthdays');
+birthdaysMCQ.forEach((it, i) => {
+  const row = document.createElement('div');
+  row.className = 'mc1-row pv-mcq-row';
+  row.dataset.ans = String(it.a);
+  row.innerHTML = `
+    <div class="mc1-q"><strong>${i+1}. ${it.q}</strong> — pick the translation:</div>
+    <div class="mc1-opts">
+      ${it.opts.map((o, j) => `<button data-v="${j}">${String.fromCharCode(65+j)}) ${o}</button>`).join('')}
+    </div>`;
+  row.querySelectorAll('button').forEach(b => {
+    b.onclick = () => {
+      row.querySelectorAll('button').forEach(x => { x.classList.remove('correct','wrong'); x.disabled = true; });
+      if (b.dataset.v === String(it.a)) {
+        b.classList.add('correct');
+        row.classList.add('correct');
+      } else {
+        b.classList.add('wrong');
+        row.querySelector(`button[data-v="${it.a}"]`).classList.add('correct');
+      }
+      pvUpdateScore();
+    };
+  });
+  bdBox.appendChild(row);
+});
+
+/* === 3. ECOLOGY — drag word into the text === */
+const ecoBank = ['pollution','recycle','renewable','endangered','deforestation','climate change','eco-friendly','global warming','sort the rubbish','greenhouse gases'];
+const ecoText = [
+  {text:'Air ', gap:'pollution'}, {text:' is one of the biggest problems in modern cities. We should '},
+  {gap:'sort the rubbish'}, {text:' at home and '},
+  {gap:'recycle'}, {text:' paper, plastic and glass. Solar and wind are clean '},
+  {gap:'renewable'}, {text:' energy sources. Pandas and tigers are '},
+  {gap:'endangered'}, {text:' species, partly because of '},
+  {gap:'deforestation'}, {text:' — millions of trees are cut down every year. '},
+  {gap:'Climate change'}, {text:' and '},
+  {gap:'global warming'}, {text:' are linked to '},
+  {gap:'greenhouse gases'}, {text:' from cars and factories. Choose '},
+  {gap:'eco-friendly'}, {text:' products and try to reduce your daily impact.'}
+];
+const ecoBox = document.getElementById('pv-ecology');
+const ecoBankBox = document.getElementById('pv-ecology-bank');
+let pvSelected = null;
+const bankShuffled = [...ecoBank].sort(() => Math.random() - 0.5);
+bankShuffled.forEach(w => {
+  const chip = document.createElement('button');
+  chip.className = 'pv-bank-chip';
+  chip.textContent = w;
+  chip.draggable = true;
+  chip.dataset.w = w;
+  chip.style.cssText = 'padding:7px 13px;background:#fff;border:1.5px solid var(--accent);border-radius:8px;cursor:grab;font-family:var(--body);font-weight:600;color:var(--accent-2);font-size:.92rem';
+  chip.onclick = () => {
+    document.querySelectorAll('.pv-bank-chip.selected').forEach(c => { c.classList.remove('selected'); c.style.background = '#fff' });
+    chip.classList.add('selected');
+    chip.style.background = 'rgba(37,99,235,.18)';
+    pvSelected = w;
+  };
+  chip.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', w); pvSelected = w });
+  ecoBankBox.appendChild(chip);
+});
+ecoText.forEach((part, i) => {
+  if (part.text) {
+    const sp = document.createElement('span');
+    sp.textContent = part.text;
+    ecoBox.appendChild(sp);
+  }
+  if (part.gap) {
+    const gap = document.createElement('span');
+    gap.className = 'pv-gap';
+    gap.dataset.a = part.gap.toLowerCase();
+    gap.style.cssText = 'display:inline-block;min-width:80px;padding:2px 10px;margin:0 4px;border:2px dashed var(--accent);border-radius:6px;background:#fff;color:var(--muted);font-weight:600;cursor:pointer;text-align:center';
+    gap.textContent = '___';
+    gap.addEventListener('dragover', e => e.preventDefault());
+    gap.addEventListener('drop', e => {
+      e.preventDefault();
+      const w = e.dataTransfer.getData('text/plain') || pvSelected;
+      if (!w) return;
+      placeGapWord(gap, w);
+    });
+    gap.onclick = () => {
+      if (!pvSelected) return;
+      placeGapWord(gap, pvSelected);
+    };
+    ecoBox.appendChild(gap);
+  }
+});
+function placeGapWord(gap, w) {
+  gap.textContent = w;
+  gap.style.color = 'var(--text)';
+  gap.style.borderStyle = 'solid';
+  if (w.toLowerCase() === gap.dataset.a) {
+    gap.classList.add('right'); gap.classList.remove('wrong');
+    gap.style.background = 'rgba(22,163,74,.14)';
+    gap.style.borderColor = 'var(--ok)';
+    /* убрать chip из bank */
+    document.querySelectorAll(`.pv-bank-chip[data-w="${w}"]`).forEach(c => c.remove());
+  } else {
+    gap.classList.add('wrong'); gap.classList.remove('right');
+    gap.style.background = 'rgba(220,38,38,.14)';
+    gap.style.borderColor = 'var(--miss)';
+  }
+  pvSelected = null;
+  document.querySelectorAll('.pv-bank-chip.selected').forEach(c => { c.classList.remove('selected'); c.style.background = '#fff' });
+  pvUpdateScore();
+}
 
 /* ============== PRACTICE · Passive Voice transformations ============== */
 const passiveItems = [
