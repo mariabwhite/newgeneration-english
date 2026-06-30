@@ -425,6 +425,7 @@ window.NGE_DATA = {
       "payment_status": "Оплачено",
       "payment_note": "Июнь оплачен полностью: 4 урока × 2 500 ₽ = 10 000 ₽ (мама оплатила).",
       "stability_note": "Июнь 4/4 закрыт. Voyager: L1 The Watchmaker дважды (02.06 + 09.06) → L2 Are we alone? дважды (16.06 + 30.06). На июль: L3 Whose Mind? → L4 The letter arrived.",
+      "summer_plan_note": "📅 Июль 2026 · Voyager L3 + L4 (финал серии). Абонемент 4 урока × 2 500 ₽ = 10 000 ₽. Расписание сохраняется: вторник 15:00, 90 мин.",
       "parent_name": "Подлесных Татьяна Анатольевна",
       "pin": "7670",
       "lessons": [
@@ -483,17 +484,17 @@ window.NGE_DATA = {
       ],
       "materials": {
         "folder": "documents/_v/ivanov-ivan",
-        "note": "Материалы Вани: глоссарий Voyager L1–L4 (97 пар), offline-homework L1+L2 для печати, отчёт за июнь для мамы. Клик — открыть в новой вкладке.",
+        "note": "Учебные материалы Вани (глоссарий и тренировочные) + отчёт для родителя. Клик — открыть в новой вкладке.",
         "files": [
           {
             "name": "voyager-glossary-L1-L4.pdf",
             "label": "📒 Глоссарий Voyager L1–L4 · 97 EN→RU пар",
-            "audience": "all"
+            "audience": "student"
           },
           {
             "name": "voyager-homework-L1-L2-offline.pdf",
             "label": "📚 Offline-homework L1+L2 (для печати)",
-            "audience": "all"
+            "audience": "student"
           },
           {
             "name": "report-ivanov-2026-06.pdf",
