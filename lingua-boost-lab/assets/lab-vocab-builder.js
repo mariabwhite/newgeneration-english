@@ -50,7 +50,8 @@
 '@media(max-width:600px){.lab-vocab-grid{grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}}'+
 '@media(max-width:600px){.lab-vocab-panel{padding:14px 14px !important;margin-left:0;margin-right:0}}'+
       '.lab-vocab-section .vocab-card{position:relative;background:var(--surface, var(--card, #fff));border:1.5px solid var(--line, color-mix(in srgb, var(--accent, #7c3aed) 25%, transparent));border-radius:10px;'+
-        'padding:10px 12px;cursor:pointer;transition:transform .15s,box-shadow .15s;perspective:600px;min-height:74px}'+
+        /* верхний/нижний padding больше — текст не заезжает под кнопки в углах (⭐ слева, 🔊+➕ справа) */
+        'padding:38px 14px 14px;cursor:pointer;transition:transform .15s,box-shadow .15s;perspective:600px;min-height:74px;overflow:hidden}'+
       '[data-lab-theme="dark"] .lab-vocab-section .vocab-card{background:var(--surface, var(--card, #15102a));border-color:var(--line, #5b3aa8)}'+
       '.lab-vocab-section .vocab-card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.14)}'+
       '.lab-vocab-section .vocab-card .face{display:block}'+
