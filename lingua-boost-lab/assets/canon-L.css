@@ -269,15 +269,21 @@
   overflow: hidden;
 }
 .canon-l-mark::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 12px;
-  height: 12px;
-  background: #ff9b2f;
-  clip-path: polygon(100% 0, 0 0, 100% 100%);
-  z-index: 2;
+  /* legacy overlay no longer needed — we now cut the mark itself via clip-path */
+  display: none;
+}
+
+/* Острый уголок N-марки canon (как на скрине Маши, 2026-06-30):
+   вырезаем верхний правый угол 12×12, фон страницы виден сквозь срез.
+   Применяется и к .canon-l-mark и к локально объявленному .brand-mark. */
+.canon-l-mark,
+.brand-mark {
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%) !important;
+  border-top-right-radius: 0 !important;
+}
+.canon-l-mark::before,
+.brand-mark::before {
+  display: none !important;
 }
 .canon-l-mark img,
 .canon-l-mark svg {
