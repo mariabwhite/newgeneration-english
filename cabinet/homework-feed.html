@@ -29,6 +29,7 @@ h1 .em{font-size:1.8rem;margin-right:8px}
 .sub-lesson{font-size:.86rem;color:var(--muted);margin-bottom:8px}
 .sub-lesson a{color:var(--accent);text-decoration:none}
 .sub-lesson a:hover{text-decoration:underline}
+.source-pill{display:inline-block;margin-left:6px;padding:2px 8px;border-radius:999px;background:#e0ecff;color:#1d4ed8;font:800 .72rem inherit}
 .score-pill{display:inline-block;padding:4px 12px;border-radius:50px;font:800 .86rem inherit;background:rgba(22,163,74,.16);color:var(--ok)}
 .score-pill.low{background:rgba(220,38,38,.16);color:var(--miss)}
 .score-pill.mid{background:rgba(234,179,8,.18);color:#92400e}
@@ -78,6 +79,8 @@ h1 .em{font-size:1.8rem;margin-right:8px}
 <script>
 const $ = s => document.querySelector(s);
 let PIN = sessionStorage.getItem('teacher-pin') || '';
+const SUPABASE_URL = 'https://glntukvcmxryjixgozmc.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdsbnR1a3ZjbXhyeWppeGdvem1jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY0NzY5MTcsImV4cCI6MjA2MjA1MjkxN30.S-hEUGU6j5GmM6w7LtgEK5AewzS4_2ppGQg45cbkEoE';
 
 function show(app){ $('#pin-screen').style.display = app ? 'none':'block'; $('#app').style.display = app ? 'block':'none' }
 
@@ -115,6 +118,32 @@ function fmtDate(ts){
 }
 
 function escapeHTML(s){ return String(s||'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])) }
+
+function short(s,n){ s=String(s||''); return s.length>n ? s.slice(0,n-1)+'…' : s }
+function toSec(ts){
+  if (!ts) return Math.floor(Date.now()/1000);
+  if (typeof ts === 'number') return ts > 9999999999 ? Math.floor(ts/1000) : ts;
+  const n = Date.parse(ts);
+  return Number.isFinite(n) ? Math.floor(n/1000) : Math.floor(Date.now()/1000);
+}
+function parseStudentRole(role){
+  role = String(role || '');
+  return role.indexOf('homework:') === 0 ? role.slice(9) : (role || 'аноним');
+}
+function dedupeKey(s){
+  const bucket = Math.round(toSec(s.created_at) / 10);
+  return [String(s.student_name||'').toLowerCase(), s.lesson_path || '', bucket].join('|');
+}
+async function ensureSupabase(){
+  if (window.supabase) return window.supabase;
+  await new Promise((res, rej) => {
+    const sc = document.createElement('script');
+    sc.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js';
+    sc.onload = res; sc.onerror = rej;
+    document.head.appendChild(sc);
+  });
+  return window.supabase;
+}
 
 function pctClass(pct){
   if (pct >= 80) return 'score-high';
@@ -156,7 +185,7 @@ function renderSub(s){
       <div class="sub-head">
         <div>
           <div class="sub-student">🎒 ${escapeHTML(s.student_name)}</div>
-          <div class="sub-lesson">${escapeHTML(s.lesson_title || s.lesson_path)} ${s.section_id ? '· ' + escapeHTML(s.section_id) : ''} · <a href="${escapeHTML(s.lesson_path)}" target="_blank">открыть урок →</a></div>
+          <div class="sub-lesson">${escapeHTML(s.lesson_title || s.lesson_path)} ${s.section_id ? '· ' + escapeHTML(s.section_id) : ''} ${s.source ? '<span class="source-pill">'+escapeHTML(s.source)+'</span>' : ''} · <a href="${escapeHTML(s.lesson_path)}" target="_blank">открыть урок →</a></div>
         </div>
         <div style="text-align:right">
           <div><span class="score-pill ${pctPillClass(s.pct)}">${s.score}/${s.total} · ${s.pct}%</span></div>
@@ -174,14 +203,52 @@ async function load(){
     const r = await fetch('/api/homework/feed?pin=' + encodeURIComponent(PIN) + '&limit=100');
     if (r.status === 401) { sessionStorage.removeItem('teacher-pin'); PIN=''; show(false); return; }
     const data = await r.json();
-    $('#meta').textContent = `${data.count} сдач · обновлено ${new Date().toTimeString().slice(0,8)}`;
-    if (!data.submissions || !data.submissions.length){
+    const d1 = (data.submissions || []).map(s => Object.assign({}, s, { source: 'D1' }));
+    const supa = await loadSupabase();
+    const seen = new Set();
+    const merged = d1.concat(supa).filter(s => {
+      const k = dedupeKey(s);
+      if (seen.has(k)) return false;
+      seen.add(k);
+      return true;
+    }).sort((a,b) => toSec(b.created_at) - toSec(a.created_at));
+    $('#meta').textContent = `${merged.length} сдач · D1 ${d1.length} · Supabase ${supa.length} · обновлено ${new Date().toTimeString().slice(0,8)}`;
+    if (!merged.length){
       $('#list').innerHTML = '<div class="empty"><span class="em">📭</span><p>Пока никто ничего не сдал.<br>Когда ученик нажмёт «Отправить» — появится здесь.</p></div>';
       return;
     }
-    $('#list').innerHTML = data.submissions.map(renderSub).join('');
+    $('#list').innerHTML = merged.map(renderSub).join('');
   } catch (e) {
     $('#meta').textContent = 'Ошибка: ' + e.message;
+  }
+}
+
+async function loadSupabase(){
+  try{
+    const sb = await ensureSupabase();
+    const client = sb.createClient(SUPABASE_URL, SUPABASE_ANON);
+    const resp = await client.from('lab_submissions').select('*').order('created_at', { ascending:false }).limit(100);
+    if (resp.error || !Array.isArray(resp.data)) return [];
+    return resp.data
+      .filter(row => String(row.student_role || '').indexOf('homework:') === 0 || row.section_id === 'homework-batch')
+      .map(row => {
+        const misses = Array.isArray(row.misses) ? row.misses : [];
+        return {
+          source: 'Supabase',
+          student_name: parseStudentRole(row.student_role),
+          lesson_path: row.lesson_path || '',
+          lesson_title: short(row.section_title || row.lesson_path || '', 100),
+          section_id: row.section_id || '',
+          score: row.score || 0,
+          total: row.total || misses.length || 0,
+          pct: row.total ? Math.round((row.score || 0) * 100 / row.total) : 0,
+          created_at: toSec(row.created_at),
+          misses_json: JSON.stringify(misses.map(m => typeof m === 'string' ? m : (m.question || JSON.stringify(m)))),
+          items_json: JSON.stringify(misses)
+        };
+      });
+  } catch(e){
+    return [];
   }
 }
 

@@ -370,15 +370,18 @@
         items.forEach(function(host){
           var kind = host.__hwKind || '';
           if (!kind) {
-            if (host.matches('.mcq-row, .mc-item, .choice-row, .choice-card, .qcard, .question-card, .q-item')) kind='mcq';
+            if (host.matches('.mcq-row, .mc-item, .choice-row, .choice-card, .qcard, .question-card, .q-item, .mc1-row, .pv-mcq-row, .q-row')) kind='mcq';
             else if (host.matches('.tfns-row, .tf-row, .tf-item')) kind='tfns';
-            else if (host.matches('.gap, .gram-gap, .gapfill, .cloze-gap')) kind='gap';
+            else if (host.matches('.gap, .gram-gap, .gapfill, .cloze-gap, .lex-gap, .pv-gap, .cloze-row, .oc-row')) kind='gap';
             else if (host.matches('.wf-row, .wordform-row')) kind='wf';
             else if (host.matches('.match-item, .match-card, .match-row, .pair-row')) kind='match';
             else if (host.matches('.builder, .reorder-row, .order-row')) kind='builder';
             else if (host.matches('.mic-row, .speech-row, .speak-row')) kind='mic';
             else if (host.matches('textarea')) kind='writing';
-            else if (host.matches('.vocab-card, .word-card, .vocabulary-item')) kind='vocab';
+            else if (host.matches('.vocab-card, .word-card, .vocabulary-item, .flip-card')) kind='vocab';
+            else if (host.matches('.dict-row, .dictation-row')) kind='gap';
+            else if (host.matches('.trans-row, .transform-row, .rewrite-row, .tr-row')) kind='builder';
+            else if (host.matches('.cue-card, .post, .prompt-card, .task-card, .speaking-task, .writing-task')) kind='builder';
             else kind='other';
           }
           var item = describe(host, kind);
@@ -445,7 +448,11 @@
         '<span>📚 Моя домашка</span><span class="n">0</span>'+
       '</button>';
     document.body.appendChild(fabEl);
-    fabEl.querySelector('button').addEventListener('click', openOverlay);
+    fabEl.querySelector('button').addEventListener('click', openHomeworkPage);
+  }
+
+  function openHomeworkPage(){
+    window.location.href = '/lingua-boost-lab/.homework/?lesson=' + encodeURIComponent(location.pathname);
   }
 
   function kindLabel(k){
