@@ -1323,6 +1323,12 @@ cards.forEach(c => {
     if (a.getAttribute('href') === '#') {
       e.preventDefault();
       const lesson = publicLessonsById[c.dataset.id];
+      /* Если урок есть в публичном индексе — открыть его напрямую без редиректа на login. */
+      if (lesson && lesson.url) {
+        const direct = new URL(lesson.url, window.location.origin + '/lingua-boost-lab/').href;
+        window.location.href = direct;
+        return;
+      }
       redirectToLogin(lesson && lesson.url);
     }
   });
@@ -1330,17 +1336,30 @@ cards.forEach(c => {
 
 function applyLessons(lessons) {
   const byId = Object.fromEntries(lessons.map(l => [l.id, l]));
+  /* Объединяем зашифрованные premium-уроки с публичным индексом — публичные (как OGE Mock) тоже получают правильный href. */
+  const allById = Object.assign({}, publicLessonsById, byId);
   cards.forEach(c => {
     c.classList.remove('is-authorized');
     const a = c.querySelector('.card-open');
     if (a) a.href = '#';
   });
   cards.forEach(c => {
-    const id = c.dataset.id; const l = byId[id]; if (!l) return;
+    const id = c.dataset.id; const l = allById[id]; if (!l) return;
     const a = c.querySelector('.card-open');
     a.href = l.url; c.classList.add('is-authorized');
   });
   setPremiumAuthState(true);
+}
+
+/* Применяем публичный индекс СРАЗУ после загрузки JSON — публичные карточки работают даже без PIN. */
+function applyPublicLessonsOnly() {
+  cards.forEach(c => {
+    const id = c.dataset.id;
+    const l = publicLessonsById[id];
+    if (!l) return;
+    const a = c.querySelector('.card-open');
+    if (a) a.href = l.url;
+  });
 }
 
 /* version tag — bump it whenever Vault.ct/iv change, so cached browsers re-decrypt */
@@ -1348,6 +1367,8 @@ const VAULT_VERSION = (document.querySelector('meta[name="vault-version"]')||{})
 
 async function bootstrapAccess(){
   await loadPublicLessonIndex();
+  /* Сразу применить публичный индекс — открытые уроки (без шифрования) кликабельны без PIN. */
+  applyPublicLessonsOnly();
 
   /* manual lock via hash */
   if (location.hash === '#lock') {
