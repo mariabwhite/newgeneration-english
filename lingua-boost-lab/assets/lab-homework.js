@@ -320,9 +320,9 @@
   }
 
   function scanAndDecorate(){
-    document.querySelectorAll('.mcq-row, .mc-item, .choice-row, .choice-card, .qcard, .question-card, .q-item').forEach(function(el){ addBtn(el, 'mcq'); });
+    document.querySelectorAll('.mcq-row, .mc-item, .choice-row, .choice-card, .qcard, .question-card, .q-item, .mc1-row, .pv-mcq-row').forEach(function(el){ addBtn(el, 'mcq'); });
     document.querySelectorAll('.tfns-row, .tf-row, .tf-item').forEach(function(el){ addBtn(el, 'tfns'); });
-    document.querySelectorAll('.gap, .gram-gap, .gapfill, .cloze-gap').forEach(function(el){ addBtn(el, 'gap'); });
+    document.querySelectorAll('.gap, .gram-gap, .gapfill, .cloze-gap, .lex-gap, .pv-gap').forEach(function(el){ addBtn(el, 'gap'); });
     document.querySelectorAll('.wf-row, .wordform-row').forEach(function(el){ addBtn(el, 'wf'); });
     document.querySelectorAll('.match-item, .match-card, .match-row, .pair-row').forEach(function(el){ addBtn(el, 'match'); });
     document.querySelectorAll('.builder, .reorder-row, .order-row').forEach(function(el){ addBtn(el, 'builder'); });
@@ -330,7 +330,6 @@
     document.querySelectorAll('.write textarea, textarea.writing-area, textarea[data-write], .open-writing textarea, .free-write textarea').forEach(function(el){ addBtn(el, 'writing'); });
     document.querySelectorAll('.vocab-card, .word-card, .vocabulary-item').forEach(function(el){ addBtn(el, 'vocab'); });
     document.querySelectorAll('.cue-card, .post, .prompt-card, .task-card, .speaking-task, .writing-task').forEach(function(el){ addBtn(el, 'builder'); });
-    // Modals и подобные — диктант / трансформация / cloze
     document.querySelectorAll('.dict-row, .dictation-row').forEach(function(el){ addBtn(el, 'gap'); });
     document.querySelectorAll('.trans-row, .transform-row, .rewrite-row').forEach(function(el){ addBtn(el, 'builder'); });
     decorateSections();
@@ -348,7 +347,24 @@
       btn.addEventListener('click', function(e){
         e.preventDefault();
         var items = sec.querySelectorAll('.lab-hw-host');
-        if (!items.length) { toast('В этой секции нечего добавить'); return; }
+        // FALLBACK: если по типам ничего не нашлось — кладём всю секцию как RAW HTML блок
+        if (!items.length) {
+          var arrRaw = loadHw();
+          var clone = sec.cloneNode(true);
+          // убрать кнопки хомяка из клона
+          clone.querySelectorAll('.lab-hw-add, .lab-hw-section-btn').forEach(function(b){ b.remove(); });
+          var rawItem = {
+            kind: 'raw-block',
+            section_id: sec.id || ('sec-' + Date.now()),
+            question: (sec.querySelector('h1, h2, h3') || {}).textContent || 'Block',
+            html: clone.outerHTML,
+            ts: Date.now()
+          };
+          var dupRaw = arrRaw.some(function(x){ return x.section_id === rawItem.section_id && x.kind === 'raw-block'; });
+          if (!dupRaw) { arrRaw.push(rawItem); saveHw(arrRaw); refreshFabCount(); toast('📦 секция целиком — в домашку'); }
+          else { toast('Этот блок уже в домашке'); }
+          return;
+        }
         var arr = loadHw();
         var added = 0;
         items.forEach(function(host){
@@ -450,6 +466,16 @@
     sendBtn.disabled = false;
     clearBtn.style.display = '';
     list.innerHTML = arr.map(function(it, i){
+      // RAW-BLOCK: показываем целиком HTML секции
+      if (it.kind === 'raw-block' && it.html) {
+        return '<div class="lab-hw-item" data-i="'+i+'" style="padding:0;overflow:hidden">'+
+          '<button type="button" class="lab-hw-rm" title="Убрать" style="position:absolute;top:8px;right:8px;z-index:2">×</button>'+
+          '<span class="lab-hw-kind" style="position:absolute;top:8px;left:8px;z-index:2">📦 целая секция</span>'+
+          '<div class="lab-hw-raw" style="max-height:520px;overflow:auto;padding:36px 14px 14px;background:#fff;border-radius:8px">'+
+            it.html +
+          '</div>'+
+        '</div>';
+      }
       var lines = [];
       var isVocab = it.kind === 'vocab';
       var qText = it.question || '(без вопроса)';
