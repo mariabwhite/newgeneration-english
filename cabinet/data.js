@@ -1011,8 +1011,8 @@ window.NGE_DATA = {
       "monthly_package": 3000,
       "lessons_in_package": 2,
       "subscription_month": "2026-07",
-      "lessons_used_this_month": 0,
-      "payment_status": "Ожидает",
+      "lessons_used_this_month": 1,
+      "payment_status": "Оплачено",
       "payment_note": "Июнь закрыт (4/4 · 6 000 ₽). Июль — лёгкий летний пакет: 2 урока × 1 500 ₽ = 3 000 ₽.",
       "summer_plan_note": "Летний план июнь-июль 2026: 4 закрытых июньских урока + 2 запланированных июльских (OGE Mock #1 на 1 июля + #2 на 8 июля).",
       "parent_name": "Медведева Марина Сергеевна",
@@ -1068,17 +1068,17 @@ window.NGE_DATA = {
           }
         },
         {
-          "month_label": "Июль 2026 · летний пакет 2 урока",
-          "date": "2026-07-01",
+          "month_label": "Июль 2026 · летний пакет 2 урока · 1/2 · оплачено",
+          "date": "2026-06-30",
           "time": "10:00",
           "num": 1,
-          "status": "planned",
+          "status": "completed",
           "topic": "📝 OGE Mock #1 · Pair Edition — полный mock-вариант (housework / birthdays / sports / ecology · gerund/inf · used to · modals · word formation)",
-          "schedule_note": "среда 10:00 · ЗАВТРА",
+          "schedule_note": "вторник 10:00 · урок прошёл",
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/oge-mock-mix-01/",
-            "module_title": "📝 OGE Mock #1 — открыть до урока",
-            "text": "Пройди модуль до встречи — на уроке разберём ошибки и тёмные места."
+            "module_title": "📝 OGE Mock #1 — повторить материал урока",
+            "text": "Открой ещё раз — отшлифовать темы где сомневались."
           }
         },
         {
@@ -1126,8 +1126,8 @@ window.NGE_DATA = {
       "monthly_package": 3000,
       "lessons_in_package": 2,
       "subscription_month": "2026-07",
-      "lessons_used_this_month": 0,
-      "payment_status": "Ожидает",
+      "lessons_used_this_month": 1,
+      "payment_status": "Оплачено",
       "payment_note": "Июнь закрыт (4/4 · 6 000 ₽). Июль — лёгкий летний пакет: 2 урока × 1 500 ₽ = 3 000 ₽.",
       "summer_plan_note": "Летний план июнь-июль 2026: 4 закрытых июньских урока + 2 запланированных июльских (OGE Mock #1 на 1 июля + #2 на 8 июля).",
       "parent_name": "Лихолева Елена Сергеевна",
@@ -1183,17 +1183,17 @@ window.NGE_DATA = {
           }
         },
         {
-          "month_label": "Июль 2026 · летний пакет 2 урока",
-          "date": "2026-07-01",
+          "month_label": "Июль 2026 · летний пакет 2 урока · 1/2 · оплачено",
+          "date": "2026-06-30",
           "time": "10:00",
           "num": 1,
-          "status": "planned",
+          "status": "completed",
           "topic": "📝 OGE Mock #1 · Pair Edition — полный mock-вариант (housework / birthdays / sports / ecology · gerund/inf · used to · modals · word formation)",
-          "schedule_note": "среда 10:00 · ЗАВТРА",
+          "schedule_note": "вторник 10:00 · урок прошёл",
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/oge-mock-mix-01/",
-            "module_title": "📝 OGE Mock #1 — открыть до урока",
-            "text": "Пройди модуль до встречи — на уроке разберём ошибки и тёмные места."
+            "module_title": "📝 OGE Mock #1 — повторить материал урока",
+            "text": "Открой ещё раз — отшлифовать темы где сомневались."
           }
         },
         {
