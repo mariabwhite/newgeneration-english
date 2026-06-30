@@ -198,6 +198,20 @@
   }
 
   async function callAI(userContent, model){
+    // Сначала пробуем наш Cloudflare Workers AI (тот же домен, без иностранщины)
+    try {
+      const resp = await fetch('/api/ai-feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userContent, model: '@cf/meta/llama-3.1-8b-instruct' })
+      });
+      if (resp.ok) {
+        const data = await resp.json();
+        if (data.text && data.text.trim()) return data.text.trim();
+      }
+    } catch (e) { /* ignore, fallback */ }
+
+    // Fallback на pollinations если CF AI недоступен
     const body = {
       messages: [
         { role: 'system', content: SYSTEM_PROMPT },
