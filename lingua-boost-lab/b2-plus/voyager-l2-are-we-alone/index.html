@@ -1009,6 +1009,177 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
   </div>
 </section>
 
+<!-- ═══════════ SPEAK MISSION · 3 questions + WPM + recorder ═══════════ -->
+<style>
+.speak-mission{margin:40px auto;max-width:1100px;padding:0 18px}
+.speak-card{background:var(--bg-2,#fff);border:1.5px solid var(--accent,#7a5af5);border-radius:18px;padding:24px;box-shadow:0 8px 30px rgba(122,90,245,.12);position:relative}
+.speak-card-hdr{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.speak-num{background:var(--accent,#7a5af5);color:#fff;border-radius:8px;padding:4px 10px;font:800 12px/1 var(--mono,monospace);letter-spacing:.14em}
+.speak-card-hdr h2{margin:0;font-size:1.4rem;font-weight:800}
+.speak-sub{font-size:.92rem;color:var(--muted,#5a5b6b);margin-bottom:18px}
+.speak-q{background:var(--surface-2,#f5f3ff);border-left:4px solid var(--accent,#7a5af5);border-radius:0 12px 12px 0;padding:14px 18px;margin:14px 0 8px;font-family:var(--serif,Georgia,serif);font-size:1.05rem;line-height:1.55;color:var(--text,#1a1a2e)}
+.speak-q .q-num{font-family:var(--mono,monospace);font-weight:800;color:var(--accent,#7a5af5);margin-right:8px;font-size:.86rem;letter-spacing:.12em}
+.mic-row{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;background:#fff;border:1px solid #e3def2;border-radius:10px;padding:12px 14px;margin:8px 0;flex-wrap:wrap}
+.mic-text{font-size:.92rem;line-height:1.45;color:var(--text,#1a1a2e)}
+.mic-text strong{color:var(--accent,#7a5af5)}
+.mic-meta{display:flex;flex-direction:column;align-items:flex-end;gap:2px;font:700 11px/1.3 var(--mono,monospace);color:var(--muted,#5a5b6b);min-width:100px;text-align:right}
+.mic-feedback{color:var(--accent,#7a5af5);font-weight:800}
+.mic-transcript{font-style:italic;color:var(--muted,#5a5b6b);font-size:.84rem;margin-top:6px;grid-column:1 / -1;border-top:1px dashed #e3def2;padding-top:8px;line-height:1.55}
+.mic-btn{padding:10px 18px;border-radius:10px;border:none;background:linear-gradient(135deg,#7a5af5,#a78bfa);color:#fff;font:800 12px/1 var(--mono,monospace);cursor:pointer;text-transform:uppercase;letter-spacing:.1em;box-shadow:0 4px 12px rgba(122,90,245,.30);transition:.15s}
+.mic-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(122,90,245,.40)}
+.mic-btn.rec{background:linear-gradient(135deg,#ef4444,#f87171);animation:pulse-mic 1.2s infinite}
+@keyframes pulse-mic{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.5)}50%{box-shadow:0 0 0 14px rgba(239,68,68,0)}}
+.tts-q-btn{padding:7px 12px;border:1px solid var(--accent,#7a5af5);background:#fff;color:var(--accent,#7a5af5);border-radius:8px;font:700 11px/1 var(--mono,monospace);cursor:pointer;letter-spacing:.08em;text-transform:uppercase;margin-left:8px}
+.tts-q-btn:hover{background:var(--accent,#7a5af5);color:#fff}
+.speak-sample-toggle{margin-top:18px;padding:10px 18px;background:transparent;border:1px dashed var(--accent,#7a5af5);color:var(--accent,#7a5af5);border-radius:10px;font:700 11px/1 var(--mono,monospace);cursor:pointer;letter-spacing:.1em;text-transform:uppercase}
+.speak-sample-toggle:hover{background:var(--surface-2,#f5f3ff)}
+.speak-sample{display:none;margin-top:14px;padding:16px 18px;background:var(--surface-2,#f5f3ff);border-radius:12px;font-family:var(--serif,Georgia,serif);font-size:.95rem;line-height:1.65;white-space:pre-line;color:var(--text,#1a1a2e)}
+.speak-sample.show{display:block}
+.speak-tip{font-size:.84rem;color:var(--muted,#5a5b6b);margin-top:14px;padding:10px 14px;background:rgba(122,90,245,.06);border-radius:8px;line-height:1.55}
+@media(max-width:600px){.mic-row{grid-template-columns:1fr}.mic-meta{align-items:flex-start;text-align:left}}
+</style>
+
+<section class="speak-mission" id="speak-mission">
+  <div class="speak-card">
+    <div class="speak-card-hdr">
+      <span class="speak-num">SPEAK</span>
+      <h2>🎙 Mission · Three questions, your voice on record</h2>
+    </div>
+    <p class="speak-sub">Goal: 60-90 seconds per answer · target 130-160 words per minute · use the Recap-card vocab from this lesson. Click <strong>🔊 Listen</strong> to hear the question, then <strong>🎙 Record</strong> and speak. WPM and transcript appear automatically.</p>
+
+    <div class="speak-q">
+      <span class="q-num">Q1</span>
+      You are on duty at the radio telescope when a strong, non-natural signal arrives from deep space. <strong>What is the first thing you do, and why?</strong>
+      <button class="tts-q-btn" type="button" data-tts="You are on duty at the radio telescope when a strong, non-natural signal arrives from deep space. What is the first thing you do, and why?">🔊 Listen</button>
+    </div>
+    <div class="mic-row" data-q="1">
+      <div class="mic-text"><strong>Speak now (60-90 s):</strong> include — first action · reason · who you call · what you fear most.</div>
+      <div class="mic-meta">
+        <div class="mic-feedback" id="sp-fb-1">— ready —</div>
+      </div>
+      <button class="mic-btn" type="button" data-mic="1">🎙 Record</button>
+      <div class="mic-transcript" id="sp-tr-1"></div>
+    </div>
+
+    <div class="speak-q">
+      <span class="q-num">Q2</span>
+      The world is split between «answer back» and «stay silent». <strong>Which side are you on, and which two reasons would you give to convince a person from the other side?</strong>
+      <button class="tts-q-btn" type="button" data-tts="The world is split between answer back and stay silent. Which side are you on, and which two reasons would you give to convince a person from the other side?">🔊 Listen</button>
+    </div>
+    <div class="mic-row" data-q="2">
+      <div class="mic-text"><strong>Speak now (60-90 s):</strong> your side · reason 1 · reason 2 · one concession to the other camp.</div>
+      <div class="mic-meta">
+        <div class="mic-feedback" id="sp-fb-2">— ready —</div>
+      </div>
+      <button class="mic-btn" type="button" data-mic="2">🎙 Record</button>
+      <div class="mic-transcript" id="sp-tr-2"></div>
+    </div>
+
+    <div class="speak-q">
+      <span class="q-num">Q3</span>
+      If humanity does decide to reply, you have only <strong>60 seconds of transmission time</strong>. What three pieces of information about Earth would you put inside, and why those three?
+      <button class="tts-q-btn" type="button" data-tts="If humanity does decide to reply, you have only 60 seconds of transmission time. What three pieces of information about Earth would you put inside, and why those three?">🔊 Listen</button>
+    </div>
+    <div class="mic-row" data-q="3">
+      <div class="mic-text"><strong>Speak now (60-90 s):</strong> three items · reason for each · what you deliberately leave out.</div>
+      <div class="mic-meta">
+        <div class="mic-feedback" id="sp-fb-3">— ready —</div>
+      </div>
+      <button class="mic-btn" type="button" data-mic="3">🎙 Record</button>
+      <div class="mic-transcript" id="sp-tr-3"></div>
+    </div>
+
+    <button class="speak-sample-toggle" type="button" id="speak-sample-toggle">Show sample answers (after your own attempt)</button>
+    <div class="speak-sample" id="speak-sample">
+Q1 — First action.
+The first thing I do is stay calm and not touch a single button. I run the standard verification protocol — re-check the signal on at least two independent receivers, look for terrestrial sources, satellite reflections, instrument errors. Only after the signal is confirmed do I notify the duty officer and start the data backup. What I fear most is jumping to a conclusion that turns into a public hoax — credibility is everything.
+
+Q2 — Answer back or stay silent.
+I'd stand on the «stay silent for now» side, but only as a temporary position. My first reason is risk asymmetry: we know almost nothing about the senders, and a hasty reply is irreversible. My second reason is that humanity doesn't have a single agreed voice — who speaks for Earth? Until we agree, silence is honest. The concession to the other camp: yes, eventually we have to answer, otherwise we deny ourselves the most important conversation in our history.
+
+Q3 — Sixty seconds back.
+Three things: a star map showing our position in the Milky Way; the periodic table marked with our biology — carbon, water, oxygen; a short piece of music — Bach, because mathematics in sound is universal. I would deliberately leave out our religions, our wars and our politics — they need centuries of context the message simply cannot carry.
+    </div>
+
+    <div class="speak-tip">
+      💡 Норма WPM для B2+: <strong>130-160 слов/мин</strong>. Меньше 100 — слишком медленно. Больше 180 — глотаешь окончания. Транскрипт под каждым ответом — твоё распознавание; если там «...» вместо слова, значит дикция размыта именно там.
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  // TTS для вопросов
+  document.querySelectorAll('.tts-q-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if (!window.speechSynthesis) return;
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(btn.dataset.tts || '');
+      var voices = window.speechSynthesis.getVoices().filter(function(v){ return /^en/i.test(v.lang); });
+      u.voice = voices.find(function(v){ return /uk|gb/i.test(v.lang); }) || voices[0] || null;
+      u.rate = 0.92; u.pitch = 1.0;
+      window.speechSynthesis.speak(u);
+    });
+  });
+
+  // Mic recorder + Web Speech recognition + WPM
+  function setupMic(qid){
+    var btn = document.querySelector('.mic-btn[data-mic="' + qid + '"]');
+    var fb = document.getElementById('sp-fb-' + qid);
+    var tr = document.getElementById('sp-tr-' + qid);
+    if (!btn) return;
+    var Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!Rec) { btn.disabled = true; btn.textContent = '🎙 N/A'; fb.textContent = 'Recognition not supported in this browser'; return; }
+    var rec = null, on = false, startTs = 0, finalText = '';
+    btn.addEventListener('click', function(){
+      if (on) { if (rec) rec.stop(); return; }
+      finalText = '';
+      tr.textContent = '';
+      rec = new Rec();
+      rec.lang = 'en-GB';
+      rec.interimResults = true;
+      rec.continuous = true;
+      rec.onstart = function(){
+        on = true; startTs = Date.now();
+        btn.classList.add('rec'); btn.textContent = '⏸ STOP';
+        fb.textContent = '● recording…';
+      };
+      rec.onend = function(){
+        on = false;
+        btn.classList.remove('rec'); btn.textContent = '🎙 Record';
+        var elapsed = (Date.now() - startTs) / 1000; // seconds
+        var words = (finalText.trim().match(/\b[\w'-]+\b/g) || []).length;
+        var wpm = elapsed > 0 ? Math.round(words / (elapsed / 60)) : 0;
+        var rating = wpm < 100 ? '🐌 slow' : (wpm > 180 ? '⚡ too fast' : '✅ on target');
+        fb.innerHTML = words + ' words · ' + Math.round(elapsed) + ' s<br>' +
+                       '<span style="color:#7a5af5">' + wpm + ' WPM</span> ' + rating;
+      };
+      rec.onerror = function(e){ fb.textContent = '⚠ ' + (e.error || 'error'); };
+      rec.onresult = function(e){
+        var interim = '';
+        for (var i = e.resultIndex; i < e.results.length; i++) {
+          if (e.results[i].isFinal) finalText += e.results[i][0].transcript + ' ';
+          else interim += e.results[i][0].transcript;
+        }
+        tr.textContent = (finalText + interim).trim();
+      };
+      rec.start();
+    });
+  }
+  setupMic(1); setupMic(2); setupMic(3);
+
+  // Sample toggle
+  var toggle = document.getElementById('speak-sample-toggle');
+  var sample = document.getElementById('speak-sample');
+  if (toggle && sample) {
+    toggle.addEventListener('click', function(){
+      sample.classList.toggle('show');
+      toggle.textContent = sample.classList.contains('show') ? 'Hide sample answers' : 'Show sample answers (after your own attempt)';
+    });
+  }
+})();
+</script>
+
 <footer>
   Voyager · L2 · Are we alone? · for Ivan · summer 2026 · LinguaBoost Lab<br>
   <small>tap any underlined word to add it to your vocab · external resource: British Council IELTS practice format</small>
