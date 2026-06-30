@@ -437,7 +437,9 @@ window.NGE_DATA = {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b2-plus/voyager-l1-time-travel/?v=v7",
             "module_title": "🌌 Открыть Voyager L1 · The Watchmaker",
             "text": "8 секций, MP3-listening, lex-gram cloze, IELTS/Olympiad Speaking. Открой повторно — конструкции из cloze должны идти на автомате."
-          }
+          },
+          "audio_url": "https://newgeneration-english.ru/lingua-boost-lab/b2-plus/voyager-l1-time-travel/assets/audio/listen-time-physics.mp3",
+          "audio_title": "🎧 Listening · what physics actually says about time (90 s)"
         },
         {
           "date": "2026-06-09",
@@ -448,7 +450,9 @@ window.NGE_DATA = {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b2-plus/voyager-l1-time-travel/?v=v7",
             "module_title": "🌌 Voyager L1 · The Watchmaker (повторение)",
             "text": "Повтор всего урока. Use of English вторым кругом — без шпаргалок."
-          }
+          },
+          "audio_url": "https://newgeneration-english.ru/lingua-boost-lab/b2-plus/voyager-l1-time-travel/assets/audio/listen-time-physics.mp3",
+          "audio_title": "🎧 Listening · time physics (повтор)"
         },
         {
           "date": "2026-06-16",
@@ -459,7 +463,9 @@ window.NGE_DATA = {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b2-plus/voyager-l2-are-we-alone/",
             "module_title": "🛸 Voyager L2 · Are we alone?",
             "text": "8 секций · 2 MP3 (Drake/Fermi + final broadcast Reyes). Mia's grandfather's logbook из L1 возвращается."
-          }
+          },
+          "audio_url": "https://newgeneration-english.ru/lingua-boost-lab/b2-plus/voyager-l2-are-we-alone/assets/audio/listen-drake-fermi.mp3",
+          "audio_title": "🎧 Listening · Drake / Fermi lecture (3 мин)"
         },
         {
           "date": "2026-06-30",
@@ -469,10 +475,33 @@ window.NGE_DATA = {
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b2-plus/voyager-l2-are-we-alone/",
             "module_title": "🛸 Voyager L2 · Are we alone? (повторение)",
-            "text": "Повтор закрыт. Глоссарий Voyager L1–L4 пришёл отдельным PDF в TG-чат маме."
-          }
+            "text": "Повтор закрыт. Глоссарий Voyager L1–L4 (97 пар) и offline-homework — в материалах ниже."
+          },
+          "audio_url": "https://newgeneration-english.ru/lingua-boost-lab/b2-plus/voyager-l2-are-we-alone/assets/audio/listen-final-broadcast.mp3",
+          "audio_title": "🎧 Listening · final broadcast Reyes (≈50 s)"
         }
-      ]
+      ],
+      "materials": {
+        "folder": "documents/_v/ivanov-ivan",
+        "note": "Материалы Вани: глоссарий Voyager L1–L4 (97 пар), offline-homework L1+L2 для печати, отчёт за июнь для мамы. Клик — открыть в новой вкладке.",
+        "files": [
+          {
+            "name": "voyager-glossary-L1-L4.pdf",
+            "label": "📒 Глоссарий Voyager L1–L4 · 97 EN→RU пар",
+            "audience": "all"
+          },
+          {
+            "name": "voyager-homework-L1-L2-offline.pdf",
+            "label": "📚 Offline-homework L1+L2 (для печати)",
+            "audience": "all"
+          },
+          {
+            "name": "report-ivanov-2026-06.pdf",
+            "label": "📊 Отчёт за июнь 2026 (для мамы)",
+            "audience": "parent"
+          }
+        ]
+      }
     },
     {
       "id": "daniella-libova",
