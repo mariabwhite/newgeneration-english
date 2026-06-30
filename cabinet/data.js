@@ -421,10 +421,10 @@ window.NGE_DATA = {
       "monthly_package": 10000,
       "lessons_in_package": 4,
       "subscription_month": "2026-06",
-      "lessons_used_this_month": 3,
+      "lessons_used_this_month": 4,
       "payment_status": "Оплачено",
       "payment_note": "Июнь оплачен полностью: 4 урока × 2 500 ₽ = 10 000 ₽ (мама оплатила).",
-      "stability_note": "Июньский абонемент 4 урока. Voyager: L1 The Watchmaker дважды (02.06 + 09.06) → L2 Are we alone? первый раз (16.06) → второй раз 30.06. Завтра закрываем 4/4.",
+      "stability_note": "Июнь 4/4 закрыт. Voyager: L1 The Watchmaker дважды (02.06 + 09.06) → L2 Are we alone? дважды (16.06 + 30.06). На июль: L3 Whose Mind? → L4 The letter arrived.",
       "parent_name": "Подлесных Татьяна Анатольевна",
       "pin": "7670",
       "lessons": [
@@ -464,13 +464,12 @@ window.NGE_DATA = {
         {
           "date": "2026-06-30",
           "num": 4,
-          "status": "planned",
-          "topic": "Voyager L2 · Are we alone? (второй раз) — завершаем нить",
-          "schedule_note": "вторник 15:00",
+          "status": "completed",
+          "topic": "Voyager L2 · Are we alone? (второй раз) — завершили нить",
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b2-plus/voyager-l2-are-we-alone/",
             "module_title": "🛸 Voyager L2 · Are we alone? (повторение)",
-            "text": "Повторно — освежить словарь и подчёркнутые слова перед уроком."
+            "text": "Повтор закрыт. Глоссарий Voyager L1–L4 пришёл отдельным PDF в TG-чат маме."
           }
         }
       ]
