@@ -454,6 +454,31 @@ Masha</div>
   </div>
 </section>
 
+<section class="section" id="block-practice-grammar-ext">
+  <div class="section-hdr"><div class="section-num">P-G2</div><h2>Practice · Extended grammar mix · их большой список</h2></div>
+  <p class="section-sub">Gerund/Infinitive · Used to / Would · Word formation families · Prepositions · Phrasal verbs. Click to answer.</p>
+  <div class="card">
+    <span class="task-num">P-G2</span><span class="task-tag">Extended grammar · 5 sub-sections · 22 items</span>
+
+    <h3 style="font-family:var(--display);color:var(--accent-2);margin:14px 0 8px">A · Gerund / Infinitive (Ving vs to+inf vs bare inf)</h3>
+    <div id="pg2-gerinf"></div>
+
+    <h3 style="font-family:var(--display);color:var(--accent-2);margin:22px 0 8px">B · Used to / Would / Be used to / Get used to</h3>
+    <div id="pg2-usedto"></div>
+
+    <h3 style="font-family:var(--display);color:var(--accent-2);margin:22px 0 8px">C · Word formation families (type the right form)</h3>
+    <div id="pg2-wordform"></div>
+
+    <h3 style="font-family:var(--display);color:var(--accent-2);margin:22px 0 8px">D · Prepositions &amp; word patterns</h3>
+    <div id="pg2-preps"></div>
+
+    <h3 style="font-family:var(--display);color:var(--accent-2);margin:22px 0 8px">E · Phrasal verbs · match the meaning</h3>
+    <div id="pg2-phrasal"></div>
+
+    <div class="score-badge"><span>Score</span> <span class="val" id="pg2-score">0</span> <span style="opacity:.6">/ 22</span></div>
+  </div>
+</section>
+
 <section class="section" id="block-practice-speaking">
   <div class="section-hdr"><div class="section-num speak">P-S</div><h2>Practice · Extra speaking cards</h2></div>
   <p class="section-sub">Six discussion cards on our topics. Use the answer frame: <strong>Direct answer → Reason → Example → Personal detail.</strong> 40-60 seconds each. Tap 🔊 to hear the question.</p>
@@ -1277,6 +1302,150 @@ grammarItems.forEach((q, i) => {
     };
   });
   grammarEl.appendChild(row);
+});
+
+/* ============== PRACTICE · Extended grammar mix (P-G2) ============== */
+function pg2UpdateScore(){
+  const total = document.querySelectorAll('#block-practice-grammar-ext .mc1-row button.correct:not(.wrong)').length
+    + document.querySelectorAll('#block-practice-grammar-ext input.right').length
+    + document.querySelectorAll('#block-practice-grammar-ext select.right').length;
+  /* count one per row (correct OR right) */
+  const okRows = new Set();
+  document.querySelectorAll('#block-practice-grammar-ext .mc1-row').forEach(r => { if (r.querySelector('button.correct') && !r.querySelector('button.wrong')) okRows.add(r) });
+  const okInputs = document.querySelectorAll('#block-practice-grammar-ext input.right').length;
+  const okSelects = document.querySelectorAll('#block-practice-grammar-ext select.right').length;
+  document.getElementById('pg2-score').textContent = okRows.size + okInputs + okSelects;
+}
+
+/* A · Gerund / Infinitive — 5 MCQ */
+const gerInfItems = [
+  {q:'1. I really enjoy ___ with my family on Saturdays.', opts:['to bake','baking','bake'], a:1, note:'enjoy + Ving'},
+  {q:'2. She managed ___ the problem on her own.', opts:['solving','to solve','solve'], a:1, note:'manage + to+inf'},
+  {q:'3. My mum let me ___ a small surprise party.', opts:['to organise','organising','organise'], a:2, note:'let + bare inf'},
+  {q:'4. I look forward ___ you at the weekend.', opts:['to see','seeing','to seeing'], a:2, note:'look forward TO + Ving'},
+  {q:'5. He suggested ___ paper and plastic separately.', opts:['to recycle','recycling','recycle'], a:1, note:'suggest + Ving'}
+];
+const gerInfEl = document.getElementById('pg2-gerinf');
+gerInfItems.forEach(it => {
+  const row = document.createElement('div');
+  row.className = 'mc1-row';
+  row.dataset.ans = String(it.a);
+  row.innerHTML = `<div class="mc1-q"><strong>${it.q}</strong></div><div class="mc1-opts">${it.opts.map((o,j)=>`<button data-v="${j}">${String.fromCharCode(65+j)}) ${o}</button>`).join('')}</div><div class="mcq-note">${it.note}</div>`;
+  row.querySelectorAll('button').forEach(b => {
+    b.onclick = () => {
+      row.classList.add('revealed');
+      row.querySelectorAll('button').forEach(x => { x.classList.remove('correct','wrong'); x.disabled = true });
+      if (b.dataset.v === String(it.a)) b.classList.add('correct');
+      else { b.classList.add('wrong'); row.querySelector(`button[data-v="${it.a}"]`).classList.add('correct') }
+      pg2UpdateScore();
+    };
+  });
+  gerInfEl.appendChild(row);
+});
+
+/* B · Used to family — 4 MCQ */
+const usedToItems = [
+  {q:'1. When I was younger, I ___ get up at 7 every morning for school.', opts:['used to','am used to','would'], a:0, note:'used to + V (прошлая привычка)'},
+  {q:'2. After a month, I ___ doing the washing-up. Now it\'s automatic.', opts:['used to','got used to','would'], a:1, note:'get used to + Ving'},
+  {q:'3. Every summer, my grandma ___ bake apple pies. The smell was amazing.', opts:['would','is used to','was used to'], a:0, note:'would = повторяющееся действие'},
+  {q:'4. I ___ sorting the rubbish now — it feels natural.', opts:['used to','am used to','would'], a:1, note:'be used to + Ving (привычно)'}
+];
+const usedToEl = document.getElementById('pg2-usedto');
+usedToItems.forEach(it => {
+  const row = document.createElement('div');
+  row.className = 'mc1-row';
+  row.dataset.ans = String(it.a);
+  row.innerHTML = `<div class="mc1-q"><strong>${it.q}</strong></div><div class="mc1-opts">${it.opts.map((o,j)=>`<button data-v="${j}">${String.fromCharCode(65+j)}) ${o}</button>`).join('')}</div><div class="mcq-note">${it.note}</div>`;
+  row.querySelectorAll('button').forEach(b => {
+    b.onclick = () => {
+      row.classList.add('revealed');
+      row.querySelectorAll('button').forEach(x => { x.classList.remove('correct','wrong'); x.disabled = true });
+      if (b.dataset.v === String(it.a)) b.classList.add('correct');
+      else { b.classList.add('wrong'); row.querySelector(`button[data-v="${it.a}"]`).classList.add('correct') }
+      pg2UpdateScore();
+    };
+  });
+  usedToEl.appendChild(row);
+});
+
+/* C · Word formation — 5 type-in */
+const wfItems = [
+  {ctx:'1. My (CHILD) ___ was full of long summer holidays at the dacha.', hint:'CHILD', a:'childhood'},
+  {ctx:'2. The actor played his role with great (ACT) ___.', hint:'ACT', a:'action'},
+  {ctx:'3. She has real (MUSIC) ___ talent — listens once, plays back.', hint:'MUSIC', a:'musical'},
+  {ctx:'4. We need new (COLLECT) ___ of fairy tales for the school library.', hint:'COLLECT', a:'collections'},
+  {ctx:'5. The school festival was very (ENTERTAIN) ___ — everyone laughed.', hint:'ENTERTAIN', a:'entertaining'}
+];
+const wfEl = document.getElementById('pg2-wordform');
+wfItems.forEach(it => {
+  const row = document.createElement('div');
+  row.className = 'wf-row';
+  row.innerHTML = `<span class="ctx">${it.ctx}</span><span class="hint">${it.hint}</span><input type="text" data-a="${it.a}" autocomplete="off" placeholder="…">`;
+  const inp = row.querySelector('input');
+  inp.addEventListener('focus', () => inp.classList.remove('right','wrong'));
+  inp.addEventListener('input', () => inp.classList.remove('right','wrong'));
+  inp.addEventListener('blur', () => {
+    if (!inp.value.trim()) return;
+    if (inp.value.trim().toLowerCase() === inp.dataset.a) inp.classList.add('right');
+    else inp.classList.add('wrong');
+    pg2UpdateScore();
+  });
+  wfEl.appendChild(row);
+});
+
+/* D · Prepositions — 5 select */
+const prepItems = [
+  {q:'1. She is really good ___ playing the violin.', opts:['at','in','on'], a:0},
+  {q:'2. My brother is crazy ___ board games — plays every weekend.', opts:['for','about','of'], a:1},
+  {q:'3. I am tired ___ doing all the housework alone.', opts:['of','from','with'], a:0},
+  {q:'4. Are you interested ___ joining the eco club this year?', opts:['on','in','to'], a:1},
+  {q:'5. Many teenagers take part ___ school environment projects.', opts:['at','on','in'], a:2}
+];
+const prepEl = document.getElementById('pg2-preps');
+prepItems.forEach(it => {
+  const row = document.createElement('div');
+  row.className = 'mc1-row';
+  row.dataset.ans = String(it.a);
+  row.innerHTML = `<div class="mc1-q"><strong>${it.q}</strong></div><div class="mc1-opts">${it.opts.map((o,j)=>`<button data-v="${j}">${String.fromCharCode(65+j)}) ${o}</button>`).join('')}</div>`;
+  row.querySelectorAll('button').forEach(b => {
+    b.onclick = () => {
+      row.querySelectorAll('button').forEach(x => { x.classList.remove('correct','wrong'); x.disabled = true });
+      if (b.dataset.v === String(it.a)) b.classList.add('correct');
+      else { b.classList.add('wrong'); row.querySelector(`button[data-v="${it.a}"]`).classList.add('correct') }
+      pg2UpdateScore();
+    };
+  });
+  prepEl.appendChild(row);
+});
+
+/* E · Phrasal verbs — match meaning */
+const phrasalItems = [
+  {verb:'take up', meaning:'to start a new hobby or activity'},
+  {verb:'give up', meaning:'to stop doing something'},
+  {verb:'turn down', meaning:'to refuse an offer / lower the volume'},
+  {verb:'eat out', meaning:'to have a meal in a restaurant'},
+  {verb:'carry on', meaning:'to continue doing something'}
+];
+const phrasalEl = document.getElementById('pg2-phrasal');
+const meaningsShuffled = [...phrasalItems].map(x => x.meaning).sort(() => Math.random() - 0.5);
+phrasalItems.forEach((it, i) => {
+  const row = document.createElement('div');
+  row.className = 'match-row';
+  row.innerHTML = `
+    <span class="label">${i+1}</span>
+    <span class="stmt"><strong>${it.verb}</strong></span>
+    <select data-a="${it.meaning}">
+      <option value="" disabled selected>—</option>
+      ${meaningsShuffled.map(m => `<option value="${m}">${m}</option>`).join('')}
+    </select>`;
+  const sel = row.querySelector('select');
+  sel.onchange = () => {
+    sel.classList.remove('right','wrong');
+    if (sel.value === sel.dataset.a) sel.classList.add('right');
+    else sel.classList.add('wrong');
+    pg2UpdateScore();
+  };
+  phrasalEl.appendChild(row);
 });
 
 /* ============== PRACTICE · Extra speaking cards ============== */
