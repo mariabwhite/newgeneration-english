@@ -1374,12 +1374,13 @@
     opts = opts || {};
     const m = student && student.materials;
     if (!m || !m.folder || !Array.isArray(m.files) || !m.files.length) return "";
-    const files = opts.studentView
-      ? m.files.filter(f => {
-          if (typeof f === "string") return true;
-          return !f.audience || f.audience === "all" || f.audience === "student";
-        })
-      : m.files;
+    const isStudent = !!opts.studentView;
+    const files = m.files.filter(f => {
+      if (typeof f === "string") return true;
+      const a = f.audience;
+      if (!a || a === "all") return true;
+      return isStudent ? (a === "student") : (a === "parent");
+    });
     if (!files.length) return "";
     const note = m.note ? `<p class="cab-card-note">${_esc(m.note)}</p>` : "";
     const items = files.map(f => {
