@@ -412,6 +412,74 @@ Masha</div>
 </section>
 
 <!-- ============================================================
+     PRACTICE BOOSTER · pre-Friday lesson · vocabulary + passive + grammar + extra speaking
+============================================================= -->
+
+<section class="section" id="block-practice-vocab">
+  <div class="section-hdr"><div class="section-num">P-V</div><h2>Practice · Vocabulary deep work · 3 наших темы</h2></div>
+  <p class="section-sub">Match each English word to its Russian translation. Three blocks: chores · birthdays · ecology. Click options to reveal the answer.</p>
+  <div class="card">
+    <span class="task-num">P-V</span><span class="task-tag">Match · 3 темы · 30 пар</span>
+    <h3 style="font-family:var(--display);color:var(--accent-2);margin:14px 0 8px">🧹 Household chores</h3>
+    <div id="pv-chores"></div>
+    <h3 style="font-family:var(--display);color:var(--accent-2);margin:18px 0 8px">🎂 Birthdays &amp; celebrations</h3>
+    <div id="pv-birthdays"></div>
+    <h3 style="font-family:var(--display);color:var(--accent-2);margin:18px 0 8px">🌱 Ecology</h3>
+    <div id="pv-ecology"></div>
+    <div class="score-badge"><span>Score</span> <span class="val" id="pv-score">0</span> <span style="opacity:.6">/ 30</span></div>
+  </div>
+</section>
+
+<section class="section" id="block-practice-passive">
+  <div class="section-hdr"><div class="section-num">P-PV</div><h2>Practice · Passive Voice — convert active → passive</h2></div>
+  <p class="section-sub">Rewrite each sentence in the passive voice. Type your answer — Check on blur. Topics: chores, birthdays, ecology.</p>
+  <div class="card">
+    <span class="task-num">P-PV</span><span class="task-tag">Passive voice · 8 transformations</span>
+    <div id="pv-passive"></div>
+    <div class="score-badge"><span>Score</span> <span class="val" id="pv-passive-score">0</span> <span style="opacity:.6">/ 8</span></div>
+  </div>
+</section>
+
+<section class="section" id="block-practice-grammar">
+  <div class="section-hdr"><div class="section-num">P-G</div><h2>Practice · Mixed grammar · modals + gerund/inf + conditionals</h2></div>
+  <p class="section-sub">Choose the option that fits the sentence. Mixed grammar from our June block.</p>
+  <div class="card">
+    <span class="task-num">P-G</span><span class="task-tag">Mixed MCQ · 10 questions</span>
+    <div id="pv-grammar"></div>
+    <div class="score-badge"><span>Score</span> <span class="val" id="pv-grammar-score">0</span> <span style="opacity:.6">/ 10</span></div>
+  </div>
+</section>
+
+<section class="section" id="block-practice-speaking">
+  <div class="section-hdr"><div class="section-num speak">P-S</div><h2>Practice · Extra speaking cards</h2></div>
+  <p class="section-sub">Six discussion cards on our topics. Use the answer frame: <strong>Direct answer → Reason → Example → Personal detail.</strong> 40-60 seconds each. Tap 🔊 to hear the question.</p>
+  <div class="card">
+    <span class="task-num">P-S</span><span class="task-tag">6 cards · 40-60 sec each · answer frame</span>
+    <div id="pv-speaking-list"></div>
+    <button class="sample-toggle" type="button" data-target="pv-speaking-sample" style="margin-top:14px">Show sample answers (after your own attempt)</button>
+    <div class="write" id="pv-speaking-sample" style="margin-top:0">
+      <div class="sample-reveal">1. Should teenagers help with the housework? Why?
+Yes, teenagers should definitely help with the housework, because our parents work hard all day and sharing the chores is a fair way to thank them. For example, in my family I take out the rubbish and help with cooking on Saturdays. Personally, I don't always enjoy doing the washing-up, but I never refuse — it's part of the deal.
+
+2. Are big birthday parties a waste of money?
+I partly agree. A huge restaurant party with expensive decorations can really be a waste, because the next day there is nothing left except photos. For example, my best birthday was a small picnic in the park with five friends — handmade gifts and one cake. Personally, I prefer small celebrations because they feel more meaningful.
+
+3. What can young people do to protect the environment?
+Young people can do a lot, even at home. We should sort the rubbish, save energy by turning off the lights, and use reusable bottles instead of plastic. For example, our class organised a "no-plastic Friday" last term. Personally, I believe small daily actions matter more than one big eco-event a year.
+
+4. Boys and girls — should they share the same chores?
+Yes, I strongly believe boys and girls should share the same chores. Vacuuming the carpet is not "girls' work", and fixing a lamp is not "boys' work". For example, in my family my brother does the laundry and my mum fixes things. Personally, I think the home is cleaner when everyone helps with everything.
+
+5. Is climate change really a serious problem for our generation?
+Yes, climate change is one of the most serious problems for our generation, because we will live with the consequences for the longest time. For example, summers are already hotter than ten years ago, and some species are becoming endangered. Personally, I think every teenager should learn at least the basics of ecology at school.
+
+6. Handmade gifts vs shop-bought — which is better?
+I definitely prefer handmade gifts, because they show that you spent time thinking about the person. For example, last year my friends made me a photo album from our school trip — I still look at it. Personally, I think the price of a present matters much less than the feeling behind it.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
      SECTION 5 · SPEAKING (Tasks 1-3)
 ============================================================= -->
 
@@ -974,6 +1042,165 @@ document.getElementById('sp3-play').onclick = () => {
   const text = document.querySelector('#sp3-write .sample-reveal').textContent;
   say(text, {rate:0.94});
 };
+
+/* ============== PRACTICE · Vocabulary deep work (3 themes, 30 pairs) ============== */
+const vocabSets = {
+  'pv-chores': [
+    {en:'do the washing-up', ru:'мыть посуду'},
+    {en:'do the laundry', ru:'стирать'},
+    {en:'make the bed', ru:'застилать кровать'},
+    {en:'take out the rubbish', ru:'выносить мусор'},
+    {en:'vacuum the carpet', ru:'пылесосить ковёр'},
+    {en:'mop the floor', ru:'мыть пол'},
+    {en:'dust the shelves', ru:'вытирать пыль с полок'},
+    {en:'fold clothes', ru:'складывать одежду'},
+    {en:'iron clothes', ru:'гладить одежду'},
+    {en:'share responsibilities', ru:'делить обязанности'}
+  ],
+  'pv-birthdays': [
+    {en:'throw a party', ru:'устроить вечеринку'},
+    {en:'decorate with balloons', ru:'украшать шарами'},
+    {en:'blow out the candles', ru:'задувать свечи'},
+    {en:'make a wish', ru:'загадывать желание'},
+    {en:'handmade gift', ru:'подарок ручной работы'},
+    {en:'organise a surprise party', ru:'устроить сюрприз-вечеринку'},
+    {en:'birthday traditions', ru:'традиции дня рождения'},
+    {en:'name days', ru:'именины'},
+    {en:'lucky numbers', ru:'счастливые числа'},
+    {en:'virtual party', ru:'онлайн-вечеринка'}
+  ],
+  'pv-ecology': [
+    {en:'pollution', ru:'загрязнение'},
+    {en:'to pollute', ru:'загрязнять'},
+    {en:'recycling', ru:'переработка'},
+    {en:'to sort the rubbish', ru:'сортировать мусор'},
+    {en:'climate change', ru:'изменение климата'},
+    {en:'global warming', ru:'глобальное потепление'},
+    {en:'renewable energy', ru:'возобновляемая энергия'},
+    {en:'eco-friendly', ru:'экологичный'},
+    {en:'deforestation', ru:'вырубка лесов'},
+    {en:'endangered species', ru:'исчезающие виды'}
+  ]
+};
+function buildVocabBlock(boxId, pairs){
+  const box = document.getElementById(boxId);
+  const ruShuffled = [...pairs].sort(() => Math.random() - 0.5);
+  pairs.forEach((p, i) => {
+    const row = document.createElement('div');
+    row.className = 'match-row';
+    row.innerHTML = `
+      <span class="label" style="grid-column:1">${i+1}</span>
+      <span class="stmt"><strong>${p.en}</strong></span>
+      <select data-a="${p.ru}">
+        <option value="" disabled selected>—</option>
+        ${ruShuffled.map(x => `<option value="${x.ru}">${x.ru}</option>`).join('')}
+      </select>`;
+    const sel = row.querySelector('select');
+    sel.onchange = () => {
+      sel.classList.remove('right','wrong');
+      if (sel.value === sel.dataset.a) sel.classList.add('right');
+      else sel.classList.add('wrong');
+      const total = document.querySelectorAll('#pv-chores select.right, #pv-birthdays select.right, #pv-ecology select.right').length;
+      document.getElementById('pv-score').textContent = total;
+    };
+    box.appendChild(row);
+  });
+}
+buildVocabBlock('pv-chores', vocabSets['pv-chores']);
+buildVocabBlock('pv-birthdays', vocabSets['pv-birthdays']);
+buildVocabBlock('pv-ecology', vocabSets['pv-ecology']);
+
+/* ============== PRACTICE · Passive Voice transformations ============== */
+const passiveItems = [
+  {prompt:'Active: They sort the rubbish at home every week.', a:'the rubbish is sorted at home every week', hint:'The rubbish ___ (sort)'},
+  {prompt:'Active: My mum does the laundry on Saturdays.', a:'the laundry is done on saturdays', hint:'The laundry ___ (do) by my mum'},
+  {prompt:'Active: We organised a surprise party last weekend.', a:'a surprise party was organised last weekend', hint:'A surprise party ___ (organise)'},
+  {prompt:'Active: People recycle paper, plastic and glass.', a:'paper, plastic and glass are recycled', hint:'Paper, plastic and glass ___ (recycle)'},
+  {prompt:'Active: Air pollution causes serious health problems.', a:'serious health problems are caused by air pollution', hint:'Serious health problems ___ (cause)'},
+  {prompt:'Active: My grandmother made the birthday cake.', a:'the birthday cake was made by my grandmother', hint:'The birthday cake ___ (make)'},
+  {prompt:'Active: Companies will introduce more eco-friendly products next year.', a:'more eco-friendly products will be introduced next year', hint:'More eco-friendly products ___ (introduce)'},
+  {prompt:'Active: Someone has thrown plastic bottles in the river.', a:'plastic bottles have been thrown in the river', hint:'Plastic bottles ___ (throw)'}
+];
+const passiveEl = document.getElementById('pv-passive');
+passiveItems.forEach((it, i) => {
+  const row = document.createElement('div');
+  row.className = 'wf-row';
+  row.style.gridTemplateColumns = '1fr 1fr';
+  row.innerHTML = `
+    <span class="ctx"><strong>${i+1}.</strong> ${it.prompt}<br><em style="color:var(--muted);font-size:.86rem">${it.hint}</em></span>
+    <input type="text" data-a="${it.a}" autocomplete="off" placeholder="Type passive form…">`;
+  const inp = row.querySelector('input');
+  inp.addEventListener('focus', () => inp.classList.remove('right','wrong'));
+  inp.addEventListener('blur', () => {
+    if (!inp.value.trim()) return;
+    const v = inp.value.trim().toLowerCase().replace(/\.$/,'').replace(/\s+/g,' ');
+    if (v === inp.dataset.a.toLowerCase()) inp.classList.add('right');
+    else inp.classList.add('wrong');
+    document.getElementById('pv-passive-score').textContent = document.querySelectorAll('#pv-passive input.right').length;
+  });
+  passiveEl.appendChild(row);
+});
+
+/* ============== PRACTICE · Mixed grammar MCQ ============== */
+const grammarItems = [
+  {q:'1. You ___ wear a uniform — it\'s a school rule.', opts:['must','should','can'], a:0},
+  {q:'2. ___ you mind helping me with the washing-up?', opts:['Could','Should','Must'], a:0},
+  {q:'3. If we ___ paper and plastic, the rubbish will be smaller.', opts:['will sort','sort','sorted'], a:1},
+  {q:'4. I really enjoy ___ cookies with my mum on Saturdays.', opts:['to bake','baking','bake'], a:1},
+  {q:'5. When I was 6, I ___ ride a bike already.', opts:['can','could','must'], a:1},
+  {q:'6. You ___ throw plastic bottles in the river — it\'s strictly forbidden.', opts:['mustn\'t','don\'t have to','shouldn\'t'], a:0},
+  {q:'7. She used to ___ housework, but now she enjoys it.', opts:['hating','hate','hated'], a:1},
+  {q:'8. If I ___ more time, I would join the eco club.', opts:['have','had','will have'], a:1},
+  {q:'9. The rubbish ___ collected every Tuesday morning.', opts:['is','are','being'], a:0},
+  {q:'10. We ___ to organise a surprise party for grandma next month.', opts:['planning','plan','are planning'], a:2}
+];
+const grammarEl = document.getElementById('pv-grammar');
+grammarItems.forEach((q, i) => {
+  const row = document.createElement('div');
+  row.className = 'mc1-row';
+  row.dataset.ans = String(q.a);
+  row.innerHTML = `
+    <div class="mc1-q"><strong>${q.q}</strong></div>
+    <div class="mc1-opts">
+      ${q.opts.map((o,j) => `<button data-v="${j}">${String.fromCharCode(65+j)}) ${o}</button>`).join('')}
+    </div>`;
+  row.querySelectorAll('button').forEach(b => {
+    b.onclick = () => {
+      row.querySelectorAll('button').forEach(x => { x.classList.remove('correct','wrong'); x.disabled = true; });
+      if (b.dataset.v === String(q.a)) b.classList.add('correct');
+      else { b.classList.add('wrong'); row.querySelector(`button[data-v="${q.a}"]`).classList.add('correct'); }
+      let ok = 0;
+      document.querySelectorAll('#pv-grammar .mc1-row').forEach(r => {
+        if (r.querySelector('button.correct') && !r.querySelector('button.wrong')) ok++;
+      });
+      document.getElementById('pv-grammar-score').textContent = ok;
+    };
+  });
+  grammarEl.appendChild(row);
+});
+
+/* ============== PRACTICE · Extra speaking cards ============== */
+const pvSpQs = [
+  'Should teenagers help with the housework? Why?',
+  'Are big birthday parties a waste of money?',
+  'What can young people do to protect the environment?',
+  'Should boys and girls share the same chores?',
+  'Is climate change really a serious problem for our generation?',
+  'Handmade gifts vs shop-bought — which is better?'
+];
+const pvSpEl = document.getElementById('pv-speaking-list');
+pvSpQs.forEach((q, i) => {
+  const row = document.createElement('div');
+  row.className = 'cue-card';
+  row.innerHTML = `
+    <div class="cue-h">Card ${i+1} · 40-60 sec · use the frame</div>
+    <p style="font-family:var(--serif);font-size:1.02rem;color:var(--text);margin-bottom:8px">${q}</p>
+    <div class="audio-row" style="margin:6px 0">
+      <button class="tts-btn" data-q="${i}">🔊 Hear the question</button>
+    </div>`;
+  row.querySelector('button').onclick = () => say(q, {rate:0.92});
+  pvSpEl.appendChild(row);
+});
 
 /* ============== Dots ============== */
 const dotsEl = document.getElementById('dots');
