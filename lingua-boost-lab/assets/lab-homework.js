@@ -572,18 +572,51 @@
     var room = roomFor(name);
 
     // Lazy SDK
-    if (!window.supabase) {
-      await new Promise(function(res, rej){
-        var sc = document.createElement('script');
-        sc.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js';
-        sc.onload = res; sc.onerror = rej;
-        document.head.appendChild(sc);
-      }).catch(function(){});
-    }
     var ok = false, err = '';
+    var title = (document.querySelector('.lab-hero h1, .hero h1, h1')?.textContent || document.title || '').trim();
+
+    // PRIMARY: D1 через /api/homework/submit (без иностранщины, тот же домен)
     try {
+      var misses = arr.map(function(it, i){
+        var n = (i+1) + '.';
+        var q = short(it.question || '(без вопроса)', 90);
+        var extras = [];
+        if (it.correct) extras.push('✓ ' + short(it.correct, 60));
+        if (it.student_answer) extras.push('✗ ' + short(it.student_answer, 60));
+        return n + ' ' + q + (extras.length ? ' (' + extras.join(' · ') + ')' : '');
+      });
+      var d1resp = await fetch('/api/homework/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          student_name: name || 'аноним',
+          student_id: room,
+          lesson_path: location.pathname,
+          lesson_title: short(title, 100),
+          section_id: 'homework-batch',
+          items: arr,
+          score: 0,
+          total: arr.length,
+          pct: 0,
+          misses: misses
+        })
+      });
+      var d1json = await d1resp.json().catch(function(){return {}});
+      if (d1resp.ok && d1json.ok) { ok = true; }
+      else { err = d1json.error || ('D1 HTTP ' + d1resp.status); }
+    } catch (e) { err = 'D1 fetch failed: ' + (e.message || e); }
+
+    // FALLBACK на Supabase (если D1 endpoint ещё не задеплоен или упал)
+    if (!ok) try {
+      if (!window.supabase) {
+        await new Promise(function(res, rej){
+          var sc = document.createElement('script');
+          sc.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js';
+          sc.onload = res; sc.onerror = rej;
+          document.head.appendChild(sc);
+        }).catch(function(){});
+      }
       var client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
-      var title = (document.querySelector('.lab-hero h1, .hero h1, h1')?.textContent || document.title || '').trim();
       var resp = await client.from('lab_submissions').insert({
         room_id: room,
         lesson_path: location.pathname,
@@ -594,52 +627,23 @@
         total: arr.length,
         misses: arr
       });
-      if (resp.error) { err = resp.error.message; } else { ok = true; }
-      // Broadcast в firehose — чтобы Маша в teacher-live.html увидела сразу
-      try {
-        var fh = client.channel('lab-firehose-v1', { config:{ broadcast:{ self:false }}});
-        fh.subscribe(function(s){
-          if (s === 'SUBSCRIBED') {
-            fh.send({ type:'broadcast', event:'homework-batch', payload: {
-              room_id: room, name: name||'', lesson_path: location.pathname,
-              lesson_title: short(title, 80), count: arr.length, ts: Date.now()
-            }});
-            setTimeout(function(){ fh.unsubscribe(); }, 800);
-          }
-        });
-      } catch(e){}
-      // Опциональный POST в локальный AI Hub (если запущен на этой машине)
-      // — silent fail. Hub не основной, основное persist уже сработало выше.
-      try {
-        var lines = arr.map(function(it, i){
-          var n = (i+1) + '.';
-          var kind = '[' + kindLabel(it.kind) + ']';
-          var q = short(it.question || '(без вопроса)', 90);
-          // для vocab уже в question = 📖 word + (перевод подсасывается в renderList) —
-          // тут добавим перевод явно, если он есть и не зашит в question
-          if (it.kind === 'vocab' && it.correct && q.indexOf(' — ') === -1) {
-            q = q + ' — ' + short(it.correct, 60);
-          }
-          var extras = [];
-          if (it.kind !== 'vocab' && it.correct) extras.push('✓ ' + short(it.correct, 60));
-          if (it.kind !== 'vocab' && it.student_answer) extras.push('✗ ' + short(it.student_answer, 60));
-          var tail = extras.length ? '  (' + extras.join(' · ') + ')' : '';
-          return n + ' ' + kind + ' ' + q + tail;
-        });
-        var header = '📚 Новая домашка от ' + (name || 'ученика') +
-                     ' · ' + arr.length + ' заданий\n' +
-                     '🔗 Урок: ' + short(title, 90) + '\n' +
-                     '\n' + lines.join('\n');
-        // Telegram максимум 4096; режем мягко
-        if (header.length > 3800) header = header.slice(0, 3780) + '\n…(обрезано)';
-        fetch('http://127.0.0.1:8765/api/send-telegram', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text: header }),
-          mode: 'no-cors'
-        }).catch(function(){});
-      } catch(e){}
-    } catch(e) { err = e.message || String(e); }
+      if (!resp.error) { ok = true; err = ''; }
+    } catch (e) { /* fallback failed, ok остаётся false */ }
+
+    // Broadcast в firehose (Supabase) — для teacher-live.html, если доступен
+    if (window.supabase) try {
+      var clientFh = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+      var fh = clientFh.channel('lab-firehose-v1', { config:{ broadcast:{ self:false }}});
+      fh.subscribe(function(s){
+        if (s === 'SUBSCRIBED') {
+          fh.send({ type:'broadcast', event:'homework-batch', payload: {
+            room_id: room, name: name||'', lesson_path: location.pathname,
+            lesson_title: short(title, 80), count: arr.length, ts: Date.now()
+          }});
+          setTimeout(function(){ fh.unsubscribe(); }, 800);
+        }
+      });
+    } catch(e){}
     sendBtn.disabled = false;
     sendBtn.textContent = '📤 Отправить учителю';
     if (ok) {
