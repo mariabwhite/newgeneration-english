@@ -320,18 +320,18 @@
   }
 
   function scanAndDecorate(){
-    document.querySelectorAll('.mcq-row, .mc-item, .choice-row, .choice-card, .qcard, .question-card, .q-item, .mc1-row, .pv-mcq-row').forEach(function(el){ addBtn(el, 'mcq'); });
+    document.querySelectorAll('.mcq-row, .mc-item, .choice-row, .choice-card, .qcard, .question-card, .q-item, .mc1-row, .pv-mcq-row, .q-row').forEach(function(el){ addBtn(el, 'mcq'); });
     document.querySelectorAll('.tfns-row, .tf-row, .tf-item').forEach(function(el){ addBtn(el, 'tfns'); });
-    document.querySelectorAll('.gap, .gram-gap, .gapfill, .cloze-gap, .lex-gap, .pv-gap').forEach(function(el){ addBtn(el, 'gap'); });
+    document.querySelectorAll('.gap, .gram-gap, .gapfill, .cloze-gap, .lex-gap, .pv-gap, .cloze-row, .oc-row').forEach(function(el){ addBtn(el, 'gap'); });
     document.querySelectorAll('.wf-row, .wordform-row').forEach(function(el){ addBtn(el, 'wf'); });
     document.querySelectorAll('.match-item, .match-card, .match-row, .pair-row').forEach(function(el){ addBtn(el, 'match'); });
     document.querySelectorAll('.builder, .reorder-row, .order-row').forEach(function(el){ addBtn(el, 'builder'); });
     document.querySelectorAll('.mic-row, .speech-row, .speak-row').forEach(function(el){ addBtn(el, 'mic'); });
     document.querySelectorAll('.write textarea, textarea.writing-area, textarea[data-write], .open-writing textarea, .free-write textarea').forEach(function(el){ addBtn(el, 'writing'); });
-    document.querySelectorAll('.vocab-card, .word-card, .vocabulary-item').forEach(function(el){ addBtn(el, 'vocab'); });
+    document.querySelectorAll('.vocab-card, .word-card, .vocabulary-item, .flip-card').forEach(function(el){ addBtn(el, 'vocab'); });
     document.querySelectorAll('.cue-card, .post, .prompt-card, .task-card, .speaking-task, .writing-task').forEach(function(el){ addBtn(el, 'builder'); });
     document.querySelectorAll('.dict-row, .dictation-row').forEach(function(el){ addBtn(el, 'gap'); });
-    document.querySelectorAll('.trans-row, .transform-row, .rewrite-row').forEach(function(el){ addBtn(el, 'builder'); });
+    document.querySelectorAll('.trans-row, .transform-row, .rewrite-row, .tr-row').forEach(function(el){ addBtn(el, 'builder'); });
     decorateSections();
   }
 
