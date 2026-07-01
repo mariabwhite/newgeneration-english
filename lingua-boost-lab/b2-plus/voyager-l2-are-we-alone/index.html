@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <script src="/lingua-boost-lab/assets/premium-lesson-guard.js"></script>
@@ -1040,7 +1040,7 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
     <p style="color:var(--muted)">In <strong>L3 · <em>The first city</em></strong> we keep the same routine — short reading, short listening, speaking, mini-write — but the question turns inward. How does a settlement become a civilisation? What does «city-ness» need that a tribe does not? Same words come back: <em>signal, anomaly, evidence, hypothesis</em> — applied to archaeology this time.</p>
     <p>Your vocab box carries with you. See you next week.</p>
 
-    <details class="homework">
+    <details class="homework" id="homework-block">
       <summary>📚 Homework · olympiad practice (optional) <span>tap to open</span></summary>
       <div class="hw-body">
         <p style="color:var(--muted);font-size:.92rem;margin-bottom:14px">Three short olympiad-style tasks on related themes — signals, language, evidence. Do at home in any order. Not required, but the lesson sticks better when you try at least one.</p>
@@ -1717,5 +1717,62 @@ document.querySelectorAll('.tab-row').forEach(row => {
 <script src="../../assets/lab-vocab-builder.js?v=41" defer></script>
 <script src="../../assets/lab-coach-persist.js?v=1" defer></script>
 <script src="../../assets/lab-speech-tester.js?v=11" defer></script>
+
+
+<!-- Voyager · unified homework pilot v1 (2026-07-01) -->
+<style>
+  #homework-block { scroll-margin-top: 90px; }
+  #homework-block.hw-focus > summary { box-shadow: 0 0 0 3px var(--accent, #34d88a); transition: box-shadow .35s; }
+  @media (max-width: 720px) {
+    #homework-block { padding-inline: 4px; }
+    #homework-block .hw-body { font-size: 15.5px; line-height: 1.55; }
+    #homework-block h4 { font-size: 1rem; margin-top: 22px; }
+    #homework-block .hw-row, #homework-block .q-text { padding: 10px 0; }
+    #homework-block .cloze-text { font-size: 15.5px; line-height: 1.6; }
+  }
+</style>
+<script>
+(function(){
+  var HW_ID = 'homework-block';
+  function openInlineHomework(source){
+    var d = document.getElementById(HW_ID);
+    if (!d) return;
+    d.open = true;
+    d.classList.add('hw-focus');
+    setTimeout(function(){ d.classList.remove('hw-focus'); }, 1600);
+    d.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    try {
+      if (window.labSync && typeof window.labSync.emit === 'function') {
+        window.labSync.emit('homework-opened', { source: source || 'fab', lessonPath: location.pathname });
+      }
+    } catch(e){}
+  }
+  function rebindFab(){
+    var fab = document.querySelector('.lab-hw-fab .lab-hw-fab-btn');
+    if (!fab) return false;
+    var clone = fab.cloneNode(true);
+    fab.parentNode.replaceChild(clone, fab);
+    clone.addEventListener('click', function(ev){
+      ev.preventDefault();
+      ev.stopPropagation();
+      openInlineHomework('fab');
+    });
+    var wrap = document.querySelector('.lab-hw-fab');
+    if (wrap) wrap.classList.remove('empty');
+    return true;
+  }
+  var tries = 0;
+  var iv = setInterval(function(){
+    tries++;
+    if (rebindFab() || tries > 20) clearInterval(iv);
+  }, 200);
+  try {
+    if (window.labSync && typeof window.labSync.on === 'function') {
+      window.labSync.on('teacher-open-homework', function(){ openInlineHomework('teacher'); });
+    }
+  } catch(e){}
+})();
+</script>
+
 </body>
 </html>

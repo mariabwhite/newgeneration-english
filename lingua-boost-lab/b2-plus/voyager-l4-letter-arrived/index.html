@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <script src="/lingua-boost-lab/assets/premium-lesson-guard.js"></script>
@@ -1217,7 +1217,7 @@ Naomi. I had been telling you, since March of nineteen ninety-five, that I shoul
     </div>
   </div>
 
-  <details class="homework">
+  <details class="homework" id="homework-block">
     <summary>📚 Homework · olympiad practice (optional) <span>tap to open</span></summary>
     <div class="hw-body">
       <p style="color:var(--muted);font-size:.92rem;margin-bottom:14px">Three short olympiad-style tasks around the finale — press, family, silence. Do at home in any order. Not required, but the ending settles when you try at least one.</p>
@@ -1691,6 +1691,63 @@ body.lab-teacher-on .lab-vocab-section .vocab-card .extra-mark{left:40px!importa
     </div>
   </div>
 </aside>
+
+
+
+<!-- Voyager · unified homework pilot v1 (2026-07-01) -->
+<style>
+  #homework-block { scroll-margin-top: 90px; }
+  #homework-block.hw-focus > summary { box-shadow: 0 0 0 3px var(--accent, #34d88a); transition: box-shadow .35s; }
+  @media (max-width: 720px) {
+    #homework-block { padding-inline: 4px; }
+    #homework-block .hw-body { font-size: 15.5px; line-height: 1.55; }
+    #homework-block h4 { font-size: 1rem; margin-top: 22px; }
+    #homework-block .hw-row, #homework-block .q-text { padding: 10px 0; }
+    #homework-block .cloze-text { font-size: 15.5px; line-height: 1.6; }
+  }
+</style>
+<script>
+(function(){
+  var HW_ID = 'homework-block';
+  function openInlineHomework(source){
+    var d = document.getElementById(HW_ID);
+    if (!d) return;
+    d.open = true;
+    d.classList.add('hw-focus');
+    setTimeout(function(){ d.classList.remove('hw-focus'); }, 1600);
+    d.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    try {
+      if (window.labSync && typeof window.labSync.emit === 'function') {
+        window.labSync.emit('homework-opened', { source: source || 'fab', lessonPath: location.pathname });
+      }
+    } catch(e){}
+  }
+  function rebindFab(){
+    var fab = document.querySelector('.lab-hw-fab .lab-hw-fab-btn');
+    if (!fab) return false;
+    var clone = fab.cloneNode(true);
+    fab.parentNode.replaceChild(clone, fab);
+    clone.addEventListener('click', function(ev){
+      ev.preventDefault();
+      ev.stopPropagation();
+      openInlineHomework('fab');
+    });
+    var wrap = document.querySelector('.lab-hw-fab');
+    if (wrap) wrap.classList.remove('empty');
+    return true;
+  }
+  var tries = 0;
+  var iv = setInterval(function(){
+    tries++;
+    if (rebindFab() || tries > 20) clearInterval(iv);
+  }, 200);
+  try {
+    if (window.labSync && typeof window.labSync.on === 'function') {
+      window.labSync.on('teacher-open-homework', function(){ openInlineHomework('teacher'); });
+    }
+  } catch(e){}
+})();
+</script>
 
 </body>
 </html>
