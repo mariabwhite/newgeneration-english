@@ -1679,6 +1679,35 @@ Ladies and gentlemen — three years ago Theo Marshall stopped answering us. Two
     #homework-block .hw-row, #homework-block .q-text { padding: 10px 0; }
     #homework-block .cloze-text { font-size: 15.5px; line-height: 1.6; }
   }
+  /* Voyager pilot · section '+ add to homework' — top-right corner */
+  section.section { position: relative; }
+  section.section .lab-hw-section-btn {
+    position: absolute !important;
+    top: 14px !important;
+    right: 14px !important;
+    left: auto !important;
+    margin: 0 !important;
+    width: 36px !important;
+    height: 36px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    font-size: 22px !important;
+    font-weight: 900 !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+    line-height: 1 !important;
+    z-index: 10;
+  }
+  section.section .lab-hw-section-btn::before {
+    content: '+';
+    display: block;
+    font: 900 22px/1 system-ui;
+  }
+  section.section .lab-hw-section-btn:not(:empty){ font-size: 0 !important; }
+  @media (max-width: 720px) {
+    section.section .lab-hw-section-btn { top: 10px !important; right: 10px !important; width: 32px !important; height: 32px !important; }
+    section.section .lab-hw-section-btn::before { font-size: 20px; }
+  }
 </style>
 <script>
 (function(){
@@ -1715,6 +1744,18 @@ Ladies and gentlemen — three years ago Theo Marshall stopped answering us. Two
     tries++;
     if (rebindFab() || tries > 20) clearInterval(iv);
   }, 200);
+  function relabelSectionButtons(){
+    document.querySelectorAll('.lab-hw-section-btn').forEach(function(b){
+      if (!b.dataset.relabeled) {
+        b.textContent = '';
+        b.title = 'Добавить всю секцию в домашку';
+        b.setAttribute('aria-label','Добавить всю секцию в домашку');
+        b.dataset.relabeled = '1';
+      }
+    });
+  }
+  var ivR = setInterval(function(){ relabelSectionButtons(); }, 400);
+  setTimeout(function(){ clearInterval(ivR); }, 6000);
   try {
     if (window.labSync && typeof window.labSync.on === 'function') {
       window.labSync.on('teacher-open-homework', function(){ openInlineHomework('teacher'); });
