@@ -52,11 +52,11 @@
       '.lab-vocab-h .meta{font:600 .82rem/1.4 "JetBrains Mono",monospace;letter-spacing:.08em;color:color-mix(in srgb, var(--accent, #6b46c1) 70%, var(--text, #1a1f2e))}'+
       '[data-lab-theme="dark"] .lab-vocab-h .meta{color:color-mix(in srgb, var(--accent, #c5a3ff) 72%, var(--text, #f3eee5))}'+
       '.lab-vocab-section{max-width:1240px !important;width:100% !important;margin-left:auto !important;margin-right:auto !important;padding-left:clamp(16px,3vw,28px) !important;padding-right:clamp(16px,3vw,28px) !important;overflow:visible !important}'+
-      '.lab-vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,280px));justify-content:start;align-items:stretch;gap:12px;width:100%;max-width:100%;box-sizing:border-box}'+
+      '.lab-vocab-grid{display:grid !important;grid-template-columns:repeat(auto-fill,minmax(220px,280px)) !important;justify-content:start !important;align-items:stretch;gap:12px;width:100%;max-width:100%;box-sizing:border-box}'+
 '@media(max-width:600px){.topbar,.friendly-topbar,.lab-topbar,.cmdbar,.canon-l-topbar{box-sizing:border-box !important;max-width:100vw !important;overflow:hidden !important;flex-wrap:wrap !important}.topbar .spacer,.friendly-topbar .spacer,.lab-topbar .spacer,.cmdbar .spacer,.canon-l-topbar .spacer{display:none !important}.topbar .btn-sm,.cmdbar .btn-sm,.lab-topbar .btn-sm,.topbar .pill,.cmdbar .pill,.lab-topbar .pill{max-width:120px !important;min-width:0 !important;white-space:nowrap !important;overflow:hidden !important;text-overflow:ellipsis !important}.lab-vocab-section{padding-left:58px !important;padding-right:14px !important}.lab-vocab-grid{grid-template-columns:1fr;gap:10px}.lab-vocab-panel{padding:14px 14px !important;margin-left:0;margin-right:0}}'+
       '.lab-vocab-section .vocab-card{position:relative;background:var(--surface, var(--card, #fff));border:1.5px solid var(--line, color-mix(in srgb, var(--accent, #7c3aed) 25%, transparent));border-radius:10px;'+
         /* верхний/нижний padding больше — текст не заезжает под кнопки в углах (⭐ слева, 🔊+➕ справа) */
-        'padding:44px 16px 16px;cursor:pointer;transition:transform .15s,box-shadow .15s;perspective:600px;min-height:112px;overflow:visible;box-sizing:border-box}'+
+        'padding:44px 16px 16px;cursor:pointer;transition:transform .15s,box-shadow .15s;perspective:600px;min-height:112px;overflow:visible;box-sizing:border-box;width:100%;max-width:280px}'+
       '[data-lab-theme="dark"] .lab-vocab-section .vocab-card{background:var(--surface, var(--card, #15102a));border-color:var(--line, #5b3aa8)}'+
       '.lab-vocab-section .vocab-card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.14)}'+
       '.lab-vocab-section .vocab-card .face{display:block}'+
