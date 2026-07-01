@@ -5,16 +5,25 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
-const L1 = path.join(ROOT, 'lingua-boost-lab', 'b2-plus', 'voyager-l1-time-travel', 'index.html');
-const L2 = path.join(ROOT, 'lingua-boost-lab', 'b2-plus', 'voyager-l2-are-we-alone', 'index.html');
+const lessons = [
+  { id: 'L1', title: 'Voyager L1 · The Watchmaker · Time travel + neutrinos', file: path.join(ROOT, 'lingua-boost-lab', 'b2-plus', 'voyager-l1-time-travel', 'index.html') },
+  { id: 'L2', title: 'Voyager L2 · Are we alone? · Mia\'s signal',           file: path.join(ROOT, 'lingua-boost-lab', 'b2-plus', 'voyager-l2-are-we-alone',   'index.html') },
+  { id: 'L3', title: 'Voyager L3 · Whose mind? · Theo\'s blinks',            file: path.join(ROOT, 'lingua-boost-lab', 'b2-plus', 'voyager-l3-whose-mind',    'index.html') },
+  { id: 'L4', title: 'Voyager L4 · The night the letter arrived · finale',   file: path.join(ROOT, 'lingua-boost-lab', 'b2-plus', 'voyager-l4-letter-arrived', 'index.html') },
+];
 const OUT_DIR = path.join(process.env.USERPROFILE || '', 'Downloads');
 
 function extractFlipCards(html) {
   const out = [];
-  // flip-card block: data-say="EN" ... pos">POS</div> ... ru">RU</div><div>DEF</div>
-  const re = /<div class="flip-card"><div class="flip-inner">\s*<div class="flip-front"><div><span class="say-word" data-say="([^"]+)">[^<]+<\/span><\/div><div class="pos">([^<]*)<\/div><\/div>\s*<div class="flip-back"><div class="ru">([^<]+)<\/div><div>([^<]*)<\/div>/g;
+  // OLD format (L1/L2): <div class="flip-card"><div class="flip-inner"><div class="flip-front"><div><span class="say-word" data-say="EN">EN</span></div><div class="pos">POS</div></div><div class="flip-back"><div class="ru">RU</div><div>DEF</div>
+  const reOld = /<div class="flip-card"><div class="flip-inner">\s*<div class="flip-front"><div><span class="say-word" data-say="([^"]+)">[^<]+<\/span><\/div><div class="pos">([^<]*)<\/div><\/div>\s*<div class="flip-back"><div class="ru">([^<]+)<\/div><div>([^<]*)<\/div>/g;
   let m;
-  while ((m = re.exec(html)) !== null) {
+  while ((m = reOld.exec(html)) !== null) {
+    out.push({ en: m[1].trim(), pos: m[2].trim(), ru: m[3].trim(), def: (m[4] || '').trim() });
+  }
+  // NEW format (L3/L4): <div class="flip-card" data-en="EN" data-pos="POS" data-ru="RU" data-def="DEF"></div>
+  const reNew = /<div class="flip-card"\s+data-en="([^"]+)"\s+data-pos="([^"]*)"\s+data-ru="([^"]+)"(?:\s+data-def="([^"]*)")?\s*><\/div>/g;
+  while ((m = reNew.exec(html)) !== null) {
     out.push({ en: m[1].trim(), pos: m[2].trim(), ru: m[3].trim(), def: (m[4] || '').trim() });
   }
   return out;
@@ -37,21 +46,17 @@ function extractInlineTr(html) {
   return out;
 }
 
-const html1 = fs.readFileSync(L1, 'utf8');
-const html2 = fs.readFileSync(L2, 'utf8');
-
-const l1cards = extractFlipCards(html1);
-const l1tr = extractInlineTr(html1);
-const l2cards = extractFlipCards(html2);
-const l2tr = extractInlineTr(html2);
-
-// Deduplicate inline by EN against card list
 function dedupeAgainst(list, refList) {
   const refSet = new Set(refList.map(r => r.en.toLowerCase()));
   return list.filter(x => !refSet.has(x.en.toLowerCase()));
 }
-const l1trUnique = dedupeAgainst(l1tr, l1cards);
-const l2trUnique = dedupeAgainst(l2tr, l2cards);
+
+const collected = lessons.map(L => {
+  const html = fs.readFileSync(L.file, 'utf8');
+  const cards = extractFlipCards(html);
+  const trUnique = dedupeAgainst(extractInlineTr(html), cards);
+  return { ...L, cards, trUnique };
+});
 
 // HTML compendium
 const escapeHtml = s => String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -107,19 +112,16 @@ tr:last-child td{border-bottom:none}
 <div class="wrap">
   <h1>📒 Voyager · vocab compendium · L1 + L2</h1>
   <p class="lede">Полный словарь двух пройденных эпизодов: <strong>Voyager L1 — The Watchmaker</strong> + <strong>Voyager L2 — Are we alone?</strong>. Сначала — главные карточки урока, ниже — все слова, подсвеченные внутри текста (in-line). Для печати: Ctrl/Cmd+P → Сохранить как PDF.</p>
-  ${renderSection('Voyager L1 · The Watchmaker · Time travel + neutrinos', l1cards, l1trUnique)}
-  ${renderSection('Voyager L2 · Are we alone? · Mia\'s signal', l2cards, l2trUnique)}
+  ${collected.map(L => renderSection(L.title, L.cards, L.trUnique)).join('')}
   <div class="footer">
     NG English · LinguaBoost Lab · Voyager series · vocab compendium · ${new Date().toISOString().slice(0,10)}<br>
-    Total: ${l1cards.length + l1trUnique.length + l2cards.length + l2trUnique.length} word/phrase pairs.
+    Total: ${collected.reduce((s, L) => s + L.cards.length + L.trUnique.length, 0)} word/phrase pairs across ${collected.length} lessons.
   </div>
 </div>
 </body>
 </html>`;
 
-// Quizlet TSV: EN<TAB>RU (one per line)
-const all = [...l1cards, ...l1trUnique, ...l2cards, ...l2trUnique];
-// Dedupe by EN across both lessons (keep first definition)
+const all = collected.flatMap(L => [...L.cards, ...L.trUnique]);
 const seen = new Map();
 all.forEach(c => {
   const k = c.en.toLowerCase();
@@ -129,16 +131,16 @@ const tsvLines = [...seen.values()].map(c => `${c.en}\t${c.ru}`);
 const tsv = tsvLines.join('\n');
 
 const stamp = new Date().toISOString().slice(0,10);
-const htmlOut = path.join(OUT_DIR, `Voyager_L1_L2_vocab_compendium_${stamp}.html`);
-const tsvOut = path.join(OUT_DIR, `Voyager_L1_L2_vocab_quizlet_${stamp}.txt`);
+const range = collected.map(L => L.id).join('_');
+const htmlOut = path.join(OUT_DIR, `Voyager_${range}_vocab_compendium_${stamp}.html`);
+const tsvOut = path.join(OUT_DIR, `Voyager_${range}_vocab_quizlet_${stamp}.txt`);
 fs.writeFileSync(htmlOut, html, 'utf8');
 fs.writeFileSync(tsvOut, tsv, 'utf8');
 
-console.log('=== Voyager L1+L2 vocab compendium ===');
-console.log('L1 main cards:', l1cards.length);
-console.log('L1 in-line vocab:', l1trUnique.length);
-console.log('L2 main cards:', l2cards.length);
-console.log('L2 in-line vocab:', l2trUnique.length);
-console.log('Total unique pairs:', tsvLines.length);
+console.log(`=== Voyager ${range} vocab compendium ===`);
+collected.forEach(L => {
+  console.log(`${L.id}: ${L.cards.length} cards + ${L.trUnique.length} inline = ${L.cards.length + L.trUnique.length}`);
+});
+console.log(`Total unique EN pairs: ${tsvLines.length}`);
 console.log('HTML →', htmlOut);
 console.log('TSV  →', tsvOut);
