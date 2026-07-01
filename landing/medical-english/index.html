@@ -74,48 +74,119 @@
 <link rel="stylesheet" href="/system.css?v=36">
 
 <style>
-.landing { max-width: 920px; margin: 0 auto; padding: 60px 24px 80px; }
-.landing h1 { font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: clamp(28px, 5vw, 48px); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 24px; }
-.landing .lead { font-size: clamp(17px, 2vw, 20px); line-height: 1.55; color: var(--text-2); margin-bottom: 40px; max-width: 720px; }
-.landing h2 { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: clamp(22px, 3vw, 30px); margin: 56px 0 20px; }
-.landing h3 { font-size: 18px; font-weight: 700; margin: 28px 0 12px; }
+/* Landing palette — Medical English: deep teal-blue + warm accent */
+.landing {
+  --lp: #1a5f7a;               /* primary: медицинский teal-blue */
+  --lp-soft: rgba(26, 95, 122, 0.08);
+  --lp-line: rgba(26, 95, 122, 0.22);
+  --la: var(--accent, #FF5A1F); /* secondary: NG orange */
+  --la-soft: rgba(255, 90, 31, 0.10);
+  max-width: 960px; margin: 0 auto; padding: 0 0 80px;
+}
+.landing h1 { font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: clamp(28px, 5vw, 48px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 20px; color: #fff; }
+.landing .lead { font-size: clamp(17px, 2vw, 20px); line-height: 1.55; color: rgba(255,255,255,0.92); margin: 0; max-width: 720px; }
+.landing h2 { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: clamp(22px, 3vw, 30px); margin: 56px 0 20px; color: var(--lp); }
+.landing h3 { font-size: 18px; font-weight: 700; margin: 28px 0 12px; color: var(--text); }
 .landing p { margin-bottom: 16px; font-size: 16px; line-height: 1.65; color: var(--text-2); }
-.landing ul { margin: 16px 0 24px 24px; padding: 0; }
-.landing li { margin-bottom: 10px; font-size: 16px; line-height: 1.55; color: var(--text-2); }
+.landing > section, .landing > main { padding-left: clamp(20px, 4vw, 40px); padding-right: clamp(20px, 4vw, 40px); }
+
+/* HERO with two-color gradient */
+.hero {
+  position: relative;
+  background: linear-gradient(135deg, #1a5f7a 0%, #2d8fa7 55%, #FF5A1F 100%);
+  padding: clamp(56px, 10vw, 96px) clamp(24px, 5vw, 48px) clamp(56px, 8vw, 80px);
+  border-radius: 0 0 32px 32px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.hero::before {
+  content: ""; position: absolute; right: -80px; top: -80px;
+  width: 320px; height: 320px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.14), transparent 70%);
+  pointer-events: none;
+}
+.hero .crumbs { color: rgba(255,255,255,0.72); border-color: rgba(255,255,255,0.28); }
+.hero .crumbs a { color: rgba(255,255,255,0.85); border-bottom: 1px solid rgba(255,255,255,0.4); }
+.hero .badge { display: inline-block; padding: 6px 14px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.28); border-radius: 100px; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 18px; }
+.hero .lead strong { color: #fff; font-weight: 700; }
+
+.landing ul { margin: 16px 0 24px 0; padding: 0; list-style: none; }
+.landing li {
+  position: relative; padding-left: 28px; margin-bottom: 12px;
+  font-size: 16px; line-height: 1.55; color: var(--text-2);
+}
+.landing li::before {
+  content: ""; position: absolute; left: 0; top: 8px;
+  width: 14px; height: 3px;
+  background: linear-gradient(90deg, var(--lp), var(--la));
+  border-radius: 2px;
+}
 .landing strong { color: var(--text); font-weight: 700; }
-.cta-block { background: linear-gradient(135deg, var(--accent), #ff7e3a); border-radius: 18px; padding: 32px 28px; margin: 48px 0; text-align: center; }
-.cta-block h2 { color: #fff; margin: 0 0 12px; font-size: 24px; }
-.cta-block p { color: rgba(255,255,255,0.92); margin-bottom: 20px; }
-.cta-btn { display: inline-block; background: #fff; color: var(--accent); padding: 14px 28px; border-radius: 100px; font-weight: 700; font-size: 16px; }
-.faq { margin-top: 56px; }
-.faq-item { border-top: 1px solid var(--line); padding: 20px 0; }
-.faq-item:last-child { border-bottom: 1px solid var(--line); }
-.faq-item h3 { margin: 0 0 10px; font-size: 17px; }
+
+.cta-block { background: linear-gradient(135deg, var(--lp) 0%, var(--la) 100%); border-radius: 20px; padding: 40px 32px; margin: 56px 0; text-align: center; position: relative; overflow: hidden; }
+.cta-block::after { content: ""; position: absolute; left: -60px; bottom: -60px; width: 200px; height: 200px; border-radius: 50%; background: rgba(255,255,255,0.08); pointer-events: none; }
+.cta-block h2 { color: #fff; margin: 0 0 12px; font-size: 26px; }
+.cta-block p { color: rgba(255,255,255,0.94); margin-bottom: 24px; }
+.cta-btn { display: inline-block; background: #fff; color: var(--lp); padding: 16px 32px; border-radius: 100px; font-weight: 800; font-size: 16px; letter-spacing: 0.02em; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+
+.faq { margin-top: 56px; padding: 32px; background: var(--lp-soft); border-radius: 20px; border: 1px solid var(--lp-line); }
+.faq h2 { margin-top: 0; }
+.faq-item { border-top: 1px solid var(--lp-line); padding: 20px 0; }
+.faq-item:first-of-type { border-top: 0; padding-top: 0; }
+.faq-item:last-child { padding-bottom: 0; }
+.faq-item h3 { margin: 0 0 10px; font-size: 17px; color: var(--lp); }
 .faq-item p { margin: 0; font-size: 15px; }
+
 .crumbs { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 24px; }
 .crumbs a { color: var(--text-3); border-bottom: 1px solid var(--line); }
-.related { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--line); }
+
+.related { margin-top: 56px; padding-top: 32px; border-top: 2px solid var(--lp-line); }
 .related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 20px; }
-.related-card { padding: 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
-.related-card a { color: var(--text); font-weight: 600; }
-.tracks { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 24px 0; }
-.track-card { padding: 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
-.track-card h3 { margin: 0 0 8px; font-size: 16px; color: var(--accent); }
-.track-card p { margin: 0; font-size: 14px; color: var(--text-2); }
+.related-card { padding: 18px 20px; background: #fff; border: 1px solid var(--line); border-left: 3px solid var(--la); border-radius: 12px; transition: transform .15s, box-shadow .15s; }
+.related-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(26, 95, 122, 0.1); }
+.related-card a { color: var(--lp); font-weight: 700; }
+
+.tracks { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 28px 0; }
+.track-card {
+  position: relative; padding: 24px 20px 20px 24px;
+  background: #fff; border: 1px solid var(--lp-line); border-radius: 14px;
+  border-left: 4px solid var(--lp);
+  transition: transform .18s, box-shadow .18s, border-left-color .18s;
+}
+.track-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(26, 95, 122, 0.14); border-left-color: var(--la); }
+.track-card .icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: 12px;
+  background: linear-gradient(135deg, var(--lp-soft), var(--la-soft));
+  font-size: 22px; margin-bottom: 12px;
+}
+.track-card h3 { margin: 0 0 6px; font-size: 16px; color: var(--lp); font-weight: 800; }
+.track-card p { margin: 0; font-size: 14px; color: var(--text-2); line-height: 1.5; }
+
+.pain { margin: 24px 0; padding: 24px 28px; background: var(--la-soft); border-left: 4px solid var(--la); border-radius: 0 14px 14px 0; }
+.pain p { margin-bottom: 12px; }
+.pain p:last-child { margin-bottom: 0; }
+.pain strong { color: var(--la); }
+
+.author-card { display: flex; gap: 20px; align-items: flex-start; padding: 28px; background: linear-gradient(135deg, var(--lp-soft), transparent); border-radius: 16px; margin: 24px 0; border: 1px solid var(--lp-line); }
+.author-card .badge-lg { flex-shrink: 0; width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, var(--lp), var(--la)); display: flex; align-items: center; justify-content: center; color: #fff; font-family: 'Unbounded', sans-serif; font-weight: 800; font-size: 24px; }
+.author-card p { margin: 0; }
 </style>
 </head>
 <body>
-<main class="landing">
-  <nav class="crumbs">
-    <a href="/">Главная</a> · Медицинский английский
-  </nav>
+<div class="landing">
+  <section class="hero">
+    <nav class="crumbs">
+      <a href="/">Главная</a> · Медицинский английский
+    </nav>
+    <span class="badge">Medical English · для врачей и медиков</span>
+    <h1>Медицинский английский — для врачей, ординаторов, медсестёр</h1>
+    <p class="lead">
+      <strong>Мария Бурцева</strong>, 15 лет преподавания. Среди клиентов — врачи общей практики, стоматологи, психиатры, педиатры, ординаторы. Индивидуальные онлайн-занятия: OET, IELTS UKMLA, USMLE Step 2 CS, чтение мед. литературы, коммуникация с пациентом, отраслевая терминология под вашу специализацию.
+    </p>
+  </section>
 
-  <h1>Медицинский английский — для врачей, ординаторов, медсестёр</h1>
-
-  <p class="lead">
-    <strong>Мария Бурцева</strong>, 15 лет преподавания, среди клиентов — врачи общей практики, стоматологи, психиатры, педиатры, ординаторы. Индивидуальные онлайн-занятия по медицинскому английскому: подготовка к международным экзаменам, чтение мед. литературы, коммуникация с пациентом, отраслевая терминология под вашу специализацию.
-  </p>
-
+  <section>
   <h2>Кому подходит формат</h2>
   <ul>
     <li><strong>Готовлюсь к OET</strong> — Occupational English Test для работы в англоязычной стране</li>
@@ -129,21 +200,23 @@
 
   <h2>Направления, которые я веду</h2>
   <div class="tracks">
-    <div class="track-card"><h3>OET Preparation</h3><p>Подготовка к Occupational English Test: Speaking (ролевая игра пациент-врач), Writing (referral letter), Reading, Listening. 8–12 занятий.</p></div>
-    <div class="track-card"><h3>IELTS UKMLA</h3><p>Академический IELTS 7.0+ для лицензирования в UK. Академическая лексика, эссе на мед. темы, интервью.</p></div>
-    <div class="track-card"><h3>Anatomy &amp; Systems</h3><p>Анатомическая терминология по системам: cardiovascular, respiratory, digestive, musculoskeletal. Слушаем и читаем.</p></div>
-    <div class="track-card"><h3>Patient Communication</h3><p>Приём пациента на английском: жалобы, история болезни, разъяснение диагноза, назначения. Ролевые игры.</p></div>
-    <div class="track-card"><h3>Reading PubMed &amp; Journals</h3><p>Академические коллокации, статистические обороты, IMRAD-структура. Разбор статей вашей специальности.</p></div>
-    <div class="track-card"><h3>Academic Writing</h3><p>Черновик научной статьи или абстракта. Типовые фразы для Introduction, Methods, Results, Discussion.</p></div>
+    <div class="track-card"><span class="icon">🩺</span><h3>OET Preparation</h3><p>Подготовка к Occupational English Test: Speaking (ролевая игра пациент-врач), Writing (referral letter), Reading, Listening. 8–12 занятий.</p></div>
+    <div class="track-card"><span class="icon">🇬🇧</span><h3>IELTS UKMLA</h3><p>Академический IELTS 7.0+ для лицензирования в UK. Академическая лексика, эссе на мед. темы, интервью.</p></div>
+    <div class="track-card"><span class="icon">🫀</span><h3>Anatomy &amp; Systems</h3><p>Анатомическая терминология по системам: cardiovascular, respiratory, digestive, musculoskeletal. Слушаем и читаем.</p></div>
+    <div class="track-card"><span class="icon">💬</span><h3>Patient Communication</h3><p>Приём пациента на английском: жалобы, история болезни, разъяснение диагноза, назначения. Ролевые игры.</p></div>
+    <div class="track-card"><span class="icon">📄</span><h3>Reading PubMed &amp; Journals</h3><p>Академические коллокации, статистические обороты, IMRAD-структура. Разбор статей вашей специальности.</p></div>
+    <div class="track-card"><span class="icon">✍️</span><h3>Academic Writing</h3><p>Черновик научной статьи или абстракта. Типовые фразы для Introduction, Methods, Results, Discussion.</p></div>
   </div>
 
   <h2>Особенности медицинского английского</h2>
-  <p>
-    Медицинский английский — это не просто «общий английский плюс термины». Это отдельный регистр с латинско-греческими корнями (myocardial infarction вместо heart attack), формальным тоном (patient presents with… вместо patient has), специфическими коллокациями (evidence suggests, is associated with, warrants further investigation). Врач-новичок с B2 разговорным английским может застревать на первой странице статьи из The Lancet — не потому что не знает язык, а потому что не привык к академическому регистру.
-  </p>
-  <p>
-    Второй сложный слой — <strong>коммуникация с пациентом</strong>. Экзамены OET и USMLE CS специально проверяют, умеет ли врач переключаться между медицинским жаргоном (для коллег) и <em>plain English</em> (для пациента). Фразу «you have an acute myocardial infarction» пациенту не говорят — говорят «you're having a heart attack, and we need to act fast». Этот навык переключения тренируется через ролевые игры и mic-drill.
-  </p>
+  <div class="pain">
+    <p>
+      Медицинский английский — это не просто «общий английский плюс термины». Это отдельный регистр с латинско-греческими корнями (<em>myocardial infarction</em> вместо <em>heart attack</em>), формальным тоном (<em>patient presents with…</em> вместо <em>patient has</em>), специфическими коллокациями (<em>evidence suggests, is associated with, warrants further investigation</em>). Врач-новичок с B2 разговорным английским может застревать на первой странице статьи из The Lancet — не потому что не знает язык, а потому что не привык к академическому регистру.
+    </p>
+    <p>
+      Второй сложный слой — <strong>коммуникация с пациентом</strong>. Экзамены OET и USMLE CS специально проверяют, умеет ли врач переключаться между медицинским жаргоном (для коллег) и <em>plain English</em> (для пациента). Фразу «you have an acute myocardial infarction» пациенту не говорят — говорят «you're having a heart attack, and we need to act fast». Этот навык переключения тренируется через ролевые игры и mic-drill.
+    </p>
+  </div>
 
   <h2>Как проходят занятия</h2>
   <p>
@@ -154,16 +227,21 @@
   </p>
 
   <h2>О преподавателе</h2>
-  <p>
-    Помимо преподавания я — <strong>сертифицированный медицинский переводчик</strong>. Это значит, что для мед. трека у меня есть не только методология обучения английскому, но и глубокая база терминологии, опыт работы с реальными мед. документами, статьями, переводами. Могу помочь с вычиткой ваших текстов на английском (отдельная услуга), а на занятиях объяснить не только лексику, но и стиль академической прозы.
-  </p>
+  <div class="author-card">
+    <div class="badge-lg">М</div>
+    <p>
+      Помимо преподавания я — <strong>сертифицированный медицинский переводчик</strong>. Это значит, что для мед. трека у меня есть не только методология обучения английскому, но и глубокая база терминологии, опыт работы с реальными мед. документами, статьями, переводами. Могу помочь с вычиткой ваших текстов на английском (отдельная услуга), а на занятиях объяснить не только лексику, но и стиль академической прозы.
+    </p>
+  </div>
 
   <div class="cta-block">
     <h2>Записаться на консультацию</h2>
     <p>20 минут — обсудим специальность, цель, экзамен, оценим уровень, составим план</p>
     <a class="cta-btn" href="https://t.me/MariaBurceva_English" target="_blank" rel="noopener">Написать в Telegram</a>
   </div>
+  </section>
 
+  <section>
   <section class="faq">
     <h2>Частые вопросы</h2>
     <div class="faq-item">
@@ -203,7 +281,8 @@
       <div class="related-card"><a href="/diagnostic-test.html">Диагностический тест</a></div>
     </div>
   </section>
-</main>
+  </section>
+</div>
 
 <script src="/assets/js/cookie-consent.js?v=2" defer></script>
 </body>
