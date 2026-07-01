@@ -297,6 +297,8 @@
 
         ${_renderAbonementCard(student, { studentView: true })}
 
+        ${_renderPaymentsCard(student, { studentView: true })}
+
         ${_renderHomeworkCard(student)}
 
         ${_renderExternalPlatformsCard(student)}
@@ -1339,6 +1341,48 @@
     `;
   }
 
+  function _renderPaymentsCard(student, opts) {
+    opts = opts || {};
+    const payments = student && Array.isArray(student.payments) ? student.payments : [];
+    if (!payments.length) return "";
+    const rows = payments.map(p => {
+      const isPaid = (p.status || "").toLowerCase() === "paid";
+      const statusHtml = isPaid
+        ? `<span class="cab-pay-status cab-pay-status--ok">✅ Оплачено</span>`
+        : `<span class="cab-pay-status cab-pay-status--pending">⏳ ${_esc(p.status || "ожидает")}</span>`;
+      return `
+        <tr>
+          <td class="cab-pay-month"><b>${_esc(p.month || "")}</b></td>
+          <td class="cab-pay-pkg">${_esc(p.package || "")}</td>
+          <td class="cab-pay-amount"><b>${_esc(p.amount || "")}</b></td>
+          <td class="cab-pay-status-cell">${statusHtml}</td>
+          <td class="cab-pay-date">${_esc(p.date || "—")}</td>
+          <td class="cab-pay-note">${_esc(p.note || "")}</td>
+        </tr>
+      `;
+    }).join("");
+    return `
+      <article class="cab-card cab-card--wide cab-payments">
+        <h3>💳 Оплаты</h3>
+        <div class="cab-pay-table-wrap">
+          <table class="cab-pay-table">
+            <thead>
+              <tr>
+                <th>Пакет</th>
+                <th>Состав</th>
+                <th>Сумма</th>
+                <th>Статус</th>
+                <th>Дата</th>
+                <th>Примечание</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </article>
+    `;
+  }
+
   function _prettifyContractFilename(filename) {
     // "01_договор_стр1.jpeg" → "Договор · стр.1"
     return filename
@@ -1451,6 +1495,8 @@
         </article>
 
         ${_renderAbonementCard(student)}
+
+        ${_renderPaymentsCard(student)}
 
         ${_renderSecurityNoticeCard()}
 
