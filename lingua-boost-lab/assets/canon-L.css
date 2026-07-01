@@ -268,22 +268,35 @@
   position: relative;
   overflow: hidden;
 }
-.canon-l-mark::after {
-  /* legacy overlay no longer needed — we now cut the mark itself via clip-path */
-  display: none;
-}
-
-/* Острый уголок N-марки canon (как на скрине Маши, 2026-06-30):
-   вырезаем верхний правый угол 12×12, фон страницы виден сквозь срез.
-   Применяется и к .canon-l-mark и к локально объявленному .brand-mark. */
+/* Острый уголок N-марки canon (revised 2026-07-01):
+   БЕЛЫЙ треугольник поверх правого-верхнего угла через ::after overlay.
+   N-марка остаётся квадратной цветной, острый угол = иллюзия.
+   Reason: clip-path вариант обрезал всё что мы туда клали, Маша хочет
+   видимый белый треугольник на всех экранах (desktop + mobile). */
 .canon-l-mark,
 .brand-mark {
-  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%) !important;
   border-top-right-radius: 0 !important;
+  position: relative !important;
+  overflow: visible !important;
+  clip-path: none !important;
 }
 .canon-l-mark::before,
 .brand-mark::before {
   display: none !important;
+}
+.canon-l-mark::after,
+.brand-mark::after {
+  content: "" !important;
+  position: absolute !important;
+  right: 0 !important;
+  top: 0 !important;
+  width: 12px !important;
+  height: 12px !important;
+  background: #fff !important;
+  clip-path: polygon(100% 0, 0 0, 100% 100%) !important;
+  z-index: 5 !important;
+  display: block !important;
+  pointer-events: none !important;
 }
 .canon-l-mark img,
 .canon-l-mark svg {
