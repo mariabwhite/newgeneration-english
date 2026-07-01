@@ -369,6 +369,9 @@ nav.topbar .brand-mark, header.topbar .brand-mark, header.cmdbar .brand-mark {
   font-size: 22px !important; font-weight: 900 !important;
   display: grid !important; place-items: center !important;
 }
+nav.topbar .brand-mark img, header.topbar .brand-mark img, header.cmdbar .brand-mark img {
+  width: 100% !important; height: 100% !important; display: block !important;
+}
 nav.topbar .brand-name, header.topbar .brand-name, header.cmdbar .brand-name {
   font-size: 15px !important; font-weight: 800 !important; letter-spacing: 0.02em !important;
 }
@@ -406,7 +409,7 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
 <!-- TOPBAR -->
 <nav class="topbar">
   <a class="brand" href="../../index.html">
-    <span class="brand-mark">N</span>
+    <span class="brand-mark"><img src="../../../assets/nge-favicon.svg" alt="" aria-hidden="true" style="width:100%;height:100%;display:block"></span>
     <span class="brand-copy">
       <span class="brand-name">NG English</span>
       <span class="brand-sub">LinguaBoost Lab · B2+</span>
@@ -1190,6 +1193,36 @@ Naomi. I had been telling you, since March of nineteen ninety-five, that I shoul
 .flip-front,.vocab-front{font-size:clamp(.78rem,1.4vw,.96rem)!important;line-height:1.2}
 .flip-front .pos,.vocab-front .pos{word-break:normal}
 .flip-card .lab-hw-add,.vocab-card .lab-hw-add{z-index:5}
+
+/* L4 vocab polish: keep generated controls out of the word area */
+.lab-vocab-section{max-width:1240px;margin:28px auto 34px;padding:0 clamp(16px,3vw,28px)!important}
+.lab-vocab-section .lab-vocab-panel{position:relative;border-radius:18px!important;padding:24px 28px 26px!important;background:linear-gradient(135deg,rgba(245,183,110,.13),rgba(217,70,160,.07))!important;border:1px solid rgba(245,183,110,.24)!important;box-shadow:0 14px 36px rgba(0,0,0,.22)}
+.lab-vocab-section .lab-vocab-panel::before{content:"";position:absolute;inset:0;border-radius:18px;pointer-events:none;background:radial-gradient(circle at 18% 0%,rgba(245,183,110,.12),transparent 32%),radial-gradient(circle at 94% 15%,rgba(217,70,160,.10),transparent 30%)}
+.lab-vocab-section .lab-vocab-h,.lab-vocab-section .lab-vocab-head{position:relative;display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:18px!important}
+.lab-vocab-section .lab-vocab-h h2,.lab-vocab-section .lab-vocab-head h2{margin:0!important;color:var(--brand-2)!important;font-family:var(--display)!important;font-size:1.18rem!important;letter-spacing:.01em!important}
+.lab-vocab-section .lab-vocab-h .meta,.lab-vocab-section .lab-vocab-head .meta{margin-left:auto;color:var(--muted)!important;font-family:var(--mono)!important;font-size:.72rem!important;font-weight:800!important;letter-spacing:.16em!important;text-transform:uppercase!important;text-align:right}
+.lab-vocab-section .lab-vocab-grid{position:relative;display:grid!important;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))!important;gap:12px!important}
+.lab-vocab-section .vocab-card{min-height:118px!important;padding:46px 18px 18px!important;border-radius:12px!important;background:rgba(35,26,34,.84)!important;border:1px solid rgba(245,183,110,.16)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.04);overflow:visible!important}
+.lab-vocab-section .vocab-card:hover{transform:translateY(-2px);border-color:rgba(245,183,110,.32)!important;box-shadow:0 10px 22px rgba(0,0,0,.22)}
+.lab-vocab-section .vocab-card .face{position:relative;z-index:1}
+.lab-vocab-section .vocab-card .word{font-family:var(--display)!important;font-size:1.05rem!important;line-height:1.2!important;color:var(--text)!important;margin:0 0 8px!important}
+.lab-vocab-section .vocab-card .ipa{font-family:var(--mono)!important;font-size:.86rem!important;line-height:1.35!important;color:var(--brand-2)!important;margin:0!important}
+.lab-vocab-section .vocab-card .ru{color:var(--brand-2)!important}
+.lab-vocab-section .vocab-card .ex{color:var(--muted)!important}
+.lab-vocab-section .vocab-card .speak,.lab-vocab-section .vocab-card .lab-hw-add,.lab-vocab-section .vocab-card .extra-mark,.lab-vocab-section .vocab-card .vc-del{top:10px!important;z-index:4!important}
+.lab-vocab-section .vocab-card .vc-del{left:10px!important}
+.lab-vocab-section .vocab-card .extra-mark{left:10px!important;width:24px!important;height:24px!important}
+body.lab-teacher-on .lab-vocab-section .vocab-card .extra-mark{left:40px!important}
+.lab-vocab-section .vocab-card .speak{right:10px!important;width:30px!important;height:30px!important}
+.lab-vocab-section .vocab-card .lab-hw-add{right:46px!important;width:30px!important;height:30px!important;opacity:1!important;transform:none!important;background:linear-gradient(135deg,#fff7d6,#f7bf45)!important;border-color:#e6a11d!important;color:#7c4312!important;box-shadow:0 5px 14px rgba(245,158,11,.22)!important}
+.lab-vocab-section .vocab-card .lab-hw-add.added{background:linear-gradient(135deg,#ffd466,#d946a0)!important;color:#2c1426!important}
+@media(max-width:640px){
+  .lab-vocab-section{padding-left:58px!important;padding-right:14px!important}
+  .lab-vocab-section .lab-vocab-panel{padding:20px 16px 18px!important}
+  .lab-vocab-section .lab-vocab-h,.lab-vocab-section .lab-vocab-head{align-items:flex-start;flex-direction:column;gap:8px}
+  .lab-vocab-section .lab-vocab-h .meta,.lab-vocab-section .lab-vocab-head .meta{text-align:left;margin-left:0}
+  .lab-vocab-section .lab-vocab-grid{grid-template-columns:1fr!important}
+}
 </style>
 <nav class="voyager-nav" aria-label="Voyager series navigation">
   <a class="voyager-nav-link prev" href="../voyager-l3-whose-mind/" rel="prev">
@@ -1499,7 +1532,7 @@ Naomi. I had been telling you, since March of nineteen ninety-five, that I shoul
 <script src="../../assets/lab-coach-persist.js?v=1" defer></script>
 <script src="../../assets/lab-speech-tester.js?v=11" defer></script>
 
-<aside style="max-width:900px;margin:48px auto 32px;padding:0 24px">
+<aside style="max-width:1240px;margin:48px auto 32px;padding:0 clamp(16px,3vw,28px)">
   <div style="border-top:1px solid var(--line-2);padding-top:28px">
     <div style="font-family:var(--mono);font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--faint);margin-bottom:14px">Voyager series · L1 → L4</div>
     <h3 style="font-family:var(--display);font-size:20px;color:var(--text);margin-bottom:18px;font-weight:700">Прочитать всю арку</h3>
