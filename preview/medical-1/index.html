@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>PREVIEW · Медицинский английский · вариант 1 «на котором лечат» · New Generation English</title>
+<title>PREVIEW · Медицинский английский · New Generation English</title>
 <link rel="icon" type="image/svg+xml" href="/assets/nge-favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,10 +12,17 @@
 <link rel="stylesheet" href="/system.css?v=36">
 <style>
 .preview-note {
-  position: fixed; top: 12px; right: 12px; z-index: 999;
-  padding: 8px 14px; background: #fef3c7; border: 1px solid #f59e0b;
-  color: #78350f; font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  position: fixed; top: 12px; left: 12px; z-index: 999;
+  padding: 6px 12px; background: #fef3c7; border: 1px solid #f59e0b;
+  color: #78350f; font-family: 'JetBrains Mono', monospace; font-size: 10px;
   letter-spacing: 0.1em; text-transform: uppercase; border-radius: 100px;
+}
+.theme-btn {
+  position: fixed; top: 12px; right: 12px; z-index: 999;
+  padding: 8px 14px; background: var(--text); color: var(--bg);
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase; border: 0; border-radius: 100px;
+  cursor: pointer;
 }
 .wrap { max-width: 1180px; margin: 0 auto; padding: 40px 24px 80px; }
 
@@ -27,26 +34,20 @@
 .hero h1 {
   font-family: 'Unbounded', sans-serif; font-weight: 800;
   font-size: clamp(2rem, 5vw, 4.2rem); line-height: 1.02; letter-spacing: -0.025em;
-  margin: 0 0 32px;
+  margin: 0 0 32px; color: var(--text);
 }
 .hero h1 .line { display: block; }
 .hero h1 .accent { color: var(--accent); }
 
 .hero-lead { max-width: 640px; font-size: clamp(17px, 1.6vw, 20px); line-height: 1.55; color: var(--text-2); margin-bottom: 20px; }
 .hero-signature { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-3); letter-spacing: 0.05em; margin-bottom: 32px; }
-.hero-avail { padding: 20px 24px; background: rgba(255,90,31,0.05); border-left: 3px solid var(--accent); border-radius: 0 12px 12px 0; margin-bottom: 32px; max-width: 480px; }
-.hero-avail .lb { display: block; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
-.hero-avail ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 20px; flex-wrap: wrap; }
-.hero-avail li { font-size: 15px; }
-.hero-avail li strong { color: var(--text); }
-.hero-avail li span { color: var(--text-3); }
 .btn-row { display: flex; gap: 12px; flex-wrap: wrap; }
-.btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 26px; border-radius: 100px; font-weight: 700; font-size: 15px; letter-spacing: 0.02em; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 26px; border-radius: 100px; font-weight: 700; font-size: 15px; letter-spacing: 0.02em; text-decoration: none; }
 .btn-primary { background: var(--accent); color: #fff; }
 .btn-ghost { background: transparent; color: var(--text); border: 1.5px solid var(--line); }
 
 .section { padding: 56px 0 24px; }
-.section h2 { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: clamp(1.5rem, 2.6vw, 2rem); letter-spacing: -0.015em; margin-bottom: 24px; }
+.section h2 { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: clamp(1.5rem, 2.6vw, 2rem); letter-spacing: -0.015em; margin-bottom: 24px; color: var(--text); }
 .section h2 .accent { color: var(--accent); }
 .section p { font-size: 17px; line-height: 1.65; color: var(--text-2); margin-bottom: 14px; max-width: 780px; }
 .section p strong { color: var(--text); }
@@ -56,17 +57,40 @@
 
 .tracks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin: 24px 0; }
 .track-card { padding: 22px 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; border-left: 3px solid var(--accent); }
-.track-card h3 { font-family: 'Unbounded', sans-serif; font-size: 15px; margin: 0 0 6px; letter-spacing: -0.01em; }
+.track-card h3 { font-family: 'Unbounded', sans-serif; font-size: 15px; margin: 0 0 6px; letter-spacing: -0.01em; color: var(--text); }
 .track-card p { font-size: 14px; margin: 0; color: var(--text-2); line-height: 1.5; }
 
-.cta-band { margin: 56px 0 0; padding: 40px 32px; background: var(--text); color: #fff; border-radius: 20px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; }
-.cta-band h3 { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 22px; margin: 0 0 6px; }
-.cta-band p { color: rgba(255,255,255,0.72); margin: 0; font-size: 14px; }
-.cta-band .btn-primary { background: var(--accent); }
+.cta-band { margin: 56px 0 0; padding: 40px 32px; background: var(--text); color: var(--bg); border-radius: 20px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; }
+.cta-band h3 { font-family: 'Unbounded', sans-serif; font-weight: 700; font-size: 22px; margin: 0 0 6px; color: var(--bg); }
+.cta-band p { margin: 0; font-size: 14px; opacity: 0.72; }
+.cta-band .btn-primary { background: var(--accent); color: #fff; }
 </style>
 </head>
 <body>
-<div class="preview-note">PREVIEW · variant 1</div>
+<script>
+  (function(){
+    try {
+      var url = new URLSearchParams(location.search);
+      var theme = url.get("theme") || localStorage.getItem("nge-theme") || "light";
+      var isLight = (theme === "light" || theme === "light-lab");
+      if (isLight) document.body.classList.add("light");
+      try { localStorage.setItem("nge-theme", isLight ? "light" : "dark"); } catch(_){}
+    } catch(_){}
+  })();
+  function toggleTheme(){
+    var b = document.body;
+    var wasLight = b.classList.contains("light");
+    b.classList.toggle("light");
+    var nowLight = b.classList.contains("light");
+    try { localStorage.setItem("nge-theme", nowLight ? "light" : "dark"); } catch(_){}
+    var btn = document.getElementById("theme-toggle");
+    if (btn) btn.textContent = nowLight ? "DARK" : "LIGHT";
+  }
+</script>
+
+<div class="preview-note">PREVIEW · v1</div>
+<button id="theme-toggle" class="theme-btn" onclick="toggleTheme()" aria-label="Сменить тему">DARK</button>
+
 <main class="wrap">
 
 <section class="hero">
@@ -83,7 +107,7 @@
   </h1>
 
   <p class="hero-lead">
-    Отдельный язык — не «общий английский плюс термины». Латинско-греческие корни, формальный регистр The Lancet, ролевые сценарии врач-пациент. Работаю с OET, IELTS UKMLA, USMLE Step 2 CS, а также с академическим письмом и коммуникацией на приёме.
+    Отдельный слой языка — не «общий английский плюс термины». Латинско-греческие корни, формальный регистр медицинских журналов, ролевые сценарии на приёме. Работаю с медиками индивидуально, программа собирается под вашу задачу и уровень.
   </p>
   <div class="hero-signature">— Мария Витальевна, преподаватель английского и сертифицированный медицинский переводчик</div>
 
@@ -94,43 +118,44 @@
 </section>
 
 <section class="section">
-  <h2>С чем приходят врачи</h2>
+  <h2>С чем приходят врачи и медики</h2>
   <ul>
-    <li><strong>Хочу работать в UK / Германии / Дубае</strong> — нужен OET / IELTS UKMLA под лицензирование</li>
-    <li><strong>Пациент говорит только на английском</strong> — приём, жалобы, назначения — на другом языке</li>
-    <li><strong>Черновик статьи возвращают</strong> — с пометкой «academic tone missing»</li>
-    <li><strong>Доклад на международной конференции через месяц</strong> — постер, вопросы, ответы</li>
-    <li><strong>Читаю PubMed со словарём в трёх вкладках</strong> — темп не тот, скорость проседает</li>
+    <li><strong>Хочу читать статьи и учебники в оригинале</strong> — без словаря, в темпе автора</li>
+    <li><strong>Пациент говорит только по-английски</strong> — приём, жалобы, назначения на другом языке</li>
+    <li><strong>Готовлю доклад или постер</strong> — конференция, презентация, ответы на вопросы</li>
+    <li><strong>Пишу статью или абстракт</strong> — черновик, академический тон, структура</li>
+    <li><strong>Планирую международную стажировку или работу</strong> — коммуникация с коллегами</li>
+    <li><strong>Хочу восстановить и обновить общий английский</strong> — прежде чем идти в специализированный</li>
   </ul>
 </section>
 
 <section class="section">
   <h2>Как я работаю</h2>
-  <p>Индивидуальные онлайн-занятия на <strong>Яндекс Телемост</strong>, 60 минут. Материалы — в личном кабинете на ProgressMe. Программа под вашу цель: экзамен, чтение статей, приём пациентов, публикация. Не готовые курсы «для медиков вообще» — каждый маршрут собирается заново.</p>
-  <p>Между занятиями — <a href="/lingua-boost-lab/">интерактивные модули LinguaBoost Lab</a>: терминология по системам организма, mic-drill для приёма пациента, разбор реальных статей вашей специальности.</p>
+  <p>Индивидуальные онлайн-занятия на <strong>Яндекс Телемост</strong>, 60 минут. Материалы — в личном кабинете на ProgressMe. Программа собирается под вашу задачу: чтение статей, приём пациентов, конференция, публикация. Не готовые курсы «для медиков вообще» — каждый маршрут отдельный.</p>
+  <p>Между занятиями — <a href="/lingua-boost-lab/">интерактивные модули LinguaBoost Lab</a>: терминология, mic-drill, разбор реальных источников по вашей специальности.</p>
 </section>
 
 <section class="section">
-  <h2>Направления в медицинском треке</h2>
+  <h2>Что входит в работу</h2>
   <div class="tracks-grid">
-    <div class="track-card"><h3>OET Preparation</h3><p>Speaking (ролевая игра пациент-врач), Writing (referral letter), Reading, Listening.</p></div>
-    <div class="track-card"><h3>IELTS UKMLA 7.0+</h3><p>Академический IELTS для лицензирования врача в UK. Эссе на мед. темы.</p></div>
-    <div class="track-card"><h3>USMLE Step 2 CS</h3><p>Коммуникативная часть американского экзамена. Переключение жаргон / plain English.</p></div>
-    <div class="track-card"><h3>Anatomy &amp; Systems</h3><p>Терминология по системам: cardiovascular, respiratory, digestive, musculoskeletal.</p></div>
-    <div class="track-card"><h3>Reading PubMed</h3><p>Академические коллокации, статистические обороты, IMRAD-структура.</p></div>
-    <div class="track-card"><h3>Academic Writing</h3><p>Черновик статьи или абстракта. Типовые фразы для Introduction, Methods, Results, Discussion.</p></div>
+    <div class="track-card"><h3>Терминология по системам</h3><p>Cardiovascular, respiratory, digestive, musculoskeletal — по мере необходимости. Латинско-греческие корни, произношение.</p></div>
+    <div class="track-card"><h3>Чтение мед. литературы</h3><p>Академический регистр журналов и учебников. Разбираем реальные тексты вашей специальности.</p></div>
+    <div class="track-card"><h3>Приём пациентов</h3><p>Жалобы, история болезни, разъяснение диагноза, назначения. Ролевые сценарии.</p></div>
+    <div class="track-card"><h3>Академическое письмо</h3><p>Работа с черновиком статьи или абстракта. Академические коллокации, структура секций.</p></div>
+    <div class="track-card"><h3>Устная речь и доклад</h3><p>Подготовка выступления, ответы на вопросы, регистр научной коммуникации.</p></div>
+    <div class="track-card"><h3>Восстановление базы</h3><p>Если общий английский нужно освежить перед медицинским треком — работаем и с этим.</p></div>
   </div>
 </section>
 
 <section class="section">
   <h2>Формат и стоимость</h2>
-  <p><strong>2 500 ₽</strong> за 60 минут — индивидуальные онлайн-занятия. Пробная встреча 30 минут — без оплаты; на ней обсудим специальность, экзамен или задачу и решим, подходит ли формат.</p>
+  <p><strong>2 500 ₽</strong> за 60 минут — индивидуальные онлайн-занятия. Пробная встреча 30 минут — без оплаты; на ней обсудим специальность, задачу и решим, подходит ли формат.</p>
 </section>
 
 <div class="cta-band">
   <div>
     <h3>Первый разговор — 30 минут, без оплаты</h3>
-    <p>Обсудим специальность, экзамен или задачу и решим, подходит ли формат</p>
+    <p>Обсудим специальность, задачу и решим, подходит ли формат</p>
   </div>
   <a class="btn btn-primary" href="https://t.me/MariaBurceva_English" target="_blank" rel="noopener">Написать в Telegram <span>→</span></a>
 </div>
