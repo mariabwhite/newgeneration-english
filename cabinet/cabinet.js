@@ -1357,7 +1357,6 @@
           <td class="cab-pay-amount"><b>${_esc(p.amount || "")}</b></td>
           <td class="cab-pay-status-cell">${statusHtml}</td>
           <td class="cab-pay-date">${_esc(p.date || "—")}</td>
-          <td class="cab-pay-note">${_esc(p.note || "")}</td>
         </tr>
       `;
     }).join("");
@@ -1373,7 +1372,6 @@
                 <th>Сумма</th>
                 <th>Статус</th>
                 <th>Дата</th>
-                <th>Примечание</th>
               </tr>
             </thead>
             <tbody>${rows}</tbody>

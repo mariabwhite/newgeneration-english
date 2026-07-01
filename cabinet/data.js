@@ -1,4 +1,4 @@
-/* GENERATED — slim version without PII. Source of truth: Supabase. */
+﻿/* GENERATED — slim version without PII. Source of truth: Supabase. */
 window.NGE_DATA = {
   "version": 2,
   "generated": "2026-06-23T15:35:00.000Z",
@@ -134,7 +134,7 @@ window.NGE_DATA = {
       "format": "индивидуально",
       "duration": "1.5 часа",
       "schedule": "лето 2026 · 3 контрольных встречи (даты в таблице уроков)",
-      "stability_note": "Лето 2026: 3 контрольных встречи (30.06 / 30.07 / 27.08). Между встречами — самостоятельный материал от учителя. Регулярные занятия (вт 14:30 / чт 10:30) возобновятся в сентябре.",
+      "stability_note": "",
       "summer_plan_note": "Лето 2026: 3 контрольных встречи + материал для самостоятельной работы. См. таблицу уроков.",
       "goal": "разговорный английский, институт, бизнес-английский, подготовка к TOEFL/IELTS",
       "price_per_lesson": 2500,
@@ -201,7 +201,7 @@ window.NGE_DATA = {
       "lessons_in_package": 7,
       "subscription_month": "2026-05",
       "lessons_used_this_month": 4,
-      "stability_note": "Май-абонемент 7 уроков (вт 19:00): 4 проведены + 3 оплачены вперёд. Все даты — регулярные вторники, без сдвигов. 28.04→19.05 = первые 4 (grammar×2 + Wind in the Willows + SIM/coffee сегодня). 26.05/2.06/9.06 — оставшиеся 3.",
+      "stability_note": "",
       "lessons": [
         {
           "date": "2026-04-28",
@@ -277,7 +277,7 @@ window.NGE_DATA = {
       "level": "B1",
       "format": "индивидуально",
       "schedule": "понедельник 18:00 (на каникулах)",
-      "stability_note": "На 19.05.2026 отпущена на каникулы. Запланированные уроки на этой неделе не проводятся. Возобновление — уточнить с родителем.",
+      "stability_note": "",
       "payment_status": "Оплачено",
       "parent_name": "Сова Елена Витальевна",
       "pin": "6924",
@@ -336,10 +336,10 @@ window.NGE_DATA = {
       "subscription_month": "2026-06",
       "lessons_used_this_month": 8,
       "payment_status": "Оплачено",
-      "payment_note": "Мария Петровна платит еженедельно. Июньский блок закрыт: 8 уроков проведены и оплачены.",
+      "payment_note": "",
       "parent_name": "Протасова Мария Петровна",
       "pin": "7186",
-      "stability_note": "Июнь 2026 закрыт: 8 уроков проведены, две тематические линии — Tom Sawyer (Acts 1-5, адаптированный B1) и Travelling (страны, транспорт, аэропорт, ролевые ситуации). Отчёт для мамы загружен в родительский кабинет. +2 урока запланированы на июль.",
+      "stability_note": "",
       "lessons": [
         {
           "date": "2026-06-11",
@@ -423,12 +423,12 @@ window.NGE_DATA = {
       "subscription_month": "2026-07",
       "lessons_used_this_month": 0,
       "payment_status": "Оплачено",
-      "payment_note": "Июль оплачен полностью: 4 урока × 2 000 ₽ = 8 000 ₽ (мама оплатила 01.07.2026). С сентября 2026 — плановое повышение до 2 500 ₽ за занятие; лето остаётся на 2 000 ₽.",
+      "payment_note": "",
       "payments": [
         { "month": "Июль 2026", "package": "4 урока × 2 000 ₽", "amount": "8 000 ₽", "status": "paid", "date": "01.07.2026", "note": "Летний блок" },
         { "month": "Июнь 2026", "package": "4 урока × 2 000 ₽", "amount": "8 000 ₽", "status": "paid", "date": "—", "note": "Полный месяц" }
       ],
-      "stability_note": "Июнь 4/4 закрыт. Voyager: L1 The Watchmaker дважды (02.06 + 09.06) → L2 Are we alone? дважды (16.06 + 30.06). На июль: L3 Whose Mind? → L4 The letter arrived.",
+      "stability_note": "",
       "summer_plan_note": "📅 Июль 2026 · Voyager L3 + L4 (финал серии). Абонемент 4 урока × 2 000 ₽ = 8 000 ₽. Расписание сохраняется: вторник 15:00, 90 мин. С сентября — плановое повышение ставки до 2 500 ₽ за занятие.",
       "parent_name": "Подлесных Татьяна Анатольевна",
       "pin": "7670",
@@ -563,9 +563,9 @@ window.NGE_DATA = {
       "subscription_month": "2026-06",
       "lessons_used_this_month": 2,
       "summer_plan_note": "Интенсив-абонемент 10 уроков · старт 26.06 · проведено 2 / 10 · дальше пн / вт / чт 18:00",
-      "stability_note": "Новый интенсив-абонемент: 10 уроков × 2 500 ₽ = 25 000 ₽ оплачен мамой 26.06.2026. На 29.06 проведено 2 урока: 26.06 — Russia · dancing + общая ревизия страноведения; 29.06 — History of Russia + Saint Petersburg. Остальные 8 уроков идут по интенсивному графику пн / вт / чт 18:00.",
+      "stability_note": "",
       "payment_status": "Оплачено",
-      "payment_note": "Новый интенсив-абонемент оплачен мамой 26.06.2026: 10 уроков × 2 500 ₽ = 25 000 ₽.",
+      "payment_note": "",
       "payments": [
         { "month": "Интенсив · 10 уроков", "package": "10 × 2 500 ₽", "amount": "25 000 ₽", "status": "paid", "date": "26.06.2026", "note": "Интенсив · 26.06 → 17.07 · 2 / 10 проведено" }
       ],
@@ -687,14 +687,14 @@ window.NGE_DATA = {
       "price_per_lesson": 2500,
       "monthly_package": 10000,
       "payment_status": "Оплачено",
-      "payment_note": "Июнь оплачен полностью (10 000 ₽, 4 урока × 2 500) — 31.05.2026. Май закрыт.",
+      "payment_note": "",
       "is_adult": true,
       "parent_name": "",
       "pin": "6347",
       "lessons_in_package": 4,
       "subscription_month": "2026-06",
       "lessons_used_this_month": 3,
-      "stability_note": "Май закрыт полностью (5 уроков проведены). Июнь оплачен 31.05.2026: 4 воскресенья × 2 500 ₽ = 10 000 ₽. 14.06 пропущен (учитель болел), отработка 5.07.",
+      "stability_note": "",
       "lessons": [
         {
           "date": "2026-05-03",
@@ -833,7 +833,7 @@ window.NGE_DATA = {
           "topic": "Закрытый урок блока"
         }
       ],
-      "stability_note": "Июньский блок закрыт: 4 из 4 занятий проведены. Отчёт для мамы загружен в родительский кабинет."
+      "stability_note": ""
     },
     {
       "id": "yulya-lushina",
@@ -843,7 +843,7 @@ window.NGE_DATA = {
       "level": "",
       "format": "индивидуально",
       "schedule": "понедельник 12:00",
-      "stability_note": "Понедельник 12:00. На неделе 1-7 июня — разовый перенос на среду 3 июня.",
+      "stability_note": "",
       "price_per_lesson": 2000,
       "payment_status": "Оплачено",
       "parent_name": "Лушин Александр Анатольевич",
@@ -906,7 +906,7 @@ window.NGE_DATA = {
       "payment_status": "Оплачено",
       "parent_name": "Изотова Ольга Игоревна",
       "pin": "2799",
-      "stability_note": "Июнь 2026: абонемент 9 уроков, все 9 проведены. Сегодня 29.06 — последний урок месяца (Bodrum · Day 2). В июле занятий не будет; возвращается в августе.",
+      "stability_note": "",
       "materials": {
         "folder": "documents/_v/yulya-izotova",
         "note": "Отчёт за июнь 2026 — для мамы (Ольга Игоревна).",
@@ -1029,7 +1029,7 @@ window.NGE_DATA = {
       "lessons_used_this_month": 0,
       "goal": "ЕГЭ: лексика B2+, word formation, writing, speaking",
       "payment_status": "Оплачено",
-      "payment_note": "Полностью оплачено в мае (вторая половина 4 000 ₽ внесена 20.05.2026)",
+      "payment_note": "",
       "parent_name": "Анатольева Галина Анатольевна",
       "pin": "9972",
       "lessons": [
@@ -1068,7 +1068,7 @@ window.NGE_DATA = {
       "level": "B1",
       "format": "парное занятие (с Машей Кузнецовой) · отдельный абонемент / отдельный кабинет",
       "schedule": "вторник 10:00 / пятница 10:00 (пара)",
-      "stability_note": "Постоянная пара с Машей Кузнецовой. У каждой свой абонемент и свой кабинет (т.к. разные родители), но уроки только парные.",
+      "stability_note": "",
       "materials": {
         "folder": "documents/_v/ekaterina-medvedeva-solo",
         "note": "Материалы пары Кати + Маши за июнь 2026. Содержание идентично у Маши Кузнецовой — уроки парные.",
@@ -1091,7 +1091,7 @@ window.NGE_DATA = {
       "subscription_month": "2026-07",
       "lessons_used_this_month": 1,
       "payment_status": "Оплачено",
-      "payment_note": "Июнь закрыт (4/4 · 6 000 ₽). Июль — лёгкий летний пакет: 2 урока × 1 500 ₽ = 3 000 ₽.",
+      "payment_note": "",
       "summer_plan_note": "Летний план июнь-июль 2026: 4 закрытых июньских урока + 2 запланированных июльских (OGE Mock #1 на 1 июля + #2 на 8 июля).",
       "parent_name": "Медведева Марина Сергеевна",
       "pin": "3714",
@@ -1183,7 +1183,7 @@ window.NGE_DATA = {
       "level": "B1",
       "format": "парное занятие (с Катей Медведевой) · отдельный абонемент / отдельный кабинет",
       "schedule": "вторник 10:00 / пятница 10:00 (пара)",
-      "stability_note": "Постоянная пара с Катей Медведевой. У каждой свой абонемент и свой кабинет (т.к. разные родители), но уроки только парные.",
+      "stability_note": "",
       "materials": {
         "folder": "documents/_v/maria-kuznetsova-solo",
         "note": "Материалы пары Маши + Кати за июнь 2026. Содержание идентично у Кати Медведевой — уроки парные.",
@@ -1206,7 +1206,7 @@ window.NGE_DATA = {
       "subscription_month": "2026-07",
       "lessons_used_this_month": 1,
       "payment_status": "Оплачено",
-      "payment_note": "Июнь закрыт (4/4 · 6 000 ₽). Июль — лёгкий летний пакет: 2 урока × 1 500 ₽ = 3 000 ₽.",
+      "payment_note": "",
       "summer_plan_note": "Летний план июнь-июль 2026: 4 закрытых июньских урока + 2 запланированных июльских (OGE Mock #1 на 1 июля + #2 на 8 июля).",
       "parent_name": "Лихолева Елена Сергеевна",
       "pin": "3715",
@@ -1313,7 +1313,7 @@ window.NGE_DATA = {
       "lessons_in_package": 8,
       "subscription_month": "2026-06",
       "lessons_used_this_month": 8,
-      "stability_note": "Май–июнь 2026 закрыт: абонемент из 8 уроков (4 вторника + 4 воскресенья по 90 минут) отыграли без переносов. Финал блока — 14 июня (Travel Talk). Тематический фокус: страноведческая серия — Jerusalem (2 части), Италия + Ирландия, Switzerland (2 части), Travel Talk. Параллельно — грамматика в формате ОГЭ.",
+      "stability_note": "",
       "payment_status": "Оплачено",
       "parent_name": "Кедрова Татьяна Владимировна",
       "pin": "1265",
@@ -1411,11 +1411,11 @@ window.NGE_DATA = {
       "id": "timofey",
       "materials": {
         "folder": "documents/_v/timofey",
-        "note": "Отчёт по июньскому пилот-блоку + развёрнутый комментарий по Workbook 02 (Past Tenses).",
+        "note": "",
         "files": [
           {
             "name": "report-timofey-2026-06.pdf",
-            "label": "📄 Отчёт за июнь 2026 + разбор Workbook 02",
+            "label": "📄 Отчёт за июнь 2026",
             "audience": "all"
           }
         ]
@@ -1434,7 +1434,7 @@ window.NGE_DATA = {
       "monthly_package": 12500,
       "weekly_revenue": 5000,
       "payment_status": "Оплачено",
-      "payment_note": "Июль оплачен (5 уроков × 2 500 ₽ = 12 500 ₽). Оплата 01.07.2026. Июньский пилот-блок 1 trial + 3 платных закрыт отдельно.",
+      "payment_note": "",
       "payments": [
         { "month": "Июль 2026", "package": "5 уроков × 2 500 ₽", "amount": "12 500 ₽", "status": "paid", "date": "01.07.2026", "note": "Летний блок" },
         { "month": "Июнь 2026", "package": "1 trial + 3 × 2 500 ₽", "amount": "7 500 ₽", "status": "paid", "date": "22.06.2026", "note": "Пилот-блок · 1 trial + 3 занятия" }
@@ -1445,7 +1445,7 @@ window.NGE_DATA = {
       "lessons_in_package": 5,
       "subscription_month": "2026-07",
       "lessons_used_this_month": 0,
-      "stability_note": "Пилот-блок июня закрыт (1 trial + 3 платных). Июль — новый абонемент на 5 уроков, мягкий рестарт: Present Simple + to-инфинитив + артикли (A2+ уровень, Workbook 02 оказался выше уровня). Новая серия Practical English for grown-ups.",
+      "stability_note": "",
       "external_platforms": [
         {
           "name": "🛫 TOEFL iBT · Format Tour · Lab",
@@ -1503,11 +1503,11 @@ window.NGE_DATA = {
           "date": "2026-07-02",
           "num": 4,
           "status": "planned",
-          "topic": "Practical English · Day 1 · A2+ reset · Present Simple + to-инфинитив + a/the/— + survival",
+          "topic": "Practical English · Day 1 · Present Simple + to-инфинитив + a/the/— + survival",
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/practice/timofey-03-practical-english/",
             "module_title": "📖 Открыть урок · Practical English · Day 1",
-            "text": "Мягкий рестарт после разбора Workbook 02. Внутри урока: 6 коротких блоков — warm-up mic-drill, Present Simple живой, маленькое слово to, артикли a/the/—, 6 survival-фраз, 15 adult-vocab flip-cards. + Homework A/B/C/D на 5–7 минут."
+            "text": "6 коротких блоков: warm-up mic-drill, Present Simple живой, маленькое слово to, артикли a/the/—, 6 survival-фраз, 15 adult-vocab flip-cards. + Homework A/B/C/D на 5–7 минут."
           }
         },
         {
