@@ -273,19 +273,22 @@
    N-марка остаётся квадратной цветной, острый угол = иллюзия.
    Reason: clip-path вариант обрезал всё что мы туда клали, Маша хочет
    видимый белый треугольник на всех экранах (desktop + mobile). */
-.canon-l-mark,
-.brand-mark {
+/* Double-class selector to raise specificity above late inline rules with
+   !important on individual lessons (Ancient China etc.). */
+.canon-l-mark.canon-l-mark,
+.brand-mark.brand-mark {
+  border-radius: 8px 0 8px 8px !important;
   border-top-right-radius: 0 !important;
   position: relative !important;
   overflow: visible !important;
   clip-path: none !important;
 }
-.canon-l-mark::before,
-.brand-mark::before {
+.canon-l-mark.canon-l-mark::before,
+.brand-mark.brand-mark::before {
   display: none !important;
 }
-.canon-l-mark::after,
-.brand-mark::after {
+.canon-l-mark.canon-l-mark::after,
+.brand-mark.brand-mark::after {
   content: "" !important;
   position: absolute !important;
   right: 0 !important;
