@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Practical English · Day 1 · Timofey · 2 July</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f0e6;
+  --surface: #ffffff;
+  --card: #faf6ec;
+  --card-2: #f0e8d6;
+  --text: #2c2620;
+  --muted: #6b6560;
+  --faint: #a09786;
+  --navy: #1a3a5c;
+  --navy-2: #2a5285;
+  --burgundy: #8b1e3f;
+  --gold: #b8964a;
+  --ok: #3d7c47;
+  --miss: #b8433a;
+  --line: rgba(26, 58, 92, .16);
+  --line-2: rgba(26, 58, 92, .32);
+  --display: "Playfair Display", Georgia, serif;
+  --body: "Manrope", system-ui, sans-serif;
+  --mono: "JetBrains Mono", Consolas, monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--body);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.65;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(26,58,92,.06), transparent 60%),
+    radial-gradient(ellipse at 90% 100%, rgba(139,30,63,.05), transparent 55%);
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+
+/* ═══════════ TOPBAR ═══════════ */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; gap: 14px;
+  padding: 12px clamp(14px, 3vw, 26px);
+  background: color-mix(in srgb, var(--bg) 94%, transparent);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.brand-mark {
+  width: 34px; height: 34px;
+  display: grid; place-items: center;
+  background: var(--navy);
+  color: #f6ecd0;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 18px;
+  border-radius: 9px;
+  border-top-right-radius: 0;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.brand-mark::after {
+  content: "";
+  position: absolute;
+  right: 0; top: 0;
+  width: 14px; height: 14px;
+  background: #ffffff;
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+  z-index: 2;
+}
+.brand-text {
+  display: flex; flex-direction: column; gap: 1px;
+  min-width: 0;
+}
+.brand-name {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: .01em;
+  color: var(--navy);
+  white-space: nowrap;
+}
+.brand-sub {
+  font: 600 9.5px/1 var(--mono);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.topbar-spacer { flex: 1; }
+.topbar-pill {
+  padding: 6px 12px;
+  border-radius: 50px;
+  border: 1px solid var(--line-2);
+  background: var(--surface);
+  color: var(--navy);
+  font: 700 10px/1 var(--mono);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+@media (max-width: 720px) {
+  .brand-sub { display: none; }
+  .brand-name { font-size: 12.5px; }
+  .brand-mark { width: 30px; height: 30px; font-size: 15px; }
+  .topbar-pill { padding: 5px 9px; font-size: 9px; letter-spacing: .1em; }
+}
+
+/* ═══════════ HERO ═══════════ */
+.hero {
+  padding: clamp(36px, 8vw, 88px) clamp(20px, 5vw, 76px) clamp(28px, 5vw, 56px);
+  background:
+    linear-gradient(135deg, var(--card-2) 0%, var(--card) 40%, var(--surface) 100%);
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+.hero-inner { max-width: 900px; margin: 0 auto; }
+.hero-eyebrow {
+  font: 700 10.5px/1 var(--mono);
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.hero-eyebrow::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(to right, var(--burgundy), transparent);
+  max-width: 120px;
+  opacity: .5;
+}
+.hero-title {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  line-height: 1.05;
+  color: var(--navy);
+  letter-spacing: -0.02em;
+  margin-bottom: 18px;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--burgundy);
+  font-weight: 800;
+}
+.hero-lead {
+  font-size: 1.08rem;
+  line-height: 1.6;
+  color: var(--text);
+  max-width: 640px;
+  margin-bottom: 22px;
+}
+.hero-meta {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.hero-chip {
+  padding: 6px 11px;
+  border-radius: 50px;
+  border: 1px solid var(--line-2);
+  background: var(--surface);
+  color: var(--navy);
+  font: 600 10.5px/1 var(--mono);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+@media (max-width: 720px) {
+  .hero-title { font-size: 2rem; }
+  .hero-lead { font-size: 1rem; }
+  .hero-chip { font-size: 9.5px; padding: 5px 9px; }
+}
+
+/* ═══════════ SECTION ═══════════ */
+main { padding: 0 clamp(14px, 4vw, 40px) 60px; }
+section.section {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: clamp(24px, 4vw, 40px);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 4px 30px rgba(26, 58, 92, .06);
+  position: relative;
+}
+.sec-num {
+  font: 800 10.5px/1 var(--mono);
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 10px;
+}
+.sec-num::before {
+  content: "";
+  width: 20px; height: 1.5px;
+  background: var(--gold);
+}
+.sec-title {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+  color: var(--navy);
+  line-height: 1.15;
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
+}
+.sec-lead {
+  color: var(--muted);
+  font-size: .96rem;
+  margin-bottom: 22px;
+  line-height: 1.55;
+}
+.sec-instr {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--card);
+  border-radius: 8px;
+  border-left: 3px solid var(--gold);
+  font: 600 12px/1.4 var(--mono);
+  letter-spacing: .06em;
+  color: var(--navy);
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+/* ═══════════ WARM-UP MIC ═══════════ */
+.mic-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 12px;
+}
+.mic-prompt {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--navy);
+  margin-bottom: 12px;
+}
+.mic-model {
+  background: var(--surface);
+  border: 1px dashed var(--line-2);
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: .95rem;
+  color: var(--text);
+  line-height: 1.7;
+}
+.mic-model .placeholder {
+  display: inline-block;
+  min-width: 60px;
+  border-bottom: 2px dotted var(--burgundy);
+  color: var(--burgundy);
+  font-weight: 700;
+  padding: 0 4px;
+}
+.mic-tip {
+  font: 500 12.5px/1.5 var(--body);
+  color: var(--muted);
+  margin-top: 12px;
+  padding-left: 26px;
+  position: relative;
+}
+.mic-tip::before {
+  content: "🎤";
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.mic-rec-btn {
+  margin-top: 14px;
+  padding: 10px 18px;
+  border: 1.5px solid var(--navy);
+  background: var(--surface);
+  color: var(--navy);
+  border-radius: 50px;
+  font: 700 11px/1 var(--mono);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all .18s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.mic-rec-btn:hover {
+  background: var(--navy);
+  color: #f6ecd0;
+}
+.mic-rec-btn.recording {
+  background: var(--burgundy);
+  color: #fff;
+  border-color: var(--burgundy);
+  animation: pulse 1.2s ease infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(139,30,63,.5); }
+  50% { box-shadow: 0 0 0 10px rgba(139,30,63,0); }
+}
+.mic-out {
+  margin-top: 12px;
+  padding: 12px 14px;
+  background: var(--card);
+  border-radius: 8px;
+  font-size: .95rem;
+  min-height: 20px;
+  color: var(--text);
+  border: 1px dashed var(--line);
+}
+
+/* ═══════════ PRESENT SIMPLE ═══════════ */
+.ps-list {
+  display: grid;
+  gap: 10px;
+}
+.ps-row {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+.ps-num {
+  width: 28px; height: 28px;
+  background: var(--navy);
+  color: #f6ecd0;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font: 800 12px/1 var(--mono);
+}
+.ps-text {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+.ps-text .gap {
+  display: inline-block;
+  min-width: 90px;
+  padding: 2px 8px;
+  border: 1.5px dashed var(--burgundy);
+  border-radius: 6px;
+  color: var(--burgundy);
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  transition: all .15s;
+  background: var(--surface);
+}
+.ps-text .gap.filled {
+  background: var(--card);
+  border-style: solid;
+}
+.ps-text .gap.ok {
+  border-color: var(--ok);
+  color: var(--ok);
+  background: rgba(61, 124, 71, .08);
+}
+.ps-text .gap.miss {
+  border-color: var(--miss);
+  color: var(--miss);
+  background: rgba(184, 67, 58, .08);
+}
+.ps-opts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 14px;
+  background: var(--card);
+  border-radius: 10px;
+  border: 1px dashed var(--line-2);
+}
+.ps-opt-btn {
+  padding: 7px 14px;
+  background: var(--surface);
+  border: 1.5px solid var(--line-2);
+  color: var(--navy);
+  border-radius: 50px;
+  font: 700 12px/1 var(--mono);
+  letter-spacing: .06em;
+  cursor: pointer;
+  transition: all .15s;
+}
+.ps-opt-btn:hover { border-color: var(--navy); background: var(--navy); color: #f6ecd0; }
+.ps-opt-btn.used { opacity: .4; }
+
+/* ═══════════ TO INFINITIVE DRILL ═══════════ */
+.ti-list { display: grid; gap: 8px; }
+.ti-row {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+.ti-num {
+  width: 26px; height: 26px;
+  background: var(--burgundy);
+  color: #f6ecd0;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font: 800 11px/1 var(--mono);
+}
+.ti-eng {
+  font-size: .98rem;
+  line-height: 1.5;
+}
+.ti-eng strong {
+  color: var(--burgundy);
+  border-bottom: 2px dotted var(--burgundy);
+  cursor: pointer;
+  transition: all .15s;
+}
+.ti-eng strong.fixed {
+  color: var(--ok);
+  border-color: var(--ok);
+}
+.ti-check {
+  padding: 5px 10px;
+  background: var(--surface);
+  border: 1px solid var(--line-2);
+  border-radius: 6px;
+  font: 700 10px/1 var(--mono);
+  letter-spacing: .1em;
+  color: var(--navy);
+  cursor: pointer;
+  transition: all .15s;
+}
+.ti-check:hover { background: var(--navy); color: #f6ecd0; }
+.ti-check.ok {
+  background: rgba(61,124,71,.14);
+  color: var(--ok);
+  border-color: var(--ok);
+}
+
+/* ═══════════ ARTICLES MCQ ═══════════ */
+.art-list { display: grid; gap: 10px; }
+.art-row {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.art-eng {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+.art-blank {
+  display: inline-block;
+  min-width: 40px;
+  height: 24px;
+  border-bottom: 2px solid var(--burgundy);
+  vertical-align: middle;
+  margin: 0 4px;
+}
+.art-opts {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.art-opt {
+  padding: 8px 16px;
+  background: var(--surface);
+  border: 1.5px solid var(--line-2);
+  border-radius: 8px;
+  font: 800 14px/1 var(--display);
+  color: var(--navy);
+  cursor: pointer;
+  min-width: 54px;
+  text-align: center;
+  transition: all .15s;
+}
+.art-opt:hover { border-color: var(--navy); background: var(--card); }
+.art-opt.picked { border-color: var(--navy); background: var(--navy); color: #f6ecd0; }
+.art-opt.ok { border-color: var(--ok); background: var(--ok); color: #fff; }
+.art-opt.miss { border-color: var(--miss); background: var(--miss); color: #fff; }
+
+/* ═══════════ SURVIVAL MIC-DRILL ═══════════ */
+.sv-list { display: grid; gap: 12px; }
+.sv-card {
+  background: var(--card);
+  border-left: 3px solid var(--gold);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+.sv-scene {
+  font: 700 10.5px/1 var(--mono);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  margin-bottom: 8px;
+  display: flex; align-items: center; gap: 8px;
+}
+.sv-line {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--navy);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+.sv-ru { display: none; }
+.sv-tip {
+  font-size: .9rem;
+  color: var(--muted);
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.5;
+}
+.sv-tip::before {
+  content: "💡";
+  position: absolute;
+  left: 0;
+}
+
+/* ═══════════ VOCAB FLIP CARDS ═══════════ */
+.vc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}
+.vc-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 18px 12px;
+  min-height: 92px;
+  cursor: pointer;
+  perspective: 800px;
+  position: relative;
+}
+.vc-inner {
+  position: relative;
+  width: 100%; height: 100%;
+  min-height: 60px;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+}
+.vc-card.flipped .vc-inner { transform: rotateY(180deg); }
+.vc-front, .vc-back {
+  position: absolute; inset: 0;
+  backface-visibility: hidden;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+.vc-back { transform: rotateY(180deg); }
+.vc-eng {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--navy);
+}
+.vc-example {
+  font-size: .8rem;
+  color: var(--muted);
+  font-style: italic;
+  line-height: 1.4;
+  padding: 0 6px;
+}
+
+/* ═══════════ HOMEWORK ═══════════ */
+#homework-block {
+  scroll-margin-top: 90px;
+}
+#homework-block > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 22px 24px;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%);
+  color: #f6ecd0;
+  border-radius: 14px;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: box-shadow .35s;
+}
+#homework-block > summary::-webkit-details-marker { display: none; }
+#homework-block > summary::before {
+  content: "📖";
+  font-size: 1.4rem;
+}
+#homework-block[open] > summary { border-radius: 14px 14px 0 0; }
+#homework-block.hw-focus > summary {
+  box-shadow: 0 0 0 3px var(--gold);
+}
+.hw-body {
+  padding: 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-top: 0;
+  border-radius: 0 0 14px 14px;
+}
+.hw-body h4 {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: var(--navy);
+  margin: 22px 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 1.5px solid var(--line-2);
+}
+.hw-body h4:first-child { margin-top: 0; }
+.hw-item {
+  padding: 10px 0;
+  color: var(--text);
+  font-size: .96rem;
+  line-height: 1.6;
+}
+.hw-item .num {
+  color: var(--burgundy);
+  font-weight: 800;
+  margin-right: 8px;
+}
+
+/* ═══════════ FOOTER ═══════════ */
+.footer {
+  max-width: 900px;
+  margin: 48px auto 0;
+  padding: 24px 20px;
+  text-align: center;
+  border-top: 1px solid var(--line);
+  font: 500 12px/1.6 var(--mono);
+  color: var(--muted);
+}
+.footer .nge {
+  color: var(--navy);
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+/* ═══════════ MOBILE TUNING ═══════════ */
+@media (max-width: 720px) {
+  section.section { padding: 22px 18px; margin: 26px 8px; }
+  #homework-block > summary { padding: 18px 20px; font-size: 1.05rem; }
+  .hw-body { padding: 18px 16px; }
+  .hw-body { font-size: 15.5px; line-height: 1.55; }
+  .hw-body h4 { font-size: 1rem; margin-top: 18px; }
+  .ps-row { grid-template-columns: 26px 1fr; padding: 12px 14px; }
+  .art-opt { min-width: 46px; padding: 7px 12px; }
+  .vc-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+  .sec-title { font-size: 1.4rem; }
+  .hero-eyebrow { font-size: 9.5px; }
+  .footer { font-size: 11px; }
+}
+
+/* Progress dot */
+.progress-fixed {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 90;
+  background: var(--navy);
+  color: #f6ecd0;
+  padding: 8px 14px;
+  border-radius: 50px;
+  font: 800 11px/1 var(--mono);
+  letter-spacing: .16em;
+  box-shadow: 0 4px 16px rgba(26,58,92,.35);
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ TOPBAR ═══════════ -->
+<header class="topbar">
+  <div class="brand-mark">N</div>
+  <div class="brand-text">
+    <span class="brand-name">NG English · Lab</span>
+    <span class="brand-sub">Practical · A2+ · Timofey</span>
+  </div>
+  <div class="topbar-spacer"></div>
+  <div class="topbar-pill">Lesson 03</div>
+</header>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">🇬🇧 · English for grown-ups · Day 1 · Reset</div>
+    <h1 class="hero-title">Small words,<br><em>big difference.</em></h1>
+    <p class="hero-lead">Six short blocks — Present Simple, the little word <em>to</em>, articles a / the / —, six survival lines you actually say, and fifteen adult-life words. No pressure. Speak, tap, repeat.</p>
+    <div class="hero-meta">
+      <span class="hero-chip">⏱ ≈ 35 min</span>
+      <span class="hero-chip">🎯 A2+ · reset</span>
+      <span class="hero-chip">🎤 speaking · 3 mic-drills</span>
+      <span class="hero-chip">📚 15 vocab</span>
+    </div>
+  </div>
+</section>
+
+<main>
+
+<!-- ═══════════ SECTION 01 · WARM-UP ═══════════ -->
+<section class="section" id="s01">
+  <div class="sec-num">Section 01</div>
+  <h2 class="sec-title">Warm-up · your usual day</h2>
+  <p class="sec-lead">Say five short sentences about your normal working day. Out loud, at a slow pace. Fill the blanks with your own words.</p>
+  <div class="sec-instr">🎤 speak · 🐢 slow · ⏱ 2 min</div>
+
+  <div class="mic-card">
+    <div class="mic-prompt">What do you do every day at work?</div>
+    <div class="mic-model">
+      1. I usually wake up at <span class="placeholder">___</span>.<br>
+      2. I work at <span class="placeholder">___</span>, in the <span class="placeholder">___</span> team.<br>
+      3. Every morning I <span class="placeholder">___</span> and then <span class="placeholder">___</span>.<br>
+      4. I have meetings on <span class="placeholder">___</span>.<br>
+      5. In the evening I <span class="placeholder">___</span>.
+    </div>
+    <div class="mic-tip">Fill the gaps with your own words. It is fine if the answer is short.</div>
+    <button class="mic-rec-btn" data-target="mic1-out">🎙 Record & check</button>
+    <div class="mic-out" id="mic1-out">Your speech will appear here.</div>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 02 · PRESENT SIMPLE ═══════════ -->
+<section class="section" id="s02">
+  <div class="sec-num">Section 02</div>
+  <h2 class="sec-title">Present Simple, alive</h2>
+  <p class="sec-lead">Everyday, always, usually — that is Present Simple. Drop the right verb into each blank. Watch the tricky <em>he / she / it</em>: they add <strong>-s</strong>.</p>
+  <div class="sec-instr">✍️ drag word → gap · ✅ auto-check</div>
+
+  <div class="ps-list">
+    <div class="ps-row"><span class="ps-num">1</span><div class="ps-text">I <span class="gap" data-ans="work">___</span> at Lukoil.</div></div>
+    <div class="ps-row"><span class="ps-num">2</span><div class="ps-text">She <span class="gap" data-ans="works">___</span> in the finance team.</div></div>
+    <div class="ps-row"><span class="ps-num">3</span><div class="ps-text">We <span class="gap" data-ans="have">___</span> a meeting every Monday.</div></div>
+    <div class="ps-row"><span class="ps-num">4</span><div class="ps-text">He <span class="gap" data-ans="has">___</span> a lot of tasks today.</div></div>
+    <div class="ps-row"><span class="ps-num">5</span><div class="ps-text">They <span class="gap" data-ans="finish">___</span> at seven every day.</div></div>
+    <div class="ps-row"><span class="ps-num">6</span><div class="ps-text">My colleague <span class="gap" data-ans="drinks">___</span> coffee, not tea.</div></div>
+    <div class="ps-row"><span class="ps-num">7</span><div class="ps-text">I <span class="gap" data-ans="check">___</span> my email in the morning.</div></div>
+    <div class="ps-row"><span class="ps-num">8</span><div class="ps-text">The boss <span class="gap" data-ans="calls">___</span> me twice a week.</div></div>
+    <div class="ps-row"><span class="ps-num">9</span><div class="ps-text">You <span class="gap" data-ans="know">___</span> the answer.</div></div>
+    <div class="ps-row"><span class="ps-num">10</span><div class="ps-text">She <span class="gap" data-ans="knows">___</span> Italian very well.</div></div>
+    <div class="ps-row"><span class="ps-num">11</span><div class="ps-text">We <span class="gap" data-ans="live">___</span> in Moscow.</div></div>
+    <div class="ps-row"><span class="ps-num">12</span><div class="ps-text">He <span class="gap" data-ans="lives">___</span> near the office.</div></div>
+  </div>
+
+  <div class="ps-opts" id="ps-opts">
+    <button class="ps-opt-btn">work</button>
+    <button class="ps-opt-btn">works</button>
+    <button class="ps-opt-btn">have</button>
+    <button class="ps-opt-btn">has</button>
+    <button class="ps-opt-btn">finish</button>
+    <button class="ps-opt-btn">drinks</button>
+    <button class="ps-opt-btn">check</button>
+    <button class="ps-opt-btn">calls</button>
+    <button class="ps-opt-btn">know</button>
+    <button class="ps-opt-btn">knows</button>
+    <button class="ps-opt-btn">live</button>
+    <button class="ps-opt-btn">lives</button>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 03 · TO ═══════════ -->
+<section class="section" id="s03">
+  <div class="sec-num">Section 03</div>
+  <h2 class="sec-title">The small word <em style="font-family:var(--display); color: var(--burgundy);">to</em></h2>
+  <p class="sec-lead">After <strong>need · want · have · would like</strong> — always <em>to</em> + verb. Never <em>for</em>. Fix the sentences: tap the broken part and I will show the right form.</p>
+  <div class="sec-instr">👇 tap the broken bit</div>
+
+  <div class="ti-list" id="ti-list">
+    <div class="ti-row"><span class="ti-num">1</span><div class="ti-eng">We need <strong data-fix="to search">search</strong> a place. → we need <em>to search</em> a place.</div><button class="ti-check">Check</button></div>
+    <div class="ti-row"><span class="ti-num">2</span><div class="ti-eng">I want <strong data-fix="to learn">learn</strong> English.</div><button class="ti-check">Check</button></div>
+    <div class="ti-row"><span class="ti-num">3</span><div class="ti-eng">She has <strong data-fix="to finish">finish</strong> the report.</div><button class="ti-check">Check</button></div>
+    <div class="ti-row"><span class="ti-num">4</span><div class="ti-eng">I'd like <strong data-fix="to have">have</strong> coffee, please.</div><button class="ti-check">Check</button></div>
+    <div class="ti-row"><span class="ti-num">5</span><div class="ti-eng">He wants <strong data-fix="to move">move</strong> to Milan.</div><button class="ti-check">Check</button></div>
+    <div class="ti-row"><span class="ti-num">6</span><div class="ti-eng">We need <strong data-fix="to make">for make</strong> a fire.</div><button class="ti-check">Check</button></div>
+    <div class="ti-row"><span class="ti-num">7</span><div class="ti-eng">I have <strong data-fix="to call">call</strong> my boss.</div><button class="ti-check">Check</button></div>
+    <div class="ti-row"><span class="ti-num">8</span><div class="ti-eng">They want <strong data-fix="to study">for study</strong> abroad.</div><button class="ti-check">Check</button></div>
+    <div class="ti-row"><span class="ti-num">9</span><div class="ti-eng">You need <strong data-fix="to sign">sign</strong> the paper.</div><button class="ti-check">Check</button></div>
+    <div class="ti-row"><span class="ti-num">10</span><div class="ti-eng">I'd like <strong data-fix="to ask">ask</strong> a question.</div><button class="ti-check">Check</button></div>
+    <div class="ti-row"><span class="ti-num">11</span><div class="ti-eng">She wants <strong data-fix="to leave">leave</strong> early today.</div><button class="ti-check">Check</button></div>
+    <div class="ti-row"><span class="ti-num">12</span><div class="ti-eng">We have <strong data-fix="to remind">for remind</strong> him.</div><button class="ti-check">Check</button></div>
+    <div class="ti-row"><span class="ti-num">13</span><div class="ti-eng">I need <strong data-fix="to check">for check</strong> the email.</div><button class="ti-check">Check</button></div>
+    <div class="ti-row"><span class="ti-num">14</span><div class="ti-eng">He wants <strong data-fix="to speak">speak</strong> to you.</div><button class="ti-check">Check</button></div>
+    <div class="ti-row"><span class="ti-num">15</span><div class="ti-eng">I'd like <strong data-fix="to book">book</strong> a table.</div><button class="ti-check">Check</button></div>
+    <div class="ti-row"><span class="ti-num">16</span><div class="ti-eng">You need <strong data-fix="to relax">relax</strong>.</div><button class="ti-check">Check</button></div>
+    <div class="ti-row"><span class="ti-num">17</span><div class="ti-eng">She has <strong data-fix="to send">send</strong> the file today.</div><button class="ti-check">Check</button></div>
+    <div class="ti-row"><span class="ti-num">18</span><div class="ti-eng">We want <strong data-fix="to travel">for travel</strong> in July.</div><button class="ti-check">Check</button></div>
+    <div class="ti-row"><span class="ti-num">19</span><div class="ti-eng">I have <strong data-fix="to work">work</strong> late tonight.</div><button class="ti-check">Check</button></div>
+    <div class="ti-row"><span class="ti-num">20</span><div class="ti-eng">Can I <strong data-fix="ask">to ask</strong> a question?</div><button class="ti-check">Check</button></div>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 04 · ARTICLES ═══════════ -->
+<section class="section" id="s04">
+  <div class="sec-num">Section 04</div>
+  <h2 class="sec-title">a · the · nothing</h2>
+  <p class="sec-lead">Three rules only. <strong>a</strong> = one of many, first time. <strong>the</strong> = the exact one we know. <strong>—</strong> = things you cannot count (coffee, money, water, time). Tap the right choice for each blank.</p>
+  <div class="sec-instr">👆 tap: a · the · — · get feedback</div>
+
+  <div class="art-list" id="art-list">
+    <div class="art-row">
+      <div class="art-eng">I have <span class="art-blank"></span> new colleague. His name is Marco.</div>
+      <div class="art-opts" data-correct="a"><button class="art-opt">a</button><button class="art-opt">the</button><button class="art-opt">—</button></div>
+    </div>
+    <div class="art-row">
+      <div class="art-eng"><span class="art-blank"></span> colleague I mentioned yesterday is here.</div>
+      <div class="art-opts" data-correct="the"><button class="art-opt">a</button><button class="art-opt">the</button><button class="art-opt">—</button></div>
+    </div>
+    <div class="art-row">
+      <div class="art-eng">I drink <span class="art-blank"></span> coffee every morning.</div>
+      <div class="art-opts" data-correct="—"><button class="art-opt">a</button><button class="art-opt">the</button><button class="art-opt">—</button></div>
+    </div>
+    <div class="art-row">
+      <div class="art-eng">Can I have <span class="art-blank"></span> coffee, please? (in a café)</div>
+      <div class="art-opts" data-correct="a"><button class="art-opt">a</button><button class="art-opt">the</button><button class="art-opt">—</button></div>
+    </div>
+    <div class="art-row">
+      <div class="art-eng">We need <span class="art-blank"></span> money for the trip.</div>
+      <div class="art-opts" data-correct="—"><button class="art-opt">a</button><button class="art-opt">the</button><button class="art-opt">—</button></div>
+    </div>
+    <div class="art-row">
+      <div class="art-eng">She has <span class="art-blank"></span> question.</div>
+      <div class="art-opts" data-correct="a"><button class="art-opt">a</button><button class="art-opt">the</button><button class="art-opt">—</button></div>
+    </div>
+    <div class="art-row">
+      <div class="art-eng">Open <span class="art-blank"></span> door, please. (only one door here)</div>
+      <div class="art-opts" data-correct="the"><button class="art-opt">a</button><button class="art-opt">the</button><button class="art-opt">—</button></div>
+    </div>
+    <div class="art-row">
+      <div class="art-eng">I like <span class="art-blank"></span> music.</div>
+      <div class="art-opts" data-correct="—"><button class="art-opt">a</button><button class="art-opt">the</button><button class="art-opt">—</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 05 · SURVIVAL MIC-DRILL ═══════════ -->
+<section class="section" id="s05">
+  <div class="sec-num">Section 05</div>
+  <h2 class="sec-title">Six lines you actually say</h2>
+  <p class="sec-lead">Every line is a short, useful, adult phrase. Say each one out loud two times. Slow first, natural second.</p>
+  <div class="sec-instr">🎙 read → speak · x2 each</div>
+
+  <div class="sv-list">
+    <div class="sv-card">
+      <div class="sv-scene">☕ Coffee shop</div>
+      <div class="sv-line">Could I have a large flat white, please? To go, thanks.</div>
+      <div class="sv-tip">Say <em>could I have</em>, not <em>give me</em>. Polite is normal here.</div>
+    </div>
+    <div class="sv-card">
+      <div class="sv-scene">🏨 Hotel check-in</div>
+      <div class="sv-line">Hi, I have a reservation under the name Timofey. For two nights.</div>
+      <div class="sv-tip">Use <em>under the name</em>, not <em>on the name</em>.</div>
+    </div>
+    <div class="sv-card">
+      <div class="sv-scene">🤝 Meeting introduction</div>
+      <div class="sv-line">Nice to meet you. I work at Lukoil, in the strategy team.</div>
+      <div class="sv-tip">Use <em>at</em> for company, <em>in</em> for department.</div>
+    </div>
+    <div class="sv-card">
+      <div class="sv-scene">🕓 Ask to leave work</div>
+      <div class="sv-line">Would it be all right if I left early today? I have a family matter.</div>
+      <div class="sv-tip">Formal but not stiff. <em>Family matter</em> = short and enough.</div>
+    </div>
+    <div class="sv-card">
+      <div class="sv-scene">🚕 In a taxi</div>
+      <div class="sv-line">Could you drop me at the corner, please? Then I'll walk.</div>
+      <div class="sv-tip"><em>Drop me at</em> — the natural way to say “stop the car and let me out here”.</div>
+    </div>
+    <div class="sv-card">
+      <div class="sv-scene">📧 Short business email</div>
+      <div class="sv-line">Hi Marco, could you send me the updated file today? Thanks — Timofey.</div>
+      <div class="sv-tip">Two lines is enough. Short is professional here.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 06 · VOCAB ═══════════ -->
+<section class="section" id="s06">
+  <div class="sec-num">Section 06</div>
+  <h2 class="sec-title">Fifteen adult-life words</h2>
+  <p class="sec-lead">Tap a card to flip it. Front — the word. Back — a short example. Say each example out loud once.</p>
+  <div class="sec-instr">👆 tap card · 🎤 read example aloud</div>
+
+  <div class="vc-grid">
+    <div class="vc-card"><div class="vc-inner"><div class="vc-front"><span class="vc-eng">meeting</span></div><div class="vc-back"><span class="vc-example">“We have a meeting at 10.”</span></div></div></div>
+    <div class="vc-card"><div class="vc-inner"><div class="vc-front"><span class="vc-eng">deal</span></div><div class="vc-back"><span class="vc-example">“We closed a big deal last week.”</span></div></div></div>
+    <div class="vc-card"><div class="vc-inner"><div class="vc-front"><span class="vc-eng">deadline</span></div><div class="vc-back"><span class="vc-example">“The deadline is Friday, six p.m.”</span></div></div></div>
+    <div class="vc-card"><div class="vc-inner"><div class="vc-front"><span class="vc-eng">task</span></div><div class="vc-back"><span class="vc-example">“I have three tasks this morning.”</span></div></div></div>
+    <div class="vc-card"><div class="vc-inner"><div class="vc-front"><span class="vc-eng">colleague</span></div><div class="vc-back"><span class="vc-example">“My colleague speaks Italian.”</span></div></div></div>
+    <div class="vc-card"><div class="vc-inner"><div class="vc-front"><span class="vc-eng">boss</span></div><div class="vc-back"><span class="vc-example">“My boss is out of the office.”</span></div></div></div>
+    <div class="vc-card"><div class="vc-inner"><div class="vc-front"><span class="vc-eng">delay</span></div><div class="vc-back"><span class="vc-example">“Sorry for the delay, everyone.”</span></div></div></div>
+    <div class="vc-card"><div class="vc-inner"><div class="vc-front"><span class="vc-eng">cancel</span></div><div class="vc-back"><span class="vc-example">“I need to cancel the call.”</span></div></div></div>
+    <div class="vc-card"><div class="vc-inner"><div class="vc-front"><span class="vc-eng">sign</span></div><div class="vc-back"><span class="vc-example">“Could you sign here, please?”</span></div></div></div>
+    <div class="vc-card"><div class="vc-inner"><div class="vc-front"><span class="vc-eng">remind</span></div><div class="vc-back"><span class="vc-example">“I want to remind you about tomorrow.”</span></div></div></div>
+    <div class="vc-card"><div class="vc-inner"><div class="vc-front"><span class="vc-eng">approve</span></div><div class="vc-back"><span class="vc-example">“The boss will approve the budget.”</span></div></div></div>
+    <div class="vc-card"><div class="vc-inner"><div class="vc-front"><span class="vc-eng">confirm</span></div><div class="vc-back"><span class="vc-example">“Please confirm the time by email.”</span></div></div></div>
+    <div class="vc-card"><div class="vc-inner"><div class="vc-front"><span class="vc-eng">schedule</span></div><div class="vc-back"><span class="vc-example">“Let me check my schedule.”</span></div></div></div>
+    <div class="vc-card"><div class="vc-inner"><div class="vc-front"><span class="vc-eng">postpone</span></div><div class="vc-back"><span class="vc-example">“We had to postpone the meeting.”</span></div></div></div>
+    <div class="vc-card"><div class="vc-inner"><div class="vc-front"><span class="vc-eng">overtime</span></div><div class="vc-back"><span class="vc-example">“I worked overtime last night.”</span></div></div></div>
+  </div>
+</section>
+
+<!-- ═══════════ HOMEWORK ═══════════ -->
+<section class="section" style="padding:0;border:0;background:transparent;box-shadow:none">
+  <details class="homework" id="homework-block">
+    <summary>Homework · practical · 4 short blocks</summary>
+    <div class="hw-body">
+      <p style="color: var(--muted); font-size: .95rem; margin-bottom: 20px">Five to seven minutes only. Slow and clear. If a block is too easy — good, that means it works.</p>
+
+      <h4>A · Fix the small word (10 items)</h4>
+      <div class="hw-item"><span class="num">1.</span> I want ___ speak English better.</div>
+      <div class="hw-item"><span class="num">2.</span> She has ___ finish this report today.</div>
+      <div class="hw-item"><span class="num">3.</span> We need ___ book a hotel.</div>
+      <div class="hw-item"><span class="num">4.</span> I'd like ___ have some tea.</div>
+      <div class="hw-item"><span class="num">5.</span> He wants ___ visit Milan next year.</div>
+      <div class="hw-item"><span class="num">6.</span> They need ___ send the file.</div>
+      <div class="hw-item"><span class="num">7.</span> Can I ___ ask a question?</div>
+      <div class="hw-item"><span class="num">8.</span> I have ___ leave in five minutes.</div>
+      <div class="hw-item"><span class="num">9.</span> She'd like ___ take a break.</div>
+      <div class="hw-item"><span class="num">10.</span> You need ___ relax more.</div>
+
+      <h4>B · a / the / — (6 items)</h4>
+      <div class="hw-item"><span class="num">1.</span> I have ___ new task from the boss.</div>
+      <div class="hw-item"><span class="num">2.</span> ___ task is not easy.</div>
+      <div class="hw-item"><span class="num">3.</span> I drink ___ tea every evening.</div>
+      <div class="hw-item"><span class="num">4.</span> Could I have ___ tea, please?</div>
+      <div class="hw-item"><span class="num">5.</span> Open ___ window, please.</div>
+      <div class="hw-item"><span class="num">6.</span> ___ time is money.</div>
+
+      <h4>C · Speaking · your usual working day (offline)</h4>
+      <div class="hw-item">Record a 60-second voice message. Answer this question: <em>What do you do every day at work?</em> Use five or six sentences. Slow pace. Send the audio to Maria.</div>
+
+      <h4>D · Watch & catch (optional)</h4>
+      <div class="hw-item">Pick one short YouTube video on any topic you like — maximum three minutes, native English. Write down three sentences you hear that use <em>need to / want to / have to</em>. Just three. Bring them to the next lesson.</div>
+
+      <details style="margin-top: 22px; background: var(--card); border-left: 3px solid var(--gold); border-radius: 8px; padding: 12px 16px">
+        <summary style="cursor:pointer; font-family: var(--display); font-weight:800; color: var(--navy); font-size: 1rem">For teacher · answer keys</summary>
+        <div style="margin-top: 12px; font-size: .92rem; line-height: 1.7">
+          <p><strong>A · to-infinitive:</strong> all answers = <em>to</em>. Exception: 7. <em>Can I ask</em> — no <em>to</em> after modal <em>can</em>.</p>
+          <p><strong>B · articles:</strong> 1. a · 2. The · 3. — · 4. a · 5. the · 6. — (Time is money — proverb).</p>
+        </div>
+      </details>
+    </div>
+  </details>
+</section>
+
+</main>
+
+<footer class="footer">
+  <span class="nge">NGE English · Lab</span> · Practical English · Day 1 · A2+ reset<br>
+  Timofey · 02.07.2026 · Mild return to Present Simple, articles, and the little word <em>to</em>.
+</footer>
+
+<div class="progress-fixed" id="progressFixed">0 / 6 done</div>
+
+<script>
+(function () {
+  /* ============= Section 02 · Present Simple drag-drop ============= */
+  var psGaps = document.querySelectorAll('.ps-row .gap');
+  var psBtns = document.querySelectorAll('.ps-opt-btn');
+  var currentBtn = null;
+
+  psBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (currentBtn) currentBtn.classList.remove('used');
+      currentBtn = btn;
+      btn.classList.add('used');
+    });
+  });
+
+  psGaps.forEach(function (gap) {
+    gap.addEventListener('click', function () {
+      if (!currentBtn) return;
+      var word = currentBtn.textContent;
+      gap.textContent = word;
+      gap.classList.add('filled');
+      if (word === gap.dataset.ans) {
+        gap.classList.add('ok');
+        gap.classList.remove('miss');
+      } else {
+        gap.classList.add('miss');
+        gap.classList.remove('ok');
+      }
+      currentBtn = null;
+      updateProgress();
+    });
+  });
+
+  /* ============= Section 03 · to-infinitive check ============= */
+  document.querySelectorAll('.ti-row').forEach(function (row) {
+    var checkBtn = row.querySelector('.ti-check');
+    var target = row.querySelector('strong');
+    checkBtn.addEventListener('click', function () {
+      target.classList.add('fixed');
+      var fix = target.dataset.fix;
+      target.textContent = fix;
+      checkBtn.classList.add('ok');
+      checkBtn.textContent = '✓';
+      updateProgress();
+    });
+  });
+
+  /* ============= Section 04 · articles MCQ ============= */
+  document.querySelectorAll('.art-opts').forEach(function (opts) {
+    var correct = opts.dataset.correct;
+    opts.querySelectorAll('.art-opt').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        opts.querySelectorAll('.art-opt').forEach(function (b) {
+          b.classList.remove('picked', 'ok', 'miss');
+        });
+        btn.classList.add(btn.textContent === correct ? 'ok' : 'miss');
+        if (btn.textContent === correct) {
+          // reveal others as neutral
+        } else {
+          opts.querySelectorAll('.art-opt').forEach(function (b) {
+            if (b.textContent === correct) b.classList.add('ok');
+          });
+        }
+        updateProgress();
+      });
+    });
+  });
+
+  /* ============= Section 06 · vocab flip ============= */
+  document.querySelectorAll('.vc-card').forEach(function (card) {
+    card.addEventListener('click', function () { card.classList.toggle('flipped'); });
+  });
+
+  /* ============= Web Speech mic-drill (S01) ============= */
+  document.querySelectorAll('.mic-rec-btn').forEach(function (btn) {
+    var targetId = btn.dataset.target;
+    var out = document.getElementById(targetId);
+    var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) {
+      btn.disabled = true;
+      btn.textContent = '🎙 Recording not supported in this browser';
+      return;
+    }
+    var rec = new SR();
+    rec.lang = 'en-US';
+    rec.continuous = false;
+    rec.interimResults = false;
+    btn.addEventListener('click', function () {
+      if (btn.classList.contains('recording')) {
+        rec.stop();
+        return;
+      }
+      out.textContent = 'Listening…';
+      btn.classList.add('recording');
+      btn.textContent = '⏹ Stop';
+      rec.start();
+    });
+    rec.onresult = function (e) {
+      out.textContent = e.results[0][0].transcript;
+    };
+    rec.onerror = function (e) {
+      out.textContent = 'Could not hear. Try again slower.';
+    };
+    rec.onend = function () {
+      btn.classList.remove('recording');
+      btn.textContent = '🎙 Record & check';
+    };
+  });
+
+  /* ============= progress tracker ============= */
+  function updateProgress() {
+    var sections = ['s01', 's02', 's03', 's04', 's05', 's06'];
+    var done = 0;
+    // s02: at least 6 correct gaps
+    var s2ok = document.querySelectorAll('#s02 .gap.ok').length;
+    if (s2ok >= 6) done++;
+    // s03: at least 10 fixed
+    var s3ok = document.querySelectorAll('#s03 .ti-check.ok').length;
+    if (s3ok >= 10) done++;
+    // s04: at least 4 correct
+    var s4ok = document.querySelectorAll('#s04 .art-opt.ok').length;
+    if (s4ok >= 4) done++;
+    // s01, s05, s06 — mark by scroll / interaction
+    if (document.querySelector('#mic1-out').textContent && document.querySelector('#mic1-out').textContent !== 'Your speech will appear here.') done++;
+    // s06: any flipped card
+    if (document.querySelectorAll('#s06 .vc-card.flipped').length >= 3) done++;
+    // s05: always count as done after 30 sec spent
+    document.getElementById('progressFixed').textContent = done + ' / 6 done';
+  }
+  updateProgress();
+
+  /* ============= Homework block · scroll + expand hook ============= */
+  window.openHomeworkBlock = function () {
+    var d = document.getElementById('homework-block');
+    if (!d) return;
+    d.open = true;
+    d.classList.add('hw-focus');
+    setTimeout(function () { d.classList.remove('hw-focus'); }, 1600);
+    d.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+})();
+</script>
+
+</body>
+</html>

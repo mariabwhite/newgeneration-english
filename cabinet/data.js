@@ -420,10 +420,10 @@ window.NGE_DATA = {
       "price_per_lesson": 2000,
       "monthly_package": 8000,
       "lessons_in_package": 4,
-      "subscription_month": "2026-06",
-      "lessons_used_this_month": 4,
+      "subscription_month": "2026-07",
+      "lessons_used_this_month": 0,
       "payment_status": "Оплачено",
-      "payment_note": "Июнь оплачен полностью: 4 урока × 2 000 ₽ = 8 000 ₽ (мама оплатила). С сентября 2026 — плановое повышение до 2 500 ₽ за занятие; лето остаётся на 2 000 ₽.",
+      "payment_note": "Июль оплачен полностью: 4 урока × 2 000 ₽ = 8 000 ₽ (мама оплатила 01.07.2026). С сентября 2026 — плановое повышение до 2 500 ₽ за занятие; лето остаётся на 2 000 ₽.",
       "stability_note": "Июнь 4/4 закрыт. Voyager: L1 The Watchmaker дважды (02.06 + 09.06) → L2 Are we alone? дважды (16.06 + 30.06). На июль: L3 Whose Mind? → L4 The letter arrived.",
       "summer_plan_note": "📅 Июль 2026 · Voyager L3 + L4 (финал серии). Абонемент 4 урока × 2 000 ₽ = 8 000 ₽. Расписание сохраняется: вторник 15:00, 90 мин. С сентября — плановое повышение ставки до 2 500 ₽ за занятие.",
       "parent_name": "Подлесных Татьяна Анатольевна",
@@ -480,6 +480,48 @@ window.NGE_DATA = {
           },
           "audio_url": "https://newgeneration-english.ru/lingua-boost-lab/b2-plus/voyager-l2-are-we-alone/assets/audio/listen-final-broadcast.mp3",
           "audio_title": "🎧 Listening · final broadcast Reyes (≈50 s)"
+        },
+        {
+          "date": "2026-07-08",
+          "num": 5,
+          "status": "planned",
+          "topic": "Voyager L3 · Whose Mind? (первый раз) — EEG blinks, consciousness signal",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b2-plus/voyager-l3-whose-mind/",
+            "module_title": "🧠 Voyager L3 · Whose Mind?",
+            "text": "8 секций · DYK-плашки про мозг · MCQ + open cloze. Продолжение сюжета Тео Маршалла из L1/L2."
+          }
+        },
+        {
+          "date": "2026-07-15",
+          "num": 6,
+          "status": "planned",
+          "topic": "Voyager L3 · Whose Mind? (повторение) — закрепление cloze и MCQ",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b2-plus/voyager-l3-whose-mind/",
+            "module_title": "🧠 Voyager L3 · Whose Mind? (повтор)"
+          }
+        },
+        {
+          "date": "2026-07-22",
+          "num": 7,
+          "status": "planned",
+          "topic": "Voyager L4 · The Letter Arrived (первый раз) — Day 42 · FATHER · финал арки",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b2-plus/voyager-l4-letter-arrived/",
+            "module_title": "✉️ Voyager L4 · The Letter Arrived",
+            "text": "8 секций · key-transformation · open cloze · финал серии Voyager. Тео получает письмо."
+          }
+        },
+        {
+          "date": "2026-07-29",
+          "num": 8,
+          "status": "planned",
+          "topic": "Voyager L4 · The Letter Arrived (повторение) — финал серии, ретроспектива L1–L4",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b2-plus/voyager-l4-letter-arrived/",
+            "module_title": "✉️ Voyager L4 · The Letter Arrived (повтор)"
+          }
         }
       ],
       "materials": {
@@ -1382,17 +1424,17 @@ window.NGE_DATA = {
       "schedule": "вторник 11:00 / четверг 21:00",
       "goal": "Master's по Management на английском в EU (🇮🇹 Италия + 🇭🇺 Венгрия). IELTS Academic 6.5, intake September 2028.",
       "price_per_lesson": 2500,
-      "monthly_package": 7500,
+      "monthly_package": 12500,
       "weekly_revenue": 5000,
       "payment_status": "Оплачено",
-      "payment_note": "Июньский блок оплачен (3 урока × 2 500 = 7 500 ₽). Trial 18 июня — бесплатно. Старт платный 22 июня 19:00.",
+      "payment_note": "Июль оплачен (5 уроков × 2 500 ₽ = 12 500 ₽). Оплата 01.07.2026. Июньский пилот-блок 1 trial + 3 платных закрыт отдельно.",
       "is_adult": true,
       "parent_name": "",
       "pin": "3094",
-      "lessons_in_package": 3,
-      "subscription_month": "2026-06",
-      "lessons_used_this_month": 3,
-      "stability_note": "Пилот-блок июня закрыт: 1 trial + 3 платных урока проведены. Дальше продление помесячно.",
+      "lessons_in_package": 5,
+      "subscription_month": "2026-07",
+      "lessons_used_this_month": 0,
+      "stability_note": "Пилот-блок июня закрыт (1 trial + 3 платных). Июль — новый абонемент на 5 уроков, мягкий рестарт: Present Simple + to-инфинитив + артикли (A2+ уровень, Workbook 02 оказался выше уровня). Новая серия Practical English for grown-ups.",
       "external_platforms": [
         {
           "name": "🛫 TOEFL iBT · Format Tour · Lab",
@@ -1445,6 +1487,41 @@ window.NGE_DATA = {
           "num": 3,
           "status": "completed",
           "topic": "Past Simple + storytelling из деловой практики · Workbook 02 feedback · финал пилот-блока"
+        },
+        {
+          "date": "2026-07-02",
+          "num": 4,
+          "status": "planned",
+          "topic": "Practical English · Day 1 · A2+ reset · Present Simple + to-инфинитив + a/the/— + survival",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/practice/timofey-03-practical-english/",
+            "module_title": "📖 Открыть урок · Practical English · Day 1",
+            "text": "Мягкий рестарт после разбора Workbook 02. Внутри урока: 6 коротких блоков — warm-up mic-drill, Present Simple живой, маленькое слово to, артикли a/the/—, 6 survival-фраз, 15 adult-vocab flip-cards. + Homework A/B/C/D на 5–7 минут."
+          }
+        },
+        {
+          "date": "2026-07-04",
+          "num": 5,
+          "status": "planned",
+          "topic": "Practical English · Day 2 · Present Simple questions (Do you? Does he?) + короткие ответы"
+        },
+        {
+          "date": "2026-07-09",
+          "num": 6,
+          "status": "planned",
+          "topic": "Practical English · Day 3 · Present Continuous (I'm doing) vs Present Simple + prepositions of time (at/on/in)"
+        },
+        {
+          "date": "2026-07-11",
+          "num": 7,
+          "status": "planned",
+          "topic": "Practical English · Day 4 · Modals for adult life (can / could / would / should / must) + polite requests"
+        },
+        {
+          "date": "2026-07-16",
+          "num": 8,
+          "status": "planned",
+          "topic": "Practical English · Day 5 · Past Simple (I did) — мягкое, на бытовых глаголах + speaking про вчера"
         }
       ],
       "contracts": {
