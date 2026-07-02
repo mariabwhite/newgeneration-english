@@ -133,9 +133,9 @@
       '.lab-hw-fab-btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(245,158,11,.55)}'+
       '.lab-hw-fab-btn .n{background:#fff;color:#92400e;padding:2px 10px;border-radius:50px;'+
         'font:900 13px/1 "JetBrains Mono",monospace}'+
-      '.lab-hw-fab.empty .lab-hw-fab-btn{background:#475569;opacity:.65;'+
-        'box-shadow:0 4px 12px rgba(0,0,0,.18)}'+
-      '.lab-hw-fab.empty .n{color:#475569}'+
+      '.lab-hw-fab.empty .lab-hw-fab-btn{background:linear-gradient(135deg,#fbbf24 0%,#f59e0b 100%);opacity:.9;'+
+        'box-shadow:0 6px 18px rgba(245,158,11,.35)}'+
+      '.lab-hw-fab.empty .n{color:#92400e}'+
       '.lab-hw-fab.is-top-tab-proxy{width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;'+
         'right:auto;bottom:auto;left:-9999px;top:auto}'+
       '.lab-hw-top-entry{position:fixed;right:18px;top:74px;z-index:1001;display:flex}'+

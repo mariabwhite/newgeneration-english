@@ -142,16 +142,24 @@ a { color: inherit; text-decoration: none; }
 
 /* ═══════════ HERO ═══════════ */
 .hero {
-  padding: clamp(20px, 3.5vw, 40px) clamp(20px, 5vw, 60px);
+  max-width: 1240px;
+  margin: 24px auto 12px;
+  padding: 0 clamp(16px, 3vw, 28px);
+  position: relative;
+  z-index: 2;
+}
+.hero-card {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  padding: clamp(24px, 3.5vw, 44px) clamp(20px, 4vw, 48px);
   background:
     radial-gradient(ellipse at 80% 20%, rgba(139, 30, 63, .28), transparent 55%),
     radial-gradient(ellipse at 15% 90%, rgba(184, 150, 74, .22), transparent 55%),
     linear-gradient(135deg, #2c2620 0%, #1a3a5c 100%);
-  border-bottom: 1px solid var(--line);
-  position: relative;
-  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(26, 58, 92, .18);
 }
-.hero::before {
+.hero-card::before {
   content: "";
   position: absolute; inset: 0;
   background-image:
@@ -165,7 +173,7 @@ a { color: inherit; text-decoration: none; }
 .hero-eyebrow::after { background: linear-gradient(to right, #f2c98a, transparent); }
 .hero-lead { color: rgba(246, 236, 216, .92); }
 .hero-chip { background: rgba(246, 236, 216, .1); border-color: rgba(246, 236, 216, .28); color: #f6ecd8; }
-.hero-inner { max-width: 900px; margin: 0 auto; }
+.hero-card { max-width: 900px; margin: 0 auto; }
 .hero-eyebrow {
   font: 700 10.5px/1 var(--mono);
   letter-spacing: .28em;
@@ -810,7 +818,7 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
 
 <!-- ═══════════ HERO ═══════════ -->
 <section class="hero">
-  <div class="hero-inner">
+  <div class="hero-card">
     <div class="hero-eyebrow">🇬🇧 · English for grown-ups · Day 1 · Reset</div>
     <h1 class="hero-title">Small words,<br><em>big difference.</em></h1>
     <p class="hero-lead">Ten short blocks — all four present tenses (Simple · Continuous · Perfect · Perfect Continuous), the little word <em>to</em>, articles a / the / —, six survival lines you actually say, and your full business vocabulary. No pressure. Speak, tap, repeat.</p>
@@ -1361,7 +1369,7 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
   /* progress tracker убран — lab-total.js делает динамический CEFR band + summary внизу урока */
   function updateProgress() {}
 
-  /* Homework: lab-homework.js?v=30 сам управляет entry-point (верхняя вкладка + плюсики).
+  /* Homework: lab-homework.js?v=31 сам управляет entry-point (верхняя вкладка + плюсики).
      details#homework-block ниже — контент урока с offline-заданиями (не главная точка входа). */
 })();
 </script>
@@ -1373,7 +1381,7 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
 <script src="../../assets/lab-mic-wpm.js?v=1" defer></script>
 <script src="../../assets/lab-sync.js?v=13" defer></script>
 <script src="../../assets/lab-ai-feedback.js?v=6" defer></script>
-<script src="../../assets/lab-homework.js?v=30" defer></script>
+<script src="../../assets/lab-homework.js?v=31" defer></script>
 <script src="../../assets/lab-vocab-builder.js?v=44" defer></script>
 
 </body>
