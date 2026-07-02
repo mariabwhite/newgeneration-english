@@ -1,5 +1,7 @@
 /**
- * lab-tabs.js · v6 · 2026-07-02
+ * lab-tabs.js · v7 · 2026-07-02
+ * v7: inline .lesson-tabs (в 5 уроках) тоже получают dynamic positioning —
+ *     раньше skip'ались после querySelector detection.
  * v6: динамическое positionTabs() — измеряем реальную высоту topbar через
  *     getBoundingClientRect и ставим tabs top = topbar.height. Раньше hardcode
  *     top:62px прятался под canon-l-topbar (в A1/A2 topbar ~100px + z-index 100
@@ -20,10 +22,33 @@
   window.__labTabsLoaded = true;
 
   function inject(){
-    // Если HTML уже содержит .lesson-tabs (инлайн в файле) — не дублируем
-    if (document.querySelector('.lesson-tabs')) return;
     var topbar = document.querySelector('nav.topbar, header.topbar, .topbar, header.canon-l-topbar, nav.canon-l-topbar, .canon-l-topbar, .friendly-topbar, .lab-topbar, .cmdbar');
     if (!topbar) return;
+    // Если HTML уже содержит .lesson-tabs (инлайн в 5 уроках) — не инжектим,
+    // но ВСЁ РАВНО применяем dynamic positioning чтобы прибить их под topbar.
+    var existing = document.querySelector('.lesson-tabs');
+    if (existing) {
+      function reposExisting(){
+        try {
+          var topbarH = topbar.getBoundingClientRect().height || topbar.offsetHeight || 62;
+          existing.style.setProperty('position', 'fixed', 'important');
+          existing.style.setProperty('top', topbarH + 'px', 'important');
+          existing.style.setProperty('left', '0', 'important');
+          existing.style.setProperty('right', '0', 'important');
+          existing.style.setProperty('z-index', '99', 'important');
+          var tabsH = existing.getBoundingClientRect().height || existing.offsetHeight || 46;
+          var totalPad = topbarH + tabsH;
+          var cur = parseFloat(getComputedStyle(document.body).paddingTop) || 0;
+          if (cur < totalPad) document.body.style.paddingTop = totalPad + 'px';
+        } catch(e){}
+      }
+      reposExisting();
+      window.addEventListener('resize', reposExisting);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(reposExisting).catch(function(){});
+      setTimeout(reposExisting, 300);
+      setTimeout(reposExisting, 1200);
+      return;
+    }
 
     // Style
     var s = document.createElement('style');
