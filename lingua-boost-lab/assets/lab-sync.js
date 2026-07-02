@@ -26,15 +26,24 @@
   // v10: Учительский режим прямо в уроке.
   // Включается ?teacher=on (запоминается в localStorage), выключается ?teacher=off.
   var teacherParam = qs('teacher');
+  var roleParam    = qs('role');
   try {
-    if (teacherParam === 'on') localStorage.setItem('lab-teacher-mode', 'on');
+    if (teacherParam === 'on' || teacherParam === '1') localStorage.setItem('lab-teacher-mode', 'on');
     if (teacherParam === 'off') localStorage.removeItem('lab-teacher-mode');
   } catch(e){}
   var teacherMode = false;
   try { teacherMode = (localStorage.getItem('lab-teacher-mode') === 'on'); } catch(e){}
+  if (!observeMode && roleParam === 'teacher') teacherMode = true;
+  if (teacherMode && !observeMode) {
+    var markTeacherBody = function(){
+      if (document.body) document.body.classList.add('lab-teacher-on');
+    };
+    markTeacherBody();
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', markTeacherBody);
+  }
 
   var soloMode    = !syncParam && !observeMode && !teacherMode;
-  var role        = qs('role') ||
+  var role        = roleParam ||
     (observeMode ? 'observer' : (teacherMode ? 'teacher' : (soloMode ? 'solo' : 'student')));
   var roomId;
   if (soloMode) {
