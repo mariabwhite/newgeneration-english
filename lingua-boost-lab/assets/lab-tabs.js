@@ -1,5 +1,11 @@
 /**
- * lab-tabs.js · v10 · 2026-07-02 (late evening)
+ * lab-tabs.js · v11 · 2026-07-03
+ * v11: snapshotTheme() при клике «Моя домашка» — сохраняем CSS-переменные
+ *      урока (bg/card/text/accent/display/mono) в localStorage
+ *      'lab-theme:<pathname>'. .homework/index.html подхватывает и красит
+ *      страницу в ту же палитру. Раньше homework всегда был voyager-skin
+ *      (тёмный navy + фиолет+золото), даже когда урок sage/maple.
+ * v10 · 2026-07-02 (late evening)
  * v10: Уважаем inline hide-on-scroll (Voyager L1 и др.). Когда topbar
  *      получает класс .tb-hidden / .is-hidden — tabs плавно поднимаются
  *      к banner (без hardcoded topbarH). MutationObserver на topbar.class
@@ -167,11 +173,33 @@
       try { var arr = JSON.parse(localStorage.getItem(getHwKey()) || '[]'); if (hwCount) hwCount.textContent = arr.length; }
       catch(e){}
     }
+    // v10: снимаем theme из урока → localStorage, чтоб .homework/ подхватил ту же палитру
+    function snapshotTheme(){
+      try {
+        var rs = getComputedStyle(document.documentElement);
+        var bs = getComputedStyle(document.body);
+        function pick(){ for (var i=0;i<arguments.length;i++){ var v=rs.getPropertyValue(arguments[i]); if (v && v.trim()) return v.trim(); } return ''; }
+        var theme = {
+          '--bg': pick('--bg','--paper','--surface','--card-2'),
+          '--card': pick('--card','--surface','--card-2'),
+          '--text': pick('--text','--ink','--fg'),
+          '--muted': pick('--muted','--muted-2'),
+          '--line': pick('--line','--line-2','--border'),
+          '--accent': pick('--accent','--brand','--accent2','--maple'),
+          '--accent-on': pick('--accent-on','--text-on-accent') || '#ffffff',
+          '--display': pick('--display','--font-display') || rs.fontFamily,
+          '--mono': pick('--mono','--font-mono'),
+          '__bodyBg': bs.backgroundColor
+        };
+        localStorage.setItem('lab-theme:' + location.pathname, JSON.stringify(theme));
+      } catch(e){}
+    }
     tabs.forEach(function(t){
       t.addEventListener('click', function(){
         var name = t.dataset.tab;
         setActive(name);
         if (name === 'homework') {
+          snapshotTheme();
           window.location.href = '/lingua-boost-lab/.homework/?lesson=' + encodeURIComponent(location.pathname);
         } else {
           document.querySelectorAll('.lab-hw-overlay.show').forEach(function(o){ o.classList.remove('show'); });

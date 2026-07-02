@@ -146,6 +146,45 @@ h1{font-family:var(--display);color:var(--text);letter-spacing:0}
   var lesson = params.get('lesson') || '/lingua-boost-lab/';
   var key = 'lab-hw:' + lesson;
   var legacyKey = 'lab_hw_v1_' + lesson;
+
+  // v2 · 2026-07-03 · применяем theme урока (сохраняется lab-tabs.js v11 при клике «Моя домашка»)
+  try {
+    var themeRaw = localStorage.getItem('lab-theme:' + lesson);
+    if (themeRaw) {
+      var theme = JSON.parse(themeRaw);
+      var root = document.documentElement;
+      var bodyBg = theme.__bodyBg;
+      Object.keys(theme).forEach(function(k){
+        if (k === '__bodyBg') return;
+        if (theme[k]) root.style.setProperty(k, theme[k]);
+      });
+      // отключаем voyager-skin (тёмный navy) когда есть per-lesson theme —
+      // фон/карточки/текст пойдут из --bg/--card/--text урока
+      var kill = document.getElementById('voyager-homework-skin');
+      if (kill) kill.disabled = true;
+      var override = document.createElement('style');
+      override.textContent =
+        'html,body{background:' + (theme['--bg'] || bodyBg || '#fff') + ' !important;color:' + (theme['--text'] || '#172033') + ' !important}' +
+        'body::before{display:none !important}' +
+        '.top{background:' + (theme['--card'] || '#fff') + 'ee !important;border-color:' + (theme['--line'] || '#e5e7eb') + ' !important}' +
+        '.brand{color:' + (theme['--accent'] || '#7c3aed') + ' !important;font-family:' + (theme['--display'] || 'inherit') + ' !important}' +
+        '.hero{background:' + (theme['--card'] || '#fff') + ' !important;border-color:' + (theme['--line'] || '#e5e7eb') + ' !important;color:' + (theme['--text'] || '#172033') + ' !important;box-shadow:0 8px 24px rgba(0,0,0,.08) !important}' +
+        'h1{color:' + (theme['--text'] || '#172033') + ' !important;font-family:' + (theme['--display'] || 'inherit') + ' !important}' +
+        '.sub{color:' + (theme['--muted'] || '#64748b') + ' !important}' +
+        '.item,.raw section,.raw .section{background:' + (theme['--card'] || '#fff') + ' !important;border-color:' + (theme['--line'] || '#e5e7eb') + ' !important;color:' + (theme['--text'] || '#172033') + ' !important;box-shadow:0 8px 20px rgba(0,0,0,.06) !important}' +
+        '.raw h1,.raw h2,.raw h3,.raw p,.raw li{color:' + (theme['--text'] || '#172033') + ' !important}' +
+        '.raw p,.raw li,.raw .section-sub{color:' + (theme['--muted'] || '#64748b') + ' !important}' +
+        '.kind{background:' + (theme['--accent'] || '#7c3aed') + '22 !important;color:' + (theme['--accent'] || '#7c3aed') + ' !important;border-color:' + (theme['--accent'] || '#7c3aed') + '55 !important}' +
+        '.q{color:' + (theme['--text'] || '#172033') + ' !important;font-family:' + (theme['--display'] || 'inherit') + ' !important}' +
+        '.btn.primary{background:' + (theme['--accent'] || '#7c3aed') + ' !important;border-color:' + (theme['--accent'] || '#7c3aed') + ' !important;color:' + (theme['--accent-on'] || '#fff') + ' !important;background-image:none !important;box-shadow:0 6px 16px ' + (theme['--accent'] || '#7c3aed') + '44 !important}' +
+        '.answer{background:' + (theme['--card'] || '#fff') + ' !important;border-color:' + (theme['--line'] || '#e5e7eb') + ' !important;background-image:none !important}' +
+        '.answer label{color:' + (theme['--accent'] || '#7c3aed') + ' !important;font-family:' + (theme['--display'] || 'inherit') + ' !important}' +
+        '.answer textarea{background:' + (theme['--bg'] || '#fff') + ' !important;color:' + (theme['--text'] || '#172033') + ' !important;border-color:' + (theme['--line'] || '#e5e7eb') + ' !important}' +
+        '.empty{background:' + (theme['--card'] || '#fff') + ' !important;border-color:' + (theme['--line'] || '#e5e7eb') + ' !important;color:' + (theme['--muted'] || '#64748b') + ' !important}' +
+        '.actions{background:linear-gradient(180deg,transparent,' + (theme['--bg'] || '#fff') + ' 30%) !important}';
+      document.head.appendChild(override);
+    }
+  } catch(e){}
   var list = document.getElementById('list');
   var sendBtn = document.getElementById('sendBtn');
   var clearBtn = document.getElementById('clearBtn');
