@@ -44,25 +44,29 @@ body {
 }
 a { color: inherit; text-decoration: none; }
 
-/* ═══════════ TOPBAR ═══════════ */
+/* ═══════════ TOPBAR (canon N-cut-corner) ═══════════ */
 .topbar {
   position: sticky; top: 0; z-index: 100;
-  display: flex; align-items: center; gap: 14px;
-  padding: 12px clamp(14px, 3vw, 26px);
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px clamp(14px, 3vw, 26px);
   background: color-mix(in srgb, var(--bg) 94%, transparent);
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: inherit; flex-shrink: 0;
+}
 .brand-mark {
-  width: 34px; height: 34px;
+  width: 40px; height: 40px;
   display: grid; place-items: center;
   background: var(--navy);
   color: #f6ecd0;
   font-family: var(--display);
   font-weight: 900;
-  font-size: 18px;
-  border-radius: 9px;
+  font-size: 22px;
+  border-radius: 8px;
   border-top-right-radius: 0;
   position: relative;
   overflow: hidden;
@@ -72,45 +76,113 @@ a { color: inherit; text-decoration: none; }
   content: "";
   position: absolute;
   right: 0; top: 0;
-  width: 14px; height: 14px;
-  background: #ffffff;
+  width: 16px; height: 16px;
+  background: var(--bg);
   clip-path: polygon(100% 0, 0 0, 100% 100%);
   z-index: 2;
 }
-.brand-text {
+.brand-copy, .brand-text {
   display: flex; flex-direction: column; gap: 1px;
   min-width: 0;
 }
 .brand-name {
   font-family: var(--display);
   font-weight: 800;
-  font-size: 14px;
-  letter-spacing: .01em;
+  font-size: 15px;
+  letter-spacing: .02em;
   color: var(--navy);
   white-space: nowrap;
 }
 .brand-sub {
-  font: 600 9.5px/1 var(--mono);
-  letter-spacing: .18em;
+  font: 700 11px/1 var(--mono);
+  letter-spacing: .12em;
   text-transform: uppercase;
   color: var(--muted);
+  white-space: nowrap;
 }
-.topbar-spacer { flex: 1; }
-.topbar-pill {
-  padding: 6px 12px;
-  border-radius: 50px;
+.pill {
+  min-width: 38px; height: 32px;
+  padding: 0 12px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 8px;
+  font: 900 11px/1 var(--mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  border: 1px solid var(--line-2);
+  background: var(--card);
+  color: var(--navy);
+  white-space: nowrap;
+}
+.pill.brand { background: var(--navy); color: #f6ecd0; border-color: var(--navy); }
+.pill.accent { background: var(--burgundy); color: #f6ecd0; border-color: var(--burgundy); }
+.topbar .spacer, .topbar-spacer { flex: 1; }
+.btn-sm {
+  height: 32px;
+  padding: 0 14px;
+  display: inline-flex; align-items: center;
+  border-radius: 8px;
   border: 1px solid var(--line-2);
   background: var(--surface);
   color: var(--navy);
-  font: 700 10px/1 var(--mono);
-  letter-spacing: .14em;
+  font: 700 12px/1 var(--body);
+  letter-spacing: .02em;
+  text-decoration: none;
+  transition: .18s;
+  white-space: nowrap;
+}
+.btn-sm:hover { background: var(--card-2); border-color: var(--navy); }
+
+/* lesson-tabs · canon ProgressMe-style */
+.lesson-tabs {
+  position: sticky; top: 62px; z-index: 99;
+  display: flex; gap: 8px; justify-content: center;
+  background: color-mix(in srgb, var(--bg) 94%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 12px;
+  transition: top .26s cubic-bezier(.4,0,.2,1);
+}
+.ltab {
+  padding: 9px 18px;
+  border-radius: 50px;
+  border: 1.5px solid var(--line-2);
+  background: var(--card);
+  color: var(--muted);
+  font: 800 11px/1 var(--mono);
+  letter-spacing: .12em;
   text-transform: uppercase;
+  cursor: pointer;
+  transition: .18s;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.ltab:hover { border-color: var(--navy); color: var(--navy); }
+.ltab.is-active {
+  background: var(--navy);
+  color: #f6ecd0;
+  border-color: var(--navy);
+  box-shadow: 0 4px 12px rgba(26,58,92,.35);
+}
+.ltab .ltab-count {
+  background: rgba(255,255,255,.18);
+  padding: 2px 8px; border-radius: 50px;
+  font-size: 10px; min-width: 20px; text-align: center;
+}
+.ltab.is-active .ltab-count {
+  background: rgba(246,236,216,.28);
+  color: #f6ecd0;
+}
+@media (max-width: 680px) {
+  .lesson-tabs { padding: 6px 6px; gap: 6px; top: 54px; }
+  .ltab { padding: 7px 12px; font-size: 9.5px; letter-spacing: .08em; }
 }
 @media (max-width: 720px) {
   .brand-sub { display: none; }
-  .brand-name { font-size: 12.5px; }
-  .brand-mark { width: 30px; height: 30px; font-size: 15px; }
-  .topbar-pill { padding: 5px 9px; font-size: 9px; letter-spacing: .1em; }
+  .brand-name { font-size: 13px; }
+  .brand-mark { width: 34px; height: 34px; font-size: 18px; }
+  .brand-mark::after { width: 13px; height: 13px; }
+  .pill { font-size: 10px; padding: 0 9px; height: 28px; }
+  .btn-sm { height: 28px; padding: 0 10px; font-size: 11px; }
 }
 
 /* ═══════════ HERO ═══════════ */
@@ -708,16 +780,45 @@ section.section {
 </head>
 <body>
 
-<!-- ═══════════ TOPBAR ═══════════ -->
-<header class="topbar">
-  <div class="brand-mark">N</div>
-  <div class="brand-text">
-    <span class="brand-name">NG English · Lab</span>
-    <span class="brand-sub">Practical · A2+ · Timofey</span>
-  </div>
-  <div class="topbar-spacer"></div>
-  <div class="topbar-pill">Lesson 03</div>
-</header>
+<!-- ═══════════ TOPBAR (canon N-cut-corner) ═══════════ -->
+<nav class="topbar">
+  <a class="brand" href="../../index.html">
+    <span class="brand-mark" aria-hidden="true">N</span>
+    <span class="brand-copy">
+      <span class="brand-name">NG English</span>
+      <span class="brand-sub">LinguaBoost Lab · A2+</span>
+    </span>
+  </a>
+  <span class="pill brand">Practical · Day 1</span>
+  <span class="pill accent">55 min</span>
+  <div class="spacer"></div>
+  <a class="btn-sm" href="../../index.html">All lessons</a>
+  <a class="btn-sm" href="../../../index.html">Main</a>
+</nav>
+
+<!-- LESSON TABS · canon ProgressMe-style -->
+<nav class="lesson-tabs" role="tablist" aria-label="Lesson / Homework">
+  <button class="ltab is-active" data-tab="lesson" type="button">📖 Урок</button>
+  <button class="ltab" data-tab="homework" type="button">📚 Моя домашка <span class="ltab-count" id="ltab-hw-count">0</span></button>
+</nav>
+<script>
+(function(){
+  var tabs = document.querySelectorAll('.ltab');
+  var hwCount = document.getElementById('ltab-hw-count');
+  function setActive(name){ tabs.forEach(function(t){ t.classList.toggle('is-active', t.dataset.tab === name); }); }
+  function getHwKey(){ return 'lab-hw:' + location.pathname; }
+  function refreshCount(){ try { var arr = JSON.parse(localStorage.getItem(getHwKey()) || '[]'); if (hwCount) hwCount.textContent = arr.length; } catch(e){} }
+  function openHomeworkPage(){ window.location.href = '/lingua-boost-lab/.homework/?lesson=' + encodeURIComponent(location.pathname); }
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      var name = t.dataset.tab;
+      setActive(name);
+      if (name === 'homework') { openHomeworkPage(); }
+    });
+  });
+  refreshCount(); setInterval(refreshCount, 1500);
+})();
+</script>
 
 <!-- ═══════════ HERO ═══════════ -->
 <section class="hero">
