@@ -1382,6 +1382,12 @@ cards.forEach(c => {
         window.location.href = direct;
         return;
       }
+      /* Fallback: карточка не в vault, но имеет оригинальный href (публичный урок вне premium-lessons.json — например /practice/) */
+      const orig = a.dataset.origHref;
+      if (orig && orig !== '#') {
+        window.location.href = new URL(orig, window.location.origin + '/lingua-boost-lab/').href;
+        return;
+      }
       redirectToLogin(lesson && lesson.url);
     }
   });
@@ -1394,7 +1400,10 @@ function applyLessons(lessons) {
   cards.forEach(c => {
     c.classList.remove('is-authorized');
     const a = c.querySelector('.card-open');
-    if (a) a.href = '#';
+    if (a) {
+      if (!a.dataset.origHref) a.dataset.origHref = a.getAttribute('href') || '#';
+      a.href = '#';
+    }
   });
   cards.forEach(c => {
     const id = c.dataset.id; const l = allById[id]; if (!l) return;
