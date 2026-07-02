@@ -526,7 +526,10 @@
 
   function buildFab(){
     fabEl = document.createElement('div');
-    fabEl.className = 'lab-hw-fab empty';
+    // Всегда скрыт: домашка живёт СВЕРХУ (native tab / standalone entry).
+    // FAB остаётся техпрокси для счётчиков — Мария 2026-07-02 подтвердила
+    // «убрать нижнюю жёлтую» после первой раскатки.
+    fabEl.className = 'lab-hw-fab empty is-top-tab-proxy';
     fabEl.innerHTML =
       '<button type="button" class="lab-hw-fab-btn">'+
         '<span>📚 Моя домашка</span><span class="n">0</span>'+

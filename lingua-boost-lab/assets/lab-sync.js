@@ -247,6 +247,73 @@
     var name = '';
     try { name = localStorage.getItem('lab-student-name') || ''; } catch(e){}
 
+    // TEACHER banner — рендерится СРАЗУ, независимо от Supabase SDK.
+    // Раньше банер висел внутри loadSDK().then() — если SDK не грузился
+    // (сеть/CDN/RU-блок Supabase), банер не появлялся вообще. Теперь UI
+    // всегда виден; broadcast подключается когда firehose готов.
+    var pendingWordQueue = [];
+    // Универсальный sender — до connect'а кладёт в очередь, после — broadcast.
+    // SDK-side переопределит window.__labVocabSend когда firehose поднимется.
+    window.__labVocabSend = window.__labVocabSend || function(w){ pendingWordQueue.push(w); };
+    if (teacherMode && !observeMode) {
+      if (!document.getElementById('lab-teacher-style')) {
+        var ts2Pre = document.createElement('style');
+        ts2Pre.id = 'lab-teacher-style';
+        ts2Pre.textContent = '.lab-teacher-banner{position:fixed;top:0;left:0;right:0;z-index:100000;'+
+          'padding:6px 10px;background:linear-gradient(90deg,#f59e0b,#fbbf24);'+
+          'color:#1a1a2e;font:800 11px/1.4 "JetBrains Mono",monospace;letter-spacing:.14em;'+
+          'text-transform:uppercase;display:flex;align-items:center;justify-content:center;'+
+          'gap:8px;box-shadow:0 2px 12px rgba(0,0,0,.3);flex-wrap:wrap}'+
+          '@media(max-width:600px){.lab-teacher-banner{padding:6px 8px;font-size:10px;letter-spacing:.08em;gap:6px}'+
+          '.lab-teacher-banner #labTeacherWord{width:160px !important;font-size:11px !important}'+
+          '.lab-teacher-banner a[href*="teacher=off"]{padding:3px 8px !important;font-size:9px !important}}'+
+          '.lab-click-flash{background:#fbbf24 !important;color:#1a1a2e !important;'+
+          'border-radius:4px;padding:1px 5px;transition:background .15s,color .15s;'+
+          'box-shadow:0 0 0 3px rgba(251,191,36,.45)}';
+        document.head.appendChild(ts2Pre);
+      }
+      if (!document.querySelector('.lab-teacher-banner')) {
+        var tBannerPre = document.createElement('div');
+        tBannerPre.className = 'lab-teacher-banner';
+        tBannerPre.innerHTML =
+          '<span>🎓 Teacher · ' + location.pathname.replace('/lingua-boost-lab/','').replace(/\/$/,'').slice(0,40) + '</span>' +
+          '<span style="display:inline-flex;align-items:center;gap:6px;margin-left:14px">'+
+            '<input id="labTeacherWord" type="text" placeholder="+ слово в корзиночку (или кликни в текст)" '+
+              'style="padding:5px 12px;border-radius:50px;border:0;background:rgba(255,255,255,.92);color:#1a1a2e;'+
+              'font:700 12px/1.3 \'Manrope\',sans-serif;outline:none;width:280px">'+
+            '<button id="labTeacherAdd" type="button" '+
+              'style="padding:6px 12px;border-radius:50px;border:0;cursor:pointer;'+
+              'background:#1a1a2e;color:#fbbf24;font:800 11px/1 \'JetBrains Mono\',monospace;letter-spacing:.12em;text-transform:uppercase">'+
+              '➕ enter</button>'+
+          '</span>'+
+          '<span style="margin-left:14px;opacity:.85">click слово в тексте → в корзинку</span>'+
+          '<a href="?teacher=off" style="margin-left:14px;padding:4px 10px;border-radius:50px;background:rgba(26,26,46,.8);color:#fbbf24;text-decoration:none;font:800 10px/1 \'JetBrains Mono\',monospace;letter-spacing:.12em">выкл</a>';
+        document.body.appendChild(tBannerPre);
+        document.body.style.paddingTop = '40px';
+        // Локальный enter → в очередь, отправится когда SDK поднимется
+        var inpPre = document.getElementById('labTeacherWord');
+        var addBtnPre = document.getElementById('labTeacherAdd');
+        function localPush(){
+          var w = (inpPre.value || '').trim();
+          if (!w || w.length < 2) return;
+          w = w.replace(/[^a-zA-Zа-яА-ЯёЁ\- ]/g,'').trim();
+          if (!w) return;
+          window.__labVocabSend(w);
+          window.dispatchEvent(new CustomEvent('lab-local-vocab-push', { detail: { word: w }}));
+          inpPre.value = '';
+          var orig = inpPre.style.background;
+          inpPre.style.background = '#22c55e';
+          inpPre.placeholder = '✓ ' + w + (window.__labFirehoseReady ? ' — в корзинке у всех' : ' — сохранено, ждёт connect');
+          setTimeout(function(){
+            inpPre.style.background = orig || 'rgba(255,255,255,.92)';
+            inpPre.placeholder = '+ слово в корзиночку (или кликни в текст)';
+          }, 1300);
+        }
+        addBtnPre.addEventListener('click', localPush);
+        inpPre.addEventListener('keydown', function(e){ if (e.key === 'Enter') localPush(); });
+      }
+    }
+
     loadSDK().then(function(sb){
       var client    = sb.createClient(SUPABASE_URL, SUPABASE_ANON);
       var channel   = null;            // sync-room channel (?sync=)
@@ -285,9 +352,26 @@
       }
 
       // TEACHER mode прямо в уроке (без cabinet, без iframe)
-      // Жёлтая полоса + input + click-on-word + ВИДИТ что делает ученик
-      // на этом же lesson_path в реальном времени.
+      // Жёлтая полоса уже отрисована СВЫШЕ (до loadSDK). Здесь только
+      // wire-up broadcast'а на уже существующий input+кнопку, dom-state
+      // подписки, и flush очереди слов накопившейся до connect.
       if (teacherMode && !observeMode) {
+        window.__labFirehoseReady = true;
+        // Переопределяем sender — теперь broadcast'ит через firehose.
+        window.__labVocabSend = function(w){
+          try {
+            firehose.send({ type:'broadcast', event:'vocab-push', payload: {
+              word: w, lesson_path: location.pathname, ts: Date.now()
+            }});
+          } catch(e){}
+        };
+        // Flush накопленную очередь слов (пришедших до connect)
+        try {
+          if (Array.isArray(pendingWordQueue) && pendingWordQueue.length) {
+            pendingWordQueue.forEach(function(w){ window.__labVocabSend(w); });
+            pendingWordQueue.length = 0;
+          }
+        } catch(e){}
         // Слушаем dom-state events от учеников на этом же уроке
         firehose.on('broadcast', { event:'dom-state' }, function(p){
           var data = p.payload || {};
@@ -334,23 +418,26 @@
             'box-shadow:0 0 0 3px rgba(251,191,36,.45)}';
           document.head.appendChild(ts2);
         }
-        var tBanner = document.createElement('div');
-        tBanner.className = 'lab-teacher-banner';
-        tBanner.innerHTML =
-          '<span>🎓 Teacher · ' + location.pathname.replace('/lingua-boost-lab/','').replace(/\/$/,'').slice(0,40) + '</span>' +
-          '<span style="display:inline-flex;align-items:center;gap:6px;margin-left:14px">'+
-            '<input id="labTeacherWord" type="text" placeholder="+ слово в корзиночку (или кликни в текст)" '+
-              'style="padding:5px 12px;border-radius:50px;border:0;background:rgba(255,255,255,.92);color:#1a1a2e;'+
-              'font:700 12px/1.3 \'Manrope\',sans-serif;outline:none;width:280px">'+
-            '<button id="labTeacherAdd" type="button" '+
-              'style="padding:6px 12px;border-radius:50px;border:0;cursor:pointer;'+
-              'background:#1a1a2e;color:#fbbf24;font:800 11px/1 \'JetBrains Mono\',monospace;letter-spacing:.12em;text-transform:uppercase">'+
-              '➕ enter</button>'+
-          '</span>'+
-          '<span style="margin-left:14px;opacity:.85">click слово в тексте → в корзинку</span>'+
-          '<a href="?teacher=off" style="margin-left:14px;padding:4px 10px;border-radius:50px;background:rgba(26,26,46,.8);color:#fbbf24;text-decoration:none;font:800 10px/1 \'JetBrains Mono\',monospace;letter-spacing:.12em">выкл</a>';
-        document.body.appendChild(tBanner);
-        document.body.style.paddingTop = '40px';
+        // Банер уже отрисован СВЫШЕ (до loadSDK). Здесь его НЕ дублируем.
+        if (!document.querySelector('.lab-teacher-banner')) {
+          var tBanner = document.createElement('div');
+          tBanner.className = 'lab-teacher-banner';
+          tBanner.innerHTML =
+            '<span>🎓 Teacher · ' + location.pathname.replace('/lingua-boost-lab/','').replace(/\/$/,'').slice(0,40) + '</span>' +
+            '<span style="display:inline-flex;align-items:center;gap:6px;margin-left:14px">'+
+              '<input id="labTeacherWord" type="text" placeholder="+ слово в корзиночку (или кликни в текст)" '+
+                'style="padding:5px 12px;border-radius:50px;border:0;background:rgba(255,255,255,.92);color:#1a1a2e;'+
+                'font:700 12px/1.3 \'Manrope\',sans-serif;outline:none;width:280px">'+
+              '<button id="labTeacherAdd" type="button" '+
+                'style="padding:6px 12px;border-radius:50px;border:0;cursor:pointer;'+
+                'background:#1a1a2e;color:#fbbf24;font:800 11px/1 \'JetBrains Mono\',monospace;letter-spacing:.12em;text-transform:uppercase">'+
+                '➕ enter</button>'+
+            '</span>'+
+            '<span style="margin-left:14px;opacity:.85">click слово в тексте → в корзинку</span>'+
+            '<a href="?teacher=off" style="margin-left:14px;padding:4px 10px;border-radius:50px;background:rgba(26,26,46,.8);color:#fbbf24;text-decoration:none;font:800 10px/1 \'JetBrains Mono\',monospace;letter-spacing:.12em">выкл</a>';
+          document.body.appendChild(tBanner);
+          document.body.style.paddingTop = '40px';
+        }
 
         function pushWord(w){
           if (!w || w.length < 2) return;
