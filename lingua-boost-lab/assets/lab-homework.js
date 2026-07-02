@@ -36,6 +36,11 @@
   }
   function saveHw(arr){
     try { localStorage.setItem(hwKey(), JSON.stringify(arr)); } catch(e){}
+    try {
+      refreshFabCount();
+      setTimeout(refreshFabCount, 80);
+      setTimeout(refreshFabCount, 700);
+    } catch(e){}
   }
   // При загрузке урока — если самой свежей записи в домашке больше 48 ч,
   // считаем что ученик уже отыграл прошлый урок и не отправил → чистим.
@@ -140,6 +145,8 @@
         'padding:10px 13px;box-shadow:0 8px 24px rgba(245,158,11,.28);display:inline-flex;align-items:center;gap:8px}'+
       '.lab-hw-top-entry-btn .n{background:#fff;color:#78350f;padding:2px 8px;border-radius:999px}'+
       '.lab-hw-top-entry.empty .lab-hw-top-entry-btn{filter:saturate(.72);opacity:.82}'+
+      '#ltab-hw-count,.ltab-count{display:inline-flex!important;align-items:center;justify-content:center;min-width:20px;'+
+        'padding:2px 7px;border-radius:999px;background:var(--accent,#34d88a);color:var(--accent-on,#062215);font-weight:900}'+
       '@media (max-width:680px){.lab-hw-fab{right:max(10px,env(safe-area-inset-right));bottom:96px;max-width:calc(100vw - 20px)}'+
         '.lab-hw-fab-btn{max-width:calc(100vw - 20px);min-height:38px;padding:9px 12px;font-size:10px;letter-spacing:.08em;white-space:normal;text-align:center;line-height:1.15;justify-content:center}'+
         '.lab-hw-top-entry{top:62px;right:10px;max-width:calc(100vw - 20px)}'+
@@ -502,16 +509,19 @@
     var n = loadHw().length;
     if (fabEl) {
       var btn = fabEl.querySelector('.lab-hw-fab-btn');
-      if (btn) btn.querySelector('.n').textContent = n;
+      if (btn && btn.querySelector('.n')) btn.querySelector('.n').textContent = n;
       fabEl.classList.toggle('empty', n === 0);
     }
     if (topEntryEl) {
       var topBtn = topEntryEl.querySelector('.lab-hw-top-entry-btn');
-      if (topBtn) topBtn.querySelector('.n').textContent = n;
+      if (topBtn && topBtn.querySelector('.n')) topBtn.querySelector('.n').textContent = n;
       topEntryEl.classList.toggle('empty', n === 0);
     }
-    var tabCount = document.getElementById('ltab-hw-count');
-    if (tabCount) tabCount.textContent = n;
+    document.querySelectorAll('.lab-hw-fab .n, .lab-hw-top-entry .n, #ltab-hw-count, .ltab-count').forEach(function(el){
+      el.textContent = n;
+      el.style.display = 'inline-flex';
+      el.hidden = false;
+    });
   }
 
   function buildFab(){
@@ -526,7 +536,36 @@
   }
 
   function buildTopEntry(){
-    if (document.querySelector('.lesson-tabs [data-tab="homework"], [data-lab-homework-top]')) return;
+    var nativeTab = document.querySelector('.lesson-tabs [data-tab="homework"], [data-lab-homework-top]');
+    if (nativeTab) {
+      if (!nativeTab.querySelector('.n, .ltab-count')) {
+        nativeTab.insertAdjacentHTML('beforeend', ' <span class="ltab-count n">0</span>');
+      }
+      if (!nativeTab.__labHwTopBound) {
+        nativeTab.__labHwTopBound = true;
+        nativeTab.addEventListener('click', function(e){
+          e.preventDefault();
+          openHomeworkPage();
+        });
+      }
+      topEntryEl = nativeTab;
+      return;
+    }
+    var tabs = document.querySelector('.lesson-tabs');
+    if (tabs) {
+      topEntryEl = document.createElement('button');
+      topEntryEl.type = 'button';
+      topEntryEl.className = 'ltab lab-hw-top-tab';
+      topEntryEl.setAttribute('data-tab', 'homework');
+      topEntryEl.setAttribute('data-lab-homework-top', '');
+      topEntryEl.innerHTML = '📚 Моя домашка <span class="ltab-count n">0</span>';
+      topEntryEl.addEventListener('click', function(e){
+        e.preventDefault();
+        openHomeworkPage();
+      });
+      tabs.appendChild(topEntryEl);
+      return;
+    }
     topEntryEl = document.createElement('div');
     topEntryEl.className = 'lab-hw-top-entry empty';
     topEntryEl.innerHTML =
@@ -762,6 +801,9 @@
     buildTopEntry();
     scanAndDecorate();
     refreshFabCount();
+    window.addEventListener('storage', function(ev){
+      if (!ev.key || ev.key === hwKey()) refreshFabCount();
+    });
     // Listener — ученик принимает homework-section-push от учителя
     (function hookHwReceive(){
       if (!window.supabase) return setTimeout(hookHwReceive, 400);
