@@ -1,6 +1,8 @@
 /**
- * lab-tabs.js · v3 · 2026-07-02
- * Auto-injects «📖 Урок / 📚 Моя домашка» tabs after .topbar in every Lab lesson.
+ * lab-tabs.js · v4 · 2026-07-02
+ * Auto-injects «📖 Урок / 📚 Моя домашка» tabs after topbar in every Lab lesson.
+ * v4: селектор topbar теперь ловит все семейства (canon-l-topbar, friendly-topbar,
+ *     lab-topbar, cmdbar) — раньше пропускал A1/A2 уроки с header.canon-l-topbar.
  * v3: position:sticky → position:fixed (body{overflow-x:hidden} ломает sticky
  *     во всех Lab-уроках, tabs «ездили» посреди страницы). getHwKey теперь
  *     'lab-hw:' (унифицировано с lab-homework.js v=29+).
@@ -16,7 +18,7 @@
   function inject(){
     // Если HTML уже содержит .lesson-tabs (инлайн в файле) — не дублируем
     if (document.querySelector('.lesson-tabs')) return;
-    var topbar = document.querySelector('nav.topbar, header.topbar, .topbar');
+    var topbar = document.querySelector('nav.topbar, header.topbar, .topbar, header.canon-l-topbar, nav.canon-l-topbar, .canon-l-topbar, .friendly-topbar, .lab-topbar, .cmdbar');
     if (!topbar) return;
 
     // Style
