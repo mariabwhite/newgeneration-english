@@ -206,28 +206,28 @@ window.NGE_DATA = {
       "goal": "разговорный английский · переезд в Канаду · автоматизация базы",
       "price_per_lesson": 2000,
       "payment_status": "Оплачено",
-      "payment_note": "Оплачены 3 занятия до конца июля 2026. Компенсация 6 000 ₽ (3 пропуска по причине педагога) — засчитываем в следующий блок ИЛИ возвращаем на ваш выбор.",
+      "payment_note": "Оплачен блок 3 занятия · июнь–июль 2026. Всё пройдено.",
       "is_adult": true,
       "parent_name": "",
       "pin": "2547",
       "lessons_in_package": 3,
-      "subscription_month": "2026-07",
-      "lessons_used_this_month": 1,
-      "summer_plan_note": "3 занятия до конца июля 2026 · 2 отменены по причине педагога · сегодня третий (завершён)",
+      "subscription_month": "2026-06",
+      "lessons_used_this_month": 3,
+      "summer_plan_note": "Блок 3 занятий (июнь-июль 2026) пройден полностью: Канада · Ориентация в городе · Медицина.",
       "stability_note": "",
-      "past_lessons_label": "Прошлый абонемент · май 2026 (7 занятий · вт 19:00)",
+      "past_lessons_label": "Прошлый абонемент · май 2026 (4 занятия · вт 19:00)",
       "past_lessons": [
         {
           "date": "2026-04-28",
           "num": 1,
           "status": "completed",
-          "topic": "Грамматика #1: Simple + Perfect tenses — повторение форм и функций"
+          "topic": "Грамматика #1 · Simple + Perfect tenses — повторение форм и функций"
         },
         {
           "date": "2026-05-05",
           "num": 2,
           "status": "completed",
-          "topic": "Грамматика #2: Passive Voice + Past Perfect — узнавание в контексте"
+          "topic": "Грамматика #2 · Passive Voice + Past Perfect — узнавание в контексте"
         },
         {
           "date": "2026-05-12",
@@ -240,44 +240,31 @@ window.NGE_DATA = {
           "num": 4,
           "status": "completed",
           "topic": "SIM-карты и кофе — практическая лексика и диалоги (Канада · бытовые ситуации)"
-        },
-        {
-          "date": "2026-05-26",
-          "num": 5,
-          "status": "cancelled",
-          "topic": "🎙 Урок перенесён · пропуск компенсируется"
-        },
-        {
-          "date": "2026-06-02",
-          "num": 6,
-          "status": "cancelled",
-          "topic": "🎙 Урок перенесён · пропуск компенсируется"
-        },
-        {
-          "date": "2026-06-09",
-          "num": 7,
-          "status": "cancelled",
-          "topic": "🎙 Урок перенесён · пропуск компенсируется"
         }
       ],
       "lessons": [
         {
           "date": "2026-06-18",
           "num": 1,
-          "status": "cancelled",
-          "topic": "🎙 Урок перенесён · пропуск компенсируется"
+          "status": "completed",
+          "topic": "Канада · Settling In Toronto — coffee · SIM · directions · drugstore (4 сцены · I'd like / I need · AI Coach)",
+          "homework": {
+            "text": "Lab-модуль · 4 сценария первого дня в Торонто + AI Coach для свободной речи в конце.",
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/a2/settling-in-toronto/",
+            "module_title": "🇨🇦 Открыть Settling In Toronto"
+          }
         },
         {
           "date": "2026-06-25",
           "num": 2,
-          "status": "cancelled",
-          "topic": "🎙 Урок перенесён · пропуск компенсируется"
+          "status": "completed",
+          "topic": "Ориентация в городе — city map · directions · транспорт · как спросить дорогу"
         },
         {
           "date": "2026-07-02",
           "num": 3,
           "status": "completed",
-          "topic": "Bella Needs Help — старт Bella-series Lesson 2 · Канада · pharmacy / walk-in clinic / 911 · Can I…? / Could you…?",
+          "topic": "Медицина · Bella Needs Help — pharmacy / walk-in clinic / 911 · Can I…? / Could you…?",
           "homework": {
             "text": "Bella-series · Day 3 в Канаде. У Bella головная боль → аптека → клиника → потом она помогает незнакомцу вызвать 911. Три сцены, формула Poster → Vocab → Dialogue → Drill → Speaking template + AI Coach в финале.",
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/a2/bella-needs-help/",
