@@ -189,82 +189,99 @@ window.NGE_DATA = {
       "id": "sova-elena",
       "notion_id": "34d7364c-ba79-81ba-b4d6-e8b07e6ed7f7",
       "name": "Сова Елена Витальевна",
+      "materials": {
+        "folder": "documents/_v/sova-elena",
+        "note": "Отчёт за июль 2026 · темы + компенсация 6 000 ₽",
+        "files": [
+          {
+            "name": "report-sova-elena-2026-07.pdf",
+            "label": "📄 Отчёт за июль 2026",
+            "audience": "student"
+          }
+        ]
+      },
       "level": "A2",
       "format": "индивидуально",
       "schedule": "четверг 20:00",
-      "goal": "взрослый ученик, медленный темп, через карточки и опоры",
+      "goal": "разговорный английский · переезд в Канаду · автоматизация базы",
       "price_per_lesson": 2000,
       "payment_status": "Оплачено",
+      "payment_note": "Оплачены 3 занятия до конца июля 2026. Компенсация 6 000 ₽ (3 пропуска по причине педагога) — засчитываем в следующий блок ИЛИ возвращаем на ваш выбор.",
       "is_adult": true,
       "parent_name": "",
       "pin": "2547",
-      "lessons_in_package": 7,
-      "subscription_month": "2026-05",
-      "lessons_used_this_month": 4,
+      "lessons_in_package": 3,
+      "subscription_month": "2026-07",
+      "lessons_used_this_month": 1,
+      "summer_plan_note": "3 занятия до конца июля 2026 · 2 отменены по причине педагога · сегодня третий (завершён)",
       "stability_note": "",
-      "lessons": [
+      "past_lessons_label": "Прошлый абонемент · май 2026 (7 занятий · вт 19:00)",
+      "past_lessons": [
         {
           "date": "2026-04-28",
           "num": 1,
           "status": "completed",
-          "topic": "Грамматика #1: simple + perfect tenses"
+          "topic": "Грамматика #1: Simple + Perfect tenses — повторение форм и функций"
         },
         {
           "date": "2026-05-05",
           "num": 2,
           "status": "completed",
-          "topic": "Грамматика #2: passive voice + past perfect"
+          "topic": "Грамматика #2: Passive Voice + Past Perfect — узнавание в контексте"
         },
         {
           "date": "2026-05-12",
           "num": 3,
           "status": "completed",
-          "topic": "The Wind in the Willows — чтение книги для детей, лексика, обсуждение"
+          "topic": "The Wind in the Willows — чтение адаптированной книги · лексика · обсуждение"
         },
         {
           "date": "2026-05-19",
           "num": 4,
           "status": "completed",
-          "topic": "SIM-карты и кофе — практическая лексика и диалоги"
+          "topic": "SIM-карты и кофе — практическая лексика и диалоги (Канада · бытовые ситуации)"
         },
         {
           "date": "2026-05-26",
           "num": 5,
-          "status": "planned",
-          "topic": ""
+          "status": "cancelled",
+          "topic": "🤒 Урок отменён — болезнь педагога"
         },
         {
           "date": "2026-06-02",
           "num": 6,
-          "status": "planned",
-          "topic": ""
+          "status": "cancelled",
+          "topic": "🤒 Урок отменён — болезнь педагога"
         },
         {
           "date": "2026-06-09",
           "num": 7,
-          "status": "planned",
-          "topic": ""
+          "status": "cancelled",
+          "topic": "🤒 Урок отменён — болезнь педагога"
+        }
+      ],
+      "lessons": [
+        {
+          "date": "2026-06-18",
+          "num": 1,
+          "status": "cancelled",
+          "topic": "🤒 Урок отменён — болезнь педагога · пропуск компенсируется"
         },
         {
-          "date": "2026-06-16",
-          "num": 0,
-          "status": "module",
-          "topic": "Lab: Settling In Toronto — coffee, SIM, directions, drugstore (4 сцены, шаблоны I'd like / I need, AI Coach в финале)",
-          "homework": {
-            "text": "Lab-модуль · 60 мин · 4 сценария + AI Coach для свободной речи в конце. Если до урока — пробежись по любимой сцене. Тренируй I'd like / I need в каждой сценке.",
-            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/a2/settling-in-toronto/",
-            "module_title": "Settling In · First Days in Canada"
-          }
+          "date": "2026-06-25",
+          "num": 2,
+          "status": "cancelled",
+          "topic": "🤒 Урок отменён — болезнь педагога · пропуск компенсируется"
         },
         {
-          "date": "2026-06-16",
-          "num": 0,
-          "status": "module",
-          "topic": "Lab: Bella Needs Help — pharmacy, walk-in clinic, 911 emergency. Bella-series Lesson 2. Грамматика: Can I…? / Could you…?",
+          "date": "2026-07-02",
+          "num": 3,
+          "status": "completed",
+          "topic": "Bella Needs Help — старт Bella-series Lesson 2 · Канада · pharmacy / walk-in clinic / 911 · Can I…? / Could you…?",
           "homework": {
-            "text": "Bella series · Day 3 в Канаде. У Bella головная боль → аптека → клиника → потом она помогает незнакомцу вызвать 911. Три сцены, формула Poster → Vocab → Dialogue → Drill → Speaking template + AI Coach в финале.",
+            "text": "Bella-series · Day 3 в Канаде. У Bella головная боль → аптека → клиника → потом она помогает незнакомцу вызвать 911. Три сцены, формула Poster → Vocab → Dialogue → Drill → Speaking template + AI Coach в финале.",
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/a2/bella-needs-help/",
-            "module_title": "Bella Needs Help · Pharmacy, Doctor, 911"
+            "module_title": "🏥 Открыть Bella Needs Help · Pharmacy · Doctor · 911"
           }
         }
       ]
@@ -334,7 +351,7 @@ window.NGE_DATA = {
       "price_per_lesson": 2500,
       "lessons_in_package": 10,
       "subscription_month": "2026-06",
-      "lessons_used_this_month": 8,
+      "lessons_used_this_month": 9,
       "summer_plan_note": "Летний блок 10 уроков · июнь + июль 2026",
       "payment_status": "Оплачено",
       "payment_note": "",
@@ -409,7 +426,7 @@ window.NGE_DATA = {
         {
           "date": "2026-07-02",
           "num": 9,
-          "status": "planned",
+          "status": "completed",
           "topic": "📖 Tom Sawyer · Act 5 — финал серии + Past Simple irregular drill",
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/tom-sawyer-three-acts/",
@@ -1477,7 +1494,7 @@ window.NGE_DATA = {
       "pin": "3094",
       "lessons_in_package": 5,
       "subscription_month": "2026-07",
-      "lessons_used_this_month": 0,
+      "lessons_used_this_month": 1,
       "stability_note": "",
       "summer_plan_note": "Летний блок 2026: июньский пилот (1 trial + 3 занятия) + июль (5 занятий)",
       "external_platforms": [
@@ -1536,12 +1553,13 @@ window.NGE_DATA = {
         {
           "date": "2026-07-02",
           "num": 4,
-          "status": "planned",
-          "topic": "Practical English · Day 1 · Present Simple + to-инфинитив + a/the/— + survival",
+          "status": "completed",
+          "topic": "Practical English · Day 1 — все 4 Present Tenses на бизнес-лексике + to-инфинитив + a/the/— + 6 business lines + 45 vocab",
+          "recap": "• All 4 Present tenses drilled на реальной business-лексике (Lukoil / Milan / IELTS-контекст)\n• Vocab 45 карточек + 3 drill'а (MCQ meaning · gap-fill · sentence-fill) — вся дека отработана\n• Grammar map · 4 времени на одной странице + визуальные карты\n• 6 business lines: self-intro · this-week project · status update · why-it's-taking-long · polite request · daily stand-up\n• 🎤 Your turn после каждой секции — 3 личных вопроса\n• Reading · Listening · Speaking секции с MCQ + own-mic + AI-feedback",
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/practice/timofey-03-practical-english/",
             "module_title": "📖 Открыть урок · Practical English · Day 1",
-            "text": "6 коротких блоков: warm-up mic-drill, Present Simple живой, маленькое слово to, артикли a/the/—, 6 survival-фраз, 15 adult-vocab flip-cards. + Homework A/B/C/D на 5–7 минут."
+            "text": "Открой урок и пройди Homework блоки A–J (~20-25 мин): A vocab-match · B gap-fill · C discussion · D to-inf · E articles · F speaking · G watch&catch · H MCQ tenses (15) · I gap-fill verbs (12) · J correct-mistake (10). Всё интерактивно — тап-ответ, зелёный/красный фидбек. Плюс отдельно 🎤 Your turn после каждой секции урока — говори вслух по 3 вопроса."
           }
         },
         {
