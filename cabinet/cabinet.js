@@ -1178,12 +1178,44 @@
       `;
     }).join("");
 
-    return `
+    const currentTable = `
       <article class="cab-card cab-card--wide">
         <h3>Уроки · ${_esc(hasSummerPlan ? "лето 2026" : _monthLabelFromISO(month))}</h3>
         <ul class="cab-lessons-list">${rows}</ul>
       </article>
     `;
+
+    /* Second table for past subscriptions if student.past_lessons is set */
+    const pastLessons = Array.isArray(student.past_lessons) ? student.past_lessons : [];
+    if (!pastLessons.length) return currentTable;
+
+    const pastSorted = pastLessons.slice().sort((a, b) => a.date.localeCompare(b.date));
+    const pastRows = pastSorted.map(l => {
+      const badge = _lessonStatusBadge(l, todayISO);
+      const dateStr = _formatLessonDate(l.date);
+      const dow = _dowFromISO(l.date);
+      const num = l.num ? `<span class="cab-lesson-num">${_esc(l.num)}</span>` : "";
+      const topicText = l.topic && l.topic.trim()
+        ? `<span class="cab-lesson-topic">${_esc(l.topic)}</span>`
+        : `<span class="cab-lesson-topic cab-lesson-topic--empty">—</span>`;
+      return `
+        <li class="cab-lesson-row ${badge.cls}">
+          ${num}
+          <span class="cab-lesson-date">${dateStr} · ${dow}</span>
+          <span class="cab-lesson-topic-wrap">${topicText}</span>
+          <span class="cab-lesson-badge">${badge.label}</span>
+        </li>
+      `;
+    }).join("");
+
+    const pastLabel = student.past_lessons_label || "Прошлый абонемент";
+    const pastTable = `
+      <article class="cab-card cab-card--wide cab-card--past">
+        <h3 style="opacity:.75">${_esc(pastLabel)}</h3>
+        <ul class="cab-lessons-list">${pastRows}</ul>
+      </article>
+    `;
+    return currentTable + pastTable;
   }
 
   /* ---------- homework card (student view, 3rd module) ---------- */
