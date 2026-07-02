@@ -1,4 +1,8 @@
-﻿/* lab-vocab-builder.js v3 — Универсальный словарь + LIVE PUSH от учителя.
+﻿/* lab-vocab-builder.js v45 — Универсальный словарь + LIVE PUSH от учителя.
+   v45: fix teacherMode — принимаем ?teacher=on (наш новый стандарт с lab-sync v10+)
+        и localStorage 'lab-teacher-mode'='on' (sticky). Раньше принимали только
+        ?teacher=1 / ?t=1 / ?role=teacher — рассинхрон с lab-sync ломал добавление
+        слов во ВСЕХ уроках. Маша не могла добавлять vocab при `?teacher=on` URL. */
 
    Урок объявляет:
      window.LAB_VOCAB = [
@@ -24,7 +28,13 @@
   window.__labVocabLoaded = true;
 
   var observeMode = /[?&]observe=/.test(location.search);
-  var teacherMode = !observeMode && (/[?&](teacher|t)=1/.test(location.search) || /[?&]role=teacher/.test(location.search));
+  // v45: унифицировано с lab-sync.js — принимаем ?teacher=on (стандарт), ?teacher=1
+  // (legacy), ?role=teacher (legacy) + sticky localStorage 'lab-teacher-mode'
+  var teacherMode = !observeMode && (
+    /[?&](teacher|t)=(1|on)/.test(location.search) ||
+    /[?&]role=teacher/.test(location.search) ||
+    (function(){ try { return localStorage.getItem('lab-teacher-mode') === 'on'; } catch(e){ return false; } })()
+  );
 
   function injectStyle(){
     if (document.getElementById('lab-vb-style')) return;
