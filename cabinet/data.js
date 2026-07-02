@@ -335,6 +335,7 @@ window.NGE_DATA = {
       "lessons_in_package": 10,
       "subscription_month": "2026-06",
       "lessons_used_this_month": 8,
+      "summer_plan_note": "Летний блок 10 уроков · июнь + июль 2026",
       "payment_status": "Оплачено",
       "payment_note": "",
       "parent_name": "Протасова Мария Петровна",
@@ -345,66 +346,86 @@ window.NGE_DATA = {
           "date": "2026-06-11",
           "num": 1,
           "status": "completed",
-          "topic": "📖 Tom Sawyer · Act 1 — Whitewashing the Fence (чтение, лексика)"
+          "topic": "📖 Tom Sawyer · Act 1 — Whitewashing the Fence",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/tom-sawyer-three-acts/",
+            "module_title": "📖 Открыть Tom Sawyer · Three Adventures"
+          }
         },
         {
           "date": "2026-06-14",
           "num": 2,
           "status": "completed",
-          "topic": "📖 Tom Sawyer · Act 2 — The Graveyard (продолжение, обсуждение)"
+          "topic": "📖 Tom Sawyer · Act 2 — The Graveyard",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/tom-sawyer-three-acts/",
+            "module_title": "📖 Открыть Tom Sawyer · Three Adventures"
+          }
         },
         {
           "date": "2026-06-18",
           "num": 3,
           "status": "completed",
-          "topic": "✈️ Travelling · введение — страны, виды транспорта, базовая лексика"
+          "topic": "✈️ Travelling · введение — страны, транспорт, базовая лексика"
         },
         {
           "date": "2026-06-21",
           "num": 4,
           "status": "completed",
-          "topic": "✈️ Travelling · в аэропорту и отеле — диалоги, ролевые ситуации"
+          "topic": "✈️ Travelling · airport + hotel — диалоги и role-play"
+        },
+        {
+          "date": "2026-06-22",
+          "num": 5,
+          "status": "completed",
+          "topic": "✈️ Travelling · countries + monuments (пн — Speaking-практика)"
         },
         {
           "date": "2026-06-25",
-          "num": 5,
-          "status": "completed",
-          "topic": "📖 Tom Sawyer · Act 3 — Sunday School (Bible Prize)"
-        },
-        {
-          "date": "2026-06-26",
           "num": 6,
           "status": "completed",
-          "topic": "✈️ Travelling · страны и достопримечательности — Speaking-практика"
+          "topic": "✈️ Travelling · role-play (airport + hotel) — активная лексика"
         },
         {
           "date": "2026-06-28",
           "num": 7,
           "status": "completed",
-          "topic": "📖 Tom Sawyer · Act 4 — Becky on the Fence"
+          "topic": "📖 Tom Sawyer · Act 3 — Sunday School (Bible Prize)",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/tom-sawyer-three-acts/",
+            "module_title": "📖 Открыть Tom Sawyer · Three Adventures"
+          }
         },
         {
           "date": "2026-06-29",
           "num": 8,
           "status": "completed",
-          "topic": "📖 Tom Sawyer · Act 5 — финал серии (обсуждение всей истории)",
+          "topic": "📖 Tom Sawyer · Act 4 — Becky on the Fence",
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/tom-sawyer-three-acts/",
-            "module_title": "📖 Открыть Tom Sawyer · Three Acts (вся серия)",
-            "text": "Авторский B1-урок: 4 акта + финал. Открой повторно — пересказ сцен своими словами + неправильные глаголы из текста в активную речь."
+            "module_title": "📖 Открыть Tom Sawyer · Three Adventures"
           }
         },
         {
           "date": "2026-07-02",
           "num": 9,
           "status": "planned",
-          "topic": "✈️ Travelling · мини-проект «моё путешествие» (Past Simple в свободной речи, короткое письмо)"
+          "topic": "📖 Tom Sawyer · Act 5 — финал серии + Past Simple irregular drill",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/tom-sawyer-three-acts/",
+            "module_title": "📖 Открыть Tom Sawyer · Three Adventures",
+            "text": "Финал серии. К уроку: пересказ сцен своими словами + неправильные глаголы из текста в активную речь."
+          }
         },
         {
           "date": "2026-07-05",
           "num": 10,
           "status": "planned",
-          "topic": "📖 Tom Sawyer · follow-up + Past Simple irregular drill (закрепление неправильных глаголов из серии в speaking)"
+          "topic": "✈️ Travel Talk · Light & Bright 2 · Night Edition — вечерние путешествия",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/travel-talk-light-and-bright-2/",
+            "module_title": "✈️ Открыть Travel Talk · Light & Bright 2"
+          }
         }
       ]
     },
