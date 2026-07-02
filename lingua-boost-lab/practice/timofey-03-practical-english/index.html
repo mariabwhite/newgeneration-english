@@ -548,6 +548,62 @@ section.section {
 .ps-opt-btn:hover { border-color: var(--navy); background: var(--navy); color: #f6ecd0; }
 .ps-opt-btn.used { opacity: .4; }
 
+/* ═══════════ MCQ (multiple-choice question) ═══════════ */
+.mcq-list { display: grid; gap: 16px; }
+.mcq {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 18px;
+}
+.mcq-q {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.02rem;
+  color: var(--navy);
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+.mcq-opts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.mcq-opt {
+  text-align: left;
+  padding: 10px 14px;
+  background: var(--surface);
+  border: 1.5px solid var(--line-2);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: var(--body);
+  font-size: .96rem;
+  line-height: 1.4;
+  cursor: pointer;
+  transition: all .15s;
+}
+.mcq-opt:hover { border-color: var(--navy); background: rgba(11, 22, 46, .05); }
+.mcq-opt.correct { border-color: #2f8f4d; background: #e9f6ec; color: #1a5c2a; font-weight: 700; }
+.mcq-opt.wrong   { border-color: #b8443a; background: #fbeae7; color: #7c1f16; opacity: .8; }
+.mcq-note {
+  display: none;
+  margin-top: 10px;
+  padding: 10px 14px;
+  background: var(--surface-2);
+  border-left: 3px solid var(--gold);
+  border-radius: 8px;
+  font-size: .93rem;
+  line-height: 1.55;
+  color: var(--text);
+}
+.mcq.revealed .mcq-note { display: block; }
+@media (max-width: 720px) {
+  .mcq { padding: 14px 14px; }
+  .mcq-q { font-size: .98rem; }
+  .mcq-opt { font-size: .92rem; padding: 9px 12px; }
+}
+
 /* ═══════════ TO INFINITIVE DRILL ═══════════ */
 .ti-list { display: grid; gap: 8px; }
 .ti-row {
@@ -1446,24 +1502,26 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
   <p class="sec-lead">Short business call. Listen twice — first for the story, second for the detail. Open the script only after you tried both times.</p>
   <div class="sec-instr">🎧 listen → answer · script hidden</div>
 
-  <audio controls preload="none" style="width: 100%; max-width: 640px; margin-top: 16px" data-todo-audio="Present tenses dialog Marco↔Timofey ~45 sec">
-    <source src="./assets/audio/marco-timofey-call.mp3" type="audio/mpeg">
-    Your browser does not support audio.
-  </audio>
-  <div class="sec-instr" style="margin-top: 8px; opacity: .7">🛠 Audio file will be added — read the script below in the meantime.</div>
+  <div style="margin-top: 16px; padding: 14px 18px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap">
+    <audio controls preload="none" style="flex: 1 1 320px; min-width: 260px">
+      <source src="./assets/audio/marco-timofey-call.mp3" type="audio/mpeg">
+      Your browser does not support audio.
+    </audio>
+    <span style="font: 700 11px/1.3 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--burgundy)">🛠 audio TTS · rendering</span>
+  </div>
 
-  <details style="margin-top: 18px; background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px">
-    <summary style="cursor: pointer; font: 800 12px/1 var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--burgundy)">📜 Open script</summary>
-    <div style="margin-top: 12px; line-height: 1.7; color: var(--text)">
-      <p><b>Marco:</b> Hi Timofey, are you busy right now?</p>
-      <p><b>Timofey:</b> Yes, I'm working on the client deck. What's up?</p>
-      <p><b>Marco:</b> I've been trying to open the numbers file since nine, but it keeps crashing. Have you saved a backup?</p>
-      <p><b>Timofey:</b> I've already sent the backup to your email. Check the folder “Milan · draft 3”. I usually drop everything there.</p>
-      <p><b>Marco:</b> Perfect. Have you spoken to the client today?</p>
-      <p><b>Timofey:</b> Not yet. They haven't confirmed the time. I'm waiting for their reply.</p>
-      <p><b>Marco:</b> Got it. I'll open the file now and call you back in ten minutes.</p>
+  <div style="margin-top: 18px; padding: 18px 22px; background: var(--card); border: 1px solid var(--line); border-radius: 12px">
+    <div style="font: 800 11px/1 var(--mono); letter-spacing: .28em; text-transform: uppercase; color: var(--burgundy); margin-bottom: 14px">📜 Transcript · Marco calls Timofey (~45 sec)</div>
+    <div style="line-height: 1.75; color: var(--text)">
+      <p style="margin: 0 0 8px"><b>Marco:</b> Hi Timofey, are you busy right now?</p>
+      <p style="margin: 0 0 8px"><b>Timofey:</b> Yes, I'm working on the client deck. What's up?</p>
+      <p style="margin: 0 0 8px"><b>Marco:</b> I've been trying to open the numbers file since nine, but it keeps crashing. Have you saved a backup?</p>
+      <p style="margin: 0 0 8px"><b>Timofey:</b> I've already sent the backup to your email. Check the folder “Milan · draft 3”. I usually drop everything there.</p>
+      <p style="margin: 0 0 8px"><b>Marco:</b> Perfect. Have you spoken to the client today?</p>
+      <p style="margin: 0 0 8px"><b>Timofey:</b> Not yet. They haven't confirmed the time. I'm waiting for their reply.</p>
+      <p style="margin: 0"><b>Marco:</b> Got it. I'll open the file now and call you back in ten minutes.</p>
     </div>
-  </details>
+  </div>
 
   <div class="mcq-list" style="margin-top: 22px">
     <div class="mcq"><div class="mcq-q">1. What is Timofey doing when Marco calls?</div>
@@ -1716,6 +1774,22 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
 
   /* Homework: lab-homework.js?v=32 сам управляет entry-point (верхняя вкладка + плюсики).
      details#homework-block ниже — контент урока с offline-заданиями (не главная точка входа). */
+
+  /* ============= MCQ handler ============= */
+  document.querySelectorAll('.mcq-opt').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var mcq = btn.closest('.mcq');
+      if (!mcq || mcq.classList.contains('revealed')) return;
+      var correct = btn.hasAttribute('data-correct');
+      btn.classList.add(correct ? 'correct' : 'wrong');
+      mcq.classList.add('revealed');
+      if (!correct) {
+        var right = mcq.querySelector('.mcq-opt[data-correct]');
+        if (right) right.classList.add('correct');
+      }
+      mcq.querySelectorAll('.mcq-opt').forEach(function (b) { b.disabled = true; });
+    });
+  });
 })();
 </script>
 
