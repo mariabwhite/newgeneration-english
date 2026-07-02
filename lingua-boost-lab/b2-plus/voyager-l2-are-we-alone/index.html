@@ -514,13 +514,14 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
   var tabs = document.querySelectorAll('.ltab');
   var hwCount = document.getElementById('ltab-hw-count');
   function setActive(name){ tabs.forEach(function(t){ t.classList.toggle('is-active', t.dataset.tab === name); }); }
-  function getHwKey(){ return 'lab_hw_v1_' + location.pathname; }
+  function getHwKey(){ return 'lab-hw:' + location.pathname; }
   function refreshCount(){ try { var arr = JSON.parse(localStorage.getItem(getHwKey()) || '[]'); if (hwCount) hwCount.textContent = arr.length; } catch(e){} }
+  function openHomeworkPage(){ window.location.href = '/lingua-boost-lab/.homework/?lesson=' + encodeURIComponent(location.pathname); }
   tabs.forEach(function(t){
     t.addEventListener('click', function(){
       var name = t.dataset.tab;
       setActive(name);
-      if (name === 'homework') { var fab = document.querySelector('.lab-hw-fab button, .lab-hw-fab .lab-hw-fab-btn'); if (fab) fab.click(); }
+      if (name === 'homework') { openHomeworkPage(); }
       else { document.querySelectorAll('.lab-hw-overlay.show').forEach(function(o){ o.classList.remove('show'); }); }
     });
   });
@@ -1712,7 +1713,7 @@ document.querySelectorAll('.tab-row').forEach(row => {
 <script src="../../assets/lab-ai-feedback.js?v=6" defer></script>
 <script src="../../assets/lab-sync.js?v=13" defer></script>
 <script src="../../assets/lab-tabs.js?v=2" defer></script>
-<script src="../../assets/lab-homework.js?v=24" defer></script>
+<script src="../../assets/lab-homework.js?v=28" defer></script>
 <script src="../../assets/lab-vocab-builder.js?v=44" defer></script>
 <script src="../../assets/lab-coach-persist.js?v=1" defer></script>
 <script src="../../assets/lab-speech-tester.js?v=11" defer></script>
@@ -1763,17 +1764,12 @@ document.querySelectorAll('.tab-row').forEach(row => {
 (function(){
   var HW_ID = 'homework-block';
   function openInlineHomework(source){
-    var d = document.getElementById(HW_ID);
-    if (!d) return;
-    d.open = true;
-    d.classList.add('hw-focus');
-    setTimeout(function(){ d.classList.remove('hw-focus'); }, 1600);
-    d.scrollIntoView({ behavior: 'smooth', block: 'start' });
     try {
       if (window.labSync && typeof window.labSync.emit === 'function') {
-        window.labSync.emit('homework-opened', { source: source || 'fab', lessonPath: location.pathname });
+        window.labSync.emit('homework-opened', { source: source || 'top', lessonPath: location.pathname });
       }
     } catch(e){}
+    window.location.href = '/lingua-boost-lab/.homework/?lesson=' + encodeURIComponent(location.pathname);
   }
   function rebindFab(){
     var fab = document.querySelector('.lab-hw-fab .lab-hw-fab-btn');

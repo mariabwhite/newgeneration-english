@@ -29,7 +29,7 @@
   function hwKey(){
     return 'lab-hw:' + location.pathname;
   }
-  var HW_TTL_MS = 48 * 60 * 60 * 1000; // 48 ч: задание считается «протухшим»
+  var HW_TTL_MS = 7 * 24 * 60 * 60 * 1000; // 7 дней: хватает на завтра / послезавтра и перенос урока
   function loadHw(){
     try { return JSON.parse(localStorage.getItem(hwKey()) || '[]'); }
     catch(e){ return []; }
@@ -131,8 +131,19 @@
       '.lab-hw-fab.empty .lab-hw-fab-btn{background:#475569;opacity:.65;'+
         'box-shadow:0 4px 12px rgba(0,0,0,.18)}'+
       '.lab-hw-fab.empty .n{color:#475569}'+
+      '.lab-hw-fab.is-top-tab-proxy{width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none;'+
+        'right:auto;bottom:auto;left:-9999px;top:auto}'+
+      '.lab-hw-top-entry{position:fixed;right:18px;top:74px;z-index:1001;display:flex}'+
+      '.lab-hw-top-entry-btn{border:1px solid rgba(245,158,11,.45);border-radius:999px;'+
+        'background:linear-gradient(135deg,#fff7d6,#fbbf24);color:#78350f;cursor:pointer;'+
+        'font:900 11px/1 "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase;'+
+        'padding:10px 13px;box-shadow:0 8px 24px rgba(245,158,11,.28);display:inline-flex;align-items:center;gap:8px}'+
+      '.lab-hw-top-entry-btn .n{background:#fff;color:#78350f;padding:2px 8px;border-radius:999px}'+
+      '.lab-hw-top-entry.empty .lab-hw-top-entry-btn{filter:saturate(.72);opacity:.82}'+
       '@media (max-width:680px){.lab-hw-fab{right:max(10px,env(safe-area-inset-right));bottom:96px;max-width:calc(100vw - 20px)}'+
         '.lab-hw-fab-btn{max-width:calc(100vw - 20px);min-height:38px;padding:9px 12px;font-size:10px;letter-spacing:.08em;white-space:normal;text-align:center;line-height:1.15;justify-content:center}'+
+        '.lab-hw-top-entry{top:62px;right:10px;max-width:calc(100vw - 20px)}'+
+        '.lab-hw-top-entry-btn{padding:9px 11px;font-size:10px;letter-spacing:.06em}'+
         '.lab-hw-section-btn{padding:7px 10px;font-size:9.5px;letter-spacing:.06em;max-width:100%}}'+
 
       '.lab-hw-overlay{position:fixed;inset:0;background:rgba(20,15,40,.62);'+
@@ -354,6 +365,9 @@
         var titleEl = sec.querySelector('.section-hdr h2, .section-head h2, h2, h3');
         var sectionTitle = short(txt(titleEl) || ('Section ' + sectionIndex), 120);
         var clone = sec.cloneNode(true);
+        var lessonStyle = Array.prototype.slice.call(document.querySelectorAll('style')).map(function(style){
+          return style.textContent || '';
+        }).join('\n');
         clone.querySelectorAll('.lab-hw-add, .lab-hw-section-btn, script, style').forEach(function(node){ node.remove(); });
         clone.querySelectorAll('[src]').forEach(function(node){
           var value = node.getAttribute('src') || '';
@@ -372,6 +386,7 @@
           section_id: sectionId,
           section_title: sectionTitle,
           question: sectionTitle,
+          css: lessonStyle,
           html: clone.outerHTML,
           student_answer: '',
           ts: Date.now()
@@ -481,25 +496,45 @@
     });
   }
 
-  var fabEl = null, overlayEl = null;
+  var fabEl = null, topEntryEl = null, overlayEl = null;
 
   function refreshFabCount(){
-    if (!fabEl) return;
     var n = loadHw().length;
-    var btn = fabEl.querySelector('.lab-hw-fab-btn');
-    btn.querySelector('.n').textContent = n;
-    fabEl.classList.toggle('empty', n === 0);
+    if (fabEl) {
+      var btn = fabEl.querySelector('.lab-hw-fab-btn');
+      if (btn) btn.querySelector('.n').textContent = n;
+      fabEl.classList.toggle('empty', n === 0);
+    }
+    if (topEntryEl) {
+      var topBtn = topEntryEl.querySelector('.lab-hw-top-entry-btn');
+      if (topBtn) topBtn.querySelector('.n').textContent = n;
+      topEntryEl.classList.toggle('empty', n === 0);
+    }
+    var tabCount = document.getElementById('ltab-hw-count');
+    if (tabCount) tabCount.textContent = n;
   }
 
   function buildFab(){
     fabEl = document.createElement('div');
-    fabEl.className = 'lab-hw-fab empty';
+    fabEl.className = 'lab-hw-fab empty is-top-tab-proxy';
     fabEl.innerHTML =
       '<button type="button" class="lab-hw-fab-btn">'+
         '<span>📚 Моя домашка</span><span class="n">0</span>'+
       '</button>';
     document.body.appendChild(fabEl);
     fabEl.querySelector('button').addEventListener('click', openHomeworkPage);
+  }
+
+  function buildTopEntry(){
+    if (document.querySelector('.lesson-tabs [data-tab="homework"], [data-lab-homework-top]')) return;
+    topEntryEl = document.createElement('div');
+    topEntryEl.className = 'lab-hw-top-entry empty';
+    topEntryEl.innerHTML =
+      '<button type="button" class="lab-hw-top-entry-btn" data-lab-homework-top>'+
+        '<span>📚 Моя домашка</span><span class="n">0</span>'+
+      '</button>';
+    document.body.appendChild(topEntryEl);
+    topEntryEl.querySelector('button').addEventListener('click', openHomeworkPage);
   }
 
   function openHomeworkPage(){
@@ -724,6 +759,7 @@
       }
     } catch(e){}
     buildFab();
+    buildTopEntry();
     scanAndDecorate();
     refreshFabCount();
     // Listener — ученик принимает homework-section-push от учителя

@@ -1661,7 +1661,7 @@ Ladies and gentlemen — three years ago Theo Marshall stopped answering us. Two
 <script src="../../assets/lab-ai-feedback.js?v=6" defer></script>
 <script src="../../assets/lab-sync.js?v=13" defer></script>
 <script src="../../assets/lab-tabs.js?v=2" defer></script>
-<script src="../../assets/lab-homework.js?v=24" defer></script>
+<script src="../../assets/lab-homework.js?v=28" defer></script>
 <script src="../../assets/lab-vocab-builder.js?v=44" defer></script>
 <script src="../../assets/lab-coach-persist.js?v=1" defer></script>
 <script src="../../assets/lab-speech-tester.js?v=11" defer></script>
@@ -1712,17 +1712,12 @@ Ladies and gentlemen — three years ago Theo Marshall stopped answering us. Two
 (function(){
   var HW_ID = 'homework-block';
   function openInlineHomework(source){
-    var d = document.getElementById(HW_ID);
-    if (!d) return;
-    d.open = true;
-    d.classList.add('hw-focus');
-    setTimeout(function(){ d.classList.remove('hw-focus'); }, 1600);
-    d.scrollIntoView({ behavior: 'smooth', block: 'start' });
     try {
       if (window.labSync && typeof window.labSync.emit === 'function') {
-        window.labSync.emit('homework-opened', { source: source || 'fab', lessonPath: location.pathname });
+        window.labSync.emit('homework-opened', { source: source || 'top', lessonPath: location.pathname });
       }
     } catch(e){}
+    window.location.href = '/lingua-boost-lab/.homework/?lesson=' + encodeURIComponent(location.pathname);
   }
   function rebindFab(){
     var fab = document.querySelector('.lab-hw-fab .lab-hw-fab-btn');
