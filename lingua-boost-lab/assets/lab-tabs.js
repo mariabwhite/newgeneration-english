@@ -1,6 +1,9 @@
 /**
- * lab-tabs.js · v2 · 2026-06-30
- * Auto-injects «📖 Урок / 📚 Моя домашка» sticky tabs after .topbar in every Lab lesson.
+ * lab-tabs.js · v3 · 2026-07-02
+ * Auto-injects «📖 Урок / 📚 Моя домашка» tabs after .topbar in every Lab lesson.
+ * v3: position:sticky → position:fixed (body{overflow-x:hidden} ломает sticky
+ *     во всех Lab-уроках, tabs «ездили» посреди страницы). getHwKey теперь
+ *     'lab-hw:' (унифицировано с lab-homework.js v=29+).
  * Canon: reference_lab_lesson_tabs_canon.md
  * — Палитра берётся через CSS vars из урока (--accent / --line / --card / --bg).
  * — Click on «Моя домашка» → opens the dedicated homework page.
@@ -20,7 +23,7 @@
     var s = document.createElement('style');
     s.id = 'lab-tabs-style';
     s.textContent =
-      '.lesson-tabs{position:sticky;top:62px;z-index:99;display:flex;gap:8px;justify-content:center;' +
+      '.lesson-tabs{position:fixed;top:62px;left:0;right:0;z-index:99;display:flex;gap:8px;justify-content:center;' +
         'background:color-mix(in srgb,var(--bg,#fff) 94%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);' +
         'border-bottom:1px solid var(--line,rgba(0,0,0,.08));padding:10px 12px;' +
         'transition:top .26s cubic-bezier(.4,0,.2,1)}' +
@@ -48,12 +51,19 @@
     // Вставить сразу после topbar
     if (topbar.nextSibling) topbar.parentNode.insertBefore(nav, topbar.nextSibling);
     else topbar.parentNode.appendChild(nav);
+    // Компенсируем высоту fixed-табов чтобы hero не нырял под них
+    try {
+      var isMobile = window.matchMedia && window.matchMedia('(max-width:680px)').matches;
+      var pad = isMobile ? 46 : 52;
+      var cur = parseFloat(getComputedStyle(document.body).paddingTop) || 0;
+      if (cur < pad) document.body.style.paddingTop = pad + 'px';
+    } catch(e){}
 
     // JS логика — переключение / привязка к FAB домашке
     var tabs = nav.querySelectorAll('.ltab');
     var hwCount = nav.querySelector('#ltab-hw-count');
     function setActive(name){ tabs.forEach(function(t){ t.classList.toggle('is-active', t.dataset.tab === name); }); }
-    function getHwKey(){ return 'lab_hw_v1_' + location.pathname; }
+    function getHwKey(){ return 'lab-hw:' + location.pathname; }
     function refreshCount(){
       try { var arr = JSON.parse(localStorage.getItem(getHwKey()) || '[]'); if (hwCount) hwCount.textContent = arr.length; }
       catch(e){}
