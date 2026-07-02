@@ -346,6 +346,50 @@
       btn.innerHTML = '📚 всю секцию в домашку';
       btn.addEventListener('click', function(e){
         e.preventDefault();
+        e.stopPropagation();
+        var allSections = Array.prototype.slice.call(document.querySelectorAll('section.section'));
+        var sectionIndex = allSections.indexOf(sec) + 1;
+        var sectionId = sec.id || sec.getAttribute('data-hw-section-id') || ('section-' + sectionIndex);
+        sec.setAttribute('data-hw-section-id', sectionId);
+        var titleEl = sec.querySelector('.section-hdr h2, .section-head h2, h2, h3');
+        var sectionTitle = short(txt(titleEl) || ('Section ' + sectionIndex), 120);
+        var clone = sec.cloneNode(true);
+        clone.querySelectorAll('.lab-hw-add, .lab-hw-section-btn, script, style').forEach(function(node){ node.remove(); });
+        clone.querySelectorAll('[src]').forEach(function(node){
+          var value = node.getAttribute('src') || '';
+          if (value && !/^(https?:|data:|\/)/i.test(value)) {
+            try { node.setAttribute('src', new URL(value, location.href).pathname); } catch(e){}
+          }
+        });
+        clone.querySelectorAll('[href]').forEach(function(node){
+          var value = node.getAttribute('href') || '';
+          if (value && !/^(https?:|mailto:|tel:|#|\/)/i.test(value)) {
+            try { node.setAttribute('href', new URL(value, location.href).pathname); } catch(e){}
+          }
+        });
+        var blockItem = {
+          kind: 'raw-block',
+          section_id: sectionId,
+          section_title: sectionTitle,
+          question: sectionTitle,
+          html: clone.outerHTML,
+          student_answer: '',
+          ts: Date.now()
+        };
+        var blockArr = loadHw();
+        var blockIdx = blockArr.findIndex(function(x){ return x.kind === 'raw-block' && x.section_id === blockItem.section_id; });
+        if (blockIdx >= 0) {
+          blockArr.splice(blockIdx, 1);
+          btn.classList.remove('added');
+          toast('Убрала блок из домашки');
+        } else {
+          blockArr.push(blockItem);
+          btn.classList.add('added');
+          toast('Блок добавлен в домашку');
+        }
+        saveHw(blockArr);
+        refreshFabCount();
+        return;
         var items = sec.querySelectorAll('.lab-hw-host');
         // FALLBACK: если по типам ничего не нашлось — кладём всю секцию как RAW HTML блок
         if (!items.length) {
@@ -418,6 +462,13 @@
         } catch(e){}
       });
       // Размещение: после section-head или в начале секции
+      var initialSections = Array.prototype.slice.call(document.querySelectorAll('section.section'));
+      var initialIndex = initialSections.indexOf(sec) + 1;
+      var initialSectionId = sec.id || sec.getAttribute('data-hw-section-id') || ('section-' + initialIndex);
+      sec.setAttribute('data-hw-section-id', initialSectionId);
+      if (loadHw().some(function(x){ return x.kind === 'raw-block' && x.section_id === initialSectionId; })) {
+        btn.classList.add('added');
+      }
       var head = sec.querySelector('.section-head, .section-hdr');
       if (head) {
         head.style.position = head.style.position || 'relative';
