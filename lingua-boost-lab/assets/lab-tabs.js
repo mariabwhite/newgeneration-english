@@ -25,7 +25,7 @@
     var s = document.createElement('style');
     s.id = 'lab-tabs-style';
     s.textContent =
-      '.lesson-tabs{position:fixed;top:62px;left:0;right:0;z-index:99;display:flex;gap:8px;justify-content:center;' +
+      '.lesson-tabs{position:fixed !important;top:62px !important;left:0 !important;right:0 !important;z-index:99 !important;display:flex !important;gap:8px;justify-content:center;' +
         'background:color-mix(in srgb,var(--bg,#fff) 94%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);' +
         'border-bottom:1px solid var(--line,rgba(0,0,0,.08));padding:10px 12px;' +
         'transition:top .26s cubic-bezier(.4,0,.2,1)}' +
