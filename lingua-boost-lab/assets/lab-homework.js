@@ -526,7 +526,7 @@
 
   function buildFab(){
     fabEl = document.createElement('div');
-    fabEl.className = 'lab-hw-fab empty is-top-tab-proxy';
+    fabEl.className = 'lab-hw-fab empty';
     fabEl.innerHTML =
       '<button type="button" class="lab-hw-fab-btn">'+
         '<span>📚 Моя домашка</span><span class="n">0</span>'+
