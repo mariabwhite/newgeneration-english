@@ -1,9 +1,13 @@
 /**
- * lab-tabs.js · v9 · 2026-07-02 (evening)
- * v9: Учёт teacher-banner (lab-sync.js). Когда полоса teacher видна —
- *     topbar сдвигается ниже банера, tabs ниже topbar, body padding
- *     учитывает все три этажа. Раньше topbar на top:0 перекрывал банер,
- *     полоса «уезжала» относительно домашки.
+ * lab-tabs.js · v10 · 2026-07-02 (late evening)
+ * v10: Уважаем inline hide-on-scroll (Voyager L1 и др.). Когда topbar
+ *      получает класс .tb-hidden / .is-hidden — tabs плавно поднимаются
+ *      к banner (без hardcoded topbarH). MutationObserver на topbar.class
+ *      + reposTabs дёргается динамически. Раньше v9 форсил tabs top =
+ *      bannerH+topbarH через !important, ломая CSS-правило
+ *      `.topbar.tb-hidden + .lesson-tabs { top:0 }` — tabs висели в
+ *      пустоте после уезжания topbar.
+ * v9: Учёт teacher-banner (lab-sync.js).
  * v8 · 2026-07-02
  * v8: КРИТИЧНО. Раньше tabs были fixed, а topbar position:relative → при
  *     скролле topbar уезжал, tabs висели в пустоте перекрывая контент.
@@ -39,10 +43,8 @@
     if (existing) {
       function reposExisting(){
         try {
-          // v9: если есть teacher-banner — учитываем его высоту (banner top:0, всё остальное сдвинуто)
           var banner = document.querySelector('.lab-teacher-banner');
           var bannerH = banner ? (banner.getBoundingClientRect().height || banner.offsetHeight || 0) : 0;
-          // Форсируем topbar в sticky/fixed чтобы он не уезжал при скролле
           topbar.style.setProperty('position', 'fixed', 'important');
           topbar.style.setProperty('top', bannerH + 'px', 'important');
           topbar.style.setProperty('left', '0', 'important');
@@ -50,7 +52,10 @@
           topbar.style.setProperty('z-index', '100', 'important');
           var topbarH = topbar.getBoundingClientRect().height || topbar.offsetHeight || 62;
           existing.style.setProperty('position', 'fixed', 'important');
-          existing.style.setProperty('top', (bannerH + topbarH) + 'px', 'important');
+          // v10: если topbar скрыт inline JS-ом (.tb-hidden/.is-hidden) — tabs подтягиваются к banner
+          var topbarHidden = topbar.classList && (topbar.classList.contains('tb-hidden') || topbar.classList.contains('is-hidden'));
+          existing.style.setProperty('top', (bannerH + (topbarHidden ? 0 : topbarH)) + 'px', 'important');
+          existing.style.setProperty('transition', 'top .26s cubic-bezier(.4,0,.2,1)', 'important');
           existing.style.setProperty('left', '0', 'important');
           existing.style.setProperty('right', '0', 'important');
           existing.style.setProperty('z-index', '99', 'important');
@@ -59,6 +64,11 @@
           document.body.style.paddingTop = totalPad + 'px';
         } catch(e){}
       }
+      // v10: наблюдаем class-changes на topbar (inline hide-on-scroll)
+      try {
+        var moTop = new MutationObserver(function(){ reposExisting(); });
+        moTop.observe(topbar, { attributes: true, attributeFilter: ['class'] });
+      } catch(e){}
       reposExisting();
       window.addEventListener('resize', reposExisting);
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(reposExisting).catch(function(){});
@@ -103,10 +113,8 @@
     // + body padding компенсирует высоту tabs чтобы hero не нырял под них
     function positionTabs(){
       try {
-        // v9: если есть teacher-banner (lab-sync.js) — учитываем его высоту
         var banner = document.querySelector('.lab-teacher-banner');
         var bannerH = banner ? (banner.getBoundingClientRect().height || banner.offsetHeight || 0) : 0;
-        // Форсируем topbar в fixed под banner (или top:0 если banner-a нет)
         topbar.style.setProperty('position', 'fixed', 'important');
         topbar.style.setProperty('top', bannerH + 'px', 'important');
         topbar.style.setProperty('left', '0', 'important');
@@ -114,7 +122,10 @@
         topbar.style.setProperty('z-index', '100', 'important');
         var topbarH = topbar.getBoundingClientRect().height || topbar.offsetHeight || 62;
         var tabsH = nav.getBoundingClientRect().height || nav.offsetHeight || 46;
-        nav.style.setProperty('top', (bannerH + topbarH) + 'px', 'important');
+        // v10: если topbar hidden inline JS-ом (Voyager mobile) — tabs плавно поднимаются к banner
+        var topbarHidden = topbar.classList && (topbar.classList.contains('tb-hidden') || topbar.classList.contains('is-hidden'));
+        nav.style.setProperty('top', (bannerH + (topbarHidden ? 0 : topbarH)) + 'px', 'important');
+        nav.style.setProperty('transition', 'top .26s cubic-bezier(.4,0,.2,1)', 'important');
         var totalPad = bannerH + topbarH + tabsH;
         document.body.style.paddingTop = totalPad + 'px';
       } catch(e){}
@@ -140,6 +151,11 @@
         }
       });
       mo.observe(document.body, { childList: true });
+    } catch(e){}
+    // v10: наблюдаем class-changes на topbar (Voyager L1 hide-on-scroll)
+    try {
+      var moTop2 = new MutationObserver(function(){ positionTabs(); });
+      moTop2.observe(topbar, { attributes: true, attributeFilter: ['class'] });
     } catch(e){}
 
     // JS логика — переключение / привязка к FAB домашке
