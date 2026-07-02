@@ -1418,6 +1418,18 @@ window.NGE_DATA = {
             "label": "📄 Отчёт за июнь 2026",
             "audience": "all"
           }
+        ],
+        "external_links": [
+          {
+            "url": "https://newgeneration-english.ru/lingua-boost-lab/practice/timofey-trainer-01/",
+            "label": "📘 Workbook 01 · 22 июня · vocab 30 + tenses recognition/substitution + -ing forms + said vs told",
+            "audience": "all"
+          },
+          {
+            "url": "https://newgeneration-english.ru/lingua-boost-lab/practice/timofey-trainer-02/",
+            "label": "📕 Workbook 02 · 29 июня · Past tenses + irregular verbs V1/V2/V3 + vocab MCQ + type-in",
+            "audience": "all"
+          }
         ]
       },
       "greeting_student": "Здравствуйте, Тимофей",
@@ -1446,6 +1458,7 @@ window.NGE_DATA = {
       "subscription_month": "2026-07",
       "lessons_used_this_month": 0,
       "stability_note": "",
+      "summer_plan_note": "Летний блок 2026: июньский пилот (1 trial + 3 занятия) + июль (5 занятий)",
       "external_platforms": [
         {
           "name": "🛫 TOEFL iBT · Format Tour · Lab",

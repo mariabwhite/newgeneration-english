@@ -1423,7 +1423,7 @@
       if (!a || a === "all") return true;
       return isStudent ? (a === "student") : (a === "parent");
     });
-    if (!files.length) return "";
+    if (!files.length && !(Array.isArray(m.external_links) && m.external_links.length)) return "";
     const note = m.note ? `<p class="cab-card-note">${_esc(m.note)}</p>` : "";
     const items = files.map(f => {
       const file  = typeof f === "string" ? f : f.name;
@@ -1431,7 +1431,17 @@
       const url   = `./${m.folder}/${file}`;
       return `<a href="${_esc(url)}" target="_blank" rel="noreferrer" class="cab-contract-link">${_esc(label)}</a>`;
     }).join("");
-    return `<article class="cab-card"><h3>📚 Материалы курса</h3>${note}<div class="cab-contract-files">${items}</div></article>`;
+    // external links (Lab workbooks, quizlets, etc.)
+    const externalLinks = Array.isArray(m.external_links) ? m.external_links.filter(l => {
+      if (!l || !l.url) return false;
+      const a = l.audience;
+      if (!a || a === "all") return true;
+      return isStudent ? (a === "student") : (a === "parent");
+    }) : [];
+    const externalItems = externalLinks.map(l => {
+      return `<a href="${_esc(l.url)}" target="_blank" rel="noreferrer" class="cab-contract-link">${_esc(l.label || l.url)}</a>`;
+    }).join("");
+    return `<article class="cab-card"><h3>📚 Материалы курса</h3>${note}<div class="cab-contract-files">${items}${externalItems}</div></article>`;
   }
 
   function _renderSecurityNoticeCard() {
