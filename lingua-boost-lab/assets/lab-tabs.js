@@ -1,5 +1,9 @@
 /**
- * lab-tabs.js · v4 · 2026-07-02
+ * lab-tabs.js · v6 · 2026-07-02
+ * v6: динамическое positionTabs() — измеряем реальную высоту topbar через
+ *     getBoundingClientRect и ставим tabs top = topbar.height. Раньше hardcode
+ *     top:62px прятался под canon-l-topbar (в A1/A2 topbar ~100px + z-index 100
+ *     перекрывал tabs). Также resize/font-load re-position.
  * Auto-injects «📖 Урок / 📚 Моя домашка» tabs after topbar in every Lab lesson.
  * v4: селектор topbar теперь ловит все семейства (canon-l-topbar, friendly-topbar,
  *     lab-topbar, cmdbar) — раньше пропускал A1/A2 уроки с header.canon-l-topbar.
@@ -53,13 +57,24 @@
     // Вставить сразу после topbar
     if (topbar.nextSibling) topbar.parentNode.insertBefore(nav, topbar.nextSibling);
     else topbar.parentNode.appendChild(nav);
-    // Компенсируем высоту fixed-табов чтобы hero не нырял под них
-    try {
-      var isMobile = window.matchMedia && window.matchMedia('(max-width:680px)').matches;
-      var pad = isMobile ? 46 : 52;
-      var cur = parseFloat(getComputedStyle(document.body).paddingTop) || 0;
-      if (cur < pad) document.body.style.paddingTop = pad + 'px';
-    } catch(e){}
+    // Динамически позиционируем tabs ПОД реальный topbar (не hardcoded 62px)
+    // + body padding компенсирует высоту tabs чтобы hero не нырял под них
+    function positionTabs(){
+      try {
+        var topbarH = topbar.getBoundingClientRect().height || topbar.offsetHeight || 62;
+        var tabsH = nav.getBoundingClientRect().height || nav.offsetHeight || 46;
+        nav.style.setProperty('top', topbarH + 'px', 'important');
+        var totalPad = topbarH + tabsH;
+        var cur = parseFloat(getComputedStyle(document.body).paddingTop) || 0;
+        if (cur < totalPad) document.body.style.paddingTop = totalPad + 'px';
+      } catch(e){}
+    }
+    positionTabs();
+    // Перепозиционируем при resize + после загрузки шрифтов
+    window.addEventListener('resize', positionTabs);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(positionTabs).catch(function(){});
+    setTimeout(positionTabs, 300);
+    setTimeout(positionTabs, 1200);
 
     // JS логика — переключение / привязка к FAB домашке
     var tabs = nav.querySelectorAll('.ltab');
