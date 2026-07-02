@@ -33,8 +33,8 @@
   } catch(e){}
   var teacherMode = false;
   try { teacherMode = (localStorage.getItem('lab-teacher-mode') === 'on'); } catch(e){}
-  if (!observeMode && roleParam === 'teacher') teacherMode = true;
-  if (teacherMode && !observeMode) {
+  if (roleParam === 'teacher') teacherMode = true;
+  if (teacherMode) {
     var markTeacherBody = function(){
       if (document.body) document.body.classList.add('lab-teacher-on');
     };
@@ -264,7 +264,7 @@
     // Универсальный sender — до connect'а кладёт в очередь, после — broadcast.
     // SDK-side переопределит window.__labVocabSend когда firehose поднимется.
     window.__labVocabSend = window.__labVocabSend || function(w){ pendingWordQueue.push(w); };
-    if (teacherMode && !observeMode) {
+    if (teacherMode) {
       if (!document.getElementById('lab-teacher-style')) {
         var ts2Pre = document.createElement('style');
         ts2Pre.id = 'lab-teacher-style';
@@ -364,7 +364,7 @@
       // Жёлтая полоса уже отрисована СВЫШЕ (до loadSDK). Здесь только
       // wire-up broadcast'а на уже существующий input+кнопку, dom-state
       // подписки, и flush очереди слов накопившейся до connect.
-      if (teacherMode && !observeMode) {
+      if (teacherMode) {
         window.__labFirehoseReady = true;
         // Переопределяем sender — теперь broadcast'ит через firehose.
         window.__labVocabSend = function(w){
