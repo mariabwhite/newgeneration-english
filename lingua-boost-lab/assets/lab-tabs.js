@@ -1,5 +1,10 @@
 /**
- * lab-tabs.js · v8 · 2026-07-02
+ * lab-tabs.js · v9 · 2026-07-02 (evening)
+ * v9: Учёт teacher-banner (lab-sync.js). Когда полоса teacher видна —
+ *     topbar сдвигается ниже банера, tabs ниже topbar, body padding
+ *     учитывает все три этажа. Раньше topbar на top:0 перекрывал банер,
+ *     полоса «уезжала» относительно домашки.
+ * v8 · 2026-07-02
  * v8: КРИТИЧНО. Раньше tabs были fixed, а topbar position:relative → при
  *     скролле topbar уезжал, tabs висели в пустоте перекрывая контент.
  *     Теперь ФОРСИМ и topbar (fixed top:0 z:100) и tabs (fixed top:topbarH z:99).
@@ -34,20 +39,23 @@
     if (existing) {
       function reposExisting(){
         try {
+          // v9: если есть teacher-banner — учитываем его высоту (banner top:0, всё остальное сдвинуто)
+          var banner = document.querySelector('.lab-teacher-banner');
+          var bannerH = banner ? (banner.getBoundingClientRect().height || banner.offsetHeight || 0) : 0;
           // Форсируем topbar в sticky/fixed чтобы он не уезжал при скролле
           topbar.style.setProperty('position', 'fixed', 'important');
-          topbar.style.setProperty('top', '0', 'important');
+          topbar.style.setProperty('top', bannerH + 'px', 'important');
           topbar.style.setProperty('left', '0', 'important');
           topbar.style.setProperty('right', '0', 'important');
           topbar.style.setProperty('z-index', '100', 'important');
           var topbarH = topbar.getBoundingClientRect().height || topbar.offsetHeight || 62;
           existing.style.setProperty('position', 'fixed', 'important');
-          existing.style.setProperty('top', topbarH + 'px', 'important');
+          existing.style.setProperty('top', (bannerH + topbarH) + 'px', 'important');
           existing.style.setProperty('left', '0', 'important');
           existing.style.setProperty('right', '0', 'important');
           existing.style.setProperty('z-index', '99', 'important');
           var tabsH = existing.getBoundingClientRect().height || existing.offsetHeight || 46;
-          var totalPad = topbarH + tabsH;
+          var totalPad = bannerH + topbarH + tabsH;
           document.body.style.paddingTop = totalPad + 'px';
         } catch(e){}
       }
@@ -95,25 +103,44 @@
     // + body padding компенсирует высоту tabs чтобы hero не нырял под них
     function positionTabs(){
       try {
-        // Форсируем topbar в fixed top:0 (не sticky — не сломается overflow-x hidden)
+        // v9: если есть teacher-banner (lab-sync.js) — учитываем его высоту
+        var banner = document.querySelector('.lab-teacher-banner');
+        var bannerH = banner ? (banner.getBoundingClientRect().height || banner.offsetHeight || 0) : 0;
+        // Форсируем topbar в fixed под banner (или top:0 если banner-a нет)
         topbar.style.setProperty('position', 'fixed', 'important');
-        topbar.style.setProperty('top', '0', 'important');
+        topbar.style.setProperty('top', bannerH + 'px', 'important');
         topbar.style.setProperty('left', '0', 'important');
         topbar.style.setProperty('right', '0', 'important');
         topbar.style.setProperty('z-index', '100', 'important');
         var topbarH = topbar.getBoundingClientRect().height || topbar.offsetHeight || 62;
         var tabsH = nav.getBoundingClientRect().height || nav.offsetHeight || 46;
-        nav.style.setProperty('top', topbarH + 'px', 'important');
-        var totalPad = topbarH + tabsH;
+        nav.style.setProperty('top', (bannerH + topbarH) + 'px', 'important');
+        var totalPad = bannerH + topbarH + tabsH;
         document.body.style.paddingTop = totalPad + 'px';
       } catch(e){}
     }
     positionTabs();
-    // Перепозиционируем при resize + после загрузки шрифтов
+    // Перепозиционируем при resize + после загрузки шрифтов + смены teacher-mode
     window.addEventListener('resize', positionTabs);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(positionTabs).catch(function(){});
     setTimeout(positionTabs, 300);
     setTimeout(positionTabs, 1200);
+    // v9: наблюдаем за появлением teacher-banner (может вставиться после инициализации tabs)
+    try {
+      var mo = new MutationObserver(function(mutations){
+        for (var i=0; i<mutations.length; i++) {
+          for (var j=0; j<mutations[i].addedNodes.length; j++) {
+            var n = mutations[i].addedNodes[j];
+            if (n && n.classList && n.classList.contains('lab-teacher-banner')) { positionTabs(); return; }
+          }
+          for (var k=0; k<mutations[i].removedNodes.length; k++) {
+            var r = mutations[i].removedNodes[k];
+            if (r && r.classList && r.classList.contains('lab-teacher-banner')) { positionTabs(); return; }
+          }
+        }
+      });
+      mo.observe(document.body, { childList: true });
+    } catch(e){}
 
     // JS логика — переключение / привязка к FAB домашке
     var tabs = nav.querySelectorAll('.ltab');
