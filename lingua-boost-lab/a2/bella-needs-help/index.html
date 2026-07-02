@@ -53,14 +53,57 @@ body{font-family:var(--body);background:var(--paper);color:var(--ink);line-heigh
 footer{max-width:1240px;margin:48px auto 28px;padding:0 clamp(16px,3vw,28px);text-align:center;color:var(--muted);font-size:.78rem;font-family:var(--mono);letter-spacing:.06em}
 
 /* HERO */
-.hero-card{position:relative;border-radius:var(--radius-l);overflow:hidden;box-shadow:var(--shadow);background:linear-gradient(135deg,#4A6356 0%,#6B8E7F 50%,#A8B89F 100%);color:#FBF8F1;padding:48px clamp(22px,4vw,52px);min-height:260px;display:flex;flex-direction:column;justify-content:center}
-.hero-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 88% -10%,rgba(200,75,60,.25),transparent 55%),url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><g fill='%23C84B3C' opacity='.18'><path d='M100 30 L110 60 L140 55 L120 80 L145 100 L115 100 L110 130 L100 105 L90 130 L85 100 L55 100 L80 80 L60 55 L90 60 Z'/></g></svg>") right 30px top 30px / 140px no-repeat;pointer-events:none}
-.hero-eyebrow{font-family:var(--mono);font-size:.72rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:#EDE6D6;position:relative;z-index:1}
-.hero-title{font-family:var(--display);font-size:clamp(1.9rem,4vw,2.8rem);font-weight:700;margin:8px 0 6px;line-height:1.06;letter-spacing:-.015em;color:#FBF8F1;position:relative;z-index:1}
-.hero-title em{font-style:italic;color:#F5D5A4;font-weight:500;font-family:var(--display)}
-.hero-lead{font-size:clamp(.96rem,1.5vw,1.04rem);max-width:680px;color:#EDE6D6;margin:0 0 18px;position:relative;z-index:1;line-height:1.6}
-.hero-meta{display:flex;flex-wrap:wrap;gap:8px;position:relative;z-index:1}
-.hero-tag{font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;background:rgba(251,248,241,.14);border:1px solid rgba(251,248,241,.32);padding:6px 12px;border-radius:6px;color:#FBF8F1;backdrop-filter:blur(6px)}
+.hero-card{position:relative;border-radius:var(--radius-l);overflow:hidden;box-shadow:var(--shadow);background:linear-gradient(90deg,rgba(51,71,66,.96) 0%,rgba(51,71,66,.86) 32%,rgba(51,71,66,0) 58%),url("assets/images/hero-wide.png") center right/cover no-repeat,#334742;color:#FBF8F1;padding:clamp(28px,4vw,48px);min-height:clamp(220px,26vw,320px);display:flex;flex-direction:column;justify-content:center;gap:8px}
+.hero-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 92% -6%,rgba(200,75,60,.14),transparent 55%);pointer-events:none;z-index:0}
+.hero-card > *{position:relative;z-index:1;max-width:min(58%,620px)}
+@media(max-width:720px){.hero-card{padding:22px;background:linear-gradient(180deg,rgba(51,71,66,.94) 0%,rgba(51,71,66,.86) 50%,rgba(51,71,66,.7) 100%),url("assets/images/hero-wide.png") center right/cover no-repeat,#334742}.hero-card > *{max-width:100%}}
+.hero-eyebrow{font-family:var(--mono);font-size:.72rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#EDE6D6}
+.hero-title{font-family:var(--display);font-size:clamp(1.8rem,3.4vw,2.6rem);font-weight:700;margin:4px 0 2px;line-height:1.06;letter-spacing:-.015em;color:#FBF8F1;text-shadow:0 2px 10px rgba(0,0,0,.35)}
+.hero-title em{font-style:italic;color:#F5D5A4;font-weight:500;font-family:var(--display);font-size:.72em;display:block;margin-top:4px;letter-spacing:.02em}
+.hero-lead{font-size:clamp(.94rem,1.2vw,1.04rem);color:#F0EADB;margin:0;line-height:1.55;text-shadow:0 1px 4px rgba(0,0,0,.28)}
+.hero-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.hero-tag{font-family:var(--mono);font-size:.66rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:rgba(251,248,241,.14);border:1px solid rgba(251,248,241,.32);padding:5px 10px;border-radius:5px;color:#FBF8F1;backdrop-filter:blur(6px)}
+
+/* SECTION HERO */
+.section-hero{position:relative;border-radius:12px;overflow:hidden;margin:0 0 16px;background:var(--card-2);border:1px solid var(--line);box-shadow:var(--shadow);line-height:0}
+.section-hero-img{display:block;cursor:zoom-in;line-height:0;position:relative}
+.section-hero-img img{width:100%;height:auto;display:block}
+.section-hero-img::after{content:"⌕";position:absolute;top:10px;right:10px;background:rgba(43,48,54,.72);color:#FBF8F1;font-size:.9rem;padding:4px 8px;border-radius:5px;pointer-events:none;font-family:var(--mono);font-weight:700;z-index:3}
+.section-hero-img:hover img{opacity:.96}
+.medical-fact{position:absolute;top:50%;left:3%;transform:translateY(-50%);width:min(38%,320px);background:rgba(51,71,66,.9);color:#F0EADB;padding:14px 18px;border-radius:10px;line-height:1.55;backdrop-filter:blur(6px);border:1px solid rgba(251,248,241,.18);z-index:2;pointer-events:none;box-shadow:0 6px 18px rgba(0,0,0,.28)}
+.medical-fact .mf-eyebrow{font-family:var(--mono);font-size:.6rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#F5D5A4;margin-bottom:6px}
+.medical-fact .mf-body{font-size:.82rem;line-height:1.55;color:#F0EADB;font-family:var(--body)}
+.medical-fact .mf-body strong{color:#F5D5A4;font-weight:700}
+@media(max-width:760px){.medical-fact{position:static;transform:none;width:auto;margin:12px;background:rgba(51,71,66,.94)}}
+
+/* STEP WITH COMIC · 2-column vertical embed */
+.step-with-comic{display:grid;grid-template-columns:minmax(0,0.82fr) minmax(0,1.18fr);gap:22px;margin:18px 0 6px;align-items:start}
+@media(max-width:820px){.step-with-comic{grid-template-columns:1fr}}
+.swc-comic{margin:0}
+.swc-comic .section-hero-img{display:block;border-radius:12px;overflow:hidden;box-shadow:0 8px 22px rgba(0,0,0,.2);border:1.5px solid var(--line);transition:.2s;cursor:zoom-in;line-height:0}
+.swc-comic .section-hero-img:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 14px 30px rgba(0,0,0,.28)}
+.swc-comic .section-hero-img img{width:100%;height:auto;display:block}
+.swc-caption{font-family:var(--mono);font-size:.64rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:8px;text-align:center}
+.swc-body{display:flex;flex-direction:column;justify-content:center;min-height:0}
+
+/* OVERVIEW POSTER · deprecated 2026-07-02 */
+.overview-card{max-width:1240px;margin:0 auto 40px;padding:0 12px}
+.overview-card .op-inner{background:linear-gradient(135deg,#334742 0%,#4A6356 60%,#5B7368 100%);border-radius:var(--radius-l);padding:clamp(20px,3vw,32px);text-align:center;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.overview-card .op-inner::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 90% 0%,rgba(200,75,60,.14),transparent 55%);pointer-events:none}
+.overview-card .op-eyebrow{font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#F5D5A4;margin-bottom:10px;position:relative;z-index:1}
+.overview-card .op-title{font-family:var(--display);font-size:clamp(1.2rem,2.4vw,1.6rem);font-weight:600;color:#F0EADB;margin:0 0 16px;line-height:1.2;position:relative;z-index:1}
+.overview-card .op-image{position:relative;z-index:1;display:inline-block;max-width:min(440px,88%);cursor:zoom-in;border-radius:12px;overflow:hidden;box-shadow:0 12px 32px rgba(0,0,0,.35);transition:.2s;border:2px solid rgba(251,248,241,.32)}
+.overview-card .op-image:hover{transform:translateY(-2px);border-color:#F5D5A4}
+.overview-card .op-image img{width:100%;height:auto;display:block}
+.overview-card .op-image::after{content:"⌕ tap to zoom";position:absolute;bottom:10px;right:10px;background:rgba(43,48,54,.72);color:#FBF8F1;font-family:var(--mono);font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border-radius:5px;pointer-events:none}
+.overview-card .op-hint{color:#E4DBC6;font-size:.86rem;line-height:1.55;max-width:480px;margin:16px auto 0;position:relative;z-index:1;font-style:italic}
+
+/* LIGHTBOX */
+.lb-overlay{position:fixed;inset:0;background:rgba(15,18,20,.92);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px;cursor:zoom-out;backdrop-filter:blur(4px)}
+.lb-overlay.open{display:flex}
+.lb-overlay img{max-width:min(96vw,720px);max-height:92vh;height:auto;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.lb-close{position:absolute;top:16px;right:20px;background:rgba(251,248,241,.14);border:1px solid rgba(251,248,241,.3);color:#FBF8F1;font-family:var(--mono);font-weight:800;font-size:.72rem;letter-spacing:.12em;padding:7px 12px;border-radius:6px;cursor:pointer;text-transform:uppercase}
+.lb-close:hover{background:rgba(251,248,241,.24)}
 
 /* PROGRESS DOTS */
 .dots{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:8px}
@@ -314,6 +357,13 @@ document.querySelectorAll('#sec-vocab .vocab-card').forEach(c=>{
 
 <!-- BLOCK 0 · GUESS THE SYMPTOM -->
 <section class="section" id="block-0">
+  <div class="section-hero">
+    <a class="section-hero-img" href="assets/images/block0-symptoms.png" data-lb aria-label="Zoom symptom-match board"><img src="assets/images/block0-symptoms.png" alt="Eight emoji symptom cards with matching audio phrase cards"></a>
+    <div class="medical-fact">
+      <div class="mf-eyebrow">Health note · Canada</div>
+      <div class="mf-body">For a mild symptom — a headache, a cough, a runny nose — most Canadians go to a <strong>pharmacy</strong> first. Pharmacists give advice and simple medicine without a prescription. For a <strong>fever over 39 °C</strong> or pain that will not stop, go to a <strong>walk-in clinic</strong>. For chest pain, breathing trouble, or a bad fall — call <strong>911</strong>.</div>
+    </div>
+  </div>
   <div class="section-head"><div class="n">0</div><h2>Guess the symptom<span class="section-tag">Visual warm-up</span></h2></div>
   <div class="section-sub">Match each emoji with the English phrase. Click an emoji-card on the left, then the matching phrase on the right.</div>
   <div class="card">
@@ -338,6 +388,13 @@ document.querySelectorAll('#sec-vocab .vocab-card').forEach(c=>{
 
 <!-- BLOCK 1 · WARM-UP -->
 <section class="section" id="block-1">
+  <div class="section-hero">
+    <a class="section-hero-img" href="assets/images/block1-warmup.png" data-lb aria-label="Zoom warm-up questions"><img src="assets/images/block1-warmup.png" alt="Three warm-up audio questions on a desk with notepad and mug"></a>
+    <div class="medical-fact">
+      <div class="mf-eyebrow">Health note · headaches</div>
+      <div class="mf-body">Adults get <strong>2 to 3 headaches</strong> a month on average. Most are <strong>tension headaches</strong> — from stress, long screen time, or not enough water. First aid at home: a big glass of water, fresh air, and 15 minutes of rest. See a doctor the same day if a headache is very strong on one side, comes with a fever, or you cannot see well.</div>
+    </div>
+  </div>
   <div class="section-head"><div class="n">1</div><h2>Warm-up · three short questions<span class="section-tag">Speaking</span></h2></div>
   <div class="section-sub">Tap to hear · then answer in one full sentence. No rush.</div>
   <div class="card">
@@ -447,20 +504,33 @@ Thank you very much.</div>
     <div class="step-label">Step 3 · Controlled drill · choose the right word</div>
     <div class="drill" data-drill="doctor"></div>
 
-    <div class="step-label">Step 4 · Your turn · use the template</div>
-    <div class="template-card">
-      <h4>You go to the doctor. Choose your own symptoms.</h4>
-      <div class="tpl">Hi. I have <strong>____ (a headache / a sore throat / a fever / a cough)</strong>.
+    <div class="step-with-comic">
+      <figure class="swc-comic">
+        <a class="section-hero-img" href="assets/images/hero-bella-portrait.png" data-lb aria-label="Zoom Bella comic overview">
+          <img src="assets/images/hero-bella-portrait.png" alt="Bella at the pharmacy, at a walk-in clinic, and calling 911 — with useful phrases">
+        </a>
+        <figcaption class="swc-caption">The whole day at a glance · tap to zoom</figcaption>
+      </figure>
+      <div class="swc-body">
+        <div class="step-label" style="margin-top:0">Step 4 · Your turn · use the template</div>
+        <div class="template-card">
+          <h4>You go to the doctor. Choose your own symptoms.</h4>
+          <div class="tpl">Hi. I have <strong>____ (a headache / a sore throat / a fever / a cough)</strong>.
 I don't feel well. It started <strong>____ (yesterday / two days ago / this morning)</strong>.
 Could you write me a prescription, please?
 Thank you very much.</div>
-      <div class="your">Three times out loud — Elena, slow is fine. The doctor is patient.</div>
+          <div class="your">Three times out loud — Elena, slow is fine. The doctor is patient.</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- BLOCK 3.5 · FIRST-AID KIT MEMORY GAME -->
 <section class="section" id="block-kit">
+  <div class="section-hero">
+    <a class="section-hero-img" href="assets/images/block-kit.png" data-lb aria-label="Zoom first-aid kit game board"><img src="assets/images/block-kit.png" alt="Bella packs a travel first-aid kit — memory snowball game board with items"></a>
+  </div>
   <div class="section-head"><div class="n">★</div><h2>Bella packs a travel first-aid kit<span class="section-tag">Memory snowball</span></h2></div>
   <div class="section-sub">Bella's friend is going to Vietnam. She helps her pack the first-aid kit. Click each item to add it, then say the FULL list out loud each round.</div>
   <div class="card">
@@ -482,6 +552,9 @@ Thank you very much.</div>
 
 <!-- BLOCK 4 · EMERGENCY -->
 <section class="section" id="block-4">
+  <div class="section-hero">
+    <a class="section-hero-img" href="assets/images/block4-emergency.png" data-lb aria-label="Zoom Calling 911 scene"><img src="assets/images/block4-emergency.png" alt="Calling 911 in an emergency — dialogue with operator, useful phrases, and Stay calm — speak clearly checklist"></a>
+  </div>
   <div class="section-head"><div class="n">4</div><h2>Scene 3 · calling 911<span class="section-tag">Emergency</span></h2></div>
   <div class="section-sub">On her way home, Bella sees an older man fall on the sidewalk. She calls 911 — the Canadian emergency number.</div>
 
@@ -1681,5 +1754,27 @@ function collectStateForTeacher(){ return _coachStateFn(); }
 <script src="../../assets/lab-homework.js?v=32" defer></script>
 <script src="../../assets/lab-vocab-builder.js?v=44" defer></script>
 <script src="../../assets/lab-coach-persist.js?v=1" defer></script>
+
+<!-- LIGHTBOX -->
+<div class="lb-overlay" id="lb-overlay" aria-hidden="true" role="dialog"><button class="lb-close" type="button" aria-label="Close">✕ Close</button><img id="lb-image" src="" alt=""></div>
+<script>
+(function(){
+  const overlay=document.getElementById('lb-overlay');
+  const img=document.getElementById('lb-image');
+  const closeBtn=overlay.querySelector('.lb-close');
+  function openLb(src,alt){img.src=src;img.alt=alt||'';overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
+  function shutLb(){overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+  document.addEventListener('click',function(e){
+    const el=e.target.closest('[data-lb]');
+    if(!el)return;
+    e.preventDefault();
+    const src=el.getAttribute('href')||el.dataset.lbSrc||(el.querySelector('img')&&el.querySelector('img').src);
+    const alt=(el.querySelector('img')&&el.querySelector('img').alt)||'';
+    if(src)openLb(src,alt);
+  });
+  overlay.addEventListener('click',function(e){if(e.target===overlay||e.target===closeBtn)shutLb();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&overlay.classList.contains('open'))shutLb();});
+})();
+</script>
 </body>
 </html>
