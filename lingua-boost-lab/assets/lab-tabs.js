@@ -1,5 +1,9 @@
 /**
- * lab-tabs.js · v7 · 2026-07-02
+ * lab-tabs.js · v8 · 2026-07-02
+ * v8: КРИТИЧНО. Раньше tabs были fixed, а topbar position:relative → при
+ *     скролле topbar уезжал, tabs висели в пустоте перекрывая контент.
+ *     Теперь ФОРСИМ и topbar (fixed top:0 z:100) и tabs (fixed top:topbarH z:99).
+ *     body padding-top = totalPad всегда (не условно). Проверено на Tom Sawyer.
  * v7: inline .lesson-tabs (в 5 уроках) тоже получают dynamic positioning —
  *     раньше skip'ались после querySelector detection.
  * v6: динамическое positionTabs() — измеряем реальную высоту topbar через
@@ -30,6 +34,12 @@
     if (existing) {
       function reposExisting(){
         try {
+          // Форсируем topbar в sticky/fixed чтобы он не уезжал при скролле
+          topbar.style.setProperty('position', 'fixed', 'important');
+          topbar.style.setProperty('top', '0', 'important');
+          topbar.style.setProperty('left', '0', 'important');
+          topbar.style.setProperty('right', '0', 'important');
+          topbar.style.setProperty('z-index', '100', 'important');
           var topbarH = topbar.getBoundingClientRect().height || topbar.offsetHeight || 62;
           existing.style.setProperty('position', 'fixed', 'important');
           existing.style.setProperty('top', topbarH + 'px', 'important');
@@ -38,8 +48,7 @@
           existing.style.setProperty('z-index', '99', 'important');
           var tabsH = existing.getBoundingClientRect().height || existing.offsetHeight || 46;
           var totalPad = topbarH + tabsH;
-          var cur = parseFloat(getComputedStyle(document.body).paddingTop) || 0;
-          if (cur < totalPad) document.body.style.paddingTop = totalPad + 'px';
+          document.body.style.paddingTop = totalPad + 'px';
         } catch(e){}
       }
       reposExisting();
@@ -86,12 +95,17 @@
     // + body padding компенсирует высоту tabs чтобы hero не нырял под них
     function positionTabs(){
       try {
+        // Форсируем topbar в fixed top:0 (не sticky — не сломается overflow-x hidden)
+        topbar.style.setProperty('position', 'fixed', 'important');
+        topbar.style.setProperty('top', '0', 'important');
+        topbar.style.setProperty('left', '0', 'important');
+        topbar.style.setProperty('right', '0', 'important');
+        topbar.style.setProperty('z-index', '100', 'important');
         var topbarH = topbar.getBoundingClientRect().height || topbar.offsetHeight || 62;
         var tabsH = nav.getBoundingClientRect().height || nav.offsetHeight || 46;
         nav.style.setProperty('top', topbarH + 'px', 'important');
         var totalPad = topbarH + tabsH;
-        var cur = parseFloat(getComputedStyle(document.body).paddingTop) || 0;
-        if (cur < totalPad) document.body.style.paddingTop = totalPad + 'px';
+        document.body.style.paddingTop = totalPad + 'px';
       } catch(e){}
     }
     positionTabs();
