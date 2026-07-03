@@ -276,7 +276,7 @@ window.NGE_DATA = {
           "homework": {
             "text": "Bella-series · Day 3 в Канаде. У Bella головная боль → аптека → клиника → потом она помогает незнакомцу вызвать 911. Три сцены, формула Poster → Vocab → Dialogue → Drill → Speaking template + AI Coach в финале.",
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/a2/bella-needs-help/",
-            "module_title": "🏥 Открыть Bella Needs Help · Pharmacy · Doctor · 911"
+            "module_title": "🏥 Bella Needs Help"
           }
         }
       ]
