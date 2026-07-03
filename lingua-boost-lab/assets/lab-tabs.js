@@ -179,13 +179,14 @@
         var rs = getComputedStyle(document.documentElement);
         var bs = getComputedStyle(document.body);
         function pick(){ for (var i=0;i<arguments.length;i++){ var v=rs.getPropertyValue(arguments[i]); if (v && v.trim()) return v.trim(); } return ''; }
+        // v12 — фолбэки под палитры типа cream+navy+burgundy (Timofey Practical English и др.)
         var theme = {
-          '--bg': pick('--bg','--paper','--surface','--card-2'),
-          '--card': pick('--card','--surface','--card-2'),
-          '--text': pick('--text','--ink','--fg'),
-          '--muted': pick('--muted','--muted-2'),
-          '--line': pick('--line','--line-2','--border'),
-          '--accent': pick('--accent','--brand','--accent2','--maple'),
+          '--bg': pick('--bg','--paper','--surface','--cream','--card-2'),
+          '--card': pick('--card','--surface','--paper','--card-2') || '#ffffff',
+          '--text': pick('--text','--ink','--fg','--navy','--ink-primary') || '#1a3a5c',
+          '--muted': pick('--muted','--muted-2','--navy-2','--ink-secondary'),
+          '--line': pick('--line','--line-2','--border','--navy-2'),
+          '--accent': pick('--accent','--brand','--accent2','--maple','--burgundy','--gold','--navy'),
           '--accent-on': pick('--accent-on','--text-on-accent') || '#ffffff',
           '--display': pick('--display','--font-display') || rs.fontFamily,
           '--mono': pick('--mono','--font-mono'),
