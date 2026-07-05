@@ -774,7 +774,7 @@ window.NGE_DATA = {
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/a1/city-speaking/",
             "module_title": "🏙️ Мой город — сегодня и через 50 лет",
-            "text": "Откройте ссылку и пройдитесь пунктами:\n\n• Section 05 — Café · order, pay, ask. Сделайте оба диалога с пропусками (☕ ordering + 🪑 sitting down · water · Wi-Fi).\n\n• Section 06 — 🔊 Vocab from dialogues · tap to hear. Прокликайте и проговорите вслух — повторение.\n\n• Section 09 — Future · will vs going to · rule in 60 seconds. Прочитайте теорию (это база будущего времени, разбираем на следующем уроке).\n\n• Section 15 — 📚 Homework · 5 упражнений с auto-check. Попробуйте сделать если хорошо прочитали теорию по Future.\n\nСтарый словарный запас остаётся на Progressme — там продолжаем."
+            "text": "Café-диалог + теория Future (will vs going to) + auto-check homework. Словарный запас остаётся на Progressme."
           }
         },
         {
@@ -785,7 +785,7 @@ window.NGE_DATA = {
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/a1/city-speaking/",
             "module_title": "🏙️ Открыть «Мой город — сегодня и через 50 лет»",
-            "text": "Денис, на дом — весь конец урока (Future-блок). Прокликайте по порядку, говорите вслух:\n\n• Section 09 — Future · will vs going to · правило за 60 секунд. Прочитайте теорию: will = решение в момент / прогноз, going to = план, который уже есть / очевидное по фактам.\n\n• Section 10 — Will-drill · 6 ситуаций. Прочитайте каждую вслух и среагируйте with will (без подготовки, первое что приходит в голову).\n\n• Section 11 — Going-to-drill · 6 планов. Расскажите что вы уже решили / собираетесь сделать. Full sentence, going to.\n\n• Section 12 — City of the future · 8 core words (vocab cards). Tap → перевод + пример. Сказать каждое слово вслух дважды.\n\n• Section 13 — The city of 2076 · look and describe. Назовите каждый объект на карте будущего и опишите его with will / going to.\n\n• Section 14 — Speaking finale · Round 2 · your future. 6 финальных вопросов про ваше будущее. Tap → услышать, ответьте вслух, отметьте Done.\n\n• Section 15 — 📚 Homework · 5 упражнений с auto-check. Зелёное = верно, красное = поправить. К следующему уроку всё должно быть зелёным.\n\nПлюс: я скину в Telegram отдельно файл-словарь к этому уроку (44 слова) — можно импортировать в Quizlet и прогнать перед уроком."
+            "text": "Future-блок урока (will / going to) + auto-check homework. Плюс словарь 44 слова в Quizlet — файл в Telegram."
           }
         },
         {
@@ -797,7 +797,7 @@ window.NGE_DATA = {
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/practice/denis-workbook-01/",
             "module_title": "📚 Открыть Workbook 01 · A1 Recap",
-            "text": "Рабочая тетрадь · 12 упражнений с автопроверкой: vocab flip + TTS, все 4 времени (Simple / Continuous / will / going to), Build the question, plurals & this-that-these-those, have got & apostrophe 's, café dialogue, aux-drill 15 gaps (Do / Does / Am / Is / Are / Will), mic-drill 6 open questions. + Quizlet 44 слова."
+            "text": "Рабочая тетрадь · 12 упражнений с автопроверкой + Quizlet 44 слова. Зелёное = верно, красное = поправить."
           }
         },
         {
@@ -820,6 +820,11 @@ window.NGE_DATA = {
         }
       ],
       "external_platforms": [
+        {
+          "name": "🎴 Quizlet · 44 слова «City of the future»",
+          "url": "https://quizlet.com/1192178706/voc-flash-cards/?funnelUUID=54bc5263-ba58-45bd-8d9e-b440538e89cd",
+          "note": "Flash-cards · Learn / Match / Test — повторение словаря между уроками"
+        },
         {
           "name": "Progressme",
           "url": "https://progressme.ru/",
