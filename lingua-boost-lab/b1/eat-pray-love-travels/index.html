@@ -59,26 +59,32 @@ a{color:inherit;text-decoration:none}
   border-radius:50px;text-decoration:none;transition:.18s;white-space:nowrap}
 .btn-sm:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
 
-/* ========== Hero ========== */
-.lab-hero{max-width:1240px;margin:34px auto 24px;padding:0 22px}
+/* ========== Hero — image with text overlay ========== */
+.lab-hero{max-width:1240px;margin:32px auto 24px;padding:0 22px}
+.lab-hero-card{position:relative;border-radius:18px;overflow:hidden;box-shadow:var(--shadow);
+  background-image:linear-gradient(180deg,rgba(20,10,0,.28) 0%,rgba(20,10,0,.32) 42%,rgba(20,10,0,.72) 100%),url('assets/hero.png');
+  background-size:cover;background-position:center 35%;background-repeat:no-repeat;
+  min-height:clamp(340px,42vw,520px);display:flex;flex-direction:column;justify-content:flex-end;
+  padding:clamp(24px,3.6vw,44px)}
+.lab-hero-card::before{content:'';position:absolute;left:0;right:0;bottom:0;height:5px;
+  background:linear-gradient(90deg,var(--italy) 0%,var(--gold) 55%,var(--bali) 100%)}
 .lab-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.72rem;font-weight:800;
-  letter-spacing:.2em;text-transform:uppercase;color:var(--accent2);margin-bottom:16px}
-.lab-eyebrow::before{content:'';display:inline-block;width:28px;height:2px;background:var(--accent2)}
-.lab-hero h1{font-family:var(--display);font-style:italic;font-weight:700;font-size:clamp(2.4rem,6vw,4.4rem);
-  line-height:1;color:var(--ink);letter-spacing:-.01em;margin-bottom:14px}
-.lab-hero h1 em{font-style:normal;color:var(--accent);font-weight:800}
-.lab-hero h1 .amp{color:var(--gold);font-style:normal}
-.lab-hero .lab-lead{font-family:var(--serif);font-size:clamp(1.05rem,1.5vw,1.32rem);color:var(--ink-soft);
-  max-width:820px;line-height:1.55;font-weight:500;font-style:italic}
-.hero-banner{width:100%;max-width:1240px;border-radius:14px;display:block;margin:16px auto 0;
-  box-shadow:var(--shadow);height:auto;background:linear-gradient(135deg,var(--italy) 0%,var(--india) 55%,var(--bali) 100%);
-  aspect-ratio:16/7;object-fit:cover}
+  letter-spacing:.2em;text-transform:uppercase;color:#ffdcb2;margin-bottom:14px;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.lab-eyebrow::before{content:'';display:inline-block;width:28px;height:2px;background:var(--gold)}
+.lab-hero h1{font-family:var(--display);font-style:italic;font-weight:700;font-size:clamp(2.4rem,6vw,4.6rem);
+  line-height:1;color:#fff;letter-spacing:-.01em;margin-bottom:14px;text-shadow:0 3px 20px rgba(0,0,0,.55)}
+.lab-hero h1 em{font-style:normal;color:var(--gold);font-weight:800}
+.lab-hero h1 .amp{color:#ffd688;font-style:normal}
+.lab-hero .lab-lead{font-family:var(--serif);font-size:clamp(1.05rem,1.55vw,1.36rem);color:#fff8ec;
+  max-width:820px;line-height:1.55;font-weight:500;font-style:italic;text-shadow:0 2px 12px rgba(0,0,0,.65);
+  background:rgba(10,0,0,.28);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:12px 16px;backdrop-filter:blur(4px)}
 .hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
-.hero-meta span{padding:6px 12px;background:var(--surface);border:1px solid var(--line);border-radius:50px;color:var(--ink-soft);font-weight:700}
-.hero-meta span.accent{background:var(--accent);color:#fff;border-color:var(--accent)}
-.hero-meta span.italy{background:var(--italy);color:#fff;border-color:var(--italy)}
-.hero-meta span.india{background:var(--india);color:#fff;border-color:var(--india)}
-.hero-meta span.bali{background:var(--bali);color:#fff;border-color:var(--bali)}
+.hero-meta span{padding:6px 12px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.32);
+  border-radius:50px;color:#fff;font-weight:800;backdrop-filter:blur(6px);text-shadow:0 1px 4px rgba(0,0,0,.5)}
+.hero-meta span.accent{background:var(--accent);border-color:var(--accent);color:#fff}
+.hero-meta span.italy{background:var(--italy);border-color:var(--italy);color:#fff}
+.hero-meta span.india{background:var(--india);border-color:var(--india);color:#fff}
+.hero-meta span.bali{background:var(--bali);border-color:var(--bali);color:#fff}
 
 /* ========== Progress dots ========== */
 .progress-wrap{max-width:1240px;margin:22px auto 18px;padding:0 22px}
@@ -240,18 +246,20 @@ footer{max-width:1240px;margin:44px auto 28px;padding:0 22px;text-align:center;c
   <a class="btn-sm" href="/lingua-boost-lab/">Catalogue</a>
 </nav>
 
-<!-- ========== HERO ========== -->
+<!-- ========== HERO — image + overlay text ========== -->
 <section class="lab-hero">
-  <div class="lab-eyebrow">B1 · Reading · Listening · Vocabulary</div>
-  <h1>Eat, <em>Pray,</em> <span class="amp">&amp;</span> <em>Love</em> — <br>Three Journeys</h1>
-  <p class="lab-lead">Inspired by Elizabeth Gilbert's memoir. One year, three countries, three lessons in being human — pleasure in <strong>Rome</strong>, silence in an <strong>Indian ashram</strong>, and balance on the island of <strong>Bali</strong>.</p>
-  <div class="hero-meta">
-    <span class="accent">B1</span>
-    <span>90 min</span>
-    <span>Reading + Listening</span>
-    <span class="italy">🇮🇹 Italy</span>
-    <span class="india">🇮🇳 India</span>
-    <span class="bali">🇮🇩 Indonesia</span>
+  <div class="lab-hero-card">
+    <div class="lab-eyebrow">B1 · Reading · Listening · Vocabulary</div>
+    <h1>Eat, <em>Pray,</em> <span class="amp">&amp;</span> <em>Love</em> — <br>Three Journeys</h1>
+    <p class="lab-lead">Inspired by Elizabeth Gilbert's memoir. One year, three countries, three lessons in being human — pleasure in <strong>Rome</strong>, silence in an <strong>Indian ashram</strong>, and balance on the island of <strong>Bali</strong>.</p>
+    <div class="hero-meta">
+      <span class="accent">B1</span>
+      <span>90 min</span>
+      <span>Reading + Listening</span>
+      <span class="italy">🇮🇹 Italy</span>
+      <span class="india">🇮🇳 India</span>
+      <span class="bali">🇮🇩 Indonesia</span>
+    </div>
   </div>
 </section>
 
@@ -270,11 +278,20 @@ footer{max-width:1240px;margin:44px auto 28px;padding:0 22px;text-align:center;c
     <div class="info">
       <strong>The idea:</strong> <em>Italy</em> — how to <strong>enjoy</strong> life again. <em>India</em> — how to be <strong>quiet</strong> with yourself. <em>Indonesia (Bali)</em> — how to <strong>balance</strong> both.
     </div>
+
+    <div class="story-block" style="border-color:var(--italy);border-left:4px solid var(--italy)">
+      <div class="story-block-head"><div class="story-icon" style="background:var(--italy);color:#fff">🎬</div><div class="story-block-title">Official trailer · Sony Pictures · 2010</div></div>
+      <div style="position:relative;width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;box-shadow:var(--shadow);background:#000">
+        <iframe src="https://www.youtube.com/embed/mjay5vgIwt4?rel=0" title="Eat Pray Love — Official Trailer (Sony Pictures)" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>
+      </div>
+      <div class="video-story-caption">Watch the two-minute trailer first — you'll see Rome, an ashram in India, and the rice terraces of Bali. All three journeys of one year.</div>
+    </div>
+
     <p>Today we read three short passages — one from each country — listen to them, and pick up 18 useful travel and life-words. Ready? Let's begin in Rome.</p>
     <div class="audio-block">
       <span class="label">🔊 Intro · listen</span>
       <audio controls preload="none">
-        <source data-tts="Elizabeth Gilbert is an American writer. In 2006 she published a book called Eat, Pray, Love — a personal story about her divorce, her sadness, and her decision to travel for a whole year. She went to three countries. One for each part of the title. Italy for pleasure. India for silence. Indonesia for balance." data-voice="Joanna" type="audio/mpeg">
+        <source src="assets/audio/intro.mp3" type="audio/mpeg">
       </audio>
     </div>
   </div>
@@ -287,12 +304,20 @@ footer{max-width:1240px;margin:44px auto 28px;padding:0 22px;text-align:center;c
 
   <div class="country-card italy">
     <span class="country-mark italy">Rome · Italy</span>
-    <h3><em>Il dolce far niente</em> — <br>the sweetness of doing nothing</h3>
+    <h3 class="act-title"><em>Il dolce far niente</em> — <br>the sweetness of doing nothing</h3>
+
+    <div class="story-block italy">
+      <div class="story-block-head"><div class="story-icon">🎬</div><div class="story-block-title">Video story · a rainy afternoon in Rome</div></div>
+      <video controls preload="metadata" playsinline style="width:100%;max-width:100%;border-radius:12px;display:block;box-shadow:var(--shadow);aspect-ratio:16/9;background:#000">
+        <source src="assets/video/italy.mp4" type="video/mp4">
+      </video>
+      <div class="video-story-caption">A small trattoria near Piazza Navona. Rain outside, warm bread inside. The waiter smiles and says: take your time.</div>
+    </div>
 
     <div class="audio-block italy">
       <span class="label">🔊 Read + listen · Salli · US voice</span>
       <audio controls preload="none">
-        <source data-tts="I arrived in Rome in the middle of a rainy October. My Italian teacher had told me one phrase before I left New York — il dolce far niente. The sweetness of doing nothing. In Rome, doing nothing is not laziness. It is an art. People sit in cafés for two hours over one small espresso. They watch, they talk, they simply exist. On my third day, I ordered pasta in a small trattoria near Piazza Navona. The waiter smiled and said, take your time. I understood then — I had forgotten what pleasure felt like." data-voice="Salli" type="audio/mpeg">
+        <source src="assets/audio/italy.mp3" type="audio/mpeg">
       </audio>
     </div>
 
@@ -384,7 +409,314 @@ footer{max-width:1240px;margin:44px auto 28px;padding:0 22px;text-align:center;c
   </div>
 </section>
 
-<!-- ========== INDIA + BALI + WRAP + HW = TO BE ADDED after Maria's «go» on Italy ========== -->
+<!-- ========== 02 · INDIA ========== -->
+<section class="section" id="s02">
+  <div class="section-hdr"><span class="num india">02</span><h2>🇮🇳 India · Ashram · the art of silence</h2></div>
+  <p class="section-sub">Reading + listening + 6 vocabulary cards + 3 comprehension questions</p>
+
+  <div class="country-card india">
+    <span class="country-mark india">Ashram · India</span>
+    <h3><em>Silence</em> at 4 in the morning</h3>
+
+    <div class="story-block india">
+      <div class="story-block-head"><div class="story-icon">🎬</div><div class="story-block-title">Video story · ashram at dawn</div></div>
+      <video controls preload="metadata" playsinline style="width:100%;max-width:100%;border-radius:12px;display:block;box-shadow:var(--shadow);aspect-ratio:16/9;background:#000">
+        <source src="assets/video/india.mp4" type="video/mp4">
+      </video>
+      <div class="video-story-caption">A stone courtyard before sunrise. Two hundred people sit cross-legged. Only breathing — and one bell, once every hour.</div>
+    </div>
+
+    <div class="audio-block india">
+      <span class="label">🔊 Read + listen · Kimberly · US voice</span>
+      <audio controls preload="none">
+        <source src="assets/audio/india.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
+    <div class="reading-text">
+      <p>After Italy came <strong>India</strong>. And after pasta came the <em class="india-word">ashram</em>. <strong>Meditation</strong> began at four in the morning. My knees hurt. My mind screamed. I wanted to run out of the hall and never come back.</p>
+      <p>But the teacher told me one thing — do not fight your thoughts. Watch them like clouds. Let them pass. On the seventh day, something quiet happened inside me. A small <strong>silence</strong>. Not empty — full. Like the moment after a bell has finished ringing.</p>
+    </div>
+
+    <h3 style="margin-top:22px">🕉 Vocabulary · 6 cards</h3>
+    <p class="section-sub" style="margin-left:0">Tap a card to flip · ▶ to hear the word</p>
+    <div class="flip-grid" data-country="india">
+      <div class="flip-card india"><button class="tts-btn" data-say="silence">▶</button><div class="flip-inner">
+        <div class="flip-front"><div class="word">silence</div><div class="pos">noun</div></div>
+        <div class="flip-back"><div class="meaning">тишина</div><div class="ex">The ashram was full of silence.</div></div>
+      </div></div>
+      <div class="flip-card india"><button class="tts-btn" data-say="meditation">▶</button><div class="flip-inner">
+        <div class="flip-front"><div class="word">meditation</div><div class="pos">noun</div></div>
+        <div class="flip-back"><div class="meaning">медитация</div><div class="ex">Meditation at 4 a.m. is not easy.</div></div>
+      </div></div>
+      <div class="flip-card india"><button class="tts-btn" data-say="ashram">▶</button><div class="flip-inner">
+        <div class="flip-front"><div class="word">ashram</div><div class="pos">noun</div></div>
+        <div class="flip-back"><div class="meaning">ашрам, духовный центр</div><div class="ex">She spent months at the ashram.</div></div>
+      </div></div>
+      <div class="flip-card india"><button class="tts-btn" data-say="discipline">▶</button><div class="flip-inner">
+        <div class="flip-front"><div class="word">discipline</div><div class="pos">noun</div></div>
+        <div class="flip-back"><div class="meaning">дисциплина</div><div class="ex">Silence requires discipline.</div></div>
+      </div></div>
+      <div class="flip-card india"><button class="tts-btn" data-say="faith">▶</button><div class="flip-inner">
+        <div class="flip-front"><div class="word">faith</div><div class="pos">noun</div></div>
+        <div class="flip-back"><div class="meaning">вера</div><div class="ex">Faith is a quiet kind of hope.</div></div>
+      </div></div>
+      <div class="flip-card india"><button class="tts-btn" data-say="to surrender">▶</button><div class="flip-inner">
+        <div class="flip-front"><div class="word">to surrender</div><div class="pos">verb</div></div>
+        <div class="flip-back"><div class="meaning">сдаться, отпустить</div><div class="ex">She had to surrender her ideas.</div></div>
+      </div></div>
+    </div>
+
+    <h3 style="margin-top:22px">✅ Check yourself · 3 questions</h3>
+    <p class="section-sub" style="margin-left:0">Click the correct answer · explanation appears after</p>
+
+    <div class="mcq-row" data-ans="c">
+      <div class="mcq-q"><span class="qnum">1</span> At what time did meditation begin at the ashram?</div>
+      <div class="mcq-opts">
+        <button data-v="a">At six in the evening.</button>
+        <button data-v="b">At sunrise.</button>
+        <button data-v="c">At four in the morning.</button>
+      </div>
+      <div class="mcq-note">→ «Meditation began at four in the morning.» That was the daily rule — before sunrise, before the world starts asking anything from you.</div>
+    </div>
+
+    <div class="mcq-row" data-ans="b">
+      <div class="mcq-q"><span class="qnum">2</span> What did the teacher tell her to do with her thoughts?</div>
+      <div class="mcq-opts">
+        <button data-v="a">Write them down.</button>
+        <button data-v="b">Watch them like clouds and let them pass.</button>
+        <button data-v="c">Fight them until they disappear.</button>
+      </div>
+      <div class="mcq-note">→ Not fight — <strong>watch</strong>. The idea is to observe, not to argue. Thoughts pass on their own if you don't grab them.</div>
+    </div>
+
+    <div class="mcq-row" data-ans="a">
+      <div class="mcq-q"><span class="qnum">3</span> What kind of silence did she feel on the seventh day?</div>
+      <div class="mcq-opts">
+        <button data-v="a">Full silence — like the moment after a bell has finished ringing.</button>
+        <button data-v="b">A cold, empty silence.</button>
+        <button data-v="c">The same silence she had at home.</button>
+      </div>
+      <div class="mcq-note">→ Not empty — <em>full</em>. A silence with presence in it. That image of the bell is the key — the sound is gone but something still resonates.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========== 03 · INDONESIA / BALI ========== -->
+<section class="section" id="s03">
+  <div class="section-hdr"><span class="num bali">03</span><h2>🇮🇩 Indonesia · Bali · the art of balance</h2></div>
+  <p class="section-sub">Reading + listening + 6 vocabulary cards + 3 comprehension questions</p>
+
+  <div class="country-card bali">
+    <span class="country-mark bali">Bali · Indonesia</span>
+    <h3>The medicine man <em>and the balance</em> he taught</h3>
+
+    <div class="story-block bali">
+      <div class="story-block-head"><div class="story-icon">🎬</div><div class="story-block-title">Video story · a village in Ubud</div></div>
+      <video controls preload="metadata" playsinline style="width:100%;max-width:100%;border-radius:12px;display:block;box-shadow:var(--shadow);aspect-ratio:16/9;background:#000">
+        <source src="assets/video/bali.mp4" type="video/mp4">
+      </video>
+      <div class="video-story-caption">Green terraces stepping down the hill. In a small wooden house sits an old man with a soft laugh. He has been reading palms for sixty years.</div>
+    </div>
+
+    <div class="audio-block bali">
+      <span class="label">🔊 Read + listen · Joanna · US voice</span>
+      <audio controls preload="none">
+        <source src="assets/audio/bali.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+
+    <div class="reading-text">
+      <p><strong>Bali</strong> was different. Italy had taught me pleasure. India had taught me silence. Bali asked me to bring both into one life. I met an old <em class="bali-word">medicine man</em> in a village near Ubud. His name was Ketut. He drew a picture for me — a person with four legs and a smiling face, standing on a small green earth.</p>
+      <p>To find <strong>balance</strong>, he said, you must keep your feet on the ground and your heart open. Not too much thinking. Not too much feeling. Just watch, and smile. Bali does the rest.</p>
+    </div>
+
+    <h3 style="margin-top:22px">🌴 Vocabulary · 6 cards</h3>
+    <p class="section-sub" style="margin-left:0">Tap a card to flip · ▶ to hear the word</p>
+    <div class="flip-grid" data-country="bali">
+      <div class="flip-card bali"><button class="tts-btn" data-say="balance">▶</button><div class="flip-inner">
+        <div class="flip-front"><div class="word">balance</div><div class="pos">noun</div></div>
+        <div class="flip-back"><div class="meaning">равновесие</div><div class="ex">Bali gave her balance.</div></div>
+      </div></div>
+      <div class="flip-card bali"><button class="tts-btn" data-say="healing">▶</button><div class="flip-inner">
+        <div class="flip-front"><div class="word">healing</div><div class="pos">noun</div></div>
+        <div class="flip-back"><div class="meaning">исцеление</div><div class="ex">The medicine man practised healing.</div></div>
+      </div></div>
+      <div class="flip-card bali"><button class="tts-btn" data-say="medicine man">▶</button><div class="flip-inner">
+        <div class="flip-front"><div class="word">medicine man</div><div class="pos">noun</div></div>
+        <div class="flip-back"><div class="meaning">знахарь, целитель</div><div class="ex">The medicine man read her palm.</div></div>
+      </div></div>
+      <div class="flip-card bali"><button class="tts-btn" data-say="community">▶</button><div class="flip-inner">
+        <div class="flip-front"><div class="word">community</div><div class="pos">noun</div></div>
+        <div class="flip-back"><div class="meaning">сообщество</div><div class="ex">The village lived as one community.</div></div>
+      </div></div>
+      <div class="flip-card bali"><button class="tts-btn" data-say="wisdom">▶</button><div class="flip-inner">
+        <div class="flip-front"><div class="word">wisdom</div><div class="pos">noun</div></div>
+        <div class="flip-back"><div class="meaning">мудрость</div><div class="ex">His wisdom came from age.</div></div>
+      </div></div>
+      <div class="flip-card bali"><button class="tts-btn" data-say="to belong">▶</button><div class="flip-inner">
+        <div class="flip-front"><div class="word">to belong</div><div class="pos">verb</div></div>
+        <div class="flip-back"><div class="meaning">принадлежать, быть на месте</div><div class="ex">On Bali she began to belong.</div></div>
+      </div></div>
+    </div>
+
+    <h3 style="margin-top:22px">✅ Check yourself · 3 questions</h3>
+    <p class="section-sub" style="margin-left:0">Click the correct answer · explanation appears after</p>
+
+    <div class="mcq-row" data-ans="b">
+      <div class="mcq-q"><span class="qnum">1</span> What lesson did Bali offer her?</div>
+      <div class="mcq-opts">
+        <button data-v="a">Just pleasure — like Italy.</button>
+        <button data-v="b">To bring pleasure and silence together into one life.</button>
+        <button data-v="c">To meditate at four in the morning.</button>
+      </div>
+      <div class="mcq-note">→ Bali is the <strong>synthesis</strong> — Italy + India in one place. Not either/or but both/and. That's the whole point of the third journey.</div>
+    </div>
+
+    <div class="mcq-row" data-ans="c">
+      <div class="mcq-q"><span class="qnum">2</span> Who did she meet in Ubud?</div>
+      <div class="mcq-opts">
+        <button data-v="a">A yoga teacher.</button>
+        <button data-v="b">A café owner.</button>
+        <button data-v="c">An old medicine man named Ketut.</button>
+      </div>
+      <div class="mcq-note">→ Ketut Liyer — a real person from Gilbert's memoir. In the text: «I met an old medicine man in a village near Ubud. His name was Ketut.»</div>
+    </div>
+
+    <div class="mcq-row" data-ans="a">
+      <div class="mcq-q"><span class="qnum">3</span> According to Ketut, what does balance require?</div>
+      <div class="mcq-opts">
+        <button data-v="a">Feet on the ground and an open heart — not too much thinking, not too much feeling.</button>
+        <button data-v="b">Long hours of meditation every day.</button>
+        <button data-v="c">Complete silence and solitude.</button>
+      </div>
+      <div class="mcq-note">→ Grounded, open, watching. Balance = <em>middle way</em>. Not the intensity of the ashram, not the abandon of Rome — the still centre between them.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========== 04 · VOCAB WRAP-UP ========== -->
+<section class="section" id="s04">
+  <div class="section-hdr"><span class="num">04</span><h2>🧭 Vocabulary wrap-up · 18 words in three colours</h2></div>
+  <p class="section-sub">All three countries in one grid · tap to flip · ▶ to hear · builder auto-highlights them in the reading text above</p>
+  <div class="card">
+    <p>You've met 18 new words — 6 in Rome, 6 at the ashram, 6 on Bali. The vocabulary section that <strong>appears automatically</strong> at the top of the page is your central deck — click any word in the reading text to add it. Everyone can add — teacher and student alike.</p>
+    <div class="info">
+      <strong>How to add a word:</strong> highlight any word in the reading text → <em>«+ в словарь»</em> appears on the right → tap → fill in the meaning → it saves to your local deck with a ⭐ mark. Works for both of us.
+    </div>
+  </div>
+</section>
+
+<!-- ========== 05 · SPEAKING ========== -->
+<section class="section" id="s05">
+  <div class="section-hdr"><span class="num">05</span><h2>🎤 Speaking · Would you rather? · 6 questions</h2></div>
+  <p class="section-sub">Answer aloud in full sentences · use «I would rather…», «For me…», «I think…» · minimum 2 sentences per answer</p>
+  <div class="card">
+    <ol style="list-style:none;padding:0;counter-reset:sp;margin:0">
+      <li style="padding:10px 0 10px 42px;border-bottom:1px dashed var(--line);position:relative;font-size:1rem;line-height:1.6" data-sp>Would you rather live in Rome for a year — or in an Indian ashram for a year? Why?</li>
+      <li style="padding:10px 0 10px 42px;border-bottom:1px dashed var(--line);position:relative;font-size:1rem;line-height:1.6" data-sp>Would you rather learn a language by <em>sitting in cafés</em> — or by <em>studying in silence</em>?</li>
+      <li style="padding:10px 0 10px 42px;border-bottom:1px dashed var(--line);position:relative;font-size:1rem;line-height:1.6" data-sp>Would you rather have <strong>pleasure without wisdom</strong>, or <strong>wisdom without pleasure</strong>?</li>
+      <li style="padding:10px 0 10px 42px;border-bottom:1px dashed var(--line);position:relative;font-size:1rem;line-height:1.6" data-sp>Would you rather meet Ketut on Bali — or Gilbert's Italian teacher in Rome?</li>
+      <li style="padding:10px 0 10px 42px;border-bottom:1px dashed var(--line);position:relative;font-size:1rem;line-height:1.6" data-sp>Would you rather find balance in a busy city — or in a quiet village?</li>
+      <li style="padding:10px 0 10px 42px;border-bottom:1px dashed var(--line);position:relative;font-size:1rem;line-height:1.6" data-sp>Would you rather travel for a whole year alone — or for a month with a friend?</li>
+    </ol>
+    <style>
+      section#s05 ol li::before{content:counter(sp);counter-increment:sp;position:absolute;left:0;top:12px;
+        width:28px;height:28px;border-radius:50%;background:var(--accent-soft, rgba(197,106,92,.1));color:var(--accent2);
+        font-family:var(--mono);font-weight:800;font-size:12px;display:grid;place-items:center;border:1.5px solid var(--accent)}
+      section#s05 ol li:last-child{border-bottom:none}
+    </style>
+  </div>
+</section>
+
+<!-- ========== 06 · HOMEWORK ========== -->
+<section class="section" id="s06">
+  <div class="section-hdr"><span class="num">06</span><h2>📚 Homework · 4 auto-check exercises</h2></div>
+  <p class="section-sub">Green = correct, red = try again · your progress saves automatically</p>
+  <div class="card">
+
+    <h3>1 · Match countries and lessons (drag / tap)</h3>
+    <p style="font-size:.94rem;color:var(--muted);margin-bottom:12px">Which country taught which lesson? Click the matching pair — country + lesson.</p>
+    <div class="mcq-row" data-ans="a">
+      <div class="mcq-q"><span class="qnum">1</span> Italy taught her…</div>
+      <div class="mcq-opts">
+        <button data-v="a">pleasure</button><button data-v="b">silence</button><button data-v="c">balance</button>
+      </div>
+      <div class="mcq-note">→ Rome · pasta · <em>dolce far niente</em> — the art of enjoying.</div>
+    </div>
+    <div class="mcq-row" data-ans="b">
+      <div class="mcq-q"><span class="qnum">2</span> India taught her…</div>
+      <div class="mcq-opts">
+        <button data-v="a">pleasure</button><button data-v="b">silence</button><button data-v="c">community</button>
+      </div>
+      <div class="mcq-note">→ Ashram · meditation · watching thoughts pass — full silence, not empty.</div>
+    </div>
+    <div class="mcq-row" data-ans="c">
+      <div class="mcq-q"><span class="qnum">3</span> Bali taught her…</div>
+      <div class="mcq-opts">
+        <button data-v="a">pleasure</button><button data-v="b">silence</button><button data-v="c">balance</button>
+      </div>
+      <div class="mcq-note">→ Ketut · four legs · smiling face · <em>middle way</em> between the two.</div>
+    </div>
+
+    <h3 style="margin-top:24px">2 · Word-in-context · pick the missing word</h3>
+
+    <div class="mcq-row" data-ans="b">
+      <div class="mcq-q"><span class="qnum">1</span> «I had forgotten what <span style="border-bottom:1.5px dashed var(--accent);padding:0 6px;color:var(--accent2);font-weight:700">___</span> felt like.» (Rome)</div>
+      <div class="mcq-opts">
+        <button data-v="a">laziness</button><button data-v="b">pleasure</button><button data-v="c">discipline</button>
+      </div>
+      <div class="mcq-note">→ Rome brought back <strong>pleasure</strong> — the missing one from her old life.</div>
+    </div>
+
+    <div class="mcq-row" data-ans="a">
+      <div class="mcq-q"><span class="qnum">2</span> «Silence requires <span style="border-bottom:1.5px dashed var(--accent);padding:0 6px;color:var(--accent2);font-weight:700">___</span>.» (Ashram)</div>
+      <div class="mcq-opts">
+        <button data-v="a">discipline</button><button data-v="b">balance</button><button data-v="c">wisdom</button>
+      </div>
+      <div class="mcq-note">→ You can't just fall into silence — you have to <strong>choose</strong> it, day after day.</div>
+    </div>
+
+    <div class="mcq-row" data-ans="c">
+      <div class="mcq-q"><span class="qnum">3</span> «Keep your feet on the ground and your heart open — that is <span style="border-bottom:1.5px dashed var(--accent);padding:0 6px;color:var(--accent2);font-weight:700">___</span>.» (Bali)</div>
+      <div class="mcq-opts">
+        <button data-v="a">pleasure</button><button data-v="b">community</button><button data-v="c">balance</button>
+      </div>
+      <div class="mcq-note">→ Ketut's core lesson. Both/and, not either/or.</div>
+    </div>
+
+    <h3 style="margin-top:24px">3 · Sentence order · rebuild the phrase</h3>
+    <p style="font-size:.94rem;color:var(--muted);margin-bottom:12px">Click the words in the right order. Two Would-you-rather patterns.</p>
+
+    <div class="mcq-row" data-ans="b">
+      <div class="mcq-q"><span class="qnum">1</span> Correct order — polite offer:</div>
+      <div class="mcq-opts">
+        <button data-v="a">Would you rather have coffee?</button>
+        <button data-v="b">Would you rather have tea or coffee?</button>
+        <button data-v="c">You would rather tea or coffee have?</button>
+      </div>
+      <div class="mcq-note">→ Pattern: <em>Would you rather + verb + option A + or + option B</em>?</div>
+    </div>
+
+    <div class="mcq-row" data-ans="a">
+      <div class="mcq-q"><span class="qnum">2</span> Correct reply structure:</div>
+      <div class="mcq-opts">
+        <button data-v="a">I would rather live in Rome because I love pasta.</button>
+        <button data-v="b">I rather would Rome live because pasta love.</button>
+        <button data-v="c">Rather I live Rome pasta love.</button>
+      </div>
+      <div class="mcq-note">→ Pattern: <em>I would rather + verb + reason with «because»</em>.</div>
+    </div>
+
+    <h3 style="margin-top:24px">4 · Speaking · pick one country and record</h3>
+    <div class="info">
+      <strong>Choose one country</strong> (Italy · India · Bali) and record a <strong>60-second voice memo</strong>: describe what that country taught the narrator, using at least <strong>5 words</strong> from that country's vocab section. Send to teacher before the next lesson.
+    </div>
+
+  </div>
+</section>
 
 <footer>
   Lesson by Maria Burtseva · NG English · LinguaBoost Lab · B1 · Eat, Pray, Love — Three Journeys
