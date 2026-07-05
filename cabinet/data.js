@@ -1349,7 +1349,7 @@ window.NGE_DATA = {
       "schedule_note": "Время воскресенья перенесено 12:00 → 13:00 по просьбе мамы (с июня). Учитель рассматривает формат — возможно вернёмся к 12:00 или другому окну.",
       "price_per_lesson": 2500,
       "monthly_package": 20000,
-      "lessons_in_package": 8,
+      "lessons_in_package": 9,
       "subscription_month": "2026-06",
       "lessons_used_this_month": 9,
       "stability_note": "",
