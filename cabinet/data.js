@@ -690,7 +690,7 @@ window.NGE_DATA = {
           },
           {
             "name": "B1-EGE-Dana-conspect-2026.pdf",
-            "label": "📘 Конспект года · B1+ ЕГЭ (с Saint Petersburg и Russian History)",
+            "label": "📘 Конспект года · B1+ ЕГЭ · 17 глав (+Russia overview · geography · Peter I & Hermitage)",
             "audience": "all"
           },
           {
