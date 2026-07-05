@@ -1378,10 +1378,10 @@ window.NGE_DATA = {
       "schedule_note": "Время воскресенья перенесено 12:00 → 13:00 по просьбе мамы (с июня). Учитель рассматривает формат — возможно вернёмся к 12:00 или другому окну.",
       "price_per_lesson": 2500,
       "monthly_package": 20000,
-      "lessons_in_package": 9,
-      "subscription_month": "2026-06",
-      "lessons_used_this_month": 9,
-      "summer_plan_note": "Летний блок — Travel Talk 2 (early July) + новый B1 цикл",
+      "lessons_in_package": 4,
+      "subscription_month": "2026-07",
+      "lessons_used_this_month": 1,
+      "summer_plan_note": "Июль · новый B1 цикл (4 урока: 5 · 12 · 19 · 26 июля)",
       "stability_note": "",
       "payment_status": "Оплачено",
       "parent_name": "Кедрова Татьяна Владимировна",
@@ -1474,8 +1474,19 @@ window.NGE_DATA = {
           "date": "2026-07-12",
           "num": 10,
           "status": "planned",
-          "topic": "Второй урок нового блока — тема согласовывается после летнего пересбора",
-          "schedule_note": "точная дата уточняется"
+          "topic": "Тема согласовывается после летнего пересбора"
+        },
+        {
+          "date": "2026-07-19",
+          "num": 11,
+          "status": "planned",
+          "topic": "Тема согласовывается после летнего пересбора"
+        },
+        {
+          "date": "2026-07-26",
+          "num": 12,
+          "status": "planned",
+          "topic": "Тема согласовывается после летнего пересбора"
         }
       ]
     },
