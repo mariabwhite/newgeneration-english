@@ -727,6 +727,7 @@ window.NGE_DATA = {
       "lessons_in_package": 4,
       "subscription_month": "2026-06",
       "lessons_used_this_month": 4,
+      "summer_plan_note": "Летний блок — A1 recap (June) + переход к Past Simple (July)",
       "stability_note": "",
       "lessons": [
         {
@@ -1352,6 +1353,7 @@ window.NGE_DATA = {
       "lessons_in_package": 9,
       "subscription_month": "2026-06",
       "lessons_used_this_month": 9,
+      "summer_plan_note": "Летний блок — Travel Talk 2 (early July) + новый B1 цикл",
       "stability_note": "",
       "payment_status": "Оплачено",
       "parent_name": "Кедрова Татьяна Владимировна",
