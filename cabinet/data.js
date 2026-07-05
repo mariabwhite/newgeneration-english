@@ -725,9 +725,9 @@ window.NGE_DATA = {
       "parent_name": "",
       "pin": "6347",
       "lessons_in_package": 4,
-      "subscription_month": "2026-06",
-      "lessons_used_this_month": 4,
-      "summer_plan_note": "Летний блок — A1 recap (June) + переход к Past Simple (July)",
+      "subscription_month": "2026-07",
+      "lessons_used_this_month": 0,
+      "summer_plan_note": "Июльский абонемент · 4 воскресенья · Past Simple основной блок",
       "stability_note": "",
       "lessons": [
         {
@@ -805,6 +805,18 @@ window.NGE_DATA = {
           "num": 10,
           "status": "planned",
           "topic": "Past Simple · старт — «what I did yesterday / last Sunday» + 5 core irregular (went, was, had, saw, did)"
+        },
+        {
+          "date": "2026-07-19",
+          "num": 11,
+          "status": "planned",
+          "topic": "Past Simple · регулярные глаголы + история дня / выходных"
+        },
+        {
+          "date": "2026-07-29",
+          "num": 12,
+          "status": "planned",
+          "topic": "Past Simple · irregular batch 2 + мини-нарратив (закрытие июльского абонемента)"
         }
       ],
       "external_platforms": [
