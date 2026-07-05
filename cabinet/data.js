@@ -346,7 +346,7 @@ window.NGE_DATA = {
       "price_per_lesson": 2500,
       "lessons_in_package": 10,
       "subscription_month": "2026-06",
-      "lessons_used_this_month": 9,
+      "lessons_used_this_month": 10,
       "summer_plan_note": "Летний блок 10 уроков · июнь + июль 2026",
       "payment_status": "Оплачено",
       "payment_note": "",
@@ -432,7 +432,7 @@ window.NGE_DATA = {
         {
           "date": "2026-07-05",
           "num": 10,
-          "status": "planned",
+          "status": "completed",
           "topic": "✈️ Travel Talk · Light & Bright 2 · Night Edition — вечерние путешествия",
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/travel-talk-light-and-bright-2/",
@@ -594,8 +594,8 @@ window.NGE_DATA = {
       "price_per_lesson": 2500,
       "lessons_in_package": 10,
       "subscription_month": "2026-06",
-      "lessons_used_this_month": 2,
-      "summer_plan_note": "Интенсив-абонемент 10 уроков · старт 26.06 · проведено 2 / 10 · дальше пн / вт / чт 18:00",
+      "lessons_used_this_month": 4,
+      "summer_plan_note": "Интенсив-абонемент 10 уроков · старт 26.06 · проведено 4 / 10 · дальше пн / вт / чт 18:00",
       "stability_note": "",
       "payment_status": "Оплачено",
       "payment_note": "",
@@ -627,10 +627,10 @@ window.NGE_DATA = {
           }
         },
         {
-          "date": "2026-06-30",
+          "date": "2026-07-05",
           "num": 3,
-          "status": "planned",
-          "topic": "Russia / ЕГЭ-формат — продолжение интенсива",
+          "status": "completed",
+          "topic": "🇷🇺 Russia · воскресный интенсив (14:35) — страноведение + ЕГЭ-формат",
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/russia-my-homeland/",
             "module_title": "Russia · My Homeland"
@@ -639,7 +639,7 @@ window.NGE_DATA = {
         {
           "date": "2026-07-03",
           "num": 4,
-          "status": "planned",
+          "status": "completed",
           "topic": "ЕГЭ-формат (Word Formation / Speaking)"
         },
         {
@@ -726,7 +726,7 @@ window.NGE_DATA = {
       "pin": "6347",
       "lessons_in_package": 4,
       "subscription_month": "2026-06",
-      "lessons_used_this_month": 3,
+      "lessons_used_this_month": 4,
       "stability_note": "",
       "lessons": [
         {
@@ -790,14 +790,20 @@ window.NGE_DATA = {
         {
           "date": "2026-07-05",
           "num": 9,
-          "status": "planned",
+          "status": "completed",
           "is_makeup": true,
-          "topic": "Ориентация в городе — отработка за 14.06 (учитель болел)",
+          "topic": "Ориентация в городе + Workbook 01 · A1 Recap (сборка всех тем)",
           "homework": {
-            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/a1/city-speaking/",
-            "module_title": "🏙️ Открыть «Мой город — сегодня и через 50 лет»",
-            "text": "Та же тема что 21.06 + отработка пропущенного 14.06. Lab-урок."
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/practice/denis-workbook-01/",
+            "module_title": "📚 Открыть Workbook 01 · A1 Recap",
+            "text": "Рабочая тетрадь · 12 упражнений с автопроверкой: vocab flip + TTS, все 4 времени (Simple / Continuous / will / going to), Build the question, plurals & this-that-these-those, have got & apostrophe 's, café dialogue, aux-drill 15 gaps (Do / Does / Am / Is / Are / Will), mic-drill 6 open questions. + Quizlet 44 слова."
           }
+        },
+        {
+          "date": "2026-07-12",
+          "num": 10,
+          "status": "planned",
+          "topic": "Past Simple · старт — «what I did yesterday / last Sunday» + 5 core irregular (went, was, had, saw, did)"
         }
       ],
       "external_platforms": [
@@ -1345,7 +1351,7 @@ window.NGE_DATA = {
       "monthly_package": 20000,
       "lessons_in_package": 8,
       "subscription_month": "2026-06",
-      "lessons_used_this_month": 8,
+      "lessons_used_this_month": 9,
       "stability_note": "",
       "payment_status": "Оплачено",
       "parent_name": "Кедрова Татьяна Владимировна",
@@ -1427,9 +1433,12 @@ window.NGE_DATA = {
         {
           "date": "2026-07-05",
           "num": 9,
-          "status": "planned",
-          "topic": "Старт нового блока — тема согласовывается после летнего пересбора",
-          "schedule_note": "точная дата уточняется"
+          "status": "completed",
+          "topic": "✈️ Travel Talk · Light & Bright 2 · Night Edition — вечерние путешествия",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/travel-talk-light-and-bright-2/",
+            "module_title": "✈️ Открыть Travel Talk · Light & Bright 2"
+          }
         },
         {
           "date": "2026-07-12",

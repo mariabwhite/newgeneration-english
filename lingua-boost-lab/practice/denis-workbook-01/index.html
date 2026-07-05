@@ -60,8 +60,10 @@ a{color:inherit;text-decoration:none}
 /* Hero */
 .hero{max-width:1240px;margin:24px auto 18px;padding:0 clamp(16px,3vw,28px)}
 .hero-card{position:relative;border:1px solid var(--line);border-radius:24px;overflow:hidden;
-  background:linear-gradient(135deg,#0e7c66 0%,#1ba18a 40%,#f3d3a8 78%,#c98a3f 100%);
-  padding:clamp(28px,4.5vw,52px);min-height:280px;box-shadow:0 10px 40px rgba(0,0,0,.12);color:#fff}
+  background:
+    linear-gradient(135deg,rgba(14,124,102,.72) 0%,rgba(27,161,138,.42) 42%,rgba(0,0,0,.28) 78%,rgba(201,138,63,.55) 100%),
+    url("hero.png") center 40% / cover no-repeat;
+  padding:clamp(28px,4.5vw,52px);min-height:320px;box-shadow:0 10px 40px rgba(0,0,0,.12);color:#fff}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.20);border:1px solid rgba(255,255,255,.35);
   padding:7px 14px;border-radius:50px;font:800 11px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:#fff;margin-bottom:18px;backdrop-filter:blur(10px)}
 h1.hero-title{font-family:var(--display);font-weight:900;letter-spacing:-.04em;line-height:1;
@@ -223,6 +225,14 @@ footer{max-width:1240px;margin:48px auto 28px;padding:0 22px;text-align:center;c
 .vocab-card{min-height:130px;box-sizing:border-box}
 .vocab-front,.vocab-back{padding:20px 10px 12px!important;box-sizing:border-box;overflow:hidden;word-break:break-word;hyphens:auto;-webkit-hyphens:auto}
 .vocab-front{font-size:clamp(.78rem,1.4vw,.96rem)!important;line-height:1.2}
+
+/* Human interactivity — instant feedback */
+.mcq-opts button[disabled]{cursor:default;opacity:.85}
+.mcq-opts button.wrong[disabled]{opacity:.7}
+.classify-bin.wrong-flash{background:rgba(196,90,90,.16)!important;border-color:var(--miss)!important;animation:badPulse .4s}
+.aux-gap.wrong-shake{animation:badPulse .35s;background:rgba(196,90,90,.18)!important;border-color:var(--miss)!important;color:var(--miss)!important;border-style:solid}
+.word-bank button.shake-wrong{animation:badPulse .35s;background:rgba(196,90,90,.16);border-color:var(--miss);color:var(--miss)}
+.target-line .slot.correct{color:var(--ok);border-bottom-color:var(--ok);font-weight:700}
 </style>
 <style id="codex-white-corner-logo-20260701">
 .topbar .brand-mark{position:relative!important;overflow:visible!important;border-top-right-radius:0!important}
@@ -867,7 +877,7 @@ document.querySelectorAll('.vocab-tts').forEach(btn=>{
 });
 </script>
 
-<!-- MCQ · shuffle options on load + answer check -->
+<!-- MCQ · shuffle + human check: wrong = локально disabled, correct = блокирует всё + note -->
 <script>
 document.querySelectorAll('.mcq-row').forEach(row=>{
   const opts=row.querySelector('.mcq-opts');
@@ -878,10 +888,16 @@ document.querySelectorAll('.mcq-row').forEach(row=>{
   const ans=(row.dataset.ans||'').toLowerCase();
   row.querySelectorAll('.mcq-opts button').forEach(btn=>{
     btn.addEventListener('click',()=>{
+      if(btn.disabled)return;
       const v=(btn.dataset.v||'').toLowerCase();
-      row.querySelectorAll('.mcq-opts button').forEach(b=>b.classList.remove('correct','wrong'));
-      if(v===ans){btn.classList.add('correct');row.classList.add('revealed');}
-      else btn.classList.add('wrong');
+      if(v===ans){
+        btn.classList.add('correct');
+        row.classList.add('revealed');
+        row.querySelectorAll('.mcq-opts button').forEach(b=>{b.disabled=true;});
+      }else{
+        btn.classList.add('wrong');
+        btn.disabled=true;
+      }
     });
   });
 });
@@ -930,12 +946,18 @@ document.querySelectorAll('.gapfill button.check').forEach(btn=>{
 })();
 </script>
 
-<!-- Classify (demonstratives) -->
+<!-- Classify · human check: правильная постановка → зелёное, неверная → shake + возврат в pool -->
 <script>
 (function(){
   const pool=document.getElementById('cl-pool');
   if(!pool)return;
+  const resEl=document.getElementById('cl-result');
+  const totalChips=pool.querySelectorAll('.chip').length;
   let selected=null;
+  const refreshResult=()=>{
+    const placed=document.querySelectorAll('.classify-bin .placed-items > span').length;
+    resEl.textContent = placed>=totalChips ? ('✓ '+placed+' / '+totalChips+' correct') : (placed+' / '+totalChips);
+  };
   pool.addEventListener('click',e=>{
     const chip=e.target.closest('.chip');
     if(!chip||chip.classList.contains('placed'))return;
@@ -946,78 +968,84 @@ document.querySelectorAll('.gapfill button.check').forEach(btn=>{
   document.querySelectorAll('.classify-bin').forEach(bin=>{
     bin.addEventListener('click',()=>{
       if(!selected)return;
-      const clone=document.createElement('span');
-      clone.textContent=selected.textContent;
-      clone.dataset.cls=selected.dataset.cls;
-      clone.dataset.bin=bin.dataset.bin;
-      clone.addEventListener('click',()=>{
-        // send back to pool
-        const orig=[...pool.querySelectorAll('.chip')].find(c=>c.textContent===clone.textContent);
-        if(orig)orig.classList.remove('placed','correct','wrong');
-        clone.remove();
-      });
-      bin.querySelector('.placed-items').appendChild(clone);
-      selected.classList.add('placed');selected.classList.remove('selected');selected=null;
+      const isRight = selected.dataset.cls === bin.dataset.bin;
+      if(isRight){
+        const clone=document.createElement('span');
+        clone.textContent=selected.textContent;
+        clone.classList.add('correct');
+        bin.querySelector('.placed-items').appendChild(clone);
+        selected.classList.add('placed');
+        selected.classList.remove('selected');
+        selected=null;
+        refreshResult();
+      }else{
+        bin.classList.add('wrong-flash');
+        selected.classList.add('wrong');
+        setTimeout(()=>{
+          bin.classList.remove('wrong-flash');
+          if(selected){selected.classList.remove('wrong','selected');selected=null;}
+        },500);
+      }
     });
   });
-  document.getElementById('cl-check').addEventListener('click',()=>{
-    let ok=0,total=0;
-    document.querySelectorAll('.classify-bin .placed-items > span').forEach(s=>{
-      total++;
-      s.classList.remove('correct','wrong');
-      if(s.dataset.cls===s.dataset.bin){s.classList.add('correct');ok++;}
-      else s.classList.add('wrong');
-    });
-    document.getElementById('cl-result').textContent=ok+' / '+total+' correct'+(total<8?' (place all 8 first)':'');
-  });
+  document.getElementById('cl-check').addEventListener('click',refreshResult);
   document.getElementById('cl-reset').addEventListener('click',()=>{
     document.querySelectorAll('.classify-bin .placed-items').forEach(p=>p.innerHTML='');
     pool.querySelectorAll('.chip').forEach(c=>c.classList.remove('placed','selected','correct','wrong'));
-    document.getElementById('cl-result').textContent='';
+    resEl.textContent='';
     selected=null;
   });
 })();
 </script>
 
-<!-- Builder -->
+<!-- Builder · human check: только правильное слово принимается в следующий слот, неверное shake'ается -->
 <script>
 document.querySelectorAll('.builder').forEach(b=>{
   const slots=b.querySelectorAll('.slot');
   const bank=b.querySelector('.word-bank');
   const status=b.querySelector('.builder-status');
   const answer=(b.dataset.answer||'').trim();
-  // Shuffle bank buttons so student can't guess the order
+  const expected=answer.replace(/\s*[?.!]\s*$/,'').split(/\s+/);
   const btns=[...bank.querySelectorAll('button')];
   btns.sort(()=>Math.random()-0.5).forEach(btn=>bank.appendChild(btn));
   bank.querySelectorAll('button').forEach(btn=>{
     btn.addEventListener('click',()=>{
       if(btn.classList.contains('used'))return;
-      const empty=[...slots].find(s=>!s.classList.contains('filled'));
-      if(!empty)return;
-      empty.textContent=btn.dataset.w;
-      empty.classList.add('filled');
-      empty.dataset.src=btn.dataset.w;
-      btn.classList.add('used');
+      const idx=[...slots].findIndex(s=>!s.classList.contains('filled'));
+      if(idx<0)return;
+      const need=(expected[idx]||'').toLowerCase();
+      if(btn.dataset.w.toLowerCase()===need){
+        const slot=slots[idx];
+        slot.textContent=btn.dataset.w;
+        slot.classList.add('filled','correct');
+        slot.dataset.src=btn.dataset.w;
+        btn.classList.add('used');
+        if(idx===slots.length-1){status.textContent='✓ correct';status.className='builder-status ok';}
+      }else{
+        btn.classList.add('shake-wrong');
+        setTimeout(()=>btn.classList.remove('shake-wrong'),380);
+      }
     });
   });
-  slots.forEach(s=>{
+  slots.forEach((s,i)=>{
     s.addEventListener('click',()=>{
       if(!s.classList.contains('filled'))return;
+      const lastFilledIdx=[...slots].map(x=>x.classList.contains('filled')).lastIndexOf(true);
+      if(i!==lastFilledIdx)return;
       const src=s.dataset.src;
-      const btn=[...bank.querySelectorAll('button')].find(b=>b.dataset.w===src&&b.classList.contains('used'));
+      const btn=[...bank.querySelectorAll('button')].find(bb=>bb.dataset.w===src&&bb.classList.contains('used'));
       if(btn)btn.classList.remove('used');
-      s.textContent='___';s.classList.remove('filled');delete s.dataset.src;
+      s.textContent='___';s.classList.remove('filled','correct');delete s.dataset.src;
       status.textContent='';status.className='builder-status';
     });
   });
   b.querySelector('[data-act="check"]').addEventListener('click',()=>{
-    const parts=[...slots].map(s=>s.classList.contains('filled')?s.textContent:'').filter(Boolean).join(' ')+' '+(answer.trim().endsWith('?')?'?':(answer.trim().endsWith('.')?'.':''));
-    const clean=s=>s.replace(/\s+/g,' ').trim().toLowerCase();
-    if(clean(parts)===clean(answer)){status.textContent='✓ correct';status.className='builder-status ok';}
-    else{status.textContent='✗ try again';status.className='builder-status bad';}
+    const allFilled=[...slots].every(s=>s.classList.contains('filled'));
+    if(allFilled){status.textContent='✓ correct';status.className='builder-status ok';}
+    else{status.textContent='keep going…';status.className='builder-status';}
   });
   b.querySelector('[data-act="reset"]').addEventListener('click',()=>{
-    slots.forEach(s=>{s.textContent='___';s.classList.remove('filled');delete s.dataset.src;});
+    slots.forEach(s=>{s.textContent='___';s.classList.remove('filled','correct');delete s.dataset.src;});
     bank.querySelectorAll('button').forEach(x=>x.classList.remove('used'));
     status.textContent='';status.className='builder-status';
   });
@@ -1089,29 +1117,30 @@ document.querySelectorAll('.builder').forEach(b=>{
   list.addEventListener('click',e=>{
     const g=e.target.closest('.aux-gap');
     if(!g)return;
-    if(g.classList.contains('filled')||g.classList.contains('correct')||g.classList.contains('wrong')){
-      g.textContent='';
-      g.classList.remove('filled','correct','wrong');
-      return;
-    }
+    // Already correct? Locked. Ignore clicks.
+    if(g.classList.contains('correct'))return;
+    // No pill selected? Do nothing.
     if(!sel)return;
-    g.textContent=sel.dataset.w;
-    g.classList.add('filled');
-    sel.classList.remove('selected');
-    sel=null;
+    const val=(sel.dataset.w||'').toLowerCase();
+    const exp=(g.dataset.a||'').toLowerCase();
+    if(val===exp){
+      g.textContent=sel.dataset.w;
+      g.classList.add('correct');
+      g.classList.remove('wrong-shake','filled');
+      sel.classList.remove('selected');
+      sel=null;
+      const total=list.querySelectorAll('.aux-gap').length;
+      const done=list.querySelectorAll('.aux-gap.correct').length;
+      resEl.textContent = done>=total ? ('✓ '+done+' / '+total+' correct') : (done+' / '+total);
+    }else{
+      g.classList.add('wrong-shake');
+      setTimeout(()=>g.classList.remove('wrong-shake'),380);
+    }
   });
   document.getElementById('aux-check').addEventListener('click',()=>{
-    let ok=0,total=0;
-    list.querySelectorAll('.aux-gap').forEach(g=>{
-      total++;
-      const val=(g.textContent||'').trim().toLowerCase();
-      const exp=(g.dataset.a||'').trim().toLowerCase();
-      g.classList.remove('correct','wrong','filled');
-      if(!val){g.classList.add('wrong');return;}
-      if(val===exp){g.classList.add('correct');ok++;}
-      else g.classList.add('wrong');
-    });
-    resEl.textContent=ok+' / '+total+' correct';
+    const total=list.querySelectorAll('.aux-gap').length;
+    const done=list.querySelectorAll('.aux-gap.correct').length;
+    resEl.textContent = done>=total ? ('✓ '+done+' / '+total+' correct') : (done+' / '+total);
   });
   document.getElementById('aux-reset').addEventListener('click',()=>{
     list.querySelectorAll('.aux-gap').forEach(g=>{
