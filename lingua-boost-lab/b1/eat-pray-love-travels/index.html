@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/lingua-boost-lab/assets/premium-lesson-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Eat, Pray, Love — Three Journeys · B1 Lab Lesson</title>
+<meta name="description" content="B1 interactive English lesson inspired by Elizabeth Gilbert's «Eat, Pray, Love»: Italy — pleasure, India — silence, Indonesia — balance. Reading + listening + vocab.">
+<meta name="robots" content="index, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800;900&family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/lab-pilot.css?v=7">
+<style>
+:root{
+  --bg:#fbf0e0;
+  --surface:#fff8ec;
+  --surface-2:#ffe9c8;
+  --accent:#C56A5C;
+  --accent2:#8B3A2E;
+  --gold:#E8B457;
+  --italy:#B84545;
+  --india:#D97706;
+  --bali:#2D8B7F;
+  --ink:#2c1608;
+  --ink-soft:#5c3820;
+  --muted:#8B6B3D;
+  --line:rgba(197,106,92,.18);
+  --shadow:0 10px 30px rgba(139,58,46,.12);
+  --ok:#2C7A4D;
+  --miss:#B23A3A;
+  --display:'Unbounded', system-ui, sans-serif;
+  --body:'Manrope', system-ui, sans-serif;
+  --serif:'Cormorant Garamond', Georgia, serif;
+  --mono:'JetBrains Mono', Consolas, monospace;
+  --demo-top-width:min(100% - 44px, 1240px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);font-family:var(--body);color:var(--ink);min-height:100vh;overflow-x:hidden;line-height:1.65}
+a{color:inherit;text-decoration:none}
+
+/* ========== Top bar ========== */
+.lab-topbar{position:relative;z-index:100;display:flex;align-items:center;gap:14px;
+  padding:12px clamp(16px,3vw,28px);background:rgba(255,248,236,.94);
+  border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+.brand{font-family:var(--display);font-weight:800;font-size:.95rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand-mark{width:34px;height:34px;border-radius:9px;border-top-right-radius:0;background:var(--accent);color:#fff;
+  font-family:var(--display);font-weight:900;font-size:1.05rem;letter-spacing:-.04em;
+  display:grid;place-items:center;position:relative;overflow:hidden;flex-shrink:0}
+.brand-mark::after{content:"";position:absolute;right:0;top:0;width:14px;height:14px;background:var(--bg);
+  clip-path:polygon(100% 0,0 0,100% 100%);z-index:2;display:block;pointer-events:none}
+.brand-copy{display:grid;gap:1px;min-width:0}
+.brand-name{font-family:var(--display);font-weight:800;font-size:.92rem;letter-spacing:-.01em;line-height:1;color:var(--ink)}
+.brand-sub{font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.spacer{flex:1}
+.btn-sm{font-family:var(--mono);font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent2);background:var(--surface-2);border:1px solid var(--line);padding:8px 14px;
+  border-radius:50px;text-decoration:none;transition:.18s;white-space:nowrap}
+.btn-sm:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+/* ========== Hero ========== */
+.lab-hero{max-width:1240px;margin:34px auto 24px;padding:0 22px}
+.lab-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:.72rem;font-weight:800;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--accent2);margin-bottom:16px}
+.lab-eyebrow::before{content:'';display:inline-block;width:28px;height:2px;background:var(--accent2)}
+.lab-hero h1{font-family:var(--display);font-style:italic;font-weight:700;font-size:clamp(2.4rem,6vw,4.4rem);
+  line-height:1;color:var(--ink);letter-spacing:-.01em;margin-bottom:14px}
+.lab-hero h1 em{font-style:normal;color:var(--accent);font-weight:800}
+.lab-hero h1 .amp{color:var(--gold);font-style:normal}
+.lab-hero .lab-lead{font-family:var(--serif);font-size:clamp(1.05rem,1.5vw,1.32rem);color:var(--ink-soft);
+  max-width:820px;line-height:1.55;font-weight:500;font-style:italic}
+.hero-banner{width:100%;max-width:1240px;border-radius:14px;display:block;margin:16px auto 0;
+  box-shadow:var(--shadow);height:auto;background:linear-gradient(135deg,var(--italy) 0%,var(--india) 55%,var(--bali) 100%);
+  aspect-ratio:16/7;object-fit:cover}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase}
+.hero-meta span{padding:6px 12px;background:var(--surface);border:1px solid var(--line);border-radius:50px;color:var(--ink-soft);font-weight:700}
+.hero-meta span.accent{background:var(--accent);color:#fff;border-color:var(--accent)}
+.hero-meta span.italy{background:var(--italy);color:#fff;border-color:var(--italy)}
+.hero-meta span.india{background:var(--india);color:#fff;border-color:var(--india)}
+.hero-meta span.bali{background:var(--bali);color:#fff;border-color:var(--bali)}
+
+/* ========== Progress dots ========== */
+.progress-wrap{max-width:1240px;margin:22px auto 18px;padding:0 22px}
+.progress-dots{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;padding:8px 14px;background:var(--surface);
+  border:1px solid var(--line);border-radius:50px;max-width:fit-content;margin:0 auto}
+.progress-dot{width:11px;height:11px;border-radius:50%;background:#e0cfb2;transition:.25s;cursor:pointer}
+.progress-dot.lit{background:var(--accent);box-shadow:0 0 0 4px rgba(197,106,92,.18)}
+.rail{display:flex;justify-content:center;gap:5px;margin-top:10px}
+.rail-step{width:20px;height:3px;border-radius:2px;background:#e8d9c0}
+.rail-step.done{background:var(--accent)}
+
+/* ========== Sections ========== */
+.section{max-width:1240px;margin:0 auto 32px;padding:0 22px}
+.section-hdr{display:flex;align-items:baseline;gap:14px;margin-bottom:14px}
+.num{font-family:var(--mono);font-size:.74rem;font-weight:800;letter-spacing:.16em;
+  background:var(--accent);color:#fff;padding:5px 11px;border-radius:50px}
+.num.italy{background:var(--italy)}
+.num.india{background:var(--india)}
+.num.bali{background:var(--bali)}
+.section-hdr h2{font-family:var(--display);font-weight:800;font-size:clamp(1.4rem,2.6vw,2rem);color:var(--ink);line-height:1.1}
+.section-sub{font-size:.94rem;color:var(--muted);margin:0 0 12px 0;font-style:italic}
+
+/* ========== Card ========== */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px 26px;box-shadow:var(--shadow)}
+.card h3{font-family:var(--display);font-weight:800;font-size:1.12rem;color:var(--accent2);margin:18px 0 10px;letter-spacing:.01em}
+.card h3:first-child{margin-top:0}
+.card p{margin-bottom:10px}
+.card p strong{color:var(--accent2);font-weight:800}
+.card p em{color:var(--ink);font-style:italic}
+
+/* ========== Country card (Italy/India/Bali) ========== */
+.country-card{padding:22px 24px;border-radius:16px;border-top:5px solid;background:var(--surface);
+  border-left:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);
+  margin-bottom:14px;box-shadow:var(--shadow)}
+.country-card.italy{border-top-color:var(--italy)}
+.country-card.india{border-top-color:var(--india)}
+.country-card.bali{border-top-color:var(--bali)}
+.country-mark{display:inline-flex;align-items:center;gap:8px;padding:5px 11px;border-radius:50px;
+  font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#fff;margin-bottom:12px}
+.country-mark.italy{background:var(--italy)}
+.country-mark.india{background:var(--india)}
+.country-mark.bali{background:var(--bali)}
+.country-card h3.act-title{font-family:var(--display);font-style:italic;font-weight:700;font-size:1.6rem;color:var(--ink);margin:4px 0 6px;letter-spacing:-.01em;line-height:1.15}
+.country-card h3.act-title em{font-style:normal;color:var(--accent)}
+.act-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.act-tag{font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  padding:4px 10px;border-radius:50px;background:var(--surface-2);border:1px solid var(--line);color:var(--muted)}
+
+/* Story format subsection (Story / Video / Audio) */
+.story-block{margin:18px 0;padding:16px 18px;background:var(--bg);border:1px solid var(--line);border-radius:12px}
+.story-block-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.story-icon{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-size:.9rem;flex-shrink:0}
+.story-block.italy .story-icon{background:var(--italy);color:#fff}
+.story-block.india .story-icon{background:var(--india);color:#fff}
+.story-block.bali .story-icon{background:var(--bali);color:#fff}
+.story-block-title{font-family:var(--display);font-weight:800;font-size:1.02rem;color:var(--ink);letter-spacing:-.005em}
+
+/* Video story — image + caption */
+.video-story-frame{position:relative;border-radius:12px;overflow:hidden;margin:8px 0;box-shadow:var(--shadow);background:linear-gradient(135deg,var(--surface-2) 0%,#f7dfba 100%);aspect-ratio:16/9;display:grid;place-items:center;border:1px solid var(--line)}
+.video-story-frame img{width:100%;height:100%;object-fit:cover;display:block}
+.video-story-placeholder{padding:34px;text-align:center;color:var(--muted);font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;line-height:1.7}
+.video-story-placeholder .big{font-family:var(--display);font-style:italic;font-size:1.2rem;font-weight:700;color:var(--accent2);letter-spacing:-.01em;text-transform:none;margin-bottom:8px;display:block}
+.video-story-caption{font-family:var(--serif);font-style:italic;font-size:.98rem;color:var(--ink-soft);margin-top:10px;line-height:1.55;padding:0 4px}
+
+/* ========== Reading text ========== */
+.reading-text{font-family:var(--serif);font-size:1.14rem;color:var(--ink);line-height:1.72;margin:14px 0}
+.reading-text p{margin-bottom:14px}
+.reading-text p:first-child::first-letter{
+  font-family:var(--display);font-weight:900;font-size:2.6rem;line-height:1;
+  float:left;padding:4px 8px 0 0;color:var(--accent);font-style:normal}
+.reading-text strong{color:var(--accent2);font-weight:700;font-family:var(--body);font-size:.98em}
+.reading-text em{color:var(--italy);font-style:italic;font-weight:600}
+.reading-text .india-word{color:var(--india);font-weight:700;font-style:italic}
+.reading-text .bali-word{color:var(--bali);font-weight:700;font-style:italic}
+
+/* ========== Audio block ========== */
+.audio-block{background:var(--surface-2);border:1px solid var(--line);border-left:4px solid var(--accent);
+  border-radius:12px;padding:14px 18px;margin:14px 0;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.audio-block .label{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2);font-weight:800;flex:0 0 auto}
+.audio-block audio{flex:1;min-width:260px;height:38px}
+.audio-block.italy{border-left-color:var(--italy)}
+.audio-block.italy .label{color:var(--italy)}
+.audio-block.india{border-left-color:var(--india)}
+.audio-block.india .label{color:var(--india)}
+.audio-block.bali{border-left-color:var(--bali)}
+.audio-block.bali .label{color:var(--bali)}
+
+/* ========== Vocab flip cards ========== */
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:11px;margin:14px 0}
+.flip-card{aspect-ratio:1/1.05;perspective:800px;cursor:pointer;position:relative}
+.flip-inner{position:relative;width:100%;height:100%;transition:transform .55s;transform-style:preserve-3d}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;border-radius:12px;padding:12px;text-align:center;border:1.5px solid var(--line)}
+.flip-front{background:var(--surface);color:var(--ink)}
+.flip-front .word{font-family:var(--display);font-weight:800;font-size:1.02rem;color:var(--accent2);line-height:1.15}
+.flip-front .pos{font-family:var(--mono);font-size:.65rem;font-weight:700;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin-top:6px}
+.flip-back{background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 100%);color:#fff;transform:rotateY(180deg);border-color:var(--accent2)}
+.flip-back .meaning{font-weight:700;font-size:.96rem;margin-bottom:5px}
+.flip-back .ex{font-style:italic;font-size:.78rem;opacity:.94;font-family:var(--serif)}
+.flip-card.italy .flip-back{background:linear-gradient(135deg,var(--italy) 0%,#7a2a2a 100%)}
+.flip-card.india .flip-back{background:linear-gradient(135deg,var(--india) 0%,#a15505 100%)}
+.flip-card.bali .flip-back{background:linear-gradient(135deg,var(--bali) 0%,#1e5f56 100%)}
+.tts-btn{position:absolute;top:6px;right:6px;width:24px;height:24px;border-radius:50%;border:none;background:var(--gold);color:var(--ink);
+  cursor:pointer;font-size:.68rem;font-weight:900;display:grid;place-items:center;z-index:5;font-family:var(--mono);line-height:1;transition:.15s}
+.tts-btn:hover{background:var(--accent);color:#fff;transform:scale(1.1)}
+
+/* ========== Comprehension MCQ ========== */
+.mcq-row{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
+.mcq-q{font-size:1rem;color:var(--ink);margin-bottom:10px;line-height:1.5;font-weight:600}
+.mcq-q .qnum{display:inline-block;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;
+  font-family:var(--mono);font-weight:800;font-size:.76rem;text-align:center;line-height:26px;margin-right:8px;vertical-align:-3px}
+.mcq-opts{display:flex;flex-direction:column;gap:7px}
+.mcq-opts button{background:var(--surface-2);border:1px solid var(--line);color:var(--ink);padding:10px 14px;border-radius:10px;
+  font-family:var(--body);font-size:.94rem;cursor:pointer;text-align:left;transition:.18s;font-weight:500}
+.mcq-opts button:hover{border-color:var(--accent);color:var(--accent2)}
+.mcq-opts button.correct{background:rgba(44,122,77,.15);border-color:var(--ok);color:var(--ok);font-weight:700}
+.mcq-opts button.wrong{background:rgba(178,58,58,.12);border-color:var(--miss);color:var(--miss)}
+.mcq-note{display:none;margin-top:10px;font-family:var(--serif);font-style:italic;font-size:.94rem;color:var(--ink-soft);
+  background:var(--surface-2);border-left:3px solid var(--gold);padding:8px 12px;border-radius:0 8px 8px 0}
+.mcq-row.revealed .mcq-note{display:block}
+
+/* ========== Info box ========== */
+.info{background:var(--surface-2);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;
+  padding:14px 18px;margin:14px 0;font-size:.96rem;color:var(--ink)}
+.info strong{color:var(--accent2)}
+.info em{font-style:italic;color:var(--italy)}
+
+/* ========== Footer ========== */
+footer{max-width:1240px;margin:44px auto 28px;padding:0 22px;text-align:center;color:var(--muted);
+  font:600 .78rem/1.5 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+
+/* Mobile adjustments */
+@media(max-width:680px){
+  .lab-topbar{gap:8px;padding:8px 14px}
+  .brand-mark{width:30px;height:30px;font-size:.95rem}
+  .brand-name{font-size:.84rem}
+  .brand-sub{display:none}
+  .btn-sm{padding:6px 10px;font-size:.62rem}
+  .hero-banner{aspect-ratio:16/9}
+  .reading-text{font-size:1.05rem}
+  .reading-text p:first-child::first-letter{font-size:2.2rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ========== TOPBAR ========== -->
+<nav class="lab-topbar">
+  <a class="brand" href="/lingua-boost-lab/">
+    <span class="brand-mark" aria-hidden="true"><span style="position:relative;z-index:1;color:#fff">N</span></span>
+    <span class="brand-copy">
+      <span class="brand-name">NG English</span>
+      <span class="brand-sub">LinguaBoost Lab · B1</span>
+    </span>
+  </a>
+  <div class="spacer"></div>
+  <a class="btn-sm" href="/cabinet/">← Cabinet</a>
+  <a class="btn-sm" href="/lingua-boost-lab/">Catalogue</a>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section class="lab-hero">
+  <div class="lab-eyebrow">B1 · Reading · Listening · Vocabulary</div>
+  <h1>Eat, <em>Pray,</em> <span class="amp">&amp;</span> <em>Love</em> — <br>Three Journeys</h1>
+  <p class="lab-lead">Inspired by Elizabeth Gilbert's memoir. One year, three countries, three lessons in being human — pleasure in <strong>Rome</strong>, silence in an <strong>Indian ashram</strong>, and balance on the island of <strong>Bali</strong>.</p>
+  <div class="hero-meta">
+    <span class="accent">B1</span>
+    <span>90 min</span>
+    <span>Reading + Listening</span>
+    <span class="italy">🇮🇹 Italy</span>
+    <span class="india">🇮🇳 India</span>
+    <span class="bali">🇮🇩 Indonesia</span>
+  </div>
+</section>
+
+<!-- ========== PROGRESS DOTS ========== -->
+<div class="progress-wrap">
+  <div class="progress-dots" id="progress-dots"></div>
+  <div class="rail" id="rail"></div>
+</div>
+
+<!-- ========== 00 · INTRO ========== -->
+<section class="section" id="s00">
+  <div class="section-hdr"><span class="num">00</span><h2>Meet Elizabeth Gilbert</h2></div>
+  <p class="section-sub">Warm-up · 3 minutes · about the author + the journey</p>
+  <div class="card">
+    <p>Elizabeth Gilbert is an American writer. In 2006 she published a book called <strong><em>Eat, Pray, Love</em></strong> — a personal story about her divorce, her sadness, and her decision to travel for a whole year. She went to three countries — one for each part of the title.</p>
+    <div class="info">
+      <strong>The idea:</strong> <em>Italy</em> — how to <strong>enjoy</strong> life again. <em>India</em> — how to be <strong>quiet</strong> with yourself. <em>Indonesia (Bali)</em> — how to <strong>balance</strong> both.
+    </div>
+    <p>Today we read three short passages — one from each country — listen to them, and pick up 18 useful travel and life-words. Ready? Let's begin in Rome.</p>
+    <div class="audio-block">
+      <span class="label">🔊 Intro · listen</span>
+      <audio controls preload="none">
+        <source data-tts="Elizabeth Gilbert is an American writer. In 2006 she published a book called Eat, Pray, Love — a personal story about her divorce, her sadness, and her decision to travel for a whole year. She went to three countries. One for each part of the title. Italy for pleasure. India for silence. Indonesia for balance." data-voice="Joanna" type="audio/mpeg">
+      </audio>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 01 · ITALY ========== -->
+<section class="section" id="s01">
+  <div class="section-hdr"><span class="num italy">01</span><h2>🇮🇹 Italy · Rome · the art of pleasure</h2></div>
+  <p class="section-sub">Reading + listening + 6 vocabulary cards + 3 comprehension questions</p>
+
+  <div class="country-card italy">
+    <span class="country-mark italy">Rome · Italy</span>
+    <h3><em>Il dolce far niente</em> — <br>the sweetness of doing nothing</h3>
+
+    <div class="audio-block italy">
+      <span class="label">🔊 Read + listen · Salli · US voice</span>
+      <audio controls preload="none">
+        <source data-tts="I arrived in Rome in the middle of a rainy October. My Italian teacher had told me one phrase before I left New York — il dolce far niente. The sweetness of doing nothing. In Rome, doing nothing is not laziness. It is an art. People sit in cafés for two hours over one small espresso. They watch, they talk, they simply exist. On my third day, I ordered pasta in a small trattoria near Piazza Navona. The waiter smiled and said, take your time. I understood then — I had forgotten what pleasure felt like." data-voice="Salli" type="audio/mpeg">
+      </audio>
+    </div>
+
+    <div class="reading-text">
+      <p>I arrived in <strong>Rome</strong> in the middle of a rainy October. My Italian teacher had told me one phrase before I left New York — <em>il dolce far niente</em>. The sweetness of doing nothing. In Rome, doing nothing is not laziness. It is an <strong>art</strong>.</p>
+      <p>People sit in cafés for two hours over one small espresso. They watch, they talk, they simply <strong>exist</strong>. On my third day, I <strong>ordered</strong> pasta in a small <em>trattoria</em> near Piazza Navona. The waiter smiled and said, <em>take your time</em>. I understood then — I had forgotten what <strong>pleasure</strong> felt like.</p>
+    </div>
+
+    <h3 style="margin-top:22px">🍝 Vocabulary · 6 cards</h3>
+    <p class="section-sub" style="margin-left:0">Tap a card to flip · ▶ to hear the word</p>
+    <div class="flip-grid" data-country="italy">
+      <div class="flip-card italy">
+        <button class="tts-btn" data-say="pleasure">▶</button>
+        <div class="flip-inner">
+          <div class="flip-front"><div class="word">pleasure</div><div class="pos">noun</div></div>
+          <div class="flip-back"><div class="meaning">удовольствие</div><div class="ex">Rome taught me pleasure.</div></div>
+        </div>
+      </div>
+      <div class="flip-card italy">
+        <button class="tts-btn" data-say="laziness">▶</button>
+        <div class="flip-inner">
+          <div class="flip-front"><div class="word">laziness</div><div class="pos">noun</div></div>
+          <div class="flip-back"><div class="meaning">лень</div><div class="ex">This is not laziness — it is art.</div></div>
+        </div>
+      </div>
+      <div class="flip-card italy">
+        <button class="tts-btn" data-say="dolce far niente">▶</button>
+        <div class="flip-inner">
+          <div class="flip-front"><div class="word">dolce far niente</div><div class="pos">italian</div></div>
+          <div class="flip-back"><div class="meaning">сладкое ничегонеделание</div><div class="ex">Il dolce far niente is an art.</div></div>
+        </div>
+      </div>
+      <div class="flip-card italy">
+        <button class="tts-btn" data-say="trattoria">▶</button>
+        <div class="flip-inner">
+          <div class="flip-front"><div class="word">trattoria</div><div class="pos">noun</div></div>
+          <div class="flip-back"><div class="meaning">небольшой ресторан</div><div class="ex">A small trattoria near the square.</div></div>
+        </div>
+      </div>
+      <div class="flip-card italy">
+        <button class="tts-btn" data-say="to exist">▶</button>
+        <div class="flip-inner">
+          <div class="flip-front"><div class="word">to exist</div><div class="pos">verb</div></div>
+          <div class="flip-back"><div class="meaning">существовать / просто быть</div><div class="ex">They simply exist and enjoy.</div></div>
+        </div>
+      </div>
+      <div class="flip-card italy">
+        <button class="tts-btn" data-say="to savour">▶</button>
+        <div class="flip-inner">
+          <div class="flip-front"><div class="word">to savour</div><div class="pos">verb</div></div>
+          <div class="flip-back"><div class="meaning">смаковать, наслаждаться</div><div class="ex">Savour every bite of pasta.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:22px">✅ Check yourself · 3 questions</h3>
+    <p class="section-sub" style="margin-left:0">Click the correct answer · explanation appears after</p>
+
+    <div class="mcq-row" data-ans="b">
+      <div class="mcq-q"><span class="qnum">1</span> What does <em>il dolce far niente</em> mean?</div>
+      <div class="mcq-opts">
+        <button data-v="a">The sweetness of eating pasta.</button>
+        <button data-v="b">The sweetness of doing nothing.</button>
+        <button data-v="c">The art of speaking Italian.</button>
+      </div>
+      <div class="mcq-note">→ Literally «the sweet doing-nothing». For Romans it's not laziness — it's a <strong>life philosophy</strong>: sitting, watching, existing without a task.</div>
+    </div>
+
+    <div class="mcq-row" data-ans="c">
+      <div class="mcq-q"><span class="qnum">2</span> How long do people typically sit in a Roman café over one espresso?</div>
+      <div class="mcq-opts">
+        <button data-v="a">Fifteen minutes.</button>
+        <button data-v="b">Half an hour.</button>
+        <button data-v="c">Two hours.</button>
+      </div>
+      <div class="mcq-note">→ Two hours over one small espresso — that's the Italian rhythm. In the text: «People sit in cafés for two hours over one small espresso.»</div>
+    </div>
+
+    <div class="mcq-row" data-ans="a">
+      <div class="mcq-q"><span class="qnum">3</span> What had the narrator forgotten before she came to Rome?</div>
+      <div class="mcq-opts">
+        <button data-v="a">What pleasure felt like.</button>
+        <button data-v="b">How to cook Italian food.</button>
+        <button data-v="c">Her Italian teacher's name.</button>
+      </div>
+      <div class="mcq-note">→ «I had forgotten what pleasure felt like.» Rome reminded her — through food, slowness, and the waiter's «take your time».</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========== INDIA + BALI + WRAP + HW = TO BE ADDED after Maria's «go» on Italy ========== -->
+
+<footer>
+  Lesson by Maria Burtseva · NG English · LinguaBoost Lab · B1 · Eat, Pray, Love — Three Journeys
+</footer>
+
+<!-- Vocab deck — 18 core words (6 per country) -->
+<script>
+window.LAB_VOCAB = [
+  // Italy
+  { word:'pleasure', ipa:'/ˈpleʒ.ər/', ru:'удовольствие', example:'Rome taught me pleasure.' },
+  { word:'laziness', ipa:'/ˈleɪ.zi.nəs/', ru:'лень', example:'This is not laziness — it is art.' },
+  { word:'dolce far niente', ipa:'/ˈdol.tʃe far niˈen.te/', ru:'сладкое ничегонеделание', example:'Il dolce far niente is an art.' },
+  { word:'trattoria', ipa:'/træˈtɔː.ri.ə/', ru:'небольшой итальянский ресторан', example:'A small trattoria near the square.' },
+  { word:'to exist', ipa:'/ɪɡˈzɪst/', ru:'существовать, просто быть', example:'They simply exist and enjoy.' },
+  { word:'to savour', ipa:'/ˈseɪ.vər/', ru:'смаковать, наслаждаться', example:'Savour every bite of pasta.' },
+  // India
+  { word:'silence', ipa:'/ˈsaɪ.ləns/', ru:'тишина', example:'The ashram was full of silence.' },
+  { word:'meditation', ipa:'/ˌmed.əˈteɪ.ʃən/', ru:'медитация', example:'Meditation at 4 a.m. is not easy.' },
+  { word:'ashram', ipa:'/ˈæʃ.rəm/', ru:'ашрам, духовный центр', example:'She spent months at the ashram.' },
+  { word:'discipline', ipa:'/ˈdɪs.ə.plɪn/', ru:'дисциплина', example:'Silence requires discipline.' },
+  { word:'faith', ipa:'/feɪθ/', ru:'вера', example:'Faith is a quiet kind of hope.' },
+  { word:'to surrender', ipa:'/səˈren.dər/', ru:'сдаться, отпустить', example:'She had to surrender her ideas.' },
+  // Bali
+  { word:'balance', ipa:'/ˈbæl.əns/', ru:'равновесие, баланс', example:'Bali gave her balance.' },
+  { word:'healing', ipa:'/ˈhiː.lɪŋ/', ru:'исцеление', example:'The medicine man practised healing.' },
+  { word:'medicine man', ipa:'/ˈmed.ə.sɪn mæn/', ru:'знахарь, целитель', example:'The medicine man read her palm.' },
+  { word:'community', ipa:'/kəˈmjuː.nə.ti/', ru:'сообщество', example:'The village lived as one community.' },
+  { word:'wisdom', ipa:'/ˈwɪz.dəm/', ru:'мудрость', example:'His wisdom came from age.' },
+  { word:'to belong', ipa:'/bɪˈlɒŋ/', ru:'принадлежать, быть на месте', example:'On Bali she began to belong.' }
+];
+</script>
+
+<!-- Lab-протокол · 8 обязательных скриптов (10-пунктовый чек-лист) -->
+<script src="../../assets/lab-persist.js" defer></script>
+<script src="../../assets/lab-total.js?v=4" defer></script>
+<script src="../../assets/lab-pilot.js?v=3" defer></script>
+<script src="../../assets/lab-mic-wpm.js?v=1" defer></script>
+<script src="../../assets/lab-ai-feedback.js?v=6" defer></script>
+<script src="../../assets/lab-sync.js?v=16" defer></script>
+<script src="../../assets/lab-homework.js?v=32" defer></script>
+<script src="../../assets/lab-vocab-builder.js?v=46" defer></script>
+
+<!-- ========== SCRIPTS ========== -->
+
+<!-- Universal TTS helper (Web Speech API — fallback for offline preview) -->
+<script>
+function tts(text,lang){
+  if(!('speechSynthesis' in window))return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang=lang||'en-US';u.rate=.94;u.pitch=1;
+  window.speechSynthesis.speak(u);
+}
+</script>
+
+<!-- Flip cards + TTS -->
+<script>
+document.querySelectorAll('.flip-card').forEach(c=>{
+  c.addEventListener('click',e=>{
+    if(e.target.closest('.tts-btn'))return;
+    c.classList.toggle('flipped');
+  });
+});
+document.querySelectorAll('.tts-btn').forEach(btn=>{
+  btn.addEventListener('click',e=>{
+    e.stopPropagation();
+    tts(btn.dataset.say||'','en-US');
+  });
+});
+</script>
+
+<!-- MCQ · human check -->
+<script>
+document.querySelectorAll('.mcq-row').forEach(row=>{
+  const opts=row.querySelector('.mcq-opts');
+  if(opts){
+    const btns=[...opts.querySelectorAll('button')];
+    btns.sort(()=>Math.random()-0.5).forEach(b=>opts.appendChild(b));
+  }
+  const ans=(row.dataset.ans||'').toLowerCase();
+  row.querySelectorAll('.mcq-opts button').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      if(btn.disabled)return;
+      const v=(btn.dataset.v||'').toLowerCase();
+      if(v===ans){
+        btn.classList.add('correct');
+        row.classList.add('revealed');
+        row.querySelectorAll('.mcq-opts button').forEach(b=>{b.disabled=true;});
+      }else{
+        btn.classList.add('wrong');
+        btn.disabled=true;
+      }
+    });
+  });
+});
+</script>
+
+<!-- Progress dots -->
+<script>
+(function(){
+  const sections=[...document.querySelectorAll('.section[id]')];
+  const dotsEl=document.getElementById('progress-dots');
+  const railEl=document.getElementById('rail');
+  sections.forEach((s,i)=>{
+    const d=document.createElement('span');d.className='progress-dot';d.dataset.i=i;
+    d.addEventListener('click',()=>s.scrollIntoView({behavior:'smooth'}));
+    dotsEl.appendChild(d);
+    const r=document.createElement('span');r.className='rail-step';railEl.appendChild(r);
+  });
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        const idx=sections.indexOf(e.target);
+        [...dotsEl.children].forEach((d,i)=>d.classList.toggle('lit',i<=idx));
+        [...railEl.children].forEach((r,i)=>r.classList.toggle('done',i<=idx));
+      }
+    });
+  },{threshold:.3});
+  sections.forEach(s=>io.observe(s));
+})();
+</script>
+
+</body>
+</html>

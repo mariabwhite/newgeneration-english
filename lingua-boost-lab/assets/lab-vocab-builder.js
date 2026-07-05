@@ -1,8 +1,11 @@
-﻿/* lab-vocab-builder.js v45 — Универсальный словарь + LIVE PUSH от учителя.
-   v45: fix teacherMode — принимаем ?teacher=on (наш новый стандарт с lab-sync v10+)
-        и localStorage 'lab-teacher-mode'='on' (sticky). Раньше принимали только
-        ?teacher=1 / ?t=1 / ?role=teacher — рассинхрон с lab-sync ломал добавление
-        слов во ВСЕХ уроках. Маша не могла добавлять vocab при `?teacher=on` URL. */
+﻿/* lab-vocab-builder.js v46 — Универсальный словарь + LIVE PUSH.
+   v46 (2026-07-05): двусторонний режим. Добавление слов в vocab работает у ВСЕХ
+        — учителя и ученика одинаково. Guard `if (!teacherMode) return` снят
+        в hookSelection и рендере кнопки «+ добавить своё слово».
+        Единственное ограничение — observer mode (URL ?observe=…): смотришь,
+        не добавляешь. teacherMode остаётся только для облачного snapshot в
+        Supabase (cloudSyncExtras) — это отдельная механика, не касается UI.
+        Установлено Машей: «все функции в уроке взаимны, нет ученика и учителя». */
 
    Урок объявляет:
      window.LAB_VOCAB = [
@@ -330,7 +333,7 @@
           '<div class="meta"><span id="vocabCount">0</span> слов · кликни карточку, чтобы перевернуть</div>'+
         '</div>'+
         '<div class="lab-vocab-grid" id="vocabGrid"></div>'+
-        (teacherMode ? '<div style="margin-top:18px"><button class="lab-vocab-add-btn" id="vocabAddBtn">+ добавить своё слово</button></div>' : '')+
+        (observeMode ? '' : '<div style="margin-top:18px"><button class="lab-vocab-add-btn" id="vocabAddBtn">+ добавить своё слово</button></div>')+
       '</div>';
     // Vocabulary в общий контейнер первой .section, без clone-стилей (раньше съезжало влево).
     var firstSection = document.querySelector('section.section');
@@ -357,7 +360,7 @@
     grid.innerHTML = '';
     vocab.forEach(function(it){ grid.appendChild(buildCard(it)); });
     if (counter) counter.textContent = vocab.length;
-    if (teacherMode) {
+    if (!observeMode) {
       var addBtn = section.querySelector('#vocabAddBtn');
       if (addBtn) addBtn.addEventListener('click', function(){ openAddModal(); });
     }
@@ -452,7 +455,7 @@
     return floatBtn;
   }
   function hookSelection(){
-    if (!teacherMode) return;
+    if (observeMode) return;
     ensureFloat();
     document.addEventListener('mouseup', function(){
       setTimeout(function(){
@@ -753,7 +756,7 @@
     injectStyle();
     renderVocab();
     highlightInText();
-    if (teacherMode) hookSelection();
+    if (!observeMode) hookSelection();
     if (!observeMode) hookFirehosePush();
     if (observeMode) hookObserverClickToVocab();
     // Локальное мгновенное обновление словаря в iframe Маши
