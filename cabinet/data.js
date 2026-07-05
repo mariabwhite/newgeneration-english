@@ -831,6 +831,17 @@ window.NGE_DATA = {
           "note": "Дополнительная платформа для практики между занятиями"
         }
       ],
+      "materials": {
+        "folder": "documents/_v/denis-shalmanov",
+        "note": "Отчёт о прогрессе за июнь–июль 2026 + карта словаря. Клик — открыть в новой вкладке.",
+        "files": [
+          {
+            "name": "report-denis-shalmanov-2026-07.pdf",
+            "label": "📄 Отчёт · июнь–июль 2026 · Progress + Vocabulary map",
+            "audience": "all"
+          }
+        ]
+      },
       "contracts": {
         "folder": "documents/_v",
         "files": [
