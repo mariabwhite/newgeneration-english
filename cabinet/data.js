@@ -727,7 +727,7 @@ window.NGE_DATA = {
       "lessons_in_package": 4,
       "subscription_month": "2026-07",
       "lessons_used_this_month": 0,
-      "summer_plan_note": "Июльский абонемент · 4 воскресенья · Past Simple основной блок",
+      "summer_plan_note": "Июльский абонемент · слова + будущие времена + направления + предлоги",
       "stability_note": "",
       "lessons": [
         {
@@ -804,19 +804,19 @@ window.NGE_DATA = {
           "date": "2026-07-12",
           "num": 10,
           "status": "planned",
-          "topic": "Past Simple · старт — «what I did yesterday / last Sunday» + 5 core irregular (went, was, had, saw, did)"
+          "topic": "Слова + будущие времена (will / going to) — расширение и активная практика"
         },
         {
           "date": "2026-07-19",
           "num": 11,
           "status": "planned",
-          "topic": "Past Simple · регулярные глаголы + история дня / выходных"
+          "topic": "Направления — turn left / right · straight on · next to · opposite · описать путь"
         },
         {
           "date": "2026-07-29",
           "num": 12,
           "status": "planned",
-          "topic": "Past Simple · irregular batch 2 + мини-нарратив (закрытие июльского абонемента)"
+          "topic": "Предлоги (места и времени) — in / on / at / between / behind · закрытие июльского абонемента"
         }
       ],
       "external_platforms": [
