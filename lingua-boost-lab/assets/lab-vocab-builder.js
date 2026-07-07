@@ -1,4 +1,7 @@
-﻿/* lab-vocab-builder.js v46 — Универсальный словарь + LIVE PUSH.
+﻿/* lab-vocab-builder.js v47 — Универсальный словарь + LIVE PUSH.
+   v47 (2026-07-07): FIX кнопка «+ добавить своё слово» ТЕПЕРЬ появляется и на
+        уроках со статичным vocab-контейнером (у 36 уроков раньше была скрыта
+        из-за early return null в findOrBuildSection). Инцидент Маша 2026-07-07.
    v46 (2026-07-05): двусторонний режим. Добавление слов в vocab работает у ВСЕХ
         — учителя и ученика одинаково. Guard `if (!teacherMode) return` снят
         в hookSelection и рендере кнопки «+ добавить своё слово».
@@ -27,8 +30,8 @@
 
    Observer mode (URL ?observe=...) — учитель видит структуру, но не добавляет. */
 (function(){
-  if (window.__labVocabLoaded) return;
-  window.__labVocabLoaded = true;
+  if (window.__labVocabLoadedV47) return;
+  window.__labVocabLoadedV47 = true;
 
   var observeMode = /[?&]observe=/.test(location.search);
   // v45: унифицировано с lab-sync.js — принимаем ?teacher=on (стандарт), ?teacher=1
@@ -322,7 +325,19 @@
     );
     // Также если на странице уже есть хоть одна .vocab-card — Vocabulary считается родной
     if (!existing && document.querySelector('.vocab-card')) existing = document.querySelector('.vocab-card').closest('section, .container, .card, div');
-    if (existing && !loadExtras().length && !Array.isArray(window.LAB_VOCAB)) return null;
+    // v47 (2026-07-07): если existing нашли — привешиваем «+ добавить своё слово»
+    // кнопку внутрь, вместо того чтобы уйти. Так учитель + ученик могут добавлять
+    // слова к статичному vocab-контейнеру. Инцидент 2026-07-07: у 36 уроков не было
+    // никакого способа добавить слово, потому что existing блокировал auto-vocab.
+    if (existing && !observeMode) {
+      if (!existing.querySelector('#vocabAddBtn')) {
+        var addWrap = document.createElement('div');
+        addWrap.style.cssText = 'margin:18px 0 8px;text-align:center';
+        addWrap.innerHTML = '<button class="lab-vocab-add-btn" id="vocabAddBtn">+ добавить своё слово</button>';
+        existing.appendChild(addWrap);
+      }
+    }
+    if (existing && !loadExtras().length && !Array.isArray(window.LAB_VOCAB)) return existing;
     var sec = document.createElement('section');
     sec.className = 'section lab-vocab-section';
     sec.id = 'auto-vocab';
