@@ -1024,8 +1024,10 @@ main {
       headers: { 'Content-Type': 'application/json', apikey: SUPABASE_ANON, Authorization: 'Bearer ' + SUPABASE_ANON, Prefer: 'return=minimal' },
       body: JSON.stringify(payload)
     }).then(function(r){
-      if (r.ok) setSync('ok', 'SAVED · ' + new Date().toTimeString().slice(0,5));
-      else throw new Error('non-ok');
+      if (r.ok) {
+        setSync(asTeacher ? 'teacher' : 'ok', asTeacher ? 'MIRROR · ' + new Date().toTimeString().slice(0,5) : 'SAVED · ' + new Date().toTimeString().slice(0,5));
+        broadcastState(); // sync к другой стороне через broadcast
+      } else throw new Error('non-ok');
     }).catch(function(){
       setSync('offline', 'QUEUED');
       enqueue({
@@ -1037,33 +1039,99 @@ main {
     });
   }
 
-  // ─── Realtime: subscribe to inserts for this room+lesson ─────────
+  // ─── Realtime: broadcast channel (работает на anon без publication) ─────────
+  // Канал = 'hw:<roomId>:<lesson-slug>'. События:
+  //   'state'  — полный snapshot items[] (когда меняем корзинку)
+  //   'typing' — маленький event на каждый keystroke (item.index + текст ответа)
+  //   'ping'   — «я здесь» / heartbeat
+  var bcastChannel = null;
   function subscribeRealtime(){
     if (!sb) return;
-    var channel = sb.channel('hw-' + roomId + '-' + slugify(lesson))
-      .on('postgres_changes', {
-        event: 'INSERT',
-        schema: 'public',
-        table: 'lab_submissions',
-        filter: 'room_id=eq.' + roomId
-      }, function(payload){
-        var row = payload && payload.new;
-        if (!row || row.lesson_path !== lesson) return;
-        if (row.section_id === stateSection) {
-          var remoteItems = Array.isArray(row.misses) ? row.misses : [];
-          var remoteAt = new Date(row.created_at).getTime();
-          // не перетираем если только что сами пушнули (в пределах 1.5с)
-          if (remoteAt <= Date.now() - 1500 || remoteItems.length !== state.items.length) {
-            state.items = remoteItems;
-            state.remoteAt = remoteAt;
-            saveLocal(remoteItems);
+    var channelName = 'hw:' + roomId + ':' + slugify(lesson);
+    bcastChannel = sb.channel(channelName, { config: { broadcast: { self: false } } });
+    bcastChannel
+      .on('broadcast', { event: 'state' }, function(payload){
+        try {
+          var data = payload && payload.payload;
+          if (!data || !Array.isArray(data.items)) return;
+          // ученик получает от учителя: обновляем UI + toast
+          if (!asTeacher || (asTeacher && data.from === 'student')) {
+            state.items = data.items;
+            state.remoteAt = data.at || Date.now();
+            saveLocal(data.items);
             render();
-            if (!asTeacher) toast('🔄 Обновлено', 'success');
+            if (!asTeacher) toast('🔄 Обновление от учителя', 'success');
           }
-        }
+          // учитель получает от ученика: обновляем свою mirror-панель
+          if (asTeacher && data.from === 'student') {
+            state.items = data.items;
+            saveLocal(data.items);
+            render();
+            setSync('teacher', 'LIVE ' + new Date().toTimeString().slice(0,5));
+          }
+        } catch(e){}
       })
-      .subscribe();
-    return channel;
+      .on('broadcast', { event: 'typing' }, function(payload){
+        try {
+          if (!asTeacher) return;
+          var data = payload && payload.payload;
+          if (!data || typeof data.idx !== 'number') return;
+          // учитель видит live-typing: обновляем textarea конкретного item
+          if (state.items[data.idx]) {
+            state.items[data.idx].answer = data.text || '';
+            var textarea = document.getElementById('ans-' + data.idx);
+            if (textarea) {
+              textarea.value = data.text || '';
+              textarea.style.transition = 'background .3s';
+              textarea.style.background = 'color-mix(in srgb, var(--accent) 8%, transparent)';
+              setTimeout(function(){ textarea.style.background = ''; }, 400);
+            }
+          }
+        } catch(e){}
+      })
+      .subscribe(function(status){
+        if (status === 'SUBSCRIBED') {
+          setSync(asTeacher ? 'teacher' : 'ok', asTeacher ? 'MIRROR' : 'LIVE');
+          // отправляем ping что мы онлайн
+          setTimeout(function(){
+            if (bcastChannel) bcastChannel.send({ type: 'broadcast', event: 'ping', payload: { from: asTeacher ? 'teacher' : 'student', at: Date.now() } });
+          }, 400);
+        } else if (status === 'CHANNEL_ERROR' || status === 'CLOSED') {
+          setSync('offline', 'RETRY');
+          setTimeout(subscribeRealtime, 3000);
+        }
+      });
+    return bcastChannel;
+  }
+  // Broadcast state snapshot всем подписчикам
+  function broadcastState(){
+    if (!bcastChannel) return;
+    try {
+      bcastChannel.send({
+        type: 'broadcast',
+        event: 'state',
+        payload: {
+          items: state.items,
+          from: asTeacher ? 'teacher' : 'student',
+          at: Date.now()
+        }
+      });
+    } catch(e){}
+  }
+  // Broadcast typing событий (только у ученика, only heavy debounced)
+  var typingTimer = null;
+  function broadcastTyping(idx, text){
+    if (asTeacher || !bcastChannel) return;
+    clearTimeout(typingTimer);
+    typingTimer = setTimeout(function(){
+      try {
+        bcastChannel.send({
+          type: 'broadcast',
+          event: 'typing',
+          payload: { idx: idx, text: text, from: 'student', at: Date.now() }
+        });
+      } catch(e){}
+    }, 300);
   }
 
   // ─── Render ─────────
@@ -1134,6 +1202,7 @@ main {
         state.items[i].saved_at = null;
         saveLocal(state.items);
         scheduleCloudPush();
+        broadcastTyping(i, e.target.value); // live-typing to teacher mirror
       }
     }
   });
