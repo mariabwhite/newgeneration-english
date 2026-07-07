@@ -884,7 +884,12 @@ window.NGE_DATA = {
           "date": "2026-07-07",
           "num": 1,
           "status": "completed",
-          "topic": "🧳 Путешествия · старт блока — travel vocab, страны, транспорт, простые истории про поездки"
+          "topic": "🧳 Путешествия · старт блока — travel vocab, страны, транспорт, простые истории про поездки",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/anyas-postcards/?theme=light-lab&lang=ru",
+            "module_title": "🧳 Открыть урок · Anya's Postcards · Six Countries",
+            "text": "Именной travel-урок Ани — 6 стран, открытки, простые истории про поездки. Можно повторить дома."
+          }
         },
         {
           "date": "2026-07-14",
