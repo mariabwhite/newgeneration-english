@@ -344,10 +344,10 @@ window.NGE_DATA = {
       "schedule": "понедельник 13:00 / четверг 13:00 / воскресенье 12:00",
       "goal": "Tom Sawyer (адаптированный B1) + Travelling (страны, аэропорт, ролевые) + Past Simple irregular в активной речи",
       "price_per_lesson": 2500,
-      "lessons_in_package": 11,
+      "lessons_in_package": 14,
       "subscription_month": "2026-06",
       "lessons_used_this_month": 11,
-      "summer_plan_note": "Летний блок 10 уроков + 1 экстра · июнь + июль 2026",
+      "summer_plan_note": "Летний блок 10 уроков + 4 экстра · июнь + июль 2026 · 11 / 14 проведено",
       "payment_status": "Оплачено",
       "payment_note": "",
       "parent_name": "Протасова Мария Петровна",
@@ -448,6 +448,24 @@ window.NGE_DATA = {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/travel-talk-light-and-bright/",
             "module_title": "✈️ Открыть Travel Talk · Light & Bright"
           }
+        },
+        {
+          "date": "2026-07-09",
+          "num": 12,
+          "status": "planned",
+          "topic": "✈️ Travel-программа · продолжение"
+        },
+        {
+          "date": "2026-07-10",
+          "num": 13,
+          "status": "planned",
+          "topic": "✈️ Travel-программа · продолжение"
+        },
+        {
+          "date": "2026-07-12",
+          "num": 14,
+          "status": "planned",
+          "topic": "✈️ Travel-программа · продолжение"
         }
       ]
     },
@@ -604,13 +622,13 @@ window.NGE_DATA = {
       "price_per_lesson": 2500,
       "lessons_in_package": 10,
       "subscription_month": "2026-06",
-      "lessons_used_this_month": 5,
-      "summer_plan_note": "Интенсив-абонемент 10 уроков · старт 26.06 · проведено 5 / 10 · дальше пн / вт / чт 18:00",
+      "lessons_used_this_month": 6,
+      "summer_plan_note": "Интенсив-абонемент 10 уроков · старт 26.06 · проведено 6 / 10 · дальше пн / вт / чт 18:00",
       "stability_note": "",
       "payment_status": "Оплачено",
       "payment_note": "",
       "payments": [
-        { "month": "Интенсив · 10 уроков", "package": "10 × 2 500 ₽", "amount": "25 000 ₽", "status": "paid", "date": "26.06.2026", "note": "Интенсив · 26.06 → 17.07 · 5 / 10 проведено" }
+        { "month": "Интенсив · 10 уроков", "package": "10 × 2 500 ₽", "amount": "25 000 ₽", "status": "paid", "date": "26.06.2026", "note": "Интенсив · 26.06 → 17.07 · 6 / 10 проведено" }
       ],
       "parent_name": "Либова Юлия Игоревна",
       "pin": "5376",
@@ -655,7 +673,7 @@ window.NGE_DATA = {
         {
           "date": "2026-07-07",
           "num": 5,
-          "status": "planned",
+          "status": "completed",
           "topic": "🏛️ Moscow · Kremlin · Red Square — столица России · Task 3 интервью «My favourite Russian city» (5 Q × 40 сек) + Word Formation drill"
         },
         {
@@ -705,7 +723,7 @@ window.NGE_DATA = {
           },
           {
             "name": "daniella-intensive-plan-10-lessons.pdf",
-            "label": "🗓 План интенсива · 10 уроков (26.06 → 17.07) · 5 / 10 проведено",
+            "label": "🗓 План интенсива · 10 уроков (26.06 → 17.07) · 6 / 10 проведено",
             "audience": "parent"
           }
         ]
