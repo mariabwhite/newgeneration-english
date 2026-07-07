@@ -1548,7 +1548,7 @@ window.NGE_DATA = {
       "pin": "3094",
       "lessons_in_package": 5,
       "subscription_month": "2026-07",
-      "lessons_used_this_month": 1,
+      "lessons_used_this_month": 2,
       "stability_note": "",
       "summer_plan_note": "Летний блок 2026: июньский пилот (1 trial + 3 занятия) + июль (5 занятий)",
       "external_platforms": [
