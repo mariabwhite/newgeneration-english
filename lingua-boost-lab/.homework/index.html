@@ -662,6 +662,23 @@ main {
 .answer textarea:focus { outline: 2px solid color-mix(in srgb, var(--accent) 44%, transparent); border-color: var(--accent); }
 .answer textarea::placeholder { color: var(--muted); opacity: .5; }
 .answer.readonly textarea { pointer-events: none; opacity: .82; }
+/* Teacher view: ответ ученика показывается как читаемый блок, не textarea */
+.answer.teacher-view label { color: #d946a0 !important; }
+.student-answer-view {
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: color-mix(in srgb, currentColor 5%, transparent);
+  border-left: 3px solid var(--accent);
+  color: var(--text);
+  font: 500 .96rem/1.55 var(--body);
+  white-space: pre-wrap;
+  min-height: auto;
+}
+/* Также — исправляем textarea фон чтоб не был серый на cream палитре: используем card, а не bg-deep */
+.answer textarea {
+  background: color-mix(in srgb, var(--card, #fff) 92%, transparent) !important;
+  border-color: color-mix(in srgb, currentColor 18%, transparent) !important;
+}
 
 .saved-tag {
   display: inline-flex; align-items: center; gap: 6px;
@@ -1182,13 +1199,30 @@ main {
       } else if (item.kind === 'raw-block' && item.html) {
         body = '<div class="raw">' + item.html + '</div>';
       }
+      // Textarea для ответа:
+      // - Ученик: всегда textarea для ввода
+      // - Учитель + ответ ЕСТЬ: показываем прочитаемо, без большой заглушки
+      // - Учитель + ответа НЕТ: скрываем секцию полностью (не показываем пустое)
       var answerLabel = item.kind === 'vocab' ? 'Пример со словом · твой' : 'Твой ответ · заметки';
-      var answer =
-        '<div class="answer' + (asTeacher ? ' readonly' : '') + '">' +
-          '<label for="ans-' + i + '">' + answerLabel + (item.saved_at ? ' <span class="saved-tag" data-state="saved">✓ saved</span>' : '') + '</label>' +
-          '<textarea id="ans-' + i + '" data-idx="' + i + '" ' + (asTeacher ? 'readonly ' : '') + 'placeholder="' + (asTeacher ? 'ответ ученика' : 'Пиши ответ здесь. Сохраняется в облако автоматом.') + '">' + escapeHTML(item.answer || '') + '</textarea>' +
-        '</div>';
-      var rmBtn = asTeacher ? '' : '<button class="rm" data-rm="' + i + '" title="Удалить" aria-label="Удалить">×</button>';
+      var answer = '';
+      if (asTeacher) {
+        if (item.answer && item.answer.trim()) {
+          answer =
+            '<div class="answer readonly teacher-view">' +
+              '<label>💬 Ответ ученика' + (item.saved_at ? ' <span class="saved-tag" data-state="saved">✓ отправлено</span>' : '') + '</label>' +
+              '<div class="student-answer-view">' + escapeHTML(item.answer) + '</div>' +
+            '</div>';
+        }
+        // если ответа нет — вообще ничего не показываем (без пустой заглушки)
+      } else {
+        answer =
+          '<div class="answer">' +
+            '<label for="ans-' + i + '">' + answerLabel + (item.saved_at ? ' <span class="saved-tag" data-state="saved">✓ отправлено</span>' : '') + '</label>' +
+            '<textarea id="ans-' + i + '" data-idx="' + i + '" placeholder="Пиши ответ здесь. Сохраняется в облако автоматом.">' + escapeHTML(item.answer || '') + '</textarea>' +
+          '</div>';
+      }
+      // Крестик X виден ВСЕМ (учитель тоже может убрать лишнее)
+      var rmBtn = '<button class="rm" data-rm="' + i + '" title="Удалить блок" aria-label="Удалить блок">×</button>';
       return '<article class="item' + (byTeacher ? ' by-teacher' : '') + '">' + rmBtn + head + body + answer + '</article>';
     }).join('');
   }
