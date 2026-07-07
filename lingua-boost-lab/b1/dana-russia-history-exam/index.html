@@ -543,6 +543,7 @@ button[data-say]:hover{background:var(--accent3)}
     <div class="row" style="justify-content:center;margin-top:14px">
       <button id="lst1-check" class="check-btn">✓ Check listening 1</button>
       <button id="lst1-show" class="reset-btn">💡 Show answers</button>
+      <button id="lst1-reset" class="reset-btn">🔄 Reset</button>
     </div>
     <p id="lst1-score" class="score-line"></p>
   </div>
@@ -697,6 +698,7 @@ button[data-say]:hover{background:var(--accent3)}
     <div class="row" style="justify-content:center;margin-top:14px">
       <button id="r1-check" class="check-btn">✓ Check reading 1</button>
       <button id="r1-show" class="reset-btn">💡 Show answers</button>
+      <button id="r1-reset" class="reset-btn">🔄 Reset</button>
     </div>
     <p id="r1-score" class="score-line"></p>
   </div>
@@ -730,6 +732,7 @@ button[data-say]:hover{background:var(--accent3)}
     <div class="row" style="justify-content:center;margin-top:14px">
       <button id="r2-check" class="check-btn">✓ Check reading 2</button>
       <button id="r2-show" class="reset-btn">💡 Show answers</button>
+      <button id="r2-reset" class="reset-btn">🔄 Reset</button>
     </div>
     <p id="r2-score" class="score-line"></p>
   </div>
@@ -841,6 +844,7 @@ button[data-say]:hover{background:var(--accent3)}
     <div class="row" style="justify-content:center;margin-top:14px">
       <button id="lex-check" class="check-btn">✓ Check all 14</button>
       <button id="lex-show" class="reset-btn">💡 Show answers</button>
+      <button id="lex-reset" class="reset-btn">🔄 Reset</button>
     </div>
     <p id="lex-score" class="score-line"></p>
   </div>
@@ -1370,6 +1374,39 @@ document.getElementById('gram-show').onclick = () => {
   document.getElementById('gram-score').textContent = '💡 ключи показаны';
 };
 document.getElementById('lex-show').onclick = () => fillShow('#block-11 .lex-item select', 'lex-score');
+/* 🔄 Reset · очистить input/select + классы + score */
+function resetBlock(selector, scoreEl, scoreKey){
+  document.querySelectorAll(selector).forEach(el => {
+    if(el.tagName === 'SELECT') el.value = '';
+    else el.value = '';
+    el.classList.remove('right','wrong');
+  });
+  if(scoreEl) document.getElementById(scoreEl).textContent = '';
+  if(scoreKey){ SCORE[scoreKey] = 0; updateScore(); }
+}
+document.getElementById('lst1-reset').onclick = () => resetBlock('#block-4 .match-txt select', 'lst1-score', 'lst1');
+document.getElementById('r1-reset').onclick = () => resetBlock('#block-7 .match-txt select', 'r1-score', 'r1');
+document.getElementById('r2-reset').onclick = () => resetBlock('#block-8 .gap-frag-sel', 'r2-score', 'r2');
+document.getElementById('lex-reset').onclick = () => resetBlock('#block-11 .lex-item select', 'lex-score', 'lex');
+/* MCQ Reset (blocks 5, 6, 9) — единая кнопка «сбросить выбор» */
+(function(){
+  ['block-5','block-6','block-9'].forEach(id => {
+    const btn = document.createElement('button');
+    btn.className = 'reset-btn';
+    btn.style.marginLeft = '8px';
+    btn.textContent = '🔄 Reset';
+    btn.onclick = () => {
+      document.querySelectorAll('#'+id+' .choice').forEach(c => {
+        c.classList.remove('right','wrong');
+        c.disabled = false;
+      });
+      const key = id === 'block-5' ? 'lst2' : id === 'block-6' ? 'lst3' : 'r3';
+      SCORE[key] = 0; updateScore();
+    };
+    const showBtn = document.querySelector('#'+id+' .mcq-show');
+    if(showBtn && showBtn.parentNode) showBtn.parentNode.appendChild(btn);
+  });
+})();
 /* Reveal MCQ (blocks 5, 6, 9 · True/False/Not stated и MCQ) */
 (function(){
   function revealMCQ(sectionId){
