@@ -674,7 +674,11 @@ window.NGE_DATA = {
           "date": "2026-07-07",
           "num": 5,
           "status": "completed",
-          "topic": "🏛️ Moscow · Kremlin · Red Square — столица России · Task 3 интервью «My favourite Russian city» (5 Q × 40 сек) + Word Formation drill"
+          "topic": "🏛️ Moscow · Kremlin · Red Square — столица России · Task 3 интервью «My favourite Russian city» (5 Q × 40 сек) + Word Formation drill",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/dana-russia-history-exam/",
+            "module_title": "📚 Открыть Dana's Russia · History Exam"
+          }
         },
         {
           "date": "2026-07-08",
