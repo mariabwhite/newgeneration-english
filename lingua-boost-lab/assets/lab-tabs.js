@@ -1,6 +1,11 @@
 /**
- * lab-tabs.js · v11 · 2026-07-03
- * v11: snapshotTheme() при клике «Моя домашка» — сохраняем CSS-переменные
+ * lab-tabs.js · v12 · 2026-07-07
+ * v12: snapshotTheme() теперь стреляет ТАКЖЕ на инициализации, не только на клик
+ *      «Моя домашка». Значит любой первый заход ученика в урок сразу пишет
+ *      палитру → .homework/ подхватит её даже если ученик пришёл на homework
+ *      напрямую по URL/bookmark. Иначе Voyager-skin default показывался всем
+ *      новичкам, кто попал в .homework/ мимо клика на вкладку.
+ * v11 · 2026-07-03: snapshotTheme() при клике «Моя домашка» — сохраняем CSS-переменные
  *      урока (bg/card/text/accent/display/mono) в localStorage
  *      'lab-theme:<pathname>'. .homework/index.html подхватывает и красит
  *      страницу в ту же палитру. Раньше homework всегда был voyager-skin
@@ -207,6 +212,10 @@
         }
       });
     });
+    // v12: snapshotTheme на инициализации — чтобы .homework/ имел палитру всегда
+    snapshotTheme();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(snapshotTheme).catch(function(){});
+    setTimeout(snapshotTheme, 800);
     refreshCount();
     setInterval(refreshCount, 1500);
     document.addEventListener('click', function(e){
