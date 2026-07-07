@@ -1,4 +1,12 @@
-/* lab-homework.js v33 · 2026-07-07 — «Положить в домашку».
+/* lab-homework.js v34 · 2026-07-07 — «Положить в домашку» + event-sourced cloud.
+   v34: saveHw() теперь дополнительно debounced-пушит snapshot items[] в облако
+        (Supabase lab_submissions, section_id='hw-state:<student>'). Каждое +/-
+        синхронится через <1c. .homework/index.html подхватывает через SELECT
+        latest + Supabase Realtime → живое зеркало. Двусторонность работает:
+        Маша в teacher-режиме .homework/?as=teacher&for=<student> добавляет
+        задание — ученик видит его в своей корзинке через 1 сек.
+        Retry queue localStorage 'lab-hw-cloud-queue' на случай offline.
+   v33 · расширены селекторы decorateSections для всех вариантов section-контейнеров.
    У каждого упражнения / секции / блока появляется ➕. Клик добавляет
    элемент в личную домашку ученика.
    v33: расширены селекторы decorateSections до всех вариантов section-контейнеров
@@ -46,7 +54,71 @@
       setTimeout(refreshFabCount, 80);
       setTimeout(refreshFabCount, 700);
     } catch(e){}
+    // v33+: облачная бетонировка — event-sourced snapshot в lab_submissions
+    try { cloudPushHwState(); } catch(e){}
   }
+  // v33+: cloud push каждого изменения корзины домашки (debounced).
+  // Event-sourcing: каждая новая строка = свежий снимок items[]. Последняя запись = текущее состояние.
+  var __cloudPushTimer = null;
+  function cloudPushHwState(){
+    clearTimeout(__cloudPushTimer);
+    __cloudPushTimer = setTimeout(function(){
+      try {
+        var name = getName();
+        if (!name) return; // ещё не идентифицирован → скипаем
+        var items = loadHw();
+        if (!Array.isArray(items)) return;
+        var roomId = 'student-' + slugify(name);
+        var title = '';
+        try { title = (document.title || '').replace(/&middot;/g,'·').split('·')[0].trim(); } catch(e){}
+        var payload = {
+          room_id: roomId,
+          student_role: 'homework:' + name,
+          lesson_path: location.pathname,
+          section_id: 'hw-state:' + roomId,
+          section_title: title || location.pathname,
+          score: 0, total: items.length, pct: 0,
+          misses: items
+        };
+        fetch(SUPABASE_URL + '/rest/v1/lab_submissions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            apikey: SUPABASE_ANON,
+            Authorization: 'Bearer ' + SUPABASE_ANON,
+            Prefer: 'return=minimal'
+          },
+          body: JSON.stringify(payload)
+        }).catch(function(){
+          // тихий retry queue через localStorage
+          try {
+            var q = JSON.parse(localStorage.getItem('lab-hw-cloud-queue') || '[]');
+            q.push(payload);
+            if (q.length > 50) q = q.slice(-50);
+            localStorage.setItem('lab-hw-cloud-queue', JSON.stringify(q));
+          } catch(_){}
+        });
+      } catch(e){}
+    }, 900);
+  }
+  // Flush queue при загрузке + каждые 20с + on online
+  function flushCloudQueue(){
+    try {
+      var q = JSON.parse(localStorage.getItem('lab-hw-cloud-queue') || '[]');
+      if (!q.length || !navigator.onLine) return;
+      var head = q[0];
+      fetch(SUPABASE_URL + '/rest/v1/lab_submissions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', apikey: SUPABASE_ANON, Authorization: 'Bearer ' + SUPABASE_ANON, Prefer: 'return=minimal' },
+        body: JSON.stringify(head)
+      }).then(function(r){
+        if (r.ok) { q.shift(); localStorage.setItem('lab-hw-cloud-queue', JSON.stringify(q)); if (q.length) flushCloudQueue(); }
+      }).catch(function(){});
+    } catch(e){}
+  }
+  setTimeout(flushCloudQueue, 1500);
+  setInterval(flushCloudQueue, 20000);
+  window.addEventListener('online', flushCloudQueue);
   // При загрузке урока — если самой свежей записи в домашке больше 48 ч,
   // считаем что ученик уже отыграл прошлый урок и не отправил → чистим.
   // Иначе мамы/ученики шлют скрины со старыми карточками.
