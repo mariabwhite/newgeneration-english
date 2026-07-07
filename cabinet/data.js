@@ -646,37 +646,37 @@ window.NGE_DATA = {
           "date": "2026-07-07",
           "num": 5,
           "status": "planned",
-          "topic": "ЕГЭ-формат (Word Formation / Speaking)"
+          "topic": "🏛️ Moscow · Kremlin · Red Square — столица России · Task 3 photo description + Word Formation по теме"
         },
         {
           "date": "2026-07-08",
           "num": 6,
           "status": "planned",
-          "topic": "ЕГЭ-формат (Word Formation / Speaking)"
+          "topic": "📚 Russian literature giants · Pushkin · Tolstoy · Dostoevsky · Tchaikovsky — Task 3 monologue «My favourite Russian writer» + linking words"
         },
         {
           "date": "2026-07-10",
           "num": 7,
           "status": "planned",
-          "topic": "ЕГЭ-формат (Word Formation / Speaking)"
+          "topic": "🎖️ Great Patriotic War (1941–1945) + Victory Day 9 May — patriotic vocab · Siege of Leningrad · Task 3 speaking про памятник/monument"
         },
         {
           "date": "2026-07-14",
           "num": 8,
           "status": "planned",
-          "topic": "ЕГЭ-формат (Word Formation / Speaking)"
+          "topic": "🚀 Yuri Gagarin · Soviet space triumph — «first person in space» · Task 3/4 сравнение старого и нового космоса + Word Formation (explore → exploration)"
         },
         {
           "date": "2026-07-15",
           "num": 9,
           "status": "planned",
-          "topic": "ЕГЭ-формат (Word Formation / Speaking)"
+          "topic": "🪆 Russian traditions — folklore, matryoshka, samovar, Maslenitsa, banya · Task 4 comparison «traditional vs modern celebrations» + collocations"
         },
         {
           "date": "2026-07-17",
           "num": 10,
           "status": "planned",
-          "topic": "ЕГЭ-формат (Word Formation / Speaking)"
+          "topic": "🇷🇺 Финал интенсива · Russia · what makes us proud — Task 3+4 full simulation + Word Formation review + wrap-up патриотического блока"
         }
       ],
       "materials": {
