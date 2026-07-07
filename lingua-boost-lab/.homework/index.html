@@ -264,6 +264,187 @@ main {
 .raw details { margin: 10px 0 !important; padding: 8px 12px !important; border: 1px solid var(--line) !important; border-radius: 10px !important; background: color-mix(in srgb, var(--card) 50%, transparent) !important; }
 .raw summary { cursor: pointer; font-family: var(--mono); font-weight: 800; color: var(--accent); font-size: .88rem; letter-spacing: .06em; }
 
+/* ─── Structural reset — покрывает все 60 уроков через паттерн-селекторы ─── */
+
+/* Любые "-hdr / -head / eyebrow / kicker / section-num" — метадата секции, дубль item-q → прячем */
+.raw [class*="section-hdr"],
+.raw [class*="section-head"],
+.raw [class*="section-num"],
+.raw [class*="section-sub"],
+.raw [class*="section-kicker"],
+.raw [class*="block-head"],
+.raw [class*="block-kicker"],
+.raw [class*="block-num"],
+.raw [class*="block-time"],
+.raw [class*="canon-l-section-num"],
+.raw [class*="canon-l-section-sub"],
+.raw [class*="-eyebrow"],
+.raw [class*="card-eyebrow"] { display: none !important; }
+
+/* Первый h1/h2/h3 внутри .raw — дублирует item-q, прячем */
+.raw > *:first-child > h1:first-child,
+.raw > *:first-child > h2:first-child,
+.raw > *:first-child > h3:first-child,
+.raw > h1:first-child, .raw > h2:first-child, .raw > h3:first-child,
+.raw section:first-child > h1:first-of-type,
+.raw section:first-child > h2:first-of-type,
+.raw > section:first-child > .card > h1:first-of-type,
+.raw > section:first-child > .card > h2:first-of-type,
+.raw [class*="section-name"]:first-of-type,
+.raw [class*="section-title"]:first-of-type,
+.raw [class*="block-title"]:first-of-type { display: none !important; }
+
+/* Любой контейнер-BANK / список пилюль */
+.raw [class*="-bank"], .raw [class*="pill-list"], .raw [class*="chip-list"],
+.raw [class*="tag-list"], .raw [class*="cuisine-pills"], .raw [class*="cue-list"] {
+  display: flex !important; flex-wrap: wrap !important; gap: 8px !important; margin: 10px 0 !important;
+  padding: 12px !important;
+  background: color-mix(in srgb, var(--accent) 6%, transparent) !important;
+  border: 1px dashed color-mix(in srgb, var(--accent) 30%, var(--line)) !important;
+  border-radius: 12px !important;
+}
+/* Пилюли / чипы / word-chip / tag / -pill в любом контейнере */
+.raw [class*="-pill"]:not([class*="section-"]):not([class*="canon-l-hero-pill"]),
+.raw [class*="-chip"], .raw [class*="word-chip"], .raw [class*="chip"],
+.raw [class*="-tag"]:not([class*="tag-list"]),
+.raw [class*="-bank"] > *, .raw [class*="pill-list"] > *, .raw [class*="chip-list"] > * {
+  display: inline-flex !important; align-items: center !important;
+  padding: 6px 12px !important;
+  background: color-mix(in srgb, var(--accent) 18%, transparent) !important;
+  color: var(--accent) !important;
+  border: 1px solid color-mix(in srgb, var(--accent) 42%, transparent) !important;
+  border-radius: 999px !important;
+  font-family: var(--mono) !important; font-size: .86rem !important; font-weight: 700 !important;
+  cursor: pointer; white-space: nowrap; text-decoration: none;
+}
+
+/* Универсальные ROW-контейнеры — блок упражнения на одну строку/карту */
+.raw [class*="-row"]:not([class*="section-"]):not([class*="btn-row"]):not([class*="action-row"]),
+.raw [class*="-item"]:not([class*="tag-list"]):not([class*="pill-list"]):not([class*="drag-item"]) {
+  background: color-mix(in srgb, var(--card) 68%, transparent) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 12px !important;
+  padding: 12px 14px !important;
+  margin: 10px 0 !important;
+  color: var(--text) !important;
+}
+
+/* CARD-контейнеры */
+.raw [class*="-card"]:not([class*="vocab-card"]):not([class*="flip-card"]):not([class*="card-head"]):not([class*="card-cover"]):not([class*="card-eyebrow"]):not([class*="card-num"]):not([class*="card-title"]):not([class*="card-top"]) {
+  background: color-mix(in srgb, var(--card) 72%, transparent) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 14px !important;
+  padding: 14px !important;
+  margin: 10px 0 !important;
+  color: var(--text) !important;
+  box-shadow: none !important;
+}
+
+/* Универсальные OPTS-контейнеры — варианты ответов MCQ/T-F/gap */
+.raw [class*="-opts"], .raw [class*="mcq-opt"]:not([class*="opts"]) ~ [class*="mcq-opt"],
+.raw [class*="mc-opts"] {
+  display: flex !important; flex-wrap: wrap !important; gap: 8px !important; margin: 8px 0 !important;
+}
+/* Кнопки внутри опций */
+.raw [class*="-opts"] > button, .raw [class*="-opts"] > label,
+.raw [class*="mc-opts"] > button, .raw [class*="mc-opts"] > label,
+.raw [class*="choice-btn"], .raw [class*="tf-btn"], .raw [class*="mcq-opt"],
+.raw [class*="mc-opt"], .raw [class*="art-opt"] {
+  padding: 8px 14px !important; border-radius: 10px !important;
+  background: color-mix(in srgb, var(--card) 84%, transparent) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--line) !important;
+  font-family: var(--mono) !important; font-size: .86rem !important; font-weight: 700 !important;
+  cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+  transition: .16s;
+}
+.raw [class*="-opts"] > button:hover, .raw [class*="mcq-opt"]:hover,
+.raw [class*="mc-opt"]:hover, .raw [class*="tf-btn"]:hover {
+  border-color: var(--accent) !important; color: var(--accent) !important;
+}
+
+/* Универсальные BTN — кнопки внутри блока */
+.raw button:not([class*="rm"]):not([class*="lab-hw-"]) {
+  padding: 8px 14px; border-radius: 10px;
+  background: color-mix(in srgb, var(--card) 82%, transparent);
+  color: var(--text);
+  border: 1px solid var(--line);
+  font-family: var(--mono); font-size: .84rem; font-weight: 700;
+  cursor: pointer;
+}
+.raw button:hover { border-color: var(--accent); color: var(--accent); }
+.raw [class*="primary"], .raw button.primary {
+  background: var(--accent) !important; color: var(--accent-on, #fff) !important;
+  border-color: var(--accent) !important;
+}
+
+/* Полоска ответов / note / feedback / hint */
+.raw [class*="-note"], .raw [class*="-feedback"], .raw [class*="-hint"],
+.raw [class*="sample"], .raw [class*="explanation"] {
+  padding: 8px 12px !important;
+  border-radius: 8px !important;
+  background: color-mix(in srgb, var(--accent) 8%, transparent) !important;
+  color: var(--muted) !important;
+  font-size: .88rem !important;
+  margin-top: 6px !important;
+}
+
+/* Drop-slot / drag-item — для drag&drop заданий */
+.raw [class*="drop-slot"], .raw [class*="drop-zone"] {
+  display: inline-flex !important; align-items: center; justify-content: center !important;
+  min-width: 80px !important; padding: 4px 10px !important; margin: 0 2px !important;
+  border: 2px dashed var(--line) !important; border-radius: 8px !important;
+  background: color-mix(in srgb, var(--card) 50%, transparent) !important;
+  color: var(--muted) !important;
+}
+.raw [class*="drag-item"] {
+  display: inline-flex !important; padding: 6px 12px !important; margin: 2px !important;
+  background: color-mix(in srgb, var(--accent) 20%, transparent) !important;
+  color: var(--accent) !important;
+  border: 1px solid color-mix(in srgb, var(--accent) 50%, transparent) !important;
+  border-radius: 999px !important;
+  font-family: var(--mono); font-size: .84rem; font-weight: 700;
+  cursor: grab;
+}
+
+/* UI мусор из уроков — режем ВСЁ что похоже на technical/nav/copyright */
+.raw [class*="lab-hw-"], .raw [class*="lp-fab"], .raw [class*="lp-toc"],
+.raw [class*="lp-submit"], .raw [class*="score-badge"],
+.raw [class*="teacher-banner"], .raw [class*="teacher-mirror"],
+.raw [class*="firehose"], .raw [class*="quick-push"],
+.raw [class*="hw-add"], .raw [class*="hw-fab"],
+.raw script, .raw style, .raw link,
+.raw .canon-l-nav, .raw .canon-l-brand, .raw .canon-l-tools,
+.raw .canon-l-topbar, .raw .canon-l-footer,
+.raw [class*="tracker"], .raw [class*="progress-bar"],
+.raw [id="progressFill"], .raw [id="progressText"] { display: none !important; }
+
+/* Vocab внутри блока (не наши vocab-card на первом уровне) */
+.raw [class*="vocab-inner"], .raw [class*="flip-inner"] {
+  background: color-mix(in srgb, var(--card) 82%, transparent) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 10px !important; padding: 10px !important; color: var(--text) !important;
+}
+
+/* Play button — плеер линии диалога */
+.raw [class*="play"], .raw button[class*="play"], .raw [class*="tts-btn"], .raw [class*="mic-btn"] {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 4px 10px !important; min-width: 30px !important;
+  background: color-mix(in srgb, var(--accent) 20%, transparent) !important;
+  color: var(--accent) !important;
+  border: 1px solid color-mix(in srgb, var(--accent) 50%, transparent) !important;
+  border-radius: 6px !important;
+  font-family: var(--mono); font-size: .82rem;
+}
+
+/* Audio / video full width */
+.raw audio, .raw video { width: 100%; max-width: 100%; }
+
+/* Table универсально */
+.raw table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: .92rem; }
+.raw table th, .raw table td { padding: 8px 10px; border: 1px solid var(--line); text-align: left; color: var(--text); }
+.raw table th { background: color-mix(in srgb, var(--accent) 12%, transparent); font-family: var(--mono); font-weight: 800; letter-spacing: .06em; text-transform: uppercase; font-size: .78rem; }
+
 /* Answer */
 .answer { display: grid; gap: 8px; }
 .answer label {
