@@ -252,14 +252,22 @@ main {
   border-radius: 8px !important; padding: 8px 12px !important;
   font-family: var(--body) !important;
 }
+/* Структурные боксы упражнений — только структура + палитро-агностический subtle border/bg через currentColor.
+   На светлом теме — светлый оттенок, на тёмном — тёмный, всегда читаемо. */
 .raw .dialog, .raw .story-card, .raw .listen-box, .raw .reading-card,
 .raw .q-row, .raw .oc-row, .raw .cloze-row, .raw .wf-row, .raw .mic-row,
-.raw .challenge, .raw .task-card, .raw .match-item, .raw .quick-check,
+.raw .challenge, .raw .task-card, .raw .match-item, .raw .quick-check {
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin: 10px 0;
+  border: 1px solid color-mix(in srgb, currentColor 14%, transparent);
+  background: color-mix(in srgb, currentColor 4%, transparent);
+}
+/* .your-turn имеет inline linear-gradient — НЕ трогаем bg вообще, только spacing. */
 .raw .your-turn {
-  background: color-mix(in srgb, var(--card) 70%, transparent) !important;
-  border: 1px solid var(--line) !important; border-radius: 12px !important;
-  padding: 12px 14px !important; margin: 10px 0 !important;
-  color: var(--text) !important;
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 12px 0;
 }
 .raw details { margin: 10px 0 !important; padding: 8px 12px !important; border: 1px solid var(--line) !important; border-radius: 10px !important; background: color-mix(in srgb, var(--card) 50%, transparent) !important; }
 .raw summary { cursor: pointer; font-family: var(--mono); font-weight: 800; color: var(--accent); font-size: .88rem; letter-spacing: .06em; }
@@ -318,27 +326,27 @@ main {
   cursor: pointer; white-space: nowrap; text-decoration: none;
 }
 
-/* Универсальные ROW-контейнеры — блок упражнения на одну строку/карту */
+/* Универсальные ROW/ITEM/CARD контейнеры — структура + subtle palette-agnostic outline через currentColor. */
 .raw [class*="-row"]:not([class*="section-"]):not([class*="btn-row"]):not([class*="action-row"]),
 .raw [class*="-item"]:not([class*="tag-list"]):not([class*="pill-list"]):not([class*="drag-item"]) {
-  background: color-mix(in srgb, var(--card) 68%, transparent) !important;
-  border: 1px solid var(--line) !important;
-  border-radius: 12px !important;
-  padding: 12px 14px !important;
-  margin: 10px 0 !important;
-  color: var(--text) !important;
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin: 10px 0;
+  border: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+  background: color-mix(in srgb, currentColor 3%, transparent);
 }
-
-/* CARD-контейнеры */
 .raw [class*="-card"]:not([class*="vocab-card"]):not([class*="flip-card"]):not([class*="card-head"]):not([class*="card-cover"]):not([class*="card-eyebrow"]):not([class*="card-num"]):not([class*="card-title"]):not([class*="card-top"]) {
-  background: color-mix(in srgb, var(--card) 72%, transparent) !important;
-  border: 1px solid var(--line) !important;
-  border-radius: 14px !important;
-  padding: 14px !important;
-  margin: 10px 0 !important;
-  color: var(--text) !important;
-  box-shadow: none !important;
+  border-radius: 14px;
+  padding: 14px;
+  margin: 10px 0;
+  border: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+  background: color-mix(in srgb, currentColor 4%, transparent);
 }
+/* Списки OL/UL — reset base для видимости номеров/буллетов на любой палитре */
+.raw ol, .raw ul { padding-left: 24px !important; margin: 10px 0 !important; color: inherit !important; }
+.raw li { margin: 4px 0 !important; color: inherit !important; line-height: 1.6 !important; }
+/* Гарантия что .raw color наследуется от .item — цвет всегда var(--text) урока */
+.raw { color: var(--text); }
 
 /* Универсальные OPTS-контейнеры — варианты ответов MCQ/T-F/gap */
 .raw [class*="-opts"], .raw [class*="mcq-opt"]:not([class*="opts"]) ~ [class*="mcq-opt"],
