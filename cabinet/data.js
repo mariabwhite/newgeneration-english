@@ -867,38 +867,42 @@ window.NGE_DATA = {
       },
       "level": "B1",
       "format": "индивидуально",
-      "schedule": "вторник 12:00",
+      "schedule": "понедельник 17:00",
       "price_per_lesson": 2500,
+      "monthly_package": 10000,
       "payment_status": "Оплачено",
+      "payments": [
+        { "month": "Июль 2026", "package": "4 понедельника × 2 500 ₽", "amount": "10 000 ₽", "status": "paid", "date": "07.07.2026", "note": "Весь курс на июль · оплачено мамой (Наталья Вячеславовна)" }
+      ],
       "parent_name": "Исаева Наталья Вячеславовна",
       "pin": "2512",
       "lessons_in_package": 4,
-      "subscription_month": "2026-05",
-      "lessons_used_this_month": 4,
+      "subscription_month": "2026-07",
+      "lessons_used_this_month": 1,
       "lessons": [
         {
-          "date": "2026-05-04",
+          "date": "2026-07-07",
           "num": 1,
           "status": "completed",
-          "topic": "Города — конкретная лексика, заканчивали тему"
+          "topic": "🧳 Путешествия · старт блока — travel vocab, страны, транспорт, простые истории про поездки"
         },
         {
-          "date": "2026-05-11",
+          "date": "2026-07-14",
           "num": 2,
-          "status": "completed",
-          "topic": "Present Perfect — теория и Speaking по нему"
+          "status": "planned",
+          "topic": "🏙️ Города — city vocab, urban places, describing places через There is/are + Present Continuous"
         },
         {
-          "date": "2026-05-18",
+          "date": "2026-07-21",
           "num": 3,
-          "status": "completed",
-          "topic": "Города — функции города (городские объекты) + Present Continuous в контексте"
+          "status": "planned",
+          "topic": "⛪ Религия — мировые религии, культурные традиции, места поклонения, толерантный подход"
         },
         {
-          "date": "2026-05-25",
+          "date": "2026-07-28",
           "num": 4,
-          "status": "completed",
-          "topic": "Закрытый урок блока"
+          "status": "planned",
+          "topic": "🎯 Финал июльского блока — mini-project по одной из трёх тем на выбор + повторение"
         }
       ],
       "stability_note": ""
