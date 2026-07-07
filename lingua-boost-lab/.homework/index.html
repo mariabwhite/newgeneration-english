@@ -293,6 +293,19 @@ main {
   font-family: var(--mono) !important; font-size: .84rem !important; font-weight: 700 !important;
   cursor: pointer;
 }
+.raw button.selected, .raw button[aria-pressed="true"],
+.raw .mcq-opts button.selected, .raw .art-opts button.selected, .raw .ps-opts button.selected,
+.raw .oc-opts button.selected, .raw .tfns-opts button.selected,
+.raw .mc-opts button.selected, .raw .tfg-opts button.selected, .raw .cloze-opts button.selected {
+  background: color-mix(in srgb, var(--accent) 24%, var(--card)) !important;
+  border-color: color-mix(in srgb, var(--accent) 70%, var(--line)) !important;
+  color: var(--text) !important;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 18%, transparent) !important;
+}
+.raw .drop-gap.filled, .raw .cloze-gap.filled,
+.raw .drop.filled, .raw .match-drop.filled, .raw .match-slot.filled {
+  color: var(--text) !important;
+}
 .raw .mcq-note, .raw .tfns-note { color: var(--muted) !important; font-size: .84rem !important; padding: 6px 10px !important; border-radius: 8px !important; margin-top: 6px !important; }
 
 /* TFNS / match rows sometimes arrive from lessons hidden until JS starts.
@@ -1593,11 +1606,82 @@ main {
       }
       // Крестик X виден ВСЕМ (учитель тоже может убрать лишнее)
       var rmBtn = '<button class="rm" data-rm="' + i + '" title="Удалить блок" aria-label="Удалить блок">×</button>';
-      return '<article class="item' + (byTeacher ? ' by-teacher' : '') + '">' + rmBtn + head + body + answer + '</article>';
+      return '<article class="item' + (byTeacher ? ' by-teacher' : '') + '" data-item-idx="' + i + '">' + rmBtn + head + body + answer + '</article>';
     }).join('');
+    hydrateRawAnswers();
   }
 
   // ─── Input handlers ─────────
+  var rawChoiceGroupSelector = [
+    '.mcq-opts', '.art-opts', '.ps-opts', '.oc-opts', '.tfns-opts',
+    '.mc-opts', '.tfg-opts', '.cloze-opts',
+    '[class*="mcq-opts"]', '[class*="choice"]', '[class*="opts"]'
+  ].join(',');
+  function rawArticle(el){ return el && el.closest ? el.closest('.item[data-item-idx]') : null; }
+  function rawItem(article){
+    var idx = article ? +article.dataset.itemIdx : -1;
+    return idx >= 0 && state.items[idx] ? state.items[idx] : null;
+  }
+  function rawControlKey(el, selector){
+    var raw = el.closest('.raw');
+    var nodes = raw ? Array.prototype.slice.call(raw.querySelectorAll(selector)) : [];
+    return String(Math.max(0, nodes.indexOf(el)));
+  }
+  function rawGroupKey(group){
+    var raw = group.closest('.raw');
+    var groups = raw ? Array.prototype.slice.call(raw.querySelectorAll(rawChoiceGroupSelector)) : [];
+    return String(Math.max(0, groups.indexOf(group)));
+  }
+  function ensureRawAnswer(item){
+    if (!item.raw_answer || typeof item.raw_answer !== 'object') item.raw_answer = { choices:{}, fields:{}, checks:{} };
+    item.raw_answer.choices = item.raw_answer.choices || {};
+    item.raw_answer.fields = item.raw_answer.fields || {};
+    item.raw_answer.checks = item.raw_answer.checks || {};
+    return item.raw_answer;
+  }
+  function summarizeRawAnswer(raw){
+    var parts = [];
+    Object.keys(raw.choices || {}).forEach(function(k){ if (raw.choices[k]) parts.push(raw.choices[k]); });
+    Object.keys(raw.fields || {}).forEach(function(k){ if (raw.fields[k]) parts.push(raw.fields[k]); });
+    Object.keys(raw.checks || {}).forEach(function(k){ if (raw.checks[k]) parts.push(raw.checks[k]); });
+    return parts.filter(Boolean).join(' · ');
+  }
+  function persistRawAnswer(article, item){
+    if (!article || !item) return;
+    var raw = ensureRawAnswer(item);
+    item.answer = summarizeRawAnswer(raw);
+    item.saved_at = null;
+    saveLocal(state.items);
+    scheduleCloudPush();
+    broadcastTyping(+article.dataset.itemIdx, item.answer || '');
+  }
+  function hydrateRawAnswers(){
+    Array.prototype.forEach.call(list.querySelectorAll('.item[data-item-idx]'), function(article){
+      var item = rawItem(article);
+      var raw = item && item.raw_answer;
+      if (!raw) return;
+      Array.prototype.forEach.call(article.querySelectorAll(rawChoiceGroupSelector), function(group, gi){
+        var val = raw.choices && raw.choices[String(gi)];
+        if (!val) return;
+        Array.prototype.forEach.call(group.querySelectorAll('button'), function(btn){
+          var bVal = btn.getAttribute('data-ans') || btn.value || btn.textContent.trim();
+          var selected = bVal === val;
+          btn.classList.toggle('selected', selected);
+          btn.setAttribute('aria-pressed', selected ? 'true' : 'false');
+        });
+      });
+      Array.prototype.forEach.call(article.querySelectorAll('.raw input, .raw textarea, .raw select'), function(ctrl, ci){
+        var key = String(ci);
+        if ((ctrl.type === 'checkbox' || ctrl.type === 'radio')) {
+          var checked = raw.checks && raw.checks[key];
+          ctrl.checked = checked === '1' || checked === ctrl.value;
+        } else if (raw.fields && Object.prototype.hasOwnProperty.call(raw.fields, key)) {
+          ctrl.value = raw.fields[key];
+        }
+      });
+    });
+  }
+
   list.addEventListener('input', function(e){
     if (e.target.matches('textarea[data-idx]')) {
       var i = +e.target.dataset.idx;
@@ -1608,7 +1692,28 @@ main {
         scheduleCloudPush();
         broadcastTyping(i, e.target.value); // live-typing to teacher mirror
       }
+    } else if (e.target.closest('.raw') && e.target.matches('input, textarea, select')) {
+      var article = rawArticle(e.target);
+      var item = rawItem(article);
+      if (!item) return;
+      var raw = ensureRawAnswer(item);
+      raw.fields[rawControlKey(e.target, '.raw input, .raw textarea, .raw select')] = e.target.value;
+      persistRawAnswer(article, item);
     }
+  });
+  list.addEventListener('change', function(e){
+    if (!e.target.closest('.raw') || !e.target.matches('input, textarea, select')) return;
+    var article = rawArticle(e.target);
+    var item = rawItem(article);
+    if (!item) return;
+    var raw = ensureRawAnswer(item);
+    var key = rawControlKey(e.target, '.raw input, .raw textarea, .raw select');
+    if (e.target.type === 'checkbox' || e.target.type === 'radio') {
+      raw.checks[key] = e.target.checked ? (e.target.value || '1') : '';
+    } else {
+      raw.fields[key] = e.target.value;
+    }
+    persistRawAnswer(article, item);
   });
 
   list.addEventListener('click', function(e){
@@ -1619,6 +1724,25 @@ main {
       cloudPush();
       render();
       toast('Убрал задание');
+      return;
+    }
+    var rawBtn = e.target.closest('.raw button');
+    if (rawBtn) {
+      if (rawBtn.matches('[data-rm], .rm, [class*="listen"], [class*="play"], [id*="listen"]')) return;
+      var article = rawArticle(rawBtn);
+      var item = rawItem(article);
+      var group = rawBtn.closest(rawChoiceGroupSelector);
+      if (!item || !group) return;
+      e.preventDefault();
+      var raw = ensureRawAnswer(item);
+      Array.prototype.forEach.call(group.querySelectorAll('button'), function(btn){
+        btn.classList.remove('selected', 'right', 'wrong');
+        btn.setAttribute('aria-pressed', 'false');
+      });
+      rawBtn.classList.add('selected');
+      rawBtn.setAttribute('aria-pressed', 'true');
+      raw.choices[rawGroupKey(group)] = rawBtn.getAttribute('data-ans') || rawBtn.value || rawBtn.textContent.trim();
+      persistRawAnswer(article, item);
     }
   });
 
