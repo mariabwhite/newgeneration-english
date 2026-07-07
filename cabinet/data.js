@@ -912,7 +912,12 @@ window.NGE_DATA = {
           "date": "2026-07-07",
           "num": 1,
           "status": "completed",
-          "topic": "🧳 Путешествия · старт блока — travel vocab, страны, транспорт, простые истории про поездки"
+          "topic": "⛪ Религия — мировые религии, культурные традиции, места поклонения, толерантный подход",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/anyas-temples-quest/?theme=light-lab&lang=ru",
+            "module_title": "⛪ Открыть квест · Anya's Temples Quest",
+            "text": "Интерактивный квест по мировым храмам и религиям — можно повторить дома."
+          }
         },
         {
           "date": "2026-07-14",

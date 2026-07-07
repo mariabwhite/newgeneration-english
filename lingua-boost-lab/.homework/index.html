@@ -242,7 +242,16 @@ main {
 .raw strong, .raw b { color: var(--text) !important; }
 .raw em, .raw i { color: var(--muted) !important; }
 .raw img { max-width: 100%; height: auto; border-radius: 12px; margin: 8px 0; }
-.raw audio, .raw video { max-width: 100%; margin: 8px 0; }
+.raw audio { max-width: 100%; margin: 8px 0; }
+.raw video, .raw iframe {
+  width: 100% !important;
+  max-width: 100% !important;
+  max-height: 420px !important;
+  aspect-ratio: 16 / 9 !important;
+  border-radius: 12px !important;
+  margin: 8px 0 !important;
+  object-fit: cover !important;
+}
 /* Дубли заголовка и метадаты — гасим первый h1/h2/h3 если он совпадает с item-q */
 .raw > h2:first-child, .raw > h3:first-child { display: none !important; }
 /* Все UI-нашлёпки из уроков — прячем */
@@ -250,7 +259,8 @@ main {
 .raw .lab-hw-overlay, .raw .lp-toc, .raw .lab-hw-add, .raw .lab-hw-section-btn,
 .raw .section-hdr, .raw .section-head, .raw .section-num,
 .raw .fab, .raw button.mic-btn.recording,
-.raw .lab-teacher-banner, .raw #labSyncBanner { display: none !important; }
+.raw .lab-teacher-banner, .raw #labSyncBanner,
+.raw details.teacher, .raw .teacher, .raw .t-body { display: none !important; }
 
 /* Universal reset для типовых блоков внутри секций урока */
 .raw .ro-bank, .raw .pill-bank, .raw .word-bank, .raw .drag-bank, .raw .bank,
@@ -325,6 +335,34 @@ main {
   border: 1px solid var(--line) !important;
   border-radius: 8px !important; padding: 8px 12px !important;
   font-family: var(--body) !important;
+  min-width: 2.5rem !important;
+  min-height: 2.35rem !important;
+  width: auto;
+}
+.raw input[type="radio"], .raw input[type="checkbox"] {
+  width: 1.05rem !important;
+  min-width: 1.05rem !important;
+  height: 1.05rem !important;
+  min-height: 1.05rem !important;
+  padding: 0 !important;
+}
+.raw input[type="number"], .raw input.tutor-input {
+  width: 5rem !important;
+  min-width: 5rem !important;
+}
+.raw .play, .raw .play-line, .raw .ctrl.listen, .raw button.listen, .raw button[id*="listen"] {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 2.4rem !important;
+  min-height: 2.4rem !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 8px 10px !important;
+  border-radius: 999px !important;
+  border: 1px solid var(--line) !important;
+  background: color-mix(in srgb, var(--accent) 12%, var(--card)) !important;
+  color: var(--text) !important;
 }
 /* Структурные боксы упражнений — только структура + палитро-агностический subtle border/bg через currentColor.
    На светлом теме — светлый оттенок, на тёмном — тёмный, всегда читаемо. */
@@ -486,6 +524,18 @@ main {
   margin-top: 6px !important;
 }
 
+/* Homework is an assignment surface: do not leak answer keys or teacher-only prep into cloned blocks. */
+.raw [class*="feedback"], .raw [class*="answer-key"], .raw [class*="key-box"],
+.raw [class*="model"], .raw [class*="reveal"], .raw [class*="solution"],
+.raw [class*="correct-answer"], .raw [class*="mcq-note"], .raw [class*="tfns-note"],
+.raw [class*="sample"], .raw [class*="listen-script"], .raw [class*="transcript"],
+.raw button[class*="reset"], .raw button[class*="check"], .raw button[class*="reveal"],
+.raw button[id*="show"], .raw button[class*="show"],
+.raw details.teacher, .raw details[open].teacher,
+.raw summary:has(+ .t-body), .raw .t-body {
+  display: none !important;
+}
+
 /* Drop-slot / drag-item — для drag&drop заданий */
 .raw [class*="drop-slot"], .raw [class*="drop-zone"] {
   display: inline-flex !important; align-items: center; justify-content: center !important;
@@ -543,7 +593,7 @@ main {
 .raw table th { background: color-mix(in srgb, var(--accent) 12%, transparent); font-family: var(--mono); font-weight: 800; letter-spacing: .06em; text-transform: uppercase; font-size: .78rem; }
 
 /* Vocab-card в .raw — раскрываем обе стороны стеком, data-back проявляется под словом */
-.raw .lab-vocab-grid, .raw .vocab-grid {
+.raw .lab-vocab-grid, .raw .vocab-grid, .raw .flip-grid {
   display: grid !important;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
   gap: 12px !important;
@@ -604,7 +654,8 @@ main {
 }
 .raw .flip-front, .raw .flip-back,
 .raw .vocab-front, .raw .vocab-back {
-  display: block !important;
+  display: grid !important;
+  gap: 4px !important;
   position: static !important;
   transform: none !important;
   backface-visibility: visible !important;
@@ -618,27 +669,37 @@ main {
   padding-top: 8px !important;
   color: var(--muted) !important;
 }
-.raw .vocab-front .word, .raw .vocab-card .word {
+.raw .vocab-front .word, .raw .vocab-card .word,
+.raw .flip-front .word, .raw .flip-front > span:first-child {
   font-family: var(--display);
   font-size: 1.15rem;
   font-weight: 800;
   color: var(--text);
   display: block;
+  line-height: 1.18;
 }
-.raw .vocab-front .pos, .raw .vocab-card .pos {
+.raw .vocab-front .pos, .raw .vocab-card .pos,
+.raw .flip-front .pos, .raw .flip-card .pos {
   font-family: var(--mono);
   font-size: .72rem;
   color: var(--muted);
   letter-spacing: .1em;
   text-transform: uppercase;
+  display: block;
 }
 .raw .vocab-back .meaning, .raw .vocab-back .ex,
-.raw .vocab-card .meaning, .raw .vocab-card .ex {
+.raw .vocab-card .meaning, .raw .vocab-card .ex,
+.raw .flip-back .ru, .raw .flip-back > span {
   display: block;
   color: var(--text);
   margin-top: 4px;
   font-size: .92rem;
   line-height: 1.5;
+}
+.raw .flip-back .ru {
+  color: var(--accent) !important;
+  font-weight: 800;
+  font-size: 1rem;
 }
 
 /* MCQ row — гарантированно виден полностью (вопрос + все кнопки-варианты + note) */
@@ -1019,8 +1080,7 @@ main {
     var themeRaw = localStorage.getItem('lab-theme:' + lesson);
     if (themeRaw) {
       var theme = JSON.parse(themeRaw);
-      var root = document.documentElement;
-      Object.keys(theme).forEach(function(k){ if (k === '__bodyBg') return; if (theme[k]) root.style.setProperty(k, theme[k]); });
+      applyThemeVars(theme);
     }
   } catch(e){}
 
@@ -1062,9 +1122,10 @@ main {
   // ─── Fetch real lesson title/brand ─────────
   fetch(lesson, { cache: 'no-cache' }).then(function(r){ return r.ok ? r.text() : ''; }).then(function(html){
     if (!html) return;
+    applyLessonTheme(html);
     var m = html.match(/<title[^>]*>([^<]+)<\/title>/i);
     if (m) {
-      var t = m[1].replace(/&middot;/g,'·').replace(/\s*[·|]\s*(B[12]\+?|A[12]|C[12]|Pre-A1|LinguaBoost.*|NG English.*|Lab).*$/i, '').trim();
+      var t = decodeHTML(m[1]).replace(/&middot;/g,'·').replace(/\s*[·|]\s*(B[12]\+?|A[12]|C[12]|Pre-A1|LinguaBoost.*|NG English.*|Lab).*$/i, '').trim();
       if (t && t.length > 2) { heroTitle.textContent = t; metaLesson.textContent = t; document.title = 'Моя домашка · ' + t; }
     }
     var subM = html.match(/class="[^"]*(?:canon-l-sub|brand-sub)[^"]*"[^>]*>([^<]+)</i);
@@ -1075,11 +1136,38 @@ main {
 
   // ─── Utils ─────────
   function escapeHTML(s){ return String(s||'').replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function decodeHTML(s){
+    var box = document.createElement('textarea');
+    box.innerHTML = String(s || '');
+    return box.value;
+  }
   function short(s,n){ s=String(s||''); return s.length>n ? s.slice(0,n-1)+'…' : s; }
   function slugify(s){ return (s||'').toLowerCase().replace(/[^a-zа-яё0-9]+/gi,'-').replace(/^-+|-+$/g,'').slice(0,30); }
   function normalizeLessonPath(value){
     try { return new URL(value || '/', location.origin).pathname; }
     catch(e){ return value || '/lingua-boost-lab/'; }
+  }
+  function applyThemeVars(theme){
+    var root = document.documentElement;
+    Object.keys(theme || {}).forEach(function(k){
+      if (k === '__bodyBg') return;
+      if (/^--[a-z0-9-]+$/i.test(k) && theme[k]) root.style.setProperty(k, theme[k]);
+    });
+    if (!theme['--bg-deep'] && theme['--bg-2']) root.style.setProperty('--bg-deep', theme['--bg-2']);
+    if (!theme['--card'] && theme['--surface']) root.style.setProperty('--card', theme['--surface']);
+    if (!theme['--text'] && theme['--ink']) root.style.setProperty('--text', theme['--ink']);
+    if (!theme['--muted'] && theme['--ink-soft']) root.style.setProperty('--muted', theme['--ink-soft']);
+  }
+  function applyLessonTheme(html){
+    var m = String(html || '').match(/:root\s*\{([\s\S]*?)\}/i);
+    if (!m) return;
+    var vars = {};
+    m[1].replace(/\/\*[\s\S]*?\*\//g, '').replace(/(--[a-z0-9-]+)\s*:\s*([^;{}]+);/gi, function(_, key, value){
+      vars[key.trim()] = value.trim();
+      return '';
+    });
+    applyThemeVars(vars);
+    try { localStorage.setItem('lab-theme:' + lesson, JSON.stringify(vars)); } catch(e){}
   }
   function toast(msg, kind){
     var t = document.getElementById('toast');

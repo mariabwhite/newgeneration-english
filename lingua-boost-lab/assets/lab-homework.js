@@ -472,6 +472,17 @@
         }).join('\n');
         // v34: расширенный чиппер — режем UI-нашлёпки урока и дублирующую .section-hdr
         clone.querySelectorAll('.lab-hw-add, .lab-hw-section-btn, .section-hdr, .section-head, .lp-submit, .lp-fab, .lp-toc, .lp-task-tag, .task-tag, .task-boundary, .pilot-tag, [class*="lp-task-tag"], [class*="samotek"], .lab-hw-fab, .lab-hw-top-entry, .lab-hw-overlay, .lab-hw-modal, script, style, link[rel="stylesheet"]').forEach(function(node){ node.remove(); });
+        clone.querySelectorAll('details.teacher, .teacher, .t-body, .score-badge.tutor, [class*="feedback"], [class*="answer-key"], [class*="key-box"], [class*="model"], [class*="reveal"], [class*="solution"], [class*="correct-answer"], [class*="mcq-note"], [class*="tfns-note"], [class*="sample"], [class*="listen-script"], [class*="transcript"]').forEach(function(node){ node.remove(); });
+        clone.querySelectorAll('button').forEach(function(node){
+          var label = (node.textContent || '').trim();
+          var cls = node.className || '';
+          var id = node.id || '';
+          if (/show\s*(answers?|model|transcript|key)?|reveal|check\s*answers?|показать|сброс/i.test(label) || /\b(check|reset|mic|show)\b|recording/i.test(cls + ' ' + id)) node.remove();
+        });
+        clone.querySelectorAll('p, li, details, summary, .note, [class*="note"], [class*="hint"]').forEach(function(node){
+          var text = (node.textContent || '').trim();
+          if (/model answer|sample model|model below|show model|open the model|answer key|correct answer|full transcript|show full transcript/i.test(text)) node.remove();
+        });
         // v36: стираем inline `background:*` и `color:*` из всех элементов клона.
         // Иначе тёмные inline-стили урока (например hero card) уезжают в .raw и превращают
         // блок в тёмный прямоугольник поверх кремовой палитры домашки.
@@ -492,6 +503,23 @@
         });
         clone.querySelectorAll('.lab-hw-host').forEach(function(el){
           el.classList.remove('lab-hw-host');
+        });
+        clone.querySelectorAll('.flip-card[data-en]').forEach(function(card){
+          var en = card.getAttribute('data-en') || '';
+          var pos = card.getAttribute('data-pos') || '';
+          var ru = card.getAttribute('data-ru') || '';
+          var def = card.getAttribute('data-def') || '';
+          card.innerHTML =
+            '<div class="flip-inner">' +
+              '<div class="flip-front">' +
+                '<span class="word">' + escapeHTML(en) + '</span>' +
+                (pos ? '<span class="pos">' + escapeHTML(pos) + '</span>' : '') +
+              '</div>' +
+              '<div class="flip-back">' +
+                (ru ? '<span class="ru">' + escapeHTML(ru) + '</span>' : '') +
+                (def ? '<span class="ex">' + escapeHTML(def) + '</span>' : '') +
+              '</div>' +
+            '</div>';
         });
         clone.querySelectorAll('[src]').forEach(function(node){
           var value = node.getAttribute('src') || '';
