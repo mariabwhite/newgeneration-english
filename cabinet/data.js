@@ -646,37 +646,37 @@ window.NGE_DATA = {
           "date": "2026-07-07",
           "num": 5,
           "status": "planned",
-          "topic": "🏛️ Moscow · Kremlin · Red Square — столица России · Task 3 photo description + Word Formation по теме"
+          "topic": "🏛️ Moscow · Kremlin · Red Square — столица России · Task 3 интервью «My favourite Russian city» (5 Q × 40 сек) + Word Formation drill"
         },
         {
           "date": "2026-07-08",
           "num": 6,
           "status": "planned",
-          "topic": "📚 Russian literature giants · Pushkin · Tolstoy · Dostoevsky · Tchaikovsky — Task 3 monologue «My favourite Russian writer» + linking words"
+          "topic": "📚 Russian literature giants (Pushkin / Tolstoy / Dostoevsky / Tchaikovsky) · Task 4 проект «Great Russian writers» + 2 фото monument/museum · 12–15 фраз"
         },
         {
           "date": "2026-07-10",
           "num": 7,
           "status": "planned",
-          "topic": "🎖️ Great Patriotic War (1941–1945) + Victory Day 9 May — patriotic vocab · Siege of Leningrad · Task 3 speaking про памятник/monument"
+          "topic": "🎖️ Great Patriotic War 1941–45 + Victory Day · Task 4 проект «Ways to celebrate Victory Day» + 2 фото (парад / Immortal Regiment) · patriotic vocab · Siege of Leningrad"
         },
         {
           "date": "2026-07-14",
           "num": 8,
           "status": "planned",
-          "topic": "🚀 Yuri Gagarin · Soviet space triumph — «first person in space» · Task 3/4 сравнение старого и нового космоса + Word Formation (explore → exploration)"
+          "topic": "🚀 Yuri Gagarin · Soviet space triumph — Task 3 интервью «Space & achievements» (5 Q) + Word Formation (explore → exploration, achieve → achievement)"
         },
         {
           "date": "2026-07-15",
           "num": 9,
           "status": "planned",
-          "topic": "🪆 Russian traditions — folklore, matryoshka, samovar, Maslenitsa, banya · Task 4 comparison «traditional vs modern celebrations» + collocations"
+          "topic": "🪆 Russian traditions (folklore / matryoshka / samovar / Maslenitsa / banya) · Task 4 проект «Russian traditions» + 2 фото (Maslenitsa / banya) · linking words drill"
         },
         {
           "date": "2026-07-17",
           "num": 10,
           "status": "planned",
-          "topic": "🇷🇺 Финал интенсива · Russia · what makes us proud — Task 3+4 full simulation + Word Formation review + wrap-up патриотического блока"
+          "topic": "🇷🇺 Финал интенсива · Russia · what makes us proud — Task 3 (5 Q) + Task 4 (12–15 фраз) full simulation + Word Formation review · шкала баллов"
         }
       ],
       "materials": {
