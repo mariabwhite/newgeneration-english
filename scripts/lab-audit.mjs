@@ -47,6 +47,8 @@ function isLesson(fp) {
   if (["index.html", "premium.html", "login.html"].includes(name) && rel.split("/").length <= 2) return false;
   if (rel.startsWith(".homework/")) return false;
   if (rel.startsWith("assets/")) return false;
+  // Workbook / trainer / teaser — не уроки, Маша просила не кошмарить
+  if (/workbook|trainer|teaser/i.test(rel)) return false;
   return true;
 }
 
