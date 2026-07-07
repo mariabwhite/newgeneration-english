@@ -1497,6 +1497,11 @@ window.NGE_DATA = {
         "note": "",
         "files": [
           {
+            "name": "A2-Timofey-conspect-2026.pdf",
+            "label": "📘 Конспект пилотного месяца · 12 глав (Trial + Trainer-01/02/03 + разбор письма 06.07 + план Trainer-04)",
+            "audience": "all"
+          },
+          {
             "name": "report-timofey-2026-06.pdf",
             "label": "📄 Отчёт за июнь 2026",
             "audience": "all"
