@@ -1,7 +1,12 @@
-/* lab-homework.js v2 — «Положить в домашку».
-   У каждого упражнения появляется маленькая кнопка ➕ — клик добавляет
-   задание в личную домашку ученика. FAB «📚 Моя домашка · N» снизу справа
-   открывает overlay со списком. Кнопка «📤 Отправить учителю» шлёт batch:
+/* lab-homework.js v33 · 2026-07-07 — «Положить в домашку».
+   У каждого упражнения / секции / блока появляется ➕. Клик добавляет
+   элемент в личную домашку ученика.
+   v33: расширены селекторы decorateSections до всех вариантов section-контейнеров
+        (section.section, section.lab-section, section[id^="block-"|"sec-"|"section-"],
+        .lesson-section, .lab-block, .lb-block, section[class*="section-"]) — теперь
+        ➕ на каждой секции ЛЮБОГО урока, включая Voyager/Timofey/Practice-архетипы.
+        + новые exercise-селекторы для .exercise/.drill/.task/.mic-drill/.timofey-block/.voyager-quest.
+   Batch отправка:
      1. INSERT в Supabase lab_submissions (section_id='homework-batch') ← ОСНОВНОЕ
      2. Broadcast в lab-firehose-v1 (teacher-live.html сразу видит)
      3. Опциональный POST в локальный AI Hub (127.0.0.1:8765) для TG-уведомления
@@ -350,12 +355,16 @@
     document.querySelectorAll('.cue-card, .post, .prompt-card, .task-card, .speaking-task, .writing-task').forEach(function(el){ addBtn(el, 'builder'); });
     document.querySelectorAll('.dict-row, .dictation-row').forEach(function(el){ addBtn(el, 'gap'); });
     document.querySelectorAll('.trans-row, .transform-row, .rewrite-row, .tr-row').forEach(function(el){ addBtn(el, 'builder'); });
+    // v33 · 2026-07-07 · расширение: universal exercise + drill patterns
+    document.querySelectorAll('.exercise, .exercise-row, .ex-row, .ex-item, .drill, .drill-item, .drill-row, .task, .task-row').forEach(function(el){ addBtn(el, 'builder'); });
+    document.querySelectorAll('.mic-drill-row, .mic-drill, .speaking-drill, .voice-row').forEach(function(el){ addBtn(el, 'mic'); });
+    document.querySelectorAll('.timofey-block, .voyager-quest, .quest-row, .story-block').forEach(function(el){ addBtn(el, 'builder'); });
     decorateSections();
   }
 
   // Кнопка «📚 весь блок в домашку» на каждой секции
   function decorateSections(){
-    document.querySelectorAll('section.section').forEach(function(sec){
+    document.querySelectorAll('section.section, section.lab-section, section.lesson-section, section[class*="section-"], section[id^="block-"], section[id^="sec-"], section[id^="section-"], .lesson-section, .lab-block, .lb-block').forEach(function(sec){
       if (sec.__hwSecBtn) return;
       sec.__hwSecBtn = true;
       var btn = document.createElement('button');
@@ -365,7 +374,7 @@
       btn.addEventListener('click', function(e){
         e.preventDefault();
         e.stopPropagation();
-        var allSections = Array.prototype.slice.call(document.querySelectorAll('section.section'));
+        var allSections = Array.prototype.slice.call(document.querySelectorAll('section.section, section.lab-section, section.lesson-section, section[class*="section-"], section[id^="block-"], section[id^="sec-"], section[id^="section-"], .lesson-section, .lab-block, .lb-block'));
         var sectionIndex = allSections.indexOf(sec) + 1;
         var sectionId = sec.id || sec.getAttribute('data-hw-section-id') || ('section-' + sectionIndex);
         sec.setAttribute('data-hw-section-id', sectionId);
@@ -484,7 +493,7 @@
         } catch(e){}
       });
       // Размещение: после section-head или в начале секции
-      var initialSections = Array.prototype.slice.call(document.querySelectorAll('section.section'));
+      var initialSections = Array.prototype.slice.call(document.querySelectorAll('section.section, section.lab-section, section.lesson-section, section[class*="section-"], section[id^="block-"], section[id^="sec-"], section[id^="section-"], .lesson-section, .lab-block, .lb-block'));
       var initialIndex = initialSections.indexOf(sec) + 1;
       var initialSectionId = sec.id || sec.getAttribute('data-hw-section-id') || ('section-' + initialIndex);
       sec.setAttribute('data-hw-section-id', initialSectionId);
