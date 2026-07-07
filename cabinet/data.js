@@ -1613,28 +1613,33 @@ window.NGE_DATA = {
           }
         },
         {
-          "date": "2026-07-04",
+          "date": "2026-07-07",
           "num": 5,
-          "status": "planned",
-          "topic": "Practical English · Day 2 · Present Simple questions (Do you? Does he?) + короткие ответы"
+          "status": "completed",
+          "topic": "Practical English · Day 1 · debrief · разбор письма 06.07 + чек-лист домашки + Oral Practice/Mic-drill добавлены в урок",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/practice/timofey-04-workbook/",
+            "module_title": "📚 Открыть Workbook 04 · Practical English · Day 2",
+            "text": "12 блоков: vocab-18 (тетрадь) · 3rd -s drill 15 · articles 12 gap · irregular V2/V3 12 gap · collocations match 10 · Present Simple vs Continuous 8 · Perfect vs Perfect Continuous 8 · rewrite «My usual day» 8 gaps · build sentence 2 · mini-write 5-7 sentences · mic-drill 6 sentences + WPM · speaking finale 3 personal prompts."
+          }
         },
         {
           "date": "2026-07-09",
           "num": 6,
           "status": "planned",
-          "topic": "Practical English · Day 3 · Present Continuous (I'm doing) vs Present Simple + prepositions of time (at/on/in)"
+          "topic": "Practical English · Day 2 · Present Simple questions (Do you? Does he?) + короткие ответы + fix из Workbook 04"
         },
         {
-          "date": "2026-07-11",
+          "date": "2026-07-14",
           "num": 7,
           "status": "planned",
-          "topic": "Practical English · Day 4 · Modals for adult life (can / could / would / should / must) + polite requests"
+          "topic": "Practical English · Day 3 · Present Continuous (I'm doing) vs Present Simple + prepositions of time (at/on/in)"
         },
         {
           "date": "2026-07-16",
           "num": 8,
           "status": "planned",
-          "topic": "Practical English · Day 5 · Past Simple (I did) — мягкое, на бытовых глаголах + speaking про вчера"
+          "topic": "Practical English · Day 4 · Modals for adult life (can / could / would / should / must) + polite requests"
         }
       ],
       "contracts": {
