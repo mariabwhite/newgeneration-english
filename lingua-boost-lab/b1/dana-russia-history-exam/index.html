@@ -484,6 +484,7 @@ button[data-say]:hover{background:var(--accent3)}
     <div class="wf-table" id="wf-table"></div>
     <div class="row" style="justify-content:center;margin-top:14px">
       <button id="wf-check" class="check-btn">✓ Check all answers</button>
+      <button id="wf-showall" class="reset-btn">💡 Show answers</button>
       <button id="wf-reset" class="reset-btn">Reset</button>
     </div>
     <p id="wf-score" class="score-line"></p>
@@ -541,6 +542,7 @@ button[data-say]:hover{background:var(--accent3)}
     </div>
     <div class="row" style="justify-content:center;margin-top:14px">
       <button id="lst1-check" class="check-btn">✓ Check listening 1</button>
+      <button id="lst1-show" class="reset-btn">💡 Show answers</button>
     </div>
     <p id="lst1-score" class="score-line"></p>
   </div>
@@ -694,6 +696,7 @@ button[data-say]:hover{background:var(--accent3)}
     </div>
     <div class="row" style="justify-content:center;margin-top:14px">
       <button id="r1-check" class="check-btn">✓ Check reading 1</button>
+      <button id="r1-show" class="reset-btn">💡 Show answers</button>
     </div>
     <p id="r1-score" class="score-line"></p>
   </div>
@@ -726,6 +729,7 @@ button[data-say]:hover{background:var(--accent3)}
     </div>
     <div class="row" style="justify-content:center;margin-top:14px">
       <button id="r2-check" class="check-btn">✓ Check reading 2</button>
+      <button id="r2-show" class="reset-btn">💡 Show answers</button>
     </div>
     <p id="r2-score" class="score-line"></p>
   </div>
@@ -801,6 +805,7 @@ button[data-say]:hover{background:var(--accent3)}
 
     <div class="row" style="justify-content:center;margin-top:14px">
       <button id="gram-check" class="check-btn">✓ Check all 21</button>
+      <button id="gram-show" class="reset-btn">💡 Show answers</button>
       <button id="gram-reset" class="reset-btn">Reset</button>
     </div>
     <p id="gram-score" class="score-line"></p>
@@ -835,6 +840,7 @@ button[data-say]:hover{background:var(--accent3)}
 
     <div class="row" style="justify-content:center;margin-top:14px">
       <button id="lex-check" class="check-btn">✓ Check all 14</button>
+      <button id="lex-show" class="reset-btn">💡 Show answers</button>
     </div>
     <p id="lex-score" class="score-line"></p>
   </div>
@@ -1342,6 +1348,48 @@ document.querySelectorAll('.wf-show').forEach(btn => {
     inp.value = btn.dataset.show; inp.classList.add('right');
   };
 });
+/* 💡 Show answers · fill all correct at once */
+function fillShow(selector, scoreEl){
+  document.querySelectorAll(selector).forEach(el => {
+    const ans = el.dataset.answer || el.dataset.show;
+    if(!ans) return;
+    el.value = ans;
+    el.classList.remove('wrong'); el.classList.add('right');
+  });
+  if(scoreEl) document.getElementById(scoreEl).textContent = '💡 ключи показаны';
+}
+document.getElementById('wf-showall').onclick = () => fillShow('#wf-table .wf-input', 'wf-score');
+document.getElementById('lst1-show').onclick = () => fillShow('#block-4 .match-txt select', 'lst1-score');
+document.getElementById('r1-show').onclick = () => fillShow('#block-7 .match-txt select', 'r1-score');
+document.getElementById('r2-show').onclick = () => fillShow('#block-8 .gap-frag-sel', 'r2-score');
+document.getElementById('gram-show').onclick = () => {
+  document.querySelectorAll('#block-10 .gram-gap').forEach(inp => {
+    inp.value = inp.dataset.answer;
+    inp.classList.remove('wrong'); inp.classList.add('right');
+  });
+  document.getElementById('gram-score').textContent = '💡 ключи показаны';
+};
+document.getElementById('lex-show').onclick = () => fillShow('#block-11 .lex-item select', 'lex-score');
+/* Reveal MCQ (blocks 5, 6, 9 · True/False/Not stated и MCQ) */
+(function(){
+  function revealMCQ(sectionId){
+    document.querySelectorAll('#'+sectionId+' .choice[data-correct="true"]').forEach(btn => {
+      btn.classList.add('right');
+      [...btn.closest('.choice-row').querySelectorAll('.choice')].forEach(c => c.disabled = true);
+    });
+  }
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'text-align:center;margin:14px 0 0';
+  wrap.innerHTML = '<button class="reset-btn mcq-show" data-mcq="block-5">💡 Show answers · Listening 2</button>';
+  document.getElementById('block-5').querySelector('.card').appendChild(wrap);
+  const wrap6 = wrap.cloneNode(true);
+  wrap6.innerHTML = '<button class="reset-btn mcq-show" data-mcq="block-6">💡 Show answers · Listening 3</button>';
+  document.getElementById('block-6').querySelector('.card').appendChild(wrap6);
+  const wrap9 = wrap.cloneNode(true);
+  wrap9.innerHTML = '<button class="reset-btn mcq-show" data-mcq="block-9">💡 Show answers · Reading 3</button>';
+  document.getElementById('block-9').querySelector('.card').appendChild(wrap9);
+  document.querySelectorAll('.mcq-show').forEach(b => b.onclick = () => revealMCQ(b.dataset.mcq));
+})();
 
 /* Listening — real Amazon Polly mp3 · varied voices per speaker */
 const audioL1 = new Audio('assets/audio/lst1.mp3');
