@@ -471,7 +471,7 @@
           return style.textContent || '';
         }).join('\n');
         // v34: расширенный чиппер — режем UI-нашлёпки урока и дублирующую .section-hdr
-        clone.querySelectorAll('.lab-hw-add, .lab-hw-section-btn, .section-hdr, .section-head, .lp-submit, .lp-fab, .lp-toc, .lab-hw-fab, .lab-hw-top-entry, .lab-hw-overlay, .lab-hw-modal, script, style, link[rel="stylesheet"]').forEach(function(node){ node.remove(); });
+        clone.querySelectorAll('.lab-hw-add, .lab-hw-section-btn, .section-hdr, .section-head, .lp-submit, .lp-fab, .lp-toc, .lp-task-tag, .task-tag, .task-boundary, .pilot-tag, [class*="lp-task-tag"], [class*="samotek"], .lab-hw-fab, .lab-hw-top-entry, .lab-hw-overlay, .lab-hw-modal, script, style, link[rel="stylesheet"]').forEach(function(node){ node.remove(); });
         // v36: стираем inline `background:*` и `color:*` из всех элементов клона.
         // Иначе тёмные inline-стили урока (например hero card) уезжают в .raw и превращают
         // блок в тёмный прямоугольник поверх кремовой палитры домашки.
@@ -482,6 +482,16 @@
           s = s.replace(/^\s*;+/, '').replace(/;+\s*$/, '');
           if (s.trim()) el.setAttribute('style', s);
           else el.removeAttribute('style');
+        });
+        clone.querySelectorAll('.tfns-row, .tf-row, .tf-item, .match-item, .match-card, .match-row, [class*="tfns-"], [class*="match-"]').forEach(function(el){
+          el.hidden = false;
+          el.removeAttribute('hidden');
+          el.removeAttribute('aria-hidden');
+          el.removeAttribute('inert');
+          el.classList.remove('hidden', 'is-hidden', 'collapsed', 'is-collapsed');
+        });
+        clone.querySelectorAll('.lab-hw-host').forEach(function(el){
+          el.classList.remove('lab-hw-host');
         });
         clone.querySelectorAll('[src]').forEach(function(node){
           var value = node.getAttribute('src') || '';

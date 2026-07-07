@@ -180,6 +180,45 @@ main {
 .vocab-ru { font-size: 1rem; color: var(--muted); font-weight: 600; }
 .vocab-ex { font-size: .95rem; color: var(--text); font-style: italic; padding: 8px 12px; border-left: 3px solid var(--accent); background: rgba(255,255,255,.03); border-radius: 6px; }
 
+/* Separate teacher-pushed glossary stream */
+.hw-vocab {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 18px;
+  background: color-mix(in srgb, var(--card) 74%, transparent);
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 14px;
+}
+.hw-vocab[hidden] { display: none !important; }
+.hw-vocab-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.hw-vocab-title {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(1.1rem, 2vw, 1.45rem);
+  font-weight: 900;
+  color: var(--text);
+}
+.hw-vocab-meta {
+  font-family: var(--mono);
+  font-size: .74rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.hw-vocab-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+}
+
 /* Raw block — вживляем контент секции урока в текущую палитру. БЕЗ ползунков — блок полной высоты. */
 .raw {
   border: 1px solid var(--line); border-radius: 14px;
@@ -245,6 +284,41 @@ main {
   cursor: pointer;
 }
 .raw .mcq-note, .raw .tfns-note { color: var(--muted) !important; font-size: .84rem !important; padding: 6px 10px !important; border-radius: 8px !important; margin-top: 6px !important; }
+
+/* TFNS / match rows sometimes arrive from lessons hidden until JS starts.
+   In homework they are static task content, so force them visible and readable. */
+.raw [class*="tfns-"], .raw [class*="tf-"],
+.raw [class*="match-"], .raw .match-item, .raw .match-card, .raw .match-row {
+  display: grid !important;
+  gap: 10px !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  min-height: 40px !important;
+}
+.raw .tfns-opts, .raw .tf-opts, .raw .match-opts,
+.raw .match-bank, .raw .match-targets,
+.raw [class*="match-bank"], .raw [class*="match-target"] {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+}
+.raw .tfns-q, .raw .tf-q, .raw .tfns-text,
+.raw .match-q, .raw .match-text, .raw .match-desc {
+  display: block !important;
+  color: var(--text) !important;
+  line-height: 1.55 !important;
+}
+.raw .match-slot, .raw .match-drop, .raw .match-target {
+  display: inline-flex !important;
+  align-items: center !important;
+  min-width: 130px !important;
+  min-height: 34px !important;
+  padding: 6px 10px !important;
+  border: 2px dashed var(--line) !important;
+  border-radius: 10px !important;
+  background: color-mix(in srgb, var(--accent) 7%, transparent) !important;
+  color: var(--muted) !important;
+}
 .raw input, .raw textarea, .raw select {
   background: color-mix(in srgb, var(--bg-deep, var(--bg)) 62%, transparent) !important;
   color: var(--text) !important;
@@ -431,7 +505,7 @@ main {
 }
 
 /* UI мусор из уроков — режем ВСЁ что похоже на technical/nav/copyright */
-.raw [class*="lab-hw-"], .raw [class*="lp-fab"], .raw [class*="lp-toc"],
+.raw [class*="lab-hw-"]:not(.lab-hw-host), .raw [class*="lp-fab"], .raw [class*="lp-toc"],
 .raw [class*="lp-submit"], .raw [class*="score-badge"],
 .raw [class*="teacher-banner"], .raw [class*="teacher-mirror"],
 .raw [class*="firehose"], .raw [class*="quick-push"],
@@ -848,6 +922,8 @@ main {
   .hero-card { padding: 20px; border-radius: 16px; }
   .hero-title { font-size: 1.5rem; line-height: 1.1; }
   .hero-lead { font-size: .96rem; }
+  .hw-vocab { padding: 14px; border-radius: 14px; }
+  .hw-vocab-grid { grid-template-columns: 1fr; }
   .item { padding: 18px; border-radius: 14px; }
   .item-num { width: 36px; flex-basis: 36px; height: 36px; font-size: 13px; }
   .item-q { font-size: 1.05rem; margin-right: 40px; }
@@ -896,6 +972,14 @@ main {
     </div>
   </section>
 
+  <section class="hw-vocab" id="vocabSection" hidden aria-labelledby="vocabTitle">
+    <div class="hw-vocab-head">
+      <h2 class="hw-vocab-title" id="vocabTitle">📖 Глоссарий</h2>
+      <span class="hw-vocab-meta" id="vocabMeta">0 слов</span>
+    </div>
+    <div class="hw-vocab-grid" id="vocabGrid"></div>
+  </section>
+
   <section class="list" id="list" aria-live="polite"></section>
 </main>
 
@@ -926,6 +1010,9 @@ main {
   var queueKey = 'lab-hw-queue:' + lesson;
   var STATE_PREFIX = 'hw-state:';
   var SUBMIT_TAG = 'homework-batch';
+  var lessonPath = normalizeLessonPath(lesson);
+  var vocabKey = 'lab-vocab-extra:' + lessonPath;
+  var vocabLegacyKey = 'lab-vocab-extras:' + lessonPath;
 
   // ─── Palette snapshot ─────────
   try {
@@ -955,6 +1042,9 @@ main {
   var syncLabel = document.getElementById('syncLabel');
   var teacherBanner = document.getElementById('teacherBanner');
   var teacherForEl = document.getElementById('teacherFor');
+  var vocabSection = document.getElementById('vocabSection');
+  var vocabGrid = document.getElementById('vocabGrid');
+  var vocabMeta = document.getElementById('vocabMeta');
   brandLink.href = lesson;
   lessonLink.href = lesson;
 
@@ -987,6 +1077,10 @@ main {
   function escapeHTML(s){ return String(s||'').replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
   function short(s,n){ s=String(s||''); return s.length>n ? s.slice(0,n-1)+'…' : s; }
   function slugify(s){ return (s||'').toLowerCase().replace(/[^a-zа-яё0-9]+/gi,'-').replace(/^-+|-+$/g,'').slice(0,30); }
+  function normalizeLessonPath(value){
+    try { return new URL(value || '/', location.origin).pathname; }
+    catch(e){ return value || '/lingua-boost-lab/'; }
+  }
   function toast(msg, kind){
     var t = document.getElementById('toast');
     t.textContent = msg;
@@ -1047,6 +1141,87 @@ main {
   }
   function saveLocal(arr){ try { localStorage.setItem(lsKey, JSON.stringify(arr)); } catch(e){} }
   var state = { items: loadLocal(), rev: 0, remoteAt: 0 };
+
+  // ─── Separate glossary stream ─────────
+  function normalizeVocabWord(item){
+    if (!item) return null;
+    if (typeof item === 'string') item = { word: item };
+    var word = (item.word || item.en || item.title || '').trim();
+    if (!word) return null;
+    return {
+      word: word,
+      ipa: item.ipa || '',
+      ru: item.ru || item.meaning || item.translation || '',
+      example: item.example || item.ex || '',
+      audio: item.audio || ''
+    };
+  }
+  function dedupeVocab(arr){
+    var seen = {};
+    return (arr || []).map(normalizeVocabWord).filter(function(item){
+      if (!item) return false;
+      var key = item.word.toLowerCase();
+      if (seen[key]) return false;
+      seen[key] = true;
+      return true;
+    });
+  }
+  function loadVocabLocal(){
+    try {
+      var raw = localStorage.getItem(vocabKey) || localStorage.getItem(vocabLegacyKey) || '[]';
+      return dedupeVocab(JSON.parse(raw));
+    } catch(e){ return []; }
+  }
+  function saveVocabLocal(arr){
+    try { localStorage.setItem(vocabKey, JSON.stringify(dedupeVocab(arr))); } catch(e){}
+  }
+  var vocabItems = loadVocabLocal();
+  function renderVocabSection(){
+    vocabItems = dedupeVocab(vocabItems);
+    if (!vocabSection || !vocabGrid || !vocabMeta) return;
+    if (!vocabItems.length) {
+      vocabSection.hidden = true;
+      vocabGrid.innerHTML = '';
+      vocabMeta.textContent = '0 слов';
+      return;
+    }
+    vocabSection.hidden = false;
+    vocabMeta.textContent = vocabItems.length + ' ' + (vocabItems.length === 1 ? 'слово' : (vocabItems.length >= 2 && vocabItems.length <= 4 ? 'слова' : 'слов'));
+    vocabGrid.innerHTML = vocabItems.map(function(item){
+      return '<article class="vocab-card">' +
+        '<div class="vocab-en">' + escapeHTML(item.word) + '</div>' +
+        (item.ipa ? '<div class="vocab-ipa">' + escapeHTML(item.ipa) + '</div>' : '') +
+        (item.ru ? '<div class="vocab-ru">' + escapeHTML(item.ru) + '</div>' : '') +
+        (item.example ? '<div class="vocab-ex">' + escapeHTML(item.example) + '</div>' : '') +
+      '</article>';
+    }).join('');
+  }
+  function upsertVocabWord(item){
+    item = normalizeVocabWord(item);
+    if (!item) return;
+    vocabItems = dedupeVocab([item].concat(vocabItems.filter(function(x){ return (x.word || '').toLowerCase() !== item.word.toLowerCase(); })));
+    saveVocabLocal(vocabItems);
+    renderVocabSection();
+  }
+  function removeVocabWord(word){
+    if (!word) return;
+    var key = String(word).toLowerCase();
+    vocabItems = vocabItems.filter(function(x){ return (x.word || '').toLowerCase() !== key; });
+    saveVocabLocal(vocabItems);
+    renderVocabSection();
+  }
+  function pullVocabSnapshot(){
+    if (!sb) return Promise.resolve();
+    var url = SUPABASE_URL + '/rest/v1/lab_submissions?select=misses,created_at&room_id=eq.teacher-vocab&lesson_path=eq.' + encodeURIComponent(lessonPath) + '&section_id=eq.teacher-vocab-snapshot&order=created_at.desc&limit=1';
+    return fetch(url, { headers: { apikey: SUPABASE_ANON, Authorization: 'Bearer ' + SUPABASE_ANON } })
+      .then(function(r){ return r.ok ? r.json() : []; })
+      .then(function(rows){
+        if (!rows || !rows.length || !Array.isArray(rows[0].misses)) return;
+        vocabItems = dedupeVocab(rows[0].misses);
+        saveVocabLocal(vocabItems);
+        renderVocabSection();
+      }).catch(function(){});
+  }
 
   // ─── Retry queue ─────────
   function loadQueue(){ try { return JSON.parse(localStorage.getItem(queueKey) || '[]'); } catch(e){ return []; } }
@@ -1143,6 +1318,29 @@ main {
   //   'typing' — маленький event на каждый keystroke (item.index + текст ответа)
   //   'ping'   — «я здесь» / heartbeat
   var bcastChannel = null;
+  var vocabChannel = null;
+  function subscribeVocabFirehose(){
+    if (!sb || vocabChannel) return;
+    try {
+      vocabChannel = sb.channel('lab-firehose-v1', { config: { broadcast: { self: false } } });
+      vocabChannel
+        .on('broadcast', { event: 'vocab-push' }, function(payload){
+          var data = (payload && payload.payload) || {};
+          if (!data.word) return;
+          var byRoom = roomId && data.room_id && data.room_id === roomId;
+          var byLesson = data.lesson_path && normalizeLessonPath(data.lesson_path) === lessonPath;
+          if (!byRoom && !byLesson) return;
+          upsertVocabWord(data);
+        })
+        .on('broadcast', { event: 'vocab-remove' }, function(payload){
+          var data = (payload && payload.payload) || {};
+          if (!data.word) return;
+          if (data.lesson_path && normalizeLessonPath(data.lesson_path) !== lessonPath) return;
+          removeVocabWord(data.word);
+        })
+        .subscribe();
+    } catch(e){}
+  }
   function subscribeRealtime(){
     if (!sb) return;
     var channelName = 'hw:' + roomId + ':' + slugify(lesson);
@@ -1183,6 +1381,9 @@ main {
               textarea.style.transition = 'background .3s';
               textarea.style.background = 'color-mix(in srgb, var(--accent) 8%, transparent)';
               setTimeout(function(){ textarea.style.background = ''; }, 400);
+            } else {
+              render();
+              setSync('teacher', 'TYPING ' + new Date().toTimeString().slice(0,5));
             }
           }
         } catch(e){}
@@ -1324,7 +1525,7 @@ main {
 
   list.addEventListener('click', function(e){
     var rm = e.target.closest('[data-rm]');
-    if (rm && !asTeacher) {
+    if (rm) {
       state.items.splice(+rm.dataset.rm, 1);
       saveLocal(state.items);
       cloudPush();
@@ -1439,6 +1640,12 @@ main {
 
   // ─── Init ─────────
   render();
+  renderVocabSection();
+  if (sb) {
+    pullVocabSnapshot();
+    subscribeVocabFirehose();
+  }
+
   if (sb && studentSlug) {
     pullState();
     subscribeRealtime();
