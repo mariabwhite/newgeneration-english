@@ -1,4 +1,10 @@
-/* lab-homework.js v34 · 2026-07-07 — «Положить в домашку» + event-sourced cloud.
+/* lab-homework.js v35 · 2026-07-07 — «Положить в домашку» + event-sourced cloud + чистый клон блока.
+   v35: расширен фильтр удаления при клонировании секции — теперь режем:
+        .section-hdr, .section-head, .lp-submit, .lp-fab, .lp-toc, .lab-hw-fab,
+        .lab-hw-top-entry, .lab-hw-overlay, .lab-hw-modal, script, style, link.
+        Плюс `.homework/index.html` получил универсальный `.raw` reset —
+        внутренние блоки (word-bank, MCQ, dialog, mic-row) отрисовываются
+        в палитре урока, слова больше не слипаются в «languageswatcheschocolate».
    v34: saveHw() теперь дополнительно debounced-пушит snapshot items[] в облако
         (Supabase lab_submissions, section_id='hw-state:<student>'). Каждое +/-
         синхронится через <1c. .homework/index.html подхватывает через SELECT
@@ -456,7 +462,8 @@
         var lessonStyle = Array.prototype.slice.call(document.querySelectorAll('style')).map(function(style){
           return style.textContent || '';
         }).join('\n');
-        clone.querySelectorAll('.lab-hw-add, .lab-hw-section-btn, script, style').forEach(function(node){ node.remove(); });
+        // v34: расширенный чиппер — режем UI-нашлёпки урока и дублирующую .section-hdr (заголовок покажем снаружи как item.question)
+        clone.querySelectorAll('.lab-hw-add, .lab-hw-section-btn, .section-hdr, .section-head, .lp-submit, .lp-fab, .lp-toc, .lab-hw-fab, .lab-hw-top-entry, .lab-hw-overlay, .lab-hw-modal, script, style, link[rel="stylesheet"]').forEach(function(node){ node.remove(); });
         clone.querySelectorAll('[src]').forEach(function(node){
           var value = node.getAttribute('src') || '';
           if (value && !/^(https?:|data:|\/)/i.test(value)) {

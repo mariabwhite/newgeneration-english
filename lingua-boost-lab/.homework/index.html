@@ -180,19 +180,89 @@ main {
 .vocab-ru { font-size: 1rem; color: var(--muted); font-weight: 600; }
 .vocab-ex { font-size: .95rem; color: var(--text); font-style: italic; padding: 8px 12px; border-left: 3px solid var(--accent); background: rgba(255,255,255,.03); border-radius: 6px; }
 
-/* Raw block */
+/* Raw block — вживляем контент секции урока в текущую палитру */
 .raw {
   border: 1px solid var(--line); border-radius: 14px;
-  padding: 14px; max-height: 620px; overflow: auto;
-  background: color-mix(in srgb, var(--bg-deep, var(--bg)) 55%, transparent);
+  padding: 18px; max-height: 720px; overflow: auto;
+  background: color-mix(in srgb, var(--card) 60%, transparent);
+  color: var(--text);
 }
-.raw section, .raw .section {
-  max-width: none !important; width: 100% !important; margin: 0 !important;
+.raw > *:first-child { margin-top: 0 !important; }
+.raw section, .raw .section, .raw .card {
+  max-width: none !important; width: 100% !important; margin: 0 0 12px 0 !important;
   background: transparent !important; box-shadow: none !important;
-  border-radius: 12px !important; padding: 12px !important;
-  color: inherit !important;
+  border-radius: 10px !important; padding: 0 !important;
+  color: var(--text) !important; border: 0 !important;
 }
-.raw img { max-width: 100%; height: auto; border-radius: 12px; }
+.raw h1, .raw h2, .raw h3, .raw h4 { font-family: var(--display) !important; color: var(--text) !important; margin: 12px 0 8px !important; letter-spacing: 0 !important; }
+.raw h2 { font-size: 1.15rem !important; }
+.raw h3 { font-size: 1rem !important; }
+.raw p, .raw li, .raw td, .raw th { color: var(--text) !important; line-height: 1.55 !important; }
+.raw p { margin: 6px 0 !important; }
+.raw ol, .raw ul { padding-left: 22px !important; margin: 8px 0 !important; }
+.raw strong, .raw b { color: var(--text) !important; }
+.raw em, .raw i { color: var(--muted) !important; }
+.raw img { max-width: 100%; height: auto; border-radius: 12px; margin: 8px 0; }
+.raw audio, .raw video { max-width: 100%; margin: 8px 0; }
+/* Дубли заголовка и метадаты — гасим первый h1/h2/h3 если он совпадает с item-q */
+.raw > h2:first-child, .raw > h3:first-child { display: none !important; }
+/* Все UI-нашлёпки из уроков — прячем */
+.raw .lp-submit, .raw .lp-fab, .raw .lab-hw-fab, .raw .lab-hw-top-entry,
+.raw .lab-hw-overlay, .raw .lp-toc, .raw .lab-hw-add, .raw .lab-hw-section-btn,
+.raw .section-hdr, .raw .section-head, .raw .section-num,
+.raw .fab, .raw button.mic-btn.recording,
+.raw .lab-teacher-banner, .raw #labSyncBanner { display: none !important; }
+
+/* Universal reset для типовых блоков внутри секций урока */
+.raw .ro-bank, .raw .pill-bank, .raw .word-bank, .raw .drag-bank, .raw .bank,
+.raw .vocab-tag-list, .raw .lex-bank, .raw .grams-bank {
+  display: flex !important; flex-wrap: wrap !important; gap: 8px !important; margin: 10px 0 !important;
+  padding: 12px !important;
+  background: color-mix(in srgb, var(--accent) 6%, transparent) !important;
+  border: 1px dashed color-mix(in srgb, var(--accent) 30%, var(--line)) !important;
+  border-radius: 12px !important;
+}
+.raw .ro-pill, .raw .pill-bank > *, .raw .word-bank > *, .raw .drag-bank > *,
+.raw .bank > *, .raw .vocab-tag-list > *, .raw .lex-bank > *, .raw .grams-bank > * {
+  display: inline-flex !important; padding: 6px 12px !important;
+  background: color-mix(in srgb, var(--accent) 18%, transparent) !important;
+  color: var(--accent) !important;
+  border: 1px solid color-mix(in srgb, var(--accent) 42%, transparent) !important;
+  border-radius: 999px !important;
+  font-family: var(--mono) !important; font-size: .88rem !important; font-weight: 700 !important;
+  cursor: pointer; white-space: nowrap;
+}
+.raw .mcq-opts, .raw .art-opts, .raw .ps-opts, .raw .oc-opts, .raw .tfns-opts {
+  display: flex !important; flex-wrap: wrap !important; gap: 6px !important; margin: 8px 0 !important;
+}
+.raw .mcq-opts button, .raw .art-opts button, .raw .ps-opts button,
+.raw .oc-opts button, .raw .tfns-opts button {
+  padding: 7px 14px !important; border-radius: 10px !important;
+  background: color-mix(in srgb, var(--card) 80%, transparent) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--line) !important;
+  font-family: var(--mono) !important; font-size: .84rem !important; font-weight: 700 !important;
+  cursor: pointer;
+}
+.raw .mcq-note, .raw .tfns-note { color: var(--muted) !important; font-size: .84rem !important; padding: 6px 10px !important; border-radius: 8px !important; margin-top: 6px !important; }
+.raw input, .raw textarea, .raw select {
+  background: color-mix(in srgb, var(--bg-deep, var(--bg)) 62%, transparent) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 8px !important; padding: 8px 12px !important;
+  font-family: var(--body) !important;
+}
+.raw .dialog, .raw .story-card, .raw .listen-box, .raw .reading-card,
+.raw .q-row, .raw .oc-row, .raw .cloze-row, .raw .wf-row, .raw .mic-row,
+.raw .challenge, .raw .task-card, .raw .match-item, .raw .quick-check,
+.raw .your-turn {
+  background: color-mix(in srgb, var(--card) 70%, transparent) !important;
+  border: 1px solid var(--line) !important; border-radius: 12px !important;
+  padding: 12px 14px !important; margin: 10px 0 !important;
+  color: var(--text) !important;
+}
+.raw details { margin: 10px 0 !important; padding: 8px 12px !important; border: 1px solid var(--line) !important; border-radius: 10px !important; background: color-mix(in srgb, var(--card) 50%, transparent) !important; }
+.raw summary { cursor: pointer; font-family: var(--mono); font-weight: 800; color: var(--accent); font-size: .88rem; letter-spacing: .06em; }
 
 /* Answer */
 .answer { display: grid; gap: 8px; }
