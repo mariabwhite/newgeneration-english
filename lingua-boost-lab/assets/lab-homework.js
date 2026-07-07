@@ -1,4 +1,7 @@
-/* lab-homework.js v35 · 2026-07-07 — «Положить в домашку» + event-sourced cloud + чистый клон блока.
+/* lab-homework.js v36 · 2026-07-07 — inline styles background/color стираются на клоне.
+   Иначе тёмные inline-фоны с урока (hero, темные секции) уезжали в .raw и создавали
+   пустые тёмные прямоугольники поверх кремовой палитры домашки.
+   v35 · 2026-07-07 — «Положить в домашку» + event-sourced cloud + чистый клон блока.
    v35: расширен фильтр удаления при клонировании секции — теперь режем:
         .section-hdr, .section-head, .lp-submit, .lp-fab, .lp-toc, .lab-hw-fab,
         .lab-hw-top-entry, .lab-hw-overlay, .lab-hw-modal, script, style, link.
@@ -462,8 +465,19 @@
         var lessonStyle = Array.prototype.slice.call(document.querySelectorAll('style')).map(function(style){
           return style.textContent || '';
         }).join('\n');
-        // v34: расширенный чиппер — режем UI-нашлёпки урока и дублирующую .section-hdr (заголовок покажем снаружи как item.question)
+        // v34: расширенный чиппер — режем UI-нашлёпки урока и дублирующую .section-hdr
         clone.querySelectorAll('.lab-hw-add, .lab-hw-section-btn, .section-hdr, .section-head, .lp-submit, .lp-fab, .lp-toc, .lab-hw-fab, .lab-hw-top-entry, .lab-hw-overlay, .lab-hw-modal, script, style, link[rel="stylesheet"]').forEach(function(node){ node.remove(); });
+        // v36: стираем inline `background:*` и `color:*` из всех элементов клона.
+        // Иначе тёмные inline-стили урока (например hero card) уезжают в .raw и превращают
+        // блок в тёмный прямоугольник поверх кремовой палитры домашки.
+        clone.querySelectorAll('[style]').forEach(function(el){
+          var s = el.getAttribute('style') || '';
+          s = s.replace(/background(-[a-z]+)?\s*:[^;]+;?/gi, '');
+          s = s.replace(/(^|;)\s*color\s*:[^;]+;?/gi, '$1');
+          s = s.replace(/^\s*;+/, '').replace(/;+\s*$/, '');
+          if (s.trim()) el.setAttribute('style', s);
+          else el.removeAttribute('style');
+        });
         clone.querySelectorAll('[src]').forEach(function(node){
           var value = node.getAttribute('src') || '';
           if (value && !/^(https?:|data:|\/)/i.test(value)) {

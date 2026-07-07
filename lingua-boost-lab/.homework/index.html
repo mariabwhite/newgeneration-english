@@ -348,6 +348,21 @@ main {
 /* Гарантия что .raw color наследуется от .item — цвет всегда var(--text) урока */
 .raw { color: var(--text); }
 
+/* SAFETY NET для старых items с сохранённой ТЁМНОЙ inline-разметкой из урока.
+   Любой элемент с inline `style="background:*"` внутри .raw принудительно теряет свой bg + color,
+   палитра урока проходит через каскад. */
+.raw *[style*="background"],
+.raw *[style*="rgb"],
+.raw *[style*="rgba"],
+.raw *[style*="#0"], .raw *[style*="#1"], .raw *[style*="#2"], .raw *[style*="#3"] {
+  background: transparent !important;
+  color: inherit !important;
+  background-image: none !important;
+}
+/* Ещё одна тонкая защита: если внутренний контейнер захочет отрисовать фон отличный от палитры — гасим */
+.raw > section > * { background-color: transparent !important; }
+.raw > section { background: transparent !important; }
+
 /* Универсальные OPTS-контейнеры — варианты ответов MCQ/T-F/gap */
 .raw [class*="-opts"], .raw [class*="mcq-opt"]:not([class*="opts"]) ~ [class*="mcq-opt"],
 .raw [class*="mc-opts"] {
