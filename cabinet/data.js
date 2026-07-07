@@ -344,10 +344,10 @@ window.NGE_DATA = {
       "schedule": "понедельник 13:00 / четверг 13:00 / воскресенье 12:00",
       "goal": "Tom Sawyer (адаптированный B1) + Travelling (страны, аэропорт, ролевые) + Past Simple irregular в активной речи",
       "price_per_lesson": 2500,
-      "lessons_in_package": 10,
+      "lessons_in_package": 11,
       "subscription_month": "2026-06",
-      "lessons_used_this_month": 10,
-      "summer_plan_note": "Летний блок 10 уроков · июнь + июль 2026",
+      "lessons_used_this_month": 11,
+      "summer_plan_note": "Летний блок 10 уроков + 1 экстра · июнь + июль 2026",
       "payment_status": "Оплачено",
       "payment_note": "",
       "parent_name": "Протасова Мария Петровна",
@@ -437,6 +437,16 @@ window.NGE_DATA = {
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/travel-talk-light-and-bright-2/",
             "module_title": "✈️ Открыть Travel Talk · Light & Bright 2"
+          }
+        },
+        {
+          "date": "2026-07-08",
+          "num": 11,
+          "status": "completed",
+          "topic": "✈️ Travel Talk · Light & Bright — travel-серия (открытие)",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/travel-talk-light-and-bright/",
+            "module_title": "✈️ Открыть Travel Talk · Light & Bright"
           }
         }
       ]
@@ -594,13 +604,13 @@ window.NGE_DATA = {
       "price_per_lesson": 2500,
       "lessons_in_package": 10,
       "subscription_month": "2026-06",
-      "lessons_used_this_month": 4,
-      "summer_plan_note": "Интенсив-абонемент 10 уроков · старт 26.06 · проведено 4 / 10 · дальше пн / вт / чт 18:00",
+      "lessons_used_this_month": 5,
+      "summer_plan_note": "Интенсив-абонемент 10 уроков · старт 26.06 · проведено 5 / 10 · дальше пн / вт / чт 18:00",
       "stability_note": "",
       "payment_status": "Оплачено",
       "payment_note": "",
       "payments": [
-        { "month": "Интенсив · 10 уроков", "package": "10 × 2 500 ₽", "amount": "25 000 ₽", "status": "paid", "date": "26.06.2026", "note": "Интенсив · 26.06 → 17.07 · 2 / 10 проведено" }
+        { "month": "Интенсив · 10 уроков", "package": "10 × 2 500 ₽", "amount": "25 000 ₽", "status": "paid", "date": "26.06.2026", "note": "Интенсив · 26.06 → 17.07 · 5 / 10 проведено" }
       ],
       "parent_name": "Либова Юлия Игоревна",
       "pin": "5376",
@@ -651,7 +661,7 @@ window.NGE_DATA = {
         {
           "date": "2026-07-08",
           "num": 6,
-          "status": "planned",
+          "status": "completed",
           "topic": "📚 Russian literature giants (Pushkin / Tolstoy / Dostoevsky / Tchaikovsky) · Task 4 проект «Great Russian writers» + 2 фото monument/museum · 12–15 фраз"
         },
         {
@@ -695,7 +705,7 @@ window.NGE_DATA = {
           },
           {
             "name": "daniella-intensive-plan-10-lessons.pdf",
-            "label": "🗓 План интенсива · 10 уроков (26.06 → 17.07) · 2 / 10 проведено",
+            "label": "🗓 План интенсива · 10 уроков (26.06 → 17.07) · 5 / 10 проведено",
             "audience": "parent"
           }
         ]
