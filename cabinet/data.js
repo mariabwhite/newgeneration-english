@@ -896,7 +896,12 @@ window.NGE_DATA = {
           "date": "2026-07-21",
           "num": 3,
           "status": "planned",
-          "topic": "⛪ Религия — мировые религии, культурные традиции, места поклонения, толерантный подход"
+          "topic": "⛪ Религия — мировые религии, культурные традиции, места поклонения, толерантный подход",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/anyas-temples-quest/?theme=light-lab&lang=ru",
+            "module_title": "⛪ Открыть квест · Anya's Temples Quest",
+            "text": "Интерактивный квест по мировым храмам и религиям — 21 июля пройдём вместе на уроке, а после дома можно повторить."
+          }
         },
         {
           "date": "2026-07-28",
@@ -1514,12 +1519,22 @@ window.NGE_DATA = {
         "external_links": [
           {
             "url": "https://newgeneration-english.ru/lingua-boost-lab/practice/timofey-trainer-01/",
-            "label": "📘 Workbook 01 · 22 июня · vocab 30 + tenses recognition/substitution + -ing forms + said vs told",
+            "label": "📘 Workbook 01 · 22 июн · Present tenses · -ing · said/told",
             "audience": "all"
           },
           {
             "url": "https://newgeneration-english.ru/lingua-boost-lab/practice/timofey-trainer-02/",
-            "label": "📕 Workbook 02 · 29 июня · Past tenses + irregular verbs V1/V2/V3 + vocab MCQ + type-in",
+            "label": "📕 Workbook 02 · 29 июн · Past Tenses · irregular verbs",
+            "audience": "all"
+          },
+          {
+            "url": "https://newgeneration-english.ru/lingua-boost-lab/practice/timofey-03-practical-english/",
+            "label": "📖 Practical English · Day 1 · 02 июл · интерактивный урок + Homework A–J",
+            "audience": "all"
+          },
+          {
+            "url": "https://newgeneration-english.ru/lingua-boost-lab/practice/timofey-04-workbook/",
+            "label": "📚 Workbook 04 · 07 июл · Practical English · Day 2 · 12 блоков",
             "audience": "all"
           }
         ]
@@ -1583,8 +1598,8 @@ window.NGE_DATA = {
           "recap": "• IELTS vs TOEFL · формат · цели · план подготовки\n• Active vocab · 30 слов (business · driving · IELTS · school/tutor)\n• Grammar trap: said me ❌ → told me ✓\n• -ing forms · 3 функции (gerund · participle · continuous)",
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/practice/timofey-trainer-01/",
-            "module_title": "📚 Открыть домашку · 10 упражнений",
-            "text": "Тренажёр по сегодняшнему уроку: mix of tenses, отработка вокабуляра (30 слов), -ing forms (gerund vs participle vs continuous), said vs told. К следующей встрече 25 июня — пройти все 10 блоков."
+            "module_title": "📘 Открыть Workbook 01",
+            "text": "К 25 июня — пройти 10 блоков."
           }
         },
         {
@@ -1594,8 +1609,8 @@ window.NGE_DATA = {
           "topic": "Present Tenses (Simple / Continuous / Perfect) на примерах из делового английского",
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/practice/timofey-trainer-02/",
-            "module_title": "📚 Открыть Workbook 02 · Past Tenses",
-            "text": "Тренажёр-повторение к уроку 25 июня + подготовка к Past Tenses на пятницу: те же 30 слов в новых упражнениях (MCQ из всех 30 + type-in) + Past Simple / Past Continuous / Past Perfect (recognition 10 + substitution 12 + classify 12 + irregular verbs V1/V2/V3 + sentence builder 3 + mic-drill 6). Тёмно-фиолетовая палитра."
+            "module_title": "📕 Открыть Workbook 02",
+            "text": "К 29 июня — пройти тетрадь по Past Tenses."
           }
         },
         {
@@ -1612,8 +1627,8 @@ window.NGE_DATA = {
           "recap": "• All 4 Present tenses drilled на реальной business-лексике (Lukoil / Milan / IELTS-контекст)\n• Vocab 45 карточек + 3 drill'а (MCQ meaning · gap-fill · sentence-fill) — вся дека отработана\n• Grammar map · 4 времени на одной странице + визуальные карты\n• 6 business lines: self-intro · this-week project · status update · why-it's-taking-long · polite request · daily stand-up\n• 🎤 Your turn после каждой секции — 3 личных вопроса\n• Reading · Listening · Speaking секции с MCQ + own-mic + AI-feedback",
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/practice/timofey-03-practical-english/",
-            "module_title": "📖 Открыть урок · Practical English · Day 1",
-            "text": "Открой урок и пройди Homework блоки A–J (~20-25 мин): A vocab-match · B gap-fill · C discussion · D to-inf · E articles · F speaking · G watch&catch · H MCQ tenses (15) · I gap-fill verbs (12) · J correct-mistake (10). Всё интерактивно — тап-ответ, зелёный/красный фидбек. Плюс отдельно 🎤 Your turn после каждой секции урока — говори вслух по 3 вопроса."
+            "module_title": "📖 Открыть Practical English · Day 1",
+            "text": "Пройди блоки Homework A–J (~20–25 мин) + 🎤 Your turn после каждой секции."
           }
         },
         {
@@ -1623,8 +1638,8 @@ window.NGE_DATA = {
           "topic": "Practical English · Day 1 · debrief · разбор письма 06.07 + чек-лист домашки + Oral Practice/Mic-drill добавлены в урок",
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/practice/timofey-04-workbook/",
-            "module_title": "📚 Открыть Workbook 04 · Practical English · Day 2",
-            "text": "12 блоков: vocab-18 (тетрадь) · 3rd -s drill 15 · articles 12 gap · irregular V2/V3 12 gap · collocations match 10 · Present Simple vs Continuous 8 · Perfect vs Perfect Continuous 8 · rewrite «My usual day» 8 gaps · build sentence 2 · mini-write 5-7 sentences · mic-drill 6 sentences + WPM · speaking finale 3 personal prompts."
+            "module_title": "📚 Открыть Workbook 04",
+            "text": "К 09 июля — 12 блоков (Practical English · Day 2)."
           }
         },
         {
