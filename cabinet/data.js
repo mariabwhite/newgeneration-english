@@ -440,7 +440,7 @@ window.NGE_DATA = {
           }
         },
         {
-          "date": "2026-07-08",
+          "date": "2026-07-07",
           "num": 11,
           "status": "completed",
           "topic": "✈️ Travel Talk · Light & Bright — travel-серия (открытие)",
@@ -622,13 +622,13 @@ window.NGE_DATA = {
       "price_per_lesson": 2500,
       "lessons_in_package": 10,
       "subscription_month": "2026-06",
-      "lessons_used_this_month": 6,
-      "summer_plan_note": "Интенсив-абонемент 10 уроков · старт 26.06 · проведено 6 / 10 · дальше пн / вт / чт 18:00",
+      "lessons_used_this_month": 5,
+      "summer_plan_note": "Интенсив-абонемент 10 уроков · старт 26.06 · проведено 5 / 10 · дальше пн / вт / чт 18:00",
       "stability_note": "",
       "payment_status": "Оплачено",
       "payment_note": "",
       "payments": [
-        { "month": "Интенсив · 10 уроков", "package": "10 × 2 500 ₽", "amount": "25 000 ₽", "status": "paid", "date": "26.06.2026", "note": "Интенсив · 26.06 → 17.07 · 6 / 10 проведено" }
+        { "month": "Интенсив · 10 уроков", "package": "10 × 2 500 ₽", "amount": "25 000 ₽", "status": "paid", "date": "26.06.2026", "note": "Интенсив · 26.06 → 17.07 · 5 / 10 проведено" }
       ],
       "parent_name": "Либова Юлия Игоревна",
       "pin": "5376",
@@ -679,7 +679,7 @@ window.NGE_DATA = {
         {
           "date": "2026-07-08",
           "num": 6,
-          "status": "completed",
+          "status": "planned",
           "topic": "📚 Russian literature giants (Pushkin / Tolstoy / Dostoevsky / Tchaikovsky) · Task 4 проект «Great Russian writers» + 2 фото monument/museum · 12–15 фраз"
         },
         {
@@ -723,7 +723,7 @@ window.NGE_DATA = {
           },
           {
             "name": "daniella-intensive-plan-10-lessons.pdf",
-            "label": "🗓 План интенсива · 10 уроков (26.06 → 17.07) · 6 / 10 проведено",
+            "label": "🗓 План интенсива · 10 уроков (26.06 → 17.07) · 5 / 10 проведено",
             "audience": "parent"
           }
         ]
@@ -912,12 +912,7 @@ window.NGE_DATA = {
           "date": "2026-07-07",
           "num": 1,
           "status": "completed",
-          "topic": "🧳 Путешествия · старт блока — travel vocab, страны, транспорт, простые истории про поездки",
-          "homework": {
-            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/anyas-postcards/?theme=light-lab&lang=ru",
-            "module_title": "🧳 Открыть урок · Anya's Postcards · Six Countries",
-            "text": "Именной travel-урок Ани — 6 стран, открытки, простые истории про поездки. Можно повторить дома."
-          }
+          "topic": "🧳 Путешествия · старт блока — travel vocab, страны, транспорт, простые истории про поездки"
         },
         {
           "date": "2026-07-14",
