@@ -644,6 +644,87 @@ main {
 /* Reading passages / story-card — без внутреннего скролла */
 .raw .story-card, .raw .reading-card, .raw .listen-box { max-height: none !important; overflow: visible !important; }
 
+/* Gap-fill вопросы (Switzerland warm-up, Voyager L1-L4, Julia Bodrum etc):
+   .q-row > .q-num + .q-text > .drop-gap (underscore field) — FORCE VISIBLE. */
+.raw .q-row {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 12px !important;
+  padding: 10px 12px !important;
+  margin: 8px 0 !important;
+  border-radius: 10px !important;
+  background: color-mix(in srgb, currentColor 3%, transparent) !important;
+  border: 1px solid color-mix(in srgb, currentColor 10%, transparent) !important;
+}
+.raw .q-num, .raw .cloze-num, .raw .practice-num {
+  flex: 0 0 30px !important;
+  height: 30px !important;
+  display: grid !important;
+  place-items: center !important;
+  border-radius: 8px !important;
+  background: var(--accent) !important;
+  color: var(--accent-on, #fff) !important;
+  font-family: var(--mono) !important;
+  font-size: .85rem !important;
+  font-weight: 900 !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+.raw .q-text, .raw .practice-q, .raw .cloze-text {
+  flex: 1 !important;
+  color: var(--text) !important;
+  font-size: 1rem !important;
+  line-height: 1.55 !important;
+  background: transparent !important;
+  border: 0 !important;
+  padding: 0 !important;
+}
+.raw .drop-gap, .raw .cloze-gap, .raw .lex-gap, .raw .pv-gap, .raw .gram-gap {
+  display: inline-block !important;
+  min-width: 100px !important;
+  margin: 0 6px !important;
+  padding: 4px 12px !important;
+  background: color-mix(in srgb, var(--accent) 12%, transparent) !important;
+  border: 1.5px dashed color-mix(in srgb, var(--accent) 55%, transparent) !important;
+  border-radius: 8px !important;
+  color: var(--accent) !important;
+  font-family: var(--mono) !important;
+  font-weight: 800 !important;
+  font-size: .92rem !important;
+  text-align: center !important;
+  letter-spacing: .05em !important;
+  vertical-align: middle !important;
+}
+.raw .drop-gap.filled, .raw .cloze-gap.filled {
+  background: color-mix(in srgb, var(--ok, #16a34a) 18%, transparent) !important;
+  border-style: solid !important;
+  border-color: color-mix(in srgb, var(--ok, #16a34a) 60%, transparent) !important;
+  color: var(--ok, #16a34a) !important;
+}
+
+/* Practice items — гарантированно видны (Julia Bodrum, Modals, Interview 12-задачные) */
+.raw .practice-item {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 12px !important;
+  padding: 12px 14px !important;
+  margin: 10px 0 !important;
+  border-radius: 12px !important;
+  background: color-mix(in srgb, currentColor 3%, transparent) !important;
+  border: 1px solid color-mix(in srgb, currentColor 10%, transparent) !important;
+}
+.raw .practice-hint {
+  margin-top: 6px !important;
+  font-size: .88rem !important;
+  color: var(--muted) !important;
+  font-style: italic !important;
+}
+
+/* Убираем артефакты lab-pilot: "TASK START · SAMOTEK" и подобные метки */
+.raw [class*="lp-task-tag"], .raw [class*="task-tag"],
+.raw [class*="task-boundary"], .raw [class*="pilot-tag"],
+.raw [class*="samotek"] { display: none !important; }
+
 /* Answer */
 .answer { display: grid; gap: 8px; }
 .answer label {
