@@ -180,10 +180,10 @@ main {
 .vocab-ru { font-size: 1rem; color: var(--muted); font-weight: 600; }
 .vocab-ex { font-size: .95rem; color: var(--text); font-style: italic; padding: 8px 12px; border-left: 3px solid var(--accent); background: rgba(255,255,255,.03); border-radius: 6px; }
 
-/* Raw block — вживляем контент секции урока в текущую палитру */
+/* Raw block — вживляем контент секции урока в текущую палитру. БЕЗ ползунков — блок полной высоты. */
 .raw {
   border: 1px solid var(--line); border-radius: 14px;
-  padding: 18px; max-height: 720px; overflow: auto;
+  padding: 18px;
   background: color-mix(in srgb, var(--card) 60%, transparent);
   color: var(--text);
 }
@@ -467,6 +467,182 @@ main {
 .raw table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: .92rem; }
 .raw table th, .raw table td { padding: 8px 10px; border: 1px solid var(--line); text-align: left; color: var(--text); }
 .raw table th { background: color-mix(in srgb, var(--accent) 12%, transparent); font-family: var(--mono); font-weight: 800; letter-spacing: .06em; text-transform: uppercase; font-size: .78rem; }
+
+/* Vocab-card в .raw — раскрываем обе стороны стеком, data-back проявляется под словом */
+.raw .lab-vocab-grid, .raw .vocab-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important;
+  gap: 12px !important;
+  margin: 12px 0 !important;
+}
+.raw .vocab-card {
+  display: block !important;
+  padding: 14px !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 12px !important;
+  background: color-mix(in srgb, currentColor 5%, transparent) !important;
+  color: var(--text) !important;
+  cursor: default !important;
+  min-height: auto !important;
+  transform: none !important;
+  perspective: none !important;
+}
+.raw .vocab-card > strong,
+.raw .vocab-card > .word,
+.raw .vocab-card > .vocab-word {
+  display: block;
+  font-family: var(--display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+/* data-back атрибут (Tom Sawyer et al) — проявляем через ::after */
+.raw .vocab-card[data-back]::after {
+  content: "↳ " attr(data-back);
+  display: block;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--line);
+  color: var(--muted);
+  font-size: .92rem;
+  font-family: var(--body);
+  line-height: 1.4;
+  white-space: normal;
+}
+/* Flip-card / vocab-inner архитектура — обе стороны видны stacked */
+.raw .flip-card {
+  display: block !important;
+  transform: none !important;
+  perspective: none !important;
+  padding: 14px !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 12px !important;
+  background: color-mix(in srgb, currentColor 5%, transparent) !important;
+  min-height: auto !important;
+}
+.raw .flip-inner, .raw .vocab-inner {
+  display: block !important;
+  transform: none !important;
+  transform-style: flat !important;
+  position: static !important;
+  background: transparent !important;
+}
+.raw .flip-front, .raw .flip-back,
+.raw .vocab-front, .raw .vocab-back {
+  display: block !important;
+  position: static !important;
+  transform: none !important;
+  backface-visibility: visible !important;
+  padding: 4px 0 !important;
+  background: transparent !important;
+  color: inherit !important;
+}
+.raw .vocab-back, .raw .flip-back {
+  border-top: 1px dashed var(--line) !important;
+  margin-top: 8px !important;
+  padding-top: 8px !important;
+  color: var(--muted) !important;
+}
+.raw .vocab-front .word, .raw .vocab-card .word {
+  font-family: var(--display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text);
+  display: block;
+}
+.raw .vocab-front .pos, .raw .vocab-card .pos {
+  font-family: var(--mono);
+  font-size: .72rem;
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.raw .vocab-back .meaning, .raw .vocab-back .ex,
+.raw .vocab-card .meaning, .raw .vocab-card .ex {
+  display: block;
+  color: var(--text);
+  margin-top: 4px;
+  font-size: .92rem;
+  line-height: 1.5;
+}
+
+/* MCQ row — гарантированно виден полностью (вопрос + все кнопки-варианты + note) */
+.raw .mcq-row {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin: 12px 0;
+  background: color-mix(in srgb, currentColor 3%, transparent);
+}
+.raw .mcq-q {
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+.raw .mcq-q .qnum {
+  display: inline-block;
+  min-width: 22px; height: 22px;
+  padding: 0 6px;
+  margin-right: 8px;
+  background: var(--accent);
+  color: var(--accent-on, #fff);
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: .82rem;
+  font-weight: 900;
+  text-align: center;
+  line-height: 22px;
+}
+.raw .mcq-opts {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  margin-top: 10px !important;
+}
+.raw .mcq-opts > button {
+  display: block !important;
+  width: 100% !important;
+  text-align: left !important;
+  padding: 10px 14px !important;
+  border: 1px solid var(--line) !important;
+  border-radius: 10px !important;
+  background: color-mix(in srgb, var(--card) 82%, transparent) !important;
+  color: var(--text) !important;
+  font: 600 .95rem/1.4 var(--body) !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  cursor: pointer !important;
+  transition: .16s;
+}
+.raw .mcq-opts > button:hover {
+  border-color: var(--accent) !important;
+  color: var(--accent) !important;
+}
+.raw .mcq-note {
+  margin-top: 10px;
+  padding: 10px 14px;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  border-left: 3px solid var(--accent);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: .92rem;
+  line-height: 1.5;
+}
+
+/* Voyager L3 картинки с overlay — не отрезаем captions */
+.raw figure, .raw .lab-figure { overflow: visible !important; margin: 12px 0; }
+.raw figcaption {
+  color: var(--muted);
+  font-size: .88rem;
+  padding: 6px 4px;
+  font-style: italic;
+  text-align: center;
+}
+/* Reading passages / story-card — без внутреннего скролла */
+.raw .story-card, .raw .reading-card, .raw .listen-box { max-height: none !important; overflow: visible !important; }
 
 /* Answer */
 .answer { display: grid; gap: 8px; }

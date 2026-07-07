@@ -1,4 +1,9 @@
-/* lab-homework.js v36 · 2026-07-07 — inline styles background/color стираются на клоне.
+/* lab-homework.js v37 · 2026-07-07 — раскрытие data-back для vocab-card в клоне.
+   v37: клон .vocab-card теперь тоже проявляет data-back атрибут — если у карточки
+        нет отдельного .vocab-back содержимого, ставим data-back-visible=1 чтоб CSS
+        мог показать оборот через ::after. Также — сохраняем figure/figcaption без
+        обрезки overflow (Voyager L3 hero-images с overlay-текстом больше не срезаются).
+   v36: inline styles background/color стираются на клоне.
    Иначе тёмные inline-фоны с урока (hero, темные секции) уезжали в .raw и создавали
    пустые тёмные прямоугольники поверх кремовой палитры домашки.
    v35 · 2026-07-07 — «Положить в домашку» + event-sourced cloud + чистый клон блока.
