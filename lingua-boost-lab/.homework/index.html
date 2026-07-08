@@ -683,13 +683,13 @@ main {
   margin-top: 6px !important;
 }
 
-/* Homework is an assignment surface: do not leak answer keys or teacher-only prep into cloned blocks. */
-.raw [class*="feedback"], .raw [class*="answer-key"], .raw [class*="key-box"],
-.raw [class*="model"], .raw [class*="reveal"], .raw [class*="solution"],
-.raw [class*="correct-answer"], .raw [class*="mcq-note"], .raw [class*="tfns-note"],
-.raw [class*="sample"], .raw [class*="listen-script"], .raw [class*="transcript"],
-.raw button[class*="reset"], .raw button[class*="check"], .raw button[class*="reveal"],
-.raw button[id*="show"], .raw button[class*="show"],
+/* 2026-07-08 мандат 1-в-1: клон несёт весь контент секции.
+   Прячем ТОЛЬКО явные учительские ключи. Sample/model/reveal/listen-script/
+   transcript/note/feedback/hint — это часть материала урока, Маша хочет их видеть
+   в домашке (Voyager warm-up "Model · steal a phrase", grammar tr-model, диалог
+   listen-script для reading). */
+.raw .answer-key, .raw [class*="answer-key"],
+.raw .correct-answer, .raw [class*="correct-answer"],
 .raw details.teacher, .raw details[open].teacher,
 .raw summary:has(+ .t-body), .raw .t-body {
   display: none !important;
