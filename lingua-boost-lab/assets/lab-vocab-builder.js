@@ -376,6 +376,43 @@
   function renderVocab(){
     var vocab = getVocab();
     if (!vocab.length) return;
+    var extras = loadExtras();
+
+    // v52 2026-07-08: если у урока есть статичный vocab-grid с .vocab-card —
+    // extras должны попадать ТУДА (наверху страницы, где Мария и ждёт).
+    // Иначе — падало вниз как отдельный `#auto-vocab` и словарь «пропадал».
+    if (extras.length && !document.getElementById('auto-vocab')) {
+      var staticGrid = null;
+      var firstCard = document.querySelector('.vocab-card');
+      if (firstCard) {
+        staticGrid = firstCard.parentElement;
+      }
+      if (staticGrid) {
+        // Кладём extras как новые .vocab-card в статичный grid, если их там ещё нет
+        extras.forEach(function(it){
+          it.__extra = true;
+          var existsCard = staticGrid.querySelector('.vocab-card[data-word="' + (it.word||'').replace(/"/g,'\\"') + '"]');
+          if (existsCard && existsCard.dataset.extra === '1') return;
+          if (existsCard && existsCard.dataset.extra !== '1') return; // dup из статики
+          var card = buildCard(it);
+          card.dataset.extra = '1';
+          staticGrid.appendChild(card);
+        });
+        // добавляем «+ добавить своё слово» кнопку возле статичного grid если её ещё нет
+        if (!observeMode) {
+          var parent = staticGrid.closest('section, .container, .card, div') || staticGrid.parentNode;
+          if (parent && !parent.querySelector('#vocabAddBtn')) {
+            var addWrap = document.createElement('div');
+            addWrap.style.cssText = 'margin:18px auto 0;text-align:center;grid-column:1/-1';
+            addWrap.innerHTML = '<button class="lab-vocab-add-btn" id="vocabAddBtn">+ добавить своё слово</button>';
+            staticGrid.appendChild(addWrap);
+            addWrap.querySelector('#vocabAddBtn').addEventListener('click', function(){ openAddModal(); });
+          }
+        }
+        return;
+      }
+    }
+
     var section = findOrBuildSection();
     if (!section) return; // статичная — модуль её не трогает
     var grid = section.querySelector('#vocabGrid');
