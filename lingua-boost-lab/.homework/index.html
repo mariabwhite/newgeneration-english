@@ -227,11 +227,23 @@ main {
   color: var(--text);
 }
 .raw > *:first-child { margin-top: 0 !important; }
-.raw section, .raw .section, .raw .card {
+.raw section, .raw .section, .raw .card,
+.raw .story-block, .raw .round-card, .raw .game-card,
+.raw .info-card, .raw .error-card, .raw .prompt-card,
+.raw .now-item, .raw .tile, .raw .output-box,
+.raw [class*="story-block"], .raw [class*="round-card"], .raw [class*="game-card"],
+.raw [class*="prompt-card"] {
   max-width: none !important; width: 100% !important; margin: 0 0 12px 0 !important;
   background: transparent !important; box-shadow: none !important;
   border-radius: 10px !important; padding: 0 !important;
   color: var(--text) !important; border: 0 !important;
+}
+.raw .match-wrap, .raw [class*="match-wrap"] {
+  display: block !important;
+  margin: 10px 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
 }
 .raw h1, .raw h2, .raw h3, .raw h4 { font-family: var(--display) !important; color: var(--text) !important; margin: 12px 0 8px !important; letter-spacing: 0 !important; }
 .raw h2 { font-size: 1.15rem !important; }
@@ -1755,9 +1767,21 @@ main {
     scheduleCloudPush();
     broadcastTyping(+article.dataset.itemIdx, item.answer || '');
   }
+  function resetRawState(article){
+    Array.prototype.forEach.call(article.querySelectorAll('.raw .correct, .raw .wrong, .raw .right, .raw .selected, .raw .is-correct, .raw .is-wrong, .raw .filled, .raw .used, .raw .revealed, .raw [data-state]'), function(node){
+      node.classList.remove('correct','wrong','right','selected','is-correct','is-wrong','filled','used','revealed');
+      if (node.hasAttribute('data-state')) node.removeAttribute('data-state');
+      if (node.hasAttribute('aria-pressed')) node.setAttribute('aria-pressed','false');
+    });
+    Array.prototype.forEach.call(article.querySelectorAll('.raw .drop-gap, .raw .cloze-gap, .raw .drop-slot, .raw .drop-zone, .raw .match-drop, .raw .match-slot, .raw .drop'), function(drop){
+      var initial = drop.getAttribute('data-placeholder') || '';
+      if (initial) drop.textContent = initial;
+    });
+  }
   function hydrateRawAnswers(){
     Array.prototype.forEach.call(list.querySelectorAll('.item[data-item-idx]'), function(article){
       var item = rawItem(article);
+      resetRawState(article);
       var raw = item && item.raw_answer;
       if (!raw) return;
       Array.prototype.forEach.call(article.querySelectorAll(rawChoiceGroupSelector), function(group, gi){
