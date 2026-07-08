@@ -142,16 +142,22 @@
       '{"task":"<задание на английском, одна строка>","criteria":[' +
       '{"label":"<критерий, на русском, короткий>","hint":"<подсказка на английском что сказать>","keywords":["word1","phrase 2","..."]},' +
       '...]}';
-    var resp = await fetch('https://text.pollinations.ai/openai', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        messages: [
-          { role:'system', content: 'Ты опытный преподаватель английского. Делаешь criteria для speaking-тренажёра. Отвечаешь чистым JSON без пояснений.' },
-          { role:'user', content: prompt }
-        ],
-        model:'openai', private:true, seed: Math.floor(Math.random()*1e6)
-      })
-    });
+    var ctrl = new AbortController();
+    var timer = setTimeout(function(){ ctrl.abort(); }, 20000);
+    var resp;
+    try {
+      resp = await fetch('https://text.pollinations.ai/openai', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        signal: ctrl.signal,
+        body: JSON.stringify({
+          messages: [
+            { role:'system', content: 'Ты опытный преподаватель английского. Делаешь criteria для speaking-тренажёра. Отвечаешь чистым JSON без пояснений.' },
+            { role:'user', content: prompt }
+          ],
+          model:'openai', private:true, seed: Math.floor(Math.random()*1e6)
+        })
+      });
+    } finally { clearTimeout(timer); }
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
     var data = await resp.json().catch(async ()=>({raw: await resp.text()}));
     var text = data?.choices?.[0]?.message?.content || data?.raw || '';
@@ -516,7 +522,10 @@
       loader.remove();
       buildUI(obj);
     } catch(e) {
-      loader.querySelector('.lc-loading').textContent = '⚠ Speech Coach unavailable right now. Refresh in a minute.';
+      var msg = /aborted|timeout|Abort/i.test(e.message || '')
+        ? '⚠ Speech Coach: генерация criteria по этому уроку заняла >20 сек. Обнови страницу или продолжай без coach.'
+        : '⚠ Speech Coach unavailable right now. Refresh in a minute.';
+      loader.querySelector('.lc-loading').textContent = msg;
     }
   }
 
