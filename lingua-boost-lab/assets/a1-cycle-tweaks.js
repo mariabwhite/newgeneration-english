@@ -46,7 +46,13 @@
         'box-shadow:0 18px 46px color-mix(in srgb,var(--brand,#7c3aed) 8%,transparent) !important}'+
       '#lab-total-block > div:first-child{background:transparent !important;border:0 !important;padding:0 0 12px !important}'+
       '#lab-total-block > div:last-child{gap:16px !important}'+
-      '#lab-total-block > div:last-child > div{border-radius:14px !important;padding:16px 20px !important}'+
+      // Обе колонки Band + CEFR — одинаковый мягкий accent-фон. Раньше Band
+      // была на rgba(255,255,255,.05) — невидима на светлой теме.
+      '#lab-total-block > div:last-child > div{border-radius:14px !important;padding:18px 22px !important;'+
+        'background:color-mix(in srgb, var(--accent,#f59e0b) 10%, transparent) !important;'+
+        'border:1px solid color-mix(in srgb, var(--accent,#f59e0b) 32%, transparent) !important}'+
+      // Числа Band + CEFR — крупнее и в accent-цвет, чтоб «глазом видно»
+      '#lab-total-block > div:last-child > div > div:nth-child(2){font-size:2rem !important;color:var(--accent,#f59e0b) !important;font-weight:900 !important}'+
       '@media(max-width:600px){#lab-total-block{padding:20px 16px !important;width:calc(100% - 20px) !important}'+
         '#lab-total-block > div:last-child{grid-template-columns:1fr !important}}'+
       // Sticky «✓ в домашке» на vocab-card
