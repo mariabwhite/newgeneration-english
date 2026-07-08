@@ -298,10 +298,37 @@ main {
 /* Все UI-нашлёпки из уроков — прячем */
 .raw .lp-submit, .raw .lp-fab, .raw .lab-hw-fab, .raw .lab-hw-top-entry,
 .raw .lab-hw-overlay, .raw .lp-toc, .raw .lab-hw-add, .raw .lab-hw-section-btn,
-.raw .section-hdr, .raw .section-head, .raw .section-num,
 .raw .fab, .raw button.mic-btn.recording,
 .raw .lab-teacher-banner, .raw #labSyncBanner,
 .raw details.teacher, .raw .teacher, .raw .t-body { display: none !important; }
+/* section-hdr: прячем h2/h3 (дубль item-q), но section-num badge + section-sub инструкции — оставляем */
+.raw .section-hdr > h1, .raw .section-hdr > h2, .raw .section-hdr > h3,
+.raw .section-head > h1, .raw .section-head > h2, .raw .section-head > h3 { display: none !important; }
+.raw .section-hdr, .raw .section-head {
+  display: flex !important; align-items: center; gap: 10px !important;
+  margin: 0 0 10px !important; padding: 0 !important;
+  background: transparent !important; border: 0 !important;
+}
+.raw .section-num {
+  display: inline-flex !important; align-items: center; justify-content: center;
+  min-width: 34px; height: 26px; padding: 0 10px !important;
+  border-radius: 999px !important;
+  background: color-mix(in srgb, var(--accent) 22%, transparent) !important;
+  color: var(--accent) !important;
+  font: 900 .78rem/1 var(--mono) !important;
+  letter-spacing: .08em !important;
+}
+.raw .section-sub {
+  display: block !important;
+  margin: 6px 0 12px !important;
+  color: var(--muted) !important;
+  font-style: italic !important;
+  font-size: .92rem !important;
+  padding: 8px 12px !important;
+  border-left: 3px solid color-mix(in srgb, var(--accent) 45%, transparent) !important;
+  background: color-mix(in srgb, var(--accent) 6%, transparent) !important;
+  border-radius: 0 8px 8px 0 !important;
+}
 
 /* Universal reset для типовых блоков внутри секций урока */
 .raw .ro-bank, .raw .pill-bank, .raw .word-bank, .raw .drag-bank, .raw .bank,
@@ -523,11 +550,8 @@ main {
 
 /* ─── Structural reset — покрывает все 60 уроков через паттерн-селекторы ─── */
 
-/* Любые "-hdr / -head / eyebrow / kicker / section-num" — метадата секции, дубль item-q → прячем */
-.raw [class*="section-hdr"],
-.raw [class*="section-head"],
-.raw [class*="section-num"],
-.raw [class*="section-sub"],
+/* Дубль item-q — прячем eyebrow/kicker/block-num/block-time/-eyebrow,
+   но section-num и section-sub — оставляем как плашки (badge + инструкция). */
 .raw [class*="section-kicker"],
 .raw [class*="block-head"],
 .raw [class*="block-kicker"],
