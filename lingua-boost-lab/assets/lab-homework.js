@@ -509,7 +509,7 @@
 
   // Кнопка «📚 весь блок в домашку» на каждой секции
   function decorateSections(){
-    document.querySelectorAll('section.section, section.lab-section, section.lesson-section, section[class*="section-"], section[id^="block-"], section[id^="sec-"], section[id^="section-"], .lesson-section, .lab-block, .lb-block').forEach(function(sec){
+    document.querySelectorAll('section.section, section.lab-section, section.lesson-section, section.block, section.canon-l-section, section[class*="section-"], section[id^="block-"], section[id^="block"], section[id^="sec-"], section[id^="sec"], section[id^="section-"], section[id^="b"][id$="1"], section[id^="b"][id$="2"], section[id^="b"][id$="3"], section[id^="b"][id$="4"], section[id^="b"][id$="5"], section[id^="b"][id$="6"], section[id^="b"][id$="7"], section[id^="b"][id$="8"], section[id^="b"][id$="9"], .lesson-section, .lab-block, .lb-block').forEach(function(sec){
       if (sec.__hwSecBtn) return;
       sec.__hwSecBtn = true;
       var btn = document.createElement('button');
@@ -519,7 +519,7 @@
       btn.addEventListener('click', function(e){
         e.preventDefault();
         e.stopPropagation();
-        var allSections = Array.prototype.slice.call(document.querySelectorAll('section.section, section.lab-section, section.lesson-section, section[class*="section-"], section[id^="block-"], section[id^="sec-"], section[id^="section-"], .lesson-section, .lab-block, .lb-block'));
+        var allSections = Array.prototype.slice.call(document.querySelectorAll('section.section, section.lab-section, section.lesson-section, section.block, section.canon-l-section, section[class*="section-"], section[id^="block-"], section[id^="block"], section[id^="sec-"], section[id^="sec"], section[id^="section-"], section[id^="b"][id$="1"], section[id^="b"][id$="2"], section[id^="b"][id$="3"], section[id^="b"][id$="4"], section[id^="b"][id$="5"], section[id^="b"][id$="6"], section[id^="b"][id$="7"], section[id^="b"][id$="8"], section[id^="b"][id$="9"], .lesson-section, .lab-block, .lb-block'));
         var sectionIndex = allSections.indexOf(sec) + 1;
         var sectionId = sec.id || sec.getAttribute('data-hw-section-id') || ('section-' + sectionIndex);
         sec.setAttribute('data-hw-section-id', sectionId);
@@ -684,7 +684,7 @@
         } catch(e){}
       });
       // Размещение: после section-head или в начале секции
-      var initialSections = Array.prototype.slice.call(document.querySelectorAll('section.section, section.lab-section, section.lesson-section, section[class*="section-"], section[id^="block-"], section[id^="sec-"], section[id^="section-"], .lesson-section, .lab-block, .lb-block'));
+      var initialSections = Array.prototype.slice.call(document.querySelectorAll('section.section, section.lab-section, section.lesson-section, section.block, section.canon-l-section, section[class*="section-"], section[id^="block-"], section[id^="block"], section[id^="sec-"], section[id^="sec"], section[id^="section-"], section[id^="b"][id$="1"], section[id^="b"][id$="2"], section[id^="b"][id$="3"], section[id^="b"][id$="4"], section[id^="b"][id$="5"], section[id^="b"][id$="6"], section[id^="b"][id$="7"], section[id^="b"][id$="8"], section[id^="b"][id$="9"], .lesson-section, .lab-block, .lb-block'));
       var initialIndex = initialSections.indexOf(sec) + 1;
       var initialSectionId = sec.id || sec.getAttribute('data-hw-section-id') || ('section-' + initialIndex);
       sec.setAttribute('data-hw-section-id', initialSectionId);
