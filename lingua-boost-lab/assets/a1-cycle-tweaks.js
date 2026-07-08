@@ -1,14 +1,18 @@
-/* a1-cycle-tweaks.js v1 · 2026-07-09
+/* a1-cycle-tweaks.js v3 · 2026-07-09
    Локальные доводки для A1-цикла (a1-01…a1-08).
 
-   1. Speech Coach (.lab-coach-section) — переносит кнопку «📚 всю секцию
-      в домашку» из начала блока в конец. Визуально она встаёт между
-      Speech Coach и следующей секцией (Final Task).
+   1. Speech Coach (.lab-coach-section) — переставляет секцию из позиции
+      после <nav.lesson-foot> в позицию ПЕРЕД <nav.lesson-foot>.
+      Мария 2026-07-09: «Speech Coach не должен быть последним, он должен
+      стоять перед Previous / Каталог Lab / Следующий».
 
-   2. Lesson total (#lab-total-block, инжектится lab-total.js) —
-      расширяет до общей ширины .block и даёт ту же карточную оболочку
-      (border, background, radius, padding), чтобы совпадал по ширине
-      с остальными блоками урока.
+   2. Кнопка «📚 всю секцию в домашку» на Speech Coach — гарантирует что
+      всегда стоит в КОНЦЕ .lab-coach-section (визуально между Speech
+      Coach и следующим блоком). Без флага — MO триггерится каждый раз,
+      appendChild noop если уже последний ребёнок.
+
+   3. Lesson total (#lab-total-block) — расширяет до общей ширины .block
+      (max-width 1280) + карточная оболочка.
 */
 (function(){
   if (window.__a1CycleTweaks) return;
@@ -19,8 +23,7 @@
     var s = document.createElement('style');
     s.id = 'a1-cycle-tweaks-style';
     s.textContent =
-      // Lesson total block: расширяем и оформляем как обычный .block
-      '#lab-total-block{max-width:1240px !important;width:calc(100% - 32px) !important;'+
+      '#lab-total-block{max-width:1280px !important;width:calc(100% - 32px) !important;'+
         'margin:32px auto !important;padding:28px clamp(20px,3vw,32px) !important;'+
         'border:1px solid var(--line,rgba(255,255,255,.14)) !important;'+
         'background:color-mix(in srgb, var(--surface,#fff) 94%, transparent) !important;'+
@@ -34,16 +37,30 @@
     document.head.appendChild(s);
   }
 
-  // Speech Coach: переносим кнопку «📚 всю секцию в домашку» в конец
-  function relocateCoachHwBtn(){
+  // Speech Coach: (a) в конец должна кнопка «📚 всю секцию», (b) сама секция
+  // должна стоять перед <nav.lesson-foot>, а не после.
+  function pinCoach(){
+    var foot = document.querySelector('nav.lesson-foot, .lesson-foot');
     document.querySelectorAll('.lab-coach-section').forEach(function(sec){
-      if (sec.__a1HwRelocated) return;
+      // (a) кнопка в конце секции
       var btn = sec.querySelector(':scope > .lab-hw-section-btn');
-      if (!btn) return;
-      // Ставим в конец секции, чтобы визуально между Speech Coach и Final Task
-      btn.style.cssText = 'display:flex;margin:18px auto 4px;align-self:center';
-      sec.appendChild(btn);
-      sec.__a1HwRelocated = true;
+      if (btn && sec.lastElementChild !== btn) {
+        btn.style.cssText = 'display:flex;margin:18px auto 4px;align-self:center';
+        sec.appendChild(btn);
+      }
+      // (b) перенести секцию перед lesson-foot
+      if (foot && sec.parentNode) {
+        // Уже перед foot внутри того же parent?
+        if (foot.parentNode === sec.parentNode) {
+          var siblings = Array.from(foot.parentNode.children);
+          if (siblings.indexOf(sec) > siblings.indexOf(foot)) {
+            foot.parentNode.insertBefore(sec, foot);
+          }
+        } else {
+          // Разные родители → перенести в родитель foot
+          foot.parentNode.insertBefore(sec, foot);
+        }
+      }
     });
   }
 
@@ -54,14 +71,10 @@
 
   ready(function(){
     injectStyle();
-    // Пробуем сразу
-    relocateCoachHwBtn();
-    // lab-homework.js добавляет кнопку через MutationObserver — ждём
-    var mo = new MutationObserver(function(){ relocateCoachHwBtn(); });
+    pinCoach();
+    var mo = new MutationObserver(function(){ pinCoach(); });
     mo.observe(document.body, { childList:true, subtree:true });
-    // Safety: несколько отсроченных проходов на случай медленного inject Speech Coach
-    setTimeout(relocateCoachHwBtn, 600);
-    setTimeout(relocateCoachHwBtn, 1800);
-    setTimeout(relocateCoachHwBtn, 3500);
+    // Safety-tail на медленный async speech-tester (fetch criteria)
+    [400, 1500, 3500, 7000, 12000].forEach(function(ms){ setTimeout(pinCoach, ms); });
   });
 })();
