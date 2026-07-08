@@ -1,4 +1,10 @@
-﻿/* lab-vocab-builder.js v47 — Универсальный словарь + LIVE PUSH.
+﻿/* lab-vocab-builder.js v48 — Универсальный словарь + LIVE PUSH.
+   v48 (2026-07-08): FIX SyntaxError на строке 13 (комментарий v1 закрывался
+        слишком рано, IIFE вообще не запускалась → vocab-builder МЁРТВЫЙ на
+        всех 61 уроке с 2026-05-24). Также click-to-vocab теперь работает
+        в обычном режиме (не только observer): ученик или учитель кликом
+        по слову в тексте .card/.reading/.story добавляет его в блок словаря.
+        Guards исключают клики в .homework и по интерактивам упражнений.
    v47 (2026-07-07): FIX кнопка «+ добавить своё слово» ТЕПЕРЬ появляется и на
         уроках со статичным vocab-контейнером (у 36 уроков раньше была скрыта
         из-за early return null в findOrBuildSection). Инцидент Маша 2026-07-07.
@@ -30,8 +36,8 @@
 
    Observer mode (URL ?observe=...) — учитель видит структуру, но не добавляет. */
 (function(){
-  if (window.__labVocabLoadedV47) return;
-  window.__labVocabLoadedV47 = true;
+  if (window.__labVocabLoadedV48) return;
+  window.__labVocabLoadedV48 = true;
 
   var observeMode = /[?&]observe=/.test(location.search);
   // v45: унифицировано с lab-sync.js — принимаем ?teacher=on (стандарт), ?teacher=1
@@ -674,55 +680,69 @@
     bind();
   }
 
-  // OBSERVER click-to-vocab: Маша в iframe кликает на ЛЮБОЕ слово
-  // в тексте → broadcast в firehose ученику + локальный add. Без модалок.
-  function hookObserverClickToVocab(){
-    if (!observeMode) return;
+  // UNIVERSAL click-to-vocab: любой пользователь (ученик/учитель/observer)
+  // кликом по слову в тексте добавляет его в блок словаря. В observer mode
+  // также транслируется в firehose. Без модалок.
+  //
+  // Guards — click ИГНОРИРУЕТСЯ если попал в:
+  //   * homework/domashka область (.homework, .lab-hw-*, .item.raw…);
+  //   * интерактив упражнений (mc-opt, tf-btn, choice, bank-word, word-chip,
+  //     drag-item, drop-*, match-*, wo-pill, ord-*);
+  //   * сам блок словаря (.lab-vocab-section, .vc-*);
+  //   * TTS/play/mic кнопки и любые button/a/input/textarea/select.
+  function hookUniversalClickToVocab(){
     var SUPABASE_URL  = "https://iqzlphbvmfgoygnozbya.supabase.co";
     var SUPABASE_ANON = "sb_publishable_hYhBk3xS90uouUFd_DZWUw_sOv-6JGO";
     var firehose = null;
-    function bind(){
-      if (!window.supabase) return setTimeout(bind, 300);
-      try {
-        var c = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
-        firehose = c.channel('lab-firehose-v1', { config:{ broadcast:{ self:false }}});
-        firehose.subscribe();
-      } catch(e){}
+    if (observeMode) {
+      (function bind(){
+        if (!window.supabase) return setTimeout(bind, 300);
+        try {
+          var c = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+          firehose = c.channel('lab-firehose-v1', { config:{ broadcast:{ self:false }}});
+          firehose.subscribe();
+        } catch(e){}
+      })();
     }
-    bind();
 
-    // Курсор-индикатор: всё что текст в .card/.reading/.story становится pointer
+    // Курсор-индикатор: текст в реадинг-контейнерах намекает что кликабельно.
     var cs = document.createElement('style');
-    cs.textContent = '.card p, .card li, .reading p, .story p, .passage p, p.lead, .card .stmt, .card .question, .card .q-text {cursor:crosshair !important}'+
+    cs.textContent = '.card p, .card li, .reading p, .story p, .passage p, p.lead, .card .stmt, .card .question, .card .q-text {cursor:crosshair}'+
       '.lab-click-flash{background:#fbbf24 !important;color:#1a1a2e !important;'+
       'border-radius:4px;padding:1px 5px;transition:background .15s,color .15s;'+
       'box-shadow:0 0 0 3px rgba(251,191,36,.45)}';
     document.head.appendChild(cs);
 
-    // Делегированный click handler — клик на любое слово в text containers
     var TEXT_HOSTS = '.card, .reading, .story, .passage, .lab-bridge';
+    var IGNORE_HOSTS = '.homework, .lab-hw-overlay, .lab-hw-modal, .lab-vocab-section, .vocab-section, [data-lab-vocab], .lab-teacher-banner, #labSyncBanner';
+    var IGNORE_MECH = '.mc-opt, .tf-btn, .btn-tf, .choice, .choice-btn, .predict-btn, .bank-word, .word-chip, .drag-item, .drop-gap, .drop-slot, .drop-zone, .cloze-gap, .match-place, .match-card, .match-drop, .match-slot, .wo-pill, .ord-card, .ord-chip, .flip-card, .vocab-card, .vc-card';
+    var IGNORE_ATTRS = '[data-say], [data-w], [data-word], [data-place], [data-a], [data-v], [data-ans], [data-answer], [data-correct], [data-expected], [data-rm], [role="button"]';
+
     document.addEventListener('click', function(e){
-      var host = e.target.closest && e.target.closest(TEXT_HOSTS);
+      var t = e.target;
+      if (!t || !t.closest) return;
+      if (t.closest(IGNORE_HOSTS)) return;
+      if (t.closest(IGNORE_MECH)) return;
+      if (t.closest(IGNORE_ATTRS)) return;
+      var tag = t.tagName;
+      if (/^(BUTTON|A|INPUT|TEXTAREA|SELECT|LABEL)$/.test(tag)) return;
+      var host = t.closest(TEXT_HOSTS);
       if (!host) return;
-      // Игнорируем клики на интерактивные элементы
-      var tag = e.target.tagName;
-      if (/^(BUTTON|A|INPUT|TEXTAREA|SELECT)$/.test(tag)) return;
-      // Достаём слово по caret position
       var word = extractWordAtClick(e);
       if (!word || word.length < 2 || word.length > 40) return;
-      // Запретить клик-сработать-на-уже-существующее (toggle)
       e.preventDefault();
       e.stopPropagation();
-      // Broadcast ученику
-      if (firehose) {
-        firehose.send({ type:'broadcast', event:'vocab-push', payload: {
-          room_id: observeId, word: word, ts: Date.now()
-        }});
+      if (observeMode && firehose) {
+        try {
+          firehose.send({ type:'broadcast', event:'vocab-push', payload: {
+            room_id: (typeof observeId !== 'undefined' ? observeId : null),
+            lesson_path: location.pathname,
+            word: word, ts: Date.now()
+          }});
+        } catch(e2){}
       }
-      // Локально (в iframe Маши)
       window.dispatchEvent(new CustomEvent('lab-local-vocab-push', { detail: { word: word }}));
-      // Визуальный flash на слове
-      flashWord(e.target, word);
+      flashWord(t, word);
     }, true);
   }
 
@@ -773,7 +793,7 @@
     highlightInText();
     if (!observeMode) hookSelection();
     if (!observeMode) hookFirehosePush();
-    if (observeMode) hookObserverClickToVocab();
+    hookUniversalClickToVocab();
     // Локальное мгновенное обновление словаря в iframe Маши
     // когда она набирает word в observer banner + Enter
     // или кликает на слово в observer тексте.
