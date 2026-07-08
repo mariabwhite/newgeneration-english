@@ -235,16 +235,17 @@ main {
   .raw { max-height: none; overflow-y: visible; }
 }
 .raw > *:first-child { margin-top: 0 !important; }
+/* Мандат Марии 2026-07-08 21:30: клон должен выглядеть 1-в-1 как в уроке.
+   Больше не flatten (background/shadow/border/padding сохраняем как в уроке).
+   Только жёсткие ограничения: не выходить за ширину контейнера. */
 .raw section, .raw .section, .raw .card,
 .raw .story-block, .raw .round-card, .raw .game-card,
 .raw .info-card, .raw .error-card, .raw .prompt-card,
 .raw .now-item, .raw .tile, .raw .output-box,
 .raw [class*="story-block"], .raw [class*="round-card"], .raw [class*="game-card"],
 .raw [class*="prompt-card"] {
-  max-width: none !important; width: 100% !important; margin: 0 0 12px 0 !important;
-  background: transparent !important; box-shadow: none !important;
-  border-radius: 10px !important; padding: 0 !important;
-  color: var(--text) !important; border: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
 }
 .raw .match-wrap, .raw [class*="match-wrap"] {
   display: block !important;
@@ -253,14 +254,11 @@ main {
   background: transparent !important;
   border: 0 !important;
 }
-.raw h1, .raw h2, .raw h3, .raw h4 { font-family: var(--display) !important; color: var(--text) !important; margin: 12px 0 8px !important; letter-spacing: 0 !important; }
-.raw h2 { font-size: 1.15rem !important; }
-.raw h3 { font-size: 1rem !important; }
-.raw p, .raw li, .raw td, .raw th { color: var(--text) !important; line-height: 1.55 !important; }
-.raw p { margin: 6px 0 !important; }
-.raw ol, .raw ul { padding-left: 22px !important; margin: 8px 0 !important; }
-.raw strong, .raw b { color: var(--text) !important; }
-.raw em, .raw i { color: var(--muted) !important; }
+/* Мандат 1-в-1: цвета текста / заголовков берём от урока, не форсим.
+   Спейсинг стандартизируем только через margin (без forced font-family/font-size). */
+.raw h1, .raw h2, .raw h3, .raw h4 { margin: 12px 0 8px; }
+.raw p { margin: 6px 0; line-height: 1.55; }
+.raw ol, .raw ul { padding-left: 22px; margin: 8px 0; }
 .raw img,
 .raw picture img,
 .raw figure img,
