@@ -241,7 +241,16 @@ main {
 .raw ol, .raw ul { padding-left: 22px !important; margin: 8px 0 !important; }
 .raw strong, .raw b { color: var(--text) !important; }
 .raw em, .raw i { color: var(--muted) !important; }
-.raw img { max-width: 100%; height: auto; border-radius: 12px; margin: 8px 0; }
+.raw img {
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  max-height: min(380px, 48vh);
+  object-fit: contain;
+  border-radius: 12px;
+  margin: 8px auto;
+  display: block;
+}
 .raw audio { max-width: 100%; margin: 8px 0; }
 .raw video, .raw iframe {
   width: 100% !important;
@@ -315,10 +324,13 @@ main {
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 18%, transparent) !important;
 }
 .raw button.correct, .raw .mc-opt.correct, .raw .tf-btn.correct,
+.raw button.right, .raw .mc-opt.right, .raw .tf-btn.right,
 .raw .choice.correct, .raw .choice-btn.correct, .raw .btn-tf.correct,
 .raw .choice[data-state="correct"],
-.raw .wo-pill.correct, .raw .drop-gap.filled, .raw .drop-slot.filled,
-.raw .drop-slot.is-correct, .raw .drop-zone.filled, .raw .match-drop.filled {
+.raw .wo-pill.correct, .raw .wo-pill.right,
+.raw .drop-gap.is-correct, .raw .cloze-gap.is-correct,
+.raw .drop-slot.is-correct, .raw .drop-zone.is-correct,
+.raw .match-drop.is-correct, .raw .match-slot.is-correct {
   background: color-mix(in srgb, #22c55e 24%, var(--card)) !important;
   border-color: color-mix(in srgb, #22c55e 72%, var(--line)) !important;
   color: var(--text) !important;
@@ -337,6 +349,18 @@ main {
   opacity: .45 !important;
   text-decoration: line-through;
   pointer-events: none;
+}
+.raw .drop-gap.filled, .raw .cloze-gap.filled, .raw .drop-slot.filled,
+.raw .drop-zone.filled, .raw .drop.filled, .raw .match-drop.filled, .raw .match-slot.filled {
+  background: color-mix(in srgb, var(--accent) 10%, var(--card)) !important;
+  border-color: color-mix(in srgb, var(--accent) 42%, var(--line)) !important;
+  color: var(--text) !important;
+}
+.raw > .flip-card, .raw > .vocab-card {
+  width: min(100%, 380px) !important;
+  max-width: 380px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 .raw .flip-card { cursor: pointer; }
 .raw .flip-card.flipped .flip-inner {
@@ -912,10 +936,10 @@ main {
   vertical-align: middle !important;
 }
 .raw .drop-gap.filled, .raw .cloze-gap.filled {
-  background: color-mix(in srgb, var(--ok, #16a34a) 18%, transparent) !important;
+  background: color-mix(in srgb, var(--accent) 10%, transparent) !important;
   border-style: solid !important;
-  border-color: color-mix(in srgb, var(--ok, #16a34a) 60%, transparent) !important;
-  color: var(--ok, #16a34a) !important;
+  border-color: color-mix(in srgb, var(--accent) 42%, transparent) !important;
+  color: var(--text) !important;
 }
 
 /* Practice items — гарантированно видны (Julia Bodrum, Modals, Interview 12-задачные) */
@@ -1813,7 +1837,8 @@ main {
       return true;
     }
     drop.textContent = got;
-    drop.classList.add('filled', 'is-correct');
+    drop.classList.add('filled');
+    if (want) drop.classList.add('is-correct');
     selected.classList.remove('selected');
     selected.classList.add('used');
     ensureRawAnswer(item).drops[rawDropKey(drop)] = got;
@@ -1841,6 +1866,7 @@ main {
     }
     drop.textContent = got;
     drop.classList.add('filled');
+    if (want) drop.classList.add('is-correct');
     selected.classList.remove('selected');
     selected.classList.add('used');
     ensureRawAnswer(item).drops[rawDropKey(drop)] = got;
@@ -1924,6 +1950,22 @@ main {
     persistRawAnswer(article, item);
     return true;
   }
+  function handleRawPlayButton(btn){
+    var sayNode = btn.closest('[data-say]') || btn;
+    var text = (sayNode.getAttribute('data-say') || '').trim();
+    if (!text) return false;
+    try {
+      if (!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined') return true;
+      window.speechSynthesis.cancel();
+      var utter = new SpeechSynthesisUtterance(text);
+      utter.lang = /^[а-яё]/i.test(text) ? 'ru-RU' : 'en-US';
+      utter.rate = 0.9;
+      window.speechSynthesis.speak(utter);
+      btn.classList.add('playing');
+      setTimeout(function(){ btn.classList.remove('playing'); }, Math.min(3500, Math.max(900, text.length * 45)));
+    } catch(e){}
+    return true;
+  }
 
   list.addEventListener('input', function(e){
     if (e.target.matches('textarea[data-idx]')) {
@@ -1971,11 +2013,12 @@ main {
     }
     var rawTarget = e.target.closest('.raw button, .raw .bank-word, .raw .word-chip, .raw .drag-item, .raw [data-w], .raw [data-word], .raw .drop-gap, .raw .cloze-gap, .raw .drop-slot, .raw .drop-zone, .raw .drop, .raw .match-place, .raw .match-card, .raw [data-place], .raw .match-drop, .raw .match-slot, .raw .wo-pill, .raw .ord-card, .raw .ord-chip, .raw .mc-opt, .raw .tf-btn, .raw .btn-tf, .raw .choice, .raw .choice-btn, .raw .predict-btn, .raw .opt, .raw .flip-card, .raw .vocab-card, .raw [role="button"]');
     if (rawTarget) {
-      if (rawTarget.matches('[data-rm], .rm, [class*="listen"], [class*="play"], [id*="listen"], .q-speak, [data-say]')) return;
+      if (rawTarget.matches('[data-rm], .rm, [class*="listen"], [id*="listen"], .q-speak')) return;
       var article = rawArticle(rawTarget);
       var item = rawItem(article);
       if (!item) return;
       e.preventDefault();
+      if (rawTarget.matches('[data-say], [class*="play"]') && handleRawPlayButton(rawTarget)) return;
       if (rawTarget.matches('.bank-word, .word-chip, .drag-item, [data-w], [data-word]') && pickRawBankWord(article, rawTarget)) return;
       if (rawTarget.matches('.drop-gap, .cloze-gap, .drop-slot, .drop-zone, .drop') && placeRawBankWord(article, item, rawTarget)) return;
       if (rawTarget.matches('.match-place, .match-card, [data-place]') && pickRawMatchPlace(article, rawTarget)) return;

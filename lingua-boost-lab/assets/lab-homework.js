@@ -313,6 +313,12 @@
   }
 
   function txt(el){ return el ? (el.textContent || '').replace(/\s+/g,' ').trim() : ''; }
+  function nodeFingerprint(node){
+    var raw = ((node && node.outerHTML) || txt(node) || '').slice(0, 1200);
+    var h = 0;
+    for (var i = 0; i < raw.length; i++) h = ((h << 5) - h + raw.charCodeAt(i)) | 0;
+    return Math.abs(h).toString(36);
+  }
   function short(s, n){ s = s||''; return s.length > n ? s.slice(0, n-1) + '…' : s; }
 
   // Описать упражнение в формате item для домашки
@@ -371,7 +377,7 @@
       item.question = short(txt(label) || 'Open writing', 200);
       item.student_answer = short(host.value || '', 500);
     } else if (kind === 'vocab') {
-      var word = host.dataset.word || (host.querySelector('.word, .vocab-front .word')?.textContent || '').trim();
+      var word = host.dataset.word || (host.querySelector('.word, .vocab-word, .term, .vocab-front .word, .front')?.textContent || '').trim();
       var meaning = (host.querySelector('.meaning, .vocab-back .meaning')?.textContent || '').trim();
       var example = (host.querySelector('.ex, .vocab-back .ex')?.textContent || '').trim();
       item.question = short('📖 ' + word, 200);
@@ -412,10 +418,12 @@
 
   function rawHomeworkItem(host, kind){
     var item = describe(host, kind);
-    var title = txt(host.querySelector('h3, h4, .mcq-q, .mc-q, .tf-q, .predict-q, .prompt-text, .line-q, .quiz-q, .stmt')) || item.question || item.section_title || 'Задание';
+    var title = txt(host.querySelector('h3, h4, .mcq-q, .mc-q, .tf-q, .predict-q, .prompt-text, .line-q, .quiz-q, .stmt, .vocab-word, .word, .term, .front, .vocab-front')) || item.question || item.section_title || 'Задание';
+    title = (title || '').replace(/\s*\+\s*$/, '').trim();
     item.kind = 'raw-block';
     item.question = short(title, 180);
     item.html = cleanRawClone(host).outerHTML;
+    item.section_id = (item.section_id || 'raw') + ':' + (kind || 'block') + ':' + nodeFingerprint(host);
     item.css = '';
     return item;
   }
