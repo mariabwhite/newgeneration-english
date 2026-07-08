@@ -1,28 +1,43 @@
-/* a1-cycle-tweaks.js v3 · 2026-07-09
+/* a1-cycle-tweaks.js v4 · 2026-07-09
    Локальные доводки для A1-цикла (a1-01…a1-08).
 
-   1. Speech Coach (.lab-coach-section) — переставляет секцию из позиции
-      после <nav.lesson-foot> в позицию ПЕРЕД <nav.lesson-foot>.
-      Мария 2026-07-09: «Speech Coach не должен быть последним, он должен
-      стоять перед Previous / Каталог Lab / Следующий».
+   1. Speech Coach (.lab-coach-section) — переставляет перед <nav.lesson-foot>,
+      чтобы не был последним блоком урока (Мария 2026-07-09).
 
-   2. Кнопка «📚 всю секцию в домашку» на Speech Coach — гарантирует что
-      всегда стоит в КОНЦЕ .lab-coach-section (визуально между Speech
-      Coach и следующим блоком). Без флага — MO триггерится каждый раз,
-      appendChild noop если уже последний ребёнок.
+   2. Кнопка «📚 всю секцию в домашку» на Speech Coach — гарантирует конец
+      секции (без флага, appendChild-noop).
 
-   3. Lesson total (#lab-total-block) — расширяет до общей ширины .block
-      (max-width 1280) + карточная оболочка.
+   3. Lesson total (#lab-total-block) — max-width 1280 + карточка как .block.
+
+   4. v4: VOCAB-add fix. Click «+» на .vocab-card теперь сохраняется в
+      localStorage как kind='vocab' с полями en/ipa/ru/ex, а не как безлико
+      «raw-block». В `.homework/index.html` уже есть ветка `if (kind='vocab')`
+      которая рендерит красивую vocab-card. Раньше отправлялся raw-block с
+      HTML-клоном, .homework падал в generic 'Блок'.
+
+   5. v4: Sticky marker «✓ в домашке» прямо на самой vocab-card (не только
+      toast в углу). Мария: «слова не видно при добавлении, непонятно где
+      искать» — теперь виден статус на карточке до перезагрузки.
 */
 (function(){
   if (window.__a1CycleTweaks) return;
   window.__a1CycleTweaks = true;
+
+  function hwKey(){ return 'lab-hw:' + location.pathname; }
+  function loadHw(){
+    try { return JSON.parse(localStorage.getItem(hwKey()) || '[]'); }
+    catch(e){ return []; }
+  }
+  function saveHw(arr){
+    try { localStorage.setItem(hwKey(), JSON.stringify(arr)); } catch(e){}
+  }
 
   function injectStyle(){
     if (document.getElementById('a1-cycle-tweaks-style')) return;
     var s = document.createElement('style');
     s.id = 'a1-cycle-tweaks-style';
     s.textContent =
+      // Lesson total → как обычный .block
       '#lab-total-block{max-width:1280px !important;width:calc(100% - 32px) !important;'+
         'margin:32px auto !important;padding:28px clamp(20px,3vw,32px) !important;'+
         'border:1px solid var(--line,rgba(255,255,255,.14)) !important;'+
@@ -33,35 +48,148 @@
       '#lab-total-block > div:last-child{gap:16px !important}'+
       '#lab-total-block > div:last-child > div{border-radius:14px !important;padding:16px 20px !important}'+
       '@media(max-width:600px){#lab-total-block{padding:20px 16px !important;width:calc(100% - 20px) !important}'+
-        '#lab-total-block > div:last-child{grid-template-columns:1fr !important}}';
+        '#lab-total-block > div:last-child{grid-template-columns:1fr !important}}'+
+      // Sticky «✓ в домашке» на vocab-card
+      '.vocab-card.a1hw-added{outline:2px solid #f59e0b;outline-offset:2px;border-radius:14px;position:relative}'+
+      '.vocab-card .a1hw-marker{position:absolute;top:-14px;left:12px;background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#fff;'+
+        'font:900 10px/1 "JetBrains Mono",monospace;letter-spacing:.12em;padding:6px 12px;border-radius:999px;'+
+        'text-transform:uppercase;pointer-events:none;box-shadow:0 6px 18px rgba(245,158,11,.42);z-index:6}'+
+      // Улучшенный toast: полоса по центру-верху, крупнее
+      '.a1hw-word-toast{position:fixed;top:24px;left:50%;transform:translateX(-50%) translateY(-16px);'+
+        'background:linear-gradient(135deg,#92400e,#f59e0b);color:#fff;padding:14px 28px;border-radius:999px;'+
+        'font:800 15px/1.2 "Manrope",sans-serif;z-index:99999;opacity:0;transition:all .3s ease-out;'+
+        'box-shadow:0 12px 40px rgba(245,158,11,.42);max-width:90vw;text-align:center;pointer-events:none}'+
+      '.a1hw-word-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}'+
+      '.a1hw-word-toast .word{font-family:"JetBrains Mono",monospace;background:rgba(255,255,255,.22);padding:2px 10px;border-radius:6px;margin:0 6px}';
     document.head.appendChild(s);
   }
 
-  // Speech Coach: (a) в конец должна кнопка «📚 всю секцию», (b) сама секция
-  // должна стоять перед <nav.lesson-foot>, а не после.
+  function bigToast(html){
+    var t = document.querySelector('.a1hw-word-toast');
+    if (!t) { t = document.createElement('div'); t.className = 'a1hw-word-toast'; document.body.appendChild(t); }
+    t.innerHTML = html;
+    requestAnimationFrame(function(){ t.classList.add('show'); });
+    clearTimeout(t.__tt);
+    t.__tt = setTimeout(function(){ t.classList.remove('show'); }, 3200);
+  }
+
+  function extractVocabFields(card){
+    var word = (card.querySelector('.vocab-word, .word, .front .word, .vocab-front .word')?.textContent || '').trim();
+    var ipa = (card.querySelector('.vocab-ipa, .ipa')?.textContent || '').trim();
+    var ru = (card.querySelector('.vocab-ru, .ru, .meaning, .vocab-face .vocab-ru')?.textContent || '').trim();
+    var ex = (card.querySelector('.vocab-example, .example, .ex, .vocab-back .vocab-example')?.textContent || '').trim();
+    return { en: word, ipa: ipa, ru: ru, ex: ex };
+  }
+
+  // Апгрейд последнего raw-block item в vocab, если source — .vocab-card
+  function upgradeLastVocab(card){
+    var fields = extractVocabFields(card);
+    if (!fields.en) return;
+    var arr = loadHw();
+    if (!arr.length) return;
+    // Найдём последний item который матчит эту карточку (по question ИЛИ по html-fragment)
+    var idx = -1;
+    for (var i = arr.length - 1; i >= 0; i--) {
+      var it = arr[i];
+      var byQ = (it.question || '').indexOf(fields.en) >= 0;
+      var byHtml = it.html && it.html.indexOf('>' + fields.en + '<') >= 0;
+      if (byQ || byHtml) { idx = i; break; }
+    }
+    if (idx < 0) return;
+    var it = arr[idx];
+    it.kind = 'vocab';
+    it.en = fields.en;
+    it.ipa = fields.ipa;
+    it.ru = fields.ru;
+    it.ex = fields.ex;
+    it.word = fields.en;
+    it.title = fields.en;
+    arr[idx] = it;
+    saveHw(arr);
+  }
+
+  // Marker «✓ в домашке» на карточке
+  function markCard(card, on){
+    if (on) {
+      card.classList.add('a1hw-added');
+      if (!card.querySelector('.a1hw-marker')) {
+        var m = document.createElement('div');
+        m.className = 'a1hw-marker';
+        m.textContent = '✓ в домашке';
+        card.appendChild(m);
+      }
+    } else {
+      card.classList.remove('a1hw-added');
+      var m = card.querySelector('.a1hw-marker');
+      if (m) m.remove();
+    }
+  }
+
+  // Обход всех vocab-card, синхронизация markers c localStorage
+  function syncVocabMarkers(){
+    var arr = loadHw();
+    var vocabWords = new Set(arr.filter(function(x){ return x.kind === 'vocab' && x.en; }).map(function(x){ return x.en; }));
+    // Также raw-block с vocab-card внутри — временно для upgrade
+    document.querySelectorAll('.vocab-card').forEach(function(card){
+      var fields = extractVocabFields(card);
+      if (!fields.en) return;
+      var inHw = vocabWords.has(fields.en) || arr.some(function(x){
+        return x.html && x.html.indexOf('>' + fields.en + '<') >= 0;
+      });
+      markCard(card, inHw);
+    });
+  }
+
+  // Перехват клика на .lab-hw-add внутри .vocab-card
+  function bindVocabPlusClicks(){
+    document.querySelectorAll('.vocab-card .lab-hw-add').forEach(function(btn){
+      if (btn.__a1VocabBound) return;
+      btn.__a1VocabBound = true;
+      btn.addEventListener('click', function(){
+        var card = btn.closest('.vocab-card');
+        if (!card) return;
+        var fields = extractVocabFields(card);
+        // lab-homework успевает сохранить свой item раньше нас (одна tick).
+        // Микро-задержка → апгрейд + маркер + шумный toast.
+        setTimeout(function(){
+          upgradeLastVocab(card);
+          syncVocabMarkers();
+          // Только если reallу добавилось (кнопка стала ✓)
+          if (btn.classList.contains('added')) {
+            bigToast('Слово <span class="word">' + fields.en + '</span> в домашке · открой «Моя домашка» сверху');
+          } else {
+            bigToast('Слово <span class="word">' + fields.en + '</span> убрано из домашки');
+          }
+        }, 60);
+      }, true);
+    });
+  }
+
   function pinCoach(){
     var foot = document.querySelector('nav.lesson-foot, .lesson-foot');
     document.querySelectorAll('.lab-coach-section').forEach(function(sec){
-      // (a) кнопка в конце секции
       var btn = sec.querySelector(':scope > .lab-hw-section-btn');
       if (btn && sec.lastElementChild !== btn) {
         btn.style.cssText = 'display:flex;margin:18px auto 4px;align-self:center';
         sec.appendChild(btn);
       }
-      // (b) перенести секцию перед lesson-foot
       if (foot && sec.parentNode) {
-        // Уже перед foot внутри того же parent?
         if (foot.parentNode === sec.parentNode) {
           var siblings = Array.from(foot.parentNode.children);
           if (siblings.indexOf(sec) > siblings.indexOf(foot)) {
             foot.parentNode.insertBefore(sec, foot);
           }
         } else {
-          // Разные родители → перенести в родитель foot
           foot.parentNode.insertBefore(sec, foot);
         }
       }
     });
+  }
+
+  function tick(){
+    pinCoach();
+    bindVocabPlusClicks();
+    syncVocabMarkers();
   }
 
   function ready(fn){
@@ -71,10 +199,13 @@
 
   ready(function(){
     injectStyle();
-    pinCoach();
-    var mo = new MutationObserver(function(){ pinCoach(); });
+    tick();
+    var mo = new MutationObserver(function(){ tick(); });
     mo.observe(document.body, { childList:true, subtree:true });
-    // Safety-tail на медленный async speech-tester (fetch criteria)
-    [400, 1500, 3500, 7000, 12000].forEach(function(ms){ setTimeout(pinCoach, ms); });
+    [400, 1500, 3500, 7000, 12000].forEach(function(ms){ setTimeout(tick, ms); });
+    // Синхронизация markers при внешнем изменении hw (например теми же ключами в другой вкладке)
+    window.addEventListener('storage', function(ev){
+      if (ev.key === hwKey()) syncVocabMarkers();
+    });
   });
 })();
