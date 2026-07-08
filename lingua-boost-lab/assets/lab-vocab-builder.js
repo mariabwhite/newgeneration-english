@@ -378,6 +378,7 @@
     if (!section) return; // статичная — модуль её не трогает
     var grid = section.querySelector('#vocabGrid');
     var counter = section.querySelector('#vocabCount');
+    if (!grid) return; // static vocab section без нашего grid — не трогаем; иначе crash 'innerHTML' of null (oge-mock-mix-01, dana-russia-history-exam).
     grid.innerHTML = '';
     vocab.forEach(function(it){ grid.appendChild(buildCard(it)); });
     if (counter) counter.textContent = vocab.length;
