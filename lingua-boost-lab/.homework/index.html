@@ -219,12 +219,20 @@ main {
   gap: 12px;
 }
 
-/* Raw block — вживляем контент секции урока в текущую палитру. БЕЗ ползунков — блок полной высоты. */
+/* Raw block — вживляем контент секции урока в текущую палитру.
+   Desktop: cap 720px + собственный scroll (audit 2026-07-08: 22 урока со сверх-длинными items).
+   Mobile: без cap — единый скролл страницы удобнее пальцу. */
 .raw {
   border: 1px solid var(--line); border-radius: 14px;
   padding: 18px;
   background: color-mix(in srgb, var(--card) 60%, transparent);
   color: var(--text);
+  max-height: min(720px, 60vh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+@media (max-width: 720px) {
+  .raw { max-height: none; overflow-y: visible; }
 }
 .raw > *:first-child { margin-top: 0 !important; }
 .raw section, .raw .section, .raw .card,
@@ -253,15 +261,26 @@ main {
 .raw ol, .raw ul { padding-left: 22px !important; margin: 8px 0 !important; }
 .raw strong, .raw b { color: var(--text) !important; }
 .raw em, .raw i { color: var(--muted) !important; }
-.raw img {
-  max-width: 100%;
-  width: auto;
-  height: auto;
-  max-height: min(380px, 48vh);
-  object-fit: contain;
-  border-radius: 12px;
-  margin: 8px auto;
-  display: block;
+.raw img,
+.raw picture img,
+.raw figure img,
+.raw [class*="img"] img,
+.raw [class*="illustration"] img,
+.raw [class*="photo"] img {
+  max-width: 100% !important;
+  width: auto !important;
+  height: auto !important;
+  max-height: min(380px, 48vh) !important;
+  object-fit: contain !important;
+  border-radius: 12px !important;
+  margin: 8px auto !important;
+  display: block !important;
+}
+.raw figure, .raw picture {
+  margin: 8px 0 !important;
+  padding: 0 !important;
+  max-width: 100% !important;
+  text-align: center !important;
 }
 .raw audio { max-width: 100%; margin: 8px 0; }
 .raw video, .raw iframe {
