@@ -173,7 +173,56 @@ Get-ChildItem -Recurse -File -Filter '*.html' | ForEach-Object {
 
 Запускать перед каждым push, если менялись shared assets или `.homework`.
 
-## 12. Как рождается новый урок — короткий чек-лист
+## 12. Speech Coach — единый стандарт (2026-07-08 мандат Марии)
+
+Speech Coach — секция с задачей + criteria + Web Speech Recognition для устного ответа. Строится `lab-speech-tester.js` (v13+).
+
+### Позиция в уроке
+
+**ПРЕДПОСЛЕДНЕЕ упражнение, СТРОГО ДО футера.** Не в самом конце.
+
+`lab-speech-tester.js` при init делает `insertBefore(sections[sections.length-1])` — ставит Coach перед последней `section.section`. Если урок имеет свой inline Coach в правильном месте, script не трогает.
+
+### 3 варианта Coach в уроках
+
+| тип                          | пример                                | когда                                                          |
+| ---------------------------- | ------------------------------------- | -------------------------------------------------------------- |
+| **Custom inline grader**     | `stage-vs-screen-ege` (Speaking Task 4) | ЕГЭ / spot-scoring с 10 criteria + Photo A/B + teacher mirror  |
+| **`lab-coach-config` inline** | `russia-my-homeland`                 | Урок задаёт свой JSON `{task, criteria}` через `<script id="lab-coach-config">` |
+| **Universal fallback**       | все остальные 30+ уроков              | Если Pollinations не отвечает — используется универсальный набор 7 criteria (см. ниже) |
+
+### Universal fallback (v13+)
+
+Если нет своего config → 7 unified criteria одинаковые для всех уроков:
+1. **Topic covered** — mention lesson theme (topic/lesson/today/about)
+2. **Key vocabulary** — 5+ topic-specific words
+3. **Personal example** — i had / i remember / in my life / for me
+4. **Opinion** — i think / i believe / in my opinion / i love / i prefer
+5. **Linkers** — however / moreover / because / for example / also
+6. **Structure** — first / then / next / finally / to sum up
+7. **Length ≥ 2 min** — talk for two full minutes
+
+Task: `Talk for 2-3 minutes on the topic of this lesson: <title>. Explain the key idea, give one example from your life, share your opinion.`
+
+### Как урок задаёт свой Coach
+
+```html
+<script type="application/json" id="lab-coach-config">
+{
+  "task": "Tell us about ...",
+  "criteria": [
+    { "label": "Capital / iconic places mentioned", "hint": "Moscow / Kremlin", "keywords": ["moscow", "kremlin"] }
+  ]
+}
+</script>
+<script src="../assets/lab-speech-tester.js?v=13" defer></script>
+```
+
+### `.homework` клон Speech Coach
+
+По мандату 1-в-1: `.raw` больше не имеет `max-height 720px + overflow` (было убрано в `1103f6f9`). Speech Coach в клоне отображается полной высоты, включая criteria, record button, teacher code.
+
+## 13. Как рождается новый урок — короткий чек-лист
 
 1. Скопировать структуру ближайшего эталона того же архетипа.
 2. `<title>`, `<h1>`, `hero-card` — свои.
@@ -188,4 +237,4 @@ Get-ChildItem -Recurse -File -Filter '*.html' | ForEach-Object {
 
 ---
 
-*Последнее обновление: 2026-07-08 (Синтия).*
+*Последнее обновление: 2026-07-08 (Синтия). Секция 12 «Speech Coach» добавлена по мандату Марии.*
