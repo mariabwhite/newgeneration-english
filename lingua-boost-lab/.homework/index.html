@@ -282,12 +282,16 @@ main {
   cursor: pointer; white-space: nowrap;
 }
 .raw .mcq-opts, .raw .art-opts, .raw .ps-opts, .raw .oc-opts, .raw .tfns-opts,
-.raw .mc-opts, .raw .tf-btns, .raw .tf-opts, .raw .choice-opts {
+.raw .mc-opts, .raw .tf-btns, .raw .tf-opts, .raw .choice-opts,
+.raw .choice-row, .raw .quiz-opts, .raw .quiz-options, .raw .answer-options,
+.raw .predict-btns {
   display: flex !important; flex-wrap: wrap !important; gap: 6px !important; margin: 8px 0 !important;
 }
 .raw .mcq-opts button, .raw .art-opts button, .raw .ps-opts button,
 .raw .oc-opts button, .raw .tfns-opts button, .raw .mc-opts button,
-.raw .tf-btns button, .raw .tf-opts button, .raw .choice-opts button {
+.raw .tf-btns button, .raw .tf-opts button, .raw .choice-opts button,
+.raw .choice-row button, .raw .quiz-opts button, .raw .quiz-options button,
+.raw .answer-options button, .raw .choice, .raw .choice-btn, .raw .btn-tf {
   padding: 7px 14px !important; border-radius: 10px !important;
   background: color-mix(in srgb, var(--card) 80%, transparent) !important;
   color: var(--text) !important;
@@ -300,25 +304,36 @@ main {
 .raw .oc-opts button.selected, .raw .tfns-opts button.selected,
 .raw .mc-opts button.selected, .raw .tf-btns button.selected,
 .raw .tfg-opts button.selected, .raw .cloze-opts button.selected,
-.raw .bank-word.selected, .raw .match-place.selected, .raw .wo-pill.selected {
+.raw .choice-row button.selected, .raw .quiz-opts button.selected,
+.raw .quiz-options button.selected, .raw .answer-options button.selected,
+.raw .choice.selected, .raw .choice-btn.selected, .raw .btn-tf.selected,
+.raw .bank-word.selected, .raw .word-chip.selected, .raw .drag-item.selected,
+.raw .match-place.selected, .raw .match-card.selected, .raw .wo-pill.selected {
   background: color-mix(in srgb, var(--accent) 24%, var(--card)) !important;
   border-color: color-mix(in srgb, var(--accent) 70%, var(--line)) !important;
   color: var(--text) !important;
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 18%, transparent) !important;
 }
 .raw button.correct, .raw .mc-opt.correct, .raw .tf-btn.correct,
-.raw .wo-pill.correct, .raw .drop-gap.filled, .raw .match-drop.filled {
+.raw .choice.correct, .raw .choice-btn.correct, .raw .btn-tf.correct,
+.raw .choice[data-state="correct"],
+.raw .wo-pill.correct, .raw .drop-gap.filled, .raw .drop-slot.filled,
+.raw .drop-slot.is-correct, .raw .drop-zone.filled, .raw .match-drop.filled {
   background: color-mix(in srgb, #22c55e 24%, var(--card)) !important;
   border-color: color-mix(in srgb, #22c55e 72%, var(--line)) !important;
   color: var(--text) !important;
 }
 .raw button.wrong, .raw .mc-opt.wrong, .raw .tf-btn.wrong,
-.raw .wo-pill.wrong, .raw .drop-gap.wrong, .raw .match-drop.wrong {
+.raw .choice.wrong, .raw .choice-btn.wrong, .raw .btn-tf.wrong,
+.raw .choice[data-state="wrong"],
+.raw .wo-pill.wrong, .raw .drop-gap.wrong, .raw .drop-slot.wrong,
+.raw .drop-slot.is-wrong, .raw .drop-zone.wrong, .raw .match-drop.wrong {
   background: color-mix(in srgb, #ef4444 18%, var(--card)) !important;
   border-color: color-mix(in srgb, #ef4444 70%, var(--line)) !important;
   color: var(--text) !important;
 }
-.raw .bank-word.used, .raw .match-place.used {
+.raw .bank-word.used, .raw .word-chip.used, .raw .drag-item.used,
+.raw .match-place.used, .raw .match-card.used {
   opacity: .45 !important;
   text-decoration: line-through;
   pointer-events: none;
@@ -1669,8 +1684,11 @@ main {
     '.mcq-opts', '.art-opts', '.ps-opts', '.oc-opts', '.tfns-opts',
     '.mc-opts', '.tf-btns', '.tf-opts', '.predict-btns',
     '.tfg-opts', '.cloze-opts', '.choice-opts',
-    '[class*="mcq-opts"]', '[class*="choice"]', '[class*="opts"]', '[class*="btns"]'
+    '.choice-row', '.quiz-opts', '.quiz-options', '.answer-options',
+    '[class*="mcq-opts"]', '[class*="choice-opts"]', '[class*="choice-row"]',
+    '[class*="quiz-options"]', '[class*="answer-options"]', '[class*="opts"]', '[class*="btns"]'
   ].join(',');
+  var rawChoiceNodeSelector = 'button, .mc-opt, .tf-btn, .predict-btn, .choice, .choice-btn, .btn-tf, .opt, [role="button"]';
   function rawArticle(el){ return el && el.closest ? el.closest('.item[data-item-idx]') : null; }
   function rawItem(article){
     var idx = article ? +article.dataset.itemIdx : -1;
@@ -1721,14 +1739,14 @@ main {
       Array.prototype.forEach.call(article.querySelectorAll(rawChoiceGroupSelector), function(group, gi){
         var val = raw.choices && raw.choices[String(gi)];
         if (!val) return;
-        Array.prototype.forEach.call(group.querySelectorAll('button, .mc-opt, .tf-btn, [role="button"]'), function(btn){
+        Array.prototype.forEach.call(group.querySelectorAll(rawChoiceNodeSelector), function(btn){
           var bVal = rawOptionValue(btn);
           var selected = bVal === val;
           btn.classList.toggle('selected', selected);
           btn.setAttribute('aria-pressed', selected ? 'true' : 'false');
         });
       });
-      Array.prototype.forEach.call(article.querySelectorAll('.raw .drop-gap, .raw .cloze-gap, .raw .match-drop, .raw .match-slot, .raw .drop'), function(drop, di){
+      Array.prototype.forEach.call(article.querySelectorAll('.raw .drop-gap, .raw .cloze-gap, .raw .drop-slot, .raw .drop-zone, .raw .match-drop, .raw .match-slot, .raw .drop'), function(drop, di){
         var val = raw.drops && raw.drops[String(di)];
         if (!val) return;
         drop.textContent = val;
@@ -1759,25 +1777,25 @@ main {
   function rawOptionValue(el){
     if (!el) return '';
     return (el.getAttribute('data-v') || el.getAttribute('data-ans') || el.getAttribute('data-a') ||
-      el.getAttribute('data-w') || el.getAttribute('data-place') || el.getAttribute('data-grammar') ||
+      el.getAttribute('data-w') || el.getAttribute('data-word') || el.getAttribute('data-place') || el.getAttribute('data-grammar') ||
       el.getAttribute('data-pentagon') ||
       el.getAttribute('data-value') || el.value || el.textContent || '').trim();
   }
   function rawExpectedValue(el){
-    var src = el && el.closest('[data-correct], [data-ans], [data-a], [data-answer]');
-    return src ? (src.getAttribute('data-correct') || src.getAttribute('data-ans') || src.getAttribute('data-a') || src.getAttribute('data-answer') || '').trim() : '';
+    var src = el && el.closest('[data-correct], [data-ans], [data-a], [data-answer], [data-expected]');
+    return src ? (src.getAttribute('data-correct') || src.getAttribute('data-ans') || src.getAttribute('data-a') || src.getAttribute('data-answer') || src.getAttribute('data-expected') || '').trim() : '';
   }
   function rawDropKey(drop){
-    return rawControlKey(drop, '.raw .drop-gap, .raw .cloze-gap, .raw .match-drop, .raw .match-slot, .raw .drop');
+    return rawControlKey(drop, '.raw .drop-gap, .raw .cloze-gap, .raw .drop-slot, .raw .drop-zone, .raw .match-drop, .raw .match-slot, .raw .drop');
   }
   function flashWrong(el){
     el.classList.add('wrong');
     setTimeout(function(){ el.classList.remove('wrong'); }, 450);
   }
   function pickRawBankWord(article, word){
-    var group = word.closest('.bank, .word-bank, .drag-bank, .pill-bank, .lex-bank, .grams-bank');
+    var group = word.closest('.bank, .word-bank, .drag-bank, .pill-bank, .lex-bank, .grams-bank, .bank-interactive, .interactive');
     if (!group) return false;
-    Array.prototype.forEach.call(group.querySelectorAll('.bank-word, [data-w]'), function(node){
+    Array.prototype.forEach.call(group.querySelectorAll('.bank-word, .word-chip, .drag-item, [data-w], [data-word]'), function(node){
       if (node !== word) node.classList.remove('selected');
     });
     if (word.classList.contains('used')) return true;
@@ -1786,7 +1804,7 @@ main {
   }
   function placeRawBankWord(article, item, drop){
     var rawBox = article.querySelector('.raw');
-    var selected = rawBox && rawBox.querySelector('.bank-word.selected:not(.used), [data-w].selected:not(.used)');
+    var selected = rawBox && rawBox.querySelector('.bank-word.selected:not(.used), .word-chip.selected:not(.used), .drag-item.selected:not(.used), [data-w].selected:not(.used), [data-word].selected:not(.used)');
     if (!selected) return false;
     var got = rawOptionValue(selected);
     var want = rawExpectedValue(drop);
@@ -1795,7 +1813,7 @@ main {
       return true;
     }
     drop.textContent = got;
-    drop.classList.add('filled');
+    drop.classList.add('filled', 'is-correct');
     selected.classList.remove('selected');
     selected.classList.add('used');
     ensureRawAnswer(item).drops[rawDropKey(drop)] = got;
@@ -1804,7 +1822,7 @@ main {
   }
   function pickRawMatchPlace(article, place){
     var group = place.closest('.match-bank, [class*="match-bank"]') || article;
-    Array.prototype.forEach.call(group.querySelectorAll('.match-place, [data-place]'), function(node){
+    Array.prototype.forEach.call(group.querySelectorAll('.match-place, .match-card, .drag-item, [data-place]'), function(node){
       if (node !== place) node.classList.remove('selected');
     });
     if (place.classList.contains('used')) return true;
@@ -1813,7 +1831,7 @@ main {
   }
   function placeRawMatch(article, item, drop){
     var rawBox = article.querySelector('.raw');
-    var selected = rawBox && rawBox.querySelector('.match-place.selected:not(.used), [data-place].selected:not(.used)');
+    var selected = rawBox && rawBox.querySelector('.match-place.selected:not(.used), .match-card.selected:not(.used), .drag-item.selected:not(.used), [data-place].selected:not(.used)');
     if (!selected) return false;
     var got = rawOptionValue(selected);
     var want = rawExpectedValue(drop);
@@ -1875,25 +1893,31 @@ main {
     var group = btn.closest(rawChoiceGroupSelector);
     if (!group) return false;
     var raw = ensureRawAnswer(item);
-    Array.prototype.forEach.call(group.querySelectorAll('button, .mc-opt, .tf-btn, [role="button"]'), function(node){
+    Array.prototype.forEach.call(group.querySelectorAll(rawChoiceNodeSelector), function(node){
       node.classList.remove('selected', 'correct', 'wrong', 'right');
+      if (node.hasAttribute('data-state')) node.removeAttribute('data-state');
       node.setAttribute('aria-pressed', 'false');
     });
     btn.classList.add('selected');
     btn.setAttribute('aria-pressed', 'true');
     var expected = rawExpectedValue(btn);
     var actual = rawOptionValue(btn);
-    if ((btn.hasAttribute('data-correct') && !expected) || (expected && actual === expected)) {
+    var correctMark = (btn.getAttribute('data-correct') || '').trim().toLowerCase();
+    var isCorrect = (btn.hasAttribute('data-correct') && (!expected || correctMark === 'true' || correctMark === '1' || correctMark === actual.toLowerCase())) || (expected && actual === expected);
+    if (isCorrect) {
       btn.classList.add('correct');
-      var row = btn.closest('.mcq-row, .mc-item, .tf-item, .predict-card');
+      if (btn.classList.contains('choice')) btn.setAttribute('data-state', 'correct');
+      var row = btn.closest('.mcq-row, .mc-item, .tf-item, .predict-card, .choice-row, .quiz-item, .grammar-quiz-item');
       if (row) row.classList.add('revealed');
     } else if (expected || group.querySelector('[data-correct]')) {
       btn.classList.add('wrong');
-      var correctBtn = Array.prototype.find.call(group.querySelectorAll('button, .mc-opt, .tf-btn, .predict-btn, [role="button"]'), function(node){
-        return rawOptionValue(node) === expected || node.hasAttribute('data-correct');
+      if (btn.classList.contains('choice')) btn.setAttribute('data-state', 'wrong');
+      var correctBtn = Array.prototype.find.call(group.querySelectorAll(rawChoiceNodeSelector), function(node){
+        var mark = (node.getAttribute('data-correct') || '').trim().toLowerCase();
+        return rawOptionValue(node) === expected || (node.hasAttribute('data-correct') && (!mark || mark === 'true' || mark === '1'));
       });
       if (correctBtn) correctBtn.classList.add('correct');
-      var rowWrong = btn.closest('.mcq-row, .mc-item, .tf-item, .predict-card');
+      var rowWrong = btn.closest('.mcq-row, .mc-item, .tf-item, .predict-card, .choice-row, .quiz-item, .grammar-quiz-item');
       if (rowWrong) rowWrong.classList.add('revealed');
     }
     raw.choices[rawGroupKey(group)] = rawOptionValue(btn);
@@ -1945,17 +1969,17 @@ main {
       toast('Убрал задание');
       return;
     }
-    var rawTarget = e.target.closest('.raw button, .raw .bank-word, .raw [data-w], .raw .drop-gap, .raw .cloze-gap, .raw .drop, .raw .match-place, .raw [data-place], .raw .match-drop, .raw .match-slot, .raw .wo-pill, .raw .ord-card, .raw .ord-chip, .raw .mc-opt, .raw .tf-btn, .raw .predict-btn, .raw .opt, .raw .flip-card, .raw .vocab-card, .raw [role="button"]');
+    var rawTarget = e.target.closest('.raw button, .raw .bank-word, .raw .word-chip, .raw .drag-item, .raw [data-w], .raw [data-word], .raw .drop-gap, .raw .cloze-gap, .raw .drop-slot, .raw .drop-zone, .raw .drop, .raw .match-place, .raw .match-card, .raw [data-place], .raw .match-drop, .raw .match-slot, .raw .wo-pill, .raw .ord-card, .raw .ord-chip, .raw .mc-opt, .raw .tf-btn, .raw .btn-tf, .raw .choice, .raw .choice-btn, .raw .predict-btn, .raw .opt, .raw .flip-card, .raw .vocab-card, .raw [role="button"]');
     if (rawTarget) {
       if (rawTarget.matches('[data-rm], .rm, [class*="listen"], [class*="play"], [id*="listen"], .q-speak, [data-say]')) return;
       var article = rawArticle(rawTarget);
       var item = rawItem(article);
       if (!item) return;
       e.preventDefault();
-      if (rawTarget.matches('.bank-word, [data-w]') && pickRawBankWord(article, rawTarget)) return;
-      if (rawTarget.matches('.drop-gap, .cloze-gap, .drop') && placeRawBankWord(article, item, rawTarget)) return;
-      if (rawTarget.matches('.match-place, [data-place]') && pickRawMatchPlace(article, rawTarget)) return;
-      if (rawTarget.matches('.match-drop, .match-slot') && placeRawMatch(article, item, rawTarget)) return;
+      if (rawTarget.matches('.bank-word, .word-chip, .drag-item, [data-w], [data-word]') && pickRawBankWord(article, rawTarget)) return;
+      if (rawTarget.matches('.drop-gap, .cloze-gap, .drop-slot, .drop-zone, .drop') && placeRawBankWord(article, item, rawTarget)) return;
+      if (rawTarget.matches('.match-place, .match-card, [data-place]') && pickRawMatchPlace(article, rawTarget)) return;
+      if (rawTarget.matches('.match-drop, .match-slot, .drop-zone') && placeRawMatch(article, item, rawTarget)) return;
       if (rawTarget.matches('.wo-check, .ord-check') && checkRawWordOrder(article, item, rawTarget)) return;
       if (rawTarget.matches('.wo-pill, .ord-card, .ord-chip') && toggleRawWordOrder(article, item, rawTarget)) return;
       if (rawTarget.matches('.flip-card, .vocab-card')) {
