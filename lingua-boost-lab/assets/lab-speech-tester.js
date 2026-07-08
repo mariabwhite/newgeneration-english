@@ -373,9 +373,16 @@
     });
     section.querySelector('.lc-analyze').addEventListener('click', function(){ analyze(section); });
 
-    // Insert: перед последней section или в конце container
-    // ЕДИНАЯ стратегия с lab-total и lab-vocab-builder — вставка перед <footer>.
-    var anchor = document.querySelector('footer') || document.body.lastElementChild;
+    // 2026-07-08 мандат Марии: Coach ПРЕДПОСЛЕДНЕЕ упражнение, до footer,
+    // не в самом конце. Ставим перед последней section.section (той что уже
+    // была в уроке), а если её нет — перед footer как раньше.
+    var lessonSections = Array.from(document.querySelectorAll('section.section')).filter(s => !s.classList.contains('lab-coach-section'));
+    var anchor;
+    if (lessonSections.length) {
+      anchor = lessonSections[lessonSections.length - 1];
+    } else {
+      anchor = document.querySelector('footer') || document.body.lastElementChild;
+    }
     if (anchor && anchor.parentNode) {
       anchor.parentNode.insertBefore(section, anchor);
     } else {
