@@ -220,19 +220,14 @@ main {
 }
 
 /* Raw block — вживляем контент секции урока в текущую палитру.
-   Desktop: cap 720px + собственный scroll (audit 2026-07-08: 22 урока со сверх-длинными items).
-   Mobile: без cap — единый скролл страницы удобнее пальцу. */
+   2026-07-08 мандат "полное клонирование 1-в-1": max-height 720px + overflow SNAT.
+   Клон теперь полной высоты как в уроке, Speech Coach / Speaking Task 4 / other
+   длинные секции больше не режутся снизу. */
 .raw {
   border: 1px solid var(--line); border-radius: 14px;
   padding: 18px;
   background: color-mix(in srgb, var(--card) 60%, transparent);
   color: var(--text);
-  max-height: min(720px, 60vh);
-  overflow-y: auto;
-  overscroll-behavior: contain;
-}
-@media (max-width: 720px) {
-  .raw { max-height: none; overflow-y: visible; }
 }
 .raw > *:first-child { margin-top: 0 !important; }
 /* Мандат Марии 2026-07-08 21:30: клон должен выглядеть 1-в-1 как в уроке.
