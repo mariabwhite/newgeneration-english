@@ -509,10 +509,13 @@
     var loader = document.createElement('section');
     loader.className = 'section lab-coach-section';
     loader.innerHTML = '<div class="lab-coach-toggle"><h2>🎙 Speech Coach</h2><span class="meta">preparing…</span></div><div class="lc-loading">⏳ generating criteria for this lesson…</div>';
+    // 2026-07-08: мандат Марии — Coach предпоследним упражнением, до последней section.
+    // Раньше insertBefore(last.nextSibling) ставил Coach ПОСЛЕ last section (последним).
+    // Теперь insertBefore(last) — Coach становится ПРЕД последней секцией.
     var sections = document.querySelectorAll('section.section');
-    if (sections.length) {
+    if (sections.length >= 1) {
       var last = sections[sections.length - 1];
-      last.parentNode.insertBefore(loader, last.nextSibling);
+      last.parentNode.insertBefore(loader, last);
     } else {
       document.body.appendChild(loader);
     }
@@ -522,11 +525,25 @@
       loader.remove();
       buildUI(obj);
     } catch(e) {
-      var msg = /aborted|timeout|Abort/i.test(e.message || '')
-        ? '⚠ Speech Coach: генерация criteria по этому уроку заняла >20 сек. Обнови страницу или продолжай без coach.'
-        : '⚠ Speech Coach unavailable right now. Refresh in a minute.';
-      loader.querySelector('.lc-loading').textContent = msg;
+      // 2026-07-08: если Pollinations недоступен, используем UNIVERSAL fallback criteria
+      // вместо бесконечного спиннера. Марии этот набор одинаков для всех уроков без своего config.
+      loader.remove();
+      buildUI(universalFallback(ctx));
     }
+  }
+  function universalFallback(ctx){
+    return {
+      task: 'Talk for 2-3 minutes on the topic of this lesson: ' + (ctx.title || 'today\'s lesson') + '. Explain the key idea, give one example from your life, share your opinion. Use full sentences.',
+      criteria: [
+        { label: 'Topic covered', hint: 'Mention the lesson theme by name', keywords: ['topic', 'lesson', 'today', 'about', 'idea', 'theme'] },
+        { label: 'Key vocabulary used', hint: 'Use at least 5 topic-specific words from the lesson', keywords: [] },
+        { label: 'Personal example given', hint: 'Share your own experience', keywords: ['i had', 'i remember', 'in my life', 'for me', 'once', 'last time', 'my friend', 'my family'] },
+        { label: 'Opinion expressed', hint: 'I think / I believe / in my opinion', keywords: ['i think', 'i believe', 'in my opinion', 'i feel', 'i love', 'i hate', 'i prefer', 'i agree', 'i disagree'] },
+        { label: 'Linkers / connectors', hint: 'however / moreover / because / for example / although', keywords: ['however', 'moreover', 'because', 'although', 'for example', 'in addition', 'also', 'therefore', 'so', 'but', 'and then'] },
+        { label: 'Structure: intro-body-end', hint: 'Say "First…", "Then…", "Finally…"', keywords: ['first', 'firstly', 'then', 'next', 'after that', 'finally', 'to sum up', 'in conclusion', 'overall'] },
+        { label: 'Length ≥ 2 minutes', hint: 'Keep talking for two full minutes without long pauses', keywords: [] }
+      ]
+    };
   }
 
   ready(function(){
