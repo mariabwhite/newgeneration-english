@@ -248,11 +248,40 @@ main {
   box-sizing: border-box !important;
 }
 .raw .match-wrap, .raw [class*="match-wrap"] {
-  display: block !important;
+  /* 1-в-1 canonical drag-match: 2 колонки английский/русский.
+     Урок объявляет стили в <style>, но cleanRawClone их вырезает; здесь дублируем. */
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 14px !important;
+  max-width: 100% !important;
   margin: 10px 0 !important;
-  padding: 0 !important;
-  background: transparent !important;
-  border: 0 !important;
+}
+@media (max-width: 680px) {
+  .raw .match-wrap, .raw [class*="match-wrap"] { grid-template-columns: 1fr !important; }
+}
+.raw .match-col {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+}
+.raw .match-col > h4 {
+  font-family: var(--mono);
+  font-size: .66rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.raw .match-card {
+  background: color-mix(in srgb, var(--card) 90%, transparent);
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  padding: 9px 13px;
+  cursor: pointer;
+  font-size: .92rem;
+  color: var(--text);
+  font-weight: 600;
 }
 /* Мандат 1-в-1: цвета текста / заголовков берём от урока, не форсим.
    Спейсинг стандартизируем только через margin (без forced font-family/font-size). */
@@ -458,11 +487,11 @@ main {
 .raw .mcq-note, .raw .tfns-note { color: var(--muted) !important; font-size: .84rem !important; padding: 6px 10px !important; border-radius: 8px !important; margin-top: 6px !important; }
 
 /* TFNS / match rows sometimes arrive from lessons hidden until JS starts.
-   In homework they are static task content, so force them visible and readable. */
-.raw [class*="tfns-"], .raw [class*="tf-"],
-.raw [class*="match-"], .raw .match-item, .raw .match-card, .raw .match-row {
-  display: grid !important;
-  gap: 10px !important;
+   In homework they are static task content, so force them visible.
+   ВАЖНО: display не форсим — Anyas Postcards использует flex 2 col для .match-col,
+   если сделать grid → колонки stacked, правая колонка пропадает. */
+.raw .tfns-row, .raw .tf-row, .raw .tf-item,
+.raw .match-item, .raw .match-card, .raw .match-row {
   visibility: visible !important;
   opacity: 1 !important;
   min-height: 40px !important;
