@@ -615,9 +615,9 @@
       var btn = document.createElement("button");
       btn.type = "button";
       btn.className = "canon-l-burger";
-      btn.setAttribute("aria-label", "РњРµРЅСЋ СѓСЂРѕРєР°");
+      btn.setAttribute("aria-label", "Меню урока");
       btn.setAttribute("aria-expanded", "false");
-      btn.innerHTML = '<span class="canon-l-burger-icon">в°</span><span>РњРµРЅСЋ</span>';
+      btn.innerHTML = '<span class="canon-l-burger-icon">≡</span><span>Меню</span>';
 
       // Р’СЃС‚Р°РІРёС‚СЊ РєРЅРѕРїРєСѓ РїРµСЂРµРґ nav
       var tools = nav.parentNode.querySelector(".canon-l-tools");
@@ -1343,7 +1343,7 @@ body[data-lb-page="english-booster"] .core-line-chip {
       btn.className = "canon-l-burger";
       btn.setAttribute("aria-label", "Lesson menu");
       btn.setAttribute("aria-expanded", "false");
-      btn.innerHTML = '<span class="canon-l-burger-icon">в°</span><span>Menu</span>';
+      btn.innerHTML = '<span class="canon-l-burger-icon">≡</span><span>Menu</span>';
       nav.parentNode.insertBefore(btn, nav);
       function toggle(){
         var open = !nav.classList.contains("is-open");
