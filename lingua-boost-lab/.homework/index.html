@@ -281,11 +281,13 @@ main {
   font-family: var(--mono) !important; font-size: .88rem !important; font-weight: 700 !important;
   cursor: pointer; white-space: nowrap;
 }
-.raw .mcq-opts, .raw .art-opts, .raw .ps-opts, .raw .oc-opts, .raw .tfns-opts {
+.raw .mcq-opts, .raw .art-opts, .raw .ps-opts, .raw .oc-opts, .raw .tfns-opts,
+.raw .mc-opts, .raw .tf-btns, .raw .tf-opts, .raw .choice-opts {
   display: flex !important; flex-wrap: wrap !important; gap: 6px !important; margin: 8px 0 !important;
 }
 .raw .mcq-opts button, .raw .art-opts button, .raw .ps-opts button,
-.raw .oc-opts button, .raw .tfns-opts button {
+.raw .oc-opts button, .raw .tfns-opts button, .raw .mc-opts button,
+.raw .tf-btns button, .raw .tf-opts button, .raw .choice-opts button {
   padding: 7px 14px !important; border-radius: 10px !important;
   background: color-mix(in srgb, var(--card) 80%, transparent) !important;
   color: var(--text) !important;
@@ -296,11 +298,62 @@ main {
 .raw button.selected, .raw button[aria-pressed="true"],
 .raw .mcq-opts button.selected, .raw .art-opts button.selected, .raw .ps-opts button.selected,
 .raw .oc-opts button.selected, .raw .tfns-opts button.selected,
-.raw .mc-opts button.selected, .raw .tfg-opts button.selected, .raw .cloze-opts button.selected {
+.raw .mc-opts button.selected, .raw .tf-btns button.selected,
+.raw .tfg-opts button.selected, .raw .cloze-opts button.selected,
+.raw .bank-word.selected, .raw .match-place.selected, .raw .wo-pill.selected {
   background: color-mix(in srgb, var(--accent) 24%, var(--card)) !important;
   border-color: color-mix(in srgb, var(--accent) 70%, var(--line)) !important;
   color: var(--text) !important;
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 18%, transparent) !important;
+}
+.raw button.correct, .raw .mc-opt.correct, .raw .tf-btn.correct,
+.raw .wo-pill.correct, .raw .drop-gap.filled, .raw .match-drop.filled {
+  background: color-mix(in srgb, #22c55e 24%, var(--card)) !important;
+  border-color: color-mix(in srgb, #22c55e 72%, var(--line)) !important;
+  color: var(--text) !important;
+}
+.raw button.wrong, .raw .mc-opt.wrong, .raw .tf-btn.wrong,
+.raw .wo-pill.wrong, .raw .drop-gap.wrong, .raw .match-drop.wrong {
+  background: color-mix(in srgb, #ef4444 18%, var(--card)) !important;
+  border-color: color-mix(in srgb, #ef4444 70%, var(--line)) !important;
+  color: var(--text) !important;
+}
+.raw .bank-word.used, .raw .match-place.used {
+  opacity: .45 !important;
+  text-decoration: line-through;
+  pointer-events: none;
+}
+.raw .flip-card { cursor: pointer; }
+.raw .flip-card.flipped .flip-inner {
+  transform: rotateY(180deg);
+}
+.raw .ord-bank {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  padding: 12px !important;
+  border: 1px dashed var(--line) !important;
+  border-radius: 10px !important;
+}
+.raw .ord-slots {
+  display: grid !important;
+  gap: 8px !important;
+  margin: 10px 0 !important;
+}
+.raw .ord-slot {
+  min-height: 42px !important;
+  border: 2px dashed color-mix(in srgb, var(--accent) 35%, var(--line)) !important;
+  border-radius: 10px !important;
+  padding: 6px !important;
+}
+.raw .ord-card, .raw .ord-chip {
+  display: block !important;
+  padding: 8px 12px !important;
+  border-radius: 10px !important;
+  border: 1px solid var(--line) !important;
+  background: color-mix(in srgb, var(--card) 82%, transparent) !important;
+  color: var(--text) !important;
+  cursor: pointer;
 }
 .raw .drop-gap.filled, .raw .cloze-gap.filled,
 .raw .drop.filled, .raw .match-drop.filled, .raw .match-slot.filled {
@@ -1614,8 +1667,9 @@ main {
   // ─── Input handlers ─────────
   var rawChoiceGroupSelector = [
     '.mcq-opts', '.art-opts', '.ps-opts', '.oc-opts', '.tfns-opts',
-    '.mc-opts', '.tfg-opts', '.cloze-opts',
-    '[class*="mcq-opts"]', '[class*="choice"]', '[class*="opts"]'
+    '.mc-opts', '.tf-btns', '.tf-opts', '.predict-btns',
+    '.tfg-opts', '.cloze-opts', '.choice-opts',
+    '[class*="mcq-opts"]', '[class*="choice"]', '[class*="opts"]', '[class*="btns"]'
   ].join(',');
   function rawArticle(el){ return el && el.closest ? el.closest('.item[data-item-idx]') : null; }
   function rawItem(article){
@@ -1637,11 +1691,15 @@ main {
     item.raw_answer.choices = item.raw_answer.choices || {};
     item.raw_answer.fields = item.raw_answer.fields || {};
     item.raw_answer.checks = item.raw_answer.checks || {};
+    item.raw_answer.drops = item.raw_answer.drops || {};
+    item.raw_answer.sequences = item.raw_answer.sequences || {};
     return item.raw_answer;
   }
   function summarizeRawAnswer(raw){
     var parts = [];
     Object.keys(raw.choices || {}).forEach(function(k){ if (raw.choices[k]) parts.push(raw.choices[k]); });
+    Object.keys(raw.drops || {}).forEach(function(k){ if (raw.drops[k]) parts.push(raw.drops[k]); });
+    Object.keys(raw.sequences || {}).forEach(function(k){ if (raw.sequences[k]) parts.push(raw.sequences[k].join ? raw.sequences[k].join(' ') : raw.sequences[k]); });
     Object.keys(raw.fields || {}).forEach(function(k){ if (raw.fields[k]) parts.push(raw.fields[k]); });
     Object.keys(raw.checks || {}).forEach(function(k){ if (raw.checks[k]) parts.push(raw.checks[k]); });
     return parts.filter(Boolean).join(' · ');
@@ -1663,11 +1721,28 @@ main {
       Array.prototype.forEach.call(article.querySelectorAll(rawChoiceGroupSelector), function(group, gi){
         var val = raw.choices && raw.choices[String(gi)];
         if (!val) return;
-        Array.prototype.forEach.call(group.querySelectorAll('button'), function(btn){
-          var bVal = btn.getAttribute('data-ans') || btn.value || btn.textContent.trim();
+        Array.prototype.forEach.call(group.querySelectorAll('button, .mc-opt, .tf-btn, [role="button"]'), function(btn){
+          var bVal = rawOptionValue(btn);
           var selected = bVal === val;
           btn.classList.toggle('selected', selected);
           btn.setAttribute('aria-pressed', selected ? 'true' : 'false');
+        });
+      });
+      Array.prototype.forEach.call(article.querySelectorAll('.raw .drop-gap, .raw .cloze-gap, .raw .match-drop, .raw .match-slot, .raw .drop'), function(drop, di){
+        var val = raw.drops && raw.drops[String(di)];
+        if (!val) return;
+        drop.textContent = val;
+        drop.classList.add('filled');
+      });
+      Array.prototype.forEach.call(article.querySelectorAll('.raw .wo-item[data-words]'), function(box, bi){
+        var seq = raw.sequences && raw.sequences[String(bi)];
+        if (!seq || !seq.length) return;
+        var bank = box.querySelector('.wo-bank, .wo-pills');
+        var slots = box.querySelector('.wo-slots');
+        if (!bank || !slots) return;
+        seq.forEach(function(word){
+          var pill = Array.prototype.find.call(bank.querySelectorAll('.wo-pill'), function(p){ return p.textContent.trim() === word; });
+          if (pill) slots.appendChild(pill);
         });
       });
       Array.prototype.forEach.call(article.querySelectorAll('.raw input, .raw textarea, .raw select'), function(ctrl, ci){
@@ -1680,6 +1755,150 @@ main {
         }
       });
     });
+  }
+  function rawOptionValue(el){
+    if (!el) return '';
+    return (el.getAttribute('data-v') || el.getAttribute('data-ans') || el.getAttribute('data-a') ||
+      el.getAttribute('data-w') || el.getAttribute('data-place') || el.getAttribute('data-grammar') ||
+      el.getAttribute('data-pentagon') ||
+      el.getAttribute('data-value') || el.value || el.textContent || '').trim();
+  }
+  function rawExpectedValue(el){
+    var src = el && el.closest('[data-correct], [data-ans], [data-a], [data-answer]');
+    return src ? (src.getAttribute('data-correct') || src.getAttribute('data-ans') || src.getAttribute('data-a') || src.getAttribute('data-answer') || '').trim() : '';
+  }
+  function rawDropKey(drop){
+    return rawControlKey(drop, '.raw .drop-gap, .raw .cloze-gap, .raw .match-drop, .raw .match-slot, .raw .drop');
+  }
+  function flashWrong(el){
+    el.classList.add('wrong');
+    setTimeout(function(){ el.classList.remove('wrong'); }, 450);
+  }
+  function pickRawBankWord(article, word){
+    var group = word.closest('.bank, .word-bank, .drag-bank, .pill-bank, .lex-bank, .grams-bank');
+    if (!group) return false;
+    Array.prototype.forEach.call(group.querySelectorAll('.bank-word, [data-w]'), function(node){
+      if (node !== word) node.classList.remove('selected');
+    });
+    if (word.classList.contains('used')) return true;
+    word.classList.toggle('selected');
+    return true;
+  }
+  function placeRawBankWord(article, item, drop){
+    var rawBox = article.querySelector('.raw');
+    var selected = rawBox && rawBox.querySelector('.bank-word.selected:not(.used), [data-w].selected:not(.used)');
+    if (!selected) return false;
+    var got = rawOptionValue(selected);
+    var want = rawExpectedValue(drop);
+    if (want && got !== want) {
+      flashWrong(drop);
+      return true;
+    }
+    drop.textContent = got;
+    drop.classList.add('filled');
+    selected.classList.remove('selected');
+    selected.classList.add('used');
+    ensureRawAnswer(item).drops[rawDropKey(drop)] = got;
+    persistRawAnswer(article, item);
+    return true;
+  }
+  function pickRawMatchPlace(article, place){
+    var group = place.closest('.match-bank, [class*="match-bank"]') || article;
+    Array.prototype.forEach.call(group.querySelectorAll('.match-place, [data-place]'), function(node){
+      if (node !== place) node.classList.remove('selected');
+    });
+    if (place.classList.contains('used')) return true;
+    place.classList.toggle('selected');
+    return true;
+  }
+  function placeRawMatch(article, item, drop){
+    var rawBox = article.querySelector('.raw');
+    var selected = rawBox && rawBox.querySelector('.match-place.selected:not(.used), [data-place].selected:not(.used)');
+    if (!selected) return false;
+    var got = rawOptionValue(selected);
+    var want = rawExpectedValue(drop);
+    if (want && got !== want) {
+      flashWrong(drop);
+      return true;
+    }
+    drop.textContent = got;
+    drop.classList.add('filled');
+    selected.classList.remove('selected');
+    selected.classList.add('used');
+    ensureRawAnswer(item).drops[rawDropKey(drop)] = got;
+    persistRawAnswer(article, item);
+    return true;
+  }
+  function toggleRawWordOrder(article, item, pill){
+    var box = pill.closest('.wo-item[data-words], .ord-wrap[data-answer]');
+    if (!box) return false;
+    var bank = box.querySelector('.wo-bank, .wo-pills, .ord-bank');
+    var slots = box.querySelector('.wo-slots, .ord-slots');
+    if (!bank || !slots) return false;
+    pill.classList.remove('correct', 'wrong');
+    if (pill.matches('.ord-card, .ord-chip')) {
+      var emptySlot = Array.prototype.find.call(slots.querySelectorAll('.ord-slot'), function(slot){ return !slot.querySelector('.ord-card, .ord-chip'); });
+      if (pill.closest('.ord-slot')) {
+        bank.appendChild(pill);
+      } else if (emptySlot) {
+        emptySlot.appendChild(pill);
+      } else {
+        slots.appendChild(pill);
+      }
+    } else {
+      (pill.parentElement === bank ? slots : bank).appendChild(pill);
+    }
+    var raw = ensureRawAnswer(item);
+    var boxes = Array.prototype.slice.call(article.querySelectorAll('.raw .wo-item[data-words], .raw .ord-wrap[data-answer]'));
+    raw.sequences[String(Math.max(0, boxes.indexOf(box)))] = Array.prototype.map.call(slots.querySelectorAll('.wo-pill, .ord-card, .ord-chip'), function(p){
+      return rawOptionValue(p);
+    });
+    persistRawAnswer(article, item);
+    return true;
+  }
+  function checkRawWordOrder(article, item, btn){
+    var box = btn.closest('.wo-item[data-words], .ord-wrap[data-answer]');
+    if (!box) return false;
+    var correct = (box.getAttribute('data-words') || box.getAttribute('data-answer') || '').split(/[\/,]/).filter(Boolean);
+    var placed = Array.prototype.slice.call(box.querySelectorAll('.wo-slots .wo-pill, .ord-slots .ord-card, .ord-slots .ord-chip'));
+    placed.forEach(function(pill, idx){
+      pill.classList.remove('correct', 'wrong');
+      pill.classList.add(rawOptionValue(pill) === correct[idx] ? 'correct' : 'wrong');
+    });
+    var raw = ensureRawAnswer(item);
+    var boxes = Array.prototype.slice.call(article.querySelectorAll('.raw .wo-item[data-words], .raw .ord-wrap[data-answer]'));
+    raw.sequences[String(Math.max(0, boxes.indexOf(box)))] = placed.map(function(p){ return rawOptionValue(p); });
+    persistRawAnswer(article, item);
+    return true;
+  }
+  function handleRawChoiceButton(article, item, btn){
+    var group = btn.closest(rawChoiceGroupSelector);
+    if (!group) return false;
+    var raw = ensureRawAnswer(item);
+    Array.prototype.forEach.call(group.querySelectorAll('button, .mc-opt, .tf-btn, [role="button"]'), function(node){
+      node.classList.remove('selected', 'correct', 'wrong', 'right');
+      node.setAttribute('aria-pressed', 'false');
+    });
+    btn.classList.add('selected');
+    btn.setAttribute('aria-pressed', 'true');
+    var expected = rawExpectedValue(btn);
+    var actual = rawOptionValue(btn);
+    if ((btn.hasAttribute('data-correct') && !expected) || (expected && actual === expected)) {
+      btn.classList.add('correct');
+      var row = btn.closest('.mcq-row, .mc-item, .tf-item, .predict-card');
+      if (row) row.classList.add('revealed');
+    } else if (expected || group.querySelector('[data-correct]')) {
+      btn.classList.add('wrong');
+      var correctBtn = Array.prototype.find.call(group.querySelectorAll('button, .mc-opt, .tf-btn, .predict-btn, [role="button"]'), function(node){
+        return rawOptionValue(node) === expected || node.hasAttribute('data-correct');
+      });
+      if (correctBtn) correctBtn.classList.add('correct');
+      var rowWrong = btn.closest('.mcq-row, .mc-item, .tf-item, .predict-card');
+      if (rowWrong) rowWrong.classList.add('revealed');
+    }
+    raw.choices[rawGroupKey(group)] = rawOptionValue(btn);
+    persistRawAnswer(article, item);
+    return true;
   }
 
   list.addEventListener('input', function(e){
@@ -1726,23 +1945,24 @@ main {
       toast('Убрал задание');
       return;
     }
-    var rawBtn = e.target.closest('.raw button');
-    if (rawBtn) {
-      if (rawBtn.matches('[data-rm], .rm, [class*="listen"], [class*="play"], [id*="listen"]')) return;
-      var article = rawArticle(rawBtn);
+    var rawTarget = e.target.closest('.raw button, .raw .bank-word, .raw [data-w], .raw .drop-gap, .raw .cloze-gap, .raw .drop, .raw .match-place, .raw [data-place], .raw .match-drop, .raw .match-slot, .raw .wo-pill, .raw .ord-card, .raw .ord-chip, .raw .mc-opt, .raw .tf-btn, .raw .predict-btn, .raw .opt, .raw .flip-card, .raw .vocab-card, .raw [role="button"]');
+    if (rawTarget) {
+      if (rawTarget.matches('[data-rm], .rm, [class*="listen"], [class*="play"], [id*="listen"], .q-speak, [data-say]')) return;
+      var article = rawArticle(rawTarget);
       var item = rawItem(article);
-      var group = rawBtn.closest(rawChoiceGroupSelector);
-      if (!item || !group) return;
+      if (!item) return;
       e.preventDefault();
-      var raw = ensureRawAnswer(item);
-      Array.prototype.forEach.call(group.querySelectorAll('button'), function(btn){
-        btn.classList.remove('selected', 'right', 'wrong');
-        btn.setAttribute('aria-pressed', 'false');
-      });
-      rawBtn.classList.add('selected');
-      rawBtn.setAttribute('aria-pressed', 'true');
-      raw.choices[rawGroupKey(group)] = rawBtn.getAttribute('data-ans') || rawBtn.value || rawBtn.textContent.trim();
-      persistRawAnswer(article, item);
+      if (rawTarget.matches('.bank-word, [data-w]') && pickRawBankWord(article, rawTarget)) return;
+      if (rawTarget.matches('.drop-gap, .cloze-gap, .drop') && placeRawBankWord(article, item, rawTarget)) return;
+      if (rawTarget.matches('.match-place, [data-place]') && pickRawMatchPlace(article, rawTarget)) return;
+      if (rawTarget.matches('.match-drop, .match-slot') && placeRawMatch(article, item, rawTarget)) return;
+      if (rawTarget.matches('.wo-check, .ord-check') && checkRawWordOrder(article, item, rawTarget)) return;
+      if (rawTarget.matches('.wo-pill, .ord-card, .ord-chip') && toggleRawWordOrder(article, item, rawTarget)) return;
+      if (rawTarget.matches('.flip-card, .vocab-card')) {
+        rawTarget.classList.toggle('flipped');
+        return;
+      }
+      handleRawChoiceButton(article, item, rawTarget);
     }
   });
 

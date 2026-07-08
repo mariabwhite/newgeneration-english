@@ -381,6 +381,45 @@
     return item;
   }
 
+  function cleanRawClone(node){
+    var clone = node.cloneNode(true);
+    if (clone.classList) clone.classList.remove('lab-hw-host');
+    clone.querySelectorAll('.lab-hw-add, .lab-hw-section-btn, .lab-hw-fab, .lab-hw-top-entry, .lab-hw-overlay, .lab-hw-modal, script, style, link[rel="stylesheet"]').forEach(function(el){ el.remove(); });
+    clone.querySelectorAll('details.teacher, .teacher, .t-body, .score-badge.tutor, [class*="answer-key"], [class*="key-box"], [class*="model"], [class*="reveal"], [class*="solution"], [class*="correct-answer"], [class*="listen-script"], [class*="transcript"]').forEach(function(el){ el.remove(); });
+    clone.querySelectorAll('.lab-hw-host').forEach(function(el){ el.classList.remove('lab-hw-host'); });
+    clone.querySelectorAll('[style]').forEach(function(el){
+      var s = el.getAttribute('style') || '';
+      s = s.replace(/background(-[a-z]+)?\s*:[^;]+;?/gi, '');
+      s = s.replace(/(^|;)\s*color\s*:[^;]+;?/gi, '$1');
+      s = s.replace(/^\s*;+/, '').replace(/;+\s*$/, '');
+      if (s.trim()) el.setAttribute('style', s);
+      else el.removeAttribute('style');
+    });
+    clone.querySelectorAll('[src]').forEach(function(el){
+      var value = el.getAttribute('src') || '';
+      if (value && !/^(https?:|data:|\/)/i.test(value)) {
+        try { el.setAttribute('src', new URL(value, location.href).pathname); } catch(e){}
+      }
+    });
+    clone.querySelectorAll('[href]').forEach(function(el){
+      var value = el.getAttribute('href') || '';
+      if (value && !/^(https?:|mailto:|tel:|#|\/)/i.test(value)) {
+        try { el.setAttribute('href', new URL(value, location.href).pathname); } catch(e){}
+      }
+    });
+    return clone;
+  }
+
+  function rawHomeworkItem(host, kind){
+    var item = describe(host, kind);
+    var title = txt(host.querySelector('h3, h4, .mcq-q, .mc-q, .tf-q, .predict-q, .prompt-text, .line-q, .quiz-q, .stmt')) || item.question || item.section_title || 'Задание';
+    item.kind = 'raw-block';
+    item.question = short(title, 180);
+    item.html = cleanRawClone(host).outerHTML;
+    item.css = '';
+    return item;
+  }
+
   function addBtn(host, kind){
     if (host.__hwHost) return;
     host.__hwHost = true;
@@ -397,7 +436,7 @@
       e.preventDefault();
       e.stopPropagation();
       e.stopImmediatePropagation();
-      var item = describe(host, kind);
+      var item = rawHomeworkItem(host, kind);
       var arr = loadHw();
       // защита от дубля — по section_id + question
       var dupIdx = arr.findIndex(function(x){
@@ -418,7 +457,7 @@
       refreshFabCount();
     });
     // Если уже в hw — отметить ✓
-    var item = describe(host, kind);
+    var item = rawHomeworkItem(host, kind);
     if (loadHw().some(function(x){
       return x.section_id === item.section_id && x.question === item.question && x.kind === item.kind;
     })) {
@@ -430,21 +469,29 @@
 
   function scanAndDecorate(){
     document.querySelectorAll('.mcq-row, .mc-item, .choice-row, .choice-card, .qcard, .question-card, .q-item, .mc1-row, .pv-mcq-row, .q-row').forEach(function(el){ addBtn(el, 'mcq'); });
-    document.querySelectorAll('.tfns-row, .tf-row, .tf-item').forEach(function(el){ addBtn(el, 'tfns'); });
-    document.querySelectorAll('.gap, .gram-gap, .gapfill, .cloze-gap, .lex-gap, .pv-gap, .cloze-row, .oc-row').forEach(function(el){ addBtn(el, 'gap'); });
+    document.querySelectorAll('.tfns-row, .tf-row, .tf-item, .predict-card').forEach(function(el){ addBtn(el, 'tfns'); });
+    document.querySelectorAll('.gap, .gram-gap, .gapfill, .cloze-gap, .lex-gap, .pv-gap, .cloze-row, .oc-row, .line-q').forEach(function(el){
+      if (el.matches('.gap') && el.closest('.mc-item, .mcq-row, .tf-item, .predict-card')) return;
+      addBtn(el, 'gap');
+    });
     document.querySelectorAll('.wf-row, .wordform-row').forEach(function(el){ addBtn(el, 'wf'); });
-    document.querySelectorAll('.match-item, .match-card, .match-row, .pair-row').forEach(function(el){ addBtn(el, 'match'); });
-    document.querySelectorAll('.builder, .reorder-row, .order-row').forEach(function(el){ addBtn(el, 'builder'); });
+    document.querySelectorAll('.match-item, .match-card, .match-row, .pair-row, .match-wrap').forEach(function(el){ addBtn(el, 'match'); });
+    document.querySelectorAll('.builder, .reorder-row, .order-row, .ord-wrap').forEach(function(el){ addBtn(el, 'builder'); });
     document.querySelectorAll('.mic-row, .speech-row, .speak-row').forEach(function(el){ addBtn(el, 'mic'); });
     document.querySelectorAll('.write textarea, textarea.writing-area, textarea[data-write], .open-writing textarea, .free-write textarea').forEach(function(el){ addBtn(el, 'writing'); });
     document.querySelectorAll('.vocab-card, .word-card, .vocabulary-item, .flip-card').forEach(function(el){ addBtn(el, 'vocab'); });
-    document.querySelectorAll('.cue-card, .post, .prompt-card, .task-card, .speaking-task, .writing-task').forEach(function(el){ addBtn(el, 'builder'); });
+    document.querySelectorAll('.cue-card, .post, .prompt-card, .task-card, .speaking-task, .writing-task, .prompt, .quiz-item, .tile, .now-item, .output-box').forEach(function(el){ addBtn(el, 'builder'); });
     document.querySelectorAll('.dict-row, .dictation-row').forEach(function(el){ addBtn(el, 'gap'); });
     document.querySelectorAll('.trans-row, .transform-row, .rewrite-row, .tr-row').forEach(function(el){ addBtn(el, 'builder'); });
     // v33 · 2026-07-07 · расширение: universal exercise + drill patterns
     document.querySelectorAll('.exercise, .exercise-row, .ex-row, .ex-item, .drill, .drill-item, .drill-row, .task, .task-row').forEach(function(el){ addBtn(el, 'builder'); });
     document.querySelectorAll('.mic-drill-row, .mic-drill, .speaking-drill, .voice-row').forEach(function(el){ addBtn(el, 'mic'); });
     document.querySelectorAll('.timofey-block, .voyager-quest, .quest-row, .story-block').forEach(function(el){ addBtn(el, 'builder'); });
+    document.querySelectorAll('.card').forEach(function(el){
+      if (el.__hwHost || el.closest('.lab-hero, .topbar, nav, header, footer')) return;
+      if (el.querySelector('.lab-hw-host')) return;
+      if (el.querySelector('.mcq-row, .mc-item, .tf-item, .predict-card, .ord-wrap, .line-q, .match-wrap, .prompt, .quiz-item, .flip-card') || el.querySelector('h3 .ex-num, h3')) addBtn(el, 'builder');
+    });
     decorateSections();
   }
 
@@ -477,7 +524,7 @@
           var label = (node.textContent || '').trim();
           var cls = node.className || '';
           var id = node.id || '';
-          if (/show\s*(answers?|model|transcript|key)?|reveal|check\s*answers?|показать|сброс/i.test(label) || /\b(check|reset|mic|show)\b|recording/i.test(cls + ' ' + id)) node.remove();
+          if (/show\s*(answers?|model|transcript|key)?|reveal|показать/i.test(label) || /\b(mic|show)\b|recording/i.test(cls + ' ' + id)) node.remove();
         });
         clone.querySelectorAll('p, li, details, summary, .note, [class*="note"], [class*="hint"]').forEach(function(node){
           var text = (node.textContent || '').trim();
