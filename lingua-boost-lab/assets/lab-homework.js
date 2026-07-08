@@ -391,12 +391,16 @@
     var clone = node.cloneNode(true);
     if (clone.classList) clone.classList.remove('lab-hw-host');
     clone.querySelectorAll('.lab-hw-add, .lab-hw-section-btn, .lab-hw-fab, .lab-hw-top-entry, .lab-hw-overlay, .lab-hw-modal, script, style, link[rel="stylesheet"]').forEach(function(el){ el.remove(); });
-    clone.querySelectorAll('details.teacher, .teacher, .t-body, .score-badge.tutor, [class*="answer-key"], [class*="key-box"], [class*="model"], [class*="reveal"], [class*="solution"], [class*="correct-answer"], [class*="listen-script"], [class*="transcript"]').forEach(function(el){ el.remove(); });
+    // 2026-07-08: мандат Марии — клон 1-в-1 с уроком. Сузили blacklist,
+    // раньше [class*="model"] вырезал .tr-model / .model-card (steal-a-phrase
+    // модели ответа для warm-up), [class*="reveal"] уничтожал info panels,
+    // [class*="listen-script"] / [class*="transcript"] удаляли listen script урока.
+    // Теперь удаляем только явные учительские ключи и .details.teacher.
+    clone.querySelectorAll('details.teacher, .teacher, .t-body, .score-badge.tutor, .answer-key, [class*="answer-key"], .correct-answer, [class*="correct-answer"], details.solution, details.reveal, details.model-answer').forEach(function(el){ el.remove(); });
     clone.querySelectorAll('.lab-hw-host').forEach(function(el){ el.classList.remove('lab-hw-host'); });
     clone.querySelectorAll('[style]').forEach(function(el){
       var s = el.getAttribute('style') || '';
-      s = s.replace(/background(-[a-z]+)?\s*:[^;]+;?/gi, '');
-      s = s.replace(/(^|;)\s*color\s*:[^;]+;?/gi, '$1');
+      // 1-в-1 mandate — inline background / color больше не режем.
       s = s.replace(/^\s*;+/, '').replace(/;+\s*$/, '');
       if (s.trim()) el.setAttribute('style', s);
       else el.removeAttribute('style');
@@ -525,26 +529,22 @@
         var lessonStyle = Array.prototype.slice.call(document.querySelectorAll('style')).map(function(style){
           return style.textContent || '';
         }).join('\n');
-        // v34: расширенный чиппер — режем UI-нашлёпки урока и дублирующую .section-hdr
-        clone.querySelectorAll('.lab-hw-add, .lab-hw-section-btn, .section-hdr, .section-head, .lp-submit, .lp-fab, .lp-toc, .lp-task-tag, .task-tag, .task-boundary, .pilot-tag, [class*="lp-task-tag"], [class*="samotek"], .lab-hw-fab, .lab-hw-top-entry, .lab-hw-overlay, .lab-hw-modal, script, style, link[rel="stylesheet"]').forEach(function(node){ node.remove(); });
-        clone.querySelectorAll('details.teacher, .teacher, .t-body, .score-badge.tutor, [class*="feedback"], [class*="answer-key"], [class*="key-box"], [class*="model"], [class*="reveal"], [class*="solution"], [class*="correct-answer"], [class*="mcq-note"], [class*="tfns-note"], [class*="sample"], [class*="listen-script"], [class*="transcript"]').forEach(function(node){ node.remove(); });
-        clone.querySelectorAll('button').forEach(function(node){
-          var label = (node.textContent || '').trim();
-          var cls = node.className || '';
-          var id = node.id || '';
-          if (/show\s*(answers?|model|transcript|key)?|reveal|показать/i.test(label) || /\b(mic|show)\b|recording/i.test(cls + ' ' + id)) node.remove();
-        });
-        clone.querySelectorAll('p, li, details, summary, .note, [class*="note"], [class*="hint"]').forEach(function(node){
-          var text = (node.textContent || '').trim();
-          if (/model answer|sample model|model below|show model|open the model|answer key|correct answer|full transcript|show full transcript/i.test(text)) node.remove();
-        });
-        // v36: стираем inline `background:*` и `color:*` из всех элементов клона.
-        // Иначе тёмные inline-стили урока (например hero card) уезжают в .raw и превращают
-        // блок в тёмный прямоугольник поверх кремовой палитры домашки.
+        // 2026-07-08: мандат 1-в-1. Больше не режем .section-hdr / .section-head
+        // (нужны для section-num badge и section-sub instruction). Режем ТОЛЬКО
+        // UI-мусор урока (add кнопки, task-tags, samotek-маркеры).
+        clone.querySelectorAll('.lab-hw-add, .lab-hw-section-btn, .lp-submit, .lp-fab, .lp-toc, .lp-task-tag, .task-tag, .task-boundary, .pilot-tag, [class*="lp-task-tag"], [class*="samotek"], .lab-hw-fab, .lab-hw-top-entry, .lab-hw-overlay, .lab-hw-modal, script, style, link[rel="stylesheet"]').forEach(function(node){ node.remove(); });
+        // Сужен blacklist: только явные учительские ключи, .model-card / .tr-model /
+        // .listen-script / .transcript теперь ОСТАЮТСЯ (Voyager model steal-phrase
+        // panel + listen script для warm-up), Мария хочет видеть их в домашке.
+        clone.querySelectorAll('details.teacher, .teacher, .t-body, .score-badge.tutor, .answer-key, [class*="answer-key"], .correct-answer, [class*="correct-answer"], details.solution, details.reveal, details.model-answer').forEach(function(node){ node.remove(); });
+        // 2026-07-08 мандат 1-в-1: text/button-based blacklist убран.
+        // Model answer / sample model / listen script — часть контента урока,
+        // Мария хочет их в домашке. Только явные учительские "показать ответ"
+        // remain-режим больше не срабатывает.
+        // Inline background/color тоже больше НЕ стираем — иначе теряется свой
+        // фон карточки урока, а Мария просит "выглядит абсолютно как в уроке".
         clone.querySelectorAll('[style]').forEach(function(el){
           var s = el.getAttribute('style') || '';
-          s = s.replace(/background(-[a-z]+)?\s*:[^;]+;?/gi, '');
-          s = s.replace(/(^|;)\s*color\s*:[^;]+;?/gi, '$1');
           s = s.replace(/^\s*;+/, '').replace(/;+\s*$/, '');
           if (s.trim()) el.setAttribute('style', s);
           else el.removeAttribute('style');
