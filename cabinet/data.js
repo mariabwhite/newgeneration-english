@@ -734,9 +734,6 @@ window.NGE_DATA = {
             "module_title": "📚 Открыть Dana's Russia · History Exam"
           }
         },
-      ],
-      "future_plan_label": "План интенсива · уроки 7–10 (июль 10–17)",
-      "future_plan_lessons": [
         {
           "date": "2026-07-10",
           "num": 7,
