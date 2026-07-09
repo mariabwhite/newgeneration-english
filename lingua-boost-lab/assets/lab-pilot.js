@@ -12,7 +12,11 @@
   }
 
   ready(function(){
-    const sections = [...document.querySelectorAll('section.section')];
+    // v4 · 2026-07-09 · расширен селектор до section.block, section.lab-section,
+    // section.canon-l-section — раньше находил только section.section, из-за чего
+    // на A1-01…A1-08 и других уроках с section.block (архетипа Present Simple)
+    // ЛИФТ вообще не активировался: не было TOC, «📋 Сдать раздел», «📊 Итог урока».
+    const sections = [...document.querySelectorAll('section.section, section.block, section.lab-section, section.canon-l-section, section.lesson-section')];
     if (sections.length < 2) return;
 
     const theme = (document.body.dataset.labTheme === 'dark') ? 'dark' : 'light';
