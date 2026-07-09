@@ -1347,13 +1347,32 @@ main {
     if (!theme['--muted'] && theme['--ink-soft']) root.style.setProperty('--muted', theme['--ink-soft']);
   }
   function applyLessonTheme(html){
-    var m = String(html || '').match(/:root\s*\{([\s\S]*?)\}/i);
+    // v5 2026-07-09: раньше искали только :root {}, но уроки объявляют темы
+    // через [data-theme="light-lab"] {}. Из-за этого .homework/ оставался
+    // тёмной дефолтной палитрой на светлом уроке (vocab-card get up был на
+    // #061428 — почти не читался).
+    var themeAttr = new URLSearchParams(location.search).get('theme')
+                    || document.documentElement.getAttribute('data-theme')
+                    || 'light-lab';
+    var htmlStr = String(html || '');
+    var patterns = [
+      new RegExp('\\[data-theme=["\\\']' + themeAttr.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '["\\\']\\]\\s*\\{([\\s\\S]*?)\\}', 'i'),
+      /:root\s*\{([\s\S]*?)\}/i
+    ];
+    var m = null;
+    for (var i = 0; i < patterns.length; i++) {
+      m = htmlStr.match(patterns[i]);
+      if (m) break;
+    }
     if (!m) return;
     var vars = {};
     m[1].replace(/\/\*[\s\S]*?\*\//g, '').replace(/(--[a-z0-9-]+)\s*:\s*([^;{}]+);/gi, function(_, key, value){
       vars[key.trim()] = value.trim();
       return '';
     });
+    // Установим data-theme на root чтобы условные правила ([data-theme="light-lab"])
+    // сработали в CSS самой .homework/ (если добавим)
+    document.documentElement.setAttribute('data-theme', themeAttr);
     applyThemeVars(vars);
     try { localStorage.setItem('lab-theme:' + lesson, JSON.stringify(vars)); } catch(e){}
   }
