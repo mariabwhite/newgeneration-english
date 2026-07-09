@@ -214,14 +214,14 @@ window.NGE_DATA = {
       "goal": "разговорный английский · переезд в Канаду · автоматизация базы",
       "price_per_lesson": 2000,
       "payment_status": "Оплачено",
-      "payment_note": "Оплачен блок 3 занятия · июнь–июль 2026. Всё пройдено.",
+      "payment_note": "Оплачен блок 4 занятия · июнь–июль 2026 · Канада-серия.",
       "is_adult": true,
       "parent_name": "",
       "pin": "2547",
-      "lessons_in_package": 3,
+      "lessons_in_package": 4,
       "subscription_month": "2026-06",
-      "lessons_used_this_month": 3,
-      "summer_plan_note": "Блок 3 занятий (июнь-июль 2026) пройден полностью: Канада · Ориентация в городе · Медицина.",
+      "lessons_used_this_month": 4,
+      "summer_plan_note": "Блок 4 занятий (июнь-июль 2026) пройден полностью: Канада · Settling In Toronto → Ориентация в городе → Медицина → повторение Bella.",
       "stability_note": "",
       "past_lessons_label": "Прошлый абонемент · май 2026 (4 занятия · вт 19:00)",
       "past_lessons": [
@@ -277,6 +277,17 @@ window.NGE_DATA = {
             "text": "Bella-series · Day 3 в Канаде. У Bella головная боль → аптека → клиника → потом она помогает незнакомцу вызвать 911. Три сцены, формула Poster → Vocab → Dialogue → Drill → Speaking template + AI Coach в финале.",
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/a2/bella-needs-help/",
             "module_title": "🏥 Bella Needs Help"
+          }
+        },
+        {
+          "date": "2026-07-09",
+          "num": 4,
+          "status": "completed",
+          "topic": "🏥 Bella Needs Help · повторение — pharmacy / doctor / emergency, закрепление формул Can I…? / Could you…?",
+          "homework": {
+            "text": "Повтор Bella-series · Day 3. Три сцены на автомате, AI Coach в финале — свободно, без опоры на template.",
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/a2/bella-needs-help/",
+            "module_title": "🏥 Bella Needs Help (повторение)"
           }
         }
       ]
@@ -346,8 +357,8 @@ window.NGE_DATA = {
       "price_per_lesson": 2500,
       "lessons_in_package": 14,
       "subscription_month": "2026-06",
-      "lessons_used_this_month": 11,
-      "summer_plan_note": "Летний блок 10 уроков + 4 экстра · июнь + июль 2026 · 11 / 14 проведено",
+      "lessons_used_this_month": 12,
+      "summer_plan_note": "Летний блок 10 уроков + 4 экстра · июнь + июль 2026 · 12 / 14 проведено",
       "payment_status": "Оплачено",
       "payment_note": "",
       "parent_name": "Протасова Мария Петровна",
@@ -452,8 +463,12 @@ window.NGE_DATA = {
         {
           "date": "2026-07-09",
           "num": 12,
-          "status": "planned",
-          "topic": "✈️ Travel-программа · продолжение"
+          "status": "completed",
+          "topic": "✈️ Travel Talk · Light & Bright 2 · Night Edition — закрепление ночной travel-программы",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/travel-talk-light-and-bright-2/",
+            "module_title": "✈️ Открыть Travel Talk · Light & Bright 2"
+          }
         },
         {
           "date": "2026-07-10",
@@ -482,11 +497,11 @@ window.NGE_DATA = {
       "monthly_package": 8000,
       "lessons_in_package": 4,
       "subscription_month": "2026-07",
-      "lessons_used_this_month": 0,
+      "lessons_used_this_month": 1,
       "payment_status": "Оплачено",
       "payment_note": "",
       "payments": [
-        { "month": "Июль 2026", "package": "4 урока × 2 000 ₽", "amount": "8 000 ₽", "status": "paid", "date": "01.07.2026", "note": "Летний блок" },
+        { "month": "Июль 2026", "package": "4 урока × 2 000 ₽", "amount": "8 000 ₽", "status": "paid", "date": "01.07.2026", "note": "Летний блок · 1 / 4 проведено" },
         { "month": "Июнь 2026", "package": "4 урока × 2 000 ₽", "amount": "8 000 ₽", "status": "paid", "date": "—", "note": "Полный месяц" }
       ],
       "stability_note": "",
@@ -547,21 +562,23 @@ window.NGE_DATA = {
           "audio_title": "🎧 Listening · final broadcast Reyes (≈50 s)"
         },
         {
-          "date": "2026-07-08",
+          "date": "2026-07-09",
           "num": 5,
-          "status": "planned",
-          "topic": "Voyager L3 · Whose Mind? (первый раз) — EEG blinks, consciousness signal",
+          "status": "completed",
+          "topic": "🛸 Voyager L2 · Are we alone? — третий проход, финальное закрепление SETI-нити",
           "homework": {
-            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b2-plus/voyager-l3-whose-mind/",
-            "module_title": "🧠 Voyager L3 · Whose Mind?",
-            "text": "8 секций · DYK-плашки про мозг · MCQ + open cloze. Продолжение сюжета Тео Маршалла из L1/L2."
-          }
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b2-plus/voyager-l2-are-we-alone/",
+            "module_title": "🛸 Voyager L2 · Are we alone? (закрепление)",
+            "text": "Третий проход по L2. Focus: Drake / Fermi / final broadcast Reyes без подсказок."
+          },
+          "audio_url": "https://newgeneration-english.ru/lingua-boost-lab/b2-plus/voyager-l2-are-we-alone/assets/audio/listen-final-broadcast.mp3",
+          "audio_title": "🎧 Listening · final broadcast Reyes (≈50 s)"
         },
         {
           "date": "2026-07-15",
           "num": 6,
           "status": "planned",
-          "topic": "Voyager L3 · Whose Mind? (повторение) — закрепление cloze и MCQ",
+          "topic": "🧠 Voyager L3 · Whose Mind? — EEG blinks, consciousness signal (первый раз)",
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b2-plus/voyager-l3-whose-mind/",
             "module_title": "🧠 Voyager L3 · Whose Mind? (повтор)"
@@ -622,13 +639,13 @@ window.NGE_DATA = {
       "price_per_lesson": 2500,
       "lessons_in_package": 10,
       "subscription_month": "2026-06",
-      "lessons_used_this_month": 5,
-      "summer_plan_note": "Интенсив-абонемент 10 уроков · старт 26.06 · проведено 5 / 10 · дальше пн / вт / чт 18:00",
+      "lessons_used_this_month": 6,
+      "summer_plan_note": "Интенсив-абонемент 10 уроков · старт 26.06 · проведено 6 / 10 · дальше пн / вт / чт 18:00",
       "stability_note": "",
       "payment_status": "Оплачено",
       "payment_note": "",
       "payments": [
-        { "month": "Интенсив · 10 уроков", "package": "10 × 2 500 ₽", "amount": "25 000 ₽", "status": "paid", "date": "26.06.2026", "note": "Интенсив · 26.06 → 17.07 · 5 / 10 проведено" }
+        { "month": "Интенсив · 10 уроков", "package": "10 × 2 500 ₽", "amount": "25 000 ₽", "status": "paid", "date": "26.06.2026", "note": "Интенсив · 26.06 → 17.07 · 6 / 10 проведено" }
       ],
       "parent_name": "Либова Юлия Игоревна",
       "pin": "5376",
@@ -681,10 +698,14 @@ window.NGE_DATA = {
           }
         },
         {
-          "date": "2026-07-08",
+          "date": "2026-07-09",
           "num": 6,
-          "status": "planned",
-          "topic": "📚 Russian literature giants (Pushkin / Tolstoy / Dostoevsky / Tchaikovsky) · Task 4 проект «Great Russian writers» + 2 фото monument/museum · 12–15 фраз"
+          "status": "completed",
+          "topic": "📚 Dana's Russia · History Exam Simulator — B1+ ЕГЭ 2026 · тренажёр экзамена",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/dana-russia-history-exam/",
+            "module_title": "📚 Открыть Dana's Russia · History Exam"
+          }
         },
         {
           "date": "2026-07-10",
@@ -727,7 +748,7 @@ window.NGE_DATA = {
           },
           {
             "name": "daniella-intensive-plan-10-lessons.pdf",
-            "label": "🗓 План интенсива · 10 уроков (26.06 → 17.07) · 5 / 10 проведено",
+            "label": "🗓 План интенсива · 10 уроков (26.06 → 17.07) · 6 / 10 проведено",
             "audience": "parent"
           }
         ]
