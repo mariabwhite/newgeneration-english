@@ -78,16 +78,32 @@
     clearTimeout(__cloudPushTimer);
     __cloudPushTimer = setTimeout(function(){
       try {
+        // v41 · 2026-07-09 · раньше `if (!name) return` полностью скипало cloud
+        // push для не-идентифицированных сессий → в Supabase 0 записей за день,
+        // .homework/ на другом устройстве видит пусто.
+        // Теперь fallback на solo-<random> из localStorage (тот же ID что
+        // roomFor() генерирует). Ученик до ввода имени всё равно попадает в
+        // облако как отдельный анонимный room; когда введёт имя, следующая
+        // запись пойдёт под 'homework:<name>' — учитель получит две линии,
+        // но обе увидит.
         var name = getName();
-        if (!name) return; // ещё не идентифицирован → скипаем
+        var roomId;
+        if (name) {
+          roomId = 'student-' + slugify(name);
+        } else {
+          try {
+            var solo = localStorage.getItem('lab-solo-id');
+            if (!solo) { solo = 'solo-' + Math.random().toString(36).slice(2,10); localStorage.setItem('lab-solo-id', solo); }
+            roomId = solo;
+          } catch(e){ roomId = 'solo-anon'; }
+        }
         var items = loadHw();
         if (!Array.isArray(items)) return;
-        var roomId = 'student-' + slugify(name);
         var title = '';
         try { title = (document.title || '').replace(/&middot;/g,'·').split('·')[0].trim(); } catch(e){}
         var payload = {
           room_id: roomId,
-          student_role: 'homework:' + name,
+          student_role: 'homework:' + (name || 'anonymous'),
           lesson_path: location.pathname,
           section_id: 'hw-state:' + roomId,
           section_title: title || location.pathname,

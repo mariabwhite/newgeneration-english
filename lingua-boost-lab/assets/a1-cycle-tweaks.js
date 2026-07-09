@@ -38,7 +38,9 @@
     s.id = 'a1-cycle-tweaks-style';
     s.textContent =
       // Lesson total → как обычный .block
-      '#lab-total-block{max-width:1280px !important;width:calc(100% - 32px) !important;'+
+      // width — 1-в-1 с .lesson-foot и .block (min(100% - 56px, 1180px)),
+      // чтобы визуально совпадало с навигацией «Prev / Каталог / Next».
+      '#lab-total-block{width:min(100% - 56px, 1180px) !important;max-width:none !important;'+
         'margin:32px auto !important;padding:28px clamp(20px,3vw,32px) !important;'+
         'border:1px solid var(--line,rgba(255,255,255,.14)) !important;'+
         'background:color-mix(in srgb, var(--surface,#fff) 94%, transparent) !important;'+
