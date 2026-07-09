@@ -38,9 +38,11 @@
     s.id = 'a1-cycle-tweaks-style';
     s.textContent =
       // Lesson total → как обычный .block
-      // width — 1-в-1 с .lesson-foot и .block (min(100% - 56px, 1180px)),
-      // чтобы визуально совпадало с навигацией «Prev / Каталог / Next».
-      '#lab-total-block{width:min(100% - 56px, 1180px) !important;max-width:none !important;'+
+      // width — 1-в-1 с .lesson-foot (Codex etalon 20260512 override: 1320,
+      // не 1180 как у .block). Формула из #codex-lesson-foot-etalon-20260512.
+      // Раньше моё правило давало 1180 → визуально Lesson total уже навигации
+      // на 140px (замер: foot 1320, total 1180). Приведено 1-в-1.
+      '#lab-total-block{width:min(calc(100% - 2cm), 1320px) !important;max-width:1320px !important;'+
         'margin:32px auto !important;padding:28px clamp(20px,3vw,32px) !important;'+
         'border:1px solid var(--line,rgba(255,255,255,.14)) !important;'+
         'background:color-mix(in srgb, var(--surface,#fff) 94%, transparent) !important;'+
