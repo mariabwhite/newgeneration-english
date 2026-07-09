@@ -214,74 +214,83 @@ window.NGE_DATA = {
       "goal": "разговорный английский · переезд в Канаду · автоматизация базы",
       "price_per_lesson": 2000,
       "payment_status": "Оплачено",
-      "payment_note": "Оплачен блок 4 занятия · июнь–июль 2026 · Канада-серия.",
+      "payment_note": "Оплачен блок 4 занятия · июль 2026.",
       "is_adult": true,
       "parent_name": "",
       "pin": "2547",
       "lessons_in_package": 4,
-      "subscription_month": "2026-06",
-      "lessons_used_this_month": 4,
-      "summer_plan_note": "Блок 4 занятий (июнь-июль 2026) пройден полностью: Канада · Settling In Toronto → Ориентация в городе → Медицина → повторение Bella.",
+      "subscription_month": "2026-07",
+      "lessons_used_this_month": 1,
+      "summer_plan_note": "Июль 2026 · новый блок 4 занятий · сегодня начали с повторения Bella (медицинская серия).",
       "stability_note": "",
-      "past_lessons_label": "Прошлый абонемент · май 2026 (4 занятия · вт 19:00)",
-      "past_lessons": [
+      "archived_packages": [
         {
-          "date": "2026-04-28",
-          "num": 1,
-          "status": "completed",
-          "topic": "Грамматика #1 · Simple + Perfect tenses — повторение форм и функций"
+          "label": "Май 2026 · 4 занятия (вт 19:00) — грамматический блок + The Wind in the Willows",
+          "lessons": [
+            {
+              "date": "2026-04-28",
+              "num": 1,
+              "status": "completed",
+              "topic": "Грамматика #1 · Simple + Perfect tenses — повторение форм и функций"
+            },
+            {
+              "date": "2026-05-05",
+              "num": 2,
+              "status": "completed",
+              "topic": "Грамматика #2 · Passive Voice + Past Perfect — узнавание в контексте"
+            },
+            {
+              "date": "2026-05-12",
+              "num": 3,
+              "status": "completed",
+              "topic": "The Wind in the Willows — чтение адаптированной книги · лексика · обсуждение"
+            },
+            {
+              "date": "2026-05-19",
+              "num": 4,
+              "status": "completed",
+              "topic": "SIM-карты и кофе — практическая лексика и диалоги (Канада · бытовые ситуации)"
+            }
+          ]
         },
         {
-          "date": "2026-05-05",
-          "num": 2,
-          "status": "completed",
-          "topic": "Грамматика #2 · Passive Voice + Past Perfect — узнавание в контексте"
-        },
-        {
-          "date": "2026-05-12",
-          "num": 3,
-          "status": "completed",
-          "topic": "The Wind in the Willows — чтение адаптированной книги · лексика · обсуждение"
-        },
-        {
-          "date": "2026-05-19",
-          "num": 4,
-          "status": "completed",
-          "topic": "SIM-карты и кофе — практическая лексика и диалоги (Канада · бытовые ситуации)"
+          "label": "Июнь–июль 2026 · 3 занятия (чт 20:00) — Канада-серия: Settling In → City → Bella",
+          "lessons": [
+            {
+              "date": "2026-06-18",
+              "num": 1,
+              "status": "completed",
+              "topic": "Канада · Settling In Toronto — coffee · SIM · directions · drugstore (4 сцены · I'd like / I need · AI Coach)",
+              "homework": {
+                "text": "Lab-модуль · 4 сценария первого дня в Торонто + AI Coach для свободной речи в конце.",
+                "module_url": "https://newgeneration-english.ru/lingua-boost-lab/a2/settling-in-toronto/",
+                "module_title": "🇨🇦 Открыть Settling In Toronto"
+              }
+            },
+            {
+              "date": "2026-06-25",
+              "num": 2,
+              "status": "completed",
+              "topic": "Ориентация в городе — city map · directions · транспорт · как спросить дорогу"
+            },
+            {
+              "date": "2026-07-02",
+              "num": 3,
+              "status": "completed",
+              "topic": "Медицина · Bella Needs Help — pharmacy / walk-in clinic / 911 · Can I…? / Could you…?",
+              "homework": {
+                "text": "Bella-series · Day 3 в Канаде. У Bella головная боль → аптека → клиника → потом она помогает незнакомцу вызвать 911. Три сцены, формула Poster → Vocab → Dialogue → Drill → Speaking template + AI Coach в финале.",
+                "module_url": "https://newgeneration-english.ru/lingua-boost-lab/a2/bella-needs-help/",
+                "module_title": "🏥 Bella Needs Help"
+              }
+            }
+          ]
         }
       ],
       "lessons": [
         {
-          "date": "2026-06-18",
-          "num": 1,
-          "status": "completed",
-          "topic": "Канада · Settling In Toronto — coffee · SIM · directions · drugstore (4 сцены · I'd like / I need · AI Coach)",
-          "homework": {
-            "text": "Lab-модуль · 4 сценария первого дня в Торонто + AI Coach для свободной речи в конце.",
-            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/a2/settling-in-toronto/",
-            "module_title": "🇨🇦 Открыть Settling In Toronto"
-          }
-        },
-        {
-          "date": "2026-06-25",
-          "num": 2,
-          "status": "completed",
-          "topic": "Ориентация в городе — city map · directions · транспорт · как спросить дорогу"
-        },
-        {
-          "date": "2026-07-02",
-          "num": 3,
-          "status": "completed",
-          "topic": "Медицина · Bella Needs Help — pharmacy / walk-in clinic / 911 · Can I…? / Could you…?",
-          "homework": {
-            "text": "Bella-series · Day 3 в Канаде. У Bella головная боль → аптека → клиника → потом она помогает незнакомцу вызвать 911. Три сцены, формула Poster → Vocab → Dialogue → Drill → Speaking template + AI Coach в финале.",
-            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/a2/bella-needs-help/",
-            "module_title": "🏥 Bella Needs Help"
-          }
-        },
-        {
           "date": "2026-07-09",
-          "num": 4,
+          "num": 1,
           "status": "completed",
           "topic": "🏥 Bella Needs Help · повторение — pharmacy / doctor / emergency, закрепление формул Can I…? / Could you…?",
           "homework": {
@@ -289,6 +298,24 @@ window.NGE_DATA = {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/a2/bella-needs-help/",
             "module_title": "🏥 Bella Needs Help (повторение)"
           }
+        },
+        {
+          "date": "2026-07-14",
+          "num": 2,
+          "status": "planned",
+          "topic": "📅 Урок июльского блока — тему уточним"
+        },
+        {
+          "date": "2026-07-21",
+          "num": 3,
+          "status": "planned",
+          "topic": "📅 Урок июльского блока — тему уточним"
+        },
+        {
+          "date": "2026-07-28",
+          "num": 4,
+          "status": "planned",
+          "topic": "📅 Урок июльского блока — тему уточним"
         }
       ]
     },
@@ -707,6 +734,9 @@ window.NGE_DATA = {
             "module_title": "📚 Открыть Dana's Russia · History Exam"
           }
         },
+      ],
+      "future_plan_label": "План интенсива · уроки 7–10 (июль 10–17)",
+      "future_plan_lessons": [
         {
           "date": "2026-07-10",
           "num": 7,

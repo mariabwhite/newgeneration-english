@@ -1185,37 +1185,68 @@
       </article>
     `;
 
-    /* Second table for past subscriptions if student.past_lessons is set */
+    /* Архив пройденного (2026-07-09):
+       Новый формат: student.archived_packages = [{ label, lessons[] }, ...]
+       Legacy: student.past_lessons + student.past_lessons_label
+       Оба поддерживаются одновременно, рендерятся как <details> (свёрнуто). */
+    const archivedPackages = Array.isArray(student.archived_packages) ? student.archived_packages.slice() : [];
     const pastLessons = Array.isArray(student.past_lessons) ? student.past_lessons : [];
-    if (!pastLessons.length) return currentTable;
+    if (pastLessons.length) {
+      archivedPackages.push({
+        label: student.past_lessons_label || "Прошлый абонемент",
+        lessons: pastLessons
+      });
+    }
 
-    const pastSorted = pastLessons.slice().sort((a, b) => a.date.localeCompare(b.date));
-    const pastRows = pastSorted.map(l => {
-      const badge = _lessonStatusBadge(l, todayISO);
-      const dateStr = _formatLessonDate(l.date);
-      const dow = _dowFromISO(l.date);
-      const num = l.num ? `<span class="cab-lesson-num">${_esc(l.num)}</span>` : "";
-      const topicText = l.topic && l.topic.trim()
-        ? `<span class="cab-lesson-topic">${_esc(l.topic)}</span>`
-        : `<span class="cab-lesson-topic cab-lesson-topic--empty">—</span>`;
+    const _renderArchiveRows = (lessons) => {
+      const sorted = lessons.slice().sort((a, b) => a.date.localeCompare(b.date));
+      return sorted.map(l => {
+        const badge = _lessonStatusBadge(l, todayISO);
+        const dateStr = _formatLessonDate(l.date);
+        const dow = _dowFromISO(l.date);
+        const num = l.num ? `<span class="cab-lesson-num">${_esc(l.num)}</span>` : "";
+        const topicText = l.topic && l.topic.trim()
+          ? `<span class="cab-lesson-topic">${_esc(l.topic)}</span>`
+          : `<span class="cab-lesson-topic cab-lesson-topic--empty">—</span>`;
+        return `
+          <li class="cab-lesson-row ${badge.cls}">
+            ${num}
+            <span class="cab-lesson-date">${dateStr} · ${dow}</span>
+            <span class="cab-lesson-topic-wrap">${topicText}</span>
+            <span class="cab-lesson-badge">${badge.label}</span>
+          </li>
+        `;
+      }).join("");
+    };
+
+    /* Будущий план (future_plan_lessons + future_plan_label) — свёрнутая секция,
+       для показа последующих месяцев без загромождения текущей таблицы. */
+    const futurePlanLessons = Array.isArray(student.future_plan_lessons) ? student.future_plan_lessons : [];
+    let futurePlanTable = "";
+    if (futurePlanLessons.length) {
+      const futureLabel = student.future_plan_label || "План на будущее";
+      const futureRows = _renderArchiveRows(futurePlanLessons);
+      futurePlanTable = `
+        <details class="cab-card cab-card--wide cab-card--future" style="margin-top:12px">
+          <summary style="cursor:pointer;font-family:var(--display,'Unbounded',sans-serif);font-weight:800;font-size:16px;padding:6px 0;opacity:.8">🗓 ${_esc(futureLabel)}</summary>
+          <ul class="cab-lessons-list" style="margin-top:10px">${futureRows}</ul>
+        </details>
+      `;
+    }
+
+    if (!archivedPackages.length) return currentTable + futurePlanTable;
+
+    const archiveTables = archivedPackages.map(pkg => {
+      const rows = _renderArchiveRows(pkg.lessons || []);
       return `
-        <li class="cab-lesson-row ${badge.cls}">
-          ${num}
-          <span class="cab-lesson-date">${dateStr} · ${dow}</span>
-          <span class="cab-lesson-topic-wrap">${topicText}</span>
-          <span class="cab-lesson-badge">${badge.label}</span>
-        </li>
+        <details class="cab-card cab-card--wide cab-card--past" style="margin-top:12px">
+          <summary style="cursor:pointer;font-family:var(--display,'Unbounded',sans-serif);font-weight:800;font-size:16px;padding:6px 0;opacity:.75">📦 ${_esc(pkg.label || "Прошлый абонемент")}</summary>
+          <ul class="cab-lessons-list" style="margin-top:10px">${rows}</ul>
+        </details>
       `;
     }).join("");
 
-    const pastLabel = student.past_lessons_label || "Прошлый абонемент";
-    const pastTable = `
-      <article class="cab-card cab-card--wide cab-card--past">
-        <h3 style="opacity:.75">${_esc(pastLabel)}</h3>
-        <ul class="cab-lessons-list">${pastRows}</ul>
-      </article>
-    `;
-    return currentTable + pastTable;
+    return currentTable + futurePlanTable + archiveTables;
   }
 
   /* ---------- homework card (student view, 3rd module) ---------- */
