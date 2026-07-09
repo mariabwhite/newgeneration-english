@@ -237,4 +237,126 @@ Task: `Talk for 2-3 minutes on the topic of this lesson: <title>. Explain the ke
 
 ---
 
-*Последнее обновление: 2026-07-08 (Синтия). Секция 12 «Speech Coach» добавлена по мандату Марии.*
+## 14. Актуальные версии assets (2026-07-09 · конец дня)
+
+Обновлённая версия подключений — использовать в любом новом уроке:
+
+```html
+<link rel="stylesheet" href="../../assets/canon-L.css?v=11">
+<link rel="stylesheet" href="../../assets/lab-pilot.css?v=7">   <!-- ОБЯЗАТЕЛЬНО без css лифт невидимо -->
+<script src="../../assets/canon-L.js?v=5" defer></script>
+
+<!-- перед </body> -->
+<script src="../../assets/lab-persist.js" defer></script>
+<script src="../../assets/lab-total.js?v=4" defer></script>
+<script src="../../assets/lab-pilot.js?v=4" defer></script>
+<script src="../../assets/lab-mic-wpm.js?v=1" defer></script>
+<script src="../../assets/lab-ai-feedback.js?v=6" defer></script>
+<script src="../../assets/lab-sync.js?v=16" defer></script>
+<script src="../../assets/lab-tabs.js?v=12" defer></script>
+<script src="../../assets/lab-homework.js?v=43" defer></script>
+<script src="../../assets/lab-telemost.js?v=1" defer></script>
+<script src="../../assets/lab-vocab-builder.js?v=52" defer></script>
+<script src="../../assets/lab-lexicon.js?v=1" defer></script>
+<script src="../../assets/lab-coach-persist.js?v=1" defer></script>
+<script src="../../assets/lab-speech-tester.js?v=14" defer></script>
+```
+
+## 15. Инциденты 2026-07-09 и правила из них
+
+### 15.1 lab-pilot селектор — расширен до `section.block`
+
+`lab-pilot.js` до v4 искал только `section.section`. Уроки архетипа Present Simple (a1-01…a1-08) используют `section.block` — **лифт вообще не активировался** (fab:0, toc:0, submit:0).
+
+**v4**: `section.section, section.block, section.lab-section, section.canon-l-section, section.lesson-section`. Правило: если новый архетип использует свой класс секций — добавить в селектор `lab-pilot.js`.
+
+### 15.2 lab-pilot.css **обязательно** подключать `<link>` в `<head>`
+
+a1-01 был единственный без — лифт был, но невидимо (без стилей). **Правило**: если подключён `lab-pilot.js`, ОБЯЗАТЕЛЬНО `lab-pilot.css?v=7` в `<head>`.
+
+### 15.3 Supabase 400 · `pct` = generated column
+
+`lab-homework.js` до v42 слал `pct: 0` в payload. Supabase отклонял: `Column pct is a generated column · cannot insert a non-DEFAULT value`. Все cloud-push падали, за целый день ноль записей.
+
+**Правило**: не добавлять `pct` в payload для `lab_submissions`. Колонка вычисляется автоматически (`score/total*100`).
+
+### 15.4 `.homework/` палитра — regex `[data-theme="X"]`, не только `:root`
+
+`applyLessonTheme()` до v5 искал только `:root { --bg: ... }`. Уроки объявляют темы через `[data-theme="light-lab"] { ... }` — regex ничего не находил, `.homework/` оставался default тёмная палитра (vocab-card «get up» на #061428 — не читается).
+
+**v5 фикс** в `.homework/index.html`:
+- Extract из `[data-theme="<active>"]` через regex, `:root` fallback.
+- Тема берётся из `?theme=` URL query или `data-theme` root.
+- `openHomeworkPage()` в `lab-homework.js` forward'ит `&theme=<current>` при переходе.
+- Устанавливает `data-theme` на root чтобы будущие условные CSS сработали.
+
+### 15.5 Ширина Lesson total = `.lesson-foot` 1-в-1
+
+`.lesson-foot` через Codex-etalon 20260512 (в inline `<style id="codex-lesson-foot-etalon-20260512">`) переопределён:
+```
+width: min(calc(100% - 2cm), 1320px) !important;
+max-width: 1320px !important;
+```
+
+А `.block` — `min(100% - 56px, 1180px)`. **Разные!** Если делаешь свой блок «под navigation» — использовать формулу `.lesson-foot`, не `.block`. Проверить через `getBoundingClientRect().width` в puppeteer — обе должны быть 1320.
+
+### 15.6 Cloud sync для анонимов — fallback на `solo-<random>`
+
+`lab-homework.js` до v41 полностью скипал `cloudPushHwState` если `getName()` пустой (`if (!name) return`). **v41 фикс**: fallback на `solo-` из localStorage (тот же ID что `roomFor()` возвращает). Non-identified ученик всё равно попадает в облако как отдельный room; когда введёт имя — следующая запись пойдёт под `homework:<name>`.
+
+### 15.7 Speech Coach — ПЕРЕД `<nav.lesson-foot>`, не после
+
+`lab-speech-tester.js` ищет anchor через `section.section`. В A1 архетипе таких нет → падает перед `<footer>`, что помещает Speech Coach ПОСЛЕ `<nav.lesson-foot>`. Coach становится последним блоком урока — Мария явно сказала «не должен быть последним».
+
+**Для A1 цикла** — override в `a1-cycle-tweaks.js`: MutationObserver перемещает `.lab-coach-section` перед `<nav.lesson-foot>` внутри main.wrap.
+
+### 15.8 vocab-upgrade `kind='raw-block' → 'vocab'` при клике на .vocab-card
+
+`lab-homework.js` universal-flow превращает КАЖДЫЙ + click в `item.kind='raw-block'`. Но `.homework/index.html` имеет отдельную красивую ветку для `kind='vocab'` с `en/ipa/ru/ex` полями — она НЕ срабатывала.
+
+**Фикс в `a1-cycle-tweaks.js`**: MutationObserver отслеживает click на `.vocab-card .lab-hw-add`, через 60мс находит последний item в localStorage и апгрейдит `kind → 'vocab'` + добавляет структурированные поля. Плюс sticky-marker «✓ в домашке» и `bigToast('Слово X в домашке')`.
+
+## 16. Новые ассеты 2026-07-09
+
+### 16.1 lab-telemost.js v1 · 🎥 FAB Yandex Telemost
+
+Одна persistent-ссылка на всех: `https://telemost.yandex.ru/j/03400912122761`.
+
+Floating pill top-right (top:66px на desktop, 16px на mobile), pulse-анимация, `target="_blank"`. Skip observer/teacher-mode.
+
+**Важно**: iframe embed НЕВОЗМОЖЕН — Yandex ставит `X-Frame-Options: SAMEORIGIN`. Только новая вкладка.
+
+Подключено в 56 живых Lab-уроках (grep по `lab-homework.js`).
+
+### 16.2 lab-lexicon.js v1 · 📒 Today's Lexicon
+
+Floating pill bottom-right — сборщик слов при клике на `.vocab-card` / `.flip-card[data-en]` / `.tr[data-ru]`.
+
+localStorage `lab-lex:<pathname>` · TTL 7 дней · MutationObserver ре-биндит новые карточки (например extras от `lab-vocab-builder`).
+
+**Skip если есть `#vocabBox`** — Voyager L1-L4 имеет свой встроенный vocab-box с уникальной механикой (feed от inline `.tr[data-ru]` подсветок), не дублируем.
+
+Подключено в 21 уроке (все A1 01-08 + Pre-A1 + A1 free-standing + A2-B1 + B1 + C1). Voyager остаётся на своём.
+
+## 17. Домен, кэш, deploy — что запомнить
+
+- `newgeneration-english.ru` = **GitHub Pages + Fastly CDN** (не Cloudflare, как раньше писали!). HTML `Cache-Control: max-age=600` = 10 мин. Ctrl+Shift+R обходит.
+- Кабинет `cabinet.newgeneration-english.ru` = **Cloudflare Pages**, `no-cache, must-revalidate`. Свежее сразу.
+- **Двойной push обязателен** (feedback: `feedback_dual_push_lab_repos.md`):
+  1. `site-public-clean/` → `mariabwhite/newgeneration-english` main (production)
+  2. `site/` → `mariabwhite/newgeneration` **`gh-pages`** (NOT `deploy-gh-pages` — legacy branch, ничего не деплоит)
+- Для второго push сначала commit в `deploy-gh-pages`, потом `git checkout gh-pages && git merge deploy-gh-pages && git push origin gh-pages`.
+
+## 18. Cabinet — новые поля 2026-07-09
+
+Кабинет (в `nge-cabinet/data.js`) получил два новых массива:
+- `archived_packages: [{ label, lessons[] }]` — закрытые абонементы. Рендерятся как `<details>` 📦, свёрнуто.
+- `future_plan_lessons[]` + `future_plan_label` — план на следующий период. `<details>` 🗓 свёрнуто.
+
+Legacy `past_lessons` + `past_lessons_label` — поддерживаются, авто-конверт в `archived_packages` при рендере.
+
+Регламент кабинета — отдельный документ, поддерживается автономно (см. `reference_cabinet_pipeline_full.md` в памяти Клода).
+
+---
+
+*Последнее обновление: 2026-07-09 (Синтия). Секции 14-18 добавлены по мандату Марии «занеси всё что сегодня вычленили в регламенты». lab-pilot v3→v4, lab-homework v40→v43, добавлены lab-telemost + lab-lexicon.*
