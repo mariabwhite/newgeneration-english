@@ -1732,14 +1732,8 @@ window.NGE_DATA = {
           }
         },
         {
-          "date": "2026-07-09",
-          "num": 6,
-          "status": "planned",
-          "topic": "Practical English · Day 2 · Present Simple questions (Do you? Does he?) + короткие ответы + fix из Workbook 04"
-        },
-        {
           "date": "2026-07-10",
-          "num": 7,
+          "num": 6,
           "status": "completed",
           "topic": "📖 Practical English · практика Day 1 · повторный проход",
           "homework": {
