@@ -1644,6 +1644,7 @@ window.NGE_DATA = {
       "payment_status": "Оплачено",
       "payment_note": "",
       "payments": [
+        { "month": "Июль 2026 · 2-я половина", "package": "4 урока × 2 500 ₽", "amount": "10 000 ₽", "status": "paid", "date": "10.07.2026", "note": "Летний блок · 2-я половина июля (21.07 · 23.07 · 28.07 · 30.07)" },
         { "month": "Июль 2026", "package": "5 уроков × 2 500 ₽", "amount": "12 500 ₽", "status": "paid", "date": "01.07.2026", "note": "Летний блок" },
         { "month": "Июнь 2026", "package": "1 trial + 3 × 2 500 ₽", "amount": "7 500 ₽", "status": "paid", "date": "22.06.2026", "note": "Пилот-блок · 1 trial + 3 занятия" }
       ],
@@ -1735,10 +1736,11 @@ window.NGE_DATA = {
           "date": "2026-07-10",
           "num": 6,
           "status": "completed",
-          "topic": "📖 Practical English · практика Day 1 · повторный проход",
+          "topic": "📖 Practical English · Day 1 · повторный проход + 📚 Articles & Prepositions · Deep Dive (Golitsynsky) · артикли a/an/the/× + предлоги времени/места/направления",
           "homework": {
-            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/practice/timofey-03-practical-english/",
-            "module_title": "📖 Открыть Practical English · Day 1"
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/timofey-articles-prepositions/",
+            "module_title": "📚 Открыть Articles & Prepositions · Deep Dive",
+            "text": "Пройди Articles §1–§20 + Prepositions P1–P9. Отметь упражнения, где сомневаешься — разберём во вторник. Practical English · Day 1 остаётся доступен по прежней ссылке в списке материалов."
           }
         },
         {
@@ -1752,6 +1754,30 @@ window.NGE_DATA = {
           "num": 8,
           "status": "planned",
           "topic": "Practical English · Day 4 · Modals for adult life (can / could / would / should / must) + polite requests"
+        },
+        {
+          "date": "2026-07-21",
+          "num": 9,
+          "status": "planned",
+          "topic": "Тема — будет скоро, согласуем ближе к дате"
+        },
+        {
+          "date": "2026-07-23",
+          "num": 10,
+          "status": "planned",
+          "topic": "Тема — будет скоро, согласуем ближе к дате"
+        },
+        {
+          "date": "2026-07-28",
+          "num": 11,
+          "status": "planned",
+          "topic": "Тема — будет скоро, согласуем ближе к дате"
+        },
+        {
+          "date": "2026-07-30",
+          "num": 12,
+          "status": "planned",
+          "topic": "Тема — будет скоро, согласуем ближе к дате"
         }
       ],
       "contracts": {
