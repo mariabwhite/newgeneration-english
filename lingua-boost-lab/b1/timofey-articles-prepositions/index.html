@@ -120,10 +120,35 @@ a:hover{text-decoration:underline}
 @media (max-width:640px){
   .hero-overlay > *{max-width:82vw}
 }
+/* Portrait teaching posters — compact reading size, click to enlarge */
 .rule-infographic{
-  display:block;max-width:520px;width:100%;height:auto;margin:14px auto 4px;
-  border-radius:10px;box-shadow:0 4px 14px rgba(93,58,86,.14);
+  display:block;width:100%;max-width:380px;height:auto;margin:16px auto 6px;
+  border-radius:12px;box-shadow:0 6px 18px rgba(93,58,86,.18);
   border:1px solid var(--line);
+  cursor:zoom-in;transition:transform .16s ease, box-shadow .16s ease;
+}
+.rule-infographic:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(93,58,86,.24)}
+/* Horizontal banners — full card width, no lightbox trigger needed */
+.rule-infographic.wide{
+  max-width:100%;
+  cursor:default;
+}
+.rule-infographic.wide:hover{transform:none;box-shadow:0 6px 18px rgba(93,58,86,.18)}
+/* Fullscreen lightbox */
+.lightbox-overlay{
+  position:fixed;inset:0;background:rgba(20,10,30,.86);z-index:9999;
+  display:none;align-items:center;justify-content:center;padding:24px;
+  cursor:zoom-out;backdrop-filter:blur(4px);
+}
+.lightbox-overlay.open{display:flex}
+.lightbox-overlay img{
+  max-width:96vw;max-height:96vh;height:auto;width:auto;
+  border-radius:14px;box-shadow:0 24px 60px rgba(0,0,0,.5);
+  border:2px solid rgba(255,255,255,.14);
+}
+.lightbox-hint{
+  position:fixed;top:16px;right:20px;color:#f0e8ff;font-size:.82rem;font-family:var(--mono);
+  letter-spacing:.05em;opacity:.7;pointer-events:none;
 }
 .blacklist-poster{
   display:block;max-width:640px;width:100%;height:auto;margin:16px auto 6px;
@@ -257,6 +282,13 @@ a:hover{text-decoration:underline}
 }
 .mc-opt.correct{background:var(--ok);color:#fff;border-color:var(--ok)}
 .mc-opt.wrong{background:var(--err);color:#fff;border-color:var(--err)}
+/* Sentence-choice variant — options are whole sentences, stack vertically */
+.mc-sentence .mc-opts{flex-direction:column;align-items:stretch;gap:8px}
+.mc-sentence .mc-opt{
+  text-align:left;padding:10px 14px;font-family:var(--serif);font-size:.98rem;
+  line-height:1.5;white-space:normal;
+}
+.mc-sentence .mc-item{padding:14px 16px}
 
 /* T/F */
 .tf-list .tf-item{margin:10px 0;padding:10px 12px;border-radius:8px;background:#FDF7E9;display:flex;align-items:flex-start;gap:10px;flex-wrap:wrap}
@@ -394,8 +426,28 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
   <!-- Overview infographic (quick reference) -->
   <div class="rule-card" style="border-left-color:var(--accent3);text-align:center">
     <h3 style="justify-content:center;color:var(--accent)">📖 Quick reference · keep this in view</h3>
-    <img class="rule-infographic" src="assets/img/articles-at-a-glance.png" alt="Articles at a glance — A / AN / THE / ZERO. A: one countable thing (a book, a client). AN: before a vowel sound (an engineer, an hour). THE: specific or known (the report we discussed, the sun). ZERO: plurals in general, uncountable, meals, languages, sports, institutions.">
-    <p style="font-size:.86rem;color:var(--muted);margin-top:8px">Each rule below → drill straight after. Nail it, move on.</p>
+    <img class="rule-infographic" src="assets/img/articles-at-a-glance.png?v=4" alt="Articles at a glance — four columns: A (one countable thing, first mention · a book, a client, a report); AN (one countable thing before a vowel sound · an engineer, an hour, an interview); THE (a specific or known thing · the report we discussed, the sun, the second floor); ZERO — × (no article for plurals in general, uncountables, meals, languages, sports, institutions · clients, information, breakfast, football, work).">
+    <p style="font-size:.86rem;color:var(--muted);margin-top:8px">Tap the poster to zoom · each rule below → drill straight after · nail it, move on.</p>
+  </div>
+
+  <!-- =============================================== -->
+  <!-- A.0 · Warm-up · read the poster, choose the correct sentence -->
+  <!-- =============================================== -->
+  <div class="card">
+    <h3><span class="ex-num">A.0</span> Read the poster · choose the correct sentence</h3>
+    <p class="intro">10 mini pairs across all four columns (A / AN / THE / ZERO). Read the poster first, then pick the version that matches the rule.</p>
+    <div class="mc-list mc-sentence" data-ex="A.0">
+      <div class="mc-item" data-a="B"><div class="mc-q"><span class="num">1.</span>First time we see the object — pick one.</div><div class="mc-opts"><button class="mc-opt" data-v="A">This is the book I lost.</button><button class="mc-opt" data-v="B">This is a book. The book is interesting.</button><button class="mc-opt" data-v="C">This is × book. Book is interesting.</button></div></div>
+      <div class="mc-item" data-a="A"><div class="mc-q"><span class="num">2.</span>Vowel sound at the start — pick one.</div><div class="mc-opts"><button class="mc-opt" data-v="A">My mother is an engineer.</button><button class="mc-opt" data-v="B">My mother is a engineer.</button><button class="mc-opt" data-v="C">My mother is × engineer.</button></div></div>
+      <div class="mc-item" data-a="C"><div class="mc-q"><span class="num">3.</span>Talking about something both speakers know — pick one.</div><div class="mc-opts"><button class="mc-opt" data-v="A">Can you send a report we discussed?</button><button class="mc-opt" data-v="B">Can you send × report we discussed?</button><button class="mc-opt" data-v="C">Can you send the report we discussed?</button></div></div>
+      <div class="mc-item" data-a="B"><div class="mc-q"><span class="num">4.</span>Plural noun in general — pick one.</div><div class="mc-opts"><button class="mc-opt" data-v="A">The clients often ask for a discount.</button><button class="mc-opt" data-v="B">Clients often ask for a discount.</button><button class="mc-opt" data-v="C">A clients often ask for a discount.</button></div></div>
+      <div class="mc-item" data-a="A"><div class="mc-q"><span class="num">5.</span>Uncountable noun in general — pick one.</div><div class="mc-opts"><button class="mc-opt" data-v="A">Information travels fast today.</button><button class="mc-opt" data-v="B">An information travels fast today.</button><button class="mc-opt" data-v="C">A information travels fast today.</button></div></div>
+      <div class="mc-item" data-a="C"><div class="mc-q"><span class="num">6.</span>Unique object in the world — pick one.</div><div class="mc-opts"><button class="mc-opt" data-v="A">A sun is bright today.</button><button class="mc-opt" data-v="B">Sun is bright today.</button><button class="mc-opt" data-v="C">The sun is bright today.</button></div></div>
+      <div class="mc-item" data-a="B"><div class="mc-q"><span class="num">7.</span>Meal in general — pick one.</div><div class="mc-opts"><button class="mc-opt" data-v="A">We had a breakfast at seven.</button><button class="mc-opt" data-v="B">We had breakfast at seven.</button><button class="mc-opt" data-v="C">We had the breakfast at seven.</button></div></div>
+      <div class="mc-item" data-a="A"><div class="mc-q"><span class="num">8.</span>Sport in general — pick one.</div><div class="mc-opts"><button class="mc-opt" data-v="A">The boys play football on Sundays.</button><button class="mc-opt" data-v="B">The boys play a football on Sundays.</button><button class="mc-opt" data-v="C">The boys play the football on Sundays.</button></div></div>
+      <div class="mc-item" data-a="C"><div class="mc-q"><span class="num">9.</span>Specific room we're both looking at — pick one.</div><div class="mc-opts"><button class="mc-opt" data-v="A">Please close a door.</button><button class="mc-opt" data-v="B">Please close × door.</button><button class="mc-opt" data-v="C">Please close the door.</button></div></div>
+      <div class="mc-item" data-a="B"><div class="mc-q"><span class="num">10.</span>Language name — pick one.</div><div class="mc-opts"><button class="mc-opt" data-v="A">She teaches the English at school.</button><button class="mc-opt" data-v="B">She teaches English at school.</button><button class="mc-opt" data-v="C">She teaches an English at school.</button></div></div>
+    </div>
   </div>
 
   <!-- =============================================== -->
@@ -403,13 +455,14 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
   <!-- =============================================== -->
   <div class="rule-card">
     <h3><span class="rule-num">§1</span> First mention → repeat</h3>
-    <img class="rule-infographic" src="assets/img/articles-first-mention.png" alt="Three example pairs of first-mention a/an vs repeat-mention the: This is a book → The book is interesting; I got a letter → The letter was long; I saw a girl in the park → The girl was crying.">
+    <img class="rule-infographic" src="assets/img/articles-first-mention.png?v=4" alt="First mention → repeat mention. A / AN first · THE next. Three pairs: (1) This is a book → The book is interesting; (2) I got a letter → The letter was long; (3) I saw a girl in the park → The girl was crying. Rule chip: First time → a / an. Second time → the. Warning: do not repeat a / an when the listener already knows the object.">
     <p>First time we mention something → <strong>a / an</strong>. Second time → <strong>the</strong> (the listener already knows which one).</p>
     <div class="eg">This is <strong>a</strong> book. <strong>The</strong> book is interesting.</div>
   </div>
 
   <div class="card">
     <h3><span class="ex-num">A.1</span> Fill the gap · Ex. 1 &amp; 3 (Golitsynsky)</h3>
+    <img class="rule-infographic wide" src="assets/img/articles-first-mention-letter.png" alt="Horizontal banner: FIRST MENTION → REPEAT. Left panel — envelope labeled 'A LETTER' with the caption 'first mention → a'. Right panel — sealed envelope labeled 'THE LETTER' with the caption 'second mention → the'. Arrow between the two envelopes reads REPEAT.">
     <div class="mc-list" data-ex="A.1">
       <div class="mc-item" data-a="a"><div class="mc-q"><span class="num">1.</span>This is <span class="gap">___</span> pen. That is a pencil.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
       <div class="mc-item" data-a="The"><div class="mc-q"><span class="num">2.</span>This is a tree. <span class="gap">___</span> tree is green.</div><div class="mc-opts"><button class="mc-opt" data-v="A">A</button><button class="mc-opt" data-v="The">The</button><button class="mc-opt" data-v="×">×</button></div></div>
@@ -417,6 +470,10 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
       <div class="mc-item" data-a="The"><div class="mc-q"><span class="num">4.</span>… <span class="gap">___</span> letter was long and interesting.</div><div class="mc-opts"><button class="mc-opt" data-v="A">A</button><button class="mc-opt" data-v="The">The</button><button class="mc-opt" data-v="×">×</button></div></div>
       <div class="mc-item" data-a="a"><div class="mc-q"><span class="num">5.</span>He has got <span class="gap">___</span> computer.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
       <div class="mc-item" data-a="The"><div class="mc-q"><span class="num">6.</span>He is showing me his new computer. <span class="gap">___</span> computer is new.</div><div class="mc-opts"><button class="mc-opt" data-v="A">A</button><button class="mc-opt" data-v="The">The</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="a"><div class="mc-q"><span class="num">7.</span>I bought <span class="gap">___</span> new umbrella. But I've already lost it.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="The"><div class="mc-q"><span class="num">8.</span>… <span class="gap">___</span> umbrella was black.</div><div class="mc-opts"><button class="mc-opt" data-v="A">A</button><button class="mc-opt" data-v="The">The</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="a"><div class="mc-q"><span class="num">9.</span>Our office is in <span class="gap">___</span> old building near the river.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="The"><div class="mc-q"><span class="num">10.</span>… <span class="gap">___</span> building has three floors and a small garden.</div><div class="mc-opts"><button class="mc-opt" data-v="A">A</button><button class="mc-opt" data-v="The">The</button><button class="mc-opt" data-v="×">×</button></div></div>
     </div>
   </div>
 
@@ -439,7 +496,29 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
       <div class="mc-item" data-a="a"><div class="mc-q"><span class="num">4.</span>I eat <span class="gap">___</span> sandwich and drink tea in the morning.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="×">×</button></div></div>
       <div class="mc-item" data-a="×"><div class="mc-q"><span class="num">5.</span>He never eats <span class="gap">___</span> meat.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="×">×</button></div></div>
       <div class="mc-item" data-a="×"><div class="mc-q"><span class="num">6.</span>She bought <span class="gap">___</span> butter and potatoes.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="×"><div class="mc-q"><span class="num">7.</span>Would you like <span class="gap">___</span> coffee?</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="a"><div class="mc-q"><span class="num">8.</span>My mother is <span class="gap">___</span> nurse.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="×"><div class="mc-q"><span class="num">9.</span>We saw <span class="gap">___</span> children playing in the yard.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="a"><div class="mc-q"><span class="num">10.</span>He works as <span class="gap">___</span> waiter on Saturdays.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="×">×</button></div></div>
     </div>
+  </div>
+
+  <!-- A.2b · Matching — a / an / the / × ↔ rule tag -->
+  <div class="card">
+    <h3><span class="ex-num">A.2b</span> Match · article ↔ situation</h3>
+    <p class="intro">Drag the tag to the matching article rule.</p>
+    <div class="match-wrap" data-ex="A.2b">
+      <div class="match-col"><h4>Article</h4><div id="match-A2b-left"></div></div>
+      <div class="match-col"><h4>Situation</h4><div id="match-A2b-right"></div></div>
+    </div>
+    <script type="application/json" id="match-A2b-data">[
+      {"en":"a book","ru":"first mention · singular countable"},
+      {"en":"an engineer","ru":"before a vowel sound"},
+      {"en":"the report we discussed","ru":"specific · both speakers know"},
+      {"en":"× books","ru":"plural in general"},
+      {"en":"× meat","ru":"uncountable in general"},
+      {"en":"the sun","ru":"unique object in the world"}
+    ]</script>
   </div>
 
   <!-- =============================================== -->
@@ -492,6 +571,7 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
     <h3><span class="rule-num">§5</span> the — for unique objects</h3>
     <p>Unique in the world: <strong>the sun · the moon · the sky · the earth · the world · the universe</strong>. Unique in this room: <strong>the table · the door · the window</strong> (the specific one we both mean).</p>
     <div class="eg"><strong>The</strong> sky is grey today. — Put the book on <strong>the</strong> table.</div>
+    <img class="rule-infographic wide" src="assets/img/articles-unique-sky.png?v=2" alt="§5 unique in the world — three purple twilight scenes side by side. Left: a silhouette watches a bright full sun over a city — caption 'THE SUN is bright today.' Middle: a lit-up embankment under a full moon — caption 'THE MOON is full.' Right: a woman's silhouette against a swirl of grey clouds — caption 'THE SKY is grey.'">
   </div>
 
   <div class="card">
@@ -551,6 +631,13 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
     </div>
   </div>
 
+  <!-- ================= Zero-article cluster overview (§8–§11) ================= -->
+  <div class="rule-card" style="border-left-color:var(--accent3);text-align:center">
+    <h3 style="justify-content:center;color:var(--accent)">📖 Zero article — where we drop it</h3>
+    <img class="rule-infographic" src="assets/img/articles-zero-overview.png" alt="Zero article — when nothing is correct. Five rows: (1) MEALS — have breakfast, cook lunch, make dinner; (2) INSTITUTIONS for their purpose — go to school, go to work, go to bed / be in hospital, be in prison; (3) SPORTS AND GAMES — play football, play tennis, play chess; (4) LANGUAGES AND SUBJECTS — speak English, study Mathematics, learn French; (5) PLURAL AND UNCOUNTABLE NOUNS IN GENERAL — books are useful, meat is fresh, information is important, clients need support. Contrast strip: go to school as a pupil vs go to the school to visit the building; go to bed to sleep vs go to the bed to fetch the furniture.">
+    <p style="font-size:.86rem;color:var(--muted);margin-top:8px">Rules §8–§11 all belong to this cluster. Read the poster, then work each rule in order.</p>
+  </div>
+
   <!-- =============================================== -->
   <!-- §8 · Parts of day + go to bed/school/work + meals -->
   <!-- =============================================== -->
@@ -560,6 +647,7 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
     <p><strong>×</strong> with meals in general: have <strong>×</strong> breakfast · cook <strong>×</strong> lunch · make <strong>×</strong> dinner</p>
     <p><strong>×</strong> with "go to" + institution used for its main purpose: go to <strong>×</strong> bed (to sleep) · go to <strong>×</strong> school (as a student) · go to <strong>×</strong> work · be in <strong>×</strong> hospital (as a patient)</p>
     <div class="eg">Mum went to <strong>the</strong> school to meet the teacher. — I sat on <strong>the</strong> bed and read.</div>
+    <img class="rule-infographic wide" src="assets/img/articles-parts-of-day.png?v=2" alt="§8 parts of the day + zero article with 'go to'. Five illustrated cards: IN THE MORNING (rising sun), AT NOON (analog clock at 12), IN THE AFTERNOON (a window with the afternoon light), IN THE EVENING (a valley at sunset), AT NIGHT (crescent moon and stars). Bottom banner reads: GO TO × BED · GO TO × SCHOOL · GO TO × WORK — no article.">
   </div>
 
   <div class="card">
@@ -608,6 +696,7 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
     <p>Games and sports — <strong>×</strong>: play <strong>×</strong> football / tennis / chess / badminton.</p>
     <p>Musical instruments — <strong>the</strong>: play <strong>the</strong> piano / guitar / violin.</p>
     <div class="eg">The boys are playing <strong>×</strong> football. — My sister plays <strong>the</strong> guitar.</div>
+    <img class="rule-infographic wide" src="assets/img/articles-play-piano.png?v=2" alt="§10 — split scene, purple night mood. Left half: a boy kicks a football under a lamppost — caption 'play × FOOTBALL — no article'. Right half: a girl in a violet dress plays a grand piano in a warmly lit study — caption 'play THE PIANO — with the'.">
   </div>
 
   <div class="card">
@@ -633,6 +722,7 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
       <li>Proper names: <strong>×</strong> Peter · <strong>×</strong> Mary · <strong>×</strong> Mr Brown</li>
       <li>Whole family: <strong>the</strong> Browns · <strong>the</strong> Smiths</li>
     </ul>
+    <img class="rule-infographic wide" src="assets/img/articles-zero-languages.png?v=2" alt="§11 zero article — languages · subjects · days · months · people. Six circular cards left-to-right: × ENGLISH (globe), × HISTORY (open book), × MONDAY (desk calendar), × JANUARY (snowflake), × PETER (single-person silhouette), and the exception THE BROWNS (family silhouette). Caption: 'Zero article for languages, subjects, days, months and names… but the Browns for the whole family.'">
   </div>
 
   <div class="card">
@@ -655,6 +745,7 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
     <p>No article before a university named after a place: <em>St Petersburg University · Oxford University · Harvard University · Cambridge University · Moscow University</em>. But: <em>the University of Oxford / of Cambridge</em> (with "of").</p>
     <div class="eg">He wants to enter <strong>×</strong> Moscow University. — I study at <strong>×</strong> St Petersburg University. — He graduated from <strong>the</strong> University of Cambridge.</div>
     <p class="ru">Priority rule for your Master's applications — say the name the exact way admissions expect.</p>
+    <img class="rule-infographic wide" src="assets/img/articles-universities.png" alt="§12 — APPLICATION RULE · SAY IT THE WAY ADMISSIONS EXPECT. Four gold-framed university crests in a row: OXFORD UNIVERSITY, HARVARD UNIVERSITY, MOSCOW UNIVERSITY, ST PETERSBURG UNIVERSITY — each labelled '× no article'. Bottom golden strip: 'But: the University of Oxford'.">
   </div>
 
   <div class="card">
@@ -679,6 +770,7 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
       <li>Ships: <strong>the</strong> Titanic · <strong>the</strong> Queen Mary</li>
     </ul>
     <div class="eg">They came to <strong>×</strong> New York and stayed at <strong>the</strong> Plaza Hotel.</div>
+    <img class="rule-infographic wide" src="assets/img/articles-proper-names-the.png" alt="§13 — PROPER NAMES THAT TAKE 'THE'. Four illustrated cards: a hotel key labelled 'the Ritz / the Hilton / the Plaza', an ionic column labelled 'the British Museum / the Tate', a folded newspaper labelled 'the Times / the Guardian', and an ocean liner labelled 'the Titanic / the Queen Mary'.">
   </div>
 
   <div class="card">
@@ -726,6 +818,7 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
       <li>fixed exceptions: <strong>the</strong> USA · <strong>the</strong> UK · <strong>the</strong> Netherlands · <strong>the</strong> Ukraine · <strong>the</strong> Crimea · <strong>the</strong> Hague</li>
     </ul>
     <p><strong>×</strong>: cities · most countries · continents · single mountains (Everest, Elbrus) · single lakes with the word Lake (Lake Baikal)</p>
+    <img class="rule-infographic" src="assets/img/articles-geographical.png" alt="§15 — GEOGRAPHICAL NAMES · THE or ZERO. Two columns on a vintage world-map background. Left USE THE: oceans and seas (the Pacific Ocean, the Black Sea), rivers (the Nile, the Volga, the Thames), mountain ranges (the Alps, the Urals), island groups (the Philippines, the British Isles), countries with states / kingdom / republic of (the USA, the UK, the Netherlands, the Russian Federation). Right USE ZERO: cities (Paris, Moscow, Tokyo), most countries (France, Russia, Japan), continents (Europe, Africa, Asia), single mountains (Everest, Kazbek, Elbrus), lakes with Lake (Lake Baikal, Lake Ontario). Examples strip: 'The Nile flows through Africa to the Mediterranean Sea. Everest is the highest mountain in the world.'">
   </div>
 
   <div class="card">
@@ -772,6 +865,7 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
     <p>Plural: <strong>other</strong> (without "an") = different ones / <strong>the other</strong> (with the) = the rest</p>
     <div class="eg">Would you like <strong>another</strong> cup of coffee? — This is one hand, and this is <strong>the other</strong> hand.</div>
     <div class="eg">Some students went to the cinema; <strong>other</strong> students went home. — Some students stayed; <strong>the other</strong> students all went home.</div>
+    <img class="rule-infographic wide" src="assets/img/articles-another-vs-other.png" alt="§17 — split panel. Left: a barista in the Violet Cafe hands a cup, speech bubble 'Would you like ANOTHER cup?' — footer 'another = one more, unspecified'. Right: two men in front of a globe, one with St Basil's behind him labelled MOSCOW, the other with the Brandenburg Gate labelled BERLIN, caption 'One lives in Moscow. THE OTHER lives in Berlin.' — footer 'the other = the specific second one'.">
   </div>
 
   <div class="card">
@@ -819,6 +913,7 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
       <li>Frequency: Once <strong>a</strong> week · Twice <strong>a</strong> day · Fifty km <strong>an</strong> hour</li>
       <li>Addressing people — <strong>×</strong>: What are you doing, <strong>×</strong> children?</li>
     </ul>
+    <img class="rule-infographic wide" src="assets/img/articles-patterns.png" alt="§19 — ARTICLE PATTERNS · five ornate speech bubbles across a dark violet background: 'What A beautiful day!', 'Quite A good idea.', 'Rather A difficult question.', 'Too small A room.', 'Once A week.' Bottom row of labels: what + a + adjective · quite / rather · adjective + a + noun · frequency.">
   </div>
 
   <div class="card">
@@ -850,6 +945,7 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
       <li>the rest of the… · for life · in a day/week</li>
     </ul>
     <p class="ru">Learn these as fixed phrases — they don't follow general rules.</p>
+    <img class="rule-infographic" src="assets/img/articles-special-patterns.png" alt="§20 SPECIAL ARTICLE PATTERNS · patterns worth memorising. Numbered checklist: (1) EXCLAMATIONS — What a beautiful day! · What an interesting book!; (2) SUCH — Such a nice person! · Such a long journey!; (3) QUITE / RATHER — Quite a good idea · Rather a difficult question; (4) TOO / SO — Too small a room · So big a mistake; (5) FREQUENCY AND SPEED — once a week · twice a day · fifty kilometres an hour. Formula strip: too / so / as / how + adjective + a + noun (too small a room, so difficult a task). Warning: Not — a too small room.">
   </div>
 
   <div class="card">
@@ -881,6 +977,122 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
     </div>
   </div>
 
+  <!-- ============= EXTRA DRILLS · ARTICLES ============= -->
+  <div class="section-hdr" style="margin-top:36px">
+    <div class="num">+</div>
+    <h2>Extra drills · articles · mixed practice</h2>
+    <span class="tag">reading · gap-fill · matching · big mix</span>
+  </div>
+
+  <!-- A.22 · Story gap-fill (bank + drops) -->
+  <div class="card">
+    <h3><span class="ex-num">A.22</span> Story gap-fill · Marco's Monday · 15 gaps</h3>
+    <p class="intro">Drag each article to the right gap. Read the whole story first.</p>
+    <div class="bank" data-ex="A.22">
+      <span class="bank-word" data-w="a">a</span>
+      <span class="bank-word" data-w="the">the</span>
+      <span class="bank-word" data-w="the">the</span>
+      <span class="bank-word" data-w="×">×</span>
+      <span class="bank-word" data-w="the">the</span>
+      <span class="bank-word" data-w="the">the</span>
+      <span class="bank-word" data-w="×">×</span>
+      <span class="bank-word" data-w="a">a</span>
+      <span class="bank-word" data-w="the">the</span>
+      <span class="bank-word" data-w="×">×</span>
+      <span class="bank-word" data-w="an">an</span>
+      <span class="bank-word" data-w="the">the</span>
+      <span class="bank-word" data-w="×">×</span>
+      <span class="bank-word" data-w="a">a</span>
+      <span class="bank-word" data-w="the">the</span>
+    </div>
+    <div class="drag-text" data-ex="A.22">
+      <div class="line-q"><span class="num">1.</span>Marco lives in <span class="drop-gap" data-a="a"></span> small flat in <span class="drop-gap" data-a="the"></span> centre of Milan.</div>
+      <div class="line-q"><span class="num">2.</span>Every morning he takes <span class="drop-gap" data-a="the"></span> underground to <span class="drop-gap" data-a="×"></span> work.</div>
+      <div class="line-q"><span class="num">3.</span>He usually reads <span class="drop-gap" data-a="the"></span> newspaper on <span class="drop-gap" data-a="the"></span> train.</div>
+      <div class="line-q"><span class="num">4.</span>At nine he has <span class="drop-gap" data-a="×"></span> breakfast at his desk — usually <span class="drop-gap" data-a="a"></span> croissant with coffee.</div>
+      <div class="line-q"><span class="num">5.</span>His boss called <span class="drop-gap" data-a="the"></span> meeting for eleven to discuss <span class="drop-gap" data-a="×"></span> Q3 targets.</div>
+      <div class="line-q"><span class="num">6.</span>After work, Marco goes to <span class="drop-gap" data-a="an"></span> Italian restaurant near <span class="drop-gap" data-a="the"></span> station.</div>
+      <div class="line-q"><span class="num">7.</span>On Sundays he plays <span class="drop-gap" data-a="×"></span> tennis with <span class="drop-gap" data-a="a"></span> friend from <span class="drop-gap" data-a="the"></span> office.</div>
+    </div>
+  </div>
+
+  <!-- A.23 · Matching rule → example -->
+  <div class="card">
+    <h3><span class="ex-num">A.23</span> Match · rule ↔ example</h3>
+    <p class="intro">Six rules from §1–§20. Click the rule, then click the matching sentence.</p>
+    <div class="match-wrap" data-ex="A.23">
+      <div class="match-col"><h4>Rule</h4><div id="match-A23-left"></div></div>
+      <div class="match-col"><h4>Example</h4><div id="match-A23-right"></div></div>
+    </div>
+    <script type="application/json" id="match-A23-data">[
+      {"en":"unique object","ru":"The sun is very hot today."},
+      {"en":"superlative","ru":"Everest is the highest mountain."},
+      {"en":"go to school (as a student)","ru":"My daughter goes to school by bus."},
+      {"en":"play musical instrument","ru":"She plays the piano beautifully."},
+      {"en":"play sport / game","ru":"They play football every Sunday."},
+      {"en":"university with 'of'","ru":"He studies at the University of Oxford."}
+    ]</script>
+  </div>
+
+  <!-- A.24 · Big Articles Drill — 30-item mixed by all §1-§20 -->
+  <div class="card" style="background:linear-gradient(135deg,#F5EDDA,#FFFBEF);border-left:4px solid var(--accent3)">
+    <h3><span class="ex-num">A.24</span> Big Articles Drill · 30 items · mixed §1–§20</h3>
+    <p class="intro">Final push for articles only. No prepositions here. Watch for determiners, uniqueness, uncountables, and set phrases.</p>
+    <div class="mc-list" data-ex="A.24">
+      <div class="mc-item" data-a="a"><div class="mc-q"><span class="num">1.</span>She's got <span class="gap">___</span> new car.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="The"><div class="mc-q"><span class="num">2.</span><span class="gap">___</span> car is red.</div><div class="mc-opts"><button class="mc-opt" data-v="A">A</button><button class="mc-opt" data-v="The">The</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="×"><div class="mc-q"><span class="num">3.</span>I don't drink <span class="gap">___</span> coffee in the evening.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="the"><div class="mc-q"><span class="num">4.</span>Could you close <span class="gap">___</span> door, please?</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="×"><div class="mc-q"><span class="num">5.</span>He speaks <span class="gap">___</span> German fluently.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="the"><div class="mc-q"><span class="num">6.</span>What's <span class="gap">___</span> capital of Portugal?</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="×"><div class="mc-q"><span class="num">7.</span>This is my <span class="gap">___</span> favourite song.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="an"><div class="mc-q"><span class="num">8.</span>He arrived <span class="gap">___</span> hour ago.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="an">an</button><button class="mc-opt" data-v="the">the</button></div></div>
+      <div class="mc-item" data-a="a"><div class="mc-q"><span class="num">9.</span>She's <span class="gap">___</span> university student.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="an">an</button><button class="mc-opt" data-v="the">the</button></div></div>
+      <div class="mc-item" data-a="the"><div class="mc-q"><span class="num">10.</span>We saw <span class="gap">___</span> best film of the year.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="×"><div class="mc-q"><span class="num">11.</span>He was born on <span class="gap">___</span> 20 March 1990.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="the"><div class="mc-q"><span class="num">12.</span>Have you seen <span class="gap">___</span> new James Bond?</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="×"><div class="mc-q"><span class="num">13.</span>Marco doesn't drink <span class="gap">___</span> milk.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="the"><div class="mc-q"><span class="num">14.</span>Look at <span class="gap">___</span> moon tonight — it's huge!</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="the"><div class="mc-q"><span class="num">15.</span><span class="gap">___</span> Alps are Europe's biggest mountain range.</div><div class="mc-opts"><button class="mc-opt" data-v="A">A</button><button class="mc-opt" data-v="The">The</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="×"><div class="mc-q"><span class="num">16.</span>We're going to <span class="gap">___</span> Italy next month.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="the"><div class="mc-q"><span class="num">17.</span>I saw him at <span class="gap">___</span> theatre yesterday.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="×"><div class="mc-q"><span class="num">18.</span>Would you like <span class="gap">___</span> tea?</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="the"><div class="mc-q"><span class="num">19.</span>Please pass <span class="gap">___</span> salt.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="×"><div class="mc-q"><span class="num">20.</span>Cats hate <span class="gap">___</span> water.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="an"><div class="mc-q"><span class="num">21.</span>He's <span class="gap">___</span> honest man — you can trust him.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="an">an</button><button class="mc-opt" data-v="the">the</button></div></div>
+      <div class="mc-item" data-a="a"><div class="mc-q"><span class="num">22.</span>He's <span class="gap">___</span> European by birth.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="an">an</button><button class="mc-opt" data-v="the">the</button></div></div>
+      <div class="mc-item" data-a="×"><div class="mc-q"><span class="num">23.</span>Which <span class="gap">___</span> team do you support?</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="a"><div class="mc-q"><span class="num">24.</span>Once <span class="gap">___</span> month I go to the theatre.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="×"><div class="mc-q"><span class="num">25.</span>He wants to become <span class="gap">___</span> Prime Minister one day.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="an"><div class="mc-q"><span class="num">26.</span>She earns fifty pounds <span class="gap">___</span> hour as a tutor.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="an">an</button><button class="mc-opt" data-v="the">the</button></div></div>
+      <div class="mc-item" data-a="the"><div class="mc-q"><span class="num">27.</span>I stayed at <span class="gap">___</span> Ritz in Paris.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="×"><div class="mc-q"><span class="num">28.</span>Have you got <span class="gap">___</span> time to help me?</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="the"><div class="mc-q"><span class="num">29.</span>What was <span class="gap">___</span> weather like on holiday?</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+      <div class="mc-item" data-a="×"><div class="mc-q"><span class="num">30.</span>She's got <span class="gap">___</span> long brown hair.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+    </div>
+  </div>
+
+  <!-- A.25 · Speaking · use articles in your answers -->
+  <div class="card">
+    <h3><span class="ex-num">A.25</span> Speaking · use articles in your answers · 10 prompts</h3>
+    <p class="intro">Answer in full sentences. Say each answer out loud. Watch for a / an / the / ×.</p>
+    <div class="prompts">
+      <div class="prompt"><button class="play" data-say="What did you have for breakfast this morning?">▶</button><span class="num">1.</span><span class="prompt-text">What did you have for breakfast this morning?</span></div>
+      <div class="prompt"><button class="play" data-say="How do you usually get to work?">▶</button><span class="num">2.</span><span class="prompt-text">How do you usually get to work?</span></div>
+      <div class="prompt"><button class="play" data-say="What's the name of the last book you read?">▶</button><span class="num">3.</span><span class="prompt-text">What's the name of the last book you read?</span></div>
+      <div class="prompt"><button class="play" data-say="Who is the most interesting person you know?">▶</button><span class="num">4.</span><span class="prompt-text">Who is the most interesting person you know?</span></div>
+      <div class="prompt"><button class="play" data-say="Which country would you like to visit and why?">▶</button><span class="num">5.</span><span class="prompt-text">Which country would you like to visit and why?</span></div>
+      <div class="prompt"><button class="play" data-say="What time do you usually leave home?">▶</button><span class="num">6.</span><span class="prompt-text">What time do you usually leave home?</span></div>
+      <div class="prompt"><button class="play" data-say="Do you prefer the sea or the mountains?">▶</button><span class="num">7.</span><span class="prompt-text">Do you prefer the sea or the mountains?</span></div>
+      <div class="prompt"><button class="play" data-say="What's the best restaurant in your city?">▶</button><span class="num">8.</span><span class="prompt-text">What's the best restaurant in your city?</span></div>
+      <div class="prompt"><button class="play" data-say="Do you play any musical instrument?">▶</button><span class="num">9.</span><span class="prompt-text">Do you play any musical instrument?</span></div>
+      <div class="prompt"><button class="play" data-say="What did you do at the weekend?">▶</button><span class="num">10.</span><span class="prompt-text">What did you do at the weekend?</span></div>
+    </div>
+    <div class="starters"><strong>Starter frames</strong>
+      I had a / an / × … · I take the … · The last book I read was … · The most interesting person is … · I'd like to visit × … / the …
+    </div>
+  </div>
+
 </section>
 
 <!-- =============================================== -->
@@ -897,7 +1109,7 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
   <!-- ============= P1 · TIME (at / on / in) ============= -->
   <div class="rule-card">
     <h3><span class="rule-num">P1</span> Time · at / on / in</h3>
-    <img class="rule-infographic" src="assets/img/prepositions-time.png" alt="Prepositions of time: AT — exact time (7 o'clock, midnight, lunchtime, the moment); ON — days and dates (Monday, 16 May, Friday morning, my birthday); IN — longer periods (July, 2026, winter, the morning). No preposition before last / next / this / every.">
+    <img class="rule-infographic wide" src="assets/img/prepositions-time.png?v=5" alt="P1 Prepositions of time · AT · ON · IN — horizontal banner. AT (analog clock) — EXACT POINTS IN TIME: at 7 o'clock, at noon, at midnight, at night, at the moment. ON (calendar) — DAYS AND DATES: on Monday, on 16 May, on Friday morning, on my birthday. IN (season leaves + snowflake) — LONGER PERIODS: in July, in 2026, in winter, in the evening. Warning strip: 'No preposition before last · next · this · every — next Friday, last summer, this morning, every Monday.'">
     <p>Compare:</p>
     <div class="eg">They arrived <strong>at</strong> 5 o'clock. — <strong>on</strong> Friday. — <strong>in</strong> June / <strong>in</strong> 2024.</div>
     <ul>
@@ -986,6 +1198,7 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
   <!-- ============= P2 · on time / in time / at the end / in the end ============= -->
   <div class="rule-card">
     <h3><span class="rule-num">P2</span> on time · in time &nbsp;&amp;&nbsp; at the end · in the end</h3>
+    <img class="rule-infographic" src="assets/img/prepositions-time-portrait.png" alt="Vertical time-preposition summary card. AT · exact time — at 7 o'clock, at midnight, at lunchtime, at the moment. ON · days and dates — on Monday, on 16 May, on Friday morning, on my birthday. IN · longer periods — in July, in 2026, in winter, in the morning. Warning: no preposition before last · next · this · every — next Friday, last summer, this morning, every Monday.">
     <p><strong>on time</strong> = punctual, on schedule. <em>The 11.45 train left on time.</em></p>
     <p><strong>in time (for something)</strong> = soon enough, before it starts. <em>Will you be home in time for dinner?</em></p>
     <p><strong>just in time</strong> = almost too late. <em>We got to the station just in time for our train.</em></p>
@@ -1037,7 +1250,7 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
   <!-- ============= P3 · PLACE ============= -->
   <div class="rule-card">
     <h3><span class="rule-num">P3</span> Place · in / at / on</h3>
-    <img class="rule-infographic" src="assets/img/prepositions-place.png" alt="Prepositions of place: IN — inside an area or space (in a room, in a city, in a car, in the picture); AT — a point or specific place (at the bus stop, at the door, at work, at the airport); ON — on a surface or line (on the table, on the wall, on the second floor, on the bus). Compare: in the hotel (building) vs at the hotel (location); in the car vs on the bus.">
+    <img class="rule-infographic wide" src="assets/img/prepositions-place.png?v=5" alt="P3 Prepositions of place · IN · AT · ON — horizontal banner. IN — inside an area or space (a lit purple room): in a room, in London, in a car, in the picture. AT — a point or specific place (a doorway with a bus stop): at the bus stop, at the door, at work, at the airport. ON — on a surface, line or public transport (a shelf and a purple bus): on the table, on the wall, on the second floor, on the bus. Contrast row: in the hotel = inside the building · at the hotel = the location or event · in the car · on the bus.">
     <p><strong>in</strong> — inside a space or volume: <em>in a room · in a building · in a box · in a garden · in a town · in the city centre · in a pool · in the sea · in a river · in the mountains</em>.</p>
     <p><strong>at</strong> — at a point or specific spot: <em>at the bus stop · at the door · at the window · at the traffic lights · at reception · at the entrance</em>.</p>
     <p><strong>on</strong> — on a surface or line: <em>on the wall · on the table · on the floor · on the ceiling · on a page · on an island · on the beach · on the coast · on the left / right</em>.</p>
@@ -1073,6 +1286,7 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
   <!-- ============= P4 · in hospital / at work ============= -->
   <div class="rule-card">
     <h3><span class="rule-num">P4</span> in hospital · at work · at a party</h3>
+    <img class="rule-infographic" src="assets/img/prepositions-place-portrait.png" alt="Vertical place-preposition summary card. IN · inside an area or space — in a room, in a city, in a car, in the picture. AT · a point or specific place — at the bus stop, at the door, at work, at the airport. ON · on a surface or line — on the table, on the wall, on the second floor, on the bus. Contrast row: in the hotel = inside the building · at the hotel = the location or event · in the car · on the bus.">
     <p><strong>in bed / in hospital / in prison</strong> — state: <em>James is still in bed. Anna's mother is in hospital.</em></p>
     <p><strong>at home / at work / at school / at university</strong>: <em>I'll be at work until 5.30. My sister is at university.</em></p>
     <p><strong>at + event</strong> (party, concert, wedding, meeting, conference): <em>Were there many people at the party?</em></p>
@@ -1100,17 +1314,29 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
     </div>
   </div>
 
-  <!-- ============= P5 · DIRECTION ============= -->
+  <!-- ============= P5 · DIRECTION (to) ============= -->
   <div class="rule-card">
-    <h3><span class="rule-num">P5</span> Direction · to / at / in / into · get / arrive</h3>
-    <img class="rule-infographic" src="assets/img/prepositions-direction.png" alt="Movement and direction: TO — movement towards a place (go to work, travel to London, drive to the airport); IN / AT — position (live in London, wait at the station, be at work); INTO — movement inside (go into the room, get into the car); ARRIVE — arrive in a city or country, arrive at a building or event, NEVER 'arrive to'; HOME — no preposition (go home, come home, get home). Transport: get into / out of a car; get on / off a bus or train.">
+    <h3><span class="rule-num">P5</span> Direction · to / at / in</h3>
+    <img class="rule-infographic" src="assets/img/prepositions-direction.png?v=5" alt="P5 MOVEMENT & DIRECTION · TO · INTO · AT · IN · HOME. Five numbered rows: (1) TO — go to work, travel to London, drive to the airport. (2) IN / AT — live in London, wait at the station, be at work. (3) INTO — go into the room, get into the car. (4) ARRIVE — arrive in a city or country, arrive at a building or event; never 'arrive to'. (5) HOME — no preposition.">
     <p><strong>to</strong> — movement: <em>go to China · come to my house · drive to the airport · a trip to Paris · Welcome to our country!</em></p>
     <p>Compare movement vs position: <em>They are going <strong>to</strong> France. — They live <strong>in</strong> France.</em></p>
     <p><strong>be / have been to</strong> — for visits: <em>I've been to Italy four times, but I've never been to Rome.</em></p>
+  </div>
+
+  <!-- ============= P5a · ARRIVE / GET ============= -->
+  <div class="rule-card">
+    <h3><span class="rule-num">P5a</span> Arrive in · Arrive at · Get to</h3>
     <p><strong>get to</strong> a place, but <strong>arrive in</strong> a town/country, <strong>arrive at</strong> a building/event. Never "arrive to".</p>
     <div class="eg">They got <strong>to</strong> the hotel at midnight. — They arrived <strong>in</strong> Madrid a week ago. — What time did you arrive <strong>at</strong> the airport?</div>
-    <p><strong>home</strong> — no preposition: <em>go home · come home · get home · arrive home · on the way home</em>. Never "to home".</p>
+    <img class="rule-infographic wide" src="assets/img/prepositions-arrive.png" alt="ARRIVE IN or ARRIVE AT? Horizontal night-London banner. Left card — ARRIVE IN cities and countries: arrive in London, arrive in France, arrive in Italy. Right card — ARRIVE AT buildings, stations and events: arrive at the station, arrive at the airport, arrive at the hotel. Warning strip: 'Never: arrive to.' Examples: 'We arrived in Moscow at six. We arrived at the airport early.'">
+  </div>
+
+  <!-- ============= P5b · INTO / OUT OF / HOME ============= -->
+  <div class="rule-card">
+    <h3><span class="rule-num">P5b</span> Into · Out of · Home (× no prep)</h3>
     <p><strong>into / out of</strong> — in/out of an enclosed space: <em>She got into the car and drove away. — She got out of the car.</em> With buses/trains/planes: <em>get on / get off</em>.</p>
+    <p><strong>home</strong> — no preposition: <em>go home · come home · get home · arrive home · on the way home</em>. Never "to home".</p>
+    <img class="rule-infographic wide" src="assets/img/prepositions-to-into.png" alt="TO or INTO? Horizontal split banner. Left half — TO = movement towards a place. A man walks toward an office building at night. Examples: go to work, travel to London, drive to the airport. Bottom line: 'She went TO the office.' Right half — INTO = movement inside. A man steps into a lit doorway. Examples: go into the room, walk into the building, get into the car. Bottom line: 'She went INTO the office.' Formula strip: 'TO = destination · INTO = from outside to inside.'">
   </div>
 
   <!-- P.7 direction 15 items -->
@@ -1718,7 +1944,7 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
 
   <!-- ================= BLACK LIST — full-bleed poster ================= -->
   <div class="card blacklist-card" style="padding:0;overflow:hidden;border:none;background:transparent;box-shadow:none;margin:18px 0">
-    <img src="assets/img/workbook-blacklist.png" alt="Blacklist — let's stop writing it this way. Common mistakes to fix: on Milan, at the work, leave at home, go to bus station, take underground, a hour, a breakfast, a foreign clients, for the one year, prepare presentation, has wrote, has leaved, the boss say, we find last month, they pot the invoice, my day start, give it (for supplies)." style="display:block;width:100%;max-width:none;height:auto;margin:0;border-radius:14px;box-shadow:0 8px 26px rgba(36,24,50,.35)">
+    <img src="assets/img/workbook-blacklist.png?v=4" alt="BLACKLIST — let's stop writing it this way. Pirate flag with skull and crossed sabres on the left, wooden ship's wheel at the bottom, compass on the right. Header note: 'If you see one of these in your own text — stop and rewrite. Common mistakes we send overboard.' Three columns of red-crossed items: on Milan, at the work, leave at home, go to bus station, take underground, a hour · a breakfast, a foreign clients, for the one year, prepare presentation, has wrote, has leaved · the boss say, we find last month, they pot the invoice, my day start, give it (for supplies). Footer: 'SPOTTED — FIXED — DONE RIGHT.'" style="display:block;width:100%;max-width:none;height:auto;margin:0;border-radius:14px;box-shadow:0 8px 26px rgba(36,24,50,.35)">
   </div>
 
   <!-- ================= ERROR CARDS ================= -->
@@ -1963,6 +2189,114 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
     </div>
   </div>
 
+  <!-- ================= PRACTICE ON YOUR PAST TOPICS ================= -->
+  <div class="section-hdr" style="margin-top:36px">
+    <div class="num">▶</div>
+    <h2>Practice on your past lessons</h2>
+    <span class="tag">Trainer-01/02 · Present -ing · Past irregular · said/told</span>
+  </div>
+
+  <div class="rule-card" style="border-left-color:var(--accent2)">
+    <p style="margin:0">Quick recap drills from your recent Trainer sessions. Nothing new — pure automation of the forms you already met. Run through each block once. If you slip on a pattern, open the linked lesson again.</p>
+  </div>
+
+  <!-- WP.1 · Present Simple 3rd person -s (extended from W.11) -->
+  <div class="card">
+    <h3><span class="ex-num">WP.1</span> Present Simple · third-person -s · 12 items</h3>
+    <p class="intro">Trainer-01 (22 Jun) recap. Choose the correct form.</p>
+    <div class="mc-list" data-ex="WP.1">
+      <div class="mc-item" data-a="works"><div class="mc-q"><span class="num">1.</span>My father <span class="gap">___</span> in a bank.</div><div class="mc-opts"><button class="mc-opt" data-v="work">work</button><button class="mc-opt" data-v="works">works</button><button class="mc-opt" data-v="working">working</button></div></div>
+      <div class="mc-item" data-a="doesn't like"><div class="mc-q"><span class="num">2.</span>She <span class="gap">___</span> coffee in the evening.</div><div class="mc-opts"><button class="mc-opt" data-v="don't like">don't like</button><button class="mc-opt" data-v="doesn't like">doesn't like</button><button class="mc-opt" data-v="isn't like">isn't like</button></div></div>
+      <div class="mc-item" data-a="Does"><div class="mc-q"><span class="num">3.</span><span class="gap">___</span> Marco speak French?</div><div class="mc-opts"><button class="mc-opt" data-v="Do">Do</button><button class="mc-opt" data-v="Does">Does</button><button class="mc-opt" data-v="Is">Is</button></div></div>
+      <div class="mc-item" data-a="finishes"><div class="mc-q"><span class="num">4.</span>The meeting <span class="gap">___</span> at six.</div><div class="mc-opts"><button class="mc-opt" data-v="finish">finish</button><button class="mc-opt" data-v="finishes">finishes</button><button class="mc-opt" data-v="finishing">finishing</button></div></div>
+      <div class="mc-item" data-a="does"><div class="mc-q"><span class="num">5.</span>What <span class="gap">___</span> your sister do?</div><div class="mc-opts"><button class="mc-opt" data-v="do">do</button><button class="mc-opt" data-v="does">does</button><button class="mc-opt" data-v="is">is</button></div></div>
+      <div class="mc-item" data-a="watches"><div class="mc-q"><span class="num">6.</span>He <span class="gap">___</span> the news every morning.</div><div class="mc-opts"><button class="mc-opt" data-v="watch">watch</button><button class="mc-opt" data-v="watches">watches</button><button class="mc-opt" data-v="watching">watching</button></div></div>
+      <div class="mc-item" data-a="don't work"><div class="mc-q"><span class="num">7.</span>Anna and I <span class="gap">___</span> on Sundays.</div><div class="mc-opts"><button class="mc-opt" data-v="don't work">don't work</button><button class="mc-opt" data-v="doesn't work">doesn't work</button><button class="mc-opt" data-v="isn't work">isn't work</button></div></div>
+      <div class="mc-item" data-a="has"><div class="mc-q"><span class="num">8.</span>My office <span class="gap">___</span> a great view of the river.</div><div class="mc-opts"><button class="mc-opt" data-v="have">have</button><button class="mc-opt" data-v="has">has</button><button class="mc-opt" data-v="having">having</button></div></div>
+      <div class="mc-item" data-a="Do"><div class="mc-q"><span class="num">9.</span><span class="gap">___</span> your parents live in Italy?</div><div class="mc-opts"><button class="mc-opt" data-v="Do">Do</button><button class="mc-opt" data-v="Does">Does</button><button class="mc-opt" data-v="Are">Are</button></div></div>
+      <div class="mc-item" data-a="goes"><div class="mc-q"><span class="num">10.</span>The train <span class="gap">___</span> to Milan every hour.</div><div class="mc-opts"><button class="mc-opt" data-v="go">go</button><button class="mc-opt" data-v="goes">goes</button><button class="mc-opt" data-v="going">going</button></div></div>
+      <div class="mc-item" data-a="doesn't"><div class="mc-q"><span class="num">11.</span>Marco <span class="gap">___</span> understand the question.</div><div class="mc-opts"><button class="mc-opt" data-v="don't">don't</button><button class="mc-opt" data-v="doesn't">doesn't</button><button class="mc-opt" data-v="isn't">isn't</button></div></div>
+      <div class="mc-item" data-a="starts"><div class="mc-q"><span class="num">12.</span>My working day <span class="gap">___</span> at nine.</div><div class="mc-opts"><button class="mc-opt" data-v="start">start</button><button class="mc-opt" data-v="starts">starts</button><button class="mc-opt" data-v="starting">starting</button></div></div>
+    </div>
+  </div>
+
+  <!-- WP.2 · Present Simple vs Present Continuous -->
+  <div class="card">
+    <h3><span class="ex-num">WP.2</span> Simple vs Continuous · -ing markers · 10 items</h3>
+    <p class="intro">Trainer-01 (22 Jun) — pick the form that matches the marker (every day / now / at the moment / usually / today).</p>
+    <div class="mc-list" data-ex="WP.2">
+      <div class="mc-item" data-a="works"><div class="mc-q"><span class="num">1.</span>Marco usually <span class="gap">___</span> from the office.</div><div class="mc-opts"><button class="mc-opt" data-v="works">works</button><button class="mc-opt" data-v="is working">is working</button></div></div>
+      <div class="mc-item" data-a="is working"><div class="mc-q"><span class="num">2.</span>Today he <span class="gap">___</span> from home.</div><div class="mc-opts"><button class="mc-opt" data-v="works">works</button><button class="mc-opt" data-v="is working">is working</button></div></div>
+      <div class="mc-item" data-a="am writing"><div class="mc-q"><span class="num">3.</span>I <span class="gap">___</span> an email right now.</div><div class="mc-opts"><button class="mc-opt" data-v="write">write</button><button class="mc-opt" data-v="am writing">am writing</button></div></div>
+      <div class="mc-item" data-a="write"><div class="mc-q"><span class="num">4.</span>I <span class="gap">___</span> ten emails every morning.</div><div class="mc-opts"><button class="mc-opt" data-v="write">write</button><button class="mc-opt" data-v="am writing">am writing</button></div></div>
+      <div class="mc-item" data-a="is raining"><div class="mc-q"><span class="num">5.</span>Look — it <span class="gap">___</span> outside.</div><div class="mc-opts"><button class="mc-opt" data-v="rains">rains</button><button class="mc-opt" data-v="is raining">is raining</button></div></div>
+      <div class="mc-item" data-a="rains"><div class="mc-q"><span class="num">6.</span>It often <span class="gap">___</span> in Milan in November.</div><div class="mc-opts"><button class="mc-opt" data-v="rains">rains</button><button class="mc-opt" data-v="is raining">is raining</button></div></div>
+      <div class="mc-item" data-a="is having"><div class="mc-q"><span class="num">7.</span>Anna <span class="gap">___</span> lunch at the moment. Call her later.</div><div class="mc-opts"><button class="mc-opt" data-v="has">has</button><button class="mc-opt" data-v="is having">is having</button></div></div>
+      <div class="mc-item" data-a="has"><div class="mc-q"><span class="num">8.</span>Anna always <span class="gap">___</span> lunch at 13:00.</div><div class="mc-opts"><button class="mc-opt" data-v="has">has</button><button class="mc-opt" data-v="is having">is having</button></div></div>
+      <div class="mc-item" data-a="starts"><div class="mc-q"><span class="num">9.</span>The meeting <span class="gap">___</span> at 10 every Monday.</div><div class="mc-opts"><button class="mc-opt" data-v="starts">starts</button><button class="mc-opt" data-v="is starting">is starting</button></div></div>
+      <div class="mc-item" data-a="is starting"><div class="mc-q"><span class="num">10.</span>Quiet, please — the meeting <span class="gap">___</span> now.</div><div class="mc-opts"><button class="mc-opt" data-v="starts">starts</button><button class="mc-opt" data-v="is starting">is starting</button></div></div>
+    </div>
+  </div>
+
+  <!-- WP.3 · said vs told -->
+  <div class="card">
+    <h3><span class="ex-num">WP.3</span> said or told · 10 items</h3>
+    <p class="intro">Trainer-01 (22 Jun) — <em>said</em> = no person object; <em>told</em> = someone the info.</p>
+    <div class="mc-list" data-ex="WP.3">
+      <div class="mc-item" data-a="told"><div class="mc-q"><span class="num">1.</span>Marco <span class="gap">___</span> me the answer.</div><div class="mc-opts"><button class="mc-opt" data-v="said">said</button><button class="mc-opt" data-v="told">told</button></div></div>
+      <div class="mc-item" data-a="said"><div class="mc-q"><span class="num">2.</span>Marco <span class="gap">___</span> the answer was wrong.</div><div class="mc-opts"><button class="mc-opt" data-v="said">said</button><button class="mc-opt" data-v="told">told</button></div></div>
+      <div class="mc-item" data-a="told"><div class="mc-q"><span class="num">3.</span>She <span class="gap">___</span> me a funny story.</div><div class="mc-opts"><button class="mc-opt" data-v="said">said</button><button class="mc-opt" data-v="told">told</button></div></div>
+      <div class="mc-item" data-a="said"><div class="mc-q"><span class="num">4.</span>He <span class="gap">___</span> nothing during the meeting.</div><div class="mc-opts"><button class="mc-opt" data-v="said">said</button><button class="mc-opt" data-v="told">told</button></div></div>
+      <div class="mc-item" data-a="told"><div class="mc-q"><span class="num">5.</span>Please don't <span class="gap">___</span> anyone about this.</div><div class="mc-opts"><button class="mc-opt" data-v="say">say</button><button class="mc-opt" data-v="tell">tell</button></div></div>
+      <div class="mc-item" data-a="said"><div class="mc-q"><span class="num">6.</span>The boss <span class="gap">___</span> that the deadline was moved.</div><div class="mc-opts"><button class="mc-opt" data-v="said">said</button><button class="mc-opt" data-v="told">told</button></div></div>
+      <div class="mc-item" data-a="told"><div class="mc-q"><span class="num">7.</span>Nobody <span class="gap">___</span> me the meeting was cancelled.</div><div class="mc-opts"><button class="mc-opt" data-v="said">said</button><button class="mc-opt" data-v="told">told</button></div></div>
+      <div class="mc-item" data-a="said"><div class="mc-q"><span class="num">8.</span>What did he <span class="gap">___</span> about the report?</div><div class="mc-opts"><button class="mc-opt" data-v="say">say</button><button class="mc-opt" data-v="tell">tell</button></div></div>
+      <div class="mc-item" data-a="told"><div class="mc-q"><span class="num">9.</span>Marco <span class="gap">___</span> the client the price yesterday.</div><div class="mc-opts"><button class="mc-opt" data-v="said">said</button><button class="mc-opt" data-v="told">told</button></div></div>
+      <div class="mc-item" data-a="said"><div class="mc-q"><span class="num">10.</span>"I'm tired," she <span class="gap">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="said">said</button><button class="mc-opt" data-v="told">told</button></div></div>
+    </div>
+  </div>
+
+  <!-- WP.4 · Past irregular V2 vs V3 (extended from W.14) -->
+  <div class="card">
+    <h3><span class="ex-num">WP.4</span> Past irregular · V2 vs V3 · 15 items</h3>
+    <p class="intro">Trainer-02 (29 Jun) recap. Look at the marker word and pick the right form.</p>
+    <div class="mc-list" data-ex="WP.4">
+      <div class="mc-item" data-a="wrote"><div class="mc-q"><span class="num">1.</span>Yesterday I <span class="gap">___</span> the report.</div><div class="mc-opts"><button class="mc-opt" data-v="write">write</button><button class="mc-opt" data-v="wrote">wrote</button><button class="mc-opt" data-v="written">written</button></div></div>
+      <div class="mc-item" data-a="written"><div class="mc-q"><span class="num">2.</span>Marco has <span class="gap">___</span> the presentation.</div><div class="mc-opts"><button class="mc-opt" data-v="write">write</button><button class="mc-opt" data-v="wrote">wrote</button><button class="mc-opt" data-v="written">written</button></div></div>
+      <div class="mc-item" data-a="left"><div class="mc-q"><span class="num">3.</span>She <span class="gap">___</span> the office at 6 yesterday.</div><div class="mc-opts"><button class="mc-opt" data-v="leave">leave</button><button class="mc-opt" data-v="leaved">leaved</button><button class="mc-opt" data-v="left">left</button></div></div>
+      <div class="mc-item" data-a="left"><div class="mc-q"><span class="num">4.</span>He has already <span class="gap">___</span> the building.</div><div class="mc-opts"><button class="mc-opt" data-v="leave">leave</button><button class="mc-opt" data-v="leaved">leaved</button><button class="mc-opt" data-v="left">left</button></div></div>
+      <div class="mc-item" data-a="paid"><div class="mc-q"><span class="num">5.</span>They <span class="gap">___</span> the invoice last week.</div><div class="mc-opts"><button class="mc-opt" data-v="pay">pay</button><button class="mc-opt" data-v="payed">payed</button><button class="mc-opt" data-v="paid">paid</button></div></div>
+      <div class="mc-item" data-a="said"><div class="mc-q"><span class="num">6.</span>The boss <span class="gap">___</span> the meeting was postponed.</div><div class="mc-opts"><button class="mc-opt" data-v="say">say</button><button class="mc-opt" data-v="said">said</button><button class="mc-opt" data-v="says">says</button></div></div>
+      <div class="mc-item" data-a="found"><div class="mc-q"><span class="num">7.</span>We <span class="gap">___</span> a new supplier last month.</div><div class="mc-opts"><button class="mc-opt" data-v="find">find</button><button class="mc-opt" data-v="found">found</button><button class="mc-opt" data-v="founded">founded</button></div></div>
+      <div class="mc-item" data-a="taught"><div class="mc-q"><span class="num">8.</span>My uncle <span class="gap">___</span> me how to drive.</div><div class="mc-opts"><button class="mc-opt" data-v="teach">teach</button><button class="mc-opt" data-v="teached">teached</button><button class="mc-opt" data-v="taught">taught</button></div></div>
+      <div class="mc-item" data-a="got"><div class="mc-q"><span class="num">9.</span>I <span class="gap">___</span> your message an hour ago.</div><div class="mc-opts"><button class="mc-opt" data-v="get">get</button><button class="mc-opt" data-v="got">got</button><button class="mc-opt" data-v="gotten">gotten</button></div></div>
+      <div class="mc-item" data-a="taken"><div class="mc-q"><span class="num">10.</span>The meeting has been <span class="gap">___</span> off the schedule.</div><div class="mc-opts"><button class="mc-opt" data-v="take">take</button><button class="mc-opt" data-v="took">took</button><button class="mc-opt" data-v="taken">taken</button></div></div>
+      <div class="mc-item" data-a="spoken"><div class="mc-q"><span class="num">11.</span>I have never <span class="gap">___</span> to her.</div><div class="mc-opts"><button class="mc-opt" data-v="speak">speak</button><button class="mc-opt" data-v="spoke">spoke</button><button class="mc-opt" data-v="spoken">spoken</button></div></div>
+      <div class="mc-item" data-a="came"><div class="mc-q"><span class="num">12.</span>Marco <span class="gap">___</span> to the office at nine.</div><div class="mc-opts"><button class="mc-opt" data-v="come">come</button><button class="mc-opt" data-v="came">came</button><button class="mc-opt" data-v="comed">comed</button></div></div>
+      <div class="mc-item" data-a="made"><div class="mc-q"><span class="num">13.</span>She <span class="gap">___</span> coffee for everyone yesterday.</div><div class="mc-opts"><button class="mc-opt" data-v="make">make</button><button class="mc-opt" data-v="made">made</button><button class="mc-opt" data-v="maked">maked</button></div></div>
+      <div class="mc-item" data-a="put"><div class="mc-q"><span class="num">14.</span>They <span class="gap">___</span> the invoice on my desk this morning.</div><div class="mc-opts"><button class="mc-opt" data-v="put">put</button><button class="mc-opt" data-v="putted">putted</button><button class="mc-opt" data-v="pot">pot</button></div></div>
+      <div class="mc-item" data-a="done"><div class="mc-q"><span class="num">15.</span>Have you <span class="gap">___</span> the work already?</div><div class="mc-opts"><button class="mc-opt" data-v="do">do</button><button class="mc-opt" data-v="did">did</button><button class="mc-opt" data-v="done">done</button></div></div>
+    </div>
+  </div>
+
+  <!-- WP.5 · Practical English lexis reminder (Day 1 + Day 2) -->
+  <div class="card">
+    <h3><span class="ex-num">WP.5</span> Practical English · lexis check · 10 items</h3>
+    <p class="intro">Practical English Day 1 &amp; Day 2 (02 &amp; 07 Jul). Pick the natural version.</p>
+    <div class="mc-list" data-ex="WP.5">
+      <div class="mc-item" data-a="Could you"><div class="mc-q"><span class="num">1.</span><span class="gap">___</span> repeat that, please?</div><div class="mc-opts"><button class="mc-opt" data-v="Can you">Can you</button><button class="mc-opt" data-v="Could you">Could you</button><button class="mc-opt" data-v="You must">You must</button></div></div>
+      <div class="mc-item" data-a="I'd like"><div class="mc-q"><span class="num">2.</span><span class="gap">___</span> a coffee, please.</div><div class="mc-opts"><button class="mc-opt" data-v="I want">I want</button><button class="mc-opt" data-v="I'd like">I'd like</button><button class="mc-opt" data-v="I like">I like</button></div></div>
+      <div class="mc-item" data-a="How much"><div class="mc-q"><span class="num">3.</span><span class="gap">___</span> is this shirt?</div><div class="mc-opts"><button class="mc-opt" data-v="How much">How much</button><button class="mc-opt" data-v="How many">How many</button><button class="mc-opt" data-v="What price">What price</button></div></div>
+      <div class="mc-item" data-a="on the second floor"><div class="mc-q"><span class="num">4.</span>The department is <span class="gap">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="on the second floor">on the second floor</button><button class="mc-opt" data-v="in the second floor">in the second floor</button><button class="mc-opt" data-v="at the second floor">at the second floor</button></div></div>
+      <div class="mc-item" data-a="a table for two"><div class="mc-q"><span class="num">5.</span>Good evening. I'd like <span class="gap">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="a table for two">a table for two</button><button class="mc-opt" data-v="table for two">table for two</button><button class="mc-opt" data-v="the table for two">the table for two</button></div></div>
+      <div class="mc-item" data-a="Sorry, I didn't catch"><div class="mc-q"><span class="num">6.</span><span class="gap">___</span> your name.</div><div class="mc-opts"><button class="mc-opt" data-v="Sorry, I don't catch">Sorry, I don't catch</button><button class="mc-opt" data-v="Sorry, I didn't catch">Sorry, I didn't catch</button><button class="mc-opt" data-v="Sorry, I didn't caught">Sorry, I didn't caught</button></div></div>
+      <div class="mc-item" data-a="Would you mind"><div class="mc-q"><span class="num">7.</span><span class="gap">___</span> opening the window?</div><div class="mc-opts"><button class="mc-opt" data-v="Would you mind">Would you mind</button><button class="mc-opt" data-v="Would you like">Would you like</button><button class="mc-opt" data-v="Do you mind if">Do you mind if</button></div></div>
+      <div class="mc-item" data-a="I'll take it"><div class="mc-q"><span class="num">8.</span>OK, <span class="gap">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="I take it">I take it</button><button class="mc-opt" data-v="I'll take it">I'll take it</button><button class="mc-opt" data-v="I'll take him">I'll take him</button></div></div>
+      <div class="mc-item" data-a="How can I help you"><div class="mc-q"><span class="num">9.</span>Reception: "<span class="gap">___</span>?"</div><div class="mc-opts"><button class="mc-opt" data-v="How can I help you">How can I help you</button><button class="mc-opt" data-v="What you want">What you want</button><button class="mc-opt" data-v="How I can help">How I can help</button></div></div>
+      <div class="mc-item" data-a="Not at all"><div class="mc-q"><span class="num">10.</span>"Thanks a lot." — "<span class="gap">___</span>."</div><div class="mc-opts"><button class="mc-opt" data-v="Not at all">Not at all</button><button class="mc-opt" data-v="Nothing">Nothing</button><button class="mc-opt" data-v="Please">Please</button></div></div>
+    </div>
+  </div>
+
   <!-- W.MIX · 25-item comprehensive mix by all rules -->
   <div class="card" style="background:linear-gradient(135deg,#F5EDDA,#FFFBEF);border-left:4px solid var(--accent);margin-top:28px">
     <h3><span class="ex-num">W.MIX</span> Big mix · 25 items across all rules</h3>
@@ -2105,6 +2439,56 @@ document.querySelectorAll('.mc-list').forEach(list => {
   });
 });
 
+/* ============ MATCH RENDERER ============ */
+(function(){
+  function shuffle(arr){ return arr.slice().sort(() => Math.random() - 0.5); }
+  document.querySelectorAll('script[type="application/json"][id^="match-"][id$="-data"]').forEach(dataEl => {
+    const key = dataEl.id.replace('match-','').replace('-data','');
+    const leftHost = document.getElementById('match-' + key + '-left');
+    const rightHost = document.getElementById('match-' + key + '-right');
+    if (!leftHost || !rightHost) return;
+    let pairs;
+    try { pairs = JSON.parse(dataEl.textContent); } catch(e){ return; }
+    const lefts = shuffle(pairs);
+    const rights = shuffle(pairs);
+    lefts.forEach(p => {
+      const el = document.createElement('div');
+      el.className = 'match-card';
+      el.dataset.k = p.en;
+      el.textContent = p.en;
+      leftHost.appendChild(el);
+    });
+    rights.forEach(p => {
+      const el = document.createElement('div');
+      el.className = 'match-card';
+      el.dataset.k = p.en;
+      el.textContent = p.ru;
+      rightHost.appendChild(el);
+    });
+    let sel = null;
+    function pick(el){
+      if (sel && sel === el){ sel.classList.remove('sel'); sel = null; return; }
+      if (sel){
+        if (sel.dataset.k === el.dataset.k){
+          sel.classList.remove('sel');
+          sel.classList.add('done');
+          el.classList.add('done');
+          sel = null;
+        } else {
+          const a = sel, b = el;
+          a.classList.add('bad'); b.classList.add('bad');
+          setTimeout(() => { a.classList.remove('bad','sel'); b.classList.remove('bad'); }, 700);
+          sel = null;
+        }
+      } else {
+        sel = el; el.classList.add('sel');
+      }
+    }
+    leftHost.addEventListener('click', e => { const c = e.target.closest('.match-card'); if (c && !c.classList.contains('done')) pick(c); });
+    rightHost.addEventListener('click', e => { const c = e.target.closest('.match-card'); if (c && !c.classList.contains('done')) pick(c); });
+  });
+})();
+
 /* ============ RANDOMIZATION ============ */
 (function(){
   function shuffleKids(parent, childSelector){
@@ -2114,6 +2498,24 @@ document.querySelectorAll('.mc-list').forEach(list => {
   }
   document.querySelectorAll('.mc-list .mc-opts').forEach(opts => shuffleKids(opts));
   document.querySelectorAll('.bank[data-ex]').forEach(bank => shuffleKids(bank, '.bank-word'));
+})();
+
+/* ============ LIGHTBOX for portrait posters ============ */
+(function(){
+  const overlay = document.createElement('div');
+  overlay.className = 'lightbox-overlay';
+  overlay.innerHTML = '<div class="lightbox-hint">click / esc — close</div><img id="lb-img" alt="">';
+  document.body.appendChild(overlay);
+  const target = overlay.querySelector('#lb-img');
+  document.querySelectorAll('.rule-infographic:not(.wide)').forEach(img => {
+    img.addEventListener('click', () => {
+      target.src = img.currentSrc || img.src;
+      target.alt = img.alt || '';
+      overlay.classList.add('open');
+    });
+  });
+  overlay.addEventListener('click', () => overlay.classList.remove('open'));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') overlay.classList.remove('open'); });
 })();
 </script>
 
