@@ -1,13 +1,12 @@
-/* lab-send-pill.js v1 · 2026-07-10
-   Большой видимый блок «📤 Отправить учителю» в конце каждого Lab-урока.
-   Собирает labPersist.snap() → INSERT в lab_submissions (section_id='full-lesson-submit')
-   + upsert lab_state + broadcast firehose. Никакого hover, никакого поиска.
-   Ученик открыл урок, решил, докрутил вниз, нажал → учитель видит в кабинете.
+/* lab-send-pill.js v2 · 2026-07-10
+   Блок «📤 Отправить учителю» теперь живёт ТОЛЬКО внутри .homework/index.html.
+   В основных Lab-уроках блок не показывается — ученик решает урок, набирает
+   задания в свою «мою домашку» через lab-homework, приходит на страницу
+   домашки → там уже в конце его ждёт финальная кнопка отправки учителю.
+   На страницах уроков нет ничего — визуально чище, ничего не путается.
 
-   Кооперирует с существующим homework flow (не заменяет lab-homework):
-   — Ссылка «Открыть мою домашку» ведёт на .homework/?lesson=<path> как обычно.
-   — Основная кнопка сразу отправляет snapshot урока — для случая когда ученик
-     не разбирался с «+ в домашку». Всё что решил уже уходит.
+   Собирает labPersist.snap() → INSERT в lab_submissions (section_id='full-lesson-submit')
+   + upsert lab_state + broadcast firehose. Ничего другого.
 */
 (function(){
   if (window.__labSendPillLoaded) return;
@@ -65,11 +64,12 @@
   }
 
   function skipPage(){
-    /* Skip on homework page and observe mode */
+    /* v2: SHOW only inside .homework/ pages. Everywhere else — hide. */
+    if (!/\/\.homework\//.test(location.pathname)) return true;
+    /* Teacher/observe modes still skip even on homework page */
     if (/[?&]observe=/.test(location.search)) return true;
-    if (/\/\.homework\//.test(location.pathname)) return true;
     if (/[?&]teacher=on/.test(location.search)) return true;
-    /* Skip if lesson already has a manual send block */
+    /* Skip if page already has a manual send block */
     if (document.querySelector('.lp-final-send, .lab-send-block, [data-lp-final-send]')) return true;
     return false;
   }
@@ -192,31 +192,12 @@
     block.setAttribute('data-lp-final-send', '1');
     block.setAttribute('aria-label', 'Отправить работу учителю');
     block.innerHTML =
-      '<div class="lp-final-title">Готово! Отправить работу учителю?</div>' +
-      '<div class="lp-final-sub">Учитель откроет твой урок у себя в кабинете и увидит всё что ты решил(а). Ничего фотографировать не нужно.</div>' +
+      '<div class="lp-final-title">Готово! Отправить домашку учителю?</div>' +
+      '<div class="lp-final-sub">Учитель увидит всё что ты сделал(а) прямо в кабинете. Ничего фотографировать не нужно.</div>' +
       '<div class="lp-final-actions">' +
         '<button type="button" class="lp-final-btn">📤 Отправить учителю</button>' +
-        '<a href="../.homework/?lesson=' + encodeURIComponent(location.pathname) + '" class="lp-final-hw-link">📚 Открыть мою домашку</a>' +
       '</div>' +
       '<div class="lp-final-status info" style="display:none">…</div>';
-
-    /* Homework link — правильный относительный путь на .homework/index.html */
-    var hwLink = block.querySelector('.lp-final-hw-link');
-    var depth = (location.pathname.match(/\//g) || []).length - 2; /* /lingua-boost-lab/... */
-    var relPrefix = '';
-    /* /lingua-boost-lab/a1/a1-01-x.html → depth 3 → ../ */
-    /* /lingua-boost-lab/b1/anyas-postcards/index.html → depth 4 → ../../ */
-    /* Строим относительный путь от текущей страницы до /lingua-boost-lab/.homework/ */
-    var here = location.pathname;
-    var labIdx = here.indexOf('/lingua-boost-lab/');
-    if (labIdx >= 0) {
-      var afterLab = here.substring(labIdx + '/lingua-boost-lab/'.length);
-      var parts = afterLab.split('/').filter(Boolean);
-      /* последняя часть — html, её не считаем при подъёме */
-      var upLevels = parts.length - 1;
-      relPrefix = new Array(upLevels + 1).join('../');
-    }
-    hwLink.href = relPrefix + '.homework/?lesson=' + encodeURIComponent(location.pathname);
 
     document.body.appendChild(block);
 
