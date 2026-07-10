@@ -384,8 +384,8 @@ window.NGE_DATA = {
       "price_per_lesson": 2500,
       "lessons_in_package": 14,
       "subscription_month": "2026-06",
-      "lessons_used_this_month": 12,
-      "summer_plan_note": "Летний блок 10 уроков + 4 экстра · июнь + июль 2026 · 12 / 14 проведено",
+      "lessons_used_this_month": 13,
+      "summer_plan_note": "Летний блок 10 уроков + 4 экстра · июнь + июль 2026 · 13 / 14 проведено",
       "payment_status": "Оплачено",
       "payment_note": "",
       "parent_name": "Протасова Мария Петровна",
@@ -500,8 +500,12 @@ window.NGE_DATA = {
         {
           "date": "2026-07-10",
           "num": 13,
-          "status": "planned",
-          "topic": "✈️ Travel-программа · продолжение"
+          "status": "completed",
+          "topic": "📖 Tom Sawyer · Act 6 — Blood Oath & Trial · показания после Muff Potter",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/tom-sawyer-three-acts/",
+            "module_title": "📖 Открыть Tom Sawyer · Three Adventures"
+          }
         },
         {
           "date": "2026-07-12",
@@ -1648,7 +1652,7 @@ window.NGE_DATA = {
       "pin": "3094",
       "lessons_in_package": 5,
       "subscription_month": "2026-07",
-      "lessons_used_this_month": 2,
+      "lessons_used_this_month": 3,
       "stability_note": "",
       "summer_plan_note": "Летний блок 2026: июньский пилот (1 trial + 3 занятия) + июль (5 занятий)",
       "external_platforms": [
@@ -1732,6 +1736,16 @@ window.NGE_DATA = {
           "num": 6,
           "status": "planned",
           "topic": "Practical English · Day 2 · Present Simple questions (Do you? Does he?) + короткие ответы + fix из Workbook 04"
+        },
+        {
+          "date": "2026-07-10",
+          "num": 7,
+          "status": "completed",
+          "topic": "📖 Practical English · практика Day 1 · повторный проход",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/practice/timofey-03-practical-english/",
+            "module_title": "📖 Открыть Practical English · Day 1"
+          }
         },
         {
           "date": "2026-07-14",
