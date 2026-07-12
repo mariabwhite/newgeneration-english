@@ -1,4 +1,14 @@
-/* lab-sync.js v7 — Realtime sync + persist + identity + firehose + observer + teleport.
+/* lab-sync.js v17 — NAIL-DOWN teacher-banner + realtime sync + persist + firehose.
+   v17 (2026-07-12): teacherMode DEFAULT = true. Yellow banner всегда сверху,
+   пока URL явно НЕ содержит один из выключателей:
+     ?role=student      — cabinet передаёт студенту
+     ?observe=<id>      — пассивное зеркало
+     ?teacher=off       — ручной выкл Марии
+   Раньше teacher-mode требовал opt-in (?teacher=on или sticky localStorage);
+   Мария каждую вторую сессию оставалась без банера, потому что Codex/новый
+   Chrome чистили localStorage. Теперь банер прибит намертво: любой её URL
+   → yellow bar сверху. Ученики через cabinet URL получают ?role=student → OK.
+   v10 → v17: пропущены версии, чтобы cache-buster сбросил Fastly. */
    • С URL ?sync=<roomId>&role=teacher|student — двусторонняя live-комната.
    • Без ?sync — solo-mode: каждый submit идёт в Supabase lab_submissions.
    • Имя ученика → 'student-<slug>' room_id (модалка на первый submit).
@@ -23,17 +33,20 @@
   var observeId   = qs('observe');  // v6: пассивное зеркало
   var observeMode = !!observeId;
 
-  // v10: Учительский режим прямо в уроке.
-  // Включается ?teacher=on (запоминается в localStorage), выключается ?teacher=off.
+  // v17 (2026-07-12): Учительский режим ПРИБИТ. Default = true.
+  // Выключить можно ТОЛЬКО одним из: ?role=student | ?observe=<id> | ?teacher=off
   var teacherParam = qs('teacher');
   var roleParam    = qs('role');
   try {
     if (teacherParam === 'on' || teacherParam === '1') localStorage.setItem('lab-teacher-mode', 'on');
     if (teacherParam === 'off') localStorage.removeItem('lab-teacher-mode');
   } catch(e){}
-  var teacherMode = false;
-  try { teacherMode = (localStorage.getItem('lab-teacher-mode') === 'on'); } catch(e){}
+  // Explicit student cabinet / observer / manual off — ONLY exits from teacher mode.
+  var explicitOff = (roleParam === 'student') || observeMode || (teacherParam === 'off');
+  var teacherMode = !explicitOff;   // v17: default TRUE
   if (roleParam === 'teacher') teacherMode = true;
+  // Sticky localStorage — сохраняем on, чтобы будущие v17-off URL не проскакивали
+  if (teacherMode) { try { localStorage.setItem('lab-teacher-mode', 'on'); } catch(e){} }
   if (teacherMode) {
     var markTeacherBody = function(){
       if (document.body) document.body.classList.add('lab-teacher-on');
