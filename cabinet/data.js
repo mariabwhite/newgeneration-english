@@ -1,7 +1,7 @@
-﻿/* GENERATED — slim version without PII. Source of truth: Supabase. */
+/* GENERATED — slim version without PII. Source of truth: Supabase. */
 window.NGE_DATA = {
   "version": 2,
-  "generated": "2026-06-23T15:35:00.000Z",
+  "generated": "2026-07-12T11:19:07.400Z",
   "generated_by": "gen-slim-data.js — без PII (без паспортов/телефонов/адресов)",
   "teacher": {
     "id": "teacher",
@@ -21,114 +21,6 @@ window.NGE_DATA = {
     "inn": "7710140679",
     "kpp": "771301001",
     "purpose": "Перевод средств по договору № 5181572792 Бурцева Мария Витальевна НДС не облагается"
-  },
-  "contracts": {
-    "denis-shalmanov": {
-      "folder": "documents/_v",
-      "files": [
-        "75a3f76e46cd20c0f092f128b09b7da2.pdf"
-      ],
-      "note": "Подписанный договор оказания услуг. Клик — открыть в новой вкладке."
-    },
-    "timofey": {
-      "folder": "documents/_v",
-      "files": [
-        "2967982f7e0da82ca88dcd8e5c19d557.pdf",
-        "84c5c58a09e3c2a03e82eab79a788885.pdf"
-      ],
-      "note": "Договор оказания услуг + согласие на обработку ПД. Клик — открыть в новой вкладке."
-    },
-    "andrei-kruglov": {
-      "folder": "documents/_v/andrei-kruglov",
-      "files": [
-        "01_договор_стр1.pdf",
-        "02_договор_стр2_условия.pdf",
-        "03_договор_стр3_подпись.jpg"
-      ],
-      "note": "Договор оказания услуг (стр. 1–3 + подпись). Клик — открыть в новой вкладке."
-    },
-    "sova-elena": {
-      "folder": "documents/_v/sova-elena",
-      "files": [
-        "01_договор_общий.pdf",
-        "02_реквизиты_Елена.png"
-      ],
-      "note": "Договор оказания услуг + приложение с реквизитами. Клик — открыть в новой вкладке."
-    },
-    "yulya-izotova": {
-      "folder": "documents/_v/yulya-izotova",
-      "files": [
-        "01_договор_стр1.jpg",
-        "02_договор_стр2_условия.jpg",
-        "03_договор_стр3_подпись.jpg",
-        "04_согласие_на_ПД.jpg",
-        "05_подпись_доп.png"
-      ],
-      "note": "Договор оказания услуг + согласие на обработку персональных данных. Клик — открыть в новой вкладке.",
-      "parentOnly": true
-    },
-    "anya-isaeva": {
-      "folder": "documents/_v/anya-isaeva",
-      "files": [
-        "01_договор_стр1.webp",
-        "02_договор_стр2_условия.webp",
-        "03_договор_стр3_подпись.webp",
-        "04_согласие_на_ПД.webp"
-      ],
-      "parentOnly": true,
-      "note": "Договор оказания услуг + согласие на обработку персональных данных. Клик — открыть в новой вкладке."
-    },
-    "katya-marakina": {
-      "folder": "documents/_v/katya-marakina",
-      "files": [
-        "01_договор_стр1.jpeg",
-        "02_договор_стр2.jpeg",
-        "03_договор_стр3.jpeg",
-        "04_доп.png"
-      ],
-      "parentOnly": true,
-      "note": "Договор оказания услуг (стр. 1–3 + доп.). Клик — открыть в новой вкладке."
-    },
-    "fedor-protasov": {
-      "folder": "documents/_v/fedor-protasov",
-      "files": [],
-      "missing": true,
-      "parentOnly": true,
-      "note": "Подписанный договор пока не загружен. Нужно подписать договор оказания услуг и согласие на обработку персональных данных; после подписи документ будет закреплён здесь."
-    },
-    "ekaterina-medvedeva-solo": {
-      "folder": "documents/_v/ekaterina-medvedeva-solo",
-      "files": [
-        "01_договор_стр1.jpg",
-        "02_договор_стр2_условия.jpg",
-        "03_договор_стр3_подпись.jpg",
-        "04_согласие_на_ПД.jpg"
-      ],
-      "parentOnly": true,
-      "note": "Договор оказания услуг + согласие на обработку персональных данных. Клик — открыть в новой вкладке."
-    },
-    "maria-kuznetsova-solo": {
-      "folder": "documents/_v/maria-kuznetsova-solo",
-      "files": [
-        "01_договор_стр1.jpg",
-        "02_договор_стр2_условия.jpg",
-        "03_договор_стр3_подпись.jpg",
-        "04_согласие_на_ПД.jpg"
-      ],
-      "parentOnly": true,
-      "note": "Договор оказания услуг + согласие на обработку персональных данных. Клик — открыть в новой вкладке."
-    },
-    "ivanov-ivan": {
-      "folder": "documents/_v/ivanov-ivan",
-      "files": [
-        "01_договор_стр1.jpeg",
-        "02_договор_стр2_условия.jpeg",
-        "03_договор_стр3_подпись.jpeg",
-        "04_согласие_на_ПД.jpeg"
-      ],
-      "parentOnly": true,
-      "note": "Договор оказания услуг + согласие на обработку персональных данных. Клик — открыть в новой вкладке."
-    }
   },
   "students": [
     {
@@ -182,16 +74,7 @@ window.NGE_DATA = {
           "status": "planned",
           "topic": "Летняя встреча #3 — финальный разбор + настройка на сентябрь"
         }
-      ],
-      "contracts": {
-        "folder": "documents/_v/andrei-kruglov",
-        "files": [
-          "01_договор_стр1.pdf",
-          "02_договор_стр2_условия.pdf",
-          "03_договор_стр3_подпись.jpg"
-        ],
-        "note": "Договор оказания услуг (3 стр. + подпись). Клик — открыть в новой вкладке."
-      }
+      ]
     },
     {
       "id": "sova-elena",
@@ -223,70 +106,6 @@ window.NGE_DATA = {
       "lessons_used_this_month": 1,
       "summer_plan_note": "Июль 2026 · новый блок 4 занятий · сегодня начали с повторения Bella (медицинская серия).",
       "stability_note": "",
-      "archived_packages": [
-        {
-          "label": "Май 2026 · 4 занятия (вт 19:00) — грамматический блок + The Wind in the Willows",
-          "lessons": [
-            {
-              "date": "2026-04-28",
-              "num": 1,
-              "status": "completed",
-              "topic": "Грамматика #1 · Simple + Perfect tenses — повторение форм и функций"
-            },
-            {
-              "date": "2026-05-05",
-              "num": 2,
-              "status": "completed",
-              "topic": "Грамматика #2 · Passive Voice + Past Perfect — узнавание в контексте"
-            },
-            {
-              "date": "2026-05-12",
-              "num": 3,
-              "status": "completed",
-              "topic": "The Wind in the Willows — чтение адаптированной книги · лексика · обсуждение"
-            },
-            {
-              "date": "2026-05-19",
-              "num": 4,
-              "status": "completed",
-              "topic": "SIM-карты и кофе — практическая лексика и диалоги (Канада · бытовые ситуации)"
-            }
-          ]
-        },
-        {
-          "label": "Июнь–июль 2026 · 3 занятия (чт 20:00) — Канада-серия: Settling In → City → Bella",
-          "lessons": [
-            {
-              "date": "2026-06-18",
-              "num": 1,
-              "status": "completed",
-              "topic": "Канада · Settling In Toronto — coffee · SIM · directions · drugstore (4 сцены · I'd like / I need · AI Coach)",
-              "homework": {
-                "text": "Lab-модуль · 4 сценария первого дня в Торонто + AI Coach для свободной речи в конце.",
-                "module_url": "https://newgeneration-english.ru/lingua-boost-lab/a2/settling-in-toronto/",
-                "module_title": "🇨🇦 Открыть Settling In Toronto"
-              }
-            },
-            {
-              "date": "2026-06-25",
-              "num": 2,
-              "status": "completed",
-              "topic": "Ориентация в городе — city map · directions · транспорт · как спросить дорогу"
-            },
-            {
-              "date": "2026-07-02",
-              "num": 3,
-              "status": "completed",
-              "topic": "Медицина · Bella Needs Help — pharmacy / walk-in clinic / 911 · Can I…? / Could you…?",
-              "homework": {
-                "text": "Bella-series · Day 3 в Канаде. У Bella головная боль → аптека → клиника → потом она помогает незнакомцу вызвать 911. Три сцены, формула Poster → Vocab → Dialogue → Drill → Speaking template + AI Coach в финале.",
-                "module_url": "https://newgeneration-english.ru/lingua-boost-lab/a2/bella-needs-help/",
-                "module_title": "🏥 Bella Needs Help"
-              }
-            }
-          ]
-        }
-      ],
       "lessons": [
         {
           "date": "2026-07-09",
@@ -532,8 +351,22 @@ window.NGE_DATA = {
       "payment_status": "Оплачено",
       "payment_note": "",
       "payments": [
-        { "month": "Июль 2026", "package": "4 урока × 2 000 ₽", "amount": "8 000 ₽", "status": "paid", "date": "01.07.2026", "note": "Летний блок · 1 / 4 проведено" },
-        { "month": "Июнь 2026", "package": "4 урока × 2 000 ₽", "amount": "8 000 ₽", "status": "paid", "date": "—", "note": "Полный месяц" }
+        {
+          "month": "Июль 2026",
+          "package": "4 урока × 2 000 ₽",
+          "amount": "8 000 ₽",
+          "status": "paid",
+          "date": "01.07.2026",
+          "note": "Летний блок · 1 / 4 проведено"
+        },
+        {
+          "month": "Июнь 2026",
+          "package": "4 урока × 2 000 ₽",
+          "amount": "8 000 ₽",
+          "status": "paid",
+          "date": "—",
+          "note": "Полный месяц"
+        }
       ],
       "stability_note": "",
       "summer_plan_note": "📅 Июль 2026 · Voyager L3 + L4 (финал серии). Абонемент 4 урока × 2 000 ₽ = 8 000 ₽. Расписание сохраняется: вторник 15:00, 90 мин. С сентября — плановое повышение ставки до 2 500 ₽ за занятие.",
@@ -550,7 +383,7 @@ window.NGE_DATA = {
             "module_title": "🌌 Открыть Voyager L1 · The Watchmaker",
             "text": "8 секций, MP3-listening, lex-gram cloze, IELTS/Olympiad Speaking. Открой повторно — конструкции из cloze должны идти на автомате."
           },
-          "audio_url": "https://newgeneration-english.ru/lingua-boost-lab/b2-plus/voyager-l1-time-travel/assets/audio/listen-time-physics.mp3",
+          "audio_url": "../lingua-boost-lab/b2-plus/voyager-l1-time-travel/assets/audio/listen-time-physics.mp3",
           "audio_title": "🎧 Listening · what physics actually says about time (90 s)"
         },
         {
@@ -563,7 +396,7 @@ window.NGE_DATA = {
             "module_title": "🌌 Voyager L1 · The Watchmaker (повторение)",
             "text": "Повтор всего урока. Use of English вторым кругом — без шпаргалок."
           },
-          "audio_url": "https://newgeneration-english.ru/lingua-boost-lab/b2-plus/voyager-l1-time-travel/assets/audio/listen-time-physics.mp3",
+          "audio_url": "../lingua-boost-lab/b2-plus/voyager-l1-time-travel/assets/audio/listen-time-physics.mp3",
           "audio_title": "🎧 Listening · time physics (повтор)"
         },
         {
@@ -576,7 +409,7 @@ window.NGE_DATA = {
             "module_title": "🛸 Voyager L2 · Are we alone?",
             "text": "8 секций · 2 MP3 (Drake/Fermi + final broadcast Reyes). Mia's grandfather's logbook из L1 возвращается."
           },
-          "audio_url": "https://newgeneration-english.ru/lingua-boost-lab/b2-plus/voyager-l2-are-we-alone/assets/audio/listen-drake-fermi.mp3",
+          "audio_url": "../lingua-boost-lab/b2-plus/voyager-l2-are-we-alone/assets/audio/listen-drake-fermi.mp3",
           "audio_title": "🎧 Listening · Drake / Fermi lecture (3 мин)"
         },
         {
@@ -589,7 +422,7 @@ window.NGE_DATA = {
             "module_title": "🛸 Voyager L2 · Are we alone? (повторение)",
             "text": "Повтор закрыт. Глоссарий Voyager L1–L4 (97 пар) и offline-homework — в материалах ниже."
           },
-          "audio_url": "https://newgeneration-english.ru/lingua-boost-lab/b2-plus/voyager-l2-are-we-alone/assets/audio/listen-final-broadcast.mp3",
+          "audio_url": "../lingua-boost-lab/b2-plus/voyager-l2-are-we-alone/assets/audio/listen-final-broadcast.mp3",
           "audio_title": "🎧 Listening · final broadcast Reyes (≈50 s)"
         },
         {
@@ -602,7 +435,7 @@ window.NGE_DATA = {
             "module_title": "🛸 Voyager L2 · Are we alone? (закрепление)",
             "text": "Третий проход по L2. Focus: Drake / Fermi / final broadcast Reyes без подсказок."
           },
-          "audio_url": "https://newgeneration-english.ru/lingua-boost-lab/b2-plus/voyager-l2-are-we-alone/assets/audio/listen-final-broadcast.mp3",
+          "audio_url": "../lingua-boost-lab/b2-plus/voyager-l2-are-we-alone/assets/audio/listen-final-broadcast.mp3",
           "audio_title": "🎧 Listening · final broadcast Reyes (≈50 s)"
         },
         {
@@ -676,7 +509,14 @@ window.NGE_DATA = {
       "payment_status": "Оплачено",
       "payment_note": "",
       "payments": [
-        { "month": "Интенсив · 10 уроков", "package": "10 × 2 500 ₽", "amount": "25 000 ₽", "status": "paid", "date": "26.06.2026", "note": "Интенсив · 26.06 → 17.07 · 6 / 10 проведено" }
+        {
+          "month": "Интенсив · 10 уроков",
+          "package": "10 × 2 500 ₽",
+          "amount": "25 000 ₽",
+          "status": "paid",
+          "date": "26.06.2026",
+          "note": "Интенсив · 26.06 → 17.07 · 6 / 10 проведено"
+        }
       ],
       "parent_name": "Либова Юлия Игоревна",
       "pin": "5376",
@@ -783,13 +623,6 @@ window.NGE_DATA = {
             "audience": "parent"
           }
         ]
-      },
-      "contracts": {
-        "folder": "documents/_v/daniella-libova",
-        "files": [],
-        "note": "Подписанный договор пока не загружен. Нужно подписать договор оказания услуг и согласие на обработку персональных данных; после подписи документ будет закреплён здесь.",
-        "missing": true,
-        "parentOnly": true
       }
     },
     {
@@ -805,12 +638,30 @@ window.NGE_DATA = {
       "monthly_package": 10000,
       "payment_status": "Оплачено",
       "payment_note": "",
+      "payments": [
+        {
+          "month": "Июль 2026",
+          "package": "4 урока × 2 500 ₽",
+          "amount": "10 000 ₽",
+          "status": "paid",
+          "date": "01.07.2026",
+          "note": "Июльский абонемент · слова + будущие времена + направления + предлоги"
+        },
+        {
+          "month": "Июнь 2026",
+          "package": "3 урока × 2 500 ₽",
+          "amount": "7 500 ₽",
+          "status": "paid",
+          "date": "01.06.2026",
+          "note": "Июньский блок · город + повторение + Future (will vs going to)"
+        }
+      ],
       "is_adult": true,
       "parent_name": "",
       "pin": "6347",
       "lessons_in_package": 4,
       "subscription_month": "2026-07",
-      "lessons_used_this_month": 0,
+      "lessons_used_this_month": 2,
       "summer_plan_note": "Июльский абонемент · слова + будущие времена + направления + предлоги",
       "stability_note": "",
       "lessons": [
@@ -887,8 +738,13 @@ window.NGE_DATA = {
         {
           "date": "2026-07-12",
           "num": 10,
-          "status": "planned",
-          "topic": "Слова + будущие времена (will / going to) — расширение и активная практика"
+          "status": "completed",
+          "topic": "Слова + будущие времена (will / going to) — расширение и активная практика",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/practice/denis-workbook-02/",
+            "module_title": "📚 Открыть Workbook 02 · Denis's Fixes",
+            "text": "Рабочая тетрадь · 14 упражнений с автопроверкой + Quizlet. Фикс-тем на его слабые места: Wh-words, Present tenses vs will/going to, Have got, Prepositions, Ordinals + Cardinals, Directions match. Зелёное = верно, красное = поправить."
+          }
         },
         {
           "date": "2026-07-19",
@@ -904,6 +760,11 @@ window.NGE_DATA = {
         }
       ],
       "external_platforms": [
+        {
+          "name": "🧭 Quizlet · Directions (12 июля)",
+          "url": "https://quizlet.com/1194315564/directions-flash-cards/?funnelUUID=ef64143a-aba4-4c60-b4b7-f855080c33b0",
+          "note": "Flash-cards · направления — turn left / right, straight ahead, opposite, along, through, up, from, at."
+        },
         {
           "name": "🎴 Quizlet · 44 слова «City of the future»",
           "url": "https://quizlet.com/1192178706/voc-flash-cards/?funnelUUID=54bc5263-ba58-45bd-8d9e-b440538e89cd",
@@ -925,13 +786,6 @@ window.NGE_DATA = {
             "audience": "all"
           }
         ]
-      },
-      "contracts": {
-        "folder": "documents/_v",
-        "files": [
-          "75a3f76e46cd20c0f092f128b09b7da2.pdf"
-        ],
-        "note": "Подписанный договор оказания услуг. Клик — открыть в новой вкладке."
       }
     },
     {
@@ -956,7 +810,14 @@ window.NGE_DATA = {
       "monthly_package": 10000,
       "payment_status": "Оплачено",
       "payments": [
-        { "month": "Июль 2026", "package": "4 понедельника × 2 500 ₽", "amount": "10 000 ₽", "status": "paid", "date": "07.07.2026", "note": "Весь курс на июль · оплачено мамой (Наталья Вячеславовна)" }
+        {
+          "month": "Июль 2026",
+          "package": "4 понедельника × 2 500 ₽",
+          "amount": "10 000 ₽",
+          "status": "paid",
+          "date": "07.07.2026",
+          "note": "Весь курс на июль · оплачено мамой (Наталья Вячеславовна)"
+        }
       ],
       "parent_name": "Исаева Наталья Вячеславовна",
       "pin": "2512",
@@ -1114,7 +975,7 @@ window.NGE_DATA = {
           "num": 5,
           "status": "completed",
           "topic": "🇹🇷 Julia goes to Bodrum + Numbers (cardinal & ordinal) — Lab-урок",
-          "link": "https://newgeneration-english.ru/lingua-boost-lab/a1/julia-goes-to-bodrum/",
+          "link": "../lingua-boost-lab/a1/julia-goes-to-bodrum/",
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/a1/julia-goes-to-bodrum/",
             "module_title": "🇹🇷 Открыть Julia goes to Bodrum",
@@ -1133,7 +994,7 @@ window.NGE_DATA = {
           "num": 7,
           "status": "completed",
           "topic": "🇹🇷 Julia goes to Bodrum — Lab-урок (повтор/закрепление)",
-          "link": "https://newgeneration-english.ru/lingua-boost-lab/a1/julia-goes-to-bodrum/",
+          "link": "../lingua-boost-lab/a1/julia-goes-to-bodrum/",
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/a1/julia-goes-to-bodrum/",
             "module_title": "🇹🇷 Открыть Julia goes to Bodrum",
@@ -1146,7 +1007,7 @@ window.NGE_DATA = {
           "num": 8,
           "status": "completed",
           "topic": "🇹🇷 Julia goes to Bodrum — Lab-урок (продолжение)",
-          "link": "https://newgeneration-english.ru/lingua-boost-lab/a1/julia-goes-to-bodrum/",
+          "link": "../lingua-boost-lab/a1/julia-goes-to-bodrum/",
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/a1/julia-goes-to-bodrum/",
             "module_title": "🇹🇷 Открыть Julia goes to Bodrum",
@@ -1159,26 +1020,14 @@ window.NGE_DATA = {
           "num": 9,
           "status": "completed",
           "topic": "🇹🇷 Julia in Bodrum · Day 2 — полное повторение (Lab-урок)",
-          "link": "https://newgeneration-english.ru/lingua-boost-lab/a1/julia-bodrum-day-2/?v=4",
+          "link": "../lingua-boost-lab/a1/julia-bodrum-day-2/?v=4",
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/a1/julia-bodrum-day-2/?v=4",
             "module_title": "🇹🇷 Открыть Julia in Bodrum · Day 2",
             "text": "Новый Бодрум-урок: вся база первого + 5 свежих блоков повторения (hotel rescue · numbers race · past forms quiz · speaking marathon · postcard Day 2)."
           }
         }
-      ],
-      "contracts": {
-        "folder": "documents/_v/yulya-izotova",
-        "files": [
-          "01_договор_стр1.jpg",
-          "02_договор_стр2_условия.jpg",
-          "03_договор_стр3_подпись.jpg",
-          "04_согласие_на_ПД.jpg",
-          "05_подпись_доп.png"
-        ],
-        "note": "Договор оказания услуг + согласие на обработку персональных данных. Клик — открыть в новой вкладке.",
-        "parentOnly": true
-      }
+      ]
     },
     {
       "id": "sofia-pavlova",
@@ -1264,12 +1113,12 @@ window.NGE_DATA = {
       "external_platforms": [
         {
           "name": "📝 OGE Mock #1 · Pair Edition — открыть напрямую",
-          "url": "https://newgeneration-english.ru/lingua-boost-lab/b1/oge-mock-mix-01/",
+          "url": "../lingua-boost-lab/b1/oge-mock-mix-01/",
           "note": "Полный mock-вариант ОГЭ — открывается без пароля. Пройди до завтрашнего урока."
         },
         {
           "name": "📚 Премиум-библиотека Lab (требует PIN)",
-          "url": "https://newgeneration-english.ru/lingua-boost-lab/premium.html",
+          "url": "../lingua-boost-lab/premium.html",
           "note": "Полный каталог премиум-уроков. После PIN откроется библиотека — там выбирай конкретный модуль."
         }
       ],
@@ -1379,12 +1228,12 @@ window.NGE_DATA = {
       "external_platforms": [
         {
           "name": "📝 OGE Mock #1 · Pair Edition — открыть напрямую",
-          "url": "https://newgeneration-english.ru/lingua-boost-lab/b1/oge-mock-mix-01/",
+          "url": "../lingua-boost-lab/b1/oge-mock-mix-01/",
           "note": "Полный mock-вариант ОГЭ — открывается без пароля. Пройди до завтрашнего урока."
         },
         {
           "name": "📚 Премиум-библиотека Lab (требует PIN)",
-          "url": "https://newgeneration-english.ru/lingua-boost-lab/premium.html",
+          "url": "../lingua-boost-lab/premium.html",
           "note": "Полный каталог премиум-уроков. После PIN откроется библиотека — там выбирай конкретный модуль."
         }
       ],
@@ -1473,12 +1322,11 @@ window.NGE_DATA = {
       "level": "B1",
       "format": "индивидуально",
       "schedule": "воскресенье 13:30 (90 мин)",
-      "schedule_note": "Время воскресенья перенесено 12:00 → 13:00 по просьбе мамы (с июня). Учитель рассматривает формат — возможно вернёмся к 12:00 или другому окну.",
       "price_per_lesson": 2500,
       "monthly_package": 20000,
       "lessons_in_package": 4,
       "subscription_month": "2026-07",
-      "lessons_used_this_month": 1,
+      "lessons_used_this_month": 2,
       "summer_plan_note": "Июль · новый B1 цикл (4 урока: 5 · 12 · 19 · 26 июля)",
       "stability_note": "",
       "payment_status": "Оплачено",
@@ -1571,8 +1419,13 @@ window.NGE_DATA = {
         {
           "date": "2026-07-12",
           "num": 10,
-          "status": "planned",
-          "topic": "Тема согласовывается после летнего пересбора"
+          "status": "completed",
+          "topic": "❓ Ask Me & Anything · Questions Deep Dive — Yes/No · Wh · Subject vs Object · Alt · Tag · Polite ladder (Can/Could/May/Would you mind) · Indirect",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/questions-deep-dive/",
+            "module_title": "❓ Открыть Questions Deep Dive · Grammar Lab 03",
+            "text": "3 таба: Basics (Yes/No + Wh + Subject/Object) · Advanced (Alt/Tag/Polite/Indirect) · Workbook (Big Mix 30 MCQ + Airport dialogue). Travel-flavour. Зелёное = верно, красное = поправить."
+          }
         },
         {
           "date": "2026-07-19",
@@ -1607,22 +1460,22 @@ window.NGE_DATA = {
         ],
         "external_links": [
           {
-            "url": "https://newgeneration-english.ru/lingua-boost-lab/practice/timofey-trainer-01/",
+            "url": "../lingua-boost-lab/practice/timofey-trainer-01/",
             "label": "📘 Workbook 01 · 22 июн · Present tenses · -ing · said/told",
             "audience": "all"
           },
           {
-            "url": "https://newgeneration-english.ru/lingua-boost-lab/practice/timofey-trainer-02/",
+            "url": "../lingua-boost-lab/practice/timofey-trainer-02/",
             "label": "📕 Workbook 02 · 29 июн · Past Tenses · irregular verbs",
             "audience": "all"
           },
           {
-            "url": "https://newgeneration-english.ru/lingua-boost-lab/practice/timofey-03-practical-english/",
+            "url": "../lingua-boost-lab/practice/timofey-03-practical-english/",
             "label": "📖 Practical English · Day 1 · 02 июл · интерактивный урок + Homework A–J",
             "audience": "all"
           },
           {
-            "url": "https://newgeneration-english.ru/lingua-boost-lab/practice/timofey-04-workbook/",
+            "url": "../lingua-boost-lab/practice/timofey-04-workbook/",
             "label": "📚 Workbook 04 · 07 июл · Practical English · Day 2 · 12 блоков",
             "audience": "all"
           }
@@ -1644,9 +1497,30 @@ window.NGE_DATA = {
       "payment_status": "Оплачено",
       "payment_note": "",
       "payments": [
-        { "month": "Июль 2026 · 2-я половина", "package": "4 урока × 2 500 ₽", "amount": "10 000 ₽", "status": "paid", "date": "10.07.2026", "note": "Летний блок · 2-я половина июля (21.07 · 23.07 · 28.07 · 30.07)" },
-        { "month": "Июль 2026", "package": "5 уроков × 2 500 ₽", "amount": "12 500 ₽", "status": "paid", "date": "01.07.2026", "note": "Летний блок" },
-        { "month": "Июнь 2026", "package": "1 trial + 3 × 2 500 ₽", "amount": "7 500 ₽", "status": "paid", "date": "22.06.2026", "note": "Пилот-блок · 1 trial + 3 занятия" }
+        {
+          "month": "Июль 2026 · 2-я половина",
+          "package": "4 урока × 2 500 ₽",
+          "amount": "10 000 ₽",
+          "status": "paid",
+          "date": "10.07.2026",
+          "note": "Летний блок · 2-я половина июля (21.07 · 23.07 · 28.07 · 30.07)"
+        },
+        {
+          "month": "Июль 2026",
+          "package": "5 уроков × 2 500 ₽",
+          "amount": "12 500 ₽",
+          "status": "paid",
+          "date": "01.07.2026",
+          "note": "Летний блок"
+        },
+        {
+          "month": "Июнь 2026",
+          "package": "1 trial + 3 × 2 500 ₽",
+          "amount": "7 500 ₽",
+          "status": "paid",
+          "date": "22.06.2026",
+          "note": "Пилот-блок · 1 trial + 3 занятия"
+        }
       ],
       "is_adult": true,
       "parent_name": "",
@@ -1659,7 +1533,7 @@ window.NGE_DATA = {
       "external_platforms": [
         {
           "name": "🛫 TOEFL iBT · Format Tour · Lab",
-          "url": "https://newgeneration-english.ru/lingua-boost-lab/b1/toefl-ibt-format-tour/",
+          "url": "../lingua-boost-lab/b1/toefl-ibt-format-tour/",
           "note": "Большой Lab-урок про формат TOEFL iBT — Reading / Listening / Speaking / Writing, пробные задания, стратегии. Проходи между занятиями."
         },
         {
@@ -1779,15 +1653,7 @@ window.NGE_DATA = {
           "status": "planned",
           "topic": "Тема — будет скоро, согласуем ближе к дате"
         }
-      ],
-      "contracts": {
-        "folder": "documents/_v",
-        "files": [
-          "2967982f7e0da82ca88dcd8e5c19d557.pdf",
-          "84c5c58a09e3c2a03e82eab79a788885.pdf"
-        ],
-        "note": "Договор оказания услуг + согласие на обработку ПД. Клик — открыть в новой вкладке."
-      }
+      ]
     }
   ],
   "reports": [
