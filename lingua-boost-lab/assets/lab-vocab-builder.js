@@ -571,6 +571,15 @@
           example: (overlay.querySelector('#vbEx').value || '').trim()
         };
         var extras = loadExtras();
+        // v49 2026-07-12: case-insensitive dedupe. Раньше overlay «+ добавить своё
+        // слово» просто push'ил без проверки → повторный add того же слова
+        // дублировал запись. addPushedWord (live push от учителя) уже был с
+        // проверкой, а manual overlay — нет.
+        var lc = word.toLowerCase();
+        if (extras.some(function(x){ return (x.word || '').toLowerCase() === lc; })) {
+          alert('Такое слово уже есть в словаре — «' + word + '»');
+          return;
+        }
         extras.push(item);
         saveExtras(extras);
         overlay.classList.remove('show');

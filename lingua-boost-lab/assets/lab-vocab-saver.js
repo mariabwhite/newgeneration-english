@@ -9,6 +9,18 @@
    - .flip-card[data-word]   (Jerusalem canon)
    - .vw .w + .ru            (Settling-Toronto cheat-sheet canon — TTS phrase boxes)
    Drop-in: <script src="../../assets/lab-vocab-saver.js" defer></script>
+
+   v2 2026-07-12 · UNIFIED HW STORE:
+   Мария 12.07: одна корзина, одна кнопка. Раньше на карточке .vocab-card висели
+   параллельно жёлтый + от lab-homework (в 'lab-hw:<path>') и зелёный + от нас
+   (в 'lab-vocab:<path>'). Ученик добавлял «слово» — попадало в два разных
+   store, дубликат. Теперь:
+   1. Зелёный плюсик СКРЫТ CSS-ом на всех .vocab-card и .vw box (legacy .tr
+      подчёркивания оставляем — они не карточки, конфликта с homework нет).
+   2. Case-insensitive dedupe в uniqAdd (было case-sensitive — «Environment» ≠
+      «environment»).
+   3. Bottom-right «📒 My Vocabulary» pill остаётся ЖИВЫМ — читает старый
+      lab-vocab: store для совместимости. Скоро мигрируем в lab-hw:.
 */
 (function () {
   'use strict';
@@ -23,7 +35,10 @@
     word = (word || '').trim();
     meaning = (meaning || '').trim();
     if (!word) return false;
-    if (list.some(function (v) { return v.word === word; })) return false;
+    // v2: case-insensitive dedupe (было case-sensitive — «Environment»/«environment»
+    // считались разными словами и добавлялись дважды)
+    var lc = word.toLowerCase();
+    if (list.some(function (v) { return (v.word || '').toLowerCase() === lc; })) return false;
     list.push({ word: word, ru: meaning });
     save();
     return true;
@@ -58,7 +73,13 @@
       + '.lv-add-btn.added{background:#0a3d62;cursor:default}'
       + '.lv-add-btn.added::after{content:""}'
       + '.lv-host{position:relative}'
-      + '.tr.lv-added{background:rgba(43,182,115,.18);border-radius:3px;padding:0 3px}';
+      + '.tr.lv-added{background:rgba(43,182,115,.18);border-radius:3px;padding:0 3px}'
+      /* v2 2026-07-12: скрываем зелёный + на .vocab-card / .flip-card / .vw —
+         эти карточки теперь идут в единый lab-hw store через lab-homework.js
+         (жёлтый + от .lab-hw-add). Легаси-подчёркивания .tr[data-ru] в тексте
+         НЕ трогаем — там нет конфликта, и это часто единственный способ
+         вытащить слово из inline-текста урока. */
+      + '.vocab-card .lv-add-btn,.flip-card .lv-add-btn,.vw .lv-add-btn{display:none!important}';
     var style = document.createElement('style');
     style.id = 'lab-vocab-style';
     style.textContent = css;

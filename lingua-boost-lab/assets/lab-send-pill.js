@@ -222,9 +222,11 @@
         if (!name) {
           name = await askName();
           if (!name) {
+            // v3 2026-07-12: раньше status.style.display='none' — ученик кликал,
+            // жал «Отмена» в модалке и не понимал что произошло. Теперь warning.
             btn.disabled = false;
             btn.textContent = '📤 Отправить учителю';
-            status.style.display = 'none';
+            setStatus('info', 'Учитель должен знать чья работа — впиши имя и нажми ещё раз.');
             return;
           }
           try { localStorage.setItem('lab-student-name', name); } catch(e){}
@@ -259,60 +261,95 @@
 
         setStatus('info', 'Отправляю учителю…');
 
-        /* Supabase SDK */
-        var sb = await loadSDK();
-        var client = sb.createClient(SUPABASE_URL, SUPABASE_ANON);
+        /* v3 2026-07-12: direct REST fetch вместо supabase-js SDK.
+           Причина: SDK грузился с cdn.jsdelivr.net, у ряда учеников CDN резался
+           (РФ-block / AdBlock / корпоративный proxy) → SDK не подключался →
+           `sb.createClient` падал → кнопка молча писала «Не долетело».
+           За 48ч в БД 0 записей `full-lesson-submit` — при этом event-sourced
+           push от lab-homework.js (тоже direct fetch) РАБОТАЕТ.
+           Значит убираем SDK, идём тем же direct-fetch путём. */
+
+        var restHeaders = {
+          'Content-Type': 'application/json',
+          apikey: SUPABASE_ANON,
+          Authorization: 'Bearer ' + SUPABASE_ANON,
+          Prefer: 'return=minimal'
+        };
 
         /* 1. INSERT в lab_submissions как full-lesson-submit */
-        var insRes = await client.from('lab_submissions').insert({
-          room_id:       roomId,
-          lesson_path:   location.pathname,
-          section_id:    'full-lesson-submit',
-          section_title: title.slice(0, 80),
-          student_role:  'submit:' + name,
-          score:         meta.score,
-          total:         meta.total,
-          misses:        misses
+        var insRes = await fetch(SUPABASE_URL + '/rest/v1/lab_submissions', {
+          method: 'POST',
+          headers: restHeaders,
+          body: JSON.stringify({
+            room_id:       roomId,
+            lesson_path:   location.pathname,
+            section_id:    'full-lesson-submit',
+            section_title: title.slice(0, 80),
+            student_role:  'submit:' + name,
+            score:         meta.score,
+            total:         meta.total,
+            misses:        misses
+          })
         });
-        if (insRes && insRes.error) throw insRes.error;
+        if (!insRes.ok) {
+          var errText = '';
+          try { errText = await insRes.text(); } catch(_){}
+          throw new Error(insRes.status + ' ' + insRes.statusText + (errText ? ' · ' + errText.slice(0,120) : ''));
+        }
 
-        /* 2. Upsert lab_state — гарантированный snapshot для teacher-live «📥 state» */
+        /* 2. Upsert lab_state — гарантированный snapshot для teacher-live «📥 state».
+              PostgREST upsert: header Prefer:'resolution=merge-duplicates' +
+              on-conflict через query param on_conflict. */
         try {
-          await client.from('lab_state').upsert({
-            room_id:      roomId,
-            lesson_path:  location.pathname,
-            state:        state,
-            score:        meta.score,
-            total:        meta.total,
-            pct:          meta.pct,
-            last_section: null,
-            name:         name
-          }, { onConflict: 'room_id,lesson_path' });
+          await fetch(
+            SUPABASE_URL + '/rest/v1/lab_state?on_conflict=room_id,lesson_path',
+            {
+              method: 'POST',
+              headers: Object.assign({}, restHeaders, {
+                Prefer: 'resolution=merge-duplicates,return=minimal'
+              }),
+              body: JSON.stringify({
+                room_id:      roomId,
+                lesson_path:  location.pathname,
+                state:        state,
+                score:        meta.score,
+                total:        meta.total,
+                pct:          meta.pct,
+                last_section: null,
+                name:         name
+              })
+            }
+          );
         } catch(e){ /* silent — не блокируем UX если lab_state недоступна */ }
 
-        /* 3. Broadcast firehose section-submit → teacher-live лента */
+        /* 3. Broadcast firehose section-submit → teacher-live лента.
+              Realtime broadcast без SDK — через REST /realtime/v1/api/broadcast. */
         try {
-          var ch = client.channel('lab-firehose-v1', { config: { broadcast: { self: false }}});
-          await new Promise(function(res){
-            var done = false;
-            ch.subscribe(function(status){
-              if (!done && status === 'SUBSCRIBED') { done = true; res(); }
-            });
-            setTimeout(function(){ if (!done) { done = true; res(); } }, 2500);
+          await fetch(SUPABASE_URL + '/realtime/v1/api/broadcast', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              apikey: SUPABASE_ANON,
+              Authorization: 'Bearer ' + SUPABASE_ANON
+            },
+            body: JSON.stringify({
+              messages: [{
+                topic: 'lab-firehose-v1',
+                event: 'section-submit',
+                payload: {
+                  room_id: roomId, name: name, role: 'submit:' + name,
+                  lesson_path:   location.pathname,
+                  lesson_title:  title,
+                  section_id:    'full-lesson-submit',
+                  section_title: title.slice(0, 80),
+                  score:         meta.score, total: meta.total,
+                  ts:            Date.now()
+                },
+                private: false
+              }]
+            })
           });
-          ch.send({
-            type: 'broadcast', event: 'section-submit',
-            payload: {
-              room_id: roomId, name: name, role: 'submit:' + name,
-              lesson_path:   location.pathname,
-              lesson_title:  title,
-              section_id:    'full-lesson-submit',
-              section_title: title.slice(0, 80),
-              score:         meta.score, total: meta.total,
-              ts:            Date.now()
-            }
-          });
-        } catch(e){ /* silent */ }
+        } catch(e){ /* silent — INSERT уже прошёл, лента живёт и без broadcast */ }
 
         /* Success */
         btn.disabled = true;
