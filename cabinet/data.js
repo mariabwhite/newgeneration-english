@@ -1573,6 +1573,11 @@ window.NGE_DATA = {
             "url": "../lingua-boost-lab/practice/timofey-04-workbook/",
             "label": "📚 Workbook 04 · 07 июл · Practical English · Day 2 · 12 блоков",
             "audience": "all"
+          },
+          {
+            "url": "../lingua-boost-lab/practice/timofey-05-workbook/",
+            "label": "📚 Workbook 05 · 14 июл · Practical English · Day 3 · все настоящие + will + going to",
+            "audience": "all"
           }
         ]
       },
@@ -1716,7 +1721,12 @@ window.NGE_DATA = {
           "date": "2026-07-14",
           "num": 7,
           "status": "planned",
-          "topic": "Practical English · Day 3 · Present Continuous (I'm doing) vs Present Simple + prepositions of time (at/on/in)"
+          "topic": "Practical English · Day 3 · все настоящие времена + will + going to · Milan-office бизнес-контекст",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/practice/timofey-05-workbook/",
+            "module_title": "📚 Открыть Workbook 05 · Day 3",
+            "text": "К 14 июля — 12 блоков: Translation drill 20 · Vocab drills 3 · Diagnostic dictation 6 · Say it back 12 · Fill-by-ear 12 · Negative rewrite 8 · Time signals · Q→A · Milan podcast · Find the mistake 13 (по твоим тетрадям 08.07 и 13.07) · Boss voicemails · Self-diary · Milan email."
+          }
         },
         {
           "date": "2026-07-16",
