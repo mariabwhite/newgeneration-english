@@ -903,55 +903,91 @@ window.NGE_DATA = {
     },
     {
       "id": "yulya-lushina",
+      "greeting_parent": "Здравствуйте, Александр Анатольевич",
       "greeting_student": "Привет, Юлия",
       "notion_id": "34d7364c-ba79-81b5-8215-fdfe91bec709",
       "name": "Юля Лушина",
-      "level": "",
+      "level": "Pre-A1",
       "format": "индивидуально",
+      "duration": "45 мин",
       "schedule": "понедельник 12:00",
       "stability_note": "",
       "price_per_lesson": 2000,
+      "monthly_package": 8000,
       "payment_status": "Оплачено",
+      "payment_note": "Абонемент 4 × 2 000 ₽ = 8 000 ₽ · растянут почти на месяц из-за переносов (болели по очереди).",
+      "payments": [
+        {
+          "month": "Июнь–июль 2026",
+          "package": "4 урока × 2 000 ₽",
+          "amount": "8 000 ₽",
+          "status": "paid",
+          "date": "15.06.2026",
+          "note": "Летний абонемент · растянут почти на месяц (переносы)"
+        }
+      ],
       "parent_name": "Лушин Александр Анатольевич",
       "pin": "2223",
       "lessons_in_package": 4,
-      "subscription_month": "2026-06",
-      "lessons_used_this_month": 0,
+      "subscription_month": "2026-07",
+      "lessons_used_this_month": 2,
+      "summer_plan_note": "Летний абонемент 4 × 2 000 ₽ · 🦇 vampire-серия Pre-A1 · растянут на июнь–июль из-за переносов. Осталось 2 занятия: сегодня 13.07 · следующее 20.07.",
+      "materials": {
+        "folder": "",
+        "note": "",
+        "files": [],
+        "external_links": [
+          {
+            "url": "../lingua-boost-lab/pre-a1/julia-vampire/",
+            "label": "🦇 Vampire English · Music & Friends (Pre-A1) — открыть урок",
+            "audience": "all"
+          }
+        ]
+      },
       "lessons": [
         {
-          "date": "2026-05-18",
+          "date": "2026-06-15",
           "num": 1,
           "status": "completed",
-          "topic": "Cute vampire English v1 (Pre-A1) — face/body parts, HSKT video, friendly vampire family."
-        },
-        {
-          "date": "2026-05-25",
-          "num": 2,
-          "status": "completed",
-          "topic": ""
-        },
-        {
-          "date": "2026-06-01",
-          "num": 3,
-          "status": "rescheduled",
-          "topic": "Перенос с понедельника на среду 3 июня (по договорённости)."
-        },
-        {
-          "date": "2026-06-03",
-          "num": 4,
-          "status": "planned",
-          "topic": "Vampire English v8 — Music & Friends (Pre-A1, 90 min).",
+          "topic": "🦇 Vampire English · Music & Friends (Pre-A1) — прошли на уроке.",
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/pre-a1/julia-vampire/index.html?v=1",
             "module_title": "🦇 Открыть урок",
-            "text": "Откройте на айпаде, нажимайте на картинки и значки 🔊 — всё озвучено."
+            "text": "Откройте на айпаде: нажимайте на картинки и значки 🔊 — всё озвучено. Повторяем то, что делали на занятии."
           }
         },
         {
-          "date": "2026-06-08",
-          "num": 5,
+          "date": "2026-06-22",
+          "num": 2,
+          "status": "completed",
+          "topic": "🦇 Vampire English · Music & Friends (Pre-A1) — повторили и закрепили.",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/pre-a1/julia-vampire/index.html?v=1",
+            "module_title": "🦇 Открыть урок",
+            "text": "Откройте на айпаде: нажимайте на картинки и значки 🔊 — всё озвучено. Повторяем то, что делали на занятии."
+          }
+        },
+        {
+          "date": "2026-07-13",
+          "num": 3,
           "status": "planned",
-          "topic": ""
+          "topic": "🦇 Vampire English · Music & Friends (Pre-A1) — сегодня.",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/pre-a1/julia-vampire/index.html?v=1",
+            "module_title": "🦇 Открыть урок",
+            "text": "Сегодня проходим на занятии. Потом можно открыть на айпаде и повторить: тыкать в картинки и в значки 🔊 — всё озвучено."
+          }
+        },
+        {
+          "date": "2026-07-20",
+          "num": 4,
+          "status": "planned",
+          "topic": "🦇 Vampire English · Music & Friends (Pre-A1) — финал абонемента.",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/pre-a1/julia-vampire/index.html?v=1",
+            "module_title": "🦇 Открыть урок",
+            "text": "К уроку — открыть на айпаде и пройтись по картинкам ещё раз. Всё озвучено, помощь родителя не нужна — Юля жмёт сама."
+          }
         }
       ]
     },
