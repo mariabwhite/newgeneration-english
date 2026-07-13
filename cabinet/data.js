@@ -885,11 +885,11 @@ window.NGE_DATA = {
           "date": "2026-07-20",
           "num": 3,
           "status": "planned",
-          "topic": "🛍️ Anya's Market Quest — food, shopping и первый заход в Past Simple",
+          "topic": "🛍️ Anya's Market Quest — 6 stalls субботнего рынка, Past Simple (regular + irregular) + Past Continuous + used to",
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/anyas-market-quest/?theme=light-lab&lang=ru",
             "module_title": "🛍️ Открыть квест · Anya's Market Quest",
-            "text": "Новый квест: рынок, кафе, магазины и Past Simple. Пройдём вместе на уроке, дома можно повторить."
+            "text": "Новый квест — 18 секций с картой рынка, аудированием (2:30 mp3), 6 прилавками и полным Past Simple. Пройдём вместе на уроке, дома можно повторить."
           }
         },
         {
