@@ -2342,6 +2342,86 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
 
 </section>
 
+<!-- ═══════════════════════════════════════════════════════════════
+     VOCABULARY BANK · add to your dictionary
+     ═══════════════════════════════════════════════════════════════
+     lab-homework.js (v42+) auto-decorates .vocab-card with ➕ button.
+     Click ➕ → word goes to student's homework store (lab-hw:<path>).
+     Added 2026-07-14 — «лифт словаря» was broken because the lesson
+     previously had zero vocab elements. -->
+<style>
+  .vocab-bank{max-width:1180px;margin:20px auto 40px;padding:0 clamp(12px,3vw,22px)}
+  .vocab-bank .section-hdr{display:flex;align-items:center;gap:12px;margin:20px 0 14px;flex-wrap:wrap}
+  .vocab-bank .section-hdr .num{width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:800;font-family:var(--display)}
+  .vocab-bank .section-hdr h2{font-size:1.25rem;font-weight:800;color:var(--text);letter-spacing:-.01em}
+  .vocab-bank .section-hdr .tag{font-family:var(--mono);font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.14em}
+  .vocab-bank .vocab-group{margin-top:22px}
+  .vocab-bank .vocab-group h3{font-family:var(--display);font-size:.86rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2);margin-bottom:10px}
+  .vocab-bank .vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px}
+  .vocab-bank .vocab-card{position:relative;background:linear-gradient(180deg,var(--card) 0%,#FDF4E6 100%);border:1.5px solid var(--line);border-radius:10px;padding:14px 14px 12px;box-shadow:var(--shadow);cursor:pointer;transition:.18s;min-height:110px;display:flex;flex-direction:column;justify-content:space-between}
+  .vocab-bank .vocab-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 22px rgba(107,74,134,.16)}
+  .vocab-bank .vocab-card .word{font-family:var(--display);font-weight:800;font-size:.98rem;color:var(--text);letter-spacing:-.01em;line-height:1.25}
+  .vocab-bank .vocab-card .pos{font-family:var(--mono);font-size:.7rem;color:var(--accent3);text-transform:uppercase;letter-spacing:.1em;margin-top:6px;font-weight:700}
+  .vocab-bank .vocab-card .meaning{font-family:var(--serif);font-size:.88rem;color:var(--muted);font-style:italic;margin-top:8px;line-height:1.4}
+  .vocab-bank .vocab-card .vocab-back{display:none}
+  .vocab-bank .vocab-card[data-back]::after{content:attr(data-back);display:block;font-family:var(--serif);font-size:.86rem;color:var(--accent);font-style:italic;margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
+</style>
+<section class="vocab-bank">
+  <div class="section-hdr">
+    <div class="num">📖</div>
+    <h2>Vocabulary bank · articles &amp; prepositions</h2>
+    <span class="tag">click ➕ to add to homework</span>
+  </div>
+
+  <div class="vocab-group">
+    <h3>Articles · set phrases</h3>
+    <div class="vocab-grid">
+      <div class="vocab-card" data-word="go to school" data-back="ходить в школу (учиться)"><div class="word">go to school</div><div class="pos">no article</div><div class="meaning">to attend school as a pupil</div></div>
+      <div class="vocab-card" data-word="go to bed" data-back="ложиться спать"><div class="word">go to bed</div><div class="pos">no article</div><div class="meaning">to go to sleep</div></div>
+      <div class="vocab-card" data-word="have breakfast" data-back="завтракать"><div class="word">have breakfast</div><div class="pos">no article</div><div class="meaning">to eat breakfast (meals are zero-article)</div></div>
+      <div class="vocab-card" data-word="be in hospital" data-back="лежать в больнице (как пациент)"><div class="word">be in hospital</div><div class="pos">no article · BrE</div><div class="meaning">to be a patient in hospital</div></div>
+      <div class="vocab-card" data-word="play the piano" data-back="играть на пианино"><div class="word">play the piano</div><div class="pos">the + instrument</div><div class="meaning">musical instruments take «the»</div></div>
+      <div class="vocab-card" data-word="play chess" data-back="играть в шахматы"><div class="word">play × chess</div><div class="pos">no article · games</div><div class="meaning">games take zero article</div></div>
+    </div>
+  </div>
+
+  <div class="vocab-group">
+    <h3>Prepositions of time · at / on / in</h3>
+    <div class="vocab-grid">
+      <div class="vocab-card" data-word="at 5 o'clock" data-back="в 5 часов"><div class="word">at 5 o'clock</div><div class="pos">at + time</div><div class="meaning">clock times take «at»</div></div>
+      <div class="vocab-card" data-word="at midnight" data-back="в полночь"><div class="word">at midnight</div><div class="pos">at + moment</div><div class="meaning">precise moments take «at»</div></div>
+      <div class="vocab-card" data-word="on Monday" data-back="в понедельник"><div class="word">on Monday</div><div class="pos">on + day</div><div class="meaning">days of the week take «on»</div></div>
+      <div class="vocab-card" data-word="on the 5th of May" data-back="5 мая"><div class="word">on the 5th of May</div><div class="pos">on + date</div><div class="meaning">dates take «on»</div></div>
+      <div class="vocab-card" data-word="in July" data-back="в июле"><div class="word">in July</div><div class="pos">in + month</div><div class="meaning">months take «in»</div></div>
+      <div class="vocab-card" data-word="in the morning" data-back="утром"><div class="word">in the morning</div><div class="pos">in + part of day</div><div class="meaning">parts of the day take «in the»</div></div>
+    </div>
+  </div>
+
+  <div class="vocab-group">
+    <h3>Prepositions of place · at / on / in</h3>
+    <div class="vocab-grid">
+      <div class="vocab-card" data-word="at home" data-back="дома"><div class="word">at home</div><div class="pos">no article · at</div><div class="meaning">being at one's own home</div></div>
+      <div class="vocab-card" data-word="at work" data-back="на работе"><div class="word">at work</div><div class="pos">no article · at</div><div class="meaning">at the workplace</div></div>
+      <div class="vocab-card" data-word="at the station" data-back="на вокзале"><div class="word">at the station</div><div class="pos">at + specific point</div><div class="meaning">point-locations take «at»</div></div>
+      <div class="vocab-card" data-word="in the office" data-back="в офисе"><div class="word">in the office</div><div class="pos">in + enclosed</div><div class="meaning">enclosed places take «in»</div></div>
+      <div class="vocab-card" data-word="on the second floor" data-back="на втором этаже"><div class="word">on the second floor</div><div class="pos">on + level</div><div class="meaning">floors and layers take «on»</div></div>
+      <div class="vocab-card" data-word="in the mountains" data-back="в горах"><div class="word">in the mountains</div><div class="pos">in + area</div><div class="meaning">wide areas take «in»</div></div>
+    </div>
+  </div>
+
+  <div class="vocab-group">
+    <h3>Idioms &amp; expressions · in / on</h3>
+    <div class="vocab-grid">
+      <div class="vocab-card" data-word="in the rain" data-back="под дождём"><div class="word">in the rain</div><div class="pos">in + weather</div><div class="meaning">Don't go out in the rain.</div></div>
+      <div class="vocab-card" data-word="in the shade" data-back="в тени"><div class="word">in the shade</div><div class="pos">in + condition</div><div class="meaning">Let's sit in the shade.</div></div>
+      <div class="vocab-card" data-word="in love" data-back="влюблён"><div class="word">in love</div><div class="pos">in + state</div><div class="meaning">They fell in love.</div></div>
+      <div class="vocab-card" data-word="in my opinion" data-back="по моему мнению"><div class="word">in my opinion</div><div class="pos">in + opinion</div><div class="meaning">Task 3/4 speaking phrase</div></div>
+      <div class="vocab-card" data-word="on time" data-back="вовремя"><div class="word">on time</div><div class="pos">on + punctual</div><div class="meaning">She arrived on time.</div></div>
+      <div class="vocab-card" data-word="on the phone" data-back="по телефону"><div class="word">on the phone</div><div class="pos">on + device</div><div class="meaning">He's on the phone with mum.</div></div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <strong>NG English</strong> · Grammar Lab · Articles &amp; Prepositions
   <span class="by">B1 · based on Golitsynsky &amp; Murphy · v1</span>
@@ -2534,7 +2614,9 @@ document.querySelectorAll('.mc-list').forEach(list => {
 <script src="../../assets/lab-tabs.js?v=12" defer></script>
 <script src="../../assets/lab-homework.js?v=42" defer></script>
 <script src="../../assets/lab-telemost.js?v=1" defer></script>
-<!-- lab-vocab-builder deliberately not loaded on this grammar lesson (no vocab-box, was auto-picking words from drills) -->
+<!-- lab-vocab-builder still not loaded (auto-picker was too aggressive on drills).
+     Vocab bank at end of lesson uses .vocab-card markup → lab-homework.js v42 auto-adds ➕
+     to each card. Fix 14.07 — «лифт словаря» now works via manual vocab section. -->
 <script src="../../assets/lab-coach-persist.js?v=1" defer></script>
 
 
