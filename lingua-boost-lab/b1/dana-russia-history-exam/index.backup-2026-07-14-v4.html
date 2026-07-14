@@ -521,114 +521,17 @@ button[data-say]:hover{background:var(--accent3)}
   /* top-tools: чуть подвинуть чтоб бургер попал в первую строку */
   .top-tools,.canon-l-tools{flex:0 0 auto!important}
 
-  /* ltab (Урок / Моя домашка) — вернуть pill, надпись 📖 L / 📚 H (латиница) */
-  .lesson-tabs{padding:5px 8px!important;gap:6px!important}
-  .ltab{padding:4px 10px!important;height:24px!important;width:auto!important;
-    font-size:0!important;line-height:1!important;border-radius:50px!important;
-    display:inline-flex!important;align-items:center;justify-content:center;
-    position:relative;overflow:visible!important;letter-spacing:.06em!important}
-  .ltab[data-tab="lesson"]::before{content:"📖 L";font-size:11px;font-weight:800;letter-spacing:.08em}
-  .ltab[data-tab="homework"]::before{content:"📚 H";font-size:11px;font-weight:800;letter-spacing:.08em}
-  .ltab .ltab-count{position:static!important;margin-left:5px!important;font-size:9px!important;
-    padding:1px 5px!important;min-width:14px!important;height:14px!important;line-height:12px!important;
-    border-radius:50px!important;background:#F5C842!important;color:#0D2440!important}
-  .ltab .ltab-count:empty{display:none!important}
-
-  /* Teacher banner — вернуть fixed вверху (как было — красиво), 2 строки */
-  .lab-teacher-banner{position:fixed!important;top:0!important;left:0!important;right:0!important;
-    flex-wrap:wrap!important;padding:6px 10px!important;gap:6px 8px!important;
-    min-height:60px!important;font-size:11px!important;z-index:100!important}
-  /* body padding: место под teacher(60) + topbar(47) + ltab(35) = ~150px, чтобы hero был виден сразу */
-  body.lab-teacher-on{padding-top:150px!important}
-  .lab-teacher-banner > span:nth-of-type(1){font-size:11px!important;letter-spacing:.05em!important}
-  .lab-teacher-banner > span:nth-of-type(3){display:none!important}
-  .lab-teacher-banner > a[href*="teacher=off"]{display:none!important}
-  .lab-teacher-banner input#labTeacherWord{width:calc(100vw - 160px)!important;max-width:260px!important;font-size:11px!important;padding:4px 10px!important}
-  .lab-teacher-banner button#labTeacherAdd{padding:5px 10px!important;font-size:10px!important;letter-spacing:.1em!important}
-
-  /* Speaking bottom dock (Вокабуляр / Результаты) → маленькие круги V / R, вплотную к правому краю */
-  .speaking-bottom-dock{padding:2px!important;gap:4px!important;flex-direction:column!important;
-    align-items:flex-end!important;width:34px!important;min-width:0!important;
-    right:0!important;bottom:12px!important;background:transparent!important;box-shadow:none!important}
-  .speaking-bottom-dock button{width:30px!important;height:30px!important;padding:0!important;
-    font-size:0!important;border-radius:50%!important;overflow:hidden;position:relative;
-    display:inline-flex!important;align-items:center;justify-content:center;min-height:0!important;
-    box-shadow:0 2px 6px rgba(0,0,0,.25)}
-  .speaking-bottom-dock button[data-clean-lex]::before{content:"V";font-size:12px;font-weight:800;color:inherit}
-  .speaking-bottom-dock button[data-clean-total]::before{content:"R";font-size:12px;font-weight:800;color:inherit}
-
-  /* Лифт .lp-toc — по умолчанию скрыт, показывается по тапу на свою кнопку */
-  .lp-toc{display:none!important}
-  .lp-toc.is-open{display:block!important;position:fixed!important;
-    left:6px!important;bottom:80px!important;top:auto!important;
-    width:44px!important;max-height:60vh!important;overflow-y:auto!important;
-    padding:6px 4px!important;-webkit-overflow-scrolling:touch;
-    background:#FDF9EE!important;border:1px solid rgba(27,58,92,.22)!important;
-    border-radius:12px!important;box-shadow:0 8px 20px rgba(0,0,0,.2)!important;
-    z-index:70!important}
-  .lp-toc.is-open .lp-toc-btn{width:36px!important;height:28px!important;font-size:11px!important;
-    padding:0!important;margin:2px auto!important;border-radius:6px!important;display:block!important}
-
-  /* Своя видимая кнопка-лифт — pill в строке .lesson-tabs, рядом с L / H */
-  .lp-toc-mobile-btn{padding:4px 10px!important;height:24px!important;width:auto!important;min-width:32px;
-    border-radius:50px!important;background:#0D2440;color:#F5EDD8;
-    border:0;cursor:pointer;font-size:11px;font-weight:800;letter-spacing:.08em;
-    display:inline-flex!important;align-items:center;justify-content:center;
-    line-height:1;box-shadow:0 2px 6px rgba(0,0,0,.18)}
-  .lp-toc-mobile-btn:active{transform:scale(.96)}
+  /* ltab (Урок / Моя домашка) — до иконки: У / Д */
+  .ltab{padding:0!important;width:26px!important;height:26px!important;font-size:0!important;
+    justify-content:center;align-items:center;position:relative;overflow:hidden;border-radius:8px!important}
+  .ltab[data-tab="lesson"]::before{content:"У";font-size:.72rem;font-weight:800}
+  .ltab[data-tab="homework"]::before{content:"Д";font-size:.72rem;font-weight:800}
+  .ltab .ltab-count{position:absolute;top:-4px;right:-4px;font-size:9px!important;
+    padding:0 4px!important;min-width:14px!important;height:14px;line-height:14px!important;
+    border-radius:8px!important;background:#F5C842!important;color:#0D2440!important}
+  .ltab .ltab-count:empty,.ltab .ltab-count:contains("0"){display:none}
+  .lesson-tabs{padding:4px!important;gap:4px!important}
 }
-
-/* Мобильный лифт: своя видимая кнопка-триггер + логика открытия/закрытия */
-</style>
-<script>
-(function(){
-  var mm = window.matchMedia('(max-width:640px)');
-  function ensureButton(){
-    if (!mm.matches) return;
-    var toc = document.querySelector('.lp-toc');
-    var tabs = document.querySelector('.lesson-tabs');
-    if (!toc || !tabs) return;
-    if (document.querySelector('.lp-toc-mobile-btn')) return;
-    var btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'lp-toc-mobile-btn';
-    btn.setAttribute('aria-label','Оглавление урока');
-    btn.textContent = '1';
-    btn.onclick = function(e){
-      e.stopPropagation();
-      var isOpen = toc.classList.toggle('is-open');
-      btn.textContent = isOpen ? '✕' : '1';
-    };
-    tabs.appendChild(btn);
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', ensureButton);
-  } else {
-    ensureButton();
-  }
-  setTimeout(ensureButton, 800);
-  setTimeout(ensureButton, 2000);
-
-  document.addEventListener('click', function(e){
-    if (!mm.matches) return;
-    var toc = document.querySelector('.lp-toc.is-open');
-    if (!toc) return;
-    if (e.target.closest('.lp-toc-btn')){
-      setTimeout(function(){
-        toc.classList.remove('is-open');
-        var b = document.querySelector('.lp-toc-mobile-btn'); if (b) b.textContent = '☰';
-      }, 200);
-      return;
-    }
-    if (!e.target.closest('.lp-toc') && !e.target.closest('.lp-toc-mobile-btn')){
-      toc.classList.remove('is-open');
-      var b = document.querySelector('.lp-toc-mobile-btn'); if (b) b.textContent = '☰';
-    }
-  }, true);
-})();
-</script>
-<style id="mobile-declutter-cont">
-/* end of compact-v3 */
 </style>
 <style id="codex-white-corner-logo-20260701">
 .topbar .brand-mark,.friendly-topbar .brand-mark,.lab-topbar .brand-mark,.cmdbar .brand-mark,.cmdbar .cb-mark,.canon-l-topbar .brand-mark,.canon-l-topbar .canon-l-mark,.friendly-topbar .brand-logo-mark{position:relative!important;overflow:visible!important;border-top-right-radius:0!important}
@@ -2227,7 +2130,7 @@ let _coachStateFn = () => ({ kind:'empty' });
 <script src="../../assets/lab-pilot.js?v=3" defer></script>
 <script src="../../assets/lab-mic-wpm.js?v=1" defer></script>
 <script src="../../assets/lab-ai-feedback.js?v=6" defer></script>
-<script src="../../assets/lab-sync.js?v=19" defer></script>
+<script src="../../assets/lab-sync.js?v=18" defer></script>
 <script src="../../assets/lab-tabs.js?v=12" defer></script>
 
 <script src="../../assets/lab-send-pill.js?v=4" defer></script>
