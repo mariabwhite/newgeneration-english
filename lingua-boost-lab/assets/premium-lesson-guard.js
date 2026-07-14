@@ -44,6 +44,26 @@
     }
   }
 
+  async function publicJsonHasAccess() {
+    // Fallback когда /api/premium-lessons недоступен (GitHub Pages без Cloudflare Functions).
+    // Читаем публичный premium-lessons.json напрямую и заодно обновляем локальный кэш,
+    // чтобы новые уроки (например Perm 2026-07-14) не вызывали login-ring.
+    try {
+      var pub = await fetch("/lingua-boost-lab/premium-lessons.json?_=" + Date.now(), {
+        cache: "no-store",
+      });
+      if (!pub.ok) return null;
+      var lessons = await pub.json();
+      if (!Array.isArray(lessons)) return null;
+      var here = currentPath();
+      var found = lessons.some(function (l) {
+        return normalizePath(l && l.url) === here && l.published !== false;
+      });
+      try { localStorage.setItem(cacheKey, JSON.stringify(lessons)); } catch (_) {}
+      return found;
+    } catch (_) { return null; }
+  }
+
   async function serverHasAccess() {
     try {
       var response = await fetch("/api/premium-lessons", {
@@ -51,7 +71,7 @@
         cache: "no-store",
       });
 
-      if (response.status === 404) return null;
+      if (response.status === 404) return await publicJsonHasAccess();
       if (!response.ok) return false;
 
       var payload = await response.json();
@@ -62,7 +82,7 @@
         return normalizePath(lesson && lesson.url) === here;
       });
     } catch (error) {
-      return null;
+      return await publicJsonHasAccess();
     }
   }
 
