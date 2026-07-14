@@ -337,33 +337,36 @@ window.NGE_DATA = {
           }
         },
         {
-          "date": "2026-07-13",
+          "date": "2026-07-14",
+          "num": 14,
+          "status": "completed",
+          "topic": "📕 Tom Sawyer · Рабочая тетрадь — vocab всей серии · Murphy B1 grammar · story MCQ",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/tom-sawyer-three-acts/.homework/",
+            "module_title": "📕 Открыть РТ Tom Sawyer",
+            "text": "Собрала РТ по всем 7 актам: 10 упражнений на лексику (match, gap-fill, MCQ, translation, odd-one-out, word forms), 8 тем грамматики Мёрфи B1 (Past Simple/Continuous, Present Perfect, Articles, Prepositions, Comparatives, Modals, Conditionals), 12 вопросов по сюжету. Пройди спокойно, перед следующей серией Treasure Island."
+          }
+        },
+        {
+          "date": "2026-07-17",
           "num": 15,
           "status": "planned",
-          "topic": "🏴‍☠️ Treasure Island · Act 1 — The Black Spot (открытие новой серии)",
+          "topic": "🏴‍☠️ Treasure Island · Act 1 — The Black Spot (открытие новой серии) · 🟡 оплачено",
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/treasure-island-three-acts/",
-            "module_title": "🏴‍☠️ Открыть Treasure Island · Three Adventures"
+            "module_title": "🏴‍☠️ Открыть Treasure Island · Three Adventures",
+            "text": "🟡 Оплачено. Четверг 17.07 в 13:00. Начинаем новую серию Treasure Island."
           }
         },
         {
-          "date": "2026-07-16",
+          "date": "2026-07-28",
           "num": 16,
           "status": "planned",
-          "topic": "🏴‍☠️ Treasure Island · Act 2 — The Apple Barrel (заговор на борту)",
+          "topic": "🏴‍☠️ Treasure Island · Act 2 — The Apple Barrel (заговор на борту) · 🟡 перенос-оплачено",
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/treasure-island-three-acts/",
-            "module_title": "🏴‍☠️ Открыть Treasure Island · Three Adventures"
-          }
-        },
-        {
-          "date": "2026-07-19",
-          "num": 17,
-          "status": "planned",
-          "topic": "🏴‍☠️ Treasure Island · Act 3 — The Cave (финал серии)",
-          "homework": {
-            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b1/treasure-island-three-acts/",
-            "module_title": "🏴‍☠️ Открыть Treasure Island · Three Adventures"
+            "module_title": "🏴‍☠️ Открыть Treasure Island · Three Adventures",
+            "text": "🟡 Оплачено · перенос на понедельник 28.07 в 13:00. Продолжаем Treasure Island, Act 2."
           }
         }
       ]
@@ -475,11 +478,12 @@ window.NGE_DATA = {
         {
           "date": "2026-07-15",
           "num": 6,
-          "status": "planned",
+          "status": "completed",
           "topic": "🧠 Voyager L3 · Whose Mind? — EEG blinks, consciousness signal (первый раз)",
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/b2-plus/voyager-l3-whose-mind/",
-            "module_title": "🧠 Voyager L3 · Whose Mind? (повтор)"
+            "module_title": "🧠 Voyager L3 · Whose Mind? (повтор)",
+            "text": "✅ Домашка сдана до урока. Разбираем на следующем занятии — фокус на EEG-lexicon и consciousness signal в cloze."
           }
         },
         {
