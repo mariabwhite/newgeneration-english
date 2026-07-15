@@ -108,6 +108,8 @@ h1{font:800 1.65rem/1.1 'Unbounded',sans-serif;letter-spacing:-.01em;display:fle
 .state-empty{color:var(--muted);font:500 .88rem/1.5 'Manrope',sans-serif;padding:20px;text-align:center}
 .side .st-btn{background:transparent;border:1px solid var(--line);color:var(--muted);padding:3px 8px;border-radius:6px;font:800 .68rem/1 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;margin-left:6px}
 .side .st-btn:hover{border-color:var(--accent);color:var(--accent)}
+.student .typing-live{font:600 .74rem/1.3 'Manrope',sans-serif;color:var(--accent);width:100%;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;animation:typingBlink .6s ease-in-out infinite alternate}
+@keyframes typingBlink{from{opacity:.6}to{opacity:1}}
 
 .bar{display:flex;gap:12px;align-items:center;font:600 .82rem/1 'JetBrains Mono',monospace;color:var(--muted);background:var(--surface-2);padding:10px 14px;border-radius:8px}
 .bar .ch{padding:3px 8px;border-radius:5px;background:var(--bg);color:var(--accent);font:800 .76rem/1 'JetBrains Mono',monospace}
@@ -178,11 +180,13 @@ const SUPABASE_URL  = "https://iqzlphbvmfgoygnozbya.supabase.co";
 const SUPABASE_ANON = "sb_publishable_hYhBk3xS90uouUFd_DZWUw_sOv-6JGO";
 
 const state = {
-  students: new Map(),  // room_id -> { name, lastLessonPath, lastSeen, online }
+  students: new Map(),  // room_id -> { name, lastLessonPath, lastSeen, online, liveTyping }
   feed: [],             // array of events
   filter: 'all',
   evtCount: 0
 };
+// Дебаунс для typing-событий: в ленту кидаем раз в 3с на студента, не каждый символ
+const typingDebounce = new Map(); // room_id -> timeoutId
 
 function fmtTime(ts){
   const d = new Date(ts || Date.now());
@@ -219,6 +223,7 @@ function updateStudents(){
       <div style="flex:1;min-width:0" onclick="openMirror('${esc(rid)}','${esc(s.lastLessonPath||'')}','${esc(s.name||rid)}')" style="cursor:pointer">
         <div class="nm">${esc(s.name || rid.replace(/^student-/,''))}</div>
         <div class="lp">${esc(shortLesson(s.lastLessonPath))} · клик → зеркало</div>
+        ${s.liveTyping ? `<div class="typing-live">⌨ ${esc(s.liveTyping.value.slice(0,50))}</div>` : ''}
       </div>
       <button class="st-btn" onclick="event.stopPropagation(); openStateBox('${esc(rid)}','${esc(s.name||rid)}')" title="Полная история по всем урокам">📥 state</button>
       <div class="live-dot ${s.online?'on':''}"></div>
@@ -474,7 +479,18 @@ firehose
   })
   .on('broadcast', { event:'dom-state' }, ({payload})=>{
     bumpStudent(payload);
-    pushEvent('dom-state', payload);
+    const rid = payload.room_id || 'anon';
+    const isTyping = payload.kind === 'writing' || payload.kind === 'input';
+    if (isTyping && payload.value) {
+      // Обновляем живой индикатор на карточке студента
+      const s = state.students.get(rid);
+      if (s) { s.liveTyping = { value: payload.value, ts: Date.now() }; updateStudents(); }
+      // В ленту — не чаще раза в 3с на студента
+      if (typingDebounce.has(rid)) clearTimeout(typingDebounce.get(rid));
+      typingDebounce.set(rid, setTimeout(()=>{ pushEvent('dom-state', payload); typingDebounce.delete(rid); }, 3000));
+    } else {
+      pushEvent('dom-state', payload);
+    }
   })
   .on('broadcast', { event:'section-submit' }, ({payload})=>{
     bumpStudent(payload);
