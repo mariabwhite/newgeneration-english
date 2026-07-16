@@ -1160,7 +1160,7 @@ th { background: #fdf3e8; }
 
   function renderRestaurantBlock(container) {
     container.innerHTML = `
-      <div id="menuWorkshop" class="round-card">
+      <div id="menuWorkshop" class="round-card lb-block">
         <div class="round-header"><span class="round-title">Restaurant Menu Workshop</span><span class="round-badge">${activityCompleted ? 'Completed' : 'Pending'}</span><span class="round-score">${activityCompleted ? 'Done' : 'Open'}</span></div>
         <div class="round-body">
           <div class="menu-workshop">
@@ -1244,7 +1244,7 @@ th { background: #fdf3e8; }
             <div style="font-size:0.75rem; margin-top:16px;">You can add multiple dishes per category. Click x to remove.</div>
           </div>
 
-          <div class="speaking-card" style="margin-top:36px;">
+          <div class="speaking-card lb-block" style="margin-top:36px;">
             <h2>CHEF'S PRESENTATION | MENU PITCH</h2>
 
             <div class="mission-card">
@@ -1338,7 +1338,7 @@ th { background: #fdf3e8; }
             </div>
           </div>
 
-          <div class="rubric-section" style="margin-top:36px;">
+          <div class="rubric-section lb-block" style="margin-top:36px;">
             <h2>SPEAKING RUBRIC (max 20 points)</h2>
             <p style="margin: 8px 0 18px;">Use this rubric before you speak and after your presentation.</p>
             <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 16px;">
@@ -1747,12 +1747,14 @@ th { background: #fdf3e8; }
     });
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
+  // Render synchronously at parse time so lab-pilot (lift) and lab-homework
+  // (section-btns) see the .lb-block wrappers when they run at defer/DOMContentLoaded.
+  (function initMenuLab(){
     loadProgress();
-    const container = document.getElementById('activities-container');
+    var container = document.getElementById('activities-container');
     if (container) renderRestaurantBlock(container);
     updateProgress();
-  });
+  })();
 </script>
 <script defer src="../assets/lab-unify-repair.js?v=20260708-menu" data-lab-unify-repair></script>
 <nav class="lesson-foot" aria-label="Lesson navigation">
