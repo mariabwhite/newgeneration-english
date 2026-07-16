@@ -12,7 +12,7 @@
     var anchor = document.querySelector('footer') || document.body.lastElementChild;
     var sec = document.createElement('section');
     sec.id = 'lab-total-block';
-    sec.style.cssText = 'max-width:1240px;margin:32px auto;padding:0 clamp(16px,3vw,28px);font-family:system-ui,sans-serif';
+    sec.style.cssText = 'width:min(100% - 48px, 1320px);margin:32px auto;padding:0 clamp(16px,3vw,28px);font-family:system-ui,sans-serif';
     sec.innerHTML = ''
       + '<div style="background:color-mix(in srgb, var(--accent, #fbbf24) 10%, transparent);border:1px solid color-mix(in srgb, var(--accent, #fbbf24) 35%, transparent);border-radius:14px;padding:18px 22px;text-align:center;color:var(--text,#f3eee5)">'
       +   '<div style="font-family:monospace;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent, #fbbf24);font-weight:800;margin-bottom:10px">Lesson score · total</div>'
