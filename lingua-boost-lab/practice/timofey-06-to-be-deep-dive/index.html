@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Timofey · Deep Dive 06 · Verb TO BE · A2 → B1</title>
+<meta name="description" content="Verb TO BE Deep Dive · 5 units + mega mix · am/is/are · was/were · negatives · questions · short answers · TO BE as helper · Milan-office business context · 79 practice items">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4efe4; --bg-2:#eae4d3; --surface:#ffffff; --card:#faf6ea; --surface-2:#f0ebde;
+  --text:#1c2024; --ink:#1c2024; --muted:#5a6068; --faint:#8a8f97;
+  --navy:#1A3A5C; --navy-2:#0f2544;
+  --burgundy:#8B3A2E; --burgundy-2:#6a2a20;
+  --gold:#C4993E; --cream:#F7EDD3;
+  --line:rgba(28,32,36,.10); --line-2:rgba(28,32,36,.20);
+  --ok:#2C7A4D; --miss:#B23A3A;
+  --display:"Unbounded","Manrope",system-ui,sans-serif;
+  --body:"Manrope",system-ui,sans-serif;
+  --mono:"JetBrains Mono",Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--body);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.65;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+.topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;padding:12px clamp(16px,3vw,28px);
+  background:color-mix(in srgb,var(--bg) 92%,transparent);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-mark{width:40px;height:40px;border-radius:8px;border-top-right-radius:0;background:var(--burgundy);color:#fff;
+  font-family:var(--display);font-weight:900;font-size:22px;display:grid;place-items:center;position:relative;overflow:hidden}
+.brand-mark::after{content:"";position:absolute;right:0;top:0;width:14px;height:14px;background:var(--bg);clip-path:polygon(100% 0,0 0,100% 100%)}
+.brand-copy{display:grid;gap:1px}
+.brand-name{font-family:var(--display);font-weight:800;font-size:15px}
+.brand-sub{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-top:2px}
+.spacer{flex:1}
+.pill{padding:5px 11px;border-radius:50px;font:700 9.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid var(--burgundy);color:var(--burgundy);background:rgba(139,58,46,.08);white-space:nowrap}
+.pill.gold{border-color:var(--gold);color:var(--gold);background:rgba(196,153,62,.10)}
+.btn-sm{height:32px;padding:0 12px;border-radius:8px;border:1px solid var(--line-2);background:var(--card);color:var(--muted);
+  font:700 11px/1 var(--mono);letter-spacing:.08em;cursor:pointer;display:inline-flex;align-items:center;text-decoration:none}
+.btn-sm:hover{border-color:var(--burgundy);color:var(--burgundy)}
+
+.hero{max-width:1240px;margin:24px auto 18px;padding:0 clamp(16px,3vw,28px)}
+.hero-card{position:relative;border:1px solid var(--line);border-radius:24px;overflow:hidden;
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-2) 40%,var(--burgundy) 100%);
+  padding:clamp(28px,4.5vw,52px);min-height:260px;box-shadow:0 10px 40px rgba(0,0,0,.14);color:#fff}
+.hero-inner{position:relative;z-index:2}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.30);
+  padding:7px 14px;border-radius:50px;font:800 11px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:#fff;margin-bottom:18px;backdrop-filter:blur(10px)}
+h1.hero-title{font-family:var(--display);font-weight:900;letter-spacing:-.04em;line-height:1;
+  font-size:clamp(1.6rem,4vw,2.8rem);margin-bottom:14px;color:#fff;text-shadow:0 3px 24px rgba(0,0,0,.30)}
+h1.hero-title .grad{background:linear-gradient(120deg,#fff,var(--cream));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-lead{font-size:1rem;color:#fff;max-width:740px;line-height:1.6;background:rgba(10,20,40,.35);
+  border:1px solid rgba(255,255,255,.20);border-radius:14px;padding:16px 20px;backdrop-filter:blur(10px)}
+.hero-stat{display:inline-flex;gap:16px;margin-top:18px;flex-wrap:wrap}
+.hero-stat .st{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.22);border-radius:12px;padding:10px 14px;min-width:110px}
+.hero-stat .st b{display:block;font-family:var(--display);font-size:1.3rem;color:var(--cream)}
+.hero-stat .st span{font:800 10px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.72)}
+
+.section{max-width:1240px;margin:0 auto 28px;padding:0 clamp(16px,3vw,28px)}
+.section-hdr{display:flex;align-items:center;gap:14px;margin:34px 0 14px;flex-wrap:wrap}
+.section-num{font:800 11px/1 var(--mono);letter-spacing:.16em;background:var(--burgundy);color:#fff;padding:5px 11px;border-radius:50px}
+.section-hdr h2{font-family:var(--display);font-weight:800;font-size:clamp(1.25rem,2.2vw,1.6rem);letter-spacing:-.02em;line-height:1.1;color:var(--ink)}
+.section-sub{font-size:.92rem;color:var(--muted);margin:0 0 14px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 24px;box-shadow:0 2px 14px rgba(0,0,0,.05)}
+.card p{margin-bottom:10px}
+.card > h3{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--navy);margin:16px 0 8px}
+.card > h3:first-child{margin-top:0}
+
+/* Rule box (left column feel — Murphy-style) */
+.rule-block{background:linear-gradient(180deg,var(--cream),#faf6ea);border-left:4px solid var(--gold);border-radius:0 10px 10px 0;padding:14px 18px;margin:12px 0}
+.rule-block h4{font-family:var(--mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:var(--burgundy);margin-bottom:8px}
+.rule-block p{font-size:.95rem;color:var(--ink);margin-bottom:8px}
+.rule-block .eg{font-family:Georgia,serif;font-style:italic;color:var(--navy);background:rgba(26,58,92,.05);padding:6px 10px;border-radius:4px;margin:6px 0}
+.rule-block .eg b{color:var(--burgundy);font-style:normal}
+
+/* Verb-be table */
+table.be-tab{width:100%;font-size:.92rem;line-height:1.55;margin:10px 0;border-collapse:collapse;border:1px solid var(--line-2);background:#fff}
+table.be-tab th{background:var(--navy);color:#fff;padding:8px 10px;text-align:left;font:800 .78rem/1 var(--mono);letter-spacing:.12em;text-transform:uppercase}
+table.be-tab td{padding:7px 10px;border-bottom:1px solid var(--line)}
+table.be-tab tr:nth-child(even) td{background:var(--card)}
+table.be-tab b{color:var(--burgundy)}
+
+/* MCQ / gap-fill drills */
+.drill-hdr{font:800 10px/1 var(--mono);letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin:16px 0 6px}
+.mcq-row{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:11px 14px;margin:8px 0}
+.mcq-q{font-size:.94rem;color:var(--text);margin-bottom:8px;line-height:1.5}
+.mcq-q .blank{display:inline-block;min-width:56px;padding:0 8px;border-bottom:2px dashed var(--burgundy);font-weight:700;color:var(--burgundy)}
+.mcq-opts{display:flex;flex-wrap:wrap;gap:6px}
+.mcq-opts button{background:var(--surface-2);border:1px solid var(--line-2);color:var(--text);padding:7px 12px;border-radius:8px;
+  font-family:var(--body);font-size:.9rem;cursor:pointer;transition:.18s}
+.mcq-opts button:hover{border-color:var(--burgundy);color:var(--burgundy)}
+.mcq-opts button.right{background:rgba(44,122,77,.15);border-color:var(--ok);color:var(--ok);font-weight:700}
+.mcq-opts button.wrong{background:rgba(178,58,58,.12);border-color:var(--miss);color:var(--miss)}
+.mcq-row.revealed .mcq-hint{display:block}
+.mcq-hint{display:none;margin-top:8px;font:italic 500 .78rem/1.5 var(--mono);color:var(--muted);background:rgba(196,153,62,.10);border-left:3px solid var(--gold);padding:6px 10px;border-radius:0 6px 6px 0}
+
+/* Gap-fill */
+.gap-block{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:8px 0}
+.gap-block p{line-height:2;font-family:Georgia,serif;color:var(--ink);margin-bottom:6px}
+.gap-block input{display:inline-block;min-width:100px;font:600 .94rem var(--body);background:#fff;color:var(--ink);border:1.5px solid var(--line-2);border-radius:6px;padding:3px 8px;outline:none;text-align:center;margin:0 2px}
+.gap-block input:focus{border-color:var(--burgundy)}
+.gap-block input.right{background:rgba(44,122,77,.15);border-color:var(--ok);color:var(--ok)}
+.gap-block input.wrong{background:rgba(178,58,58,.12);border-color:var(--miss);color:var(--miss)}
+.gap-block button.check{font:800 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--burgundy);color:#fff;border:none;padding:9px 16px;border-radius:8px;cursor:pointer;margin-top:10px}
+.gap-block button.check:hover{background:var(--burgundy-2)}
+.gap-block .score{font:800 .78rem/1 var(--mono);letter-spacing:.12em;color:var(--burgundy);margin-left:12px}
+
+.split-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+@media(max-width:820px){.split-2{grid-template-columns:1fr}}
+
+.closing{background:linear-gradient(135deg,#F5EDDA,#FFFBEF);border:1px solid var(--gold);border-left:4px solid var(--gold);border-radius:14px;padding:18px 22px;margin:24px 0}
+.closing h3{font-family:var(--display);font-weight:800;color:var(--burgundy);font-size:1.1rem;margin-bottom:8px}
+
+footer{max-width:1240px;margin:40px auto 24px;padding:0 22px;text-align:center;color:var(--faint);font:600 .78rem/1 var(--mono);letter-spacing:.06em}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a class="brand" href="../../">
+    <span class="brand-mark" aria-hidden="true"><span style="position:relative;z-index:1;color:#fff!important">N</span></span>
+    <span class="brand-copy">
+      <span class="brand-name">NG English</span>
+      <span class="brand-sub">LinguaBoost Lab · Deep Dive</span>
+    </span>
+  </a>
+  <span class="pill">Deep Dive 06</span>
+  <span class="pill gold">A2 → B1 · Timofey</span>
+  <div class="spacer"></div>
+  <a class="btn-sm" href="../../../cabinet/">← Cabinet</a>
+  <a class="btn-sm" href="../../b1/timofey-articles-prepositions/?theme=light-lab&lang=ru#pane-workbook">← Fix your leaks</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-card">
+    <div class="hero-inner">
+      <div class="eyebrow">Verb TO BE · foundation lesson · 19.07.2026</div>
+      <h1 class="hero-title">To BE <span class="grad">or not to BE</span></h1>
+      <p class="hero-lead">Тимофей, это <b>фундаментальный</b> глагол. Без него в английском не работают <em>ни настоящее время описания</em>, ни Continuous, ни Passive, ни вопросы. Мы пройдём его с нуля: <b>am / is / are</b>, <b>was / were</b>, отрицания, вопросы, короткие ответы, и <em>to be</em> как помощник. 5 юнитов + mega mix, всего 79 упражнений. Все примеры — из твоего бизнес-контекста (Marco, Milan, office).</p>
+      <div class="hero-stat">
+        <div class="st"><b>5</b><span>Units</span></div>
+        <div class="st"><b>79</b><span>Items</span></div>
+        <div class="st"><b>am/is/are</b><span>Present</span></div>
+        <div class="st"><b>was/were</b><span>Past</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ UNIT 1 · am / is / are · POSITIVE ══════════════════ -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">Unit 1</div><h2>am / is / are · positive form</h2></div>
+  <div class="card">
+
+    <div class="rule-block">
+      <h4>📋 The rule</h4>
+      <p><em>To be</em> — это то, что <b>склеивает</b> подлежащее (кто/что) с описанием (кем/чем является, каким, где находится). В русском мы говорим «Марко — инженер», а слово «есть» опускаем. В английском <b>нельзя</b> опустить: <em>Marco is an engineer.</em></p>
+      <div class="eg">I <b>am</b> Timofey. · Marco <b>is</b> from Milan. · We <b>are</b> a small team.</div>
+    </div>
+
+    <h3>📊 Полная таблица форм · Present</h3>
+    <table class="be-tab">
+      <thead><tr><th>Подлежащее (Subject)</th><th>Форма to be</th><th>Contracted (short form)</th><th>Пример из работы</th></tr></thead>
+      <tbody>
+        <tr><td>I</td><td><b>am</b></td><td><b>I'm</b></td><td>I'<b>m</b> in the Milan office today.</td></tr>
+        <tr><td>You (ты / вы)</td><td><b>are</b></td><td><b>you're</b></td><td>You'<b>re</b> right about the deadline.</td></tr>
+        <tr><td>He</td><td><b>is</b></td><td><b>he's</b></td><td>He'<b>s</b> the new project manager.</td></tr>
+        <tr><td>She</td><td><b>is</b></td><td><b>she's</b></td><td>She'<b>s</b> from the finance team.</td></tr>
+        <tr><td>It (компания, отчёт, вещь)</td><td><b>is</b></td><td><b>it's</b></td><td>It'<b>s</b> a difficult client.</td></tr>
+        <tr><td>We</td><td><b>are</b></td><td><b>we're</b></td><td>We'<b>re</b> ready for the meeting.</td></tr>
+        <tr><td>They (люди / вещи во множ. числе)</td><td><b>are</b></td><td><b>they're</b></td><td>They'<b>re</b> in the conference room.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="rule-block" style="border-left-color:var(--navy);background:linear-gradient(180deg,#eef2f7,#f8fafc)">
+      <h4>🔑 Три ключа</h4>
+      <p><b>1.</b> Названия компаний, команд, отчётов = <b>it</b> → <em>is</em>: <em>Our team <b>is</b> small. The report <b>is</b> ready.</em></p>
+      <p><b>2.</b> Марко, Анна, Джон (одно имя) = <b>he / she</b> → <em>is</em>. Marco &amp; Anna (два имени) = <b>they</b> → <em>are</em>.</p>
+      <p><b>3.</b> Contracted (I'm / you're / he's) — норма в устной и в email'ах. Полная форма (I am / you are) — в официальных документах.</p>
+    </div>
+
+    <div class="drill-hdr">🎯 Drill 1.1 · MCQ · выбери am / is / are · 8 items</div>
+    <div class="mcq-row" data-a="am"><div class="mcq-q">1. I <span class="blank">___</span> Timofey.</div><div class="mcq-opts"><button data-v="am">am</button><button data-v="is">is</button><button data-v="are">are</button></div></div>
+    <div class="mcq-row" data-a="is"><div class="mcq-q">2. Marco <span class="blank">___</span> a project manager.</div><div class="mcq-opts"><button data-v="am">am</button><button data-v="is">is</button><button data-v="are">are</button></div></div>
+    <div class="mcq-row" data-a="are"><div class="mcq-q">3. My colleagues <span class="blank">___</span> in Milan this week.</div><div class="mcq-opts"><button data-v="am">am</button><button data-v="is">is</button><button data-v="are">are</button></div></div>
+    <div class="mcq-row" data-a="is"><div class="mcq-q">4. The report <span class="blank">___</span> on my desk.</div><div class="mcq-opts"><button data-v="am">am</button><button data-v="is">is</button><button data-v="are">are</button></div></div>
+    <div class="mcq-row" data-a="are"><div class="mcq-q">5. We <span class="blank">___</span> ready for the meeting.</div><div class="mcq-opts"><button data-v="am">am</button><button data-v="is">is</button><button data-v="are">are</button></div></div>
+    <div class="mcq-row" data-a="is"><div class="mcq-q">6. Our team <span class="blank">___</span> small — only five people.</div><div class="mcq-opts"><button data-v="am">am</button><button data-v="is">is</button><button data-v="are">are</button></div></div>
+    <div class="mcq-row" data-a="are"><div class="mcq-q">7. You <span class="blank">___</span> right — we need more time.</div><div class="mcq-opts"><button data-v="am">am</button><button data-v="is">is</button><button data-v="are">are</button></div></div>
+    <div class="mcq-row" data-a="is"><div class="mcq-q">8. Anna <span class="blank">___</span> in charge of the Milan account.</div><div class="mcq-opts"><button data-v="am">am</button><button data-v="is">is</button><button data-v="are">are</button></div></div>
+
+    <div class="drill-hdr">🎯 Drill 1.2 · Gap-fill · впиши am / is / are (или short form) · 8 items</div>
+    <div class="gap-block" data-drill="1.2">
+      <p><b>1.</b> Marco <input data-a="is|'s"> a very good engineer.</p>
+      <p><b>2.</b> I <input data-a="am|'m"> at the office right now.</p>
+      <p><b>3.</b> The Milan clients <input data-a="are|'re"> quite demanding.</p>
+      <p><b>4.</b> Our new proposal <input data-a="is|'s"> ready for review.</p>
+      <p><b>5.</b> Anna and Sergey <input data-a="are|'re"> from the analytics team.</p>
+      <p><b>6.</b> You <input data-a="are|'re"> late for the stand-up again!</p>
+      <p><b>7.</b> Today <input data-a="is|'s"> a busy day for everyone.</p>
+      <p><b>8.</b> I <input data-a="am|'m"> the person you need to talk to.</p>
+      <button class="check" onclick="checkGap(this)">Check</button><span class="score"></span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════ UNIT 2 · am / is / are · NEGATIVE ══════════════════ -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">Unit 2</div><h2>am / is / are · negative form</h2></div>
+  <div class="card">
+
+    <div class="rule-block">
+      <h4>📋 The rule · отрицание</h4>
+      <p>Чтобы сделать отрицание — просто добавь <b>not</b> после to be. В русском мы говорим «не», в английском — <em>not</em>. Никаких <em>don't</em> с to be — <b>они не используются вместе</b>!</p>
+      <div class="eg">Marco <b>is not</b> in the office today.</div>
+      <div class="eg">I <b>am not</b> the one who sent the email.</div>
+      <div class="eg">We <b>are not</b> ready to start.</div>
+    </div>
+
+    <h3>📊 Таблица · отрицания + contractions</h3>
+    <table class="be-tab">
+      <thead><tr><th>Полная форма</th><th>Short form (contracted)</th><th>Пример</th></tr></thead>
+      <tbody>
+        <tr><td>I <b>am not</b></td><td><b>I'm not</b> <em>(единственная форма — «amn't» не бывает)</em></td><td>I'<b>m not</b> late — I'm on time.</td></tr>
+        <tr><td>You <b>are not</b></td><td><b>you're not</b> / <b>you aren't</b></td><td>You <b>aren't</b> in the CC list.</td></tr>
+        <tr><td>He <b>is not</b></td><td><b>he's not</b> / <b>he isn't</b></td><td>He <b>isn't</b> from the Milan office.</td></tr>
+        <tr><td>She <b>is not</b></td><td><b>she's not</b> / <b>she isn't</b></td><td>She <b>isn't</b> here today.</td></tr>
+        <tr><td>It <b>is not</b></td><td><b>it's not</b> / <b>it isn't</b></td><td>It <b>isn't</b> a big deal.</td></tr>
+        <tr><td>We <b>are not</b></td><td><b>we're not</b> / <b>we aren't</b></td><td>We <b>aren't</b> in a rush.</td></tr>
+        <tr><td>They <b>are not</b></td><td><b>they're not</b> / <b>they aren't</b></td><td>They <b>aren't</b> our biggest client.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="rule-block" style="border-left-color:var(--miss);background:linear-gradient(180deg,#fef4f2,#fdf9f8)">
+      <h4>❌ Типичные ошибки русскоязычных</h4>
+      <p>❌ <em>I <b>don't</b> ready</em> → ✅ I<b>'m not</b> ready. (с to be — <em>not</em>, не <em>don't</em>)</p>
+      <p>❌ <em>Marco <b>no is</b> here</em> → ✅ Marco <b>isn't</b> here. (нельзя ставить no перед глаголом)</p>
+      <p>❌ <em>He <b>doesn't</b> in the office</em> → ✅ He <b>isn't</b> in the office. (<em>doesn't</em> для action verbs; для to be — <em>isn't</em>)</p>
+    </div>
+
+    <div class="drill-hdr">🎯 Drill 2.1 · MCQ · выбери правильную отрицательную форму · 8 items</div>
+    <div class="mcq-row" data-a="isn't"><div class="mcq-q">1. Marco <span class="blank">___</span> from Rome — he's from Milan.</div><div class="mcq-opts"><button data-v="isn't">isn't</button><button data-v="don't">don't</button><button data-v="doesn't">doesn't</button></div></div>
+    <div class="mcq-row" data-a="I'm not"><div class="mcq-q">2. <span class="blank">___</span> the one who sent that email.</div><div class="mcq-opts"><button data-v="I don't">I don't</button><button data-v="I'm not">I'm not</button><button data-v="I amn't">I amn't</button></div></div>
+    <div class="mcq-row" data-a="aren't"><div class="mcq-q">3. The clients <span class="blank">___</span> happy with the delay.</div><div class="mcq-opts"><button data-v="isn't">isn't</button><button data-v="aren't">aren't</button><button data-v="don't">don't</button></div></div>
+    <div class="mcq-row" data-a="isn't"><div class="mcq-q">4. The proposal <span class="blank">___</span> finished yet.</div><div class="mcq-opts"><button data-v="isn't">isn't</button><button data-v="doesn't">doesn't</button><button data-v="hasn't">hasn't</button></div></div>
+    <div class="mcq-row" data-a="aren't"><div class="mcq-q">5. We <span class="blank">___</span> late — we're right on time.</div><div class="mcq-opts"><button data-v="aren't">aren't</button><button data-v="don't">don't</button><button data-v="isn't">isn't</button></div></div>
+    <div class="mcq-row" data-a="isn't"><div class="mcq-q">6. She <span class="blank">___</span> available for a call right now.</div><div class="mcq-opts"><button data-v="doesn't">doesn't</button><button data-v="isn't">isn't</button><button data-v="don't">don't</button></div></div>
+    <div class="mcq-row" data-a="aren't"><div class="mcq-q">7. You <span class="blank">___</span> in the meeting invite — I'll add you.</div><div class="mcq-opts"><button data-v="don't">don't</button><button data-v="aren't">aren't</button><button data-v="isn't">isn't</button></div></div>
+    <div class="mcq-row" data-a="isn't"><div class="mcq-q">8. It <span class="blank">___</span> a problem for us.</div><div class="mcq-opts"><button data-v="doesn't">doesn't</button><button data-v="isn't">isn't</button><button data-v="don't">don't</button></div></div>
+
+    <div class="drill-hdr">🎯 Drill 2.2 · Rewrite · сделай отрицания · 6 items</div>
+    <div class="gap-block" data-drill="2.2">
+      <p><b>1.</b> Marco is in the Milan office. → Marco <input data-a="isn't|is not|'s not"> in the Milan office.</p>
+      <p><b>2.</b> I am ready for the call. → I <input data-a="am not|'m not"> ready for the call.</p>
+      <p><b>3.</b> The clients are happy today. → The clients <input data-a="aren't|are not"> happy today.</p>
+      <p><b>4.</b> We are late. → We <input data-a="aren't|are not"> late.</p>
+      <p><b>5.</b> Anna is in charge of this project. → Anna <input data-a="isn't|is not|'s not"> in charge of this project.</p>
+      <p><b>6.</b> The reports are on my desk. → The reports <input data-a="aren't|are not"> on my desk.</p>
+      <button class="check" onclick="checkGap(this)">Check</button><span class="score"></span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════ UNIT 3 · am / is / are · QUESTIONS + SHORT ANSWERS ══════════════════ -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">Unit 3</div><h2>am / is / are · questions + short answers</h2></div>
+  <div class="card">
+
+    <div class="rule-block">
+      <h4>📋 The rule · вопрос</h4>
+      <p>Чтобы сделать вопрос — <b>меняем порядок слов</b>: to be становится <b>перед</b> подлежащим. Никаких do / does! To be сам делает свой вопрос.</p>
+      <div class="eg">Marco <b>is</b> a manager. → <b>Is</b> Marco a manager?</div>
+      <div class="eg">You <b>are</b> ready. → <b>Are</b> you ready?</div>
+      <div class="eg">I <b>am</b> right. → <b>Am</b> I right?</div>
+    </div>
+
+    <h3>📊 Таблица · вопросы + короткие ответы</h3>
+    <table class="be-tab">
+      <thead><tr><th>Вопрос</th><th>✓ Да, короткий ответ</th><th>✗ Нет, короткий ответ</th></tr></thead>
+      <tbody>
+        <tr><td><b>Am</b> I…?</td><td>Yes, you <b>are</b>.</td><td>No, you <b>aren't</b>.</td></tr>
+        <tr><td><b>Are</b> you…?</td><td>Yes, I <b>am</b>.</td><td>No, I<b>'m not</b>.</td></tr>
+        <tr><td><b>Is</b> he / she / it…?</td><td>Yes, he/she/it <b>is</b>.</td><td>No, he/she/it <b>isn't</b>.</td></tr>
+        <tr><td><b>Are</b> we…?</td><td>Yes, we <b>are</b>.</td><td>No, we <b>aren't</b>.</td></tr>
+        <tr><td><b>Are</b> they…?</td><td>Yes, they <b>are</b>.</td><td>No, they <b>aren't</b>.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="rule-block" style="border-left-color:var(--gold)">
+      <h4>💡 Wh-вопросы (что / кто / где / когда)</h4>
+      <p>Ставим <em>wh-слово</em> в начало, потом <em>to be</em>, потом подлежащее.</p>
+      <div class="eg"><b>Where</b> is Marco? → He's in Milan.</div>
+      <div class="eg"><b>What</b> is your role? → I'm a project manager.</div>
+      <div class="eg"><b>Who</b> is in the meeting? → Marco and Anna.</div>
+      <div class="eg"><b>Why</b> are you late? → Because of the traffic.</div>
+      <div class="eg"><b>How</b> are you? → I'm fine, thanks.</div>
+    </div>
+
+    <div class="drill-hdr">🎯 Drill 3.1 · MCQ · собери вопрос · 6 items</div>
+    <div class="mcq-row" data-a="Is Marco"><div class="mcq-q">1. <span class="blank">___</span> the new project manager?</div><div class="mcq-opts"><button data-v="Marco is">Marco is</button><button data-v="Is Marco">Is Marco</button><button data-v="Does Marco">Does Marco</button></div></div>
+    <div class="mcq-row" data-a="Are you"><div class="mcq-q">2. <span class="blank">___</span> ready for the call?</div><div class="mcq-opts"><button data-v="You are">You are</button><button data-v="Do you">Do you</button><button data-v="Are you">Are you</button></div></div>
+    <div class="mcq-row" data-a="Where is"><div class="mcq-q">3. <span class="blank">___</span> the report I asked for?</div><div class="mcq-opts"><button data-v="Where is">Where is</button><button data-v="Where does">Where does</button><button data-v="Where are">Where are</button></div></div>
+    <div class="mcq-row" data-a="Are they"><div class="mcq-q">4. <span class="blank">___</span> our biggest client this year?</div><div class="mcq-opts"><button data-v="They are">They are</button><button data-v="Do they">Do they</button><button data-v="Are they">Are they</button></div></div>
+    <div class="mcq-row" data-a="Why are"><div class="mcq-q">5. <span class="blank">___</span> we behind schedule again?</div><div class="mcq-opts"><button data-v="Why do">Why do</button><button data-v="Why are">Why are</button><button data-v="Why is">Why is</button></div></div>
+    <div class="mcq-row" data-a="Is it"><div class="mcq-q">6. <span class="blank">___</span> important to attend the Milan trip?</div><div class="mcq-opts"><button data-v="It is">It is</button><button data-v="Is it">Is it</button><button data-v="Does it">Does it</button></div></div>
+
+    <div class="drill-hdr">🎯 Drill 3.2 · Match · short answers · 6 items</div>
+    <div class="mcq-row" data-a="Yes, he is"><div class="mcq-q">1. Is Marco in charge of the Milan account? — <span class="blank">___</span></div><div class="mcq-opts"><button data-v="Yes, he is">Yes, he is.</button><button data-v="Yes, he do">Yes, he do.</button><button data-v="Yes, he does">Yes, he does.</button></div></div>
+    <div class="mcq-row" data-a="No, I'm not"><div class="mcq-q">2. Are you the sender of this email? — <span class="blank">___</span></div><div class="mcq-opts"><button data-v="No, I don't">No, I don't.</button><button data-v="No, I'm not">No, I'm not.</button><button data-v="No, I amn't">No, I amn't.</button></div></div>
+    <div class="mcq-row" data-a="Yes, they are"><div class="mcq-q">3. Are the reports ready for review? — <span class="blank">___</span></div><div class="mcq-opts"><button data-v="Yes, they are">Yes, they are.</button><button data-v="Yes, they do">Yes, they do.</button><button data-v="Yes, they is">Yes, they is.</button></div></div>
+    <div class="mcq-row" data-a="No, it isn't"><div class="mcq-q">4. Is it a big problem for us? — <span class="blank">___</span></div><div class="mcq-opts"><button data-v="No, it doesn't">No, it doesn't.</button><button data-v="No, it isn't">No, it isn't.</button><button data-v="No, it don't">No, it don't.</button></div></div>
+    <div class="mcq-row" data-a="Yes, we are"><div class="mcq-q">5. Are we still on for Friday's meeting? — <span class="blank">___</span></div><div class="mcq-opts"><button data-v="Yes, we do">Yes, we do.</button><button data-v="Yes, we are">Yes, we are.</button><button data-v="Yes, we is">Yes, we is.</button></div></div>
+    <div class="mcq-row" data-a="No, she isn't"><div class="mcq-q">6. Is Anna in the office today? — <span class="blank">___</span></div><div class="mcq-opts"><button data-v="No, she isn't">No, she isn't.</button><button data-v="No, she don't">No, she don't.</button><button data-v="No, she doesn't">No, she doesn't.</button></div></div>
+
+  </div>
+</section>
+
+<!-- ══════════════════ UNIT 4 · was / were · PAST ══════════════════ -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">Unit 4</div><h2>was / were · past forms + questions + negatives</h2></div>
+  <div class="card">
+
+    <div class="rule-block">
+      <h4>📋 The rule · прошедшее время to be</h4>
+      <p>В прошлом <em>am / is</em> становятся <b>was</b>, а <em>are</em> становится <b>were</b>. Всё остальное работает так же: <em>not</em> для отрицания, порядок слов меняется для вопроса.</p>
+      <div class="eg">I <b>was</b> at the client's office yesterday.</div>
+      <div class="eg">The meeting <b>was</b> boring.</div>
+      <div class="eg">We <b>were</b> in Milan last week.</div>
+    </div>
+
+    <h3>📊 Полная таблица · Past (was / were)</h3>
+    <table class="be-tab">
+      <thead><tr><th>Подлежащее</th><th>+ Positive</th><th>− Negative (short)</th><th>? Question</th></tr></thead>
+      <tbody>
+        <tr><td>I</td><td><b>was</b></td><td><b>wasn't</b></td><td><b>Was</b> I…?</td></tr>
+        <tr><td>You</td><td><b>were</b></td><td><b>weren't</b></td><td><b>Were</b> you…?</td></tr>
+        <tr><td>He / She / It</td><td><b>was</b></td><td><b>wasn't</b></td><td><b>Was</b> he/she/it…?</td></tr>
+        <tr><td>We</td><td><b>were</b></td><td><b>weren't</b></td><td><b>Were</b> we…?</td></tr>
+        <tr><td>They</td><td><b>were</b></td><td><b>weren't</b></td><td><b>Were</b> they…?</td></tr>
+      </tbody>
+    </table>
+
+    <div class="rule-block" style="border-left-color:var(--navy);background:linear-gradient(180deg,#eef2f7,#f8fafc)">
+      <h4>⏰ Маркеры прошлого — сразу подсказывают was/were</h4>
+      <p><b>yesterday</b> · <b>last week / month / year</b> · <b>… ago</b> (two days ago) · <b>in 2020</b> · <b>when I was young</b> · <b>at that time</b></p>
+      <div class="eg">Marco <b>was</b> in Rome <b>last month</b>.</div>
+      <div class="eg">The proposal <b>was</b> ready <b>two days ago</b>.</div>
+      <div class="eg"><b>Were</b> you at the party <b>yesterday</b>?</div>
+    </div>
+
+    <div class="drill-hdr">🎯 Drill 4.1 · MCQ · выбери was / were · 8 items</div>
+    <div class="mcq-row" data-a="was"><div class="mcq-q">1. Yesterday I <span class="blank">___</span> at the Milan office.</div><div class="mcq-opts"><button data-v="was">was</button><button data-v="were">were</button><button data-v="is">is</button></div></div>
+    <div class="mcq-row" data-a="were"><div class="mcq-q">2. My colleagues <span class="blank">___</span> in Rome last week.</div><div class="mcq-opts"><button data-v="was">was</button><button data-v="were">were</button><button data-v="are">are</button></div></div>
+    <div class="mcq-row" data-a="was"><div class="mcq-q">3. The meeting <span class="blank">___</span> longer than expected.</div><div class="mcq-opts"><button data-v="was">was</button><button data-v="were">were</button><button data-v="is">is</button></div></div>
+    <div class="mcq-row" data-a="were"><div class="mcq-q">4. We <span class="blank">___</span> ready to sign the contract yesterday.</div><div class="mcq-opts"><button data-v="was">was</button><button data-v="were">were</button><button data-v="are">are</button></div></div>
+    <div class="mcq-row" data-a="was"><div class="mcq-q">5. The Milan proposal <span class="blank">___</span> a huge success.</div><div class="mcq-opts"><button data-v="was">was</button><button data-v="were">were</button><button data-v="is">is</button></div></div>
+    <div class="mcq-row" data-a="were"><div class="mcq-q">6. You <span class="blank">___</span> right about the client — they're difficult.</div><div class="mcq-opts"><button data-v="was">was</button><button data-v="were">were</button><button data-v="are">are</button></div></div>
+    <div class="mcq-row" data-a="was"><div class="mcq-q">7. Anna <span class="blank">___</span> on holiday for three weeks in July.</div><div class="mcq-opts"><button data-v="was">was</button><button data-v="were">were</button><button data-v="is">is</button></div></div>
+    <div class="mcq-row" data-a="were"><div class="mcq-q">8. The numbers <span class="blank">___</span> better than in Q1.</div><div class="mcq-opts"><button data-v="was">was</button><button data-v="were">were</button><button data-v="is">is</button></div></div>
+
+    <div class="drill-hdr">🎯 Drill 4.2 · MCQ · отрицания и вопросы в прошлом · 7 items</div>
+    <div class="mcq-row" data-a="wasn't"><div class="mcq-q">1. Marco <span class="blank">___</span> at the meeting yesterday.</div><div class="mcq-opts"><button data-v="wasn't">wasn't</button><button data-v="weren't">weren't</button><button data-v="didn't">didn't</button></div></div>
+    <div class="mcq-row" data-a="weren't"><div class="mcq-q">2. The clients <span class="blank">___</span> happy with the delay last month.</div><div class="mcq-opts"><button data-v="wasn't">wasn't</button><button data-v="weren't">weren't</button><button data-v="didn't">didn't</button></div></div>
+    <div class="mcq-row" data-a="Was"><div class="mcq-q">3. <span class="blank">___</span> the proposal ready on time?</div><div class="mcq-opts"><button data-v="Was">Was</button><button data-v="Were">Were</button><button data-v="Did">Did</button></div></div>
+    <div class="mcq-row" data-a="Were"><div class="mcq-q">4. <span class="blank">___</span> you at the Milan conference in June?</div><div class="mcq-opts"><button data-v="Was">Was</button><button data-v="Were">Were</button><button data-v="Did">Did</button></div></div>
+    <div class="mcq-row" data-a="wasn't"><div class="mcq-q">5. The report <span class="blank">___</span> the one I asked for.</div><div class="mcq-opts"><button data-v="wasn't">wasn't</button><button data-v="weren't">weren't</button><button data-v="isn't">isn't</button></div></div>
+    <div class="mcq-row" data-a="Where were"><div class="mcq-q">6. <span class="blank">___</span> you yesterday morning?</div><div class="mcq-opts"><button data-v="Where was">Where was</button><button data-v="Where were">Where were</button><button data-v="Where did">Where did</button></div></div>
+    <div class="mcq-row" data-a="weren't"><div class="mcq-q">7. We <span class="blank">___</span> ready for the client's questions.</div><div class="mcq-opts"><button data-v="wasn't">wasn't</button><button data-v="weren't">weren't</button><button data-v="didn't">didn't</button></div></div>
+
+  </div>
+</section>
+
+<!-- ══════════════════ UNIT 5 · to be AS HELPER ══════════════════ -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">Unit 5</div><h2>to be as helper · Continuous + Passive</h2></div>
+  <div class="card">
+
+    <div class="rule-block">
+      <h4>📋 The rule · to be = помощник</h4>
+      <p>Кроме связки, <em>to be</em> — единственный «помощник» для двух огромных конструкций:</p>
+      <p><b>1. Present / Past Continuous</b> — «сейчас делаю / тогда делал» → <em>am/is/are + V-ing</em> или <em>was/were + V-ing</em></p>
+      <div class="eg">I <b>am writing</b> the report right now. · She <b>was reading</b> when I called.</div>
+      <p><b>2. Passive</b> — «делают со мной / делали со мной» → <em>am/is/are/was/were + V3 (past participle)</em></p>
+      <div class="eg">The report <b>is written</b> by Marco. · The email <b>was sent</b> yesterday.</div>
+    </div>
+
+    <div class="split-2">
+      <table class="be-tab">
+        <thead><tr><th>Present Continuous</th><th>Пример</th></tr></thead>
+        <tbody>
+          <tr><td>I <b>am</b> V-ing</td><td>I<b>'m preparing</b> the numbers.</td></tr>
+          <tr><td>You/We/They <b>are</b> V-ing</td><td>They<b>'re meeting</b> the clients now.</td></tr>
+          <tr><td>He/She/It <b>is</b> V-ing</td><td>Marco<b>'s working</b> from home.</td></tr>
+        </tbody>
+      </table>
+      <table class="be-tab">
+        <thead><tr><th>Past Continuous</th><th>Пример</th></tr></thead>
+        <tbody>
+          <tr><td>I/He/She/It <b>was</b> V-ing</td><td>She <b>was reviewing</b> the draft.</td></tr>
+          <tr><td>You/We/They <b>were</b> V-ing</td><td>We <b>were discussing</b> the budget.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="rule-block" style="border-left-color:var(--miss);background:linear-gradient(180deg,#fef4f2,#fdf9f8)">
+      <h4>❌ Твоя утечка: пропуск помощника be</h4>
+      <p>❌ <em>Right now I <b>working</b> on the report</em> → ✅ Right now I<b>'m working</b> on the report.</p>
+      <p>❌ <em>He <b>not working</b> on this project</em> → ✅ He <b>isn't working</b> on this project.</p>
+      <p>❌ <em>The report <b>sent</b> yesterday</em> → ✅ The report <b>was sent</b> yesterday. (Passive!)</p>
+      <p><b>Правило:</b> V-ing без <em>am/is/are/was/were</em> впереди — не работает. Точка.</p>
+    </div>
+
+    <div class="drill-hdr">🎯 Drill 5.1 · MCQ · выбери правильный помощник to be · 8 items</div>
+    <div class="mcq-row" data-a="am"><div class="mcq-q">1. Right now I <span class="blank">___</span> writing the quarterly report.</div><div class="mcq-opts"><button data-v="am">am</button><button data-v="is">is</button><button data-v="are">are</button></div></div>
+    <div class="mcq-row" data-a="is"><div class="mcq-q">2. Marco <span class="blank">___</span> working from home today.</div><div class="mcq-opts"><button data-v="am">am</button><button data-v="is">is</button><button data-v="are">are</button></div></div>
+    <div class="mcq-row" data-a="are"><div class="mcq-q">3. My colleagues <span class="blank">___</span> preparing for the Milan trip.</div><div class="mcq-opts"><button data-v="am">am</button><button data-v="is">is</button><button data-v="are">are</button></div></div>
+    <div class="mcq-row" data-a="was"><div class="mcq-q">4. When you called, I <span class="blank">___</span> in a meeting.</div><div class="mcq-opts"><button data-v="was">was</button><button data-v="were">were</button><button data-v="am">am</button></div></div>
+    <div class="mcq-row" data-a="were"><div class="mcq-q">5. We <span class="blank">___</span> discussing the new proposal all morning.</div><div class="mcq-opts"><button data-v="was">was</button><button data-v="were">were</button><button data-v="are">are</button></div></div>
+    <div class="mcq-row" data-a="was"><div class="mcq-q">6. The report <span class="blank">___</span> sent to the CFO last Friday. (Passive)</div><div class="mcq-opts"><button data-v="was">was</button><button data-v="were">were</button><button data-v="is">is</button></div></div>
+    <div class="mcq-row" data-a="are"><div class="mcq-q">7. The Milan clients <span class="blank">___</span> visiting our office next week.</div><div class="mcq-opts"><button data-v="am">am</button><button data-v="is">is</button><button data-v="are">are</button></div></div>
+    <div class="mcq-row" data-a="is"><div class="mcq-q">8. The deal <span class="blank">___</span> being finalized as we speak. (Passive Continuous)</div><div class="mcq-opts"><button data-v="am">am</button><button data-v="is">is</button><button data-v="was">was</button></div></div>
+
+    <div class="drill-hdr">🎯 Drill 5.2 · Rewrite · собери правильную форму · 4 items</div>
+    <div class="gap-block" data-drill="5.2">
+      <p><b>1.</b> Right now I working on the report. → Right now I <input data-a="am working|'m working"> on the report.</p>
+      <p><b>2.</b> He not working today. → He <input data-a="isn't working|is not working|'s not working"> today.</p>
+      <p><b>3.</b> The email sent yesterday. → The email <input data-a="was sent"> yesterday.</p>
+      <p><b>4.</b> We discussing the deal all morning. → We <input data-a="were discussing|are discussing|'re discussing"> the deal all morning.</p>
+      <button class="check" onclick="checkGap(this)">Check</button><span class="score"></span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════ MEGA MIX ══════════════════ -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">MEGA</div><h2>Mega mix · to be — все формы · 20 items</h2></div>
+  <div class="card">
+
+    <p class="section-sub">Финальный микс. Все 5 юнитов вперемешку: present, past, positive, negative, question, helper. Без подсказок. Пройди, посмотри где просели, вернись к тому юниту.</p>
+
+    <div class="mcq-row" data-a="is"><div class="mcq-q">1. Marco <span class="blank">___</span> our best account manager.</div><div class="mcq-opts"><button data-v="am">am</button><button data-v="is">is</button><button data-v="are">are</button><button data-v="was">was</button></div></div>
+    <div class="mcq-row" data-a="was"><div class="mcq-q">2. The meeting <span class="blank">___</span> a bit chaotic yesterday.</div><div class="mcq-opts"><button data-v="is">is</button><button data-v="was">was</button><button data-v="were">were</button><button data-v="are">are</button></div></div>
+    <div class="mcq-row" data-a="isn't"><div class="mcq-q">3. Anna <span class="blank">___</span> in the office today — she's in Rome.</div><div class="mcq-opts"><button data-v="isn't">isn't</button><button data-v="don't">don't</button><button data-v="wasn't">wasn't</button><button data-v="doesn't">doesn't</button></div></div>
+    <div class="mcq-row" data-a="am"><div class="mcq-q">4. I <span class="blank">___</span> writing the proposal right now — call me back later.</div><div class="mcq-opts"><button data-v="am">am</button><button data-v="is">is</button><button data-v="was">was</button><button data-v="do">do</button></div></div>
+    <div class="mcq-row" data-a="Are"><div class="mcq-q">5. <span class="blank">___</span> you ready for the Milan trip on Monday?</div><div class="mcq-opts"><button data-v="Am">Am</button><button data-v="Is">Is</button><button data-v="Are">Are</button><button data-v="Do">Do</button></div></div>
+    <div class="mcq-row" data-a="were"><div class="mcq-q">6. My colleagues <span class="blank">___</span> in Milan last week for a conference.</div><div class="mcq-opts"><button data-v="was">was</button><button data-v="were">were</button><button data-v="are">are</button><button data-v="did">did</button></div></div>
+    <div class="mcq-row" data-a="wasn't"><div class="mcq-q">7. The client <span class="blank">___</span> happy with the delay — we lost points.</div><div class="mcq-opts"><button data-v="wasn't">wasn't</button><button data-v="weren't">weren't</button><button data-v="isn't">isn't</button><button data-v="don't">don't</button></div></div>
+    <div class="mcq-row" data-a="are"><div class="mcq-q">8. The reports <span class="blank">___</span> on your desk, as you asked.</div><div class="mcq-opts"><button data-v="is">is</button><button data-v="are">are</button><button data-v="was">was</button><button data-v="do">do</button></div></div>
+    <div class="mcq-row" data-a="Was"><div class="mcq-q">9. <span class="blank">___</span> Marco at the Milan office this morning?</div><div class="mcq-opts"><button data-v="Was">Was</button><button data-v="Were">Were</button><button data-v="Did">Did</button><button data-v="Does">Does</button></div></div>
+    <div class="mcq-row" data-a="are"><div class="mcq-q">10. Where <span class="blank">___</span> the files I sent you yesterday?</div><div class="mcq-opts"><button data-v="is">is</button><button data-v="are">are</button><button data-v="do">do</button><button data-v="was">was</button></div></div>
+    <div class="mcq-row" data-a="was"><div class="mcq-q">11. The whole team <span class="blank">___</span> shocked by the announcement.</div><div class="mcq-opts"><button data-v="was">was</button><button data-v="were">were</button><button data-v="did">did</button><button data-v="are">are</button></div></div>
+    <div class="mcq-row" data-a="aren't"><div class="mcq-q">12. We <span class="blank">___</span> ready to sign yet — we need more information.</div><div class="mcq-opts"><button data-v="aren't">aren't</button><button data-v="isn't">isn't</button><button data-v="don't">don't</button><button data-v="wasn't">wasn't</button></div></div>
+    <div class="mcq-row" data-a="is"><div class="mcq-q">13. The report <span class="blank">___</span> being reviewed by the legal team.</div><div class="mcq-opts"><button data-v="am">am</button><button data-v="is">is</button><button data-v="are">are</button><button data-v="was">was</button></div></div>
+    <div class="mcq-row" data-a="Were"><div class="mcq-q">14. <span class="blank">___</span> you at the client's office two hours ago?</div><div class="mcq-opts"><button data-v="Was">Was</button><button data-v="Were">Were</button><button data-v="Did">Did</button><button data-v="Are">Are</button></div></div>
+    <div class="mcq-row" data-a="is"><div class="mcq-q">15. Right now the CEO <span class="blank">___</span> making a decision about the merger.</div><div class="mcq-opts"><button data-v="am">am</button><button data-v="is">is</button><button data-v="are">are</button><button data-v="was">was</button></div></div>
+    <div class="mcq-row" data-a="am"><div class="mcq-q">16. I <span class="blank">___</span> not the one who broke the printer.</div><div class="mcq-opts"><button data-v="am">am</button><button data-v="is">is</button><button data-v="are">are</button><button data-v="do">do</button></div></div>
+    <div class="mcq-row" data-a="were"><div class="mcq-q">17. The Milan clients <span class="blank">___</span> here for two days last month.</div><div class="mcq-opts"><button data-v="was">was</button><button data-v="were">were</button><button data-v="are">are</button><button data-v="did">did</button></div></div>
+    <div class="mcq-row" data-a="Is"><div class="mcq-q">18. <span class="blank">___</span> the CFO available for a quick call now?</div><div class="mcq-opts"><button data-v="Am">Am</button><button data-v="Is">Is</button><button data-v="Are">Are</button><button data-v="Do">Do</button></div></div>
+    <div class="mcq-row" data-a="was"><div class="mcq-q">19. Yesterday I <span class="blank">___</span> not in the office — I was on client visits.</div><div class="mcq-opts"><button data-v="was">was</button><button data-v="were">were</button><button data-v="am">am</button><button data-v="did">did</button></div></div>
+    <div class="mcq-row" data-a="are"><div class="mcq-q">20. My colleagues <span class="blank">___</span> going to Milan next Tuesday.</div><div class="mcq-opts"><button data-v="am">am</button><button data-v="is">is</button><button data-v="are">are</button><button data-v="do">do</button></div></div>
+
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section class="section">
+  <div class="closing">
+    <h3>🎯 Как этот урок использовать</h3>
+    <p>Пройди <b>по 1 юниту в день</b> — с сегодня до 23 июля (следующий четверг). Каждый юнит: сначала прочитай правило и таблицу, потом — drill. Если 6/8 → следующий юнит. Если меньше — перечитай правило и переспи с ним, drill сделаешь завтра.</p>
+    <p>Финальный <b>Mega mix</b> — только когда все 5 юнитов закрыты. Пройди без подсказок. Если провалишь какие-то items — вернись в конкретный юнит.</p>
+    <p><b>Тимофей, важно:</b> to be — это <em>единственный</em> глагол, который надо знать <em>на автомате</em>. Все остальные времена, все Continuous, весь Passive — держатся на нём. Проинвестируешь неделю сейчас — сэкономишь месяцы позже. 💪</p>
+  </div>
+</section>
+
+<footer>
+  © NG English · LinguaBoost Lab · Timofey Deep Dive 06 · Verb TO BE · 19.07.2026
+</footer>
+
+<script>
+// MCQ handler
+document.querySelectorAll('.mcq-row').forEach(row => {
+  const ans = (row.dataset.a || '').toLowerCase();
+  row.querySelectorAll('.mcq-opts button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const v = (btn.dataset.v || '').toLowerCase();
+      row.querySelectorAll('.mcq-opts button').forEach(b => b.classList.remove('right','wrong'));
+      if (v === ans) { btn.classList.add('right'); row.classList.add('revealed'); }
+      else btn.classList.add('wrong');
+    });
+  });
+});
+
+// Gap-fill handler
+function checkGap(btn){
+  const block = btn.closest('.gap-block');
+  const inputs = block.querySelectorAll('input');
+  let ok = 0, total = inputs.length;
+  inputs.forEach(inp => {
+    const val = (inp.value || '').toLowerCase().trim();
+    const answers = (inp.dataset.a || '').toLowerCase().split('|').map(s => s.trim());
+    inp.classList.remove('right','wrong');
+    if (!val) return;
+    if (answers.includes(val)) { inp.classList.add('right'); ok++; }
+    else inp.classList.add('wrong');
+  });
+  const score = block.querySelector('.score');
+  if (score) score.textContent = `${ok}/${total} correct`;
+}
+</script>
+
+</body>
+</html>
