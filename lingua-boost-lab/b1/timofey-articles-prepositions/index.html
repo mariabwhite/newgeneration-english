@@ -327,6 +327,27 @@ a:hover{text-decoration:underline}
 }
 .starters strong{display:block;font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;color:var(--accent);margin-bottom:4px}
 
+/* Speaking blocks — question cards + would-you-rather */
+.qcard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:12px 0}
+.qcard{position:relative;background:linear-gradient(180deg,var(--card) 0%,#FDF4E6 100%);border:1.5px solid var(--line);border-radius:10px;padding:14px 14px 12px 44px;min-height:118px;display:flex;flex-direction:column;justify-content:space-between;transition:.18s;cursor:default}
+.qcard:hover{border-color:var(--accent2);transform:translateY(-2px);box-shadow:0 6px 18px rgba(107,74,134,.14)}
+.qcard .q{font-family:var(--display);font-weight:800;font-size:.98rem;color:var(--text);letter-spacing:-.01em;line-height:1.3}
+.qcard .num{position:absolute;top:8px;right:10px;font:800 10px/1 var(--mono);color:var(--accent3);letter-spacing:.1em}
+.qcard .play{position:absolute;top:8px;left:10px;background:var(--accent);color:#fff;border:none;border-radius:50%;width:24px;height:24px;cursor:pointer;font-size:.62rem;line-height:1;display:grid;place-items:center}
+.qcard .hint{font-family:var(--serif);font-size:.86rem;color:var(--accent);font-style:italic;margin-top:10px;padding-top:8px;border-top:1px dashed var(--line);line-height:1.4}
+.qcard .hint b{font-style:normal;color:var(--accent2)}
+.qcard-head{padding:0 4px;font-size:.86rem;color:var(--muted);margin-bottom:6px}
+
+.wyor-grid{display:grid;gap:14px;margin:14px 0 6px}
+.wyor{background:#FDF7E9;border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;text-align:center;position:relative}
+.wyor .wyor-num{position:absolute;top:10px;left:14px;font:800 10px/1 var(--mono);color:var(--accent3);letter-spacing:.14em}
+.wyor .wyor-title{font-family:var(--display);font-weight:900;font-size:.86rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent2);margin-bottom:8px}
+.wyor .wyor-options{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin:8px 0}
+.wyor .wyor-opt{padding:12px 14px;background:#fff;border:1.5px solid var(--accent2);border-radius:10px;font-family:var(--body);font-weight:600;font-size:.98rem;color:var(--text);line-height:1.3}
+.wyor .wyor-or{font-family:var(--mono);font-weight:800;font-size:.8rem;color:var(--accent3);letter-spacing:.14em}
+.wyor .wyor-why{margin-top:10px;font-size:.82rem;color:var(--muted);font-style:italic}
+@media(max-width:540px){.wyor .wyor-options{grid-template-columns:1fr;gap:6px}.wyor .wyor-or{padding:2px 0}}
+
 /* Writing box */
 .writing-box{background:#FDF7E9;padding:14px;border-radius:8px}
 .writing-box h4{font-size:.86rem;color:var(--muted);font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
@@ -479,6 +500,31 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
     </div>
   </div>
 
+  <!-- S.1 · Speaking · first mention → repeat -->
+  <div class="card lb-block" style="border-left:4px solid var(--accent2)">
+    <h3><span class="ex-num">S.1</span> Say it · first mention → repeat</h3>
+    <p class="intro">One goal: say a pair aloud. First sentence — <strong>a / an</strong>. Second sentence — <strong>the</strong> (same thing again). Start with the frame, then swap the noun.</p>
+    <div class="prompts">
+      <div class="prompt"><button class="play" data-say="I've got a dog. The dog is very friendly.">▶</button><span class="num">1.</span><span class="prompt-text">Say a pair about an animal you like.</span></div>
+      <div class="prompt"><button class="play" data-say="There is a shop near my house. The shop opens at nine.">▶</button><span class="num">2.</span><span class="prompt-text">Talk about a place near your home.</span></div>
+      <div class="prompt"><button class="play" data-say="I bought a new phone last month. The phone is really fast.">▶</button><span class="num">3.</span><span class="prompt-text">Something new you bought or got recently.</span></div>
+      <div class="prompt"><button class="play" data-say="I have a colleague called Sasha. The colleague lives in the same district.">▶</button><span class="num">4.</span><span class="prompt-text">One friend or colleague of yours — introduce, then add one more fact.</span></div>
+    </div>
+    <div class="starters"><strong>Starter frames</strong>
+      I've got <em>a / an</em> … · <em>The</em> … is … &nbsp;·&nbsp; There is <em>a / an</em> … · <em>The</em> … …
+    </div>
+    <details class="speak-model" style="margin-top:12px;background:#FDF7E9;border-left:3px solid var(--accent3);border-radius:8px;padding:10px 14px;font-size:.92rem">
+      <summary style="cursor:pointer;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;font-size:.72rem;color:var(--accent);font-weight:800">🆘 Stuck? See a model answer</summary>
+      <ul style="margin:10px 0 0 22px;line-height:1.7">
+        <li>I've got <strong>a</strong> cat. <strong>The</strong> cat sleeps on my bed.</li>
+        <li>There is <strong>a</strong> café near my office. <strong>The</strong> café is always busy at lunch.</li>
+        <li>I got <strong>a</strong> new bike. <strong>The</strong> bike is blue.</li>
+        <li>I have <strong>a</strong> friend called Misha. <strong>The</strong> friend loves football.</li>
+      </ul>
+      <p style="margin-top:8px;color:var(--muted);font-style:italic">One good sentence is enough. Don't try to be perfect — try to be heard.</p>
+    </details>
+  </div>
+
   <!-- =============================================== -->
   <!-- §2 · a/an — countable singular only -->
   <!-- =============================================== -->
@@ -523,6 +569,38 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
     ]</script>
   </div>
 
+  <!-- S.2 · Speaking · × drink / eat / read -->
+  <div class="card lb-block" style="border-left:4px solid var(--accent2)">
+    <h3><span class="ex-num">S.2</span> Say it · what he drinks, eats, reads · × for uncountable + plural</h3>
+    <p class="intro">Read the card, then answer with real habits. Watch: no <em>a / an</em> with drinks, meat, books-in-general.</p>
+    <p class="qcard-head">Tap ▶ to hear the model.</p>
+    <div class="qcard-grid">
+      <div class="qcard"><button class="play" data-say="What do you drink in the morning? I usually drink tea or water.">▶</button><span class="num">1</span>
+        <div class="q">What do you drink in the morning?</div>
+        <div class="hint">I usually drink <b>× tea / × coffee / × water</b>.</div>
+      </div>
+      <div class="qcard"><button class="play" data-say="Do you eat meat? Why or why not?">▶</button><span class="num">2</span>
+        <div class="q">Do you eat × meat? Why?</div>
+        <div class="hint">I love / don't eat <b>× meat</b> because…</div>
+      </div>
+      <div class="qcard"><button class="play" data-say="What kind of books do you like reading?">▶</button><span class="num">3</span>
+        <div class="q">What × books do you like?</div>
+        <div class="hint">I like <b>× books</b> about… (plural in general → ×)</div>
+      </div>
+      <div class="qcard"><button class="play" data-say="Do you like cats or dogs more? Say why.">▶</button><span class="num">4</span>
+        <div class="q">Do you like × cats or × dogs more?</div>
+        <div class="hint">I like <b>× cats</b> / <b>× dogs</b> more because…</div>
+      </div>
+      <div class="qcard"><button class="play" data-say="What food do you cook at home?">▶</button><span class="num">5</span>
+        <div class="q">What × food do you cook at home?</div>
+        <div class="hint">I cook <b>× pasta / × rice / × soup</b>.</div>
+      </div>
+    </div>
+    <div class="starters"><strong>Watch out</strong>
+      No <em>a / an</em> before drinks (<em>tea, coffee, water, milk</em>), foods in general (<em>meat, rice, cheese</em>), and plural nouns in general (<em>cats, books, cars</em>).
+    </div>
+  </div>
+
   <!-- =============================================== -->
   <!-- §3 · After determiner → NO article -->
   <!-- =============================================== -->
@@ -545,6 +623,44 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
     </div>
   </div>
 
+  <!-- S.3 · Would-you-rather · determiner + × -->
+  <div class="card lb-block" style="border-left:4px solid var(--accent2)">
+    <h3><span class="ex-num">S.3</span> Would you rather? · my / two / no + <span style="color:var(--accent3)">×</span></h3>
+    <p class="intro">Pick one, then say <em>why</em> in one full sentence. Watch: after <em>my / your / two / no / this</em> — no article.</p>
+    <div class="wyor-grid">
+      <div class="wyor"><span class="wyor-num">1</span>
+        <div class="wyor-title">Would you rather have…</div>
+        <div class="wyor-options">
+          <div class="wyor-opt">two <b>×</b> cats</div>
+          <div class="wyor-or">OR</div>
+          <div class="wyor-opt">three <b>×</b> dogs</div>
+        </div>
+        <div class="wyor-why">Say: <em>"I'd rather have two × cats because…"</em></div>
+      </div>
+      <div class="wyor"><span class="wyor-num">2</span>
+        <div class="wyor-title">Would you rather visit…</div>
+        <div class="wyor-options">
+          <div class="wyor-opt">your <b>×</b> friend's house</div>
+          <div class="wyor-or">OR</div>
+          <div class="wyor-opt">your <b>×</b> grandma's flat</div>
+        </div>
+        <div class="wyor-why">Say: <em>"I'd rather visit my × friend's house because…"</em></div>
+      </div>
+      <div class="wyor"><span class="wyor-num">3</span>
+        <div class="wyor-title">Would you rather live one day with…</div>
+        <div class="wyor-options">
+          <div class="wyor-opt">no <b>×</b> phone</div>
+          <div class="wyor-or">OR</div>
+          <div class="wyor-opt">no <b>×</b> internet</div>
+        </div>
+        <div class="wyor-why">Say: <em>"I'd rather have no × phone because…"</em></div>
+      </div>
+    </div>
+    <div class="starters"><strong>Rule chip</strong>
+      After <em>my · his · her · two · no · this · these · Kate's</em> → never <em>a / the</em>.
+    </div>
+  </div>
+
   <!-- =============================================== -->
   <!-- §4 · Adjective sits between article and noun -->
   <!-- =============================================== -->
@@ -563,6 +679,33 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
       <div class="mc-item" data-a="a"><div class="mc-q"><span class="num">3.</span>He works in <span class="gap">___</span> large factory.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
       <div class="mc-item" data-a="an"><div class="mc-q"><span class="num">4.</span>She is <span class="gap">___</span> excellent teacher.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="an">an</button><button class="mc-opt" data-v="×">×</button></div></div>
       <div class="mc-item" data-a="the"><div class="mc-q"><span class="num">5.</span>It's <span class="gap">___</span> small animal that has long ears.</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+    </div>
+  </div>
+
+  <!-- S.4 · Speaking · a very / really + adjective + noun -->
+  <div class="card lb-block" style="border-left:4px solid var(--accent2)">
+    <h3><span class="ex-num">S.4</span> Say it · <em>a really / very</em> ___ person / place / book</h3>
+    <p class="intro">Add one adjective (or two!) between <em>a</em> and the noun. The article stays put — no matter how many adjectives you pile in.</p>
+    <div class="qcard-grid">
+      <div class="qcard"><button class="play" data-say="Who is a really funny person you know? He is a really funny classmate.">▶</button><span class="num">1</span>
+        <div class="q">Who is <b>a really funny person</b> you know?</div>
+        <div class="hint">___ is <b>a really funny classmate</b>.</div>
+      </div>
+      <div class="qcard"><button class="play" data-say="Tell me about a really nice colleague at your work.">▶</button><span class="num">2</span>
+        <div class="q">Tell me about <b>a really nice colleague</b> at work.</div>
+        <div class="hint">___ is <b>a really nice colleague</b> — she always…</div>
+      </div>
+      <div class="qcard"><button class="play" data-say="What is a really interesting book you have read?">▶</button><span class="num">3</span>
+        <div class="q">What is <b>a really interesting book</b> you've read?</div>
+        <div class="hint">"___" is <b>a really interesting book</b> about…</div>
+      </div>
+      <div class="qcard"><button class="play" data-say="Describe a very beautiful place in Moscow.">▶</button><span class="num">4</span>
+        <div class="q">Describe <b>a very beautiful place</b> in Moscow.</div>
+        <div class="hint">___ is <b>a very beautiful place</b>, especially in the evening.</div>
+      </div>
+    </div>
+    <div class="starters"><strong>Rule chip</strong>
+      <em>a book</em> → <em>a good book</em> → <em>a very good book</em> → <em>a really very good book</em>. The article never moves.
     </div>
   </div>
 
@@ -588,6 +731,33 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
     </div>
   </div>
 
+  <!-- S.5 · Speaking · the sun / the moon / the table -->
+  <div class="card lb-block" style="border-left:4px solid var(--accent2)">
+    <h3><span class="ex-num">S.5</span> Say it · <em>the sun · the moon · the sky · the table</em></h3>
+    <p class="intro">Unique in the world OR unique in the room — always <em>the</em>. Answer with one full sentence, using <em>the</em>.</p>
+    <div class="qcard-grid">
+      <div class="qcard"><button class="play" data-say="When is the sun brightest in Moscow?">▶</button><span class="num">1</span>
+        <div class="q">When is <b>the sun</b> brightest in Moscow?</div>
+        <div class="hint"><b>The sun</b> is brightest at noon in summer.</div>
+      </div>
+      <div class="qcard"><button class="play" data-say="Do you like watching the moon at night?">▶</button><span class="num">2</span>
+        <div class="q">Do you like watching <b>the moon</b>?</div>
+        <div class="hint">Yes, I love <b>the moon</b> when it's full.</div>
+      </div>
+      <div class="qcard"><button class="play" data-say="What does the sky look like today?">▶</button><span class="num">3</span>
+        <div class="q">What does <b>the sky</b> look like today?</div>
+        <div class="hint"><b>The sky</b> is grey / blue / cloudy today.</div>
+      </div>
+      <div class="qcard"><button class="play" data-say="What is on the table in your kitchen right now?">▶</button><span class="num">4</span>
+        <div class="q">What's on <b>the table</b> in your kitchen?</div>
+        <div class="hint">On <b>the table</b> there is a cup and…</div>
+      </div>
+    </div>
+    <div class="starters"><strong>Rule chip</strong>
+      One-of-a-kind in the world (<em>the sun · the moon · the sky · the earth · the universe</em>) or in the room (<em>the door · the window · the table</em>) → always <em>the</em>.
+    </div>
+  </div>
+
   <!-- =============================================== -->
   <!-- §6 · what/which/whose → NO article -->
   <!-- =============================================== -->
@@ -605,6 +775,33 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
       <div class="mc-item" data-a="×"><div class="mc-q"><span class="num">3.</span>Whose <span class="gap">___</span> pen is this?</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
       <div class="mc-item" data-a="×"><div class="mc-q"><span class="num">4.</span>What <span class="gap">___</span> books do you like to read?</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
       <div class="mc-item" data-a="×"><div class="mc-q"><span class="num">5.</span>Which <span class="gap">___</span> city is the capital of Australia?</div><div class="mc-opts"><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+    </div>
+  </div>
+
+  <!-- S.6 · Speaking · Ask ME · What / Which / Whose + × -->
+  <div class="card lb-block" style="border-left:4px solid var(--accent2)">
+    <h3><span class="ex-num">S.6</span> Your turn to ask · <em>What × / Which × / Whose ×</em></h3>
+    <p class="intro">Switch! You ask, I answer. Start each question with <em>What / Which / Whose</em> — but <strong>no article after it</strong>. Say the question out loud.</p>
+    <div class="qcard-grid">
+      <div class="qcard"><button class="play" data-say="Ask me what colour my bag is.">▶</button><span class="num">1</span>
+        <div class="q">Ask me: <b>What × colour</b> is my ___?</div>
+        <div class="hint">e.g. "What × colour is your car?"</div>
+      </div>
+      <div class="qcard"><button class="play" data-say="Ask me which book I am reading now.">▶</button><span class="num">2</span>
+        <div class="q">Ask me: <b>Which × book</b> am I reading?</div>
+        <div class="hint">e.g. "Which × book is on your desk?"</div>
+      </div>
+      <div class="qcard"><button class="play" data-say="Ask me whose phone rings all the time.">▶</button><span class="num">3</span>
+        <div class="q">Ask me: <b>Whose × phone</b> rings all the time?</div>
+        <div class="hint">e.g. "Whose × phone is that?"</div>
+      </div>
+      <div class="qcard"><button class="play" data-say="Ask me one more question, starting with what, which or whose.">▶</button><span class="num">4</span>
+        <div class="q">Ask me <b>one more question</b>. Start with What / Which / Whose × …</div>
+        <div class="hint">Your choice — any topic. Watch for × after the wh-word.</div>
+      </div>
+    </div>
+    <div class="starters"><strong>Rule chip</strong>
+      After <em>What / Which / Whose</em> — never <em>a / the</em>. <em>What × colour · Which × book · Whose × pen.</em>
     </div>
   </div>
 
@@ -630,6 +827,37 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
       <div class="mc-item" data-a="the"><div class="mc-q"><span class="num">4.</span>It was <span class="gap">___</span> most interesting film I've ever seen.</div><div class="mc-opts"><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="×">×</button></div></div>
       <div class="mc-item" data-a="the"><div class="mc-q"><span class="num">5.</span>He is <span class="gap">___</span> only child in the family.</div><div class="mc-opts"><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="×">×</button></div></div>
       <div class="mc-item" data-a="the"><div class="mc-q"><span class="num">6.</span>Kate and I arrived at <span class="gap">___</span> same time.</div><div class="mc-opts"><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="a">a</button><button class="mc-opt" data-v="×">×</button></div></div>
+    </div>
+  </div>
+
+  <!-- S.7 · Speaking · the best / the first / the only / the same -->
+  <div class="card lb-block" style="border-left:4px solid var(--accent2)">
+    <h3><span class="ex-num">S.7</span> Say it · <em>the best · the first · the only · the same</em></h3>
+    <p class="intro">Superlatives, ordinals, and words like <em>only / same / right</em> — always <em>the</em>. Answer with one full sentence.</p>
+    <div class="qcard-grid">
+      <div class="qcard"><button class="play" data-say="What was the best day of your life?">▶</button><span class="num">1</span>
+        <div class="q">What was <b>the best day</b> of your life?</div>
+        <div class="hint"><b>The best day</b> was when… (birthday / trip / new phone).</div>
+      </div>
+      <div class="qcard"><button class="play" data-say="Who is the funniest person in your family?">▶</button><span class="num">2</span>
+        <div class="q">Who is <b>the funniest person</b> in your family?</div>
+        <div class="hint">My ___ is <b>the funniest person</b> because…</div>
+      </div>
+      <div class="qcard"><button class="play" data-say="What was the first English word you learned?">▶</button><span class="num">3</span>
+        <div class="q">What was <b>the first English word</b> you learned?</div>
+        <div class="hint"><b>The first word</b> was probably "hello" / "cat".</div>
+      </div>
+      <div class="qcard"><button class="play" data-say="Are you the only child in your family?">▶</button><span class="num">4</span>
+        <div class="q">Are you <b>the only child</b> in your family?</div>
+        <div class="hint">Yes, I'm <b>the only child</b>. / No, I have…</div>
+      </div>
+      <div class="qcard"><button class="play" data-say="Do you always sit at the same desk at the office?">▶</button><span class="num">5</span>
+        <div class="q">Do you always sit at <b>the same desk</b> at the office?</div>
+        <div class="hint">Yes, I sit at <b>the same desk</b> because…</div>
+      </div>
+    </div>
+    <div class="starters"><strong>Rule chip</strong>
+      Superlative + ordinal + <em>only / same / right / very (first)</em> → always <em>the</em>: <em>the best · the first · the only · the same · the right way</em>.
     </div>
   </div>
 
@@ -664,6 +892,41 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
     </div>
   </div>
 
+  <!-- S.8 · Speaking · КОЛЛОКАЦИИ (go to bed / have breakfast / in the morning) -->
+  <div class="card lb-block" style="border-left:4px solid var(--accent2)">
+    <h3><span class="ex-num">S.8</span> Say it · your day · <em>go to bed · have breakfast · in the morning</em></h3>
+    <p class="intro">Direct questions about your day. Answer with the exact collocation — no article on <em>bed / school / work / breakfast</em>, but <em>the</em> with <em>morning / afternoon / evening</em>.</p>
+    <div class="qcard-grid">
+      <div class="qcard"><button class="play" data-say="When do you go to bed on work days?">▶</button><span class="num">1</span>
+        <div class="q">When do you <b>go to <span style="color:var(--accent3)">×</span> bed</b> on work days?</div>
+        <div class="hint">I go to <b>× bed</b> at ___ o'clock. <em>Watch: × bed.</em></div>
+      </div>
+      <div class="qcard"><button class="play" data-say="What do you have for breakfast?">▶</button><span class="num">2</span>
+        <div class="q">What do you <b>have for <span style="color:var(--accent3)">×</span> breakfast</b>?</div>
+        <div class="hint">For <b>× breakfast</b> I have ___. <em>Watch: × breakfast.</em></div>
+      </div>
+      <div class="qcard"><button class="play" data-say="How do you go to work in the morning?">▶</button><span class="num">3</span>
+        <div class="q">How do you <b>go to <span style="color:var(--accent3)">×</span> work</b> in the morning?</div>
+        <div class="hint">I go by <b>× metro</b> / by <b>× car</b> / on <b>× foot</b>. <em>Watch: × work (same rule as × school), × metro.</em></div>
+      </div>
+      <div class="qcard"><button class="play" data-say="What do you do in the morning before work?">▶</button><span class="num">4</span>
+        <div class="q">What do you do <b>in the morning</b> before work?</div>
+        <div class="hint"><b>In the morning</b> I make coffee, check email, and… <em>Watch: <b>the</b> morning.</em></div>
+      </div>
+      <div class="qcard"><button class="play" data-say="Have you ever been in hospital? Tell me one story.">▶</button><span class="num">5</span>
+        <div class="q">Have you ever <b>been in <span style="color:var(--accent3)">×</span> hospital</b>?</div>
+        <div class="hint">Yes, once when… / No, never. <em>Watch: × hospital (as patient).</em></div>
+      </div>
+      <div class="qcard"><button class="play" data-say="At night — what do you dream about?">▶</button><span class="num">6</span>
+        <div class="q"><b>At <span style="color:var(--accent3)">×</span> night</b> — what do you dream about?</div>
+        <div class="hint"><b>At × night</b> I dream about… <em>Watch: at × night (but in <b>the</b> morning).</em></div>
+      </div>
+    </div>
+    <div class="starters"><strong>Rule chip</strong>
+      <em>× bed · × school · × work · × hospital · × breakfast · × night</em> — no article. But <em>in <b>the</b> morning / afternoon / evening</em> — with <em>the</em>.
+    </div>
+  </div>
+
   <!-- =============================================== -->
   <!-- §9 · Cinema/theatre/shop + by bus/car + in town/country -->
   <!-- =============================================== -->
@@ -690,6 +953,21 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
     </div>
   </div>
 
+  <!-- S.9 · Speaking · to the cinema · by bus · in town -->
+  <div class="card lb-block" style="border-left:4px solid var(--accent2)">
+    <h3><span class="ex-num">S.9</span> Say it · your weekend · <em>to the cinema · by bus · in town</em></h3>
+    <p class="intro">Tap ▶ to hear the model, then say your own version. Set phrases stay together — don't split.</p>
+    <div class="prompts">
+      <div class="prompt"><button class="play" data-say="How do you usually get to work? I go by metro.">▶</button><span class="num">1.</span><span class="prompt-text">How do you usually get to work? Say: "I go <b>by ___</b>."</span></div>
+      <div class="prompt"><button class="play" data-say="Do you often go to the cinema? Say when you were there last.">▶</button><span class="num">2.</span><span class="prompt-text">Do you often go <b>to the cinema</b>? When did you go last?</span></div>
+      <div class="prompt"><button class="play" data-say="What do you like doing in town on Sundays?">▶</button><span class="num">3.</span><span class="prompt-text">What do you like doing <b>in × town</b> on Sundays?</span></div>
+      <div class="prompt"><button class="play" data-say="Do you prefer the country or town? Say why.">▶</button><span class="num">4.</span><span class="prompt-text">Do you prefer <b>the country</b> or <b>× town</b>? Say why.</span></div>
+    </div>
+    <div class="starters"><strong>Watch out</strong>
+      <em>go to <b>the</b> cinema / theatre / shop</em>, but <em>go home · in × town · by × bus / × car / × train</em>. Transport: no article.
+    </div>
+  </div>
+
   <!-- =============================================== -->
   <!-- §10 · Play chess vs play the piano -->
   <!-- =============================================== -->
@@ -709,6 +987,44 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
       <div class="mc-item" data-a="the"><div class="mc-q"><span class="num">3.</span>She likes to play <span class="gap">___</span> piano.</div><div class="mc-opts"><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
       <div class="mc-item" data-a="×"><div class="mc-q"><span class="num">4.</span>Do you like to play <span class="gap">___</span> tennis?</div><div class="mc-opts"><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
       <div class="mc-item" data-a="the"><div class="mc-q"><span class="num">5.</span>He can play <span class="gap">___</span> guitar very well.</div><div class="mc-opts"><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
+    </div>
+  </div>
+
+  <!-- S.10 · Would-you-rather · play × football / play the piano -->
+  <div class="card lb-block" style="border-left:4px solid var(--accent2)">
+    <h3><span class="ex-num">S.10</span> Would you rather? · <em>play <span style="color:var(--accent3)">×</span> football</em> or <em>play the piano</em></h3>
+    <p class="intro">Pick one, then say <em>why</em> in one full sentence. Watch: games/sports → ×, musical instruments → <em>the</em>.</p>
+    <div class="wyor-grid">
+      <div class="wyor"><span class="wyor-num">1</span>
+        <div class="wyor-title">Would you rather…</div>
+        <div class="wyor-options">
+          <div class="wyor-opt">play <b>×</b> football<br>for one hour</div>
+          <div class="wyor-or">OR</div>
+          <div class="wyor-opt">play <b>the</b> piano<br>for one hour</div>
+        </div>
+        <div class="wyor-why">Say: <em>"I'd rather play × football / the piano because…"</em></div>
+      </div>
+      <div class="wyor"><span class="wyor-num">2</span>
+        <div class="wyor-title">Would you rather…</div>
+        <div class="wyor-options">
+          <div class="wyor-opt">play <b>×</b> chess<br>with grandpa</div>
+          <div class="wyor-or">OR</div>
+          <div class="wyor-opt">play <b>the</b> guitar<br>with friends</div>
+        </div>
+        <div class="wyor-why">Say why in one sentence.</div>
+      </div>
+      <div class="wyor"><span class="wyor-num">3</span>
+        <div class="wyor-title">Would you rather…</div>
+        <div class="wyor-options">
+          <div class="wyor-opt">play <b>×</b> tennis<br>in the sun</div>
+          <div class="wyor-or">OR</div>
+          <div class="wyor-opt">play <b>the</b> drums<br>at home</div>
+        </div>
+        <div class="wyor-why">Say why in one sentence.</div>
+      </div>
+    </div>
+    <div class="starters"><strong>Rule chip</strong>
+      <em>play × football / × chess / × tennis</em> — no article. <em>play the piano / the guitar / the drums</em> — with <em>the</em>.
     </div>
   </div>
 
@@ -736,6 +1052,37 @@ footer .by{display:block;margin-top:6px;font-size:10px;opacity:.8;letter-spacing
       <div class="mc-item" data-a="the"><div class="mc-q"><span class="num">4.</span>We wrote a paper in <span class="gap">___</span> mathematics.</div><div class="mc-opts"><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
       <div class="mc-item" data-a="×"><div class="mc-q"><span class="num">5.</span>On <span class="gap">___</span> Sunday she goes to the country.</div><div class="mc-opts"><button class="mc-opt" data-v="the">the</button><button class="mc-opt" data-v="×">×</button></div></div>
       <div class="mc-item" data-a="the"><div class="mc-q"><span class="num">6.</span><span class="gap">___</span> Browns are our neighbours.</div><div class="mc-opts"><button class="mc-opt" data-v="The">The</button><button class="mc-opt" data-v="A">A</button><button class="mc-opt" data-v="×">×</button></div></div>
+    </div>
+  </div>
+
+  <!-- S.11 · Speaking · × English / × Monday / × Peter -->
+  <div class="card lb-block" style="border-left:4px solid var(--accent2)">
+    <h3><span class="ex-num">S.11</span> Say it · <em>× English · × Monday · × Peter</em></h3>
+    <p class="intro">Languages, school subjects, days, months, and people's first names → no article. But the whole family — <em>the Browns</em>.</p>
+    <div class="qcard-grid">
+      <div class="qcard"><button class="play" data-say="Do you use English every day at work?">▶</button><span class="num">1</span>
+        <div class="q">Do you use <b>× English</b> every day at work?</div>
+        <div class="hint">Yes, I use <b>× English</b> in meetings and emails.</div>
+      </div>
+      <div class="qcard"><button class="play" data-say="Which subject at school did you like most? Now think in the past.">▶</button><span class="num">2</span>
+        <div class="q">Which <b>× subject</b> at school did you like most?</div>
+        <div class="hint">I liked <b>× maths / × history / × PE</b> most.</div>
+      </div>
+      <div class="qcard"><button class="play" data-say="Is Monday a hard day at your work? Why?">▶</button><span class="num">3</span>
+        <div class="q">Is <b>× Monday</b> a hard day at your work?</div>
+        <div class="hint">Yes, <b>× Monday</b> is hard because…</div>
+      </div>
+      <div class="qcard"><button class="play" data-say="Do you have friends named Peter, Anna, or Misha?">▶</button><span class="num">4</span>
+        <div class="q">Any friends named <b>× Peter, × Anna, × Misha</b>?</div>
+        <div class="hint">Yes, my friend <b>× Anna</b> lives on my street.</div>
+      </div>
+      <div class="qcard"><button class="play" data-say="What do you usually do in July?">▶</button><span class="num">5</span>
+        <div class="q">What do you usually do in <b>× July</b>?</div>
+        <div class="hint">In <b>× July</b> I go to my grandma's / to the sea.</div>
+      </div>
+    </div>
+    <div class="starters"><strong>Rule chip</strong>
+      Languages (<em>× English · × Russian</em>) · school subjects (<em>× maths · × history</em>) · days (<em>× Monday · × Sunday</em>) · months (<em>× July</em>) · first names (<em>× Peter · × Anna</em>) → all with ×. Whole family → <em><b>the</b> Browns · <b>the</b> Ivanovs</em>.
     </div>
   </div>
 
