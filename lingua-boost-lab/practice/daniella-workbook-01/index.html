@@ -225,7 +225,11 @@ footer{max-width:1240px;margin:48px auto 28px;padding:0 22px;text-align:center;c
 }
 /* iOS Safari — предотвратить zoom при фокусе на input (font-size >= 16px обязательно). Иначе iPad zoom'ит и страница "скачет как под напряжением" */
 @media (hover:none) and (pointer:coarse){
-  .gapfill input,.cloze input,.gtable td input,input[type="text"],textarea{font-size:16px !important}
+  .gapfill input,.cloze input,.gtable td input,input[type="text"],textarea{font-size:16px !important;touch-action:manipulation}
+  /* Убрать backdrop-filter на touch — на iOS Safari вызывает repaint jitter при scroll */
+  .topbar,.tab-nav{backdrop-filter:none !important;-webkit-backdrop-filter:none !important;background:var(--bg) !important}
+  /* Стабилизировать sticky — will-change hint помогает iOS не пересчитывать layout каждый frame */
+  .topbar,.tab-nav{will-change:transform;transform:translateZ(0)}
 }
 /* Изолировать reflow каждой карточки — предотвратить каскадный layout jump при cloud-restore lab-persist */
 .card{contain:layout paint}
