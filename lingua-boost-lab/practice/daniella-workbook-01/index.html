@@ -223,6 +223,12 @@ footer{max-width:1240px;margin:48px auto 28px;padding:0 22px;text-align:center;c
   .gtable{font-size:.82rem}
   .tab-chip{padding:8px 14px;font-size:10px}
 }
+/* iOS Safari — предотвратить zoom при фокусе на input (font-size >= 16px обязательно). Иначе iPad zoom'ит и страница "скачет как под напряжением" */
+@media (hover:none) and (pointer:coarse){
+  .gapfill input,.cloze input,.gtable td input,input[type="text"],textarea{font-size:16px !important}
+}
+/* Изолировать reflow каждой карточки — предотвратить каскадный layout jump при cloud-restore lab-persist */
+.card{contain:layout paint}
 </style>
 </head>
 <body>
