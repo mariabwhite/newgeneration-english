@@ -1,4 +1,9 @@
-/* lab-sync.js v21 — NAIL-DOWN teacher-banner + realtime sync + persist + firehose.
+/* lab-sync.js v22 — двусторонний ученик↔учитель dom-state broadcast.
+   v22 (2026-07-21): убрано раннее return isRealTeacher из maybeSend — учитель ТОЖЕ
+   шлёт свои изменения в channel (двусторонний room), иначе ученик не видит что
+   учитель пишет. Firehose (teacher-dashboard) остался только для не-учителя.
+   -----
+   Prior v21 — NAIL-DOWN teacher-banner + realtime sync + persist + firehose.
    v21 (2026-07-15): Железная видимость ввода ученика.
    Добавлена переменная isRealTeacher — true только при явном teacher-флаге
    (teacher=on, teacher=1, role=teacher, observe=…). До v21: любой ученик без
@@ -761,10 +766,11 @@
           });
       }
 
-      // ---- Live broadcast ученика — ВСЕГДА в firehose + (если sync) в room ----
+      // ---- Live broadcast — ДВУСТОРОННИЙ ученик↔учитель через channel + односторонний в firehose (только не-учитель) ----
+      // v22 fix: учитель ТОЖЕ шлёт свои изменения в двусторонний channel — иначе ученик не видит что учитель пишет.
+      //         firehose оставляем только для не-учителя (иначе teacher-dashboard спамится своими же событиями).
       var sendThrottle = {};
       function maybeSend(el){
-        if (isRealTeacher) return; // только явный учитель/observer не транслирует (v21)
         var path = pathOf(el);
         if (!path) return;
         var now = Date.now();
@@ -780,8 +786,10 @@
         if (el.textContent && el.matches && (el.matches('.gap') || el.matches('.match-item'))) {
           basePayload.text = el.textContent.slice(0, 80);
         }
+        // Двусторонний room channel — ОБЕ стороны шлют
         if (channel) channel.send({ type:'broadcast', event:'dom-state', payload: basePayload });
-        // В firehose добавляем identity + lesson context
+        // Firehose (teacher-dashboard) — только не-учитель, иначе teacher спамит сам себе
+        if (isRealTeacher) return;
         var fhPayload = Object.assign({
           room_id: roomId, name: name || '', role: role,
           lesson_path: location.pathname, ts: now
