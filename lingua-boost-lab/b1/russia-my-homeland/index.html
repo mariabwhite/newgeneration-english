@@ -1194,21 +1194,22 @@ updateDots();
 <script src="../../assets/lab-ai-feedback.js?v=6" defer></script>
 <script src="../../assets/lab-pilot.js?v=4" defer></script>
 
-<!-- Speech Coach палитра · scoped override 2026-07-12
-     lab-speech-tester.js читает var(--card, fallback) и var(--text, fallback);
-     у Russia --card=#fff (light) без --text → color падает в #f3eee5 (cream)
-     на белом фоне = блёклый нечитаемый блок. Скопим тут rich-navy палитру
-     ТОЛЬКО внутри .lab-coach-section, остальной light-lab урок сохраняется. -->
-<style id="russia-coach-palette-2026-07-12">
-  .lab-coach-section{--card:#0e1a2e !important;--text:#f0efe6 !important;--surface:#1a2842 !important;--accent:#c9a35c !important;--line:rgba(201,163,92,.22) !important}
-  .lab-coach-section{background:linear-gradient(135deg,#1a2842 0%,#0e1a2e 100%) !important;color:#f0efe6 !important;border:1px solid rgba(201,163,92,.28) !important}
-  .lab-coach-section .lc-transcript{background:#06111f !important;color:#f0efe6 !important}
-  .lab-coach-section .lc-crit .lc-crit-text{color:#f0efe6 !important}
-  .lab-coach-section .lc-crit .lc-crit-hint{color:#c9a35c !important;opacity:.85}
-  .lab-coach-section .lab-coach-toggle h2{color:#c9a35c !important}
-  .lab-coach-section .lc-crit-h{color:#c9a35c !important}
-  .lab-coach-section .lc-stat .lc-lbl{color:#c9a35c !important}
-  .lab-coach-section .lc-stat .lc-val{color:#f0efe6 !important}
+<!-- Speech Coach палитра · scoped override 2026-07-21
+     Приводим к light-lab, чтобы блок не выглядел чёрным пятном на кремовом уроке.
+     Ранее (2026-07-12) стоял rich-navy — теперь матчим .card/.section стиль
+     (белая карточка, dark ink text, --red акценты как в остальном Russia-уроке). -->
+<style id="russia-coach-palette-2026-07-21">
+  .lab-coach-section{--card:#ffffff !important;--text:#1a1f2e !important;--surface:#fbfbf9 !important;--accent:#d52b1e !important;--line:#e3deca !important}
+  .lab-coach-section{background:#ffffff !important;color:#1a1f2e !important;border:1px solid #e3deca !important;box-shadow:0 4px 14px rgba(0,0,0,.04) !important}
+  .lab-coach-section .lc-transcript{background:#fbfbf9 !important;color:#1a1f2e !important;border:1px solid #e3deca !important}
+  .lab-coach-section .lc-crit{background:rgba(213,43,30,.04) !important;border:1px solid #e3deca !important}
+  .lab-coach-section .lc-crit .lc-crit-text{color:#1a1f2e !important}
+  .lab-coach-section .lc-crit .lc-crit-hint{color:#5a6273 !important;opacity:1}
+  .lab-coach-section .lab-coach-toggle h2{color:#1a1f2e !important}
+  .lab-coach-section .lc-crit-h{color:#d52b1e !important}
+  .lab-coach-section .lc-stat{background:#fbfbf9 !important;border:1px solid #e3deca !important}
+  .lab-coach-section .lc-stat .lc-lbl{color:#5a6273 !important}
+  .lab-coach-section .lc-stat .lc-val{color:#1a1f2e !important}
 </style>
 
 <script type="application/json" id="lab-coach-config">
