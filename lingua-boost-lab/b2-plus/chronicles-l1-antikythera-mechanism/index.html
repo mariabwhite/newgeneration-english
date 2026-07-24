@@ -419,6 +419,16 @@ section.section[data-station].done .station-mark-btn::before{content:"✓ "}
   .trophy-card{max-height:none;min-height:150px}
 }
 
+/* Speech Coach section — скрываем «+» кнопку добавления в домашку (coach не идёт в HW) */
+.lab-coach-section .lab-hw-section-btn,
+.lab-coach-section .lab-hw-add,
+#lab-speech-coach .lab-hw-section-btn,
+#lab-speech-coach .lab-hw-add,
+section#station-victory .lab-hw-section-btn,
+section#station-11 .lab-hw-section-btn { display: none !important; }
+/* Overflow guard — на всякий случай если что-то ещё вылезет */
+.lab-coach-section, #lab-speech-coach { overflow: hidden; position: relative; }
+
 @media (max-width:720px){
   .hero-card{min-height:0}
   .hero-bg{background-position:66% center;opacity:.9}
@@ -750,10 +760,16 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
     <img class="lesson-img" src="assets/img/station-04-storeroom.webp" alt="Museum storeroom, wooden crate, corroded bronze lump on velvet under a desk lamp" onerror="this.style.display='none'">
     <p style="color:var(--muted);font-size:.95rem">A short factual talk (~2 min) about what happened in the Athens National Museum storeroom between 1901 and 2005 — from the day the bronze arrived to the day the CT scan finally read it. Listen twice, then decide T / F for each statement.</p>
     <div class="listen-box">
-      <audio controls preload="metadata" style="width:100%;display:block;border-radius:10px">
-        <source src="assets/audio/listen-storeroom.mp3" type="audio/mpeg">
-        Your browser does not support audio playback. Use Chrome, Safari, or Edge.
-      </audio>
+      <div class="bella-fallback" style="padding:14px;background:rgba(122,78,45,.15);border:1px dashed var(--accent);border-radius:10px">
+        <p style="color:var(--muted);font-size:.86rem;margin-bottom:12px;font-style:italic">▶ Play by paragraph · tap each button to hear</p>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <button data-say="When the finds from the Antikythera wreck arrived at the National Museum of Athens in 1901, the staff was overwhelmed. Bronze statues, marble figures, jars, coins — everything was labelled and put on display within the year. Everything, that is, except one broken lump of corroded metal about the size of a shoebox. It was too shapeless to interest anyone. A note was pinned to its wooden crate: bronze fragment, provenance uncertain, no further study." style="background:var(--card);color:var(--accent);border:1px solid var(--line-2);padding:10px 14px;border-radius:8px;text-align:left;cursor:pointer;font-size:.9rem">▶ Part 1 · The bronze lump arrives (1901)</button>
+          <button data-say="In May 1902, an archaeologist named Valerios Stais returned to the storeroom for a different task. He noticed that a small piece had cracked off the bronze lump, probably as it dried. He picked up the fragment and held it under an oil lamp. What he saw was so unexpected that he called two colleagues into the room. On the surface of the fragment were hair-thin engravings in ancient Greek — and, more importantly, the clear outline of a bronze gear. Not a decorative curl. A working gear, with cut teeth." style="background:var(--card);color:var(--accent);border:1px solid var(--line-2);padding:10px 14px;border-radius:8px;text-align:left;cursor:pointer;font-size:.9rem">▶ Part 2 · Stais finds the gear (1902)</button>
+          <button data-say="Stais wrote a short paper. He argued that the Greeks of the first century BC had built a mechanical calculator. The academy was polite but firm: no ancient civilisation had produced such a device, and no serious mechanic would have survived from that period in silence. Stais was told to move on. The bronze went back into its drawer for fifty years." style="background:var(--card);color:var(--accent);border:1px solid var(--line-2);padding:10px 14px;border-radius:8px;text-align:left;cursor:pointer;font-size:.9rem">▶ Part 3 · Academy says no (1902-1951)</button>
+          <button data-say="In 1951, a British physicist called Derek de Solla Price walked into the museum and asked to see the object. He would spend the next twenty-three years of his life on it. Later, gamma-ray photographs suggested there were far more gears inside than anyone had guessed — perhaps thirty, perhaps forty." style="background:var(--card);color:var(--accent);border:1px solid var(--line-2);padding:10px 14px;border-radius:8px;text-align:left;cursor:pointer;font-size:.9rem">▶ Part 4 · Price arrives + gamma rays (1951)</button>
+          <button data-say="Then, in 2005, a joint Greek-British-American team put the fragments into a medical-grade CT scanner. What appeared on screen shocked even them: thirty-seven precisely cut bronze gears, an inscription of over three thousand letters, and — behind the front dial — a mechanism that could predict a lunar eclipse hundreds of years in advance. The bronze lump nobody wanted in 1901 turned out to be the earliest analog computer we have ever found. It was made around 150 to 100 BC — a thousand years before anything comparable would appear anywhere in the world again." style="background:var(--card);color:var(--accent);border:1px solid var(--line-2);padding:10px 14px;border-radius:8px;text-align:left;cursor:pointer;font-size:.9rem">▶ Part 5 · CT scan reveals the truth (2005)</button>
+        </div>
+      </div>
       <div class="listen-script" id="lstScript">
         <strong>Script (open after the T/F):</strong><br>
         When the finds from the Antikythera wreck arrived at the National Museum of Athens in 1901, the staff was overwhelmed. Bronze statues, marble figures, jars, coins — everything was labelled and put on display within the year. Everything, that is, except one broken lump of corroded metal about the size of a shoebox. It was too shapeless to interest anyone. A note was pinned to its wooden crate: <em>«bronze fragment, provenance uncertain, no further study»</em>.
