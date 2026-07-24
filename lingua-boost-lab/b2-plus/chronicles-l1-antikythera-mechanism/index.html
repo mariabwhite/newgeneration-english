@@ -362,6 +362,9 @@ footer{max-width:1240px;margin:48px auto 28px;padding:0 22px;text-align:center;c
 .station-badge.done{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--accent-on);border-color:var(--accent);
   box-shadow:0 4px 14px rgba(201,153,61,.5)}
 .station-icon{font-size:1.35rem;line-height:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.4))}
+img.station-icon{width:32px;height:32px;object-fit:contain;font-size:0;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5))}
+.station-badge.done img.station-icon{filter:drop-shadow(0 2px 8px rgba(230,181,85,.8)) brightness(1.1)}
+.station-badge{background:linear-gradient(135deg,rgba(15,41,56,.4),rgba(122,78,45,.35))}
 .section-hdr .station-title{display:flex;flex-direction:column;gap:2px}
 .section-hdr .station-title small{font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
 
@@ -427,19 +430,37 @@ section.section[data-station].done .station-mark-btn::before{content:"✓ "}
 section#station-victory .lab-hw-section-btn,
 section#station-11 .lab-hw-section-btn { display: none !important; }
 
-/* ═══ Speech Coach section — жёсткое правило чтобы никогда не вылезал шире 1240px ═══ */
+/* ═══ UNIFIED WRAPPER · все крупные блоки урока имеют одинаковую visible ширину ═══
+   Fix для «coach шире section а chronicles-nav ещё уже» — унифицируем через width min() формулу.
+   Container отвечает за horizontal edge, padding НЕ используется (нет двойной math).
+*/
+.hero,
+.section,
+.quest-hud-wrap,
+.prev-recap,
+.chronicles-nav,
+footer,
 .lab-coach-section,
 #lab-speech-coach,
+#station-victory,
+#quest-complete,
 section:has(> #lab-speech-coach),
 section:has(> .lab-coach-section){
+  width: min(1240px, calc(100% - clamp(32px, 6vw, 56px))) !important;
   max-width: 1240px !important;
-  width: 100% !important;
-  margin: 24px auto !important;
-  padding: 0 clamp(16px, 3vw, 28px) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
   box-sizing: border-box !important;
-  overflow: hidden !important;
-  position: relative !important;
 }
+/* верхние/нижние margins сохраняются per-block — только horizontal унифицирован */
+.hero { margin-top: 32px; margin-bottom: 12px; }
+.prev-recap { margin-top: 14px; margin-bottom: 6px; }
+.section { margin-bottom: 28px; }
+.chronicles-nav { margin-top: 32px; margin-bottom: 24px; }
+footer { margin-top: 48px; margin-bottom: 28px; }
+.lab-coach-section, #lab-speech-coach { margin-top: 24px; margin-bottom: 24px; overflow: hidden; position: relative; }
 /* Все внутренние блоки coach — тоже 100% ширина без раздутия */
 .lab-coach-section > *,
 #lab-speech-coach > *{
@@ -584,7 +605,7 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
 <!-- ═══ STATION 01 · THE HARBOR AT PIRAEUS ═══ -->
 <section class="section" id="station-01" data-station="1" data-achievement="⚓ Anchor Down">
   <div class="section-hdr">
-    <div class="station-badge"><span class="station-icon">⚓</span></div>
+    <div class="station-badge"><img class="station-icon" src="assets/img/badges/01-anchor.webp" alt="anchor"></div>
     <div class="station-title"><h2>The Harbor at Piraeus</h2><small>Station 01 · Warm-up · speaking · ~4 min</small></div>
   </div>
   <div class="section-sub">Piraeus, Athens, October 1900. A storm is 12 hours out. Six sponge divers stand on a wooden dock, checking rope. Their captain: Dimitrios Kondos. They do not know that in three days they will pull the first computer in history out of the sea.</div>
@@ -616,7 +637,7 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
 <!-- ═══ STATION 02 · THE DIVER'S KIT ═══ -->
 <section class="section" id="station-02" data-station="2" data-achievement="🎒 Kit Ready">
   <div class="section-hdr">
-    <div class="station-badge"><span class="station-icon">🎒</span></div>
+    <div class="station-badge"><img class="station-icon" src="assets/img/badges/02-backpack.webp" alt="backpack"></div>
     <div class="station-title"><h2>The Diver's Kit</h2><small>Station 02 · Vocab · 15 words · ~6 min</small></div>
   </div>
   <div class="section-sub">Every quest word that returns in later stations. Tap any card to flip. Tap the word to hear it.</div>
@@ -692,7 +713,7 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
 <!-- ═══ STATION 03 · THE WRECK · READING + SENTENCE INSERTION ═══ -->
 <section class="section" id="station-03" data-station="3" data-achievement="🪸 Wreck Found">
   <div class="section-hdr">
-    <div class="station-badge"><span class="station-icon">🪸</span></div>
+    <div class="station-badge"><img class="station-icon" src="assets/img/badges/03-coral.webp" alt="coral"></div>
     <div class="station-title"><h2>The Wreck</h2><small>Station 03 · Reading + Sentence Insertion · олимпиадный формат · ~10 min</small></div>
   </div>
   <div class="section-sub">ВОШ Reading Task 2 (муниципал) — 8 gaps, 9 sentences A–I to place. One does not fit anywhere.</div>
@@ -770,7 +791,7 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
 <!-- ═══ STATION 04 · THE STOREROOM · LISTENING + T/F ×10 ═══ -->
 <section class="section" id="station-04" data-station="4" data-achievement="📻 Ears On">
   <div class="section-hdr">
-    <div class="station-badge"><span class="station-icon">📻</span></div>
+    <div class="station-badge"><img class="station-icon" src="assets/img/badges/04-radio.webp" alt="radio"></div>
     <div class="station-title"><h2>The Storeroom</h2><small>Station 04 · Listening + T/F × 10 · ~9 min</small></div>
   </div>
   <div class="section-sub">ВОШ Listening Task 1 (все этапы) — 10 statements, decide True or False. You will hear the text TWICE.</div>
@@ -860,7 +881,7 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
 <!-- ═══ STATION 05 · THE X-RAY LAB · WORD FORMATION ×10 ═══ -->
 <section class="section" id="station-05" data-station="5" data-achievement="✨ First Glow">
   <div class="section-hdr">
-    <div class="station-badge"><span class="station-icon">✨</span></div>
+    <div class="station-badge"><img class="station-icon" src="assets/img/badges/05-sparkle.webp" alt="sparkle"></div>
     <div class="station-title"><h2>The X-Ray Lab</h2><small>Station 05 · Word Formation × 10 · ~7 min</small></div>
   </div>
   <div class="section-sub">ВОШ Use of English · Task 3 муниципал — form the correct word from the CAPITALS to fit the sentence.</div>
@@ -950,7 +971,7 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
 <!-- ═══ STATION 06 · THE GEARS · ONE WORD FOR 3 SENTENCES × 5 ═══ -->
 <section class="section" id="station-06" data-station="6" data-achievement="⚙️ Gears Turn">
   <div class="section-hdr">
-    <div class="station-badge"><span class="station-icon">⚙️</span></div>
+    <div class="station-badge"><img class="station-icon" src="assets/img/badges/06-gears.webp" alt="gears"></div>
     <div class="station-title"><h2>The Gears</h2><small>Station 06 · One Word for 3 Sentences × 5 · классика ВОШ · ~8 min</small></div>
   </div>
   <div class="section-sub">ВОШ Use of English · Task 5 школьный этап 9-11 — one word fits all three sentences in each item. Very hard, very olympiad.</div>
@@ -1025,7 +1046,7 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
 <!-- ═══ STATION 07 · THE DIARY · WORD DELETION × 15 ═══ -->
 <section class="section" id="station-07" data-station="7" data-achievement="📓 Diary Cracked">
   <div class="section-hdr">
-    <div class="station-badge"><span class="station-icon">📓</span></div>
+    <div class="station-badge"><img class="station-icon" src="assets/img/badges/07-book.webp" alt="book"></div>
     <div class="station-title"><h2>The Diary</h2><small>Station 07 · Word Deletion · 15 lines · ~7 min</small></div>
   </div>
   <div class="section-sub">ВОШ Use of English · Task 1 муниципал (15 points) — some lines have an extra word which should not be there; some are correct. Mark it.</div>
@@ -1086,7 +1107,7 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
 <!-- ═══ STATION 08 · THE MUSEUM MAP · MATCHING 10 → 14 ═══ -->
 <section class="section" id="station-08" data-station="8" data-achievement="🗺 Map Complete">
   <div class="section-hdr">
-    <div class="station-badge"><span class="station-icon">🗺</span></div>
+    <div class="station-badge"><img class="station-icon" src="assets/img/badges/08-map.webp" alt="map"></div>
     <div class="station-title"><h2>The Museum Map</h2><small>Station 08 · Matching · 10 artifacts → 14 civilisations · ~8 min</small></div>
   </div>
   <div class="section-sub">ВОШ Use of English · Task 4 муниципал 10-11 — match items 1-10 to A-N. Four options are not needed.</div>
@@ -1147,7 +1168,7 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
 <!-- ═══ STATION 09 · KEY TRANSFORMATION × 5 ═══ -->
 <section class="section" id="station-09" data-station="9" data-achievement="🔑 Key Turned">
   <div class="section-hdr">
-    <div class="station-badge"><span class="station-icon">🔑</span></div>
+    <div class="station-badge"><img class="station-icon" src="assets/img/badges/09-key.webp" alt="key"></div>
     <div class="station-title"><h2>Rewrite the Finale</h2><small>Station 09 · Key Transformation × 5 · ~6 min</small></div>
   </div>
   <div class="section-sub">ВОШ Use of English · Task 2 муниципал (10 points) — rewrite the second sentence so it means the same, using the CAPITAL word. 3-6 words in your answer. Do not change the word given.</div>
@@ -1205,7 +1226,7 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
 <!-- ═══ STATION 10 · THE DEBATE HALL · SPEAKING (PICK FORMAT) ═══ -->
 <section class="section" id="station-10" data-station="10" data-achievement="🎤 Voice Heard">
   <div class="section-hdr">
-    <div class="station-badge"><span class="station-icon">🎤</span></div>
+    <div class="station-badge"><img class="station-icon" src="assets/img/badges/10-mic.webp" alt="mic"></div>
     <div class="station-title"><h2>The Debate Hall</h2><small>Station 10 · Speaking · pick your format · ~10 min</small></div>
   </div>
   <div class="section-sub">Two tracks: IELTS Part 2 cue-card OR ВОШ regional oral (monologue + dialogue).</div>
@@ -1283,7 +1304,7 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
 <!-- ═══ STATION 11 · SPEECH TRACKER ═══ -->
 <section class="section" id="station-11" data-station="11" data-achievement="📊 Pace Locked">
   <div class="section-hdr">
-    <div class="station-badge"><span class="station-icon">📊</span></div>
+    <div class="station-badge"><img class="station-icon" src="assets/img/badges/11-chart.webp" alt="chart"></div>
     <div class="station-title"><h2>Speech Tracker</h2><small>Station 11 · 90-sec monologue · check WPM · ~4 min</small></div>
   </div>
   <div class="section-sub">Right after your monologue at Station 10, re-deliver it here. The tracker counts words and gives WPM verdict against B2+ targets (140-160 WPM ideal for olympiad speaking).</div>
@@ -1297,7 +1318,7 @@ footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospac
 <!-- ═══ STATION 12 · THE FIELD REPORT · WRITING ═══ -->
 <section class="section" id="station-12" data-station="12" data-achievement="✍️ Report Filed">
   <div class="section-hdr">
-    <div class="station-badge"><span class="station-icon">✍️</span></div>
+    <div class="station-badge"><img class="station-icon" src="assets/img/badges/12-quill.webp" alt="quill"></div>
     <div class="station-title"><h2>The Field Report</h2><small>Station 12 · Writing · for-and-against essay · 150-180 words · ~15 min</small></div>
   </div>
   <div class="section-sub">ВОШ Writing task type — structured for-and-against essay. Do it here, in class, not at home.</div>
