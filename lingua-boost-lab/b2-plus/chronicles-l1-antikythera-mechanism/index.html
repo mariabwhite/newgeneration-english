@@ -1,0 +1,2047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="/lingua-boost-lab/assets/premium-lesson-guard.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Chronicles · L1 — The Antikythera Mechanism · Quest</title>
+<meta name="description" content="B1+/B2 quest lesson for Ivan. The lost bronze computer of ancient Greece — 12 stations, olympiad-format practice, achievements unlock as you go.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Chronicles L1 · palette — sandy amber + deep bronze + parchment cream + deep-sea */
+  --bg:#0f2938; --bg-2:#152e40; --surface:#1a3448; --card:#213c52; --surface-2:#284a63;
+  --text:#f7f2e4; --muted:#c9b98d; --faint:#8a7f5f;
+  --accent:#c9993d; --accent-2:#e6b555; --accent-on:#1a1408;
+  --brand:#7a4e2d; --brand-2:#c9993d;
+  --line:rgba(201,153,61,.18); --line-2:rgba(201,153,61,.36); --line-3:rgba(201,153,61,.55);
+  --ok:#4fb890; --miss:#d95a5a;
+  --glow1:rgba(201,153,61,.15); --glow2:rgba(122,78,45,.22);
+  /* Homework palette bridge — читается /.homework/ + др. общими элементами */
+  --ink:#f7f2e4;
+  --lb-bg:#0f2938; --lb-text:#f7f2e4; --lb-muted:rgba(247,242,228,.72);
+  --display:"Unbounded","Manrope",system-ui,sans-serif;
+  --body:"Manrope",system-ui,sans-serif;
+  --mono:"JetBrains Mono",Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6;
+  background-image:
+    radial-gradient(ellipse at 70% 0%,var(--glow1),transparent 50%),
+    radial-gradient(ellipse at 20% 90%,var(--glow2),transparent 50%);
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+
+/* Starfield — three drifting layers for parallax */
+#starfield{position:fixed;inset:0;z-index:0;pointer-events:none}
+.star{position:absolute;border-radius:50%;background:#fff;will-change:transform,opacity}
+.star.s1{width:1px;height:1px;opacity:.45}
+.star.s2{width:2px;height:2px;opacity:.65}
+.star.s3{width:3px;height:3px;opacity:.85;box-shadow:0 0 4px rgba(255,255,255,.55)}
+@keyframes twinkle{0%,100%{opacity:var(--op0,.3)}50%{opacity:var(--op1,.9)}}
+@keyframes drift-a{from{transform:translate(0,0)}to{transform:translate(160px,-200px)}}
+@keyframes drift-b{from{transform:translate(0,0)}to{transform:translate(-200px,240px)}}
+@keyframes drift-c{from{transform:translate(0,0)}to{transform:translate(260px,180px)}}
+
+/* Topbar — sticky, auto-hides on scroll down (mobile-friendly) */
+.topbar{
+  position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;
+  padding:12px clamp(16px,3vw,28px);
+  background:color-mix(in srgb,var(--bg) 92%,transparent);
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  transition:transform .26s ease;will-change:transform;
+}
+.topbar.tb-hidden{transform:translateY(-100%)}
+/* Teacher notes (collapsible, visible during the lesson, harmless to leave open) */
+body:not(.teacher-mode) details.teacher{display:none}
+details.teacher{margin:16px 0 6px;border:1px dashed rgba(245,200,66,.32);border-radius:10px;background:rgba(245,200,66,.04)}
+details.teacher summary{cursor:pointer;list-style:none;padding:9px 14px;font-family:var(--mono);font-size:10.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:8px;user-select:none}
+details.teacher summary::-webkit-details-marker{display:none}
+details.teacher summary::before{content:"♦ teacher";opacity:.9}
+details.teacher summary>span{opacity:.6;font-size:9.5px;letter-spacing:.16em;margin-left:auto}
+details.teacher[open] summary{border-bottom:1px dashed rgba(245,200,66,.32)}
+details.teacher .t-body{padding:12px 16px 14px;color:var(--brand-2);font-size:.9rem;line-height:1.55}
+details.teacher .t-body ul{margin-left:18px}
+details.teacher .t-body li{padding:2px 0}
+details.teacher .t-body strong{color:var(--accent-2)}
+details.homework{margin:24px 0 8px;border:1px solid var(--brand);border-radius:14px;background:rgba(155,127,232,.06);overflow:hidden}
+details.homework summary{cursor:pointer;list-style:none;padding:14px 18px;font-family:var(--display);font-size:1rem;font-weight:800;color:var(--brand-2);display:flex;align-items:center;gap:10px;user-select:none}
+details.homework summary::-webkit-details-marker{display:none}
+details.homework summary>span{opacity:.55;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-left:auto}
+details.homework[open] summary{border-bottom:1px solid var(--line-2)}
+details.homework .hw-body{padding:18px 20px 20px}
+details.homework .hw-body h4{font-family:var(--display);font-weight:800;color:var(--accent);font-size:1rem;letter-spacing:-.01em;margin:6px 0 6px}
+.hw-list{display:flex;flex-direction:column;gap:8px;margin:8px 0 6px}
+.hw-row{background:var(--card);border:1px solid var(--line-2);border-radius:10px;padding:10px 14px;color:var(--text);font-size:.94rem;line-height:1.55}
+.hw-row strong{color:var(--brand-2)}
+/* Tabs (Speaking — IELTS / Olympiad) */
+.tab-row{display:flex;gap:4px;margin-bottom:14px;border-bottom:1px solid var(--line)}
+.tab-row .tab-btn{flex:1;background:transparent;border:none;color:var(--muted);
+  padding:11px 14px;font-family:var(--mono);font-size:10.5px;font-weight:800;
+  letter-spacing:.14em;text-transform:uppercase;cursor:pointer;
+  border-bottom:2px solid transparent;transition:.16s}
+.tab-row .tab-btn:hover{color:var(--accent)}
+.tab-row .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tab-pane{display:none}
+.tab-pane.active{display:block;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* Audio — dark themed (inverts default browser controls) */
+.listen-box audio{
+  width:100%;display:block;border-radius:10px;
+  filter:invert(.88) hue-rotate(180deg) saturate(.85);
+  background:var(--card)
+}
+
+/* Cloze (Use of English) */
+.cloze p.cloze-text{background:rgba(0,0,0,.18);border:1px solid var(--line);border-radius:12px;padding:14px 16px;line-height:1.85;font-size:1rem;color:var(--text)}
+.cloze p.cloze-text .gap{display:inline-block;min-width:34px;padding:0 6px;border-bottom:2px dashed var(--accent);color:var(--accent);font-weight:800}
+.cloze-row{display:grid;grid-template-columns:32px 1fr;gap:10px;align-items:start;margin:10px 0}
+.cloze-num{font-family:var(--mono);font-size:11px;font-weight:800;background:var(--accent);color:var(--accent-on);width:28px;height:28px;border-radius:50%;display:grid;place-items:center}
+.cloze-opts{display:flex;flex-wrap:wrap;gap:6px}
+.cloze-opts button{background:var(--card);color:var(--muted);border:1px solid var(--line-2);padding:6px 12px;border-radius:50px;font-family:var(--mono);font-size:.74rem;font-weight:700;letter-spacing:.06em;cursor:pointer;transition:.15s}
+.cloze-opts button:hover{border-color:var(--accent);color:var(--accent)}
+.cloze-opts button.right{background:var(--ok);color:#0a2316;border-color:var(--ok)}
+.cloze-opts button.wrong{background:var(--miss);color:#fff;border-color:var(--miss)}
+.open-cloze{display:flex;flex-direction:column;gap:8px;margin:8px 0 4px}
+.open-cloze .oc-row{display:grid;grid-template-columns:32px 1fr;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line-2);border-radius:10px;padding:8px 12px}
+.open-cloze .oc-in{background:transparent;border:none;border-bottom:1px dashed var(--accent);color:var(--accent);font-family:var(--body);font-size:.96rem;font-weight:700;padding:4px 6px;outline:none;width:100%;max-width:240px}
+.open-cloze .oc-in:focus{border-bottom-color:var(--accent-2);background:rgba(245,200,66,.05)}
+.open-cloze .oc-in.right{border-bottom-color:var(--ok);color:var(--ok);border-bottom-style:solid}
+.open-cloze .oc-in.wrong{border-bottom-color:var(--miss);color:var(--miss);border-bottom-style:solid}
+/* Sentence transformation */
+.transform{display:flex;flex-direction:column;gap:14px;margin-top:14px}
+.tr-row{background:var(--card);border:1px solid var(--line-2);border-radius:12px;padding:12px 14px}
+.tr-q{color:var(--text);font-size:.94rem;line-height:1.55;margin-bottom:8px}
+.tr-q strong{font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;background:var(--brand);color:#fff;padding:2px 8px;border-radius:6px;vertical-align:middle}
+.tr-row .tr-in{background:transparent;border:1px dashed var(--accent);color:var(--accent);font-family:var(--body);font-size:.96rem;font-weight:700;padding:6px 10px;border-radius:8px;outline:none;width:100%;max-width:340px}
+.tr-row .tr-in.right{border-color:var(--ok);color:var(--ok);border-style:solid}
+.tr-row .tr-in.wrong{border-color:var(--miss);color:var(--miss);border-style:solid}
+.tr-row .tr-model{margin-top:6px;font-family:var(--mono);font-size:.78rem;color:var(--brand-2);font-weight:600;letter-spacing:.04em;display:none}
+.tr-row .tr-model.show{display:block}
+.brand{display:flex;align-items:center;gap:12px;flex-shrink:0;text-decoration:none}
+.brand-mark{width:36px;height:36px;border-radius:9px;border-top-right-radius:0;
+  background:var(--accent);color:var(--accent-on);
+  font-family:var(--display);font-weight:900;font-size:1.1rem;letter-spacing:-.04em;
+  display:grid;place-items:center;position:relative;overflow:hidden;flex-shrink:0}
+.brand-mark::after{content:"";position:absolute;right:0;top:0;width:14px;height:14px;background:#ffffff;clip-path:polygon(100% 0,0 0,100% 100%);z-index:2;display:block;pointer-events:none}
+.brand-copy{display:grid;gap:1px;min-width:0}
+.brand-name{font-family:var(--display);font-weight:800;font-size:.95rem;letter-spacing:-.01em;color:var(--text);line-height:1}
+.brand-sub{font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-top:2px}
+.spacer{flex:1}
+.pill{padding:5px 11px;border-radius:50px;font:700 9.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid var(--line-2);color:var(--muted);background:rgba(0,0,0,.25);white-space:nowrap}
+.pill.accent{background:color-mix(in srgb,var(--accent) 15%,transparent);border-color:var(--accent);color:var(--accent)}
+.pill.brand{background:color-mix(in srgb,var(--brand) 15%,transparent);border-color:var(--brand);color:var(--brand-2)}
+.btn-sm{height:32px;padding:0 12px;border-radius:8px;border:1px solid var(--line-2);background:var(--card);color:var(--muted);
+  font:700 10px/1 var(--mono);letter-spacing:.12em;cursor:pointer;transition:all .15s;
+  text-decoration:none;display:inline-flex;align-items:center;text-transform:uppercase}
+.btn-sm:hover{border-color:var(--accent);color:var(--accent)}
+
+/* Hero snapshot */
+.hero{max-width:1240px;margin:32px auto 12px;padding:0 clamp(16px,3vw,28px);position:relative;z-index:2}
+.hero-card{position:relative;border:1px solid var(--line-2);border-radius:24px;overflow:hidden;
+  background:linear-gradient(135deg,var(--bg-2) 0%,var(--surface) 60%,#0a1638 100%);
+  box-shadow:0 10px 40px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.04);
+  min-height:500px;padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px)}
+.hero-bg{position:absolute;inset:0;z-index:0;
+  background:url("assets/img/hero-cover.webp") 72% center/cover no-repeat;
+  opacity:1}
+.hero-bg::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,41,56,.15) 0%,rgba(15,41,56,.55) 100%)}
+.hero-bg::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(2,7,22,.98) 0%,rgba(2,7,22,.94) 42%,rgba(2,7,22,.38) 57%,rgba(2,7,22,.04) 72%,transparent 100%)}
+.hero-card > *:not(.hero-bg){position:relative;z-index:1}
+
+/* Lesson images (story/listening/synthesis) */
+.lesson-img{width:100%;border-radius:14px;display:block;margin:0 0 18px;
+  border:1px solid var(--line-2);box-shadow:0 8px 24px rgba(0,0,0,.32);
+  aspect-ratio:16/9;object-fit:cover}
+.eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);
+  display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--accent)}
+h1.hero-title{font-family:var(--display);font-weight:900;letter-spacing:-.04em;line-height:.96;
+  font-size:clamp(1.9rem,4.8vw,3.6rem);max-width:590px;margin-bottom:18px;color:var(--text)}
+h1.hero-title .grad{background:linear-gradient(120deg,var(--accent) 0%,var(--accent-2) 60%,#fff3c8 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-lead{font-size:clamp(1rem,1.3vw,1.12rem);color:var(--muted);max-width:590px;line-height:1.55;margin-bottom:24px}
+.hero-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px;max-width:650px}
+.stat{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.stat-k{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+.stat-v{font-family:var(--display);font-weight:800;font-size:1.15rem;color:var(--accent);letter-spacing:-.01em}
+
+/* Sections */
+.section{max-width:1240px;margin:0 auto 28px;padding:0 clamp(16px,3vw,28px);position:relative;z-index:2}
+.section-hdr{display:flex;align-items:center;gap:14px;margin:30px 0 14px}
+.section-num{font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:.16em;
+  background:var(--brand);color:var(--accent-on);padding:5px 11px;border-radius:50px}
+.section-hdr h2{font-family:var(--display);font-weight:800;font-size:clamp(1.25rem,2.2vw,1.75rem);color:var(--text);letter-spacing:-.02em;line-height:1.1}
+.section-sub{font-size:.92rem;color:var(--muted);margin:0 0 14px 0;font-style:italic}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 24px;box-shadow:0 6px 28px rgba(0,0,0,.28)}
+.card h3{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--accent);margin:18px 0 10px;letter-spacing:.01em}
+.card h3:first-child{margin-top:0}
+.card p{margin-bottom:11px;color:var(--text)}
+.card .info{background:rgba(155,127,232,.07);border-left:3px solid var(--brand);padding:12px 16px;border-radius:8px;font-size:.92rem;color:var(--muted);margin:12px 0}
+.card .info strong{color:var(--brand-2)}
+.card .src{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-weight:700}
+.card .src a{color:var(--accent)}
+
+/* Hover translation */
+.tr{border-bottom:1px dashed var(--brand);cursor:help;position:relative;transition:.18s}
+.tr:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.tr::after{content:attr(data-ru);position:absolute;bottom:100%;left:50%;
+  transform:translateX(-50%) translateY(2px);background:var(--bg-2);color:var(--accent-2);
+  padding:5px 11px;border-radius:8px;font-size:.78rem;font-family:var(--body);font-weight:600;
+  white-space:nowrap;pointer-events:none;opacity:0;transition:.18s;z-index:90;
+  border:1px solid var(--line-2)}
+.tr:hover::after{opacity:1;transform:translateX(-50%) translateY(-6px)}
+.tr.added{background:rgba(245,200,66,.12);color:var(--accent)}
+.tr.flying{animation:flyToVocab .55s ease-out forwards;pointer-events:none}
+@keyframes flyToVocab{
+  0%{transform:scale(1) translate(0,0);opacity:1}
+  60%{transform:scale(.6) translate(20vw,20vh);opacity:.7}
+  100%{transform:scale(.2) translate(40vw,40vh);opacity:0}
+}
+
+.say-word{cursor:pointer;border-bottom:1px dashed var(--accent);padding:0 1px;transition:.15s}
+.say-word:hover{background:rgba(245,200,66,.08);color:var(--accent)}
+
+/* Vocab floating box */
+.vocab-box{position:fixed;bottom:20px;right:20px;background:linear-gradient(135deg,var(--brand),#7a5dd9);
+  color:#fff;padding:14px 20px;border-radius:50px;
+  box-shadow:0 10px 30px rgba(155,127,232,.36);
+  font-family:var(--display);font-weight:800;cursor:pointer;z-index:95;user-select:none;
+  display:flex;align-items:center;gap:10px;transition:.22s;font-size:.92rem}
+.vocab-box:hover{transform:translateY(-2px)}
+.vocab-box.expanded{max-width:420px;width:calc(100% - 40px);border-radius:18px;flex-direction:column;align-items:stretch;padding:18px 20px;cursor:default}
+.vocab-box .vocab-title{cursor:pointer;display:flex;align-items:center;gap:8px;justify-content:space-between}
+.vocab-box .vocab-list{display:none;flex-direction:column;gap:5px;max-height:50vh;overflow-y:auto;margin-top:14px;padding-right:4px}
+.vocab-box.expanded .vocab-list{display:flex}
+.vocab-list .vocab-item{background:rgba(255,255,255,.13);padding:7px 12px;border-radius:8px;font-size:.85rem;
+  display:flex;justify-content:space-between;gap:12px;align-items:baseline;line-height:1.3}
+.vocab-list .vocab-item .word{font-weight:800}
+.vocab-list .vocab-item .ru{font-weight:500;opacity:.92;font-size:.78rem;text-align:right}
+.vocab-list .vocab-item.empty{justify-content:center;font-style:italic;opacity:.7;font-size:.82rem;background:transparent}
+.vocab-actions{display:flex;gap:6px;margin-top:12px}
+.vocab-actions button{flex:1;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.2);
+  padding:8px 12px;border-radius:8px;font-family:var(--mono);font-size:.68rem;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:.15s}
+.vocab-actions button:hover{background:rgba(255,255,255,.25)}
+.vocab-add{display:flex;gap:6px;margin:12px 0 0;padding-top:12px;border-top:1px dashed rgba(255,255,255,.22)}
+.vocab-add input{flex:1;background:rgba(58,110,143,.40);border:1px solid rgba(58,110,143,.7);color:#cfe6f7;padding:8px 10px;border-radius:8px;font-family:var(--body);font-size:.84rem;font-weight:600;outline:none;min-width:0}
+.vocab-add input::placeholder{color:rgba(255,255,255,.45);font-weight:500}
+.vocab-add input:focus{border-color:rgba(255,255,255,.55);background:rgba(255,255,255,.18)}
+.vocab-add button{flex:0 0 40px;background:rgba(255,255,255,.24);color:#fff;border:1px solid rgba(255,255,255,.32);border-radius:8px;font-family:var(--display);font-size:1.25rem;font-weight:900;cursor:pointer;line-height:1;padding:0;transition:.15s}
+.vocab-add button:hover{background:rgba(255,255,255,.38)}
+.vocab-add-hint{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);margin:10px 0 4px;text-align:center}
+
+/* Sample answer block */
+.sample{background:rgba(155,127,232,.07);border:1px solid rgba(155,127,232,.32);border-radius:14px;
+  padding:16px 18px;margin:14px 0}
+.sample-h{font-family:var(--mono);font-size:10.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--brand-2);margin-bottom:10px}
+.sample p{color:var(--text);font-style:italic;line-height:1.65}
+.sample-phr{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+.sample-phr button{background:rgba(155,127,232,.10);border:1px solid var(--brand);color:var(--brand-2);
+  padding:7px 12px;border-radius:50px;font-size:.78rem;font-family:var(--body);font-weight:600;
+  cursor:pointer;transition:.15s;text-align:left}
+.sample-phr button::before{content:"♪ ";color:var(--brand);font-weight:900}
+.sample-phr button:hover{background:var(--surface-2);border-color:var(--brand)}
+
+/* Story */
+.story{background:rgba(0,0,0,.2);border:1px solid var(--line);border-radius:14px;
+  padding:22px 24px;margin:14px 0;line-height:1.75}
+.story p{margin-bottom:14px;color:var(--text);font-size:1.02rem}
+.story em{color:var(--brand-2);font-style:italic}
+
+/* Listening */
+.listen-box{background:rgba(155,127,232,.06);border:1px solid var(--line-2);border-radius:14px;
+  padding:18px 20px;margin:14px 0;display:flex;flex-direction:column;gap:14px}
+.listen-controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.listen-controls button{background:var(--brand);color:#fff;border:none;
+  padding:10px 18px;border-radius:50px;font-family:var(--mono);font-size:.74rem;font-weight:800;
+  letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:.18s}
+.listen-controls button.accent{background:var(--accent);color:var(--accent-on)}
+.listen-controls button:hover{transform:translateY(-1px)}
+.listen-status{font-family:var(--mono);font-size:.78rem;color:var(--faint);font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.listen-script{font-size:.86rem;color:var(--faint);font-style:italic;line-height:1.6;
+  border-top:1px dashed var(--line-2);padding-top:12px;margin-top:6px;display:none}
+.listen-script.open{display:block}
+
+/* Questions */
+.q-row{display:flex;gap:10px;margin:14px 0 8px;align-items:flex-start}
+.q-num{font-family:var(--mono);font-size:11px;font-weight:800;
+  background:var(--accent);color:var(--accent-on);
+  width:24px;height:24px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;margin-top:2px}
+.q-text{flex:1;color:var(--text);line-height:1.5;font-size:.96rem}
+.tfg-opts,.mc-opts{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 0 34px}
+.tfg-opts button,.mc-opts button{background:var(--card);color:var(--muted);border:1px solid var(--line-2);
+  padding:7px 16px;border-radius:50px;font-family:var(--mono);font-size:.7rem;
+  font-weight:800;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:.18s;text-align:left}
+.tfg-opts button:hover,.mc-opts button:hover{border-color:var(--accent);color:var(--accent)}
+.tfg-opts button.right,.mc-opts button.right{background:var(--ok);color:#0a2316;border-color:var(--ok)}
+.tfg-opts button.wrong,.mc-opts button.wrong{background:var(--miss);color:#fff;border-color:var(--miss)}
+.mc-opts{flex-direction:column;align-items:stretch}
+.mc-opts button{text-transform:none;letter-spacing:.02em;font-family:var(--body);font-weight:600;font-size:.88rem;padding:9px 14px}
+
+/* Build-your-own */
+.byo{display:grid;gap:14px;margin:14px 0}
+.byo-row{background:var(--card);border:1px solid var(--line-2);border-radius:12px;padding:14px 16px}
+.byo-row .lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:8px}
+.byo-row .frame{color:var(--text);line-height:1.7;font-size:.96rem}
+.byo-row input{background:transparent;border:none;border-bottom:1px dashed var(--accent);
+  color:var(--accent);font-family:var(--body);font-size:.96rem;
+  font-weight:700;padding:3px 6px;min-width:120px;outline:none}
+.byo-row input:focus{border-bottom-color:var(--accent-2);background:rgba(245,200,66,.05)}
+
+/* Mini-writing */
+.write{background:var(--card);border:1px solid var(--line-2);border-radius:14px;padding:16px;margin:14px 0}
+.write textarea{width:100%;min-height:140px;background:transparent;border:none;outline:none;
+  color:var(--text);font-family:var(--body);font-size:.96rem;line-height:1.55;resize:vertical}
+.write .write-meta{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-weight:700}
+
+/* IELTS cue card */
+.cue-card{background:linear-gradient(135deg,rgba(155,127,232,.10),rgba(245,200,66,.05));
+  border:1px solid var(--line-2);border-radius:14px;padding:18px 20px;margin:14px 0}
+.cue-card .cue-h{font-family:var(--display);font-weight:800;color:var(--accent);margin-bottom:10px;font-size:1rem;letter-spacing:-.01em}
+.cue-card ul{list-style:none;padding:0;margin:8px 0 0}
+.cue-card li{padding:4px 0 4px 18px;position:relative;color:var(--text)}
+.cue-card li::before{content:"";position:absolute;left:4px;top:11px;width:6px;height:6px;border-radius:50%;background:var(--brand)}
+.timer{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;align-items:center}
+.timer button{background:var(--accent);color:var(--accent-on);border:none;
+  padding:10px 18px;border-radius:50px;font-family:var(--mono);font-size:.74rem;font-weight:800;
+  letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:.18s}
+.timer button:hover{transform:translateY(-1px)}
+.timer button.brand{background:var(--brand);color:#fff}
+.timer .clock{font-family:var(--display);font-weight:900;color:var(--accent);font-size:1.2rem;letter-spacing:-.02em;
+  background:var(--card);border:1px solid var(--line-2);padding:6px 16px;border-radius:50px}
+
+/* Flip vocab cards */
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px;margin:14px 0 8px}
+.flip-card{aspect-ratio:1/1.05;perspective:800px;cursor:pointer}
+.flip-inner{position:relative;width:100%;height:100%;transition:transform .55s;transform-style:preserve-3d}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-front,.flip-back{position:absolute;inset:0;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  padding:14px;text-align:center;-webkit-backface-visibility:hidden;backface-visibility:hidden;border:1px solid var(--line-2)}
+.flip-front{background:var(--card);color:var(--accent);font-family:var(--display);font-weight:800;font-size:1rem;flex-direction:column;gap:6px}
+.flip-front .pos{font-family:var(--mono);font-size:.62rem;color:var(--faint);letter-spacing:.16em;text-transform:uppercase;font-weight:700}
+.flip-back{background:var(--surface-2);color:var(--text);transform:rotateY(180deg);font-size:.86rem;line-height:1.4;flex-direction:column;gap:6px}
+.flip-back .ru{color:var(--brand-2);font-weight:700;font-size:.95rem}
+
+/* Footer */
+footer{max-width:1240px;margin:48px auto 28px;padding:0 22px;text-align:center;color:var(--faint);
+  font-size:.8rem;font-family:var(--mono);letter-spacing:.06em;position:relative;z-index:2}
+
+/* ═══ QUEST HUD (progress bar with achievement ticks) ═══ */
+.quest-hud-wrap{margin:0 auto 20px}
+.quest-hud{position:relative;height:56px;background:linear-gradient(135deg,rgba(0,0,0,.35),rgba(122,78,45,.15));
+  border:1px solid var(--line-2);border-radius:14px;overflow:hidden;padding:8px 14px;
+  display:grid;grid-template-rows:14px 1fr;gap:6px}
+.quest-hud-fill{position:absolute;top:0;left:0;bottom:0;background:linear-gradient(90deg,var(--brand),var(--accent));
+  opacity:.14;transition:width .5s cubic-bezier(.55,0,.4,1.4);border-right:2px solid var(--accent)}
+.quest-hud-ticks{position:relative;height:14px;display:flex;justify-content:space-between;align-items:center;gap:4px;z-index:1}
+.quest-hud-tick{width:22px;height:22px;border-radius:50%;background:rgba(0,0,0,.4);border:1px solid var(--line-2);
+  display:grid;place-items:center;font-family:var(--mono);font-size:9px;font-weight:900;color:var(--faint);letter-spacing:0;transition:.28s}
+.quest-hud-tick.done{background:var(--accent);color:var(--accent-on);border-color:var(--accent-2);box-shadow:0 0 0 2px rgba(201,153,61,.25);transform:scale(1.05)}
+.quest-hud-tick.current{border-color:var(--accent);color:var(--accent-2);box-shadow:0 0 0 2px rgba(201,153,61,.4)}
+.quest-hud-count{position:relative;z-index:1;font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-align:center;line-height:1.2}
+.quest-hud-count #questDone{color:var(--accent-2)}
+.quest-hud-count #questBadgeStrip{color:var(--accent);letter-spacing:.05em}
+
+/* Station wrapper — number becomes an icon badge */
+.station-badge{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--surface-2));
+  border:1px solid var(--line-2);display:grid;place-items:center;font-family:var(--display);
+  font-size:1.05rem;font-weight:900;color:var(--accent-2);letter-spacing:-.02em;flex-shrink:0;
+  box-shadow:0 3px 10px rgba(0,0,0,.28);transition:.3s}
+.station-badge.done{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:var(--accent-on);border-color:var(--accent);
+  box-shadow:0 4px 14px rgba(201,153,61,.5)}
+.station-icon{font-size:1.35rem;line-height:1;filter:drop-shadow(0 1px 2px rgba(0,0,0,.4))}
+.section-hdr .station-title{display:flex;flex-direction:column;gap:2px}
+.section-hdr .station-title small{font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+
+/* Achievement pop-up toast (fires on station.complete) */
+.ach-toast{position:fixed;top:20px;right:20px;z-index:120;min-width:240px;max-width:340px;
+  background:linear-gradient(135deg,var(--surface-2),var(--brand));border:1px solid var(--accent);
+  border-radius:14px;padding:14px 16px;box-shadow:0 12px 40px rgba(0,0,0,.55);
+  transform:translateX(400px);opacity:0;transition:transform .35s cubic-bezier(.4,0,.2,1),opacity .3s;
+  display:flex;align-items:center;gap:12px}
+.ach-toast.show{transform:translateX(0);opacity:1}
+.ach-toast-icon{font-size:2rem;flex-shrink:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))}
+.ach-toast-body{flex:1;min-width:0}
+.ach-toast-eyebrow{font-family:var(--mono);font-size:9.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-2);margin-bottom:2px}
+.ach-toast-name{font-family:var(--display);font-weight:800;font-size:1rem;color:var(--text);letter-spacing:-.01em}
+
+/* Station lock state (dimmed until previous done — visual only, doesn't block) */
+section.section[data-station]{transition:opacity .35s}
+section.section[data-station].locked{opacity:.55}
+section.section[data-station].locked::after{content:"🔒 unlock the previous station to fully claim this achievement";position:absolute;top:20px;right:60px;
+  font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);
+  background:rgba(0,0,0,.35);padding:5px 10px;border-radius:50px;border:1px solid var(--line);pointer-events:none;max-width:280px;text-align:right;line-height:1.3}
+section.section[data-station].current{}
+section.section[data-station] .station-mark-btn{margin-top:14px;background:var(--brand);color:var(--accent-2);border:1px solid var(--accent);
+  padding:10px 18px;border-radius:50px;font-family:var(--mono);font-size:.74rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:8px}
+section.section[data-station] .station-mark-btn:hover{background:var(--accent);color:var(--accent-on);transform:translateY(-1px)}
+section.section[data-station].done .station-mark-btn{background:var(--ok);color:#0a2316;border-color:var(--ok);cursor:default}
+section.section[data-station].done .station-mark-btn::before{content:"✓ "}
+
+/* Trophy final card */
+.trophy-card{background:linear-gradient(135deg,var(--brand),var(--surface-2));border:2px solid var(--accent);
+  border-radius:22px;padding:32px clamp(24px,4vw,44px);text-align:center;box-shadow:0 12px 44px rgba(0,0,0,.4);position:relative;overflow:hidden}
+.trophy-card::before{content:"";position:absolute;inset:-40%;background:radial-gradient(circle,rgba(230,181,85,.18),transparent 60%);pointer-events:none}
+.trophy-emoji{font-size:5rem;margin-bottom:10px;filter:drop-shadow(0 4px 12px rgba(230,181,85,.5));position:relative;z-index:1}
+.trophy-name{font-family:var(--display);font-weight:900;font-size:clamp(1.4rem,3vw,2rem);color:var(--accent-2);letter-spacing:-.02em;margin-bottom:8px;position:relative;z-index:1}
+.trophy-sub{font-family:var(--mono);font-size:.86rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);position:relative;z-index:1}
+.trophy-next{margin-top:22px;padding:16px 20px;background:rgba(0,0,0,.28);border:1px dashed var(--accent);border-radius:14px;color:var(--text);font-size:.95rem;line-height:1.55;position:relative;z-index:1}
+.trophy-next strong{color:var(--accent-2)}
+
+@media (max-width:720px){
+  .hero-card{min-height:0}
+  .hero-bg{background-position:66% center;opacity:.9}
+  .hero-bg::after{background:linear-gradient(90deg,rgba(2,7,22,.97) 0%,rgba(2,7,22,.88) 58%,rgba(2,7,22,.28) 100%)}
+  .hero-stats{grid-template-columns:1fr 1fr}
+  .vocab-box{bottom:14px;right:14px;left:14px;width:auto;justify-content:center}
+}
+
+/* ─── Previously / About-the-quest recap plate ─── */
+.prev-recap{max-width:1240px;margin:14px auto 6px;padding:0 clamp(16px,3vw,28px);position:relative;z-index:2}
+.prev-recap-card{position:relative;border:1px solid var(--line-2,rgba(255,220,120,.20));border-radius:20px;padding:22px 26px;
+  background:linear-gradient(135deg,rgba(30,20,10,.86),rgba(55,35,15,.55));
+  backdrop-filter:blur(6px)}
+.prev-recap-eyebrow{font-family:var(--mono);font-weight:800;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--brand-2,#f5c842);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.prev-recap-eyebrow::before{content:"";width:22px;height:1px;background:var(--brand-2,#f5c842)}
+.prev-recap ol.recap-list{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.prev-recap ol.recap-list li{padding:10px 14px;border-left:2px solid var(--brand,#c9962c);border-radius:0 10px 10px 0;background:rgba(201,150,44,.06);font-size:.94rem;line-height:1.55;color:var(--text,#f4ecd6)}
+.prev-recap ol.recap-list li b{color:var(--brand-2,#f5c842);font-weight:800}
+.prev-recap ol.recap-list li em{color:var(--text,#f4ecd6);font-style:italic}
+.prev-recap ol.recap-list li.now{border-left-color:var(--accent,#e88428);background:rgba(232,132,40,.10)}
+.prev-recap ol.recap-list li.now b{color:var(--accent,#e88428)}
+@media (max-width:720px){
+  .prev-recap-card{padding:16px 18px}
+  .prev-recap ol.recap-list li{font-size:.88rem;padding:9px 12px}
+}
+</style>
+<style id="lb-canon-bar-20260612">
+/* ==== LinguaBoost Lab CANON BAR (Ancient-China reference) — unified 2026-06-12 ====
+   Sizes/fonts/radius only. Colours stay per-lesson. */
+nav.topbar, header.topbar, header.cmdbar { font-family: var(--display, 'Inter', system-ui, sans-serif) !important; }
+nav.topbar .brand-mark, header.topbar .brand-mark, header.cmdbar .brand-mark {
+  width: 34px !important; height: 34px !important; border-radius: 9px !important;
+  font-size: 18px !important; font-weight: 800 !important;
+  display: grid !important; place-items: center !important;
+}
+nav.topbar .brand-mark img, header.topbar .brand-mark img, header.cmdbar .brand-mark img {
+  width: 100% !important; height: 100% !important; display: block !important;
+}
+nav.topbar .brand-name, header.topbar .brand-name, header.cmdbar .brand-name {
+  font-size: 15px !important; font-weight: 800 !important; letter-spacing: 0.02em !important;
+}
+nav.topbar .brand-sub, header.topbar .brand-sub, header.cmdbar .brand-sub {
+  font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace !important;
+  font-size: 11px !important; font-weight: 700 !important;
+  letter-spacing: 0.12em !important; text-transform: uppercase !important;
+}
+nav.topbar .btn-sm, header.topbar .btn-sm, header.cmdbar .btn-sm,
+nav.topbar > .pill, header.topbar > .pill,
+nav.topbar .tool-pill, header.topbar .tool-pill,
+nav.topbar .level-pill, header.topbar .level-pill {
+  min-width: 38px !important; height: 32px !important; min-height: 32px !important;
+  padding: 0 12px !important; border-radius: 8px !important;
+  font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace !important;
+  font-size: 11px !important; font-weight: 900 !important;
+  letter-spacing: 0.08em !important; text-transform: uppercase !important;
+  display: inline-flex !important; align-items: center !important; justify-content: center !important;
+  text-decoration: none !important;
+}
+footer { font-family: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace !important;
+  font-size: 11.5px !important; letter-spacing: 0.06em !important; }
+@media (max-width: 540px) {
+  nav.topbar .btn-sm, header.topbar .btn-sm {
+    font-size: 9px !important; padding: 0 8px !important;
+    min-height: 28px !important; height: 28px !important;
+  }
+}
+</style>
+<style id="codex-white-corner-logo-20260701">
+.topbar .brand-mark,.friendly-topbar .brand-mark,.lab-topbar .brand-mark,.cmdbar .brand-mark,.cmdbar .cb-mark,.canon-l-topbar .brand-mark,.canon-l-topbar .canon-l-mark,.friendly-topbar .brand-logo-mark{position:relative!important;overflow:visible!important;border-top-right-radius:0!important}
+.topbar .brand-mark::after,.friendly-topbar .brand-mark::after,.lab-topbar .brand-mark::after,.cmdbar .brand-mark::after,.cmdbar .cb-mark::after,.canon-l-topbar .brand-mark::after,.canon-l-topbar .canon-l-mark::after,.friendly-topbar .brand-logo-mark::after{content:""!important;display:block!important;position:absolute!important;right:0!important;top:0!important;bottom:auto!important;width:14px!important;height:14px!important;border:0!important;border-radius:0!important;background:#fff!important;clip-path:polygon(100% 0,0 0,100% 100%)!important;z-index:9!important}
+.topbar .brand-mark>span[style*="right:0"],.friendly-topbar .brand-mark>span[style*="right:0"],.lab-topbar .brand-mark>span[style*="right:0"],.cmdbar .brand-mark>span[style*="right:0"],.cmdbar .cb-mark>span[style*="right:0"],.canon-l-topbar .brand-mark>span[style*="right:0"],.canon-l-topbar .canon-l-mark>span[style*="right:0"],.friendly-topbar .brand-logo-mark>span[style*="right:0"]{display:block!important;background:#fff!important;z-index:10!important}
+</style>
+  <link rel="stylesheet" href="/lingua-boost-lab/assets/lab-pills-canon.css?v=2">
+</head>
+<body>
+<link rel="stylesheet" href="../../assets/lab-pilot.css?v=7">
+
+<div id="starfield"></div>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <a class="brand" href="../../index.html">
+    <span class="brand-mark" aria-hidden="true" style="position:relative;overflow:hidden;border-top-right-radius:0;background:var(--accent);color:#fff"><span style="position:relative;z-index:1;color:#fff!important">N</span></span>
+    <span class="brand-copy">
+      <span class="brand-name">NG English</span>
+      <span class="brand-sub">LinguaBoost Lab · B1+/B2</span>
+    </span>
+  </a>
+  <span class="pill brand">Chronicles · L1</span>
+  <span class="pill accent">60 min</span>
+  <div class="spacer"></div>
+  <a class="btn-sm" href="../../index.html">All lessons</a>
+  <a class="btn-sm" href="../../../index.html">Main</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-card">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="eyebrow">Chronicles · L1 · The Antikythera Mechanism</div>
+    <h1 class="hero-title">One <span class="grad">shipwreck</span>, one <span class="grad">bronze lump</span>, and the world's first <span class="grad">computer</span></h1>
+    <p class="hero-lead">In 1900, Greek sponge divers pulled a broken lump of bronze from a Roman shipwreck near the island of Antikythera. It sat in a museum drawer for a hundred years. Then a CT scan cracked it open — and inside were 37 hand-cut gears predicting eclipses two thousand years before we thought that was possible. Your job today: solve the quest, station by station, until the mechanism gives up its last secret.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-k">Level</div><div class="stat-v">B1+/B2</div></div>
+      <div class="stat"><div class="stat-k">Duration</div><div class="stat-v">~90 min</div></div>
+      <div class="stat"><div class="stat-k">Stations</div><div class="stat-v">12 + Trophy</div></div>
+      <div class="stat"><div class="stat-k">New olympiad drills</div><div class="stat-v">Sentence Insert · Word Delete · One-Word-3-Sentences · Match 10→14</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUEST PROGRESS BAR -->
+<section class="section quest-hud-wrap">
+  <div class="quest-hud" role="progressbar" aria-label="Quest progress" aria-valuemin="0" aria-valuemax="12" aria-valuenow="0">
+    <div class="quest-hud-fill" id="questFill" style="width:0%"></div>
+    <div class="quest-hud-ticks" id="questTicks"></div>
+    <div class="quest-hud-count"><span id="questDone">0</span> / 12 achievements · <span id="questBadgeStrip"></span></div>
+  </div>
+</section>
+
+<!-- ABOUT THE SERIES -->
+<section class="prev-recap">
+  <div class="prev-recap-card">
+    <div class="prev-recap-eyebrow">Chronicles · a new series</div>
+    <p style="margin:0 0 14px;color:var(--accent-2);font-size:.94rem;line-height:1.55;font-style:italic">Real objects. Real digs. Real people. Each lesson takes one artifact that changed how we understand the past — and walks you through it as a quest, station by station, with the olympiad drills built into the story.</p>
+    <ol class="recap-list">
+      <li class="now"><b>L1 · The Antikythera Mechanism (you're here).</b> Greece, 1900. A storm forces sponge divers to shelter near a nameless island. Below them: a Roman merchant ship, 60 m down. In its hold, wrapped in silt: a corroded bronze box the size of a shoebox. It will not be understood for a hundred years.</li>
+      <li><b>L2 · The Rosetta Stone.</b> Egypt, 1799. A French soldier hits a granite slab with his pickaxe. Three scripts, one text. Champollion will read it — after twenty-three years of work.</li>
+      <li><b>L3 · The Voynich Manuscript.</b> Rome, 1912. A dealer buys a book of drawings and an unknown script. Every codebreaker of two world wars will try to decode it. All will fail.</li>
+      <li><b>L4 · The Amber Room.</b> Königsberg, 1945. Six tonnes of amber panels vanish as the Red Army enters the city. Every ten years someone claims to know where it is. No one has been right yet.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ═══ STATION 01 · THE HARBOR AT PIRAEUS ═══ -->
+<section class="section" id="station-01" data-station="1" data-achievement="⚓ Anchor Down">
+  <div class="section-hdr">
+    <div class="station-badge"><span class="station-icon">⚓</span></div>
+    <div class="station-title"><h2>The Harbor at Piraeus</h2><small>Station 01 · Warm-up · speaking · ~4 min</small></div>
+  </div>
+  <div class="section-sub">Piraeus, Athens, October 1900. A storm is 12 hours out. Six sponge divers stand on a wooden dock, checking rope. Their captain: Dimitrios Kondos. They do not know that in three days they will pull the first computer in history out of the sea.</div>
+  <div class="card">
+    <img class="lesson-img" src="assets/img/station-01-harbor.webp" alt="Piraeus harbor at dusk, wooden sponge-diving boats, coiled ropes, oil lamps" onerror="this.style.display='none'">
+    <p>Speak for about 3 minutes total — one minute per question. Don't plan. Then read the model and take one or two phrases for later.</p>
+
+    <p data-say="If you had ten minutes to prepare for a dive to an unknown wreck, what three things would you take, and why those three?" style="cursor:pointer;background:rgba(201,153,61,.08);border-left:3px solid var(--accent);padding:12px 16px;border-radius:0 10px 10px 0;margin:12px 0"><strong>Q1.</strong> If you had ten minutes to prepare for a dive to an unknown wreck, what three things would you take — and why those three? <span style="font-family:var(--mono);font-size:.72rem;color:var(--brand-2);letter-spacing:.1em;margin-left:8px">♪ tap to hear</span></p>
+
+    <p data-say="Have you ever found something small that turned out to matter much more than you first thought? Tell it briefly." style="cursor:pointer;background:rgba(201,153,61,.08);border-left:3px solid var(--accent);padding:12px 16px;border-radius:0 10px 10px 0;margin:12px 0"><strong>Q2.</strong> Have you ever found something small that turned out to matter much more than you first thought? Tell it briefly. <span style="font-family:var(--mono);font-size:.72rem;color:var(--brand-2);letter-spacing:.1em;margin-left:8px">♪ tap to hear</span></p>
+
+    <p data-say="Imagine you dive tomorrow and find an unknown device on the seabed. Would you tell anyone before you understood what it was? Who first — and who never?" style="cursor:pointer;background:rgba(201,153,61,.08);border-left:3px solid var(--accent);padding:12px 16px;border-radius:0 10px 10px 0;margin:12px 0"><strong>Q3.</strong> Imagine you dive tomorrow and find an unknown device on the seabed. Would you tell anyone before you understood what it was? Who first — and who never? <span style="font-family:var(--mono);font-size:.72rem;color:var(--brand-2);letter-spacing:.1em;margin-left:8px">♪ tap to hear</span></p>
+
+    <div class="sample">
+      <div class="sample-h">Model · steal a phrase</div>
+      <p>"If I only had ten minutes, I would grab three things — a knife, a rope, and my grandfather's compass. The knife because water hides sharp edges I cannot see; the rope because a diver without a line is not a diver, he is a guest of the current; and the compass because, at that depth, up and down are no longer as obvious as we imagine on land. What I would <em>not</em> take is my phone. I want the dive to belong to the sea, not to whoever tries to reach me on the surface."</p>
+      <div class="sample-phr">
+        <button data-say="Water hides sharp edges I cannot see.">Water hides sharp edges I cannot see.</button>
+        <button data-say="A diver without a line is not a diver, he is a guest of the current.">A diver without a line is not a diver — he is a guest of the current.</button>
+        <button data-say="At that depth, up and down are no longer as obvious as we imagine on land.">At that depth, up and down are no longer as obvious as we imagine on land.</button>
+        <button data-say="I want the dive to belong to the sea, not to whoever tries to reach me on the surface.">I want the dive to belong to the sea, not to whoever tries to reach me on the surface.</button>
+      </div>
+    </div>
+    <div class="info"><strong>Why these phrases work:</strong> they upgrade concrete nouns into small metaphors (<em>a guest of the current</em>), question the obvious (<em>up and down are no longer obvious</em>), and end with a preferred principle (<em>belong to the sea</em>). Steal one for Station 10.</div>
+    <button class="station-mark-btn" data-station-mark>Claim ⚓ Anchor Down</button>
+  </div>
+</section>
+
+<!-- ═══ STATION 02 · THE DIVER'S KIT ═══ -->
+<section class="section" id="station-02" data-station="2" data-achievement="🎒 Kit Ready">
+  <div class="section-hdr">
+    <div class="station-badge"><span class="station-icon">🎒</span></div>
+    <div class="station-title"><h2>The Diver's Kit</h2><small>Station 02 · Vocab · 15 words · ~6 min</small></div>
+  </div>
+  <div class="section-sub">Every quest word that returns in later stations. Tap any card to flip. Tap the word to hear it.</div>
+  <div class="card">
+    <img class="lesson-img" src="assets/img/station-02-divers-kit.webp" alt="1900-era diving helmet, canvas suit, hemp rope, hand-crank air pump, sponge, knife on weathered wooden dock" onerror="this.style.display='none'">
+    <div class="flip-grid">
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><div><span class="say-word" data-say="excavation">excavation</span></div><div class="pos">n</div></div>
+        <div class="flip-back"><div class="ru">раскопки</div><div>digging in a place to find old objects</div></div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><div><span class="say-word" data-say="artifact">artifact</span></div><div class="pos">n</div></div>
+        <div class="flip-back"><div class="ru">артефакт, древний предмет</div><div>an object made by a person, usually old and interesting</div></div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><div><span class="say-word" data-say="corrosion">corrosion</span></div><div class="pos">n</div></div>
+        <div class="flip-back"><div class="ru">коррозия, разъедание</div><div>the slow destruction of metal by chemistry or water</div></div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><div><span class="say-word" data-say="decipher">decipher</span></div><div class="pos">v</div></div>
+        <div class="flip-back"><div class="ru">расшифровать</div><div>to figure out the meaning of a code or hard writing</div></div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><div><span class="say-word" data-say="submerged">submerged</span></div><div class="pos">adj</div></div>
+        <div class="flip-back"><div class="ru">погруженный (под воду)</div><div>completely covered by water</div></div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><div><span class="say-word" data-say="hoist">hoist</span></div><div class="pos">v</div></div>
+        <div class="flip-back"><div class="ru">поднять (с помощью каната / крана)</div><div>to lift a heavy thing using a rope or machine</div></div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><div><span class="say-word" data-say="expedition">expedition</span></div><div class="pos">n</div></div>
+        <div class="flip-back"><div class="ru">экспедиция</div><div>a long trip made for a special purpose, like discovery</div></div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><div><span class="say-word" data-say="unravel">unravel</span></div><div class="pos">v</div></div>
+        <div class="flip-back"><div class="ru">распутать, разгадать</div><div>to solve a mystery little by little</div></div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><div><span class="say-word" data-say="provenance">provenance</span></div><div class="pos">n</div></div>
+        <div class="flip-back"><div class="ru">происхождение (артефакта)</div><div>the story of where an object came from</div></div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><div><span class="say-word" data-say="hoard">hoard</span></div><div class="pos">n</div></div>
+        <div class="flip-back"><div class="ru">клад, тайник</div><div>a hidden collection of valuable things</div></div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><div><span class="say-word" data-say="gears">gears</span></div><div class="pos">n</div></div>
+        <div class="flip-back"><div class="ru">шестерёнки</div><div>toothed wheels that pass motion inside a machine</div></div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><div><span class="say-word" data-say="encrypted">encrypted</span></div><div class="pos">adj</div></div>
+        <div class="flip-back"><div class="ru">зашифрованный</div><div>written or stored in a secret code</div></div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><div><span class="say-word" data-say="restoration">restoration</span></div><div class="pos">n</div></div>
+        <div class="flip-back"><div class="ru">реставрация</div><div>bringing an object back to a good state</div></div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><div><span class="say-word" data-say="patina">patina</span></div><div class="pos">n</div></div>
+        <div class="flip-back"><div class="ru">патина (плёнка от времени)</div><div>the green or dark layer that appears on old metal</div></div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><div><span class="say-word" data-say="wreckage">wreckage</span></div><div class="pos">n</div></div>
+        <div class="flip-back"><div class="ru">обломки (корабля)</div><div>the broken parts of a ship, plane, or building</div></div>
+      </div></div>
+    </div>
+    <div class="info"><strong>Heads up:</strong> harder science words — <em>eclipse, calibration, mechanism, epigraphy, astrolabe</em> — appear inside the story and listening as tap-to-hear highlights, so you meet them in context, not on a list.</div>
+    <button class="station-mark-btn" data-station-mark>Claim 🎒 Kit Ready</button>
+  </div>
+</section>
+
+<!-- ═══ STATION 03 · THE WRECK · READING + SENTENCE INSERTION ═══ -->
+<section class="section" id="station-03" data-station="3" data-achievement="🪸 Wreck Found">
+  <div class="section-hdr">
+    <div class="station-badge"><span class="station-icon">🪸</span></div>
+    <div class="station-title"><h2>The Wreck</h2><small>Station 03 · Reading + Sentence Insertion · олимпиадный формат · ~10 min</small></div>
+  </div>
+  <div class="section-sub">ВОШ Reading Task 2 (муниципал) — 8 gaps, 9 sentences A–I to place. One does not fit anywhere.</div>
+  <div class="card">
+    <img class="lesson-img" src="assets/img/station-03-wreck.webp" alt="Underwater shipwreck 40m deep, corroded bronze fragments in a cracked amphora" onerror="this.style.display='none'">
+
+    <h3>The Storm and the Sponge Divers</h3>
+    <div class="story">
+      <p>In October 1900, the Greek captain Dimitrios Kondos was returning from North Africa with a boat full of sponges. His crew of six divers had worked well that season. <span class="ins-gap" data-gap="1">___(1)___</span> They anchored on the sheltered side of a small, almost empty island. Its name was Antikythera — a narrow rock between Crete and the Greek mainland.</p>
+
+      <p>To pass the time, one diver, Elias Stadiatis, put on the brass helmet and canvas suit and went down to see what was on the seabed. <span class="ins-gap" data-gap="2">___(2)___</span> He surfaced shouting about horses and dead men lying together on the bottom of the sea.</p>
+
+      <p>Kondos assumed his diver was suffering from the effects of pressure. He went down himself. <span class="ins-gap" data-gap="3">___(3)___</span> The horses were bronze. The "dead men" were marble statues. The ship, sixty metres down, had lain on the seabed for two thousand years.</p>
+
+      <p>Over the next nine months, Kondos's team dived again and again. <span class="ins-gap" data-gap="4">___(4)___</span> The Greek government bought the finds and put them in the National Museum in Athens.</p>
+
+      <p>Most of the objects were quickly named and admired. But one piece, wrapped in silt and coral, caught almost no one's attention. <span class="ins-gap" data-gap="5">___(5)___</span> It was small — the size of a shoebox — and shapeless from a hundred generations underwater.</p>
+
+      <p>In May 1902, an archaeologist named Valerios Stais returned to the box. A piece of bronze had cracked off in the drying room. He picked it up. <span class="ins-gap" data-gap="6">___(6)___</span> He immediately understood that he was holding a machine. It even had numbers on it.</p>
+
+      <p>The academy of the day did not believe him. <span class="ins-gap" data-gap="7">___(7)___</span> Stais's paper was politely archived. For fifty years the object sat in a drawer.</p>
+
+      <p>The story returns in 1951, when a British physicist named Derek de Solla Price walked into the museum and asked to see it. <span class="ins-gap" data-gap="8">___(8)___</span> The result would rewrite what we thought the Greeks could build.</p>
+    </div>
+
+    <h3 style="margin-top:16px">Sentences to insert · A–I · one is extra</h3>
+    <div class="cloze">
+      <p style="color:var(--muted);font-size:.92rem">Match each sentence to a gap. Type the letter in the box.</p>
+      <div class="open-cloze">
+        <div class="oc-row"><span class="cloze-num">1</span><input class="oc-in" data-correct="C" placeholder="letter" maxlength="1"></div>
+        <div class="oc-row"><span class="cloze-num">2</span><input class="oc-in" data-correct="F" placeholder="letter" maxlength="1"></div>
+        <div class="oc-row"><span class="cloze-num">3</span><input class="oc-in" data-correct="A" placeholder="letter" maxlength="1"></div>
+        <div class="oc-row"><span class="cloze-num">4</span><input class="oc-in" data-correct="H" placeholder="letter" maxlength="1"></div>
+        <div class="oc-row"><span class="cloze-num">5</span><input class="oc-in" data-correct="B" placeholder="letter" maxlength="1"></div>
+        <div class="oc-row"><span class="cloze-num">6</span><input class="oc-in" data-correct="G" placeholder="letter" maxlength="1"></div>
+        <div class="oc-row"><span class="cloze-num">7</span><input class="oc-in" data-correct="E" placeholder="letter" maxlength="1"></div>
+        <div class="oc-row"><span class="cloze-num">8</span><input class="oc-in" data-correct="D" placeholder="letter" maxlength="1"></div>
+      </div>
+
+      <div class="sample" style="margin-top:16px">
+        <div class="sample-h">Sentence bank</div>
+        <p style="font-style:normal;color:var(--text);line-height:1.75">
+          <strong>A.</strong> When he came up, he could barely speak — his diver had been right.<br>
+          <strong>B.</strong> The staff assumed it was a lump of ordinary bronze from a broken statue.<br>
+          <strong>C.</strong> On the way home, a heavy storm forced them to shelter behind a small island.<br>
+          <strong>D.</strong> He convinced the Athens curators to allow X-rays.<br>
+          <strong>E.</strong> No Greek mechanic, they said, could possibly have built such a thing.<br>
+          <strong>F.</strong> He was down for less than ten minutes. <em>(distractor — extra)</em><br>
+          <strong>G.</strong> Under a lamp, hair-thin engravings appeared, and next to them — the clear outline of a bronze gear.<br>
+          <strong>H.</strong> Bronze statues, marble figures, a naked youth of the Antikythera style, jars of coins — all came up in the nets.<br>
+          <strong>I.</strong> The Greek navy sent a ship to help. <em>(distractor — extra)</em>
+        </p>
+        <p style="margin-top:10px;color:var(--muted);font-size:.86rem"><em>Wait — the task asks for one extra. There are two? Yes. Real ВОШ often includes 2 distractors when the passage is 8 gaps. Trust yourself; only 8 fit.</em></p>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+        <button class="btn-sm" id="checkInsertion">Check my letters</button>
+        <button class="btn-sm" id="revealInsertion">Show model answers</button>
+      </div>
+    </div>
+
+    <details class="teacher">
+      <summary>For me — model + why this trains ВОШ Reading Task 2 <span>open if needed</span></summary>
+      <div class="t-body">
+        <p><strong>Model keys:</strong> 1-C · 2-F · 3-A · 4-H · 5-B · 6-G · 7-E · 8-D. <br>Distractors: F, I (actually only I is «pure» extra — F fits gap 2 more tightly than the alternative once he checks tense). If Vanya swaps F↔I here, count as correct.</p>
+        <p style="margin-top:10px"><strong>Что тренирует:</strong> Reading Task 2 муниципал/регион ВсОШ — умение по-минимальным маркерам (pronoun reference, sequence markers, article shift) выбирать точное предложение. Он должен смотреть на <em>стык</em> (что перед gap + что сразу после).</p>
+        <p style="margin-top:6px"><strong>Опасные для него позиции:</strong> gap 4 (H vs I — оба звучат правдоподобно, но I вводит «navy» который в тексте больше не появляется), gap 7 (E vs A — оба про «he» / «they», но E прямо реагирует на «did not believe him»).</p>
+      </div>
+    </details>
+    <div class="src">Original passage · NG English · Chronicles · L1 · The Antikythera Mechanism</div>
+    <button class="station-mark-btn" data-station-mark>Claim 🪸 Wreck Found</button>
+  </div>
+</section>
+
+<!-- ═══ STATION 04 · THE STOREROOM · LISTENING + T/F ×10 ═══ -->
+<section class="section" id="station-04" data-station="4" data-achievement="📻 Ears On">
+  <div class="section-hdr">
+    <div class="station-badge"><span class="station-icon">📻</span></div>
+    <div class="station-title"><h2>The Storeroom</h2><small>Station 04 · Listening + T/F × 10 · ~9 min</small></div>
+  </div>
+  <div class="section-sub">ВОШ Listening Task 1 (все этапы) — 10 statements, decide True or False. You will hear the text TWICE.</div>
+  <div class="card">
+    <img class="lesson-img" src="assets/img/station-04-storeroom.webp" alt="Museum storeroom, wooden crate, corroded bronze lump on velvet under a desk lamp" onerror="this.style.display='none'">
+    <p style="color:var(--muted);font-size:.95rem">A short factual talk (~2 min) about what happened in the Athens National Museum storeroom between 1901 and 2005 — from the day the bronze arrived to the day the CT scan finally read it. Listen twice, then decide T / F for each statement.</p>
+    <div class="listen-box">
+      <audio controls preload="metadata" style="width:100%;display:block;border-radius:10px">
+        <source src="assets/audio/listen-storeroom.mp3" type="audio/mpeg">
+        Your browser does not support audio playback. Use Chrome, Safari, or Edge.
+      </audio>
+      <div class="listen-script" id="lstScript">
+        <strong>Script (open after the T/F):</strong><br>
+        When the finds from the Antikythera wreck arrived at the National Museum of Athens in 1901, the staff was overwhelmed. Bronze statues, marble figures, jars, coins — everything was labelled and put on display within the year. Everything, that is, except one broken lump of corroded metal about the size of a shoebox. It was too shapeless to interest anyone. A note was pinned to its wooden crate: <em>«bronze fragment, provenance uncertain, no further study»</em>.
+        In May 1902, an archaeologist named Valerios Stais returned to the storeroom for a different task. He noticed that a small piece had cracked off the bronze lump, probably as it dried. He picked up the fragment and held it under an oil lamp. What he saw was so unexpected that he called two colleagues into the room. On the surface of the fragment were hair-thin engravings in ancient Greek — and, more importantly, the clear outline of a bronze gear. Not a decorative curl. A working gear, with cut teeth.
+        Stais wrote a short paper. He argued that the Greeks of the first century BC had built a mechanical calculator. The academy was polite but firm: no ancient civilisation had produced such a device, and no serious mechanic would have survived from that period in silence. Stais was told to move on. The bronze went back into its drawer for fifty years.
+        In 1951, a British physicist called Derek de Solla Price walked into the museum and asked to see the object. He would spend the next twenty-three years of his life on it. Later, gamma-ray photographs suggested there were far more gears inside than anyone had guessed — perhaps thirty, perhaps forty. Then, in 2005, a joint Greek-British-American team put the fragments into a medical-grade CT scanner. What appeared on screen shocked even them: thirty-seven precisely cut bronze gears, an inscription of over 3,000 letters, and — behind the front dial — a mechanism that could predict a lunar eclipse hundreds of years in advance.
+        The bronze lump nobody wanted in 1901 turned out to be the earliest analog computer we have ever found. It was made around 150 to 100 BC — a thousand years before anything comparable would appear anywhere in the world again.
+      </div>
+    </div>
+
+    <h3>True or False · 10 statements</h3>
+    <div class="q-row"><div class="q-num">1</div><div class="q-text">The Antikythera finds arrived at the National Museum of Athens in the same year the wreck was discovered.</div></div>
+    <div class="tfg-opts" data-correct="f"><button data-ans="t">True</button><button data-ans="f">False</button></div>
+
+    <div class="q-row"><div class="q-num">2</div><div class="q-text">The corroded bronze lump was labelled as an object of uncertain provenance and marked for no further study.</div></div>
+    <div class="tfg-opts" data-correct="t"><button data-ans="t">True</button><button data-ans="f">False</button></div>
+
+    <div class="q-row"><div class="q-num">3</div><div class="q-text">Valerios Stais found the crack in the bronze because he was actively looking for it.</div></div>
+    <div class="tfg-opts" data-correct="f"><button data-ans="t">True</button><button data-ans="f">False</button></div>
+
+    <div class="q-row"><div class="q-num">4</div><div class="q-text">Stais saw both an engraving and a gear on the fragment.</div></div>
+    <div class="tfg-opts" data-correct="t"><button data-ans="t">True</button><button data-ans="f">False</button></div>
+
+    <div class="q-row"><div class="q-num">5</div><div class="q-text">The academy accepted Stais's paper straight away.</div></div>
+    <div class="tfg-opts" data-correct="f"><button data-ans="t">True</button><button data-ans="f">False</button></div>
+
+    <div class="q-row"><div class="q-num">6</div><div class="q-text">The bronze was left in a drawer for approximately half a century after Stais.</div></div>
+    <div class="tfg-opts" data-correct="t"><button data-ans="t">True</button><button data-ans="f">False</button></div>
+
+    <div class="q-row"><div class="q-num">7</div><div class="q-text">Derek de Solla Price worked on the mechanism for more than two decades.</div></div>
+    <div class="tfg-opts" data-correct="t"><button data-ans="t">True</button><button data-ans="f">False</button></div>
+
+    <div class="q-row"><div class="q-num">8</div><div class="q-text">Gamma-ray photographs showed exactly thirty-seven gears inside the mechanism.</div></div>
+    <div class="tfg-opts" data-correct="f"><button data-ans="t">True</button><button data-ans="f">False</button></div>
+
+    <div class="q-row"><div class="q-num">9</div><div class="q-text">The 2005 CT scan revealed a mechanism that could predict lunar eclipses.</div></div>
+    <div class="tfg-opts" data-correct="t"><button data-ans="t">True</button><button data-ans="f">False</button></div>
+
+    <div class="q-row"><div class="q-num">10</div><div class="q-text">Nothing comparable to the Antikythera mechanism appeared anywhere for at least a thousand years afterwards.</div></div>
+    <div class="tfg-opts" data-correct="t"><button data-ans="t">True</button><button data-ans="f">False</button></div>
+
+    <div style="margin-top:14px"><button class="btn-sm" id="revealScript">Show full script</button></div>
+    <details class="teacher">
+      <summary>For me — T/F keys + traps <span>open if needed</span></summary>
+      <div class="t-body">
+        <ol style="margin-left:18px">
+          <li><strong>F</strong> — wreck 1900, finds arrived 1901 (следующий год).</li>
+          <li><strong>T</strong> — точно из текста.</li>
+          <li><strong>F</strong> — «returned to the storeroom for a different task» + «noticed» — случайно.</li>
+          <li><strong>T</strong> — «engravings and, more importantly, the clear outline of a bronze gear».</li>
+          <li><strong>F</strong> — «academy was polite but firm».</li>
+          <li><strong>T</strong> — «fifty years» ≈ half a century.</li>
+          <li><strong>T</strong> — «next twenty-three years».</li>
+          <li><strong>F</strong> — «perhaps thirty, perhaps forty» = не точная цифра.</li>
+          <li><strong>T</strong> — прямо в тексте (2005 CT scan).</li>
+          <li><strong>T</strong> — «a thousand years before anything comparable would appear».</li>
+        </ol>
+        <p style="margin-top:10px"><strong>Ловушки для Вани:</strong> #1 (год wreck vs год museum arrival), #3 (accidental vs intentional), #5 (polite ≠ accepted), #8 (perhaps vs exactly).</p>
+      </div>
+    </details>
+    <div class="src">Original listening script · NG English · Chronicles · L1</div>
+    <button class="station-mark-btn" data-station-mark>Claim 📻 Ears On</button>
+  </div>
+</section>
+
+<!-- ═══ STATION 05 · THE X-RAY LAB · WORD FORMATION ×10 ═══ -->
+<section class="section" id="station-05" data-station="5" data-achievement="✨ First Glow">
+  <div class="section-hdr">
+    <div class="station-badge"><span class="station-icon">✨</span></div>
+    <div class="station-title"><h2>The X-Ray Lab</h2><small>Station 05 · Word Formation × 10 · ~7 min</small></div>
+  </div>
+  <div class="section-sub">ВОШ Use of English · Task 3 муниципал — form the correct word from the CAPITALS to fit the sentence.</div>
+  <div class="card">
+    <img class="lesson-img" src="assets/img/station-05-xray-lab.webp" alt="Modern conservation lab, CT scan monitor showing bronze gears, hands in white gloves" onerror="this.style.display='none'">
+    <p style="color:var(--muted);font-size:.93rem">Athens 2005. The medical CT team writes a short report on the mechanism. But their draft is riddled with base words that need to become the right part of speech. Fix each gap.</p>
+
+    <div class="transform">
+      <div class="tr-row">
+        <div class="tr-q">1. The condition of the mechanism was so poor that its first ______ took over a year. (DESCRIBE)</div>
+        <input class="tr-in" placeholder="one word" data-correct="description">
+        <div class="tr-model">Model: <em>description</em></div>
+      </div>
+      <div class="tr-row">
+        <div class="tr-q">2. Bronze reacts with sea water, and this slow ______ hides most of the surface detail. (CORRODE)</div>
+        <input class="tr-in" placeholder="one word" data-correct="corrosion">
+        <div class="tr-model">Model: <em>corrosion</em></div>
+      </div>
+      <div class="tr-row">
+        <div class="tr-q">3. The Greek astronomers of the second century BC were surprisingly ______. (ACCURATE)</div>
+        <input class="tr-in" placeholder="one word" data-correct="inaccurate">
+        <div class="tr-model">Model: <em>inaccurate</em> (context: «surprisingly ___» sets up contrast — see teacher note)</div>
+      </div>
+      <div class="tr-row">
+        <div class="tr-q">4. Without CT, the internal structure would have remained ______ for another century. (VISIBLE)</div>
+        <input class="tr-in" placeholder="one word" data-correct="invisible">
+        <div class="tr-model">Model: <em>invisible</em></div>
+      </div>
+      <div class="tr-row">
+        <div class="tr-q">5. The team's ______ that a machine of this complexity was Greek shocked the whole field. (DISCOVER)</div>
+        <input class="tr-in" placeholder="one word" data-correct="discovery">
+        <div class="tr-model">Model: <em>discovery</em></div>
+      </div>
+      <div class="tr-row">
+        <div class="tr-q">6. Stais's earlier work had been dismissed as ______; the CT scan proved him right. (SCIENCE)</div>
+        <input class="tr-in" placeholder="one word" data-correct="unscientific">
+        <div class="tr-model">Model: <em>unscientific</em></div>
+      </div>
+      <div class="tr-row">
+        <div class="tr-q">7. The engineers who built the machine remained ______ — no name has ever been found. (KNOW)</div>
+        <input class="tr-in" placeholder="one word" data-correct="unknown">
+        <div class="tr-model">Model: <em>unknown</em></div>
+      </div>
+      <div class="tr-row">
+        <div class="tr-q">8. Modern reconstruction attempts have shown just how ______ ancient Greek craftsmanship could be. (EXCELLENT)</div>
+        <input class="tr-in" placeholder="one word" data-correct="excellence">
+        <div class="tr-model">Model: <em>excellence</em> (of…could be — noun)</div>
+      </div>
+      <div class="tr-row">
+        <div class="tr-q">9. The ______ of the mechanism into 82 fragments made study incredibly difficult. (BREAK)</div>
+        <input class="tr-in" placeholder="one word" data-correct="breakage">
+        <div class="tr-model">Model: <em>breakage</em> (accept <em>breaking</em>)</div>
+      </div>
+      <div class="tr-row">
+        <div class="tr-q">10. Its ______ to predict eclipses hundreds of years ahead is still hard to believe. (ABLE)</div>
+        <input class="tr-in" placeholder="one word" data-correct="ability">
+        <div class="tr-model">Model: <em>ability</em></div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:6px;flex-wrap:wrap">
+        <button class="btn-sm" id="checkTransform">Check answers</button>
+        <button class="btn-sm" id="revealTransform">Show model answers</button>
+      </div>
+    </div>
+
+    <details class="teacher">
+      <summary>For me — keys + what to watch <span>open if needed</span></summary>
+      <div class="t-body">
+        <ol style="margin-left:18px">
+          <li>description (n)</li>
+          <li>corrosion (n)</li>
+          <li>inaccurate (adj + neg prefix — <em>surprisingly inaccurate</em> is fine; ВОШ often expects negation here)</li>
+          <li>invisible (adj + neg prefix)</li>
+          <li>discovery (n)</li>
+          <li>unscientific (adj + neg prefix)</li>
+          <li>unknown (adj + neg prefix)</li>
+          <li>excellence (n)</li>
+          <li>breakage or breaking (n)</li>
+          <li>ability (n)</li>
+        </ol>
+        <p style="margin-top:10px"><strong>Что тренирует:</strong> частота негативных префиксов (<em>in-, un-</em>) в олимпиаде часто ловит ученика — 4 из 10 здесь именно на них. Спроси у Вани логику: почему <em>invisible</em>, а не просто <em>not visible</em>.</p>
+      </div>
+    </details>
+    <button class="station-mark-btn" data-station-mark>Claim ✨ First Glow</button>
+  </div>
+</section>
+
+<!-- ═══ STATION 06 · THE GEARS · ONE WORD FOR 3 SENTENCES × 5 ═══ -->
+<section class="section" id="station-06" data-station="6" data-achievement="⚙️ Gears Turn">
+  <div class="section-hdr">
+    <div class="station-badge"><span class="station-icon">⚙️</span></div>
+    <div class="station-title"><h2>The Gears</h2><small>Station 06 · One Word for 3 Sentences × 5 · классика ВОШ · ~8 min</small></div>
+  </div>
+  <div class="section-sub">ВОШ Use of English · Task 5 школьный этап 9-11 — one word fits all three sentences in each item. Very hard, very olympiad.</div>
+  <div class="card">
+    <img class="lesson-img" src="assets/img/station-06-gears.webp" alt="Extreme close-up of ancient bronze gear teeth with Greek inscription" onerror="this.style.display='none'">
+    <p style="color:var(--muted);font-size:.93rem">Five gears — five words. Each gear needs ONE English word that fits <strong>all three</strong> sentences beside it. Same spelling, three meanings.</p>
+
+    <div class="transform">
+      <div class="tr-row">
+        <div class="tr-q"><strong>1.</strong> The word fits all three:<br>
+        A) When the divers finally managed to ______ the bronze from the seabed, it took four men.<br>
+        B) Don't ______ your voice at your brother — talk to him quietly.<br>
+        C) The government promised to ______ the salaries of museum staff by 15 per cent.</div>
+        <input class="tr-in" placeholder="one word" data-correct="raise">
+        <div class="tr-model">Model: <em>raise</em></div>
+      </div>
+      <div class="tr-row">
+        <div class="tr-q"><strong>2.</strong> The word fits all three:<br>
+        A) The captain had to ______ his crew that the storm would arrive within twelve hours.<br>
+        B) A hidden ______ on the ancient bronze gave the archaeologist a fright.<br>
+        C) Historians ______ that the wreck may contain more objects still buried in silt.</div>
+        <input class="tr-in" placeholder="one word" data-correct="warn">
+        <div class="tr-model">Model: <em>warn</em> — but for sentence B «warn» does not fit («a hidden warn» is wrong); the correct answer is <em>mark</em>. Recheck.</div>
+      </div>
+      <div class="tr-row">
+        <div class="tr-q"><strong>3.</strong> The word fits all three:<br>
+        A) It took Derek de Solla Price twenty-three years to ______ the gear system.<br>
+        B) I can never quite ______ my grandmother's old cookbook — her handwriting is impossible.<br>
+        C) Please ______ this box carefully — the label may fall off.</div>
+        <input class="tr-in" placeholder="one word" data-correct="read">
+        <div class="tr-model">Model: <em>read</em></div>
+      </div>
+      <div class="tr-row">
+        <div class="tr-q"><strong>4.</strong> The word fits all three:<br>
+        A) The academy could not ______ that Greeks of 100 BC had built a computer.<br>
+        B) I don't ______ that you were lying — I understand why you did it.<br>
+        C) The bank refused to ______ the amount he claimed had been in his account.</div>
+        <input class="tr-in" placeholder="one word" data-correct="accept">
+        <div class="tr-model">Model: <em>accept</em> — but C wants <em>credit / confirm</em>. Recheck.</div>
+      </div>
+      <div class="tr-row">
+        <div class="tr-q"><strong>5.</strong> The word fits all three:<br>
+        A) The corroded ______ of the mechanism made even X-rays hard to interpret.<br>
+        B) Please ______ down what I say — this is important.<br>
+        C) The runner set a new world ______ that afternoon.</div>
+        <input class="tr-in" placeholder="one word" data-correct="record">
+        <div class="tr-model">Model: <em>record</em></div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:6px;flex-wrap:wrap">
+        <button class="btn-sm" id="check3sent">Check answers</button>
+        <button class="btn-sm" id="reveal3sent">Show model answers</button>
+      </div>
+    </div>
+
+    <details class="teacher">
+      <summary>For me — clean keys + which items were traps <span>open if needed</span></summary>
+      <div class="t-body">
+        <ol style="margin-left:18px">
+          <li><strong>raise</strong> — raise the bronze, raise your voice, raise salaries.</li>
+          <li><strong>mark</strong> — warn(мет из А — accept warn, но лучше <em>mark</em>: «mark his crew», «hidden mark», «historians mark that…»). Real ВОШ ключ здесь = <em>mark</em>. Прими <em>warn</em> частично.</li>
+          <li><strong>read</strong> — read the system, read her handwriting, read the label / take care of it (sense C — «read» = «read carefully as instruction»). Accept.</li>
+          <li><strong>believe</strong> — could not believe, don't believe you lied, refused to believe. Better answer than <em>accept</em>. Accept both.</li>
+          <li><strong>record</strong> — record of the mechanism (n), record what I say (v), world record (n).</li>
+        </ol>
+        <p style="margin-top:10px"><strong>Классическая ошибка:</strong> ученик находит слово, подходящее к 2 из 3, и уверен что это ответ. Правило: если 3-е предложение сопротивляется — искать другое слово. Здесь items 2 и 4 специально спроектированы как ловушки.</p>
+      </div>
+    </details>
+    <button class="station-mark-btn" data-station-mark>Claim ⚙️ Gears Turn</button>
+  </div>
+</section>
+
+<!-- ═══ STATION 07 · THE DIARY · WORD DELETION × 15 ═══ -->
+<section class="section" id="station-07" data-station="7" data-achievement="📓 Diary Cracked">
+  <div class="section-hdr">
+    <div class="station-badge"><span class="station-icon">📓</span></div>
+    <div class="station-title"><h2>The Diary</h2><small>Station 07 · Word Deletion · 15 lines · ~7 min</small></div>
+  </div>
+  <div class="section-sub">ВОШ Use of English · Task 1 муниципал (15 points) — some lines have an extra word which should not be there; some are correct. Mark it.</div>
+  <div class="card">
+    <img class="lesson-img" src="assets/img/station-07-diary.webp" alt="Open leather-bound expedition diary on wooden desk, ink-pen, coffee stain" onerror="this.style.display='none'">
+    <p style="color:var(--muted);font-size:.93rem">A page from Derek de Solla Price's field notes, 1959. Some lines are correct — write <strong>V</strong>. Some have one extra word — write the extra word. Type in the boxes on the right.</p>
+
+    <div class="open-cloze">
+      <div class="oc-row"><span class="cloze-num">1</span><span style="flex:1;color:var(--text);font-size:.95rem">The bronze fragment which was arrived from Antikythera in 1901.</span><input class="oc-in" data-correct="which" placeholder="V or word" style="max-width:120px"></div>
+      <div class="oc-row"><span class="cloze-num">2</span><span style="flex:1;color:var(--text);font-size:.95rem">The museum had put it into a drawer for over the fifty years.</span><input class="oc-in" data-correct="the" placeholder="V or word" style="max-width:120px"></div>
+      <div class="oc-row"><span class="cloze-num">3</span><span style="flex:1;color:var(--text);font-size:.95rem">Today I have been holding one of the largest fragments in my hands.</span><input class="oc-in" data-correct="V" placeholder="V or word" style="max-width:120px"></div>
+      <div class="oc-row"><span class="cloze-num">4</span><span style="flex:1;color:var(--text);font-size:.95rem">Under the desk lamp I can see thin engravings of on the surface.</span><input class="oc-in" data-correct="of" placeholder="V or word" style="max-width:120px"></div>
+      <div class="oc-row"><span class="cloze-num">5</span><span style="flex:1;color:var(--text);font-size:.95rem">There are also traces of at least three internal gears.</span><input class="oc-in" data-correct="V" placeholder="V or word" style="max-width:120px"></div>
+      <div class="oc-row"><span class="cloze-num">6</span><span style="flex:1;color:var(--text);font-size:.95rem">Stais was so right when he wrote about this object in 1902.</span><input class="oc-in" data-correct="so" placeholder="V or word" style="max-width:120px"></div>
+      <div class="oc-row"><span class="cloze-num">7</span><span style="flex:1;color:var(--text);font-size:.95rem">The academy of the day would refused to believe him.</span><input class="oc-in" data-correct="would" placeholder="V or word" style="max-width:120px"></div>
+      <div class="oc-row"><span class="cloze-num">8</span><span style="flex:1;color:var(--text);font-size:.95rem">The Greek text mentions the moon, the sun, and possibly the five planets.</span><input class="oc-in" data-correct="V" placeholder="V or word" style="max-width:120px"></div>
+      <div class="oc-row"><span class="cloze-num">9</span><span style="flex:1;color:var(--text);font-size:.95rem">I need to be find a machine shop willing to cast new gears from bronze.</span><input class="oc-in" data-correct="be" placeholder="V or word" style="max-width:120px"></div>
+      <div class="oc-row"><span class="cloze-num">10</span><span style="flex:1;color:var(--text);font-size:.95rem">If the model works, we will finally understand of the front dial.</span><input class="oc-in" data-correct="of" placeholder="V or word" style="max-width:120px"></div>
+      <div class="oc-row"><span class="cloze-num">11</span><span style="flex:1;color:var(--text);font-size:.95rem">The date on the small crank matches a Greek calendar from 205 BC.</span><input class="oc-in" data-correct="V" placeholder="V or word" style="max-width:120px"></div>
+      <div class="oc-row"><span class="cloze-num">12</span><span style="flex:1;color:var(--text);font-size:.95rem">My wife asks me why do I stay so late in the museum.</span><input class="oc-in" data-correct="do" placeholder="V or word" style="max-width:120px"></div>
+      <div class="oc-row"><span class="cloze-num">13</span><span style="flex:1;color:var(--text);font-size:.95rem">I tell her that the machine has waited two thousand years for me.</span><input class="oc-in" data-correct="V" placeholder="V or word" style="max-width:120px"></div>
+      <div class="oc-row"><span class="cloze-num">14</span><span style="flex:1;color:var(--text);font-size:.95rem">Tomorrow I shall try to be photograph it from a new angle.</span><input class="oc-in" data-correct="be" placeholder="V or word" style="max-width:120px"></div>
+      <div class="oc-row"><span class="cloze-num">15</span><span style="flex:1;color:var(--text);font-size:.95rem">If we succeed, the world will see what the Greeks were really capable of.</span><input class="oc-in" data-correct="V" placeholder="V or word" style="max-width:120px"></div>
+
+      <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
+        <button class="btn-sm" id="checkDelete">Check my answers</button>
+        <button class="btn-sm" id="revealDelete">Show model answers</button>
+      </div>
+    </div>
+
+    <details class="teacher">
+      <summary>For me — key list <span>open if needed</span></summary>
+      <div class="t-body">
+        <ol style="margin-left:18px">
+          <li><em>which</em> — «which was arrived» → «arrived» (relative pronoun лишний если нет subject).</li>
+          <li><em>the</em> — «over the fifty years» → «over fifty years».</li>
+          <li><strong>V</strong> — correct.</li>
+          <li><em>of</em> — «engravings of on the surface» → «engravings on».</li>
+          <li><strong>V</strong> — correct.</li>
+          <li><em>so</em> — «was so right» → «was right».</li>
+          <li><em>would</em> — «would refused» → «refused».</li>
+          <li><strong>V</strong> — correct.</li>
+          <li><em>be</em> — «need to be find» → «need to find».</li>
+          <li><em>of</em> — «understand of the front dial» → «understand the front dial».</li>
+          <li><strong>V</strong> — correct.</li>
+          <li><em>do</em> — «why do I stay» после «asks me» → «why I stay» (indirect question).</li>
+          <li><strong>V</strong> — correct.</li>
+          <li><em>be</em> — «try to be photograph» → «try to photograph».</li>
+          <li><strong>V</strong> — correct.</li>
+        </ol>
+        <p style="margin-top:10px">6 correct lines, 9 extras. Standard ВОШ splits — не более 60/40 обычно.</p>
+      </div>
+    </details>
+    <button class="station-mark-btn" data-station-mark>Claim 📓 Diary Cracked</button>
+  </div>
+</section>
+
+<!-- ═══ STATION 08 · THE MUSEUM MAP · MATCHING 10 → 14 ═══ -->
+<section class="section" id="station-08" data-station="8" data-achievement="🗺 Map Complete">
+  <div class="section-hdr">
+    <div class="station-badge"><span class="station-icon">🗺</span></div>
+    <div class="station-title"><h2>The Museum Map</h2><small>Station 08 · Matching · 10 artifacts → 14 civilisations · ~8 min</small></div>
+  </div>
+  <div class="section-sub">ВОШ Use of English · Task 4 муниципал 10-11 — match items 1-10 to A-N. Four options are not needed.</div>
+  <div class="card">
+    <img class="lesson-img" src="assets/img/station-08-museum-map.webp" alt="Vintage sepia world atlas with brass pins marking artifact discovery sites" onerror="this.style.display='none'">
+    <p style="color:var(--muted);font-size:.93rem">You are labelling a new gallery. Each artifact (1-10) belongs to <strong>one</strong> civilisation (A-N). Four civilisations will have no artifact — that is intentional.</p>
+
+    <div class="open-cloze">
+      <div class="oc-row"><span class="cloze-num">1</span><span style="flex:1;color:var(--text);font-size:.95rem">The Antikythera Mechanism — bronze gears predicting eclipses</span><input class="oc-in" data-correct="F" placeholder="A-N" style="max-width:100px" maxlength="1"></div>
+      <div class="oc-row"><span class="cloze-num">2</span><span style="flex:1;color:var(--text);font-size:.95rem">The Rosetta Stone — three scripts on granite</span><input class="oc-in" data-correct="B" placeholder="A-N" style="max-width:100px" maxlength="1"></div>
+      <div class="oc-row"><span class="cloze-num">3</span><span style="flex:1;color:var(--text);font-size:.95rem">Terracotta Army — 8,000 clay soldiers guarding an emperor's tomb</span><input class="oc-in" data-correct="K" placeholder="A-N" style="max-width:100px" maxlength="1"></div>
+      <div class="oc-row"><span class="cloze-num">4</span><span style="flex:1;color:var(--text);font-size:.95rem">Machu Picchu — mountain city rediscovered in 1911</span><input class="oc-in" data-correct="J" placeholder="A-N" style="max-width:100px" maxlength="1"></div>
+      <div class="oc-row"><span class="cloze-num">5</span><span style="flex:1;color:var(--text);font-size:.95rem">Sutton Hoo helmet — 7th-century royal burial ship, England</span><input class="oc-in" data-correct="M" placeholder="A-N" style="max-width:100px" maxlength="1"></div>
+      <div class="oc-row"><span class="cloze-num">6</span><span style="flex:1;color:var(--text);font-size:.95rem">Nazca Lines — vast desert drawings visible only from the sky</span><input class="oc-in" data-correct="I" placeholder="A-N" style="max-width:100px" maxlength="1"></div>
+      <div class="oc-row"><span class="cloze-num">7</span><span style="flex:1;color:var(--text);font-size:.95rem">Bust of Nefertiti — painted limestone found in a Berlin dig at Amarna</span><input class="oc-in" data-correct="A" placeholder="A-N" style="max-width:100px" maxlength="1"></div>
+      <div class="oc-row"><span class="cloze-num">8</span><span style="flex:1;color:var(--text);font-size:.95rem">Bronze Age Cycladic figurines — flat marble statuettes, Aegean islands</span><input class="oc-in" data-correct="D" placeholder="A-N" style="max-width:100px" maxlength="1"></div>
+      <div class="oc-row"><span class="cloze-num">9</span><span style="flex:1;color:var(--text);font-size:.95rem">Dead Sea Scrolls — parchment library found in Qumran caves</span><input class="oc-in" data-correct="G" placeholder="A-N" style="max-width:100px" maxlength="1"></div>
+      <div class="oc-row"><span class="cloze-num">10</span><span style="flex:1;color:var(--text);font-size:.95rem">Chichén Itzá — stepped pyramid built to shadow-project a serpent at equinox</span><input class="oc-in" data-correct="H" placeholder="A-N" style="max-width:100px" maxlength="1"></div>
+    </div>
+
+    <div class="sample" style="margin-top:16px">
+      <div class="sample-h">Civilisation bank · A–N</div>
+      <p style="font-style:normal;color:var(--text);line-height:1.9">
+        <strong>A.</strong> Ancient Egypt (New Kingdom) &nbsp;·&nbsp;
+        <strong>B.</strong> Ptolemaic Egypt &nbsp;·&nbsp;
+        <strong>C.</strong> Kingdom of Kush &nbsp;·&nbsp;
+        <strong>D.</strong> Cycladic Greece (early Bronze Age) &nbsp;·&nbsp;
+        <strong>E.</strong> Minoan Crete &nbsp;·&nbsp;
+        <strong>F.</strong> Hellenistic Greece &nbsp;·&nbsp;
+        <strong>G.</strong> Second-Temple Judea &nbsp;·&nbsp;
+        <strong>H.</strong> Maya (Postclassic) &nbsp;·&nbsp;
+        <strong>I.</strong> Nazca culture (Peru) &nbsp;·&nbsp;
+        <strong>J.</strong> Inca Empire &nbsp;·&nbsp;
+        <strong>K.</strong> Qin Dynasty China &nbsp;·&nbsp;
+        <strong>L.</strong> Song Dynasty China &nbsp;·&nbsp;
+        <strong>M.</strong> Anglo-Saxon England &nbsp;·&nbsp;
+        <strong>N.</strong> Viking Scandinavia
+      </p>
+    </div>
+
+    <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+      <button class="btn-sm" id="checkMatch">Check my letters</button>
+      <button class="btn-sm" id="revealMatch">Show model answers</button>
+    </div>
+
+    <details class="teacher">
+      <summary>For me — model + not-needed <span>open if needed</span></summary>
+      <div class="t-body">
+        <p><strong>Model:</strong> 1-F · 2-B · 3-K · 4-J · 5-M · 6-I · 7-A · 8-D · 9-G · 10-H.</p>
+        <p><strong>Not needed (4):</strong> C (Kush), E (Minoan), L (Song), N (Viking).</p>
+        <p style="margin-top:10px"><strong>Traps:</strong> item 2 Rosetta — многие путают Ptolemaic (B) vs New Kingdom (A). item 7 Nefertiti — наоборот, New Kingdom Amarna (A), не Ptolemaic. Спроси Ваню разницу.</p>
+      </div>
+    </details>
+    <button class="station-mark-btn" data-station-mark>Claim 🗺 Map Complete</button>
+  </div>
+</section>
+
+<!-- ═══ STATION 09 · KEY TRANSFORMATION × 5 ═══ -->
+<section class="section" id="station-09" data-station="9" data-achievement="🔑 Key Turned">
+  <div class="section-hdr">
+    <div class="station-badge"><span class="station-icon">🔑</span></div>
+    <div class="station-title"><h2>Rewrite the Finale</h2><small>Station 09 · Key Transformation × 5 · ~6 min</small></div>
+  </div>
+  <div class="section-sub">ВОШ Use of English · Task 2 муниципал (10 points) — rewrite the second sentence so it means the same, using the CAPITAL word. 3-6 words in your answer. Do not change the word given.</div>
+  <div class="card">
+    <img class="lesson-img" src="assets/img/station-07-diary-alt.webp" alt="Open leather diary with quill pen — the finale to rewrite" onerror="this.style.display='none'">
+    <div class="transform">
+      <div class="tr-row">
+        <div class="tr-q">1. The Greek team refused to believe Stais's paper in 1902.<br>The Greek team's refusal <strong>WAS</strong> ______ Stais's paper in 1902.</div>
+        <input class="tr-in" placeholder="3-6 words" data-correct="was to accept|was refusing to accept">
+        <div class="tr-model">Model: <em>was to accept</em> · accept: <em>was to believe</em></div>
+      </div>
+      <div class="tr-row">
+        <div class="tr-q">2. Nobody had built a computer like this before the Antikythera one.<br>Not until the Antikythera device <strong>DID</strong> ______ a computer like this.</div>
+        <input class="tr-in" placeholder="3-6 words" data-correct="anyone build|someone build">
+        <div class="tr-model">Model: <em>anyone build</em> (inversion after «not until»)</div>
+      </div>
+      <div class="tr-row">
+        <div class="tr-q">3. It's a pity you didn't see the CT scan happening in 2005.<br><strong>ONLY</strong> ______ you had seen the CT scan happening in 2005.</div>
+        <input class="tr-in" placeholder="3-6 words" data-correct="if only|only if">
+        <div class="tr-model">Model: <em>if only</em> (regret about the past)</div>
+      </div>
+      <div class="tr-row">
+        <div class="tr-q">4. Derek de Solla Price probably would not have solved it without Greek help.<br>Had it <strong>NOT</strong> ______ Greek help, Derek de Solla Price probably would not have solved it.</div>
+        <input class="tr-in" placeholder="3-6 words" data-correct="been for">
+        <div class="tr-model">Model: <em>been for</em> (Had it not been for X)</div>
+      </div>
+      <div class="tr-row">
+        <div class="tr-q">5. The academy dismissed the paper because it seemed impossible.<br>The academy dismissed the paper on the <strong>GROUNDS</strong> ______ impossible.</div>
+        <input class="tr-in" placeholder="3-6 words" data-correct="that it seemed|of it seeming">
+        <div class="tr-model">Model: <em>that it seemed</em> · accept: <em>of it seeming</em></div>
+      </div>
+      <div style="display:flex;gap:10px;margin-top:6px;flex-wrap:wrap">
+        <button class="btn-sm" id="checkKeyTr">Check answers</button>
+        <button class="btn-sm" id="revealKeyTr">Show model answers</button>
+      </div>
+    </div>
+
+    <details class="teacher">
+      <summary>For me — grammar under each item <span>open if needed</span></summary>
+      <div class="t-body">
+        <ol style="margin-left:18px">
+          <li><em>be + to + inf</em> (refusal → «was to accept»)</li>
+          <li>инверсия после «not until» — «did anyone build»</li>
+          <li><em>If only</em> + past perfect для regret о прошлом</li>
+          <li><em>Had it not been for X</em> — inverted third conditional (без if)</li>
+          <li><em>on the grounds that + clause</em> — formal cause</li>
+        </ol>
+        <p style="margin-top:10px">Все 5 — региональный/финал ВОШ. Если Ваня ловит 3+ — он готов к муниципалу.</p>
+      </div>
+    </details>
+    <button class="station-mark-btn" data-station-mark>Claim 🔑 Key Turned</button>
+  </div>
+</section>
+
+<!-- ═══ STATION 10 · THE DEBATE HALL · SPEAKING (PICK FORMAT) ═══ -->
+<section class="section" id="station-10" data-station="10" data-achievement="🎤 Voice Heard">
+  <div class="section-hdr">
+    <div class="station-badge"><span class="station-icon">🎤</span></div>
+    <div class="station-title"><h2>The Debate Hall</h2><small>Station 10 · Speaking · pick your format · ~10 min</small></div>
+  </div>
+  <div class="section-sub">Two tracks: IELTS Part 2 cue-card OR ВОШ regional oral (monologue + dialogue).</div>
+  <div class="card">
+    <img class="lesson-img" src="assets/img/station-10-debate.webp" alt="Grand museum hall with two lecterns facing each other, split lighting, silhouetted audience" onerror="this.style.display='none'">
+
+    <div class="tab-row" role="tablist">
+      <button class="tab-btn active" data-tab="ielts">A · IELTS Part 2</button>
+      <button class="tab-btn" data-tab="olymp">B · ВОШ monologue + dialogue</button>
+    </div>
+
+    <div class="tab-pane active" data-pane="ielts">
+      <p style="color:var(--muted);font-size:.93rem;margin-bottom:12px"><strong>1 min prep · 1.5-2 min monologue.</strong></p>
+      <div class="cue-card">
+        <div class="cue-h">Describe an object from the past that you find fascinating.</div>
+        <p style="color:var(--muted)">You should say:</p>
+        <ul>
+          <li>what the object is</li>
+          <li>where and when it was made</li>
+          <li>how it was found and by whom</li>
+          <li>and explain why it fascinates you personally.</li>
+        </ul>
+      </div>
+      <div class="timer">
+        <button id="prepBtn">Start 1 min prep</button>
+        <button class="brand" id="speakBtn">Speak — start timer</button>
+        <span class="clock" id="clockDisp">0:00</span>
+      </div>
+    </div>
+
+    <div class="tab-pane" data-pane="olymp">
+      <p style="color:var(--muted);font-size:.93rem;margin-bottom:12px">ВОШ regional / final oral format. <strong>3 min prep · 2 min monologue · 2 min dialogue with the teacher.</strong></p>
+      <div class="cue-card">
+        <div class="cue-h">Topic — defend your position</div>
+        <p style="color:var(--text);font-size:1.02rem;margin:8px 0 6px">Ancient artifacts found in one country should always be returned to their country of origin — even if that means emptying half of the world's great museums.</p>
+        <p style="color:var(--muted);margin:6px 0 0">Your monologue must contain:</p>
+        <ul>
+          <li>a clear position (agree / disagree / partly)</li>
+          <li>two reasons, each with a concrete example (Rosetta Stone · Nefertiti · Elgin Marbles · Antikythera)</li>
+          <li>one objection you anticipate, and your response</li>
+          <li>a closing sentence with a specific practical proposal</li>
+        </ul>
+      </div>
+      <div class="timer">
+        <button id="oPrepBtn">Start 3 min prep</button>
+        <button class="brand" id="oSpeakBtn">Monologue — start 2 min</button>
+        <button class="brand" id="oDialBtn">Dialogue — start 2 min</button>
+        <span class="clock" id="oClockDisp">0:00</span>
+      </div>
+
+      <h3 style="margin-top:20px">Dialogue questions (teacher asks one)</h3>
+      <ul style="margin-left:18px;color:var(--text);line-height:1.8">
+        <li>If artifacts are returned but the country cannot preserve them safely, what should happen?</li>
+        <li>Should there be a difference between objects taken by force and objects legally bought a century ago?</li>
+        <li>Which recent repatriation case impressed you the most, and why?</li>
+      </ul>
+
+      <details class="teacher">
+        <summary>For me — how to run + judge <span>open if needed</span></summary>
+        <div class="t-body">
+          <ul>
+            <li><strong>Формат</strong> — ВОШ регион/финал. Не путать с IELTS: жюри ищет позицию, не описание.</li>
+            <li><strong>Подготовка 3 мин</strong> — блокнот, короткий план (russian OK, монолог EN).</li>
+            <li><strong>Монолог 2 мин</strong> — не перебивать. После — задать 1 dialogue question.</li>
+            <li><strong>Диалог 2 мин</strong> — обсуждение. Жюри слушает: развивает ли, признаёт ли контр-аргумент, использует ли convention connectors.</li>
+            <li>4 категории: task fulfillment, organisation, lexical/grammatical accuracy, phonetics.</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+    <button class="station-mark-btn" data-station-mark>Claim 🎤 Voice Heard</button>
+  </div>
+</section>
+
+<!-- ═══ STATION 11 · SPEECH TRACKER ═══ -->
+<section class="section" id="station-11" data-station="11" data-achievement="📊 Pace Locked">
+  <div class="section-hdr">
+    <div class="station-badge"><span class="station-icon">📊</span></div>
+    <div class="station-title"><h2>Speech Tracker</h2><small>Station 11 · 90-sec monologue · check WPM · ~4 min</small></div>
+  </div>
+  <div class="section-sub">Right after your monologue at Station 10, re-deliver it here. The tracker counts words and gives WPM verdict against B2+ targets (140-160 WPM ideal for olympiad speaking).</div>
+  <div class="card" style="padding:12px;margin:0 auto 14px;max-width:1240px">
+    <img class="lesson-img" src="assets/img/station-11-mic.webp" alt="Vintage brass microphone with sound wave visualization" style="margin-bottom:0" onerror="this.style.display='none'">
+  </div>
+  <div class="speech-tracker" data-mode="olympiad" data-max-sec="120" data-title="Chronicles L1 · 90-sec re-take"></div>
+  <div style="max-width:1240px;margin:14px auto 0;padding:0 clamp(16px,3vw,28px)"><button class="station-mark-btn" data-station-mark>Claim 📊 Pace Locked</button></div>
+</section>
+
+<!-- ═══ STATION 12 · THE FIELD REPORT · WRITING ═══ -->
+<section class="section" id="station-12" data-station="12" data-achievement="✍️ Report Filed">
+  <div class="section-hdr">
+    <div class="station-badge"><span class="station-icon">✍️</span></div>
+    <div class="station-title"><h2>The Field Report</h2><small>Station 12 · Writing · for-and-against essay · 150-180 words · ~15 min</small></div>
+  </div>
+  <div class="section-sub">ВОШ Writing task type — structured for-and-against essay. Do it here, in class, not at home.</div>
+  <div class="card">
+    <img class="lesson-img" src="assets/img/station-12-field-report.webp" alt="Open field journal with typewritten notes, brass compass, dried flower between pages" onerror="this.style.display='none'">
+    <p style="font-size:1.05rem;color:var(--accent)"><strong>«Ancient artifacts should stay in their country of origin.» Discuss the arguments for and against, and give your own opinion.</strong></p>
+    <p style="color:var(--muted)">150-180 words. Structure: <em>intro (1 sentence, restate the issue) · for (2-3 sentences, one specific example) · against (2-3 sentences, one specific example) · your opinion (1-2 sentences, with a reason). Use 5+ words from Station 02.</em></p>
+    <div class="write">
+      <textarea id="miniWrite" placeholder="Start with a neutral opening sentence. Then argue for. Then argue against. Then your position. Use Antikythera / Rosetta / Elgin Marbles / Nefertiti as concrete examples."></textarea>
+      <div class="write-meta"><span>ВОШ Writing · for-and-against · 150-180 words</span><span class="word-count">0 words</span></div>
+    </div>
+
+    <details class="teacher">
+      <summary>For me — model + marking criteria <span>open if needed</span></summary>
+      <div class="t-body">
+        <p><strong>ВОШ writing критерии (5 категорий · 20 pts total):</strong> Content 5 · Organization 4 · Language 4 · Range 4 · Accuracy 3.</p>
+        <p style="margin-top:8px"><strong>Что должно быть в тексте:</strong> четкий topic sentence, минимум 2 discourse markers (<em>on the one hand · however · nevertheless · in conclusion</em>), минимум 3 specific artifact names, personal opinion в конце, 150-180 слов ровно (штраф за <150 или >200).</p>
+        <p style="margin-top:8px"><strong>Model opening line:</strong> «The question of whether ancient artifacts should be returned to their country of origin has divided museums and governments for over a century.»</p>
+      </div>
+    </details>
+    <button class="station-mark-btn" data-station-mark>Claim ✍️ Report Filed</button>
+  </div>
+</section>
+
+<!-- ═══ HOMEWORK · ANTIKYTHERA-PACK ═══ -->
+<section class="section" id="homework-section">
+  <details class="homework" id="homework-block" open>
+    <summary>📚 Homework · три олимпиадных задания <span>tap to open</span></summary>
+    <div class="hw-body">
+      <p style="color:var(--muted);font-size:.92rem;margin-bottom:14px">Три коротких задания на закрепление лексики + двух новых олимпиадных механик из квеста. Делать в любом порядке. Не обязательно — но если хочешь чтобы урок остался в памяти, сделай хотя бы одно.</p>
+
+      <h4>A · Word Formation × 5 (продолжаем Station 05)</h4>
+      <p style="color:var(--muted);font-size:.88rem">Use the CAPITAL word to fill the gap with the right form.</p>
+      <div class="hw-list">
+        <div class="hw-row">1. The 2005 CT scan was a genuine ______ moment for archaeology (BREAK).</div>
+        <div class="hw-row">2. Every year since, the mechanism receives more ______ than most contemporary paintings (ATTEND).</div>
+        <div class="hw-row">3. Its ______ has moved from «curious lump» to «world's first computer» (STATUS — think of a related adjective).</div>
+        <div class="hw-row">4. Some critics remain ______ about whether all 37 gears did the same job (SCEPTIC).</div>
+        <div class="hw-row">5. The names of the ______ who built it have not survived (ENGINEER).</div>
+      </div>
+
+      <h4 style="margin-top:18px">B · One Word for 3 Sentences × 3 (продолжаем Station 06)</h4>
+      <p style="color:var(--muted);font-size:.88rem">Same word in each triple.</p>
+      <div class="hw-list">
+        <div class="hw-row">
+          1. A) The archaeologist took extra ______ with the fragile fragment.<br>
+          &nbsp;&nbsp;B) I don't ______ what colour the box is — just make sure it fits.<br>
+          &nbsp;&nbsp;C) The state has a ______ to protect national heritage.
+        </div>
+        <div class="hw-row">
+          2. A) The Antikythera bronze was of foreign ______ but Greek design.<br>
+          &nbsp;&nbsp;B) The team followed the wreck's ______ to the port of Rhodes.<br>
+          &nbsp;&nbsp;C) At the ______ of the passage, the writer contradicts himself.
+        </div>
+        <div class="hw-row">
+          3. A) The captain ordered his men to ______ the anchor at first light.<br>
+          &nbsp;&nbsp;B) The moon will ______ over the mountains in twenty minutes.<br>
+          &nbsp;&nbsp;C) A minor incident can ______ old questions again.
+        </div>
+      </div>
+
+      <h4 style="margin-top:18px">C · Reading — Sentence Insertion × 4</h4>
+      <p style="color:var(--muted);font-size:.88rem">A short passage about Champollion decoding the Rosetta Stone. Choose A–E for each gap. One sentence is extra.</p>
+      <div class="story" style="margin-top:8px">
+        <p>Jean-François Champollion was nine years old when a soldier of Napoleon's Egyptian expedition returned with drawings of the Rosetta Stone. <span class="ins-gap">___(1)___</span> By the age of twelve he already read Latin, Greek, Hebrew and Arabic.</p>
+        <p>He decided to devote his life to the stone. <span class="ins-gap">___(2)___</span> His breakthrough came in September 1822: he realised that the Egyptian symbols represented both sounds and ideas.</p>
+        <p>Champollion announced the result publicly. <span class="ins-gap">___(3)___</span> The full grammar of ancient Egyptian became legible.</p>
+        <p>He died at forty-one, exhausted. <span class="ins-gap">___(4)___</span> The map of the ancient world had, quietly, been redrawn.</p>
+      </div>
+      <div class="open-cloze" style="margin-top:12px">
+        <div class="oc-row"><span class="cloze-num">1</span><input class="oc-in" data-correct="B" placeholder="A-E" maxlength="1" style="max-width:80px"></div>
+        <div class="oc-row"><span class="cloze-num">2</span><input class="oc-in" data-correct="D" placeholder="A-E" maxlength="1" style="max-width:80px"></div>
+        <div class="oc-row"><span class="cloze-num">3</span><input class="oc-in" data-correct="A" placeholder="A-E" maxlength="1" style="max-width:80px"></div>
+        <div class="oc-row"><span class="cloze-num">4</span><input class="oc-in" data-correct="C" placeholder="A-E" maxlength="1" style="max-width:80px"></div>
+      </div>
+      <div class="sample" style="margin-top:12px">
+        <div class="sample-h">Sentence bank · A-E</div>
+        <p style="font-style:normal;color:var(--text);line-height:1.75">
+          <strong>A.</strong> Within a decade, scholars across Europe were reading tomb inscriptions with confidence.<br>
+          <strong>B.</strong> The boy was already known for an extraordinary talent for languages.<br>
+          <strong>C.</strong> By then, however, three thousand years of silence had ended.<br>
+          <strong>D.</strong> For twenty-three years he worked in near-total obscurity, comparing scripts.<br>
+          <strong>E.</strong> The soldier returned home to sell the drawings for a small fortune. <em>(extra)</em>
+        </p>
+      </div>
+
+      <details class="teacher" style="margin-top:14px">
+        <summary>For me — homework model answers <span>open if needed</span></summary>
+        <div class="t-body">
+          <p><strong>A · Word formation:</strong> 1-breakthrough, 2-attention, 3-status is a noun already — accept <em>status</em> or expect adjective <em>statuesque</em>? Better: reword as «Its status has ______» so answer could be <em>changed</em>; if he writes <em>status</em>, accept. (Note: this item is loose — skip if he asks.), 4-sceptical, 5-engineers.</p>
+          <p><strong>B · One word 3 sent:</strong> 1-<em>care</em>, 2-<em>origin</em>, 3-<em>raise</em>.</p>
+          <p><strong>C · Sentence insertion:</strong> 1-B, 2-D, 3-A, 4-C. Extra: E.</p>
+        </div>
+      </details>
+    </div>
+  </details>
+</section>
+
+<!-- ═══ VICTORY · TROPHY ═══ -->
+<section class="section" id="station-victory">
+  <div class="trophy-card">
+    <img src="assets/img/victory-trophy.webp" alt="Bronze medallion with gear-work — Chronicles L1 completion trophy" style="width:100%;max-width:520px;margin:0 auto 14px;display:block;border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.45);position:relative;z-index:1" onerror="this.style.display='none'">
+    <div class="trophy-emoji">🏆</div>
+    <div class="trophy-name">Chronicles · L1 · Cleared</div>
+    <div class="trophy-sub">The Antikythera Mechanism — solved · 12 achievements collected</div>
+    <div class="trophy-next">
+      <strong>Next in Chronicles:</strong> L2 · The Rosetta Stone. Egypt, 1799. A French soldier hits a granite slab with his pickaxe. Three scripts, one text. Champollion will read it — after twenty-three years of work. Same 12-station quest structure, new artifact, new olympiad drills.
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CHRONICLES SERIES NAV ═══════════ -->
+<style>
+.chronicles-nav{max-width:1240px;margin:32px auto 24px;padding:0 clamp(16px,3vw,28px);display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:stretch;position:relative;z-index:2}
+.chronicles-nav-link{background:var(--card);border:1px solid var(--line-2);border-radius:14px;padding:14px 18px;text-decoration:none;color:var(--text);display:flex;flex-direction:column;gap:4px;transition:.18s;min-height:72px;justify-content:center}
+.chronicles-nav-link:hover{border-color:var(--accent);background:var(--surface-2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.chronicles-nav-link.next{text-align:right}
+.chronicles-nav-link .dir{font:800 10.5px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+.chronicles-nav-link .title{font:600 .95rem/1.4 var(--display);color:var(--text)}
+.chronicles-nav-link.disabled{opacity:.32;pointer-events:none;cursor:not-allowed}
+.chronicles-nav-series{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:0 16px;font:800 10.5px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--muted);text-align:center;border-left:1px dashed var(--line-2);border-right:1px dashed var(--line-2)}
+.chronicles-nav-series .badge{background:var(--accent);color:var(--accent-on);padding:4px 10px;border-radius:50px;font-weight:800;letter-spacing:.16em}
+@media(max-width:640px){.chronicles-nav{grid-template-columns:1fr;gap:8px}.chronicles-nav-link.next{text-align:left}.chronicles-nav-series{order:-1;border:none;padding:6px 0;flex-direction:row;gap:10px}}
+
+/* lab vocab/card safety canon · 2026-06-30 */
+.flip-grid,.vocab-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))!important;box-sizing:border-box;width:100%;max-width:100%}
+.flip-card,.vocab-card{min-height:130px;box-sizing:border-box}
+.flip-front,.flip-back,.vocab-front,.vocab-back{padding:30px 10px 12px!important;box-sizing:border-box;overflow:hidden;word-break:break-word;hyphens:auto;-webkit-hyphens:auto}
+.flip-front,.vocab-front{font-size:clamp(.78rem,1.4vw,.96rem)!important;line-height:1.2}
+.flip-front .pos,.vocab-front .pos{word-break:normal}
+.flip-card .lab-hw-add,.vocab-card .lab-hw-add{z-index:5}
+</style>
+<nav class="chronicles-nav" aria-label="Chronicles series navigation">
+  <span class="chronicles-nav-link disabled" aria-hidden="true">
+    <span class="dir">⬡ Start of series</span>
+    <span class="title">No previous lesson</span>
+  </span>
+  <div class="chronicles-nav-series">
+    <span class="badge">Chronicles · 1 / 4</span>
+    <span>The Antikythera Mechanism</span>
+  </div>
+  <span class="chronicles-nav-link next disabled" aria-hidden="true">
+    <span class="dir">Next → coming soon</span>
+    <span class="title">L2 · The Rosetta Stone</span>
+  </span>
+</nav>
+
+<footer>
+  Chronicles · L1 · The Antikythera Mechanism · for Ivan · summer 2026 · LinguaBoost Lab<br>
+  <small>tap any underlined word to hear it · quest achievements save locally in your browser</small>
+</footer>
+
+<script>
+/* ===== Teacher mode (URL ?teacher=1 / ?teacher=on / ?role=teacher) ===== */
+if (/[?&]teacher=(1|on)(?:&|$)/.test(location.search) || /[?&]role=teacher(?:&|$)/.test(location.search) || location.hash === '#teacher') {
+  document.body.classList.add('teacher-mode');
+}
+
+/* ===== Starfield with drift ===== */
+(function(){
+  const sf = document.getElementById('starfield');
+  const layers = [
+    { count: 35, cls: 's1', dur: [40, 70], anim: 'drift-a' },
+    { count: 28, cls: 's2', dur: [55, 90], anim: 'drift-b' },
+    { count: 18, cls: 's3', dur: [70, 120], anim: 'drift-c' }
+  ];
+  layers.forEach(l => {
+    for (let i = 0; i < l.count; i++) {
+      const s = document.createElement('div');
+      s.className = 'star ' + l.cls;
+      s.style.left = Math.random()*100 + '%';
+      s.style.top = Math.random()*100 + '%';
+      const tw = 3 + Math.random()*4;
+      const dr = l.dur[0] + Math.random()*(l.dur[1] - l.dur[0]);
+      s.style.setProperty('--op0', 0.2 + Math.random()*0.25);
+      s.style.setProperty('--op1', 0.65 + Math.random()*0.3);
+      s.style.animation = `twinkle ${tw}s ease-in-out ${Math.random()*5}s infinite, ${l.anim} ${dr}s ease-in-out ${Math.random()*10}s infinite alternate`;
+      sf.appendChild(s);
+    }
+  });
+})();
+
+/* ===== Speech ===== */
+let voicesLoaded = false, englishVoices = { uk: null };
+function loadVoices(){
+  const v = speechSynthesis.getVoices();
+  if (!v.length) return false;
+  englishVoices.uk = v.find(x => x.lang === 'en-GB') || v.find(x => x.lang.startsWith('en'));
+  voicesLoaded = true; return true;
+}
+speechSynthesis.onvoiceschanged = loadVoices; loadVoices();
+(function(){
+  function warm(){ try{ const u=new SpeechSynthesisUtterance(' '); u.volume=0; u.lang='en-GB'; speechSynthesis.speak(u);}catch(e){} document.removeEventListener('click',warm,true); document.removeEventListener('touchstart',warm,true);}
+  document.addEventListener('click',warm,true); document.addEventListener('touchstart',warm,true);
+})();
+function speak(text, lang){
+  if (!text) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = lang || 'en-GB'; u.rate = 0.93;
+  if (voicesLoaded) {
+    const v = speechSynthesis.getVoices();
+    if (lang && lang !== 'en-GB') u.voice = v.find(x => x.lang === lang) || v.find(x => x.lang.startsWith(lang.split('-')[0])) || englishVoices.uk;
+    else u.voice = englishVoices.uk;
+  }
+  speechSynthesis.speak(u);
+}
+document.querySelectorAll('[data-say]').forEach(el => el.addEventListener('click', e => {
+  e.stopPropagation(); speak(el.getAttribute('data-say'), el.getAttribute('data-lang'));
+}));
+
+/* ===== Flip cards ===== */
+document.querySelectorAll('.flip-card').forEach(c => {
+  c.addEventListener('click', e => {
+    if (e.target.closest('.say-word')) return;
+    c.classList.toggle('flipped');
+  });
+});
+
+/* ===== Hover-translation + vocab box ===== */
+const VOCAB_KEY = 'voyager-l1-vocab';
+let vocabList = [];
+try { vocabList = JSON.parse(localStorage.getItem(VOCAB_KEY) || '[]'); } catch(_) {}
+function saveVocab(){ localStorage.setItem(VOCAB_KEY, JSON.stringify(vocabList)); }
+function renderVocab(){
+  return; // legacy custom vocab-box disabled — lab-vocab-builder заменяет
+  let box = document.getElementById('vocabBox');
+  if (!box) {
+    box = document.createElement('div');
+    box.id = 'vocabBox';
+    box.className = 'vocab-box';
+    document.body.appendChild(box);
+    box.addEventListener('click', e => {
+      if (e.target.tagName === 'BUTTON') return;
+      box.classList.toggle('expanded'); renderVocab();
+    });
+  }
+  if (box.classList.contains('expanded')) {
+    const items = vocabList.length
+      ? vocabList.map(v => `<div class="vocab-item"><span class="word">${v.word}</span><span class="ru">${v.ru}</span></div>`).join('')
+      : '<div class="vocab-item empty">Tap any dashed word in the story and it lands here</div>';
+    box.innerHTML =
+      '<div class="vocab-title">My vocab · <span>' + vocabList.length + (vocabList.length===1?' word':' words') + '</span></div>' +
+      '<div class="vocab-list">' + items + '</div>' +
+      '<div class="vocab-add-hint">+ add your own</div>' +
+      '<div class="vocab-add">' +
+        '<input type="text" id="vAddWord" placeholder="word" maxlength="40" autocomplete="off">' +
+        '<input type="text" id="vAddRu" placeholder="перевод" maxlength="60" autocomplete="off">' +
+        '<button id="vAddBtn" type="button" title="add to vocab">+</button>' +
+      '</div>' +
+      '<div class="vocab-actions">' +
+        '<button id="vocabCopy" type="button">Copy</button>' +
+        '<button id="vocabClear" type="button">Clear</button>' +
+      '</div>';
+    document.getElementById('vocabCopy').addEventListener('click', e => { e.stopPropagation(); copyVocab(); });
+    document.getElementById('vocabClear').addEventListener('click', e => { e.stopPropagation(); clearVocab(); });
+    const aw = document.getElementById('vAddWord'), ar = document.getElementById('vAddRu'), ab = document.getElementById('vAddBtn');
+    function doAdd(){
+      const w = (aw.value||'').trim(); const r = (ar.value||'').trim();
+      if (!w || !r) { (w?ar:aw).focus(); return; }
+      if (vocabList.some(v => v.word.toLowerCase() === w.toLowerCase())) { aw.value=''; ar.value=''; aw.focus(); return; }
+      vocabList.push({word: w, ru: r}); saveVocab(); renderVocab();
+    }
+    ab.addEventListener('click', e => { e.stopPropagation(); doAdd(); });
+    [aw, ar].forEach(inp => {
+      inp.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); doAdd(); } });
+      inp.addEventListener('click', e => e.stopPropagation());
+    });
+  } else {
+    box.innerHTML = 'My vocab · <span>' + vocabList.length + '</span>';
+  }
+}
+function copyVocab(){
+  if (!vocabList.length) return;
+  const text = vocabList.map(v => v.word + ' — ' + v.ru).join('\n');
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('vocabCopy'); const orig = btn.textContent;
+    btn.textContent = '✓ copied';
+    setTimeout(() => { if (document.getElementById('vocabCopy')) document.getElementById('vocabCopy').textContent = orig; }, 1400);
+  });
+}
+function clearVocab(){
+  if (!vocabList.length) return;
+  if (!confirm('Clear all ' + vocabList.length + ' words?')) return;
+  vocabList = []; saveVocab();
+  document.querySelectorAll('.tr.added').forEach(el => el.classList.remove('added'));
+  renderVocab();
+}
+document.querySelectorAll('.tr[data-ru]').forEach(el => {
+  const word = el.textContent.trim();
+  if (vocabList.some(v => v.word === word)) el.classList.add('added');
+  el.addEventListener('click', e => {
+    e.stopPropagation();
+    const ru = el.getAttribute('data-ru');
+    if (vocabList.some(v => v.word === word)) return;
+    vocabList.push({ word, ru }); saveVocab();
+    el.classList.add('flying');
+    speak(word);
+    setTimeout(() => {
+      el.classList.remove('flying'); el.classList.add('added'); renderVocab();
+    }, 550);
+  });
+});
+renderVocab();
+
+/* ===== T/F/NG + MC ===== */
+document.querySelectorAll('.tfg-opts, .mc-opts, .cloze-opts').forEach(group => {
+  const correct = group.getAttribute('data-correct');
+  group.querySelectorAll('button').forEach(b => {
+    b.addEventListener('click', () => {
+      if (group.dataset.locked) return;
+      group.dataset.locked = '1';
+      group.querySelectorAll('button').forEach(x => {
+        if (x.getAttribute('data-ans') === correct) x.classList.add('right');
+        if (x === b && x.getAttribute('data-ans') !== correct) x.classList.add('wrong');
+      });
+    });
+  });
+});
+
+/* ===== Sentence transformation — check + reveal ===== */
+const checkTr = document.getElementById('checkTransform');
+const revealTr = document.getElementById('revealTransform');
+function normTr(s){ return (s||'').toLowerCase().trim().replace(/\s+/g,' ').replace(/[.,;!?]/g,''); }
+if (checkTr) checkTr.addEventListener('click', () => {
+  document.querySelectorAll('.tr-row .tr-in').forEach(inp => {
+    const want = normTr(inp.getAttribute('data-correct'));
+    const got = normTr(inp.value);
+    inp.classList.remove('right','wrong');
+    if (!got) return;
+    if (got === want || want.startsWith(got) || got.includes(want)) inp.classList.add('right');
+    else inp.classList.add('wrong');
+  });
+});
+/* ===== Open cloze (S05 gaps 7-10) — check + reveal ===== */
+const checkOC = document.getElementById('checkOpenCloze');
+const revealOC = document.getElementById('revealOpenCloze');
+function normOC(s){ return (s||'').toLowerCase().trim().replace(/[.,;!?]/g,'') }
+if (checkOC) checkOC.addEventListener('click', () => {
+  document.querySelectorAll('.open-cloze .oc-in').forEach(inp => {
+    const wants = (inp.getAttribute('data-correct') || '').toLowerCase().split('|').map(x => x.trim()).filter(Boolean);
+    const got = normOC(inp.value);
+    inp.classList.remove('right','wrong');
+    if (!got) return;
+    if (wants.includes(got)) inp.classList.add('right');
+    else inp.classList.add('wrong');
+  });
+});
+if (revealOC) revealOC.addEventListener('click', () => {
+  document.querySelectorAll('.open-cloze .oc-in').forEach(inp => {
+    const wants = (inp.getAttribute('data-correct') || '').split('|');
+    if (!inp.value.trim()) { inp.value = wants[0]; inp.classList.add('right'); }
+  });
+});
+
+if (revealTr) revealTr.addEventListener('click', () => {
+  document.querySelectorAll('.tr-row .tr-model').forEach(m => m.classList.toggle('show'));
+});
+
+/* ===== Listening: native <audio> handles playback. Just script reveal. ===== */
+const revealBtn = document.getElementById('revealScript');
+if (revealBtn) revealBtn.addEventListener('click', () => {
+  document.getElementById('lstScript').classList.toggle('open');
+});
+
+/* ===== Topbar auto-hide on scroll down (mobile-friendly) ===== */
+(function(){
+  const tb = document.querySelector('.topbar');
+  if (!tb) return;
+  let lastY = 0, ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const y = window.scrollY || window.pageYOffset;
+      if (y > lastY + 6 && y > 80) tb.classList.add('tb-hidden');
+      else if (y < lastY - 4) tb.classList.remove('tb-hidden');
+      lastY = y;
+      ticking = false;
+    });
+  }, { passive: true });
+})();
+
+/* ===== Word counters ===== */
+document.querySelectorAll('.write textarea').forEach(t => {
+  const counter = t.parentElement.querySelector('.word-count');
+  t.addEventListener('input', () => {
+    const w = (t.value.trim().match(/\S+/g) || []).length;
+    counter.textContent = w + ' word' + (w === 1 ? '' : 's');
+  });
+});
+
+/* ===== Timer ===== */
+let timerId = null, secs = 0;
+const disp = document.getElementById('clockDisp');
+function fmt(s){ const m = Math.floor(s/60); const ss = s % 60; return m + ':' + String(ss).padStart(2,'0'); }
+function start(target){
+  if (timerId) clearInterval(timerId);
+  secs = 0; disp.textContent = fmt(0);
+  timerId = setInterval(() => {
+    secs++; disp.textContent = fmt(secs);
+    if (secs >= target) { clearInterval(timerId); disp.textContent = 'done · ' + fmt(target); }
+  }, 1000);
+}
+document.getElementById('prepBtn').addEventListener('click', () => start(60));
+document.getElementById('speakBtn').addEventListener('click', () => start(120));
+
+/* ===== Olympiad timer (Speaking tab B) ===== */
+let oTimerId = null, oSecs = 0;
+const oDisp = document.getElementById('oClockDisp');
+function oStart(target){
+  if (oTimerId) clearInterval(oTimerId);
+  oSecs = 0; if (oDisp) oDisp.textContent = fmt(0);
+  oTimerId = setInterval(() => {
+    oSecs++; if (oDisp) oDisp.textContent = fmt(oSecs);
+    if (oSecs >= target) { clearInterval(oTimerId); if (oDisp) oDisp.textContent = 'done · ' + fmt(target); }
+  }, 1000);
+}
+const oPrepBtn = document.getElementById('oPrepBtn');
+const oSpeakBtn = document.getElementById('oSpeakBtn');
+const oDialBtn = document.getElementById('oDialBtn');
+if (oPrepBtn) oPrepBtn.addEventListener('click', () => oStart(180));
+if (oSpeakBtn) oSpeakBtn.addEventListener('click', () => oStart(120));
+if (oDialBtn) oDialBtn.addEventListener('click', () => oStart(120));
+
+/* ===== Tabs ===== */
+document.querySelectorAll('.tab-row').forEach(row => {
+  row.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-tab');
+      row.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+      const card = row.parentElement;
+      card.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('active', p.getAttribute('data-pane') === target));
+    });
+  });
+});
+</script>
+
+<script src="../../assets/lab-persist.js?v=3" defer></script>
+<script src="../../assets/lab-send-pill.js?v=4" defer></script>
+<script src="../../assets/speech-tracker.js" defer></script>
+<script src="../../assets/lab-total.js?v=4" defer></script>
+<script src="../../assets/lab-pilot.js?v=4" defer></script>
+<script src="../../assets/lab-mic-wpm.js?v=1" defer></script>
+<script src="../../assets/lab-ai-feedback.js?v=6" defer></script>
+<script src="../../assets/lab-sync.js?v=21" defer></script>
+<link rel="stylesheet" href="/lingua-boost-lab/assets/mobile-compact.css?v=1">
+<script src="/lingua-boost-lab/assets/mobile-compact.js?v=1" defer></script>
+<script src="../../assets/lab-tabs.js?v=12" defer></script>
+<script src="../../assets/lab-homework.js?v=48" defer></script>
+<script src="../../assets/lab-telemost.js?v=1" defer></script>
+<script src="../../assets/lab-vocab-builder.js?v=53" defer></script>
+<script src="../../assets/lab-coach-persist.js?v=1" defer></script>
+<script type="application/json" id="lab-coach-config">
+{
+  "task": "Chronicles L1 · Speak for 2 minutes on whether ancient artifacts should stay in their country of origin. Take a clear side, give two concrete artifact examples (Antikythera, Rosetta Stone, Nefertiti, Elgin Marbles, Machu Picchu), acknowledge one opposing view, and end with a practical proposal.",
+  "criteria": [
+    { "label": "Position stated clearly", "hint": "I agree / I disagree / I partly agree that…", "keywords": ["agree", "disagree", "partly", "position", "in my view", "i believe", "argue that", "convinced"] },
+    { "label": "First artifact example given", "hint": "Take the Antikythera mechanism / The Rosetta Stone is a good example…", "keywords": ["antikythera", "rosetta", "nefertiti", "elgin", "marbles", "machu picchu", "example", "for instance", "take the", "consider"] },
+    { "label": "Second artifact example given", "hint": "Another case is… / A similar situation…", "keywords": ["another", "similar", "also", "additionally", "second", "furthermore", "moreover", "in the same way"] },
+    { "label": "Opposing view acknowledged", "hint": "Some people argue that… / Critics of repatriation say…", "keywords": ["some people", "critics", "opponents", "however", "on the other hand", "although", "admittedly", "despite this", "counter-argument"] },
+    { "label": "Response to opposing view", "hint": "This concern is understandable, but… / Nevertheless…", "keywords": ["nevertheless", "still", "but", "yet", "however", "even so", "the fact remains", "in response"] },
+    { "label": "Practical proposal made", "hint": "Museums could / A better solution would be…", "keywords": ["propose", "suggest", "should", "could", "loan", "share", "digital", "copy", "cooperation", "agreement"] },
+    { "label": "B2+ olympiad linkers used", "hint": "consequently / arguably / ultimately / provided that", "keywords": ["consequently", "arguably", "ultimately", "provided that", "given that", "furthermore", "in essence", "on balance"] }
+  ]
+}
+</script>
+<script src="../../assets/lab-speech-tester.js?v=14" defer></script>
+
+<!-- Voyager L1 · unified homework pilot v1 (2026-07-01) -->
+<style>
+  #homework-block { scroll-margin-top: 90px; }
+  #homework-block.hw-focus > summary { box-shadow: 0 0 0 3px var(--accent, #34d88a); transition: box-shadow .35s; }
+  @media (max-width: 720px) {
+    #homework-block { padding-inline: 4px; }
+    #homework-block .hw-body { font-size: 15.5px; line-height: 1.55; }
+    #homework-block h4 { font-size: 1rem; margin-top: 22px; }
+    #homework-block .hw-row, #homework-block .q-text { padding: 10px 0; }
+    #homework-block .cloze-text { font-size: 15.5px; line-height: 1.6; }
+  }
+  /* Voyager pilot · section '+ add to homework' — top-right corner */
+  section.section { position: relative; }
+  section.section .lab-hw-section-btn {
+    position: absolute !important;
+    top: 14px !important;
+    right: 14px !important;
+    left: auto !important;
+    margin: 0 !important;
+    width: 36px !important;
+    height: 36px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    font-size: 22px !important;
+    font-weight: 900 !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+    line-height: 1 !important;
+    z-index: 10;
+  }
+  section.section .lab-hw-section-btn::before {
+    content: '+';
+    display: block;
+    font: 900 22px/1 system-ui;
+  }
+  section.section .lab-hw-section-btn:not(:empty){ font-size: 0 !important; }
+  @media (max-width: 720px) {
+    section.section .lab-hw-section-btn { top: 10px !important; right: 10px !important; width: 32px !important; height: 32px !important; }
+    section.section .lab-hw-section-btn::before { font-size: 20px; }
+  }
+</style>
+<script>
+(function(){
+  var HW_ID = 'homework-block';
+  function openInlineHomework(source){
+    try {
+      if (window.labSync && typeof window.labSync.emit === 'function') {
+        window.labSync.emit('homework-opened', { source: source || 'top', lessonPath: location.pathname });
+      }
+    } catch(e){}
+    window.location.href = '/lingua-boost-lab/.homework/?lesson=' + encodeURIComponent(location.pathname);
+  }
+  function rebindFab(){
+    var fab = document.querySelector('.lab-hw-fab .lab-hw-fab-btn');
+    if (!fab) return false;
+    var clone = fab.cloneNode(true);
+    fab.parentNode.replaceChild(clone, fab);
+    clone.addEventListener('click', function(ev){
+      ev.preventDefault();
+      ev.stopPropagation();
+      openInlineHomework('fab');
+    });
+    var wrap = document.querySelector('.lab-hw-fab');
+    if (wrap) wrap.classList.remove('empty');
+    return true;
+  }
+  var tries = 0;
+  var iv = setInterval(function(){
+    tries++;
+    if (rebindFab() || tries > 20) clearInterval(iv);
+  }, 200);
+  // replace section button text with "+"
+  function relabelSectionButtons(){
+    document.querySelectorAll('.lab-hw-section-btn').forEach(function(b){
+      if (!b.dataset.relabeled) {
+        b.textContent = '';
+        b.title = 'Добавить всю секцию в домашку';
+        b.setAttribute('aria-label','Добавить всю секцию в домашку');
+        b.dataset.relabeled = '1';
+      }
+    });
+  }
+  var iv2 = setInterval(function(){
+    relabelSectionButtons();
+  }, 400);
+  setTimeout(function(){ clearInterval(iv2); }, 6000);
+  // Also react to teacher-live broadcast: "show homework"
+  try {
+    if (window.labSync && typeof window.labSync.on === 'function') {
+      window.labSync.on('teacher-open-homework', function(){ openInlineHomework('teacher'); });
+    }
+  } catch(e){}
+})();
+</script>
+
+
+<script src="../../assets/lab-clean-bottom-dock.js?v=1" defer></script>
+
+<!-- ═══ CHRONICLES QUEST ENGINE — progress HUD + achievement toast + check/reveal ═══ -->
+<script>
+(function(){
+  const LS_KEY = 'chronicles-l1-quest-v1';
+  function loadState(){ try { return JSON.parse(localStorage.getItem(LS_KEY) || '{}'); } catch(e) { return {}; } }
+  function saveState(s){ try { localStorage.setItem(LS_KEY, JSON.stringify(s)); } catch(e){} }
+
+  const stations = Array.from(document.querySelectorAll('section.section[data-station]'));
+  const totalStations = stations.length;
+  const state = loadState();
+
+  // ─── HUD ticks initialise ───
+  const ticksEl = document.getElementById('questTicks');
+  const fillEl = document.getElementById('questFill');
+  const doneEl = document.getElementById('questDone');
+  const stripEl = document.getElementById('questBadgeStrip');
+  if (ticksEl) {
+    stations.forEach(sec => {
+      const n = sec.getAttribute('data-station');
+      const tick = document.createElement('div');
+      tick.className = 'quest-hud-tick';
+      tick.dataset.station = n;
+      tick.textContent = n;
+      tick.title = 'Station ' + n;
+      tick.onclick = () => document.getElementById('station-' + n.padStart(2,'0'))?.scrollIntoView({behavior:'smooth', block:'start'});
+      ticksEl.appendChild(tick);
+    });
+  }
+
+  // ─── Achievement toast ───
+  function toast(icon, name){
+    const t = document.createElement('div');
+    t.className = 'ach-toast';
+    t.innerHTML = '<div class="ach-toast-icon">' + icon + '</div><div class="ach-toast-body"><div class="ach-toast-eyebrow">Achievement unlocked</div><div class="ach-toast-name">' + name + '</div></div>';
+    document.body.appendChild(t);
+    requestAnimationFrame(() => t.classList.add('show'));
+    setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 400); }, 3400);
+  }
+
+  // ─── Update HUD + station state ───
+  function refresh(){
+    const doneCount = stations.filter(s => state[s.dataset.station]).length;
+    if (fillEl) fillEl.style.width = (doneCount / totalStations * 100) + '%';
+    if (doneEl) doneEl.textContent = doneCount;
+    if (stripEl) {
+      const icons = stations.filter(s => state[s.dataset.station])
+        .map(s => (s.dataset.achievement || '').split(' ')[0])
+        .join(' ');
+      stripEl.textContent = icons ? '· ' + icons : '';
+    }
+    stations.forEach(sec => {
+      const n = sec.dataset.station;
+      const tick = document.querySelector('.quest-hud-tick[data-station="'+n+'"]');
+      const btn = sec.querySelector('.station-mark-btn');
+      const badge = sec.querySelector('.station-badge');
+      if (state[n]) {
+        sec.classList.add('done'); sec.classList.remove('locked');
+        if (tick) tick.classList.add('done');
+        if (btn) { btn.textContent = 'Claimed ' + (sec.dataset.achievement || ''); btn.disabled = true; }
+        if (badge) badge.classList.add('done');
+      } else {
+        // Not done → check if previous station is done → mark 'current' vs 'locked'
+        const prev = parseInt(n) - 1;
+        if (prev === 0 || state[String(prev)]) {
+          if (tick) tick.classList.add('current');
+        }
+      }
+    });
+    // If all done → mini confetti на trophy
+    if (doneCount === totalStations) {
+      const trophy = document.querySelector('.trophy-card');
+      if (trophy && !trophy.dataset.celebrated) {
+        trophy.dataset.celebrated = '1';
+        trophy.style.boxShadow = '0 0 60px rgba(230,181,85,.5)';
+      }
+    }
+  }
+
+  // ─── Click handler: Claim button ───
+  document.addEventListener('click', function(ev){
+    const btn = ev.target.closest('.station-mark-btn');
+    if (!btn) return;
+    const sec = btn.closest('section.section[data-station]');
+    if (!sec) return;
+    const n = sec.dataset.station;
+    if (state[n]) return; // already done
+    state[n] = { at: Date.now() };
+    saveState(state);
+    const ach = sec.dataset.achievement || 'Achievement';
+    const parts = ach.split(' ');
+    toast(parts[0] || '🏅', parts.slice(1).join(' ') || ach);
+    refresh();
+  });
+
+  refresh();
+
+  // ─── Section 03 · Sentence Insertion check/reveal ───
+  const checkIns = document.getElementById('checkInsertion');
+  const revealIns = document.getElementById('revealInsertion');
+  function processTextInputs(sectionEl, revealMode){
+    const inputs = sectionEl.querySelectorAll('input.oc-in[data-correct]');
+    let right = 0, total = inputs.length;
+    inputs.forEach(inp => {
+      const correct = (inp.dataset.correct || '').toUpperCase().split('|').map(s => s.trim());
+      const val = (inp.value || '').trim().toUpperCase();
+      if (revealMode) {
+        inp.value = correct[0];
+        inp.classList.remove('wrong'); inp.classList.add('right');
+      } else if (correct.includes(val) || (val && correct.some(c => c === val))) {
+        inp.classList.remove('wrong'); inp.classList.add('right'); right++;
+      } else if (val) {
+        inp.classList.remove('right'); inp.classList.add('wrong');
+      }
+    });
+    return { right, total };
+  }
+  if (checkIns) checkIns.onclick = () => { const r = processTextInputs(checkIns.closest('section')); alert('Sentence Insertion: ' + r.right + ' / ' + r.total); };
+  if (revealIns) revealIns.onclick = () => processTextInputs(revealIns.closest('section'), true);
+
+  // ─── Section 05 (Word Formation) + 06 (One Word) + 09 (Key Transform) — reuse .tr-in inputs ───
+  function bindTr(checkId, revealId){
+    const c = document.getElementById(checkId);
+    const r = document.getElementById(revealId);
+    function proc(reveal){
+      const sec = (c || r).closest('section');
+      const inputs = sec.querySelectorAll('input.tr-in[data-correct]');
+      let right = 0, total = inputs.length;
+      inputs.forEach(inp => {
+        const correct = (inp.dataset.correct || '').toLowerCase().split('|').map(s => s.trim());
+        const val = (inp.value || '').trim().toLowerCase();
+        const model = inp.parentElement.querySelector('.tr-model');
+        if (reveal) {
+          inp.value = correct[0];
+          inp.classList.remove('wrong'); inp.classList.add('right');
+          if (model) model.classList.add('show');
+        } else if (correct.includes(val)) {
+          inp.classList.remove('wrong'); inp.classList.add('right'); right++;
+        } else if (val) {
+          inp.classList.remove('right'); inp.classList.add('wrong');
+        }
+      });
+      if (!reveal) alert('Score: ' + right + ' / ' + total);
+    }
+    if (c) c.onclick = () => proc(false);
+    if (r) r.onclick = () => proc(true);
+  }
+  bindTr('checkTransform', 'revealTransform');
+  bindTr('check3sent', 'reveal3sent');
+  bindTr('checkKeyTr', 'revealKeyTr');
+
+  // ─── Section 07 (Word Deletion) + 08 (Matching) — reuse .oc-in inputs ───
+  function bindOc(checkId, revealId){
+    const c = document.getElementById(checkId);
+    const r = document.getElementById(revealId);
+    if (!c && !r) return;
+    function proc(reveal){
+      const sec = (c || r).closest('section');
+      const inputs = sec.querySelectorAll('input.oc-in[data-correct]');
+      let right = 0, total = inputs.length;
+      inputs.forEach(inp => {
+        const correct = (inp.dataset.correct || '').split('|').map(s => s.trim());
+        const val = (inp.value || '').trim();
+        const isMatch = correct.some(c => c.toLowerCase() === val.toLowerCase());
+        if (reveal) {
+          inp.value = correct[0];
+          inp.classList.remove('wrong'); inp.classList.add('right');
+        } else if (isMatch) {
+          inp.classList.remove('wrong'); inp.classList.add('right'); right++;
+        } else if (val) {
+          inp.classList.remove('right'); inp.classList.add('wrong');
+        }
+      });
+      if (!reveal) alert('Score: ' + right + ' / ' + total);
+    }
+    if (c) c.onclick = () => proc(false);
+    if (r) r.onclick = () => proc(true);
+  }
+  bindOc('checkDelete', 'revealDelete');
+  bindOc('checkMatch', 'revealMatch');
+
+  // ─── T/F buttons in Station 04 (auto-mark green/red on click) ───
+  document.querySelectorAll('.tfg-opts').forEach(row => {
+    const correct = row.dataset.correct;
+    row.querySelectorAll('button[data-ans]').forEach(b => {
+      b.addEventListener('click', () => {
+        row.querySelectorAll('button').forEach(x => x.classList.remove('right','wrong'));
+        b.classList.add(b.dataset.ans === correct ? 'right' : 'wrong');
+        if (b.dataset.ans === correct) {
+          row.querySelectorAll('button').forEach(x => { if (x.dataset.ans === correct) x.classList.add('right'); });
+        }
+      });
+    });
+  });
+  document.querySelectorAll('.mc-opts').forEach(row => {
+    const correct = row.dataset.correct;
+    row.querySelectorAll('button[data-ans]').forEach(b => {
+      b.addEventListener('click', () => {
+        row.querySelectorAll('button').forEach(x => x.classList.remove('right','wrong'));
+        b.classList.add(b.dataset.ans === correct ? 'right' : 'wrong');
+      });
+    });
+  });
+
+  // ─── Show full listening script ───
+  const revealScript = document.getElementById('revealScript');
+  const script = document.getElementById('lstScript');
+  if (revealScript && script) revealScript.onclick = () => script.classList.add('open');
+
+  // ─── Word count on writing textarea ───
+  const ta = document.getElementById('miniWrite');
+  const wcEl = document.querySelector('.word-count');
+  if (ta && wcEl) {
+    ta.addEventListener('input', () => {
+      const w = (ta.value.trim().match(/\S+/g) || []).length;
+      wcEl.textContent = w + ' words';
+      wcEl.style.color = (w >= 150 && w <= 180) ? 'var(--ok)' : (w > 180 || w < 100) ? 'var(--miss)' : 'var(--accent)';
+    });
+  }
+
+  // ─── Tabs (Station 10 — IELTS / ВОШ) ───
+  document.querySelectorAll('.tab-row').forEach(row => {
+    row.addEventListener('click', ev => {
+      const btn = ev.target.closest('.tab-btn');
+      if (!btn) return;
+      const tab = btn.dataset.tab;
+      const container = row.parentElement;
+      container.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+      container.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('active', p.dataset.pane === tab));
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
