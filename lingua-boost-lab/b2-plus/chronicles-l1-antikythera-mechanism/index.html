@@ -151,29 +151,8 @@ details.homework .hw-body h4{font-family:var(--display);font-weight:800;color:va
   box-shadow:0 10px 40px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.04);
   min-height:500px;padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px)}
 .hero-bg{position:absolute;inset:0;z-index:0;
-  background:url("assets/img/hero-cover.webp") center/cover no-repeat;
-  background-position:center 30%;
+  background:url("assets/img/hero-cover.webp") 72% center/cover no-repeat;
   opacity:1}
-.hero-bg::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,41,56,.10) 0%,rgba(15,41,56,.28) 55%,rgba(15,41,56,.55) 100%)}
-
-/* ═══ Chronicles ambient background — hero image tiled softly across the whole quest ═══ */
-body::before{
-  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:url("assets/img/hero-cover.webp") center/cover no-repeat fixed;
-  opacity:.10;
-  filter:blur(1px);
-}
-body::after{
-  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(ellipse at 20% 15%, rgba(201,153,61,.12), transparent 55%),
-    radial-gradient(ellipse at 85% 85%, rgba(122,78,45,.16), transparent 55%),
-    linear-gradient(180deg, rgba(15,41,56,.62) 0%, rgba(15,41,56,.82) 100%);
-}
-body > *{position:relative;z-index:1}
-@media (max-width:720px){
-  body::before{background-attachment:scroll;opacity:.07}
-}
 .hero-bg::after{content:"";position:absolute;inset:0;
   background:linear-gradient(90deg,rgba(2,7,22,.98) 0%,rgba(2,7,22,.94) 42%,rgba(2,7,22,.38) 57%,rgba(2,7,22,.04) 72%,transparent 100%)}
 .hero-card > *:not(.hero-bg){position:relative;z-index:1}
@@ -413,14 +392,33 @@ section.section[data-station].done .station-mark-btn{background:var(--ok);color:
 section.section[data-station].done .station-mark-btn::before{content:"✓ "}
 
 /* Trophy final card */
-.trophy-card{background:linear-gradient(135deg,var(--brand),var(--surface-2));border:2px solid var(--accent);
-  border-radius:22px;padding:32px clamp(24px,4vw,44px);text-align:center;box-shadow:0 12px 44px rgba(0,0,0,.4);position:relative;overflow:hidden}
-.trophy-card::before{content:"";position:absolute;inset:-40%;background:radial-gradient(circle,rgba(230,181,85,.18),transparent 60%);pointer-events:none}
-.trophy-emoji{font-size:5rem;margin-bottom:10px;filter:drop-shadow(0 4px 12px rgba(230,181,85,.5));position:relative;z-index:1}
-.trophy-name{font-family:var(--display);font-weight:900;font-size:clamp(1.4rem,3vw,2rem);color:var(--accent-2);letter-spacing:-.02em;margin-bottom:8px;position:relative;z-index:1}
-.trophy-sub{font-family:var(--mono);font-size:.86rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);position:relative;z-index:1}
-.trophy-next{margin-top:22px;padding:16px 20px;background:rgba(0,0,0,.28);border:1px dashed var(--accent);border-radius:14px;color:var(--text);font-size:.95rem;line-height:1.55;position:relative;z-index:1}
+.trophy-card{
+  background:
+    linear-gradient(135deg,rgba(15,41,56,.72),rgba(122,78,45,.55) 60%,rgba(15,41,56,.85)),
+    url("assets/img/victory-trophy-alt.webp") center/cover no-repeat;
+  border:2px solid var(--accent);
+  border-radius:22px;
+  padding:clamp(60px,10vw,120px) clamp(24px,4vw,44px);
+  text-align:center;
+  box-shadow:0 12px 44px rgba(0,0,0,.4), inset 0 0 120px rgba(0,0,0,.4);
+  position:relative;overflow:hidden;
+  min-height:clamp(360px,55vw,520px);
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+}
+.trophy-card::before{content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at center,transparent 30%,rgba(15,41,56,.5) 85%),
+    radial-gradient(circle at 50% 40%, rgba(230,181,85,.22), transparent 55%);
+  pointer-events:none}
+.trophy-card > img{display:none} /* картинка теперь фоном, тег скрыт */
+.trophy-emoji{font-size:clamp(4rem,8vw,6rem);margin-bottom:16px;filter:drop-shadow(0 4px 20px rgba(230,181,85,.8));position:relative;z-index:1;text-shadow:0 4px 24px rgba(0,0,0,.6)}
+.trophy-name{font-family:var(--display);font-weight:900;font-size:clamp(1.6rem,4vw,2.6rem);color:var(--accent-2);letter-spacing:-.02em;margin-bottom:10px;position:relative;z-index:1;text-shadow:0 2px 16px rgba(0,0,0,.75), 0 0 40px rgba(0,0,0,.5)}
+.trophy-sub{font-family:var(--mono);font-size:clamp(.78rem,1.2vw,.95rem);letter-spacing:.14em;text-transform:uppercase;color:var(--text);position:relative;z-index:1;text-shadow:0 1px 8px rgba(0,0,0,.8);opacity:.92}
+.trophy-next{margin-top:28px;padding:18px 22px;background:rgba(0,0,0,.62);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px dashed var(--accent);border-radius:14px;color:var(--text);font-size:.95rem;line-height:1.6;position:relative;z-index:1;max-width:720px}
 .trophy-next strong{color:var(--accent-2)}
+@media (max-width:640px){
+  .trophy-card{background-position:center 30%}
+}
 
 @media (max-width:720px){
   .hero-card{min-height:0}
