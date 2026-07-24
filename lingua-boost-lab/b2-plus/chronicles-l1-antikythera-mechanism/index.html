@@ -426,8 +426,26 @@ section.section[data-station].done .station-mark-btn::before{content:"✓ "}
 #lab-speech-coach .lab-hw-add,
 section#station-victory .lab-hw-section-btn,
 section#station-11 .lab-hw-section-btn { display: none !important; }
-/* Overflow guard — на всякий случай если что-то ещё вылезет */
-.lab-coach-section, #lab-speech-coach { overflow: hidden; position: relative; }
+
+/* ═══ Speech Coach section — жёсткое правило чтобы никогда не вылезал шире 1240px ═══ */
+.lab-coach-section,
+#lab-speech-coach,
+section:has(> #lab-speech-coach),
+section:has(> .lab-coach-section){
+  max-width: 1240px !important;
+  width: 100% !important;
+  margin: 24px auto !important;
+  padding: 0 clamp(16px, 3vw, 28px) !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+/* Все внутренние блоки coach — тоже 100% ширина без раздутия */
+.lab-coach-section > *,
+#lab-speech-coach > *{
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
 
 @media (max-width:720px){
   .hero-card{min-height:0}
