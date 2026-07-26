@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Denis · Test · A1 Full Year Review</title>
+<meta name="description" content="A1 full-year review workbook for Denis · 19 chapters · 160+ interactive items · progress-tracking (grey → orange → gold).">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#E9E7E2; --paper:#FFFFFF; --cream:#EFEEE9; --cream-soft:#F4F3EE;
+  --orange:#E8542B; --orange-soft:#F4A86A; --orange-tint:#FFF1E8;
+  --gold:#F4C84B; --gold-soft:#FBE9A6;
+  --ink:#1F1F1F; --ink-2:#2C2C2C; --muted:#7B7B7B; --faint:#A9A9A9;
+  --rule:#D9D7D2; --rule-2:#C6C4BF;
+  --ok:#5BA872; --miss:#C45A5A;
+  --display:"Unbounded","Manrope",system-ui,sans-serif;
+  --body:"Manrope",system-ui,sans-serif;
+  --mono:"JetBrains Mono",Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--body);background:var(--bg);color:var(--ink);min-height:100vh;line-height:1.6;overflow-x:hidden;font-size:15px}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit}
+
+/* Topbar */
+.topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;padding:10px clamp(14px,3vw,26px);
+  background:color-mix(in srgb,var(--bg) 94%,transparent);border-bottom:1px solid var(--rule);backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-mark{width:38px;height:38px;border-radius:9px;background:var(--orange);color:#fff;
+  font-family:var(--display);font-weight:900;font-size:20px;display:grid;place-items:center;line-height:1;
+  box-shadow:0 2px 4px rgba(232,84,43,.25)}
+.brand-copy{display:grid;gap:1px}
+.brand-name{font-family:var(--display);font-weight:800;font-size:14px;letter-spacing:.02em}
+.brand-sub{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.spacer{flex:1}
+.tb-progress{display:flex;align-items:center;gap:10px}
+.tb-count{font:800 11px/1 var(--mono);letter-spacing:.14em;color:var(--muted);text-transform:uppercase;white-space:nowrap}
+.tb-count b{color:var(--orange);font-weight:800}
+.tb-dots{display:flex;gap:4px;align-items:center}
+.tb-dot{width:10px;height:10px;border-radius:50%;background:var(--rule);cursor:pointer;transition:.2s;border:none;padding:0}
+.tb-dot:hover{transform:scale(1.4)}
+.tb-dot.in-progress{background:var(--orange)}
+.tb-dot.mastered{background:var(--gold);box-shadow:0 0 0 2px rgba(244,200,75,.30)}
+.tb-reset{background:transparent;border:1px solid var(--rule-2);color:var(--muted);font:700 10px/1 var(--mono);letter-spacing:.1em;
+  padding:6px 10px;border-radius:6px;cursor:pointer;text-transform:uppercase}
+.tb-reset:hover{border-color:var(--orange);color:var(--orange)}
+@media(max-width:900px){
+  .tb-dots{display:none}
+  .brand-sub{display:none}
+}
+
+/* Hero */
+.hero{max-width:1240px;margin:20px auto 14px;padding:0 clamp(14px,3vw,26px)}
+.hero-card{position:relative;border:1px solid var(--rule);border-radius:22px;overflow:hidden;background:var(--cream);
+  padding:clamp(24px,4vw,44px);box-shadow:0 8px 32px rgba(0,0,0,.08)}
+.hero-card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;
+  background:linear-gradient(90deg,var(--orange) 0%,var(--orange) 55%,var(--gold) 100%)}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--orange);color:#fff;
+  padding:6px 12px;border-radius:50px;font:800 10px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;margin-bottom:16px}
+h1.hero-title{font-family:var(--display);font-weight:900;letter-spacing:-.02em;line-height:1.05;
+  font-size:clamp(1.6rem,3.6vw,2.4rem);margin-bottom:12px;color:var(--ink)}
+h1.hero-title .grad{background:linear-gradient(120deg,var(--orange),var(--gold));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-lead{font-size:.98rem;color:var(--ink-2);max-width:720px;line-height:1.6}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:22px}
+.hero-stat{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:12px 14px}
+.hero-stat b{display:block;font-family:var(--display);font-size:1.4rem;color:var(--orange);line-height:1;margin-bottom:4px}
+.hero-stat b.mast{color:var(--gold)}
+.hero-stat span{font:700 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+
+/* Legend */
+.legend{max-width:1240px;margin:0 auto 20px;padding:0 clamp(14px,3vw,26px);display:flex;flex-wrap:wrap;gap:12px;align-items:center;font-size:.86rem;color:var(--muted)}
+.legend-dot{display:inline-flex;align-items:center;gap:6px;background:var(--paper);border:1px solid var(--rule);padding:5px 10px;border-radius:50px}
+.legend-dot .dot{width:10px;height:10px;border-radius:50%;background:var(--rule)}
+.legend-dot .dot.mid{background:var(--orange)}
+.legend-dot .dot.max{background:var(--gold);box-shadow:0 0 0 2px rgba(244,200,75,.30)}
+
+/* Section */
+.section{max-width:1240px;margin:0 auto 24px;padding:0 clamp(14px,3vw,26px);scroll-margin-top:70px}
+.section-hdr{display:flex;align-items:center;gap:12px;margin:22px 0 10px;flex-wrap:wrap}
+.section-dot{width:16px;height:16px;border-radius:50%;background:var(--rule);border:2px solid var(--paper);
+  box-shadow:0 0 0 1px var(--rule);transition:.25s;flex-shrink:0}
+.section-dot.in-progress{background:var(--orange);box-shadow:0 0 0 1px var(--orange)}
+.section-dot.mastered{background:var(--gold);box-shadow:0 0 0 1px var(--gold),0 0 0 4px rgba(244,200,75,.24)}
+.section-num{font:800 11px/1 var(--mono);letter-spacing:.16em;background:var(--orange);color:#fff;padding:5px 10px;border-radius:50px;text-transform:uppercase}
+.section-hdr h2{font-family:var(--display);font-weight:800;font-size:clamp(1.15rem,2vw,1.45rem);letter-spacing:-.01em;line-height:1.1;color:var(--ink)}
+.section-status{font:700 10px/1 var(--mono);letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin-left:auto}
+.section-status.in-progress{color:var(--orange)}
+.section-status.mastered{color:var(--gold)}
+.section-sub{font-size:.9rem;color:var(--muted);margin:0 0 12px;font-style:italic}
+
+/* Card / task-tag */
+.card{background:var(--paper);border:1px solid var(--rule);border-radius:16px;padding:18px 22px;box-shadow:0 2px 10px rgba(0,0,0,.04);margin-bottom:14px}
+.task-tag{display:inline-block;font:800 10px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;background:var(--orange-tint);color:var(--orange);border:1px solid var(--orange-soft);border-radius:50px;padding:4px 10px;margin-bottom:10px}
+.info{background:var(--cream-soft);border-left:3px solid var(--orange);padding:10px 14px;border-radius:0 8px 8px 0;font-size:.9rem;color:var(--ink);margin:10px 0}
+.info strong{color:var(--orange)}
+
+/* MCQ */
+.mcq-row{background:var(--cream-soft);border:1px solid var(--rule);border-radius:12px;padding:12px 14px;margin:8px 0}
+.mcq-q{font-size:.95rem;color:var(--ink);margin-bottom:8px;line-height:1.5}
+.mcq-q .blank{display:inline-block;min-width:56px;padding:0 8px;border-bottom:2px dashed var(--orange);font-weight:700;color:var(--orange)}
+.mcq-opts{display:flex;flex-direction:column;gap:5px}
+.mcq-opts button{background:var(--paper);border:1px solid var(--rule);color:var(--ink);padding:8px 12px;border-radius:8px;
+  font-size:.9rem;cursor:pointer;text-align:left;transition:.15s}
+.mcq-opts button:hover{border-color:var(--orange);color:var(--orange)}
+.mcq-opts button.correct{background:rgba(91,168,114,.14);border-color:var(--ok);color:var(--ok);font-weight:700}
+.mcq-opts button.wrong{background:rgba(196,90,90,.10);border-color:var(--miss);color:var(--miss)}
+.mcq-note{display:none;margin-top:8px;font:italic 500 .82rem/1.4 var(--mono);color:var(--muted);
+  background:var(--gold-soft);border-left:3px solid var(--gold);padding:6px 10px;border-radius:0 6px 6px 0}
+.mcq-row.revealed .mcq-note{display:block}
+
+/* Gap-fill */
+.gapfill{background:var(--cream-soft);border:1px solid var(--rule);border-radius:12px;padding:14px 16px;margin:10px 0;line-height:2;color:var(--ink)}
+.gapfill ol{padding-left:22px;margin:0}
+.gapfill li{margin-bottom:6px}
+.gapfill input{display:inline-block;min-width:80px;font:600 .92rem var(--body);background:var(--paper);color:var(--ink);border:1.5px solid var(--rule-2);border-radius:6px;padding:3px 8px;outline:none;text-align:center;margin:0 2px}
+.gapfill input:focus{border-color:var(--orange)}
+.gapfill input.correct{background:rgba(91,168,114,.14);border-color:var(--ok);color:var(--ok);font-weight:700}
+.gapfill input.wrong{background:rgba(196,90,90,.10);border-color:var(--miss);color:var(--miss)}
+.gap-controls{display:flex;gap:8px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.btn{font:800 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--orange);color:#fff;border:none;padding:9px 14px;border-radius:8px;cursor:pointer;transition:.15s}
+.btn:hover{background:#c8461f}
+.btn.ghost{background:var(--paper);color:var(--muted);border:1px solid var(--rule-2)}
+.btn.ghost:hover{border-color:var(--orange);color:var(--orange)}
+.check-result{font:800 .82rem/1 var(--mono);letter-spacing:.12em;color:var(--orange)}
+.check-result.perfect{color:var(--gold)}
+
+/* Match */
+.match{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+.match-col{display:flex;flex-direction:column;gap:6px}
+.match-item{background:var(--paper);border:1.5px solid var(--rule-2);padding:9px 12px;border-radius:9px;cursor:pointer;font-size:.9rem;transition:.15s;text-align:left}
+.match-item:hover{border-color:var(--orange)}
+.match-item.selected{border-color:var(--orange);background:var(--orange-tint);color:var(--orange);font-weight:700}
+.match-item.matched{background:rgba(91,168,114,.10);border-color:var(--ok);color:var(--ok);cursor:default;font-weight:700}
+.match-item.wrong{background:rgba(196,90,90,.10);border-color:var(--miss);color:var(--miss);animation:shake .35s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+
+/* Drag bank / prepositions */
+.drag-bank{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.drag-pill{background:var(--paper);border:1.5px solid var(--rule-2);color:var(--ink);padding:7px 12px;border-radius:22px;cursor:pointer;font:700 12px var(--mono);transition:.15s;letter-spacing:.04em}
+.drag-pill:hover{border-color:var(--orange);color:var(--orange);background:var(--orange-tint)}
+.drag-pill.selected{border-color:var(--orange);background:var(--orange);color:#fff}
+.drag-pill.used{opacity:.35;cursor:default;text-decoration:line-through}
+.drag-target{display:inline-block;min-width:80px;padding:2px 10px;margin:0 3px;border:1.5px dashed var(--orange);border-radius:6px;font:700 .92rem var(--body);color:var(--orange);text-align:center;cursor:pointer;background:var(--orange-tint);vertical-align:baseline;min-height:26px;line-height:1.4}
+.drag-target.filled{border-style:solid}
+.drag-target.correct{background:rgba(91,168,114,.14);border-color:var(--ok);color:var(--ok)}
+.drag-target.wrong{background:rgba(196,90,90,.10);border-color:var(--miss);color:var(--miss)}
+
+/* Word order */
+.wo-block{background:var(--cream-soft);border:1px solid var(--rule);border-radius:12px;padding:14px 16px;margin:10px 0}
+.wo-hint{font-size:.86rem;color:var(--muted);margin-bottom:8px;font-style:italic}
+.wo-slots{min-height:52px;background:var(--paper);border:2px dashed var(--rule-2);border-radius:10px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;align-items:center}
+.wo-slots:empty::before{content:"Tap words below to build the sentence";font-size:.82rem;color:var(--faint);font-style:italic;font-family:var(--mono);padding:6px 8px}
+.wo-slots.correct{border-color:var(--ok);border-style:solid;background:rgba(91,168,114,.06)}
+.wo-slots.wrong{border-color:var(--miss);background:rgba(196,90,90,.05)}
+.wo-bank{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.wo-word{background:var(--paper);border:1.5px solid var(--rule-2);color:var(--ink);padding:6px 12px;border-radius:8px;cursor:pointer;font-family:var(--body);font-weight:600;font-size:.9rem;transition:.12s}
+.wo-word:hover{border-color:var(--orange);color:var(--orange)}
+.wo-word.placed{background:var(--orange);color:#fff;border-color:var(--orange)}
+.wo-slots .wo-word{background:var(--orange-tint);border-color:var(--orange-soft);color:var(--orange);font-weight:700}
+
+/* Translate */
+.trans-row{background:var(--cream-soft);border:1px solid var(--rule);border-radius:12px;padding:12px 14px;margin:10px 0}
+.trans-ru{font-family:Georgia,serif;font-style:italic;color:var(--ink);margin-bottom:8px;padding:8px 10px;background:var(--paper);border-left:3px solid var(--orange);border-radius:0 6px 6px 0;font-size:.96rem}
+.trans-row textarea{width:100%;min-height:44px;border:1px solid var(--rule-2);border-radius:8px;background:var(--paper);padding:8px 10px;font-family:var(--body);font-size:.94rem;outline:none;resize:vertical;color:var(--ink)}
+.trans-row textarea:focus{border-color:var(--orange)}
+.trans-controls{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;align-items:center}
+.trans-target{display:none;margin-top:6px;font:600 .94rem/1.5 Georgia,serif;color:var(--ok);background:rgba(91,168,114,.08);padding:8px 12px;border-radius:6px;border-left:3px solid var(--ok)}
+.trans-target::before{content:"✅ ";font-style:normal}
+.trans-row.shown .trans-target{display:block}
+
+/* Footer */
+.foot{max-width:1240px;margin:40px auto 0;padding:20px clamp(14px,3vw,26px);background:var(--cream-soft);border-top:1px solid var(--rule);text-align:center;color:var(--muted);font-size:.86rem;line-height:1.55}
+.foot strong{color:var(--ink)}
+
+/* Chapter grid inside sections for compact drills */
+.mini-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.tag-row{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.tag{font-size:12px;font-weight:600;color:var(--orange);background:var(--orange-tint);border:1px solid var(--orange-soft);padding:4px 10px;border-radius:50px}
+
+/* Tab bar */
+.tabbar{position:sticky;top:60px;z-index:99;display:flex;gap:8px;padding:10px clamp(14px,3vw,26px);background:color-mix(in srgb,var(--bg) 94%,transparent);border-bottom:1px solid var(--rule);backdrop-filter:blur(14px);max-width:1240px;margin:0 auto;justify-content:center}
+.tab-btn{background:var(--cream-soft);border:1.5px solid var(--rule);color:var(--muted);padding:10px 22px;border-radius:12px;font:800 11px var(--mono);letter-spacing:.16em;cursor:pointer;text-transform:uppercase;transition:.15s;display:inline-flex;align-items:center;gap:8px}
+.tab-btn:hover{border-color:var(--orange);color:var(--orange)}
+.tab-btn.active{background:var(--orange);color:#fff;border-color:var(--orange);box-shadow:0 4px 14px rgba(232,84,43,.25)}
+.tab-btn .tab-count{font-size:10px;opacity:.8;letter-spacing:.05em}
+.tab-btn.active .tab-count{background:rgba(255,255,255,.22);padding:2px 6px;border-radius:8px}
+body.active-vocab .tab-grammar{display:none}
+body.active-grammar .tab-vocab{display:none}
+@media(max-width:600px){.tab-btn{padding:9px 14px;letter-spacing:.1em}}
+
+/* Type-in vocab drills */
+.type-drill{background:var(--cream-soft);border:1px solid var(--rule);border-radius:12px;padding:14px 16px;margin:10px 0}
+.type-drill ol{padding-left:22px;margin:0}
+.type-drill li{margin-bottom:8px;font-family:Georgia,serif;color:var(--ink);font-size:.98rem;line-height:1.6}
+.type-drill li .ru{color:var(--muted);margin-right:10px;font-style:italic}
+.type-drill li .arrow{color:var(--orange);font-weight:800;margin:0 6px}
+.type-drill input{display:inline-block;min-width:150px;font:600 .96rem var(--body);background:var(--paper);color:var(--ink);border:1.5px solid var(--rule-2);border-radius:6px;padding:5px 10px;outline:none;text-align:left;margin:0 4px;vertical-align:middle}
+.type-drill input:focus{border-color:var(--orange)}
+.type-drill input.correct{background:rgba(91,168,114,.14);border-color:var(--ok);color:var(--ok);font-weight:700}
+.type-drill input.wrong{background:rgba(196,90,90,.10);border-color:var(--miss);color:var(--miss)}
+
+/* Listening (dictation) */
+.listen-row{background:var(--cream-soft);border:1px solid var(--rule);border-radius:12px;padding:12px 14px;margin:10px 0;display:grid;gap:8px}
+.listen-controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.listen-play{display:inline-flex;align-items:center;gap:6px;font:800 10px/1 var(--mono);letter-spacing:.14em;background:var(--orange);color:#fff;border:none;padding:8px 14px;border-radius:8px;cursor:pointer;text-transform:uppercase}
+.listen-play:hover{background:#c8461f}
+.listen-play::before{content:"▶";font-size:12px}
+.listen-slow{background:var(--paper);color:var(--muted);border:1px solid var(--rule-2);font:800 10px/1 var(--mono);letter-spacing:.14em;padding:8px 12px;border-radius:8px;cursor:pointer;text-transform:uppercase}
+.listen-slow:hover{border-color:var(--orange);color:var(--orange)}
+.listen-num{font:800 10px/1 var(--mono);letter-spacing:.14em;color:var(--gold);text-transform:uppercase}
+.listen-row textarea{width:100%;min-height:52px;border:1px solid var(--rule-2);border-radius:8px;background:var(--paper);padding:8px 10px;font-family:var(--body);font-size:.94rem;outline:none;resize:vertical;color:var(--ink)}
+.listen-row textarea:focus{border-color:var(--orange)}
+.listen-row textarea.correct{border-color:var(--ok);background:rgba(91,168,114,.06)}
+.listen-row textarea.wrong{border-color:var(--miss);background:rgba(196,90,90,.05)}
+.listen-target{display:none;margin-top:4px;font:600 .92rem/1.45 Georgia,serif;color:var(--ok);background:rgba(91,168,114,.08);padding:8px 10px;border-radius:6px;border-left:3px solid var(--ok)}
+.listen-target::before{content:"✅ ";font-style:normal}
+.listen-row.shown .listen-target{display:block}
+
+/* Reading */
+.reading-passage{background:linear-gradient(135deg,var(--cream) 0%,var(--cream-soft) 100%);border:1px solid var(--rule);border-radius:12px;padding:18px 22px;margin:12px 0;font-family:Georgia,serif;font-size:1rem;line-height:1.75;color:var(--ink)}
+.reading-passage h4{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--orange);margin-bottom:10px;letter-spacing:-.01em}
+.reading-passage p{margin-bottom:10px}
+.reading-passage p:last-child{margin-bottom:0}
+.tf-row{background:var(--cream-soft);border:1px solid var(--rule);border-radius:12px;padding:12px 14px;margin:8px 0;display:grid;gap:8px}
+.tf-q{font-size:.94rem;color:var(--ink);line-height:1.5}
+.tf-opts{display:flex;gap:8px;flex-wrap:wrap}
+.tf-opts button{background:var(--paper);border:1.5px solid var(--rule-2);color:var(--ink);padding:8px 16px;border-radius:8px;font:700 12px var(--mono);letter-spacing:.08em;cursor:pointer;transition:.15s;text-transform:uppercase}
+.tf-opts button:hover{border-color:var(--orange);color:var(--orange)}
+.tf-opts button.correct{background:rgba(91,168,114,.14);border-color:var(--ok);color:var(--ok);font-weight:700}
+.tf-opts button.wrong{background:rgba(196,90,90,.10);border-color:var(--miss);color:var(--miss)}
+.tf-note{display:none;font:italic 500 .82rem/1.4 var(--mono);color:var(--muted);background:var(--gold-soft);border-left:3px solid var(--gold);padding:6px 10px;border-radius:0 6px 6px 0;margin-top:6px}
+.tf-row.revealed .tf-note{display:block}
+</style>
+</head>
+<body>
+
+<!-- ============ TOPBAR ============ -->
+<div class="topbar">
+  <div class="brand">
+    <span class="brand-mark">N</span>
+    <div class="brand-copy">
+      <span class="brand-name">DENIS · TEST</span>
+      <span class="brand-sub">A1 · Full-year review</span>
+    </div>
+  </div>
+  <div class="spacer"></div>
+  <div class="tb-progress">
+    <span class="tb-count"><b id="tb-mastered">0</b>/22 mastered</span>
+    <div class="tb-dots" id="tb-dots"></div>
+    <button class="tb-reset" id="tb-reset" title="Reset progress">Reset</button>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="hero-card">
+    <div class="hero-eyebrow">A1 · full-year review</div>
+    <h1 class="hero-title">Test for Denis · <span class="grad">22 chapters, one go</span></h1>
+    <p class="hero-lead">Everything we covered this year — grammar, vocab, listening &amp; reading — in one interactive test. Every chapter earns a dot: <b style="color:var(--rule-2)">grey</b> = not started, <b style="color:var(--orange)">orange</b> = in progress, <b style="color:var(--gold)">gold</b> = 100% correct. Progress saves automatically in this browser. Take one chapter a day, or run the whole thing at once.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><b>22</b><span>Chapters</span></div>
+      <div class="hero-stat"><b>240+</b><span>Items</span></div>
+      <div class="hero-stat"><b id="hs-progress">0</b><span>In progress</span></div>
+      <div class="hero-stat"><b class="mast" id="hs-mastered">0</b><span>Mastered</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ TAB BAR ============ -->
+<div class="tabbar" id="tabbar">
+  <button class="tab-btn active" data-tab="grammar">Grammar <span class="tab-count">13 ch</span></button>
+  <button class="tab-btn" data-tab="vocab">Vocab &amp; skills <span class="tab-count">9 ch</span></button>
+</div>
+
+<div class="legend">
+  <span>Progress:</span>
+  <span class="legend-dot"><span class="dot"></span> not started</span>
+  <span class="legend-dot"><span class="dot mid"></span> in progress</span>
+  <span class="legend-dot"><span class="dot max"></span> mastered · 100%</span>
+</div>
+
+<!-- ============ 1 · Verb to be ============ -->
+<section class="section tab-grammar" id="c1" data-chapter="1">
+  <div class="section-hdr">
+    <span class="section-dot"></span>
+    <span class="section-num">1</span>
+    <h2>Verb to be — am / is / are</h2>
+    <span class="section-status">Not started</span>
+  </div>
+  <p class="section-sub">Без am/is/are — никак. «Я устал», «это вкусно», «они дома» — везде нужен глагол-связка.</p>
+  <div class="info"><strong>Reminder:</strong> I → <b>am</b> · he / she / it → <b>is</b> · you / we / they → <b>are</b>. Nothing else.</div>
+  <div class="card">
+    <div class="task-tag">Ex.1 · Choose am / is / are · 10 items</div>
+    <div class="gapfill" data-ex="c1-1">
+      <ol>
+        <li>I <input data-a="am"> tired today.</li>
+        <li>She <input data-a="is"> at home right now.</li>
+        <li>They <input data-a="are"> students at my school.</li>
+        <li>It <input data-a="is"> cold in the morning.</li>
+        <li>We <input data-a="are"> friends since 2020.</li>
+        <li>He <input data-a="is"> a doctor.</li>
+        <li>You <input data-a="are"> my best friend.</li>
+        <li>My parents <input data-a="are"> in Moscow.</li>
+        <li>Our new flat <input data-a="is"> very quiet.</li>
+        <li>The kids <input data-a="are"> at school now.</li>
+      </ol>
+      <div class="gap-controls"><button class="btn" data-check>Check</button><button class="btn ghost" data-reset>Reset</button><span class="check-result"></span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="task-tag">Ex.2 · Questions · 5 MCQ</div>
+    <div class="mcq-row" data-ans="b" data-ex="c1-2"><div class="mcq-q"><strong>1.</strong> <span class="blank">___</span> you tired?</div>
+      <div class="mcq-opts"><button>Is</button><button>Are</button><button>Am</button></div>
+      <div class="mcq-note">"you" всегда идёт с "are".</div></div>
+    <div class="mcq-row" data-ans="a" data-ex="c1-2"><div class="mcq-q"><strong>2.</strong> <span class="blank">___</span> he at home?</div>
+      <div class="mcq-opts"><button>Is</button><button>Are</button><button>Am</button></div>
+      <div class="mcq-note">"he/she/it" → is.</div></div>
+    <div class="mcq-row" data-ans="c" data-ex="c1-2"><div class="mcq-q"><strong>3.</strong> <span class="blank">___</span> I right?</div>
+      <div class="mcq-opts"><button>Is</button><button>Are</button><button>Am</button></div>
+      <div class="mcq-note">"I" → am.</div></div>
+    <div class="mcq-row" data-ans="b" data-ex="c1-2"><div class="mcq-q"><strong>4.</strong> They <span class="blank">___</span> not from Moscow.</div>
+      <div class="mcq-opts"><button>isn't</button><button>aren't</button><button>am not</button></div>
+      <div class="mcq-note">"they" → are, отрицание — aren't.</div></div>
+    <div class="mcq-row" data-ans="a" data-ex="c1-2"><div class="mcq-q"><strong>5.</strong> — Are you a teacher? — Yes, I <span class="blank">___</span>.</div>
+      <div class="mcq-opts"><button>am</button><button>are</button><button>is</button></div>
+      <div class="mcq-note">Короткий ответ повторяет вспомогательный: Yes, I am.</div></div>
+  </div>
+</section>
+
+<!-- ============ 2 · Present Simple ============ -->
+<section class="section tab-grammar" id="c2" data-chapter="2">
+  <div class="section-hdr">
+    <span class="section-dot"></span>
+    <span class="section-num">2</span>
+    <h2>Present Simple — habits &amp; facts</h2>
+    <span class="section-status">Not started</span>
+  </div>
+  <p class="section-sub">Каждый день · всегда · обычно · по воскресеньям. Не «прямо сейчас».</p>
+  <div class="card">
+    <div class="task-tag">Ex.1 · Mix · Present Simple OR Present Continuous · 10 items</div>
+    <div class="info">Look at the time marker (<em>every day / now / right now / today / usually</em>) — it tells you which tense to use.</div>
+    <div class="gapfill" data-ex="c2-1">
+      <ol>
+        <li>I usually <input data-a="drink"> (drink) coffee in the morning.</li>
+        <li>She <input data-a="works"> (work) in a bank.</li>
+        <li>Right now, I <input data-a="am reading|am reading a book"> (read) a book.</li>
+        <li>My brother <input data-a="lives"> (live) in Moscow.</li>
+        <li>Look! It <input data-a="is raining"> (rain) outside.</li>
+        <li>We <input data-a="don't work|do not work"> (not / work) on Sundays.</li>
+        <li>Denis <input data-a="is wearing"> (wear) a hoodie right now.</li>
+        <li>The train <input data-a="leaves"> (leave) at 7 every day.</li>
+        <li>Listen! The kids <input data-a="are playing"> (play) in the yard.</li>
+        <li>He <input data-a="doesn't drink|does not drink"> (not / drink) alcohol.</li>
+      </ol>
+      <div class="gap-controls"><button class="btn" data-check>Check</button><button class="btn ghost" data-reset>Reset</button><span class="check-result"></span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="task-tag">Ex.2 · Third person -s · 5 MCQ</div>
+    <div class="mcq-row" data-ans="b" data-ex="c2-2"><div class="mcq-q"><strong>1.</strong> He <span class="blank">___</span> in a hospital.</div>
+      <div class="mcq-opts"><button>work</button><button>works</button><button>working</button></div>
+      <div class="mcq-note">He → works.</div></div>
+    <div class="mcq-row" data-ans="a" data-ex="c2-2"><div class="mcq-q"><strong>2.</strong> Does she <span class="blank">___</span> tea?</div>
+      <div class="mcq-opts"><button>like</button><button>likes</button><button>liking</button></div>
+      <div class="mcq-note">После does → без -s: like.</div></div>
+    <div class="mcq-row" data-ans="c" data-ex="c2-2"><div class="mcq-q"><strong>3.</strong> They <span class="blank">___</span> in Moscow.</div>
+      <div class="mcq-opts"><button>lives</button><button>living</button><button>live</button></div>
+      <div class="mcq-note">They → live.</div></div>
+    <div class="mcq-row" data-ans="b" data-ex="c2-2"><div class="mcq-q"><strong>4.</strong> She <span class="blank">___</span> tennis on Sunday.</div>
+      <div class="mcq-opts"><button>play</button><button>plays</button><button>playing</button></div>
+      <div class="mcq-note">She → plays.</div></div>
+    <div class="mcq-row" data-ans="a" data-ex="c2-2"><div class="mcq-q"><strong>5.</strong> My cat <span class="blank">___</span> eat fish.</div>
+      <div class="mcq-opts"><button>doesn't</button><button>don't</button><button>isn't</button></div>
+      <div class="mcq-note">it → doesn't.</div></div>
+  </div>
+</section>
+
+<!-- ============ 3 · Present Continuous ============ -->
+<section class="section tab-grammar" id="c3" data-chapter="3">
+  <div class="section-hdr">
+    <span class="section-dot"></span>
+    <span class="section-num">3</span>
+    <h2>Present Continuous — right now</h2>
+    <span class="section-status">Not started</span>
+  </div>
+  <p class="section-sub">am / is / are + V-ing. Прямо сейчас · в этот момент · сегодня · временно.</p>
+  <div class="card">
+    <div class="task-tag">Ex.1 · Gap-fill · am / is / are + verb-ing · 8 items</div>
+    <div class="gapfill" data-ex="c3-1">
+      <ol>
+        <li>I <input data-a="am reading"> (read) a book right now.</li>
+        <li>She <input data-a="is cooking"> (cook) dinner at the moment.</li>
+        <li>They <input data-a="are watching"> (watch) TV.</li>
+        <li>What <input data-a="are"> you doing?</li>
+        <li>Look! It <input data-a="is raining"> (rain).</li>
+        <li>My friends <input data-a="are playing"> (play) football now.</li>
+        <li>I <input data-a="am not working|am not"> not working today.</li>
+        <li>He <input data-a="is wearing"> (wear) a black jacket today.</li>
+      </ol>
+      <div class="gap-controls"><button class="btn" data-check>Check</button><button class="btn ghost" data-reset>Reset</button><span class="check-result"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4 · Present Simple vs Continuous ============ -->
+<section class="section tab-grammar" id="c4" data-chapter="4">
+  <div class="section-hdr">
+    <span class="section-dot"></span>
+    <span class="section-num">4</span>
+    <h2>Simple vs Continuous — the choice</h2>
+    <span class="section-status">Not started</span>
+  </div>
+  <p class="section-sub">now → Continuous. Every day → Simple. Stative verbs (like, know, want) → всегда Simple.</p>
+  <div class="card">
+    <div class="task-tag">Ex.1 · Pick the correct tense · 8 MCQ</div>
+    <div class="mcq-row" data-ans="a" data-ex="c4-1"><div class="mcq-q"><strong>1.</strong> Right now, I <span class="blank">___</span> a hoodie.</div>
+      <div class="mcq-opts"><button>am wearing</button><button>wear</button><button>wears</button></div>
+      <div class="mcq-note">"right now" → Continuous · am wearing.</div></div>
+    <div class="mcq-row" data-ans="b" data-ex="c4-1"><div class="mcq-q"><strong>2.</strong> I <span class="blank">___</span> coffee every morning.</div>
+      <div class="mcq-opts"><button>am drinking</button><button>drink</button><button>drinks</button></div>
+      <div class="mcq-note">"every morning" → Simple · drink.</div></div>
+    <div class="mcq-row" data-ans="c" data-ex="c4-1"><div class="mcq-q"><strong>3.</strong> Sorry, I <span class="blank">___</span> what you mean.</div>
+      <div class="mcq-opts"><button>am not understanding</button><button>not understand</button><button>don't understand</button></div>
+      <div class="mcq-note">understand — stative, только Simple.</div></div>
+    <div class="mcq-row" data-ans="b" data-ex="c4-1"><div class="mcq-q"><strong>4.</strong> Look! The kids <span class="blank">___</span> in the park.</div>
+      <div class="mcq-opts"><button>play</button><button>are playing</button><button>plays</button></div>
+      <div class="mcq-note">"Look!" — этот момент → Continuous.</div></div>
+    <div class="mcq-row" data-ans="a" data-ex="c4-1"><div class="mcq-q"><strong>5.</strong> She <span class="blank">___</span> her sister very much.</div>
+      <div class="mcq-opts"><button>loves</button><button>is loving</button><button>love</button></div>
+      <div class="mcq-note">love — stative, только Simple + -s (she).</div></div>
+    <div class="mcq-row" data-ans="c" data-ex="c4-1"><div class="mcq-q"><strong>6.</strong> The train <span class="blank">___</span> at 7 every day.</div>
+      <div class="mcq-opts"><button>is leaving</button><button>leave</button><button>leaves</button></div>
+      <div class="mcq-note">Расписание → Simple · leaves.</div></div>
+    <div class="mcq-row" data-ans="b" data-ex="c4-1"><div class="mcq-q"><strong>7.</strong> This week I <span class="blank">___</span> from home.</div>
+      <div class="mcq-opts"><button>work</button><button>am working</button><button>works</button></div>
+      <div class="mcq-note">"this week" — временно → Continuous.</div></div>
+    <div class="mcq-row" data-ans="a" data-ex="c4-1"><div class="mcq-q"><strong>8.</strong> I <span class="blank">___</span> tea. Only coffee.</div>
+      <div class="mcq-opts"><button>don't like</button><button>am not liking</button><button>not like</button></div>
+      <div class="mcq-note">like — stative.</div></div>
+  </div>
+</section>
+
+<!-- ============ 5 · Questions Do/Does + Wh ============ -->
+<section class="section tab-grammar" id="c5" data-chapter="5">
+  <div class="section-hdr">
+    <span class="section-dot"></span>
+    <span class="section-num">5</span>
+    <h2>Questions · Do / Does · Am / Is / Are · Wh-</h2>
+    <span class="section-status">Not started</span>
+  </div>
+  <p class="section-sub">10 Wh-слов и 3 вспомогательных. Формула: Wh + do/does/am/is/are + подлежащее + глагол.</p>
+  <div class="card">
+    <div class="task-tag">Ex.1 · Pick the right Wh-word · 6 MCQ</div>
+    <div class="mcq-row" data-ans="b" data-ex="c5-1"><div class="mcq-q"><strong>1.</strong> <span class="blank">___</span> do you live?</div>
+      <div class="mcq-opts"><button>What</button><button>Where</button><button>When</button></div><div class="mcq-note">место → Where.</div></div>
+    <div class="mcq-row" data-ans="c" data-ex="c5-1"><div class="mcq-q"><strong>2.</strong> <span class="blank">___</span> is this jacket? — 40 dollars.</div>
+      <div class="mcq-opts"><button>How many</button><button>How</button><button>How much</button></div><div class="mcq-note">цена → How much.</div></div>
+    <div class="mcq-row" data-ans="a" data-ex="c5-1"><div class="mcq-q"><strong>3.</strong> <span class="blank">___</span> jacket is this? — It's mine.</div>
+      <div class="mcq-opts"><button>Whose</button><button>Who</button><button>Which</button></div><div class="mcq-note">чей → Whose.</div></div>
+    <div class="mcq-row" data-ans="b" data-ex="c5-1"><div class="mcq-q"><strong>4.</strong> <span class="blank">___</span> bus goes to Chinatown?</div>
+      <div class="mcq-opts"><button>What</button><button>Which</button><button>Whose</button></div><div class="mcq-note">выбор из вариантов → Which.</div></div>
+    <div class="mcq-row" data-ans="c" data-ex="c5-1"><div class="mcq-q"><strong>5.</strong> <span class="blank">___</span> rooms are there in your flat?</div>
+      <div class="mcq-opts"><button>How much</button><button>How</button><button>How many</button></div><div class="mcq-note">счётные → How many.</div></div>
+    <div class="mcq-row" data-ans="a" data-ex="c5-1"><div class="mcq-q"><strong>6.</strong> <span class="blank">___</span> is she wearing red today? — Because it's a holiday.</div>
+      <div class="mcq-opts"><button>Why</button><button>How</button><button>What</button></div><div class="mcq-note">причина → Why.</div></div>
+  </div>
+  <div class="card">
+    <div class="task-tag">Ex.2 · Word order · build the question · 8 items</div>
+    <div class="wo-block" data-ex="c5-2" data-target="Where do you live"><div class="wo-hint">Where do you live?</div>
+      <div class="wo-slots"></div><div class="wo-bank"><button class="wo-word">you</button><button class="wo-word">do</button><button class="wo-word">Where</button><button class="wo-word">live</button></div>
+      <div class="gap-controls"><button class="btn" data-wo-check>Check</button><button class="btn ghost" data-wo-reset>Reset</button><span class="check-result"></span></div></div>
+    <div class="wo-block" data-ex="c5-2" data-target="What is he doing"><div class="wo-hint">What is he doing?</div>
+      <div class="wo-slots"></div><div class="wo-bank"><button class="wo-word">doing</button><button class="wo-word">he</button><button class="wo-word">is</button><button class="wo-word">What</button></div>
+      <div class="gap-controls"><button class="btn" data-wo-check>Check</button><button class="btn ghost" data-wo-reset>Reset</button><span class="check-result"></span></div></div>
+    <div class="wo-block" data-ex="c5-2" data-target="How many rooms are there in your house"><div class="wo-hint">How many rooms are there in your house?</div>
+      <div class="wo-slots"></div><div class="wo-bank"><button class="wo-word">rooms</button><button class="wo-word">are</button><button class="wo-word">many</button><button class="wo-word">How</button><button class="wo-word">house</button><button class="wo-word">there</button><button class="wo-word">in</button><button class="wo-word">your</button></div>
+      <div class="gap-controls"><button class="btn" data-wo-check>Check</button><button class="btn ghost" data-wo-reset>Reset</button><span class="check-result"></span></div></div>
+    <div class="wo-block" data-ex="c5-2" data-target="Can I try on this jacket"><div class="wo-hint">Can I try on this jacket?</div>
+      <div class="wo-slots"></div><div class="wo-bank"><button class="wo-word">try</button><button class="wo-word">I</button><button class="wo-word">Can</button><button class="wo-word">jacket</button><button class="wo-word">on</button><button class="wo-word">this</button></div>
+      <div class="gap-controls"><button class="btn" data-wo-check>Check</button><button class="btn ghost" data-wo-reset>Reset</button><span class="check-result"></span></div></div>
+    <div class="wo-block" data-ex="c5-2" data-target="How often do you drink coffee"><div class="wo-hint">How often do you drink coffee?</div>
+      <div class="wo-slots"></div><div class="wo-bank"><button class="wo-word">coffee</button><button class="wo-word">often</button><button class="wo-word">you</button><button class="wo-word">How</button><button class="wo-word">do</button><button class="wo-word">drink</button></div>
+      <div class="gap-controls"><button class="btn" data-wo-check>Check</button><button class="btn ghost" data-wo-reset>Reset</button><span class="check-result"></span></div></div>
+    <div class="wo-block" data-ex="c5-2" data-target="What time do you leave home"><div class="wo-hint">What time do you leave home?</div>
+      <div class="wo-slots"></div><div class="wo-bank"><button class="wo-word">home</button><button class="wo-word">you</button><button class="wo-word">time</button><button class="wo-word">leave</button><button class="wo-word">do</button><button class="wo-word">What</button></div>
+      <div class="gap-controls"><button class="btn" data-wo-check>Check</button><button class="btn ghost" data-wo-reset>Reset</button><span class="check-result"></span></div></div>
+    <div class="wo-block" data-ex="c5-2" data-target="Which bus goes to Chinatown"><div class="wo-hint">Which bus goes to Chinatown?</div>
+      <div class="wo-slots"></div><div class="wo-bank"><button class="wo-word">to</button><button class="wo-word">Which</button><button class="wo-word">Chinatown</button><button class="wo-word">goes</button><button class="wo-word">bus</button></div>
+      <div class="gap-controls"><button class="btn" data-wo-check>Check</button><button class="btn ghost" data-wo-reset>Reset</button><span class="check-result"></span></div></div>
+    <div class="wo-block" data-ex="c5-2" data-target="Whose jacket is this"><div class="wo-hint">Whose jacket is this?</div>
+      <div class="wo-slots"></div><div class="wo-bank"><button class="wo-word">jacket</button><button class="wo-word">is</button><button class="wo-word">Whose</button><button class="wo-word">this</button></div>
+      <div class="gap-controls"><button class="btn" data-wo-check>Check</button><button class="btn ghost" data-wo-reset>Reset</button><span class="check-result"></span></div></div>
+  </div>
+</section>
+
+<!-- ============ 6 · There is / are ============ -->
+<section class="section tab-grammar" id="c6" data-chapter="6">
+  <div class="section-hdr">
+    <span class="section-dot"></span>
+    <span class="section-num">6</span>
+    <h2>There is / There are</h2>
+    <span class="section-status">Not started</span>
+  </div>
+  <p class="section-sub">Есть / находится. Описываем комнату, дом, район, город.</p>
+  <div class="card">
+    <div class="task-tag">Ex.1 · Gap-fill · is / are / isn't / aren't · 8 items</div>
+    <div class="gapfill" data-ex="c6-1">
+      <ol>
+        <li>There <input data-a="is"> a sofa in the living room.</li>
+        <li>There <input data-a="are"> three windows in the bedroom.</li>
+        <li>There <input data-a="is"> a park near my house.</li>
+        <li>There <input data-a="aren't|are not"> many cafés in this street.</li>
+        <li>There <input data-a="is"> a bakery on the corner.</li>
+        <li>There <input data-a="isn't|is not"> a fridge in the kitchen.</li>
+        <li>There <input data-a="are"> two chairs at the table.</li>
+        <li>There <input data-a="is"> a bus stop next to the school.</li>
+      </ol>
+      <div class="gap-controls"><button class="btn" data-check>Check</button><button class="btn ghost" data-reset>Reset</button><span class="check-result"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7 · It is ============ -->
+<section class="section tab-grammar" id="c7" data-chapter="7">
+  <div class="section-hdr">
+    <span class="section-dot"></span>
+    <span class="section-num">7</span>
+    <h2>It is — weather · time · description</h2>
+    <span class="section-status">Not started</span>
+  </div>
+  <p class="section-sub">Никогда не опускаем подлежащее по-английски. «Холодно» = It is cold. «3 часа» = It is 3 o'clock.</p>
+  <div class="card">
+    <div class="task-tag">Ex.1 · Fix the mistake · 8 items</div>
+    <div class="mcq-row" data-ans="b" data-ex="c7-1"><div class="mcq-q"><strong>1.</strong> «Холодно сегодня.»</div>
+      <div class="mcq-opts"><button>Cold today.</button><button>It is cold today.</button><button>Is cold today.</button></div>
+      <div class="mcq-note">Подлежащее It обязательно.</div></div>
+    <div class="mcq-row" data-ans="a" data-ex="c7-1"><div class="mcq-q"><strong>2.</strong> «6 часов вечера.»</div>
+      <div class="mcq-opts"><button>It is 6 p.m.</button><button>6 p.m.</button><button>Is 6 p.m.</button></div>
+      <div class="mcq-note">Время → It is.</div></div>
+    <div class="mcq-row" data-ans="c" data-ex="c7-1"><div class="mcq-q"><strong>3.</strong> «Тихо здесь.»</div>
+      <div class="mcq-opts"><button>Here quiet.</button><button>Quiet here.</button><button>It is quiet here.</button></div>
+      <div class="mcq-note">Атмосфера → It is.</div></div>
+    <div class="mcq-row" data-ans="b" data-ex="c7-1"><div class="mcq-q"><strong>4.</strong> «Дождь.»</div>
+      <div class="mcq-opts"><button>Rain.</button><button>It is raining.</button><button>Is raining.</button></div>
+      <div class="mcq-note">Погода → It is.</div></div>
+    <div class="mcq-row" data-ans="a" data-ex="c7-1"><div class="mcq-q"><strong>5.</strong> «Это моё любимое кафе.»</div>
+      <div class="mcq-opts"><button>It is my favourite café.</button><button>My favourite café.</button><button>Is my favourite café.</button></div>
+      <div class="mcq-note">Идентификация → It is.</div></div>
+    <div class="mcq-row" data-ans="c" data-ex="c7-1"><div class="mcq-q"><strong>6.</strong> «49 долларов.»</div>
+      <div class="mcq-opts"><button>49 dollars.</button><button>Is 49 dollars.</button><button>It is 49 dollars.</button></div>
+      <div class="mcq-note">Цена → It is.</div></div>
+    <div class="mcq-row" data-ans="b" data-ex="c7-1"><div class="mcq-q"><strong>7.</strong> «Понедельник.»</div>
+      <div class="mcq-opts"><button>Monday.</button><button>It is Monday.</button><button>Is Monday.</button></div>
+      <div class="mcq-note">День недели → It is.</div></div>
+    <div class="mcq-row" data-ans="a" data-ex="c7-1"><div class="mcq-q"><strong>8.</strong> «В городе оживлённо.»</div>
+      <div class="mcq-opts"><button>It is busy in the city.</button><button>Busy in the city.</button><button>Is busy in the city.</button></div>
+      <div class="mcq-note">Состояние → It is.</div></div>
+  </div>
+</section>
+
+<!-- ============ 8 · Have got / Can ============ -->
+<section class="section tab-grammar" id="c8" data-chapter="8">
+  <div class="section-hdr">
+    <span class="section-dot"></span>
+    <span class="section-num">8</span>
+    <h2>Have got / Has got · Can / Can't</h2>
+    <span class="section-status">Not started</span>
+  </div>
+  <p class="section-sub">Что есть у человека. Что человек умеет.</p>
+  <div class="card">
+    <div class="task-tag">Ex.1 · Gap-fill · have got / has got · 6 items</div>
+    <div class="gapfill" data-ex="c8-1">
+      <ol>
+        <li>I <input data-a="have got|have"> two cats.</li>
+        <li>She <input data-a="has got|has"> a new bike.</li>
+        <li>We <input data-a="haven't got|haven't|have not got|have not"> a car.</li>
+        <li><input data-a="Has"> he got a brother?</li>
+        <li>My parents <input data-a="have got|have"> a big garden.</li>
+        <li>Denis <input data-a="hasn't got|hasn't|has not got|has not"> a dog.</li>
+      </ol>
+      <div class="gap-controls"><button class="btn" data-check>Check</button><button class="btn ghost" data-reset>Reset</button><span class="check-result"></span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="task-tag">Ex.2 · Can / Can't · 5 MCQ</div>
+    <div class="mcq-row" data-ans="a" data-ex="c8-2"><div class="mcq-q"><strong>1.</strong> I <span class="blank">___</span> speak English a little.</div>
+      <div class="mcq-opts"><button>can</button><button>can to</button><button>am can</button></div>
+      <div class="mcq-note">После can → без to и без am/is.</div></div>
+    <div class="mcq-row" data-ans="b" data-ex="c8-2"><div class="mcq-q"><strong>2.</strong> You <span class="blank">___</span> smoke here — it's forbidden.</div>
+      <div class="mcq-opts"><button>don't can</button><button>can't</button><button>aren't can</button></div>
+      <div class="mcq-note">запрет → can't.</div></div>
+    <div class="mcq-row" data-ans="c" data-ex="c8-2"><div class="mcq-q"><strong>3.</strong> <span class="blank">___</span> you help me, please?</div>
+      <div class="mcq-opts"><button>Do</button><button>Are</button><button>Can</button></div>
+      <div class="mcq-note">просьба → Can.</div></div>
+    <div class="mcq-row" data-ans="a" data-ex="c8-2"><div class="mcq-q"><strong>4.</strong> My dog <span class="blank">___</span> swim, but he doesn't like it.</div>
+      <div class="mcq-opts"><button>can</button><button>cans</button><button>is can</button></div>
+      <div class="mcq-note">can не меняется по лицам (нет -s).</div></div>
+    <div class="mcq-row" data-ans="b" data-ex="c8-2"><div class="mcq-q"><strong>5.</strong> Excuse me, <span class="blank">___</span> I have a coffee to go?</div>
+      <div class="mcq-opts"><button>Do</button><button>Can</button><button>Am</button></div>
+      <div class="mcq-note">вежливая просьба в кафе → Can I have…?</div></div>
+  </div>
+</section>
+
+<!-- ============ 9 · Frequency + Time markers ============ -->
+<section class="section tab-grammar" id="c9" data-chapter="9">
+  <div class="section-hdr">
+    <span class="section-dot"></span>
+    <span class="section-num">9</span>
+    <h2>Frequency adverbs · Time markers</h2>
+    <span class="section-status">Not started</span>
+  </div>
+  <p class="section-sub">Как часто и когда. Место в предложении и предлоги времени.</p>
+  <div class="card">
+    <div class="task-tag">Ex.1 · Match RU ↔ EN · 8 pairs</div>
+    <div class="match" data-ex="c9-1"
+      data-pairs='[["always","всегда"],["usually","обычно"],["often","часто"],["sometimes","иногда"],["rarely","редко"],["never","никогда"],["every day","каждый день"],["once a week","раз в неделю"]]'>
+      <div class="match-col" data-side="en"></div>
+      <div class="match-col" data-side="ru"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="task-tag">Ex.2 · Fill in the preposition of time · at / in / on · 10 items</div>
+    <div class="gapfill" data-ex="c9-2">
+      <ol>
+        <li>I wake up <input data-a="at"> 6 a.m.</li>
+        <li>We have lunch <input data-a="in"> the afternoon.</li>
+        <li>I visit my parents <input data-a="on"> Sundays.</li>
+        <li>The party is <input data-a="on"> Friday evening.</li>
+        <li>She was born <input data-a="in"> 2010.</li>
+        <li>The shop opens <input data-a="at"> 9 o'clock.</li>
+        <li>My birthday is <input data-a="in"> December.</li>
+        <li>The lesson starts <input data-a="at"> 10:30.</li>
+        <li>I usually go for a walk <input data-a="in"> the evening.</li>
+        <li>We are meeting <input data-a="on"> Monday morning.</li>
+      </ol>
+      <div class="gap-controls"><button class="btn" data-check>Check</button><button class="btn ghost" data-reset>Reset</button><span class="check-result"></span></div>
+    </div>
+    <div class="info"><strong>Rule:</strong> at + точное время · in + часть дня / месяц / год · on + день недели / дата.</div>
+  </div>
+</section>
+
+<!-- ============ 10 · Plurals + Possessives ============ -->
+<section class="section tab-grammar" id="c10" data-chapter="10">
+  <div class="section-hdr">
+    <span class="section-dot"></span>
+    <span class="section-num">10</span>
+    <h2>Plurals &amp; possessives</h2>
+    <span class="section-status">Not started</span>
+  </div>
+  <p class="section-sub">Правильное и неправильное множественное + притяжение через апостроф.</p>
+  <div class="card">
+    <div class="task-tag">Ex.1 · Write the plural · 8 items</div>
+    <div class="gapfill" data-ex="c10-1">
+      <ol>
+        <li>book → <input data-a="books"></li>
+        <li>box → <input data-a="boxes"></li>
+        <li>baby → <input data-a="babies"></li>
+        <li>knife → <input data-a="knives"></li>
+        <li>man → <input data-a="men"></li>
+        <li>woman → <input data-a="women"></li>
+        <li>child → <input data-a="children"></li>
+        <li>person → <input data-a="people"></li>
+      </ol>
+      <div class="gap-controls"><button class="btn" data-check>Check</button><button class="btn ghost" data-reset>Reset</button><span class="check-result"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 11 · Clothes + Home vocab ============ -->
+<section class="section tab-vocab" id="c11" data-chapter="11">
+  <div class="section-hdr">
+    <span class="section-dot"></span>
+    <span class="section-num">11</span>
+    <h2>Clothes &amp; home · vocab</h2>
+    <span class="section-status">Not started</span>
+  </div>
+  <p class="section-sub">Базовый словарь первого полугодия.</p>
+  <div class="card">
+    <div class="task-tag">Ex.1 · Match · clothes · 6 pairs</div>
+    <div class="match" data-ex="c11-1"
+      data-pairs='[["jacket","куртка"],["T-shirt","футболка"],["shoes","обувь"],["hat","шапка"],["scarf","шарф"],["gloves","перчатки"]]'>
+      <div class="match-col" data-side="en"></div>
+      <div class="match-col" data-side="ru"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="task-tag">Ex.2 · Match · home · 8 pairs</div>
+    <div class="match" data-ex="c11-2"
+      data-pairs='[["kitchen","кухня"],["bedroom","спальня"],["living room","гостиная"],["bathroom","ванная"],["fridge","холодильник"],["cupboard","шкафчик"],["shelf","полка"],["garage","гараж"]]'>
+      <div class="match-col" data-side="en"></div>
+      <div class="match-col" data-side="ru"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 12 · This / that / these / those ============ -->
+<section class="section tab-grammar" id="c12" data-chapter="12">
+  <div class="section-hdr">
+    <span class="section-dot"></span>
+    <span class="section-num">12</span>
+    <h2>This / that / these / those</h2>
+    <span class="section-status">Not started</span>
+  </div>
+  <p class="section-sub">Близко или далеко × один или много.</p>
+  <div class="card">
+    <div class="task-tag">Ex.1 · Pick the right pointer · 8 MCQ</div>
+    <div class="mcq-row" data-ans="a" data-ex="c12-1"><div class="mcq-q"><strong>1.</strong> <span class="blank">___</span> is my new hoodie (in my hand).</div>
+      <div class="mcq-opts"><button>This</button><button>That</button><button>These</button></div><div class="mcq-note">рядом + один → This.</div></div>
+    <div class="mcq-row" data-ans="b" data-ex="c12-1"><div class="mcq-q"><strong>2.</strong> <span class="blank">___</span> is a car on the other street.</div>
+      <div class="mcq-opts"><button>This</button><button>That</button><button>Those</button></div><div class="mcq-note">далеко + один → That.</div></div>
+    <div class="mcq-row" data-ans="c" data-ex="c12-1"><div class="mcq-q"><strong>3.</strong> <span class="blank">___</span> are my sneakers here.</div>
+      <div class="mcq-opts"><button>This</button><button>Those</button><button>These</button></div><div class="mcq-note">рядом + много → These.</div></div>
+    <div class="mcq-row" data-ans="b" data-ex="c12-1"><div class="mcq-q"><strong>4.</strong> <span class="blank">___</span> are children in the park across the road.</div>
+      <div class="mcq-opts"><button>These</button><button>Those</button><button>That</button></div><div class="mcq-note">далеко + много → Those.</div></div>
+    <div class="mcq-row" data-ans="c" data-ex="c12-1"><div class="mcq-q"><strong>5.</strong> <span class="blank">___</span> is a busy market over there.</div>
+      <div class="mcq-opts"><button>This</button><button>Those</button><button>That</button></div><div class="mcq-note">"over there" → далеко → That.</div></div>
+    <div class="mcq-row" data-ans="a" data-ex="c12-1"><div class="mcq-q"><strong>6.</strong> <span class="blank">___</span> are the keys in my pocket.</div>
+      <div class="mcq-opts"><button>These</button><button>Those</button><button>This</button></div><div class="mcq-note">"in my pocket" → рядом + мн. → These.</div></div>
+    <div class="mcq-row" data-ans="b" data-ex="c12-1"><div class="mcq-q"><strong>7.</strong> <span class="blank">___</span> are old buildings far away.</div>
+      <div class="mcq-opts"><button>These</button><button>Those</button><button>That</button></div><div class="mcq-note">"far away" → далеко + мн. → Those.</div></div>
+    <div class="mcq-row" data-ans="c" data-ex="c12-1"><div class="mcq-q"><strong>8.</strong> <span class="blank">___</span> is a modern café next to me.</div>
+      <div class="mcq-opts"><button>Those</button><button>These</button><button>This</button></div><div class="mcq-note">"next to me" → рядом + один → This.</div></div>
+  </div>
+</section>
+
+<!-- ============ 13 · Future ============ -->
+<section class="section tab-grammar" id="c13" data-chapter="13">
+  <div class="section-hdr">
+    <span class="section-dot"></span>
+    <span class="section-num">13</span>
+    <h2>Future · will vs going to</h2>
+    <span class="section-status">Not started</span>
+  </div>
+  <p class="section-sub">will = решаю в моменте / обещание / предсказание. going to = план был заранее / вижу знак.</p>
+  <div class="card">
+    <div class="task-tag">Ex.1 · Pick will or going to · 8 MCQ</div>
+    <div class="mcq-row" data-ans="b" data-ex="c13-1"><div class="mcq-q"><strong>1.</strong> — It's chilly here. — OK, I <span class="blank">___</span> turn the heating up.</div>
+      <div class="mcq-opts"><button>am going to</button><button>will</button><button>going</button></div><div class="mcq-note">решаю в моменте → will.</div></div>
+    <div class="mcq-row" data-ans="a" data-ex="c13-1"><div class="mcq-q"><strong>2.</strong> On Saturday I <span class="blank">___</span> visit my parents.</div>
+      <div class="mcq-opts"><button>am going to</button><button>will</button><button>going</button></div><div class="mcq-note">план заранее → going to.</div></div>
+    <div class="mcq-row" data-ans="b" data-ex="c13-1"><div class="mcq-q"><strong>3.</strong> Look at the sky — it <span class="blank">___</span> rain.</div>
+      <div class="mcq-opts"><button>will</button><button>is going to</button><button>going</button></div><div class="mcq-note">вижу знак → going to.</div></div>
+    <div class="mcq-row" data-ans="a" data-ex="c13-1"><div class="mcq-q"><strong>4.</strong> I promise I <span class="blank">___</span> call you tomorrow.</div>
+      <div class="mcq-opts"><button>will</button><button>am going to</button><button>going</button></div><div class="mcq-note">обещание → will.</div></div>
+    <div class="mcq-row" data-ans="c" data-ex="c13-1"><div class="mcq-q"><strong>5.</strong> Wait! I <span class="blank">___</span> grab the directions from my phone.</div>
+      <div class="mcq-opts"><button>going to</button><button>am going to</button><button>will</button></div><div class="mcq-note">решаю в моменте → will.</div></div>
+    <div class="mcq-row" data-ans="a" data-ex="c13-1"><div class="mcq-q"><strong>6.</strong> What <span class="blank">___</span> you <span class="blank">___</span> do tonight?</div>
+      <div class="mcq-opts"><button>are · going to</button><button>will · going</button><button>do · will</button></div><div class="mcq-note">спрашиваем про план → going to.</div></div>
+    <div class="mcq-row" data-ans="b" data-ex="c13-1"><div class="mcq-q"><strong>7.</strong> I think it <span class="blank">___</span> rain tonight.</div>
+      <div class="mcq-opts"><button>going to</button><button>will</button><button>is going</button></div><div class="mcq-note">"I think" — предсказание → will.</div></div>
+    <div class="mcq-row" data-ans="a" data-ex="c13-1"><div class="mcq-q"><strong>8.</strong> Next month I <span class="blank">___</span> learn phrasal verbs.</div>
+      <div class="mcq-opts"><button>am going to</button><button>will</button><button>going</button></div><div class="mcq-note">план на месяц → going to.</div></div>
+  </div>
+  <div class="card">
+    <div class="task-tag">Ex.2 · Translate · Ru → En · will / going to · 4 items</div>
+    <div class="trans-row" data-ex="c13-2" data-answer="I will help you.">
+      <div class="trans-ru">Я помогу тебе. (решаю сейчас)</div>
+      <textarea placeholder="Type in English..."></textarea>
+      <div class="trans-controls"><button class="btn" data-trans-check>I did it</button><button class="btn ghost" data-trans-show>Show answer</button></div>
+      <div class="trans-target">I will help you.</div>
+    </div>
+    <div class="trans-row" data-ex="c13-2" data-answer="We are going to visit the museum on Sunday.">
+      <div class="trans-ru">Мы собираемся посетить музей в воскресенье. (план)</div>
+      <textarea placeholder="Type in English..."></textarea>
+      <div class="trans-controls"><button class="btn" data-trans-check>I did it</button><button class="btn ghost" data-trans-show>Show answer</button></div>
+      <div class="trans-target">We are going to visit the museum on Sunday.</div>
+    </div>
+    <div class="trans-row" data-ex="c13-2" data-answer="It is going to rain — look at the clouds.">
+      <div class="trans-ru">Сейчас пойдёт дождь — посмотри на тучи.</div>
+      <textarea placeholder="Type in English..."></textarea>
+      <div class="trans-controls"><button class="btn" data-trans-check>I did it</button><button class="btn ghost" data-trans-show>Show answer</button></div>
+      <div class="trans-target">It is going to rain — look at the clouds.</div>
+    </div>
+    <div class="trans-row" data-ex="c13-2" data-answer="I will call you tomorrow, I promise.">
+      <div class="trans-ru">Я позвоню тебе завтра, обещаю.</div>
+      <textarea placeholder="Type in English..."></textarea>
+      <div class="trans-controls"><button class="btn" data-trans-check>I did it</button><button class="btn ghost" data-trans-show>Show answer</button></div>
+      <div class="trans-target">I will call you tomorrow, I promise.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 14 · Directions ============ -->
+<section class="section tab-vocab" id="c14" data-chapter="14">
+  <div class="section-hdr">
+    <span class="section-dot"></span>
+    <span class="section-num">14</span>
+    <h2>Directions — asking &amp; explaining the way</h2>
+    <span class="section-status">Not started</span>
+  </div>
+  <p class="section-sub">9 предлогов + вопросы из workbook-02 (Vancouver arc).</p>
+  <div class="card">
+    <div class="task-tag">Ex.1 · Tap a preposition, then tap a gap · 8 items</div>
+    <div class="drag-bank" data-bank="c14-1">
+      <button class="drag-pill" data-w="through">through</button>
+      <button class="drag-pill" data-w="behind">behind</button>
+      <button class="drag-pill" data-w="opposite">opposite</button>
+      <button class="drag-pill" data-w="at">at</button>
+      <button class="drag-pill" data-w="up">up</button>
+      <button class="drag-pill" data-w="along">along</button>
+      <button class="drag-pill" data-w="from">from</button>
+      <button class="drag-pill" data-w="straight">straight</button>
+    </div>
+    <div class="card" style="background:var(--cream-soft);padding:14px 16px;line-height:1.9;font-family:Georgia,serif;font-size:.98rem;box-shadow:none">
+      <p>Sure! First, go <span class="drag-target" data-a="straight" data-bank="c14-1"></span> on this road until you see a supermarket.</p>
+      <p>It's <span class="drag-target" data-a="opposite" data-bank="c14-1"></span> the post office.</p>
+      <p>Then turn left <span class="drag-target" data-a="at" data-bank="c14-1"></span> the traffic lights.</p>
+      <p>Walk <span class="drag-target" data-a="along" data-bank="c14-1"></span> the park.</p>
+      <p>The library is <span class="drag-target" data-a="behind" data-bank="c14-1"></span> the red building.</p>
+      <p>You'll need to go <span class="drag-target" data-a="through" data-bank="c14-1"></span> a small gate and <span class="drag-target" data-a="up" data-bank="c14-1"></span> some stairs.</p>
+      <p>The whole walk takes ten minutes <span class="drag-target" data-a="from" data-bank="c14-1"></span> here.</p>
+    </div>
+    <div class="gap-controls"><button class="btn" data-drag-check data-bank="c14-1">Check</button><button class="btn ghost" data-drag-reset data-bank="c14-1">Reset</button><span class="check-result"></span></div>
+  </div>
+  <div class="card">
+    <div class="task-tag">Ex.2 · Match · question ↔ answer · 6 pairs</div>
+    <div class="match" data-ex="c14-2"
+      data-pairs='[["Excuse me, how do I get to Stanley Park?","Take the SkyTrain to Waterfront, then walk two blocks north."],["Where is the nearest SkyTrain station?","Right at the corner — Burrard Station, one minute from here."],["Is Granville Island far from Downtown?","Not at all — about 10 minutes by taxi."],["I am looking for a hospital.","Of course — St. Paul is three blocks west, on Burrard Street."],["Which bus goes to Chinatown?","Take the number 3 — it stops by the Millennium Gate."],["Could you speak more slowly?","Of course. Left. Two blocks. Then right."]]'>
+      <div class="match-col" data-side="en"></div>
+      <div class="match-col" data-side="ru"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 15 · City ============ -->
+<section class="section tab-vocab" id="c15" data-chapter="15">
+  <div class="section-hdr">
+    <span class="section-dot"></span>
+    <span class="section-num">15</span>
+    <h2>City · extended vocab</h2>
+    <span class="section-status">Not started</span>
+  </div>
+  <p class="section-sub">Adjectives · places · neighborhood · future city.</p>
+  <div class="card">
+    <div class="task-tag">Ex.1 · Match · adjectives · 8 pairs</div>
+    <div class="match" data-ex="c15-1"
+      data-pairs='[["modern","современный"],["busy","оживлённый"],["quiet","тихий"],["crowded","многолюдный"],["lively","живой, бойкий"],["expensive","дорогой"],["safe","безопасный"],["charming","очаровательный"]]'>
+      <div class="match-col" data-side="en"></div>
+      <div class="match-col" data-side="ru"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="task-tag">Ex.2 · Match · places · 8 pairs</div>
+    <div class="match" data-ex="c15-2"
+      data-pairs='[["skyscraper","небоскрёб"],["stadium","стадион"],["bridge","мост"],["train station","вокзал"],["traffic lights","светофор"],["post office","почта"],["church","церковь"],["cafe","кафе"]]'>
+      <div class="match-col" data-side="en"></div>
+      <div class="match-col" data-side="ru"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="task-tag">Ex.3 · Match · future city · 6 pairs</div>
+    <div class="match" data-ex="c15-3"
+      data-pairs='[["flying car","летающая машина"],["self-driving car","беспилотник"],["drone","дрон"],["solar panel","солнечная панель"],["green roof","зелёная крыша"],["eco-district","эко-район"]]'>
+      <div class="match-col" data-side="en"></div>
+      <div class="match-col" data-side="ru"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 16 · Moving ============ -->
+<section class="section tab-vocab" id="c16" data-chapter="16">
+  <div class="section-hdr">
+    <span class="section-dot"></span>
+    <span class="section-num">16</span>
+    <h2>Moving &amp; new neighborhood · Vancouver + Toronto</h2>
+    <span class="section-status">Not started</span>
+  </div>
+  <p class="section-sub">Приехал в новый город — снять квартиру, найти аптеку, купить проездной.</p>
+  <div class="card">
+    <div class="task-tag">Ex.1 · Match · moving vocab · 10 pairs</div>
+    <div class="match" data-ex="c16-1"
+      data-pairs='[["settle in","обживаться"],["landlord","арендодатель"],["lease","договор аренды"],["neighborhood","район"],["downtown","центр города"],["subway","метро"],["transit pass","проездной"],["drugstore","аптека (US/CA)"],["SIM card","сим-карта"],["chilly","прохладно"]]'>
+      <div class="match-col" data-side="en"></div>
+      <div class="match-col" data-side="ru"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="task-tag">Ex.2 · Gap-fill · put the right word · 6 items</div>
+    <div class="gapfill" data-ex="c16-2">
+      <ol>
+        <li>My <input data-a="landlord"> lives two blocks from downtown.</li>
+        <li>The <input data-a="drugstore"> is on the corner.</li>
+        <li>Get a <input data-a="transit pass|pass"> — it's cheaper.</li>
+        <li>I need a Canadian <input data-a="SIM card|SIM"> for my phone.</li>
+        <li>It's <input data-a="chilly"> today, take a jacket.</li>
+        <li>We are <input data-a="settling in"> Toronto.</li>
+      </ol>
+      <div class="gap-controls"><button class="btn" data-check>Check</button><button class="btn ghost" data-reset>Reset</button><span class="check-result"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 17 · Café + Restaurant ============ -->
+<section class="section tab-vocab" id="c17" data-chapter="17">
+  <div class="section-hdr">
+    <span class="section-dot"></span>
+    <span class="section-num">17</span>
+    <h2>Café + Restaurant scripts</h2>
+    <span class="section-status">Not started</span>
+  </div>
+  <p class="section-sub">Кассир и официант — реальные диалоги. Универсальные ключи: Can I have…? Could I get…?</p>
+  <div class="card">
+    <div class="task-tag">Ex.1 · Barista + Restaurant dialogues · fill the gaps · 10 items</div>
+    <div class="gapfill" data-ex="c17-1">
+      <ol>
+        <li><b>You:</b> Can I <input data-a="have"> a large latte, please?</li>
+        <li><b>Barista:</b> Sure. What <input data-a="milk"> ?</li>
+        <li><b>You:</b> Oat milk, please. Is the carrot cake <input data-a="gluten-free"> ?</li>
+        <li><b>Barista:</b> For here or to <input data-a="go"> ?</li>
+        <li><b>You:</b> Could I get this to-<input data-a="go"> ?</li>
+        <li><b>You:</b> Can I <input data-a="pay"> by card?</li>
+        <li><b>You:</b> Excuse me. Is this seat <input data-a="taken"> ?</li>
+        <li><b>Server:</b> Still or <input data-a="sparkling"> ?</li>
+        <li><b>You:</b> Could I get some extra <input data-a="napkins"> ?</li>
+        <li><b>You:</b> Do you offer any loyalty <input data-a="discounts|discount"> ?</li>
+      </ol>
+      <div class="gap-controls"><button class="btn" data-check>Check</button><button class="btn ghost" data-reset>Reset</button><span class="check-result"></span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="task-tag">Ex.2 · Match · café / restaurant vocab · 8 pairs</div>
+    <div class="match" data-ex="c17-2"
+      data-pairs='[["cash","наличные"],["tip","чаевые"],["loyalty discount","скидка постоянным"],["gluten-free","без глютена"],["to-go","с собой"],["still / sparkling","без газа / с газом"],["bathroom key","ключ от туалета"],["Wi-Fi password","пароль от Wi-Fi"]]'>
+      <div class="match-col" data-side="en"></div>
+      <div class="match-col" data-side="ru"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 18 · Ready phrases ============ -->
+<section class="section tab-vocab" id="c18" data-chapter="18">
+  <div class="section-hdr">
+    <span class="section-dot"></span>
+    <span class="section-num">18</span>
+    <h2>Ready-made phrases for the city</h2>
+    <span class="section-status">Not started</span>
+  </div>
+  <p class="section-sub">Магазин · кофе · дорога · «мой город».</p>
+  <div class="card">
+    <div class="task-tag">Ex.1 · Match · phrase ↔ meaning · 8 pairs</div>
+    <div class="match" data-ex="c18-1"
+      data-pairs='[["I am looking for a jacket.","Я ищу куртку."],["Can I try it on?","Можно примерить?"],["How much is it?","Сколько стоит?"],["To go or to drink here?","С собой или здесь?"],["Excuse me, where is the bank?","Извините, где банк?"],["Turn left / right.","Поверните налево / направо."],["It is on the corner.","Это на углу."],["Next to the café.","Рядом с кафе."]]'>
+      <div class="match-col" data-side="en"></div>
+      <div class="match-col" data-side="ru"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 19 · Mix practice ============ -->
+<section class="section tab-grammar" id="c19" data-chapter="19">
+  <div class="section-hdr">
+    <span class="section-dot"></span>
+    <span class="section-num">19</span>
+    <h2>Mix practice · final challenge</h2>
+    <span class="section-status">Not started</span>
+  </div>
+  <p class="section-sub">Микс всего года. Не подсматриваем — лучше один спор на уроке, чем гладкое «вроде понятно».</p>
+  <div class="card">
+    <div class="task-tag">Ex.1 · Gap-fill · mixed forms · 8 items</div>
+    <div class="gapfill" data-ex="c19-1">
+      <ol>
+        <li>I usually <input data-a="drink"> coffee in the morning, but today I <input data-a="am drinking"> tea.</li>
+        <li>She <input data-a="is"> a doctor, she <input data-a="works"> in a hospital.</li>
+        <li><input data-a="Is"> there a bus stop near here? — Yes, there <input data-a="is">.</li>
+        <li>What <input data-a="are"> you doing right now? — I <input data-a="am reading"> a book.</li>
+        <li>He <input data-a="has got|has"> two cars and a bike.</li>
+        <li><input data-a="Can"> you speak French? — No, I <input data-a="can't|cannot|can not">.</li>
+      </ol>
+      <div class="gap-controls"><button class="btn" data-check>Check</button><button class="btn ghost" data-reset>Reset</button><span class="check-result"></span></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="task-tag">Ex.2 · Translate · Ru → En · 6 items</div>
+    <div class="trans-row" data-ex="c19-2" data-answer="There are three rooms in my flat.">
+      <div class="trans-ru">В моей квартире три комнаты.</div>
+      <textarea placeholder="Type in English..."></textarea>
+      <div class="trans-controls"><button class="btn" data-trans-check>I did it</button><button class="btn ghost" data-trans-show>Show answer</button></div>
+      <div class="trans-target">There are three rooms in my flat.</div>
+    </div>
+    <div class="trans-row" data-ex="c19-2" data-answer="How much is this coffee?">
+      <div class="trans-ru">Сколько стоит этот кофе?</div>
+      <textarea placeholder="Type in English..."></textarea>
+      <div class="trans-controls"><button class="btn" data-trans-check>I did it</button><button class="btn ghost" data-trans-show>Show answer</button></div>
+      <div class="trans-target">How much is this coffee?</div>
+    </div>
+    <div class="trans-row" data-ex="c19-2" data-answer="Where is the bus stop?">
+      <div class="trans-ru">Где автобусная остановка?</div>
+      <textarea placeholder="Type in English..."></textarea>
+      <div class="trans-controls"><button class="btn" data-trans-check>I did it</button><button class="btn ghost" data-trans-show>Show answer</button></div>
+      <div class="trans-target">Where is the bus stop?</div>
+    </div>
+    <div class="trans-row" data-ex="c19-2" data-answer="I have got a car, but I don't drive.">
+      <div class="trans-ru">У меня есть машина, но я не вожу.</div>
+      <textarea placeholder="Type in English..."></textarea>
+      <div class="trans-controls"><button class="btn" data-trans-check>I did it</button><button class="btn ghost" data-trans-show>Show answer</button></div>
+      <div class="trans-target">I have got a car, but I don't drive.</div>
+    </div>
+    <div class="trans-row" data-ex="c19-2" data-answer="Excuse me, can I have a cappuccino to go?">
+      <div class="trans-ru">Извините, можно мне капучино с собой?</div>
+      <textarea placeholder="Type in English..."></textarea>
+      <div class="trans-controls"><button class="btn" data-trans-check>I did it</button><button class="btn ghost" data-trans-show>Show answer</button></div>
+      <div class="trans-target">Excuse me, can I have a cappuccino to go?</div>
+    </div>
+    <div class="trans-row" data-ex="c19-2" data-answer="It is warm today. I am not wearing a jacket.">
+      <div class="trans-ru">Сегодня тепло. Я не ношу куртку.</div>
+      <textarea placeholder="Type in English..."></textarea>
+      <div class="trans-controls"><button class="btn" data-trans-check>I did it</button><button class="btn ghost" data-trans-show>Show answer</button></div>
+      <div class="trans-target">It is warm today. I am not wearing a jacket.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 20 · LISTENING ============ -->
+<section class="section tab-vocab" id="c20" data-chapter="20">
+  <div class="section-hdr">
+    <span class="section-dot"></span>
+    <span class="section-num">20</span>
+    <h2>Listening · dictation · 8 sentences</h2>
+    <span class="section-status">Not started</span>
+  </div>
+  <p class="section-sub">Tap ▶ to hear a sentence. Type what you hear. Use <em>Slow</em> for a second slower playback. <em>Show</em> to reveal.</p>
+  <div class="card">
+    <div class="task-tag">Ex.1 · Type what you hear · 8 items · British voice</div>
+    <div class="listen-row" data-ex="c20-1" data-target="I usually drink coffee in the morning.">
+      <span class="listen-num">01</span>
+      <div class="listen-controls"><button class="listen-play" data-say="I usually drink coffee in the morning.">Play</button><button class="listen-slow" data-say="I usually drink coffee in the morning." data-rate="0.75">Slow</button><button class="btn ghost" data-listen-show>Show</button><button class="btn" data-listen-check>Check</button></div>
+      <textarea placeholder="Type the sentence you hear..."></textarea>
+      <div class="listen-target">I usually drink coffee in the morning.</div>
+    </div>
+    <div class="listen-row" data-ex="c20-1" data-target="There is a park near my house.">
+      <span class="listen-num">02</span>
+      <div class="listen-controls"><button class="listen-play" data-say="There is a park near my house.">Play</button><button class="listen-slow" data-say="There is a park near my house." data-rate="0.75">Slow</button><button class="btn ghost" data-listen-show>Show</button><button class="btn" data-listen-check>Check</button></div>
+      <textarea placeholder="Type the sentence you hear..."></textarea>
+      <div class="listen-target">There is a park near my house.</div>
+    </div>
+    <div class="listen-row" data-ex="c20-1" data-target="What are you doing right now?">
+      <span class="listen-num">03</span>
+      <div class="listen-controls"><button class="listen-play" data-say="What are you doing right now?">Play</button><button class="listen-slow" data-say="What are you doing right now?" data-rate="0.75">Slow</button><button class="btn ghost" data-listen-show>Show</button><button class="btn" data-listen-check>Check</button></div>
+      <textarea placeholder="Type the sentence you hear..."></textarea>
+      <div class="listen-target">What are you doing right now?</div>
+    </div>
+    <div class="listen-row" data-ex="c20-1" data-target="Excuse me, how do I get to Stanley Park?">
+      <span class="listen-num">04</span>
+      <div class="listen-controls"><button class="listen-play" data-say="Excuse me, how do I get to Stanley Park?">Play</button><button class="listen-slow" data-say="Excuse me, how do I get to Stanley Park?" data-rate="0.75">Slow</button><button class="btn ghost" data-listen-show>Show</button><button class="btn" data-listen-check>Check</button></div>
+      <textarea placeholder="Type the sentence you hear..."></textarea>
+      <div class="listen-target">Excuse me, how do I get to Stanley Park?</div>
+    </div>
+    <div class="listen-row" data-ex="c20-1" data-target="Can I have a large latte to go, please?">
+      <span class="listen-num">05</span>
+      <div class="listen-controls"><button class="listen-play" data-say="Can I have a large latte to go, please?">Play</button><button class="listen-slow" data-say="Can I have a large latte to go, please?" data-rate="0.75">Slow</button><button class="btn ghost" data-listen-show>Show</button><button class="btn" data-listen-check>Check</button></div>
+      <textarea placeholder="Type the sentence you hear..."></textarea>
+      <div class="listen-target">Can I have a large latte to go, please?</div>
+    </div>
+    <div class="listen-row" data-ex="c20-1" data-target="On Saturday I am going to visit my parents.">
+      <span class="listen-num">06</span>
+      <div class="listen-controls"><button class="listen-play" data-say="On Saturday I am going to visit my parents.">Play</button><button class="listen-slow" data-say="On Saturday I am going to visit my parents." data-rate="0.75">Slow</button><button class="btn ghost" data-listen-show>Show</button><button class="btn" data-listen-check>Check</button></div>
+      <textarea placeholder="Type the sentence you hear..."></textarea>
+      <div class="listen-target">On Saturday I am going to visit my parents.</div>
+    </div>
+    <div class="listen-row" data-ex="c20-1" data-target="Turn left at the traffic lights and walk along the park.">
+      <span class="listen-num">07</span>
+      <div class="listen-controls"><button class="listen-play" data-say="Turn left at the traffic lights and walk along the park.">Play</button><button class="listen-slow" data-say="Turn left at the traffic lights and walk along the park." data-rate="0.75">Slow</button><button class="btn ghost" data-listen-show>Show</button><button class="btn" data-listen-check>Check</button></div>
+      <textarea placeholder="Type the sentence you hear..."></textarea>
+      <div class="listen-target">Turn left at the traffic lights and walk along the park.</div>
+    </div>
+    <div class="listen-row" data-ex="c20-1" data-target="My brother has got a new bike and two cats.">
+      <span class="listen-num">08</span>
+      <div class="listen-controls"><button class="listen-play" data-say="My brother has got a new bike and two cats.">Play</button><button class="listen-slow" data-say="My brother has got a new bike and two cats." data-rate="0.75">Slow</button><button class="btn ghost" data-listen-show>Show</button><button class="btn" data-listen-check>Check</button></div>
+      <textarea placeholder="Type the sentence you hear..."></textarea>
+      <div class="listen-target">My brother has got a new bike and two cats.</div>
+    </div>
+    <div class="info"><strong>How it's marked:</strong> Sentence is right if all keywords match (small typos are OK). If unclear — use <em>Slow</em> or <em>Show</em>.</div>
+  </div>
+</section>
+
+<!-- ============ 21 · READING ============ -->
+<section class="section tab-vocab" id="c21" data-chapter="21">
+  <div class="section-hdr">
+    <span class="section-dot"></span>
+    <span class="section-num">21</span>
+    <h2>Reading · Denis's first week in Vancouver</h2>
+    <span class="section-status">Not started</span>
+  </div>
+  <p class="section-sub">Short story built from all the year's vocab. Read once, then answer <b>True / False / Not Stated</b>.</p>
+  <div class="card">
+    <div class="reading-passage">
+      <h4>My first week in Vancouver</h4>
+      <p>Hi! My name is Denis. I am 12 years old and I usually live in Moscow with my family. Right now I am spending one week in Vancouver — my dad is here on business and he takes me with him every summer.</p>
+      <p>Our flat is in a very lively neighborhood in downtown. There is a small park across the road and there are two coffee shops on the corner. My landlord is a friendly man from Toronto. He says the area is safe at night and very convenient — the subway is nearby and the drugstore is only two blocks away.</p>
+      <p>Every morning I have breakfast at eight, and then I go for a walk with my dad. Today we are going to visit Stanley Park — my dad promised. I love this park because it is green and quiet, and there are old trees by the water. Later we will take the SkyTrain to Chinatown to eat noodles. My dad says the number 3 bus stops right by the Millennium Gate.</p>
+      <p>It is chilly this morning, so I am wearing a hoodie and sneakers. Vancouver weather is different from Moscow — it often rains, but it is never very cold. I like it here, but I still miss my cat. She is waiting for me at home.</p>
+    </div>
+    <div class="task-tag">Ex.1 · True / False / Not Stated · 10 items</div>
+    <div class="tf-row" data-ex="c21-1" data-ans="a"><div class="tf-q"><strong>1.</strong> Denis lives in Vancouver.</div>
+      <div class="tf-opts"><button data-v="a">False</button><button data-v="b">True</button><button data-v="c">Not stated</button></div>
+      <div class="tf-note">He usually lives in Moscow — he is only spending one week in Vancouver.</div></div>
+    <div class="tf-row" data-ex="c21-1" data-ans="b"><div class="tf-q"><strong>2.</strong> Denis is 12 years old.</div>
+      <div class="tf-opts"><button data-v="a">False</button><button data-v="b">True</button><button data-v="c">Not stated</button></div>
+      <div class="tf-note">"I am 12 years old."</div></div>
+    <div class="tf-row" data-ex="c21-1" data-ans="a"><div class="tf-q"><strong>3.</strong> The neighborhood is quiet.</div>
+      <div class="tf-opts"><button data-v="a">False</button><button data-v="b">True</button><button data-v="c">Not stated</button></div>
+      <div class="tf-note">The neighborhood is "very lively" — the opposite of quiet.</div></div>
+    <div class="tf-row" data-ex="c21-1" data-ans="b"><div class="tf-q"><strong>4.</strong> The landlord is from Toronto.</div>
+      <div class="tf-opts"><button data-v="a">False</button><button data-v="b">True</button><button data-v="c">Not stated</button></div>
+      <div class="tf-note">"My landlord is a friendly man from Toronto."</div></div>
+    <div class="tf-row" data-ex="c21-1" data-ans="c"><div class="tf-q"><strong>5.</strong> The drugstore is opposite the park.</div>
+      <div class="tf-opts"><button data-v="a">False</button><button data-v="b">True</button><button data-v="c">Not stated</button></div>
+      <div class="tf-note">The text says the drugstore is "two blocks away" but doesn't say where the park is relative to it.</div></div>
+    <div class="tf-row" data-ex="c21-1" data-ans="b"><div class="tf-q"><strong>6.</strong> Denis has breakfast at 8 a.m.</div>
+      <div class="tf-opts"><button data-v="a">False</button><button data-v="b">True</button><button data-v="c">Not stated</button></div>
+      <div class="tf-note">"Every morning I have breakfast at eight."</div></div>
+    <div class="tf-row" data-ex="c21-1" data-ans="b"><div class="tf-q"><strong>7.</strong> They are going to visit Stanley Park today.</div>
+      <div class="tf-opts"><button data-v="a">False</button><button data-v="b">True</button><button data-v="c">Not stated</button></div>
+      <div class="tf-note">"Today we are going to visit Stanley Park" — a plan.</div></div>
+    <div class="tf-row" data-ex="c21-1" data-ans="a"><div class="tf-q"><strong>8.</strong> Number 5 bus goes to Chinatown.</div>
+      <div class="tf-opts"><button data-v="a">False</button><button data-v="b">True</button><button data-v="c">Not stated</button></div>
+      <div class="tf-note">The text says the <b>number 3</b> bus stops by the Millennium Gate.</div></div>
+    <div class="tf-row" data-ex="c21-1" data-ans="a"><div class="tf-q"><strong>9.</strong> Vancouver is often very cold.</div>
+      <div class="tf-opts"><button data-v="a">False</button><button data-v="b">True</button><button data-v="c">Not stated</button></div>
+      <div class="tf-note">"It often rains, but it is never very cold."</div></div>
+    <div class="tf-row" data-ex="c21-1" data-ans="c"><div class="tf-q"><strong>10.</strong> Denis has a dog at home in Moscow.</div>
+      <div class="tf-opts"><button data-v="a">False</button><button data-v="b">True</button><button data-v="c">Not stated</button></div>
+      <div class="tf-note">He mentions a cat waiting for him, but nothing about a dog.</div></div>
+  </div>
+</section>
+
+<!-- ============ 22 · VOCAB TYPING ============ -->
+<section class="section tab-vocab" id="c22" data-chapter="22">
+  <div class="section-hdr">
+    <span class="section-dot"></span>
+    <span class="section-num">22</span>
+    <h2>Type the word · vocab spelling drills</h2>
+    <span class="section-status">Not started</span>
+  </div>
+  <p class="section-sub">Не выбирай — <b>напечатай</b>. Русский смотришь → английское слово пишешь сам. Регистр не важен, апостроф не важен.</p>
+
+  <div class="card">
+    <div class="task-tag">Ex.1 · City · places · 10 items</div>
+    <div class="type-drill gapfill" data-ex="c22-1">
+      <ol>
+        <li><span class="ru">небоскрёб</span><span class="arrow">→</span><input data-a="skyscraper"></li>
+        <li><span class="ru">стадион</span><span class="arrow">→</span><input data-a="stadium"></li>
+        <li><span class="ru">мост</span><span class="arrow">→</span><input data-a="bridge"></li>
+        <li><span class="ru">светофор</span><span class="arrow">→</span><input data-a="traffic lights|traffic light"></li>
+        <li><span class="ru">почта (здание)</span><span class="arrow">→</span><input data-a="post office"></li>
+        <li><span class="ru">железнодорожный вокзал</span><span class="arrow">→</span><input data-a="train station"></li>
+        <li><span class="ru">церковь</span><span class="arrow">→</span><input data-a="church"></li>
+        <li><span class="ru">кафе</span><span class="arrow">→</span><input data-a="cafe|café"></li>
+        <li><span class="ru">кофейня</span><span class="arrow">→</span><input data-a="coffee shop"></li>
+        <li><span class="ru">супермаркет</span><span class="arrow">→</span><input data-a="supermarket"></li>
+      </ol>
+      <div class="gap-controls"><button class="btn" data-check>Check</button><button class="btn ghost" data-reset>Reset</button><span class="check-result"></span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="task-tag">Ex.2 · Adjectives · describe the city · 10 items</div>
+    <div class="type-drill gapfill" data-ex="c22-2">
+      <ol>
+        <li><span class="ru">современный</span><span class="arrow">→</span><input data-a="modern"></li>
+        <li><span class="ru">оживлённый, шумный</span><span class="arrow">→</span><input data-a="busy"></li>
+        <li><span class="ru">тихий</span><span class="arrow">→</span><input data-a="quiet"></li>
+        <li><span class="ru">многолюдный, переполненный</span><span class="arrow">→</span><input data-a="crowded"></li>
+        <li><span class="ru">живой, бойкий</span><span class="arrow">→</span><input data-a="lively"></li>
+        <li><span class="ru">дорогой</span><span class="arrow">→</span><input data-a="expensive"></li>
+        <li><span class="ru">недорогой, доступный</span><span class="arrow">→</span><input data-a="affordable"></li>
+        <li><span class="ru">безопасный</span><span class="arrow">→</span><input data-a="safe"></li>
+        <li><span class="ru">удобный (по расположению)</span><span class="arrow">→</span><input data-a="convenient"></li>
+        <li><span class="ru">очаровательный</span><span class="arrow">→</span><input data-a="charming"></li>
+      </ol>
+      <div class="gap-controls"><button class="btn" data-check>Check</button><button class="btn ghost" data-reset>Reset</button><span class="check-result"></span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="task-tag">Ex.3 · Directions + Moving (Vancouver / Toronto) · 10 items</div>
+    <div class="type-drill gapfill" data-ex="c22-3">
+      <ol>
+        <li><span class="ru">указания пути</span><span class="arrow">→</span><input data-a="directions"></li>
+        <li><span class="ru">на углу</span><span class="arrow">→</span><input data-a="on the corner"></li>
+        <li><span class="ru">через два квартала</span><span class="arrow">→</span><input data-a="two blocks away"></li>
+        <li><span class="ru">напротив</span><span class="arrow">→</span><input data-a="opposite"></li>
+        <li><span class="ru">арендодатель</span><span class="arrow">→</span><input data-a="landlord"></li>
+        <li><span class="ru">договор аренды</span><span class="arrow">→</span><input data-a="lease"></li>
+        <li><span class="ru">район (где живёшь)</span><span class="arrow">→</span><input data-a="neighborhood|neighbourhood"></li>
+        <li><span class="ru">центр города</span><span class="arrow">→</span><input data-a="downtown"></li>
+        <li><span class="ru">аптека (US/CA)</span><span class="arrow">→</span><input data-a="drugstore"></li>
+        <li><span class="ru">проездной</span><span class="arrow">→</span><input data-a="transit pass"></li>
+      </ol>
+      <div class="gap-controls"><button class="btn" data-check>Check</button><button class="btn ghost" data-reset>Reset</button><span class="check-result"></span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="task-tag">Ex.4 · Café + Restaurant + Everyday · 12 items</div>
+    <div class="type-drill gapfill" data-ex="c22-4">
+      <ol>
+        <li><span class="ru">наличные</span><span class="arrow">→</span><input data-a="cash"></li>
+        <li><span class="ru">чаевые</span><span class="arrow">→</span><input data-a="tip"></li>
+        <li><span class="ru">с собой</span><span class="arrow">→</span><input data-a="to-go|to go"></li>
+        <li><span class="ru">без глютена</span><span class="arrow">→</span><input data-a="gluten-free|gluten free"></li>
+        <li><span class="ru">без газа / с газом</span><span class="arrow">→</span><input data-a="still or sparkling|still / sparkling|still sparkling"></li>
+        <li><span class="ru">скидка постоянным</span><span class="arrow">→</span><input data-a="loyalty discount"></li>
+        <li><span class="ru">размер (одежды)</span><span class="arrow">→</span><input data-a="size"></li>
+        <li><span class="ru">примерочная</span><span class="arrow">→</span><input data-a="fitting room"></li>
+        <li><span class="ru">сдача (после оплаты)</span><span class="arrow">→</span><input data-a="change"></li>
+        <li><span class="ru">касса</span><span class="arrow">→</span><input data-a="cash desk"></li>
+        <li><span class="ru">доставка</span><span class="arrow">→</span><input data-a="delivery"></li>
+        <li><span class="ru">расписание</span><span class="arrow">→</span><input data-a="schedule"></li>
+      </ol>
+      <div class="gap-controls"><button class="btn" data-check>Check</button><button class="btn ghost" data-reset>Reset</button><span class="check-result"></span></div>
+    </div>
+  </div>
+
+  <div class="info"><strong>Rule:</strong> оба варианта (US/UK — <em>neighborhood/neighbourhood</em>, <em>cafe/café</em>) принимаются. Регистр не важен.</div>
+</section>
+
+<footer class="foot">
+  <p><strong>Denis · Test · A1 Full-Year Review</strong> · New Generation English · Maria Burtseva</p>
+  <p style="margin-top:6px">Progress is stored in this browser (localStorage). To hand your progress to Maria — send a screenshot of the top bar. To start over — click <em>Reset</em>.</p>
+</footer>
+
+<script>
+/* ============================================================
+   PROGRESS ENGINE
+   - Each section tracks its own set of exercises
+   - Exercise "touched" → section becomes in-progress (orange)
+   - All exercises perfect → section becomes mastered (gold)
+   - Reset button clears localStorage
+   ============================================================ */
+(function(){
+  const KEY='denis-test-progress-v1';
+  const state=JSON.parse(localStorage.getItem(KEY)||'{}'); // {chapter: {ex-id: 'touched'|'perfect'}}
+
+  function saveState(){localStorage.setItem(KEY,JSON.stringify(state));}
+  function chapterExercises(ch){
+    const sec=document.querySelector(`.section[data-chapter="${ch}"]`);
+    if(!sec)return[];
+    const ids=new Set();
+    sec.querySelectorAll('[data-ex]').forEach(el=>ids.add(el.dataset.ex));
+    return[...ids];
+  }
+  function chapterStatus(ch){
+    const exs=chapterExercises(ch);
+    if(!exs.length)return'none';
+    const s=state[ch]||{};
+    const touched=exs.some(id=>s[id]);
+    const allPerfect=exs.every(id=>s[id]==='perfect');
+    if(allPerfect)return'mastered';
+    if(touched)return'in-progress';
+    return'none';
+  }
+  function renderChapterDot(ch){
+    const sec=document.querySelector(`.section[data-chapter="${ch}"]`);
+    if(!sec)return;
+    const dot=sec.querySelector('.section-dot');
+    const status=sec.querySelector('.section-status');
+    dot.classList.remove('in-progress','mastered');
+    status.classList.remove('in-progress','mastered');
+    const st=chapterStatus(ch);
+    if(st==='in-progress'){dot.classList.add('in-progress');status.classList.add('in-progress');status.textContent='In progress';}
+    else if(st==='mastered'){dot.classList.add('mastered');status.classList.add('mastered');status.textContent='★ Mastered';}
+    else{status.textContent='Not started';}
+  }
+  function renderTopbar(){
+    const dotsWrap=document.getElementById('tb-dots');
+    dotsWrap.innerHTML='';
+    let mastered=0,inprog=0;
+    for(let ch=1;ch<=22;ch++){
+      const st=chapterStatus(ch);
+      const btn=document.createElement('button');
+      btn.className='tb-dot';
+      btn.title=`Ch. ${ch}`;
+      if(st==='in-progress'){btn.classList.add('in-progress');inprog++;}
+      if(st==='mastered'){btn.classList.add('mastered');mastered++;}
+      btn.addEventListener('click',()=>{document.getElementById('c'+ch).scrollIntoView({behavior:'smooth',block:'start'});});
+      dotsWrap.appendChild(btn);
+    }
+    document.getElementById('tb-mastered').textContent=mastered;
+    document.getElementById('hs-progress').textContent=inprog;
+    document.getElementById('hs-mastered').textContent=mastered;
+  }
+  function markExercise(ch,exId,level){
+    if(!state[ch])state[ch]={};
+    const cur=state[ch][exId];
+    // 'perfect' > 'touched'; don't downgrade
+    if(cur==='perfect')return;
+    state[ch][exId]=level;
+    saveState();
+    renderChapterDot(ch);
+    renderTopbar();
+  }
+  function chapterOfEl(el){
+    const sec=el.closest('.section');
+    return sec?sec.dataset.chapter:null;
+  }
+
+  /* ---------- GAP-FILL ---------- */
+  function normalize(s){return(s||'').trim().toLowerCase().replace(/\s+/g,' ');}
+  document.querySelectorAll('.gapfill').forEach(gf=>{
+    const exId=gf.dataset.ex;
+    const ch=chapterOfEl(gf);
+    const inputs=gf.querySelectorAll('input[data-a]');
+    const btnCheck=gf.querySelector('[data-check]');
+    const btnReset=gf.querySelector('[data-reset]');
+    const result=gf.querySelector('.check-result');
+    inputs.forEach(inp=>{
+      inp.addEventListener('input',()=>markExercise(ch,exId,'touched'));
+    });
+    btnCheck.addEventListener('click',()=>{
+      let ok=0,total=inputs.length;
+      inputs.forEach(inp=>{
+        const answers=inp.dataset.a.split('|').map(normalize);
+        const val=normalize(inp.value);
+        inp.classList.remove('correct','wrong');
+        if(val && answers.includes(val)){inp.classList.add('correct');ok++;}
+        else if(val){inp.classList.add('wrong');}
+      });
+      result.textContent=`${ok}/${total}`;
+      result.classList.toggle('perfect',ok===total);
+      if(ok===total)markExercise(ch,exId,'perfect');
+      else markExercise(ch,exId,'touched');
+    });
+    btnReset.addEventListener('click',()=>{
+      inputs.forEach(inp=>{inp.value='';inp.classList.remove('correct','wrong');});
+      result.textContent='';result.classList.remove('perfect');
+    });
+  });
+
+  /* ---------- MCQ ---------- */
+  document.querySelectorAll('.mcq-row').forEach(row=>{
+    const exId=row.dataset.ex;
+    const ch=chapterOfEl(row);
+    const ans=row.dataset.ans; // 'a' | 'b' | 'c' | 'd'
+    const opts=row.querySelectorAll('.mcq-opts button');
+    // Shuffle options so the correct answer isn't always in the same position
+    const parent=row.querySelector('.mcq-opts');
+    const list=[...opts];
+    const correctIdx=ans.charCodeAt(0)-'a'.charCodeAt(0);
+    const correctBtn=list[correctIdx];
+    // simple shuffle
+    for(let i=list.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[list[i],list[j]]=[list[j],list[i]];}
+    list.forEach(b=>parent.appendChild(b));
+    // Track per-row: was answered? was correct?
+    let answered=false, correct=false;
+    parent.querySelectorAll('button').forEach(b=>{
+      b.addEventListener('click',()=>{
+        if(row.classList.contains('revealed'))return;
+        const isCorrect=(b===correctBtn);
+        parent.querySelectorAll('button').forEach(x=>{
+          if(x===correctBtn)x.classList.add('correct');
+          else if(x===b && !isCorrect)x.classList.add('wrong');
+        });
+        row.classList.add('revealed');
+        answered=true;correct=isCorrect;
+        // Aggregate: perfect only if ALL rows in the exercise are correct on first try
+        // For simplicity: mark ex as perfect when every row in same exId is correct
+        const rows=document.querySelectorAll(`.mcq-row[data-ex="${exId}"]`);
+        const doneRows=[...rows].filter(r=>r.classList.contains('revealed'));
+        const allCorrect=[...rows].every(r=>{
+          if(!r.classList.contains('revealed'))return false;
+          const good=r.querySelector('.mcq-opts button.correct');
+          const bad=r.querySelector('.mcq-opts button.wrong');
+          return good && !bad;
+        });
+        if(doneRows.length===rows.length && allCorrect){
+          markExercise(ch,exId,'perfect');
+        } else {
+          markExercise(ch,exId,'touched');
+        }
+      });
+    });
+  });
+
+  /* ---------- MATCH ---------- */
+  function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+  document.querySelectorAll('.match').forEach(m=>{
+    const exId=m.dataset.ex;
+    const ch=chapterOfEl(m);
+    const pairs=JSON.parse(m.dataset.pairs); // [[en,ru], ...]
+    const enCol=m.querySelector('[data-side="en"]');
+    const ruCol=m.querySelector('[data-side="ru"]');
+    const enOrder=shuffle(pairs.map((_,i)=>i));
+    const ruOrder=shuffle(pairs.map((_,i)=>i));
+    enOrder.forEach(i=>{const btn=document.createElement('button');btn.className='match-item';btn.textContent=pairs[i][0];btn.dataset.k=i;btn.dataset.side='en';enCol.appendChild(btn);});
+    ruOrder.forEach(i=>{const btn=document.createElement('button');btn.className='match-item';btn.textContent=pairs[i][1];btn.dataset.k=i;btn.dataset.side='ru';ruCol.appendChild(btn);});
+    let sel=null;
+    let matched=0;
+    m.querySelectorAll('.match-item').forEach(item=>{
+      item.addEventListener('click',()=>{
+        if(item.classList.contains('matched'))return;
+        markExercise(ch,exId,'touched');
+        if(!sel){sel=item;item.classList.add('selected');return;}
+        if(sel===item){item.classList.remove('selected');sel=null;return;}
+        if(sel.dataset.side===item.dataset.side){sel.classList.remove('selected');sel=item;item.classList.add('selected');return;}
+        // check pair
+        if(sel.dataset.k===item.dataset.k){
+          sel.classList.remove('selected');sel.classList.add('matched');
+          item.classList.add('matched');
+          sel=null;matched++;
+          if(matched===pairs.length){markExercise(ch,exId,'perfect');}
+        } else {
+          const a=sel, b=item;
+          a.classList.add('wrong');b.classList.add('wrong');
+          setTimeout(()=>{a.classList.remove('wrong','selected');b.classList.remove('wrong');},400);
+          sel=null;
+        }
+      });
+    });
+  });
+
+  /* ---------- WORD ORDER ---------- */
+  document.querySelectorAll('.wo-block').forEach(wo=>{
+    const exId=wo.dataset.ex;
+    const ch=chapterOfEl(wo);
+    const target=wo.dataset.target.trim();
+    const slots=wo.querySelector('.wo-slots');
+    const bank=wo.querySelector('.wo-bank');
+    const btnCheck=wo.querySelector('[data-wo-check]');
+    const btnReset=wo.querySelector('[data-wo-reset]');
+    const result=wo.querySelector('.check-result');
+    // shuffle bank words
+    const words=[...bank.children];
+    shuffle(words).forEach(w=>bank.appendChild(w));
+    bank.querySelectorAll('.wo-word').forEach(w=>{
+      w.addEventListener('click',()=>{
+        markExercise(ch,exId,'touched');
+        if(w.parentElement===bank){slots.appendChild(w);}
+        else{bank.appendChild(w);}
+      });
+    });
+    slots.addEventListener('click',(e)=>{if(e.target.classList.contains('wo-word')){bank.appendChild(e.target);}});
+    btnCheck.addEventListener('click',()=>{
+      const built=[...slots.children].map(c=>c.textContent).join(' ').replace(/[.?!]$/,'').trim();
+      slots.classList.remove('correct','wrong');
+      if(built.toLowerCase()===target.toLowerCase()){
+        slots.classList.add('correct');
+        result.textContent='✓ Perfect';
+        result.classList.add('perfect');
+        markExercise(ch,exId,'perfect');
+      } else {
+        slots.classList.add('wrong');
+        result.textContent='Try again';
+        result.classList.remove('perfect');
+      }
+    });
+    btnReset.addEventListener('click',()=>{
+      [...slots.children].forEach(c=>bank.appendChild(c));
+      slots.classList.remove('correct','wrong');
+      result.textContent='';result.classList.remove('perfect');
+    });
+  });
+
+  /* ---------- DRAG-BANK (prepositions) ---------- */
+  document.querySelectorAll('.drag-bank').forEach(bank=>{
+    const bankId=bank.dataset.bank;
+    let sel=null;
+    bank.querySelectorAll('.drag-pill').forEach(p=>{
+      p.addEventListener('click',()=>{
+        if(p.classList.contains('used'))return;
+        bank.querySelectorAll('.drag-pill.selected').forEach(x=>x.classList.remove('selected'));
+        if(sel===p){sel=null;p.classList.remove('selected');return;}
+        sel=p;p.classList.add('selected');
+      });
+    });
+    document.querySelectorAll(`.drag-target[data-bank="${bankId}"]`).forEach(t=>{
+      const ch=chapterOfEl(t);
+      const exId=[...document.querySelectorAll(`.drag-target[data-bank="${bankId}"]`)][0].closest('.section').querySelector('[data-ex]')?.dataset.ex;
+      t.addEventListener('click',()=>{
+        // if slot filled → pop back to bank
+        if(t.classList.contains('filled')){
+          const w=t.dataset.filled;
+          const pill=bank.querySelector(`.drag-pill[data-w="${w}"]`);
+          if(pill)pill.classList.remove('used');
+          t.classList.remove('filled','correct','wrong');
+          t.textContent='';t.dataset.filled='';
+          return;
+        }
+        if(!sel)return;
+        t.textContent=sel.dataset.w;
+        t.dataset.filled=sel.dataset.w;
+        t.classList.add('filled');
+        sel.classList.remove('selected');sel.classList.add('used');
+        sel=null;
+        // mark touched
+        const sec=t.closest('.section');
+        const ch=sec.dataset.chapter;
+        const exId=sec.querySelector(`[data-bank="${bankId}"]`).closest('.card').querySelector('.task-tag')?.textContent||bankId;
+        markExercise(ch,bankId,'touched');
+      });
+    });
+    // Bind check/reset by section
+    document.querySelectorAll(`[data-drag-check][data-bank="${bankId}"]`).forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const targets=document.querySelectorAll(`.drag-target[data-bank="${bankId}"]`);
+        let ok=0;
+        targets.forEach(t=>{
+          const filled=t.dataset.filled||'';
+          const answer=t.dataset.a;
+          t.classList.remove('correct','wrong');
+          if(filled===answer){t.classList.add('correct');ok++;}
+          else if(filled){t.classList.add('wrong');}
+        });
+        const result=btn.parentElement.querySelector('.check-result');
+        result.textContent=`${ok}/${targets.length}`;
+        result.classList.toggle('perfect',ok===targets.length);
+        const sec=btn.closest('.section');
+        const ch=sec.dataset.chapter;
+        if(ok===targets.length)markExercise(ch,bankId,'perfect');
+        else markExercise(ch,bankId,'touched');
+      });
+    });
+    document.querySelectorAll(`[data-drag-reset][data-bank="${bankId}"]`).forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        document.querySelectorAll(`.drag-target[data-bank="${bankId}"]`).forEach(t=>{
+          t.classList.remove('filled','correct','wrong');
+          t.textContent='';t.dataset.filled='';
+        });
+        bank.querySelectorAll('.drag-pill').forEach(p=>p.classList.remove('used','selected'));
+        const result=btn.parentElement.querySelector('.check-result');
+        result.textContent='';result.classList.remove('perfect');
+      });
+    });
+  });
+
+  /* ---------- TRANSLATE ---------- */
+  document.querySelectorAll('.trans-row').forEach(row=>{
+    const exId=row.dataset.ex;
+    const ch=chapterOfEl(row);
+    const ta=row.querySelector('textarea');
+    const btnDone=row.querySelector('[data-trans-check]');
+    const btnShow=row.querySelector('[data-trans-show]');
+    ta.addEventListener('input',()=>markExercise(ch,exId,'touched'));
+    btnDone.addEventListener('click',()=>{
+      row.classList.add('shown');
+      markExercise(ch,exId,'perfect'); // honor system — student says "I did it"
+    });
+    btnShow.addEventListener('click',()=>{
+      row.classList.add('shown');
+      markExercise(ch,exId,'touched');
+    });
+  });
+
+  /* ---------- TTS ENGINE (Web Speech API) ---------- */
+  const TTS={
+    voice:null,ready:false,
+    init(){
+      if(!('speechSynthesis' in window))return;
+      const pick=()=>{
+        const voices=speechSynthesis.getVoices();
+        // Prefer British female
+        this.voice = voices.find(v=>/en-GB/i.test(v.lang) && /female|Sonia|Libby|Amy|Kate/i.test(v.name))
+          || voices.find(v=>/en-GB/i.test(v.lang))
+          || voices.find(v=>/en-US/i.test(v.lang))
+          || voices.find(v=>/en/i.test(v.lang));
+        this.ready=true;
+      };
+      pick();
+      speechSynthesis.onvoiceschanged=pick;
+    },
+    say(text,rate=1){
+      if(!('speechSynthesis' in window))return;
+      speechSynthesis.cancel();
+      const u=new SpeechSynthesisUtterance(text);
+      if(this.voice)u.voice=this.voice;
+      u.rate=rate;u.pitch=1.02;u.volume=1;
+      speechSynthesis.speak(u);
+    }
+  };
+  TTS.init();
+
+  /* ---------- LISTENING (dictation) ---------- */
+  document.querySelectorAll('.listen-row').forEach(row=>{
+    const exId=row.dataset.ex;
+    const ch=chapterOfEl(row);
+    const target=row.dataset.target;
+    const ta=row.querySelector('textarea');
+    row.querySelectorAll('.listen-play,.listen-slow').forEach(b=>{
+      b.addEventListener('click',()=>{
+        const rate=parseFloat(b.dataset.rate)||1;
+        TTS.say(b.dataset.say,rate);
+        markExercise(ch,exId,'touched');
+      });
+    });
+    ta.addEventListener('input',()=>markExercise(ch,exId,'touched'));
+    row.querySelector('[data-listen-check]').addEventListener('click',()=>{
+      const norm=s=>s.toLowerCase().replace(/[.,!?;:'"()-]/g,'').replace(/\s+/g,' ').trim();
+      ta.classList.remove('correct','wrong');
+      if(norm(ta.value)===norm(target)){
+        ta.classList.add('correct');
+        // Only perfect if ALL rows of this exercise are perfect
+        const rows=document.querySelectorAll(`.listen-row[data-ex="${exId}"]`);
+        const allOk=[...rows].every(r=>r.querySelector('textarea').classList.contains('correct'));
+        markExercise(ch,exId,allOk?'perfect':'touched');
+      } else if(ta.value.trim()){
+        ta.classList.add('wrong');
+        markExercise(ch,exId,'touched');
+      }
+    });
+    row.querySelector('[data-listen-show]').addEventListener('click',()=>{
+      row.classList.add('shown');
+      markExercise(ch,exId,'touched');
+    });
+  });
+
+  /* ---------- T/F ROWS (reading) ---------- */
+  document.querySelectorAll('.tf-row').forEach(row=>{
+    const exId=row.dataset.ex;
+    const ch=chapterOfEl(row);
+    const ans=row.dataset.ans;
+    const opts=row.querySelectorAll('.tf-opts button');
+    // Shuffle
+    const parent=row.querySelector('.tf-opts');
+    const list=[...opts];
+    for(let i=list.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[list[i],list[j]]=[list[j],list[i]];}
+    list.forEach(b=>parent.appendChild(b));
+    parent.querySelectorAll('button').forEach(b=>{
+      b.addEventListener('click',()=>{
+        if(row.classList.contains('revealed'))return;
+        const isCorrect=(b.dataset.v===ans);
+        parent.querySelectorAll('button').forEach(x=>{
+          if(x.dataset.v===ans)x.classList.add('correct');
+          else if(x===b && !isCorrect)x.classList.add('wrong');
+        });
+        row.classList.add('revealed');
+        const rows=document.querySelectorAll(`.tf-row[data-ex="${exId}"]`);
+        const doneRows=[...rows].filter(r=>r.classList.contains('revealed'));
+        const allCorrect=[...rows].every(r=>{
+          if(!r.classList.contains('revealed'))return false;
+          const bad=r.querySelector('.tf-opts button.wrong');
+          return !bad;
+        });
+        if(doneRows.length===rows.length && allCorrect)markExercise(ch,exId,'perfect');
+        else markExercise(ch,exId,'touched');
+      });
+    });
+  });
+
+  /* ---------- RESET ALL ---------- */
+  document.getElementById('tb-reset').addEventListener('click',()=>{
+    if(!confirm('Clear all progress? This cannot be undone.'))return;
+    localStorage.removeItem(KEY);
+    Object.keys(state).forEach(k=>delete state[k]);
+    location.reload();
+  });
+
+  /* ---------- TAB SWITCHER ---------- */
+  const TAB_KEY='denis-test-tab-v1';
+  function setTab(tab){
+    document.body.classList.remove('active-grammar','active-vocab');
+    document.body.classList.add('active-'+tab);
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
+    localStorage.setItem(TAB_KEY,tab);
+    renderTopbar(); // dots update to reflect visible chapters
+  }
+  document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',()=>setTab(b.dataset.tab)));
+  setTab(localStorage.getItem(TAB_KEY)||'grammar');
+
+  /* ---------- INITIAL RENDER ---------- */
+  for(let ch=1;ch<=22;ch++)renderChapterDot(ch);
+  renderTopbar();
+})();
+</script>
+
+</body>
+</html>
