@@ -124,10 +124,12 @@ em{font-style:italic;color:var(--accent2)}
 /* Photo slots */
 .photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
 @media(max-width:640px){.photo-grid{grid-template-columns:1fr}}
-.photo-slot{background:linear-gradient(135deg,#FEE7CE,#F4C29A);border:2px dashed var(--accent2);border-radius:14px;padding:32px 14px;text-align:center;min-height:170px;display:flex;flex-direction:column;justify-content:center;gap:6px}
-.photo-slot .ps-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2);font-weight:800}
-.photo-slot .ps-title{font-family:var(--display);font-size:1.15rem;font-weight:900;color:var(--text);margin-top:4px}
-.photo-slot .ps-hint{font-size:.82rem;color:var(--muted);margin-top:6px;font-style:italic}
+.photo-slot{position:relative;background:linear-gradient(135deg,#FEE7CE,#F4C29A);border:2px solid var(--accent3);border-radius:14px;padding:0;text-align:center;min-height:220px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 3px 12px rgba(185,79,31,.14)}
+.photo-slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0}
+.photo-slot .ps-caption{position:relative;z-index:1;background:linear-gradient(180deg,rgba(255,246,238,0) 0%,rgba(255,246,238,.94) 55%,#FFF6EE 100%);padding:24px 14px 14px;margin-top:auto;text-align:center}
+.photo-slot .ps-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2);font-weight:800;display:block}
+.photo-slot .ps-title{font-family:var(--display);font-size:1.15rem;font-weight:900;color:var(--text);margin-top:2px;display:block}
+.photo-slot .ps-hint{font-size:.82rem;color:var(--muted);margin-top:4px;font-style:italic;display:block}
 .photo-guide{margin-top:16px;background:#FFF6EE;border-left:5px solid var(--accent);border-radius:10px;padding:14px 18px}
 .photo-guide ul{list-style:none;padding:0;margin:6px 0 0;display:grid;gap:8px}
 .photo-guide li{padding-left:22px;position:relative;font-size:.95rem;cursor:pointer}
@@ -246,12 +248,16 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
 </div>
 
 <section class="section" style="margin-top:0">
-  <div class="card intro-card">
-    <h3>Nice to meet you, Katya.</h3>
-    <div class="meta">One water lesson · English only · we talk more than we read</div>
-    <p style="margin-top:10px;font-size:.95rem;color:var(--text);max-width:640px;margin-left:auto;margin-right:auto">Tap any question to hear it. Pick a side. Tell me why. There are no wrong answers here — only interesting ones.</p>
+  <div class="card intro-card" style="padding:0;overflow:hidden;text-align:left;display:grid;grid-template-columns:1fr 1fr;gap:0">
+    <img src="assets/intro-girl-sunset.jpg" alt="A girl at a window with a cup, warm peach sunset over the city — Nice to meet you" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;min-height:220px">
+    <div style="padding:28px 28px;display:flex;flex-direction:column;justify-content:center">
+      <h3 style="font-family:var(--display);font-size:1.55rem;color:var(--accent2);margin-bottom:8px">Nice to meet you, Katya.</h3>
+      <div class="meta" style="text-align:left">One water lesson · English only · we talk more than we read</div>
+      <p style="margin-top:12px;font-size:.95rem;color:var(--text)">Tap any question to hear it. Pick a side. Tell me why. There are no wrong answers here — only interesting ones.</p>
+    </div>
   </div>
 </section>
+<style>@media(max-width:640px){.intro-card{grid-template-columns:1fr!important}.intro-card img{min-height:200px!important;max-height:240px}}</style>
 
 <!-- SECTION 0 · DIAGNOSTIC SELF-CHECK -->
 <section class="section">
@@ -417,9 +423,18 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
   <div class="card">
     <p style="font-size:.95rem;color:var(--muted)">Imagine three photos from your last month. One <strong>place</strong>. One <strong>person</strong>. One <strong>moment</strong>. Tell me about each — three or four sentences.</p>
     <div class="photo-grid">
-      <div class="photo-slot"><span class="ps-label">Photo 1</span><span class="ps-title">A place</span><span class="ps-hint">where were you?</span></div>
-      <div class="photo-slot"><span class="ps-label">Photo 2</span><span class="ps-title">A person</span><span class="ps-hint">who was there?</span></div>
-      <div class="photo-slot"><span class="ps-label">Photo 3</span><span class="ps-title">A moment</span><span class="ps-hint">what happened?</span></div>
+      <div class="photo-slot">
+        <img src="assets/photo-place-arch.jpg" alt="Peach line-art arch — a city by the river with a bridge and street lamp">
+        <span class="ps-caption"><span class="ps-label">Photo 1</span><span class="ps-title">A place</span><span class="ps-hint">where were you?</span></span>
+      </div>
+      <div class="photo-slot">
+        <img src="assets/photo-person-arch.jpg" alt="Peach line-art arch — portrait of a person from behind">
+        <span class="ps-caption"><span class="ps-label">Photo 2</span><span class="ps-title">A person</span><span class="ps-hint">who was there?</span></span>
+      </div>
+      <div class="photo-slot">
+        <img src="assets/photo-moment-arch.jpg" alt="Peach line-art arch — a cup of coffee and a notebook by the window">
+        <span class="ps-caption"><span class="ps-label">Photo 3</span><span class="ps-title">A moment</span><span class="ps-hint">what happened?</span></span>
+      </div>
     </div>
     <div class="photo-guide">
       <strong>Guide questions — tap to hear:</strong>
@@ -478,7 +493,7 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
   <div class="section-hdr"><div class="num">7</div><h2>Listening — a girl's first week in Moscow</h2></div>
   <div class="section-sub">tap play · listen once · then answer True / False</div>
   <div class="card">
-    <img src="assets/listening-portrait.jpg" alt="Peach-cream illustrated portrait — a person looking away, feeling something quiet" style="width:100%;max-height:280px;object-fit:cover;object-position:center 20%;border-radius:14px;margin-bottom:14px;box-shadow:0 4px 16px rgba(185,79,31,.18)">
+    <img src="assets/listening-train-window.jpg" alt="A young woman looking out of a train window at sunset, sea and railroad — Lera arriving in Moscow" style="width:100%;max-height:280px;object-fit:cover;object-position:center;border-radius:14px;margin-bottom:14px;box-shadow:0 4px 16px rgba(185,79,31,.22)">
     <div class="listen-block">
       <div class="listen-label">Audio · ~50 seconds</div>
       <p id="listen-text">Hi, I'm Lera. I moved to Moscow with my family last week. So — my first week was a whole thing. On Monday we found our new flat. It's small but the kitchen has a huge window and the view is honestly underrated. On Wednesday I got lost on the metro. I took the wrong line and ended up somewhere near the river. I actually loved it — the walk back was so chill. My mum was less chill about it. The food here is random — my neighbour brought us hot pastries with cabbage and I lowkey want them every day now. I'm not really into big cities usually, but Moscow in summer? I think I'm into it.</p>
@@ -661,30 +676,26 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
   </div>
 </section>
 
-<!-- SECTION 🎡 · WORD WHEEL -->
+<!-- SECTION 🎴 · VOCAB QUEST · FLIP + ANSWER -->
 <section class="section">
-  <div class="section-hdr"><div class="num">🎡</div><h2>Word wheel — spin, get a word, explain it in 30 seconds</h2></div>
-  <div class="section-sub">contestant style · you can't say the word itself · use gestures, synonyms, examples</div>
+  <div class="section-hdr"><div class="num">🎴</div><h2>Vocab quest — flip a card, answer the question</h2></div>
+  <div class="section-sub">tap a card · read the word out loud · flip · answer the question with a full sentence</div>
   <div class="card">
-    <div class="wheel-wrap">
-      <div class="wheel-stage">
-        <div class="wheel-pointer" aria-hidden="true"></div>
-        <svg class="wheel-svg" id="wordWheel" viewBox="0 0 200 200" aria-label="Spinning word wheel">
-          <!-- 12 segments generated by JS -->
-        </svg>
-        <div class="wheel-hub" aria-hidden="true"></div>
-      </div>
-      <div class="wheel-controls">
-        <button class="wheel-spin-btn" id="wheelSpin">🎯 Spin the wheel</button>
-        <div class="wheel-result">
-          <div class="wr-label">Your word</div>
-          <div class="wr-word" id="wrWord">— tap Spin —</div>
-          <div class="wr-task" id="wrTask">You'll get 30 seconds. Describe the word without saying it.</div>
-        </div>
-        <div class="wheel-timer" id="wheelTimer">30</div>
-      </div>
+    <div class="flip-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
+      <div class="flip-card" style="height:150px" data-word="underrated"><div class="flip-inner"><div class="flip-front">underrated<div class="pos">adj</div></div><div class="flip-back"><div>Name one movie or series you think is <strong>underrated</strong>.</div></div></div></div>
+      <div class="flip-card" style="height:150px" data-word="overhyped"><div class="flip-inner"><div class="flip-front">overhyped<div class="pos">adj</div></div><div class="flip-back"><div>Which popular thing feels <strong>overhyped</strong> to you?</div></div></div></div>
+      <div class="flip-card" style="height:150px" data-word="mid"><div class="flip-inner"><div class="flip-front">mid<div class="pos">adj (slang)</div></div><div class="flip-back"><div>Is there a food everyone loves that you find kind of <strong>mid</strong>?</div></div></div></div>
+      <div class="flip-card" style="height:150px" data-word="lowkey"><div class="flip-inner"><div class="flip-front">lowkey<div class="pos">adv</div></div><div class="flip-back"><div>What do you <strong>lowkey</strong> love but don't tell many people?</div></div></div></div>
+      <div class="flip-card" style="height:150px" data-word="vibe"><div class="flip-inner"><div class="flip-front">vibe<div class="pos">n</div></div><div class="flip-back"><div>Which place in Moscow has your favourite <strong>vibe</strong>?</div></div></div></div>
+      <div class="flip-card" style="height:150px" data-word="random"><div class="flip-inner"><div class="flip-front">random<div class="pos">adj</div></div><div class="flip-back"><div>Tell me one <strong>random</strong> thing that happened this week.</div></div></div></div>
+      <div class="flip-card" style="height:150px" data-word="worth-it"><div class="flip-inner"><div class="flip-front">worth it<div class="pos">phrase</div></div><div class="flip-back"><div>Name something long or hard that was totally <strong>worth it</strong>.</div></div></div></div>
+      <div class="flip-card" style="height:150px" data-word="chill"><div class="flip-inner"><div class="flip-front">chill<div class="pos">adj / v</div></div><div class="flip-back"><div>What does a perfectly <strong>chill</strong> Sunday look like for you?</div></div></div></div>
+      <div class="flip-card" style="height:150px" data-word="tired"><div class="flip-inner"><div class="flip-front">tired<div class="pos">adj</div></div><div class="flip-back"><div>When were you last really <strong>tired</strong>? Why?</div></div></div></div>
+      <div class="flip-card" style="height:150px" data-word="excited"><div class="flip-inner"><div class="flip-front">excited<div class="pos">adj</div></div><div class="flip-back"><div>What are you <strong>excited</strong> about right now?</div></div></div></div>
+      <div class="flip-card" style="height:150px" data-word="curious"><div class="flip-inner"><div class="flip-front">curious<div class="pos">adj</div></div><div class="flip-back"><div>What are you <strong>curious</strong> about lately (biology counts 🧬)?</div></div></div></div>
+      <div class="flip-card" style="height:150px" data-word="proud"><div class="flip-inner"><div class="flip-front">proud<div class="pos">adj</div></div><div class="flip-back"><div>Name one small thing you're quietly <strong>proud</strong> of.</div></div></div></div>
     </div>
-    <div class="starters" style="margin-top:14px"><strong>Rules of the show:</strong> <em>you can't say the word · you can't translate it into Russian · gestures, examples, synonyms only. I guess. If I get it — you win a point. Best of five rounds.</em></div>
+    <div class="starters" style="margin-top:14px"><strong>How it works:</strong> <em>flip a card → read the word out loud → answer the question in ONE full sentence · we go until at least 6 cards are flipped · no wrong answers</em></div>
   </div>
 </section>
 
