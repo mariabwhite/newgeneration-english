@@ -1024,10 +1024,10 @@ window.NGE_DATA = {
           "date": "2026-08-03",
           "num": 2,
           "status": "planned",
-          "topic": "The Whispering Library IV · Azkaban — Books vocab + Prisoner of Azkaban (Sirius Black, Dementors, Boggart, Time-Turner)",
+          "topic": "Books and Harry Potter (Prisoner of Azkaban) — Sirius Black, Dementors, Boggart, Time-Turner + Types of books + author adjectives",
           "homework": {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/a2/katya-02-azkaban-library/",
-            "module_title": "⚡ Открыть Whispering Library · Azkaban",
+            "module_title": "📚 Открыть · Books and Harry Potter",
             "text": "Литературный урок · Катина любимая POA. Types of books (12 flip-cards), author adjectives, pairwork discussion Student A/B, Sirius Black монолог + Harry-Sirius диалог, Dementors on the train reading, Marauder's Map vocab quest (10 flip-cards с личными вопросами). Palette Whispering Library — violet + gold + parchment."
           },
           "telemost_url": "https://telemost.yandex.ru/j/54421955698303"
