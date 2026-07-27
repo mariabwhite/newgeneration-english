@@ -154,6 +154,27 @@ em{font-style:italic;color:var(--accent2)}
 .listen-play{background:var(--accent2);color:#fff;border:none;border-radius:8px;padding:10px 18px;font-family:var(--mono);font-weight:800;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;margin-top:8px;transition:.18s}
 .listen-play:hover{background:var(--navy);transform:translateY(-2px)}
 
+/* Dialogue lines with per-speaker buttons */
+.dlg-line{display:grid;grid-template-columns:44px 1fr 40px;gap:12px;align-items:flex-start;background:#FFF6EE;border:1px solid var(--accent3);border-radius:12px;padding:12px 14px;margin-bottom:8px;transition:.18s}
+.dlg-line:hover{border-color:var(--accent2);background:#FEECDC}
+.dlg-line.playing{background:#FEE7CE;border-color:var(--accent2);box-shadow:0 3px 10px rgba(185,79,31,.18)}
+.dlg-avatar{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-weight:900;color:#fff;font-size:.9rem;flex-shrink:0}
+.dlg-avatar.lera{background:linear-gradient(135deg,#E88B4F,#B94F1F)}
+.dlg-avatar.anya{background:linear-gradient(135deg,#1E2A45,#3A4A6E)}
+.dlg-body{font-size:.96rem;line-height:1.45;color:var(--text)}
+.dlg-body .dlg-name{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;font-weight:800;display:block;margin-bottom:2px}
+.dlg-line.lera .dlg-name{color:var(--accent2)}
+.dlg-line.anya .dlg-name{color:var(--navy)}
+.dlg-play{width:36px;height:36px;border-radius:50%;background:var(--accent);color:#fff;border:none;cursor:pointer;display:grid;place-items:center;transition:.18s;flex-shrink:0;font-size:.85rem}
+.dlg-play:hover{background:var(--accent2);transform:scale(1.1)}
+.dlg-play.playing{background:var(--miss);animation:dlgPulse 1s infinite}
+@keyframes dlgPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+.dlg-controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.dlg-controls button{background:var(--accent2);color:#fff;border:none;border-radius:10px;padding:10px 18px;font-family:var(--mono);font-weight:800;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:.18s}
+.dlg-controls button:hover{background:var(--navy);transform:translateY(-2px)}
+.dlg-controls button.secondary{background:transparent;color:var(--accent2);border:2px solid var(--accent2)}
+.dlg-controls button.secondary:hover{background:var(--accent2);color:#fff}
+
 /* TF questions */
 .tf-q{background:#FFF6EE;border:1px solid var(--accent3);border-radius:12px;padding:14px 16px;margin-bottom:10px}
 .tf-q .tf-text{font-weight:600;font-size:.95rem;margin-bottom:10px;cursor:pointer}
@@ -360,6 +381,7 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
   <div class="section-hdr"><div class="num">2</div><h2>Small-talk toolkit — six phrases you'll use today</h2></div>
   <div class="section-sub">tap the phrase to hear it · use one after every "This or That"</div>
   <div class="card">
+    <img src="assets/talk-teacher-student.jpg" alt="A teenager and a young teacher talking across a table with picture cards between them" style="width:100%;max-height:280px;object-fit:cover;object-position:center;border-radius:14px;margin-bottom:16px;box-shadow:0 4px 16px rgba(185,79,31,.18)">
     <div class="tk-row"><button class="q-speak" data-say="Actually, I think..." aria-label="Listen"><span class="sound-icon" aria-hidden="true"></span><span class="sr-only">Listen</span></button><div><div class="tk-phrase">Actually, I think…</div><div class="tk-when">when you want to add your real opinion</div></div></div>
     <div class="tk-row"><button class="q-speak" data-say="It depends." aria-label="Listen"><span class="sound-icon" aria-hidden="true"></span><span class="sr-only">Listen</span></button><div><div class="tk-phrase">It depends.</div><div class="tk-when">when the answer is not simple</div></div></div>
     <div class="tk-row"><button class="q-speak" data-say="I'm more into..." aria-label="Listen"><span class="sound-icon" aria-hidden="true"></span><span class="sr-only">Listen</span></button><div><div class="tk-phrase">I'm more into…</div><div class="tk-when">what you actually love</div></div></div>
@@ -495,9 +517,9 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
   <div class="card">
     <img src="assets/listening-train-window.jpg" alt="A young woman looking out of a train window at sunset, sea and railroad — Lera arriving in Moscow" style="width:100%;max-height:280px;object-fit:cover;object-position:center;border-radius:14px;margin-bottom:14px;box-shadow:0 4px 16px rgba(185,79,31,.22)">
     <div class="listen-block">
-      <div class="listen-label">Audio · ~50 seconds</div>
+      <div class="listen-label">Audio · ~50 seconds · Lera speaks</div>
+      <audio controls preload="metadata" src="assets/lera-monologue.mp3" style="width:100%;margin-bottom:12px"></audio>
       <p id="listen-text">Hi, I'm Lera. I moved to Moscow with my family last week. So — my first week was a whole thing. On Monday we found our new flat. It's small but the kitchen has a huge window and the view is honestly underrated. On Wednesday I got lost on the metro. I took the wrong line and ended up somewhere near the river. I actually loved it — the walk back was so chill. My mum was less chill about it. The food here is random — my neighbour brought us hot pastries with cabbage and I lowkey want them every day now. I'm not really into big cities usually, but Moscow in summer? I think I'm into it.</p>
-      <button class="listen-play" data-say-target="listen-text">▶ Play story</button>
     </div>
     <h3 style="margin-top:18px">True or False?</h3>
     <div class="tf-q">
@@ -516,11 +538,53 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
       <div class="tf-text" data-say="Lera's neighbour brought them cabbage pastries.">4. Lera's neighbour brought them cabbage pastries.</div>
       <div class="tf-btns"><button data-correct>True</button><button>False</button></div>
     </div>
-    <h3 style="margin-top:18px">Episode 2 — Lera calls her friend</h3>
+    <h3 style="margin-top:18px">Episode 2 — Lera calls her friend Anya</h3>
     <div class="listen-block">
-      <div class="listen-label">Dialogue · ~40 seconds</div>
-      <p id="listen-text-2"><strong>Lera:</strong> Hey! You'll never guess where I ended up today. <br><strong>Anya:</strong> Wait, where are you now? <br><strong>Lera:</strong> Some tiny street near the river. I took the wrong metro line. <br><strong>Anya:</strong> Are you lost? Should I open a map? <br><strong>Lera:</strong> Honestly? I'm not lost. I'm just… walking. It's actually kind of nice here. <br><strong>Anya:</strong> Only you, Lera. Only you would get lost and call it "kind of nice". <br><strong>Lera:</strong> That's the point of Moscow, right? Getting a little lost is worth it. <br><strong>Anya:</strong> Fine. Send me a photo. I want the view.</p>
-      <button class="listen-play" data-say-target="listen-text-2">▶ Play dialogue</button>
+      <div class="listen-label">Dialogue · ~40 seconds · two speakers</div>
+      <div id="dlg-anya-lera">
+        <div class="dlg-line lera" data-speaker="lera" data-say="Hey! You'll never guess where I ended up today.">
+          <span class="dlg-avatar lera">L</span>
+          <div class="dlg-body"><span class="dlg-name">Lera</span>Hey! You'll never guess where I ended up today.</div>
+          <button class="dlg-play" aria-label="Play Lera">▶</button>
+        </div>
+        <div class="dlg-line anya" data-speaker="anya" data-say="Wait, where are you now?">
+          <span class="dlg-avatar anya">A</span>
+          <div class="dlg-body"><span class="dlg-name">Anya</span>Wait, where are you now?</div>
+          <button class="dlg-play" aria-label="Play Anya">▶</button>
+        </div>
+        <div class="dlg-line lera" data-speaker="lera" data-say="Some tiny street near the river. I took the wrong metro line.">
+          <span class="dlg-avatar lera">L</span>
+          <div class="dlg-body"><span class="dlg-name">Lera</span>Some tiny street near the river. I took the wrong metro line.</div>
+          <button class="dlg-play" aria-label="Play Lera">▶</button>
+        </div>
+        <div class="dlg-line anya" data-speaker="anya" data-say="Are you lost? Should I open a map?">
+          <span class="dlg-avatar anya">A</span>
+          <div class="dlg-body"><span class="dlg-name">Anya</span>Are you lost? Should I open a map?</div>
+          <button class="dlg-play" aria-label="Play Anya">▶</button>
+        </div>
+        <div class="dlg-line lera" data-speaker="lera" data-say="Honestly? I'm not lost. I'm just walking. It's actually kind of nice here.">
+          <span class="dlg-avatar lera">L</span>
+          <div class="dlg-body"><span class="dlg-name">Lera</span>Honestly? I'm not lost. I'm just… walking. It's actually kind of nice here.</div>
+          <button class="dlg-play" aria-label="Play Lera">▶</button>
+        </div>
+        <div class="dlg-line anya" data-speaker="anya" data-say="Only you, Lera. Only you would get lost and call it kind of nice.">
+          <span class="dlg-avatar anya">A</span>
+          <div class="dlg-body"><span class="dlg-name">Anya</span>Only you, Lera. Only you would get lost and call it "kind of nice".</div>
+          <button class="dlg-play" aria-label="Play Anya">▶</button>
+        </div>
+        <div class="dlg-line lera" data-speaker="lera" data-say="That's the point of Moscow, right? Getting a little lost is worth it.">
+          <span class="dlg-avatar lera">L</span>
+          <div class="dlg-body"><span class="dlg-name">Lera</span>That's the point of Moscow, right? Getting a little lost is worth it.</div>
+          <button class="dlg-play" aria-label="Play Lera">▶</button>
+        </div>
+        <div class="dlg-line anya" data-speaker="anya" data-say="Fine. Send me a photo. I want the view.">
+          <span class="dlg-avatar anya">A</span>
+          <div class="dlg-body"><span class="dlg-name">Anya</span>Fine. Send me a photo. I want the view.</div>
+          <button class="dlg-play" aria-label="Play Anya">▶</button>
+        </div>
+      </div>
+      <audio controls preload="metadata" src="assets/dialogue-lera-anya.mp3" style="width:100%;margin-top:14px"></audio>
+      <div style="font-size:.82rem;color:var(--muted);margin-top:10px;font-style:italic">Play the whole dialogue above — two real voices go back-and-forth · then tap any single line's ▶ to hear that phrase alone (speech synthesis) for practice</div>
     </div>
 
     <h3 style="margin-top:18px">Answer in one sentence</h3>
@@ -735,6 +799,7 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
 <section class="section">
   <div class="section-hdr"><div class="num">📖</div><h2>Grammar reference — 12 tenses cheatsheet</h2></div>
   <div class="section-sub">click to open · keep this open on the second screen while we talk · not a lecture, a map</div>
+  <img src="assets/grammar-12-tenses-grid.jpg" alt="Visual grid of all 12 English tenses with signal words and one example sentence each — peach cream palette" style="width:100%;height:auto;border-radius:14px;margin:8px 0 16px;box-shadow:0 4px 18px rgba(185,79,31,.18);display:block">
   <details class="grammar-ref" open>
     <summary>📖 All 12 English tenses — formula · sign words · example</summary>
     <div class="gr-body">
@@ -834,12 +899,43 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
 </footer>
 
 <script>
-let voicesLoaded=false,englishVoices={uk:null};
-function loadVoices(){const v=speechSynthesis.getVoices();if(!v.length)return false;englishVoices.uk=v.find(x=>x.lang==='en-GB')||v.find(x=>x.lang.startsWith('en'));voicesLoaded=true;return true}
+let voicesLoaded=false,englishVoices={uk:null,lera:null,anya:null,brian:null};
+function loadVoices(){
+  const v=speechSynthesis.getVoices();
+  if(!v.length)return false;
+  englishVoices.uk=v.find(x=>x.lang==='en-GB')||v.find(x=>x.lang.startsWith('en'));
+  englishVoices.lera=v.find(x=>x.lang==='en-GB'&&/amy|emma|sonia|kate/i.test(x.name))
+                   ||v.find(x=>x.lang==='en-GB'&&/female|zira|susan/i.test(x.name))
+                   ||englishVoices.uk;
+  englishVoices.anya=v.find(x=>x.lang==='en-GB'&&/libby|hazel|clara|karen/i.test(x.name))
+                   ||v.find(x=>x.lang==='en-US'&&/jenny|aria|female|zira/i.test(x.name))
+                   ||v.find(x=>x.lang==='en-US')
+                   ||englishVoices.uk;
+  englishVoices.brian=v.find(x=>x.lang==='en-GB'&&/brian|george|daniel|oliver|male|ryan/i.test(x.name))||englishVoices.uk;
+  voicesLoaded=true;
+  return true;
+}
 speechSynthesis.onvoiceschanged=loadVoices;loadVoices();
-function speak(text){if(!text)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-GB';u.rate=0.94;if(voicesLoaded){u.voice=englishVoices.uk}speechSynthesis.speak(u)}
+function speak(text,voiceTag){
+  if(!text)return Promise.resolve();
+  speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-GB';
+  u.rate=0.94;
+  if(voicesLoaded){
+    if(voiceTag==='lera'){u.voice=englishVoices.lera;u.pitch=1.05;u.rate=0.96}
+    else if(voiceTag==='anya'){u.voice=englishVoices.anya;u.pitch=.9;u.rate=0.92;if(u.voice)u.lang=u.voice.lang||'en-GB'}
+    else if(voiceTag==='brian'){u.voice=englishVoices.brian}
+    else{u.voice=englishVoices.uk}
+  }
+  return new Promise(resolve=>{
+    u.onend=()=>resolve();
+    u.onerror=()=>resolve();
+    speechSynthesis.speak(u);
+  });
+}
 
-document.querySelectorAll('[data-say]').forEach(el=>el.addEventListener('click',e=>{e.stopPropagation();speak(el.getAttribute('data-say'))}));
+document.querySelectorAll('[data-say]').forEach(el=>el.addEventListener('click',e=>{e.stopPropagation();speak(el.getAttribute('data-say'),el.getAttribute('data-speaker'))}));
 
 // Checklist — multi-select toggle
 document.querySelectorAll('.checklist-item').forEach(item=>{
@@ -937,6 +1033,21 @@ document.querySelectorAll('.tf-btns').forEach(grp=>grp.querySelectorAll('button'
   if(!ok){const c=grp.querySelector('[data-correct]');if(c)c.classList.add('correct')}
   speak(btn.textContent);
 })));
+
+// Dialogue lines — click ▶ or body speaks that single line with the assigned speaker voice
+document.querySelectorAll('.dlg-line').forEach(line=>{
+  const btn=line.querySelector('.dlg-play');
+  const body=line.querySelector('.dlg-body');
+  const play=(e)=>{
+    if(e)e.stopPropagation();
+    document.querySelectorAll('.dlg-line.playing').forEach(l=>l.classList.remove('playing'));
+    line.classList.add('playing');
+    speak(line.getAttribute('data-say'),line.getAttribute('data-speaker'));
+    setTimeout(()=>line.classList.remove('playing'),3200);
+  };
+  if(btn)btn.addEventListener('click',play);
+  if(body)body.addEventListener('click',play);
+});
 
 // Listen play button — reads the paragraph identified by data-say-target
 document.querySelectorAll('.listen-play[data-say-target]').forEach(btn=>btn.addEventListener('click',()=>{
