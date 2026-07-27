@@ -64,6 +64,24 @@ em{font-style:italic;color:var(--accent2)}
 .intro-card h3{font-family:var(--display);font-size:1.4rem;color:var(--accent2);margin-bottom:6px}
 .intro-card .meta{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 
+/* Word Wheel */
+.wheel-wrap{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center;margin-top:8px}
+@media(max-width:720px){.wheel-wrap{grid-template-columns:1fr}}
+.wheel-stage{position:relative;width:100%;max-width:360px;aspect-ratio:1;margin:0 auto}
+.wheel-svg{width:100%;height:100%;transform:rotate(0deg);transition:transform 4.2s cubic-bezier(.16,1,.3,1);filter:drop-shadow(0 8px 24px rgba(185,79,31,.28))}
+.wheel-svg text{font-family:var(--display);font-weight:800;font-size:9px;letter-spacing:.02em;pointer-events:none}
+.wheel-pointer{position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:14px solid transparent;border-right:14px solid transparent;border-top:22px solid var(--navy);z-index:3;filter:drop-shadow(0 3px 4px rgba(30,42,69,.4))}
+.wheel-hub{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFF6EE,var(--accent),var(--accent2));box-shadow:0 3px 10px rgba(0,0,0,.2),inset 0 0 0 3px #fff;z-index:2;pointer-events:none}
+.wheel-controls{display:flex;flex-direction:column;gap:14px}
+.wheel-spin-btn{background:linear-gradient(180deg,var(--accent) 0%,var(--accent2) 100%);color:#fff;border:none;border-radius:14px;padding:16px 24px;font-family:var(--display);font-weight:900;font-size:1.1rem;letter-spacing:.02em;cursor:pointer;transition:.18s;box-shadow:0 6px 20px rgba(185,79,31,.32)}
+.wheel-spin-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 24px rgba(185,79,31,.42)}
+.wheel-spin-btn:disabled{opacity:.55;cursor:not-allowed}
+.wheel-result{background:#FFF6EE;border:2px solid var(--accent3);border-radius:12px;padding:16px 18px;min-height:80px}
+.wheel-result .wr-label{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:800}
+.wheel-result .wr-word{font-family:var(--display);font-size:1.6rem;font-weight:900;color:var(--accent2);margin-top:4px;line-height:1.1}
+.wheel-result .wr-task{font-size:.86rem;color:var(--text);margin-top:8px;font-style:italic}
+.wheel-timer{font-family:var(--mono);font-weight:900;font-size:1.4rem;color:var(--accent2);text-align:center;margin-top:6px}
+
 /* Tense match — soft radar */
 .tm-row{display:grid;grid-template-columns:1fr 200px;gap:12px;margin-bottom:10px;align-items:center;background:#FFF6EE;border:1px solid var(--accent3);border-radius:12px;padding:12px 14px}
 @media(max-width:640px){.tm-row{grid-template-columns:1fr}}
@@ -323,7 +341,15 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
     <div class="tk-row"><button class="q-speak" data-say="Honestly, both." aria-label="Listen"><span class="sound-icon" aria-hidden="true"></span><span class="sr-only">Listen</span></button><div><div class="tk-phrase">Honestly, both.</div><div class="tk-when">when you can't (or won't) choose</div></div></div>
     <div class="tk-row"><button class="q-speak" data-say="Same here." aria-label="Listen"><span class="sound-icon" aria-hidden="true"></span><span class="sr-only">Listen</span></button><div><div class="tk-phrase">Same here.</div><div class="tk-when">quick way to agree with me</div></div></div>
 
-    <div class="starters"><strong>Now go back to Section 1</strong> and answer three items again using one of these phrases each time.</div>
+    <h3 style="margin-top:18px">Now use these phrases — six real questions</h3>
+    <p style="font-size:.94rem;color:var(--muted);margin-bottom:12px">Answer with a full sentence. Start with one of the phrases above. I want your <strong>real</strong> opinion, not the "correct" one.</p>
+    <div class="q-row"><div class="q-num">1</div><div class="q-text">Is it OK to skip breakfast if you're not hungry?</div><button class="q-speak" data-say="Is it OK to skip breakfast if you're not hungry?" aria-label="Listen"><span class="sound-icon" aria-hidden="true"></span><span class="sr-only">Listen</span></button></div>
+    <div class="q-row"><div class="q-num">2</div><div class="q-text">Do you think school uniforms are a good idea?</div><button class="q-speak" data-say="Do you think school uniforms are a good idea?" aria-label="Listen"><span class="sound-icon" aria-hidden="true"></span><span class="sr-only">Listen</span></button></div>
+    <div class="q-row"><div class="q-num">3</div><div class="q-text">Would you rather live in Moscow or a smaller city?</div><button class="q-speak" data-say="Would you rather live in Moscow or a smaller city?" aria-label="Listen"><span class="sound-icon" aria-hidden="true"></span><span class="sr-only">Listen</span></button></div>
+    <div class="q-row"><div class="q-num">4</div><div class="q-text">Is homework actually useful, or a waste of time?</div><button class="q-speak" data-say="Is homework actually useful, or a waste of time?" aria-label="Listen"><span class="sound-icon" aria-hidden="true"></span><span class="sr-only">Listen</span></button></div>
+    <div class="q-row"><div class="q-num">5</div><div class="q-text">Should kids get their own phone before 12?</div><button class="q-speak" data-say="Should kids get their own phone before twelve?" aria-label="Listen"><span class="sound-icon" aria-hidden="true"></span><span class="sr-only">Listen</span></button></div>
+    <div class="q-row"><div class="q-num">6</div><div class="q-text">Is it better to have one hobby you love, or try many?</div><button class="q-speak" data-say="Is it better to have one hobby you love, or try many?" aria-label="Listen"><span class="sound-icon" aria-hidden="true"></span><span class="sr-only">Listen</span></button></div>
+    <div class="starters" style="margin-top:14px"><strong>My rule:</strong> use each of the six phrases at least once. If you agree with me — say "Same here." If you disagree — "Actually, I think…" We'll count who used more phrases at the end.</div>
   </div>
 </section>
 
@@ -517,43 +543,68 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
 
 <!-- SECTION 9.5 · TENSE RADAR · SOFT DIAGNOSTIC -->
 <section class="section">
-  <div class="section-hdr"><div class="num">🕒</div><h2>Tense radar — soft diagnostic (skip anything unclear)</h2></div>
+  <div class="section-hdr"><div class="num">🕒</div><h2>Tense radar — full 12 tenses (skip anything unclear)</h2></div>
   <div class="section-sub">click a tense label · then click the sentence it belongs to · we're just checking, not testing</div>
   <div class="card">
-    <p style="font-size:.94rem;color:var(--muted);margin-bottom:14px">Six sentences, six tenses. If you're not sure — skip. I only need to see <strong>which ones you already own</strong> and which ones we'll build together this year.</p>
+    <p style="font-size:.94rem;color:var(--muted);margin-bottom:14px">Twelve sentences, twelve tenses. If you're not sure — skip and move on. This is a radar map: I only need to see <strong>which ones you already own</strong> and which we'll build together this year.</p>
 
     <div class="tm-bank" id="tm-bank">
       <div class="tm-chip" data-w="present-simple">Present Simple</div>
       <div class="tm-chip" data-w="present-continuous">Present Continuous</div>
+      <div class="tm-chip" data-w="present-perfect">Present Perfect</div>
+      <div class="tm-chip" data-w="present-perfect-continuous">Present Perfect Continuous</div>
       <div class="tm-chip" data-w="past-simple">Past Simple</div>
       <div class="tm-chip" data-w="past-continuous">Past Continuous</div>
-      <div class="tm-chip" data-w="present-perfect">Present Perfect</div>
-      <div class="tm-chip" data-w="future-will">Future (will / going to)</div>
+      <div class="tm-chip" data-w="past-perfect">Past Perfect</div>
+      <div class="tm-chip" data-w="past-perfect-continuous">Past Perfect Continuous</div>
+      <div class="tm-chip" data-w="future-simple">Future Simple</div>
+      <div class="tm-chip" data-w="future-continuous">Future Continuous</div>
+      <div class="tm-chip" data-w="future-perfect">Future Perfect</div>
+      <div class="tm-chip" data-w="future-perfect-continuous">Future Perfect Continuous</div>
     </div>
 
-    <div class="tm-row"><div class="tm-sentence">1. Every morning I <em>drink</em> tea before school.</div><div class="tm-tense-slot" data-correct="present-simple">tap a tense</div></div>
-    <div class="tm-row"><div class="tm-sentence">2. Right now she <em>is reading</em> a book about the brain.</div><div class="tm-tense-slot" data-correct="present-continuous">tap a tense</div></div>
-    <div class="tm-row"><div class="tm-sentence">3. Yesterday we <em>walked</em> around Red Square for two hours.</div><div class="tm-tense-slot" data-correct="past-simple">tap a tense</div></div>
-    <div class="tm-row"><div class="tm-sentence">4. I <em>was watching</em> a series when my phone died.</div><div class="tm-tense-slot" data-correct="past-continuous">tap a tense</div></div>
-    <div class="tm-row"><div class="tm-sentence">5. I <em>have never been</em> to London, but I want to.</div><div class="tm-tense-slot" data-correct="present-perfect">tap a tense</div></div>
-    <div class="tm-row"><div class="tm-sentence">6. Tomorrow I <em>will call</em> my grandmother.</div><div class="tm-tense-slot" data-correct="future-will">tap a tense</div></div>
+    <div class="tm-row"><div class="tm-sentence">1. I <em>walk</em> to school every day.</div><div class="tm-tense-slot" data-correct="present-simple">tap a tense</div></div>
+    <div class="tm-row"><div class="tm-sentence">2. She <em>is studying</em> for her exams at the moment.</div><div class="tm-tense-slot" data-correct="present-continuous">tap a tense</div></div>
+    <div class="tm-row"><div class="tm-sentence">3. They <em>have already visited</em> that museum.</div><div class="tm-tense-slot" data-correct="present-perfect">tap a tense</div></div>
+    <div class="tm-row"><div class="tm-sentence">4. We <em>have been waiting</em> for the bus for over an hour.</div><div class="tm-tense-slot" data-correct="present-perfect-continuous">tap a tense</div></div>
+    <div class="tm-row"><div class="tm-sentence">5. He <em>played</em> soccer with his friends yesterday.</div><div class="tm-tense-slot" data-correct="past-simple">tap a tense</div></div>
+    <div class="tm-row"><div class="tm-sentence">6. She <em>was reading</em> a book when the phone rang.</div><div class="tm-tense-slot" data-correct="past-continuous">tap a tense</div></div>
+    <div class="tm-row"><div class="tm-sentence">7. They <em>had already finished</em> their dinner when I arrived.</div><div class="tm-tense-slot" data-correct="past-perfect">tap a tense</div></div>
+    <div class="tm-row"><div class="tm-sentence">8. We <em>had been studying</em> all night before the exam.</div><div class="tm-tense-slot" data-correct="past-perfect-continuous">tap a tense</div></div>
+    <div class="tm-row"><div class="tm-sentence">9. I <em>will go</em> to the party tomorrow.</div><div class="tm-tense-slot" data-correct="future-simple">tap a tense</div></div>
+    <div class="tm-row"><div class="tm-sentence">10. They <em>will be travelling</em> to Europe next month.</div><div class="tm-tense-slot" data-correct="future-continuous">tap a tense</div></div>
+    <div class="tm-row"><div class="tm-sentence">11. She <em>will have completed</em> her project by the end of the week.</div><div class="tm-tense-slot" data-correct="future-perfect">tap a tense</div></div>
+    <div class="tm-row"><div class="tm-sentence">12. By next year we <em>will have been living</em> in this city for ten years.</div><div class="tm-tense-slot" data-correct="future-perfect-continuous">tap a tense</div></div>
 
-    <h3 style="margin-top:22px">Quick fill — use the same verbs</h3>
+    <h3 style="margin-top:22px">Quick fill — the same twelve tenses, one drop each</h3>
+    <p style="font-size:.9rem;color:var(--muted);margin-bottom:10px">Bank order is randomised on load. Same skip-rule: if you're not sure, leave the gap.</p>
     <div class="bank">
-      <div class="bank-word" data-w="get up">get up</div>
-      <div class="bank-word" data-w="am watching">am watching</div>
-      <div class="bank-word" data-w="went">went</div>
-      <div class="bank-word" data-w="was raining">was raining</div>
-      <div class="bank-word" data-w="have finished">have finished</div>
-      <div class="bank-word" data-w="will remember">will remember</div>
+      <div class="bank-word" data-w="eat">eat</div>
+      <div class="bank-word" data-w="is studying">is studying</div>
+      <div class="bank-word" data-w="have already finished">have already finished</div>
+      <div class="bank-word" data-w="have been working">have been working</div>
+      <div class="bank-word" data-w="were playing">were playing</div>
+      <div class="bank-word" data-w="had visited">had visited</div>
+      <div class="bank-word" data-w="had been waiting">had been waiting</div>
+      <div class="bank-word" data-w="had been living">had been living</div>
+      <div class="bank-word" data-w="will go">will go</div>
+      <div class="bank-word" data-w="are going">are going</div>
+      <div class="bank-word" data-w="will have finished">will have finished</div>
+      <div class="bank-word" data-w="will be studying">will be studying</div>
     </div>
     <div class="drag-text">
-      <p>1. On weekdays I <span class="drop-gap" data-correct="get up">⋯</span> at seven.</p>
-      <p>2. Right now I <span class="drop-gap" data-correct="am watching">⋯</span> a film in English.</p>
-      <p>3. Last summer we <span class="drop-gap" data-correct="went">⋯</span> to the sea.</p>
-      <p>4. It <span class="drop-gap" data-correct="was raining">⋯</span> when we arrived.</p>
-      <p>5. I <span class="drop-gap" data-correct="have finished">⋯</span> my homework already.</p>
-      <p>6. I <span class="drop-gap" data-correct="will remember">⋯</span> this lesson.</p>
+      <p>1. I <span class="drop-gap" data-correct="eat">⋯</span> breakfast every morning.</p>
+      <p>2. She <span class="drop-gap" data-correct="is studying">⋯</span> for her exams.</p>
+      <p>3. They <span class="drop-gap" data-correct="have already finished">⋯</span> their homework.</p>
+      <p>4. I <span class="drop-gap" data-correct="have been working">⋯</span> here for five years.</p>
+      <p>5. We <span class="drop-gap" data-correct="were playing">⋯</span> soccer when it started raining.</p>
+      <p>6. I <span class="drop-gap" data-correct="had visited">⋯</span> Paris before I went to London.</p>
+      <p>7. He <span class="drop-gap" data-correct="had been waiting">⋯</span> for an hour when the bus finally arrived.</p>
+      <p>8. We <span class="drop-gap" data-correct="had been living">⋯</span> in that house for ten years before we moved.</p>
+      <p>9. He <span class="drop-gap" data-correct="will go">⋯</span> to the party tonight.</p>
+      <p>10. They <span class="drop-gap" data-correct="are going">⋯</span> to travel to Europe next month.</p>
+      <p>11. She <span class="drop-gap" data-correct="will have finished">⋯</span> her project by tomorrow.</p>
+      <p>12. She <span class="drop-gap" data-correct="will be studying">⋯</span> abroad next semester.</p>
     </div>
 
     <div class="starters" style="margin-top:14px"><strong>The point:</strong> I don't need you to name every tense. I need to see <em>which time signals</em> you already feel — that tells me exactly where to start next week.</div>
@@ -585,6 +636,33 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
     <h3 style="margin-top:18px">Your turn — one paragraph</h3>
     <p style="font-size:.95rem;color:var(--text)">Copy the structure. Write or say <strong>one paragraph</strong> starting like this:</p>
     <div class="starters"><em>"I never used to be a ___ person. But this summer / this year / lately, something changed. I started ___ and ___. The ___ is ___. I still like ___ — ___ are for ___. But ___ are for me. That's the difference."</em></div>
+  </div>
+</section>
+
+<!-- SECTION 🎡 · WORD WHEEL -->
+<section class="section">
+  <div class="section-hdr"><div class="num">🎡</div><h2>Word wheel — spin, get a word, explain it in 30 seconds</h2></div>
+  <div class="section-sub">contestant style · you can't say the word itself · use gestures, synonyms, examples</div>
+  <div class="card">
+    <div class="wheel-wrap">
+      <div class="wheel-stage">
+        <div class="wheel-pointer" aria-hidden="true"></div>
+        <svg class="wheel-svg" id="wordWheel" viewBox="0 0 200 200" aria-label="Spinning word wheel">
+          <!-- 12 segments generated by JS -->
+        </svg>
+        <div class="wheel-hub" aria-hidden="true"></div>
+      </div>
+      <div class="wheel-controls">
+        <button class="wheel-spin-btn" id="wheelSpin">🎯 Spin the wheel</button>
+        <div class="wheel-result">
+          <div class="wr-label">Your word</div>
+          <div class="wr-word" id="wrWord">— tap Spin —</div>
+          <div class="wr-task" id="wrTask">You'll get 30 seconds. Describe the word without saying it.</div>
+        </div>
+        <div class="wheel-timer" id="wheelTimer">30</div>
+      </div>
+    </div>
+    <div class="starters" style="margin-top:14px"><strong>Rules of the show:</strong> <em>you can't say the word · you can't translate it into Russian · gestures, examples, synonyms only. I guess. If I get it — you win a point. Best of five rounds.</em></div>
   </div>
 </section>
 
@@ -736,6 +814,88 @@ document.querySelectorAll('.listen-play[data-say-target]').forEach(btn=>btn.addE
   const el=document.getElementById(id);
   if(el)speak((el.innerText||el.textContent||'').trim().replace(/\s+/g,' '));
 }));
+
+// Word Wheel — build SVG, spin, timer
+(function(){
+  const svg=document.getElementById('wordWheel');
+  const btn=document.getElementById('wheelSpin');
+  const wordEl=document.getElementById('wrWord');
+  const taskEl=document.getElementById('wrTask');
+  const timerEl=document.getElementById('wheelTimer');
+  if(!svg||!btn)return;
+
+  const words=['underrated','overhyped','mid','lowkey','vibe','random','worth it','chill','tired','excited','curious','proud'];
+  const n=words.length;
+  const cx=100,cy=100,r=94;
+  const step=360/n;
+  const colors=['#E88B4F','#B94F1F'];
+  const svgNS='http://www.w3.org/2000/svg';
+
+  words.forEach((w,i)=>{
+    const a0=(i*step-90)*Math.PI/180;
+    const a1=((i+1)*step-90)*Math.PI/180;
+    const x0=cx+r*Math.cos(a0),y0=cy+r*Math.sin(a0);
+    const x1=cx+r*Math.cos(a1),y1=cy+r*Math.sin(a1);
+    const seg=document.createElementNS(svgNS,'path');
+    seg.setAttribute('d',`M ${cx} ${cy} L ${x0} ${y0} A ${r} ${r} 0 0 1 ${x1} ${y1} Z`);
+    seg.setAttribute('fill',colors[i%2]);
+    seg.setAttribute('stroke','#FFF6EE');
+    seg.setAttribute('stroke-width','1.2');
+    svg.appendChild(seg);
+
+    const midA=((i+0.5)*step-90)*Math.PI/180;
+    const tx=cx+(r*0.62)*Math.cos(midA);
+    const ty=cy+(r*0.62)*Math.sin(midA);
+    const rotDeg=(i+0.5)*step;
+    const txt=document.createElementNS(svgNS,'text');
+    txt.setAttribute('x',tx);
+    txt.setAttribute('y',ty);
+    txt.setAttribute('text-anchor','middle');
+    txt.setAttribute('dominant-baseline','middle');
+    txt.setAttribute('fill','#FFF6EE');
+    txt.setAttribute('transform',`rotate(${rotDeg} ${tx} ${ty})`);
+    txt.textContent=w;
+    svg.appendChild(txt);
+  });
+
+  let currentRotation=0;
+  let timerHandle=null;
+
+  function startTimer(){
+    clearInterval(timerHandle);
+    let t=30;
+    timerEl.textContent=t;
+    timerEl.style.color='var(--accent2)';
+    timerHandle=setInterval(()=>{
+      t--;
+      timerEl.textContent=t;
+      if(t<=10)timerEl.style.color='var(--miss)';
+      if(t<=0){
+        clearInterval(timerHandle);
+        speak("Time's up!");
+      }
+    },1000);
+  }
+
+  btn.addEventListener('click',()=>{
+    btn.disabled=true;
+    const winner=Math.floor(Math.random()*n);
+    const spins=5;
+    const centreOfSlot=winner*step+step/2;
+    const target=spins*360 - centreOfSlot;
+    currentRotation=target;
+    svg.style.transform=`rotate(${currentRotation}deg)`;
+    setTimeout(()=>{
+      const w=words[winner];
+      wordEl.textContent=w;
+      taskEl.textContent='Describe this word without saying it. No Russian. 30 seconds.';
+      speak(w);
+      startTimer();
+      btn.disabled=false;
+      btn.textContent='🎯 Spin again';
+    },4300);
+  });
+})();
 
 // Progress dots — light up as user scrolls through sections
 const completedSections=new Set();
