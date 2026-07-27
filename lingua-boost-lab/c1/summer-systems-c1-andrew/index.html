@@ -11,12 +11,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f6f1e7; --bg-2:#efe8d6; --surface:#ffffff; --card:#fbf8f2; --surface-2:#f1ead9;
-  --text:#28303d; --muted:#6b7585; --faint:#9aa3b0;
-  --accent:#3f8c52; --accent-2:#2f6b3f; --accent-on:#ffffff;
-  --brand:#a07d3e; --brand-2:#c9a26b;
-  --line:rgba(63,140,82,.18); --line-2:rgba(63,140,82,.34);
-  --ok:#2e9b67; --miss:#d9425a;
+  /* Summer sun palette — sand + sunset + sky */
+  --bg:#FFF6DC; --bg-2:#FCE7B0; --surface:#ffffff; --card:#FFFBEF; --surface-2:#FDEFC6;
+  --text:#2A3346; --muted:#6C7688; --faint:#A0AAB8;
+  --accent:#F58A3A; --accent-2:#C55A16; --accent-on:#ffffff;
+  --brand:#3E8FBA; --brand-2:#5FB1D6;
+  --line:rgba(245,138,58,.20); --line-2:rgba(245,138,58,.38);
+  --ok:#4CA76B; --miss:#D9425A;
   --display:"Unbounded","Manrope",system-ui,sans-serif;
   --body:"Manrope",system-ui,sans-serif;
   --mono:"JetBrains Mono",Consolas,monospace;
@@ -24,8 +25,9 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:var(--body);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.65;
-  background-image:radial-gradient(ellipse at 80% 0%,rgba(63,140,82,.07),transparent 55%),
-                   radial-gradient(ellipse at 10% 90%,rgba(201,162,107,.07),transparent 55%);overflow-x:hidden}
+  background-image:radial-gradient(ellipse at 85% -5%,rgba(255,184,108,.35),transparent 55%),
+                   radial-gradient(ellipse at 12% 92%,rgba(95,177,214,.22),transparent 55%),
+                   radial-gradient(ellipse at 50% 40%,rgba(252,231,176,.4),transparent 65%);overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 
 /* Topbar */
@@ -40,30 +42,32 @@ a{color:inherit;text-decoration:none}
 .brand-sub{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-top:2px}
 .spacer{flex:1}
 .pill{padding:5px 11px;border-radius:50px;font:700 9.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
-  border:1px solid var(--line-2);color:var(--accent-2);background:rgba(63,140,82,.10);white-space:nowrap}
-.pill.brand{background:rgba(201,162,107,.14);border-color:var(--brand);color:var(--brand-2)}
+  border:1px solid var(--line-2);color:var(--accent-2);background:rgba(245,138,58,.10);white-space:nowrap}
+.pill.brand{background:rgba(95,177,214,.14);border-color:var(--brand);color:var(--brand-2)}
 .btn-sm{height:32px;padding:0 12px;border-radius:8px;border:1px solid var(--line-2);background:var(--card);color:var(--muted);
   font:700 11px/1 var(--mono);letter-spacing:.08em;cursor:pointer;display:inline-flex;align-items:center;text-transform:uppercase;text-decoration:none}
 .btn-sm:hover{border-color:var(--accent);color:var(--accent-2)}
 
-/* Hero — light overlay over hero-science-disc image */
+/* Hero — summer sunset gradient, no image */
 .hero{max-width:1240px;margin:32px auto 12px;padding:0 clamp(16px,3vw,28px);position:relative;z-index:2}
 .hero-card{position:relative;border:1px solid var(--line-2);border-radius:24px;overflow:hidden;
-  background-image:linear-gradient(95deg,rgba(255,253,247,.96) 0%,rgba(255,253,247,.82) 35%,rgba(255,253,247,.55) 60%,rgba(255,253,247,.18) 88%),url('./assets/hero-science-disc.webp?v=4');
-  background-size:cover;background-position:right center;background-repeat:no-repeat;
-  box-shadow:0 10px 36px rgba(63,140,82,.10);padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px);min-height:460px}
+  background:
+    radial-gradient(circle at 88% 22%,#FFE28A 0%,#FFB86C 22%,transparent 46%),
+    linear-gradient(120deg,#FFFBEF 0%,#FDEFC6 40%,#FCE7B0 70%,#FFD79E 100%);
+  box-shadow:0 10px 36px rgba(245,138,58,.14);padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px);min-height:400px}
+.hero-card::before{content:"☀";position:absolute;right:5%;top:12%;font-size:clamp(4rem,10vw,8rem);color:#FFB86C;opacity:.55;text-shadow:0 0 40px rgba(255,184,108,.6);z-index:0;line-height:1;pointer-events:none}
 .eyebrow{font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-2);
   display:inline-flex;align-items:center;gap:10px;margin-bottom:18px;position:relative;z-index:2;
-  background:rgba(63,140,82,.14);border:1px solid var(--accent);padding:7px 14px;border-radius:50px}
+  background:rgba(245,138,58,.14);border:1px solid var(--accent);padding:7px 14px;border-radius:50px}
 h1.hero-title{font-family:var(--display);font-weight:900;letter-spacing:-.04em;line-height:.96;
   font-size:clamp(1.9rem,4.8vw,3.6rem);max-width:760px;margin-bottom:20px;color:var(--text);position:relative;z-index:2}
 h1.hero-title .grad{color:var(--accent-2)}
 .hero-lead{font-size:clamp(1rem,1.3vw,1.12rem);color:var(--text);max-width:740px;line-height:1.6;margin-bottom:24px;position:relative;z-index:2;
   background:rgba(255,255,255,.78);border:1px solid var(--line-2);border-radius:14px;padding:16px 20px;backdrop-filter:blur(6px);
-  box-shadow:0 4px 18px rgba(63,140,82,.08)}
+  box-shadow:0 4px 18px rgba(245,138,58,.08)}
 .hero-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px;max-width:680px;position:relative;z-index:2}
 .stat{background:rgba(255,255,255,.86);border:1px solid var(--line-2);border-radius:14px;padding:14px 16px;backdrop-filter:blur(6px);
-  box-shadow:0 4px 14px rgba(63,140,82,.08)}
+  box-shadow:0 4px 14px rgba(245,138,58,.08)}
 .stat-k{font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-2);margin-bottom:6px}
 .stat-v{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--text);letter-spacing:-.01em}
 
@@ -74,16 +78,16 @@ h1.hero-title .grad{color:var(--accent-2)}
   background:var(--accent);color:#fff;padding:5px 11px;border-radius:50px}
 .section-hdr h2{font-family:var(--display);font-weight:800;font-size:clamp(1.25rem,2.2vw,1.75rem);color:var(--text);letter-spacing:-.02em;line-height:1.15}
 .section-sub{font-size:.92rem;color:var(--muted);margin:0 0 14px 0;font-style:italic}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 24px;box-shadow:0 4px 18px rgba(63,140,82,.06)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 24px;box-shadow:0 4px 18px rgba(245,138,58,.06)}
 .card h3{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--accent-2);margin:18px 0 10px;letter-spacing:.01em}
 .card h3:first-child{margin-top:0}
 .card p{margin-bottom:11px;color:var(--text)}
-.card .info{background:rgba(63,140,82,.06);border-left:3px solid var(--accent);padding:12px 16px;border-radius:8px;font-size:.92rem;color:var(--muted);margin:12px 0}
+.card .info{background:rgba(245,138,58,.06);border-left:3px solid var(--accent);padding:12px 16px;border-radius:8px;font-size:.92rem;color:var(--muted);margin:12px 0}
 .card .info strong{color:var(--accent-2)}
 .card .src{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-weight:700}
 
 .task-tag{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
-  background:rgba(201,162,107,.16);color:var(--brand-2);border:1px solid var(--brand);border-radius:50px;padding:4px 10px;margin-bottom:8px}
+  background:rgba(95,177,214,.16);color:var(--brand-2);border:1px solid var(--brand);border-radius:50px;padding:4px 10px;margin-bottom:8px}
 
 /* MCQ */
 .mcq-row{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
@@ -95,7 +99,7 @@ h1.hero-title .grad{color:var(--accent-2)}
 .mcq-opts button.correct{background:rgba(46,155,103,.16);border-color:var(--ok);color:var(--ok)}
 .mcq-opts button.wrong{background:rgba(217,66,90,.14);border-color:var(--miss);color:var(--miss)}
 .mcq-note{display:none;margin-top:10px;font-family:var(--mono);font-size:.78rem;color:var(--muted);font-style:italic;
-  background:rgba(201,162,107,.10);border-left:3px solid var(--brand);padding:8px 12px;border-radius:0 8px 8px 0}
+  background:rgba(95,177,214,.10);border-left:3px solid var(--brand);padding:8px 12px;border-radius:0 8px 8px 0}
 .mcq-row.revealed .mcq-note{display:block}
 
 /* Agree/Disagree blocks (statements + 2-option self-position) */
@@ -105,7 +109,7 @@ h1.hero-title .grad{color:var(--accent-2)}
 .ad-btns{display:flex;gap:8px;flex-wrap:wrap}
 .ad-btns button{font:700 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--surface-2);border:1px solid var(--line-2);color:var(--muted);padding:9px 14px;border-radius:50px;cursor:pointer}
 .ad-btns button:hover{border-color:var(--accent);color:var(--accent-2)}
-.ad-btns button.picked{background:rgba(63,140,82,.14);border-color:var(--accent);color:var(--accent-2);font-weight:800}
+.ad-btns button.picked{background:rgba(245,138,58,.14);border-color:var(--accent);color:var(--accent-2);font-weight:800}
 
 /* True/False blocks (statement + verdict + reveal) */
 .tf-row{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
@@ -115,7 +119,7 @@ h1.hero-title .grad{color:var(--accent-2)}
 .tf-btns button:hover{border-color:var(--accent);color:var(--accent-2)}
 .tf-btns button.correct{background:rgba(46,155,103,.16);border-color:var(--ok);color:var(--ok)}
 .tf-btns button.wrong{background:rgba(217,66,90,.14);border-color:var(--miss);color:var(--miss)}
-.tf-note{display:none;margin-top:10px;font-family:var(--mono);font-size:.78rem;color:var(--muted);font-style:italic;background:rgba(201,162,107,.10);border-left:3px solid var(--brand);padding:8px 12px;border-radius:0 8px 8px 0}
+.tf-note{display:none;margin-top:10px;font-family:var(--mono);font-size:.78rem;color:var(--muted);font-style:italic;background:rgba(95,177,214,.10);border-left:3px solid var(--brand);padding:8px 12px;border-radius:0 8px 8px 0}
 .tf-row.revealed .tf-note{display:block}
 
 /* Matching (Ten fields) */
@@ -124,7 +128,7 @@ h1.hero-title .grad{color:var(--accent-2)}
 .match-col h4{font-family:var(--mono);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-2);margin-bottom:10px;font-weight:800}
 .match-card{background:var(--card);border:1.5px solid var(--line-2);color:var(--text);padding:12px 14px;border-radius:10px;cursor:pointer;font-size:.94rem;margin-bottom:8px;transition:.18s;line-height:1.45}
 .match-card:hover{border-color:var(--accent)}
-.match-card.selected{border-color:var(--brand);background:rgba(201,162,107,.14);box-shadow:0 0 0 3px rgba(201,162,107,.18)}
+.match-card.selected{border-color:var(--brand);background:rgba(95,177,214,.14);box-shadow:0 0 0 3px rgba(95,177,214,.18)}
 .match-card.matched{background:rgba(46,155,103,.14);border-color:var(--ok);color:var(--ok);cursor:default;opacity:.7}
 .match-meta{margin-top:14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
 .match-meta button{font:800 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--accent);color:#fff;border:none;padding:9px 16px;border-radius:8px;cursor:pointer}
@@ -174,7 +178,7 @@ h1.hero-title .grad{color:var(--accent-2)}
 .gapfill input{display:inline-block;width:64px;font:600 .96rem var(--body);background:#fff;color:var(--text);
   border:1px solid var(--line-2);border-radius:6px;padding:3px 8px;outline:none;text-align:left;vertical-align:baseline;
   margin:0 2px;letter-spacing:.02em}
-.gapfill input:focus{border-color:var(--accent);box-shadow:0 0 0 2px rgba(63,140,82,.18)}
+.gapfill input:focus{border-color:var(--accent);box-shadow:0 0 0 2px rgba(245,138,58,.18)}
 .gapfill input.correct{background:rgba(46,155,103,.16);border-color:var(--ok);color:var(--ok)}
 .gapfill input.wrong{background:rgba(217,66,90,.14);border-color:var(--miss);color:var(--miss)}
 .gapfill .check-row{display:flex;gap:10px;margin-top:14px;font-family:var(--body);font-size:.9rem;align-items:center;flex-wrap:wrap}
@@ -203,12 +207,12 @@ h1.hero-title .grad{color:var(--accent-2)}
 .builder .builder-status{font-family:var(--mono);font-size:.78rem;color:var(--faint);font-weight:700;letter-spacing:.1em}
 .builder .builder-status.ok{color:var(--ok)}
 .builder .builder-status.miss{color:var(--miss)}
-.builder .sample-reveal{display:none;margin-top:12px;background:rgba(201,162,107,.10);border-left:3px solid var(--brand);
+.builder .sample-reveal{display:none;margin-top:12px;background:rgba(95,177,214,.10);border-left:3px solid var(--brand);
   padding:10px 14px;border-radius:0 8px 8px 0;font-size:.92rem;color:var(--muted)}
 .builder.show-sample .sample-reveal{display:block}
 
 /* Cue card (Interview) */
-.cue-card{background:linear-gradient(135deg,rgba(63,140,82,.08),rgba(201,162,107,.05));
+.cue-card{background:linear-gradient(135deg,rgba(245,138,58,.08),rgba(95,177,214,.05));
   border:1px solid var(--line-2);border-radius:14px;padding:18px 20px;margin:14px 0}
 .cue-card .cue-h{font-family:var(--mono);font-weight:800;color:var(--accent-2);margin-bottom:8px;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
 .cue-card p{margin:0;color:var(--text);line-height:1.6}
@@ -221,8 +225,8 @@ h1.hero-title .grad{color:var(--accent-2)}
   letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-weight:700;flex-wrap:wrap;gap:8px}
 .write .sample-toggle{font:700 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;
   background:transparent;color:var(--brand-2);border:1px solid var(--brand);padding:6px 12px;border-radius:6px;cursor:pointer;margin-top:8px}
-.write .sample-toggle:hover{background:rgba(201,162,107,.12)}
-.write .sample-reveal{display:none;margin-top:12px;background:rgba(201,162,107,.10);border-left:3px solid var(--brand);
+.write .sample-toggle:hover{background:rgba(95,177,214,.12)}
+.write .sample-reveal{display:none;margin-top:12px;background:rgba(95,177,214,.10);border-left:3px solid var(--brand);
   padding:12px 16px;border-radius:0 8px 8px 0;color:var(--muted);font-size:.92rem;font-style:italic;line-height:1.6;white-space:pre-line}
 .write.show-sample .sample-reveal{display:block}
 
@@ -232,7 +236,7 @@ h1.hero-title .grad{color:var(--accent-2)}
 .post p{color:var(--muted);font-size:.93rem;line-height:1.55;margin:0}
 
 /* Speaking trigger (30s talk) — placed after every reading/listening */
-.speak-trigger{margin-top:14px;background:linear-gradient(135deg,rgba(63,140,82,.10),rgba(201,162,107,.06));
+.speak-trigger{margin-top:14px;background:linear-gradient(135deg,rgba(245,138,58,.10),rgba(95,177,214,.06));
   border:1px dashed var(--accent);border-radius:12px;padding:14px 16px}
 .speak-trigger .st-h{font-family:var(--mono);font-size:10.5px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-2);margin-bottom:6px}
 .speak-trigger p{margin:0;color:var(--text);font-size:.94rem;line-height:1.5}
@@ -260,14 +264,14 @@ h1.hero-title .grad{color:var(--accent-2)}
 .score-badge .lbl{color:var(--muted)}
 .score-badge .val{color:var(--accent-2);font-size:.92rem}
 .score-badge .max{color:var(--faint)}
-.score-badge.scored{background:rgba(63,140,82,.10);border-color:var(--accent)}
+.score-badge.scored{background:rgba(245,138,58,.10);border-color:var(--accent)}
 .score-badge.tutor{border-style:dashed;color:var(--brand-2)}
 .score-badge.tutor .val{color:var(--brand-2)}
 .score-badge .tutor-input{width:42px;padding:3px 6px;text-align:center;background:transparent;border:1px solid var(--brand);
   border-radius:6px;color:var(--brand-2);font-family:var(--mono);font-weight:800;font-size:.92rem;outline:none}
 
 /* Total scoring summary */
-.total-score{background:linear-gradient(135deg,rgba(63,140,82,.12),rgba(201,162,107,.08));
+.total-score{background:linear-gradient(135deg,rgba(245,138,58,.12),rgba(95,177,214,.08));
   border:1px solid var(--accent);border-radius:14px;padding:20px 22px;margin:14px 0;text-align:center}
 .total-score .total-h{font-family:var(--mono);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-2);font-weight:800;margin-bottom:10px}
 .total-score .total-val{font-family:var(--display);font-weight:900;font-size:2.4rem;color:var(--text);line-height:1}
@@ -283,8 +287,8 @@ h1.hero-title .grad{color:var(--accent-2)}
 .cefr-table{width:100%;border-collapse:collapse;margin:14px 0;font-family:var(--body);font-size:.92rem;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
 .cefr-table th,.cefr-table td{text-align:center;padding:9px 8px;border-bottom:1px solid var(--line)}
 .cefr-table th{font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-2);background:var(--bg-2);font-weight:800}
-.cefr-table td.lvl{font-family:var(--display);font-weight:800;color:var(--accent-2);background:rgba(63,140,82,.06)}
-.cefr-table tr:hover td{background:rgba(63,140,82,.05)}
+.cefr-table td.lvl{font-family:var(--display);font-weight:800;color:var(--accent-2);background:rgba(245,138,58,.06)}
+.cefr-table tr:hover td{background:rgba(245,138,58,.05)}
 @media(max-width:680px){
   .cefr-table{display:block;width:100%;max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border-collapse:separate}
   .cefr-table th,.cefr-table td{padding:8px 6px;font-size:.78rem;white-space:nowrap}
@@ -397,36 +401,36 @@ footer a{color:var(--brand-2);text-decoration:underline}
   </div>
 </section>
 
-<!-- 02 · TEN SUMMER-ADJACENT ACADEMIC FIELDS · MATCHING -->
+<!-- 02 · SAME TEN SCIENCE FIELDS · RECAP THROUGH A SUMMER LENS -->
 <section class="section" id="s02">
-  <div class="section-hdr"><div class="num">02</div><h2>Ten summer-adjacent academic fields · match name → what it studies</h2></div>
-  <p class="section-sub">Every field on this list touches modern summer in some way — climate, ocean, sun, seasonal economics, human body under heat. Click a card on the left, then click its matching definition on the right. Whole section → homework.</p>
+  <div class="section-hdr"><div class="num">02</div><h2>Recap · ten science fields — same list, summer stories this time</h2></div>
+  <p class="section-sub">The same ten fields we matched in Lesson 1 — this is a friendly summer re-run. Match name → what it studies. Whole section → homework.</p>
   <div class="card">
-    <div class="task-tag">Matching · 10 pairs</div>
+    <div class="task-tag">Matching · 10 pairs · recap</div>
     <script type="application/json" id="match-data">{
       "left":[
-        {"k":"cli","text":"Climatology"},
+        {"k":"gen","text":"Genetics"},
         {"k":"met","text":"Meteorology"},
-        {"k":"oce","text":"Oceanography"},
-        {"k":"phe","text":"Phenology"},
-        {"k":"sol","text":"Solar Physics"},
-        {"k":"mar","text":"Marine Biology"},
-        {"k":"tou","text":"Tourism Economics"},
+        {"k":"ren","text":"Renewable Energy"},
+        {"k":"mat","text":"Materials Science"},
+        {"k":"mar","text":"Marine Science"},
+        {"k":"ast","text":"Astronomy"},
+        {"k":"arc","text":"Archaeology"},
+        {"k":"ai","text":"Artificial Intelligence"},
         {"k":"epi","text":"Epidemiology"},
-        {"k":"ren","text":"Renewable Energy Engineering"},
-        {"k":"env","text":"Environmental Engineering"}
+        {"k":"neu","text":"Neuroscience"}
       ],
       "right":[
-        {"k":"cli","text":"Studies long-term patterns of temperature, precipitation and atmospheric composition over decades and centuries."},
-        {"k":"met","text":"Focuses on short-term weather — daily forecasts, storm tracking, atmospheric pressure and humidity."},
-        {"k":"oce","text":"Investigates ocean currents, sea temperature, salinity and the physical structure of marine basins."},
-        {"k":"phe","text":"Tracks the timing of recurring biological events — flowering, bird migration, insect emergence — across seasons."},
-        {"k":"sol","text":"Examines the Sun's radiation, magnetic cycles, sunspots and their influence on Earth's atmosphere."},
-        {"k":"mar","text":"Studies living organisms in the sea — coral reefs, plankton, fish — and how they respond to warming water."},
-        {"k":"tou","text":"Analyses the flow of money, jobs and prices in the travel and hospitality industries, especially in seasonal markets."},
-        {"k":"epi","text":"Measures how diseases and health events (including heat-related mortality) spread through populations."},
-        {"k":"ren","text":"Designs systems that convert sun and wind into usable electricity and store it for peak demand."},
-        {"k":"env","text":"Applies engineering to reduce urban heat, treat wastewater, cool buildings and manage air quality."}
+        {"k":"gen","text":"Focuses on DNA, inherited traits and how genetic information can be modified."},
+        {"k":"ai","text":"Creates computer systems that analyse data, recognise patterns and make predictions."},
+        {"k":"epi","text":"Studies how diseases spread through populations and how outbreaks can be predicted and prevented."},
+        {"k":"met","text":"Studies weather patterns, atmospheric processes and short-term climate behaviour."},
+        {"k":"arc","text":"Investigates ancient objects, ruins and material evidence of human activity in the past."},
+        {"k":"mat","text":"Develops new substances — polymers, composites, alloys — for construction, medicine and technology."},
+        {"k":"ast","text":"Explores stars, planets, galaxies and the large-scale structure of the universe."},
+        {"k":"neu","text":"Examines how the brain processes information and how people make decisions."},
+        {"k":"mar","text":"Studies oceans, deep-sea environments and the ecosystems that live in them."},
+        {"k":"ren","text":"Develops cleaner ways to generate and store electricity from wind, sun and other renewable sources."}
       ]
     }</script>
     <div class="match-cols">
