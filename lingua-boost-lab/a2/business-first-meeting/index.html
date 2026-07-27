@@ -6,6 +6,23 @@
 <!-- PREMIUM GUARD · обязательно ПЕРВЫМ (регламент 2026-07-12 · без него login-ring) -->
 <script>if(['127.0.0.1','localhost'].includes(location.hostname)){try{localStorage.setItem('nge-vault-cache',JSON.stringify([{url:location.pathname}]))}catch(e){}}</script>
 <script src="/lingua-boost-lab/assets/premium-lesson-guard.js"></script>
+<!-- BLOCK lab-vocab-builder from adding teacher-vocab cards to this lesson -->
+<script>
+(function(){
+  try{
+    // Purge any teacher-vocab state for this lesson path
+    var path = location.pathname;
+    Object.keys(localStorage).forEach(function(k){
+      if((k.indexOf('lab-vocab:')===0 || k.indexOf('lab-hw:')===0 || k.indexOf('nge-teacher-vocab')===0 || k.indexOf('lv-')===0) && (k.indexOf(path)>-1 || k.indexOf('business-first-meeting')>-1)){
+        localStorage.removeItem(k);
+      }
+    });
+  }catch(e){}
+  // Neutralize lab-vocab-builder for this page before it can inject anything
+  window.__NGE_DISABLE_VOCAB_BUILDER__ = true;
+  Object.defineProperty(window, 'LabVocabBuilder', {value: {init:function(){}, addWord:function(){}, render:function(){}}, writable:false, configurable:false});
+})();
+</script>
 <title>Meeting people at work · A2 · NG English</title>
 <meta name="description" content="A2 Business Lab lesson · warm intro to first meetings at work. Tell about yourself, small talk, travel stories, listening, reading, role-play. For sales managers who need friendly English at work.">
 <meta name="robots" content="noindex">
@@ -36,7 +53,7 @@ button{font-family:inherit;cursor:pointer}
 
 /* Topbar */
 .topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;padding:10px clamp(14px,3vw,26px);
-  background:color-mix(in srgb,var(--paper) 94%,transparent);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+  background:color-mix(in srgb,var(--paper) 94%,transparent);border-bottom:1px solid var(--line);backdrop-filter:none}
 .brand{display:flex;align-items:center;gap:10px}
 .brand-mark{width:38px;height:38px;border-radius:9px;background:var(--accent3);color:#fff;
   font-family:var(--display);font-weight:900;font-size:20px;display:grid;place-items:center;line-height:1;box-shadow:0 2px 6px rgba(46,85,130,.25)}
@@ -55,15 +72,20 @@ button{font-family:inherit;cursor:pointer}
 
 /* Hero */
 .hero{max-width:1240px;margin:22px auto 16px;padding:0 clamp(14px,3vw,26px)}
-.hero-card{position:relative;border:1px solid var(--line);border-radius:22px;overflow:hidden;padding:0;box-shadow:0 10px 40px rgba(31,46,69,.14);color:#fff;background:#1F2E45}
-.hero-bg{display:block;width:100%;height:auto;object-fit:contain;position:relative;z-index:1}
-.hero-inner{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:clamp(24px,3.5vw,40px) clamp(24px,3.5vw,42px);color:#fff;
-  background:linear-gradient(180deg,rgba(15,28,52,0) 0%,rgba(15,28,52,.55) 40%,rgba(15,28,52,.88) 100%);
-  display:grid;gap:14px}
-.hero-txt{padding:0;background:transparent;border:none;max-width:none}
-.hero-openers{padding:0;max-width:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
-h1.hero-title{text-shadow:0 2px 24px rgba(0,0,0,.65),0 1px 4px rgba(0,0,0,.5);margin-bottom:0}
-.hero-lead{background:transparent!important;border:none!important;backdrop-filter:none;padding:0!important;text-shadow:0 1px 8px rgba(0,0,0,.7)}
+.hero-card{position:relative;border:1px solid var(--line);border-radius:22px;overflow:hidden;
+  background-image:linear-gradient(95deg,rgba(244,248,252,.96) 0%,rgba(244,248,252,.82) 32%,rgba(244,248,252,.55) 55%,rgba(244,248,252,.18) 85%),url('assets/hero-handshake.jpg');
+  background-size:cover;background-position:right center;background-repeat:no-repeat;
+  padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px);min-height:460px;box-shadow:0 10px 40px rgba(31,46,69,.14);color:var(--ink)}
+.hero-bg{display:none}
+.hero-inner{position:relative;z-index:2;display:grid;gap:14px;max-width:640px}
+.hero-txt{padding:0;background:transparent;border:none;max-width:640px}
+.hero-openers{padding:0;max-width:640px}
+h1.hero-title{color:var(--ink)!important;text-shadow:none;margin-bottom:16px}
+h1.hero-title .grad{background:linear-gradient(120deg,var(--accent3),var(--maple))!important;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-lead{background:rgba(255,255,255,.86)!important;border:1px solid var(--line-2)!important;backdrop-filter:none;padding:14px 18px!important;text-shadow:none;color:var(--ink)!important;box-shadow:0 4px 14px rgba(31,46,69,.06)}
+.hero-opener{background:rgba(255,255,255,.75)!important;border:1px solid var(--line-2)!important;color:var(--ink)!important;backdrop-filter:none}
+.hero-opener .lbl{color:var(--maple)!important}
+.eyebrow{background:var(--accent-soft)!important;border:1px solid var(--accent)!important;color:var(--accent3)!important}
 .hero-card::before{content:"";position:absolute;inset:0;background:
   radial-gradient(circle at 15% 25%,rgba(198,168,119,.22),transparent 45%),
   radial-gradient(circle at 85% 75%,rgba(255,255,255,.10),transparent 45%);pointer-events:none}
@@ -73,12 +95,12 @@ h1.hero-title{text-shadow:0 2px 24px rgba(0,0,0,.65),0 1px 4px rgba(0,0,0,.5);ma
 .hero-illu{flex-shrink:0;width:180px;height:130px;border-radius:14px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);display:grid;place-items:center;padding:14px}
 .hero-illu svg{width:100%;height:100%}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.32);
-  padding:6px 14px;border-radius:50px;font:800 10px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:#fff;margin-bottom:16px;backdrop-filter:blur(10px)}
+  padding:6px 14px;border-radius:50px;font:800 10px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:#fff;margin-bottom:16px;backdrop-filter:none}
 h1.hero-title{font-family:var(--display);font-weight:900;letter-spacing:-.03em;line-height:1.05;
   font-size:clamp(1.6rem,4vw,2.6rem);margin-bottom:14px;color:#fff;text-shadow:0 3px 20px rgba(0,0,0,.25)}
 h1.hero-title .grad{background:linear-gradient(120deg,#fff,var(--maple-soft));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .hero-lead{font-size:1rem;color:#fff;max-width:720px;line-height:1.6;background:rgba(15,28,52,.30);
-  border:1px solid rgba(255,255,255,.22);border-radius:12px;padding:14px 18px;backdrop-filter:blur(8px)}
+  border:1px solid rgba(255,255,255,.22);border-radius:12px;padding:14px 18px;backdrop-filter:none}
 .hero-openers{display:grid;gap:8px;max-width:640px}
 .hero-opener{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.24);border-radius:10px;padding:10px 14px;font-size:.94rem;color:#fff;font-family:Georgia,serif;font-style:italic;line-height:1.5}
 .hero-opener .lbl{display:inline-block;font-family:var(--mono);font-size:9.5px;font-weight:800;letter-spacing:.16em;color:var(--maple-soft);text-transform:uppercase;margin-right:8px;font-style:normal}
@@ -107,6 +129,20 @@ h1.hero-title .grad{background:linear-gradient(120deg,#fff,var(--maple-soft));-w
 .warm-q .q-hint{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.02em}
 .warm-q input{border:1px dashed var(--line-2);border-radius:8px;background:var(--card-2);padding:6px 10px;font-family:Georgia,serif;font-size:.94rem;color:var(--ink);outline:none;font-style:italic}
 .warm-q input:focus{border-color:var(--accent);border-style:solid;background:#fff}
+
+/* Hide teacher-vocab-builder junk cards + reading text underlines · aggressive */
+.vocab-grid > *:not(.vocab-card){display:none !important}
+.vw,.lv-added,.lv-mini,.lv-add-btn,.lv-highlight,.lv-mark,.nge-vocab-highlight{display:none !important}
+.tr[data-ru],.tr,[data-ru],[data-lv-marked],[data-teacher-marked],span[data-vocab],.reading span[class],.reading .tr,.reading [class*="marked"],.reading [class*="highlight"]{border:none !important;background:transparent !important;padding:0 !important;text-decoration:none !important;box-shadow:none !important;outline:none !important;color:inherit !important}
+
+/* Drag-pill · force pill shape (canon-L overrides button) */
+.drag-pill{background:var(--accent-soft) !important;border:1.5px solid var(--accent) !important;color:var(--accent3) !important;padding:8px 16px !important;border-radius:22px !important;cursor:pointer !important;font:700 13px var(--body) !important;transition:.15s !important;letter-spacing:.02em !important;text-transform:none !important;box-shadow:0 1px 3px rgba(31,46,69,.06) !important}
+.drag-pill:hover{background:var(--accent) !important;color:#fff !important;transform:translateY(-1px)}
+.drag-pill.selected{background:var(--maple) !important;border-color:var(--maple) !important;color:#fff !important}
+.drag-pill.used{opacity:.35 !important;cursor:default !important;text-decoration:line-through !important;pointer-events:none}
+.drag-bank{display:flex !important;flex-wrap:wrap !important;gap:8px !important;margin:8px 0 !important}
+.drag-target{display:inline-block;min-width:100px;padding:4px 14px;border:2px dashed var(--maple);border-radius:8px;background:var(--maple-soft);color:var(--maple);font-weight:800;text-align:center;cursor:pointer;vertical-align:middle;margin:0 4px}
+.drag-target.filled{background:rgba(74,143,110,.14);border-color:var(--ok);border-style:solid;color:var(--ok)}
 
 /* Vocab flip cards */
 .vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:12px 0}
@@ -361,25 +397,25 @@ details .details-body{padding:12px 16px 16px}
   </div>
 </header>
 
-<!-- 1 · Warm-up · tell me about yourself -->
+<!-- 1 · Tell me about yourself · classical warm-up -->
 <section class="section" id="s1">
   <div class="section-hdr">
     <span class="num">1</span>
-    <h2>Warm-up · tell me a bit about you</h2>
+    <h2>Tell me about yourself · the classic warm-up</h2>
   </div>
-  <p class="section-sub">Say your answers out loud. No auto-check — just talk. Tap ▶ to hear each question.</p>
+  <p class="section-sub">The safe, familiar way to start with strangers at work. Answer each question out loud in one short sentence. Tap ▶ to hear each question first.</p>
   <div class="card">
-    <div class="task-tag">5 warm questions · your real words</div>
+    <div class="task-tag">5 basic questions · your real words · say them out loud</div>
     <div class="warm-grid" data-ex="s1">
       <div class="warm-q">
-        <div class="q-play"><button class="q-play-btn" data-say="What's your name?" aria-label="Play">▶</button><span class="q-text">What's your name?</span></div>
-        <input placeholder="Hi, I'm ___">
-        <div class="q-hint">Full answer: "Hi, I'm Andrey. Nice to meet you."</div>
+        <div class="q-play"><button class="q-play-btn" data-say="Tell me a bit about yourself." aria-label="Play">▶</button><span class="q-text">Tell me a bit about yourself.</span></div>
+        <input placeholder="My name is ___. I work in ___. I'm from ___.">
+        <div class="q-hint">Answer in 3 lines: name → work → city. That's it — no CV.</div>
       </div>
       <div class="warm-q">
-        <div class="q-play"><button class="q-play-btn" data-say="Where are you from?" aria-label="Play">▶</button><span class="q-text">Where are you from?</span></div>
-        <input placeholder="I'm from ___">
-        <div class="q-hint">"I'm from Moscow, but I was born in Kazan."</div>
+        <div class="q-play"><button class="q-play-btn" data-say="What's your name and where are you from?" aria-label="Play">▶</button><span class="q-text">What's your name and where are you from?</span></div>
+        <input placeholder="I'm ___, from ___">
+        <div class="q-hint">"I'm Andrey, from Moscow. Originally from Kazan."</div>
       </div>
       <div class="warm-q">
         <div class="q-play"><button class="q-play-btn" data-say="What do you do?" aria-label="Play">▶</button><span class="q-text">What do you do?</span></div>
@@ -387,17 +423,17 @@ details .details-body{padding:12px 16px 16px}
         <div class="q-hint">"I work in sales. I'm a sales manager at BestFood."</div>
       </div>
       <div class="warm-q">
-        <div class="q-play"><button class="q-play-btn" data-say="Do you like travelling? Where have you been recently?" aria-label="Play">▶</button><span class="q-text">Do you like travelling? Where have you been recently?</span></div>
-        <input placeholder="Yes, I've been to ___">
-        <div class="q-hint">"I love travelling. Last year I went to Turkey and Georgia."</div>
+        <div class="q-play"><button class="q-play-btn" data-say="What company do you work for and what does it do?" aria-label="Play">▶</button><span class="q-text">What company do you work for and what does it do?</span></div>
+        <input placeholder="I work for ___. We ___">
+        <div class="q-hint">"I work for BestFood. We sell frozen products to supermarkets in the Moscow region."</div>
       </div>
       <div class="warm-q">
-        <div class="q-play"><button class="q-play-btn" data-say="What do you like doing on weekends?" aria-label="Play">▶</button><span class="q-text">What do you like doing on weekends?</span></div>
-        <input placeholder="I like ___">
-        <div class="q-hint">"I like fishing on weekends. Also driving out of the city."</div>
+        <div class="q-play"><button class="q-play-btn" data-say="Why are you learning English?" aria-label="Play">▶</button><span class="q-text">Why are you learning English?</span></div>
+        <input placeholder="I need it for ___">
+        <div class="q-hint">"I need it for work. Sometimes I have foreign clients." · "For travel." · "For movies without subtitles."</div>
       </div>
     </div>
-    <div class="info gold"><strong>Point of this block:</strong> nobody is checking your English yet. Just remember what you would say — in English, in one short sentence — if a new person asks. Say each answer twice.</div>
+    <div class="info gold"><strong>Rule:</strong> nobody is testing your English yet. Just remember what you would say — in English, one short sentence per question — if someone at work asks you. Say each answer twice out loud.</div>
   </div>
 </section>
 
@@ -440,20 +476,31 @@ details .details-body{padding:12px 16px 16px}
   </div>
   <p class="section-sub">The first 2-3 minutes before "business". Tap ▶ to hear each one.</p>
   <div class="card">
-    <div class="task-tag">10 phrases · use one after "Nice to meet you"</div>
+    <div class="task-tag">21 warm-up questions · work + English + hobbies + life</div>
     <div class="talk-grid">
-      <div class="talk-row"><button class="talk-play" data-say="How's business?" aria-label="Play">▶</button><span class="talk-phrase">How's business?</span><span class="talk-when">safe universal opener</span></div>
-      <div class="talk-row"><button class="talk-play" data-say="How was your trip?" aria-label="Play">▶</button><span class="talk-phrase">How was your trip?</span><span class="talk-when">they travelled to you</span></div>
-      <div class="talk-row"><button class="talk-play" data-say="Have you been to Moscow before?" aria-label="Play">▶</button><span class="talk-phrase">Have you been to Moscow before?</span><span class="talk-when">foreign guest</span></div>
-      <div class="talk-row"><button class="talk-play" data-say="How's the weather in Berlin these days?" aria-label="Play">▶</button><span class="talk-phrase">How's the weather in ___?</span><span class="talk-when">know where they're from</span></div>
-      <div class="talk-row"><button class="talk-play" data-say="Would you like some coffee?" aria-label="Play">▶</button><span class="talk-phrase">Would you like some coffee?</span><span class="talk-when">you are the host</span></div>
-      <div class="talk-row"><button class="talk-play" data-say="How's your weekend going?" aria-label="Play">▶</button><span class="talk-phrase">How's your weekend going?</span><span class="talk-when">Friday or Monday call</span></div>
-      <div class="talk-row"><button class="talk-play" data-say="Any plans for the weekend?" aria-label="Play">▶</button><span class="talk-phrase">Any plans for the weekend?</span><span class="talk-when">Friday afternoon</span></div>
-      <div class="talk-row"><button class="talk-play" data-say="Do you travel a lot for work?" aria-label="Play">▶</button><span class="talk-phrase">Do you travel a lot for work?</span><span class="talk-when">interested in their life</span></div>
-      <div class="talk-row"><button class="talk-play" data-say="Where are you staying?" aria-label="Play">▶</button><span class="talk-phrase">Where are you staying?</span><span class="talk-when">visitor · practical care</span></div>
-      <div class="talk-row"><button class="talk-play" data-say="Shall we sit down?" aria-label="Play">▶</button><span class="talk-phrase">Shall we sit down?</span><span class="talk-when">move to the table</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="What's your name?" aria-label="Play">▶</button><span class="talk-phrase">What's your name?</span><span class="talk-when">first thing you'll be asked</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="Where are you from?" aria-label="Play">▶</button><span class="talk-phrase">Where are you from?</span><span class="talk-when">city / country</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="What company do you work for?" aria-label="Play">▶</button><span class="talk-phrase">What company do you work for?</span><span class="talk-when">the second question, always</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="What do you do exactly?" aria-label="Play">▶</button><span class="talk-phrase">What do you do exactly?</span><span class="talk-when">they want your role, not just "sales"</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="How long have you worked there?" aria-label="Play">▶</button><span class="talk-phrase">How long have you worked there?</span><span class="talk-when">experience check</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="What does your company do?" aria-label="Play">▶</button><span class="talk-phrase">What does your company do?</span><span class="talk-when">explain in one sentence</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="Who are your typical clients?" aria-label="Play">▶</button><span class="talk-phrase">Who are your typical clients?</span><span class="talk-when">"we work mostly with…"</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="Is this your first time here?" aria-label="Play">▶</button><span class="talk-phrase">Is this your first time here?</span><span class="talk-when">first meeting / conference / office</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="What brings you here today?" aria-label="Play">▶</button><span class="talk-phrase">What brings you here today?</span><span class="talk-when">bridge to business</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="Why did you start learning English?" aria-label="Play">▶</button><span class="talk-phrase">Why did you start learning English?</span><span class="talk-when">motivation · work · travel · movies</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="What level do you think you have right now?" aria-label="Play">▶</button><span class="talk-phrase">What level do you think you have right now?</span><span class="talk-when">"A2", "somewhere between A2 and B1"</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="What have you tried before? Courses, apps, tutors?" aria-label="Play">▶</button><span class="talk-phrase">What have you tried before? Courses, apps, tutors?</span><span class="talk-when">Duolingo, school, private teacher, YouTube</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="How often do you practise English?" aria-label="Play">▶</button><span class="talk-phrase">How often do you practise English?</span><span class="talk-when">daily, weekly, "only in class"</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="What is your biggest problem with English?" aria-label="Play">▶</button><span class="talk-phrase">What is your biggest problem with English?</span><span class="talk-when">speaking, grammar, listening, vocabulary</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="Do you use English at work?" aria-label="Play">▶</button><span class="talk-phrase">Do you use English at work?</span><span class="talk-when">emails, calls, contracts, meetings</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="What are your main hobbies?" aria-label="Play">▶</button><span class="talk-phrase">What are your main hobbies?</span><span class="talk-when">fishing, driving, football, gym</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="What do you like doing after work?" aria-label="Play">▶</button><span class="talk-phrase">What do you like doing after work?</span><span class="talk-when">gym, family, series, cook, walk</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="What sport do you watch or play?" aria-label="Play">▶</button><span class="talk-phrase">What sport do you watch or play?</span><span class="talk-when">football, hockey, gym, none</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="Do you have any pets?" aria-label="Play">▶</button><span class="talk-phrase">Do you have any pets?</span><span class="talk-when">dog, cat, none — easy small talk</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="What kind of music do you listen to?" aria-label="Play">▶</button><span class="talk-phrase">What kind of music do you listen to?</span><span class="talk-when">rock, jazz, "in the car mostly"</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="What is your dream trip?" aria-label="Play">▶</button><span class="talk-phrase">What is your dream trip?</span><span class="talk-when">Japan, safari, road trip</span></div>
     </div>
-    <div class="info"><strong>Rule of 3:</strong> two small-talk questions, then bridge to business — "Great. Shall we get started?" or "OK — let me show you what we prepared."</div>
+    <div class="info gold"><strong>Rule:</strong> one clear sentence per answer — no CV, no paragraph. These are the questions your teacher (and any new person at work) will actually ask on the first meeting.</div>
   </div>
 </section>
 
@@ -466,7 +513,7 @@ details .details-body{padding:12px 16px 16px}
   <p class="section-sub">Read the short story once. Then answer 5 questions below.</p>
   <div class="card">
     <div class="reading">
-      <img src="assets/reading-business-trip.jpg" alt="Young businessman walking through airport with a suitcase" style="width:100%;height:auto;max-height:340px;object-fit:cover;border-radius:12px;margin-bottom:16px;display:block;box-shadow:0 4px 16px rgba(31,46,69,.14)">
+      <img src="assets/reading-business-trip.jpg" alt="Young businessman walking through airport with a suitcase" style="width:100%;height:auto;border-radius:12px;margin-bottom:16px;display:block;box-shadow:0 4px 16px rgba(31,46,69,.14)">
       <div style="margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--line)">
         <h4 style="font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--ink)">Andrey's first business trip</h4>
         <div class="r-sub" style="font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em;margin-top:2px">A short story · ~140 words · about 1 minute</div>
@@ -504,11 +551,59 @@ details .details-body{padding:12px 16px 16px}
   </div>
   <p class="section-sub">Four small blanks. Fill them, say it out loud twice — done. Include a bit about travel or a hobby, so it feels human, not like a CV.</p>
   <div class="card">
-    <div class="task-tag">4 blanks · your real words</div>
-    <div class="gapfill" data-ex="s5-1">
-      <p style="font-family:Georgia,serif;font-size:1.02rem;line-height:2.1">Hi, I'm <input placeholder="name"> . I work for <input placeholder="company"> as a <input placeholder="role"> . On weekends I like <input placeholder="hobby / travel" style="min-width:200px"> . Nice to meet you.</p>
-      <div class="info gold"><strong>Example:</strong> "Hi, I'm Andrey. I work for BestFood as a sales manager. On weekends I like fishing and short trips to the countryside. Nice to meet you." — 4 sentences, 15 seconds. That's the goal.</div>
+    <div class="task-tag">Ex.1 · Fill from the banks · click a word → click a gap · 4 slots</div>
+    <div class="info"><strong>How to play:</strong> pick one word from each bank below, drop it into the sentence. Try 3 different combinations out loud.</div>
+    <p style="font-family:Georgia,serif;font-size:1.15rem;line-height:2.4;padding:16px 20px;background:var(--card-2);border:1px solid var(--line);border-radius:12px;margin:12px 0">
+      Hi, I'm <span class="drag-target" data-a="Andrey|Ivan|Sergey|Dmitry|Maxim" data-bank="s5-name">___</span> .
+      I work for <span class="drag-target" data-a="BestFood|TechPro|LogiTrans|SalesForce|OfficePro" data-bank="s5-company">___</span>
+      as a <span class="drag-target" data-a="sales manager|senior manager|account manager|regional director|business developer" data-bank="s5-role">___</span> .
+      On weekends I like <span class="drag-target" data-a="fishing|football|driving|hiking|cooking" data-bank="s5-hobby">___</span> .
+      Nice to meet you.
+    </p>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px">
+      <div>
+        <div style="font:800 10px/1 var(--mono);letter-spacing:.14em;color:var(--accent3);text-transform:uppercase;margin-bottom:6px">1 · Name</div>
+        <div class="drag-bank" data-bank="s5-name">
+          <button class="drag-pill" data-w="Andrey">Andrey</button>
+          <button class="drag-pill" data-w="Ivan">Ivan</button>
+          <button class="drag-pill" data-w="Sergey">Sergey</button>
+          <button class="drag-pill" data-w="Dmitry">Dmitry</button>
+          <button class="drag-pill" data-w="Maxim">Maxim</button>
+        </div>
+      </div>
+      <div>
+        <div style="font:800 10px/1 var(--mono);letter-spacing:.14em;color:var(--accent3);text-transform:uppercase;margin-bottom:6px">2 · Company</div>
+        <div class="drag-bank" data-bank="s5-company">
+          <button class="drag-pill" data-w="BestFood">BestFood</button>
+          <button class="drag-pill" data-w="TechPro">TechPro</button>
+          <button class="drag-pill" data-w="LogiTrans">LogiTrans</button>
+          <button class="drag-pill" data-w="SalesForce">SalesForce</button>
+          <button class="drag-pill" data-w="OfficePro">OfficePro</button>
+        </div>
+      </div>
+      <div>
+        <div style="font:800 10px/1 var(--mono);letter-spacing:.14em;color:var(--accent3);text-transform:uppercase;margin-bottom:6px">3 · Role</div>
+        <div class="drag-bank" data-bank="s5-role">
+          <button class="drag-pill" data-w="sales manager">sales manager</button>
+          <button class="drag-pill" data-w="senior manager">senior manager</button>
+          <button class="drag-pill" data-w="account manager">account manager</button>
+          <button class="drag-pill" data-w="regional director">regional director</button>
+          <button class="drag-pill" data-w="business developer">business developer</button>
+        </div>
+      </div>
+      <div>
+        <div style="font:800 10px/1 var(--mono);letter-spacing:.14em;color:var(--accent3);text-transform:uppercase;margin-bottom:6px">4 · Hobby</div>
+        <div class="drag-bank" data-bank="s5-hobby">
+          <button class="drag-pill" data-w="fishing">fishing</button>
+          <button class="drag-pill" data-w="football">football</button>
+          <button class="drag-pill" data-w="driving">driving</button>
+          <button class="drag-pill" data-w="hiking">hiking</button>
+          <button class="drag-pill" data-w="cooking">cooking</button>
+        </div>
+      </div>
     </div>
+    <div class="info gold" style="margin-top:14px"><strong>Example:</strong> "Hi, I'm Andrey. I work for BestFood as a sales manager. On weekends I like fishing. Nice to meet you." — 4 sentences, 15 seconds. Say each combination out loud.</div>
   </div>
   <div class="card">
     <div class="task-tag">3 ready variants · pick your favourite</div>
@@ -529,15 +624,23 @@ details .details-body{padding:12px 16px 16px}
   <p class="section-sub">Two colleagues meet for the first time at a conference. Listen once, then answer.</p>
   <div class="card">
     <div class="listen-card">
-      <img src="assets/listen1-conference.jpg" alt="Two men at a conference coffee break with lanyards and coffee cups" style="width:100%;height:auto;max-height:340px;object-fit:cover;border-radius:12px;margin-bottom:14px;display:block;box-shadow:0 4px 16px rgba(31,46,69,.14)">
+      <img src="assets/listen1-conference.jpg" alt="Two men at a conference coffee break with lanyards and coffee cups" style="width:100%;height:auto;object-fit:contain;border-radius:12px;margin-bottom:14px;display:block;box-shadow:0 4px 16px rgba(31,46,69,.14);background:var(--card-2)">
       <div class="listen-title" style="margin-bottom:14px"><span class="lbl">Listening 1</span>Two conference-goers say hi</div>
-      <div class="listen-controls">
-        <button class="listen-play" data-say="Hi, I don't think we've met. I'm Thomas, from Berlin. — Oh, hi Thomas! I'm Andrey, from Moscow. Nice to meet you. — Same here. Is this your first time at this conference? — Yes, it's my first business trip abroad, actually. — Really? Welcome. How's your hotel? — Very good, thank you. It's very close to the venue. — Nice. Well, would you like to grab a coffee before the next session? — Yes, that's a great idea.">Play dialogue</button>
-        <button class="listen-slow" data-say="Hi, I don't think we've met. I'm Thomas, from Berlin. — Oh, hi Thomas! I'm Andrey, from Moscow. Nice to meet you. — Same here. Is this your first time at this conference? — Yes, it's my first business trip abroad, actually. — Really? Welcome. How's your hotel? — Very good, thank you. It's very close to the venue. — Nice. Well, would you like to grab a coffee before the next session? — Yes, that's a great idea." data-rate="0.75">Slow ×0.75</button>
+
+      <audio controls preload="metadata" style="width:100%;margin-bottom:10px">
+        <source src="assets/audio/dialogue-1-conference.mp3" type="audio/mpeg">
+      </audio>
+
+      <div class="dialogue" style="margin-top:6px">
+        <div class="dl-line client"><div class="dl-role">Thomas</div><div class="dl-text">Hi, I don't think we've met. I'm Thomas, from Berlin.</div></div>
+        <div class="dl-line you"><div class="dl-role">Andrey</div><div class="dl-text">Oh, hi Thomas! I'm Andrey, from Moscow. Nice to meet you.</div></div>
+        <div class="dl-line client"><div class="dl-role">Thomas</div><div class="dl-text">Same here. Is this your first time at this conference?</div></div>
+        <div class="dl-line you"><div class="dl-role">Andrey</div><div class="dl-text">Yes, it's my first business trip abroad, actually.</div></div>
+        <div class="dl-line client"><div class="dl-role">Thomas</div><div class="dl-text">Really? Welcome. How's your hotel?</div></div>
+        <div class="dl-line you"><div class="dl-role">Andrey</div><div class="dl-text">Very good, thank you. It's very close to the venue.</div></div>
+        <div class="dl-line client"><div class="dl-role">Thomas</div><div class="dl-text">Nice. Well, would you like to grab a coffee before the next session?</div></div>
+        <div class="dl-line you"><div class="dl-role">Andrey</div><div class="dl-text">Yes, that's a great idea.</div></div>
       </div>
-      <details><summary>📜 Show script (only after you listened once or twice)</summary><div class="details-body" style="font-family:Georgia,serif;font-size:.94rem;line-height:1.7">
-        <p><strong>Thomas:</strong> Hi, I don't think we've met. I'm Thomas, from Berlin.<br><strong>Andrey:</strong> Oh, hi Thomas! I'm Andrey, from Moscow. Nice to meet you.<br><strong>Thomas:</strong> Same here. Is this your first time at this conference?<br><strong>Andrey:</strong> Yes, it's my first business trip abroad, actually.<br><strong>Thomas:</strong> Really? Welcome. How's your hotel?<br><strong>Andrey:</strong> Very good, thank you. It's very close to the venue.<br><strong>Thomas:</strong> Nice. Well, would you like to grab a coffee before the next session?<br><strong>Andrey:</strong> Yes, that's a great idea.</p>
-      </div></details>
     </div>
 
     <div class="task-tag" style="margin-top:14px">Ex.1 · Answer the questions · 5 MCQ</div>
@@ -594,7 +697,7 @@ details .details-body{padding:12px 16px 16px}
   </div>
   <p class="section-sub">You (host) and a Client (visiting). Read line by line, tap ▶ to hear. Then read Client's lines only — you answer from memory.</p>
   <div class="card">
-    <img src="assets/dialogue-coffee.jpg" alt="Two men in a café chatting over coffee with an open notebook on the table" style="width:100%;height:auto;max-height:380px;object-fit:cover;border-radius:12px;margin-bottom:16px;display:block;box-shadow:0 4px 16px rgba(31,46,69,.14)">
+    <img src="assets/dialogue-coffee.jpg" alt="Two men in a café chatting over coffee with an open notebook on the table" style="width:100%;height:auto;border-radius:12px;margin-bottom:16px;display:block;box-shadow:0 4px 16px rgba(31,46,69,.14)">
     <div style="margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--line)">
       <h4 style="font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--ink)">The whole first meeting · 12 lines</h4>
       <div class="r-sub" style="font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em;margin-top:2px">Andrey (host, Moscow) · Thomas (guest, Berlin)</div>
@@ -625,15 +728,23 @@ details .details-body{padding:12px 16px 16px}
   <p class="section-sub">Two people at a coffee break. Listen once, then fill in what you heard.</p>
   <div class="card">
     <div class="listen-card">
-      <img src="assets/listen2-travel.jpg" alt="Two men chatting about travel with a world map on the wall behind them" style="width:100%;height:auto;max-height:340px;object-fit:cover;border-radius:12px;margin-bottom:14px;display:block;box-shadow:0 4px 16px rgba(31,46,69,.14)">
+      <img src="assets/listen2-travel.jpg" alt="Two men chatting about travel with a world map on the wall behind them" style="width:100%;height:auto;object-fit:contain;border-radius:12px;margin-bottom:14px;display:block;box-shadow:0 4px 16px rgba(31,46,69,.14);background:var(--card-2)">
       <div class="listen-title" style="margin-bottom:14px"><span class="lbl">Listening 2</span>"So, do you travel a lot?"</div>
-      <div class="listen-controls">
-        <button class="listen-play" data-say="So Andrey, do you travel a lot for work? — Not too much, actually. About four or five business trips a year. — Oh, that's not bad. Where's your favourite place? — Probably Georgia. We had a supplier meeting in Tbilisi last spring. Beautiful city. — Nice! I've never been. Any plans for this year? — Yes, in September I'm going to Istanbul. First time. — Great choice. And your family — do they travel with you sometimes? — On holidays, yes. But not for work.">Play dialogue</button>
-        <button class="listen-slow" data-say="So Andrey, do you travel a lot for work? — Not too much, actually. About four or five business trips a year. — Oh, that's not bad. Where's your favourite place? — Probably Georgia. We had a supplier meeting in Tbilisi last spring. Beautiful city. — Nice! I've never been. Any plans for this year? — Yes, in September I'm going to Istanbul. First time. — Great choice. And your family — do they travel with you sometimes? — On holidays, yes. But not for work." data-rate="0.75">Slow ×0.75</button>
+
+      <audio controls preload="metadata" style="width:100%;margin-bottom:10px">
+        <source src="assets/audio/dialogue-2-travel.mp3" type="audio/mpeg">
+      </audio>
+
+      <div class="dialogue" style="margin-top:6px">
+        <div class="dl-line client"><div class="dl-role">Thomas</div><div class="dl-text">So Andrey, do you travel a lot for work?</div></div>
+        <div class="dl-line you"><div class="dl-role">Andrey</div><div class="dl-text">Not too much, actually. About four or five business trips a year.</div></div>
+        <div class="dl-line client"><div class="dl-role">Thomas</div><div class="dl-text">Oh, that's not bad. Where's your favourite place?</div></div>
+        <div class="dl-line you"><div class="dl-role">Andrey</div><div class="dl-text">Probably Georgia. We had a supplier meeting in Tbilisi last spring. Beautiful city.</div></div>
+        <div class="dl-line client"><div class="dl-role">Thomas</div><div class="dl-text">Nice! I've never been. Any plans for this year?</div></div>
+        <div class="dl-line you"><div class="dl-role">Andrey</div><div class="dl-text">Yes, in September I'm going to Istanbul. First time.</div></div>
+        <div class="dl-line client"><div class="dl-role">Thomas</div><div class="dl-text">Great choice. And your family — do they travel with you sometimes?</div></div>
+        <div class="dl-line you"><div class="dl-role">Andrey</div><div class="dl-text">On holidays, yes. But not for work.</div></div>
       </div>
-      <details><summary>📜 Show script (only after you tried the exercise)</summary><div class="details-body" style="font-family:Georgia,serif;font-size:.94rem;line-height:1.7">
-        <p><strong>Thomas:</strong> So Andrey, do you travel a lot for work?<br><strong>Andrey:</strong> Not too much, actually. About four or five business trips a year.<br><strong>Thomas:</strong> Oh, that's not bad. Where's your favourite place?<br><strong>Andrey:</strong> Probably Georgia. We had a supplier meeting in Tbilisi last spring. Beautiful city.<br><strong>Thomas:</strong> Nice! I've never been. Any plans for this year?<br><strong>Andrey:</strong> Yes, in September I'm going to Istanbul. First time.<br><strong>Thomas:</strong> Great choice. And your family — do they travel with you sometimes?<br><strong>Andrey:</strong> On holidays, yes. But not for work.</p>
-      </div></details>
     </div>
 
     <div class="task-tag" style="margin-top:14px">Ex.1 · Fill the gaps from what you heard · 8 items</div>
@@ -703,46 +814,45 @@ details .details-body{padding:12px 16px 16px}
   </div>
 </section>
 
-<!-- 11 · Mic-drill -->
+<!-- 11 · Right response · pick the reply -->
 <section class="section" id="s11">
   <div class="section-hdr">
     <span class="num">11</span>
-    <h2>Mic-drill · say it out loud</h2>
+    <h2>Right response · pick the reply</h2>
   </div>
-  <p class="section-sub">Tap 🎤 Record, say the phrase, tap again to stop. The page shows what it heard. Chrome / Edge only. Microphone permission required.</p>
+  <p class="section-sub">Client says something. Pick the best reply from three options. Correct answer appears after your click.</p>
   <div class="card">
-    <div class="task-tag">6 core phrases · aim for green</div>
-    <div class="mic-row" data-target="Nice to meet you Im Andrey">
-      <div class="mic-target">"Nice to meet you. I'm Andrey."</div>
-      <div class="mic-controls"><button class="mic-play" data-say="Nice to meet you. I'm Andrey.">Play model</button><button class="mic-rec">Record</button><span class="mic-badge">idle</span></div>
-      <div class="mic-transcript">— your speech will appear here —</div>
-    </div>
-    <div class="mic-row" data-target="I work for a small IT company">
-      <div class="mic-target">"I work for a small IT company."</div>
-      <div class="mic-controls"><button class="mic-play" data-say="I work for a small IT company.">Play model</button><button class="mic-rec">Record</button><span class="mic-badge">idle</span></div>
-      <div class="mic-transcript">— your speech will appear here —</div>
-    </div>
-    <div class="mic-row" data-target="How was your trip">
-      <div class="mic-target">"How was your trip?"</div>
-      <div class="mic-controls"><button class="mic-play" data-say="How was your trip?">Play model</button><button class="mic-rec">Record</button><span class="mic-badge">idle</span></div>
-      <div class="mic-transcript">— your speech will appear here —</div>
-    </div>
-    <div class="mic-row" data-target="Sorry could you say that again more slowly">
-      <div class="mic-target">"Sorry, could you say that again more slowly?"</div>
-      <div class="mic-controls"><button class="mic-play" data-say="Sorry, could you say that again more slowly?">Play model</button><button class="mic-rec">Record</button><span class="mic-badge">idle</span></div>
-      <div class="mic-transcript">— your speech will appear here —</div>
-    </div>
-    <div class="mic-row" data-target="Would you like some coffee before we start">
-      <div class="mic-target">"Would you like some coffee before we start?"</div>
-      <div class="mic-controls"><button class="mic-play" data-say="Would you like some coffee before we start?">Play model</button><button class="mic-rec">Record</button><span class="mic-badge">idle</span></div>
-      <div class="mic-transcript">— your speech will appear here —</div>
-    </div>
-    <div class="mic-row" data-target="On weekends I like fishing and short trips">
-      <div class="mic-target">"On weekends I like fishing and short trips."</div>
-      <div class="mic-controls"><button class="mic-play" data-say="On weekends I like fishing and short trips.">Play model</button><button class="mic-rec">Record</button><span class="mic-badge">idle</span></div>
-      <div class="mic-transcript">— your speech will appear here —</div>
-    </div>
-    <div class="info gold"><strong>How the badge works:</strong> green = 70%+ of words matched · yellow = partial · idle = not tried yet. Punctuation and capital letters are ignored.</div>
+    <div class="task-tag">Ex.1 · 10 real client lines · pick the response</div>
+    <div class="mcq-row" data-ans="b" data-ex="s11"><div class="mcq-q"><strong>1.</strong> Client: <em>"Hi, I don't think we've met. I'm Marco."</em></div>
+      <div class="mcq-opts"><button>Yes. What?</button><button>Nice to meet you, Marco. I'm Andrey.</button><button>OK. Business?</button></div>
+      <div class="mcq-note">Standard first-meeting reply: repeat their name + introduce yourself.</div></div>
+    <div class="mcq-row" data-ans="a" data-ex="s11"><div class="mcq-q"><strong>2.</strong> Client: <em>"So, what do you do exactly?"</em></div>
+      <div class="mcq-opts"><button>I'm a sales manager at BestFood. We sell frozen products to supermarkets.</button><button>Work. Sales. Long story.</button><button>You know, business things.</button></div>
+      <div class="mcq-note">One clear sentence: role + company + what the company does.</div></div>
+    <div class="mcq-row" data-ans="c" data-ex="s11"><div class="mcq-q"><strong>3.</strong> Client: <em>"How was your trip?"</em></div>
+      <div class="mcq-opts"><button>Trip? No trip.</button><button>Not important.</button><button>Very good, thank you. A bit long, but no problems.</button></div>
+      <div class="mcq-note">Polite, one line, positive tone — even if the flight was tough.</div></div>
+    <div class="mcq-row" data-ans="b" data-ex="s11"><div class="mcq-q"><strong>4.</strong> Client: <em>"Would you like some coffee?"</em></div>
+      <div class="mcq-opts"><button>No no no.</button><button>Yes, please. Black, no sugar.</button><button>Coffee later maybe now no.</button></div>
+      <div class="mcq-note">"Yes, please" + how you take it. That's it.</div></div>
+    <div class="mcq-row" data-ans="a" data-ex="s11"><div class="mcq-q"><strong>5.</strong> Client: <em>"Sorry, could you repeat that?"</em></div>
+      <div class="mcq-opts"><button>Of course. My name is Andrey. I work for BestFood.</button><button>Never mind.</button><button>Why?</button></div>
+      <div class="mcq-note">Just repeat, slowly. No apology needed.</div></div>
+    <div class="mcq-row" data-ans="c" data-ex="s11"><div class="mcq-q"><strong>6.</strong> Client: <em>"How long have you worked there?"</em></div>
+      <div class="mcq-opts"><button>Long. Very long.</button><button>Since always.</button><button>About four years now.</button></div>
+      <div class="mcq-note">A number + "years now" or "months now" — that's the whole answer.</div></div>
+    <div class="mcq-row" data-ans="a" data-ex="s11"><div class="mcq-q"><strong>7.</strong> Client: <em>"Have you been to Berlin before?"</em></div>
+      <div class="mcq-opts"><button>No, this is my first time. What should I see?</button><button>Berlin? Yes maybe.</button><button>I don't know Berlin.</button></div>
+      <div class="mcq-note">Answer + bounce back a question. Keeps the small talk alive.</div></div>
+    <div class="mcq-row" data-ans="b" data-ex="s11"><div class="mcq-q"><strong>8.</strong> Client: <em>"What brings you here today?"</em></div>
+      <div class="mcq-opts"><button>My car.</button><button>I'd like to talk about our new product line.</button><button>You know.</button></div>
+      <div class="mcq-note">Bridge to business — say the topic in one sentence.</div></div>
+    <div class="mcq-row" data-ans="c" data-ex="s11"><div class="mcq-q"><strong>9.</strong> Client: <em>"Are you flying back tonight?"</em></div>
+      <div class="mcq-opts"><button>Fly what?</button><button>Tonight is night.</button><button>No, tomorrow morning. Early flight.</button></div>
+      <div class="mcq-note">Short factual answer. If you want, add one detail ("early flight").</div></div>
+    <div class="mcq-row" data-ans="a" data-ex="s11"><div class="mcq-q"><strong>10.</strong> Client: <em>"Shall we get started?"</em></div>
+      <div class="mcq-opts"><button>Yes, let's do it.</button><button>Start what?</button><button>OK, but coffee first only.</button></div>
+      <div class="mcq-note">The end of small talk — a short "yes" is all you need.</div></div>
   </div>
 </section>
 
@@ -755,7 +865,7 @@ details .details-body{padding:12px 16px 16px}
   <p class="section-sub">Tap ▶ to hear what the person says. You answer out loud in real time. No auto-check here — just real speaking.</p>
 
   <div class="rp-card">
-    <img src="assets/rp1-cafe.png" alt="Two men chatting over coffee at a café table" style="width:100%;height:auto;max-height:280px;object-fit:cover;border-radius:12px;margin-bottom:12px;display:block">
+    <img src="assets/rp1-cafe.png" alt="Two men chatting over coffee at a café table" style="width:100%;height:auto;border-radius:12px;margin-bottom:12px;display:block">
     <div class="rp-hdr"><span class="rp-num">1</span><span class="rp-title">Café · first meeting with a local client</span></div>
     <div class="rp-setup">You meet a new B2B client at a café. They walk in, sit down.</div>
     <div class="rp-client"><button class="rp-play-client" data-say="Hi. Sorry I'm a bit late — traffic was terrible.">Play</button>"Hi. Sorry I'm a bit late — traffic was terrible."</div>
@@ -767,7 +877,7 @@ details .details-body{padding:12px 16px 16px}
   </div>
 
   <div class="rp-card">
-    <img src="assets/rp2-office-handshake.png" alt="Two men shaking hands at a small airport café table" style="width:100%;height:auto;max-height:280px;object-fit:cover;border-radius:12px;margin-bottom:12px;display:block">
+    <img src="assets/rp2-office-handshake.png" alt="Two men shaking hands at a small airport café table" style="width:100%;height:auto;border-radius:12px;margin-bottom:12px;display:block">
     <div class="rp-hdr"><span class="rp-num">2</span><span class="rp-title">Conference · new person at the coffee break</span></div>
     <div class="rp-setup">You're at a big conference. Someone stands next to you at the coffee table.</div>
     <div class="rp-client"><button class="rp-play-client" data-say="Hi, I don't think we've met. I'm Marco, from Italy. Where are you from?">Play</button>"Hi, I don't think we've met. I'm Marco, from Italy. Where are you from?"</div>
@@ -779,7 +889,7 @@ details .details-body{padding:12px 16px 16px}
   </div>
 
   <div class="rp-card">
-    <img src="assets/rp3-video-call.png" alt="Three people around a laptop in a bright meeting room" style="width:100%;height:auto;max-height:280px;object-fit:cover;border-radius:12px;margin-bottom:12px;display:block">
+    <img src="assets/rp3-video-call.png" alt="Three people around a laptop in a bright meeting room" style="width:100%;height:auto;border-radius:12px;margin-bottom:12px;display:block">
     <div class="rp-hdr"><span class="rp-num">3</span><span class="rp-title">Video call · new client from abroad</span></div>
     <div class="rp-setup">You open a Zoom call. They turn on the camera.</div>
     <div class="rp-client"><button class="rp-play-client" data-say="Hi! Can you hear me OK?">Play</button>"Hi! Can you hear me OK?"</div>
@@ -791,31 +901,6 @@ details .details-body{padding:12px 16px 16px}
   </div>
 
   <div class="info gold"><strong>How to use in the office:</strong> put this page on a second screen or share it. Do one scenario per session — 3 minutes, no cheating. Then compare your answer to the hint under each line. That's the practice.</div>
-</section>
-
-<!-- 13 · Tell me more about you -->
-<section class="section" id="s13">
-  <div class="section-hdr">
-    <span class="num">13</span>
-    <h2>Tell me more about you · 10 open questions</h2>
-  </div>
-  <p class="section-sub">People are not just their job. A good conversation goes into hobbies, family, food, music, sport. Answer each out loud in one or two sentences. Tap ▶ to hear the question first.</p>
-  <div class="card">
-    <div class="task-tag">10 open prompts · no auto-check · just speak</div>
-    <div class="open-grid">
-      <div class="open-q"><div class="oq-top"><button class="oq-play" data-say="Tell me a bit about your family. Do you have a big family?" aria-label="Play">▶</button><span class="oq-text">Tell me a bit about your family. Do you have a big family?</span></div><div class="oq-example">"I have a wife and two kids — a son and a daughter. My son is ten."</div></div>
-      <div class="open-q"><div class="oq-top"><button class="oq-play" data-say="What do you like doing on weekends?" aria-label="Play">▶</button><span class="oq-text">What do you like doing on weekends?</span></div><div class="oq-example">"On weekends I like fishing and driving out of the city."</div></div>
-      <div class="open-q"><div class="oq-top"><button class="oq-play" data-say="What kind of food do you like?" aria-label="Play">▶</button><span class="oq-text">What kind of food do you like?</span></div><div class="oq-example">"I really like Italian food — pasta, pizza. And a good steak."</div></div>
-      <div class="open-q"><div class="oq-top"><button class="oq-play" data-say="What music do you listen to?" aria-label="Play">▶</button><span class="oq-text">What music do you listen to?</span></div><div class="oq-example">"Mostly rock — old bands. Sometimes I put on some jazz in the car."</div></div>
-      <div class="open-q"><div class="oq-top"><button class="oq-play" data-say="Do you follow any sport?" aria-label="Play">▶</button><span class="oq-text">Do you follow any sport?</span></div><div class="oq-example">"Yes, football. I support Spartak. I try to watch every match."</div></div>
-      <div class="open-q"><div class="oq-top"><button class="oq-play" data-say="What's your hometown like?" aria-label="Play">▶</button><span class="oq-text">What's your hometown like?</span></div><div class="oq-example">"I'm from Kazan. It's a beautiful city on the Volga river."</div></div>
-      <div class="open-q"><div class="oq-top"><button class="oq-play" data-say="How did you get into sales?" aria-label="Play">▶</button><span class="oq-text">How did you get into sales?</span></div><div class="oq-example">"I studied engineering, but I love talking to people, so I moved to sales."</div></div>
-      <div class="open-q"><div class="oq-top"><button class="oq-play" data-say="What did you do last summer?" aria-label="Play">▶</button><span class="oq-text">What did you do last summer?</span></div><div class="oq-example">"Last summer I took the family to Sochi for two weeks. Beach, sun, easy."</div></div>
-      <div class="open-q"><div class="oq-top"><button class="oq-play" data-say="What is your morning routine?" aria-label="Play">▶</button><span class="oq-text">What is your morning routine?</span></div><div class="oq-example">"I get up at seven, drink coffee, and check email before I leave for the office."</div></div>
-      <div class="open-q"><div class="oq-top"><button class="oq-play" data-say="If you could have any hobby, what would it be?" aria-label="Play">▶</button><span class="oq-text">If you could have any hobby, what would it be?</span></div><div class="oq-example">"I'd love to try sailing. Maybe a small boat, one day."</div></div>
-    </div>
-    <div class="info gold"><strong>Point:</strong> a real business conversation is 60% work, 40% "I'm a person too". Skip this block and you sound like a robot. Do this block and clients remember you.</div>
-  </div>
 </section>
 
 <!-- 14 · Travel talk -->
@@ -949,7 +1034,7 @@ details .details-body{padding:12px 16px 16px}
     <div class="info gold"><strong>Warm-up:</strong> describe this city street first — 3 sentences with the formula above. Then move on to the 4 smaller scenes below.</div>
     <div class="pic-grid">
       <div class="pic-card">
-        <img src="assets/pic-airport.png" alt="Man with suitcase at an airport terminal, plane visible through the window" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block">
+        <img src="assets/pic-airport.png" alt="Man with suitcase at an airport terminal, plane visible through the window" style="width:100%;height:auto;display:block">
         <div class="pic-body">
           <div class="pic-title">Scene 1 · Airport</div>
           <div class="pic-prompts">Include: <strong>airport, luggage, passport, flight</strong>. Use "In the picture I can see..."</div>
@@ -958,7 +1043,7 @@ details .details-body{padding:12px 16px 16px}
       </div>
 
       <div class="pic-card">
-        <img src="assets/pic-city-street.png" alt="A businessman walking down a city street with a briefcase" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block">
+        <img src="assets/pic-city-street.png" alt="A businessman walking down a city street with a briefcase" style="width:100%;height:auto;display:block">
         <div class="pic-body">
           <div class="pic-title">Scene 2 · City street</div>
           <div class="pic-prompts">Include: <strong>city, tall buildings, people, walking</strong>. Use "In the background..."</div>
@@ -967,7 +1052,7 @@ details .details-body{padding:12px 16px 16px}
       </div>
 
       <div class="pic-card">
-        <img src="assets/pic-meeting-room.png" alt="Business presentation in a meeting room with charts and laptops" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block">
+        <img src="assets/pic-meeting-room.png" alt="Business presentation in a meeting room with charts and laptops" style="width:100%;height:auto;display:block">
         <div class="pic-body">
           <div class="pic-title">Scene 3 · Meeting room</div>
           <div class="pic-prompts">Include: <strong>meeting, colleagues, presentation, laptop</strong>. Use "In the foreground..."</div>
@@ -976,7 +1061,7 @@ details .details-body{padding:12px 16px 16px}
       </div>
 
       <div class="pic-card">
-        <img src="assets/pic-beach.png" alt="Beach with sun umbrella and a lounge chair, sea and sailboat behind" style="width:100%;aspect-ratio:4/3;object-fit:cover;display:block">
+        <img src="assets/pic-beach.png" alt="Beach with sun umbrella and a lounge chair, sea and sailboat behind" style="width:100%;height:auto;display:block">
         <div class="pic-body">
           <div class="pic-title">Scene 4 · Beach on holiday</div>
           <div class="pic-prompts">Include: <strong>sea, beach, sun, people relaxing</strong>. Full formula.</div>
@@ -1083,15 +1168,15 @@ details .details-body{padding:12px 16px 16px}
     <img src="assets/summer-photos.jpg" alt="Three polaroid photos on a wooden table: beach, mountains, and city street" style="width:100%;height:auto;border-radius:12px;margin-bottom:14px;box-shadow:0 4px 16px rgba(31,46,69,.10);display:block">
     <div class="summer-grid">
       <div class="summer-card">
-        <img src="assets/summer-place-lake.png" alt="Lake view with mountains and a small town" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block">
+        <img src="assets/summer-place-lake.png" alt="Lake view with mountains and a small town" style="width:100%;height:auto;display:block">
         <div class="summer-body"><strong>Photo 1 — a place</strong><br>"This is a photo of ___. I went there in ___. It was ___."</div>
       </div>
       <div class="summer-card">
-        <img src="assets/summer-person-beach.png" alt="A person relaxing on the beach in a sun hat" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block">
+        <img src="assets/summer-person-beach.png" alt="A person relaxing on the beach in a sun hat" style="width:100%;height:auto;display:block">
         <div class="summer-body"><strong>Photo 2 — a person</strong><br>"In this photo I can see ___. We were ___. He/she is ___."</div>
       </div>
       <div class="summer-card">
-        <img src="assets/summer-moment-sunset.png" alt="Friends watching sunset over the sea" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block">
+        <img src="assets/summer-moment-sunset.png" alt="Friends watching sunset over the sea" style="width:100%;height:auto;display:block">
         <div class="summer-body"><strong>Photo 3 — a moment</strong><br>"This was the moment when ___. I remember ___. It made me feel ___."</div>
       </div>
     </div>
@@ -1099,23 +1184,90 @@ details .details-body{padding:12px 16px 16px}
   </div>
 </section>
 
-<!-- 20 · Would you rather -->
+<!-- 20 · Icebreaker · Question Spinner -->
 <section class="section gold" id="s20">
   <div class="section-hdr">
     <span class="num">20</span>
-    <h2>Would you rather · one sentence each</h2>
+    <h2>Icebreaker · Question Spinner</h2>
   </div>
-  <p class="section-sub">No right answer. Pick one, give one reason. You have 20 seconds each. Tap ▶ to hear the question.</p>
+  <p class="section-sub">Tap 🎰 <b>Spin</b> — a random question appears. Answer out loud in one or two sentences. Spin again for the next. Rapid-fire warm-up.</p>
   <div class="card">
-    <div class="task-tag">6 fun dilemmas · pick + defend</div>
-    <div class="open-grid">
-      <div class="open-q"><div class="oq-top"><button class="oq-play" data-say="Would you rather work from home forever or from the office forever?" aria-label="Play">▶</button><span class="oq-text">Would you rather work from home forever or from the office forever?</span></div><div class="oq-example">"I'd rather work from the office — I need to see people, not just screens."</div></div>
-      <div class="open-q"><div class="oq-top"><button class="oq-play" data-say="Would you rather travel to Japan or to Italy for holiday?" aria-label="Play">▶</button><span class="oq-text">Would you rather travel to Japan or to Italy for holiday?</span></div><div class="oq-example">"I'd rather travel to Italy — I love pasta and the sea."</div></div>
-      <div class="open-q"><div class="oq-top"><button class="oq-play" data-say="Would you rather have a small quiet weekend or a big loud party?" aria-label="Play">▶</button><span class="oq-text">Would you rather have a small quiet weekend or a big loud party?</span></div><div class="oq-example">"I'd rather have a quiet weekend — Monday comes fast."</div></div>
-      <div class="open-q"><div class="oq-top"><button class="oq-play" data-say="Would you rather have more money or more time?" aria-label="Play">▶</button><span class="oq-text">Would you rather have more money or more time?</span></div><div class="oq-example">"More time. You can always find money, you can't buy time."</div></div>
-      <div class="open-q"><div class="oq-top"><button class="oq-play" data-say="Would you rather live in a small town by the sea or a big city?" aria-label="Play">▶</button><span class="oq-text">Would you rather live in a small town by the sea or a big city?</span></div><div class="oq-example">"Small town by the sea. I'm tired of Moscow traffic."</div></div>
-      <div class="open-q"><div class="oq-top"><button class="oq-play" data-say="Would you rather be an expert in one sport or good at many?" aria-label="Play">▶</button><span class="oq-text">Would you rather be an expert in one sport or good at many?</span></div><div class="oq-example">"Good at many. I like to try new things."</div></div>
+    <style>
+      .spinner-box{background:linear-gradient(135deg,var(--accent-soft),var(--maple-soft));border:1px solid var(--maple);border-radius:16px;padding:24px 22px;text-align:center;margin:14px 0;min-height:180px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:16px}
+      .spinner-q{font-family:Georgia,serif;font-size:1.35rem;font-style:italic;color:var(--ink);line-height:1.4;min-height:70px;display:flex;align-items:center;justify-content:center;padding:0 10px;transition:opacity .25s}
+      .spinner-q.spinning{opacity:.35}
+      .spinner-controls{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+      .spin-btn{background:var(--maple);color:#fff;border:none;padding:12px 22px;border-radius:10px;font:800 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 14px rgba(198,168,119,.35)}
+      .spin-btn:hover{background:#b0946a}
+      .spin-btn::before{content:"🎰"}
+      .spin-listen{background:var(--accent);color:#fff;border:none;padding:12px 18px;border-radius:10px;font:800 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+      .spin-listen::before{content:"▶"}
+      .spin-listen:hover{background:var(--accent3)}
+      .spin-count{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.08em;margin-top:6px}
+    </style>
+    <div class="task-tag">20 random questions · spin + speak · aim for 10 in a row</div>
+    <div class="spinner-box" id="spinner-box">
+      <div class="spinner-q" id="spinner-q">🎰 Tap Spin to get your first question</div>
+      <div class="spinner-controls">
+        <button class="spin-btn" id="spin-btn">Spin</button>
+        <button class="spin-listen" id="spin-listen">Listen again</button>
+      </div>
+      <div class="spin-count"><span id="spin-count">0</span> questions answered · queue reshuffles when empty</div>
     </div>
+    <div class="info"><strong>How to play:</strong> Spin → read the question aloud → answer in 1-2 sentences → Spin again. If a question is too hard, spin again. Do 10 in a row without long pauses = warm-up done.</div>
+    <script>
+      (function(){
+        var pool = [
+          "What did you have for breakfast today?",
+          "Who is the last person you called on the phone?",
+          "What is the last movie you watched?",
+          "What is the best gift you've ever received?",
+          "If you could live in any country for a year, which one?",
+          "What was the best trip you ever took?",
+          "What is your favourite food and why?",
+          "Do you prefer summer or winter?",
+          "What song do you play in the car most often?",
+          "What was your first job?",
+          "Do you have a favourite sport team?",
+          "What is your morning routine?",
+          "If you had one extra hour today, what would you do with it?",
+          "What is your dream car?",
+          "What is your idea of a perfect Sunday?",
+          "Tell me about your family in one sentence.",
+          "What is one thing you can cook well?",
+          "If you could learn any new skill in one week, what would you pick?",
+          "What is your favourite series right now?",
+          "What is one place in your city you always show visitors?"
+        ];
+        var queue = [];
+        function reshuffle(){ queue = pool.slice(); for(var i=queue.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)); var t=queue[i];queue[i]=queue[j];queue[j]=t;} }
+        reshuffle();
+        var q=document.getElementById('spinner-q');
+        var cnt=document.getElementById('spin-count');
+        var currentQ='';
+        var count=0;
+        document.getElementById('spin-btn').addEventListener('click',function(){
+          if(queue.length===0) reshuffle();
+          q.classList.add('spinning');
+          setTimeout(function(){
+            currentQ = queue.pop();
+            q.textContent = currentQ;
+            q.classList.remove('spinning');
+            count++;
+            cnt.textContent = count;
+            if('speechSynthesis' in window){
+              try{ speechSynthesis.cancel(); var u=new SpeechSynthesisUtterance(currentQ); u.rate=1; u.pitch=1.02; speechSynthesis.speak(u); }catch(e){}
+            }
+          }, 300);
+        });
+        document.getElementById('spin-listen').addEventListener('click',function(){
+          if(!currentQ) return;
+          if('speechSynthesis' in window){
+            try{ speechSynthesis.cancel(); var u=new SpeechSynthesisUtterance(currentQ); u.rate=1; u.pitch=1.02; speechSynthesis.speak(u); }catch(e){}
+          }
+        });
+      })();
+    </script>
   </div>
 </section>
 
@@ -1153,6 +1305,36 @@ details .details-body{padding:12px 16px 16px}
   <p style="margin-top:6px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--faint)">Chrome / Edge recommended for microphone drills · press 🎥 top-right to open Yandex Telemost</p>
 </footer>
 
+<!-- CLEAN teacher-vocab junk (removes elements added by lab-vocab-builder into vocab-grid) -->
+<script>
+(function(){
+  function clean(){
+    document.querySelectorAll('.vocab-grid').forEach(function(g){
+      Array.prototype.slice.call(g.children).forEach(function(el){
+        if(!el.classList.contains('vocab-card')) el.remove();
+      });
+    });
+    // Remove any teacher-vocab wrapper/badge/star chips that sit near vocab-grid
+    document.querySelectorAll('.vw,.lv-added,.lv-mini,.lv-add,.lv-add-btn,.lv-container,.lv-highlight,.lv-mark,.nge-vocab-highlight,.teacher-vocab-item').forEach(function(el){
+      if(!el.closest('.vocab-card')) el.remove();
+    });
+    // Kill teacher-vocab-builder floating dock / add-btn overlay if any
+    document.querySelectorAll('[class*="teacher-vocab"],[data-teacher-vocab]').forEach(function(el){
+      if(!el.closest('.vocab-card')) el.remove();
+    });
+  }
+  document.addEventListener('DOMContentLoaded', clean);
+  window.addEventListener('load', clean);
+  // Watch DOM changes — lab-vocab-builder adds elements late
+  var obs = new MutationObserver(function(){ clean(); });
+  document.addEventListener('DOMContentLoaded', function(){
+    obs.observe(document.body, {childList:true, subtree:true});
+  });
+  // Also brute-force every 800ms for the first 10 seconds
+  var t=0; var iv=setInterval(function(){ clean(); t+=800; if(t>10000) clearInterval(iv); }, 800);
+})();
+</script>
+
 <!-- LAB CORE SCRIPTS · регламент 2026-07-13 -->
 <script src="../../assets/lab-persist.js?v=3" defer></script>
 <script src="../../assets/lab-total.js?v=4" defer></script>
@@ -1163,7 +1345,7 @@ details .details-body{padding:12px 16px 16px}
 <script src="../../assets/lab-tabs.js?v=12" defer></script>
 <script src="../../assets/lab-homework.js?v=48" defer></script>
 <script src="../../assets/lab-telemost.js?v=1" defer></script>
-<script src="../../assets/lab-vocab-builder.js?v=53" defer></script>
+<!-- lab-vocab-builder DISABLED for this lesson (was adding teacher-added junk into vocab-grid) -->
 <script src="../../assets/lab-coach-persist.js?v=1" defer></script>
 <script src="../../assets/lab-clean-bottom-dock.js?v=1" defer></script>
 
@@ -1451,6 +1633,37 @@ details .details-body{padding:12px 16px 16px}
         result.textContent = ''; result.classList.remove('perfect');
       });
     }
+  });
+
+  /* ---------- DRAG-BANK · pick pill → drop into target ---------- */
+  document.querySelectorAll('.drag-bank').forEach(function(bank){
+    var bankId = bank.dataset.bank;
+    var sel = null;
+    bank.querySelectorAll('.drag-pill').forEach(function(p){
+      p.addEventListener('click', function(){
+        if(p.classList.contains('used')) return;
+        bank.querySelectorAll('.drag-pill.selected').forEach(function(x){ x.classList.remove('selected'); });
+        if(sel === p){ sel = null; p.classList.remove('selected'); return; }
+        sel = p; p.classList.add('selected');
+      });
+    });
+    document.querySelectorAll('.drag-target[data-bank="'+bankId+'"]').forEach(function(t){
+      t.addEventListener('click', function(){
+        if(t.classList.contains('filled')){
+          var w = t.dataset.filled;
+          var pill = bank.querySelector('.drag-pill[data-w="'+w+'"]');
+          if(pill) pill.classList.remove('used');
+          t.classList.remove('filled','correct'); t.textContent = '___'; t.dataset.filled = '';
+          return;
+        }
+        if(!sel) return;
+        t.textContent = sel.dataset.w;
+        t.dataset.filled = sel.dataset.w;
+        t.classList.add('filled','correct');
+        sel.classList.remove('selected'); sel.classList.add('used');
+        sel = null;
+      });
+    });
   });
 
   /* ---------- PROGRESS DOTS (динамические) ---------- */
