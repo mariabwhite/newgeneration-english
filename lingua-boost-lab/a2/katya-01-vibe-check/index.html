@@ -64,6 +64,31 @@ em{font-style:italic;color:var(--accent2)}
 .intro-card h3{font-family:var(--display);font-size:1.4rem;color:var(--accent2);margin-bottom:6px}
 .intro-card .meta{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 
+/* Tense match — soft radar */
+.tm-row{display:grid;grid-template-columns:1fr 200px;gap:12px;margin-bottom:10px;align-items:center;background:#FFF6EE;border:1px solid var(--accent3);border-radius:12px;padding:12px 14px}
+@media(max-width:640px){.tm-row{grid-template-columns:1fr}}
+.tm-sentence{font-size:.98rem;font-weight:600;color:var(--text)}
+.tm-sentence em{font-style:italic;color:var(--accent2);font-weight:800}
+.tm-tense-slot{background:#fff;border:2px dashed var(--accent);border-radius:8px;padding:8px 10px;min-height:38px;cursor:pointer;text-align:center;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:800;display:flex;align-items:center;justify-content:center;transition:.18s}
+.tm-tense-slot:hover{border-color:var(--accent2);background:#FEECDC}
+.tm-tense-slot.filled{border-style:solid;background:var(--accent);color:#fff;border-color:var(--accent2)}
+.tm-tense-slot.wrong{background:var(--miss);color:#fff;border-color:var(--miss);border-style:solid}
+.tm-bank{background:#FFF6EE;border:1px solid var(--accent3);border-radius:12px;padding:14px;display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.tm-chip{background:#fff;border:2px solid var(--accent3);color:var(--accent2);padding:6px 12px;border-radius:8px;font-weight:800;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:.18s;user-select:none}
+.tm-chip:hover{border-color:var(--accent);transform:translateY(-2px)}
+.tm-chip.selected{background:var(--accent);color:#fff;border-color:var(--accent2);transform:scale(1.05)}
+.tm-chip.used{opacity:.25;cursor:not-allowed;pointer-events:none}
+
+/* Diagnostic checklist */
+.checklist{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;margin-top:8px}
+.checklist-item{background:#FFF6EE;border:2px solid var(--accent3);border-radius:10px;padding:10px 14px;cursor:pointer;transition:.18s;font-size:.92rem;font-weight:600;color:var(--text);text-align:left;user-select:none;display:flex;align-items:center;gap:10px}
+.checklist-item::before{content:'';width:18px;height:18px;border:2px solid var(--accent2);border-radius:5px;flex-shrink:0;background:#fff;transition:.18s}
+.checklist-item:hover{border-color:var(--accent2);background:#FEECDC}
+.checklist-item.picked{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-color:var(--accent2)}
+.checklist-item.picked::before{background:#fff;box-shadow:inset 0 0 0 3px var(--accent2)}
+.check-group-label{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2);font-weight:800;margin:14px 0 6px}
+.check-group-label:first-child{margin-top:0}
+
 /* This or That */
 .tot-grid{display:grid;grid-template-columns:1fr;gap:10px}
 .tot-item{background:#FFF6EE;border:1px solid var(--accent3);border-radius:14px;padding:14px 16px;display:grid;grid-template-columns:36px 1fr auto 1fr;gap:12px;align-items:center}
@@ -185,8 +210,54 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
 <section class="section" style="margin-top:0">
   <div class="card intro-card">
     <h3>Nice to meet you, Katya.</h3>
-    <div class="meta">One water lesson · 12 sections · English only · we talk more than we read</div>
+    <div class="meta">One water lesson · English only · we talk more than we read</div>
     <p style="margin-top:10px;font-size:.95rem;color:var(--text);max-width:640px;margin-left:auto;margin-right:auto">Tap any question to hear it. Pick a side. Tell me why. There are no wrong answers here — only interesting ones.</p>
+  </div>
+</section>
+
+<!-- SECTION 0 · DIAGNOSTIC SELF-CHECK -->
+<section class="section">
+  <div class="section-hdr"><div class="num">0</div><h2>Before we start — quick self-check</h2></div>
+  <div class="section-sub">tap what applies · you can pick as many as you want · no wrong answers</div>
+  <div class="card">
+    <div class="check-group-label">I'm learning English…</div>
+    <div class="checklist">
+      <div class="checklist-item" data-say="to travel">to travel</div>
+      <div class="checklist-item" data-say="to watch films and TV series">to watch films and series</div>
+      <div class="checklist-item" data-say="to study biochemistry at HSE">to study biochem at HSE 🧬</div>
+      <div class="checklist-item" data-say="to talk with people online">to talk with people online</div>
+      <div class="checklist-item" data-say="to read books and articles I like">to read what I actually like</div>
+      <div class="checklist-item" data-say="because my parents want me to">because my parents want me to</div>
+    </div>
+
+    <div class="check-group-label">In the past I learnt English…</div>
+    <div class="checklist">
+      <div class="checklist-item" data-say="only at school">only at school</div>
+      <div class="checklist-item" data-say="with a private teacher">with a private teacher</div>
+      <div class="checklist-item" data-say="at home on my own">at home on my own</div>
+      <div class="checklist-item" data-say="through YouTube and games">through YouTube / games</div>
+    </div>
+
+    <div class="check-group-label">Right now I want to practise…</div>
+    <div class="checklist">
+      <div class="checklist-item" data-say="speaking">speaking</div>
+      <div class="checklist-item" data-say="listening">listening</div>
+      <div class="checklist-item" data-say="vocabulary">vocabulary</div>
+      <div class="checklist-item" data-say="reading">reading</div>
+      <div class="checklist-item" data-say="writing">writing</div>
+      <div class="checklist-item" data-say="grammar only when it's needed">grammar only when it's needed</div>
+    </div>
+
+    <div class="check-group-label">And honestly, English feels…</div>
+    <div class="checklist">
+      <div class="checklist-item" data-say="exciting">exciting</div>
+      <div class="checklist-item" data-say="boring right now">boring right now</div>
+      <div class="checklist-item" data-say="stressful">stressful</div>
+      <div class="checklist-item" data-say="ok, whatever">ok, whatever</div>
+      <div class="checklist-item" data-say="I have no idea yet">I have no idea yet</div>
+    </div>
+
+    <div class="starters" style="margin-top:14px"><strong>My rule:</strong> whatever you pick, that's the truth — we'll build the year from here. No pretending.</div>
   </div>
 </section>
 
@@ -444,6 +515,51 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
   </div>
 </section>
 
+<!-- SECTION 9.5 · TENSE RADAR · SOFT DIAGNOSTIC -->
+<section class="section">
+  <div class="section-hdr"><div class="num">🕒</div><h2>Tense radar — soft diagnostic (skip anything unclear)</h2></div>
+  <div class="section-sub">click a tense label · then click the sentence it belongs to · we're just checking, not testing</div>
+  <div class="card">
+    <p style="font-size:.94rem;color:var(--muted);margin-bottom:14px">Six sentences, six tenses. If you're not sure — skip. I only need to see <strong>which ones you already own</strong> and which ones we'll build together this year.</p>
+
+    <div class="tm-bank" id="tm-bank">
+      <div class="tm-chip" data-w="present-simple">Present Simple</div>
+      <div class="tm-chip" data-w="present-continuous">Present Continuous</div>
+      <div class="tm-chip" data-w="past-simple">Past Simple</div>
+      <div class="tm-chip" data-w="past-continuous">Past Continuous</div>
+      <div class="tm-chip" data-w="present-perfect">Present Perfect</div>
+      <div class="tm-chip" data-w="future-will">Future (will / going to)</div>
+    </div>
+
+    <div class="tm-row"><div class="tm-sentence">1. Every morning I <em>drink</em> tea before school.</div><div class="tm-tense-slot" data-correct="present-simple">tap a tense</div></div>
+    <div class="tm-row"><div class="tm-sentence">2. Right now she <em>is reading</em> a book about the brain.</div><div class="tm-tense-slot" data-correct="present-continuous">tap a tense</div></div>
+    <div class="tm-row"><div class="tm-sentence">3. Yesterday we <em>walked</em> around Red Square for two hours.</div><div class="tm-tense-slot" data-correct="past-simple">tap a tense</div></div>
+    <div class="tm-row"><div class="tm-sentence">4. I <em>was watching</em> a series when my phone died.</div><div class="tm-tense-slot" data-correct="past-continuous">tap a tense</div></div>
+    <div class="tm-row"><div class="tm-sentence">5. I <em>have never been</em> to London, but I want to.</div><div class="tm-tense-slot" data-correct="present-perfect">tap a tense</div></div>
+    <div class="tm-row"><div class="tm-sentence">6. Tomorrow I <em>will call</em> my grandmother.</div><div class="tm-tense-slot" data-correct="future-will">tap a tense</div></div>
+
+    <h3 style="margin-top:22px">Quick fill — use the same verbs</h3>
+    <div class="bank">
+      <div class="bank-word" data-w="get up">get up</div>
+      <div class="bank-word" data-w="am watching">am watching</div>
+      <div class="bank-word" data-w="went">went</div>
+      <div class="bank-word" data-w="was raining">was raining</div>
+      <div class="bank-word" data-w="have finished">have finished</div>
+      <div class="bank-word" data-w="will remember">will remember</div>
+    </div>
+    <div class="drag-text">
+      <p>1. On weekdays I <span class="drop-gap" data-correct="get up">⋯</span> at seven.</p>
+      <p>2. Right now I <span class="drop-gap" data-correct="am watching">⋯</span> a film in English.</p>
+      <p>3. Last summer we <span class="drop-gap" data-correct="went">⋯</span> to the sea.</p>
+      <p>4. It <span class="drop-gap" data-correct="was raining">⋯</span> when we arrived.</p>
+      <p>5. I <span class="drop-gap" data-correct="have finished">⋯</span> my homework already.</p>
+      <p>6. I <span class="drop-gap" data-correct="will remember">⋯</span> this lesson.</p>
+    </div>
+
+    <div class="starters" style="margin-top:14px"><strong>The point:</strong> I don't need you to name every tense. I need to see <em>which time signals</em> you already feel — that tells me exactly where to start next week.</div>
+  </div>
+</section>
+
 <!-- SECTION 10 · READING · SHORT TEEN PARAGRAPH -->
 <section class="section">
   <div class="section-hdr"><div class="num">10</div><h2>Reading — one short paragraph, then talk</h2></div>
@@ -517,6 +633,15 @@ function speak(text){if(!text)return;speechSynthesis.cancel();const u=new Speech
 
 document.querySelectorAll('[data-say]').forEach(el=>el.addEventListener('click',e=>{e.stopPropagation();speak(el.getAttribute('data-say'))}));
 
+// Checklist — multi-select toggle
+document.querySelectorAll('.checklist-item').forEach(item=>{
+  item.addEventListener('click',e=>{
+    e.stopPropagation();
+    item.classList.toggle('picked');
+    if(item.classList.contains('picked'))speak(item.getAttribute('data-say')||item.textContent);
+  });
+});
+
 // This or That — toggle picked side (one per row)
 document.querySelectorAll('.tot-item').forEach(item=>{
   item.querySelectorAll('.tot-side').forEach(side=>{
@@ -568,6 +693,31 @@ document.querySelectorAll('.drop-gap').forEach(gap=>gap.addEventListener('click'
   }else{
     gap.classList.add('wrong');
     setTimeout(()=>gap.classList.remove('wrong'),400);
+  }
+}));
+
+// Tense radar — chip → slot matching
+let selectedTmChip=null;
+document.querySelectorAll('.tm-chip[data-w]').forEach(chip=>chip.addEventListener('click',()=>{
+  if(chip.classList.contains('used'))return;
+  if(selectedTmChip)selectedTmChip.classList.remove('selected');
+  if(selectedTmChip===chip){selectedTmChip=null;return}
+  selectedTmChip=chip;
+  chip.classList.add('selected');
+  speak(chip.textContent);
+}));
+document.querySelectorAll('.tm-tense-slot').forEach(slot=>slot.addEventListener('click',()=>{
+  if(!selectedTmChip||slot.classList.contains('filled'))return;
+  const want=slot.getAttribute('data-correct'),got=selectedTmChip.getAttribute('data-w');
+  if(want===got){
+    slot.classList.add('filled');
+    slot.textContent=selectedTmChip.textContent;
+    selectedTmChip.classList.add('used');
+    selectedTmChip.classList.remove('selected');
+    selectedTmChip=null;
+  }else{
+    slot.classList.add('wrong');
+    setTimeout(()=>slot.classList.remove('wrong'),400);
   }
 }));
 
