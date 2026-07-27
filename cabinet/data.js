@@ -1006,6 +1006,7 @@ window.NGE_DATA = {
       "lessons_used_this_month": 1,
       "summer_plan_note": "Старт со вводного 27.07.2026 · перспектива ВШЭ биохим",
       "stability_note": "",
+      "telemost_url": "https://telemost.yandex.ru/j/54421955698303",
       "lessons": [
         {
           "date": "2026-07-27",
@@ -1016,7 +1017,20 @@ window.NGE_DATA = {
             "module_url": "https://newgeneration-english.ru/lingua-boost-lab/a2/katya-01-vibe-check/",
             "module_title": "🎯 Открыть Vibe Check · вводный",
             "text": "Первый интерактивный урок: Small-talk toolkit (6 фраз) · Grammar reference (12 tenses cheatsheet) · диалог Kimberly + Joanna · монолог Kimberly. Открыть с компа/планшета."
-          }
+          },
+          "telemost_url": "https://telemost.yandex.ru/j/54421955698303"
+        },
+        {
+          "date": "2026-08-03",
+          "num": 2,
+          "status": "planned",
+          "topic": "The Whispering Library IV · Azkaban — Books vocab + Prisoner of Azkaban (Sirius Black, Dementors, Boggart, Time-Turner)",
+          "homework": {
+            "module_url": "https://newgeneration-english.ru/lingua-boost-lab/a2/katya-02-azkaban-library/",
+            "module_title": "⚡ Открыть Whispering Library · Azkaban",
+            "text": "Литературный урок · Катина любимая POA. Types of books (12 flip-cards), author adjectives, pairwork discussion Student A/B, Sirius Black монолог + Harry-Sirius диалог, Dementors on the train reading, Marauder's Map vocab quest (10 flip-cards с личными вопросами). Palette Whispering Library — violet + gold + parchment."
+          },
+          "telemost_url": "https://telemost.yandex.ru/j/54421955698303"
         }
       ],
       "materials": {
