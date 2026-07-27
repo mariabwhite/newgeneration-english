@@ -283,7 +283,10 @@ h1.hero-title .grad{background:linear-gradient(120deg,#fff,var(--maple-soft));-w
 .mic-badge.good{background:rgba(74,143,110,.14);color:var(--ok);border-color:var(--ok)}
 
 /* Role-play scenario */
-.rp-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin:12px 0;box-shadow:var(--shadow)}
+.rp-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin:12px 0;box-shadow:var(--shadow);display:grid;grid-template-columns:200px 1fr;gap:16px;align-items:start}
+.rp-thumb{width:100%;height:auto;border-radius:10px;display:block;object-fit:cover;aspect-ratio:4/3;box-shadow:0 2px 8px rgba(31,46,69,.10)}
+.rp-body{min-width:0}
+@media(max-width:640px){.rp-card{grid-template-columns:1fr}.rp-thumb{max-width:200px;margin:0 auto}}
 .rp-hdr{display:flex;align-items:center;gap:10px;margin-bottom:8px}
 .rp-num{background:var(--maple);color:#fff;font-family:var(--display);font-weight:800;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:.9rem}
 .rp-title{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--ink);letter-spacing:-.01em}
@@ -865,39 +868,45 @@ details .details-body{padding:12px 16px 16px}
   <p class="section-sub">Tap ▶ to hear what the person says. You answer out loud in real time. No auto-check here — just real speaking.</p>
 
   <div class="rp-card">
-    <img src="assets/rp1-cafe.png" alt="Two men chatting over coffee at a café table" style="width:100%;height:auto;border-radius:12px;margin-bottom:12px;display:block">
-    <div class="rp-hdr"><span class="rp-num">1</span><span class="rp-title">Café · first meeting with a local client</span></div>
-    <div class="rp-setup">You meet a new B2B client at a café. They walk in, sit down.</div>
-    <div class="rp-client"><button class="rp-play-client" data-say="Hi. Sorry I'm a bit late — traffic was terrible.">Play</button>"Hi. Sorry I'm a bit late — traffic was terrible."</div>
-    <div class="rp-hint">Greet warmly · say it's fine · offer coffee. Use one small-talk phrase.</div>
-    <div class="rp-client"><button class="rp-play-client" data-say="So tell me about your company. Who are you and what do you do?">Play</button>"So tell me about your company. Who are you and what do you do?"</div>
-    <div class="rp-hint">Use your 4-blank self-intro script (name · company · role · hobby/travel).</div>
-    <div class="rp-client"><button class="rp-play-client" data-say="Sorry, could you say the name of your company one more time?">Play</button>"Sorry, could you say the name of your company one more time?"</div>
-    <div class="rp-hint">Repeat slowly · spell it if useful.</div>
+    <img class="rp-thumb" src="assets/rp1-cafe.png" alt="Two men chatting at a café">
+    <div class="rp-body">
+      <div class="rp-hdr"><span class="rp-num">1</span><span class="rp-title">Café · first meeting with a local client</span></div>
+      <div class="rp-setup">You meet a new B2B client at a café. They walk in, sit down.</div>
+      <div class="rp-client"><button class="rp-play-client" data-say="Hi. Sorry I'm a bit late — traffic was terrible.">Play</button>"Hi. Sorry I'm a bit late — traffic was terrible."</div>
+      <div class="rp-hint">Greet warmly · say it's fine · offer coffee. Use one small-talk phrase.</div>
+      <div class="rp-client"><button class="rp-play-client" data-say="So tell me about your company. Who are you and what do you do?">Play</button>"So tell me about your company. Who are you and what do you do?"</div>
+      <div class="rp-hint">Use your 4-blank self-intro script (name · company · role · hobby/travel).</div>
+      <div class="rp-client"><button class="rp-play-client" data-say="Sorry, could you say the name of your company one more time?">Play</button>"Sorry, could you say the name of your company one more time?"</div>
+      <div class="rp-hint">Repeat slowly · spell it if useful.</div>
+    </div>
   </div>
 
   <div class="rp-card">
-    <img src="assets/rp2-office-handshake.png" alt="Two men shaking hands at a small airport café table" style="width:100%;height:auto;border-radius:12px;margin-bottom:12px;display:block">
-    <div class="rp-hdr"><span class="rp-num">2</span><span class="rp-title">Conference · new person at the coffee break</span></div>
-    <div class="rp-setup">You're at a big conference. Someone stands next to you at the coffee table.</div>
-    <div class="rp-client"><button class="rp-play-client" data-say="Hi, I don't think we've met. I'm Marco, from Italy. Where are you from?">Play</button>"Hi, I don't think we've met. I'm Marco, from Italy. Where are you from?"</div>
-    <div class="rp-hint">Greet · introduce yourself · say where you're from. One extra fact.</div>
-    <div class="rp-client"><button class="rp-play-client" data-say="Oh nice. So, do you travel a lot for work?">Play</button>"Oh nice. So, do you travel a lot for work?"</div>
-    <div class="rp-hint">Talk about travel — how often, favourite place, or "not much".</div>
-    <div class="rp-client"><button class="rp-play-client" data-say="Sorry, I didn't catch the name of your city.">Play</button>"Sorry, I didn't catch the name of your city."</div>
-    <div class="rp-hint">Use a rescue: repeat slowly. "Of course — Moscow, M-O-S-C-O-W."</div>
+    <img class="rp-thumb" src="assets/rp2-office-handshake.png" alt="Two men shaking hands at a café table">
+    <div class="rp-body">
+      <div class="rp-hdr"><span class="rp-num">2</span><span class="rp-title">Conference · new person at the coffee break</span></div>
+      <div class="rp-setup">You're at a big conference. Someone stands next to you at the coffee table.</div>
+      <div class="rp-client"><button class="rp-play-client" data-say="Hi, I don't think we've met. I'm Marco, from Italy. Where are you from?">Play</button>"Hi, I don't think we've met. I'm Marco, from Italy. Where are you from?"</div>
+      <div class="rp-hint">Greet · introduce yourself · say where you're from. One extra fact.</div>
+      <div class="rp-client"><button class="rp-play-client" data-say="Oh nice. So, do you travel a lot for work?">Play</button>"Oh nice. So, do you travel a lot for work?"</div>
+      <div class="rp-hint">Talk about travel — how often, favourite place, or "not much".</div>
+      <div class="rp-client"><button class="rp-play-client" data-say="Sorry, I didn't catch the name of your city.">Play</button>"Sorry, I didn't catch the name of your city."</div>
+      <div class="rp-hint">Use a rescue: repeat slowly. "Of course — Moscow, M-O-S-C-O-W."</div>
+    </div>
   </div>
 
   <div class="rp-card">
-    <img src="assets/rp3-video-call.png" alt="Three people around a laptop in a bright meeting room" style="width:100%;height:auto;border-radius:12px;margin-bottom:12px;display:block">
-    <div class="rp-hdr"><span class="rp-num">3</span><span class="rp-title">Video call · new client from abroad</span></div>
-    <div class="rp-setup">You open a Zoom call. They turn on the camera.</div>
-    <div class="rp-client"><button class="rp-play-client" data-say="Hi! Can you hear me OK?">Play</button>"Hi! Can you hear me OK?"</div>
-    <div class="rp-hint">Confirm · greet · introduce yourself briefly.</div>
-    <div class="rp-client"><button class="rp-play-client" data-say="Perfect. So — how's business on your side these days?">Play</button>"Perfect. So — how's business on your side these days?"</div>
-    <div class="rp-hint">One-sentence answer · then a small-talk return question, then bridge to the topic.</div>
-    <div class="rp-client"><button class="rp-play-client" data-say="Great to hear. OK, let's talk about the reason for the call — the contract for Q4.">Play</button>"Great to hear. OK, let's talk about the reason for the call — the contract for Q4."</div>
-    <div class="rp-hint">Confirm the topic: "Yes, exactly — the Q4 contract. So…"</div>
+    <img class="rp-thumb" src="assets/rp3-video-call.png" alt="Team around a laptop in a bright meeting room">
+    <div class="rp-body">
+      <div class="rp-hdr"><span class="rp-num">3</span><span class="rp-title">Video call · new client from abroad</span></div>
+      <div class="rp-setup">You open a Zoom call. They turn on the camera.</div>
+      <div class="rp-client"><button class="rp-play-client" data-say="Hi! Can you hear me OK?">Play</button>"Hi! Can you hear me OK?"</div>
+      <div class="rp-hint">Confirm · greet · introduce yourself briefly.</div>
+      <div class="rp-client"><button class="rp-play-client" data-say="Perfect. So — how's business on your side these days?">Play</button>"Perfect. So — how's business on your side these days?"</div>
+      <div class="rp-hint">One-sentence answer · then a small-talk return question, then bridge to the topic.</div>
+      <div class="rp-client"><button class="rp-play-client" data-say="Great to hear. OK, let's talk about the reason for the call — the contract for Q4.">Play</button>"Great to hear. OK, let's talk about the reason for the call — the contract for Q4."</div>
+      <div class="rp-hint">Confirm the topic: "Yes, exactly — the Q4 contract. So…"</div>
+    </div>
   </div>
 
   <div class="info gold"><strong>How to use in the office:</strong> put this page on a second screen or share it. Do one scenario per session — 3 minutes, no cheating. Then compare your answer to the hint under each line. That's the practice.</div>
