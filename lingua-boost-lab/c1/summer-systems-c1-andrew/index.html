@@ -703,10 +703,10 @@ footer a{color:var(--brand-2);text-decoration:underline}
   <p class="section-sub">Listen first, then answer. Whole section → homework.</p>
   <div class="card">
     <img src="assets/img/listen-02-phenology-meadow.png" alt="Swallows in flight and butterflies over a summer meadow, calendar page silhouette in the sky — phenology visualised" style="display:block;width:100%;height:auto;border-radius:14px;margin-bottom:14px;box-shadow:0 4px 16px rgba(245,138,58,.14);border:1px solid var(--line-2)">
-    <div class="task-tag">Voice · Joanna · academic narrator</div>
-    <audio controls preload="metadata" src="assets/audio/talk-02-phenology.mp3" style="width:100%;margin:6px 0 14px"></audio>
+    <div class="task-tag">Voice · Joanna-style female · browser speech synthesis</div>
+    <button class="listen-play" data-say-target="phen-text" data-speaker="joanna" style="background:var(--accent);color:#fff;border:none;border-radius:10px;padding:12px 22px;font-family:var(--mono);font-weight:800;font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;margin:6px 0 14px;transition:.18s;box-shadow:0 4px 12px rgba(245,138,58,.28)">▶ Play Talk 2 · Phenology</button>
     <div class="passage">
-      <p>«Phenology — the study of the timing of biological events — is one of the quietest but most powerful climate signals we have. Long-term records show that in temperate Europe, cherry blossom, songbird arrival and butterfly emergence now occur, on average, two to four weeks earlier per decade compared to the 1980s. Seemingly minor, but the mismatch matters: some insects hatch before their host plants are ready, and migratory birds arrive after their peak food supply has already passed. This so-called trophic mismatch is being observed across an increasing number of ecosystems. It appears that the summer of a European forest in 2040 will look — and, more importantly, function — quite differently from the summer of 1990.»</p>
+      <p id="phen-text">«Phenology — the study of the timing of biological events — is one of the quietest but most powerful climate signals we have. Long-term records show that in temperate Europe, cherry blossom, songbird arrival and butterfly emergence now occur, on average, two to four weeks earlier per decade compared to the 1980s. Seemingly minor, but the mismatch matters: some insects hatch before their host plants are ready, and migratory birds arrive after their peak food supply has already passed. This so-called trophic mismatch is being observed across an increasing number of ecosystems. It appears that the summer of a European forest in 2040 will look — and, more importantly, function — quite differently from the summer of 1990.»</p>
     </div>
     <div class="mcq-row" data-answer="B">
       <div class="mcq-q"><strong>What is the main concern raised in the talk?</strong></div>
@@ -1265,6 +1265,45 @@ document.querySelectorAll('.vocab-card').forEach(function(c){
       var u = new SpeechSynthesisUtterance(text);
       var vi = sel && sel.value !== '' ? parseInt(sel.value, 10) : -1;
       if (voices[vi]) u.voice = voices[vi];
+      u.rate = 0.95; u.pitch = 1.0;
+      u.onend = function(){ btn.classList.remove('playing'); btn.innerHTML = btn.innerHTML.replace('■ Stop', '▶ Play'); };
+      btn.classList.add('playing');
+      btn.innerHTML = btn.innerHTML.replace('▶ Play', '■ Stop');
+      window.speechSynthesis.speak(u);
+    });
+  });
+
+  /* listen-play[data-say-target] — read a paragraph in a specific voice */
+  function pickVoice(tag){
+    if (!tag) return null;
+    var t = tag.toLowerCase();
+    var nameMatch = { joanna:/joanna|female|zira|hazel|libby|kate|susan/i,
+                      matthew:/matthew|male|guy|brian|george|daniel/i };
+    var langPref = { joanna:'en-US', matthew:'en-US' };
+    var pref = langPref[t] || 'en-US';
+    var re = nameMatch[t] || /female/i;
+    return voices.find(function(v){ return v.lang === pref && re.test(v.name); })
+        || voices.find(function(v){ return v.lang.startsWith('en') && re.test(v.name); })
+        || voices.find(function(v){ return v.lang === pref; })
+        || voices[0];
+  }
+  document.querySelectorAll('.listen-play[data-say-target]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var id = btn.getAttribute('data-say-target');
+      var el = document.getElementById(id);
+      if (!el) return;
+      var text = (el.innerText || el.textContent || '').trim().replace(/\s+/g,' ');
+      if (!text) return;
+      if (btn.classList.contains('playing')) {
+        window.speechSynthesis.cancel();
+        btn.classList.remove('playing');
+        btn.innerHTML = btn.innerHTML.replace('■ Stop', '▶ Play');
+        return;
+      }
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(text);
+      var v = pickVoice(btn.getAttribute('data-speaker'));
+      if (v) { u.voice = v; u.lang = v.lang; }
       u.rate = 0.95; u.pitch = 1.0;
       u.onend = function(){ btn.classList.remove('playing'); btn.innerHTML = btn.innerHTML.replace('■ Stop', '▶ Play'); };
       btn.classList.add('playing');
