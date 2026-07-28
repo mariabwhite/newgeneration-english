@@ -4,6 +4,25 @@
 <script src="/lingua-boost-lab/assets/premium-lesson-guard.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!-- BLOCK lab-vocab-builder from adding teacher-vocab junk to this lesson -->
+<script>
+(function(){
+  try{
+    var path = location.pathname;
+    Object.keys(localStorage).forEach(function(k){
+      if((k.indexOf('lab-vocab:')===0 || k.indexOf('nge-teacher-vocab')===0 || k.indexOf('lv-')===0) && (k.indexOf(path)>-1 || k.indexOf('summer-systems-c1-andrew')>-1)){
+        localStorage.removeItem(k);
+      }
+    });
+  }catch(e){}
+  window.__NGE_DISABLE_VOCAB_BUILDER__ = true;
+  Object.defineProperty(window,'LabVocabBuilder',{value:{init:function(){},addWord:function(){},render:function(){}},writable:false,configurable:false});
+})();
+</script>
+<style id="hide-vocab-builder-junk">
+.vocab-grid > *:not(.vocab-card){display:none !important}
+.vw,.lv-added,.lv-mini,.lv-add,.lv-add-btn,.lv-container,.lv-highlight,.lv-mark,.nge-vocab-highlight,.teacher-vocab-item,[class*="teacher-vocab"],[data-teacher-vocab]{display:none !important}
+</style>
 <title>Summer Systems · C1 · TOEFL iBT prep · Andrew · LinguaBoost Lab</title>
 <link rel="icon" href="assets/img/favicon-summer-sun.png" type="image/png">
 <meta name="description" content="C1 Adult Lab lesson for Andrew Kruglov · Summer Systems + TOEFL iBT prep. 10 summer/climate academic fields · «As It Seems» hedging block · 5 reading passages (climate, seasonal economy, sun science, tourism, migration) · 2 Polly listening talks · Retell / Argument / Interview / Writing trio.">
@@ -1438,7 +1457,7 @@ window.LAB_VOCAB = [
 <script src="../../assets/lab-tabs.js?v=12" defer></script>
 <script src="../../assets/lab-homework.js?v=48" defer></script>
 <script src="../../assets/lab-telemost.js?v=1" defer></script>
-<script src="../../assets/lab-vocab-builder.js?v=53" defer></script>
+<!-- lab-vocab-builder DISABLED for this lesson (was adding teacher-added junk into vocab-grid) -->
 <script src="../../assets/lab-coach-persist.js?v=1" defer></script>
 
 <!-- Total score aggregator (live) -->
@@ -1467,5 +1486,29 @@ window.LAB_VOCAB = [
 
 
 <script src="../../assets/lab-clean-bottom-dock.js?v=1" defer></script>
+
+<!-- CLEAN teacher-vocab junk at runtime (belt-and-braces alongside the head-time neutralizer) -->
+<script>
+(function(){
+  function clean(){
+    document.querySelectorAll('.vocab-grid').forEach(function(g){
+      Array.prototype.slice.call(g.children).forEach(function(el){
+        if(!el.classList.contains('vocab-card')) el.remove();
+      });
+    });
+    document.querySelectorAll('.vw,.lv-added,.lv-mini,.lv-add,.lv-add-btn,.lv-container,.lv-highlight,.lv-mark,.nge-vocab-highlight,.teacher-vocab-item').forEach(function(el){
+      if(!el.closest('.vocab-card')) el.remove();
+    });
+    document.querySelectorAll('[class*="teacher-vocab"],[data-teacher-vocab]').forEach(function(el){
+      if(!el.closest('.vocab-card')) el.remove();
+    });
+  }
+  document.addEventListener('DOMContentLoaded', clean);
+  window.addEventListener('load', clean);
+  var obs = new MutationObserver(function(){ clean(); });
+  document.addEventListener('DOMContentLoaded', function(){ obs.observe(document.body,{childList:true,subtree:true}); });
+  var t=0; var iv=setInterval(function(){ clean(); t+=800; if(t>10000) clearInterval(iv); }, 800);
+})();
+</script>
 </body>
 </html>
