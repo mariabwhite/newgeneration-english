@@ -49,12 +49,16 @@ body{background:var(--bg);font-family:var(--body);color:var(--text);min-height:1
 /* Tabs */
 .tabs-wrap{width:var(--demo-top-width);max-width:1240px;margin:0 auto 20px;position:sticky;top:12px;z-index:60}
 .tabs{display:flex;gap:6px;padding:6px;background:var(--surface);border:1px solid rgba(139,94,60,.14);border-radius:14px;box-shadow:var(--shadow)}
-.tab-btn{flex:1;background:transparent;border:none;padding:14px 16px;border-radius:10px;font-family:var(--display);font-weight:800;font-size:.95rem;color:var(--muted);cursor:pointer;transition:.18s;display:flex;flex-direction:column;align-items:center;gap:4px;line-height:1.15}
-.tab-btn .tb-icon{font-size:1.5rem;line-height:1}
+.tab-btn{flex:1;background:transparent;border:1px solid transparent;padding:12px 16px;border-radius:12px;font-family:var(--display);font-weight:800;font-size:.95rem;color:var(--muted);cursor:pointer;transition:.22s;display:flex;flex-direction:column;align-items:center;gap:6px;line-height:1.15}
+.tab-btn .tb-icon-img{width:44px;height:44px;border-radius:50%;object-fit:cover;display:block;border:2px solid rgba(139,94,60,.22);box-shadow:0 2px 6px rgba(139,94,60,.12)}
 .tab-btn .tb-sub{font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
-.tab-btn:hover{color:var(--accent2);background:rgba(212,168,67,.08)}
-.tab-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 3px 10px rgba(139,94,60,.22)}
+.tab-btn:hover{color:var(--accent2);background:rgba(212,168,67,.05);border-color:rgba(212,168,67,.28)}
+.tab-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 3px 12px rgba(139,94,60,.28);border-color:var(--accent2)}
+.tab-btn.active .tb-icon-img{border-color:#fff}
 .tab-btn.active .tb-sub{color:rgba(255,255,255,.85)}
+/* Crop bottom of Tab 3 Block B tenses-icons image (unfinished row of icons at bottom) */
+.tab-content#t3 img[src*="t3-tenses-icons"]{max-height:220px;object-fit:cover;object-position:top}
+@media(max-width:640px){.tab-btn .tb-icon-img{width:36px;height:36px}}
 
 .tab-content{display:none}
 .tab-content.active{display:block;animation:tabFade .35s ease}
@@ -178,10 +182,16 @@ em{font-style:italic;color:var(--accent2)}
 footer{width:var(--demo-top-width);max-width:1240px;margin:24px auto 40px;padding:20px 12px;text-align:center;font-size:.85rem;color:var(--muted);border-top:1px solid rgba(139,94,60,.14)}
 footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent2)}
 .lesson-img{width:100%;max-width:100%;height:auto;border-radius:14px;margin:0 auto 16px;display:block;box-shadow:0 4px 18px rgba(139,94,60,.14);border:1px solid rgba(139,94,60,.16);object-fit:cover}
-.lesson-img.hero-strip{border-radius:14px;margin:0 0 22px;border:none;box-shadow:0 6px 22px rgba(139,94,60,.2);position:relative;z-index:1}
-.lab-hero{padding-top:32px!important}
-.lab-hero .lesson-img.hero-strip{margin-top:-8px}
 .lesson-img.block-hero{margin:0 auto 14px;border-radius:12px}
+/* hero background image — картинка ЗА текстом, softened overlay для читаемости */
+.lab-hero.lab-hero-bg{
+  background:
+    linear-gradient(135deg, rgba(238,230,208,.86) 0%, rgba(230,217,187,.75) 45%, rgba(212,183,154,.55) 100%),
+    url("./assets/hero-strip.jpg") center/cover no-repeat;
+}
+.lab-hero.lab-hero-bg h1,.lab-hero.lab-hero-bg .hero-lead,.lab-hero.lab-hero-bg .hero-quote{
+  text-shadow:0 1px 2px rgba(255,246,229,.5)
+}
 </style>
 <link rel="stylesheet" href="../../assets/lab-pilot.css?v=7">
 </head>
@@ -200,8 +210,7 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
   <a class="btn-sm" href="https://newgeneration-english.ru/">Back to main</a>
 </nav>
 
-<div class="lab-hero">
-  <img class="lesson-img hero-strip" src="./assets/hero-three-covers.jpg" alt="Three worlds — Living English, People at Work, My Story" loading="lazy">
+<div class="lab-hero lab-hero-bg">
   <h1>Three worlds. One evening.<em>Elena · recap of July.</em></h1>
   <div class="hero-lead">A2/B1 · Elena Sova · 28 July · ~90 min · three inner tabs</div>
   <p class="hero-quote">Everything you touched in July — pharmacy dialogues, colleagues at work, your own story from Perm to Canada — in one place. Pick a tab, take a breath, and let's talk.</p>
@@ -216,9 +225,18 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
 <!-- ══════════ TABS ══════════ -->
 <div class="tabs-wrap">
   <div class="tabs" role="tablist">
-    <button class="tab-btn active" data-tab="t1" role="tab"><span class="tb-icon">🌍</span><span>Living English</span><span class="tb-sub">Roleplay · 25 min</span></button>
-    <button class="tab-btn" data-tab="t2" role="tab"><span class="tb-icon">👥</span><span>People at Work</span><span class="tb-sub">Describe · 30 min</span></button>
-    <button class="tab-btn" data-tab="t3" role="tab"><span class="tb-icon">📖</span><span>My Story</span><span class="tb-sub">Grammar in life · 30 min</span></button>
+    <button class="tab-btn active" data-tab="t1" role="tab">
+      <img class="tb-cover" src="./assets/tab1-cover.jpg" alt="" loading="lazy">
+      <span class="tb-label"><span class="tb-icon">🌍</span><span>Living English</span><span class="tb-sub">Roleplay · 25 min</span></span>
+    </button>
+    <button class="tab-btn" data-tab="t2" role="tab">
+      <img class="tb-cover" src="./assets/tab2-cover.jpg" alt="" loading="lazy">
+      <span class="tb-label"><span class="tb-icon">👥</span><span>People at Work</span><span class="tb-sub">Describe · 30 min</span></span>
+    </button>
+    <button class="tab-btn" data-tab="t3" role="tab">
+      <img class="tb-cover" src="./assets/tab3-cover.jpg" alt="" loading="lazy">
+      <span class="tb-label"><span class="tb-icon">📖</span><span>My Story</span><span class="tb-sub">Grammar in life · 30 min</span></span>
+    </button>
   </div>
 </div>
 
