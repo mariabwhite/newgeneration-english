@@ -115,6 +115,45 @@ em{font-style:italic;color:var(--accent2)}
 .pattern-box{background:linear-gradient(135deg,rgba(212,168,67,.14),rgba(90,122,157,.08));border:1px solid rgba(212,168,67,.28);border-radius:12px;padding:14px 18px;margin:14px 0;font-family:var(--mono);font-size:.92rem;line-height:1.7;color:var(--text)}
 .pattern-box strong{color:var(--accent2)}
 
+/* Interactive drills · shared with Katya L1 mechanic */
+.bank{background:rgba(238,230,208,.55);border:1px solid rgba(139,94,60,.18);border-radius:12px;padding:14px;display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.bank-word{background:var(--surface);border:2px solid rgba(139,94,60,.24);color:var(--accent2);padding:6px 14px;border-radius:50px;font-weight:700;font-size:.88rem;cursor:pointer;transition:.18s;user-select:none;font-family:var(--body)}
+.bank-word:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 3px 8px rgba(0,0,0,.08)}
+.bank-word.selected{background:var(--accent);color:#fff;border-color:var(--accent2);transform:scale(1.05)}
+.bank-word.used{opacity:.28;cursor:not-allowed;pointer-events:none}
+.drag-text{font-size:.98rem;line-height:2.4;color:var(--text)}
+.drop-gap{display:inline-block;background:var(--surface);border:2px dashed var(--accent);min-width:100px;padding:3px 12px;border-radius:8px;cursor:pointer;font-weight:700;color:var(--muted);font-size:.9rem;text-align:center;transition:.18s}
+.drop-gap:hover{border-color:var(--accent2);background:rgba(212,168,67,.14)}
+.drop-gap.filled{border-style:solid;background:var(--accent);color:#fff;border-color:var(--accent2)}
+.drop-gap.wrong{background:var(--miss);color:#fff;border-color:var(--miss);border-style:solid;animation:shake .3s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
+
+.tf-q{background:rgba(238,230,208,.55);border:1px solid rgba(139,94,60,.18);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.tf-q .tf-text{font-weight:600;font-size:.95rem;margin-bottom:10px}
+.tf-btns{display:flex;gap:8px;flex-wrap:wrap}
+.tf-btns button{background:var(--surface);border:2px solid rgba(139,94,60,.22);color:var(--text);font-weight:800;padding:8px 18px;border-radius:8px;cursor:pointer;font-family:var(--body);font-size:.85rem;transition:.18s}
+.tf-btns button:hover{border-color:var(--accent2);background:rgba(212,168,67,.14)}
+.tf-btns button.correct{background:var(--ok);color:#fff;border-color:var(--ok)}
+.tf-btns button.wrong{background:var(--miss);color:#fff;border-color:var(--miss)}
+
+.mcq-row{background:rgba(238,230,208,.55);border:1px solid rgba(139,94,60,.18);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.mcq-q{font-weight:700;font-size:.96rem;margin-bottom:10px;color:var(--text)}
+.mcq-opts{display:grid;gap:6px}
+.mcq-opts button{text-align:left;background:var(--surface);border:2px solid rgba(139,94,60,.22);color:var(--text);font-weight:600;padding:9px 14px;border-radius:8px;cursor:pointer;font-family:var(--body);font-size:.88rem;transition:.18s}
+.mcq-opts button:hover{border-color:var(--accent2);background:rgba(212,168,67,.12)}
+.mcq-opts button.correct{background:var(--ok);color:#fff;border-color:var(--ok)}
+.mcq-opts button.wrong{background:var(--miss);color:#fff;border-color:var(--miss)}
+
+.match-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0}
+@media(max-width:640px){.match-cols{grid-template-columns:1fr}}
+.match-col h4{font-family:var(--mono);font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.match-item{background:var(--surface);border:2px solid rgba(139,94,60,.22);border-radius:8px;padding:10px 14px;margin-bottom:6px;cursor:pointer;font-size:.92rem;transition:.18s}
+.match-item:hover{border-color:var(--accent2);background:rgba(212,168,67,.12)}
+.match-item.selected{background:var(--accent);color:#fff;border-color:var(--accent2)}
+.match-item.matched{background:var(--ok);color:#fff;border-color:var(--ok);cursor:default;opacity:.72}
+
+.score-badge{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent2);background:rgba(212,168,67,.14);border:1px solid rgba(212,168,67,.36);border-radius:20px;padding:6px 14px;margin-top:12px}
+
 footer{width:var(--demo-top-width);max-width:1240px;margin:24px auto 40px;padding:20px 12px;text-align:center;font-size:.85rem;color:var(--muted);border-top:1px solid rgba(139,94,60,.14)}
 footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent2)}
 </style>
@@ -289,27 +328,47 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
     </div>
   </section>
 
-  <!-- BLOCK C2 · GRAMMAR DRILL — 15 gap-fills across all tenses -->
+  <!-- BLOCK C2 · GRAMMAR DRILL — drag-drop verb-bank into sentences -->
   <section class="section">
-    <div class="section-hdr"><div class="num">✍️</div><h2>Block C2 · Grammar drill · 15 gap-fills across all tenses</h2></div>
-    <div class="section-sub">say each sentence out loud with the correct form · then click ▶ to hear my model</div>
+    <div class="section-hdr"><div class="num">✍️</div><h2>Block C2 · Grammar drill · drag the correct tense into the gap</h2></div>
+    <div class="section-sub">click a verb form · then click a gap · every form is used exactly once</div>
     <div class="card">
-      <div class="q-row"><div class="q-num">1</div><div class="q-text">I usually ______ (drink) tea every morning before work.</div><button class="q-speak" data-say="I usually drink tea every morning before work.">▶</button></div>
-      <div class="q-row"><div class="q-num">2</div><div class="q-text">Right now I ______ (check) my flight schedule.</div><button class="q-speak" data-say="Right now I am checking my flight schedule.">▶</button></div>
-      <div class="q-row"><div class="q-num">3</div><div class="q-text">I ______ (never / be) to Canada in my life.</div><button class="q-speak" data-say="I have never been to Canada in my life.">▶</button></div>
-      <div class="q-row"><div class="q-num">4</div><div class="q-text">She ______ (work) on this project since Monday.</div><button class="q-speak" data-say="She has been working on this project since Monday.">▶</button></div>
-      <div class="q-row"><div class="q-num">5</div><div class="q-text">Yesterday I ______ (feel) really dizzy after lunch.</div><button class="q-speak" data-say="Yesterday I felt really dizzy after lunch.">▶</button></div>
-      <div class="q-row"><div class="q-num">6</div><div class="q-text">While I ______ (wait) at the pharmacy, the phone rang.</div><button class="q-speak" data-say="While I was waiting at the pharmacy, the phone rang.">▶</button></div>
-      <div class="q-row"><div class="q-num">7</div><div class="q-text">By the time I arrived, they ______ (already / close) the exchange office.</div><button class="q-speak" data-say="By the time I arrived, they had already closed the exchange office.">▶</button></div>
-      <div class="q-row"><div class="q-num">8</div><div class="q-text">We ______ (live) in Perm for 20 years before we started thinking about Canada.</div><button class="q-speak" data-say="We had been living in Perm for 20 years before we started thinking about Canada.">▶</button></div>
-      <div class="q-row"><div class="q-num">9</div><div class="q-text">Tomorrow I ______ (call) the insurance company.</div><button class="q-speak" data-say="Tomorrow I will call the insurance company.">▶</button></div>
-      <div class="q-row"><div class="q-num">10</div><div class="q-text">This time next week we ______ (fly) to Toronto.</div><button class="q-speak" data-say="This time next week we will be flying to Toronto.">▶</button></div>
-      <div class="q-row"><div class="q-num">11</div><div class="q-text">Useful information ______ (provide) to travellers at the airport every day.</div><button class="q-speak" data-say="Useful information is provided to travellers at the airport every day.">▶</button></div>
-      <div class="q-row"><div class="q-num">12</div><div class="q-text">My prescription ______ (issue) yesterday morning.</div><button class="q-speak" data-say="My prescription was issued yesterday morning.">▶</button></div>
-      <div class="q-row"><div class="q-num">13</div><div class="q-text">If I feel tired tomorrow, I ______ (take) a day off.</div><button class="q-speak" data-say="If I feel tired tomorrow, I will take a day off.">▶</button></div>
-      <div class="q-row"><div class="q-num">14</div><div class="q-text">If I ______ (move) to Canada right now, I ______ (miss) my friends terribly.</div><button class="q-speak" data-say="If I moved to Canada right now, I would miss my friends terribly.">▶</button></div>
-      <div class="q-row"><div class="q-num">15</div><div class="q-text">I ______ (use to) take a big suitcase, but now I travel light.</div><button class="q-speak" data-say="I used to take a big suitcase, but now I travel light.">▶</button></div>
-      <div class="starters"><strong>Rule:</strong> if you got 12+ right, you're ready for Tab 2. If less — pick 3 you missed and re-say them 3 times slowly.</div>
+      <div class="bank" id="bank-grammar">
+        <div class="bank-word" data-w="drink">drink</div>
+        <div class="bank-word" data-w="am checking">am checking</div>
+        <div class="bank-word" data-w="have never been">have never been</div>
+        <div class="bank-word" data-w="has been working">has been working</div>
+        <div class="bank-word" data-w="felt">felt</div>
+        <div class="bank-word" data-w="was waiting">was waiting</div>
+        <div class="bank-word" data-w="had already closed">had already closed</div>
+        <div class="bank-word" data-w="had been living">had been living</div>
+        <div class="bank-word" data-w="will call">will call</div>
+        <div class="bank-word" data-w="will be flying">will be flying</div>
+        <div class="bank-word" data-w="is provided">is provided</div>
+        <div class="bank-word" data-w="was issued">was issued</div>
+        <div class="bank-word" data-w="will take">will take</div>
+        <div class="bank-word" data-w="would miss">would miss</div>
+        <div class="bank-word" data-w="used to">used to</div>
+      </div>
+      <div class="drag-text">
+        <p><strong>1.</strong> <em>Present Simple:</em> I usually <span class="drop-gap" data-correct="drink">⋯</span> tea every morning before work.</p>
+        <p><strong>2.</strong> <em>Present Continuous:</em> Right now I <span class="drop-gap" data-correct="am checking">⋯</span> my flight schedule.</p>
+        <p><strong>3.</strong> <em>Present Perfect:</em> I <span class="drop-gap" data-correct="have never been">⋯</span> to Canada in my life.</p>
+        <p><strong>4.</strong> <em>Present Perfect Continuous:</em> She <span class="drop-gap" data-correct="has been working">⋯</span> on this project since Monday.</p>
+        <p><strong>5.</strong> <em>Past Simple:</em> Yesterday I <span class="drop-gap" data-correct="felt">⋯</span> really dizzy after lunch.</p>
+        <p><strong>6.</strong> <em>Past Continuous:</em> While I <span class="drop-gap" data-correct="was waiting">⋯</span> at the pharmacy, the phone rang.</p>
+        <p><strong>7.</strong> <em>Past Perfect:</em> By the time I arrived, they <span class="drop-gap" data-correct="had already closed">⋯</span> the exchange office.</p>
+        <p><strong>8.</strong> <em>Past Perfect Continuous:</em> We <span class="drop-gap" data-correct="had been living">⋯</span> in Perm for 20 years before Canada.</p>
+        <p><strong>9.</strong> <em>Future Simple:</em> Tomorrow I <span class="drop-gap" data-correct="will call">⋯</span> the insurance company.</p>
+        <p><strong>10.</strong> <em>Future Continuous:</em> This time next week we <span class="drop-gap" data-correct="will be flying">⋯</span> to Toronto.</p>
+        <p><strong>11.</strong> <em>Present Passive:</em> Useful information <span class="drop-gap" data-correct="is provided">⋯</span> to travellers every day.</p>
+        <p><strong>12.</strong> <em>Past Passive:</em> My prescription <span class="drop-gap" data-correct="was issued">⋯</span> yesterday morning.</p>
+        <p><strong>13.</strong> <em>Conditional 1:</em> If I feel tired tomorrow, I <span class="drop-gap" data-correct="will take">⋯</span> a day off.</p>
+        <p><strong>14.</strong> <em>Conditional 2:</em> If I moved to Canada now, I <span class="drop-gap" data-correct="would miss">⋯</span> my friends.</p>
+        <p><strong>15.</strong> <em>Used to:</em> I <span class="drop-gap" data-correct="used to">⋯</span> take a big suitcase, but now I travel light.</p>
+      </div>
+      <div class="score-badge"><span id="grammar-score">0</span> / 15 correct</div>
+      <div class="starters"><strong>Rule:</strong> if you get 12+ on first try, you're ready for Tab 2. If less — reset (refresh page) and re-do slowly.</div>
     </div>
   </section>
 
@@ -325,13 +384,77 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
         <p style="cursor:pointer" data-say="She walked back to the flat, the coffee warm in her hand, and thought: this is what I've been practising for.">She walked back to the flat, the coffee warm in her hand, and thought: <em>this is what I've been practising for.</em></p>
       </div>
 
-      <h3 style="margin-top:16px">Comprehension · answer out loud (full sentences)</h3>
-      <div class="q-row"><div class="q-num">1</div><div class="q-text">How long had Marina been travelling before she reached Toronto?</div><button class="q-speak" data-say="How long had Marina been travelling before she reached Toronto?">▶</button></div>
-      <div class="q-row"><div class="q-num">2</div><div class="q-text">Why was she exhausted?</div><button class="q-speak" data-say="Why was she exhausted?">▶</button></div>
-      <div class="q-row"><div class="q-num">3</div><div class="q-text">What phrase had she rehearsed on the plane?</div><button class="q-speak" data-say="What phrase had she rehearsed on the plane?">▶</button></div>
-      <div class="q-row"><div class="q-num">4</div><div class="q-text">What did the barista say to make her feel welcome?</div><button class="q-speak" data-say="What did the barista say to make her feel welcome?">▶</button></div>
-      <div class="q-row"><div class="q-num">5</div><div class="q-text">What did Marina realise on her way back to the flat?</div><button class="q-speak" data-say="What did Marina realise on her way back to the flat?">▶</button></div>
-      <div class="starters"><strong>Grammar spot:</strong> find 3 different tenses in the text. Which ones? (Present Perfect Continuous · Past Simple · Past Perfect · Future Simple with «would» — all four are there.)</div>
+      <h3 style="margin-top:16px">D1 · True or False (5 statements)</h3>
+      <div class="tf-q"><div class="tf-text">1. Marina moved to Toronto in the autumn.</div><div class="tf-btns"><button data-correct>True</button><button>False</button></div></div>
+      <div class="tf-q"><div class="tf-text">2. She had been travelling for less than 10 hours.</div><div class="tf-btns"><button>True</button><button data-correct>False</button></div></div>
+      <div class="tf-q"><div class="tf-text">3. She practised her coffee order on the plane.</div><div class="tf-btns"><button data-correct>True</button><button>False</button></div></div>
+      <div class="tf-q"><div class="tf-text">4. The barista was rude and did not smile.</div><div class="tf-btns"><button>True</button><button data-correct>False</button></div></div>
+      <div class="tf-q"><div class="tf-text">5. On her way home she felt that all her preparation had paid off.</div><div class="tf-btns"><button data-correct>True</button><button>False</button></div></div>
+
+      <h3 style="margin-top:22px">D2 · Multiple choice (grammar &amp; meaning)</h3>
+      <div class="mcq-row">
+        <div class="mcq-q">1. «She <em>had been travelling</em> for eighteen hours» — which tense is this?</div>
+        <div class="mcq-opts">
+          <button>Present Perfect</button>
+          <button data-correct>Past Perfect Continuous</button>
+          <button>Past Continuous</button>
+          <button>Present Perfect Continuous</button>
+        </div>
+      </div>
+      <div class="mcq-row">
+        <div class="mcq-q">2. «The time difference was <em>brutal</em>» — «brutal» here means…</div>
+        <div class="mcq-opts">
+          <button>gentle</button>
+          <button>very small</button>
+          <button data-correct>very harsh, difficult</button>
+          <button>funny</button>
+        </div>
+      </div>
+      <div class="mcq-row">
+        <div class="mcq-q">3. «She <em>had rehearsed</em> the phrase at least ten times» — why Past Perfect?</div>
+        <div class="mcq-opts">
+          <button>Because it happened right now.</button>
+          <button data-correct>Because it happened BEFORE another past action (before she spoke to the barista).</button>
+          <button>Because she is still rehearsing.</button>
+          <button>Because it is a habit.</button>
+        </div>
+      </div>
+      <div class="mcq-row">
+        <div class="mcq-q">4. «Marina knew she <em>would</em> be all right» — this «would» is…</div>
+        <div class="mcq-opts">
+          <button>Conditional 2 (unreal)</button>
+          <button data-correct>Future-in-the-past (a plan seen from the past)</button>
+          <button>Past habit</button>
+          <button>Polite request</button>
+        </div>
+      </div>
+
+      <h3 style="margin-top:22px">D3 · Match the words (from text) with definitions</h3>
+      <div class="match-cols">
+        <div class="match-col">
+          <h4>Word</h4>
+          <div class="match-item" data-k="exhausted">exhausted</div>
+          <div class="match-item" data-k="rehearsed">rehearsed</div>
+          <div class="match-item" data-k="handed">handed</div>
+          <div class="match-item" data-k="neighbourhood">neighbourhood</div>
+          <div class="match-item" data-k="brutal">brutal</div>
+        </div>
+        <div class="match-col">
+          <h4>Definition</h4>
+          <div class="match-item" data-k="rehearsed">practised something many times before doing it</div>
+          <div class="match-item" data-k="exhausted">extremely tired, no energy left</div>
+          <div class="match-item" data-k="brutal">very harsh, unpleasant</div>
+          <div class="match-item" data-k="neighbourhood">the area around where you live</div>
+          <div class="match-item" data-k="handed">gave something directly (from hand to hand)</div>
+        </div>
+      </div>
+      <div class="score-badge"><span id="match-score">0</span> / 5 matched</div>
+
+      <h3 style="margin-top:22px">D4 · Speak · retell in 3 sentences (Past Simple + Past Perfect)</h3>
+      <div class="starters">
+        Model shape: <em>«Marina had… When she arrived, she… By the end of the morning, she realised…»</em><br>
+        Say it out loud twice — first slowly, second at natural speed.
+      </div>
     </div>
   </section>
 
@@ -343,21 +466,58 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
       <h3>Talk 1 · A woman describes her first pharmacy visit abroad (~30 sec)</h3>
       <button class="q-speak" style="width:auto;padding:12px 24px;border-radius:12px" data-say="The first time I bought medicine abroad was in Spain. I had a splitting headache and I wasn't sure how to explain what I needed. I walked into the pharmacy, and the pharmacist was very approachable. I said 'I have a headache and I feel dizzy'. She smiled, gave me a small box of paracetamol, and told me the dosage. She also asked if I had any allergies. It was much easier than I expected. Now, every time I travel, I make a list of my usual medicines in English before I leave.">▶ Play Talk 1</button>
 
-      <h3 style="margin-top:16px">True or False?</h3>
-      <div class="q-row"><div class="q-num">T/F 1</div><div class="q-text">The woman had a stomach pain, not a headache.</div><button class="q-speak" data-say="False. She had a splitting headache.">▶ Answer</button></div>
-      <div class="q-row"><div class="q-num">T/F 2</div><div class="q-text">The pharmacist asked about her allergies.</div><button class="q-speak" data-say="True. She asked if she had any allergies.">▶ Answer</button></div>
-      <div class="q-row"><div class="q-num">T/F 3</div><div class="q-text">The situation was more difficult than she expected.</div><button class="q-speak" data-say="False. It was much easier than she expected.">▶ Answer</button></div>
-      <div class="q-row"><div class="q-num">T/F 4</div><div class="q-text">Now she prepares a medicine list in English before every trip.</div><button class="q-speak" data-say="True. She makes a list of her usual medicines in English before every trip.">▶ Answer</button></div>
+      <h3 style="margin-top:16px">E1 · True or False (click to check)</h3>
+      <div class="tf-q"><div class="tf-text">1. The woman had a stomach pain, not a headache.</div><div class="tf-btns"><button>True</button><button data-correct>False</button></div></div>
+      <div class="tf-q"><div class="tf-text">2. The pharmacist asked about her allergies.</div><div class="tf-btns"><button data-correct>True</button><button>False</button></div></div>
+      <div class="tf-q"><div class="tf-text">3. The situation was more difficult than she expected.</div><div class="tf-btns"><button>True</button><button data-correct>False</button></div></div>
+      <div class="tf-q"><div class="tf-text">4. Now she prepares a medicine list in English before every trip.</div><div class="tf-btns"><button data-correct>True</button><button>False</button></div></div>
+
+      <h3 style="margin-top:22px">E2 · Fill in the missing words from Talk 1</h3>
+      <div class="bank" id="bank-listen1">
+        <div class="bank-word" data-w="splitting">splitting</div>
+        <div class="bank-word" data-w="approachable">approachable</div>
+        <div class="bank-word" data-w="dizzy">dizzy</div>
+        <div class="bank-word" data-w="dosage">dosage</div>
+        <div class="bank-word" data-w="allergies">allergies</div>
+      </div>
+      <div class="drag-text">
+        <p>«I had a <span class="drop-gap" data-correct="splitting">⋯</span> headache and I wasn't sure how to explain what I needed.»</p>
+        <p>«The pharmacist was very <span class="drop-gap" data-correct="approachable">⋯</span>.»</p>
+        <p>«I said I have a headache and I feel <span class="drop-gap" data-correct="dizzy">⋯</span>.»</p>
+        <p>«She gave me paracetamol and told me the <span class="drop-gap" data-correct="dosage">⋯</span>.»</p>
+        <p>«She also asked if I had any <span class="drop-gap" data-correct="allergies">⋯</span>.»</p>
+      </div>
 
       <h3 style="margin-top:22px">Talk 2 · A man tells a currency-exchange story (~30 sec)</h3>
       <button class="q-speak" style="width:auto;padding:12px 24px;border-radius:12px" data-say="Last year, I was in Bangkok and I needed to exchange some money. I went to the first exchange office I saw, and the rate looked amazing. But then the clerk told me about a hidden commission of eight percent. I was surprised — I had never seen a commission that high. I walked away and found another office two blocks down. The rate was slightly worse but the commission was only two percent. In total, I saved about thirty dollars. Lesson learned — always ask about the commission first.">▶ Play Talk 2</button>
 
-      <h3 style="margin-top:16px">True or False?</h3>
-      <div class="q-row"><div class="q-num">T/F 5</div><div class="q-text">The first exchange office had a very good rate but hidden commission.</div><button class="q-speak" data-say="True. The rate was amazing but there was a hidden commission of 8 percent.">▶ Answer</button></div>
-      <div class="q-row"><div class="q-num">T/F 6</div><div class="q-text">He agreed to the 8% commission because he was in a hurry.</div><button class="q-speak" data-say="False. He walked away and found another office.">▶ Answer</button></div>
-      <div class="q-row"><div class="q-num">T/F 7</div><div class="q-text">He saved about $30 by finding a better office.</div><button class="q-speak" data-say="True. He saved about 30 dollars in total.">▶ Answer</button></div>
-      <div class="q-row"><div class="q-num">T/F 8</div><div class="q-text">The moral is: always check exchange rates online first.</div><button class="q-speak" data-say="False. The moral is: always ask about the commission first.">▶ Answer</button></div>
-      <div class="starters"><strong>Retell:</strong> in 3 sentences, tell the story of Talk 2 using Past Simple + Past Perfect.</div>
+      <h3 style="margin-top:16px">E3 · True or False (click to check)</h3>
+      <div class="tf-q"><div class="tf-text">5. The first exchange office had a very good rate but hidden commission.</div><div class="tf-btns"><button data-correct>True</button><button>False</button></div></div>
+      <div class="tf-q"><div class="tf-text">6. He agreed to the 8% commission because he was in a hurry.</div><div class="tf-btns"><button>True</button><button data-correct>False</button></div></div>
+      <div class="tf-q"><div class="tf-text">7. He saved about $30 by finding a better office.</div><div class="tf-btns"><button data-correct>True</button><button>False</button></div></div>
+      <div class="tf-q"><div class="tf-text">8. The moral is: always check exchange rates online first.</div><div class="tf-btns"><button>True</button><button data-correct>False</button></div></div>
+
+      <h3 style="margin-top:22px">E4 · Multiple choice · listening for meaning</h3>
+      <div class="mcq-row">
+        <div class="mcq-q">Why did the speaker walk away from the first office?</div>
+        <div class="mcq-opts">
+          <button>The rate was too low.</button>
+          <button data-correct>The hidden commission was 8%, which was too high.</button>
+          <button>He didn't have his passport.</button>
+          <button>They didn't accept euros.</button>
+        </div>
+      </div>
+      <div class="mcq-row">
+        <div class="mcq-q">What did the second office have?</div>
+        <div class="mcq-opts">
+          <button>The same rate as the first, no commission.</button>
+          <button data-correct>Slightly worse rate but only 2% commission.</button>
+          <button>Only cash payment.</button>
+          <button>The best rate in Bangkok.</button>
+        </div>
+      </div>
+
+      <div class="starters" style="margin-top:16px"><strong>E5 · Retell:</strong> in 3 sentences, tell the story of Talk 2 using Past Simple + Past Perfect («I went…, but they told me…, so I walked away because I had never seen…»).</div>
     </div>
   </section>
 
@@ -836,6 +996,108 @@ document.querySelectorAll('.tot-item').forEach(item => {
     item.querySelectorAll('.tot-side').forEach(s => s.classList.remove('picked'));
     side.classList.add('picked');
   }));
+});
+
+/* True/False buttons · correct/wrong colour */
+document.querySelectorAll('.tf-btns').forEach(grp => grp.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+  if (btn.classList.contains('correct') || btn.classList.contains('wrong')) return;
+  const ok = btn.hasAttribute('data-correct');
+  btn.classList.add(ok ? 'correct' : 'wrong');
+  if (!ok) {
+    const c = grp.querySelector('[data-correct]');
+    if (c) c.classList.add('correct');
+  }
+})));
+
+/* MCQ single-answer · same behaviour */
+document.querySelectorAll('.mcq-opts').forEach(grp => grp.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => {
+  if (grp.querySelector('.correct')) return; // already answered
+  const ok = btn.hasAttribute('data-correct');
+  btn.classList.add(ok ? 'correct' : 'wrong');
+  if (!ok) {
+    const c = grp.querySelector('[data-correct]');
+    if (c) c.classList.add('correct');
+  }
+})));
+
+/* Drag-drop · word-bank into drop-gaps · per-bank scoping + per-bank score */
+document.querySelectorAll('.bank').forEach(bank => {
+  const bankId = bank.id;
+  // find drop-gaps that follow this bank until next .bank
+  let node = bank.nextElementSibling;
+  const gaps = [];
+  while (node && !node.classList.contains('bank')) {
+    node.querySelectorAll && node.querySelectorAll('.drop-gap').forEach(g => gaps.push(g));
+    node = node.nextElementSibling;
+  }
+  let selected = null;
+  bank.querySelectorAll('.bank-word').forEach(w => w.addEventListener('click', () => {
+    if (w.classList.contains('used')) return;
+    if (selected) selected.classList.remove('selected');
+    if (selected === w) { selected = null; return; }
+    selected = w;
+    w.classList.add('selected');
+  }));
+  gaps.forEach(gap => gap.addEventListener('click', () => {
+    if (!selected || gap.classList.contains('filled')) return;
+    const want = gap.getAttribute('data-correct');
+    const got = selected.getAttribute('data-w');
+    if (want === got) {
+      gap.classList.add('filled');
+      gap.textContent = selected.textContent;
+      selected.classList.add('used');
+      selected.classList.remove('selected');
+      selected = null;
+      /* update grammar score if this drill has one */
+      if (bankId === 'bank-grammar') {
+        const sc = document.getElementById('grammar-score');
+        if (sc) sc.textContent = document.querySelectorAll('#bank-grammar ~ .drag-text .drop-gap.filled').length;
+      }
+    } else {
+      gap.classList.add('wrong');
+      setTimeout(() => gap.classList.remove('wrong'), 400);
+    }
+  }));
+});
+
+/* Matching pairs · click left then right */
+document.querySelectorAll('.match-cols').forEach(cols => {
+  let selL = null, selR = null;
+  const items = cols.querySelectorAll('.match-item');
+  const total = items.length / 2;
+  items.forEach((it, idx) => {
+    const isLeft = it.closest('.match-col').querySelector('h4').textContent.match(/word/i);
+    it.addEventListener('click', () => {
+      if (it.classList.contains('matched')) return;
+      if (isLeft) {
+        if (selL) selL.classList.remove('selected');
+        selL = it;
+      } else {
+        if (selR) selR.classList.remove('selected');
+        selR = it;
+      }
+      it.classList.add('selected');
+      if (selL && selR) {
+        const kL = selL.getAttribute('data-k');
+        const kR = selR.getAttribute('data-k');
+        if (kL === kR) {
+          selL.classList.remove('selected'); selL.classList.add('matched');
+          selR.classList.remove('selected'); selR.classList.add('matched');
+          const done = cols.querySelectorAll('.matched').length / 2;
+          const sc = document.getElementById('match-score');
+          if (sc) sc.textContent = done;
+        } else {
+          setTimeout(() => {
+            selL.classList.remove('selected');
+            selR.classList.remove('selected');
+            selL = null; selR = null;
+          }, 350);
+          return;
+        }
+        selL = null; selR = null;
+      }
+    });
+  });
 });
 </script>
 
