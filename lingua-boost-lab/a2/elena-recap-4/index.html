@@ -62,12 +62,25 @@ body{background:var(--bg);font-family:var(--body);color:var(--text);min-height:1
 
 /* Sections inside tabs */
 .section{width:var(--demo-top-width);max-width:1240px;margin:0 auto 24px;padding:0}
-/* Unify horizontal frame for all major blocks · pixel-perfect same width */
+/* Unify horizontal frame — every big block same width, no internal drift.
+   1240px matches .lesson-foot regulation. Inner blocks stay within .card. */
 .lab-hero,.intro-card,.tabs-wrap,.section,footer{
   width:min(100% - 48px,1240px)!important;
   max-width:1240px!important;
   margin-left:auto!important;
   margin-right:auto!important;
+  box-sizing:border-box!important;
+}
+.tabs{margin:0!important}
+.tab-content{width:100%!important;max-width:100%!important;box-sizing:border-box!important}
+.tab-content .card,.tab-content .tf-q,.tab-content .mcq-row,.tab-content .dialogue,
+.tab-content .bank,.tab-content .drag-text,.tab-content .match-cols,.tab-content .prompts,
+.tab-content .pattern-box,.tab-content .starters,.tab-content .flip-grid,.tab-content .tot-grid,
+.tab-content .model{
+  width:100%!important;
+  max-width:100%!important;
+  margin-left:0!important;
+  margin-right:0!important;
   box-sizing:border-box!important;
 }
 .section-hdr{display:flex;align-items:center;gap:12px;margin-bottom:10px}
@@ -164,7 +177,13 @@ em{font-style:italic;color:var(--accent2)}
 
 footer{width:var(--demo-top-width);max-width:1240px;margin:24px auto 40px;padding:20px 12px;text-align:center;font-size:.85rem;color:var(--muted);border-top:1px solid rgba(139,94,60,.14)}
 footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent2)}
+.lesson-img{width:100%;max-width:100%;height:auto;border-radius:14px;margin:0 auto 16px;display:block;box-shadow:0 4px 18px rgba(139,94,60,.14);border:1px solid rgba(139,94,60,.16);object-fit:cover}
+.lesson-img.hero-strip{border-radius:14px;margin:0 0 22px;border:none;box-shadow:0 6px 22px rgba(139,94,60,.2);position:relative;z-index:1}
+.lab-hero{padding-top:32px!important}
+.lab-hero .lesson-img.hero-strip{margin-top:-8px}
+.lesson-img.block-hero{margin:0 auto 14px;border-radius:12px}
 </style>
+<link rel="stylesheet" href="../../assets/lab-pilot.css?v=7">
 </head>
 <body>
 
@@ -182,6 +201,7 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
 </nav>
 
 <div class="lab-hero">
+  <img class="lesson-img hero-strip" src="./assets/hero-three-covers.jpg" alt="Three worlds — Living English, People at Work, My Story" loading="lazy">
   <h1>Three worlds. One evening.<em>Elena · recap of July.</em></h1>
   <div class="hero-lead">A2/B1 · Elena Sova · 28 July · ~90 min · three inner tabs</div>
   <p class="hero-quote">Everything you touched in July — pharmacy dialogues, colleagues at work, your own story from Perm to Canada — in one place. Pick a tab, take a breath, and let's talk.</p>
@@ -224,6 +244,36 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
         <div class="flip-card" data-word="to charge"><div class="flip-inner"><div class="flip-front">to charge<div class="pos">v</div></div><div class="flip-back"><div>to ask for a fee</div><div class="ex">Do you charge a commission?</div></div></div></div>
       </div>
 
+      <!-- DRILL after Group 1 -->
+      <div class="pattern-box" style="margin-top:16px">
+        <h4 style="margin:0 0 10px">Drill 1 · Match the word with its meaning</h4>
+        <div class="match-cols">
+          <div class="match-col">
+            <h4>Word</h4>
+            <div class="match-item" data-k="commission">commission</div>
+            <div class="match-item" data-k="receipt">receipt</div>
+            <div class="match-item" data-k="atm">ATM</div>
+            <div class="match-item" data-k="queue">a queue</div>
+            <div class="match-item" data-k="smaller">smaller bills</div>
+          </div>
+          <div class="match-col">
+            <h4>Meaning</h4>
+            <div class="match-item" data-k="receipt">the little paper you keep after paying</div>
+            <div class="match-item" data-k="queue">a line of waiting people</div>
+            <div class="match-item" data-k="commission">the fee the exchange office keeps</div>
+            <div class="match-item" data-k="smaller">notes of small value, not 100s</div>
+            <div class="match-item" data-k="atm">the cash machine on the street</div>
+          </div>
+        </div>
+        <div class="score-badge"><span>0</span> / 5 matched</div>
+        <div style="margin-top:10px"><strong>🗣 Speak:</strong> tap ▶ and repeat each phrase out loud.</div>
+        <div class="prompts" style="margin-top:8px">
+          <div class="prompt" data-say="Could I have smaller bills, please?">▶ Could I have smaller bills, please?</div>
+          <div class="prompt" data-say="Do you charge a commission?">▶ Do you charge a commission?</div>
+          <div class="prompt" data-say="Could I have a receipt as well?">▶ Could I have a receipt as well?</div>
+        </div>
+      </div>
+
       <h3 style="margin-top:22px">Group 2 · Medical / Pharmacy (10)</h3>
       <div class="flip-grid">
         <div class="flip-card" data-word="prescription"><div class="flip-inner"><div class="flip-front">prescription<div class="pos">Rx</div></div><div class="flip-back"><div>doctor's note for medicine</div><div class="ex">Do I need a prescription for this?</div></div></div></div>
@@ -236,6 +286,32 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
         <div class="flip-card" data-word="allergic to"><div class="flip-inner"><div class="flip-front">to be allergic to<div class="pos">phrase</div></div><div class="flip-back"><div>having a bad reaction to something</div><div class="ex">I'm allergic to penicillin.</div></div></div></div>
         <div class="flip-card" data-word="dizzy"><div class="flip-inner"><div class="flip-front">dizzy<div class="pos">adj</div></div><div class="flip-back"><div>feeling like the room is spinning</div><div class="ex">I felt dizzy when I stood up.</div></div></div></div>
         <div class="flip-card" data-word="splitting headache"><div class="flip-inner"><div class="flip-front">splitting headache<div class="pos">collocation</div></div><div class="flip-back"><div>a very severe headache</div><div class="ex">I've had a splitting headache all morning.</div></div></div></div>
+      </div>
+
+      <!-- DRILL after Group 2 -->
+      <div class="pattern-box" style="margin-top:16px">
+        <h4 style="margin:0 0 10px">Drill 2 · Fill the gap (drag from the bank)</h4>
+        <div class="bank" id="bank-vocab2">
+          <div class="bank-word" data-w="prescription">prescription</div>
+          <div class="bank-word" data-w="dosage">dosage</div>
+          <div class="bank-word" data-w="allergic">allergic</div>
+          <div class="bank-word" data-w="side effects">side effects</div>
+          <div class="bank-word" data-w="dizzy">dizzy</div>
+          <div class="bank-word" data-w="fever">fever</div>
+        </div>
+        <div class="drag-text">
+          <p>1. I'm <span class="drop-gap" data-correct="allergic">⋯</span> to penicillin.</p>
+          <p>2. Do I need a <span class="drop-gap" data-correct="prescription">⋯</span> for this?</p>
+          <p>3. What's the <span class="drop-gap" data-correct="dosage">⋯</span> — one tablet or two?</p>
+          <p>4. Any <span class="drop-gap" data-correct="side effects">⋯</span> I should know about?</p>
+          <p>5. I have a mild <span class="drop-gap" data-correct="fever">⋯</span> and I feel a bit <span class="drop-gap" data-correct="dizzy">⋯</span>.</p>
+        </div>
+        <div style="margin-top:10px"><strong>🗣 Speak:</strong> tap ▶ and say each pharmacy line out loud.</div>
+        <div class="prompts" style="margin-top:8px">
+          <div class="prompt" data-say="I'm allergic to penicillin. Do I need a prescription for this?">▶ I'm allergic to penicillin. Do I need a prescription?</div>
+          <div class="prompt" data-say="What's the dosage — one tablet or two? Any side effects I should know about?">▶ What's the dosage? Any side effects?</div>
+          <div class="prompt" data-say="I have a mild fever and I feel a bit dizzy.">▶ I have a mild fever and I feel a bit dizzy.</div>
+        </div>
       </div>
 
       <h3 style="margin-top:22px">Group 3 · Travel &amp; Hotels (10)</h3>
@@ -252,6 +328,51 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
         <div class="flip-card" data-word="fellow passenger"><div class="flip-inner"><div class="flip-front">fellow passenger<div class="pos">n</div></div><div class="flip-back"><div>a person travelling with you</div><div class="ex">I chatted with a fellow passenger.</div></div></div></div>
       </div>
 
+      <!-- DRILL after Group 3 -->
+      <div class="pattern-box" style="margin-top:16px">
+        <h4 style="margin:0 0 10px">Drill 3 · Quick meaning check (MCQ)</h4>
+        <div class="mcq-row">
+          <div class="mcq-q">1. «My luggage was delayed» means…</div>
+          <div class="mcq-opts">
+            <button>My luggage arrived early.</button>
+            <button data-correct>My luggage arrived later than the flight.</button>
+            <button>My luggage was lost forever.</button>
+            <button>My luggage was too heavy.</button>
+          </div>
+          <button class="q-speak" style="width:auto;padding:8px 14px;border-radius:10px;margin-top:6px;font-size:13px" data-say="My luggage was delayed by two days.">▶ Say the sentence</button>
+        </div>
+        <div class="mcq-row">
+          <div class="mcq-q">2. Which is UNCOUNTABLE (no «s»)?</div>
+          <div class="mcq-opts">
+            <button>belonging</button>
+            <button>passenger</button>
+            <button data-correct>luggage</button>
+            <button>hotel</button>
+          </div>
+          <button class="q-speak" style="width:auto;padding:8px 14px;border-radius:10px;margin-top:6px;font-size:13px" data-say="Luggage is uncountable — never luggages, always luggage.">▶ Say the rule</button>
+        </div>
+        <div class="mcq-row">
+          <div class="mcq-q">3. Where do you show your passport when you ARRIVE in Canada?</div>
+          <div class="mcq-opts">
+            <button>at the customs</button>
+            <button data-correct>at immigration (passport control)</button>
+            <button>at check-in</button>
+            <button>on the boarding pass</button>
+          </div>
+          <button class="q-speak" style="width:auto;padding:8px 14px;border-radius:10px;margin-top:6px;font-size:13px" data-say="You show your passport at immigration when you arrive.">▶ Say the answer</button>
+        </div>
+        <div class="mcq-row">
+          <div class="mcq-q">4. «Nothing to declare» you say at…</div>
+          <div class="mcq-opts">
+            <button>check-in desk</button>
+            <button data-correct>customs</button>
+            <button>the hotel reception</button>
+            <button>the boarding gate</button>
+          </div>
+          <button class="q-speak" style="width:auto;padding:8px 14px;border-radius:10px;margin-top:6px;font-size:13px" data-say="Nothing to declare — you say it at customs.">▶ Say the answer</button>
+        </div>
+      </div>
+
       <h3 style="margin-top:22px">Group 4 · Coffee shop &amp; small-talk (10)</h3>
       <div class="flip-grid">
         <div class="flip-card" data-word="to-go"><div class="flip-inner"><div class="flip-front">to-go<div class="pos">adj</div></div><div class="flip-back"><div>takeaway, not to stay</div><div class="ex">One flat white to-go, please.</div></div></div></div>
@@ -265,7 +386,33 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
         <div class="flip-card" data-word="password"><div class="flip-inner"><div class="flip-front">Wi-Fi password<div class="pos">n</div></div><div class="flip-back"><div>the essential café question</div><div class="ex">What's the Wi-Fi password, please?</div></div></div></div>
         <div class="flip-card" data-word="Nothing beats"><div class="flip-inner"><div class="flip-front">Nothing beats…<div class="pos">phrase</div></div><div class="flip-back"><div>opener: «the best thing is X»</div><div class="ex">Nothing beats a good coffee on a rainy morning.</div></div></div></div>
       </div>
-      <div class="starters"><strong>Quick drill:</strong> pick 5 cards from all 4 groups and make one full sentence with each about your last real trip or day.</div>
+
+      <!-- DRILL after Group 4 -->
+      <div class="pattern-box" style="margin-top:16px">
+        <h4 style="margin:0 0 10px">Drill 4 · Café-order gap-fill</h4>
+        <div class="bank" id="bank-vocab4">
+          <div class="bank-word" data-w="to-go">to-go</div>
+          <div class="bank-word" data-w="dairy-free">dairy-free</div>
+          <div class="bank-word" data-w="gluten-free">gluten-free</div>
+          <div class="bank-word" data-w="tap-to-pay">tap-to-pay</div>
+          <div class="bank-word" data-w="password">password</div>
+        </div>
+        <div class="drag-text">
+          <p>1. Could I get a large flat white <span class="drop-gap" data-correct="to-go">⋯</span>, please?</p>
+          <p>2. Is the carrot cake <span class="drop-gap" data-correct="gluten-free">⋯</span>?</p>
+          <p>3. Do you have any <span class="drop-gap" data-correct="dairy-free">⋯</span> milk?</p>
+          <p>4. Can I pay by card, or do you have <span class="drop-gap" data-correct="tap-to-pay">⋯</span>?</p>
+          <p>5. What's the Wi-Fi <span class="drop-gap" data-correct="password">⋯</span>?</p>
+        </div>
+        <div style="margin-top:10px"><strong>🗣 Speak:</strong> tap ▶ and say each café line.</div>
+        <div class="prompts" style="margin-top:8px">
+          <div class="prompt" data-say="Could I get a large flat white to-go, please?">▶ Could I get a large flat white to-go?</div>
+          <div class="prompt" data-say="Is the carrot cake gluten-free? Do you have any dairy-free milk?">▶ Is the carrot cake gluten-free?</div>
+          <div class="prompt" data-say="What's the Wi-Fi password, please?">▶ What's the Wi-Fi password, please?</div>
+        </div>
+      </div>
+
+      <div class="starters" style="margin-top:16px"><strong>Final vocab test:</strong> pick 5 cards from all 4 groups and make one full sentence with each about your real life or your future trip to Canada.</div>
     </div>
   </section>
 
@@ -274,6 +421,7 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
     <div class="section-hdr"><div class="num">🧩</div><h2>Block B · Patterns · 8 request formulas</h2></div>
     <div class="section-sub">learn the shape, then plug your real need into it</div>
     <div class="card">
+      <img class="lesson-img block-hero" src="./assets/t1-tenses-polite.jpg" alt="All English tenses + polite requests overview" loading="lazy">
       <div class="pattern-box">
         <strong>1. Can I have…?</strong> — simple, direct.<br>
         <em>Can I have a large latte, please?</em><br><br>
@@ -305,6 +453,7 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
     <div class="section-hdr"><div class="num">📐</div><h2>Block C · Grammar refresh · 12 tenses + passive + modals + conditionals + used to</h2></div>
     <div class="section-sub">full grammar map · signal words · one example per form</div>
     <div class="card">
+      <img class="lesson-img block-hero" src="./assets/t1-be-ready.jpg" alt="Be Ready for It — travel preparation vocabulary" loading="lazy">
       <div class="pattern-box">
         <strong>PRESENT</strong><br>
         <strong>Present Simple</strong> · <em>every day, usually, always</em> · «I <u>drink</u> tea every morning.»<br>
@@ -399,42 +548,46 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
       <div class="tf-q"><div class="tf-text">4. The barista was rude and did not smile.</div><div class="tf-btns"><button>True</button><button data-correct>False</button></div></div>
       <div class="tf-q"><div class="tf-text">5. On her way home she felt that all her preparation had paid off.</div><div class="tf-btns"><button data-correct>True</button><button>False</button></div></div>
 
-      <h3 style="margin-top:22px">D2 · Multiple choice (grammar &amp; meaning)</h3>
+      <h3 style="margin-top:22px">D2 · Multiple choice · reading comprehension</h3>
       <div class="mcq-row">
-        <div class="mcq-q">1. «She <em>had been travelling</em> for eighteen hours» — which tense is this?</div>
+        <div class="mcq-q">1. Where was Marina flying to?</div>
         <div class="mcq-opts">
-          <button>Present Perfect</button>
-          <button data-correct>Past Perfect Continuous</button>
-          <button>Past Continuous</button>
-          <button>Present Perfect Continuous</button>
+          <button>Vancouver</button>
+          <button data-correct>Toronto</button>
+          <button>Montreal</button>
+          <button>Ottawa</button>
         </div>
+        <button class="q-speak" style="width:auto;padding:8px 14px;border-radius:10px;margin-top:6px;font-size:13px" data-say="Marina flew to Toronto for eighteen hours across three time zones.">▶ Say the answer</button>
       </div>
       <div class="mcq-row">
-        <div class="mcq-q">2. «The time difference was <em>brutal</em>» — «brutal» here means…</div>
+        <div class="mcq-q">2. Why did she rehearse the phrase «one flat white to go, please» so many times?</div>
+        <div class="mcq-opts">
+          <button>Because she loves coffee.</button>
+          <button data-correct>To feel confident when speaking English on her first day.</button>
+          <button>Because the barista would test her.</button>
+          <button>Because she forgot easily.</button>
+        </div>
+        <button class="q-speak" style="width:auto;padding:8px 14px;border-radius:10px;margin-top:6px;font-size:13px" data-say="She rehearsed the phrase to feel confident when speaking English for the first time.">▶ Say the answer</button>
+      </div>
+      <div class="mcq-row">
+        <div class="mcq-q">3. How did the barista react to Marina's order?</div>
+        <div class="mcq-opts">
+          <button>Asked her to repeat.</button>
+          <button>Corrected her pronunciation.</button>
+          <button data-correct>Smiled, said «lovely accent», and handed her the cup.</button>
+          <button>Ignored her.</button>
+        </div>
+        <button class="q-speak" style="width:auto;padding:8px 14px;border-radius:10px;margin-top:6px;font-size:13px" data-say="The barista smiled, said lovely accent, and handed her the cup.">▶ Say the answer</button>
+      </div>
+      <div class="mcq-row">
+        <div class="mcq-q">4. What did «brutal» mean in the text about the time difference?</div>
         <div class="mcq-opts">
           <button>gentle</button>
           <button>very small</button>
           <button data-correct>very harsh, difficult</button>
           <button>funny</button>
         </div>
-      </div>
-      <div class="mcq-row">
-        <div class="mcq-q">3. «She <em>had rehearsed</em> the phrase at least ten times» — why Past Perfect?</div>
-        <div class="mcq-opts">
-          <button>Because it happened right now.</button>
-          <button data-correct>Because it happened BEFORE another past action (before she spoke to the barista).</button>
-          <button>Because she is still rehearsing.</button>
-          <button>Because it is a habit.</button>
-        </div>
-      </div>
-      <div class="mcq-row">
-        <div class="mcq-q">4. «Marina knew she <em>would</em> be all right» — this «would» is…</div>
-        <div class="mcq-opts">
-          <button>Conditional 2 (unreal)</button>
-          <button data-correct>Future-in-the-past (a plan seen from the past)</button>
-          <button>Past habit</button>
-          <button>Polite request</button>
-        </div>
+        <button class="q-speak" style="width:auto;padding:8px 14px;border-radius:10px;margin-top:6px;font-size:13px" data-say="The time difference was brutal — very harsh and difficult.">▶ Say the answer</button>
       </div>
 
       <h3 style="margin-top:22px">D3 · Match the words (from text) with definitions</h3>
@@ -471,6 +624,7 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
     <div class="section-hdr"><div class="num">🎧</div><h2>Block E · Listening · Two short talks</h2></div>
     <div class="section-sub">click ▶ to hear each · listen twice · then True/False</div>
     <div class="card">
+      <img class="lesson-img block-hero" src="./assets/t1-listening.jpg" alt="Listening · Catch the Meaning" loading="lazy">
       <h3>Talk 1 · A woman describes her first pharmacy visit abroad (~30 sec)</h3>
       <button class="q-speak" style="width:auto;padding:12px 24px;border-radius:12px" data-say="The first time I bought medicine abroad was in Spain. I had a splitting headache and I wasn't sure how to explain what I needed. I walked into the pharmacy, and the pharmacist was very approachable. I said 'I have a headache and I feel dizzy'. She smiled, gave me a small box of paracetamol, and told me the dosage. She also asked if I had any allergies. It was much easier than I expected. Now, every time I travel, I make a list of my usual medicines in English before I leave.">▶ Play Talk 1</button>
 
@@ -529,11 +683,13 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
     </div>
   </section>
 
-  <!-- BLOCK D · ROLEPLAY -->
+  <!-- BLOCK F · ROLEPLAY -->
   <section class="section">
-    <div class="section-hdr"><div class="num">🎭</div><h2>Block D · Roleplays · 4 real-life scenes</h2></div>
-    <div class="section-sub">read both roles · then swap · then improvise</div>
+    <div class="section-hdr"><div class="num">🎭</div><h2>Block F · Roleplays · 2 real medical scenes + drills</h2></div>
+    <div class="section-sub">Elena's own material · pharmacy + doctor · read · drill · speak</div>
     <div class="card">
+
+      <!-- D1 Roleplay pharmacy -->
       <h3>Roleplay 1 · At the pharmacy (headache + fever)</h3>
       <div class="dialogue">
         <p><span class="role">Elena:</span> Hello. I'm not feeling very well.</p>
@@ -548,150 +704,28 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
         <p><span class="role">Pharmacist:</span> Both are over-the-counter. Anything else?</p>
         <p><span class="role">Elena:</span> Could I also have some antihistamines, just in case? Non-drowsy, please — I'm driving tomorrow.</p>
       </div>
+      <button class="q-speak" style="width:auto;padding:10px 20px;border-radius:12px;margin-top:8px" data-say="Hello. I'm not feeling very well. I have a splitting headache and I feel a bit dizzy. Do I need a prescription? Could I also have some antihistamines, non-drowsy please?">▶ Listen to Elena's lines</button>
 
-      <h3 style="margin-top:22px">Roleplay 2 · Currency exchange</h3>
-      <div class="dialogue">
-        <p><span class="role">Clerk:</span> Good afternoon. How can I help you?</p>
-        <p><span class="role">Elena:</span> I'd like to exchange 200 euros into Canadian dollars, please.</p>
-        <p><span class="role">Clerk:</span> Today's rate is 1 euro for 1.48 CAD. Is that all right?</p>
-        <p><span class="role">Elena:</span> Do you charge a commission?</p>
-        <p><span class="role">Clerk:</span> Yes, a 3% commission.</p>
-        <p><span class="role">Elena:</span> Understood. Could I have smaller bills, please? And a receipt.</p>
-        <p><span class="role">Clerk:</span> Certainly. May I see your passport?</p>
+      <!-- D2 Drill fill-in Elena's key lines -->
+      <h3 style="margin-top:22px">D2 · Fill in Elena's lines (drag the missing word)</h3>
+      <div class="bank" id="bank-rp1">
+        <div class="bank-word" data-w="prescription">prescription</div>
+        <div class="bank-word" data-w="dizzy">dizzy</div>
+        <div class="bank-word" data-w="allergic">allergic</div>
+        <div class="bank-word" data-w="splitting">splitting</div>
+        <div class="bank-word" data-w="over-the-counter">over-the-counter</div>
+        <div class="bank-word" data-w="Could">Could</div>
       </div>
+      <div class="drag-text">
+        <p>1. «I have a <span class="drop-gap" data-correct="splitting">⋯</span> headache and I feel a bit <span class="drop-gap" data-correct="dizzy">⋯</span>.»</p>
+        <p>2. «I'm <span class="drop-gap" data-correct="allergic">⋯</span> to penicillin, nothing else.»</p>
+        <p>3. «Is this <span class="drop-gap" data-correct="over-the-counter">⋯</span> or do I need a <span class="drop-gap" data-correct="prescription">⋯</span>?»</p>
+        <p>4. «<span class="drop-gap" data-correct="Could">⋯</span> I also have some antihistamines, just in case?»</p>
+      </div>
+      <div class="starters" style="margin-top:12px"><strong>🗣 Speak:</strong> read all four sentences out loud with the correct words in place. Then close the tab and say them from memory.</div>
 
-      <h3 style="margin-top:22px">Roleplay 3 · Coffee shop (order + Wi-Fi)</h3>
-      <div class="dialogue">
-        <p><span class="role">Elena:</span> Hi. Could I get a large flat white to-go, please?</p>
-        <p><span class="role">Barista:</span> Any milk preference?</p>
-        <p><span class="role">Elena:</span> Oat milk, if you have it.</p>
-        <p><span class="role">Barista:</span> Anything else?</p>
-        <p><span class="role">Elena:</span> Is the carrot cake gluten-free?</p>
-        <p><span class="role">Barista:</span> It is.</p>
-        <p><span class="role">Elena:</span> Perfect — one slice, please. And what's the Wi-Fi password?</p>
-        <p><span class="role">Barista:</span> «flatwhite2026», all one word.</p>
-        <p><span class="role">Elena:</span> Great. Can I pay by card?</p>
-      </div>
-
-      <h3 style="margin-top:22px">Roleplay 4 · Airport small talk (stranger next seat)</h3>
-      <div class="dialogue">
-        <p><span class="role">Elena:</span> Excuse me, is this seat taken?</p>
-        <p><span class="role">Stranger:</span> No, go ahead.</p>
-        <p><span class="role">Elena:</span> Thanks. Is your flight on time?</p>
-        <p><span class="role">Stranger:</span> Delayed by an hour. You?</p>
-        <p><span class="role">Elena:</span> Same. Where are you heading?</p>
-        <p><span class="role">Stranger:</span> Toronto — first time.</p>
-        <p><span class="role">Elena:</span> Really? I'm moving there with my family, actually.</p>
-        <p><span class="role">Stranger:</span> Wow, congratulations. Been to Canada before?</p>
-      </div>
-      <div class="starters"><strong>After each roleplay:</strong> close your eyes and retell in 3 sentences what happened, using Past Simple («I asked for…», «She gave me…», «I paid by card»).</div>
-    </div>
-  </section>
-
-  <!-- BLOCK E · SPEAK -->
-  <section class="section">
-    <div class="section-hdr"><div class="num">🗣</div><h2>Block E · Speak · 6 real prompts (60 seconds each)</h2></div>
-    <div class="section-sub">no notes · full sentences · one hedge and one connector per answer</div>
-    <div class="card">
-      <div class="prompts">
-        <div class="prompt" data-say="Tell me about the last time you were in a pharmacy — what did you buy, and what did you ask?">1. The last time you were in a <strong>pharmacy</strong> — what did you buy, what did you ask? (Past Simple)</div>
-        <div class="prompt" data-say="Have you ever exchanged currency abroad? What happened?">2. Have you <strong>ever exchanged currency abroad</strong>? What happened? (Present Perfect + Past Simple)</div>
-        <div class="prompt" data-say="Describe your favourite coffee-shop order in three sentences.">3. Describe your <strong>favourite coffee-shop order</strong> in 3 sentences. (Present Simple)</div>
-        <div class="prompt" data-say="Tell me about a delayed flight or missed train from your past.">4. Tell me about a <strong>delayed flight or missed train</strong> from your past. (Past Simple + Past Continuous)</div>
-        <div class="prompt" data-say="If you could plan one perfect day in Toronto with unlimited budget, what would it look like?">5. If you could plan <strong>one perfect day in Toronto</strong>, what would it look like? (Conditional 2)</div>
-        <div class="prompt" data-say="What travel habit have you been trying to build recently? Is it working?">6. What travel <strong>habit have you been trying to build</strong> recently? (Present Perfect Continuous)</div>
-      </div>
-      <div class="starters"><strong>Wrap-up of Tab 1:</strong> which of the 6 answers was the hardest? Tell me — we'll do that one <em>one more time</em> before Tab 2.</div>
-    </div>
-  </section>
-
-</div>
-    <div class="section-sub">pick a side · one full sentence · one hedge · one reason</div>
-    <div class="card">
-      <div class="tot-grid">
-        <div class="tot-item"><div class="tot-num">1</div><div class="tot-side" data-say="Book a hotel in advance">Book in advance</div><div class="tot-vs">or</div><div class="tot-side" data-say="Find a hotel when you arrive">Find on arrival</div></div>
-        <div class="tot-item"><div class="tot-num">2</div><div class="tot-side" data-say="Pay by card everywhere">Card everywhere</div><div class="tot-vs">or</div><div class="tot-side" data-say="Keep cash for small places">Cash for small places</div></div>
-        <div class="tot-item"><div class="tot-num">3</div><div class="tot-side" data-say="Order the same coffee every time">Same coffee</div><div class="tot-vs">or</div><div class="tot-side" data-say="Try a new drink at every café">Try new drinks</div></div>
-        <div class="tot-item"><div class="tot-num">4</div><div class="tot-side" data-say="Ask a stranger for directions">Ask a stranger</div><div class="tot-vs">or</div><div class="tot-side" data-say="Use only Google Maps">Use only Google Maps</div></div>
-        <div class="tot-item"><div class="tot-num">5</div><div class="tot-side" data-say="Travel light with one backpack">Travel light</div><div class="tot-vs">or</div><div class="tot-side" data-say="Take a big suitcase with everything">Take everything</div></div>
-        <div class="tot-item"><div class="tot-num">6</div><div class="tot-side" data-say="Buy travel insurance for every trip">Insurance always</div><div class="tot-vs">or</div><div class="tot-side" data-say="Only for long international trips">Only for long trips</div></div>
-        <div class="tot-item"><div class="tot-num">7</div><div class="tot-side" data-say="Order food at the restaurant">Restaurant</div><div class="tot-vs">or</div><div class="tot-side" data-say="Try local street food">Street food</div></div>
-        <div class="tot-item"><div class="tot-num">8</div><div class="tot-side" data-say="Solve a health problem at the pharmacy first">Pharmacy first</div><div class="tot-vs">or</div><div class="tot-side" data-say="Go straight to the doctor">Doctor first</div></div>
-      </div>
-      <div class="starters"><strong>Starter phrases:</strong> <em>For me, definitely… · It depends, but I'd say… · Honestly, I prefer… · I'd rather… because… · Actually, I think… · One thing that always works for me is…</em></div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-hdr"><div class="num">2</div><h2>Vocabulary recap · 14 travel & everyday words</h2></div>
-    <div class="section-sub">tap a card · read out loud · put it into a sentence about your last real trip</div>
-    <div class="card">
-      <div class="flip-grid">
-        <div class="flip-card" data-word="boarding pass"><div class="flip-inner"><div class="flip-front">boarding pass<div class="pos">n</div></div><div class="flip-back"><div>the paper or e-ticket that lets you board the plane</div><div class="ex">I lost my boarding pass at security — panic!</div></div></div></div>
-        <div class="flip-card" data-word="luggage"><div class="flip-inner"><div class="flip-front">luggage<div class="pos">n · uncountable</div></div><div class="flip-back"><div>all your bags together — never «luggages»</div><div class="ex">My luggage was delayed for two days in Rome.</div></div></div></div>
-        <div class="flip-card" data-word="belongings"><div class="flip-inner"><div class="flip-front">belongings<div class="pos">n · plural</div></div><div class="flip-back"><div>your personal items — clothes, documents, phone</div><div class="ex">Please don't leave your belongings on the seat.</div></div></div></div>
-        <div class="flip-card" data-word="customs"><div class="flip-inner"><div class="flip-front">customs<div class="pos">n</div></div><div class="flip-back"><div>the officers who check what you bring into a country</div><div class="ex">Nothing to declare at customs, I hope.</div></div></div></div>
-        <div class="flip-card" data-word="immigration"><div class="flip-inner"><div class="flip-front">immigration<div class="pos">n</div></div><div class="flip-back"><div>passport control on arrival</div><div class="ex">The immigration queue was almost an hour.</div></div></div></div>
-        <div class="flip-card" data-word="hub"><div class="flip-inner"><div class="flip-front">hub<div class="pos">n</div></div><div class="flip-back"><div>a big transport centre — airport, station, port</div><div class="ex">Frankfurt is a huge European hub.</div></div></div></div>
-        <div class="flip-card" data-word="delayed"><div class="flip-inner"><div class="flip-front">delayed<div class="pos">adj</div></div><div class="flip-back"><div>later than planned</div><div class="ex">My flight was delayed by three hours.</div></div></div></div>
-        <div class="flip-card" data-word="itinerary"><div class="flip-inner"><div class="flip-front">itinerary<div class="pos">n</div></div><div class="flip-back"><div>the full plan of your trip — days, cities, flights</div><div class="ex">Let me check my itinerary — we arrive Thursday.</div></div></div></div>
-        <div class="flip-card" data-word="prescription"><div class="flip-inner"><div class="flip-front">prescription<div class="pos">n · Rx</div></div><div class="flip-back"><div>a doctor's note you take to the pharmacy</div><div class="ex">I need to pick up my prescription before we leave.</div></div></div></div>
-        <div class="flip-card" data-word="over-the-counter"><div class="flip-inner"><div class="flip-front">over-the-counter<div class="pos">adj · OTC</div></div><div class="flip-back"><div>medicine you can buy without a prescription</div><div class="ex">Ibuprofen is over-the-counter in most countries.</div></div></div></div>
-        <div class="flip-card" data-word="side effects"><div class="flip-inner"><div class="flip-front">side effects<div class="pos">n</div></div><div class="flip-back"><div>unwanted reactions from a medicine</div><div class="ex">Does this cause drowsiness? Any other side effects?</div></div></div></div>
-        <div class="flip-card" data-word="exchange rate"><div class="flip-inner"><div class="flip-front">exchange rate<div class="pos">n</div></div><div class="flip-back"><div>how many of X you get for one of Y</div><div class="ex">The exchange rate today is 1 euro for 1.48 dollars.</div></div></div></div>
-        <div class="flip-card" data-word="commission"><div class="flip-inner"><div class="flip-front">commission<div class="pos">n</div></div><div class="flip-back"><div>the fee the exchange office keeps</div><div class="ex">The rate looks good but the commission is 5%.</div></div></div></div>
-        <div class="flip-card" data-word="receipt"><div class="flip-inner"><div class="flip-front">receipt<div class="pos">n · /rɪˈsiːt/</div></div><div class="flip-back"><div>the little paper you always keep for insurance</div><div class="ex">Please keep the receipt — you'll need it for the claim.</div></div></div></div>
-      </div>
-      <div class="starters"><strong>Speak:</strong> pick 4 cards and make one true sentence about your last real trip with each.</div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-hdr"><div class="num">3</div><h2>Roleplay A · At the pharmacy (headache + fever)</h2></div>
-    <div class="section-sub">read both roles out loud · then swap · click any line to hear it</div>
-    <div class="card">
-      <div class="dialogue">
-        <p><span class="role">Elena:</span> Hello. I'm not feeling very well.</p>
-        <p><span class="role">Pharmacist:</span> What seems to be the problem?</p>
-        <p><span class="role">Elena:</span> I have a sore throat, a splitting headache, and I feel a bit dizzy.</p>
-        <p><span class="role">Pharmacist:</span> Do you have a fever?</p>
-        <p><span class="role">Elena:</span> A mild one, about 38 degrees.</p>
-        <p><span class="role">Pharmacist:</span> Any allergies I should know about?</p>
-        <p><span class="role">Elena:</span> I'm allergic to penicillin, nothing else.</p>
-        <p><span class="role">Pharmacist:</span> I recommend these lozenges and some ibuprofen. Take one tablet every eight hours. If it doesn't improve in three days, see a doctor.</p>
-        <p><span class="role">Elena:</span> Thank you. Is this over-the-counter or do I need a prescription?</p>
-        <p><span class="role">Pharmacist:</span> Both are over-the-counter. Anything else?</p>
-        <p><span class="role">Elena:</span> Could I also have some antihistamines, just in case?</p>
-        <p><span class="role">Pharmacist:</span> Certainly. Non-drowsy or the stronger ones?</p>
-        <p><span class="role">Elena:</span> Non-drowsy, please. I'm driving tomorrow.</p>
-      </div>
-      <div class="starters"><strong>Elena's key phrases to reuse:</strong> <em>I'm not feeling very well · I have a [symptom] · Do I need a prescription? · Are there any side effects? · Could I also have…?</em></div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-hdr"><div class="num">4</div><h2>Roleplay B · Same pharmacy — allergic reaction (improvise)</h2></div>
-    <div class="section-sub">no script this time · you play Elena · use the pattern below</div>
-    <div class="card">
-      <div class="pattern-box">
-        <strong>1.</strong> Greeting + «I think I'm having an allergic reaction.»<br>
-        <strong>2.</strong> Symptoms: <em>red patches, itchy skin, swelling around the eyes.</em><br>
-        <strong>3.</strong> Trigger: <em>you ate shellfish yesterday for the first time.</em><br>
-        <strong>4.</strong> Ask about: <em>antihistamines + a soothing cream + when to worry.</em><br>
-        <strong>5.</strong> Confirm: <em>dosage, side effects, what to avoid.</em>
-      </div>
-      <div class="model">
-        <span class="model-lbl">Model — steal the shape</span>
-        Hi. I think I'm having an allergic reaction. My skin is really itchy and I have red patches on my arms. I ate shellfish yesterday for the first time — I think that's the reason. Could you recommend an antihistamine and maybe a soothing cream? And should I be worried about swelling?
-      </div>
-      <div class="starters"><strong>Speak the whole thing out loud twice.</strong> Second time — change the trigger (nuts / new washing powder / plant / medicine).</div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-hdr"><div class="num">5</div><h2>Roleplay C · Food poisoning (doctor, not pharmacy)</h2></div>
-    <div class="section-sub">this is more serious · full sentences · past tenses</div>
-    <div class="card">
+      <!-- D3 Roleplay food poisoning -->
+      <h3 style="margin-top:26px">Roleplay 2 · At the doctor (food poisoning)</h3>
       <div class="dialogue">
         <p><span class="role">Doctor:</span> Good morning. What brings you in today?</p>
         <p><span class="role">Elena:</span> Good morning. I've been feeling awful since last night.</p>
@@ -701,83 +735,62 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
         <p><span class="role">Elena:</span> A slight one — 37.8. I also feel weak and dizzy when I stand up.</p>
         <p><span class="role">Doctor:</span> Did you eat anything unusual yesterday?</p>
         <p><span class="role">Elena:</span> Yes, we had street tacos in the afternoon. I think it started about six hours later.</p>
-        <p><span class="role">Doctor:</span> That's likely food poisoning. Take these anti-nausea tablets and use oral rehydration salts. Stick to bland food — toast, rice, banana — for 24 hours. Come back if the fever gets higher or the vomiting doesn't stop.</p>
+        <p><span class="role">Doctor:</span> That's likely food poisoning. Take these anti-nausea tablets and use oral rehydration salts. Stick to bland food for 24 hours.</p>
         <p><span class="role">Elena:</span> Does my insurance cover this consultation and the prescription?</p>
       </div>
-      <div class="starters"><strong>Notice:</strong> Elena uses <em>Present Perfect Continuous («I've been feeling…»)</em>, <em>Past Simple («I vomited», «we had»)</em>, and <em>insurance language</em> — all in one dialogue. Read it three times, then close and retell what happened to you.</div>
-    </div>
-  </section>
+      <button class="q-speak" style="width:auto;padding:10px 20px;border-radius:12px;margin-top:8px" data-say="Good morning. I've been feeling awful since last night. Severe stomach pain, nausea, and I vomited twice around three in the morning. I also feel weak and dizzy when I stand up. Does my insurance cover this consultation and the prescription?">▶ Listen to Elena's lines</button>
 
-  <section class="section">
-    <div class="section-hdr"><div class="num">6</div><h2>Roleplay D · Currency exchange</h2></div>
-    <div class="section-sub">short · fast · numbers matter</div>
-    <div class="card">
-      <div class="dialogue">
-        <p><span class="role">Clerk:</span> Good afternoon. How can I help you?</p>
-        <p><span class="role">Elena:</span> I'd like to exchange 200 euros into Canadian dollars, please.</p>
-        <p><span class="role">Clerk:</span> Of course. Today's rate is 1 euro for 1.48 Canadian dollars. Is that all right?</p>
-        <p><span class="role">Elena:</span> Do you charge a commission?</p>
-        <p><span class="role">Clerk:</span> Yes, there's a small commission of 3 percent.</p>
-        <p><span class="role">Elena:</span> Understood. Could I have smaller bills, please?</p>
-        <p><span class="role">Clerk:</span> Certainly. May I see your passport?</p>
-        <p><span class="role">Elena:</span> Here you go. Could I also have a receipt?</p>
-        <p><span class="role">Clerk:</span> Absolutely. Here's your money and the receipt. Have a lovely day.</p>
+      <!-- D4 Drill matching symptom → Elena's phrase -->
+      <h3 style="margin-top:22px">D4 · Match the situation with Elena's phrase</h3>
+      <div class="match-cols">
+        <div class="match-col">
+          <h4>Situation</h4>
+          <div class="match-item" data-k="awful">Ты плохо себя чувствуешь со вчерашнего вечера</div>
+          <div class="match-item" data-k="stomach">Опиши что болит</div>
+          <div class="match-item" data-k="dizzy">Ты встаёшь и кружится голова</div>
+          <div class="match-item" data-k="ate">Врач спрашивает, что ты ел вчера</div>
+          <div class="match-item" data-k="insurance">Ты спрашиваешь про страховку</div>
+        </div>
+        <div class="match-col">
+          <h4>Elena's phrase</h4>
+          <div class="match-item" data-k="stomach">Severe stomach pain, nausea, and I vomited twice.</div>
+          <div class="match-item" data-k="insurance">Does my insurance cover this consultation?</div>
+          <div class="match-item" data-k="awful">I've been feeling awful since last night.</div>
+          <div class="match-item" data-k="dizzy">I feel weak and dizzy when I stand up.</div>
+          <div class="match-item" data-k="ate">We had street tacos in the afternoon.</div>
+        </div>
       </div>
-      <div class="starters"><strong>Now swap roles.</strong> You are the clerk, I am the tourist. Try to «catch» me on one detail — a fake exchange rate, hidden fee, or missing passport. Make me push back politely.</div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-hdr"><div class="num">7</div><h2>Roleplay E · Coffee shop (Wi-Fi, order, small talk)</h2></div>
-    <div class="section-sub">the shortest, most useful dialogue you'll ever memorise</div>
-    <div class="card">
-      <div class="dialogue">
-        <p><span class="role">Elena:</span> Hi. Could I get a large flat white to go, please?</p>
-        <p><span class="role">Barista:</span> Sure. Any milk preference?</p>
-        <p><span class="role">Elena:</span> Oat milk, if you have it.</p>
-        <p><span class="role">Barista:</span> We do. Anything else — pastry, food?</p>
-        <p><span class="role">Elena:</span> Is the carrot cake gluten-free?</p>
-        <p><span class="role">Barista:</span> It is, actually.</p>
-        <p><span class="role">Elena:</span> Perfect, I'll take one slice. And — what's the Wi-Fi password?</p>
-        <p><span class="role">Barista:</span> It's «flatwhite2026», all one word.</p>
-        <p><span class="role">Elena:</span> Great, thanks. Can I pay by card?</p>
-        <p><span class="role">Barista:</span> Card or tap-to-pay both work.</p>
+      <div class="score-badge"><span>0</span> / 5 matched</div>
+      <div class="starters" style="margin-top:12px"><strong>🗣 Speak:</strong> tap ▶ below and say each Elena's phrase out loud in the same rhythm as the audio.</div>
+      <div class="prompts" style="margin-top:10px">
+        <div class="prompt" data-say="I've been feeling awful since last night.">▶ «I've been feeling awful since last night.»</div>
+        <div class="prompt" data-say="Severe stomach pain, nausea, and I vomited twice.">▶ «Severe stomach pain, nausea, and I vomited twice.»</div>
+        <div class="prompt" data-say="I feel weak and dizzy when I stand up.">▶ «I feel weak and dizzy when I stand up.»</div>
+        <div class="prompt" data-say="Does my insurance cover this consultation?">▶ «Does my insurance cover this consultation?»</div>
       </div>
-      <div class="starters"><strong>Repeat the whole dialogue with your eyes closed.</strong> Then change one thing — different drink, different pastry, cash instead of card, «is it dairy-free» instead of «gluten-free».</div>
+
+      <div class="starters" style="margin-top:16px"><strong>Retell in 3 sentences:</strong> Elena went to the doctor because… The doctor asked her… She was told to…</div>
     </div>
   </section>
 
+  <!-- BLOCK G · SPEAK -->
   <section class="section">
-    <div class="section-hdr"><div class="num">8</div><h2>Roleplay F · Airport small talk with a stranger</h2></div>
-    <div class="section-sub">bonus roleplay · what you might need in a lounge</div>
+    <div class="section-hdr"><div class="num">🗣</div><h2>Block G · Speak · 10 real prompts (60 seconds each)</h2></div>
+    <div class="section-sub">no notes · full sentences · one hedge and one connector per answer</div>
     <div class="card">
-      <div class="dialogue">
-        <p><span class="role">Elena:</span> Excuse me, is this seat taken?</p>
-        <p><span class="role">Stranger:</span> No, go ahead.</p>
-        <p><span class="role">Elena:</span> Thanks. Is your flight on time?</p>
-        <p><span class="role">Stranger:</span> Delayed by an hour. You?</p>
-        <p><span class="role">Elena:</span> Same, actually. Where are you heading?</p>
-        <p><span class="role">Stranger:</span> Toronto. And you?</p>
-        <p><span class="role">Elena:</span> Also Toronto — first time.</p>
-        <p><span class="role">Stranger:</span> Oh, you'll love it. First time in Canada in general?</p>
-        <p><span class="role">Elena:</span> Yes. My family and I are moving there, actually.</p>
-        <p><span class="role">Stranger:</span> Wow — that's a big step. Congratulations.</p>
+      <div class="prompts">
+        <div class="prompt" data-say="Tell me about the last time you were in a pharmacy — what did you buy, and what did you ask?">1. The last time you were in a <strong>pharmacy</strong> — what did you buy, what did you ask? (Past Simple)</div>
+        <div class="prompt" data-say="Describe your symptoms in English — pretend you feel dizzy, tired and you have a splitting headache.">2. Describe your <strong>symptoms</strong> — pretend you feel dizzy, tired, splitting headache. (Present Simple)</div>
+        <div class="prompt" data-say="What questions do you always ask the pharmacist? Give me three real ones.">3. What questions do you always <strong>ask the pharmacist</strong>? Three real ones. (Do you have / Is this / What's the…?)</div>
+        <div class="prompt" data-say="Have you ever had food poisoning or a bad reaction to a medicine? What happened?">4. Have you ever had <strong>food poisoning or an allergic reaction</strong>? (Present Perfect + Past Simple)</div>
+        <div class="prompt" data-say="Tell me about a delayed flight or missed train from your past.">5. Tell me about a <strong>delayed flight or missed train</strong>. (Past Simple + Past Continuous)</div>
+        <div class="prompt" data-say="Describe your favourite coffee-shop order and one thing you always ask about.">6. Describe your <strong>favourite coffee-shop order</strong> + one question you ask. (Present Simple)</div>
+        <div class="prompt" data-say="If you could plan one perfect day in Toronto with unlimited budget, what would it look like?">7. If you could plan <strong>one perfect day in Toronto</strong>. (Conditional 2)</div>
+        <div class="prompt" data-say="What travel habit have you been trying to build recently? Is it working?">8. What travel <strong>habit have you been trying to build</strong>? (Present Perfect Continuous)</div>
+        <div class="prompt" data-say="Imagine you meet a stranger on the plane to Canada. What three questions would you ask?">9. On the plane to Canada, you meet a <strong>stranger</strong>. Three questions you ask. (Would you / Are you / Have you…?)</div>
+        <div class="prompt" data-say="Which phrase from this tab will you use first in Canada, and why?">10. Which phrase from this tab will you <strong>use first in Canada</strong>, and why? (I think / Because / Probably…)</div>
       </div>
-      <div class="starters"><strong>Continue the conversation.</strong> The stranger asks you 3 more questions about your move to Canada. Give warm honest answers of 2–3 sentences each.</div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-hdr"><div class="num">9</div><h2>Speak · pick 3 phrases and place them in your life</h2></div>
-    <div class="section-sub">no drilling · put language into a real memory</div>
-    <div class="card">
-      <div class="q-row"><div class="q-num">1</div><div class="q-text">"Excuse me, is this seat taken?" — where in your last month could you have used this?</div><button class="q-speak" data-say="Excuse me, is this seat taken?" aria-label="Listen">▶</button></div>
-      <div class="q-row"><div class="q-num">2</div><div class="q-text">"I've been feeling awful since last night" — describe a real day when this was true.</div><button class="q-speak" data-say="I've been feeling awful since last night." aria-label="Listen">▶</button></div>
-      <div class="q-row"><div class="q-num">3</div><div class="q-text">"Could I also have…?" — three real requests you'd add on to a coffee/pharmacy order.</div><button class="q-speak" data-say="Could I also have some antihistamines, just in case?" aria-label="Listen">▶</button></div>
-      <div class="q-row"><div class="q-num">4</div><div class="q-text">"What's the Wi-Fi password?" — the most useful English phrase in every hotel/café ever.</div><button class="q-speak" data-say="What's the Wi-Fi password, please?" aria-label="Listen">▶</button></div>
-      <div class="q-row"><div class="q-num">5</div><div class="q-text">"Does my insurance cover this?" — when will you need this phrase in Canada?</div><button class="q-speak" data-say="Does my insurance cover this?" aria-label="Listen">▶</button></div>
-      <div class="q-row"><div class="q-num">6</div><div class="q-text">"Any side effects I should know about?" — the sentence that shows you're a careful adult.</div><button class="q-speak" data-say="Any side effects I should know about?" aria-label="Listen">▶</button></div>
-      <div class="starters"><strong>Wrap-up of Tab 1:</strong> tell me — which of the 6 roleplays felt the hardest? We'll do that one <em>one more time</em> before we move on.</div>
+      <div class="starters" style="margin-top:12px"><strong>Wrap-up of Tab 1:</strong> which of the 10 answers was the hardest? Tell me — we'll do that one <em>one more time</em> before Tab 2.</div>
     </div>
   </section>
 
@@ -791,6 +804,7 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
     <div class="section-hdr"><div class="num">📚</div><h2>Block A · Vocab bank · 30 words in 3 groups</h2></div>
     <div class="section-sub">tap each card · read aloud · make one sentence about a real colleague</div>
     <div class="card">
+      <img class="lesson-img block-hero" src="./assets/t2-describing-people.jpg" alt="Describing People — confident, thoughtful, friendly, creative, reserved" loading="lazy">
 
       <h3>Group 1 · Emotions &amp; Feelings (10)</h3>
       <div class="flip-grid">
@@ -804,6 +818,30 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
         <div class="flip-card" data-word="worried"><div class="flip-inner"><div class="flip-front">worried<div class="pos">adj</div></div><div class="flip-back"><div>anxious about something</div><div class="ex">I'm worried about the new project.</div></div></div></div>
         <div class="flip-card" data-word="insecure"><div class="flip-inner"><div class="flip-front">insecure<div class="pos">adj</div></div><div class="flip-back"><div>not confident about yourself</div><div class="ex">She looks confident but feels insecure inside.</div></div></div></div>
         <div class="flip-card" data-word="emotionally tired"><div class="flip-inner"><div class="flip-front">emotionally tired<div class="pos">phrase</div></div><div class="flip-back"><div>drained from feelings, not physical</div><div class="ex">After a long meeting I feel emotionally tired.</div></div></div></div>
+      </div>
+
+      <!-- DRILL after Group 1 -->
+      <div class="pattern-box" style="margin-top:16px">
+        <h4 style="margin:0 0 10px">Drill 1 · Fill the gap with an emotion word</h4>
+        <div class="bank" id="bank-t2vocab1">
+          <div class="bank-word" data-w="stressed">stressed</div>
+          <div class="bank-word" data-w="overwhelmed">overwhelmed</div>
+          <div class="bank-word" data-w="confident">confident</div>
+          <div class="bank-word" data-w="irritated">irritated</div>
+          <div class="bank-word" data-w="calm">calm</div>
+        </div>
+        <div class="drag-text">
+          <p>1. Before every deadline I feel <span class="drop-gap" data-correct="stressed">⋯</span>.</p>
+          <p>2. He looks <span class="drop-gap" data-correct="irritated">⋯</span> when someone interrupts him.</p>
+          <p>3. She stays <span class="drop-gap" data-correct="calm">⋯</span> under pressure.</p>
+          <p>4. By Friday afternoon I feel completely <span class="drop-gap" data-correct="overwhelmed">⋯</span>.</p>
+          <p>5. He is quiet but very <span class="drop-gap" data-correct="confident">⋯</span> when he speaks.</p>
+        </div>
+        <div style="margin-top:10px"><strong>🗣 Speak:</strong> describe one real colleague using 3 emotion words. Tap ▶ for a model sentence.</div>
+        <div class="prompts" style="margin-top:8px">
+          <div class="prompt" data-say="My colleague Anna is usually calm and confident, but by Friday she looks a bit overwhelmed.">▶ Anna is calm and confident, but overwhelmed by Friday</div>
+          <div class="prompt" data-say="Ivan looks relaxed on the outside but I think he feels stressed inside.">▶ Ivan looks relaxed but feels stressed inside</div>
+        </div>
       </div>
 
       <h3 style="margin-top:22px">Group 2 · Appearance &amp; First Impression (10)</h3>
@@ -820,6 +858,35 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
         <div class="flip-card" data-word="strict-looking"><div class="flip-inner"><div class="flip-front">strict-looking<div class="pos">adj</div></div><div class="flip-back"><div>serious face, might seem severe</div><div class="ex">She is strict-looking, but her feedback is kind.</div></div></div></div>
       </div>
 
+      <!-- DRILL after Group 2 -->
+      <div class="pattern-box" style="margin-top:16px">
+        <h4 style="margin:0 0 10px">Drill 2 · Match description ↔ meaning</h4>
+        <div class="match-cols">
+          <div class="match-col">
+            <h4>Word</h4>
+            <div class="match-item" data-k="approachable">approachable</div>
+            <div class="match-item" data-k="tired-looking">tired-looking</div>
+            <div class="match-item" data-k="strict-looking">strict-looking</div>
+            <div class="match-item" data-k="messy">messy</div>
+            <div class="match-item" data-k="ordinary-looking">ordinary-looking</div>
+          </div>
+          <div class="match-col">
+            <h4>Meaning</h4>
+            <div class="match-item" data-k="messy">their desk is chaotic and disordered</div>
+            <div class="match-item" data-k="ordinary-looking">nothing striking, an average look</div>
+            <div class="match-item" data-k="approachable">easy to talk to, opens the door</div>
+            <div class="match-item" data-k="tired-looking">looks tired even before speaking</div>
+            <div class="match-item" data-k="strict-looking">serious face, might seem severe</div>
+          </div>
+        </div>
+        <div class="score-badge"><span>0</span> / 5 matched</div>
+        <div style="margin-top:10px"><strong>🗣 Speak:</strong> describe how one colleague looks and how she or he actually is.</div>
+        <div class="prompts" style="margin-top:8px">
+          <div class="prompt" data-say="Our new HR is strict-looking, but actually she is very approachable and friendly.">▶ Strict-looking, but actually approachable</div>
+          <div class="prompt" data-say="He is well-dressed and confident on Monday, but by Friday he is a bit tired-looking.">▶ Well-dressed Monday, tired-looking Friday</div>
+        </div>
+      </div>
+
       <h3 style="margin-top:22px">Group 3 · Personality &amp; Work Behaviour (10)</h3>
       <div class="flip-grid">
         <div class="flip-card" data-word="responsible"><div class="flip-inner"><div class="flip-front">responsible<div class="pos">adj</div></div><div class="flip-back"><div>takes ownership of tasks</div><div class="ex">She is the most responsible person on the team.</div></div></div></div>
@@ -833,7 +900,53 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
         <div class="flip-card" data-word="distant"><div class="flip-inner"><div class="flip-front">distant<div class="pos">adj</div></div><div class="flip-back"><div>polite but emotionally far away</div><div class="ex">She seems distant but is actually kind.</div></div></div></div>
         <div class="flip-card" data-word="focused"><div class="flip-inner"><div class="flip-front">focused<div class="pos">adj</div></div><div class="flip-back"><div>attention fully on one thing</div><div class="ex">She looks focused when she reads reports.</div></div></div></div>
       </div>
-      <div class="starters"><strong>Quick drill:</strong> pick 6 cards (2 from each group) and describe 2 real colleagues — one you enjoy, one who is difficult.</div>
+
+      <!-- DRILL after Group 3 -->
+      <div class="pattern-box" style="margin-top:16px">
+        <h4 style="margin:0 0 10px">Drill 3 · Positive or negative? (MCQ)</h4>
+        <div class="mcq-row">
+          <div class="mcq-q">1. Your best trait as a team member — which two words describe it?</div>
+          <div class="mcq-opts">
+            <button data-correct>responsible + reliable</button>
+            <button>loud + disorganised</button>
+            <button>distant + strict</button>
+            <button>messy + insecure</button>
+          </div>
+          <button class="q-speak" style="width:auto;padding:8px 14px;border-radius:10px;margin-top:6px;font-size:13px" data-say="A responsible and reliable colleague is worth everything.">▶ Say the phrase</button>
+        </div>
+        <div class="mcq-row">
+          <div class="mcq-q">2. «Supportive» means…</div>
+          <div class="mcq-opts">
+            <button>keeps firm rules</button>
+            <button>talks loudly</button>
+            <button data-correct>helps others emotionally and practically</button>
+            <button>quietly focuses on their own tasks</button>
+          </div>
+          <button class="q-speak" style="width:auto;padding:8px 14px;border-radius:10px;margin-top:6px;font-size:13px" data-say="A supportive colleague changes your whole week.">▶ Say the definition</button>
+        </div>
+        <div class="mcq-row">
+          <div class="mcq-q">3. «She is distant» means she is…</div>
+          <div class="mcq-opts">
+            <button>impolite and cold</button>
+            <button data-correct>polite but emotionally far away</button>
+            <button>very sociable and talkative</button>
+            <button>often absent from the office</button>
+          </div>
+          <button class="q-speak" style="width:auto;padding:8px 14px;border-radius:10px;margin-top:6px;font-size:13px" data-say="She is polite but distant, emotionally a bit far away.">▶ Say the answer</button>
+        </div>
+        <div class="mcq-row">
+          <div class="mcq-q">4. Which word do you want to hear about YOU from your boss?</div>
+          <div class="mcq-opts">
+            <button>disorganised</button>
+            <button data-correct>focused and reliable</button>
+            <button>loud and messy</button>
+            <button>irritated and insecure</button>
+          </div>
+          <button class="q-speak" style="width:auto;padding:8px 14px;border-radius:10px;margin-top:6px;font-size:13px" data-say="I hope my boss says I am focused and reliable.">▶ Say the answer</button>
+        </div>
+      </div>
+
+      <div class="starters" style="margin-top:16px"><strong>Final vocab test:</strong> pick 6 cards (2 from each group) and describe 2 real colleagues — one you enjoy, one who is difficult.</div>
     </div>
   </section>
 
@@ -1058,6 +1171,7 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
     <div class="section-hdr"><div class="num">🎭</div><h2>Block F · Dialogue · «Talking about people at work»</h2></div>
     <div class="section-sub">read both roles · then swap · click any line to hear it</div>
     <div class="card">
+      <img class="lesson-img block-hero" src="./assets/t2-dialogue-echo.jpg" alt="Dialogue Echo — two colleagues talking with headphones" loading="lazy">
       <div class="dialogue">
         <p><span class="role">Anna:</span> So, how do you feel about the new colleague?</p>
         <p><span class="role">Mark:</span> At first, I wasn't sure. He looks calm and well-dressed, but I didn't know what to expect.</p>
@@ -1104,6 +1218,8 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
     <div class="section-sub">tap each card · read aloud · one true sentence about you with each</div>
     <div class="card">
 
+      <img class="lesson-img block-hero" src="./assets/t3-daily-routine.jpg" alt="My Daily Routine — 7:00, 9:00, 13:00, 18:00, 22:00" loading="lazy">
+
       <h3>Group 1 · Lifestyle &amp; Daily Routine (10)</h3>
       <div class="flip-grid">
         <div class="flip-card" data-word="routine"><div class="flip-inner"><div class="flip-front">routine<div class="pos">n</div></div><div class="flip-back"><div>fixed sequence of daily actions</div><div class="ex">My routine helps me stay calm.</div></div></div></div>
@@ -1116,6 +1232,30 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
         <div class="flip-card" data-word="to go outside more"><div class="flip-inner"><div class="flip-front">to go outside more<div class="pos">v</div></div><div class="flip-back"><div>spend more time outside</div><div class="ex">This summer I've been going outside more.</div></div></div></div>
         <div class="flip-card" data-word="a clear mind"><div class="flip-inner"><div class="flip-front">a clear mind<div class="pos">collocation</div></div><div class="flip-back"><div>focused, calm mental state</div><div class="ex">A clear mind helps me make decisions.</div></div></div></div>
         <div class="flip-card" data-word="to keep a routine"><div class="flip-inner"><div class="flip-front">to keep a routine<div class="pos">v</div></div><div class="flip-back"><div>maintain regular actions</div><div class="ex">Even on holidays I try to keep a routine.</div></div></div></div>
+      </div>
+
+      <!-- DRILL after Group 1 -->
+      <div class="pattern-box" style="margin-top:16px">
+        <h4 style="margin:0 0 10px">Drill 1 · Fill with a routine word</h4>
+        <div class="bank" id="bank-t3vocab1">
+          <div class="bank-word" data-w="routine">routine</div>
+          <div class="bank-word" data-w="tiring">tiring</div>
+          <div class="bank-word" data-w="exciting">exciting</div>
+          <div class="bank-word" data-w="clear mind">clear mind</div>
+          <div class="bank-word" data-w="reduce stress">reduce stress</div>
+        </div>
+        <div class="drag-text">
+          <p>1. Long commutes are <span class="drop-gap" data-correct="tiring">⋯</span>.</p>
+          <p>2. The idea of moving to Canada is <span class="drop-gap" data-correct="exciting">⋯</span>.</p>
+          <p>3. My morning <span class="drop-gap" data-correct="routine">⋯</span> keeps me calm.</p>
+          <p>4. Walking outside helps me <span class="drop-gap" data-correct="reduce stress">⋯</span>.</p>
+          <p>5. A <span class="drop-gap" data-correct="clear mind">⋯</span> is my goal every morning.</p>
+        </div>
+        <div style="margin-top:10px"><strong>🗣 Speak:</strong> say two true sentences about your own routine using the words above.</div>
+        <div class="prompts" style="margin-top:8px">
+          <div class="prompt" data-say="My morning routine is very simple, but it helps me start the day with a clear mind.">▶ Model 1: my simple routine + clear mind</div>
+          <div class="prompt" data-say="Long meetings are tiring, but a short walk outside helps me reduce stress.">▶ Model 2: tiring meetings + walking</div>
+        </div>
       </div>
 
       <h3 style="margin-top:22px">Group 2 · Change &amp; Life-shift (10)</h3>
@@ -1132,6 +1272,35 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
         <div class="flip-card" data-word="to adapt"><div class="flip-inner"><div class="flip-front">to adapt<div class="pos">v</div></div><div class="flip-back"><div>adjust to new circumstances</div><div class="ex">I adapt quickly to new places.</div></div></div></div>
       </div>
 
+      <!-- DRILL after Group 2 -->
+      <div class="pattern-box" style="margin-top:16px">
+        <h4 style="margin:0 0 10px">Drill 2 · Match phrase ↔ meaning</h4>
+        <div class="match-cols">
+          <div class="match-col">
+            <h4>Phrase</h4>
+            <div class="match-item" data-k="turning">a turning point</div>
+            <div class="match-item" data-k="fresh">a fresh start</div>
+            <div class="match-item" data-k="unfamiliar">unfamiliar</div>
+            <div class="match-item" data-k="leave">to leave behind</div>
+            <div class="match-item" data-k="embrace">to embrace</div>
+          </div>
+          <div class="match-col">
+            <h4>Meaning</h4>
+            <div class="match-item" data-k="fresh">a new beginning, from zero</div>
+            <div class="match-item" data-k="turning">a moment when life changes</div>
+            <div class="match-item" data-k="embrace">accept warmly, welcome</div>
+            <div class="match-item" data-k="unfamiliar">not known to you</div>
+            <div class="match-item" data-k="leave">not take with you</div>
+          </div>
+        </div>
+        <div class="score-badge"><span>0</span> / 5 matched</div>
+        <div style="margin-top:10px"><strong>🗣 Speak:</strong> use 3 of these phrases to describe why you are moving to Canada.</div>
+        <div class="prompts" style="margin-top:8px">
+          <div class="prompt" data-say="The move to Canada is a real turning point for us — a fresh start after many years in one place.">▶ Model 1: turning point + fresh start</div>
+          <div class="prompt" data-say="Everything will be unfamiliar at first, but I want to embrace it and adapt quickly.">▶ Model 2: unfamiliar + embrace + adapt</div>
+        </div>
+      </div>
+
       <h3 style="margin-top:22px">Group 3 · Reflection &amp; Wrap-up (10)</h3>
       <div class="flip-grid">
         <div class="flip-card" data-word="to be ready for"><div class="flip-inner"><div class="flip-front">to be ready for<div class="pos">phrase</div></div><div class="flip-back"><div>prepared for something</div><div class="ex">I feel ready for the next chapter.</div></div></div></div>
@@ -1145,7 +1314,53 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
         <div class="flip-card" data-word="that's the difference"><div class="flip-inner"><div class="flip-front">that's the difference<div class="pos">phrase</div></div><div class="flip-back"><div>a strong closing line</div><div class="ex">A year ago I couldn't. Now I can. That's the difference.</div></div></div></div>
         <div class="flip-card" data-word="to take a step forward"><div class="flip-inner"><div class="flip-front">to take a step forward<div class="pos">v</div></div><div class="flip-back"><div>make small progress</div><div class="ex">Every lesson is a step forward.</div></div></div></div>
       </div>
-      <div class="starters"><strong>Quick drill:</strong> pick 6 cards and connect them into one paragraph about your July.</div>
+
+      <!-- DRILL after Group 3 -->
+      <div class="pattern-box" style="margin-top:16px">
+        <h4 style="margin:0 0 10px">Drill 3 · Choose the natural finish</h4>
+        <div class="mcq-row">
+          <div class="mcq-q">1. I <em>appreciate</em>…</div>
+          <div class="mcq-opts">
+            <button>a train to Moscow</button>
+            <button>a bag of oranges</button>
+            <button data-correct>every small step forward</button>
+            <button>Monday morning</button>
+          </div>
+          <button class="q-speak" style="width:auto;padding:8px 14px;border-radius:10px;margin-top:6px;font-size:13px" data-say="I appreciate every small step forward.">▶ Say the phrase</button>
+        </div>
+        <div class="mcq-row">
+          <div class="mcq-q">2. I've been <em>building up</em>…</div>
+          <div class="mcq-opts">
+            <button>my breakfast</button>
+            <button data-correct>my vocabulary and confidence in English</button>
+            <button>my train ticket</button>
+            <button>my key</button>
+          </div>
+          <button class="q-speak" style="width:auto;padding:8px 14px;border-radius:10px;margin-top:6px;font-size:13px" data-say="I've been building up my vocabulary and confidence in English.">▶ Say the phrase</button>
+        </div>
+        <div class="mcq-row">
+          <div class="mcq-q">3. «<em>From a long-term perspective</em>» is used to…</div>
+          <div class="mcq-opts">
+            <button>describe a photo</button>
+            <button data-correct>talk about the future, not just today</button>
+            <button>ask a polite question</button>
+            <button>describe a mood</button>
+          </div>
+          <button class="q-speak" style="width:auto;padding:8px 14px;border-radius:10px;margin-top:6px;font-size:13px" data-say="From a long-term perspective, learning English changes everything.">▶ Say the phrase</button>
+        </div>
+        <div class="mcq-row">
+          <div class="mcq-q">4. Strong closing line for your story?</div>
+          <div class="mcq-opts">
+            <button>Ok bye.</button>
+            <button>I don't know.</button>
+            <button data-correct>A year ago I couldn't. Now I can. That's the difference.</button>
+            <button>Whatever.</button>
+          </div>
+          <button class="q-speak" style="width:auto;padding:8px 14px;border-radius:10px;margin-top:6px;font-size:13px" data-say="A year ago I couldn't. Now I can. That's the difference.">▶ Say the closing line</button>
+        </div>
+      </div>
+
+      <div class="starters" style="margin-top:16px"><strong>Final vocab test:</strong> pick 6 cards from all 3 groups and connect them into one paragraph about your July.</div>
     </div>
   </section>
 
@@ -1154,6 +1369,7 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
     <div class="section-hdr"><div class="num">🧩</div><h2>Block B · Patterns · 5 sentence shapes for personal narrative</h2></div>
     <div class="section-sub">memorise the shape, plug in your real story</div>
     <div class="card">
+      <img class="lesson-img block-hero" src="./assets/t3-tenses-icons.jpg" alt="All English tenses + polite requests · full visual map" loading="lazy">
       <div class="pattern-box">
         <strong>1. Past habit vs now:</strong><br>
         «I <u>used to</u> [verb], but now I <u>[verb]</u>.»<br>
@@ -1182,6 +1398,7 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
     <div class="section-hdr"><div class="num">📐</div><h2>Block C · Grammar refresh · Used to · PPC · Conditional 2</h2></div>
     <div class="section-sub">three grammar mountains that make personal English come alive</div>
     <div class="card">
+      <img class="lesson-img block-hero" src="./assets/t3-grammar-drilling.jpg" alt="Grammar Drilling — I work / I don't / Do you / I worked / I will work" loading="lazy">
       <div class="pattern-box">
         <strong>USED TO</strong> · past habit that has now stopped<br>
         <strong>+</strong> I <u>used to</u> smoke.<br>
@@ -1209,6 +1426,7 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
     <div class="section-hdr"><div class="num">✍️</div><h2>Block C2 · Grammar drill · pick the correct form</h2></div>
     <div class="section-sub">word-bank → drop-gap · every form used once</div>
     <div class="card">
+      <img class="lesson-img block-hero" src="./assets/t3-five-sentence.jpg" alt="Five-Sentence Drill — one sentence per tense" loading="lazy">
       <div class="bank" id="bank-story">
         <div class="bank-word" data-w="used to">used to</div>
         <div class="bank-word" data-w="didn't use to">didn't use to</div>
@@ -1351,7 +1569,7 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
       </div>
 
       <h3 style="margin-top:22px">Story 2 · «If I moved abroad» (~25 sec)</h3>
-      <button class="q-speak" style="width:auto;padding:12px 24px;border-radius:12px" data-say="If I moved abroad tomorrow, I would take three things with me. First, a small photo album with my parents. Second, a specific brand of tea that reminds me of my grandmother's kitchen. And third — this sounds strange — an old winter scarf. It weighs almost nothing, but it holds twenty years of my life inside it.">▶ Play Story 2
+      <button class="q-speak" style="width:auto;padding:12px 24px;border-radius:12px" data-say="If I moved abroad tomorrow, I would take three things with me. First, a small photo album with my parents. Second, a specific brand of tea that reminds me of my grandmother's kitchen. And third — this sounds strange — an old winter scarf. It weighs almost nothing, but it holds twenty years of my life inside it.">▶ Play Story 2</button>
 
       <h3 style="margin-top:16px">E3 · True or False</h3>
       <div class="tf-q"><div class="tf-text">5. She would take four things with her.</div><div class="tf-btns"><button>True</button><button data-correct>False</button></div></div>
@@ -1396,6 +1614,7 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
     <div class="section-hdr"><div class="num">🌉</div><h2>Block G · Bridge to Canada · final speaking</h2></div>
     <div class="section-sub">two prompts · full paragraph · 60 seconds each</div>
     <div class="card">
+      <img class="lesson-img block-hero" src="./assets/t3-my-story-memoir.jpg" alt="My Story — memoir path from childhood to Toronto" loading="lazy">
       <div class="prompts">
         <div class="prompt" data-say="One thing about my English that I am now ready for in Canada is…">1. <strong>«One thing about my English that I'm ready for in Canada is…»</strong></div>
         <div class="prompt" data-say="One thing I still need to work on before I feel truly comfortable in Canada is…">2. <strong>«One thing I still need to work on before I feel truly comfortable is…»</strong></div>
@@ -1607,6 +1826,21 @@ document.querySelectorAll('.match-cols').forEach(cols => {
   });
 });
 </script>
+
+<!-- ══════════ LAB shared assets · scripts only, no shared CSS (own palette + fonts kept) ══════════ -->
+<script src="../../assets/lab-persist.js?v=3" defer></script>
+<script src="../../assets/lab-send-pill.js?v=4" defer></script>
+<script src="../../assets/lab-total.js?v=4" defer></script>
+<script src="../../assets/lab-mic-wpm.js?v=1" defer></script>
+<script src="../../assets/lab-ai-feedback.js?v=6" defer></script>
+<script src="../../assets/lab-sync.js?v=21" defer></script>
+<script src="../../assets/lab-pilot.js?v=4" defer></script>
+<script src="../../assets/lab-tabs.js?v=12" defer></script>
+<script src="../../assets/lab-homework.js?v=48" defer></script>
+<script src="../../assets/lab-telemost.js?v=1" defer></script>
+<script src="../../assets/lab-vocab-builder.js?v=53" defer></script>
+<script src="../../assets/lab-coach-persist.js?v=1" defer></script>
+<script src="../../assets/lab-clean-bottom-dock.js?v=1" defer></script>
 
 </body>
 </html>
