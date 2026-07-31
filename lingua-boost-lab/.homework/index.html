@@ -2304,19 +2304,10 @@ main {
   window.addEventListener('offline', function(){ setSync('offline','OFFLINE'); });
   window.addEventListener('storage', function(e){ if (e.key === lsKey) { state.items = loadLocal(); scheduleRender(); } });
 
-  // Prompt name on first interaction if student and not named
+  // Do not block the homework page with a native prompt on load.
+  // The student name is still required and requested in submitHomework().
   if (!asTeacher && !studentSlug) {
-    setTimeout(function(){
-      var n = askName();
-      if (n) {
-        studentName = n; studentSlug = slugify(n);
-        roomId = 'student-' + studentSlug;
-        stateSection = STATE_PREFIX + roomId;
-        metaWho.textContent = '🎒 ' + n;
-        pullState();
-        subscribeRealtime();
-      }
-    }, 400);
+    setSync('offline', 'NAME ON SUBMIT');
   }
 })();
 </script>

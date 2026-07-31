@@ -72,8 +72,18 @@
     // NB: `pin` is included in the session so the browser can derive the
     // AES-GCM key to open encrypted contracts from documents/vault-contracts/.
     // localStorage is per-origin and cleared by clearSession() on logout.
+    //
+    // SECURITY 2026-07-31: data.js хранит SHA256(pin) в `pin_hash`, а не
+    // raw PIN. Хешируем ввод пользователя и сравниваем. Raw PIN остаётся
+    // только в session браузера того кто ввёл — нужен для PBKDF2 vault-decrypt.
+    // Fallback на legacy `s.pin === trimmed` оставлен для миграции — уберём
+    // после подтверждения что все data.js × 3 mirror'а hashed.
     if (/^\d{4}$/.test(trimmed)) {
-      const student = data.students.find(s => s.pin === trimmed);
+      const inputHash = await sha256(trimmed);
+      const student = data.students.find(s =>
+        (s.pin_hash && s.pin_hash === inputHash) ||
+        (s.pin && s.pin === trimmed)
+      );
       if (student) {
         return { role: "family", studentId: student.id, name: student.name, pin: trimmed };
       }
