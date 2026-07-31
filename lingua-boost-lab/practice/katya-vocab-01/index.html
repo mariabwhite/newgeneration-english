@@ -71,6 +71,62 @@ h1{font-family:var(--display);font-size:clamp(1.7rem,3.5vw,2.6rem);font-weight:8
 .score-line{text-align:center;font-family:var(--display);font-weight:800;color:var(--accent2);font-size:1.05rem;margin:12px 0 0;min-height:24px}
 footer{text-align:center;color:var(--muted);font-size:.78rem;padding:24px 0}
 @media(max-width:480px){.drill-input{width:140px;margin-left:0;margin-top:6px;display:block}}
+
+/* === PROGRESS BAR === */
+.prog-wrap{position:sticky;top:0;background:linear-gradient(180deg,var(--bg) 0%,rgba(255,246,238,.95) 100%);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:10px 14px;margin:-24px calc(-1 * clamp(16px,3vw,32px)) 18px;border-bottom:1px solid var(--line);z-index:50}
+.prog-row{display:flex;align-items:center;gap:10px;max-width:1080px;margin:0 auto}
+.prog-label{font-family:var(--display);font-weight:800;font-size:.82rem;color:var(--accent2);flex-shrink:0}
+.prog-track{flex:1;height:10px;background:#F2E1CB;border-radius:5px;overflow:hidden;box-shadow:inset 0 1px 2px rgba(0,0,0,.06)}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0%;transition:width .5s cubic-bezier(.4,.2,.2,1);border-radius:5px;box-shadow:0 0 8px rgba(232,139,79,.5)}
+.prog-count{font-family:var(--display);font-weight:900;color:var(--accent2);font-size:.9rem;min-width:52px;text-align:right}
+.prog-achievements{display:flex;gap:6px;justify-content:center;margin-top:8px;flex-wrap:wrap}
+.achv{background:#F2E1CB;color:var(--muted);border:1px solid var(--line);border-radius:20px;padding:3px 10px;font-family:var(--body);font-size:.7rem;font-weight:700;letter-spacing:.02em;transition:.3s}
+.achv.unlocked{background:var(--accent);color:#fff;border-color:var(--accent2);transform:scale(1.05);box-shadow:0 2px 6px rgba(232,139,79,.4)}
+
+/* === DRAG-DROP GAP FILL === */
+.bank{display:flex;flex-wrap:wrap;gap:8px;padding:14px;background:linear-gradient(135deg,#FFF6EE,#FFE7D0);border:2px dashed var(--accent);border-radius:12px;margin-bottom:14px}
+.bank-word{background:#fff;border:2px solid var(--accent);color:var(--accent2);padding:6px 12px;border-radius:8px;font-family:var(--display);font-weight:800;font-size:.88rem;cursor:pointer;transition:.15s;user-select:none}
+.bank-word:hover{background:var(--accent);color:#fff;transform:translateY(-2px)}
+.bank-word.selected{background:var(--accent2);color:#fff;border-color:var(--accent2);box-shadow:0 4px 12px rgba(185,79,31,.35);transform:scale(1.05)}
+.bank-word.used{opacity:.3;cursor:not-allowed;pointer-events:none;text-decoration:line-through}
+.gap-text p{font-size:.98rem;line-height:1.9;margin:10px 0;padding:8px 12px;background:#FFF6EE;border-radius:8px;border-left:3px solid var(--accent3)}
+.drop-gap{display:inline-block;min-width:100px;padding:2px 12px;background:#fff;border:2px dashed var(--accent);border-radius:6px;color:var(--muted);font-family:var(--display);font-weight:700;text-align:center;cursor:pointer;transition:.2s}
+.drop-gap:hover{background:var(--accent3);color:var(--text)}
+.drop-gap.filled{background:#E8F5E9;border:2px solid var(--ok);color:var(--ok);cursor:default}
+.drop-gap.wrong-flash{background:#FFEBEE!important;border-color:var(--miss)!important;color:var(--miss)!important;animation:shake .35s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+
+/* === MEMORY MATCH === */
+.mm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+@media(max-width:600px){.mm-grid{grid-template-columns:repeat(3,1fr);gap:6px}}
+.mm-card{aspect-ratio:1;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:10px;display:grid;place-items:center;cursor:pointer;color:#fff;font-family:var(--display);font-weight:800;font-size:.85rem;text-align:center;padding:6px;position:relative;transition:transform .35s,background .3s;user-select:none;box-shadow:0 3px 8px rgba(185,79,31,.25)}
+.mm-card::after{content:"?";font-size:1.8rem;color:rgba(255,255,255,.6)}
+.mm-card .mm-txt{display:none;line-height:1.15;word-break:break-word;hyphens:auto}
+.mm-card.open,.mm-card.matched{background:#fff;color:var(--accent2);border:2px solid var(--accent2)}
+.mm-card.open::after,.mm-card.matched::after{content:""}
+.mm-card.open .mm-txt,.mm-card.matched .mm-txt{display:block}
+.mm-card.matched{background:#E8F5E9;color:var(--ok);border-color:var(--ok);cursor:default;opacity:.9}
+.mm-card.wrong{animation:shake .4s}
+.mm-status{text-align:center;font-family:var(--display);font-weight:800;color:var(--accent2);margin-top:12px}
+
+/* === PERSONAL Q FLIP === */
+.pq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:12px}
+.pq-card{background:linear-gradient(135deg,#FFF6EE,#F4C29A);border:2px solid var(--accent);border-radius:14px;padding:16px;min-height:120px;cursor:pointer;position:relative;transition:transform .3s;box-shadow:0 3px 10px rgba(185,79,31,.15)}
+.pq-card:hover{transform:translateY(-3px);box-shadow:0 6px 16px rgba(185,79,31,.25)}
+.pq-word{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--accent2);margin-bottom:4px}
+.pq-pos{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:700;margin-bottom:8px}
+.pq-question{font-size:.9rem;color:var(--text);line-height:1.4;display:none}
+.pq-card.revealed .pq-question{display:block}
+.pq-card.revealed .pq-word{color:var(--accent)}
+.pq-hint{font-size:.72rem;color:var(--muted);font-style:italic;margin-top:8px}
+.pq-card:not(.revealed) .pq-hint::before{content:"👉 tap to reveal question"}
+.pq-card.revealed .pq-hint::before{content:"💬 say your answer aloud"}
+
+/* === CONFETTI (100%) === */
+.confetti{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;display:none}
+.confetti.active{display:block}
+.conf-piece{position:absolute;width:10px;height:14px;background:var(--accent);top:-20px;animation:fall 3s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
 </style>
 </head>
 <body>
@@ -79,8 +135,24 @@ footer{text-align:center;color:var(--muted);font-size:.78rem;padding:24px 0}
 <header class="hero">
   <div class="eyebrow">Vocab Booster · A2 · Katya</div>
   <h1>All the words from<br>Vibe Check (Lesson 1)</h1>
-  <p class="hero-lead">Feelings · Aesthetic slang · «At first» constructions · plus one new word — <strong>definite</strong>. Tap a card to flip · 🔊 to hear it · try the typing drill at the bottom.</p>
+  <p class="hero-lead">Feelings · Aesthetic slang · <em>first</em> vs <em>at first</em> · «At first» constructions · plus one new word — <strong>definite</strong>. Vertushki, Duolingo-style quick-check, memory match, typing drill. 🔊 to hear · flip · match · type.</p>
 </header>
+
+<div class="prog-wrap">
+  <div class="prog-row">
+    <span class="prog-label">Progress</span>
+    <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
+    <span class="prog-count" id="prog-count">0 / 100</span>
+  </div>
+  <div class="prog-achievements">
+    <span class="achv" data-achv="flip5">🎴 5 cards flipped</span>
+    <span class="achv" data-achv="flip20">🎴 20 cards</span>
+    <span class="achv" data-achv="duo5">🎯 5 XP quiz</span>
+    <span class="achv" data-achv="duo80">🔥 80 XP</span>
+    <span class="achv" data-achv="mm">🎴 memory match done</span>
+    <span class="achv" data-achv="drill80">✍️ drill 80%</span>
+  </div>
+</div>
 
 <!-- SECTION 1 · FEELINGS -->
 <section class="section">
@@ -96,16 +168,42 @@ footer{text-align:center;color:var(--muted);font-size:.78rem;padding:24px 0}
   <div class="flip-grid" id="grid-slang"></div>
 </section>
 
-<!-- SECTION 3 · AT FIRST CONSTRUCTIONS -->
+<!-- SECTION 3 · FIRST vs AT FIRST · сравнение -->
 <section class="section">
-  <div class="section-hdr"><div class="num">3</div><h2>«At first» &amp; sequence markers — 10 constructions</h2></div>
+  <div class="section-hdr"><div class="num">3</div><h2><em style="color:var(--accent2)">first</em> &nbsp;vs&nbsp; <em style="color:var(--accent2)">at first</em> — разница</h2></div>
+  <div class="section-sub">tap каждую карточку · послушай пример · почувствуй разницу</div>
+  <div class="flip-grid" id="grid-firstvs"></div>
+
+  <div style="background:linear-gradient(135deg,#FFF6EE,#F4C29A);border:2px dashed var(--accent2);border-radius:14px;padding:16px 20px;margin-top:16px">
+    <h3 style="margin:0 0 10px;color:var(--accent2);font-family:var(--display)">🎯 Quick-check · Duolingo-style</h3>
+    <p style="margin:0 0 12px;font-size:.88rem;color:var(--muted)">tap the right option · моментальная проверка · +10 XP за каждый правильный</p>
+    <div id="duo-quiz"></div>
+    <div style="text-align:center;margin-top:12px">
+      <span id="duo-xp" style="font-family:var(--display);font-weight:800;color:var(--accent2);font-size:1rem">XP: 0</span>
+      <span id="duo-streak" style="margin-left:14px;font-family:var(--display);font-weight:800;color:var(--accent);font-size:1rem">🔥 streak: 0</span>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4 · AT FIRST CONSTRUCTIONS -->
+<section class="section">
+  <div class="section-hdr"><div class="num">4</div><h2>«At first» &amp; sequence markers — 10 вертушек</h2></div>
   <div class="section-sub">tap the card · 🔊 hear the phrase · flip for meaning + example</div>
   <div class="flip-grid" id="grid-atfirst"></div>
 </section>
 
-<!-- SECTION 4 · NEW WORD · DEFINITE -->
+<!-- SECTION 4b · MEMORY MATCH -->
 <section class="section">
-  <div class="section-hdr"><div class="num">4</div><h2>New word · <em style="color:var(--accent2)">definite</em></h2></div>
+  <div class="section-hdr"><div class="num">🎴</div><h2>Memory match — RU ↔ EN</h2></div>
+  <div class="section-sub">tap two cards · match the pair · zero-time challenge</div>
+  <div class="mm-grid" id="mm-grid"></div>
+  <div class="mm-status" id="mm-status">tap any card to start · 0 / 8 pairs</div>
+  <div class="btn-row"><button id="mm-reset" class="reset-btn">🔄 New game</button></div>
+</section>
+
+<!-- SECTION 5 · NEW WORD · DEFINITE -->
+<section class="section">
+  <div class="section-hdr"><div class="num">5</div><h2>New word · <em style="color:var(--accent2)">definite</em></h2></div>
   <div class="section-sub">the word you heard today · two meanings you should know</div>
   <div class="definite-card">
     <h3>definite</h3>
@@ -125,9 +223,9 @@ footer{text-align:center;color:var(--muted);font-size:.78rem;padding:24px 0}
   </div>
 </section>
 
-<!-- SECTION 5 · TYPING DRILL RU→EN -->
+<!-- SECTION 6 · TYPING DRILL RU→EN -->
 <section class="section">
-  <div class="section-hdr"><div class="num">5</div><h2>Typing drill · RU → EN (20 items)</h2></div>
+  <div class="section-hdr"><div class="num">6</div><h2>Typing drill · RU → EN (20 items)</h2></div>
   <div class="section-sub">type the English word · both UK/US spellings accepted · «Show» reveals answer</div>
   <div id="drill-list"></div>
   <div class="btn-row">
@@ -219,13 +317,177 @@ function makeCard(v){
   </div>`;
 }
 
+const firstvs = [
+  {w:'first',pos:'adv/adj',ipa:'/fɜːst/',ru:'сначала / первый (в списке)',ex:'First, I ate breakfast. Then I went to school.'},
+  {w:'at first',pos:'phrase',ipa:'/æt ˈfɜːst/',ru:'сначала (потом изменилось!)',ex:'At first, I hated Moscow. Now I love it.'},
+  {w:'the first time',pos:'phrase',ipa:'/ðə fɜːst taɪm/',ru:'в первый раз (когда я…)',ex:'The first time I took the metro alone, I got lost.'},
+  {w:'first of all',pos:'phrase',ipa:'/fɜːst əv ɔːl/',ru:'прежде всего, во-первых',ex:'First of all, thanks for coming!'},
+  {w:'at last',pos:'phrase',ipa:'/æt lɑːst/',ru:'наконец-то (после долгого ожидания)',ex:'At last, summer is here!'},
+  {w:'finally',pos:'adv',ipa:'/ˈfaɪnəli/',ru:'наконец, в конце концов',ex:'Finally, we found our hotel.'}
+];
+
 document.getElementById('grid-feelings').innerHTML = feelings.map(makeCard).join('');
 document.getElementById('grid-slang').innerHTML = slang.map(makeCard).join('');
+document.getElementById('grid-firstvs').innerHTML = firstvs.map(makeCard).join('');
 document.getElementById('grid-atfirst').innerHTML = atfirst.map(makeCard).join('');
 
-document.querySelectorAll('.flip-card').forEach(c => {
-  c.addEventListener('click', () => c.classList.toggle('flipped'));
+// Progress + achievements
+const state = { flipped:new Set(), duoXP:0, mmDone:false, drillPct:0 };
+function updateProgress(){
+  const flipTotal = feelings.length + slang.length + firstvs.length + atfirst.length; // 36
+  const flipScore = Math.min(state.flipped.size, flipTotal);
+  const total = flipTotal + 100 /* duo xp cap */ + 10 /* mm */ + 20 /* drill */;
+  const got = flipScore + Math.min(state.duoXP, 100) + (state.mmDone ? 10 : 0) + Math.round(state.drillPct * 20);
+  const pct = Math.round((got / total) * 100);
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-count').textContent = pct + ' / 100';
+  document.querySelector('[data-achv="flip5"]').classList.toggle('unlocked', state.flipped.size >= 5);
+  document.querySelector('[data-achv="flip20"]').classList.toggle('unlocked', state.flipped.size >= 20);
+  document.querySelector('[data-achv="duo5"]').classList.toggle('unlocked', state.duoXP >= 50);
+  document.querySelector('[data-achv="duo80"]').classList.toggle('unlocked', state.duoXP >= 80);
+  document.querySelector('[data-achv="mm"]').classList.toggle('unlocked', state.mmDone);
+  document.querySelector('[data-achv="drill80"]').classList.toggle('unlocked', state.drillPct >= 0.8);
+  if(pct >= 100) confettiFire();
+}
+let confettiFired = false;
+function confettiFire(){
+  if(confettiFired) return; confettiFired = true;
+  const wrap = document.createElement('div'); wrap.className = 'confetti active';
+  const colors = ['#E88B4F','#B94F1F','#F4C29A','#FFF6EE','#4caf50'];
+  for(let i=0;i<80;i++){
+    const p = document.createElement('div'); p.className = 'conf-piece';
+    p.style.left = Math.random()*100 + 'vw';
+    p.style.background = colors[i%colors.length];
+    p.style.animationDelay = Math.random()*1.5 + 's';
+    p.style.animationDuration = (2 + Math.random()*2) + 's';
+    wrap.appendChild(p);
+  }
+  document.body.appendChild(wrap);
+  setTimeout(() => wrap.remove(), 5000);
+}
+
+document.querySelectorAll('.flip-card').forEach((c, idx) => {
+  c.addEventListener('click', () => {
+    c.classList.toggle('flipped');
+    if(c.classList.contains('flipped')){
+      state.flipped.add(c.querySelector('.w').textContent);
+      updateProgress();
+    }
+  });
 });
+
+/* === DUOLINGO-STYLE QUICK QUIZ · first vs at first === */
+const duoQs = [
+  {q:'«___, I hated Moscow. Now I love it.»', options:['At first','First'], correct:0, hint:'ситуация изменилась'},
+  {q:'«___, I ate breakfast. Then I went to school.»', options:['At first','First'], correct:1, hint:'последовательность действий'},
+  {q:'«___ I took the metro alone, I got lost.»', options:['At first','The first time'], correct:1, hint:'конкретный первый раз'},
+  {q:'«___, summer is here!» (после долгого ожидания)', options:['At first','At last'], correct:1, hint:'наконец-то'},
+  {q:'«___ of all, thanks for coming!»', options:['First','At first'], correct:0, hint:'прежде всего (не «сначала было X, потом Y»)'},
+  {q:'«___, we found our hotel.» (после долгих поисков)', options:['First','Finally'], correct:1, hint:'в конце концов'},
+  {q:'«___, I thought English was hard, but it got easier.»', options:['First','At first'], correct:1, hint:'но потом изменилось'},
+  {q:'«She won ___ prize in the competition.»', options:['at first','first'], correct:1, hint:'first = первый (о призе)'}
+];
+const duoWrap = document.getElementById('duo-quiz');
+duoQs.forEach((dq, i) => {
+  const row = document.createElement('div');
+  row.style.cssText = 'background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0';
+  row.innerHTML = `
+    <div style="font-size:.95rem;margin-bottom:8px"><strong style="color:var(--accent2)">${i+1}.</strong> ${dq.q}</div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      ${dq.options.map((o,j) => `<button class="duo-btn" data-idx="${j}" data-q="${i}" style="background:#fff;border:2px solid var(--accent);color:var(--accent2);padding:8px 16px;border-radius:8px;font-family:var(--display);font-weight:800;font-size:.9rem;cursor:pointer;transition:.15s">${o}</button>`).join('')}
+    </div>
+    <div class="duo-fb" style="font-size:.82rem;color:var(--muted);margin-top:6px;min-height:16px;font-style:italic"></div>
+  `;
+  duoWrap.appendChild(row);
+});
+let duoStreak = 0;
+document.querySelectorAll('.duo-btn').forEach(btn => {
+  btn.onclick = () => {
+    const qIdx = +btn.dataset.q;
+    const chosen = +btn.dataset.idx;
+    const dq = duoQs[qIdx];
+    const row = btn.closest('div').parentElement;
+    if(row.dataset.done) return;
+    row.dataset.done = '1';
+    const fb = row.querySelector('.duo-fb');
+    row.querySelectorAll('.duo-btn').forEach(b => b.disabled = true);
+    if(chosen === dq.correct){
+      btn.style.background = 'var(--ok)'; btn.style.borderColor = 'var(--ok)'; btn.style.color = '#fff';
+      state.duoXP += 10; duoStreak++;
+      fb.textContent = '✅ +10 XP · ' + dq.hint;
+      fb.style.color = 'var(--ok)';
+      say(dq.options[chosen]);
+    } else {
+      btn.style.background = '#FFEBEE'; btn.style.borderColor = 'var(--miss)'; btn.style.color = 'var(--miss)';
+      const correctBtn = row.querySelectorAll('.duo-btn')[dq.correct];
+      correctBtn.style.background = 'var(--ok)'; correctBtn.style.borderColor = 'var(--ok)'; correctBtn.style.color = '#fff';
+      duoStreak = 0;
+      fb.textContent = '❌ верный вариант: «' + dq.options[dq.correct] + '» · ' + dq.hint;
+      fb.style.color = 'var(--miss)';
+    }
+    document.getElementById('duo-xp').textContent = 'XP: ' + state.duoXP;
+    document.getElementById('duo-streak').textContent = '🔥 streak: ' + duoStreak;
+    updateProgress();
+  };
+});
+
+/* === MEMORY MATCH · RU ↔ EN pairs === */
+const mmPairs = [
+  {ru:'сначала (потом изм.)',en:'at first'},
+  {ru:'наконец-то',en:'at last'},
+  {ru:'настроение',en:'vibe'},
+  {ru:'случайный',en:'random'},
+  {ru:'усталый',en:'tired'},
+  {ru:'благодарный',en:'grateful'},
+  {ru:'оно того стоит',en:'worth it'},
+  {ru:'точно',en:'definitely'}
+];
+function shuffle(a){ return a.slice().sort(() => Math.random() - 0.5); }
+function initMemory(){
+  const cards = [];
+  mmPairs.forEach((p, i) => {
+    cards.push({side:'ru', text:p.ru, pair:i});
+    cards.push({side:'en', text:p.en, pair:i});
+  });
+  const shuffled = shuffle(cards);
+  const grid = document.getElementById('mm-grid');
+  grid.innerHTML = shuffled.map((c, idx) =>
+    `<div class="mm-card" data-idx="${idx}" data-pair="${c.pair}" data-side="${c.side}"><span class="mm-txt">${c.text}</span></div>`
+  ).join('');
+  let open = null, matched = 0, busy = false;
+  const status = document.getElementById('mm-status');
+  status.textContent = `tap any card to start · 0 / ${mmPairs.length} pairs`;
+  grid.querySelectorAll('.mm-card').forEach(card => {
+    card.onclick = () => {
+      if(busy || card.classList.contains('open') || card.classList.contains('matched')) return;
+      card.classList.add('open');
+      if(!open){ open = card; return; }
+      busy = true;
+      if(open.dataset.pair === card.dataset.pair && open.dataset.side !== card.dataset.side){
+        setTimeout(() => {
+          open.classList.add('matched'); card.classList.add('matched');
+          open.classList.remove('open'); card.classList.remove('open');
+          open = null; busy = false; matched++;
+          status.textContent = `✨ ${matched} / ${mmPairs.length} pairs`;
+          say(card.dataset.side === 'en' ? card.querySelector('.mm-txt').textContent : open?.querySelector('.mm-txt').textContent || card.querySelector('.mm-txt').textContent);
+          if(matched === mmPairs.length){
+            status.textContent = `🎉 all ${mmPairs.length} pairs matched! +10 to progress`;
+            state.mmDone = true; updateProgress();
+          }
+        }, 400);
+      } else {
+        card.classList.add('wrong');
+        setTimeout(() => {
+          open.classList.remove('open'); card.classList.remove('open','wrong');
+          open = null; busy = false;
+        }, 700);
+      }
+    };
+  });
+}
+initMemory();
+document.getElementById('mm-reset').onclick = () => { confettiFired = false; state.mmDone = false; initMemory(); updateProgress(); };
+updateProgress();
 
 /* Typing drill · 20 items */
 const drills = [
@@ -276,6 +538,8 @@ document.getElementById('drill-check').onclick = () => {
     else { inp.classList.remove('right'); inp.classList.add('wrong'); }
   });
   document.getElementById('drill-score').textContent = `${right} / ${drills.length} correct`;
+  state.drillPct = right / drills.length;
+  updateProgress();
 };
 document.getElementById('drill-show').onclick = () => {
   document.querySelectorAll('.drill-input').forEach(inp => {
