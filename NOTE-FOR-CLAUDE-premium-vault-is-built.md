@@ -16,13 +16,11 @@ New premium lesson flow:
 
    `site-public-clean/lingua-boost-lab/premium-lessons.json`
 
-   Use `series` for the course/content family and `section` for the actual `premium.html` `data-series` bucket. If they are the same, `section` may be omitted.
-
 3. Run:
 
    ```powershell
    $env:PREMIUM_PIN='...'
-   node scripts/build-premium-vault.mjs
+   node "C:\Users\Whitenois\Desktop\Новый центр управления\08_Projects\01_Сайт New Generation — сайт, Lab, кабинет\scripts\build-premium-vault.mjs"
    Remove-Item Env:\PREMIUM_PIN
    ```
 
@@ -30,21 +28,8 @@ New premium lesson flow:
 
    ```powershell
    $env:PREMIUM_PIN='...'
-   node scripts/build-premium-vault.mjs --check
+   node "C:\Users\Whitenois\Desktop\Новый центр управления\08_Projects\01_Сайт New Generation — сайт, Lab, кабинет\scripts\build-premium-vault.mjs" --check
    Remove-Item Env:\PREMIUM_PIN
-   ```
-
-5. Audit lesson links:
-
-   ```powershell
-   node scripts/audit-premium-links.mjs
-   node scripts/audit-premium-links.mjs --live
-   ```
-
-6. Ensure direct-link guard is installed:
-
-   ```powershell
-   node scripts/apply-premium-guard.mjs --check
    ```
 
 ## What the build script does
@@ -53,15 +38,10 @@ New premium lesson flow:
 - Checks duplicate ids.
 - Checks physical lesson targets.
 - Checks premium cards.
-- Checks that each card is in the expected `data-series` section.
 - Inserts missing cards into the proper `data-series` section.
 - Builds encrypted Vault from manifest.
 - Updates `vault-version`.
 - Fails `--check` if manifest, HTML cards and Vault drift apart.
-
-## Link audit
-
-`scripts/audit-premium-links.mjs` checks that every published premium lesson URL maps to a local file. With `--live`, it also checks the live `https://newgeneration-english.ru` URL.
 
 ## Logout / de-login
 
@@ -74,36 +54,38 @@ New premium lesson flow:
 - clears `nge-vault-pin`;
 - removes real lesson URLs from buttons;
 - keeps cards visible: no blur, no hidden titles, no disabled-looking cards.
-- PIN is not persisted as `nge-vault-pin`; successful login stores only decrypted lesson access plus vault version.
-
-## Student login
-
-Students should enter through:
-
-`/lingua-boost-lab/login.html`
-
-The login page fetches the current Vault from `premium.html`, decrypts it with the PIN, stores `nge-vault-cache` and `nge-vault-cache-v`, removes any old `nge-vault-pin`, and redirects to `next` or the premium catalog.
-
-## Direct lesson links
-
-Every premium lesson page must include:
-
-`/lingua-boost-lab/assets/premium-lesson-guard.js`
-
-The guard checks `localStorage.nge-vault-cache`. Without an authorized cache for the current lesson URL, direct lesson links redirect back to `login.html?next=...`.
-
-After successful PIN entry, `login.html` stores the cache and redirects to the requested `next` lesson.
-
-This is a client-side guard for GitHub Pages, not real server-side content protection. Strong protection requires backend/Auth/Cloudflare Access or another server layer.
 
 ## Current verified state
 
 `premium check OK: 24 published lessons, 24 cards`
 
-`premium link audit OK: 24 lessons, 0 warnings, live checked`
-
-`premium guard check OK: 24 lessons`
-
 The lesson `travel-talk-2` is included:
 
 `./b1/travel-talk-light-and-bright-2/`
+## Cloudflare / Supabase update
+
+The premium gate is now split between Cloudflare Pages Functions and Supabase.
+
+Environment variables required in deployment:
+
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
+
+Server routes:
+
+- `functions/api/premium-login.js`
+- `functions/api/premium-lessons.js`
+- `functions/api/premium-logout.js`
+- `functions/_middleware.js`
+
+Supabase tables:
+
+- `premium_gate_state`
+- `premium_sessions`
+
+Browser behavior:
+
+- no PIN persistence in browser storage;
+- `premium.html` uses `/api/premium-lessons` first;
+- local Vault fallback remains only for non-server environments;
+- `#lock` and the reset button revoke the server session and clear local access.

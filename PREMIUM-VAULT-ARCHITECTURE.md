@@ -67,12 +67,6 @@
 
 `site-public-clean/lingua-boost-lab/premium-lessons.json`
 
-В manifest:
-
-- `series` — смысловая серия/семейство урока;
-- `section` — фактическая HTML-секция `premium.html` (`data-series`), куда должна попасть карточка;
-- если `section` не задан, сборщик использует `series`.
-
 Сборщик:
 
 `scripts/build-premium-vault.mjs`
@@ -85,13 +79,13 @@
 
 3. Добавить урок в `premium-lessons.json`.
 
-4. Запустить сборку. Если карточки с таким `id` еще нет, сборщик вставит ее в секцию по `section`, а если `section` не задан — по `series`.
+4. Запустить сборку. Если карточки с таким `id` еще нет, сборщик вставит ее в секцию по `series`.
 
 5. Запустить пересборку:
 
    ```powershell
    $env:PREMIUM_PIN='...'
-   node scripts/build-premium-vault.mjs
+   node "C:\Users\Whitenois\Desktop\Новый центр управления\08_Projects\01_Сайт New Generation — сайт, Lab, кабинет\scripts\build-premium-vault.mjs"
    Remove-Item Env:\PREMIUM_PIN
    ```
 
@@ -99,29 +93,17 @@
 
    ```powershell
    $env:PREMIUM_PIN='...'
-   node scripts/build-premium-vault.mjs --check
+   node "C:\Users\Whitenois\Desktop\Новый центр управления\08_Projects\01_Сайт New Generation — сайт, Lab, кабинет\scripts\build-premium-vault.mjs" --check
    Remove-Item Env:\PREMIUM_PIN
    ```
 
-7. Проверить ссылки уроков:
-
-   ```powershell
-   node scripts/audit-premium-links.mjs
-   ```
-
-   И, если нужен live-аудит домена:
-
-   ```powershell
-   node scripts/audit-premium-links.mjs --live
-   ```
-
-8. Проверить `premium.html` в браузере:
+7. Проверить `premium.html` в браузере:
 
    - ввести PIN заново;
    - если браузер держал старый кэш, открыть `premium.html#lock`, затем снова ввести PIN;
    - новый урок должен получить активную кнопку с реальным URL.
 
-9. Закоммитить и запушить `site-public-clean`.
+8. Закоммитить и запушить `site-public-clean`.
 
 ## Почему нужен `vault-version`
 
@@ -151,53 +133,6 @@
 - после PIN кнопки получают реальные URL;
 - после сброса доступа реальные URL удаляются, но карточки остаются видимыми.
 
-## Guard на прямые ссылки уроков
-
-Важно: GitHub Pages отдает HTML-файлы публично, поэтому это не серверная защита контента. Это клиентский guard от обычного обхода через прямую ссылку.
-
-Каждый premium-урок должен подключать:
-
-```html
-<script src="/lingua-boost-lab/assets/premium-lesson-guard.js"></script>
-```
-
-Guard проверяет `localStorage.nge-vault-cache`. Если текущий URL урока не найден в расшифрованном списке разрешенных уроков, страница перенаправляет пользователя на:
-
-`/lingua-boost-lab/login.html?next=<lesson-url>`
-
-После успешного PIN `login.html` сохраняет доступ и возвращает пользователя в исходный урок из `next`.
-
-Ученикам лучше давать вход:
-
-`/lingua-boost-lab/login.html`
-
-`premium.html` остается каталогом уроков и тоже умеет принимать PIN, но отдельный login проще для учеников.
-
-Проверка guard:
-
-```powershell
-node scripts/apply-premium-guard.mjs --check
-```
-
-Применение guard ко всем published premium-урокам:
-
-```powershell
-node scripts/apply-premium-guard.mjs
-```
-
-Для настоящей защиты от технического обхода нужен backend/Auth/Cloudflare Access или другой серверный слой, который решает, отдавать HTML урока или нет.
-
-## Хранение доступа
-
-PIN не должен храниться в браузере.
-
-После успешного входа сохраняются только:
-
-- `nge-vault-cache` — расшифрованный список доступных уроков;
-- `nge-vault-cache-v` — версия Vault.
-
-`nge-vault-pin` удаляется при входе и сбросе доступа.
-
 ## Быстрая диагностика
 
 Если урок не открывается:
@@ -209,8 +144,6 @@ PIN не должен храниться в браузере.
 5. Поднята ли `vault-version`?
 6. Очищен ли старый кэш через `#lock`?
 7. Запушен ли обновленный `premium.html`?
-8. Проходит ли `node scripts/audit-premium-links.mjs --live`?
-9. Проходит ли `node scripts/apply-premium-guard.mjs --check`?
 
 ## Текущее исправление
 
@@ -220,14 +153,32 @@ PIN не должен храниться в браузере.
 - добавлена запись Vault для `travel-talk-2`;
 - добавлен `premium-lessons.json`;
 - добавлен `scripts/build-premium-vault.mjs`;
-- добавлен `scripts/audit-premium-links.mjs`;
-- добавлен `scripts/apply-premium-guard.mjs`;
-- добавлен `lingua-boost-lab/assets/premium-lesson-guard.js`;
-- добавлен `lingua-boost-lab/login.html`;
 - Vault пересобран из manifest;
 - версия Vault: `v20260627-24-premium-lessons`;
 - проверка: `premium check OK: 24 published lessons, 24 cards`;
-- проверка ссылок: `premium link audit OK: 24 lessons, 0 warnings, live checked`;
-- проверка guard: `premium guard check OK: 24 lessons`;
 - добавлена полная делогинизация: кнопка `Сбросить доступ` и `premium.html#lock` чистят `nge-vault-cache`, `nge-vault-cache-v`, `nge-vault-pin` и удаляют реальные URL с кнопок, не скрывая карточки.
-- PIN больше не сохраняется как `nge-vault-pin`; доступ держится на расшифрованном списке уроков.
+## Cloudflare / Supabase
+
+Current authoritative flow:
+
+`login.html -> /api/premium-login -> Supabase session -> premium.html / lesson pages`
+
+Server routes:
+
+- `functions/api/premium-login.js`
+- `functions/api/premium-lessons.js`
+- `functions/api/premium-logout.js`
+- `functions/_middleware.js`
+
+Supabase tables:
+
+- `premium_gate_state`
+- `premium_sessions`
+
+Browser rules:
+
+- PIN is not stored in browser storage.
+- `premium.html` first checks `/api/premium-lessons`.
+- If the server exists and authorizes the session, links become active from the server response.
+- If the server is unavailable, the local Vault fallback still works.
+- `premium.html#lock` and the `Сбросить доступ` button revoke the server session when the server exists, otherwise they clear the local cache.

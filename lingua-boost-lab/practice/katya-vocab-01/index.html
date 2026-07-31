@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Vocab · Vibe Check + definite · Katya · A2 · NG English Lab</title>
-<meta name="description" content="Vocab review for Katya Zhizhina — all words from Lesson 1 Vibe Check + new word 'definite'. Flip-cards · TTS · RU→EN typing drill.">
+<title>Vocab · Vibe Check + Azkaban HP + At First · Katya · A2 · NG English Lab</title>
+<meta name="description" content="Vocab review for Katya Zhizhina — Feelings, Aesthetic slang, first vs at first, Harry Potter (Azkaban): novel/detective/witty/Dementor/Patronus/Sirius. Flip-cards · Duolingo quiz · memory match · Quizlet Learn · TTS · typing drill.">
 <meta name="robots" content="noindex,nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,7 +20,7 @@
 *{box-sizing:border-box}html,body{margin:0;padding:0}
 body{font-family:var(--body);background:var(--bg);color:var(--text);line-height:1.55;font-size:16px;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1080px;margin:0 auto;padding:24px clamp(16px,3vw,32px)}
-header.hero{background:linear-gradient(135deg,#E88B4F 0%,#B94F1F 100%);color:#FFF6EE;border-radius:20px;padding:clamp(24px,4vw,40px);box-shadow:0 8px 24px rgba(185,79,31,.25);margin-bottom:28px;position:relative;overflow:hidden}
+header.hero{background:linear-gradient(135deg,rgba(232,139,79,.72) 0%,rgba(185,79,31,.82) 100%),url('assets/hero.jpg') center/cover no-repeat;color:#FFF6EE;border-radius:20px;padding:clamp(24px,4vw,40px);box-shadow:0 8px 24px rgba(185,79,31,.25);margin-bottom:28px;position:relative;overflow:hidden;min-height:220px}
 header.hero::after{content:"";position:absolute;top:-40px;right:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(255,246,238,.3),transparent 70%);pointer-events:none}
 .eyebrow{font-family:var(--body);font-size:.78rem;font-weight:900;letter-spacing:.24em;text-transform:uppercase;color:#FFE7D0;margin-bottom:8px}
 h1{font-family:var(--display);font-size:clamp(1.7rem,3.5vw,2.6rem);font-weight:800;margin:0 0 10px;letter-spacing:-.02em;line-height:1.1}
@@ -127,6 +127,173 @@ footer{text-align:center;color:var(--muted);font-size:.78rem;padding:24px 0}
 .confetti.active{display:block}
 .conf-piece{position:absolute;width:10px;height:14px;background:var(--accent);top:-20px;animation:fall 3s linear forwards}
 @keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+
+/* === CATEGORY SORT (drag-drop) === */
+.cs-bank{display:flex;flex-wrap:wrap;gap:6px;padding:12px;background:linear-gradient(135deg,#FFF6EE,#FFE7D0);border:2px dashed var(--accent);border-radius:12px;margin-bottom:14px;min-height:60px}
+.cs-word{background:#fff;border:2px solid var(--accent);color:var(--accent2);padding:6px 12px;border-radius:8px;font-family:var(--display);font-weight:800;font-size:.86rem;cursor:grab;user-select:none;transition:.15s;touch-action:none}
+.cs-word.selected{background:var(--accent);color:#fff;transform:scale(1.08);box-shadow:0 4px 10px rgba(232,139,79,.4)}
+.cs-word.placed{opacity:.4;cursor:not-allowed;pointer-events:none;text-decoration:line-through}
+.cs-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.cs-col{background:#FFF6EE;border:2px solid var(--line);border-radius:12px;padding:10px;min-height:120px}
+.cs-col.hover{border-color:var(--accent);background:#FFF3E9}
+.cs-col-hdr{font-family:var(--display);font-weight:800;color:var(--accent2);font-size:.85rem;text-align:center;margin-bottom:6px;padding-bottom:6px;border-bottom:1px solid var(--line)}
+.cs-col-items{display:flex;flex-wrap:wrap;gap:4px}
+.cs-col-item{background:var(--accent);color:#fff;padding:4px 8px;border-radius:6px;font-size:.78rem;font-weight:700}
+.cs-col-item.wrong{background:var(--miss)}
+.cs-col-item.correct{background:var(--ok)}
+.cs-status{text-align:center;font-family:var(--display);font-weight:800;color:var(--accent2);margin-top:12px;font-size:.95rem}
+
+/* === WORD SCRAMBLE === */
+.ws-card{background:linear-gradient(135deg,#FFF6EE,#FFE7D0);border:2px solid var(--accent);border-radius:14px;padding:20px;text-align:center;margin:10px 0}
+.ws-hint{font-family:var(--body);font-size:.9rem;color:var(--muted);margin-bottom:8px}
+.ws-hint strong{color:var(--accent2);font-family:var(--display)}
+.ws-letters{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;margin:12px 0}
+.ws-letter{background:#fff;border:2px solid var(--accent);color:var(--accent2);width:38px;height:38px;border-radius:8px;display:grid;place-items:center;font-family:var(--display);font-weight:900;font-size:1.1rem;cursor:pointer;transition:.15s;user-select:none;text-transform:uppercase}
+.ws-letter:hover{background:var(--accent);color:#fff}
+.ws-letter.used{opacity:.3;cursor:not-allowed;pointer-events:none}
+.ws-answer{display:flex;justify-content:center;flex-wrap:wrap;gap:6px;min-height:44px;padding:8px;background:#fff;border:2px dashed var(--accent2);border-radius:10px;margin:10px 0}
+.ws-slot{background:var(--accent2);color:#fff;min-width:38px;height:38px;padding:0 10px;border-radius:8px;display:grid;place-items:center;font-family:var(--display);font-weight:900;font-size:1.1rem;cursor:pointer;text-transform:uppercase}
+.ws-slot:hover{background:var(--miss)}
+.ws-answer.right{border-color:var(--ok)}
+.ws-answer.right .ws-slot{background:var(--ok)}
+.ws-answer.wrong{border-color:var(--miss);animation:shake .35s}
+.ws-controls{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+.ws-tag{font-family:var(--body);font-size:.8rem;color:var(--muted);margin-top:8px}
+
+/* === LISTEN & TYPE === */
+.lt-card{background:#FFF6EE;border:2px solid var(--accent);border-radius:14px;padding:18px;margin:10px 0;text-align:center}
+.lt-play{background:var(--accent);color:#fff;border:none;border-radius:50%;width:56px;height:56px;font-size:1.4rem;cursor:pointer;box-shadow:0 4px 12px rgba(232,139,79,.35);margin-bottom:10px}
+.lt-play:hover{background:var(--accent2);transform:scale(1.05)}
+.lt-input{width:80%;max-width:320px;padding:12px 14px;border:2px solid var(--accent);border-radius:10px;font-family:var(--body);font-size:1.02rem;color:var(--text);background:#fff;text-align:center;outline:none;font-weight:600}
+.lt-input.right{background:#E8F5E9;border-color:var(--ok);color:var(--ok)}
+.lt-input.wrong{background:#FFEBEE;border-color:var(--miss);color:var(--miss)}
+.lt-controls{display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap}
+
+/* === SENTENCE BUILDER === */
+.sb-item{background:#FFF6EE;border:1px solid var(--line);border-radius:12px;padding:14px;margin:10px 0}
+.sb-target{font-size:.86rem;color:var(--muted);margin-bottom:8px;font-style:italic}
+.sb-target strong{color:var(--accent2);font-family:var(--display);font-style:normal}
+.sb-slots{display:flex;flex-wrap:wrap;gap:6px;padding:10px;background:#fff;border:2px dashed var(--accent);border-radius:10px;min-height:44px;margin-bottom:8px}
+.sb-slot{background:var(--accent2);color:#fff;padding:6px 12px;border-radius:8px;font-family:var(--body);font-weight:700;font-size:.9rem;cursor:pointer}
+.sb-slot:hover{background:var(--miss)}
+.sb-slots.right{border-color:var(--ok);background:#E8F5E9}
+.sb-slots.right .sb-slot{background:var(--ok)}
+.sb-slots.wrong{border-color:var(--miss);animation:shake .35s}
+.sb-bank{display:flex;flex-wrap:wrap;gap:6px}
+.sb-bank .sb-word{background:#fff;border:2px solid var(--accent);color:var(--accent2);padding:6px 12px;border-radius:8px;font-family:var(--body);font-weight:700;font-size:.9rem;cursor:pointer;transition:.15s}
+.sb-bank .sb-word:hover{background:var(--accent);color:#fff}
+.sb-bank .sb-word.used{opacity:.3;cursor:not-allowed;pointer-events:none}
+.sb-check{background:var(--accent2);color:#fff;border:none;border-radius:8px;padding:6px 14px;font-family:var(--display);font-weight:800;font-size:.82rem;cursor:pointer;margin-top:8px}
+
+/* === ODD ONE OUT === */
+.oo-row{background:#FFF6EE;border:1px solid var(--line);border-radius:12px;padding:14px;margin:10px 0}
+.oo-hint{font-size:.82rem;color:var(--muted);margin-bottom:8px}
+.oo-opts{display:flex;flex-wrap:wrap;gap:8px}
+.oo-opt{background:#fff;border:2px solid var(--accent);color:var(--accent2);padding:8px 14px;border-radius:8px;font-family:var(--display);font-weight:800;font-size:.88rem;cursor:pointer;transition:.15s}
+.oo-opt:hover{background:var(--accent);color:#fff}
+.oo-opt.right{background:var(--ok);border-color:var(--ok);color:#fff}
+.oo-opt.wrong{background:var(--miss);border-color:var(--miss);color:#fff}
+.oo-fb{font-size:.82rem;color:var(--muted);margin-top:6px;min-height:16px;font-style:italic}
+
+/* === SPEED ROUND === */
+.sp-panel{background:linear-gradient(135deg,#B94F1F,#24304A);color:#FFF6EE;border-radius:16px;padding:20px;text-align:center;margin-top:12px}
+.sp-timer{font-family:var(--display);font-weight:900;font-size:3rem;color:var(--accent3);margin:6px 0}
+.sp-word{font-family:var(--display);font-weight:800;font-size:1.5rem;color:#fff;margin:14px 0;min-height:36px}
+.sp-word-hint{font-size:.86rem;color:var(--accent3);font-style:italic;margin-bottom:10px;min-height:20px}
+.sp-input{width:80%;max-width:280px;padding:10px 14px;border:2px solid var(--accent);border-radius:10px;font-family:var(--body);font-size:1.05rem;text-align:center;outline:none;background:rgba(255,255,255,.95);color:var(--text);font-weight:700}
+.sp-btn{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:10px 24px;font-family:var(--display);font-weight:800;font-size:.95rem;cursor:pointer;margin:12px 4px 0}
+.sp-btn:hover{background:#d47a3f}
+.sp-score{font-family:var(--display);font-weight:800;color:var(--accent);font-size:1.1rem;margin-top:8px}
+.sp-final{background:rgba(255,255,255,.1);padding:12px;border-radius:10px;margin-top:12px;font-size:.9rem}
+.sp-final strong{color:var(--accent3);font-size:1.2rem;font-family:var(--display)}
+
+/* === TABS (topic navigation) === */
+.tabs{position:sticky;top:56px;background:linear-gradient(180deg,var(--bg) 0%,rgba(245,247,251,.95) 100%);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:10px 0;margin-bottom:16px;z-index:40;border-bottom:1px solid var(--line)}
+.tabs-inner{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;max-width:1080px;margin:0 auto;padding:0 8px}
+.tab-btn{background:#fff;border:2px solid var(--line);color:var(--muted);padding:8px 14px;border-radius:10px;font-family:var(--display);font-weight:800;font-size:.86rem;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:6px}
+.tab-btn:hover{border-color:var(--accent);color:var(--accent2)}
+.tab-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-color:var(--accent2);box-shadow:0 4px 12px rgba(232,139,79,.35);transform:translateY(-1px)}
+.tab-btn .tab-badge{background:rgba(255,255,255,.25);border-radius:20px;padding:2px 8px;font-size:.7rem;font-weight:700}
+.tab-btn:not(.active) .tab-badge{background:var(--line);color:var(--muted)}
+.tab-content{display:none}
+.tab-content.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.tab-hdr{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;padding:16px 22px;border-radius:14px;margin-bottom:16px}
+.tab-hdr h2{font-family:var(--display);font-weight:800;font-size:1.3rem;margin:0 0 4px}
+.tab-hdr .sub{font-size:.88rem;opacity:.9}
+
+/* === PHRASES (разговорные фразы) === */
+.ph-grid{display:grid;grid-template-columns:1fr;gap:6px;margin-top:10px}
+.ph-item{background:#FFF6EE;border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:10px 14px;display:flex;align-items:center;gap:10px;transition:.15s}
+.ph-item:hover{background:#FFE7D0;border-left-color:var(--accent2)}
+.ph-say{background:var(--accent);color:#fff;border:none;border-radius:50%;width:32px;height:32px;font-size:.85rem;cursor:pointer;flex-shrink:0;display:grid;place-items:center;transition:.15s}
+.ph-say:hover{background:var(--accent2);transform:scale(1.1)}
+.ph-text{flex:1;font-size:.95rem;line-height:1.4}
+.ph-tag{background:var(--accent3);color:#fff;padding:2px 8px;border-radius:6px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-right:6px}
+
+/* === LEARN MODE (Quizlet style) === */
+.ln-panel{background:linear-gradient(135deg,#FFF6EE,#FFE7D0);border:2px solid var(--accent);border-radius:16px;padding:24px 20px;text-align:center;min-height:260px;position:relative}
+.ln-progress{font-family:var(--body);font-size:.82rem;color:var(--muted);margin-bottom:12px}
+.ln-progress strong{color:var(--accent2);font-family:var(--display)}
+.ln-card-word{font-family:var(--display);font-weight:800;font-size:2rem;color:var(--accent2);margin:16px 0;min-height:44px}
+.ln-card-hint{font-size:.92rem;color:var(--text);margin:8px 0 4px}
+.ln-card-hint strong{color:var(--accent2)}
+.ln-card-ex{font-size:.86rem;color:var(--muted);font-style:italic;margin-top:8px;line-height:1.5;display:none}
+.ln-panel.revealed .ln-card-ex{display:block}
+.ln-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+.ln-btn{padding:10px 22px;border-radius:10px;font-family:var(--display);font-weight:800;font-size:.9rem;cursor:pointer;border:none;transition:.15s}
+.ln-btn.ln-reveal{background:var(--accent3);color:#fff}
+.ln-btn.ln-know{background:var(--ok);color:#fff}
+.ln-btn.ln-still{background:var(--miss);color:#fff}
+.ln-btn.ln-say{background:var(--accent);color:#fff;border-radius:50%;width:40px;height:40px;padding:0;font-size:1rem}
+.ln-btn:hover{transform:translateY(-2px)}
+.ln-summary{background:#fff;border:2px solid var(--ok);border-radius:14px;padding:20px;text-align:center;display:none}
+.ln-summary.show{display:block}
+.ln-summary h3{font-family:var(--display);color:var(--ok);margin:0 0 10px}
+
+/* === TOPIC PACK (10 exercises inside each topic tab) === */
+.pack-nav{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0}
+.pack-btn{background:#fff;border:2px solid var(--line);color:var(--muted);padding:6px 12px;border-radius:20px;font-family:var(--body);font-weight:700;font-size:.78rem;cursor:pointer;transition:.15s}
+.pack-btn:hover{border-color:var(--accent);color:var(--accent2)}
+.pack-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.pack-ex{display:none;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:10px;box-shadow:0 2px 8px rgba(185,79,31,.06)}
+.pack-ex.active{display:block}
+.pack-hdr{font-family:var(--display);font-weight:800;color:var(--accent2);font-size:1rem;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.pack-hint{font-size:.82rem;color:var(--muted);margin-bottom:12px;font-style:italic}
+.pack-check{background:var(--accent2);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-family:var(--display);font-weight:800;font-size:.82rem;cursor:pointer;margin-top:8px}
+.pack-score{margin-top:10px;font-family:var(--display);font-weight:800;color:var(--accent2);text-align:center;min-height:20px}
+
+/* Fill-in-blank */
+.fb-item{background:#FFF6EE;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:6px 0;font-size:.94rem;line-height:1.6}
+.fb-input{padding:4px 10px;border:2px solid var(--accent);border-radius:6px;font-family:var(--body);font-weight:700;color:var(--accent2);background:#fff;width:130px;text-align:center;outline:none;font-size:.9rem;margin:0 4px}
+.fb-input.right{background:#E8F5E9;border-color:var(--ok);color:var(--ok)}
+.fb-input.wrong{background:#FFEBEE;border-color:var(--miss);color:var(--miss)}
+
+/* True/False mini */
+.tf-item{background:#FFF6EE;border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:10px 14px;margin:6px 0;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tf-text{flex:1;font-size:.9rem}
+.tf-btns{display:flex;gap:6px}
+.tf-btn{background:#fff;border:2px solid var(--accent);color:var(--accent2);padding:5px 12px;border-radius:6px;font-family:var(--display);font-weight:800;font-size:.78rem;cursor:pointer}
+.tf-btn.right{background:var(--ok);border-color:var(--ok);color:#fff}
+.tf-btn.wrong{background:var(--miss);border-color:var(--miss);color:#fff}
+
+/* Compact match (per topic) */
+.cm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
+@media(max-width:600px){.cm-grid{grid-template-columns:repeat(3,1fr)}}
+.cm-card{aspect-ratio:1.2;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-radius:8px;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:.72rem;padding:4px;cursor:pointer;text-align:center;user-select:none;transition:transform .2s}
+.cm-card.open,.cm-card.matched{background:#fff;color:var(--accent2);border:2px solid var(--accent2);font-size:.7rem}
+.cm-card.matched{background:#E8F5E9;color:var(--ok);border-color:var(--ok);opacity:.85}
+.cm-card.wrong{animation:shake .35s}
+.cm-card::after{content:"?";font-size:1.6rem;color:rgba(255,255,255,.6)}
+.cm-card.open::after,.cm-card.matched::after{content:""}
+.cm-card .cm-txt{display:none;line-height:1.15;word-break:break-word}
+.cm-card.open .cm-txt,.cm-card.matched .cm-txt{display:block}
+
+/* Sprint (per topic, 30s) */
+.pk-sp-panel{background:linear-gradient(135deg,var(--accent2),#24304A);color:#fff;border-radius:12px;padding:16px;text-align:center}
+.pk-sp-timer{font-family:var(--display);font-weight:900;font-size:2.2rem;color:var(--accent3);margin:6px 0}
+.pk-sp-word{font-family:var(--display);font-weight:800;font-size:1.2rem;min-height:28px;margin:8px 0}
+.pk-sp-input{width:80%;max-width:240px;padding:8px 12px;border:2px solid var(--accent);border-radius:8px;background:rgba(255,255,255,.95);color:var(--text);text-align:center;font-weight:700;outline:none}
 </style>
 </head>
 <body>
@@ -134,8 +301,8 @@ footer{text-align:center;color:var(--muted);font-size:.78rem;padding:24px 0}
 
 <header class="hero">
   <div class="eyebrow">Vocab Booster · A2 · Katya</div>
-  <h1>All the words from<br>Vibe Check (Lesson 1)</h1>
-  <p class="hero-lead">Feelings · Aesthetic slang · <em>first</em> vs <em>at first</em> · «At first» constructions · plus one new word — <strong>definite</strong>. Vertushki, Duolingo-style quick-check, memory match, typing drill. 🔊 to hear · flip · match · type.</p>
+  <h1>Vibe Check · At First · Harry Potter (Azkaban)</h1>
+  <p class="hero-lead">Всё, что мы прошли: <strong>Feelings</strong> (10 adj) · <strong>Slang</strong> (vibe, mid, lowkey) · <strong>first vs at first</strong> + Duolingo quiz · <strong>Harry Potter · Azkaban</strong> (Dementor, Patronus, Sirius, Boggart) + новое <strong>definite</strong>. 10 упражнений на каждую тему, Quizlet Learn, memory match, sprint. 🔊 real voice, not synthetic.</p>
 </header>
 
 <div class="prog-wrap">
@@ -145,52 +312,139 @@ footer{text-align:center;color:var(--muted);font-size:.78rem;padding:24px 0}
     <span class="prog-count" id="prog-count">0 / 100</span>
   </div>
   <div class="prog-achievements">
-    <span class="achv" data-achv="flip5">🎴 5 cards flipped</span>
-    <span class="achv" data-achv="flip20">🎴 20 cards</span>
-    <span class="achv" data-achv="duo5">🎯 5 XP quiz</span>
+    <span class="achv" data-achv="flip5">🎴 5 flips</span>
+    <span class="achv" data-achv="flip20">🎴 20 flips</span>
+    <span class="achv" data-achv="duo5">🎯 50 XP</span>
     <span class="achv" data-achv="duo80">🔥 80 XP</span>
-    <span class="achv" data-achv="mm">🎴 memory match done</span>
+    <span class="achv" data-achv="mm">🃏 memory done</span>
+    <span class="achv" data-achv="cs">📦 sort done</span>
+    <span class="achv" data-achv="ws">🔀 5 scrambles</span>
+    <span class="achv" data-achv="lt">🔊 5 listen&amp;type</span>
+    <span class="achv" data-achv="sb">🧩 4 sentences</span>
+    <span class="achv" data-achv="oo">🤔 6 odd-outs</span>
+    <span class="achv" data-achv="speed">⚡ speed 15+</span>
+    <span class="achv" data-achv="learn">📚 learn 20+</span>
     <span class="achv" data-achv="drill80">✍️ drill 80%</span>
   </div>
 </div>
 
-<!-- SECTION 1 · FEELINGS -->
-<section class="section">
-  <div class="section-hdr"><div class="num">1</div><h2>Feelings — 10 basic adjectives</h2></div>
-  <div class="section-sub">tap the card · 🔊 hear the word · then say one true thing</div>
-  <div class="flip-grid" id="grid-feelings"></div>
-</section>
+<!-- ═══════════ TABS ═══════════ -->
+<div class="tabs">
+  <div class="tabs-inner">
+    <button class="tab-btn active" data-tab="feelings">😊 Feelings <span class="tab-badge">10</span></button>
+    <button class="tab-btn" data-tab="slang">✨ Slang <span class="tab-badge">10</span></button>
+    <button class="tab-btn" data-tab="firstvs">🔀 first vs at first <span class="tab-badge">6+10</span></button>
+    <button class="tab-btn" data-tab="azkaban">🪄 Harry Potter · Azkaban <span class="tab-badge">20</span></button>
+    <button class="tab-btn" data-tab="games">🎮 All Games <span class="tab-badge">10</span></button>
+    <button class="tab-btn" data-tab="learn">📚 Learn <span class="tab-badge">Quizlet</span></button>
+  </div>
+</div>
 
-<!-- SECTION 2 · AESTHETIC SLANG -->
-<section class="section">
-  <div class="section-hdr"><div class="num">2</div><h2>Aesthetic teen slang — 10 words &amp; phrases</h2></div>
-  <div class="section-sub">the ones every English-speaking teen uses in 2026</div>
-  <div class="flip-grid" id="grid-slang"></div>
-</section>
+<!-- ═════════ TAB · FEELINGS ═════════ -->
+<div class="tab-content active" data-tab-panel="feelings">
+  <div class="tab-hdr"><h2>😊 Feelings — 10 adjectives</h2><div class="sub">tired · excited · nervous · curious · bored · proud · confused · relaxed · annoyed · grateful</div></div>
 
-<!-- SECTION 3 · FIRST vs AT FIRST · сравнение -->
-<section class="section">
-  <div class="section-hdr"><div class="num">3</div><h2><em style="color:var(--accent2)">first</em> &nbsp;vs&nbsp; <em style="color:var(--accent2)">at first</em> — разница</h2></div>
-  <div class="section-sub">tap каждую карточку · послушай пример · почувствуй разницу</div>
-  <div class="flip-grid" id="grid-firstvs"></div>
+  <section class="section">
+    <div class="section-hdr"><div class="num">1</div><h2>Vocab — 10 flip-cards</h2></div>
+    <div class="section-sub">tap the card · 🔊 hear the word · flip for RU + example</div>
+    <div class="flip-grid" id="grid-feelings"></div>
+  </section>
 
-  <div style="background:linear-gradient(135deg,#FFF6EE,#F4C29A);border:2px dashed var(--accent2);border-radius:14px;padding:16px 20px;margin-top:16px">
-    <h3 style="margin:0 0 10px;color:var(--accent2);font-family:var(--display)">🎯 Quick-check · Duolingo-style</h3>
-    <p style="margin:0 0 12px;font-size:.88rem;color:var(--muted)">tap the right option · моментальная проверка · +10 XP за каждый правильный</p>
+  <section class="section">
+    <div class="section-hdr"><div class="num">🎯</div><h2>10 упражнений на тему</h2></div>
+    <div class="section-sub">match · type · listen&amp;type · scramble · fill-blank · odd · sprint · T/F · reverse · learn</div>
+    <div id="pack-feelings"></div>
+  </section>
+</div>
+
+<!-- ═════════ TAB · SLANG ═════════ -->
+<div class="tab-content" data-tab-panel="slang">
+  <div class="tab-hdr"><h2>✨ Aesthetic teen slang</h2><div class="sub">10 words &amp; phrases every English-speaking teen uses in 2026</div></div>
+
+  <section class="section">
+    <div class="section-hdr"><div class="num">2</div><h2>Vocab — 10 flip-cards</h2></div>
+    <div class="section-sub">underrated · overhyped · mid · lowkey · vibe · random · to be into · worth it · a whole thing · chill</div>
+    <div class="flip-grid" id="grid-slang"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-hdr"><div class="num">🎯</div><h2>10 упражнений на тему</h2></div>
+    <div class="section-sub">match · type · listen&amp;type · scramble · fill-blank · odd · sprint · T/F · reverse · learn</div>
+    <div id="pack-slang"></div>
+  </section>
+</div>
+
+<!-- ═════════ TAB · FIRST vs AT FIRST ═════════ -->
+<div class="tab-content" data-tab-panel="firstvs">
+  <div class="tab-hdr"><h2>🔀 first vs at first + At First constructions</h2><div class="sub">6 сравнительных карточек + 10 sequence markers + Duolingo quick-check</div></div>
+
+  <section class="section">
+    <div class="section-hdr"><div class="num">3</div><h2>first vs at first — 6 flip-cards</h2></div>
+    <div class="section-sub">tap каждую карточку · послушай пример · почувствуй разницу</div>
+    <div class="flip-grid" id="grid-firstvs"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-hdr"><div class="num">🎯</div><h2>Duolingo quick-check</h2></div>
+    <div class="section-sub">tap the right option · моментальная проверка · +10 XP за каждый правильный</div>
     <div id="duo-quiz"></div>
     <div style="text-align:center;margin-top:12px">
       <span id="duo-xp" style="font-family:var(--display);font-weight:800;color:var(--accent2);font-size:1rem">XP: 0</span>
       <span id="duo-streak" style="margin-left:14px;font-family:var(--display);font-weight:800;color:var(--accent);font-size:1rem">🔥 streak: 0</span>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- SECTION 4 · AT FIRST CONSTRUCTIONS -->
-<section class="section">
-  <div class="section-hdr"><div class="num">4</div><h2>«At first» &amp; sequence markers — 10 вертушек</h2></div>
-  <div class="section-sub">tap the card · 🔊 hear the phrase · flip for meaning + example</div>
-  <div class="flip-grid" id="grid-atfirst"></div>
-</section>
+  <section class="section">
+    <div class="section-hdr"><div class="num">4</div><h2>«At first» constructions — 10 вертушек</h2></div>
+    <div class="section-sub">tap the card · 🔊 hear the phrase · flip for meaning + example</div>
+    <div class="flip-grid" id="grid-atfirst"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-hdr"><div class="num">📚</div><h2>+ новое слово · <em style="color:var(--accent2)">definite</em></h2></div>
+    <div class="definite-card">
+      <h3>definite</h3>
+      <div class="pos-ipa">adjective · /ˈdefɪnət/ · <strong>определённый, точный, уверенный</strong></div>
+      <div class="meaning">1️⃣ <strong>Clear, certain</strong> — точно решено. <div class="ex">"Is it a definite yes?" · "We don't have a definite plan yet."</div></div>
+      <div class="meaning">2️⃣ <strong>the definite article</strong> = определённый артикль <em>«the»</em> (vs indefinite «a/an»). <div class="ex">"Use the definite article when you mean a specific thing."</div></div>
+      <div class="meaning">3️⃣ <strong>definitely</strong> = точно, определённо. <div class="ex">"I'm definitely coming!" · "That was definitely the best pizza."</div></div>
+      <div style="text-align:center;margin-top:14px"><button class="tk-say" onclick="say('definite. My plan is definite. Definitely the best day. The definite article is the.')" title="Listen">🔊</button></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-hdr"><div class="num">🎯</div><h2>10 упражнений на тему</h2></div>
+    <div class="section-sub">match · type · listen&amp;type · scramble · fill-blank · odd · sprint · T/F · reverse · learn</div>
+    <div id="pack-firstvs"></div>
+  </section>
+</div>
+
+<!-- ═════════ TAB · AZKABAN HP ═════════ -->
+<div class="tab-content" data-tab-panel="azkaban">
+  <div class="tab-hdr"><h2>🪄 Harry Potter · Prisoner of Azkaban</h2><div class="sub">20 vocab (Dementor · Patronus · Animagus · Sirius · Time-Turner · Hippogriff) + 18 разговорных фраз</div></div>
+
+  <section class="section">
+    <div class="section-hdr"><div class="num">5</div><h2>Vocab — 20 flip-cards</h2></div>
+    <div class="section-sub">book genres (novel/fantasy/classic/detective) + book adjectives (witty/thought-provoking/page-turner) + HP-мир</div>
+    <div class="flip-grid" id="grid-azkaban"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-hdr"><div class="num">💬</div><h2>Разговорные фразы — 18 sentences</h2></div>
+    <div class="section-sub">Sirius, Boggart, Patronus, Dementors, book reviews</div>
+    <div class="ph-grid" id="ph-azkaban"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-hdr"><div class="num">🎯</div><h2>10 упражнений на тему</h2></div>
+    <div class="section-sub">match · type · listen&amp;type · scramble · fill-blank · odd · sprint · T/F · reverse · learn</div>
+    <div id="pack-azkaban"></div>
+  </section>
+</div>
+
+<!-- ═════════ TAB · ALL GAMES ═════════ -->
+<div class="tab-content" data-tab-panel="games">
+  <div class="tab-hdr"><h2>🎮 All Games</h2><div class="sub">6 mini-games (Category sort · Word scramble · Listen &amp; type · Sentence builder · Odd one out · Speed round) + Memory match + Typing drill</div></div>
 
 <!-- SECTION 4b · MEMORY MATCH -->
 <section class="section">
@@ -201,31 +455,64 @@ footer{text-align:center;color:var(--muted);font-size:.78rem;padding:24px 0}
   <div class="btn-row"><button id="mm-reset" class="reset-btn">🔄 New game</button></div>
 </section>
 
-<!-- SECTION 5 · NEW WORD · DEFINITE -->
+<!-- ═════════ MINI-GAMES section inside "games" tab ═════════ -->
+
+<!-- SECTION 5 · CATEGORY SORT -->
 <section class="section">
-  <div class="section-hdr"><div class="num">5</div><h2>New word · <em style="color:var(--accent2)">definite</em></h2></div>
-  <div class="section-sub">the word you heard today · two meanings you should know</div>
-  <div class="definite-card">
-    <h3>definite</h3>
-    <div class="pos-ipa">adjective · /ˈdefɪnət/ · ру́сское: <strong>определённый, точный, уверенный</strong></div>
-    <div class="meaning">1️⃣ <strong>Clear, certain, no doubt</strong> — когда что-то точно решено или ясно.
-      <div class="ex">"Is it a definite yes?" — "Yes, absolutely."<br>"We don't have a definite plan yet, but we're thinking about Sochi."</div>
-    </div>
-    <div class="meaning">2️⃣ <strong>Grammar term</strong> — «the definite article» = определённый артикль <em>«the»</em> (vs. indefinite article «a / an»).
-      <div class="ex">"Use <em>the</em> definite article when you mean a specific thing: <em>the</em> book on the table."</div>
-    </div>
-    <div class="meaning">3️⃣ <strong>Adverb form</strong> — <em>definitely</em> = точно, определённо.
-      <div class="ex">"I'm definitely coming to the party!"<br>"That was definitely the best pizza in Moscow."</div>
-    </div>
-    <div style="text-align:center;margin-top:14px">
-      <button class="tk-say" onclick="say('definite. My plan is definite. Definitely the best day. The definite article is the.')" title="Listen">🔊</button>
-    </div>
+  <div class="section-hdr"><div class="num">5</div><h2>📦 Category sort — раскидай слова по 4 темам</h2></div>
+  <div class="section-sub">tap a word · then tap the right category · попробуй без ошибок</div>
+  <div class="cs-bank" id="cs-bank"></div>
+  <div class="cs-cols" id="cs-cols"></div>
+  <div class="cs-status" id="cs-status">0 / 12 placed</div>
+  <div class="btn-row"><button id="cs-reset" class="reset-btn">🔄 New round</button></div>
+</section>
+
+<!-- SECTION 6 · WORD SCRAMBLE -->
+<section class="section">
+  <div class="section-hdr"><div class="num">6</div><h2>🔀 Word scramble — собери слово из букв</h2></div>
+  <div class="section-sub">tap letters in order · «Backspace» удалит · «Skip» — следующее</div>
+  <div id="ws-container"></div>
+</section>
+
+<!-- SECTION 7 · LISTEN & TYPE -->
+<section class="section">
+  <div class="section-hdr"><div class="num">7</div><h2>🔊 Listen &amp; type — услышал → напечатай</h2></div>
+  <div class="section-sub">🎧 нажми play, услышь слово, напиши по-английски</div>
+  <div id="lt-container"></div>
+</section>
+
+<!-- SECTION 8 · SENTENCE BUILDER -->
+<section class="section">
+  <div class="section-hdr"><div class="num">8</div><h2>🧩 Sentence builder — собери предложение</h2></div>
+  <div class="section-sub">tap words in the correct order · tap slot to send back</div>
+  <div id="sb-container"></div>
+</section>
+
+<!-- SECTION 9 · ODD ONE OUT -->
+<section class="section">
+  <div class="section-hdr"><div class="num">9</div><h2>🤔 Odd one out — какое слово лишнее?</h2></div>
+  <div class="section-sub">tap the word that doesn't belong to the group</div>
+  <div id="oo-container"></div>
+</section>
+
+<!-- SECTION 10 · SPEED ROUND -->
+<section class="section">
+  <div class="section-hdr"><div class="num">10</div><h2>⚡ Speed round — 60 seconds, максимум ответов</h2></div>
+  <div class="section-sub">RU-подсказка → напечатай EN → Enter → следующее слово</div>
+  <div class="sp-panel">
+    <div class="sp-word-hint" id="sp-hint">tap Start to begin</div>
+    <div class="sp-word" id="sp-word">—</div>
+    <input class="sp-input" id="sp-input" placeholder="type in English…" disabled>
+    <div class="sp-timer" id="sp-timer">01:00</div>
+    <div class="sp-score" id="sp-score">score: 0</div>
+    <div><button class="sp-btn" id="sp-start">▶ Start 60s</button><button class="sp-btn" id="sp-reset" style="background:transparent;border:2px solid var(--accent)">Reset</button></div>
+    <div class="sp-final" id="sp-final" style="display:none"></div>
   </div>
 </section>
 
-<!-- SECTION 6 · TYPING DRILL RU→EN -->
+<!-- SECTION 11 · TYPING DRILL RU→EN -->
 <section class="section">
-  <div class="section-hdr"><div class="num">6</div><h2>Typing drill · RU → EN (20 items)</h2></div>
+  <div class="section-hdr"><div class="num">11</div><h2>Typing drill · RU → EN (24 items across all 4 topics)</h2></div>
   <div class="section-sub">type the English word · both UK/US spellings accepted · «Show» reveals answer</div>
   <div id="drill-list"></div>
   <div class="btn-row">
@@ -236,68 +523,141 @@ footer{text-align:center;color:var(--muted);font-size:.78rem;padding:24px 0}
   <p id="drill-score" class="score-line"></p>
 </section>
 
+</div><!-- /tab-panel games -->
+
+<!-- ═════════ TAB · LEARN (Quizlet-style) ═════════ -->
+<div class="tab-content" data-tab-panel="learn">
+  <div class="tab-hdr"><h2>📚 Learn mode · Quizlet-style заучивание</h2><div class="sub">карточка за карточкой · «знаю» уходит · «ещё раз» возвращается · пока всё не выучишь</div></div>
+
+  <section class="section">
+    <div class="section-hdr"><div class="num">📚</div><h2>Session</h2></div>
+    <div class="section-sub">выбери тему (или All) · start · reveal → «I know» или «Still learning» · пока стопка не пуста</div>
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+      <button class="tab-btn ln-topic active" data-ln="all">🌍 All 54 words</button>
+      <button class="tab-btn ln-topic" data-ln="treasure">🏴‍☠️ Treasure (12)</button>
+      <button class="tab-btn ln-topic" data-ln="travel">🎒 Travel (14)</button>
+      <button class="tab-btn ln-topic" data-ln="airport">🛬 Airport (12)</button>
+      <button class="tab-btn ln-topic" data-ln="hotel">🏨 Hotel (16)</button>
+    </div>
+
+    <div class="ln-panel" id="ln-panel">
+      <div class="ln-progress">card <strong id="ln-cur">0</strong> · known <strong id="ln-known" style="color:var(--ok)">0</strong> · still learning <strong id="ln-still" style="color:var(--miss)">0</strong> · left <strong id="ln-left">54</strong></div>
+      <div class="ln-card-word" id="ln-word">tap Start to begin</div>
+      <div class="ln-card-hint" id="ln-hint">—</div>
+      <div class="ln-card-ex" id="ln-ex">—</div>
+      <div class="ln-actions" id="ln-actions">
+        <button class="ln-btn ln-say" onclick="say(document.getElementById('ln-word').textContent)">🔊</button>
+        <button class="ln-btn ln-reveal" id="ln-reveal">👁 Reveal</button>
+        <button class="ln-btn ln-know" id="ln-know" style="display:none">✓ I know</button>
+        <button class="ln-btn ln-still" id="ln-still-btn" style="display:none">↺ Still learning</button>
+        <button class="ln-btn" id="ln-start" style="background:var(--accent);color:#fff">▶ Start</button>
+      </div>
+    </div>
+
+    <div class="ln-summary" id="ln-summary">
+      <h3>🎉 Session finished!</h3>
+      <p>Известно с первого раза: <strong id="ln-final-known">0</strong> / <strong id="ln-final-total">0</strong></p>
+      <p style="font-size:.86rem;color:var(--muted);margin-top:8px">Слова, которые ты помечал «Still learning», ещё крутились в стопке пока не выучил.</p>
+      <button class="ln-btn" style="background:var(--accent);color:#fff;margin-top:14px" id="ln-restart">🔄 New session</button>
+    </div>
+  </section>
+</div>
+
 <footer>
-  Vocab · Vibe Check + definite · Katya · A2 · NG English Lab · 2026
+  Vocab · Treasure Island + Travel + Airport + Hotel · Fedor · A2/B1 · NG English Lab · 2026
 </footer>
 
 </div>
 
 <script>
+/* === TTS · edge-tts MP3 (Sonia British) with Web Speech fallback === */
+let audioManifest = {};
+fetch('assets/audio/manifest.json').then(r => r.ok ? r.json() : {}).then(m => { audioManifest = m; }).catch(() => {});
+
 const synth = window.speechSynthesis;
-let voice = null;
+let voice = null, audioCache = {};
 function pickVoice(){
+  if(!synth) return;
   const vs = synth.getVoices();
-  voice = vs.find(v => v.lang === 'en-GB' && /female|kate|sonia/i.test(v.name))
+  voice = vs.find(v => v.lang === 'en-GB' && /female|kate|sonia|libby/i.test(v.name))
        || vs.find(v => v.lang === 'en-GB')
        || vs.find(v => v.lang.startsWith('en-US') && /female/i.test(v.name))
        || vs.find(v => v.lang.startsWith('en')) || vs[0];
 }
 if(synth){ pickVoice(); synth.onvoiceschanged = pickVoice; }
+
 function say(text, rate=0.92){
+  if(!text) return;
+  const fname = audioManifest[text];
+  if(fname){
+    // play MP3
+    if(!audioCache[fname]){ audioCache[fname] = new Audio('assets/audio/' + fname); }
+    const a = audioCache[fname];
+    Object.values(audioCache).forEach(x => { if(x !== a){ x.pause(); x.currentTime = 0; } });
+    a.currentTime = 0; a.playbackRate = rate;
+    a.play().catch(() => webSpeechFallback(text, rate));
+    return;
+  }
+  webSpeechFallback(text, rate);
+}
+function webSpeechFallback(text, rate){
   if(!synth) return;
   synth.cancel();
   const u = new SpeechSynthesisUtterance(text);
-  u.voice = voice; u.rate = rate; u.pitch = 1.05;
+  u.voice = voice; u.rate = rate; u.pitch = 1.05; u.lang = 'en-GB';
   synth.speak(u);
 }
 
 const feelings = [
-  {w:'tired',pos:'adj',ipa:'/ˈtaɪəd/',ru:'усталый',ex:'I was really tired after the trip.'},
-  {w:'excited',pos:'adj',ipa:'/ɪkˈsaɪtɪd/',ru:'взволнованный, в предвкушении',ex:"I'm excited about the new school year."},
-  {w:'nervous',pos:'adj',ipa:'/ˈnɜːvəs/',ru:'нервничающий',ex:"I'm a little nervous about biology exams."},
-  {w:'curious',pos:'adj',ipa:'/ˈkjʊəriəs/',ru:'любопытный',ex:"I'm curious about how the brain works."},
-  {w:'bored',pos:'adj',ipa:'/bɔːd/',ru:'скучающий',ex:'I was so bored in that lesson.'},
-  {w:'proud',pos:'adj',ipa:'/praʊd/',ru:'гордый (за)',ex:'My mum was proud of my grades.'},
-  {w:'confused',pos:'adj',ipa:'/kənˈfjuːzd/',ru:'запутанный, растерянный',ex:'I was confused by the map.'},
-  {w:'relaxed',pos:'adj',ipa:'/rɪˈlækst/',ru:'расслабленный',ex:'I felt relaxed at the sea.'},
-  {w:'annoyed',pos:'adj',ipa:'/əˈnɔɪd/',ru:'раздражённый',ex:'I was annoyed by the crowd.'},
-  {w:'grateful',pos:'adj',ipa:'/ˈɡreɪtf(ə)l/',ru:'благодарный',ex:"I'm grateful for the summer break."}
+  {w:'pirate',pos:'n',ipa:'/ˈpaɪ.rət/',ru:'пират',ex:'The pirates wanted the map.'},
+  {w:'map',pos:'n',ipa:'/mæp/',ru:'карта',ex:'They found the treasure map.'},
+  {w:'chest',pos:'n',ipa:'/tʃest/',ru:'сундук',ex:'The sea chest was full of gold.'},
+  {w:'inn',pos:'n',ipa:'/ɪn/',ru:'трактир, гостиница',ex:'Jim worked at the inn by the sea.'},
+  {w:'rum',pos:'n',ipa:'/rʌm/',ru:'ром',ex:'Billy Bones drank rum every night.'},
+  {w:'captain',pos:'n',ipa:'/ˈkæp.tɪn/',ru:'капитан',ex:'The captain gave the orders.'},
+  {w:'sailor',pos:'n',ipa:'/ˈseɪ.lər/',ru:'моряк',ex:'The old sailor came to the inn.'},
+  {w:'voyage',pos:'n',ipa:'/ˈvɔɪ.ɪdʒ/',ru:'плавание, путешествие',ex:'They began their voyage.'},
+  {w:'mutiny',pos:'n',ipa:'/ˈmjuː.tɪ.ni/',ru:'мятеж',ex:'The sailors planned a mutiny.'},
+  {w:'island',pos:'n',ipa:'/ˈaɪ.lənd/',ru:'остров',ex:'They saw the island in the morning.'},
+  {w:'treasure',pos:'n',ipa:'/ˈtreʒ.ər/',ru:'сокровище',ex:'The treasure was buried on the island.'},
+  {w:'cave',pos:'n',ipa:'/keɪv/',ru:'пещера',ex:'The gold was hidden in a cave.'}
 ];
 
 const slang = [
-  {w:'underrated',pos:'adj',ipa:'/ˌʌndəˈreɪtɪd/',ru:'недооценённый',ex:'This café is really underrated.'},
-  {w:'overhyped',pos:'adj',ipa:'/ˌəʊvəˈhaɪpt/',ru:'перехайпленный',ex:'Honestly, that movie was overhyped.'},
-  {w:'mid',pos:'adj · slang',ipa:'/mɪd/',ru:'так себе, средненький',ex:'The pizza there is kind of mid.'},
-  {w:'lowkey',pos:'adv',ipa:'/ˈləʊˌkiː/',ru:'слегка, втайне',ex:'I lowkey miss my old school.'},
-  {w:'vibe',pos:'n',ipa:'/vaɪb/',ru:'настроение, атмосфера',ex:'This street has such a summer vibe.'},
-  {w:'random',pos:'adj',ipa:'/ˈrændəm/',ru:'случайный, неожиданный',ex:'We had this random amazing day.'},
-  {w:'to be into (sth)',pos:'phrase',ipa:'/ˈɪntuː/',ru:'увлекаться чем-то',ex:"I'm really into biology lately."},
-  {w:'worth it',pos:'phrase',ipa:'/wɜːθ ɪt/',ru:'оно того стоит',ex:'The trip was long, but totally worth it.'},
-  {w:'a whole thing',pos:'phrase',ipa:'/ə həʊl θɪŋ/',ru:'целая история',ex:'Moving to Moscow was a whole thing.'},
-  {w:'chill',pos:'adj / v',ipa:'/tʃɪl/',ru:'расслабленный, чиллить',ex:'Sunday was so chill.'}
+  {w:'trolley-bag',pos:'n',ipa:'/ˈtrɒli bæɡ/',ru:'чемодан на колёсиках',ex:'I always take a trolley-bag on business trips.'},
+  {w:'suitcase',pos:'n',ipa:'/ˈsuːtkeɪs/',ru:'чемодан',ex:'My suitcase was too heavy at check-in.'},
+  {w:'tote bag',pos:'n',ipa:'/təʊt bæɡ/',ru:'тряпочная сумка-шоппер',ex:'She carries a tote bag with her books.'},
+  {w:'handbag',pos:'n',ipa:'/ˈhændbæɡ/',ru:'дамская сумочка',ex:'Her passport is in the handbag.'},
+  {w:'backpack',pos:'n',ipa:'/ˈbækpæk/',ru:'рюкзак',ex:'I travel light — just a backpack.'},
+  {w:'trunk',pos:'n',ipa:'/trʌŋk/',ru:'большой сундук / багажник (US)',ex:'Old family photos are in the trunk in the attic.'},
+  {w:'check in',pos:'phr.v',ipa:'/tʃek ɪn/',ru:'зарегистрироваться (в отеле/аэропорту)',ex:"I'll check in online and drop my bag at the desk."},
+  {w:'check out',pos:'phr.v',ipa:'/tʃek aʊt/',ru:'выехать из отеля',ex:'Check-out is before 11 a.m.'},
+  {w:'take off',pos:'phr.v',ipa:'/teɪk ɒf/',ru:'взлетать (о самолёте)',ex:'The plane takes off at half past nine.'},
+  {w:'set off',pos:'phr.v',ipa:'/set ɒf/',ru:'отправиться в путь',ex:'We set off at five in the morning to catch the first flight.'},
+  {w:'get away',pos:'phr.v',ipa:'/ɡet əˈweɪ/',ru:'вырваться, уехать (передохнуть)',ex:'I need to get away from work for two days.'},
+  {w:'look around',pos:'phr.v',ipa:'/lʊk əˈraʊnd/',ru:'осмотреться, погулять по',ex:"Let's look around the old town for an hour."},
+  {w:'drop by',pos:'phr.v',ipa:'/drɒp baɪ/',ru:'заскочить (ненадолго)',ex:'We can drop by the hotel café before our walk.'},
+  {w:'head back',pos:'phr.v',ipa:'/hed bæk/',ru:'возвращаться назад',ex:'We should head back to the hotel — the rain is starting.'}
 ];
 
 const atfirst = [
-  {w:'At first, …',pos:'phrase',ipa:'/æt ˈfɜːst/',ru:'сначала (но потом изменилось)',ex:'At first, I thought Moscow was too big — but now I love it.'},
-  {w:'At first, it was hard, but…',pos:'phrase',ipa:'/æt ˈfɜːst/',ru:'сначала было трудно, но…',ex:'At first, it was hard to speak, but I got used to it.'},
-  {w:'Initially, …',pos:'adv',ipa:'/ɪˈnɪʃəli/',ru:'изначально, поначалу',ex:'Initially, I was nervous about the exam.'},
-  {w:'To start with, …',pos:'phrase',ipa:'/tə stɑːt wɪð/',ru:'для начала, во-первых',ex:'To start with, let me tell you about my summer.'},
-  {w:'In the beginning, …',pos:'phrase',ipa:'/ɪn ðə bɪˈɡɪnɪŋ/',ru:'в начале, поначалу',ex:'In the beginning, I only knew five words in English.'},
-  {w:'At the beginning of…',pos:'phrase',ipa:'/æt ðə bɪˈɡɪnɪŋ əv/',ru:'в начале (недели / лета / года)',ex:'At the beginning of the summer, I moved to a new flat.'},
-  {w:'The first thing I noticed was…',pos:'phrase',ipa:'/ðə fɜːst θɪŋ/',ru:'первое, что я заметил(а)…',ex:'The first thing I noticed was how quiet the street was.'},
-  {w:'The first time I + V-ed, I…',pos:'phrase',ipa:'/ðə fɜːst taɪm/',ru:'в первый раз, когда я…',ex:'The first time I took the metro alone, I got lost.'},
-  {w:'First of all, …',pos:'phrase',ipa:'/fɜːst əv ɔːl/',ru:'прежде всего, во-первых',ex:'First of all, thanks for the invitation.'},
-  {w:'To begin with, …',pos:'phrase',ipa:'/tə bɪˈɡɪn wɪð/',ru:'для начала, вначале',ex:'To begin with, I need to explain why I was late.'}
+  {w:'reception',pos:'n',ipa:'/rɪˈsep.ʃən/',ru:'ресепшн, стойка регистрации',ex:'Please leave the key at reception when you leave.'},
+  {w:'receptionist',pos:'n',ipa:'/rɪˈsep.ʃən.ɪst/',ru:'администратор ресепшн',ex:'The receptionist gave us a map of the city.'},
+  {w:'check-in',pos:'n',ipa:'/ˈtʃek.ɪn/',ru:'заселение (в отель)',ex:'Check-in starts at 3 p.m.'},
+  {w:'check-out',pos:'n',ipa:'/ˈtʃek.aʊt/',ru:'выезд, освобождение номера',ex:'Check-out is before 11 a.m.'},
+  {w:'reservation',pos:'n',ipa:'/ˌrez.əˈveɪ.ʃən/',ru:'бронь, резервация',ex:'I have a reservation under the name Volkov.'},
+  {w:'to book',pos:'v',ipa:'/buːk/',ru:'забронировать',ex:'We booked a double room for two nights.'},
+  {w:'single room',pos:'n',ipa:'/ˈsɪŋɡəl ruːm/',ru:'одноместный номер',ex:'A single room is a room for one person.'},
+  {w:'twin room',pos:'n',ipa:'/twɪn ruːm/',ru:'twin — 2 отдельные кровати',ex:'A twin room has two separate beds.'},
+  {w:'double room',pos:'n',ipa:'/ˈdʌbəl ruːm/',ru:'double — 1 большая кровать',ex:'A double room has one big bed for two.'},
+  {w:'key card',pos:'n',ipa:'/kiː kɑːd/',ru:'карта-ключ от номера',ex:'Could I get an extra key card?'},
+  {w:'room service',pos:'n',ipa:'/ruːm ˈsɜːvɪs/',ru:'обслуживание в номер',ex:'We ordered dinner from room service.'},
+  {w:'the bill',pos:'n',ipa:'/bɪl/',ru:'счёт (за услуги)',ex:'Could I have the bill, please?'},
+  {w:'tip',pos:'n',ipa:'/tɪp/',ru:'чаевые',ex:'I left a small tip for the housekeeping staff.'},
+  {w:'breakfast included',pos:'phr',ipa:'/ˈbrekfəst ɪnˈkluːdɪd/',ru:'завтрак включён',ex:'Is breakfast included in the price?'},
+  {w:'to recommend',pos:'v',ipa:'/ˌrek.əˈmend/',ru:'рекомендовать',ex:'The chef recommends the seafood pasta today.'},
+  {w:'to spell',pos:'v',ipa:'/spel/',ru:'произносить по буквам',ex:'Could you spell your surname, please?'}
 ];
 
 function makeCard(v){
@@ -326,10 +686,571 @@ const firstvs = [
   {w:'finally',pos:'adv',ipa:'/ˈfaɪnəli/',ru:'наконец, в конце концов',ex:'Finally, we found our hotel.'}
 ];
 
+const tomSawyer = [
+  {w:'fence',pos:'n',ipa:'/fens/',ru:'забор',ex:'They painted the fence.'},
+  {w:'clever',pos:'adj',ipa:'/ˈklev.ər/',ru:'хитрый, умный',ex:'Tom is clever.'},
+  {w:'trick',pos:'n',ipa:'/trɪk/',ru:'хитрость',ex:'He played a clever trick.'},
+  {w:'paint',pos:'v',ipa:'/peɪnt/',ru:'красить',ex:'Aunt Polly told him to paint.'},
+  {w:'graveyard',pos:'n',ipa:'/ˈɡreɪv.jɑːd/',ru:'кладбище',ex:'They walked through the graveyard at midnight.'},
+  {w:'midnight',pos:'n',ipa:'/ˈmɪd.naɪt/',ru:'полночь',ex:'At midnight they heard a noise.'},
+  {w:'witness',pos:'n',ipa:'/ˈwɪt.nəs/',ru:'свидетель',ex:'He was a witness to the crime.'},
+  {w:'murder',pos:'n',ipa:'/ˈmɜː.dər/',ru:'убийство',ex:'They saw a murder.'},
+  {w:'scared',pos:'adj',ipa:'/skeəd/',ru:'испуганный',ex:'The boys were scared.'},
+  {w:'prize',pos:'n',ipa:'/praɪz/',ru:'приз',ex:'The Bible was the prize.'},
+  {w:'Bible',pos:'n',ipa:'/ˈbaɪ.bəl/',ru:'Библия',ex:'He won a Bible.'},
+  {w:'mischief',pos:'n',ipa:'/ˈmɪs.tʃɪf/',ru:'шалость',ex:'Tom is full of mischief.'}
+];
+
+document.getElementById('grid-tomsawyer').innerHTML = tomSawyer.map(makeCard).join('');
 document.getElementById('grid-feelings').innerHTML = feelings.map(makeCard).join('');
 document.getElementById('grid-slang').innerHTML = slang.map(makeCard).join('');
 document.getElementById('grid-firstvs').innerHTML = firstvs.map(makeCard).join('');
 document.getElementById('grid-atfirst').innerHTML = atfirst.map(makeCard).join('');
+
+/* === TABS switcher === */
+document.querySelectorAll('.tab-btn[data-tab]').forEach(btn => {
+  btn.onclick = () => {
+    const t = btn.dataset.tab;
+    document.querySelectorAll('.tab-btn[data-tab]').forEach(b => b.classList.toggle('active', b === btn));
+    document.querySelectorAll('.tab-content').forEach(p => p.classList.toggle('active', p.dataset.tabPanel === t));
+    window.scrollTo({top: document.querySelector('.tabs').offsetTop - 20, behavior:'smooth'});
+  };
+});
+
+/* === PHRASES data === */
+const phrases = {
+  tomsawyer: [
+    "Aunt Polly told Tom to paint the fence as punishment.",
+    "It was a hot summer day and the work looked very boring.",
+    "Tom did not answer at once — he continued painting.",
+    "You call this work? Maybe it is for some boys, but not for me.",
+    "It's not every day that a boy gets a chance to paint a fence.",
+    "Aunt Polly is very particular about this fence.",
+    "By midday, Tom was rich — he had marbles, chalk, a broken knife.",
+    "The graveyard was very quiet, and only the wind was moving in the grass.",
+    "At midnight, Tom and Huck saw the murder in the graveyard.",
+    "The two boys were so scared that they made a blood oath never to tell.",
+    "Injun Joe killed the young doctor and then blamed Muff Potter.",
+    "The teacher gave a Bible to any boy who could learn 2,000 verses.",
+    "Tom traded tickets with the other boys to get the prize.",
+    "When they called his name, Tom walked forward proudly.",
+    "The teacher asked him to name the first two apostles.",
+    "Becky Thatcher had blue eyes and yellow hair.",
+    "Tom fell in love with her the very first day.",
+    "He drew a heart in the sand for her.",
+    "Muff Potter was innocent, but everyone thought he was guilty.",
+    "At the trial, Tom finally told the truth about Injun Joe."
+  ],
+  treasure: [
+    "Jim's family owned a small inn near the sea.",
+    "The old sailor told the family his real name.",
+    "The captain paid Jim to watch for a one-legged sailor.",
+    "The Black Spot meant that the captain must die.",
+    "Inside the sea chest they found gold and a map.",
+    "Jim agreed to sail as the cabin boy.",
+    "Long John Silver had one leg and a parrot.",
+    "Jim did not trust Silver from the first meeting.",
+    "Jim climbed into a barrel to reach the apples.",
+    "Silver planned to kill everyone after the treasure was found.",
+    "Jim warned the captain, the doctor and the Squire.",
+    "Jim hid in one of the boats going to shore.",
+    "Jim found an old empty wooden fort on the hill.",
+    "Ben Gunn had been alone on the island for three years.",
+    "Silver came to the fort carrying a white flag.",
+    "The captain refused Silver's offer completely.",
+    "Jim left the stockade at night without telling anyone.",
+    "Jim cut the anchor cable of the Hispaniola with his knife.",
+    "Israel Hands was wounded but still alive.",
+    "Hands proposed a deal to help Jim sail the ship.",
+    "Jim climbed up the mast to escape.",
+    "On the way they found a human skeleton pointing north.",
+    "At the marked place the pit was empty."
+  ],
+  travel: [
+    "Excuse me, is this seat taken?",
+    "Thanks! Is your flight on time?",
+    "So far, yes. Fingers crossed!",
+    "I'm heading to Berlin. You?",
+    "Barcelona — first time there.",
+    "Do you know how long this ride usually takes?",
+    "About an hour and a half, I think.",
+    "Perfect, just enough time for a podcast.",
+    "Have you taken this route before?",
+    "A couple of times — it's a beautiful ride.",
+    "I've never travelled abroad.",
+    "I've travelled alone.",
+    "I've stayed at hotels.",
+    "I prefer travelling on foot.",
+    "I travel light with little luggage.",
+    "I can start small talk with a stranger at the airport.",
+    "I can ask for directions when I am lost.",
+    "I can describe how I usually travel and what I like."
+  ],
+  airport: [
+    "Good evening. Passport, please. What's the purpose of your visit?",
+    "Tourism. I'm here for one week.",
+    "Where are you staying?",
+    "At the Grand View Hotel in the city centre.",
+    "Grand View Hotel, please. How long is the ride?",
+    "About thirty minutes if traffic is light.",
+    "Do you have any local cash?",
+    "I prefer to pay by card. Is that okay?",
+    "My luggage is missing. It's arriving tomorrow.",
+    "Excuse me — are you visiting the city?",
+    "Yes, just arrived last night.",
+    "Any good places to see in the morning?",
+    "Try the old town. It's quiet before nine.",
+    "Endless. Two flights, one layover, lost suitcase.",
+    "Have a good night — and good luck with the bag."
+  ],
+  hotel: [
+    "Yes, I have a reservation. The name is Volkova.",
+    "Could I see your passport?",
+    "Of course. By the way — my luggage is missing.",
+    "Hello, what's your name? — Emma Carter.",
+    "Great. What's your surname? — Carter.",
+    "How do you spell it? — C, A, R, T, E, R.",
+    "And what's your phone number?",
+    "Sorry, can you repeat it, please?",
+    "My email is emma dot carter at ithub dot com.",
+    "Thank you. Your room number is 78.",
+    "Is breakfast included in the price?",
+    "The chef recommends the seafood pasta today."
+  ]
+};
+
+function renderPhrases(id, arr){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.innerHTML = arr.map((p,i) => `
+    <div class="ph-item">
+      <button class="ph-say" onclick="say(${JSON.stringify(p).replace(/"/g,'&quot;')})" title="Listen">🔊</button>
+      <div class="ph-text"><span class="ph-tag">${i+1}</span>${p}</div>
+    </div>
+  `).join('');
+}
+renderPhrases('ph-tomsawyer', phrases.tomsawyer);
+renderPhrases('ph-treasure', phrases.treasure);
+renderPhrases('ph-travel', phrases.travel);
+renderPhrases('ph-airport', phrases.airport);
+renderPhrases('ph-hotel', phrases.hotel);
+
+/* ═════════ TOPIC PACK FACTORY · 10 упражнений на тему ═════════ */
+const topicPacks = {
+  tomsawyer: {
+    vocab: tomSawyer,
+    fillBlanks: [
+      {sentence:'Tom had to paint the ____ as a punishment.', answer:'fence'},
+      {sentence:'Aunt Polly said Tom was full of ____.', answer:'mischief'},
+      {sentence:'At ____ they walked through the graveyard.', answer:'midnight'},
+      {sentence:'Tom won the ____ at Sunday school — a Bible.', answer:'prize'},
+      {sentence:'The boys were the only ____es to the crime.', answer:'witness'}
+    ],
+    oddOuts: [
+      {words:['fence','paint','trick','graveyard'], right:3, why:'graveyard — не про забор'},
+      {words:['murder','witness','scared','Bible'], right:3, why:'Bible — не про преступление'},
+      {words:['clever','mischief','trick','midnight'], right:3, why:'midnight — время, не про хитрость'}
+    ]
+  },
+  treasure: {
+    vocab: feelings,
+    fillBlanks: [
+      {sentence:'The ____ wanted the map.', answer:'pirates'},
+      {sentence:'The sea ____ was full of gold.', answer:'chest'},
+      {sentence:'Jim worked at the ____ by the sea.', answer:'inn'},
+      {sentence:'The sailors planned a ____.', answer:'mutiny'},
+      {sentence:'The ____ was hidden in a cave.', answer:'treasure'}
+    ],
+    oddOuts: [
+      {words:['pirate','captain','sailor','cave'], right:3, why:'cave — не человек'},
+      {words:['map','chest','treasure','voyage'], right:3, why:'voyage — процесс, не объект'},
+      {words:['island','inn','cave','rum'], right:3, why:'rum — напиток, не место'}
+    ]
+  },
+  travel: {
+    vocab: slang,
+    fillBlanks: [
+      {sentence:'I need to ____ my luggage at the airport.', answer:'check in'},
+      {sentence:'The plane will ____ at half past nine.', answer:'take off'},
+      {sentence:'We should ____ to the hotel — the rain is starting.', answer:'head back'},
+      {sentence:'Let\'s ____ the old town for an hour.', answer:'look around'},
+      {sentence:'I need to ____ from work for two days.', answer:'get away'}
+    ],
+    oddOuts: [
+      {words:['backpack','suitcase','handbag','check in'], right:3, why:'check in — глагол'},
+      {words:['take off','set off','drop by','trunk'], right:3, why:'trunk — существительное'},
+      {words:['trolley-bag','tote bag','head back','handbag'], right:2, why:'head back — глагол'}
+    ]
+  },
+  airport: {
+    vocab: firstvs,
+    fillBlanks: [
+      {sentence:'Please show your ____ pass at the gate.', answer:'boarding'},
+      {sentence:'Pick up your bags at ____ claim.', answer:'baggage'},
+      {sentence:'Show your passport at ____ control.', answer:'passport'},
+      {sentence:'Meet me at the check-in ____.', answer:'desk'},
+      {sentence:'In case of fire, use the emergency ____.', answer:'exit'}
+    ],
+    oddOuts: [
+      {words:['terminal','gate','baggage','island'], right:3, why:'island — не аэропорт'},
+      {words:['boarding pass','passport','key card','security check'], right:2, why:'key card — отель'},
+      {words:['take off','information desk','luggage trolley','flight board'], right:0, why:'take off — глагол'}
+    ]
+  },
+  hotel: {
+    vocab: atfirst,
+    fillBlanks: [
+      {sentence:'I have a ____ under the name Volkov.', answer:'reservation'},
+      {sentence:'Could I have the ____, please?', answer:'bill'},
+      {sentence:'Please leave the key at ____ when you leave.', answer:'reception'},
+      {sentence:'Is breakfast ____ in the price?', answer:'included'},
+      {sentence:'Could I get an extra key ____?', answer:'card'}
+    ],
+    oddOuts: [
+      {words:['reception','receptionist','check-in','pirate'], right:3, why:'pirate — не отель'},
+      {words:['single room','twin room','double room','sailor'], right:3, why:'sailor — не тип номера'},
+      {words:['tip','the bill','breakfast included','trolley-bag'], right:3, why:'trolley-bag — не отель'}
+    ]
+  }
+};
+
+function buildTopicPack(topicKey){
+  const pack = topicPacks[topicKey];
+  if(!pack) return;
+  const container = document.getElementById('pack-' + topicKey);
+  if(!container) return;
+  const V = pack.vocab, P = phrases[topicKey];
+
+  container.innerHTML = `
+    <div class="pack-nav" id="pack-nav-${topicKey}">
+      <button class="pack-btn active" data-pk="mp">🃏 Match</button>
+      <button class="pack-btn" data-pk="te">✍️ Type EN</button>
+      <button class="pack-btn" data-pk="lt">🔊 Listen&amp;type</button>
+      <button class="pack-btn" data-pk="ws">🔀 Scramble</button>
+      <button class="pack-btn" data-pk="fb">📝 Fill-blank</button>
+      <button class="pack-btn" data-pk="oo">🤔 Odd one out</button>
+      <button class="pack-btn" data-pk="ss">⚡ Sprint 30s</button>
+      <button class="pack-btn" data-pk="tf">✅ True/False</button>
+      <button class="pack-btn" data-pk="rev">🔁 Reverse</button>
+      <button class="pack-btn" data-pk="ph">💬 Phrases learn</button>
+    </div>
+
+    <div class="pack-ex active" data-ex="mp">
+      <div class="pack-hdr">🃏 Match RU ↔ EN</div>
+      <div class="pack-hint">tap 2 cards to match a pair</div>
+      <div class="cm-grid" id="cm-grid-${topicKey}"></div>
+      <div class="pack-score" id="cm-score-${topicKey}"></div>
+    </div>
+
+    <div class="pack-ex" data-ex="te">
+      <div class="pack-hdr">✍️ Type EN by RU</div>
+      <div class="pack-hint">RU-подсказка → напечатай EN · Enter или ✓</div>
+      <div id="te-list-${topicKey}"></div>
+      <button class="pack-check" onclick="packTeCheck('${topicKey}')">✓ Check</button>
+      <div class="pack-score" id="te-score-${topicKey}"></div>
+    </div>
+
+    <div class="pack-ex" data-ex="lt">
+      <div class="pack-hdr">🔊 Listen &amp; type</div>
+      <div class="pack-hint">🎧 слушай слово · напечатай что услышал</div>
+      <div id="lt-topic-${topicKey}"></div>
+    </div>
+
+    <div class="pack-ex" data-ex="ws">
+      <div class="pack-hdr">🔀 Word scramble</div>
+      <div class="pack-hint">tap буквы в правильном порядке</div>
+      <div id="ws-topic-${topicKey}"></div>
+    </div>
+
+    <div class="pack-ex" data-ex="fb">
+      <div class="pack-hdr">📝 Fill-in-the-blank</div>
+      <div class="pack-hint">впиши пропущенное слово в каждое предложение</div>
+      <div id="fb-list-${topicKey}"></div>
+      <button class="pack-check" onclick="packFbCheck('${topicKey}')">✓ Check</button>
+      <div class="pack-score" id="fb-score-${topicKey}"></div>
+    </div>
+
+    <div class="pack-ex" data-ex="oo">
+      <div class="pack-hdr">🤔 Odd one out</div>
+      <div class="pack-hint">tap слово, которое не по теме</div>
+      <div id="oo-list-${topicKey}"></div>
+    </div>
+
+    <div class="pack-ex" data-ex="ss">
+      <div class="pack-hdr">⚡ Sprint · 30 сек</div>
+      <div class="pack-hint">RU → EN · максимум ответов за 30 секунд</div>
+      <div class="pk-sp-panel">
+        <div class="pk-sp-timer" id="pk-sp-timer-${topicKey}">00:30</div>
+        <div class="pk-sp-word" id="pk-sp-word-${topicKey}">tap Start</div>
+        <input class="pk-sp-input" id="pk-sp-input-${topicKey}" placeholder="type EN…" disabled>
+        <div style="margin-top:10px"><button class="pack-check" onclick="packSpStart('${topicKey}')">▶ Start 30s</button></div>
+        <div style="margin-top:8px;color:var(--accent3)">score: <strong id="pk-sp-score-${topicKey}">0</strong></div>
+      </div>
+    </div>
+
+    <div class="pack-ex" data-ex="tf">
+      <div class="pack-hdr">✅ True or False</div>
+      <div class="pack-hint">tap True или False для каждого утверждения</div>
+      <div id="tf-list-${topicKey}"></div>
+    </div>
+
+    <div class="pack-ex" data-ex="rev">
+      <div class="pack-hdr">🔁 Reverse translate · EN → RU</div>
+      <div class="pack-hint">EN-слово → напиши перевод по-русски</div>
+      <div id="rev-list-${topicKey}"></div>
+      <button class="pack-check" onclick="packRevCheck('${topicKey}')">✓ Check</button>
+      <div class="pack-score" id="rev-score-${topicKey}"></div>
+    </div>
+
+    <div class="pack-ex" data-ex="ph">
+      <div class="pack-hdr">💬 Phrase learn — Quizlet mini</div>
+      <div class="pack-hint">карточка за карточкой · «знаю» уходит · «ещё раз» возвращается</div>
+      <div id="ph-learn-${topicKey}"></div>
+    </div>
+  `;
+
+  // Nav
+  container.querySelectorAll('.pack-btn').forEach(btn => {
+    btn.onclick = () => {
+      container.querySelectorAll('.pack-btn').forEach(b => b.classList.toggle('active', b === btn));
+      container.querySelectorAll('.pack-ex').forEach(e => e.classList.toggle('active', e.dataset.ex === btn.dataset.pk));
+    };
+  });
+
+  // MATCH (Compact)
+  const cm = document.getElementById('cm-grid-' + topicKey);
+  const cmPairs = V.slice(0, 6);
+  const cmCards = [];
+  cmPairs.forEach((v, i) => { cmCards.push({s:'ru',t:v.ru,p:i}); cmCards.push({s:'en',t:v.w,p:i}); });
+  const cmShuffled = shuffle(cmCards);
+  cm.innerHTML = cmShuffled.map((c,idx) => `<div class="cm-card" data-p="${c.p}" data-s="${c.s}"><span class="cm-txt">${c.t}</span></div>`).join('');
+  let cmOpen = null, cmMatched = 0, cmBusy = false;
+  cm.querySelectorAll('.cm-card').forEach(card => {
+    card.onclick = () => {
+      if(cmBusy || card.classList.contains('open') || card.classList.contains('matched')) return;
+      card.classList.add('open');
+      if(!cmOpen){ cmOpen = card; return; }
+      cmBusy = true;
+      if(cmOpen.dataset.p === card.dataset.p && cmOpen.dataset.s !== card.dataset.s){
+        setTimeout(() => {
+          cmOpen.classList.add('matched'); card.classList.add('matched');
+          cmOpen.classList.remove('open'); card.classList.remove('open');
+          cmOpen = null; cmBusy = false; cmMatched++;
+          document.getElementById('cm-score-' + topicKey).textContent = `${cmMatched} / ${cmPairs.length} pairs`;
+        }, 300);
+      } else {
+        card.classList.add('wrong');
+        setTimeout(() => { cmOpen.classList.remove('open'); card.classList.remove('open','wrong'); cmOpen = null; cmBusy = false; }, 600);
+      }
+    };
+  });
+
+  // TYPE EN
+  document.getElementById('te-list-' + topicKey).innerHTML = V.slice(0, 8).map((v, i) => `
+    <div class="drill">
+      <span class="drill-num">${i+1}</span><span class="drill-ru">${v.ru}</span>
+      <input class="drill-input" data-answer="${v.w}" placeholder="?" data-topic="${topicKey}" data-te="1">
+    </div>
+  `).join('');
+
+  // LISTEN & TYPE (topic)
+  const ltEl = document.getElementById('lt-topic-' + topicKey);
+  const ltSlice = V.slice(0, 6);
+  let ltIdx = 0;
+  function renderLtTopic(){
+    const w = ltSlice[ltIdx].w;
+    ltEl.innerHTML = `
+      <div class="lt-card">
+        <div style="font-size:.82rem;color:var(--muted);margin-bottom:6px">#${ltIdx+1}/${ltSlice.length}</div>
+        <button class="lt-play" onclick="say('${w.replace(/'/g,"\\'")}', 0.75)">🔊</button>
+        <input class="lt-input" placeholder="type what you hear…">
+        <div class="lt-controls">
+          <button class="pack-check" data-lt-check="1">✓ Check</button>
+          <button class="reset-btn" data-lt-skip="1">↷ Skip</button>
+          <button class="reset-btn" data-lt-show="1">💡 Show</button>
+        </div>
+      </div>`;
+    const inp = ltEl.querySelector('.lt-input');
+    setTimeout(() => { inp.focus(); say(w, 0.75); }, 200);
+    inp.onkeydown = e => { if(e.key === 'Enter') ltEl.querySelector('[data-lt-check]').click(); };
+    ltEl.querySelector('[data-lt-check]').onclick = () => {
+      const v = (inp.value||'').trim().toLowerCase();
+      if(v === w.toLowerCase()){ inp.classList.add('right'); setTimeout(() => { ltIdx = (ltIdx+1) % ltSlice.length; renderLtTopic(); }, 700); }
+      else inp.classList.add('wrong');
+    };
+    ltEl.querySelector('[data-lt-skip]').onclick = () => { ltIdx = (ltIdx+1) % ltSlice.length; renderLtTopic(); };
+    ltEl.querySelector('[data-lt-show]').onclick = () => { inp.value = w; inp.classList.add('right'); };
+  }
+  renderLtTopic();
+
+  // WORD SCRAMBLE (topic)
+  const wsEl = document.getElementById('ws-topic-' + topicKey);
+  const wsWordsT = V.filter(v => v.w.length <= 15 && !v.w.includes(' ')).slice(0, 8).map(v => v.w);
+  let wsTIdx = 0;
+  function renderWsTopic(){
+    const w = wsWordsT[wsTIdx];
+    const letters = shuffle(w.split(''));
+    wsEl.innerHTML = `
+      <div class="ws-card">
+        <div class="ws-hint"><strong>#${wsTIdx+1}/${wsWordsT.length}</strong> · собери слово (${w.length} букв) · <button class="tk-say" style="width:24px;height:24px;font-size:.7rem" onclick="say('${w}')">🔊</button></div>
+        <div class="ws-answer" data-ws-ans></div>
+        <div class="ws-letters">${letters.map(l => `<div class="ws-letter" data-l="${l}">${l}</div>`).join('')}</div>
+        <div class="ws-controls">
+          <button class="pack-check" data-ws-check>✓ Check</button>
+          <button class="reset-btn" data-ws-skip>↷ Skip</button>
+        </div>
+      </div>`;
+    const ans = wsEl.querySelector('[data-ws-ans]');
+    wsEl.querySelectorAll('.ws-letter').forEach(el => {
+      el.onclick = () => {
+        if(el.classList.contains('used')) return;
+        const s = document.createElement('div'); s.className = 'ws-slot'; s.textContent = el.dataset.l;
+        s.onclick = () => { el.classList.remove('used'); s.remove(); };
+        ans.appendChild(s); el.classList.add('used');
+      };
+    });
+    wsEl.querySelector('[data-ws-check]').onclick = () => {
+      const b = [...ans.querySelectorAll('.ws-slot')].map(s => s.textContent).join('');
+      if(b.toLowerCase() === w.toLowerCase()){ ans.classList.add('right'); say(w); setTimeout(() => { wsTIdx = (wsTIdx+1) % wsWordsT.length; renderWsTopic(); }, 700); }
+      else ans.classList.add('wrong');
+    };
+    wsEl.querySelector('[data-ws-skip]').onclick = () => { wsTIdx = (wsTIdx+1) % wsWordsT.length; renderWsTopic(); };
+  }
+  renderWsTopic();
+
+  // FILL BLANKS
+  document.getElementById('fb-list-' + topicKey).innerHTML = pack.fillBlanks.map((f,i) => {
+    const parts = f.sentence.split('____');
+    return `<div class="fb-item"><strong style="color:var(--accent2)">${i+1}.</strong> ${parts[0]}<input class="fb-input" data-a="${f.answer}" placeholder="?">${parts[1]||''}</div>`;
+  }).join('');
+
+  // ODD ONE OUT
+  document.getElementById('oo-list-' + topicKey).innerHTML = pack.oddOuts.map((oo,i) => `
+    <div class="oo-row"><div class="oo-hint"><strong style="color:var(--accent2)">${i+1}.</strong> найди лишнее</div>
+      <div class="oo-opts">${oo.words.map((w,j) => `<button class="oo-opt" data-j="${j}" data-r="${oo.right}" data-why="${oo.why.replace(/"/g,'&quot;')}">${w}</button>`).join('')}</div>
+      <div class="oo-fb"></div></div>
+  `).join('');
+  document.querySelectorAll('#oo-list-' + topicKey + ' .oo-opt').forEach(btn => {
+    btn.onclick = () => {
+      const row = btn.closest('.oo-row');
+      if(row.dataset.done) return; row.dataset.done = '1';
+      const j = +btn.dataset.j, r = +btn.dataset.r;
+      row.querySelectorAll('.oo-opt').forEach(b => b.disabled = true);
+      const fb = row.querySelector('.oo-fb');
+      if(j === r){ btn.classList.add('right'); fb.textContent = '✅ ' + btn.dataset.why; fb.style.color = 'var(--ok)'; }
+      else { btn.classList.add('wrong'); row.querySelectorAll('.oo-opt')[r].classList.add('right'); fb.textContent = '❌ ' + btn.dataset.why; fb.style.color = 'var(--miss)'; }
+    };
+  });
+
+  // TRUE / FALSE (по phrases — 6 фраз, 3 false)
+  const tfSlice = P.slice(0, 6);
+  const tfItems = tfSlice.map((p, i) => {
+    const isTrue = i % 2 === 0; // even = true, odd = swap slightly
+    return {text: isTrue ? p : p.replace(/was|is|will|has/i, 'was NOT'), a: isTrue};
+  });
+  document.getElementById('tf-list-' + topicKey).innerHTML = tfItems.map((t, i) => `
+    <div class="tf-item"><div class="tf-text"><strong>${i+1}.</strong> ${t.text}</div>
+      <div class="tf-btns"><button class="tf-btn" data-v="T" data-a="${t.a}">True</button><button class="tf-btn" data-v="F" data-a="${t.a}">False</button></div></div>
+  `).join('');
+  document.querySelectorAll('#tf-list-' + topicKey + ' .tf-btn').forEach(btn => {
+    btn.onclick = () => {
+      const row = btn.closest('.tf-item'); if(row.dataset.done) return; row.dataset.done = '1';
+      const chose = btn.dataset.v === 'T'; const answer = btn.dataset.a === 'true';
+      row.querySelectorAll('.tf-btn').forEach(b => b.disabled = true);
+      if(chose === answer) btn.classList.add('right');
+      else { btn.classList.add('wrong'); [...row.querySelectorAll('.tf-btn')].find(b => (b.dataset.v==='T')===answer).classList.add('right'); }
+    };
+  });
+
+  // REVERSE
+  document.getElementById('rev-list-' + topicKey).innerHTML = V.slice(0, 6).map((v, i) => `
+    <div class="drill"><span class="drill-num">${i+1}</span><span class="drill-ru">${v.w}</span><input class="drill-input" data-ru="${v.ru}" placeholder="RU перевод…"></div>
+  `).join('');
+
+  // PHRASE LEARN (mini quizlet)
+  const phlEl = document.getElementById('ph-learn-' + topicKey);
+  let phStack = shuffle(P.slice()), phKnown = 0, phStill = 0, phCurr = null;
+  function phRender(){
+    if(phStack.length === 0){
+      phlEl.innerHTML = `<div style="text-align:center;padding:24px"><h3 style="color:var(--ok)">🎉 done!</h3><p>Известно: ${phKnown} · Повторил: ${phStill}</p><button class="pack-check" onclick="location.reload()">🔄 Restart</button></div>`;
+      return;
+    }
+    phCurr = phStack.shift();
+    phlEl.innerHTML = `
+      <div class="ln-panel" style="min-height:200px">
+        <div class="ln-progress">phrase · known <strong style="color:var(--ok)">${phKnown}</strong> · left <strong>${phStack.length + 1}</strong></div>
+        <div class="ln-card-word" style="font-size:1.1rem;line-height:1.4">${phCurr}</div>
+        <div class="ln-actions">
+          <button class="ln-btn ln-say" onclick="say(${JSON.stringify(phCurr).replace(/"/g,'&quot;')})">🔊</button>
+          <button class="ln-btn ln-know" data-ph-k>✓ Знаю</button>
+          <button class="ln-btn ln-still" data-ph-s>↺ Ещё раз</button>
+        </div>
+      </div>`;
+    phlEl.querySelector('[data-ph-k]').onclick = () => { phKnown++; phRender(); };
+    phlEl.querySelector('[data-ph-s]').onclick = () => { phStill++; phStack.push(phCurr); phRender(); };
+  }
+  phRender();
+}
+
+// Type EN checker (per topic)
+window.packTeCheck = function(topicKey){
+  const inputs = [...document.querySelectorAll('#te-list-' + topicKey + ' .drill-input')];
+  let right = 0;
+  inputs.forEach(inp => {
+    const val = (inp.value||'').trim().toLowerCase();
+    if(val === inp.dataset.answer.toLowerCase()){ inp.classList.remove('wrong'); inp.classList.add('right'); right++; }
+    else { inp.classList.remove('right'); inp.classList.add('wrong'); }
+  });
+  document.getElementById('te-score-' + topicKey).textContent = `${right} / ${inputs.length} correct`;
+};
+window.packFbCheck = function(topicKey){
+  const inputs = [...document.querySelectorAll('#fb-list-' + topicKey + ' .fb-input')];
+  let right = 0;
+  inputs.forEach(inp => {
+    const val = (inp.value||'').trim().toLowerCase();
+    if(val === inp.dataset.a.toLowerCase()){ inp.classList.remove('wrong'); inp.classList.add('right'); right++; }
+    else { inp.classList.remove('right'); inp.classList.add('wrong'); }
+  });
+  document.getElementById('fb-score-' + topicKey).textContent = `${right} / ${inputs.length} correct`;
+};
+window.packRevCheck = function(topicKey){
+  const inputs = [...document.querySelectorAll('#rev-list-' + topicKey + ' .drill-input')];
+  let right = 0;
+  inputs.forEach(inp => {
+    const val = (inp.value||'').trim().toLowerCase();
+    const target = inp.dataset.ru.toLowerCase();
+    if(val && (target.includes(val) || val.includes(target.split(/[,\s]/)[0]))){ inp.classList.remove('wrong'); inp.classList.add('right'); right++; }
+    else { inp.classList.remove('right'); inp.classList.add('wrong'); }
+  });
+  document.getElementById('rev-score-' + topicKey).textContent = `${right} / ${inputs.length} correct`;
+};
+// Sprint per topic
+window.packSpStart = function(topicKey){
+  const pack = topicPacks[topicKey];
+  const words = pack.vocab.slice();
+  let left = 30, idx = 0, score = 0;
+  const w = () => words[idx % words.length];
+  const inp = document.getElementById('pk-sp-input-' + topicKey);
+  const wordEl = document.getElementById('pk-sp-word-' + topicKey);
+  const scoreEl = document.getElementById('pk-sp-score-' + topicKey);
+  const tmEl = document.getElementById('pk-sp-timer-' + topicKey);
+  inp.disabled = false; inp.value = ''; inp.focus();
+  wordEl.textContent = w().ru; wordEl.style.color = '#fff';
+  scoreEl.textContent = 0;
+  inp.oninput = () => {
+    const v = inp.value.trim().toLowerCase();
+    if(v === w().w.toLowerCase()){ score++; scoreEl.textContent = score; wordEl.textContent = '✓ ' + w().w; wordEl.style.color = 'var(--ok)'; idx++; setTimeout(() => { wordEl.style.color = '#fff'; wordEl.textContent = w().ru; inp.value = ''; }, 300); }
+  };
+  inp.onkeydown = e => { if(e.key === 'Enter'){ idx++; wordEl.textContent = w().ru; inp.value = ''; } };
+  const t = setInterval(() => {
+    left--;
+    tmEl.textContent = `00:${String(left).padStart(2,'0')}`;
+    if(left <= 0){ clearInterval(t); inp.disabled = true; wordEl.textContent = `⏱ time! score ${score}`; wordEl.style.color = 'var(--accent3)'; }
+  }, 1000);
+};
+
+// Build packs for all topics
+['tomsawyer','treasure','travel','airport','hotel'].forEach(buildTopicPack);
 
 // Progress + achievements
 const state = { flipped:new Set(), duoXP:0, mmDone:false, drillPct:0 };
@@ -376,16 +1297,20 @@ document.querySelectorAll('.flip-card').forEach((c, idx) => {
   });
 });
 
-/* === DUOLINGO-STYLE QUICK QUIZ · first vs at first === */
+/* === DUOLINGO-STYLE QUICK QUIZ · travel & airport === */
 const duoQs = [
-  {q:'«___, I hated Moscow. Now I love it.»', options:['At first','First'], correct:0, hint:'ситуация изменилась'},
-  {q:'«___, I ate breakfast. Then I went to school.»', options:['At first','First'], correct:1, hint:'последовательность действий'},
-  {q:'«___ I took the metro alone, I got lost.»', options:['At first','The first time'], correct:1, hint:'конкретный первый раз'},
-  {q:'«___, summer is here!» (после долгого ожидания)', options:['At first','At last'], correct:1, hint:'наконец-то'},
-  {q:'«___ of all, thanks for coming!»', options:['First','At first'], correct:0, hint:'прежде всего (не «сначала было X, потом Y»)'},
-  {q:'«___, we found our hotel.» (после долгих поисков)', options:['First','Finally'], correct:1, hint:'в конце концов'},
-  {q:'«___, I thought English was hard, but it got easier.»', options:['First','At first'], correct:1, hint:'но потом изменилось'},
-  {q:'«She won ___ prize in the competition.»', options:['at first','first'], correct:1, hint:'first = первый (о призе)'}
+  {q:'«I need to ___ my luggage before the flight.»', options:['check in','check out'], correct:0, hint:'зарегистрироваться в аэропорту'},
+  {q:'«The plane will ___ at 9:30.»', options:['set off','take off'], correct:1, hint:'взлететь (о самолёте)'},
+  {q:'«___ is before 11 a.m.» (уехать из отеля)', options:['Check-in','Check-out'], correct:1, hint:'выехать = check-out'},
+  {q:'«I have a ___ under the name Volkov.»', options:['reservation','reception'], correct:0, hint:'бронь = reservation'},
+  {q:'«A ___ has one big bed for two.»', options:['twin room','double room'], correct:1, hint:'double = 1 большая'},
+  {q:'«A ___ has two separate beds.»', options:['twin room','single room'], correct:0, hint:'twin = 2 раздельные'},
+  {q:'«Could I get an extra ___?»', options:['bill','key card'], correct:1, hint:'карта-ключ'},
+  {q:'«I left a small ___ for the housekeeping.»', options:['tip','trip'], correct:0, hint:'чаевые'},
+  {q:'«Let\'s ___ the old town for an hour.»', options:['look around','head back'], correct:0, hint:'осмотреться, погулять'},
+  {q:'«The old ___ came to the inn.» (Treasure Island)', options:['sailor','captain'], correct:0, hint:'моряк'},
+  {q:'«They saw the ___ in the morning.» (T.I.)', options:['cave','island'], correct:1, hint:'остров'},
+  {q:'«The sailors planned a ___.» (T.I.)', options:['mutiny','voyage'], correct:0, hint:'мятеж'}
 ];
 const duoWrap = document.getElementById('duo-quiz');
 duoQs.forEach((dq, i) => {
@@ -431,16 +1356,18 @@ document.querySelectorAll('.duo-btn').forEach(btn => {
   };
 });
 
-/* === MEMORY MATCH · RU ↔ EN pairs === */
+/* === MEMORY MATCH · RU ↔ EN · Fedor mix === */
 const mmPairs = [
-  {ru:'сначала (потом изм.)',en:'at first'},
-  {ru:'наконец-то',en:'at last'},
-  {ru:'настроение',en:'vibe'},
-  {ru:'случайный',en:'random'},
-  {ru:'усталый',en:'tired'},
-  {ru:'благодарный',en:'grateful'},
-  {ru:'оно того стоит',en:'worth it'},
-  {ru:'точно',en:'definitely'}
+  {ru:'капитан',en:'captain'},
+  {ru:'сокровище',en:'treasure'},
+  {ru:'мятеж',en:'mutiny'},
+  {ru:'рюкзак',en:'backpack'},
+  {ru:'взлетать',en:'take off'},
+  {ru:'зарегистрироваться',en:'check in'},
+  {ru:'стойка ресепшн',en:'reception'},
+  {ru:'карта-ключ',en:'key card'},
+  {ru:'бронь',en:'reservation'},
+  {ru:'чаевые',en:'tip'}
 ];
 function shuffle(a){ return a.slice().sort(() => Math.random() - 0.5); }
 function initMemory(){
@@ -489,28 +1416,15 @@ initMemory();
 document.getElementById('mm-reset').onclick = () => { confettiFired = false; state.mmDone = false; initMemory(); updateProgress(); };
 updateProgress();
 
-/* Typing drill · 20 items */
+/* Typing drill · 24 items · Fedor mix */
 const drills = [
-  {ru:'усталый',en:'tired'},
-  {ru:'взволнованный / в предвкушении',en:'excited'},
-  {ru:'любопытный',en:'curious'},
-  {ru:'скучающий',en:'bored'},
-  {ru:'гордый (за)',en:'proud'},
-  {ru:'благодарный',en:'grateful'},
-  {ru:'недооценённый',en:'underrated'},
-  {ru:'перехайпленный',en:'overhyped'},
-  {ru:'настроение / атмосфера',en:'vibe'},
-  {ru:'случайный',en:'random'},
-  {ru:'оно того стоит',en:'worth it'},
-  {ru:'расслабленный / чиллить',en:'chill'},
-  {ru:'определённый / точный',en:'definite'},
-  {ru:'точно / определённо (adv)',en:'definitely'},
-  {ru:'сначала (потом изменилось)',en:'at first'},
-  {ru:'изначально, поначалу',en:'initially'},
-  {ru:'для начала (2 варианта: to s… / to b…)',en:'to start with',alt:['to start with','to begin with']},
-  {ru:'в начале, поначалу',en:'in the beginning'},
-  {ru:'прежде всего, во-первых',en:'first of all'},
-  {ru:'первое, что я заметил(а), было…',en:'the first thing i noticed was'}
+  {ru:'пират',en:'pirate'},{ru:'карта',en:'map'},{ru:'сундук',en:'chest'},{ru:'капитан',en:'captain'},
+  {ru:'моряк',en:'sailor'},{ru:'сокровище',en:'treasure'},{ru:'остров',en:'island'},{ru:'мятеж',en:'mutiny'},
+  {ru:'чемодан на колёсиках',en:'trolley-bag'},{ru:'рюкзак',en:'backpack'},{ru:'зарегистрироваться (аэропорт/отель)',en:'check in'},
+  {ru:'взлетать',en:'take off'},{ru:'отправиться в путь',en:'set off'},{ru:'заскочить ненадолго',en:'drop by'},
+  {ru:'вернуться назад',en:'head back'},{ru:'терминал',en:'the terminal'},{ru:'gate (выход на посадку)',en:'the gate'},
+  {ru:'посадочный талон',en:'boarding pass'},{ru:'выдача багажа',en:'baggage claim'},{ru:'ресепшн',en:'reception'},
+  {ru:'бронь',en:'reservation'},{ru:'карта-ключ',en:'key card'},{ru:'чаевые',en:'tip'},{ru:'счёт',en:'the bill'}
 ];
 const drillList = document.getElementById('drill-list');
 drills.forEach((d, i) => {
@@ -552,6 +1466,418 @@ document.getElementById('drill-reset').onclick = () => {
   document.querySelectorAll('.drill-input').forEach(inp => { inp.value=''; inp.classList.remove('right','wrong'); });
   document.getElementById('drill-score').textContent = '';
 };
+
+/* ═════════ GAME 5 · CATEGORY SORT ═════════ */
+const csCategories = [
+  {key:'treasure', label:'🏴‍☠️ Treasure Island', words:['pirate','captain','treasure','mutiny']},
+  {key:'travel', label:'🎒 Travel · bags & verbs', words:['backpack','suitcase','take off','set off']},
+  {key:'airport', label:'🛬 Airport', words:['boarding pass','baggage claim','the gate','security check']},
+  {key:'hotel', label:'🏨 Hotel', words:['reception','reservation','key card','room service']}
+];
+function initCategorySort(){
+  const bank = document.getElementById('cs-bank');
+  const cols = document.getElementById('cs-cols');
+  const status = document.getElementById('cs-status');
+  const allWords = csCategories.flatMap(c => c.words.map(w => ({w, k:c.key})));
+  const shuffled = shuffle(allWords);
+  bank.innerHTML = shuffled.map((it,i) => `<div class="cs-word" data-w="${it.w}" data-k="${it.k}" data-i="${i}">${it.w}</div>`).join('');
+  cols.innerHTML = csCategories.map(c =>
+    `<div class="cs-col" data-key="${c.key}"><div class="cs-col-hdr">${c.label}</div><div class="cs-col-items"></div></div>`
+  ).join('');
+  let selected = null, placed = 0;
+  status.textContent = `0 / ${allWords.length} placed`;
+  bank.querySelectorAll('.cs-word').forEach(w => {
+    w.onclick = () => {
+      if(w.classList.contains('placed')) return;
+      if(selected) selected.classList.remove('selected');
+      if(selected === w){ selected = null; return; }
+      selected = w; w.classList.add('selected');
+      say(w.dataset.w);
+    };
+  });
+  cols.querySelectorAll('.cs-col').forEach(col => {
+    col.onclick = () => {
+      if(!selected) return;
+      const isRight = selected.dataset.k === col.dataset.key;
+      const item = document.createElement('span');
+      item.className = 'cs-col-item ' + (isRight ? 'correct' : 'wrong');
+      item.textContent = selected.dataset.w;
+      col.querySelector('.cs-col-items').appendChild(item);
+      selected.classList.add('placed'); selected.classList.remove('selected');
+      selected = null; placed++;
+      status.textContent = `${placed} / ${allWords.length} placed`;
+      if(placed === allWords.length){
+        const wrong = cols.querySelectorAll('.cs-col-item.wrong').length;
+        status.textContent = wrong === 0 ? `🎉 perfect! all ${allWords.length} correct` : `done · ${allWords.length - wrong} correct, ${wrong} wrong`;
+        state.csDone = true; updateProgress();
+      }
+    };
+  });
+}
+initCategorySort();
+document.getElementById('cs-reset').onclick = () => { state.csDone = false; initCategorySort(); updateProgress(); };
+
+/* ═════════ GAME 6 · WORD SCRAMBLE ═════════ */
+const wsWords = ['pirate','treasure','captain','sailor','mutiny','island','backpack','suitcase','trolley','check','airport','boarding','baggage','security','passport','luggage','reception','reservation','breakfast','hotel','key','tip','recommend'];
+const wsContainer = document.getElementById('ws-container');
+let wsIdx = 0, wsSolved = 0;
+function renderWs(){
+  const w = wsWords[wsIdx];
+  const letters = shuffle(w.split(''));
+  wsContainer.innerHTML = `
+    <div class="ws-card">
+      <div class="ws-hint"><strong>#${wsIdx+1}/${wsWords.length}</strong> · собери слово (${w.length} букв)</div>
+      <div class="ws-answer" id="ws-answer"></div>
+      <div class="ws-letters" id="ws-letters">${letters.map((l,i) => `<div class="ws-letter" data-l="${l}" data-i="${i}">${l}</div>`).join('')}</div>
+      <div class="ws-controls">
+        <button class="check-btn" id="ws-check">✓ Check</button>
+        <button class="reset-btn" id="ws-skip">↷ Skip</button>
+        <button class="reset-btn" id="ws-show">💡 Show</button>
+      </div>
+      <div class="ws-tag">solved: <strong>${wsSolved}</strong> · listen: <button class="tk-say" style="width:26px;height:26px;font-size:.75rem" onclick="say('${w}')">🔊</button></div>
+    </div>`;
+  const answer = document.getElementById('ws-answer');
+  const letters_el = document.getElementById('ws-letters');
+  letters_el.querySelectorAll('.ws-letter').forEach(el => {
+    el.onclick = () => {
+      if(el.classList.contains('used')) return;
+      const slot = document.createElement('div');
+      slot.className = 'ws-slot'; slot.textContent = el.dataset.l; slot.dataset.i = el.dataset.i;
+      slot.onclick = () => {
+        el.classList.remove('used');
+        slot.remove();
+      };
+      answer.appendChild(slot);
+      el.classList.add('used');
+    };
+  });
+  document.getElementById('ws-check').onclick = () => {
+    const built = [...answer.querySelectorAll('.ws-slot')].map(s => s.textContent).join('');
+    if(built.toLowerCase() === w.toLowerCase()){
+      answer.classList.add('right'); answer.classList.remove('wrong');
+      wsSolved++; say(w);
+      setTimeout(() => { wsIdx = (wsIdx+1) % wsWords.length; renderWs(); updateProgress(); }, 900);
+    } else {
+      answer.classList.add('wrong'); answer.classList.remove('right');
+    }
+  };
+  document.getElementById('ws-skip').onclick = () => { wsIdx = (wsIdx+1) % wsWords.length; renderWs(); };
+  document.getElementById('ws-show').onclick = () => {
+    answer.innerHTML = w.split('').map(l => `<div class="ws-slot">${l}</div>`).join('');
+    answer.classList.add('right');
+  };
+}
+renderWs();
+
+/* ═════════ GAME 7 · LISTEN & TYPE ═════════ */
+const ltWords = ['captain','treasure','island','backpack','check in','take off','boarding pass','baggage claim','reception','reservation','key card','breakfast','sailor','mutiny','head back','recommend'];
+const ltContainer = document.getElementById('lt-container');
+let ltIdx = 0, ltSolved = 0;
+function renderLt(){
+  const w = ltWords[ltIdx];
+  ltContainer.innerHTML = `
+    <div class="lt-card">
+      <div style="font-size:.86rem;color:var(--muted);margin-bottom:6px">#${ltIdx+1}/${ltWords.length} · solved: <strong style="color:var(--accent2)">${ltSolved}</strong></div>
+      <button class="lt-play" onclick="say('${w}', 0.75)">🔊</button>
+      <div style="margin-bottom:8px;font-size:.86rem;color:var(--muted)">tap 🔊, listen, then type what you hear</div>
+      <input class="lt-input" id="lt-input" placeholder="type what you hear…">
+      <div class="lt-controls">
+        <button class="check-btn" id="lt-check">✓ Check</button>
+        <button class="reset-btn" id="lt-skip">↷ Skip</button>
+        <button class="reset-btn" id="lt-show">💡 Show</button>
+      </div>
+    </div>`;
+  const inp = document.getElementById('lt-input');
+  setTimeout(() => { inp.focus(); say(w, 0.75); }, 200);
+  inp.onkeydown = e => { if(e.key === 'Enter') document.getElementById('lt-check').click(); };
+  document.getElementById('lt-check').onclick = () => {
+    const val = (inp.value || '').trim().toLowerCase();
+    if(val === w.toLowerCase()){
+      inp.classList.add('right'); inp.classList.remove('wrong');
+      ltSolved++; state.ltSolved = ltSolved;
+      setTimeout(() => { ltIdx = (ltIdx+1) % ltWords.length; renderLt(); updateProgress(); }, 800);
+    } else {
+      inp.classList.add('wrong'); inp.classList.remove('right');
+    }
+  };
+  document.getElementById('lt-skip').onclick = () => { ltIdx = (ltIdx+1) % ltWords.length; renderLt(); };
+  document.getElementById('lt-show').onclick = () => { inp.value = w; inp.classList.add('right'); };
+}
+renderLt();
+
+/* ═════════ GAME 8 · SENTENCE BUILDER ═════════ */
+const sbSentences = [
+  {ru:'Я хочу забронировать двухместный номер на две ночи.', words:['I','want','to','book','a','double','room','for','two','nights']},
+  {ru:'Пожалуйста, оставьте ключ на ресепшн.', words:['Please','leave','the','key','at','reception']},
+  {ru:'Самолёт взлетает в половине десятого.', words:['The','plane','takes','off','at','half','past','nine']},
+  {ru:'У меня бронь на фамилию Иванов.', words:['I','have','a','reservation','under','the','name','Ivanov']},
+  {ru:'Мы можем заскочить в кафе перед прогулкой.', words:['We','can','drop','by','the','café','before','our','walk']},
+  {ru:'Не могли бы вы произнести вашу фамилию по буквам?', words:['Could','you','spell','your','surname','please']}
+];
+const sbContainer = document.getElementById('sb-container');
+sbSentences.forEach((s, i) => {
+  const bank = shuffle(s.words);
+  const row = document.createElement('div');
+  row.className = 'sb-item';
+  row.innerHTML = `
+    <div class="sb-target"><strong>${i+1}.</strong> ${s.ru}</div>
+    <div class="sb-slots" id="sb-slots-${i}"></div>
+    <div class="sb-bank" id="sb-bank-${i}">${bank.map((w,k) => `<div class="sb-word" data-w="${w}" data-k="${k}">${w}</div>`).join('')}</div>
+    <button class="sb-check" data-i="${i}">✓ Check sentence ${i+1}</button>`;
+  sbContainer.appendChild(row);
+  const slots = row.querySelector('.sb-slots');
+  row.querySelectorAll('.sb-word').forEach(word => {
+    word.onclick = () => {
+      if(word.classList.contains('used')) return;
+      const slot = document.createElement('div');
+      slot.className = 'sb-slot'; slot.textContent = word.dataset.w; slot.dataset.k = word.dataset.k;
+      slot.onclick = () => { word.classList.remove('used'); slot.remove(); };
+      slots.appendChild(slot);
+      word.classList.add('used');
+    };
+  });
+});
+let sbSolved = 0;
+document.querySelectorAll('.sb-check').forEach(btn => {
+  btn.onclick = () => {
+    const i = +btn.dataset.i;
+    const slots = document.getElementById('sb-slots-'+i);
+    const built = [...slots.querySelectorAll('.sb-slot')].map(s => s.textContent).join(' ');
+    const target = sbSentences[i].words.join(' ');
+    if(built === target){
+      slots.classList.add('right'); slots.classList.remove('wrong');
+      if(!btn.dataset.done){ btn.dataset.done = '1'; sbSolved++; state.sbSolved = sbSolved; updateProgress(); say(target); }
+    } else {
+      slots.classList.add('wrong'); slots.classList.remove('right');
+    }
+  };
+});
+
+/* ═════════ GAME 9 · ODD ONE OUT ═════════ */
+const ooRows = [
+  {words:['pirate','captain','sailor','hotel'], right:3, why:'hotel — не про море'},
+  {words:['suitcase','backpack','handbag','island'], right:3, why:'island — не сумка'},
+  {words:['check in','take off','set off','tip'], right:3, why:'tip — существительное, не глагол движения'},
+  {words:['reception','reservation','key card','treasure'], right:3, why:'treasure — не про отель'},
+  {words:['baggage claim','boarding pass','the gate','mutiny'], right:3, why:'mutiny — не про аэропорт'},
+  {words:['single room','twin room','double room','trolley-bag'], right:3, why:'trolley-bag — не тип номера'},
+  {words:['to book','to spell','to recommend','to sail'], right:3, why:'to sail — не про отель/сервис'},
+  {words:['drop by','look around','head back','baggage'], right:3, why:'baggage — существительное, не phrasal verb'}
+];
+const ooContainer = document.getElementById('oo-container');
+let ooSolved = 0;
+ooRows.forEach((oo, i) => {
+  const row = document.createElement('div');
+  row.className = 'oo-row';
+  row.innerHTML = `
+    <div class="oo-hint"><strong style="color:var(--accent2)">${i+1}.</strong> найди слово не по теме</div>
+    <div class="oo-opts">${oo.words.map((w,j) => `<button class="oo-opt" data-j="${j}" data-r="${i}">${w}</button>`).join('')}</div>
+    <div class="oo-fb"></div>`;
+  ooContainer.appendChild(row);
+});
+document.querySelectorAll('.oo-opt').forEach(btn => {
+  btn.onclick = () => {
+    const r = +btn.dataset.r, j = +btn.dataset.j;
+    const row = btn.closest('.oo-row');
+    if(row.dataset.done) return; row.dataset.done = '1';
+    const fb = row.querySelector('.oo-fb');
+    row.querySelectorAll('.oo-opt').forEach(b => b.disabled = true);
+    if(j === ooRows[r].right){
+      btn.classList.add('right');
+      ooSolved++; state.ooSolved = ooSolved;
+      fb.textContent = '✅ верно · ' + ooRows[r].why; fb.style.color = 'var(--ok)';
+      say(ooRows[r].words[j]);
+    } else {
+      btn.classList.add('wrong');
+      const rightBtn = row.querySelectorAll('.oo-opt')[ooRows[r].right];
+      rightBtn.classList.add('right');
+      fb.textContent = '❌ правильно: «' + ooRows[r].words[ooRows[r].right] + '» — ' + ooRows[r].why; fb.style.color = 'var(--miss)';
+    }
+    updateProgress();
+  };
+});
+
+/* ═════════ GAME 10 · SPEED ROUND ═════════ */
+const spWords = drills.slice(); // reuse drills
+let spTimer = null, spLeft = 60, spScore = 0, spIdx = 0, spActive = false;
+function nextSpWord(){
+  if(spIdx >= spWords.length) spIdx = 0;
+  const w = spWords[spIdx];
+  document.getElementById('sp-hint').textContent = w.ru;
+  document.getElementById('sp-word').textContent = '';
+  document.getElementById('sp-input').value = '';
+  document.getElementById('sp-input').focus();
+}
+document.getElementById('sp-input').oninput = () => {
+  if(!spActive) return;
+  const val = document.getElementById('sp-input').value.trim().toLowerCase();
+  const w = spWords[spIdx];
+  const alts = (w.alt || [w.en]).map(a => a.toLowerCase());
+  if(alts.includes(val)){
+    spScore++;
+    document.getElementById('sp-score').textContent = 'score: ' + spScore;
+    document.getElementById('sp-word').textContent = '✓ ' + w.en;
+    document.getElementById('sp-word').style.color = 'var(--ok)';
+    spIdx++;
+    setTimeout(() => { document.getElementById('sp-word').style.color = '#fff'; nextSpWord(); }, 300);
+  }
+};
+document.getElementById('sp-input').onkeydown = e => {
+  if(e.key === 'Enter' && spActive){
+    // skip
+    document.getElementById('sp-word').textContent = '↷ ' + spWords[spIdx].en;
+    document.getElementById('sp-word').style.color = 'var(--miss)';
+    spIdx++;
+    setTimeout(() => { document.getElementById('sp-word').style.color = '#fff'; nextSpWord(); }, 400);
+  }
+};
+document.getElementById('sp-start').onclick = () => {
+  spActive = true; spLeft = 60; spScore = 0; spIdx = 0;
+  document.getElementById('sp-input').disabled = false;
+  document.getElementById('sp-score').textContent = 'score: 0';
+  document.getElementById('sp-final').style.display = 'none';
+  nextSpWord();
+  if(spTimer) clearInterval(spTimer);
+  spTimer = setInterval(() => {
+    spLeft--;
+    const m = Math.floor(spLeft/60), s = spLeft%60;
+    document.getElementById('sp-timer').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    if(spLeft <= 0){
+      clearInterval(spTimer); spActive = false;
+      document.getElementById('sp-input').disabled = true;
+      document.getElementById('sp-hint').textContent = 'time!';
+      document.getElementById('sp-word').textContent = '—';
+      const fin = document.getElementById('sp-final');
+      fin.style.display = 'block';
+      fin.innerHTML = `🎉 <strong>${spScore}</strong> words in 60 seconds!<br>${spScore >= 15 ? '⚡ Speed champion — achievement unlocked!' : spScore >= 8 ? 'Good pace! Try again for 15+' : 'Warm-up · try again!'}`;
+      if(spScore >= 15){ state.spDone = true; updateProgress(); }
+    }
+  }, 1000);
+};
+document.getElementById('sp-reset').onclick = () => {
+  if(spTimer) clearInterval(spTimer);
+  spActive = false; spLeft = 60; spScore = 0; spIdx = 0;
+  document.getElementById('sp-timer').textContent = '01:00';
+  document.getElementById('sp-score').textContent = 'score: 0';
+  document.getElementById('sp-hint').textContent = 'tap Start to begin';
+  document.getElementById('sp-word').textContent = '—';
+  document.getElementById('sp-input').value = ''; document.getElementById('sp-input').disabled = true;
+  document.getElementById('sp-final').style.display = 'none';
+};
+
+/* ═════════ GAME 11 · LEARN MODE (Quizlet-style) ═════════ */
+const learnPools = {
+  treasure: feelings.map(v => ({...v, topic:'treasure'})),
+  travel: slang.map(v => ({...v, topic:'travel'})),
+  airport: firstvs.map(v => ({...v, topic:'airport'})),
+  hotel: atfirst.map(v => ({...v, topic:'hotel'}))
+};
+learnPools.all = [...learnPools.treasure, ...learnPools.travel, ...learnPools.airport, ...learnPools.hotel];
+let lnCurrent = null, lnStack = [], lnKnown = 0, lnStill = 0, lnKnownFirstTry = new Set(), lnTouched = new Set(), lnTopic = 'all', lnActive = false;
+
+function lnRefreshCounts(){
+  document.getElementById('ln-known').textContent = lnKnown;
+  document.getElementById('ln-still').textContent = lnStill;
+  document.getElementById('ln-left').textContent = lnStack.length;
+  document.getElementById('ln-cur').textContent = lnActive ? (lnKnown + lnStill + 1) : 0;
+}
+
+function lnNext(){
+  const panel = document.getElementById('ln-panel');
+  panel.classList.remove('revealed');
+  document.getElementById('ln-reveal').style.display = 'inline-block';
+  document.getElementById('ln-know').style.display = 'none';
+  document.getElementById('ln-still-btn').style.display = 'none';
+  if(lnStack.length === 0){
+    // done
+    lnActive = false;
+    document.getElementById('ln-word').textContent = '🎉 done!';
+    document.getElementById('ln-hint').textContent = '';
+    document.getElementById('ln-ex').textContent = '';
+    document.getElementById('ln-actions').style.display = 'none';
+    const sum = document.getElementById('ln-summary');
+    sum.classList.add('show');
+    document.getElementById('ln-final-known').textContent = lnKnownFirstTry.size;
+    document.getElementById('ln-final-total').textContent = lnTouched.size;
+    if(lnKnownFirstTry.size >= 20){ state.lnDone = true; updateProgress(); }
+    return;
+  }
+  lnCurrent = lnStack.shift();
+  lnTouched.add(lnCurrent.w);
+  document.getElementById('ln-word').textContent = lnCurrent.w;
+  document.getElementById('ln-hint').innerHTML = `<em style="color:var(--muted)">tap Reveal → then rate yourself</em>`;
+  document.getElementById('ln-ex').textContent = '';
+  lnRefreshCounts();
+  say(lnCurrent.w);
+}
+
+document.getElementById('ln-start').onclick = () => {
+  const pool = learnPools[lnTopic] || learnPools.all;
+  lnStack = shuffle(pool.slice());
+  lnKnown = 0; lnStill = 0; lnKnownFirstTry = new Set(); lnTouched = new Set();
+  lnActive = true;
+  document.getElementById('ln-actions').style.display = 'flex';
+  document.getElementById('ln-start').style.display = 'none';
+  document.getElementById('ln-summary').classList.remove('show');
+  lnNext();
+};
+
+document.getElementById('ln-reveal').onclick = () => {
+  const panel = document.getElementById('ln-panel');
+  panel.classList.add('revealed');
+  document.getElementById('ln-hint').innerHTML = `<strong>${lnCurrent.ru}</strong> · <em style="color:var(--muted)">${lnCurrent.pos} ${lnCurrent.ipa || ''}</em>`;
+  document.getElementById('ln-ex').textContent = lnCurrent.ex || '';
+  document.getElementById('ln-reveal').style.display = 'none';
+  document.getElementById('ln-know').style.display = 'inline-block';
+  document.getElementById('ln-still-btn').style.display = 'inline-block';
+};
+
+document.getElementById('ln-know').onclick = () => {
+  lnKnown++;
+  // count first-try knowledge only if word never came back
+  if(!lnStack.some(x => x.w === lnCurrent.w)) lnKnownFirstTry.add(lnCurrent.w);
+  lnNext();
+};
+
+document.getElementById('ln-still-btn').onclick = () => {
+  lnStill++;
+  // put back to end
+  lnStack.push(lnCurrent);
+  lnNext();
+};
+
+document.getElementById('ln-restart').onclick = () => {
+  document.getElementById('ln-actions').style.display = 'flex';
+  document.getElementById('ln-start').style.display = 'inline-block';
+  document.getElementById('ln-summary').classList.remove('show');
+  document.getElementById('ln-word').textContent = 'tap Start to begin';
+  document.getElementById('ln-hint').textContent = '—';
+  document.getElementById('ln-ex').textContent = '—';
+  lnActive = false; lnRefreshCounts();
+};
+
+document.querySelectorAll('.ln-topic').forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll('.ln-topic').forEach(b => b.classList.toggle('active', b === btn));
+    lnTopic = btn.dataset.ln;
+  };
+});
+lnRefreshCounts();
+
+/* Update progress bar with new game states */
+const _origUpdate = updateProgress;
+updateProgress = function(){
+  const q = q => document.querySelector(q);
+  if(q('[data-achv="cs"]')) q('[data-achv="cs"]').classList.toggle('unlocked', !!state.csDone);
+  if(q('[data-achv="ws"]')) q('[data-achv="ws"]').classList.toggle('unlocked', wsSolved >= 5);
+  if(q('[data-achv="lt"]')) q('[data-achv="lt"]').classList.toggle('unlocked', (state.ltSolved || 0) >= 5);
+  if(q('[data-achv="sb"]')) q('[data-achv="sb"]').classList.toggle('unlocked', (state.sbSolved || 0) >= 4);
+  if(q('[data-achv="oo"]')) q('[data-achv="oo"]').classList.toggle('unlocked', (state.ooSolved || 0) >= 6);
+  if(q('[data-achv="speed"]')) q('[data-achv="speed"]').classList.toggle('unlocked', !!state.spDone);
+  if(q('[data-achv="learn"]')) q('[data-achv="learn"]').classList.toggle('unlocked', !!state.lnDone);
+  _origUpdate();
+};
+updateProgress();
 </script>
 </body>
 </html>

@@ -69,10 +69,13 @@
 
     // 4-digit PIN → family (PIN shared between student and parent;
     // login.html shows a picker right after to set the final role).
+    // NB: `pin` is included in the session so the browser can derive the
+    // AES-GCM key to open encrypted contracts from documents/vault-contracts/.
+    // localStorage is per-origin and cleared by clearSession() on logout.
     if (/^\d{4}$/.test(trimmed)) {
       const student = data.students.find(s => s.pin === trimmed);
       if (student) {
-        return { role: "family", studentId: student.id, name: student.name };
+        return { role: "family", studentId: student.id, name: student.name, pin: trimmed };
       }
       return null;
     }
@@ -1456,6 +1459,144 @@
     `;
   }
 
+  /* =====================================================================
+     VAULT-CONTRACTS · 2026-07-31
+     Договоры/консенты/реквизиты хранятся AES-256-GCM-зашифрованными в
+     documents/vault-contracts/{slug}/*.enc. Ключ = PBKDF2-SHA256(PIN, salt,
+     200000, 32). Расшифровка — в браузере после логина; без PIN файлы
+     представляют собой случайный шум.
+     Формат каждого .enc: [16 salt][12 iv][ct...][16 authTag].
+     Список файлов семьи лежит в manifest.enc в той же папке.
+  ===================================================================== */
+
+  const _vaultManifestCache = {};
+  const _vaultBadFor = {}; // slug → true если ключ неверен, чтобы не долбить
+
+  async function _vaultDeriveKey(pin, saltBytes) {
+    const enc = new TextEncoder();
+    const baseKey = await crypto.subtle.importKey(
+      "raw", enc.encode(pin), "PBKDF2", false, ["deriveKey"]
+    );
+    return crypto.subtle.deriveKey(
+      { name: "PBKDF2", salt: saltBytes, iterations: 200000, hash: "SHA-256" },
+      baseKey,
+      { name: "AES-GCM", length: 256 },
+      false,
+      ["decrypt"]
+    );
+  }
+
+  async function _vaultDecryptUrl(url, pin) {
+    const resp = await fetch(url, { cache: "no-store" });
+    if (!resp.ok) throw new Error("HTTP " + resp.status + " for " + url);
+    const buf = new Uint8Array(await resp.arrayBuffer());
+    if (buf.length < 32) throw new Error("enc too short: " + buf.length);
+    const salt = buf.slice(0, 16);
+    const iv   = buf.slice(16, 28);
+    const ct   = buf.slice(28);
+    const key  = await _vaultDeriveKey(pin, salt);
+    const pt   = await crypto.subtle.decrypt({ name: "AES-GCM", iv: iv }, key, ct);
+    return new Uint8Array(pt);
+  }
+
+  async function _vaultLoadManifest(slug, pin) {
+    if (_vaultBadFor[slug]) throw new Error("bad key cached");
+    if (_vaultManifestCache[slug]) return _vaultManifestCache[slug];
+    const url = "./documents/vault-contracts/" + slug + "/manifest.enc";
+    const bytes = await _vaultDecryptUrl(url, pin);
+    const list = JSON.parse(new TextDecoder().decode(bytes));
+    _vaultManifestCache[slug] = list;
+    return list;
+  }
+
+  async function _vaultOpenFile(slug, encName, mime, downloadName, pin) {
+    const url = "./documents/vault-contracts/" + slug + "/" + encName;
+    const bytes = await _vaultDecryptUrl(url, pin);
+    const blob = new Blob([bytes], { type: mime || "application/octet-stream" });
+    const objUrl = URL.createObjectURL(blob);
+    // PDF/image → preview tab; иначе — download.
+    if ((mime || "").startsWith("image/") || mime === "application/pdf") {
+      window.open(objUrl, "_blank", "noopener,noreferrer");
+    } else {
+      const a = document.createElement("a");
+      a.href = objUrl;
+      a.download = downloadName || "document";
+      document.body.appendChild(a); a.click(); a.remove();
+    }
+    setTimeout(function () { URL.revokeObjectURL(objUrl); }, 120000);
+  }
+
+  // Delegated click on any decrypt-me button (file or manifest-loader).
+  if (typeof document !== "undefined" && !window.__ngeVaultClickBound) {
+    window.__ngeVaultClickBound = true;
+    document.addEventListener("click", async function (e) {
+      const btn = e.target && e.target.closest ? e.target.closest("[data-vault-action]") : null;
+      if (!btn) return;
+      e.preventDefault();
+      const session = getSession();
+      if (!session || !session.pin) {
+        alert("Требуется вход по PIN");
+        location.href = "./login.html";
+        return;
+      }
+      const slug = btn.getAttribute("data-vault-slug");
+      const action = btn.getAttribute("data-vault-action");
+      btn.disabled = true;
+      const old = btn.innerHTML;
+      btn.innerHTML = "⏳ Расшифровываю…";
+      try {
+        if (action === "list") {
+          const list = await _vaultLoadManifest(slug, session.pin);
+          const items = list.map(function (f) {
+            const label = _prettifyContractFilename(f.file);
+            return '<button class="cab-contract-link" data-vault-action="open"'
+              + ' data-vault-slug="' + _esc(slug) + '"'
+              + ' data-vault-enc="' + _esc(f.enc) + '"'
+              + ' data-vault-mime="' + _esc(f.mime) + '"'
+              + ' data-vault-file="' + _esc(f.file) + '">📄 '
+              + _esc(label) + ' <small style="opacity:.55">(' + f.sizeKB + ' KB)</small></button>';
+          }).join("");
+          const holder = btn.closest(".cab-vault-holder");
+          if (holder) holder.innerHTML = '<div class="cab-contract-files">' + items + '</div>';
+        } else if (action === "open") {
+          await _vaultOpenFile(
+            slug,
+            btn.getAttribute("data-vault-enc"),
+            btn.getAttribute("data-vault-mime"),
+            btn.getAttribute("data-vault-file"),
+            session.pin
+          );
+          btn.disabled = false;
+          btn.innerHTML = old;
+        }
+      } catch (err) {
+        console.warn("Vault error:", err);
+        if (String(err).indexOf("OperationError") >= 0 || String(err).indexOf("bad key") >= 0) {
+          _vaultBadFor[slug] = true;
+          btn.innerHTML = "❌ Неверный PIN";
+        } else {
+          btn.innerHTML = "❌ Ошибка (" + (err && err.message ? err.message : "?") + ")";
+        }
+        setTimeout(function () { btn.disabled = false; btn.innerHTML = old; }, 4000);
+      }
+    });
+  }
+
+  function _renderVaultContractsCard(student) {
+    if (!student || !student.id) return "";
+    const slug = student.id;
+    return ''
+      + '<article class="cab-card">'
+      +   '<h3>🔐 Договор и документы</h3>'
+      +   '<p class="cab-card-note">Хранятся в зашифрованном виде. Клик по «Открыть список» — расшифровка в вашем браузере с PIN, далее по каждой странице отдельным кликом.</p>'
+      +   '<div class="cab-vault-holder">'
+      +     '<button class="cab-contract-link" data-vault-action="list" data-vault-slug="' + _esc(slug) + '">🔓 Открыть список документов</button>'
+      +   '</div>'
+      + '</article>';
+  }
+
+  /* ===================== end vault-contracts block ===================== */
+
   function _prettifyContractFilename(filename) {
     // "01_договор_стр1.jpeg" → "Договор · стр.1"
     return filename
@@ -1533,6 +1674,12 @@
 
   function _renderContractsCard(student, opts) {
     opts = opts || {};
+    // 2026-07-31: если у ученика есть vault-contracts (AES.enc) — показываем
+    // ТОЛЬКО зашифрованный vault-card, скрывая любые legacy plain-URL договоры.
+    if (student && student.has_vault_contracts) {
+      if (opts.studentView) return ""; // договор — parent-only view
+      return _renderVaultContractsCard(student);
+    }
     const allContracts = (window.NGE_DATA && window.NGE_DATA.contracts) || {};
     // Support BOTH legacy global contracts map AND per-student contracts on student object
     const contracts = (student && student.contracts) || allContracts[student.id];

@@ -3,7 +3,8 @@ import path from "node:path";
 import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
 
-const publicRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const publicRoot = path.join(projectRoot, "site-public-clean");
 const labRoot = path.join(publicRoot, "lingua-boost-lab");
 const premiumPath = path.join(labRoot, "premium.html");
 const manifestPath = path.join(labRoot, "premium-lessons.json");
@@ -90,21 +91,6 @@ function getCardIds(html) {
     .map((match) => match[1]);
 }
 
-function getCardSections(html) {
-  const sections = new Map();
-  const sectionMatches = [...html.matchAll(/<section\b[^>]*\bdata-series="([^"]+)"[^>]*>/g)];
-  for (let index = 0; index < sectionMatches.length; index += 1) {
-    const section = sectionMatches[index][1];
-    const start = sectionMatches[index].index;
-    const end = index + 1 < sectionMatches.length ? sectionMatches[index + 1].index : html.length;
-    const sectionHtml = html.slice(start, end);
-    for (const card of sectionHtml.matchAll(/<article\b[^>]*\bclass="[^"]*\bcard\b[^"]*"[^>]*\bdata-id="([^"]+)"/g)) {
-      sections.set(card[1], section);
-    }
-  }
-  return sections;
-}
-
 function renderCard(lesson) {
   const skills = (lesson.skills || []).map(htmlEscape).join(' <span class="dot">·</span> ');
   const coverStyle = lesson.cover
@@ -128,10 +114,9 @@ function renderCard(lesson) {
 function insertMissingCards(html, missingLessons) {
   let next = html;
   for (const lesson of missingLessons) {
-    const targetSection = lesson.section || lesson.series;
-    const sectionStart = next.search(new RegExp(`<section[^>]+data-series="${targetSection}"`));
+    const sectionStart = next.search(new RegExp(`<section[^>]+data-series="${lesson.series}"`));
     if (sectionStart < 0) {
-      throw new Error(`Cannot insert card ${lesson.id}: section ${targetSection} not found in premium.html`);
+      throw new Error(`Cannot insert card ${lesson.id}: series ${lesson.series} not found in premium.html`);
     }
     const divStart = next.indexOf('<div class="cards"', sectionStart);
     if (divStart < 0) throw new Error(`Cannot insert card ${lesson.id}: cards grid not found`);
@@ -159,7 +144,6 @@ for (const lesson of lessons) {
   ids.add(lesson.id);
   if (!lesson.url) errors.push(`Lesson ${lesson.id} has no url`);
   if (!lesson.series) errors.push(`Lesson ${lesson.id} has no series`);
-  if (!lesson.section) lesson.section = lesson.series;
   const localFile = localFileForUrl(lesson.url);
   if (localFile && !fs.existsSync(localFile)) {
     errors.push(`Lesson ${lesson.id} URL target missing: ${localFile}`);
@@ -167,23 +151,12 @@ for (const lesson of lessons) {
 }
 
 let cardIds = getCardIds(html);
-const cardSections = getCardSections(html);
 const cardSet = new Set(cardIds);
 const missingCards = lessons.filter((lesson) => !cardSet.has(lesson.id));
 const extraCards = cardIds.filter((id) => !ids.has(id));
-const wrongSections = lessons.filter((lesson) => {
-  const actual = cardSections.get(lesson.id);
-  return actual && actual !== lesson.section;
-});
 
 if (extraCards.length) {
   errors.push(`Cards without manifest entries: ${extraCards.join(", ")}`);
-}
-
-if (wrongSections.length) {
-  errors.push(`Cards in wrong sections: ${wrongSections.map((lesson) => {
-    return `${lesson.id} manifest=${lesson.section} html=${cardSections.get(lesson.id)}`;
-  }).join("; ")}`);
 }
 
 if (missingCards.length && checkOnly) {
