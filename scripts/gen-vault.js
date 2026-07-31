@@ -28,9 +28,14 @@ const fs = require("fs");
 const path = require("path");
 const crypto = require("crypto");
 
+// FIX 2026-07-31: скрипт лежит в site-public-clean/scripts/, значит
+// PROJECT_ROOT = site-public-clean/ САМ. Раньше был лишний "site-public-clean"
+// в VAULT_DIR path.join, из-за чего файлы падали в
+// site-public-clean/site-public-clean/cabinet/vault/ (DOUBLE-PREFIX bug).
+// Каждый прогон требовал rescue-copy руками.
 const PROJECT_ROOT = path.resolve(__dirname, "..");
 const SOURCE_DATA = path.join(PROJECT_ROOT, "nge-cabinet", "data.js");
-const VAULT_DIR   = path.join(PROJECT_ROOT, "site-public-clean", "cabinet", "vault");
+const VAULT_DIR   = path.join(PROJECT_ROOT, "cabinet", "vault");
 const INDEX_FILE  = path.join(VAULT_DIR, "index.json");
 
 const PBKDF2_ITER = 600000; // OWASP 2023 recommendation for PBKDF2-SHA256
