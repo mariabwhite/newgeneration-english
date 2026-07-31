@@ -291,10 +291,35 @@
     }
     return keep;
   }
+  // 2026-07-31 · P0.1 cleanup: section context разложен на helper'ы.
+  // Приоритет: (1) нормальная секция по классу, (2) section-like fallback
+  // только на <section>[data-section|data-section-id|id^=block-],
+  // (3) последнее — любой [data-section-id] (часто .ex внутри секции).
+  // Убрано широкое [id^="block-"] без section-префикса — раньше могло
+  // цепляться за любой div/контейнер с таким id.
+  function findContextSection(el){
+    if (!el || !el.closest) return null;
+    var sec = el.closest(ALL_SECTIONS);
+    if (sec) return sec;
+    sec = el.closest('section[data-section], section[data-section-id], section[id^="block-"]');
+    if (sec) return sec;
+    return el.closest('[data-section-id]') || null;
+  }
+  function getSectionId(sec){
+    if (!sec) return '';
+    return sec.id ||
+      (sec.dataset && (sec.dataset.section || sec.dataset.sectionId)) ||
+      '';
+  }
   function elContext(el){
     // Краткий человеческий контекст для firehose — что за элемент тронут.
-    var sec = el.closest && el.closest('section.section');
-    var secTitle = sec && (sec.querySelector('h2')?.textContent || sec.querySelector('h3')?.textContent || '');
+    var sec = findContextSection(el);
+    var sectionId = getSectionId(sec);
+    var secTitle = '';
+    if (sec) {
+      var h = sec.querySelector('h2') || sec.querySelector('h3');
+      secTitle = (h && h.textContent) || '';
+    }
     var kind = (el.classList && (el.classList.contains('gap') ? 'gap' :
       el.classList.contains('mcq-opts') || (el.parentNode && el.parentNode.classList && el.parentNode.classList.contains('mcq-opts')) ? 'mcq' :
       el.classList.contains('tfns-row') || (el.parentNode && el.parentNode.classList && el.parentNode.classList.contains('tfns-row')) ? 'tfns' :
@@ -304,8 +329,8 @@
       el.classList.contains('mic-row') ? 'mic' : 'other')) || 'other';
     return {
       kind: kind,
-      section_id: sec ? sec.id : '',
-      section_title: (secTitle||'').replace(/\s+/g,' ').trim().slice(0,90),
+      section_id: sectionId,
+      section_title: secTitle.replace(/\s+/g,' ').trim().slice(0,90),
       tag: el.tagName
     };
   }

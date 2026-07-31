@@ -1568,7 +1568,7 @@ main {
           }
         }
         setSync('ok', 'ONLINE');
-        render();
+        scheduleRender();
       })
       .catch(function(){ setSync('offline', 'OFFLINE'); });
   }
@@ -1659,14 +1659,14 @@ main {
             state.items = data.items;
             state.remoteAt = data.at || Date.now();
             saveLocal(data.items);
-            render();
+            scheduleRender();
             if (!asTeacher) toast('🔄 Обновление от учителя', 'success');
           }
           // учитель получает от ученика: обновляем свою mirror-панель
           if (asTeacher && data.from === 'student') {
             state.items = data.items;
             saveLocal(data.items);
-            render();
+            scheduleRender();
             setSync('teacher', 'LIVE ' + new Date().toTimeString().slice(0,5));
           }
         } catch(e){}
@@ -1686,7 +1686,7 @@ main {
               textarea.style.background = 'color-mix(in srgb, var(--accent) 8%, transparent)';
               setTimeout(function(){ textarea.style.background = ''; }, 400);
             } else {
-              render();
+              scheduleRender();
               setSync('teacher', 'TYPING ' + new Date().toTimeString().slice(0,5));
             }
           }
@@ -1738,6 +1738,20 @@ main {
   }
 
   // ─── Render ─────────
+  // 2026-07-31 · P0 fix: coalesce множественные render() вызовы (cloud pull +
+  // realtime state + realtime typing + user actions) в один frame. Раньше
+  // 2 быстрых render'а подряд могли: (1) сбить состояние DOM upgrade между
+  // resetRawState и hydrate, (2) стереть только что hydrated intermediate clicks
+  // ученика, если state.items ещё не был обновлён через persistRawAnswer.
+  var __renderPending = false;
+  function scheduleRender(){
+    if (__renderPending) return;
+    __renderPending = true;
+    (window.requestAnimationFrame || function(fn){ setTimeout(fn, 16); })(function(){
+      __renderPending = false;
+      render();
+    });
+  }
   function render(){
     var items = state.items;
     var wordCase = items.length === 1 ? 'задание' : (items.length >= 2 && items.length <= 4 ? 'задания' : 'заданий');
@@ -2138,7 +2152,7 @@ main {
       state.items.splice(+rm.dataset.rm, 1);
       saveLocal(state.items);
       cloudPush();
-      render();
+      scheduleRender();
       toast('Убрал задание');
       return;
     }
@@ -2170,7 +2184,7 @@ main {
     state.items = [];
     saveLocal([]);
     cloudPush();
-    render();
+    scheduleRender();
     toast('Корзинка пуста');
   });
 
@@ -2188,7 +2202,7 @@ main {
       });
       saveLocal(state.items);
       cloudPush();
-      render();
+      scheduleRender();
       toast('Задание добавлено ученику', 'success');
       return;
     }
@@ -2252,7 +2266,7 @@ main {
         arr.forEach(function(it){ it.saved_at = Date.now(); });
         state.items = arr;
         saveLocal(arr);
-        render();
+        scheduleRender();
       } else {
         // Оба канала лежат → в retry queue
         enqueue({
@@ -2288,7 +2302,7 @@ main {
   setInterval(flushQueue, 15000);
   window.addEventListener('online', function(){ setSync('syncing','SYNC'); flushQueue().then(pullState); });
   window.addEventListener('offline', function(){ setSync('offline','OFFLINE'); });
-  window.addEventListener('storage', function(e){ if (e.key === lsKey) { state.items = loadLocal(); render(); } });
+  window.addEventListener('storage', function(e){ if (e.key === lsKey) { state.items = loadLocal(); scheduleRender(); } });
 
   // Prompt name on first interaction if student and not named
   if (!asTeacher && !studentSlug) {
