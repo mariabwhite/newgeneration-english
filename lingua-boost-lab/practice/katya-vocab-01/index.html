@@ -46,7 +46,7 @@ h1{font-family:var(--display);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800
 .mech-btn:hover{border-color:var(--accent);color:var(--accent2)}
 .mech-btn.active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 2px 6px rgba(232,139,79,.35)}
 
-.mech{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:0 2px 8px rgba(185,79,31,.06);min-height:280px}
+.mech{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:0 2px 8px rgba(185,79,31,.06);margin-bottom:16px}
 .mech-title{font-family:var(--display);font-weight:800;color:var(--accent2);font-size:1.1rem;margin-bottom:6px;display:flex;align-items:center;gap:8px}
 .mech-hint{font-size:.84rem;color:var(--muted);margin-bottom:14px;font-style:italic}
 .score{text-align:center;font-family:var(--display);font-weight:800;color:var(--accent2);margin-top:14px;min-height:22px;font-size:1rem}
@@ -469,41 +469,18 @@ let currentTopic = 'hp', currentMech = 'fc';
 function renderTopic(key){
   currentTopic = key;
   const t = TOPICS[key];
+  const mechs = ['fc','mp','typ','rev','lt','sc','fb','tf','sb','sp'];
+  if(t.duo) mechs.push('duo');
+  mechs.push('ln');
   app.innerHTML = `
     <div class="ex-hdr">
       <h2>${t.title}</h2>
-      <div class="sub">${t.intro} · ${t.vocab.length} vocab · ${t.phrases.length} phrases</div>
+      <div class="sub">${t.intro} · ${t.vocab.length} vocab · ${t.phrases.length} phrases · ${mechs.length} упражнений подряд ↓</div>
     </div>
-    <div class="mech-nav" id="mech-nav">
-      <button class="mech-btn active" data-m="fc">🎴 Flashcards</button>
-      <button class="mech-btn" data-m="mp">🃏 Match pairs</button>
-      <button class="mech-btn" data-m="typ">✍️ Type EN</button>
-      <button class="mech-btn" data-m="rev">🔁 Reverse EN→RU</button>
-      <button class="mech-btn" data-m="lt">🔊 Listen &amp; type</button>
-      <button class="mech-btn" data-m="sc">🔀 Word scramble</button>
-      <button class="mech-btn" data-m="fb">📝 Fill-in-blank</button>
-      <button class="mech-btn" data-m="tf">✅ True / False</button>
-      <button class="mech-btn" data-m="sb">🧩 Sentence builder</button>
-      <button class="mech-btn" data-m="sp">⚡ Sprint 30s</button>
-      ${t.duo ? `<button class="mech-btn" data-m="duo">🎯 Duolingo quiz</button>` : ''}
-      <button class="mech-btn" data-m="ln">📚 Learn (Quizlet adaptive)</button>
-    </div>
-    <div id="mech-body"><div class="mech"></div></div>
+    ${mechs.map(m => `<div class="mech" id="mech-${m}"></div>`).join('')}
   `;
-  document.querySelectorAll('#mech-nav .mech-btn').forEach(b => {
-    b.onclick = () => {
-      document.querySelectorAll('#mech-nav .mech-btn').forEach(x => x.classList.toggle('active', x===b));
-      buildMech(b.dataset.m);
-    };
-  });
-  buildMech('fc');
-}
-
-function buildMech(key){
-  currentMech = key;
-  const body = document.getElementById('mech-body').firstElementChild;
-  const t = TOPICS[currentTopic];
-  ({fc:buildFC,mp:buildMP,typ:buildTYP,rev:buildREV,lt:buildLT,sc:buildSC,fb:buildFB,tf:buildTF,sb:buildSB,sp:buildSP,duo:buildDUO,ln:buildLN}[key])(body, t);
+  const builders = {fc:buildFC,mp:buildMP,typ:buildTYP,rev:buildREV,lt:buildLT,sc:buildSC,fb:buildFB,tf:buildTF,sb:buildSB,sp:buildSP,duo:buildDUO,ln:buildLN};
+  mechs.forEach(m => builders[m](document.getElementById('mech-'+m), t));
 }
 
 /* 1 · FLASHCARDS */
