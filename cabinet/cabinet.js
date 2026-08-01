@@ -17,12 +17,38 @@
   const SESSION_KEY = "nge_session_v2";
 
   /**
-   * Data is loaded via <script src="./data.js"> which sets window.NGE_DATA.
-   * (fetch() doesn't work on file:// in Chrome/Edge.)
+   * Data is loaded via <script src="./data.js"> which is now a Supabase
+   * bootstrap. It exposes:
+   *   - window.NGE_DATA (may be empty until promise resolves)
+   *   - window.NGE_DATA_PROMISE (async → resolves to real data)
+   *   - window.NGE_DATA_HYDRATE(data) (used after tryLogin to skip second fetch)
+   *   - window.NGE_DATA_INVALIDATE() (clears sessionStorage cache)
    */
   async function loadData() {
+    // If bootstrap already resolved with real content — return it.
+    if (window.NGE_DATA && (window.NGE_DATA.students || []).length) return window.NGE_DATA;
+    // If promise exists — await it.
+    if (window.NGE_DATA_PROMISE) {
+      const d = await window.NGE_DATA_PROMISE;
+      if (d && (d.students || []).length) return d;
+    }
+    // Fallback: whatever's in NGE_DATA (may be empty stub).
     if (window.NGE_DATA) return window.NGE_DATA;
-    throw new Error("data.js не подгрузился — проверь подключение <script src='./data.js'> до cabinet.js");
+    throw new Error("data.js не подгрузился");
+  }
+
+  /* Supabase edge-fn helpers (mirror config from data.js bootstrap) */
+  const _SB_URL  = "https://iqzlphbvmfgoygnozbya.supabase.co";
+  const _SB_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlxemxwaGJ2bWZnb3lnbm96YnlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAxNjg2ODMsImV4cCI6MjA5NTc0NDY4M30.SvpjaT31L2pRWWi6CU6ZISYu0_wYEK-yqf6q7GizBHs";
+  async function _sbCall(name, body) {
+    const r = await fetch(_SB_URL + "/functions/v1/" + name, {
+      method: "POST",
+      headers: { "Authorization": "Bearer " + _SB_ANON, "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    const j = await r.json().catch(function () { return { error: "BAD_JSON", status: r.status }; });
+    if (!r.ok) throw Object.assign(new Error(j.error || ("HTTP " + r.status)), { status: r.status, body: j });
+    return j;
   }
 
   /* ---------- session ---------- */
@@ -64,45 +90,47 @@
    * Otherwise — treat as teacher password (hash + compare).
    */
   async function tryLogin(code) {
-    const data = await loadData();
     const trimmed = String(code).trim();
 
-    // 4-digit PIN → family (PIN shared between student and parent;
-    // login.html shows a picker right after to set the final role).
-    // NB: `pin` is included in the session so the browser can derive the
-    // AES-GCM key to open encrypted contracts from documents/vault-contracts/.
-    // localStorage is per-origin and cleared by clearSession() on logout.
-    //
-    // SECURITY 2026-07-31: data.js хранит SHA256(pin) в `pin_hash`, а не
-    // raw PIN. Хешируем ввод пользователя и сравниваем. Raw PIN остаётся
-    // только в session браузера того кто ввёл — нужен для PBKDF2 vault-decrypt.
-    // Fallback на legacy `s.pin === trimmed` оставлен для миграции — уберём
-    // после подтверждения что все data.js × 3 mirror'а hashed.
+    // 4-digit PIN → family. Hit Supabase family-data directly (edge fn
+    // verifies pin_hash server-side, returns whole family slice).
     if (/^\d{4}$/.test(trimmed)) {
-      const inputHash = await sha256(trimmed);
-      const student = data.students.find(s =>
-        (s.pin_hash && s.pin_hash === inputHash) ||
-        (s.pin && s.pin === trimmed)
-      );
-      if (student) {
-        // 2026-08-01 · pilot cutover to cabinet-v3 DISABLED — v3 visuals
-        // need to be rebuilt to match legacy cabinet look before pilots resume.
-        const V3_PILOTS = new Set();
-        if (V3_PILOTS.has(student.id)) {
-          location.href = "/cabinet-v3/#pin=" + encodeURIComponent(trimmed);
-          return { role: "family", studentId: student.id, name: student.name, pin: trimmed };
-        }
+      try {
+        const data = await _sbCall("family-data", { pin: trimmed });
+        if (!data || !data.students || !data.students.length) return null;
+        const student = data.students[0];
+        // Hydrate NGE_DATA immediately so subsequent loadData() is instant.
+        if (typeof window.NGE_DATA_HYDRATE === "function") window.NGE_DATA_HYDRATE(data);
         return { role: "family", studentId: student.id, name: student.name, pin: trimmed };
+      } catch (e) {
+        if (e && e.status === 404) return null; // PIN_NOT_FOUND
+        console.warn("[tryLogin] family-data failed:", e && e.message);
+        // Legacy fallback: if bootstrap already loaded, try locally.
+        try {
+          const cached = window.NGE_DATA;
+          if (cached && cached.students && cached.students.length) {
+            const inputHash = await sha256(trimmed);
+            const st = cached.students.find(s => s.pin_hash === inputHash);
+            if (st) return { role: "family", studentId: st.id, name: st.name, pin: trimmed };
+          }
+        } catch (_) {}
+        return null;
       }
-      return null;
     }
 
-    // Teacher password
-    const hashHex = await sha256(trimmed);
-    if (hashHex === data.teacher.passwordHash) {
-      return { role: "teacher", name: data.teacher.name };
+    // Teacher password → all-data. Server-side sha256 check; on success
+    // we cache the whole snapshot and remember password in session
+    // (sessionStorage only, cleared on tab close).
+    try {
+      const data = await _sbCall("all-data", { teacher_password: trimmed });
+      if (data && data.students) {
+        if (typeof window.NGE_DATA_HYDRATE === "function") window.NGE_DATA_HYDRATE(data);
+        return { role: "teacher", name: (data.teacher && data.teacher.name) || "Мария", teacher_password: trimmed };
+      }
+    } catch (e) {
+      if (e && e.status === 403) return null; // WRONG_PWD
+      console.warn("[tryLogin] all-data failed:", e && e.message);
     }
-
     return null;
   }
 
@@ -1477,70 +1505,25 @@
   }
 
   /* =====================================================================
-     VAULT-CONTRACTS · 2026-07-31
-     Договоры/консенты/реквизиты хранятся AES-256-GCM-зашифрованными в
-     documents/vault-contracts/{slug}/*.enc. Ключ = PBKDF2-SHA256(PIN, salt,
-     200000, 32). Расшифровка — в браузере после логина; без PIN файлы
-     представляют собой случайный шум.
-     Формат каждого .enc: [16 salt][12 iv][ct...][16 authTag].
-     Список файлов семьи лежит в manifest.enc в той же папке.
+     VAULT-CONTRACTS · 2026-08-01 (Supabase edition)
+     Файлы договоров хранятся в приватном Supabase Storage bucket 'contracts'.
+     Метаданные (id, filename, mime, size) — в family-data / all-data ответе.
+     Открытие файла: POST contract-signed-url {pin, contract_id} → 60-сек URL.
+     Никакой AES-decrypt в браузере, никаких .enc в публичной репе.
   ===================================================================== */
 
-  const _vaultManifestCache = {};
-  const _vaultBadFor = {}; // slug → true если ключ неверен, чтобы не долбить
-
-  async function _vaultDeriveKey(pin, saltBytes) {
-    const enc = new TextEncoder();
-    const baseKey = await crypto.subtle.importKey(
-      "raw", enc.encode(pin), "PBKDF2", false, ["deriveKey"]
-    );
-    return crypto.subtle.deriveKey(
-      { name: "PBKDF2", salt: saltBytes, iterations: 200000, hash: "SHA-256" },
-      baseKey,
-      { name: "AES-GCM", length: 256 },
-      false,
-      ["decrypt"]
-    );
+  async function _vaultLoadManifest(slug) {
+    // Читаем из NGE_DATA.contracts (уже подгружено family-data/all-data)
+    const d = await loadData();
+    const contracts = (d && d.contracts) || [];
+    return contracts.filter(function (c) { return c.student_id === slug; });
   }
 
-  async function _vaultDecryptUrl(url, pin) {
-    const resp = await fetch(url, { cache: "no-store" });
-    if (!resp.ok) throw new Error("HTTP " + resp.status + " for " + url);
-    const buf = new Uint8Array(await resp.arrayBuffer());
-    if (buf.length < 32) throw new Error("enc too short: " + buf.length);
-    const salt = buf.slice(0, 16);
-    const iv   = buf.slice(16, 28);
-    const ct   = buf.slice(28);
-    const key  = await _vaultDeriveKey(pin, salt);
-    const pt   = await crypto.subtle.decrypt({ name: "AES-GCM", iv: iv }, key, ct);
-    return new Uint8Array(pt);
-  }
-
-  async function _vaultLoadManifest(slug, pin) {
-    if (_vaultBadFor[slug]) throw new Error("bad key cached");
-    if (_vaultManifestCache[slug]) return _vaultManifestCache[slug];
-    const url = "./documents/vault-contracts/" + slug + "/manifest.enc";
-    const bytes = await _vaultDecryptUrl(url, pin);
-    const list = JSON.parse(new TextDecoder().decode(bytes));
-    _vaultManifestCache[slug] = list;
-    return list;
-  }
-
-  async function _vaultOpenFile(slug, encName, mime, downloadName, pin) {
-    const url = "./documents/vault-contracts/" + slug + "/" + encName;
-    const bytes = await _vaultDecryptUrl(url, pin);
-    const blob = new Blob([bytes], { type: mime || "application/octet-stream" });
-    const objUrl = URL.createObjectURL(blob);
-    // PDF/image → preview tab; иначе — download.
-    if ((mime || "").startsWith("image/") || mime === "application/pdf") {
-      window.open(objUrl, "_blank", "noopener,noreferrer");
-    } else {
-      const a = document.createElement("a");
-      a.href = objUrl;
-      a.download = downloadName || "document";
-      document.body.appendChild(a); a.click(); a.remove();
-    }
-    setTimeout(function () { URL.revokeObjectURL(objUrl); }, 120000);
+  async function _vaultOpenSignedUrl(pin, contractId, mime) {
+    const r = await _sbCall("contract-signed-url", { pin: pin, contract_id: contractId });
+    if (!r || !r.url) throw new Error("no signed url");
+    // Один URL, работает 60 сек: открываем сразу.
+    window.open(r.url, "_blank", "noopener,noreferrer");
   }
 
   // Delegated click on any decrypt-me button (file or manifest-loader).
@@ -1560,40 +1543,35 @@
       const action = btn.getAttribute("data-vault-action");
       btn.disabled = true;
       const old = btn.innerHTML;
-      btn.innerHTML = "⏳ Расшифровываю…";
+      btn.innerHTML = "⏳ Загружаю…";
       try {
         if (action === "list") {
-          const list = await _vaultLoadManifest(slug, session.pin);
-          const items = list.map(function (f) {
-            const label = _prettifyContractFilename(f.file);
+          const list = await _vaultLoadManifest(slug);
+          const items = list.map(function (c) {
+            const label = _prettifyContractFilename(c.original_filename || "документ");
+            const sizeKB = c.file_size ? Math.round(c.file_size / 1024) : "";
             return '<button class="cab-contract-link" data-vault-action="open"'
               + ' data-vault-slug="' + _esc(slug) + '"'
-              + ' data-vault-enc="' + _esc(f.enc) + '"'
-              + ' data-vault-mime="' + _esc(f.mime) + '"'
-              + ' data-vault-file="' + _esc(f.file) + '">📄 '
-              + _esc(label) + ' <small style="opacity:.55">(' + f.sizeKB + ' KB)</small></button>';
+              + ' data-vault-cid="' + _esc(c.id) + '"'
+              + ' data-vault-mime="' + _esc(c.mime_type || "") + '">📄 '
+              + _esc(label) + (sizeKB ? ' <small style="opacity:.55">(' + sizeKB + ' KB)</small>' : '') + '</button>';
           }).join("");
           const holder = btn.closest(".cab-vault-holder");
-          if (holder) holder.innerHTML = '<div class="cab-contract-files">' + items + '</div>';
+          if (holder) holder.innerHTML = items.length
+            ? '<div class="cab-contract-files">' + items + '</div>'
+            : '<p class="cab-contract-warn">Документов пока нет.</p>';
         } else if (action === "open") {
-          await _vaultOpenFile(
-            slug,
-            btn.getAttribute("data-vault-enc"),
-            btn.getAttribute("data-vault-mime"),
-            btn.getAttribute("data-vault-file"),
-            session.pin
+          await _vaultOpenSignedUrl(
+            session.pin,
+            btn.getAttribute("data-vault-cid"),
+            btn.getAttribute("data-vault-mime")
           );
           btn.disabled = false;
           btn.innerHTML = old;
         }
       } catch (err) {
-        console.warn("Vault error:", err);
-        if (String(err).indexOf("OperationError") >= 0 || String(err).indexOf("bad key") >= 0) {
-          _vaultBadFor[slug] = true;
-          btn.innerHTML = "❌ Неверный PIN";
-        } else {
-          btn.innerHTML = "❌ Ошибка (" + (err && err.message ? err.message : "?") + ")";
-        }
+        console.warn("Contracts error:", err);
+        btn.innerHTML = "❌ " + (err && err.message ? err.message : "ошибка");
         setTimeout(function () { btn.disabled = false; btn.innerHTML = old; }, 4000);
       }
     });
