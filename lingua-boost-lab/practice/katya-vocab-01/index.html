@@ -213,37 +213,20 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:20px 0}
 </div>
 
 <script>
-/* ═══════════════════ AUDIO · real edge-tts MP3, no synthetic voice ═══════════════════ */
-/* Manifest embedded inline so it works both on file:// (locally) AND https:// (live) */
+/* ═══════════════════ AUDIO · ONLY edge-tts MP3 · NO Web Speech fallback ═══════════════════ */
+/* Regulation: never use Web Speech synth (falls back to Russian/Japanese system voice). */
 let audioManifest = window.AUDIO_MANIFEST || {};
-if(!Object.keys(audioManifest).length){
-  fetch('assets/audio/manifest.json').then(r => r.ok ? r.json() : {}).then(m => { audioManifest = m; }).catch(() => {});
-}
-
-const synth = window.speechSynthesis;
-let voice = null, audioCache = {};
-function pickVoice(){ if(!synth) return; const vs = synth.getVoices(); voice = vs.find(v => v.lang === 'en-GB' && /female|kate|sonia|libby/i.test(v.name)) || vs.find(v => v.lang === 'en-GB') || vs.find(v => v.lang.startsWith('en')) || vs[0]; }
-if(synth){ pickVoice(); synth.onvoiceschanged = pickVoice; }
+let audioCache = {};
 
 function say(t, rate=0.92){
   if(!t) return;
   const f = audioManifest[t];
-  if(f){
-    if(!audioCache[f]) audioCache[f] = new Audio('assets/audio/'+f);
-    const a = audioCache[f];
-    Object.values(audioCache).forEach(x => { if(x !== a){ x.pause(); x.currentTime = 0; } });
-    a.currentTime = 0; a.playbackRate = rate;
-    a.play().catch(() => wsFallback(t, rate));
-    return;
-  }
-  wsFallback(t, rate);
-}
-function wsFallback(t, rate){
-  if(!synth) return;
-  synth.cancel();
-  const u = new SpeechSynthesisUtterance(t);
-  u.voice = voice; u.rate = rate; u.pitch = 1.05; u.lang = 'en-GB';
-  synth.speak(u);
+  if(!f){ console.warn('[audio] no mp3 for:', t); return; }  // silent — do NOT fall back to synth
+  if(!audioCache[f]) audioCache[f] = new Audio('assets/audio/'+f);
+  const a = audioCache[f];
+  Object.values(audioCache).forEach(x => { if(x !== a){ x.pause(); x.currentTime = 0; } });
+  a.currentTime = 0; a.playbackRate = rate;
+  a.play().catch(err => console.warn('[audio] play failed:', f, err));
 }
 function shuffle(a){ return a.slice().sort(() => Math.random() - 0.5); }
 
