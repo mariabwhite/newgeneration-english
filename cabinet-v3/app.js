@@ -240,12 +240,38 @@
   });
 
   // ---- Boot ----
-  const existing = loadSession();
-  if (existing && existing.data && existing.role) {
-    renderDashboard(existing);
-  } else if (existing && existing.data) {
-    showRolePicker(existing);
-  } else {
-    showLogin();
+  // Handoff from legacy /cabinet/: #pin=XXXX in URL fragment (not sent to server)
+  async function tryHashPin() {
+    const m = /(?:^|[#&])pin=(\d{4})(?:&|$)/.exec(location.hash);
+    if (!m) return false;
+    const pin = m[1];
+    history.replaceState(null, '', location.pathname);
+    try {
+      const r = await callFn('family-data', { pin });
+      if (r && !r.error) {
+        const session = { pin, data: r };
+        if (r.student.is_adult && (!r.parents || !r.parents.length)) session.role = 'student';
+        saveSession(session);
+        return true;
+      }
+    } catch {}
+    return false;
   }
+
+  (async () => {
+    if (await tryHashPin()) {
+      const s = loadSession();
+      if (s && s.role) renderDashboard(s);
+      else if (s) showRolePicker(s);
+      return;
+    }
+    const existing = loadSession();
+    if (existing && existing.data && existing.role) {
+      renderDashboard(existing);
+    } else if (existing && existing.data) {
+      showRolePicker(existing);
+    } else {
+      showLogin();
+    }
+  })();
 })();

@@ -85,6 +85,13 @@
         (s.pin && s.pin === trimmed)
       );
       if (student) {
+        // 2026-08-01 · pilot cutover to cabinet-v3 (Supabase-backed).
+        // Only these slugs are redirected; everyone else stays on legacy.
+        const V3_PILOTS = new Set(["katya-zhizhina", "denis-shalmanov"]);
+        if (V3_PILOTS.has(student.id)) {
+          location.href = "/cabinet-v3/#pin=" + encodeURIComponent(trimmed);
+          return { role: "family", studentId: student.id, name: student.name, pin: trimmed };
+        }
         return { role: "family", studentId: student.id, name: student.name, pin: trimmed };
       }
       return null;
