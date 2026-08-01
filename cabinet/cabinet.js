@@ -1176,10 +1176,13 @@
 
     const month = student.subscription_month || _currentMonthISO();
     const hasSummerPlan = !!student.summer_plan_note;
+    const spanStart = student.subscription_span_start; // ISO, включительно
+    const spanEnd   = student.subscription_span_end;   // ISO, включительно
     const todayISO = _todayISO();
     const monthLessons = lessons
       .filter(l => {
         if (!l.date) return false;
+        if (spanStart && spanEnd) return l.date >= spanStart && l.date <= spanEnd;
         if (hasSummerPlan) return l.date >= "2026-06-01" && l.date <= "2026-08-31";
         return l.date.startsWith(month);
       })

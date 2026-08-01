@@ -20,7 +20,7 @@
   const SB_URL  = "https://iqzlphbvmfgoygnozbya.supabase.co";
   const SB_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlxemxwaGJ2bWZnb3lnbm96YnlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAxNjg2ODMsImV4cCI6MjA5NTc0NDY4M30.SvpjaT31L2pRWWi6CU6ZISYu0_wYEK-yqf6q7GizBHs";
 
-  const CACHE_KEY = "nge_data_cache_v2"; // v2: lessons + subscription fields added
+  const CACHE_KEY = "nge_data_cache_v3"; // v2: lessons + subscription fields added
   const CACHE_TTL_MS = 5 * 60 * 1000;
 
   const SESSION_KEY = "nge_session_v2";
