@@ -1574,6 +1574,31 @@ document.querySelectorAll('.mc-list').forEach(list => {
 })();
 </script>
 
+<!-- Wrap each .section-hdr group into <section class="section"> so lab-pilot.js
+     builds the left LIFT (sticky sidebar with numbered buttons that scroll to sections).
+     Runs synchronously during HTML parse — BEFORE defer scripts execute. -->
+<script>
+(function(){
+  var hdrs = Array.prototype.slice.call(document.querySelectorAll('.section-hdr'));
+  hdrs.forEach(function(hdr, idx){
+    if (hdr.closest('.section, section.section, section.block')) return; // already wrapped
+    if (hdr.closest('.vocab-bank')) return; // skip our own vocab section
+    var sec = document.createElement('section');
+    sec.className = 'section';
+    sec.id = 'lift-sec-' + (idx + 1);
+    var parent = hdr.parentNode;
+    parent.insertBefore(sec, hdr);
+    var node = hdr;
+    while (node) {
+      var next = node.nextSibling;
+      sec.appendChild(node);
+      if (next && next.nodeType === 1 && next.classList && next.classList.contains('section-hdr')) break;
+      node = next;
+    }
+  });
+})();
+</script>
+
 <!-- Standard Lab scripts -->
 <script src="../../assets/lab-persist.js?v=3" defer></script>
 <script src="../../assets/lab-send-pill.js?v=4" defer></script>
