@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>L3 · Present Simple вслух · Александр и Станислав · A2 · NG English</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:wght@700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* cream + orange · echo of konspekt-01 · same as L2 */
+  --paper:#F4F1EA; --paper-2:#EAE6DD;
+  --card:#FFFFFF; --card-2:#FBF9F4;
+  --ink:#1F1F1F; --ink-2:#2C2C2C; --muted:#8B8B8B; --faint:#B0AEA7;
+  --accent:#E8542B; --accent2:#F1A183; --accent3:#B0361A; --accent-soft:#FDECE4;
+  --gold:#F4C84B; --gold-soft:#FFF3D0;
+  --line:rgba(31,31,31,.10); --line-2:rgba(31,31,31,.18);
+  --ok:#4A8F6E; --miss:#B85A5A;
+  --shadow:0 6px 20px rgba(31,31,31,.08);
+  --display:"Fraunces","Manrope",Georgia,serif;
+  --body:"Manrope",system-ui,sans-serif;
+  --mono:"JetBrains Mono",Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--body);background:var(--paper);color:var(--ink);min-height:100vh;line-height:1.62;overflow-x:hidden;font-size:16px}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+
+/* Topbar */
+.topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;padding:10px clamp(14px,3vw,26px);
+  background:color-mix(in srgb,var(--paper) 94%,transparent);border-bottom:1px solid var(--line);backdrop-filter:none}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-mark{width:40px;height:40px;border-radius:10px 0 10px 10px;background:var(--accent);color:#fff;
+  font-family:var(--display);font-weight:900;font-size:22px;display:grid;place-items:center;line-height:1;box-shadow:0 2px 6px rgba(232,84,43,.25);position:relative;overflow:hidden}
+.brand-mark::after{content:"";position:absolute;top:0;right:0;width:12px;height:12px;background:#fff;clip-path:polygon(100% 0,0 0,100% 100%)}
+.brand-copy{display:grid;gap:1px}
+.brand-name{font-family:var(--display);font-weight:800;font-size:14px;letter-spacing:.02em}
+.brand-sub{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.spacer{flex:1}
+.tb-pill{padding:5px 11px;border-radius:50px;font:800 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid var(--accent);color:var(--accent);background:var(--accent-soft);white-space:nowrap}
+.tb-pill.gold{border-color:#c8a640;color:#8a6f1e;background:var(--gold-soft)}
+.tb-dots{display:flex;gap:5px;align-items:center}
+.tb-dot{width:10px;height:10px;border-radius:50%;background:var(--line-2);border:none;padding:0;cursor:pointer;transition:.15s}
+.tb-dot:hover{transform:scale(1.4)}
+.tb-dot.done{background:var(--accent);box-shadow:0 0 0 2px rgba(232,84,43,.22)}
+@media(max-width:900px){.tb-dots{display:none}}
+
+/* Hero */
+.hero{width:min(1240px, calc(100% - clamp(32px, 6vw, 56px)));margin:22px auto 20px}
+.hero-card{position:relative;border:1px solid var(--line);border-radius:22px;overflow:hidden;
+  background:linear-gradient(135deg,#FBF9F4 0%,#F1EAD8 55%,#F4E4C6 100%);
+  padding:clamp(28px,4vw,48px) clamp(22px,3.5vw,44px);box-shadow:0 10px 30px rgba(31,31,31,.10);color:var(--ink)}
+.hero-card::before{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;
+  background:linear-gradient(90deg,var(--accent) 0%,var(--accent) 55%,var(--gold) 100%)}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;background:var(--accent-soft);border:1px solid var(--accent);
+  padding:6px 14px;border-radius:50px;font:800 10.5px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--accent3);margin-bottom:18px}
+h1.hero-title{font-family:var(--display);font-weight:800;letter-spacing:-.015em;line-height:1.05;
+  font-size:clamp(1.75rem,4vw,2.7rem);margin-bottom:14px;color:var(--ink)}
+h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),#8a6f1e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-lead{font-size:1.02rem;color:var(--ink-2);max-width:720px;line-height:1.65;background:rgba(255,255,255,.65);border:1px solid var(--line);border-radius:12px;padding:14px 18px}
+.hero-meta{display:flex;gap:22px;margin-top:16px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.hero-meta strong{color:var(--accent);font-weight:800}
+
+/* Section */
+.section{width:min(1240px, calc(100% - clamp(32px, 6vw, 56px)));margin:0 auto 30px;scroll-margin-top:70px}
+.section-hdr{display:flex;align-items:center;gap:14px;margin:28px 0 14px;flex-wrap:wrap}
+.section .num{font:800 11px/1 var(--mono);letter-spacing:.14em;background:var(--accent);color:#fff;padding:7px 13px;border-radius:50px;text-transform:uppercase}
+.section-hdr h2{font-family:var(--display);font-weight:800;font-size:clamp(1.3rem,2.4vw,1.7rem);letter-spacing:-.01em;line-height:1.15;color:var(--ink)}
+.section.gold .num{background:#c8a640}
+.section-sub{font-size:.95rem;color:var(--muted);margin:0 0 14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 26px;box-shadow:var(--shadow);margin-bottom:14px}
+.task-tag{display:inline-block;font:800 10px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;background:var(--accent-soft);color:var(--accent3);border:1px solid var(--accent);border-radius:50px;padding:4px 10px;margin-bottom:12px}
+.info{background:var(--card-2);border-left:3px solid var(--accent);padding:12px 16px;border-radius:0 8px 8px 0;font-size:.95rem;color:var(--ink);margin:12px 0}
+.info strong{color:var(--accent3)}
+.info.gold{border-left-color:#c8a640;background:var(--gold-soft)}
+.info.gold strong{color:#8a6f1e}
+
+/* Talk rows (data-say tap-cards) — increased for iPad */
+.talk-grid{display:grid;grid-template-columns:1fr;gap:10px;margin:12px 0}
+.talk-row{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:14px}
+.talk-play{width:44px;height:44px;flex-shrink:0;border-radius:50%;background:var(--accent);color:#fff;border:none;display:grid;place-items:center;cursor:pointer;font-size:1rem;font-family:var(--mono);font-weight:800}
+.talk-play:hover{background:var(--accent3)}
+.talk-play:active{transform:scale(.94)}
+.talk-phrase{font-family:Georgia,serif;color:var(--ink);font-size:1.05rem;font-weight:600;flex:1;line-height:1.4}
+.talk-when{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:right;max-width:36%;line-height:1.5}
+@media(max-width:640px){.talk-when{max-width:none;text-align:left;flex-basis:100%;margin-top:2px}}
+
+/* Vocab flip cards — bigger for iPad tap */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin:14px 0}
+.vocab-card{perspective:1000px;cursor:pointer;height:140px;position:relative}
+.vocab-card .vocab-inner{position:relative;width:100%;height:100%;transition:transform .55s;transform-style:preserve-3d}
+.vocab-card.flipped .vocab-inner{transform:rotateY(180deg)}
+.vocab-card .vocab-front,.vocab-card .vocab-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:14px;padding:16px 12px;display:flex;flex-direction:column;justify-content:center;border:1px solid var(--line-2)}
+.vocab-card .vocab-front{background:var(--card);text-align:center;align-items:center}
+.vocab-card .vocab-front .word{font-family:var(--display);font-weight:800;font-size:1.15rem;color:var(--accent3);line-height:1.15}
+.vocab-card .vocab-front .pos{font:800 10px/1 var(--mono);letter-spacing:.16em;color:var(--faint);margin-top:8px;text-transform:uppercase}
+.vocab-card .vocab-front .ru-hint{font-family:Georgia,serif;font-size:.82rem;color:var(--muted);margin-top:10px;font-style:italic}
+.vocab-card .vocab-tts{position:absolute;top:10px;right:10px;width:34px;height:34px;border-radius:50%;background:#c8a640;color:#fff;border:none;display:grid;place-items:center;font-size:.82rem;cursor:pointer;font-family:var(--mono);font-weight:800;z-index:5;line-height:1}
+.vocab-card .vocab-tts:hover{background:var(--accent3)}
+.vocab-card .vocab-back{background:linear-gradient(135deg,var(--accent) 0%,var(--accent3) 100%);transform:rotateY(180deg);color:#fff;font-size:.9rem;line-height:1.45;text-align:center;align-items:center}
+.vocab-card .vocab-back .meaning{color:#fff;font-weight:700;margin-bottom:6px;font-size:1rem}
+.vocab-card .vocab-back .ex{font-style:italic;color:var(--gold-soft);font-size:.85rem}
+
+/* Rescue-style rows (модели-конструкции) */
+.rescue-grid{display:grid;grid-template-columns:1fr;gap:10px;margin:14px 0}
+.rescue-row{background:var(--card-2);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;padding:14px 18px;display:flex;align-items:center;gap:14px}
+.rescue-play{width:44px;height:44px;flex-shrink:0;border-radius:50%;background:var(--accent);color:#fff;border:none;display:grid;place-items:center;cursor:pointer;font-size:1rem;font-family:var(--mono);font-weight:800}
+.rescue-play:hover{background:var(--accent3)}
+.rescue-play:active{transform:scale(.94)}
+.rescue-text{flex:1}
+.rescue-text .phrase{font-family:Georgia,serif;color:var(--ink);font-size:1.05rem;font-weight:600;line-height:1.4}
+.rescue-text .phrase b{color:var(--accent3);background:var(--accent-soft);padding:1px 6px;border-radius:4px}
+.rescue-text .when{font-family:Georgia,serif;font-size:.88rem;color:var(--muted);margin-top:4px;font-style:italic}
+
+/* Frequency scale */
+.freq-scale{display:grid;grid-template-columns:80px 1fr;gap:10px;margin:14px 0;align-items:center}
+.freq-pct{font-family:var(--mono);font-weight:800;font-size:14px;color:var(--accent3);text-align:right;padding-right:6px}
+.freq-card{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:0 12px 12px 0;padding:12px 16px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:.15s}
+.freq-card:hover{border-left-color:var(--accent3);transform:translateX(2px)}
+.freq-card .fc-word{font-family:var(--display);font-weight:800;font-size:1.15rem;color:var(--ink);min-width:110px}
+.freq-card .fc-ru{font-family:Georgia,serif;color:var(--muted);flex:1;font-size:.94rem}
+.freq-card .fc-play{width:38px;height:38px;flex-shrink:0;border-radius:50%;background:var(--accent-soft);color:var(--accent3);border:1.5px solid var(--accent);display:grid;place-items:center;font-family:var(--mono);font-weight:800;font-size:.85rem}
+.freq-card .fc-play:hover{background:var(--accent);color:#fff}
+
+/* MCQ tap-quiz — bigger targets */
+.mcq-row{background:var(--card-2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
+.mcq-q{font-size:1rem;color:var(--ink);margin-bottom:10px;line-height:1.55;font-family:Georgia,serif}
+.mcq-q .blank{display:inline-block;min-width:64px;padding:0 10px;border-bottom:2px dashed var(--accent);font-weight:700;color:var(--accent3);text-align:center}
+.mcq-opts{display:flex;flex-wrap:wrap;gap:8px}
+.mcq-opts button{background:var(--card);border:1.5px solid var(--line-2);color:var(--ink);padding:10px 16px;border-radius:10px;
+  font-size:1rem;cursor:pointer;transition:.15s;font-family:var(--body);font-weight:600;min-width:64px}
+.mcq-opts button:hover{border-color:var(--accent);color:var(--accent3)}
+.mcq-opts button.correct{background:rgba(74,143,110,.18);border-color:var(--ok);color:var(--ok);font-weight:800}
+.mcq-opts button.wrong{background:rgba(184,90,90,.14);border-color:var(--miss);color:var(--miss)}
+.mcq-row.revealed .mcq-note{display:block}
+.mcq-note{display:none;font:italic 500 .85rem/1.5 Georgia,serif;color:var(--muted);background:var(--gold-soft);border-left:3px solid #c8a640;padding:8px 12px;border-radius:0 6px 6px 0;margin-top:10px}
+
+/* Rule cards */
+.rule-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin:12px 0}
+.rule-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:grid;gap:8px}
+.rule-card .rule-key{font-family:var(--mono);font-weight:800;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.rule-card .rule-h{font-family:var(--display);font-weight:800;font-size:1.3rem;color:var(--ink)}
+.rule-card .rule-txt{font-family:Georgia,serif;font-size:.94rem;color:var(--ink-2);line-height:1.5}
+.rule-card .rule-ex{font-family:Georgia,serif;font-style:italic;font-size:.9rem;color:var(--muted);background:var(--card-2);padding:6px 10px;border-radius:6px;margin-top:4px}
+.rule-card .rule-ex b{color:var(--accent3);background:var(--accent-soft);padding:1px 5px;border-radius:3px;font-style:normal}
+
+/* Pair Q&A cards */
+.pair-grid{display:grid;grid-template-columns:1fr;gap:12px;margin:14px 0}
+.pair-card{background:linear-gradient(135deg,#FFFFFF 0%,var(--card-2) 100%);border:1px solid var(--line);border-radius:14px;padding:16px 20px;display:grid;gap:8px}
+.pair-card .pair-tag{display:inline-flex;align-items:center;gap:8px;font:800 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);align-self:start}
+.pair-card .pair-tag .who{background:var(--accent);color:#fff;padding:3px 8px;border-radius:5px}
+.pair-card .pair-tag .who.stan{background:#c8a640}
+.pair-card .pair-phrase{font-family:Georgia,serif;font-size:1.15rem;color:var(--ink);font-weight:600;display:flex;align-items:center;gap:14px}
+.pair-card .pair-phrase .pair-play{width:44px;height:44px;flex-shrink:0;border-radius:50%;background:var(--accent);color:#fff;border:none;display:grid;place-items:center;cursor:pointer;font-family:var(--mono);font-weight:800;font-size:.95rem}
+.pair-card .pair-phrase .pair-play:hover{background:var(--accent3)}
+.pair-card .pair-hint{font-family:Georgia,serif;font-style:italic;color:var(--muted);font-size:.9rem;padding-left:58px}
+
+/* Big rule strip */
+.rule-strip{background:var(--gold-soft);border:1px solid #dbb54f;border-radius:12px;padding:14px 18px;margin:12px 0;font-family:Georgia,serif;font-size:.98rem;color:var(--ink-2);line-height:1.6}
+.rule-strip b{color:var(--accent3);background:var(--accent-soft);padding:1px 5px;border-radius:3px}
+.rule-strip .warn{color:var(--miss);font-weight:700}
+
+/* Footer */
+.footer{width:min(1240px, calc(100% - clamp(32px, 6vw, 56px)));margin:40px auto 30px;padding:22px 0;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);flex-wrap:wrap;gap:14px}
+.footer .foot-brand{display:flex;align-items:center;gap:10px}
+.footer .foot-brand .brand-mark{width:28px;height:28px;font-size:15px;border-radius:7px 0 7px 7px}
+.footer .foot-brand .brand-mark::after{width:9px;height:9px}
+.footer .foot-name{font-family:var(--display);font-weight:800;letter-spacing:.06em;font-size:12px;color:var(--ink-2)}
+
+/* Play state for buttons */
+.talk-play.playing,.rescue-play.playing,.vocab-tts.playing,.pair-play.playing,.fc-play.playing,.now-mic.playing{
+  background:var(--accent3)!important;color:#fff!important;animation:pulse .6s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.08);box-shadow:0 0 0 6px rgba(232,84,43,.14)}}
+
+/* Now you · устный блок после каждой части */
+.now-you{width:min(1240px, calc(100% - clamp(32px, 6vw, 56px)));margin:-12px auto 30px;padding:0;scroll-margin-top:70px}
+.now-you .now-card{background:linear-gradient(135deg,#FFF9EE 0%,#FFF3D0 100%);border:1px solid #dbb54f;border-left:5px solid #c8a640;border-radius:0 14px 14px 0;padding:18px 24px;box-shadow:0 4px 14px rgba(200,166,64,.14)}
+.now-you .now-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.now-you .now-tag{font:800 10.5px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;background:#c8a640;color:#fff;padding:6px 12px;border-radius:50px}
+.now-you .now-title{font-family:var(--display);font-weight:800;font-size:1.15rem;color:#8a6f1e;letter-spacing:-.01em}
+.now-you .now-sub{font-family:Georgia,serif;font-size:.94rem;color:#5f4f19;margin-bottom:12px;font-style:italic}
+.now-you .now-model{background:rgba(255,255,255,.6);border:1px dashed #c8a640;border-radius:10px;padding:10px 14px;margin:8px 0 12px;display:flex;align-items:center;gap:12px}
+.now-you .now-model-play{width:38px;height:38px;flex-shrink:0;border-radius:50%;background:#c8a640;color:#fff;border:none;display:grid;place-items:center;cursor:pointer;font-family:var(--mono);font-weight:800;font-size:.85rem}
+.now-you .now-model-play:hover{background:var(--accent3)}
+.now-you .now-model-text{font-family:Georgia,serif;color:var(--ink);font-size:1rem}
+.now-you .now-model-text .lbl{display:inline-block;font:800 9px/1 var(--mono);letter-spacing:.14em;color:#8a6f1e;text-transform:uppercase;margin-right:8px;background:rgba(200,166,64,.18);padding:3px 6px;border-radius:4px}
+.now-you .now-qs{display:grid;grid-template-columns:1fr;gap:8px;margin:8px 0}
+.now-you .now-q{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px}
+.now-you .now-q .now-q-play{width:38px;height:38px;flex-shrink:0;border-radius:50%;background:var(--accent-soft);color:var(--accent3);border:1.5px solid var(--accent);display:grid;place-items:center;cursor:pointer;font-family:var(--mono);font-weight:800;font-size:.82rem}
+.now-you .now-q .now-q-play:hover{background:var(--accent);color:#fff}
+.now-you .now-q .now-q-text{font-family:Georgia,serif;font-size:1rem;color:var(--ink);flex:1;font-weight:500}
+.now-you .now-round{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:#8a6f1e;letter-spacing:.14em;text-transform:uppercase;margin-top:8px;font-weight:800}
+.now-you .now-round .arrow{color:#c8a640}
+.now-you .now-round .who{background:#c8a640;color:#fff;padding:3px 8px;border-radius:5px}
+.now-you .now-round .who.stan{background:var(--accent)}
+
+/* Hide teacher-vocab junk */
+.vocab-grid > *:not(.vocab-card){display:none !important}
+.vw,.lv-added,.lv-mini,.lv-add-btn,.lv-highlight,.lv-mark,.nge-vocab-highlight{display:none !important}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="brand">
+    <div class="brand-mark">N</div>
+    <div class="brand-copy">
+      <div class="brand-name">NG English</div>
+      <div class="brand-sub">L3 · Present Simple вслух</div>
+    </div>
+  </div>
+  <div class="spacer"></div>
+  <span class="tb-pill">A2 · group</span>
+  <span class="tb-pill gold">August 2026</span>
+  <div class="tb-dots" id="tb-dots"></div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-card">
+    <div class="eyebrow">Александр · Станислав · L3 · август 2026</div>
+    <h1 class="hero-title">Present Simple · <span class="grad">весь урок вслух</span></h1>
+    <p class="hero-lead">
+      Третий урок — целиком про Present Simple. Слова те же самые, что в L1-L2:
+      <b>work · colleague · office · gym · free time · evening · coffee</b>.
+      Задача одна: <b>говорить</b>. Слушаем модель — повторяем — говорим своё.
+      Особый фокус — окончание <b>-s</b> в третьем лице и <b>adverbs of frequency</b>.
+    </p>
+    <div class="hero-meta">
+      <span>▸ 12 блоков + <strong>10 устных «Now you»</strong> + speaking по картинкам</span>
+      <span>▸ ~85 минут</span>
+      <span>▸ <strong>hear → repeat → say your own</strong></span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 1 · WARM-UP · I ___ EVERY DAY ============ -->
+<section class="section" id="s1">
+  <div class="section-hdr"><span class="num">1</span><h2>Разминка · «I ___ every day»</h2></div>
+  <div class="card">
+    <div class="task-tag">tap · hear · repeat · 8 моделей</div>
+    <p class="section-sub">Начинаем с самого простого — <b>первое лицо</b>, никакого -s. Жмите оранжевый круг — услышите. Повторяйте ВСЛУХ каждую фразу минимум 2 раза.</p>
+    <div class="talk-grid">
+      <div class="talk-row"><button class="talk-play" data-say="I work in sales." aria-label="Play">▶</button><span class="talk-phrase">I <b>work</b> in sales.</span><span class="talk-when">чем занимаюсь</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="I drink coffee every morning." aria-label="Play">▶</button><span class="talk-phrase">I <b>drink</b> coffee every morning.</span><span class="talk-when">регулярное действие</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="I go to the office at nine a.m." aria-label="Play">▶</button><span class="talk-phrase">I <b>go</b> to the office at 9 a.m.</span><span class="talk-when">рутина утра</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="I have three colleagues at work." aria-label="Play">▶</button><span class="talk-phrase">I <b>have</b> three colleagues at work.</span><span class="talk-when">факт о себе</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="I read in the evenings." aria-label="Play">▶</button><span class="talk-phrase">I <b>read</b> in the evenings.</span><span class="talk-when">регулярно вечером</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="I watch football on Friday." aria-label="Play">▶</button><span class="talk-phrase">I <b>watch</b> football on Friday.</span><span class="talk-when">каждую пятницу</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="I finish work around six p.m." aria-label="Play">▶</button><span class="talk-phrase">I <b>finish</b> work around 6 p.m.</span><span class="talk-when">конец рабочего дня</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="I go to the gym twice a week." aria-label="Play">▶</button><span class="talk-phrase">I <b>go</b> to the gym twice a week.</span><span class="talk-when">частота</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 1 · NOW YOU -->
+<section class="now-you">
+  <div class="now-card">
+    <div class="now-head"><span class="now-tag">🎤 Now you · block 1</span><span class="now-title">Скажите 5 своих фраз про свой день</span></div>
+    <div class="now-sub">Alex говорит 5 фраз про себя, потом Stan говорит 5 своих. Пример как связывать фразы — снизу. Всё в первом лице.</div>
+    <div class="now-model"><button class="now-model-play" data-say="I work in sales. I get up at seven a.m. I drink coffee every morning. I go to the office at nine. I finish work around six p.m." aria-label="Play">▶</button><div class="now-model-text"><span class="lbl">Model · Alex</span>I work in sales. I get up at seven a.m. I drink coffee every morning. I go to the office at nine. I finish work around six p.m.</div></div>
+    <div class="now-qs">
+      <div class="now-q"><button class="now-q-play" data-say="I work in sales." aria-label="Play">▶</button><span class="now-q-text"><b>1.</b> Скажите про работу: I work in ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="I get up at seven a.m." aria-label="Play">▶</button><span class="now-q-text"><b>2.</b> Во сколько встаёте: I get up at ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="I drink coffee every morning." aria-label="Play">▶</button><span class="now-q-text"><b>3.</b> Что пьёте с утра: I drink ___ every morning.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="I have three colleagues at work." aria-label="Play">▶</button><span class="now-q-text"><b>4.</b> Сколько коллег: I have ___ colleagues.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="I finish work around six p.m." aria-label="Play">▶</button><span class="now-q-text"><b>5.</b> Во сколько заканчиваете: I finish work around ___.</span></div>
+    </div>
+    <div class="now-round"><span class="who">Alex</span> · 5 фраз <span class="arrow">→</span> <span class="who stan">Stan</span> · 5 фраз</div>
+  </div>
+</section>
+
+<!-- ============ 2 · 3RD PERSON · SHE/HE + S ============ -->
+<section class="section" id="s2">
+  <div class="section-hdr"><span class="num">2</span><h2>Третье лицо · «She works» ⭐</h2></div>
+  <div class="card">
+    <div class="task-tag">the -s rule · 6 моделей</div>
+    <p class="section-sub">Одна и единственная сложность Present Simple: с <b>he / she / it</b> к глаголу добавляется <b>-s</b>. Больше ничего сложного в этом времени нет.</p>
+
+    <div class="rule-strip">
+      <b>Правило:</b> <em>I / you / we / they</em> — глагол без изменений. &nbsp; · &nbsp; <em>he / she / it</em> — <b>+ s</b> в конце.<br>
+      <em>I <b>work</b> → She <b>works</b> · I <b>drink</b> → He <b>drinks</b> · I <b>go</b> → She <b>goes</b></em>
+    </div>
+
+    <div class="rescue-grid">
+      <div class="rescue-row"><button class="rescue-play" data-say="My colleague works from home on Fridays." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">My colleague <b>works</b> from home on Fridays.</div><div class="when">3-е лицо · -s в конце</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="She drinks tea in the evening." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">She <b>drinks</b> tea in the evening.</div><div class="when">she → drinks</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="He goes to the gym twice a week." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">He <b>goes</b> to the gym twice a week.</div><div class="when">go → goes · после -o добавляем -es</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="My boss has a small office near the station." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">My boss <b>has</b> a small office near the station.</div><div class="when">have → has · единственное исключение</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="She watches football with her father." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">She <b>watches</b> football with her father.</div><div class="when">watch → watches · после -ch добавляем -es</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="My friend studies English every day." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">My friend <b>studies</b> English every day.</div><div class="when">study → studies · согласный + y → ies</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2 · NOW YOU -->
+<section class="now-you">
+  <div class="now-card">
+    <div class="now-head"><span class="now-tag">🎤 Now you · block 2</span><span class="now-title">Alex про Stan · Stan про Alex</span></div>
+    <div class="now-sub">По очереди говорите фразу <b>про партнёра</b> в третьем лице. Проверьте: правильно ли добавили <b>-s</b>?</div>
+    <div class="now-model"><button class="now-model-play" data-say="My friend Stan works in sales. He gets up at seven. He drinks coffee every morning. He has two colleagues in Berlin." aria-label="Play">▶</button><div class="now-model-text"><span class="lbl">Model · про Stan</span>My friend Stan <b>works</b> in sales. He <b>gets</b> up at seven. He <b>drinks</b> coffee every morning. He <b>has</b> two colleagues in Berlin.</div></div>
+    <div class="now-qs">
+      <div class="now-q"><button class="now-q-play" data-say="He works in sales." aria-label="Play">▶</button><span class="now-q-text"><b>1.</b> Где работает партнёр: He / She <b>works</b> in ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="He goes to the office by car." aria-label="Play">▶</button><span class="now-q-text"><b>2.</b> Как добирается: He <b>goes</b> to work by ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="She has three colleagues at the office." aria-label="Play">▶</button><span class="now-q-text"><b>3.</b> Сколько коллег: She <b>has</b> ___ colleagues.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="He watches football on Friday." aria-label="Play">▶</button><span class="now-q-text"><b>4.</b> Что делает по вечерам: He <b>watches</b> / <b>reads</b> / <b>goes</b> ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="She finishes work at six p.m." aria-label="Play">▶</button><span class="now-q-text"><b>5.</b> Во сколько заканчивает: She <b>finishes</b> work at ___.</span></div>
+    </div>
+    <div class="now-round"><span class="who">Alex про Stan</span> <span class="arrow">↔</span> <span class="who stan">Stan про Alex</span></div>
+  </div>
+</section>
+
+<!-- ============ 3 · SPELLING -S · 4 RULES ============ -->
+<section class="section" id="s3">
+  <div class="section-hdr"><span class="num">3</span><h2>Написание -s · 4 правила</h2></div>
+  <div class="card">
+    <div class="task-tag">4 rules + 6 tap-quiz</div>
+    <p class="section-sub">Почему <em>goes</em>, а не <em>gos</em>? Почему <em>studies</em>, а не <em>studys</em>? Ниже — четыре правила, потом маленький тренажёр.</p>
+
+    <div class="rule-grid">
+      <div class="rule-card"><div class="rule-key">§ 1 · обычно</div><div class="rule-h">+ s</div><div class="rule-txt">Большинство глаголов — просто добавляем <b>-s</b>.</div><div class="rule-ex">work → <b>works</b> · live → <b>lives</b> · like → <b>likes</b> · start → <b>starts</b></div></div>
+      <div class="rule-card"><div class="rule-key">§ 2 · после -o, -s, -x, -ch, -sh</div><div class="rule-h">+ es</div><div class="rule-txt">Иначе не выговорить — добавляем <b>-es</b>.</div><div class="rule-ex">go → <b>goes</b> · do → <b>does</b> · watch → <b>watches</b> · finish → <b>finishes</b> · miss → <b>misses</b></div></div>
+      <div class="rule-card"><div class="rule-key">§ 3 · согласный + y</div><div class="rule-h">y → ies</div><div class="rule-txt">Если перед <em>y</em> согласная буква — меняем на <b>ies</b>.</div><div class="rule-ex">study → <b>studies</b> · try → <b>tries</b> · fly → <b>flies</b> · cry → <b>cries</b></div></div>
+      <div class="rule-card"><div class="rule-key">§ 4 · гласный + y</div><div class="rule-h">просто + s</div><div class="rule-txt">Если перед <em>y</em> ГЛАСНАЯ — y НЕ меняем, просто добавляем <b>-s</b>.</div><div class="rule-ex">play → <b>plays</b> · say → <b>says</b> · buy → <b>buys</b> · enjoy → <b>enjoys</b></div></div>
+      <div class="rule-card"><div class="rule-key">§ 5 · исключение</div><div class="rule-h">have → has</div><div class="rule-txt">Единственное настоящее исключение. Запомнить.</div><div class="rule-ex">She <b>has</b> a small office. He <b>has</b> two colleagues.</div></div>
+    </div>
+
+    <div class="rule-strip">
+      <b>⚠ Как читается -s:</b>
+      <br>• <b>[s]</b> глухой — после глухих согласных: <em>works · stops · likes · waits</em>
+      <br>• <b>[z]</b> звонкий — после звонких и гласных: <em>lives · plays · goes · comes</em>
+      <br>• <b>[ɪz]</b> «из» — после -s / -ch / -sh / -x / -ge: <em>watches · finishes · misses · fixes</em>
+    </div>
+
+    <div class="mcq-row" data-answer="1"><div class="mcq-q">He <span class="blank">?</span> to the gym on Monday.</div><div class="mcq-opts"><button>go</button><button>goes</button><button>gos</button></div><div class="mcq-note">go → goes (правило §2: -o + es).</div></div>
+    <div class="mcq-row" data-answer="1"><div class="mcq-q">She <span class="blank">?</span> English every day.</div><div class="mcq-opts"><button>studys</button><button>studies</button><button>study</button></div><div class="mcq-note">study → studies (согласный + y → ies).</div></div>
+    <div class="mcq-row" data-answer="0"><div class="mcq-q">My colleague <span class="blank">?</span> a big office.</div><div class="mcq-opts"><button>has</button><button>haves</button><button>have</button></div><div class="mcq-note">have → has (исключение §4).</div></div>
+    <div class="mcq-row" data-answer="2"><div class="mcq-q">She <span class="blank">?</span> football with her son.</div><div class="mcq-opts"><button>watchs</button><button>watch</button><button>watches</button></div><div class="mcq-note">watch → watches (правило §2: -ch + es).</div></div>
+    <div class="mcq-row" data-answer="0"><div class="mcq-q">He <span class="blank">?</span> tennis every Saturday.</div><div class="mcq-opts"><button>plays</button><button>plaies</button><button>play</button></div><div class="mcq-note">play — гласный + y → просто plays. НЕ plaies.</div></div>
+    <div class="mcq-row" data-answer="1"><div class="mcq-q">The office <span class="blank">?</span> at 9 a.m.</div><div class="mcq-opts"><button>open</button><button>opens</button><button>opens es</button></div><div class="mcq-note">office = it → opens.</div></div>
+  </div>
+</section>
+
+<!-- 3 · NOW YOU -->
+<section class="now-you">
+  <div class="now-card">
+    <div class="now-head"><span class="now-tag">🎤 Now you · block 3</span><span class="now-title">-s tricky verbs вслух</span></div>
+    <div class="now-sub">Скажите фразу с каждым из 5 «трудных» глаголов. Про кого — свободно (жена, брат, коллега, друг).</div>
+    <div class="now-model"><button class="now-model-play" data-say="My wife goes to the gym on Tuesday. She studies Italian on the weekend. My colleague watches Netflix at night. My brother has two kids." aria-label="Play">▶</button><div class="now-model-text"><span class="lbl">Model</span>My wife <b>goes</b> to the gym on Tuesday. She <b>studies</b> Italian on the weekend. My colleague <b>watches</b> Netflix at night. My brother <b>has</b> two kids.</div></div>
+    <div class="now-qs">
+      <div class="now-q"><button class="now-q-play" data-say="He goes to the office by car." aria-label="Play">▶</button><span class="now-q-text"><b>1. goes</b> · Кто-то ходит куда-то: ___ <b>goes</b> to ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="She watches football on Friday." aria-label="Play">▶</button><span class="now-q-text"><b>2. watches</b> · Кто-то смотрит что-то: ___ <b>watches</b> ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="My friend studies English every day." aria-label="Play">▶</button><span class="now-q-text"><b>3. studies</b> · Кто-то учит: ___ <b>studies</b> ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="She has three colleagues at the office." aria-label="Play">▶</button><span class="now-q-text"><b>4. has</b> · Кто-то имеет что-то: ___ <b>has</b> ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="He finishes work at six." aria-label="Play">▶</button><span class="now-q-text"><b>5. finishes</b> · Кто-то заканчивает: ___ <b>finishes</b> ___ at ___.</span></div>
+    </div>
+    <div class="now-round"><span class="who stan">Stan</span> <span class="arrow">→</span> <span class="who">Alex</span> <span class="arrow">→</span> <span class="who stan">Stan</span></div>
+  </div>
+</section>
+
+<!-- ============ 4 · DON'T / DOESN'T ============ -->
+<section class="section" id="s4">
+  <div class="section-hdr"><span class="num">4</span><h2>Отрицание · don't / doesn't</h2></div>
+  <div class="card">
+    <div class="task-tag">rule + 6 моделей + 4 mcq</div>
+    <p class="section-sub">Как сказать «я НЕ делаю»? Не «no», а <b>don't</b>. С he/she/it — <b>doesn't</b>.</p>
+
+    <div class="rule-strip">
+      <b>Формула:</b> <em>I / you / we / they</em> — <b>don't</b> + глагол. &nbsp; · &nbsp; <em>he / she / it</em> — <b>doesn't</b> + глагол <b>БЕЗ -s</b>.<br>
+      <em>I <b>don't</b> drink coffee.</em> &nbsp; · &nbsp; <em>She <b>doesn't</b> drink coffee.</em> (НЕ <em>doesn't drink<b>s</b></em>)
+    </div>
+
+    <div class="rescue-grid">
+      <div class="rescue-row"><button class="rescue-play" data-say="I don't work on Sunday." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">I <b>don't work</b> on Sunday.</div><div class="when">1-е лицо · don't</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="We don't have coffee in the office." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">We <b>don't have</b> coffee in the office.</div><div class="when">мн. число · don't</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="She doesn't drink coffee." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">She <b>doesn't drink</b> coffee.</div><div class="when">3-е лицо · doesn't + drink (без -s!)</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="My boss doesn't work on Friday." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">My boss <b>doesn't work</b> on Friday.</div><div class="when">boss = he → doesn't</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="He doesn't go to the gym." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">He <b>doesn't go</b> to the gym.</div><div class="when">НЕ «doesn't goes»</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="My colleagues don't speak English." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">My colleagues <b>don't speak</b> English.</div><div class="when">colleagues = they → don't</div></div></div>
+    </div>
+
+    <div class="mcq-row" data-answer="2"><div class="mcq-q">He <span class="blank">?</span> like meat.</div><div class="mcq-opts"><button>don't</button><button>not</button><button>doesn't</button></div><div class="mcq-note">He → doesn't (и глагол БЕЗ s).</div></div>
+    <div class="mcq-row" data-answer="1"><div class="mcq-q">She doesn't <span class="blank">?</span> tea.</div><div class="mcq-opts"><button>drinks</button><button>drink</button><button>drinking</button></div><div class="mcq-note">После doesn't → глагол в базовой форме, БЕЗ -s.</div></div>
+    <div class="mcq-row" data-answer="0"><div class="mcq-q">My colleagues <span class="blank">?</span> work on Saturday.</div><div class="mcq-opts"><button>don't</button><button>doesn't</button><button>not</button></div><div class="mcq-note">colleagues = they → don't.</div></div>
+    <div class="mcq-row" data-answer="1"><div class="mcq-q">The office <span class="blank">?</span> open on Sunday.</div><div class="mcq-opts"><button>don't</button><button>doesn't</button><button>isn't</button></div><div class="mcq-note">office = it → doesn't.</div></div>
+  </div>
+</section>
+
+<!-- 4 · NOW YOU -->
+<section class="now-you">
+  <div class="now-card">
+    <div class="now-head"><span class="now-tag">🎤 Now you · block 4</span><span class="now-title">Скажите 3 «I don't» + 3 «He/She doesn't»</span></div>
+    <div class="now-sub">Что вы <b>НЕ</b> делаете? Что <b>НЕ</b> делает ваш партнёр / коллега / брат?</div>
+    <div class="now-model"><button class="now-model-play" data-say="I don't drink coffee. I don't work on Sunday. I don't watch TV. My colleague doesn't speak English. My wife doesn't like football." aria-label="Play">▶</button><div class="now-model-text"><span class="lbl">Model</span>I <b>don't</b> drink coffee. I <b>don't</b> work on Sunday. My colleague <b>doesn't</b> speak English. My wife <b>doesn't</b> like football.</div></div>
+    <div class="now-qs">
+      <div class="now-q"><button class="now-q-play" data-say="I don't drink coffee." aria-label="Play">▶</button><span class="now-q-text"><b>1.</b> Что вы НЕ пьёте: I <b>don't</b> drink ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="I don't work on Sunday." aria-label="Play">▶</button><span class="now-q-text"><b>2.</b> В какой день НЕ работаете: I <b>don't</b> work on ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="I don't watch TV in the evening." aria-label="Play">▶</button><span class="now-q-text"><b>3.</b> Чего вы НЕ смотрите: I <b>don't</b> watch ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="My colleague doesn't speak English." aria-label="Play">▶</button><span class="now-q-text"><b>4.</b> Про коллегу: My colleague <b>doesn't</b> ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="My wife doesn't like football." aria-label="Play">▶</button><span class="now-q-text"><b>5.</b> Про близкого: ___ <b>doesn't</b> like ___.</span></div>
+    </div>
+    <div class="now-round"><span class="who">Alex</span> <span class="arrow">→</span> <span class="who stan">Stan</span> <span class="arrow">→</span> <span class="who">Alex</span></div>
+  </div>
+</section>
+
+<!-- ============ 5 · DO YOU / DOES HE ============ -->
+<section class="section" id="s5">
+  <div class="section-hdr"><span class="num">5</span><h2>Вопрос · Do you…? · Does he…?</h2></div>
+  <div class="card">
+    <div class="task-tag">rule + 6 моделей + short answers</div>
+    <p class="section-sub">Yes/No вопросы — с <b>Do</b> или <b>Does</b> в начале. С he/she/it — Does + глагол БЕЗ -s.</p>
+
+    <div class="rule-strip">
+      <b>Формула:</b> <b>Do</b> + I/you/we/they + глагол? &nbsp; · &nbsp; <b>Does</b> + he/she/it + глагол (БЕЗ -s)?<br>
+      <b>Короткие ответы:</b> Yes, I <b>do</b>. / No, I <b>don't</b>. &nbsp; · &nbsp; Yes, she <b>does</b>. / No, she <b>doesn't</b>. (Никогда не повторяем глагол.)
+    </div>
+
+    <div class="rescue-grid">
+      <div class="rescue-row"><button class="rescue-play" data-say="Do you speak English at work?" aria-label="Play">▶</button><div class="rescue-text"><div class="phrase"><b>Do you speak</b> English at work?</div><div class="when">1-е / 2-е лицо · Do</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="Do your colleagues speak English?" aria-label="Play">▶</button><div class="rescue-text"><div class="phrase"><b>Do</b> your colleagues <b>speak</b> English?</div><div class="when">мн. число · Do</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="Does she work from home?" aria-label="Play">▶</button><div class="rescue-text"><div class="phrase"><b>Does she work</b> from home?</div><div class="when">she → Does + work (без -s!)</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="Does your boss speak English?" aria-label="Play">▶</button><div class="rescue-text"><div class="phrase"><b>Does</b> your boss <b>speak</b> English?</div><div class="when">boss = he → Does</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="Yes, I do." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">— <b>Yes, I do.</b> · <b>No, I don't.</b></div><div class="when">короткий ответ на Do you…?</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="Yes, she does." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">— <b>Yes, she does.</b> · <b>No, she doesn't.</b></div><div class="when">короткий ответ на Does she…?</div></div></div>
+    </div>
+
+    <div class="info gold"><strong>⚠ Watch out:</strong> в вопросе с Does — глагол <b>без -s</b>. <em>Does she works?</em> ❌ → <em>Does she work?</em> ✓. -s уже сидит в самом «Does».</div>
+  </div>
+</section>
+
+<!-- 5 · NOW YOU -->
+<section class="now-you">
+  <div class="now-card">
+    <div class="now-head"><span class="now-tag">🎤 Now you · block 5</span><span class="now-title">Задайте 5 вопросов · получите короткий ответ</span></div>
+    <div class="now-sub">Alex задаёт — Stan отвечает Yes, I do / No, I don't. Потом наоборот. Задавайте по <b>своим</b> темам, не только по списку.</div>
+    <div class="now-model"><button class="now-model-play" data-say="Do you drink coffee? Yes, I do. Do you work on Saturday? No, I don't. Does your wife speak English? Yes, she does." aria-label="Play">▶</button><div class="now-model-text"><span class="lbl">Model</span>Do you drink coffee? — Yes, I do. Do you work on Saturday? — No, I don't. Does your wife speak English? — Yes, she does.</div></div>
+    <div class="now-qs">
+      <div class="now-q"><button class="now-q-play" data-say="Do you drink coffee in the morning?" aria-label="Play">▶</button><span class="now-q-text"><b>1.</b> Do you drink coffee in the morning?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="Do you work on Saturday?" aria-label="Play">▶</button><span class="now-q-text"><b>2.</b> Do you work on Saturday?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="Do you go to the gym every week?" aria-label="Play">▶</button><span class="now-q-text"><b>3.</b> Do you go to the gym every week?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="Does your colleague speak English?" aria-label="Play">▶</button><span class="now-q-text"><b>4.</b> Does your colleague speak English?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="Does your boss work on the weekend?" aria-label="Play">▶</button><span class="now-q-text"><b>5.</b> Does your boss work on the weekend?</span></div>
+    </div>
+    <div class="now-round"><span class="who">Alex</span> · спрашивает <span class="arrow">↔</span> <span class="who stan">Stan</span> · Yes I do / No I don't</div>
+  </div>
+</section>
+
+<!-- ============ 6 · WH-QUESTIONS ============ -->
+<section class="section" id="s6">
+  <div class="section-hdr"><span class="num">6</span><h2>Wh-вопросы · What · Where · When · How often ⭐</h2></div>
+  <div class="card">
+    <div class="task-tag">8 моделей · Present Simple</div>
+    <p class="section-sub">Wh-слово + <b>do/does</b> + подлежащее + глагол. Всё то же самое, только впереди — What / Where / When / How.</p>
+
+    <div class="talk-grid">
+      <div class="talk-row"><button class="talk-play" data-say="What do you do?" aria-label="Play">▶</button><span class="talk-phrase"><b>What</b> do you do?</span><span class="talk-when">чем занимаетесь</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="Where do you work?" aria-label="Play">▶</button><span class="talk-phrase"><b>Where</b> do you work?</span><span class="talk-when">место работы</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="What time do you start work?" aria-label="Play">▶</button><span class="talk-phrase"><b>What time</b> do you start work?</span><span class="talk-when">во сколько</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="When do you finish work?" aria-label="Play">▶</button><span class="talk-phrase"><b>When</b> do you finish work?</span><span class="talk-when">во сколько заканчиваете</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="Where do you have lunch?" aria-label="Play">▶</button><span class="talk-phrase"><b>Where</b> do you have lunch?</span><span class="talk-when">где обедаете</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="How often do you go to the gym?" aria-label="Play">▶</button><span class="talk-phrase"><b>How often</b> do you go to the gym?</span><span class="talk-when">как часто</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="What do you do after work?" aria-label="Play">▶</button><span class="talk-phrase"><b>What</b> do you do after work?</span><span class="talk-when">что вечером</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="Where does your colleague live?" aria-label="Play">▶</button><span class="talk-phrase"><b>Where does</b> your colleague live?</span><span class="talk-when">3-е лицо → Does</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · NOW YOU -->
+<section class="now-you">
+  <div class="now-card">
+    <div class="now-head"><span class="now-tag">🎤 Now you · block 6</span><span class="now-title">10 вопросов друг другу · full answers</span></div>
+    <div class="now-sub">Alex — нечётные, Stan — чётные. Отвечайте <b>полными фразами</b>, не «yes» или «at seven», а «I start work at seven a.m.»</div>
+    <div class="now-model"><button class="now-model-play" data-say="What time do you get up? I get up at seven a.m. Where do you have lunch? I have lunch at a small café near the office." aria-label="Play">▶</button><div class="now-model-text"><span class="lbl">Model</span>What time do you get up? — <b>I get up at seven a.m.</b> Where do you have lunch? — <b>I have lunch at a café near the office.</b></div></div>
+    <div class="now-qs">
+      <div class="now-q"><button class="now-q-play" data-say="What time do you get up?" aria-label="Play">▶</button><span class="now-q-text"><b>1.</b> What time do you get up?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="What do you have for breakfast?" aria-label="Play">▶</button><span class="now-q-text"><b>2.</b> What do you have for breakfast?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="How do you get to work?" aria-label="Play">▶</button><span class="now-q-text"><b>3.</b> How do you get to work?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="What time do you start work?" aria-label="Play">▶</button><span class="now-q-text"><b>4.</b> What time do you start work?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="Where do you have lunch?" aria-label="Play">▶</button><span class="now-q-text"><b>5.</b> Where do you have lunch?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="When do you finish work?" aria-label="Play">▶</button><span class="now-q-text"><b>6.</b> When do you finish work?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="What do you do after work?" aria-label="Play">▶</button><span class="now-q-text"><b>7.</b> What do you do after work?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="How often do you go to the gym?" aria-label="Play">▶</button><span class="now-q-text"><b>8.</b> How often do you go to the gym?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="What do you do on Sunday?" aria-label="Play">▶</button><span class="now-q-text"><b>9.</b> What do you do on Sunday?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="Where does your colleague live?" aria-label="Play">▶</button><span class="now-q-text"><b>10.</b> Where does your colleague live? (3-е лицо!)</span></div>
+    </div>
+    <div class="now-round"><span class="who">Alex</span> · нечётные <span class="arrow">↔</span> <span class="who stan">Stan</span> · чётные</div>
+  </div>
+</section>
+
+<!-- ============ 7 · ADVERBS OF FREQUENCY ============ -->
+<section class="section gold" id="s7">
+  <div class="section-hdr"><span class="num">7</span><h2>Слова частотности · always / usually / never ⭐</h2></div>
+  <div class="card">
+    <div class="task-tag">7 words on a scale · rule of place</div>
+    <p class="section-sub">Шкала «как часто». Жмите на карточку — услышите слово с примером.</p>
+
+    <div class="freq-scale">
+      <div class="freq-pct">100 %</div>
+      <button class="freq-card" data-say="always. I always drink coffee in the morning."><span class="fc-word">always</span><span class="fc-ru">всегда</span><span class="fc-play">▶</span></button>
+    </div>
+    <div class="freq-scale">
+      <div class="freq-pct">~ 90 %</div>
+      <button class="freq-card" data-say="usually. I usually go to the gym on Monday."><span class="fc-word">usually</span><span class="fc-ru">обычно</span><span class="fc-play">▶</span></button>
+    </div>
+    <div class="freq-scale">
+      <div class="freq-pct">~ 70 %</div>
+      <button class="freq-card" data-say="often. We often work late on Fridays."><span class="fc-word">often</span><span class="fc-ru">часто</span><span class="fc-play">▶</span></button>
+    </div>
+    <div class="freq-scale">
+      <div class="freq-pct">~ 40 %</div>
+      <button class="freq-card" data-say="sometimes. I sometimes go out on Saturday."><span class="fc-word">sometimes</span><span class="fc-ru">иногда</span><span class="fc-play">▶</span></button>
+    </div>
+    <div class="freq-scale">
+      <div class="freq-pct">~ 15 %</div>
+      <button class="freq-card" data-say="rarely. He rarely drinks alcohol."><span class="fc-word">rarely</span><span class="fc-ru">редко</span><span class="fc-play">▶</span></button>
+    </div>
+    <div class="freq-scale">
+      <div class="freq-pct">0 %</div>
+      <button class="freq-card" data-say="never. She never smokes."><span class="fc-word">never</span><span class="fc-ru">никогда</span><span class="fc-play">▶</span></button>
+    </div>
+    <div class="freq-scale">
+      <div class="freq-pct">?</div>
+      <button class="freq-card" data-say="ever. Do you ever go to the cinema?"><span class="fc-word">ever</span><span class="fc-ru">когда-либо (в вопросах)</span><span class="fc-play">▶</span></button>
+    </div>
+
+    <div class="rule-strip"><b>Правило места:</b> перед обычным глаголом — <em>I <b>always</b> drink coffee</em>. Но после глагола <b>be</b> — <em>She is <b>never</b> late</em>. Единственное отличие.</div>
+
+    <div class="mcq-row" data-answer="1"><div class="mcq-q">Правильно: I <span class="blank">?</span> in the evening.</div><div class="mcq-opts"><button>read always</button><button>always read</button><button>read am always</button></div><div class="mcq-note">Обычный глагол → adverb ПЕРЕД ним.</div></div>
+    <div class="mcq-row" data-answer="0"><div class="mcq-q">Правильно: She <span class="blank">?</span> late.</div><div class="mcq-opts"><button>is never</button><button>never is</button><button>doesn't never</button></div><div class="mcq-note">После be → adverb ПОСЛЕ него.</div></div>
+    <div class="mcq-row" data-answer="2"><div class="mcq-q">Правильно: We <span class="blank">?</span> the client on Fridays.</div><div class="mcq-opts"><button>meet often</button><button>are often meet</button><button>often meet</button></div><div class="mcq-note">Обычный глагол → adverb перед.</div></div>
+    <div class="mcq-row" data-answer="0"><div class="mcq-q">Правильно: <span class="blank">?</span> you go to the gym?</div><div class="mcq-opts"><button>Do you ever</button><button>Ever do you</button><button>You ever do</button></div><div class="mcq-note">В вопросе — <em>ever</em> между подлежащим и глаголом.</div></div>
+  </div>
+</section>
+
+<!-- 7 · NOW YOU -->
+<section class="now-you">
+  <div class="now-card">
+    <div class="now-head"><span class="now-tag">🎤 Now you · block 7</span><span class="now-title">6 фраз про свои привычки · разные слова частотности</span></div>
+    <div class="now-sub">Каждый — 6 фраз, разные adverbs. Помните: перед обычным глаголом, после <b>be</b>.</div>
+    <div class="now-model"><button class="now-model-play" data-say="I always drink coffee in the morning. I usually finish work at six p.m. I sometimes work late on Friday. I never work on Sunday. I am often busy in the evening. I am rarely at home before seven." aria-label="Play">▶</button><div class="now-model-text"><span class="lbl">Model</span>I <b>always</b> drink coffee. I <b>usually</b> finish at six. I <b>sometimes</b> work late. I <b>never</b> work on Sunday. I <b>am often</b> busy. I <b>am rarely</b> at home before seven.</div></div>
+    <div class="now-qs">
+      <div class="now-q"><button class="now-q-play" data-say="I always drink coffee in the morning." aria-label="Play">▶</button><span class="now-q-text"><b>1. always</b> · Что вы всегда делаете?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="I usually go to the gym on Monday." aria-label="Play">▶</button><span class="now-q-text"><b>2. usually</b> · Что обычно на этой неделе?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="We often work late on Fridays." aria-label="Play">▶</button><span class="now-q-text"><b>3. often</b> · Что часто на работе?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="I sometimes go out on Saturday." aria-label="Play">▶</button><span class="now-q-text"><b>4. sometimes</b> · Что иногда в выходные?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="She never smokes." aria-label="Play">▶</button><span class="now-q-text"><b>5. never</b> · Что вы никогда НЕ делаете?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="I am often busy in the evening." aria-label="Play">▶</button><span class="now-q-text"><b>6. am + adverb</b> · С глаголом be: I am ___ ___.</span></div>
+    </div>
+    <div class="now-round"><span class="who">Alex</span> · 6 фраз <span class="arrow">↔</span> <span class="who stan">Stan</span> · 6 фраз</div>
+  </div>
+</section>
+
+<!-- ============ 8 · HOW OFTEN + ONCE/TWICE ============ -->
+<section class="section" id="s8">
+  <div class="section-hdr"><span class="num">8</span><h2>How often · once / twice / three times a week</h2></div>
+  <div class="card">
+    <div class="task-tag">5 frequency phrases · full answers</div>
+    <p class="section-sub">Вторая ветка «как часто» — с числами. <b>once</b> — 1 раз, <b>twice</b> — 2 раза (особое слово, НЕ «two times»), дальше — <b>three / four / five times</b>.</p>
+
+    <div class="rescue-grid">
+      <div class="rescue-row"><button class="rescue-play" data-say="I go to the gym once a week." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase"><b>once a week</b> — I go to the gym once a week.</div><div class="when">1 раз в неделю</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="She calls her mum twice a week." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase"><b>twice a week</b> — She calls her mum twice a week.</div><div class="when">2 раза · НЕ «two times»</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="We meet the client three times a week." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase"><b>three times a week</b> — We meet the client three times a week.</div><div class="when">3 раза в неделю</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="He travels four times a month." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase"><b>four times a month</b> — He travels four times a month.</div><div class="when">4 раза в месяц</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="I go to the doctor once a year." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase"><b>once a year</b> — I go to the doctor once a year.</div><div class="when">раз в год</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 · NOW YOU -->
+<section class="now-you">
+  <div class="now-card">
+    <div class="now-head"><span class="now-tag">🎤 Now you · block 8</span><span class="now-title">Как часто? · full answer с числом</span></div>
+    <div class="now-sub">На каждый How often — ответьте формулой <em>«I ___ once/twice/three times a week/month.»</em> Только вслух.</div>
+    <div class="now-model"><button class="now-model-play" data-say="How often do you go to the gym? I go to the gym twice a week. How often do you meet the client? Three times a month." aria-label="Play">▶</button><div class="now-model-text"><span class="lbl">Model</span>How often do you go to the gym? — <b>I go to the gym twice a week.</b> How often do you meet the client? — <b>Three times a month.</b></div></div>
+    <div class="now-qs">
+      <div class="now-q"><button class="now-q-play" data-say="How often do you go to the gym?" aria-label="Play">▶</button><span class="now-q-text"><b>1.</b> How often do you go to the gym?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="How often do you call your family?" aria-label="Play">▶</button><span class="now-q-text"><b>2.</b> How often do you call your family?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="How often do you travel for work?" aria-label="Play">▶</button><span class="now-q-text"><b>3.</b> How often do you travel for work?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="How often do you meet friends?" aria-label="Play">▶</button><span class="now-q-text"><b>4.</b> How often do you meet friends?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="How often do you go to the doctor?" aria-label="Play">▶</button><span class="now-q-text"><b>5.</b> How often do you go to the doctor?</span></div>
+    </div>
+    <div class="now-round"><span class="who stan">Stan</span> <span class="arrow">→</span> <span class="who">Alex</span> <span class="arrow">→</span> <span class="who stan">Stan</span></div>
+  </div>
+</section>
+
+<!-- ============ 9 · TIME SLOTS · AT / ON / IN ============ -->
+<section class="section" id="s9">
+  <div class="section-hdr"><span class="num">9</span><h2>Время в Present Simple · at / on / in</h2></div>
+  <div class="card">
+    <div class="task-tag">rule + 6 моделей</div>
+    <p class="section-sub">Present Simple живёт с предлогами времени. Быстрый recap: <b>at</b> — точное время, <b>on</b> — дни, <b>in</b> — большие периоды.</p>
+
+    <div class="rule-strip">
+      <b>AT</b> · точное: <em>at 7 a.m. · at noon · at night</em><br>
+      <b>ON</b> · дни: <em>on Monday · on Friday morning · on the weekend</em><br>
+      <b>IN</b> · периоды: <em>in the morning · in May · in winter · in 2026</em>
+    </div>
+
+    <div class="talk-grid">
+      <div class="talk-row"><button class="talk-play" data-say="I start work at nine a.m." aria-label="Play">▶</button><span class="talk-phrase">I start work <b>at</b> 9 a.m.</span><span class="talk-when">at + точное время</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="I go to the gym on Monday." aria-label="Play">▶</button><span class="talk-phrase">I go to the gym <b>on</b> Monday.</span><span class="talk-when">on + день</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="I don't work on Sunday." aria-label="Play">▶</button><span class="talk-phrase">I <b>don't</b> work <b>on</b> Sunday.</span><span class="talk-when">отрицание + on + день</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="In the evenings I read at home." aria-label="Play">▶</button><span class="talk-phrase"><b>In</b> the evenings I read at home.</span><span class="talk-when">in + период</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="She goes to the office at eight thirty." aria-label="Play">▶</button><span class="talk-phrase">She goes to the office <b>at</b> 8:30.</span><span class="talk-when">3-е лицо + at</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="He works from home on Friday." aria-label="Play">▶</button><span class="talk-phrase">He works from home <b>on</b> Friday.</span><span class="talk-when">3-е лицо + on</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 · NOW YOU -->
+<section class="now-you">
+  <div class="now-card">
+    <div class="now-head"><span class="now-tag">🎤 Now you · block 9</span><span class="now-title">5 фраз про день / неделю с at / on / in</span></div>
+    <div class="now-sub">Каждый — 5 фраз про свою неделю, обязательно с предлогом времени.</div>
+    <div class="now-model"><button class="now-model-play" data-say="I start work at nine a.m. I go to the gym on Tuesday. In the evenings I usually read. I don't work on Sunday. My birthday is in May." aria-label="Play">▶</button><div class="now-model-text"><span class="lbl">Model</span>I start work <b>at</b> 9 a.m. I go to the gym <b>on</b> Tuesday. <b>In</b> the evenings I read. I don't work <b>on</b> Sunday. My birthday is <b>in</b> May.</div></div>
+    <div class="now-qs">
+      <div class="now-q"><button class="now-q-play" data-say="I start work at nine a.m." aria-label="Play">▶</button><span class="now-q-text"><b>1. at ___</b> · Во сколько начинаете работу?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="I go to the gym on Tuesday." aria-label="Play">▶</button><span class="now-q-text"><b>2. on ___</b> · В какой день ходите в зал?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="In the evenings I usually read." aria-label="Play">▶</button><span class="now-q-text"><b>3. in the evenings</b> · Что делаете по вечерам?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="I don't work on Sunday." aria-label="Play">▶</button><span class="now-q-text"><b>4. don't + on ___</b> · В какой день НЕ работаете?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="My birthday is in May." aria-label="Play">▶</button><span class="now-q-text"><b>5. in ___</b> · В каком месяце ваш день рождения?</span></div>
+    </div>
+    <div class="now-round"><span class="who">Alex</span> <span class="arrow">→</span> <span class="who stan">Stan</span> <span class="arrow">→</span> <span class="who">Alex</span></div>
+  </div>
+</section>
+
+<!-- ============ 10 · ROLEPLAY · INTERVIEW ============ -->
+<section class="section gold" id="s10">
+  <div class="section-hdr"><span class="num">10</span><h2>Ролевая · интервью «What do you do?»</h2></div>
+  <div class="card">
+    <div class="task-tag">6 pair cards · Alex ↔ Stan · full interview</div>
+    <p class="section-sub">Финал урока. Alex — интервьюер, Stan — respondent. Потом меняетесь. Alex задаёт вопрос — Stan отвечает полной фразой в Present Simple. Модель на кнопке — эталонное произношение.</p>
+
+    <div class="pair-grid">
+      <div class="pair-card">
+        <div class="pair-tag"><span class="who">Alex</span> · вопрос 1</div>
+        <div class="pair-phrase"><button class="pair-play" data-say="What do you do? I work in sales." aria-label="Play">▶</button><span>What do you do? — I <b style="color:var(--accent3)">work in ___</b>.</span></div>
+        <div class="pair-hint">sales · marketing · construction · logistics · IT · finance · …</div>
+      </div>
+      <div class="pair-card">
+        <div class="pair-tag"><span class="who stan">Stan</span> · вопрос 2</div>
+        <div class="pair-phrase"><button class="pair-play" data-say="Where do you work? I work in an office near the metro." aria-label="Play">▶</button><span>Where do you work? — I work <b style="color:var(--accent3)">in ___ / at ___</b>.</span></div>
+        <div class="pair-hint">in an office · at home · in the city centre · at a small company · …</div>
+      </div>
+      <div class="pair-card">
+        <div class="pair-tag"><span class="who">Alex</span> · вопрос 3</div>
+        <div class="pair-phrase"><button class="pair-play" data-say="What time do you start work? I usually start at nine a.m." aria-label="Play">▶</button><span>What time do you start work? — I usually <b style="color:var(--accent3)">start at ___</b>.</span></div>
+        <div class="pair-hint">at eight · at nine a.m. · at ten thirty · after breakfast · …</div>
+      </div>
+      <div class="pair-card">
+        <div class="pair-tag"><span class="who stan">Stan</span> · вопрос 4</div>
+        <div class="pair-phrase"><button class="pair-play" data-say="How often do you meet your clients? Three times a week." aria-label="Play">▶</button><span>How often do you meet clients? — <b style="color:var(--accent3)">___ times a ___</b>.</span></div>
+        <div class="pair-hint">once a week · twice a month · three times a week · every day · …</div>
+      </div>
+      <div class="pair-card">
+        <div class="pair-tag"><span class="who">Alex</span> · вопрос 5</div>
+        <div class="pair-phrase"><button class="pair-play" data-say="Does your colleague speak English? Yes, she does." aria-label="Play">▶</button><span>Does your colleague speak English? — <b style="color:var(--accent3)">Yes, ___ / No, ___</b>.</span></div>
+        <div class="pair-hint">Yes, she does · No, he doesn't · Yes, they do · No, only my boss does · …</div>
+      </div>
+      <div class="pair-card">
+        <div class="pair-tag"><span class="who stan">Stan</span> · вопрос 6</div>
+        <div class="pair-phrase"><button class="pair-play" data-say="What do you do in your free time? I usually read or go to the gym." aria-label="Play">▶</button><span>What do you do in your free time? — I usually <b style="color:var(--accent3)">___</b>.</span></div>
+        <div class="pair-hint">read · watch football · go to the gym · walk with my dog · meet friends · …</div>
+      </div>
+    </div>
+
+    <div class="info gold"><strong>🎯 Финал урока:</strong> каждый рассказывает <b>1 минуту</b> о своём рабочем дне — без подсказок. Только Present Simple, минимум 5 фраз, используйте <em>always / usually / never</em>.</div>
+  </div>
+</section>
+
+<!-- ============ 11 · SPEAKING PICTURES · 5 PEOPLE ============ -->
+<section class="section" id="s11">
+  <div class="section-hdr"><span class="num">11</span><h2>🖼️ Speaking по картинкам · 5 персонажей</h2></div>
+  <div class="card">
+    <div class="task-tag">5 «людей» · Alex спрашивает · Stan отвечает</div>
+    <p class="section-sub">Каждая карточка — новый персонаж. Alex задаёт 3 вопроса про него в Present Simple. Stan отвечает <b>полными предложениями</b>, <b>с -s</b> в 3-м лице. Модель ответа — на кнопке «▶ answer».</p>
+
+    <div class="pair-grid">
+      <!-- 1 · IGOR · sales -->
+      <div class="pair-card" style="grid-template-columns:110px 1fr;display:grid;gap:14px;align-items:center">
+        <div style="font-size:64px;text-align:center;line-height:1;background:var(--accent-soft);border-radius:14px;padding:18px 0">👨‍💼</div>
+        <div style="display:grid;gap:8px">
+          <div class="pair-tag"><span class="who">Igor</span> · sales manager</div>
+          <div style="font-family:Georgia,serif;color:var(--ink);font-size:.98rem;line-height:1.55">
+            1. Where does Igor work?<br>2. What time does he start work?<br>3. How often does he travel for business?
+          </div>
+          <button class="pair-play" data-say="Igor works in sales. He starts work at nine a.m. He travels for business twice a month." style="align-self:start;padding:8px 14px;border-radius:50px;background:var(--accent);color:#fff;border:none;font:800 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-top:4px">▶ Model answer</button>
+        </div>
+      </div>
+
+      <!-- 2 · ANNA · teacher -->
+      <div class="pair-card" style="grid-template-columns:110px 1fr;display:grid;gap:14px;align-items:center">
+        <div style="font-size:64px;text-align:center;line-height:1;background:var(--gold-soft);border-radius:14px;padding:18px 0">👩‍🏫</div>
+        <div style="display:grid;gap:8px">
+          <div class="pair-tag"><span class="who stan">Anna</span> · English teacher</div>
+          <div style="font-family:Georgia,serif;color:var(--ink);font-size:.98rem;line-height:1.55">
+            1. What does Anna do?<br>2. Does she work on Saturday?<br>3. Where does she teach English?
+          </div>
+          <button class="pair-play" data-say="Anna teaches English. No, she doesn't work on Saturday. She teaches at a small school in the city centre." style="align-self:start;padding:8px 14px;border-radius:50px;background:#c8a640;color:#fff;border:none;font:800 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-top:4px">▶ Model answer</button>
+        </div>
+      </div>
+
+      <!-- 3 · MAXIM · doctor -->
+      <div class="pair-card" style="grid-template-columns:110px 1fr;display:grid;gap:14px;align-items:center">
+        <div style="font-size:64px;text-align:center;line-height:1;background:var(--accent-soft);border-radius:14px;padding:18px 0">🧑‍⚕️</div>
+        <div style="display:grid;gap:8px">
+          <div class="pair-tag"><span class="who">Maxim</span> · doctor</div>
+          <div style="font-family:Georgia,serif;color:var(--ink);font-size:.98rem;line-height:1.55">
+            1. What time does Maxim start work?<br>2. How often does he see patients?<br>3. Does he work on the weekend?
+          </div>
+          <button class="pair-play" data-say="Maxim starts work at eight a.m. He sees patients every day. Yes, he sometimes works on the weekend." style="align-self:start;padding:8px 14px;border-radius:50px;background:var(--accent);color:#fff;border:none;font:800 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-top:4px">▶ Model answer</button>
+        </div>
+      </div>
+
+      <!-- 4 · DENIS · chef -->
+      <div class="pair-card" style="grid-template-columns:110px 1fr;display:grid;gap:14px;align-items:center">
+        <div style="font-size:64px;text-align:center;line-height:1;background:var(--gold-soft);border-radius:14px;padding:18px 0">👨‍🍳</div>
+        <div style="display:grid;gap:8px">
+          <div class="pair-tag"><span class="who stan">Denis</span> · chef</div>
+          <div style="font-family:Georgia,serif;color:var(--ink);font-size:.98rem;line-height:1.55">
+            1. Where does Denis work?<br>2. What does he cook?<br>3. What time does the restaurant open?
+          </div>
+          <button class="pair-play" data-say="Denis works in a restaurant near the river. He cooks Italian food. The restaurant opens at twelve noon." style="align-self:start;padding:8px 14px;border-radius:50px;background:#c8a640;color:#fff;border:none;font:800 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-top:4px">▶ Model answer</button>
+        </div>
+      </div>
+
+      <!-- 5 · GRANDMA VERA · retired -->
+      <div class="pair-card" style="grid-template-columns:110px 1fr;display:grid;gap:14px;align-items:center">
+        <div style="font-size:64px;text-align:center;line-height:1;background:var(--accent-soft);border-radius:14px;padding:18px 0">👵</div>
+        <div style="display:grid;gap:8px">
+          <div class="pair-tag"><span class="who">Grandma Vera</span> · retired</div>
+          <div style="font-family:Georgia,serif;color:var(--ink);font-size:.98rem;line-height:1.55">
+            1. What does Vera do every morning?<br>2. Where does she go on the weekend?<br>3. How often does she call her family?
+          </div>
+          <button class="pair-play" data-say="Vera reads the newspaper every morning. She goes to the park on the weekend. She calls her family twice a week." style="align-self:start;padding:8px 14px;border-radius:50px;background:var(--accent);color:#fff;border:none;font:800 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;margin-top:4px">▶ Model answer</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="info gold" style="margin-top:14px"><strong>🎯 Bonus round:</strong> расскажите про <b>своего</b> знакомого. Alex — про свою жену / брата / коллегу. Stan — про своего. Минимум 4 фразы в 3-м лице.</div>
+  </div>
+</section>
+
+<!-- ============ 12 · CORRECT ME · FIX THE -S ============ -->
+<section class="section gold" id="s12">
+  <div class="section-hdr"><span class="num">12</span><h2>🔧 Correct me · найди ошибку с -s</h2></div>
+  <div class="card">
+    <div class="task-tag">10 фраз · Alex читает с ошибкой · Stan исправляет вслух</div>
+    <p class="section-sub">Каждая фраза читается с типичной ошибкой (3-е лицо без -s, doesn't + -s, works в вопросе и т.д.). Alex произносит неправильную версию. Stan говорит правильную. Кнопка ▶ — эталонная правильная версия.</p>
+
+    <div class="rescue-grid">
+      <div class="rescue-row" style="border-left-color:var(--miss);background:#FFF3F3">
+        <button class="rescue-play" data-say="She works from home on Fridays." aria-label="Play">▶</button>
+        <div class="rescue-text">
+          <div class="phrase" style="color:var(--miss);text-decoration:line-through 2px var(--miss)">❌ She <b>work</b> from home on Fridays.</div>
+          <div class="phrase" style="color:var(--ok);margin-top:4px">✅ She <b>works</b> from home on Fridays.</div>
+          <div class="when">3-е лицо → -s</div>
+        </div>
+      </div>
+
+      <div class="rescue-row" style="border-left-color:var(--miss);background:#FFF3F3">
+        <button class="rescue-play" data-say="He goes to the office by car." aria-label="Play">▶</button>
+        <div class="rescue-text">
+          <div class="phrase" style="color:var(--miss);text-decoration:line-through 2px var(--miss)">❌ He <b>go</b> to the office by car.</div>
+          <div class="phrase" style="color:var(--ok);margin-top:4px">✅ He <b>goes</b> to the office by car.</div>
+          <div class="when">go → goes (правило -o + es)</div>
+        </div>
+      </div>
+
+      <div class="rescue-row" style="border-left-color:var(--miss);background:#FFF3F3">
+        <button class="rescue-play" data-say="My colleague has three kids." aria-label="Play">▶</button>
+        <div class="rescue-text">
+          <div class="phrase" style="color:var(--miss);text-decoration:line-through 2px var(--miss)">❌ My colleague <b>have</b> three kids.</div>
+          <div class="phrase" style="color:var(--ok);margin-top:4px">✅ My colleague <b>has</b> three kids.</div>
+          <div class="when">have → has (исключение)</div>
+        </div>
+      </div>
+
+      <div class="rescue-row" style="border-left-color:var(--miss);background:#FFF3F3">
+        <button class="rescue-play" data-say="She doesn't drink coffee." aria-label="Play">▶</button>
+        <div class="rescue-text">
+          <div class="phrase" style="color:var(--miss);text-decoration:line-through 2px var(--miss)">❌ She doesn't <b>drinks</b> coffee.</div>
+          <div class="phrase" style="color:var(--ok);margin-top:4px">✅ She <b>doesn't drink</b> coffee.</div>
+          <div class="when">после doesn't → БЕЗ -s</div>
+        </div>
+      </div>
+
+      <div class="rescue-row" style="border-left-color:var(--miss);background:#FFF3F3">
+        <button class="rescue-play" data-say="Does he work from home?" aria-label="Play">▶</button>
+        <div class="rescue-text">
+          <div class="phrase" style="color:var(--miss);text-decoration:line-through 2px var(--miss)">❌ Does he <b>works</b> from home?</div>
+          <div class="phrase" style="color:var(--ok);margin-top:4px">✅ Does he <b>work</b> from home?</div>
+          <div class="when">после Does → БЕЗ -s</div>
+        </div>
+      </div>
+
+      <div class="rescue-row" style="border-left-color:var(--miss);background:#FFF3F3">
+        <button class="rescue-play" data-say="My boss doesn't like meetings." aria-label="Play">▶</button>
+        <div class="rescue-text">
+          <div class="phrase" style="color:var(--miss);text-decoration:line-through 2px var(--miss)">❌ My boss <b>don't</b> like meetings.</div>
+          <div class="phrase" style="color:var(--ok);margin-top:4px">✅ My boss <b>doesn't</b> like meetings.</div>
+          <div class="when">boss = he → doesn't</div>
+        </div>
+      </div>
+
+      <div class="rescue-row" style="border-left-color:var(--miss);background:#FFF3F3">
+        <button class="rescue-play" data-say="She watches football with her father." aria-label="Play">▶</button>
+        <div class="rescue-text">
+          <div class="phrase" style="color:var(--miss);text-decoration:line-through 2px var(--miss)">❌ She <b>watchs</b> football with her father.</div>
+          <div class="phrase" style="color:var(--ok);margin-top:4px">✅ She <b>watches</b> football with her father.</div>
+          <div class="when">watch → watches (правило -ch + es)</div>
+        </div>
+      </div>
+
+      <div class="rescue-row" style="border-left-color:var(--miss);background:#FFF3F3">
+        <button class="rescue-play" data-say="My friend studies English every day." aria-label="Play">▶</button>
+        <div class="rescue-text">
+          <div class="phrase" style="color:var(--miss);text-decoration:line-through 2px var(--miss)">❌ My friend <b>studys</b> English every day.</div>
+          <div class="phrase" style="color:var(--ok);margin-top:4px">✅ My friend <b>studies</b> English every day.</div>
+          <div class="when">study → studies (согласный + y → ies)</div>
+        </div>
+      </div>
+
+      <div class="rescue-row" style="border-left-color:var(--miss);background:#FFF3F3">
+        <button class="rescue-play" data-say="What time do you get up?" aria-label="Play">▶</button>
+        <div class="rescue-text">
+          <div class="phrase" style="color:var(--miss);text-decoration:line-through 2px var(--miss)">❌ What time <b>you get</b> up?</div>
+          <div class="phrase" style="color:var(--ok);margin-top:4px">✅ What time <b>do you get</b> up?</div>
+          <div class="when">Wh-вопрос → нужен do / does</div>
+        </div>
+      </div>
+
+      <div class="rescue-row" style="border-left-color:var(--miss);background:#FFF3F3">
+        <button class="rescue-play" data-say="He is often late for meetings." aria-label="Play">▶</button>
+        <div class="rescue-text">
+          <div class="phrase" style="color:var(--miss);text-decoration:line-through 2px var(--miss)">❌ He <b>often is</b> late for meetings.</div>
+          <div class="phrase" style="color:var(--ok);margin-top:4px">✅ He <b>is often</b> late for meetings.</div>
+          <div class="when">после be → adverb ПОСЛЕ него</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info gold" style="margin-top:14px"><strong>🎯 Финал урока:</strong> каждый рассказывает <b>1 минуту</b> о своём рабочем дне — свободно, без подсказок. Только Present Simple, минимум 6 фраз, используйте <em>always / usually / never</em> + маркеры <em>every day / on Monday / twice a week</em>.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="foot-brand">
+    <div class="brand-mark">N</div>
+    <div>
+      <div class="foot-name">NEW GENERATION ENGLISH</div>
+      <div>L3 · Александр · Станислав · август 2026</div>
+    </div>
+  </div>
+  <div>tap · hear · speak</div>
+</div>
+
+<!-- MP3 audio manifest — Sonia en-GB (edge-tts) · manifest пустой пока mp3 не сгенерены -->
+<script src="audio/_manifest.js?v=1"></script>
+<script>
+(function(){
+  /* ---------- MP3 player · data-say → lookup in AUDIO_MANIFEST → <audio> play ---------- */
+  var audio = new Audio();
+  var currentBtn = null;
+  audio.addEventListener('ended', function(){
+    if(currentBtn){ currentBtn.classList.remove('playing'); currentBtn = null; }
+  });
+  function play(text, btn){
+    if(!text) return;
+    var manifest = window.AUDIO_MANIFEST || {};
+    var file = manifest[text];
+    if(!file){
+      console.warn('[TTS] no mp3 for:', text);
+      return;
+    }
+    try{ audio.pause(); audio.currentTime = 0; }catch(e){}
+    if(currentBtn){ currentBtn.classList.remove('playing'); }
+    audio.src = 'audio/' + file;
+    audio.play().catch(function(err){ console.warn('[TTS] play failed', err); });
+    currentBtn = btn || null;
+    if(currentBtn) currentBtn.classList.add('playing');
+  }
+  document.addEventListener('click', function(e){
+    var el = e.target.closest('[data-say]');
+    if(!el) return;
+    play(el.dataset.say || el.getAttribute('data-say'), el);
+    var card = el.closest('.vocab-card');
+    if(card && !el.classList.contains('vocab-tts')){ card.classList.toggle('flipped'); }
+  });
+
+  /* ---------- VOCAB flip on card click ---------- */
+  document.querySelectorAll('.vocab-card').forEach(function(card){
+    card.addEventListener('click', function(e){
+      if(e.target.closest('.vocab-tts')) return;
+      card.classList.toggle('flipped');
+      updateDots();
+    });
+  });
+
+  /* ---------- MCQ tap-quiz ---------- */
+  document.querySelectorAll('.mcq-row').forEach(function(row){
+    var correct = parseInt(row.dataset.answer, 10);
+    var opts = row.querySelectorAll('.mcq-opts button');
+    opts.forEach(function(btn, idx){
+      btn.addEventListener('click', function(){
+        if(row.classList.contains('revealed')) return;
+        opts.forEach(function(b, j){
+          if(j === correct) b.classList.add('correct');
+          else if(j === idx) b.classList.add('wrong');
+        });
+        row.classList.add('revealed');
+        updateDots();
+      });
+    });
+  });
+
+  /* ---------- PROGRESS DOTS ---------- */
+  var sections = document.querySelectorAll('.section[id]');
+  var dotsWrap = document.getElementById('tb-dots');
+  var dots = [];
+  sections.forEach(function(sec){
+    var d = document.createElement('button');
+    d.className = 'tb-dot';
+    var h = sec.querySelector('h2');
+    d.title = h ? h.textContent : sec.id;
+    d.addEventListener('click', function(){ sec.scrollIntoView({behavior:'smooth', block:'start'}); });
+    dotsWrap.appendChild(d);
+    dots.push({sec:sec, el:d});
+  });
+  function updateDots(){
+    dots.forEach(function(p){
+      var sec = p.sec;
+      var touched = sec.querySelector('.mcq-row.revealed, .vocab-card.flipped');
+      p.el.classList.toggle('done', !!touched);
+    });
+  }
+  updateDots();
+})();
+</script>
+</body>
+</html>
