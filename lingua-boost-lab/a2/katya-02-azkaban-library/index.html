@@ -144,10 +144,10 @@ em{font-style:italic;color:var(--accent2)}
 @media(max-width:640px){.photo-grid{grid-template-columns:1fr}}
 .photo-slot{position:relative;background:linear-gradient(135deg,#3a2a4d,rgba(212,168,67,.35));border:2px solid var(--accent3);border-radius:14px;padding:0;text-align:center;min-height:220px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 3px 12px rgba(93,58,138,.14)}
 .photo-slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0}
-.photo-slot .ps-caption{position:relative;z-index:1;background:linear-gradient(180deg,rgba(255,246,238,0) 0%,rgba(255,246,238,.94) 55%,#2a1b3d 100%);padding:24px 14px 14px;margin-top:auto;text-align:center}
-.photo-slot .ps-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2);font-weight:800;display:block}
-.photo-slot .ps-title{font-family:var(--display);font-size:1.15rem;font-weight:900;color:var(--text);margin-top:2px;display:block}
-.photo-slot .ps-hint{font-size:.82rem;color:var(--muted);margin-top:4px;font-style:italic;display:block}
+.photo-slot .ps-caption{position:relative;z-index:1;background:linear-gradient(180deg,rgba(26,14,42,0) 0%,rgba(26,14,42,.55) 45%,rgba(26,14,42,.90) 100%);padding:32px 14px 14px;margin-top:auto;text-align:center}
+.photo-slot .ps-label{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:800;display:block;text-shadow:0 1px 4px rgba(0,0,0,.8)}
+.photo-slot .ps-title{font-family:var(--display);font-size:1.15rem;font-weight:900;color:var(--parchment);margin-top:2px;display:block;text-shadow:0 2px 6px rgba(0,0,0,.9)}
+.photo-slot .ps-hint{font-size:.82rem;color:var(--parchment-dim);margin-top:4px;font-style:italic;display:block;text-shadow:0 1px 4px rgba(0,0,0,.7)}
 .photo-guide{margin-top:16px;background:#2a1b3d;border-left:5px solid var(--accent);border-radius:10px;padding:14px 18px}
 .photo-guide ul{list-style:none;padding:0;margin:6px 0 0;display:grid;gap:8px}
 .photo-guide li{padding-left:22px;position:relative;font-size:.95rem;cursor:pointer}
@@ -845,6 +845,176 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
     <div class="starters"><em>"I was ___ when suddenly ___. The air / room / my heart ___. I felt ___. Then ___ helped me / it passed / I understood ___."</em></div>
   </div>
 </section>
+
+<!-- SECTION 10B · THREE ICONIC SCENES · TABBED DEEP-DIVE -->
+<style>
+  .scene-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px;padding:0}
+  .scene-tab-btn{flex:1;min-width:200px;background:rgba(93,58,138,.35);color:var(--parchment);border:1px solid rgba(212,168,67,.32);border-radius:12px;padding:12px 14px;font-family:var(--display);font-weight:800;font-size:.95rem;letter-spacing:-.01em;cursor:pointer;text-align:left;line-height:1.25;transition:all .18s}
+  .scene-tab-btn small{display:block;font-family:var(--mono);font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+  .scene-tab-btn:hover{border-color:var(--accent);background:rgba(93,58,138,.55)}
+  .scene-tab-btn.active{background:linear-gradient(135deg,var(--accent2) 0%,var(--wood) 100%);border-color:var(--accent);color:#fff;box-shadow:0 4px 14px rgba(212,168,67,.28)}
+  .scene-panel{display:none}
+  .scene-panel.active{display:block;animation:fadeIn .3s ease}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+  .scene-hero{width:100%;height:auto;border-radius:14px;margin-bottom:14px;box-shadow:0 6px 22px rgba(13,7,22,.55);border:1px solid rgba(212,168,67,.22)}
+  .scene-text{font-family:var(--serif);font-size:1.02rem;line-height:1.7;color:var(--parchment);margin-bottom:14px}
+  .scene-text p{margin:0 0 10px}
+  .scene-text strong{color:var(--accent);font-weight:700}
+  .scene-quote{border-left:3px solid var(--accent);padding:8px 14px;font-family:var(--serif);font-style:italic;color:var(--accent);background:rgba(212,168,67,.08);border-radius:0 8px 8px 0;margin:14px 0}
+  .scene-mcq{margin-top:14px}
+  .scene-mcq h4{font-family:var(--display);font-size:.85rem;color:var(--accent);font-weight:800;letter-spacing:.10em;text-transform:uppercase;margin-bottom:10px}
+  .scene-mcq .mc-item{margin-bottom:10px;padding:10px 12px;background:rgba(13,7,22,.35);border:1px solid rgba(212,168,67,.18);border-radius:10px}
+  .scene-mcq .mc-q{font-size:.95rem;color:var(--parchment);margin-bottom:8px}
+  .scene-mcq .mc-q .num{font-family:var(--mono);color:var(--accent);font-weight:700;margin-right:6px}
+  .scene-mcq .mc-q .gap{display:inline-block;min-width:60px;border-bottom:1.5px dashed var(--accent);padding:0 8px;color:var(--accent);font-weight:700;text-align:center}
+  .scene-mcq .mc-opts{display:flex;flex-wrap:wrap;gap:6px}
+  .scene-mcq .mc-opt{padding:6px 12px;background:rgba(93,58,138,.35);border:1px solid rgba(212,168,67,.28);border-radius:8px;color:var(--parchment);font-size:.9rem;cursor:pointer;font-family:var(--body);font-weight:600;transition:all .15s}
+  .scene-mcq .mc-opt:hover{border-color:var(--accent);color:var(--accent)}
+  .scene-mcq .mc-opt.correct{background:rgba(74,155,122,.28);border-color:var(--ok);color:#a8e2c8}
+  .scene-mcq .mc-opt.wrong{background:rgba(201,74,74,.22);border-color:var(--miss);color:#ffb3b3}
+  .scene-prompt{margin-top:14px;padding:12px 16px;background:rgba(212,168,67,.12);border-left:4px solid var(--accent);border-radius:0 10px 10px 0;font-family:var(--serif);font-style:italic;color:var(--parchment);font-size:.98rem;line-height:1.55}
+  .scene-prompt strong{font-family:var(--display);font-style:normal;font-weight:800;color:var(--accent);display:block;margin-bottom:4px;font-size:.85rem;letter-spacing:.10em;text-transform:uppercase}
+</style>
+<section class="section">
+  <div class="section-hdr"><div class="num">🎬</div><h2>Three iconic scenes · deep-dive by tab</h2></div>
+  <div class="section-sub">pick a scene · read · check · discuss · switch to the next when ready</div>
+  <div class="card">
+    <div class="scene-tabs" role="tablist">
+      <button class="scene-tab-btn active" data-scene="scene-1"><small>Scene I · Ch. 17-19</small>The Shrieking Shack Reveal</button>
+      <button class="scene-tab-btn" data-scene="scene-2"><small>Scene II · Ch. 20-21</small>The Patronus at the Lake</button>
+      <button class="scene-tab-btn" data-scene="scene-3"><small>Scene III · Ch. 21</small>The Time-Turner Double Rescue</button>
+    </div>
+
+    <!-- ═══ SCENE 1 · SHRIEKING SHACK ═══ -->
+    <div class="scene-panel active" id="scene-1">
+      <img class="scene-hero" src="assets/scene1-shrieking-shack.jpg" alt="A dark, dusty room in the old Shrieking Shack at night. Harry, Ron and Hermione stand together. Sirius Black steps in — thin, pale, with long black hair. Lupin stands beside him.">
+      <div class="scene-text" style="font-family:var(--serif);font-size:1.04rem;line-height:1.75">
+        <p>The room was <strong>dark and dusty</strong>. Broken furniture stood everywhere. Ron was on the old bed, his leg bent the wrong way. Harry and Hermione stood beside him, breathing hard, their wands out.</p>
+        <p>Then a door creaked open. A man stepped out from the shadows.</p>
+        <p>His skin was <strong>pale as paper</strong>. His long black hair was dirty and hung in his eyes. His clothes were torn. But it was his eyes Harry could not stop looking at — deep, hungry eyes still watching from the shadow of a face that had once been handsome.</p>
+        <p><strong>Sirius Black.</strong></p>
+        <p>Ron gasped. Harry raised his wand.</p>
+        <p>"Wait —" Sirius's voice was hoarse. He hadn't used it in a long time. "Just listen. Please."</p>
+        <p>Footsteps ran up the stairs. Professor <strong>Lupin</strong> burst in, his wand raised.</p>
+        <p>"Where is he?" he said.</p>
+        <p>Then he saw Sirius. For a long moment, no one moved. Slowly, very slowly, Lupin lowered his wand. He crossed the room and pulled Sirius into a hug — like a brother.</p>
+        <p>"Show me the rat," Sirius said suddenly to Ron.</p>
+        <p>Ron pulled Scabbers out of his pocket. The rat was kicking wildly now, biting Ron's fingers. Lupin and Sirius raised their wands together. A flash of <strong>blue-white light</strong> — and where the rat had been, a short, fat, bald man stood on the boards. His face was grey. His hands were shaking.</p>
+        <p><strong>Peter Pettigrew.</strong></p>
+        <p>Then a cold voice came from behind the door.</p>
+        <p>"Vengeance is very sweet…"</p>
+        <p><strong>Snape</strong> stepped out from under his Invisibility Cloak, wand already pointed at Sirius. "How I hoped I would be the one to catch you…"</p>
+        <p>But the three children were faster.</p>
+        <p>"EXPELLIARMUS!"</p>
+        <p>Snape flew backwards and hit the wall. He slid down and did not move.</p>
+        <p>Harry looked around the room. At Peter, shaking on the boards. At Sirius, starving but no longer angry. At Lupin, sad and quiet. And Harry understood: everything he had believed for twelve years had been a lie.</p>
+      </div>
+      <div class="scene-quote">The traitor had been sleeping in Ron's bed for twelve years.</div>
+      <div class="scene-mcq">
+        <h4>Quick check · 5 questions</h4>
+        <div class="mc-item" data-a="empty"><div class="mc-q"><span class="num">1.</span>The Shack was not haunted — it was actually <span class="gap">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="empty">empty</button><button class="mc-opt" data-v="dangerous">dangerous</button><button class="mc-opt" data-v="beautiful">beautiful</button></div></div>
+        <div class="mc-item" data-a="hugged"><div class="mc-q"><span class="num">2.</span>Lupin surprised everyone — he <span class="gap">___</span> Sirius.</div><div class="mc-opts"><button class="mc-opt" data-v="attacked">attacked</button><button class="mc-opt" data-v="hugged">hugged</button><button class="mc-opt" data-v="ignored">ignored</button></div></div>
+        <div class="mc-item" data-a="rat"><div class="mc-q"><span class="num">3.</span>Peter Pettigrew was hiding as a <span class="gap">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="cat">cat</button><button class="mc-opt" data-v="rat">rat</button><button class="mc-opt" data-v="dog">dog</button></div></div>
+        <div class="mc-item" data-a="twelve"><div class="mc-q"><span class="num">4.</span>Everyone believed the wrong thing for <span class="gap">___</span> years.</div><div class="mc-opts"><button class="mc-opt" data-v="five">five</button><button class="mc-opt" data-v="twelve">twelve</button><button class="mc-opt" data-v="twenty">twenty</button></div></div>
+        <div class="mc-item" data-a="innocent"><div class="mc-q"><span class="num">5.</span>Sirius was <span class="gap">___</span> all along.</div><div class="mc-opts"><button class="mc-opt" data-v="guilty">guilty</button><button class="mc-opt" data-v="innocent">innocent</button><button class="mc-opt" data-v="crazy">crazy</button></div></div>
+      </div>
+      <div class="scene-prompt"><strong>Discuss</strong>Who is the real bad person in this scene — Sirius, Snape, or Peter Pettigrew? Have you ever changed your mind about someone completely?</div>
+    </div>
+
+    <!-- ═══ SCENE 2 · PATRONUS AT THE LAKE ═══ -->
+    <div class="scene-panel" id="scene-2">
+      <img class="scene-hero" src="assets/scene2-patronus-lake.jpg" alt="A dark frozen lake at night. Sirius as a black dog lies on the ground. Harry kneels beside him, weak. Across the lake a huge silver stag Patronus glows, driving Dementors away.">
+      <div class="scene-text" style="font-family:var(--serif);font-size:1.04rem;line-height:1.75">
+        <p>They had almost made it. And then Lupin remembered. His potion. The full moon.</p>
+        <p>Lupin's body began to <strong>change</strong>. His arms grew long. His face stretched. His clothes tore. Sirius transformed into a huge black dog and threw himself at the <strong>werewolf</strong>, pulling him away from the children. In the chaos, Peter Pettigrew grabbed a wand — a flash — and where he had stood, only a fat little <strong>rat</strong> was running into the grass.</p>
+        <p>Harry ran after Sirius. He found him by the black, frozen <strong>lake</strong>. Sirius, still in dog form, was on the ground. Hermione was there too, unconscious. And the air was suddenly <strong>freezing</strong>.</p>
+        <p>Harry looked up.</p>
+        <p>Hundreds of <strong>Dementors</strong> were gliding across the lake toward them. Their black cloaks trailed over the water. Their rattling breath filled the air. Harry could hear it — inside his head — a woman screaming, his mother screaming, twelve years ago.</p>
+        <p>"Expecto Patronum!" Harry gasped.</p>
+        <p>A tiny wisp of silver came out of his wand. It flickered — and died.</p>
+        <p>The Dementors were only steps away now. One of them lowered its face over Sirius. Its mouth opened.</p>
+        <p>"EXPECTO — PATRONUM —"</p>
+        <p>Harry's eyes were closing. And then, across the lake, he saw <strong>light</strong>. Not moonlight. A bright, silver light. Something huge and shining was galloping toward them — running across the water on quick, silent hooves.</p>
+        <p>A <strong>stag</strong>. A great silver stag. It jumped between Sirius and the Dementors, and its shining horns drove them back — back — back — until every one had fled.</p>
+        <p>The stag stopped on the far bank. Then it turned its silver head to look at Harry. And beside it, Harry saw a <strong>figure</strong> — a man, watching him. Harry <em>knew</em> that man. In the last second before he lost consciousness, Harry was sure of one thing: his father had come.</p>
+        <p>Later, in the hospital wing, Hermione looked at him very strangely.</p>
+        <p>"Harry — your father died twelve years ago."</p>
+        <p>Then she pulled a long gold chain out from under her shirt. On the end of the chain was a tiny, glittering hourglass — a <strong>Time-Turner</strong>.</p>
+        <p>"Harry… we are going back."</p>
+      </div>
+      <div class="scene-quote">Somebody was there. And Harry knew who.</div>
+      <div class="scene-mcq">
+        <h4>Quick check · 5 questions</h4>
+        <div class="mc-item" data-a="werewolf"><div class="mc-q"><span class="num">1.</span>Under the full moon Lupin became a <span class="gap">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="werewolf">werewolf</button><button class="mc-opt" data-v="wizard">wizard</button><button class="mc-opt" data-v="ghost">ghost</button></div></div>
+        <div class="mc-item" data-a="happiness"><div class="mc-q"><span class="num">2.</span>Dementors live on <span class="gap">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="fear">fear</button><button class="mc-opt" data-v="happiness">happiness</button><button class="mc-opt" data-v="silver">silver</button></div></div>
+        <div class="mc-item" data-a="soul"><div class="mc-q"><span class="num">3.</span>The Dementor's Kiss takes away the <span class="gap">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="wand">wand</button><button class="mc-opt" data-v="soul">soul</button><button class="mc-opt" data-v="memory">memory</button></div></div>
+        <div class="mc-item" data-a="stag"><div class="mc-q"><span class="num">4.</span>The huge silver animal was a <span class="gap">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="wolf">wolf</button><button class="mc-opt" data-v="stag">stag</button><button class="mc-opt" data-v="horse">horse</button></div></div>
+        <div class="mc-item" data-a="father"><div class="mc-q"><span class="num">5.</span>Harry thought the figure was his <span class="gap">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="mother">mother</button><button class="mc-opt" data-v="father">father</button><button class="mc-opt" data-v="teacher">teacher</button></div></div>
+      </div>
+      <div class="scene-prompt"><strong>Discuss</strong>What is your happiest memory — the one that would power YOUR Patronus? What animal would your Patronus be, and why that one?</div>
+    </div>
+
+    <!-- ═══ SCENE 3 · TIME-TURNER DOUBLE RESCUE ═══ -->
+    <div class="scene-panel" id="scene-3">
+      <img class="scene-hero" src="assets/scene3-time-turner.jpg" alt="Harry and Hermione hidden in the trees at night. In the sky, Sirius flying away on Buckbeak the Hippogriff, wings wide, moon behind them. A golden Time-Turner in Hermione's hand in the foreground.">
+      <div class="scene-text" style="font-family:var(--serif);font-size:1.04rem;line-height:1.75">
+        <p>Hermione pulled the long gold chain over Harry's head so they were both inside it. Then she turned the tiny <strong>hourglass</strong> — once, twice, <strong>three times</strong>.</p>
+        <p>The hospital wing dissolved around them. Colours slid backwards. Voices ran in reverse. When Harry could see again, the corridor was empty and the sun was still up — <strong>three hours in the past</strong>.</p>
+        <p>"Come on," Hermione whispered. "We have to get to Hagrid's — but nobody must see us."</p>
+        <p>She explained fast: they had to save <em>two</em> lives tonight. First — <strong>Buckbeak</strong>, the Hippogriff, who was going to be killed at sunset. Second — Sirius, who would be given the Dementor's Kiss at midnight. If Buckbeak was alive, Sirius could fly away on him.</p>
+        <p>They hid in the trees near Hagrid's hut. And then — Harry could hardly believe it — they watched <strong>themselves</strong> going down to the hut. Past-Harry, past-Ron, past-Hermione, all walking, all not knowing they were being watched.</p>
+        <p>Hermione had to hold Harry's arm to stop him from calling out.</p>
+        <p>They waited. When the <strong>executioner</strong> lifted his axe and stepped toward Buckbeak, Harry and Hermione slipped from the trees, untied the rope, and pulled the Hippogriff up the hill and into the safety of the forest. Behind them, the axe fell on nothing — one second too late.</p>
+        <p>Night came. They waited by the lake with Buckbeak.</p>
+        <p>They watched the Dementors gather. They watched their past selves fall by the water. They watched Sirius almost lost. And then — very slowly — Harry <em>understood</em>.</p>
+        <p>He had been waiting for his father to appear across the lake. But nobody was coming. There was no one else on this side of the water. There never had been.</p>
+        <p>The person who had made the Patronus — the person who had saved them — was <strong>him</strong>.</p>
+        <p>Harry stepped forward into the moonlight. He raised his wand. This time, he was not afraid. He knew he could do it, because he had <em>already done it</em>.</p>
+        <p>"EXPECTO PATRONUM!"</p>
+        <p>A huge silver <strong>stag</strong> exploded from the tip of his wand and galloped across the lake. Its shining horns drove every Dementor back into the sky.</p>
+        <p>Later, they ran up to the highest tower. They cut the ropes at the window. Sirius climbed onto Buckbeak's back. He looked at Harry, and for a moment his tired face was almost young again.</p>
+        <p>Then Buckbeak spread his great wings, and Sirius flew away into the night sky — <strong>free</strong>, at last, after twelve years.</p>
+      </div>
+      <div class="scene-quote">He knew he could do it — because he had already done it.</div>
+      <div class="scene-mcq">
+        <h4>Quick check · 5 questions</h4>
+        <div class="mc-item" data-a="three"><div class="mc-q"><span class="num">1.</span>Hermione turned the hourglass <span class="gap">___</span> times.</div><div class="mc-opts"><button class="mc-opt" data-v="two">two</button><button class="mc-opt" data-v="three">three</button><button class="mc-opt" data-v="five">five</button></div></div>
+        <div class="mc-item" data-a="Hippogriff"><div class="mc-q"><span class="num">2.</span>Buckbeak is a <span class="gap">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="dragon">dragon</button><button class="mc-opt" data-v="Hippogriff">Hippogriff</button><button class="mc-opt" data-v="unicorn">unicorn</button></div></div>
+        <div class="mc-item" data-a="himself"><div class="mc-q"><span class="num">3.</span>The person who saved them by the lake was <span class="gap">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="Dumbledore">Dumbledore</button><button class="mc-opt" data-v="his father">his father</button><button class="mc-opt" data-v="himself">himself</button></div></div>
+        <div class="mc-item" data-a="huge"><div class="mc-q"><span class="num">4.</span>The second Patronus was <span class="gap">___</span> and strong.</div><div class="mc-opts"><button class="mc-opt" data-v="small">small</button><button class="mc-opt" data-v="huge">huge</button><button class="mc-opt" data-v="weak">weak</button></div></div>
+        <div class="mc-item" data-a="free"><div class="mc-q"><span class="num">5.</span>Sirius flew away and became <span class="gap">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="rich">rich</button><button class="mc-opt" data-v="free">free</button><button class="mc-opt" data-v="tired">tired</button></div></div>
+      </div>
+      <div class="scene-prompt"><strong>Discuss</strong>If you had a Time-Turner for ONE day, what small thing would you change (not the future — one hour of your recent past)? Which of the three scenes was the most powerful for you?</div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var wrap = document.querySelectorAll('.scene-tabs')[document.querySelectorAll('.scene-tabs').length-1];
+  if(!wrap) return;
+  var root = wrap.closest('.card');
+  wrap.addEventListener('click', function(e){
+    var btn = e.target.closest('.scene-tab-btn');
+    if(!btn) return;
+    var target = btn.dataset.scene;
+    wrap.querySelectorAll('.scene-tab-btn').forEach(function(b){ b.classList.toggle('active', b===btn); });
+    root.querySelectorAll('.scene-panel').forEach(function(p){ p.classList.toggle('active', p.id===target); });
+  });
+  root.addEventListener('click', function(e){
+    var opt = e.target.closest('.scene-mcq .mc-opt');
+    if(!opt) return;
+    var item = opt.closest('.mc-item');
+    if(item.dataset.done) return;
+    var correct = item.dataset.a;
+    var picked = opt.dataset.v;
+    item.querySelectorAll('.mc-opt').forEach(function(b){
+      if(b.dataset.v === correct) b.classList.add('correct');
+      else if(b === opt) b.classList.add('wrong');
+    });
+    item.dataset.done = '1';
+  });
+})();
+</script>
 
 <!-- SECTION 🎴 · VOCAB QUEST · FLIP + ANSWER -->
 <section class="section">
