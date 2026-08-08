@@ -652,216 +652,177 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),var(--accent
 <!-- BLOCK 19 · SVOMPT + FREQUENCY · locomotive                                  -->
 <!-- ═══════════════════════════════════════════════════════════════════════════ -->
 <section class="section" id="b19">
-  <div class="section-hdr"><span class="num">19</span><h2>«Locomotive» · SVOMPT builder · pick 6 wagons</h2></div>
+  <div class="section-hdr"><span class="num">19</span><h2>«Locomotive» · SVOMPT sort · put every word in its column</h2></div>
   <div class="card">
-    <div class="section-tag">click one word from each colour · say the sentence aloud · reset · build another</div>
-    <div class="rule-box"><strong>Rule</strong>Pick <em>one wagon of each colour</em> — Subject → Frequency → Verb → Object → Place → Time. Then say the whole sentence out loud. Reset and build another. Aim for <b>10 different combinations</b>.</div>
+    <div class="section-tag">click a word → it flies to its correct column</div>
+    <div class="rule-box"><strong>Rule</strong>All the words are mixed up between the 6 columns. Click any word — it flies to its correct column (Subject · Frequency · Verb · Object · Place · Time). When every column is clean, say <b>3 full sentences</b> out loud using one word from each column.</div>
 
     <style>
       .loco-wrap{margin-top:14px}
-      .loco-pool{display:flex;flex-wrap:wrap;gap:8px;padding:16px;background:linear-gradient(135deg,#F5F8FC,#EAF2F9);border-radius:14px;border:1px solid var(--line);margin-bottom:14px;justify-content:center}
-      .loco-word{background:#fff;border:1.5px solid transparent;border-radius:8px;padding:7px 12px;font-family:var(--body);font-weight:600;font-size:.9rem;cursor:pointer;transition:all .12s;color:var(--ink)}
-      .loco-word:hover{transform:translateY(-1px);box-shadow:0 2px 6px rgba(0,0,0,.10)}
-      .loco-word[data-cat="s"]{border-color:#1E5DA8;color:#1E5DA8}
-      .loco-word[data-cat="f"]{border-color:#B58900;color:#8A6600}
-      .loco-word[data-cat="v"]{border-color:#1E7A47;color:#1E7A47}
-      .loco-word[data-cat="o"]{border-color:#C8102E;color:#C8102E}
-      .loco-word[data-cat="p"]{border-color:#6A2C82;color:#6A2C82}
-      .loco-word[data-cat="t"]{border-color:#0C6A75;color:#0C6A75}
-      .loco-word[data-cat="s"].picked{background:#1E5DA8;color:#fff}
-      .loco-word[data-cat="f"].picked{background:#B58900;color:#fff}
-      .loco-word[data-cat="v"].picked{background:#1E7A47;color:#fff}
-      .loco-word[data-cat="o"].picked{background:#C8102E;color:#fff}
-      .loco-word[data-cat="p"].picked{background:#6A2C82;color:#fff}
-      .loco-word[data-cat="t"].picked{background:#0C6A75;color:#fff}
-      .loco-bar{background:linear-gradient(135deg,#0D1B2A,#1E3A5F);color:#fff;border-radius:14px;padding:18px 20px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;min-height:70px;font-family:var(--serif);font-size:1.2rem;text-align:center;line-height:1.5;box-shadow:0 6px 18px rgba(13,27,42,.20)}
-      .loco-bar .slot{padding:4px 10px;border-radius:6px;background:rgba(255,255,255,.10);border:1px dashed rgba(255,255,255,.35);color:#B8C7DC;font-family:var(--mono);font-size:.72rem;letter-spacing:.10em;text-transform:uppercase}
-      .loco-bar .slot.filled{background:rgba(255,255,255,.95);color:var(--ink);border-style:solid;font-family:var(--serif);font-size:1.15rem;letter-spacing:0;text-transform:none;font-weight:600;padding:4px 12px}
-      .loco-bar .slot[data-slot="s"].filled{border-left:4px solid #1E5DA8}
-      .loco-bar .slot[data-slot="f"].filled{border-left:4px solid #B58900}
-      .loco-bar .slot[data-slot="v"].filled{border-left:4px solid #1E7A47}
-      .loco-bar .slot[data-slot="o"].filled{border-left:4px solid #C8102E}
-      .loco-bar .slot[data-slot="p"].filled{border-left:4px solid #6A2C82}
-      .loco-bar .slot[data-slot="t"].filled{border-left:4px solid #0C6A75}
-      .loco-legend{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;font-family:var(--mono);font-size:.66rem;letter-spacing:.10em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
-      .loco-legend span{display:inline-flex;align-items:center;gap:5px;font-weight:800}
-      .loco-legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
-      .loco-controls{display:flex;gap:10px;justify-content:center;margin-top:12px;flex-wrap:wrap}
-      .loco-btn{padding:10px 20px;border-radius:50px;font-family:var(--display);font-weight:800;font-size:.82rem;letter-spacing:.10em;text-transform:uppercase;cursor:pointer;transition:transform .12s;box-shadow:0 3px 10px rgba(0,0,0,.12)}
-      .loco-btn.say{background:var(--accent);color:#fff}
-      .loco-btn.rnd{background:var(--accent3);color:#fff}
-      .loco-btn.rst{background:#fff;color:var(--ink);border:1.5px solid var(--line-2)}
+      .loco-status{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center;margin-bottom:14px;padding:12px 16px;background:#fff;border:1px solid var(--line);border-radius:12px}
+      .loco-status .lsl{font-family:var(--mono);font-size:.78rem;letter-spacing:.10em;text-transform:uppercase;color:var(--muted);font-weight:800}
+      .loco-status .lsl b{color:var(--accent3);font-size:1.15rem;margin:0 3px}
+      .loco-status .lsl.err b{color:var(--accent)}
+      .loco-btn{padding:8px 16px;border-radius:50px;font-family:var(--display);font-weight:800;font-size:.78rem;letter-spacing:.10em;text-transform:uppercase;cursor:pointer;transition:transform .12s;box-shadow:0 3px 10px rgba(0,0,0,.12);border:none}
       .loco-btn.shuffle{background:#B58900;color:#fff}
+      .loco-btn.hint{background:#fff;color:var(--ink);border:1.5px solid var(--line-2)}
       .loco-btn:hover{transform:translateY(-1px)}
-      .loco-count{font-family:var(--mono);font-size:.75rem;letter-spacing:.10em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:8px}
-      .loco-count b{color:var(--accent);font-size:1.1rem}
+      .loco-pool{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+      @media(max-width:900px){.loco-pool{grid-template-columns:repeat(2,1fr)}}
+      .loco-col{display:flex;flex-direction:column;padding:12px 10px;border-radius:12px;border:2px solid var(--line);min-height:220px;transition:all .18s}
+      .loco-col.s{background:#EEF3FB;border-color:#B7CDE5} .loco-col.s .loco-col-title{background:#1E5DA8}
+      .loco-col.f{background:#FFF6E0;border-color:#E8D28C} .loco-col.f .loco-col-title{background:#B58900}
+      .loco-col.v{background:#E9F5EC;border-color:#A3D2B4} .loco-col.v .loco-col-title{background:#1E7A47}
+      .loco-col.o{background:#FCE3E7;border-color:#F0B4BF} .loco-col.o .loco-col-title{background:#C8102E}
+      .loco-col.p{background:#F1E6F6;border-color:#D2AEDF} .loco-col.p .loco-col-title{background:#6A2C82}
+      .loco-col.t{background:#E7F4F5;border-color:#A5D2D6} .loco-col.t .loco-col-title{background:#0C6A75}
+      .loco-col.hovering{transform:scale(1.02);box-shadow:0 6px 18px rgba(0,0,0,.14);border-style:dashed}
+      .loco-col-title{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800;text-align:center;padding:6px 8px;border-radius:6px;color:#fff;margin-bottom:8px;cursor:pointer}
+      .loco-col-body{display:flex;flex-direction:column;gap:6px;flex:1}
+      .loco-word{background:#fff;border:1.5px solid var(--line-2);border-radius:8px;padding:7px 10px;font-family:var(--body);font-weight:600;font-size:.9rem;color:var(--ink);cursor:grab;text-align:center;transition:all .12s;user-select:none}
+      .loco-word:hover{transform:translateY(-1px);box-shadow:0 2px 6px rgba(0,0,0,.10)}
+      .loco-word.selected{background:#0D1B2A;color:#fff;border-color:#0D1B2A;transform:scale(1.05);box-shadow:0 4px 14px rgba(0,0,0,.25)}
+      .loco-word.locked{background:rgba(30,122,71,.14);border-color:#1E7A47;color:#1E7A47;font-weight:800;cursor:default;pointer-events:none}
+      .loco-word.locked::before{content:"✓ ";color:#1E7A47}
+      .loco-word.wrong{animation:locoShake .5s;background:#FCE3E7;border-color:#C8102E;color:#C8102E}
+      @keyframes locoShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+      .loco-done{background:linear-gradient(135deg,#1E7A47,#0C6A75);color:#fff;padding:16px 20px;border-radius:14px;text-align:center;font-family:var(--display);font-weight:800;font-size:1.1rem;margin-top:14px;display:none;box-shadow:0 6px 18px rgba(30,122,71,.28)}
+      .loco-done.on{display:block;animation:locoDone .4s}
+      @keyframes locoDone{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
     </style>
 
     <div class="loco-wrap" id="loco">
-      <div class="loco-bar" id="loco-bar">
-        <span class="slot" data-slot="s">subject</span>
-        <span class="slot" data-slot="f">frequency</span>
-        <span class="slot" data-slot="v">verb</span>
-        <span class="slot" data-slot="o">object</span>
-        <span class="slot" data-slot="p">place</span>
-        <span class="slot" data-slot="t">time</span>
+      <div class="loco-status">
+        <span class="lsl">Correct <b id="loco-ok">0</b> / 44</span>
+        <span class="lsl err">Wrong tries <b id="loco-err">0</b></span>
+        <button class="loco-btn shuffle" id="loco-reshuffle">🔀 Reshuffle</button>
+        <button class="loco-btn hint" id="loco-hint">🔍 Hint (highlight next)</button>
       </div>
-      <div class="loco-controls">
-        <button class="loco-btn say" id="loco-say">🔊 Say it</button>
-        <button class="loco-btn rnd" id="loco-rnd">🎲 Random combo</button>
-        <button class="loco-btn shuffle" id="loco-shuffle">🔀 Shuffle pool</button>
-        <button class="loco-btn rst" id="loco-rst">↺ Reset</button>
-      </div>
-      <div class="loco-count">Built · <b id="loco-count">0</b> / 10 combinations</div>
 
-      <div class="loco-legend">
-        <span><i style="background:#1E5DA8"></i>subject</span>
-        <span><i style="background:#B58900"></i>frequency</span>
-        <span><i style="background:#1E7A47"></i>verb</span>
-        <span><i style="background:#C8102E"></i>object</span>
-        <span><i style="background:#6A2C82"></i>place</span>
-        <span><i style="background:#0C6A75"></i>time</span>
-      </div>
       <div class="loco-pool" id="loco-pool">
-        <button class="loco-word" data-cat="s" data-w="I">I</button>
-        <button class="loco-word" data-cat="s" data-w="She">She</button>
-        <button class="loco-word" data-cat="s" data-w="He">He</button>
-        <button class="loco-word" data-cat="s" data-w="We">We</button>
-        <button class="loco-word" data-cat="s" data-w="My colleague">My colleague</button>
-        <button class="loco-word" data-cat="s" data-w="My parents">My parents</button>
-        <button class="loco-word" data-cat="s" data-w="My wife">My wife</button>
-        <button class="loco-word" data-cat="f" data-w="always">always</button>
-        <button class="loco-word" data-cat="f" data-w="usually">usually</button>
-        <button class="loco-word" data-cat="f" data-w="often">often</button>
-        <button class="loco-word" data-cat="f" data-w="sometimes">sometimes</button>
-        <button class="loco-word" data-cat="f" data-w="rarely">rarely</button>
-        <button class="loco-word" data-cat="f" data-w="seldom">seldom</button>
-        <button class="loco-word" data-cat="f" data-w="never">never</button>
-        <button class="loco-word" data-cat="v" data-w="drink">drink</button>
-        <button class="loco-word" data-cat="v" data-w="wear">wear</button>
-        <button class="loco-word" data-cat="v" data-w="go">go</button>
-        <button class="loco-word" data-cat="v" data-w="walk">walk</button>
-        <button class="loco-word" data-cat="v" data-w="visit">visit</button>
-        <button class="loco-word" data-cat="v" data-w="finish">finish</button>
-        <button class="loco-word" data-cat="v" data-w="work">work</button>
-        <button class="loco-word" data-cat="v" data-w="study">study</button>
-        <button class="loco-word" data-cat="o" data-w="coffee">coffee</button>
-        <button class="loco-word" data-cat="o" data-w="a coat">a coat</button>
-        <button class="loco-word" data-cat="o" data-w="to the cinema">to the cinema</button>
-        <button class="loco-word" data-cat="o" data-w="in the park">in the park</button>
-        <button class="loco-word" data-cat="o" data-w="my parents">my parents</button>
-        <button class="loco-word" data-cat="o" data-w="cappuccino">cappuccino</button>
-        <button class="loco-word" data-cat="o" data-w="English">English</button>
-        <button class="loco-word" data-cat="o" data-w="a book">a book</button>
-        <button class="loco-word" data-cat="p" data-w="at home">at home</button>
-        <button class="loco-word" data-cat="p" data-w="at work">at work</button>
-        <button class="loco-word" data-cat="p" data-w="at the office">at the office</button>
-        <button class="loco-word" data-cat="p" data-w="at the gym">at the gym</button>
-        <button class="loco-word" data-cat="p" data-w="in the city">in the city</button>
-        <button class="loco-word" data-cat="p" data-w="in the countryside">in the countryside</button>
-        <button class="loco-word" data-cat="p" data-w="at the café">at the café</button>
-        <button class="loco-word" data-cat="t" data-w="in the morning">in the morning</button>
-        <button class="loco-word" data-cat="t" data-w="in the evening">in the evening</button>
-        <button class="loco-word" data-cat="t" data-w="on weekends">on weekends</button>
-        <button class="loco-word" data-cat="t" data-w="on Sundays">on Sundays</button>
-        <button class="loco-word" data-cat="t" data-w="at night">at night</button>
-        <button class="loco-word" data-cat="t" data-w="on Fridays">on Fridays</button>
-        <button class="loco-word" data-cat="t" data-w="in the afternoon">in the afternoon</button>
+        <div class="loco-col s" data-cat="s"><div class="loco-col-title">Subject</div><div class="loco-col-body"></div></div>
+        <div class="loco-col f" data-cat="f"><div class="loco-col-title">Frequency</div><div class="loco-col-body"></div></div>
+        <div class="loco-col v" data-cat="v"><div class="loco-col-title">Verb</div><div class="loco-col-body"></div></div>
+        <div class="loco-col o" data-cat="o"><div class="loco-col-title">Object</div><div class="loco-col-body"></div></div>
+        <div class="loco-col p" data-cat="p"><div class="loco-col-title">Place</div><div class="loco-col-body"></div></div>
+        <div class="loco-col t" data-cat="t"><div class="loco-col-title">Time</div><div class="loco-col-body"></div></div>
       </div>
+
+      <div class="loco-done" id="loco-done">🎉 All sorted! Now say 3 full sentences out loud — pick one word from each column.</div>
     </div>
 
-    <div class="rule-box" style="margin-top:16px"><strong>Bonus · be + adverb</strong>The «be» pattern is different — frequency goes <em>after</em> «be». Try 2 more sentences using this box:
+    <div class="rule-box" style="margin-top:16px"><strong>Bonus · be + adverb</strong>The «be» pattern is different — frequency goes <em>after</em> «be». Try 2 more sentences after you finish sorting:
       <br>&nbsp;&nbsp;• <em>I <b>am always</b> tired at the gym on Fridays.</em>
       <br>&nbsp;&nbsp;• <em>My wife <b>is often</b> busy at the office in the afternoon.</em>
     </div>
 
     <script>
     (function(){
-      var picked = {s:null, f:null, v:null, o:null, p:null, t:null};
-      var labels = {s:'subject', f:'frequency', v:'verb', o:'object', p:'place', t:'time'};
-      var order = ['s','f','v','o','p','t'];
-      var pool = document.querySelector('#loco .loco-pool');
-      var bar = document.getElementById('loco-bar');
-      var count = 0;
-      var lastBuilt = '';
+      var WORDS = [
+        {cat:'s',w:'I'},{cat:'s',w:'She'},{cat:'s',w:'He'},{cat:'s',w:'We'},{cat:'s',w:'My colleague'},{cat:'s',w:'My parents'},{cat:'s',w:'My wife'},
+        {cat:'f',w:'always'},{cat:'f',w:'usually'},{cat:'f',w:'often'},{cat:'f',w:'sometimes'},{cat:'f',w:'rarely'},{cat:'f',w:'seldom'},{cat:'f',w:'never'},
+        {cat:'v',w:'drink'},{cat:'v',w:'wear'},{cat:'v',w:'go'},{cat:'v',w:'walk'},{cat:'v',w:'visit'},{cat:'v',w:'finish'},{cat:'v',w:'work'},{cat:'v',w:'study'},
+        {cat:'o',w:'coffee'},{cat:'o',w:'a coat'},{cat:'o',w:'to the cinema'},{cat:'o',w:'in the park'},{cat:'o',w:'my parents'},{cat:'o',w:'cappuccino'},{cat:'o',w:'English'},{cat:'o',w:'a book'},
+        {cat:'p',w:'at home'},{cat:'p',w:'at work'},{cat:'p',w:'at the office'},{cat:'p',w:'at the gym'},{cat:'p',w:'in the city'},{cat:'p',w:'in the countryside'},{cat:'p',w:'at the café'},
+        {cat:'t',w:'in the morning'},{cat:'t',w:'in the evening'},{cat:'t',w:'on weekends'},{cat:'t',w:'on Sundays'},{cat:'t',w:'at night'},{cat:'t',w:'on Fridays'},{cat:'t',w:'in the afternoon'}
+      ];
+      var CATS = ['s','f','v','o','p','t'];
+      var pool = document.getElementById('loco-pool');
+      var okEl = document.getElementById('loco-ok');
+      var errEl = document.getElementById('loco-err');
+      var doneEl = document.getElementById('loco-done');
+      var okCount = 0, errCount = 0;
+      var selected = null;
 
-      function render(){
-        order.forEach(function(cat){
-          var slot = bar.querySelector('.slot[data-slot="'+cat+'"]');
-          if(picked[cat]){
-            slot.textContent = picked[cat];
-            slot.classList.add('filled');
-          } else {
-            slot.textContent = labels[cat];
-            slot.classList.remove('filled');
-          }
+      function shuffle(arr){
+        for(var i=arr.length-1;i>0;i--){
+          var j = Math.floor(Math.random()*(i+1));
+          var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+        }
+        return arr;
+      }
+
+      function makeTile(word){
+        var b = document.createElement('button');
+        b.className = 'loco-word';
+        b.dataset.cat = word.cat;
+        b.dataset.w = word.w;
+        b.textContent = word.w;
+        return b;
+      }
+
+      function distribute(){
+        // clear all col-body
+        pool.querySelectorAll('.loco-col-body').forEach(function(cb){ cb.innerHTML=''; });
+        okCount = 0; errCount = 0;
+        okEl.textContent = 0; errEl.textContent = 0;
+        doneEl.classList.remove('on');
+        selected = null;
+
+        // shuffle words, then place each in a random column that is NOT the correct one
+        var shuffled = shuffle(WORDS.slice());
+        shuffled.forEach(function(word){
+          var wrongCats = CATS.filter(function(c){ return c !== word.cat; });
+          var targetCat = wrongCats[Math.floor(Math.random()*wrongCats.length)];
+          var targetCol = pool.querySelector('.loco-col[data-cat="'+targetCat+'"] .loco-col-body');
+          targetCol.appendChild(makeTile(word));
         });
-        // count new complete sentences
-        var all = order.every(function(c){ return !!picked[c]; });
-        if(all){
-          var built = order.map(function(c){ return picked[c]; }).join(' ');
-          if(built !== lastBuilt){
-            count += 1;
-            lastBuilt = built;
-            document.getElementById('loco-count').textContent = count;
+      }
+
+      function selectWord(tile){
+        pool.querySelectorAll('.loco-word.selected').forEach(function(x){ x.classList.remove('selected'); });
+        tile.classList.add('selected');
+        selected = tile;
+      }
+
+      function tryDrop(colCat){
+        if(!selected) return;
+        var wordCat = selected.dataset.cat;
+        if(wordCat === colCat){
+          // correct
+          selected.classList.remove('selected');
+          selected.classList.add('locked');
+          var targetBody = pool.querySelector('.loco-col[data-cat="'+colCat+'"] .loco-col-body');
+          targetBody.appendChild(selected);
+          okCount += 1;
+          okEl.textContent = okCount;
+          selected = null;
+          if(okCount === WORDS.length){
+            doneEl.classList.add('on');
           }
+        } else {
+          // wrong
+          errCount += 1;
+          errEl.textContent = errCount;
+          var tile = selected;
+          tile.classList.add('wrong');
+          setTimeout(function(){ tile.classList.remove('wrong'); }, 500);
         }
       }
 
       pool.addEventListener('click', function(e){
-        var btn = e.target.closest('.loco-word');
-        if(!btn) return;
-        var cat = btn.dataset.cat;
-        // clear previous picked of same cat
-        pool.querySelectorAll('.loco-word[data-cat="'+cat+'"].picked').forEach(function(x){ x.classList.remove('picked'); });
-        btn.classList.add('picked');
-        picked[cat] = btn.dataset.w;
-        render();
-      });
-
-      document.getElementById('loco-say').addEventListener('click', function(){
-        var full = order.map(function(c){ return picked[c] || ''; }).join(' ').trim();
-        if(!full) return;
-        try{
-          window.speechSynthesis.cancel();
-          var u = new SpeechSynthesisUtterance(full);
-          u.lang = 'en-GB'; u.rate = 0.95;
-          var voices = window.speechSynthesis.getVoices();
-          var en = voices.filter(function(v){return v.lang.startsWith('en')});
-          var pref = en.find(function(v){return /google|natural|neural|samantha|daniel|sonia/i.test(v.name)}) || en[0];
-          if(pref) u.voice = pref;
-          window.speechSynthesis.speak(u);
-        }catch(e){}
-      });
-
-      document.getElementById('loco-rst').addEventListener('click', function(){
-        order.forEach(function(c){ picked[c] = null; });
-        pool.querySelectorAll('.loco-word.picked').forEach(function(x){ x.classList.remove('picked'); });
-        render();
-      });
-
-      document.getElementById('loco-rnd').addEventListener('click', function(){
-        order.forEach(function(cat){
-          var opts = pool.querySelectorAll('.loco-word[data-cat="'+cat+'"]');
-          var pick = opts[Math.floor(Math.random()*opts.length)];
-          pool.querySelectorAll('.loco-word[data-cat="'+cat+'"].picked').forEach(function(x){ x.classList.remove('picked'); });
-          pick.classList.add('picked');
-          picked[cat] = pick.dataset.w;
-        });
-        render();
-      });
-
-      function shuffleTiles(){
-        var tiles = Array.prototype.slice.call(pool.children);
-        for(var i = tiles.length - 1; i > 0; i--){
-          var j = Math.floor(Math.random() * (i + 1));
-          pool.insertBefore(tiles[j], tiles[i]);
-          tiles = Array.prototype.slice.call(pool.children);
+        var tile = e.target.closest('.loco-word');
+        if(tile && !tile.classList.contains('locked')){
+          selectWord(tile);
+          return;
         }
-      }
-      document.getElementById('loco-shuffle').addEventListener('click', shuffleTiles);
-      shuffleTiles(); // shuffle on load
-      render();
+        var col = e.target.closest('.loco-col');
+        if(col && selected){
+          tryDrop(col.dataset.cat);
+        }
+      });
+
+      document.getElementById('loco-reshuffle').addEventListener('click', distribute);
+      document.getElementById('loco-hint').addEventListener('click', function(){
+        // highlight one unsolved tile
+        var unsolved = pool.querySelectorAll('.loco-word:not(.locked)');
+        if(unsolved.length === 0) return;
+        var tile = unsolved[Math.floor(Math.random()*unsolved.length)];
+        selectWord(tile);
+        tile.scrollIntoView({block:'nearest', behavior:'smooth'});
+      });
+
+      distribute();
     })();
     </script>
   </div>
