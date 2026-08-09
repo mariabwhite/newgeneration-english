@@ -55,7 +55,8 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 
 /* Hero */
 .hero{width:min(1200px,calc(100% - clamp(28px,5vw,48px)));margin:22px auto 20px}
-.hero-card{position:relative;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:linear-gradient(135deg,#FFFFFF 0%,#EAF2F9 50%,#FCE3E7 100%);padding:clamp(28px,4vw,44px) clamp(22px,3.5vw,42px);box-shadow:0 10px 28px rgba(13,27,42,.10)}
+.hero-banner{width:100%;height:auto;display:block;border-radius:22px 22px 0 0;box-shadow:0 6px 18px rgba(13,27,42,.10);margin-bottom:-4px}
+.hero-card{position:relative;border:1px solid var(--line);border-radius:0 0 22px 22px;overflow:hidden;background:linear-gradient(135deg,#FFFFFF 0%,#EAF2F9 50%,#FCE3E7 100%);padding:clamp(28px,4vw,44px) clamp(22px,3.5vw,42px);box-shadow:0 10px 28px rgba(13,27,42,.10)}
 .hero-card::before{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:linear-gradient(90deg,var(--accent) 0%,#fff 50%,var(--accent3) 100%)}
 .eyebrow{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#fff;padding:7px 16px;border-radius:50px;font:800 10.5px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;margin-bottom:16px}
 h1.hero-title{font-family:var(--display);font-weight:800;letter-spacing:-.015em;line-height:1.05;font-size:clamp(1.8rem,4vw,2.7rem);margin-bottom:14px;color:var(--ink)}
@@ -205,6 +206,7 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),var(--accent
 
 <!-- HERO -->
 <div class="hero">
+  <img class="hero-banner" src="img/hero-banner.png" alt="Speaking practice · microphone, notebook, travel icons">
   <div class="hero-card">
     <div class="eyebrow">Denis · L18 · 09 · 08 · 2026</div>
     <h1 class="hero-title">Speaking <span class="grad">Force</span> · 20 provocation drills</h1>
@@ -1165,6 +1167,8 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),var(--accent
       .sit-card.on{display:block}
       @keyframes sitIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
       .sit-icon{font-size:2.6rem;text-align:center;line-height:1}
+      .sit-pic{width:100%;max-width:420px;height:auto;border-radius:12px;box-shadow:0 4px 14px rgba(13,27,42,.14);display:none;margin:0 auto 4px}
+      .sit-pic.on{display:block}
       .sit-num{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:800;text-align:center;margin:6px 0 2px}
       .sit-setup{font-family:var(--serif);font-size:1.15rem;color:var(--ink);text-align:center;line-height:1.5}
       .sit-words{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:10px;padding:10px 12px;background:var(--accent-blue-soft);border-radius:10px;border:1px dashed var(--accent3)}
@@ -1185,8 +1189,9 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),var(--accent
       <div class="sit-right" id="sit-right">
         <div class="sit-empty" id="sit-empty">roll the dice to get your first situation</div>
         <div class="sit-card" id="sit-card">
+          <img class="sit-pic" id="sit-pic" src="" alt="">
           <div class="sit-icon" id="sit-icon">🎲</div>
-          <div class="sit-num" id="sit-num">situation 1 / 20</div>
+          <div class="sit-num" id="sit-num">situation 1 / 15</div>
           <div class="sit-setup" id="sit-setup"></div>
           <div class="sit-words" id="sit-words"></div>
         </div>
@@ -1208,32 +1213,28 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),var(--accent
     <script>
     (function(){
       var SITS = [
-        {icon:'🏨',setup:'You arrive at a hotel at 11 p.m. You have a reservation but the receptionist can\'t find your name.',words:['reservation','confirmation','room key','breakfast','Wi-Fi']},
-        {icon:'✈️',setup:'You are checking in for your flight. You want a window seat and you are a bit late.',words:['boarding pass','window seat','luggage','gate','delay']},
-        {icon:'🚕',setup:'You take a taxi to the airport in the morning. There is traffic and you are nervous.',words:['airport','hurry','boot','credit card','how long']},
-        {icon:'☕',setup:'You order a coffee to-go and ask the barista for the Wi-Fi password.',words:['cappuccino','to-go','sugar','password','receipt']},
-        {icon:'🍽',setup:'You finished dinner in a restaurant. Ask for the bill and pay by card.',words:['bill','tip','card','split','thank you']},
-        {icon:'🛍',setup:'You want to try on a jacket in a shop but it is too small.',words:['size','colour','fitting room','discount','take it']},
-        {icon:'🏥',setup:'You go to a pharmacy with a headache and no prescription.',words:['painkiller','pack','prescription','allergy','pay']},
-        {icon:'🚨',setup:'You realise your passport is lost at the airport. Explain it to the airport staff.',words:['embassy','police','copy','urgent','help']},
-        {icon:'🅿️',setup:'You are lost in a new city. Ask a passer-by how to get to the nearest metro.',words:['turn left','straight on','opposite','next to','how far']},
-        {icon:'📶',setup:'The Wi-Fi in your hotel room is not working. Call the reception.',words:['Wi-Fi','password','network','slow','room number']},
-        {icon:'🥶',setup:'It is cold in your hotel room. You want an extra blanket and higher heating.',words:['heating','thermostat','blanket','reception','please']},
-        {icon:'🚄',setup:'You buy a train ticket to St Petersburg — one-way, in the morning.',words:['platform','one-way','return','first class','depart']},
-        {icon:'💼',setup:'A new colleague joins your team today. Small-talk with them at the coffee machine.',words:['nice to meet you','department','position','coffee','welcome']},
-        {icon:'📞',setup:'You call a hairdresser to book an appointment for next Saturday.',words:['available','morning','cancel','reschedule','confirm']},
-        {icon:'🍳',setup:'Breakfast at a hotel. You want eggs, toast, orange juice — and an extra plate.',words:['eggs','toast','orange juice','extra plate','table']},
-        {icon:'🏋️',setup:'You go to a gym to ask about a trial membership and prices.',words:['membership','discount','trial','opening hours','pay by card']},
-        {icon:'🚌',setup:'You are at a bus stop but you are not sure which bus goes to the centre.',words:['bus number','stop','direction','next bus','centre']},
-        {icon:'🦷',setup:'You have toothache and need to see a dentist today, even without an appointment.',words:['filling','appointment','pain','insurance','urgent']},
-        {icon:'🎂',setup:'You come to a colleague\'s birthday party. Congratulate them and start small talk.',words:['cheers','congratulations','gift','cake','present']},
-        {icon:'🚑',setup:'You feel sick — dizzy, cold, tired. Ask the receptionist for a doctor.',words:['dizzy','temperature','tired','cold','doctor']}
+        {img:'img/hotel-checkin.png',icon:'🏨',setup:'You arrive at a hotel. Check in and ask about breakfast and Wi-Fi.',words:['hello','check in','room key','breakfast','Wi-Fi']},
+        {img:'img/cafe-order.png',icon:'☕',setup:'You go into a café. Order a coffee and pay by card.',words:['cappuccino','sugar','milk','please','card']},
+        {img:'img/park-walk.png',icon:'🌳',setup:'You are walking in the park. You meet a friend with a dog. Small talk about weather and weekend.',words:['nice day','dog','weekend','often','park']},
+        {img:'img/hotel-room.png',icon:'🛏',setup:'You are in your hotel room. You want extra towels and a pillow.',words:['towels','pillow','please','room number','thank you']},
+        {img:'img/bus-stop.png',icon:'🚌',setup:'You are at a bus stop. You do not know which bus goes to the centre. Ask a person.',words:['bus','stop','centre','next','thank you']},
+        {img:'img/breakfast.png',icon:'🍳',setup:'Breakfast at the hotel. Ask for coffee, eggs and bread.',words:['coffee','eggs','bread','juice','please']},
+        {icon:'🛍',setup:'You want to try on a jacket in a shop.',words:['jacket','size','colour','fitting room','take it']},
+        {icon:'👟',setup:'You buy new sneakers. Ask for your size and try them on.',words:['sneakers','size','colour','try on','comfortable']},
+        {icon:'🚕',setup:'You take a taxi to a café in the city centre. Ask how much it costs.',words:['taxi','café','city centre','how much','thanks']},
+        {icon:'✈️',setup:'You are at the airport check-in. Show your passport and ticket.',words:['passport','ticket','luggage','gate','please']},
+        {icon:'🏥',setup:'You go to a pharmacy. You have a headache and want a small pack of pills.',words:['headache','pack','price','pay','thank you']},
+        {icon:'📍',setup:'You are new in the city. Ask a person where the nearest park is.',words:['excuse me','where','park','near','thank you']},
+        {icon:'☕',setup:'A friend meets you in a café. Small talk about your morning and today.',words:['how are you','usually','morning','today','coffee']},
+        {icon:'🎂',setup:'It is your colleague\'s birthday. Give them a small present and say happy birthday.',words:['happy birthday','present','thank you','cake','party']},
+        {icon:'📞',setup:'You call the hotel reception because it is cold in your room.',words:['hello','room','cold','blanket','please']}
       ];
       var pool = SITS.slice();
       var rolled = 0;
       var diceBtn = document.getElementById('sit-dice');
       var emptyEl = document.getElementById('sit-empty');
       var cardEl = document.getElementById('sit-card');
+      var picEl = document.getElementById('sit-pic');
       var iconEl = document.getElementById('sit-icon');
       var numEl = document.getElementById('sit-num');
       var setupEl = document.getElementById('sit-setup');
@@ -1245,7 +1246,17 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),var(--accent
         var idx = Math.floor(Math.random()*pool.length);
         var sit = pool.splice(idx,1)[0];
         var origIdx = SITS.indexOf(sit) + 1;
-        iconEl.textContent = sit.icon;
+        if(sit.img){
+          picEl.src = sit.img;
+          picEl.alt = sit.setup;
+          picEl.classList.add('on');
+          iconEl.style.display = 'none';
+        } else {
+          picEl.classList.remove('on');
+          picEl.removeAttribute('src');
+          iconEl.style.display = '';
+          iconEl.textContent = sit.icon;
+        }
         numEl.textContent = 'situation ' + origIdx + ' / ' + SITS.length;
         setupEl.textContent = sit.setup;
         wordsEl.innerHTML = '<span class="lbl">use these:</span>' + sit.words.map(function(w){ return '<span class="w">'+w+'</span>'; }).join('');
