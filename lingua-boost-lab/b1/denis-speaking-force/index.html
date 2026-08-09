@@ -267,22 +267,75 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),var(--accent
 <!-- BLOCK 2 · YES / NO + BECAUSE                                                -->
 <!-- ═══════════════════════════════════════════════════════════════════════════ -->
 <section class="section blue" id="b2">
-  <div class="section-hdr"><span class="num">2</span><h2>Yes / No + <em>because</em> · mandatory</h2></div>
+  <div class="section-hdr"><span class="num">2</span><h2>Yes / No + <em>because</em> · flip cards</h2></div>
   <div class="card">
-    <div class="section-tag">10 provocative Yes/No · min 2 sentences</div>
-    <div class="rule-box blue"><strong>Must include</strong>short answer <em>«Yes, I do / No, I don't»</em> + <em>because</em> + one detail. No bare «yes».</div>
-    <div class="prov-grid">
-      <div class="prov-row blue"><span class="prov-num">1</span><span class="prov-text">Do you drink coffee at 11 p.m.? <span class="must">+ because</span></span><button class="prov-play" data-say="Do you drink coffee at 11 p.m.?">▶</button></div>
-      <div class="prov-row blue"><span class="prov-num">2</span><span class="prov-text">Do you like winter more than summer? <span class="must">+ because</span></span><button class="prov-play" data-say="Do you like winter more than summer?">▶</button></div>
-      <div class="prov-row blue"><span class="prov-num">3</span><span class="prov-text">Are you wearing formal shoes today? <span class="must">+ because</span></span><button class="prov-play" data-say="Are you wearing formal shoes today?">▶</button></div>
-      <div class="prov-row blue"><span class="prov-num">4</span><span class="prov-text">Have you got a dog at home? <span class="must">+ because</span></span><button class="prov-play" data-say="Have you got a dog at home?">▶</button></div>
-      <div class="prov-row blue"><span class="prov-num">5</span><span class="prov-text">Can you cook meat well? <span class="must">+ because</span></span><button class="prov-play" data-say="Can you cook meat well?">▶</button></div>
-      <div class="prov-row blue"><span class="prov-num">6</span><span class="prov-text">Are you going to relax this Sunday? <span class="must">+ because</span></span><button class="prov-play" data-say="Are you going to relax this Sunday?">▶</button></div>
-      <div class="prov-row blue"><span class="prov-num">7</span><span class="prov-text">Do you prefer the city to the countryside? <span class="must">+ because</span></span><button class="prov-play" data-say="Do you prefer the city to the countryside?">▶</button></div>
-      <div class="prov-row blue"><span class="prov-num">8</span><span class="prov-text">Is your street quiet in the evening? <span class="must">+ because</span></span><button class="prov-play" data-say="Is your street quiet in the evening?">▶</button></div>
-      <div class="prov-row blue"><span class="prov-num">9</span><span class="prov-text">Do your colleagues speak English at work? <span class="must">+ because</span></span><button class="prov-play" data-say="Do your colleagues speak English at work?">▶</button></div>
-      <div class="prov-row blue"><span class="prov-num">10</span><span class="prov-text">Will you buy a new jacket this autumn? <span class="must">+ because</span></span><button class="prov-play" data-say="Will you buy a new jacket this autumn?">▶</button></div>
+    <div class="section-tag">10 provocative Yes/No · click card to flip · sample on the back</div>
+    <div class="rule-box blue"><strong>How it works</strong>Click a card — it flips to reveal a sample answer with <em>because</em>. Say YOUR own version out loud first, then flip and compare. No bare «yes».</div>
+    <style>
+      .flip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:14px}
+      .flip-card{perspective:1200px;cursor:pointer;height:180px;position:relative}
+      .flip-card .flip-inner{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
+      .flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+      .flip-card .flip-front,.flip-card .flip-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:14px;padding:16px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;box-shadow:0 4px 14px rgba(13,27,42,.10)}
+      .flip-card .flip-front{background:linear-gradient(135deg,#fff,var(--accent-blue-soft));border:1.5px solid var(--accent3);color:var(--ink)}
+      .flip-card .flip-front .q-num{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent3);font-weight:800;margin-bottom:8px}
+      .flip-card .flip-front .q-text{font-family:var(--serif);font-size:1.05rem;font-weight:600;line-height:1.4}
+      .flip-card .flip-front .flip-hint{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:10px;opacity:.7}
+      .flip-card .flip-back{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;transform:rotateY(180deg);font-family:var(--serif);font-size:.96rem;line-height:1.45}
+      .flip-card .flip-back .a-text{margin-bottom:12px;font-style:italic}
+      .flip-card .flip-back .a-text b{background:rgba(255,255,255,.20);padding:1px 6px;border-radius:4px;font-style:normal;font-weight:800}
+      .flip-play{width:36px;height:36px;border-radius:50%;background:#fff;color:var(--accent);border:none;display:grid;place-items:center;cursor:pointer;font-family:var(--mono);font-weight:800;font-size:.85rem;box-shadow:0 2px 6px rgba(0,0,0,.20)}
+      .flip-play:hover{transform:scale(1.08)}
+    </style>
+    <div class="flip-grid">
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><div class="q-num">01</div><div class="q-text">Do you drink coffee at 11 p.m.?</div><div class="flip-hint">click to flip</div></div>
+        <div class="flip-back"><div class="a-text">No, I don't. I only drink coffee <b>in the morning</b> because it keeps me awake at night.</div><button class="flip-play" data-say="No, I don't. I only drink coffee in the morning because it keeps me awake at night." onclick="event.stopPropagation()">▶</button></div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><div class="q-num">02</div><div class="q-text">Do you like winter more than summer?</div><div class="flip-hint">click to flip</div></div>
+        <div class="flip-back"><div class="a-text">No, I don't. I prefer <b>summer</b> because I can walk in the park without a heavy coat.</div><button class="flip-play" data-say="No, I don't. I prefer summer because I can walk in the park without a heavy coat." onclick="event.stopPropagation()">▶</button></div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><div class="q-num">03</div><div class="q-text">Are you wearing formal shoes today?</div><div class="flip-hint">click to flip</div></div>
+        <div class="flip-back"><div class="a-text">No, I'm not. I'm wearing <b>sneakers</b> because I like to be comfortable at home.</div><button class="flip-play" data-say="No, I'm not. I'm wearing sneakers because I like to be comfortable at home." onclick="event.stopPropagation()">▶</button></div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><div class="q-num">04</div><div class="q-text">Have you got a dog at home?</div><div class="flip-hint">click to flip</div></div>
+        <div class="flip-back"><div class="a-text">No, I haven't. My flat is <b>small</b> so a dog wouldn't have enough space here.</div><button class="flip-play" data-say="No, I haven't. My flat is small so a dog wouldn't have enough space here." onclick="event.stopPropagation()">▶</button></div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><div class="q-num">05</div><div class="q-text">Can you cook meat well?</div><div class="flip-hint">click to flip</div></div>
+        <div class="flip-back"><div class="a-text">Yes, I can. I usually cook <b>simple food</b> but I make good chicken on weekends.</div><button class="flip-play" data-say="Yes, I can. I usually cook simple food but I make good chicken on weekends." onclick="event.stopPropagation()">▶</button></div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><div class="q-num">06</div><div class="q-text">Are you going to relax this Sunday?</div><div class="flip-hint">click to flip</div></div>
+        <div class="flip-back"><div class="a-text">Yes, I am. I'm going to <b>stay at home</b> because I'm tired after a long week.</div><button class="flip-play" data-say="Yes, I am. I'm going to stay at home because I'm tired after a long week." onclick="event.stopPropagation()">▶</button></div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><div class="q-num">07</div><div class="q-text">Do you prefer the city to the countryside?</div><div class="flip-hint">click to flip</div></div>
+        <div class="flip-back"><div class="a-text">Yes, I do. Everything is <b>close</b> in the city and I like the busy streets in the evening.</div><button class="flip-play" data-say="Yes, I do. Everything is close in the city and I like the busy streets in the evening." onclick="event.stopPropagation()">▶</button></div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><div class="q-num">08</div><div class="q-text">Is your street quiet in the evening?</div><div class="flip-hint">click to flip</div></div>
+        <div class="flip-back"><div class="a-text">Yes, it is. My street is <b>small</b> and there aren't many cars after eight p.m.</div><button class="flip-play" data-say="Yes, it is. My street is small and there aren't many cars after eight p.m." onclick="event.stopPropagation()">▶</button></div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><div class="q-num">09</div><div class="q-text">Do your colleagues speak English at work?</div><div class="flip-hint">click to flip</div></div>
+        <div class="flip-back"><div class="a-text">No, they don't. We mostly speak <b>Russian</b> because we work with local clients every day.</div><button class="flip-play" data-say="No, they don't. We mostly speak Russian because we work with local clients every day." onclick="event.stopPropagation()">▶</button></div>
+      </div></div>
+      <div class="flip-card"><div class="flip-inner">
+        <div class="flip-front"><div class="q-num">10</div><div class="q-text">Will you buy a new jacket this autumn?</div><div class="flip-hint">click to flip</div></div>
+        <div class="flip-back"><div class="a-text">Yes, I will. My old coat is too <b>small</b> and it doesn't keep me warm any more.</div><button class="flip-play" data-say="Yes, I will. My old coat is too small and it doesn't keep me warm any more." onclick="event.stopPropagation()">▶</button></div>
+      </div></div>
     </div>
+    <script>
+      (function(){
+        document.querySelectorAll('#b2 .flip-card').forEach(function(card){
+          card.addEventListener('click', function(){ card.classList.toggle('flipped'); });
+        });
+      })();
+    </script>
   </div>
 </section>
 
@@ -396,6 +449,120 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),var(--accent
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<!-- BLOCK 7B · FIX THE MISTAKES · dice roll                                     -->
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
+<section class="section" id="b7b">
+  <div class="section-hdr"><span class="num">7B</span><h2>Fix the mistakes · 🎲 dice roll</h2></div>
+  <div class="card">
+    <div class="section-tag">roll → error sentence appears → pick the correct fix</div>
+    <div class="rule-box"><strong>How it works</strong>Press <em>🎲 Roll</em> — a sentence with a typical mistake appears. Read it out loud, then pick the correct version. Green ✓ = right · red = try again. All Denis's vocab: routine, home, clothes, city, colleagues.</div>
+    <style>
+      .fx-dice{display:flex;flex-direction:column;align-items:center;gap:14px;padding:20px;background:linear-gradient(135deg,var(--card-2),#fff);border-radius:14px;border:1px solid var(--line);margin-top:14px}
+      .fx-roll-btn{width:120px;height:120px;border-radius:24px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-family:var(--display);font-weight:900;font-size:2.6rem;cursor:pointer;border:none;box-shadow:0 8px 22px rgba(200,16,46,.35);transition:transform .18s;display:grid;place-items:center;line-height:1}
+      .fx-roll-btn:hover{transform:translateY(-2px) rotate(6deg)}
+      .fx-roll-btn.rolling{animation:diceRoll .55s ease-in-out}
+      @keyframes diceRoll{0%{transform:rotate(0)}25%{transform:rotate(90deg)}50%{transform:rotate(180deg)}75%{transform:rotate(270deg)}100%{transform:rotate(360deg)}}
+      .fx-card{width:100%;max-width:640px;background:#fff;border-radius:14px;padding:18px 20px;box-shadow:0 4px 14px rgba(13,27,42,.10);display:none;flex-direction:column;gap:12px;border:1px solid var(--line)}
+      .fx-card.on{display:flex;animation:fadeUp .35s}
+      @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+      .fx-error{font-family:var(--serif);font-size:1.2rem;color:var(--miss);text-decoration:line-through 2px var(--miss);text-align:center;padding:8px}
+      .fx-error::before{content:"❌ ";text-decoration:none}
+      .fx-tag{font-family:var(--mono);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-align:center;font-weight:800}
+      .fx-opts{display:flex;flex-direction:column;gap:8px}
+      .fx-opt{background:#fff;border:1.5px solid var(--line-2);border-radius:10px;padding:10px 14px;font-family:var(--serif);font-size:1.04rem;color:var(--ink);cursor:pointer;text-align:left;transition:all .15s}
+      .fx-opt:hover{border-color:var(--accent);color:var(--accent2)}
+      .fx-opt.correct{background:rgba(30,122,71,.14);border-color:var(--ok);color:var(--ok);font-weight:700}
+      .fx-opt.correct::before{content:"✓ "}
+      .fx-opt.wrong{background:var(--accent-red-soft);border-color:var(--miss);color:var(--miss)}
+      .fx-opt.wrong::before{content:"✗ "}
+      .fx-status{display:flex;justify-content:space-between;gap:14px;font-family:var(--mono);font-size:.78rem;letter-spacing:.10em;text-transform:uppercase;color:var(--muted);font-weight:800;padding:0 8px}
+      .fx-status b{color:var(--ok);font-size:1.1rem;margin:0 4px}
+      .fx-done{display:none;background:linear-gradient(135deg,#1E7A47,#0C6A75);color:#fff;padding:14px 18px;border-radius:12px;font-family:var(--display);font-weight:800;text-align:center;font-size:1rem;margin-top:12px}
+      .fx-done.on{display:block}
+    </style>
+    <div class="fx-dice">
+      <button class="fx-roll-btn" id="fx-roll">🎲</button>
+      <div class="fx-card" id="fx-card">
+        <div class="fx-tag" id="fx-tag">grammar · —</div>
+        <div class="fx-error" id="fx-error">Sentence goes here</div>
+        <div class="fx-opts" id="fx-opts"></div>
+      </div>
+      <div class="fx-status">
+        <span>Fixed <b id="fx-ok">0</b> / 10</span>
+        <span>Rolled <b id="fx-rolled" style="color:var(--accent3)">0</b></span>
+      </div>
+      <div class="fx-done" id="fx-done">🎉 All 10 fixed! Now try telling one story using 3 of these patterns correctly.</div>
+    </div>
+    <script>
+    (function(){
+      var ITEMS = [
+        {tag:'Present Simple · 3rd person', err:'He don\'t drink coffee in the morning.', opts:['He doesn\'t drink coffee in the morning.','He not drink coffee in the morning.','He doesn\'t drinks coffee in the morning.'], correct:0},
+        {tag:'have got · 3rd person', err:'My wife have got a red jacket.', opts:['My wife have red jacket.','My wife has got a red jacket.','My wife is got a red jacket.'], correct:1},
+        {tag:'Wh-questions · Present Simple', err:'Where you live?', opts:['Where you living?','Where are you live?','Where do you live?'], correct:2},
+        {tag:'Present Simple · 3rd person -s', err:'She wear boots in winter.', opts:['She wears boots in winter.','She is wear boots in winter.','She wearing boots in winter.'], correct:0},
+        {tag:'Present Continuous', err:'I am go to the office now.', opts:['I go to the office now.','I am going to the office now.','I go to office now.'], correct:1},
+        {tag:'Does + bare verb', err:'Does he works from home on Fridays?', opts:['Do he work from home on Fridays?','Does he work from home on Fridays?','Does he working from home on Fridays?'], correct:1},
+        {tag:'There is / There are', err:'There is many cafés near my street.', opts:['It is many cafés near my street.','There are many cafés near my street.','There have many cafés near my street.'], correct:1},
+        {tag:'3rd person -s · people', err:'My colleague live in Berlin.', opts:['My colleague lives in Berlin.','My colleague is live in Berlin.','My colleague living in Berlin.'], correct:0},
+        {tag:'like + -ing / to', err:'I like read books in the evening.', opts:['I like to reading books in the evening.','I like reading books in the evening.','I am like reading books in the evening.'], correct:1},
+        {tag:'Frequency + be position', err:'She often is late for meetings.', opts:['She is often late for meetings.','Often she is late for meetings.','She is late often for meetings.'], correct:0}
+      ];
+      var pool = ITEMS.slice();
+      var solved = 0, rolled = 0;
+      var rollBtn = document.getElementById('fx-roll');
+      var card = document.getElementById('fx-card');
+      var tagEl = document.getElementById('fx-tag');
+      var errEl = document.getElementById('fx-error');
+      var optsEl = document.getElementById('fx-opts');
+      var okEl = document.getElementById('fx-ok');
+      var rolledEl = document.getElementById('fx-rolled');
+      var doneEl = document.getElementById('fx-done');
+      var current = null;
+
+      function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
+
+      function draw(){
+        if(pool.length === 0){ doneEl.classList.add('on'); card.classList.remove('on'); return; }
+        var idx = Math.floor(Math.random()*pool.length);
+        current = pool.splice(idx, 1)[0];
+        tagEl.textContent = 'grammar · ' + current.tag;
+        errEl.textContent = current.err;
+        optsEl.innerHTML = '';
+        current.opts.forEach(function(txt, i){
+          var b = document.createElement('button');
+          b.className = 'fx-opt';
+          b.textContent = txt;
+          b.addEventListener('click', function(){
+            if(b.classList.contains('correct') || b.classList.contains('wrong')) return;
+            if(i === current.correct){
+              b.classList.add('correct');
+              solved += 1;
+              okEl.textContent = solved;
+              setTimeout(function(){ rollBtn.click(); }, 900);
+            } else {
+              b.classList.add('wrong');
+              // reveal correct too
+              optsEl.children[current.correct].classList.add('correct');
+            }
+          });
+          optsEl.appendChild(b);
+        });
+        card.classList.add('on');
+      }
+
+      rollBtn.addEventListener('click', function(){
+        rollBtn.classList.add('rolling');
+        setTimeout(function(){ rollBtn.classList.remove('rolling'); }, 600);
+        rolled += 1;
+        rolledEl.textContent = rolled;
+        draw();
+      });
+    })();
+    </script>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════ -->
 <!-- BLOCK 8 · HAVE GOT PING-PONG                                                -->
 <!-- ═══════════════════════════════════════════════════════════════════════════ -->
 <section class="section blue" id="b8">
@@ -443,20 +610,23 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),var(--accent
 <!-- BLOCK 10 · THERE IS / THERE ARE · KITCHEN NOW                               -->
 <!-- ═══════════════════════════════════════════════════════════════════════════ -->
 <section class="section blue" id="b10">
-  <div class="section-hdr"><span class="num">10</span><h2>«My kitchen right now» · 8 forced structures</h2></div>
+  <div class="section-hdr"><span class="num">10</span><h2>«My flat · room by room» · 10 forced structures</h2></div>
   <div class="card">
-    <div class="section-tag">There is / There are · 8 phrases · describe reality</div>
-    <div class="rule-box blue"><strong>Rule</strong>Describe your kitchen <em>right now</em> — 8 sentences in a row, alternating <em>There is a…</em> and <em>There are…</em>. Plus at least 2 sentences with <em>It is …</em> (state: warm / clean / modern / small).</div>
+    <div class="section-tag">There is / There are · It is · walk through your flat</div>
+    <div class="rule-box blue"><strong>Rule</strong>Walk (mentally) through your flat room by room — say <b>10 sentences</b> alternating <em>There is a…</em> · <em>There are…</em> · <em>It is …</em>. Use different rooms (hall → kitchen → living room → bedroom → bathroom).</div>
     <div class="prov-grid">
-      <div class="prov-row blue"><span class="prov-num">1</span><span class="prov-text">There is a … <span class="hint">→ fridge / table / lamp / sink</span></span></div>
-      <div class="prov-row blue"><span class="prov-num">2</span><span class="prov-text">There are two … <span class="hint">→ chairs / cups / plates</span></span></div>
-      <div class="prov-row blue"><span class="prov-num">3</span><span class="prov-text">There is a … <span class="hint">→ microwave / oven / kettle</span></span></div>
-      <div class="prov-row blue"><span class="prov-num">4</span><span class="prov-text">There are … on the table. <span class="hint">→ dirty dishes / cups / bread</span></span></div>
-      <div class="prov-row blue"><span class="prov-num">5</span><span class="prov-text">It is … <span class="hint">→ modern / small / warm / quiet</span></span></div>
-      <div class="prov-row blue"><span class="prov-num">6</span><span class="prov-text">There is a window near the … <span class="hint">→ sink / fridge / table</span></span></div>
-      <div class="prov-row blue"><span class="prov-num">7</span><span class="prov-text">There are … in the cupboard. <span class="hint">→ knives / forks / spoons</span></span></div>
-      <div class="prov-row blue"><span class="prov-num">8</span><span class="prov-text">It is a … kitchen. <span class="hint">→ modern / cozy / comfortable</span></span></div>
+      <div class="prov-row blue"><span class="prov-num">🚪</span><span class="prov-text"><b>Hall / corridor:</b> There is a … <span class="hint">→ mirror / wardrobe / shoe rack / lamp</span></span></div>
+      <div class="prov-row blue"><span class="prov-num">🍳</span><span class="prov-text"><b>Kitchen:</b> There are two … <span class="hint">→ chairs / cups / plates / windows</span></span></div>
+      <div class="prov-row blue"><span class="prov-num">🍳</span><span class="prov-text"><b>Kitchen:</b> There is a … <span class="hint">→ fridge / oven / microwave / sink / kettle</span></span></div>
+      <div class="prov-row blue"><span class="prov-num">🛋</span><span class="prov-text"><b>Living room:</b> There is a … <span class="hint">→ sofa / armchair / TV / lamp / shelf / carpet</span></span></div>
+      <div class="prov-row blue"><span class="prov-num">🛋</span><span class="prov-text"><b>Living room:</b> There are … on the shelf. <span class="hint">→ books / photos / plants / pictures</span></span></div>
+      <div class="prov-row blue"><span class="prov-num">🛏</span><span class="prov-text"><b>Bedroom:</b> There is a … <span class="hint">→ bed / wardrobe / bedside lamp / pillow / blanket</span></span></div>
+      <div class="prov-row blue"><span class="prov-num">🛁</span><span class="prov-text"><b>Bathroom:</b> There is a … <span class="hint">→ mirror / shower / bath / sink / towel</span></span></div>
+      <div class="prov-row blue"><span class="prov-num">💡</span><span class="prov-text"><b>Whole flat:</b> It is … <span class="hint">→ warm / quiet / modern / small / comfortable</span></span></div>
+      <div class="prov-row blue"><span class="prov-num">🏠</span><span class="prov-text"><b>Whole flat:</b> It is a … flat. <span class="hint">→ small studio / one-bedroom / cosy city / modern</span></span></div>
+      <div class="prov-row blue"><span class="prov-num">🎯</span><span class="prov-text"><b>Favourite spot:</b> My favourite place is the … because … <span class="hint">→ kitchen / balcony / armchair</span></span></div>
     </div>
+    <div class="rule-box" style="margin-top:12px;background:linear-gradient(135deg,var(--gold-soft),#fff);border-left-color:var(--accent3)"><strong>Bonus round</strong>Now say <em>3 sentences about what is NOT there</em>: <em>«There isn't a … / There aren't any …»</em> — a dishwasher · a balcony · plants · a piano · a second bathroom.</div>
   </div>
 </section>
 
@@ -485,20 +655,93 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),var(--accent
 <!-- BLOCK 12 · FREQUENCY LADDER                                                 -->
 <!-- ═══════════════════════════════════════════════════════════════════════════ -->
 <section class="section blue" id="b12">
-  <div class="section-hdr"><span class="num">12</span><h2>Frequency ladder · 7 frequencies × 1 verb = 7 sentences in a row</h2></div>
+  <div class="section-hdr"><span class="num">12</span><h2>Frequency ladder · specific questions × real answers</h2></div>
   <div class="card">
-    <div class="section-tag">choose one verb · say it 7 times with different frequency adverbs</div>
-    <div class="rule-box blue"><strong>Rule</strong>Pick one verb (<em>drink coffee / go to the gym / wear a jacket / walk in the park / meet colleagues</em>) and say it <em>7 times in a row</em>, changing only the frequency. Position: <b>before the main verb, after to be</b>.</div>
-    <div class="freq-ladder">
-      <div class="freq-pct">100%</div><div class="freq-verb">I <b>always</b> …</div>
-      <div class="freq-pct">~90%</div><div class="freq-verb">I <b>usually</b> …</div>
-      <div class="freq-pct">~70%</div><div class="freq-verb">I <b>often</b> …</div>
-      <div class="freq-pct">~40%</div><div class="freq-verb">I <b>sometimes</b> …</div>
-      <div class="freq-pct">~15%</div><div class="freq-verb">I <b>rarely</b> …</div>
-      <div class="freq-pct">~5%</div><div class="freq-verb">I <b>seldom</b> …</div>
-      <div class="freq-pct">0%</div><div class="freq-verb">I <b>never</b> …</div>
+    <div class="section-tag">7 frequencies · one concrete question each · say YOUR real answer</div>
+    <div class="rule-box blue"><strong>Rule</strong>Each rung has: a real question + a sample answer + words to swap. First read the sample. Then say <em>your own</em> version, replacing the <u>underlined</u> word. Position rule: <b>frequency word goes BEFORE the main verb</b>. After <em>to be</em> — after (bonus box below).</div>
+    <style>
+      .freq-block{display:grid;grid-template-columns:90px 1fr;gap:12px;margin:10px 0;align-items:stretch}
+      .freq-block .lvl{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-radius:10px;display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:var(--display);font-weight:900;padding:12px 6px;text-align:center}
+      .freq-block .lvl .pct{font-size:.72rem;letter-spacing:.10em;opacity:.85;margin-bottom:3px}
+      .freq-block .lvl .adv{font-size:.98rem;text-transform:lowercase}
+      .freq-block .qa{background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:flex;flex-direction:column;gap:6px}
+      .freq-block .qa .q{font-family:var(--serif);font-size:.98rem;color:var(--accent3);font-weight:700}
+      .freq-block .qa .q::before{content:"❓ "}
+      .freq-block .qa .a{font-family:var(--serif);font-size:.96rem;color:var(--ink);font-style:italic;padding-left:6px;border-left:3px solid var(--accent)}
+      .freq-block .qa .a b{color:var(--accent2);font-style:normal;font-weight:700}
+      .freq-block .qa .a u{text-decoration:underline dotted;text-decoration-color:var(--accent);text-underline-offset:3px;font-weight:700;color:var(--ink)}
+      .freq-block .qa .swap{font-family:var(--mono);font-size:.68rem;color:var(--muted);letter-spacing:.06em;padding-left:6px}
+      .freq-block .qa .swap b{color:var(--accent2)}
+    </style>
+
+    <div class="freq-block">
+      <div class="lvl"><span class="pct">100%</span><span class="adv">always</span></div>
+      <div class="qa">
+        <div class="q">What do you always do first thing in the morning?</div>
+        <div class="a">I <b>always</b> drink a cup of <u>coffee</u> before I open my laptop.</div>
+        <div class="swap"><b>swap:</b> coffee → tea · water · orange juice</div>
+      </div>
     </div>
-    <div class="rule-box"><strong>Bonus + to be</strong>«I <b>am always</b> tired on Fridays.» · «She <b>is never</b> late.» — add 2 sentences with <em>be</em>.</div>
+
+    <div class="freq-block">
+      <div class="lvl"><span class="pct">~90%</span><span class="adv">usually</span></div>
+      <div class="qa">
+        <div class="q">Where do you usually have lunch on a working day?</div>
+        <div class="a">I <b>usually</b> have lunch <u>at a small café near the office</u>.</div>
+        <div class="swap"><b>swap:</b> at home · in a restaurant · at my desk</div>
+      </div>
+    </div>
+
+    <div class="freq-block">
+      <div class="lvl"><span class="pct">~70%</span><span class="adv">often</span></div>
+      <div class="qa">
+        <div class="q">How often do you meet friends after work?</div>
+        <div class="a">I <b>often</b> meet friends <u>on Fridays</u> at our favourite café.</div>
+        <div class="swap"><b>swap:</b> on Fridays → on Saturdays · after 8 p.m. · on weekends</div>
+      </div>
+    </div>
+
+    <div class="freq-block">
+      <div class="lvl"><span class="pct">~40%</span><span class="adv">sometimes</span></div>
+      <div class="qa">
+        <div class="q">Do you go to the gym on Sundays?</div>
+        <div class="a">I <b>sometimes</b> go to the gym <u>on Sunday morning</u>, if I'm not too tired.</div>
+        <div class="swap"><b>swap:</b> on Sunday morning → in the evening · after work · at lunchtime</div>
+      </div>
+    </div>
+
+    <div class="freq-block">
+      <div class="lvl"><span class="pct">~15%</span><span class="adv">rarely</span></div>
+      <div class="qa">
+        <div class="q">Do you cook dinner at home during the week?</div>
+        <div class="a">I <b>rarely</b> cook during the week — <u>maybe once or twice a month</u>.</div>
+        <div class="swap"><b>swap:</b> once or twice a month → only on holidays · when guests come</div>
+      </div>
+    </div>
+
+    <div class="freq-block">
+      <div class="lvl"><span class="pct">~5%</span><span class="adv">seldom</span></div>
+      <div class="qa">
+        <div class="q">Do you watch TV in the evening?</div>
+        <div class="a">I <b>seldom</b> watch TV — I prefer to <u>read a book</u> or listen to music.</div>
+        <div class="swap"><b>swap:</b> read a book → scroll the news · walk with my dog · call my parents</div>
+      </div>
+    </div>
+
+    <div class="freq-block">
+      <div class="lvl"><span class="pct">0%</span><span class="adv">never</span></div>
+      <div class="qa">
+        <div class="q">Do you drink coffee after 6 p.m.?</div>
+        <div class="a">I <b>never</b> drink coffee after 6 p.m. — <u>it keeps me awake all night</u>.</div>
+        <div class="swap"><b>swap:</b> coffee → strong tea · energy drinks · Coca-Cola</div>
+      </div>
+    </div>
+
+    <div class="rule-box" style="margin-top:14px;background:linear-gradient(135deg,var(--gold-soft),#fff);border-left-color:var(--accent3)"><strong>Bonus · to be + adverb (position AFTER be)</strong>
+      <br>&nbsp;• <em>Are you tired on Friday evenings?</em> → I <b>am always</b> tired on Friday evenings after a long week.
+      <br>&nbsp;• <em>Is your wife busy in the morning?</em> → She <b>is often</b> busy — she leaves for work at seven.
+      <br>&nbsp;• <em>Are your colleagues late for meetings?</em> → They <b>are rarely</b> late — everyone comes on time.
+    </div>
   </div>
 </section>
 
@@ -527,22 +770,94 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),var(--accent
 <!-- BLOCK 14 · WH-QUESTIONS · full pack                                         -->
 <!-- ═══════════════════════════════════════════════════════════════════════════ -->
 <section class="section blue" id="b14">
-  <div class="section-hdr"><span class="num">14</span><h2>Wh-questions · full pack · 10 out loud</h2></div>
+  <div class="section-hdr"><span class="num">14</span><h2>Wh-questions · pick a word · unfold questions</h2></div>
   <div class="card">
-    <div class="section-tag">What / Where / When / Why / How often / How much / What time · full sentence answers</div>
-    <div class="rule-box blue"><strong>Rule</strong>Each answer = a full sentence (not «at seven», but «I usually get up at seven a.m.»).</div>
-    <div class="prov-grid">
-      <div class="prov-row blue"><span class="prov-num">1</span><span class="prov-text">What time do you usually get up?</span></div>
-      <div class="prov-row blue"><span class="prov-num">2</span><span class="prov-text">Where do you have lunch during the week?</span></div>
-      <div class="prov-row blue"><span class="prov-num">3</span><span class="prov-text">When do you finish work?</span></div>
-      <div class="prov-row blue"><span class="prov-num">4</span><span class="prov-text">Why are you wearing this today?</span></div>
-      <div class="prov-row blue"><span class="prov-num">5</span><span class="prov-text">How often do you go jogging in the park?</span></div>
-      <div class="prov-row blue"><span class="prov-num">6</span><span class="prov-text">How much does a taxi cost from your home to the airport?</span></div>
-      <div class="prov-row blue"><span class="prov-num">7</span><span class="prov-text">What are you doing right now besides talking to me?</span></div>
-      <div class="prov-row blue"><span class="prov-num">8</span><span class="prov-text">Where does your best friend live?</span></div>
-      <div class="prov-row blue"><span class="prov-num">9</span><span class="prov-text">How many rooms are there in your flat?</span></div>
-      <div class="prov-row blue"><span class="prov-num">10</span><span class="prov-text">Why do you prefer this neighbourhood?</span></div>
+    <div class="section-tag">7 wh-words · click a tile to open 2 questions + sample answers</div>
+    <div class="rule-box blue"><strong>How it works</strong>Tap any wh-word tile below — it unfolds 2 real questions with sample answers. Say YOUR answer first, then compare with the sample. Full sentences only.</div>
+    <style>
+      .wh-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+      @media(max-width:720px){.wh-grid{grid-template-columns:repeat(2,1fr)}}
+      .wh-tile{background:linear-gradient(135deg,var(--card),var(--accent-blue-soft));border:2px solid var(--accent3);border-radius:12px;padding:14px 10px;cursor:pointer;font-family:var(--display);font-weight:800;color:var(--accent3);text-align:center;font-size:1rem;transition:all .18s;line-height:1.15;position:relative}
+      .wh-tile:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(30,93,168,.20)}
+      .wh-tile .wh-emoji{display:block;font-size:1.5rem;margin-bottom:4px}
+      .wh-tile.open{background:linear-gradient(135deg,var(--accent3),#153F73);color:#fff}
+      .wh-panels{margin-top:14px}
+      .wh-panel{display:none;background:#fff;border:1.5px solid var(--accent3);border-radius:14px;padding:18px 20px;box-shadow:0 6px 18px rgba(30,93,168,.14);animation:fadeUp2 .3s}
+      .wh-panel.on{display:block}
+      @keyframes fadeUp2{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+      .wh-panel h4{font-family:var(--display);font-weight:800;color:var(--accent3);font-size:1.2rem;margin-bottom:12px;letter-spacing:-.01em}
+      .wh-qa{margin-bottom:12px;padding-bottom:12px;border-bottom:1px dashed var(--line)}
+      .wh-qa:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
+      .wh-qa .q{font-family:var(--serif);font-size:1.04rem;color:var(--ink);font-weight:600;display:flex;align-items:flex-start;gap:8px}
+      .wh-qa .q::before{content:"❓";flex-shrink:0}
+      .wh-qa .a{font-family:var(--serif);font-size:.96rem;color:var(--muted);font-style:italic;margin-top:6px;padding-left:8px;border-left:3px solid var(--accent)}
+      .wh-qa .a::before{content:"✎ ";color:var(--accent);font-style:normal;font-weight:800}
+      .wh-qa .a b{color:var(--accent2);font-weight:700;font-style:normal}
+    </style>
+    <div class="wh-grid" id="wh-grid">
+      <button class="wh-tile" data-wh="what"><span class="wh-emoji">💬</span>What</button>
+      <button class="wh-tile" data-wh="where"><span class="wh-emoji">📍</span>Where</button>
+      <button class="wh-tile" data-wh="when"><span class="wh-emoji">⏰</span>When</button>
+      <button class="wh-tile" data-wh="why"><span class="wh-emoji">🤔</span>Why</button>
+      <button class="wh-tile" data-wh="howoften"><span class="wh-emoji">🔁</span>How often</button>
+      <button class="wh-tile" data-wh="howmuch"><span class="wh-emoji">💰</span>How much /<br>How many</button>
+      <button class="wh-tile" data-wh="whattime"><span class="wh-emoji">🕒</span>What time</button>
     </div>
+    <div class="wh-panels" id="wh-panels">
+      <div class="wh-panel" data-panel="what">
+        <h4>💬 What · asks about the thing / action</h4>
+        <div class="wh-qa"><div class="q">What do you usually do after work?</div><div class="a">I usually go for a short walk in the park before <b>dinner</b>.</div></div>
+        <div class="wh-qa"><div class="q">What are you wearing right now?</div><div class="a">I'm wearing a warm <b>hoodie</b> because it's cold in my office.</div></div>
+      </div>
+      <div class="wh-panel" data-panel="where">
+        <h4>📍 Where · asks about the place</h4>
+        <div class="wh-qa"><div class="q">Where does your best friend live?</div><div class="a">He lives in a small town about <b>two hours</b> from Moscow.</div></div>
+        <div class="wh-qa"><div class="q">Where do you have lunch during the week?</div><div class="a">I have lunch at a small <b>café near the office</b>, usually alone with a book.</div></div>
+      </div>
+      <div class="wh-panel" data-panel="when">
+        <h4>⏰ When · asks about the moment / period</h4>
+        <div class="wh-qa"><div class="q">When do you finish work on Fridays?</div><div class="a">I finish around <b>six p.m.</b>, a bit earlier than other days.</div></div>
+        <div class="wh-qa"><div class="q">When are you going on your next holiday?</div><div class="a">I'm going in <b>October</b>, right after my big project ends.</div></div>
+      </div>
+      <div class="wh-panel" data-panel="why">
+        <h4>🤔 Why · asks for the reason</h4>
+        <div class="wh-qa"><div class="q">Why do you prefer this neighbourhood?</div><div class="a">Because there's a <b>park nearby</b> and the streets are quiet in the evening.</div></div>
+        <div class="wh-qa"><div class="q">Why are you learning English?</div><div class="a">Because I want to feel <b>confident</b> when I travel abroad.</div></div>
+      </div>
+      <div class="wh-panel" data-panel="howoften">
+        <h4>🔁 How often · asks about frequency</h4>
+        <div class="wh-qa"><div class="q">How often do you go jogging in the park?</div><div class="a">I go jogging <b>twice a week</b>, usually on Tuesdays and Sundays.</div></div>
+        <div class="wh-qa"><div class="q">How often does your family visit you?</div><div class="a">They visit me <b>once a month</b>, usually on the second Saturday.</div></div>
+      </div>
+      <div class="wh-panel" data-panel="howmuch">
+        <h4>💰 How much / How many · asks about quantity</h4>
+        <div class="wh-qa"><div class="q">How much does a taxi cost from your home to the airport?</div><div class="a">A taxi costs around <b>fifteen hundred rubles</b>, if there's no traffic.</div></div>
+        <div class="wh-qa"><div class="q">How many rooms are there in your flat?</div><div class="a">There are <b>two rooms</b>, plus a small kitchen and a bathroom.</div></div>
+      </div>
+      <div class="wh-panel" data-panel="whattime">
+        <h4>🕒 What time · asks about the exact clock time</h4>
+        <div class="wh-qa"><div class="q">What time do you usually get up on a working day?</div><div class="a">I usually get up at <b>seven a.m.</b>, even on weekends.</div></div>
+        <div class="wh-qa"><div class="q">What time does the nearest café open on Sundays?</div><div class="a">I think it opens at <b>nine a.m.</b>, but I'm not completely sure.</div></div>
+      </div>
+    </div>
+    <script>
+      (function(){
+        var grid = document.getElementById('wh-grid');
+        var panels = document.getElementById('wh-panels');
+        grid.addEventListener('click', function(e){
+          var t = e.target.closest('.wh-tile');
+          if(!t) return;
+          var target = t.dataset.wh;
+          var already = t.classList.contains('open');
+          grid.querySelectorAll('.wh-tile.open').forEach(function(x){ x.classList.remove('open'); });
+          panels.querySelectorAll('.wh-panel.on').forEach(function(x){ x.classList.remove('on'); });
+          if(!already){
+            t.classList.add('open');
+            panels.querySelector('.wh-panel[data-panel="'+target+'"]').classList.add('on');
+          }
+        });
+      })();
+    </script>
   </div>
 </section>
 
@@ -825,35 +1140,147 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),var(--accent
 <!-- BLOCK 20 · FINAL · 60-second monologue                                      -->
 <!-- ═══════════════════════════════════════════════════════════════════════════ -->
 <section class="section blue" id="b20">
-  <div class="section-hdr"><span class="num">20</span><h2>🎤 Final · 60-second monologue · no pauses</h2></div>
+  <div class="section-hdr"><span class="num">20</span><h2>🎲 Final · Situation dice · 20 real-life cases</h2></div>
   <div class="card">
-    <div class="section-tag">timer 60s · 8 mandatory ingredients · restart if pause > 3 seconds</div>
-    <div class="timer-box">
-      <div style="font-family:var(--mono);font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;opacity:.9">Choose your topic. Press START. Go.</div>
-      <div class="timer-face" id="timer-face">60</div>
-      <button class="timer-btn" id="timer-start">Start</button>
-      <button class="timer-btn stop" id="timer-reset">Reset</button>
-      <div class="timer-topics">
-        <div class="timer-topic"><b>1.</b> My typical Monday</div>
-        <div class="timer-topic"><b>2.</b> My kitchen right now</div>
-        <div class="timer-topic"><b>3.</b> My parents' life</div>
-        <div class="timer-topic"><b>4.</b> My favourite café</div>
-        <div class="timer-topic"><b>5.</b> My best hobby</div>
+    <div class="section-tag">roll the dice → a situation appears · handle it in English using the given words</div>
+    <div class="rule-box blue"><strong>How it works</strong>Press the big 🎲 — a random real-life situation drops in. Read the setup, then <em>speak your way through it</em> in English, using the suggested words. Optional: press ⏱ 60-second timer for extra pressure.</div>
+    <style>
+      .sit-wrap{display:grid;grid-template-columns:200px 1fr;gap:18px;margin-top:14px;align-items:start}
+      @media(max-width:720px){.sit-wrap{grid-template-columns:1fr}}
+      .sit-left{display:flex;flex-direction:column;gap:12px;align-items:center}
+      .sit-dice{width:150px;height:150px;border-radius:28px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-family:var(--display);font-weight:900;font-size:3.2rem;cursor:pointer;border:none;box-shadow:0 10px 26px rgba(200,16,46,.35);transition:transform .2s;display:grid;place-items:center;line-height:1}
+      .sit-dice:hover{transform:translateY(-2px) rotate(8deg)}
+      .sit-dice.rolling{animation:diceSpin .7s cubic-bezier(.36,.07,.19,.97)}
+      @keyframes diceSpin{0%{transform:rotate(0) scale(1)}30%{transform:rotate(180deg) scale(1.08)}60%{transform:rotate(360deg) scale(.95)}100%{transform:rotate(720deg) scale(1)}}
+      .sit-timer{background:#fff;border:1.5px solid var(--line-2);border-radius:12px;padding:10px 14px;text-align:center;width:100%;box-shadow:0 3px 10px rgba(0,0,0,.08)}
+      .sit-timer .tf{font-family:var(--display);font-weight:900;font-size:2.4rem;color:var(--accent2);line-height:1;margin:4px 0}
+      .sit-timer button{background:var(--accent3);color:#fff;border:none;padding:6px 14px;border-radius:50px;font-family:var(--display);font-weight:800;font-size:.72rem;letter-spacing:.10em;text-transform:uppercase;cursor:pointer;margin:2px}
+      .sit-timer button.reset{background:#fff;color:var(--ink);border:1.5px solid var(--line-2)}
+      .sit-counter{font-family:var(--mono);font-size:.72rem;letter-spacing:.10em;text-transform:uppercase;color:var(--muted);font-weight:800;text-align:center}
+      .sit-counter b{color:var(--accent);font-size:1.1rem}
+      .sit-right{background:linear-gradient(135deg,#fff,var(--card-2));border:1px solid var(--line);border-radius:16px;padding:22px 24px;min-height:200px;display:flex;flex-direction:column;justify-content:center;gap:12px;box-shadow:0 4px 14px rgba(13,27,42,.08)}
+      .sit-empty{text-align:center;font-family:var(--serif);font-size:1.05rem;color:var(--muted);font-style:italic}
+      .sit-empty::before{content:"👈 ";font-style:normal}
+      .sit-card{display:none;animation:sitIn .4s}
+      .sit-card.on{display:block}
+      @keyframes sitIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+      .sit-icon{font-size:2.6rem;text-align:center;line-height:1}
+      .sit-num{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:800;text-align:center;margin:6px 0 2px}
+      .sit-setup{font-family:var(--serif);font-size:1.15rem;color:var(--ink);text-align:center;line-height:1.5}
+      .sit-words{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:10px;padding:10px 12px;background:var(--accent-blue-soft);border-radius:10px;border:1px dashed var(--accent3)}
+      .sit-words .lbl{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent3);font-weight:800;align-self:center;margin-right:6px}
+      .sit-words .w{background:#fff;border:1.5px solid var(--accent3);color:var(--accent3);padding:4px 10px;border-radius:6px;font-family:var(--mono);font-weight:700;font-size:.82rem}
+    </style>
+    <div class="sit-wrap">
+      <div class="sit-left">
+        <button class="sit-dice" id="sit-dice">🎲</button>
+        <div class="sit-timer">
+          <div style="font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:800">⏱ Timer</div>
+          <div class="tf" id="sit-tf">60</div>
+          <button id="sit-start">Start</button>
+          <button class="reset" id="sit-reset">Reset</button>
+        </div>
+        <div class="sit-counter">Rolled <b id="sit-rolled">0</b></div>
+      </div>
+      <div class="sit-right" id="sit-right">
+        <div class="sit-empty" id="sit-empty">roll the dice to get your first situation</div>
+        <div class="sit-card" id="sit-card">
+          <div class="sit-icon" id="sit-icon">🎲</div>
+          <div class="sit-num" id="sit-num">situation 1 / 20</div>
+          <div class="sit-setup" id="sit-setup"></div>
+          <div class="sit-words" id="sit-words"></div>
+        </div>
       </div>
     </div>
-    <div class="checklist">
-      <div class="checklist-title">✅ Must include (click when said)</div>
+    <div class="checklist" style="margin-top:16px">
+      <div class="checklist-title">✅ Try to include (click when said)</div>
       <ul id="checklist">
-        <li>≥ 2 different tenses</li>
-        <li>1 × There is / There are</li>
+        <li>a full sentence (not just one word)</li>
+        <li>1 × Present Simple («I usually …»)</li>
+        <li>1 × Present Continuous («right now I am …»)</li>
         <li>1 × have got</li>
         <li>1 × can / can't</li>
         <li>1 × future (will or going to)</li>
-        <li>1 × Present Continuous («right now I am…»)</li>
-        <li>3 × frequency adverbs</li>
-        <li>1 × preposition of time (at / in / on)</li>
+        <li>1 × polite phrase (Could you… / Can I…)</li>
+        <li>at least 3 words from the box</li>
       </ul>
     </div>
+    <script>
+    (function(){
+      var SITS = [
+        {icon:'🏨',setup:'You arrive at a hotel at 11 p.m. You have a reservation but the receptionist can\'t find your name.',words:['reservation','confirmation','room key','breakfast','Wi-Fi']},
+        {icon:'✈️',setup:'You are checking in for your flight. You want a window seat and you are a bit late.',words:['boarding pass','window seat','luggage','gate','delay']},
+        {icon:'🚕',setup:'You take a taxi to the airport in the morning. There is traffic and you are nervous.',words:['airport','hurry','boot','credit card','how long']},
+        {icon:'☕',setup:'You order a coffee to-go and ask the barista for the Wi-Fi password.',words:['cappuccino','to-go','sugar','password','receipt']},
+        {icon:'🍽',setup:'You finished dinner in a restaurant. Ask for the bill and pay by card.',words:['bill','tip','card','split','thank you']},
+        {icon:'🛍',setup:'You want to try on a jacket in a shop but it is too small.',words:['size','colour','fitting room','discount','take it']},
+        {icon:'🏥',setup:'You go to a pharmacy with a headache and no prescription.',words:['painkiller','pack','prescription','allergy','pay']},
+        {icon:'🚨',setup:'You realise your passport is lost at the airport. Explain it to the airport staff.',words:['embassy','police','copy','urgent','help']},
+        {icon:'🅿️',setup:'You are lost in a new city. Ask a passer-by how to get to the nearest metro.',words:['turn left','straight on','opposite','next to','how far']},
+        {icon:'📶',setup:'The Wi-Fi in your hotel room is not working. Call the reception.',words:['Wi-Fi','password','network','slow','room number']},
+        {icon:'🥶',setup:'It is cold in your hotel room. You want an extra blanket and higher heating.',words:['heating','thermostat','blanket','reception','please']},
+        {icon:'🚄',setup:'You buy a train ticket to St Petersburg — one-way, in the morning.',words:['platform','one-way','return','first class','depart']},
+        {icon:'💼',setup:'A new colleague joins your team today. Small-talk with them at the coffee machine.',words:['nice to meet you','department','position','coffee','welcome']},
+        {icon:'📞',setup:'You call a hairdresser to book an appointment for next Saturday.',words:['available','morning','cancel','reschedule','confirm']},
+        {icon:'🍳',setup:'Breakfast at a hotel. You want eggs, toast, orange juice — and an extra plate.',words:['eggs','toast','orange juice','extra plate','table']},
+        {icon:'🏋️',setup:'You go to a gym to ask about a trial membership and prices.',words:['membership','discount','trial','opening hours','pay by card']},
+        {icon:'🚌',setup:'You are at a bus stop but you are not sure which bus goes to the centre.',words:['bus number','stop','direction','next bus','centre']},
+        {icon:'🦷',setup:'You have toothache and need to see a dentist today, even without an appointment.',words:['filling','appointment','pain','insurance','urgent']},
+        {icon:'🎂',setup:'You come to a colleague\'s birthday party. Congratulate them and start small talk.',words:['cheers','congratulations','gift','cake','present']},
+        {icon:'🚑',setup:'You feel sick — dizzy, cold, tired. Ask the receptionist for a doctor.',words:['dizzy','temperature','tired','cold','doctor']}
+      ];
+      var pool = SITS.slice();
+      var rolled = 0;
+      var diceBtn = document.getElementById('sit-dice');
+      var emptyEl = document.getElementById('sit-empty');
+      var cardEl = document.getElementById('sit-card');
+      var iconEl = document.getElementById('sit-icon');
+      var numEl = document.getElementById('sit-num');
+      var setupEl = document.getElementById('sit-setup');
+      var wordsEl = document.getElementById('sit-words');
+      var rolledEl = document.getElementById('sit-rolled');
+
+      function draw(){
+        if(pool.length === 0){ pool = SITS.slice(); }
+        var idx = Math.floor(Math.random()*pool.length);
+        var sit = pool.splice(idx,1)[0];
+        var origIdx = SITS.indexOf(sit) + 1;
+        iconEl.textContent = sit.icon;
+        numEl.textContent = 'situation ' + origIdx + ' / ' + SITS.length;
+        setupEl.textContent = sit.setup;
+        wordsEl.innerHTML = '<span class="lbl">use these:</span>' + sit.words.map(function(w){ return '<span class="w">'+w+'</span>'; }).join('');
+        emptyEl.style.display = 'none';
+        cardEl.classList.add('on');
+      }
+
+      diceBtn.addEventListener('click', function(){
+        diceBtn.classList.add('rolling');
+        setTimeout(function(){ diceBtn.classList.remove('rolling'); }, 700);
+        rolled += 1;
+        rolledEl.textContent = rolled;
+        draw();
+      });
+
+      var face = document.getElementById('sit-tf');
+      var startBtn = document.getElementById('sit-start');
+      var resetBtn = document.getElementById('sit-reset');
+      var interval = null;
+      var remaining = 60;
+      function render(){ face.textContent = remaining; }
+      function tick(){ remaining -= 1; if(remaining <= 0){ clearInterval(interval); interval = null; face.textContent='⏰'; face.style.color='var(--accent)'; startBtn.textContent='Start'; return; } render(); }
+      startBtn.addEventListener('click', function(){
+        if(interval){ clearInterval(interval); interval=null; startBtn.textContent='Start'; return; }
+        face.style.color = 'var(--accent2)';
+        interval = setInterval(tick, 1000);
+        startBtn.textContent = 'Pause';
+      });
+      resetBtn.addEventListener('click', function(){
+        clearInterval(interval); interval=null; remaining=60; render();
+        face.style.color = ''; startBtn.textContent='Start';
+        document.querySelectorAll('#checklist li').forEach(function(li){ li.classList.remove('done'); });
+      });
+    })();
+    </script>
   </div>
 </section>
 
