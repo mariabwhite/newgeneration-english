@@ -279,6 +279,64 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:20px 0}
 .qb-status.ok{color:var(--ok)}
 .qb-status.bad{color:var(--miss)}
 
+/* Distinct border-left colour per mechanic — 5 kinds visually obvious */
+.qw-mech-builder  { border-left-color:#1E6FBA; }
+.qw-mech-transform{ border-left-color:#E88B4F; }
+.qw-mech-answer   { border-left-color:#4CAF50; }
+.qw-mech-chunks   { border-left-color:#7B4FBA; }
+.qw-mech-type     { border-left-color:#8A8F97; }
+
+/* TRANSFORM: click words inside the statement itself */
+.qw-tf-stmt{background:#FFF3E7;border:1.5px solid #E88B4F;border-radius:12px;padding:12px 14px;margin:8px 0 6px;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.qw-tf-label{font:800 10px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#B94F1F;background:#FFE7D0;border-radius:20px;padding:4px 10px}
+.qw-tf-words{display:inline-flex;flex-wrap:wrap;gap:6px}
+.qw-stmt-word{background:#fff;border:2px solid #E88B4F;color:#B94F1F;padding:5px 12px;border-radius:8px;font:700 .95rem Georgia,serif;cursor:pointer;transition:.15s}
+.qw-stmt-word:hover:not(:disabled){background:#E88B4F;color:#fff;transform:translateY(-1px)}
+.qw-stmt-word.used,.qw-stmt-word:disabled{opacity:.28;cursor:default;background:#fff;color:var(--muted);border-color:var(--line);transform:none}
+.qw-tf-arrow{font-size:.82rem;color:#B94F1F;font-style:italic;margin:6px 0 4px;text-align:center}
+.qw-tf-question{background:#FFF9F3;border:1.5px dashed #E88B4F;border-radius:12px;padding:12px 14px;margin:0 0 10px;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.qb-slot-tf{border-color:#E88B4F;color:#B94F1F}
+.qb-slot-tf.filled{color:#B94F1F}
+.qb-line-tf{background:transparent;border:none;padding:0;margin:0;min-height:0;flex:1;display:inline-flex;flex-wrap:wrap;gap:6px}
+
+/* ANSWER MCQ: three question options after the reply */
+.qw-ans-badge{display:inline-block;font:800 10px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#2e7d32;background:#DCEEDF;border-radius:20px;padding:4px 10px;margin-right:6px}
+.qw-ans-hint{font-size:.82rem;color:var(--muted);font-style:italic;margin:6px 0}
+.qw-ans-list{display:flex;flex-direction:column;gap:8px;margin:8px 0 6px}
+.qw-ans-choice{background:#fff;border:2px solid #4CAF50;color:#2e7d32;padding:12px 16px;border-radius:12px;font:700 1rem Georgia,serif;cursor:pointer;text-align:left;transition:.15s}
+.qw-ans-choice:hover{background:#F1FAF2;transform:translateY(-1px)}
+.qw-ans-choice.selected{background:#DCEEDF;box-shadow:0 0 0 3px rgba(76,175,80,.25)}
+.qw-ans-choice.ok{background:#DCEEDF;border-color:#4CAF50;color:#2e7d32;font-weight:800}
+.qw-ans-choice.bad{background:#FFEBEE;border-color:var(--miss);color:var(--miss);animation:qwShake .35s}
+
+/* CHUNKS: vertical stack of big phrase tiles + numbered slots */
+.qw-ch-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:10px 0}
+@media(max-width:720px){.qw-ch-grid{grid-template-columns:1fr}}
+.qw-ch-bank,.qw-ch-target{background:#F5EEF8;border:1.5px solid #7B4FBA;border-radius:12px;padding:12px}
+.qw-ch-target{background:#FAF6FE;border-style:dashed}
+.qw-ch-label{font:800 10px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#5a3a8e;background:#EADFF4;border-radius:20px;padding:5px 10px;display:inline-block;margin-bottom:10px}
+.qw-ch-tile{display:block;width:100%;background:#fff;border:2px solid #7B4FBA;color:#5a3a8e;padding:10px 14px;border-radius:10px;font:700 .96rem Georgia,serif;cursor:pointer;text-align:left;margin-bottom:8px;transition:.15s}
+.qw-ch-tile:hover:not(:disabled){background:#7B4FBA;color:#fff;transform:translateX(4px)}
+.qw-ch-tile.selected{background:#7B4FBA;color:#fff;box-shadow:0 0 0 3px rgba(123,79,186,.25)}
+.qw-ch-tile.used,.qw-ch-tile:disabled{opacity:.28;cursor:default;background:#fff;color:var(--muted);border-color:var(--line);transform:none}
+.qw-ch-slot{display:flex;align-items:center;gap:10px;min-height:44px;background:#fff;border:1.5px dashed #7B4FBA;border-radius:10px;padding:10px 12px;margin-bottom:8px;cursor:pointer;transition:.15s}
+.qw-ch-slot:hover{background:#F5EEF8}
+.qw-ch-slot.filled{border-style:solid;background:#fff}
+.qw-ch-slot.ok{background:#E8F5E9;border-color:var(--ok)}
+.qw-ch-slot.bad{background:#FFEBEE;border-color:var(--miss);animation:qwShake .35s}
+.qw-ch-slot-num{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;background:#7B4FBA;color:#fff;border-radius:50%;font:800 .8rem var(--body);flex-shrink:0}
+.qw-ch-slot.ok .qw-ch-slot-num{background:var(--ok)}
+.qw-ch-slot.bad .qw-ch-slot-num{background:var(--miss)}
+.qw-ch-slot-text{font:700 .96rem Georgia,serif;color:#5a3a8e}
+.qw-ch-punct{margin-top:4px;font:800 1.2rem Georgia,serif;color:#5a3a8e;text-align:center}
+
+/* Free typing: input a bit bigger */
+.qb-type-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#F5F5F5;border-radius:10px;padding:12px}
+.qb-type-input{flex:1;min-width:280px;padding:10px 14px;border:1.5px solid #8A8F97;border-radius:8px;font:700 1rem Georgia,serif;color:var(--text);background:#fff;outline:none}
+.qb-type-input:focus{border-color:#1E6FBA}
+.qb-type-input.ok{background:#E8F5E9;border-color:var(--ok);color:var(--ok)}
+.qb-type-input.bad{background:#FFEBEE;border-color:var(--miss);color:var(--miss)}
+
 .qw-actions{margin-top:14px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .qw-check{font:800 11px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;background:var(--accent);color:#fff;border:none;padding:11px 18px;border-radius:8px;cursor:pointer}
 .qw-check:hover{background:var(--accent2)}
@@ -1462,10 +1520,10 @@ function qwTokens(answer){
 }
 function qwKindLabel(k){
   return ({
-    builder:  '🧱 Word bricks · tap the words in the right order',
-    transform:'🔁 Statement → question · shuffle the same words into a question',
-    answer:   '❓ Reverse Jeopardy · read the reply, build the question',
-    chunks:   '📦 Chunk bricks · tap whole phrases in the right order',
+    builder:  '🧱 Word bricks · bank of chips → slot line',
+    transform:'🔁 Click-inside-statement · pluck words from the statement itself',
+    answer:   '❓ Reverse Jeopardy MCQ · pick the right question from 3 options',
+    chunks:   '📦 Chunk tiles · vertical stack of full-phrase tiles',
     type:     '⌨️ Free typing · type the whole question yourself'
   })[k] || k;
 }
@@ -1479,10 +1537,50 @@ function renderQW(){
         const shuffled = qwShuffle(tokens, (q.id.charCodeAt(1)||5)*131 + ii*17);
         const slots = tokens.map((_, s) => `<span class="qb-slot" data-i="${s}"></span>`).join('');
         const bank  = shuffled.map((t, k) => `<button type="button" class="qb-word" data-w="${qwEsc(t)}" data-k="${k}">${qwEsc(t)}</button>`).join('');
-        return `<div class="qb-item" data-ii="${ii}" data-answer="${qwEsc(it.a)}">
+        return `<div class="qb-item qw-mech qw-mech-builder" data-ii="${ii}" data-answer="${qwEsc(it.a)}">
           <div class="qb-prompt"><span class="qb-num">${ii+1}.</span> ${qwEsc(it.p)}</div>
           <div class="qb-bank">${bank}</div>
           <div class="qb-line">${slots}<span class="qb-tail">${tail}</span></div>
+          <div class="qb-actions"><button type="button" class="qb-check">Check</button><button type="button" class="qb-reset">Reset</button><span class="qb-status"></span></div>
+        </div>`;
+      }).join('');
+    }
+    else if (q.kind === 'transform'){
+      itemsHtml = q.items.map((it, ii) => {
+        const {tokens, tail} = qwTokens(it.a);
+        // The statement itself is clickable. Each token in the statement (drop trailing period) becomes a clickable pill.
+        const stmt = it.s.replace(/\s*\.\s*$/,'').split(/\s+/);
+        const stmtHtml = stmt.map((w,k) => `<button type="button" class="qw-stmt-word" data-w="${qwEsc(w)}" data-k="${k}">${qwEsc(w)}</button>`).join(' ');
+        const slots = tokens.map((_, s) => `<span class="qb-slot qb-slot-tf" data-i="${s}"></span>`).join('');
+        return `<div class="qb-item qw-mech qw-mech-transform" data-ii="${ii}" data-answer="${qwEsc(it.a)}">
+          <div class="qb-prompt"><span class="qb-num">${ii+1}.</span> ${qwEsc(it.p||'Turn the statement into a question.')}</div>
+          <div class="qw-tf-stmt"><span class="qw-tf-label">Statement</span> <span class="qw-tf-words">${stmtHtml}</span></div>
+          <div class="qw-tf-arrow">↓ tap words above IN THE NEW ORDER — they jump into the question below</div>
+          <div class="qw-tf-question"><span class="qw-tf-label">Your question</span> <span class="qb-line qb-line-tf">${slots}<span class="qb-tail">${tail}</span></span></div>
+          <div class="qb-actions"><button type="button" class="qb-check">Check</button><button type="button" class="qb-reset">Reset</button><span class="qb-status"></span></div>
+        </div>`;
+      }).join('');
+    }
+    else if (q.kind === 'answer'){
+      itemsHtml = q.items.map((it, ii) => {
+        // Build 3 question choices: correct + 2 plausible wrong (reshuffled word-order or wrong aux)
+        const correct = it.a;
+        const words = correct.replace(/\s*\?\s*$/,'').split(/\s+/);
+        // Wrong option A: shuffle the middle words to mimic bad word-order
+        const wa = words.slice();
+        const seedA = (q.id.charCodeAt(1)||5)*89 + ii*11;
+        const sh = qwShuffle(wa, seedA);
+        const wrongA = sh.join(' ') + ' ?';
+        // Wrong option B: swap first token (aux <-> subject) as a plausible mistake
+        const wb = words.slice();
+        if (wb.length >= 3){ [wb[0], wb[1]] = [wb[1], wb[0]]; }
+        const wrongB = wb.join(' ') + ' ?';
+        const opts = qwShuffle([{v:correct,ok:true},{v:wrongA,ok:false},{v:wrongB,ok:false}], seedA+3);
+        const buttons = opts.map(o => `<button type="button" class="qw-ans-choice" data-ok="${o.ok?1:0}" data-w="${qwEsc(o.v)}">${qwEsc(o.v)}</button>`).join('');
+        return `<div class="qb-item qw-mech qw-mech-answer" data-ii="${ii}" data-answer="${qwEsc(correct)}">
+          <div class="qb-prompt"><span class="qb-num">${ii+1}.</span> <span class="qw-ans-badge">reply</span> <strong>${qwEsc(it.r)}</strong></div>
+          <div class="qw-ans-hint">→ which question fits this reply? Pick 1 of 3.</div>
+          <div class="qw-ans-list">${buttons}</div>
           <div class="qb-actions"><button type="button" class="qb-check">Check</button><button type="button" class="qb-reset">Reset</button><span class="qb-status"></span></div>
         </div>`;
       }).join('');
@@ -1491,50 +1589,22 @@ function renderQW(){
       itemsHtml = q.items.map((it, ii) => {
         const chunks = it.chunks;
         const shuffled = qwShuffle(chunks, (q.id.charCodeAt(1)||5)*211 + ii*23);
-        const slots = chunks.map((_, s) => `<span class="qb-slot qb-slot-chunk" data-i="${s}"></span>`).join('');
-        const bank  = shuffled.map((t, k) => `<button type="button" class="qb-word qb-word-chunk" data-w="${qwEsc(t)}" data-k="${k}">${qwEsc(t)}</button>`).join('');
+        const slots = chunks.map((_, s) => `<div class="qw-ch-slot" data-i="${s}"><span class="qw-ch-slot-num">${s+1}</span></div>`).join('');
+        const bank  = shuffled.map((t, k) => `<button type="button" class="qw-ch-tile" data-w="${qwEsc(t)}" data-k="${k}">${qwEsc(t)}</button>`).join('');
         const fullAns = chunks.join(' ') + ' ' + it.punct;
-        return `<div class="qb-item" data-ii="${ii}" data-answer="${qwEsc(fullAns)}">
+        return `<div class="qb-item qw-mech qw-mech-chunks" data-ii="${ii}" data-answer="${qwEsc(fullAns)}" data-punct="${qwEsc(it.punct)}">
           <div class="qb-prompt"><span class="qb-num">${ii+1}.</span> ${qwEsc(it.p)}</div>
-          <div class="qb-bank">${bank}</div>
-          <div class="qb-line">${slots}<span class="qb-tail">${it.punct}</span></div>
-          <div class="qb-actions"><button type="button" class="qb-check">Check</button><button type="button" class="qb-reset">Reset</button><span class="qb-status"></span></div>
-        </div>`;
-      }).join('');
-    }
-    else if (q.kind === 'transform'){
-      itemsHtml = q.items.map((it, ii) => {
-        const {tokens, tail} = qwTokens(it.a);
-        const shuffled = qwShuffle(tokens, (q.id.charCodeAt(1)||5)*97 + ii*13);
-        const slots = tokens.map((_, s) => `<span class="qb-slot" data-i="${s}"></span>`).join('');
-        const bank  = shuffled.map((t, k) => `<button type="button" class="qb-word" data-w="${qwEsc(t)}" data-k="${k}">${qwEsc(t)}</button>`).join('');
-        return `<div class="qb-item" data-ii="${ii}" data-answer="${qwEsc(it.a)}">
-          <div class="qb-prompt"><span class="qb-num">${ii+1}.</span> <em>Statement:</em> <strong>${qwEsc(it.s)}</strong></div>
-          <div class="qb-hint" style="font-size:.82rem;color:var(--muted);margin-bottom:8px">→ turn it into a question</div>
-          <div class="qb-bank">${bank}</div>
-          <div class="qb-line">${slots}<span class="qb-tail">${tail}</span></div>
-          <div class="qb-actions"><button type="button" class="qb-check">Check</button><button type="button" class="qb-reset">Reset</button><span class="qb-status"></span></div>
-        </div>`;
-      }).join('');
-    }
-    else if (q.kind === 'answer'){
-      itemsHtml = q.items.map((it, ii) => {
-        const {tokens, tail} = qwTokens(it.a);
-        const shuffled = qwShuffle(tokens, (q.id.charCodeAt(1)||5)*179 + ii*29);
-        const slots = tokens.map((_, s) => `<span class="qb-slot" data-i="${s}"></span>`).join('');
-        const bank  = shuffled.map((t, k) => `<button type="button" class="qb-word" data-w="${qwEsc(t)}" data-k="${k}">${qwEsc(t)}</button>`).join('');
-        return `<div class="qb-item" data-ii="${ii}" data-answer="${qwEsc(it.a)}">
-          <div class="qb-prompt"><span class="qb-num">${ii+1}.</span> <em>Reply:</em> <strong>${qwEsc(it.r)}</strong></div>
-          <div class="qb-hint" style="font-size:.82rem;color:var(--muted);margin-bottom:8px">→ what was the question?</div>
-          <div class="qb-bank">${bank}</div>
-          <div class="qb-line">${slots}<span class="qb-tail">${tail}</span></div>
+          <div class="qw-ch-grid">
+            <div class="qw-ch-bank"><div class="qw-ch-label">Phrase pool</div>${bank}</div>
+            <div class="qw-ch-target"><div class="qw-ch-label">Build the sentence · top → bottom</div>${slots}<div class="qw-ch-punct">${qwEsc(it.punct)}</div></div>
+          </div>
           <div class="qb-actions"><button type="button" class="qb-check">Check</button><button type="button" class="qb-reset">Reset</button><span class="qb-status"></span></div>
         </div>`;
       }).join('');
     }
     else if (q.kind === 'type'){
       itemsHtml = q.items.map((it, ii) => {
-        return `<div class="qb-item qb-item-type" data-ii="${ii}" data-answer="${qwEsc(it.a)}">
+        return `<div class="qb-item qb-item-type qw-mech qw-mech-type" data-ii="${ii}" data-answer="${qwEsc(it.a)}">
           <div class="qb-prompt"><span class="qb-num">${ii+1}.</span> ${qwEsc(it.p)}</div>
           <div class="qb-type-row">
             <input type="text" class="qb-type-input" placeholder="Type the whole question…" autocomplete="off" spellcheck="false">
@@ -1547,7 +1617,7 @@ function renderQW(){
       }).join('');
     }
     const kindBadge = qwKindLabel(q.kind);
-    return `<div class="qw-body" id="qw-${q.id}" data-qi="${qi}" data-kind="${q.kind}">
+    return `<div class="qw-body qw-body-${q.kind}" id="qw-${q.id}" data-qi="${qi}" data-kind="${q.kind}">
       <div class="qw-hdr"><h3>${qwEsc(q.title)}</h3><div class="sub">${qwEsc(q.sub)} · mechanic: ${kindBadge}</div></div>
       <div class="qw-rule"><strong>Rule:</strong> ${q.rule}</div>
       ${itemsHtml}
@@ -1561,92 +1631,133 @@ function renderQW(){
 
   const nav = QW.map(q => `<a class="qw-stab" href="#qw-${q.id}">${qwEsc(q.tag)} <span class="qw-tag">${q.id.toUpperCase()}</span></a>`).join('');
   app.innerHTML = `
-    <div class="ex-hdr"><h2>📝 Workbook · 10 questions · 5 different mechanics</h2><div class="sub">Every drill is about building QUESTIONS. Five mechanics rotate: word bricks · chunk bricks · statement→question · Reverse Jeopardy · free typing.</div></div>
+    <div class="ex-hdr"><h2>📝 Workbook · 10 questions · 5 visibly-different mechanics</h2><div class="sub">Word bricks · Click-inside-statement · Reverse Jeopardy MCQ · Chunk tiles (vertical) · Free typing.</div></div>
     <div class="qw-sub-tabs">${nav}</div>
     <div id="qw-stack">${cardsHtml}</div>`;
 
-  app.querySelectorAll('.qb-item').forEach(item => {
-    if (item.classList.contains('qb-item-type')){
-      const input = item.querySelector('.qb-type-input');
-      const status = item.querySelector('.qb-status');
-      item.querySelector('.qb-check').onclick = () => {
-        const expected = qwNorm(item.dataset.answer);
-        const built = qwNorm((input.value||'').trim() + ' ?');
-        if (built === expected){
-          input.classList.add('ok'); input.classList.remove('bad');
-          status.textContent = '✓ correct'; status.className='qb-status ok';
-        } else {
-          input.classList.add('bad'); input.classList.remove('ok');
-          status.textContent = '✗ try again'; status.className='qb-status bad';
-        }
-      };
-      item.querySelector('.qb-reset').onclick = () => {
-        input.value=''; input.classList.remove('ok','bad');
-        status.textContent=''; status.className='qb-status';
-      };
-      return;
-    }
+  // Attach behaviours by kind
+  app.querySelectorAll('.qw-mech-builder').forEach(item => {
     const words = item.querySelectorAll('.qb-word');
     const slots = item.querySelectorAll('.qb-slot');
     const status = item.querySelector('.qb-status');
     const fillNext = (btn) => {
-      for (const s of slots){
-        if (!s.classList.contains('filled')){
-          s.textContent = btn.dataset.w;
-          s.classList.add('filled');
-          s._btn = btn;
-          btn.classList.add('used'); btn.disabled = true;
-          return true;
-        }
-      }
+      for (const s of slots){ if (!s.classList.contains('filled')){ s.textContent = btn.dataset.w; s.classList.add('filled'); s._btn = btn; btn.classList.add('used'); btn.disabled = true; return true; } }
       return false;
     };
+    words.forEach(btn => btn.onclick = () => { if (btn.disabled) return; status.textContent=''; status.className='qb-status'; fillNext(btn); });
+    slots.forEach(s => s.onclick = () => { if (!s.classList.contains('filled')) return; s.classList.remove('filled','ok','bad'); s.textContent = ''; if (s._btn){ s._btn.classList.remove('used'); s._btn.disabled=false; s._btn=null; } status.textContent=''; status.className='qb-status'; });
+    item.querySelector('.qb-check').onclick = () => {
+      const expected = qwNorm(item.dataset.answer);
+      const built = qwNorm([...slots].map(s => s.textContent).join(' ') + ' ' + item.querySelector('.qb-tail').textContent);
+      if (built === expected){ slots.forEach(s => { s.classList.add('ok'); s.classList.remove('bad'); }); status.textContent='✓ correct'; status.className='qb-status ok'; }
+      else { slots.forEach(s => { s.classList.add('bad'); s.classList.remove('ok'); }); status.textContent='✗ check the order'; status.className='qb-status bad'; }
+    };
+    item.querySelector('.qb-reset').onclick = () => { slots.forEach(s => { s.textContent=''; s.classList.remove('filled','ok','bad'); s._btn=null; }); words.forEach(b => { b.classList.remove('used'); b.disabled=false; }); status.textContent=''; status.className='qb-status'; };
+  });
+
+  app.querySelectorAll('.qw-mech-transform').forEach(item => {
+    const words = item.querySelectorAll('.qw-stmt-word');
+    const slots = item.querySelectorAll('.qb-slot-tf');
+    const status = item.querySelector('.qb-status');
     words.forEach(btn => btn.onclick = () => {
       if (btn.disabled) return;
+      for (const s of slots){ if (!s.classList.contains('filled')){ s.textContent = btn.dataset.w; s.classList.add('filled'); s._btn = btn; btn.classList.add('used'); btn.disabled = true; break; } }
       status.textContent=''; status.className='qb-status';
-      fillNext(btn);
     });
     slots.forEach(s => s.onclick = () => {
       if (!s.classList.contains('filled')) return;
-      s.classList.remove('filled','ok','bad');
-      s.textContent = '';
+      s.classList.remove('filled','ok','bad'); s.textContent='';
       if (s._btn){ s._btn.classList.remove('used'); s._btn.disabled=false; s._btn=null; }
       status.textContent=''; status.className='qb-status';
     });
     item.querySelector('.qb-check').onclick = () => {
       const expected = qwNorm(item.dataset.answer);
       const built = qwNorm([...slots].map(s => s.textContent).join(' ') + ' ' + item.querySelector('.qb-tail').textContent);
-      if (built === expected){
-        slots.forEach(s => { s.classList.add('ok'); s.classList.remove('bad'); });
-        status.textContent = '✓ correct'; status.className='qb-status ok';
-      } else {
-        slots.forEach(s => { s.classList.add('bad'); s.classList.remove('ok'); });
-        status.textContent = '✗ check the order'; status.className='qb-status bad';
+      if (built === expected){ slots.forEach(s => s.classList.add('ok')); status.textContent='✓ correct'; status.className='qb-status ok'; }
+      else { slots.forEach(s => s.classList.add('bad')); status.textContent='✗ wrong order'; status.className='qb-status bad'; }
+    };
+    item.querySelector('.qb-reset').onclick = () => { slots.forEach(s => { s.textContent=''; s.classList.remove('filled','ok','bad'); s._btn=null; }); words.forEach(w => { w.classList.remove('used'); w.disabled=false; }); status.textContent=''; status.className='qb-status'; };
+  });
+
+  app.querySelectorAll('.qw-mech-answer').forEach(item => {
+    const choices = item.querySelectorAll('.qw-ans-choice');
+    const status = item.querySelector('.qb-status');
+    choices.forEach(btn => btn.onclick = () => {
+      choices.forEach(b => b.classList.remove('selected','ok','bad'));
+      btn.classList.add('selected');
+      status.textContent=''; status.className='qb-status';
+    });
+    item.querySelector('.qb-check').onclick = () => {
+      const sel = item.querySelector('.qw-ans-choice.selected');
+      if (!sel){ status.textContent='pick one first'; status.className='qb-status bad'; return; }
+      if (sel.dataset.ok === '1'){ sel.classList.add('ok'); status.textContent='✓ correct'; status.className='qb-status ok'; }
+      else { sel.classList.add('bad'); const right = item.querySelector('.qw-ans-choice[data-ok="1"]'); if (right) right.classList.add('ok'); status.textContent='✗ nope — green is the right one'; status.className='qb-status bad'; }
+    };
+    item.querySelector('.qb-reset').onclick = () => { choices.forEach(b => b.classList.remove('selected','ok','bad')); status.textContent=''; status.className='qb-status'; };
+  });
+
+  app.querySelectorAll('.qw-mech-chunks').forEach(item => {
+    const tiles = item.querySelectorAll('.qw-ch-tile');
+    const slots = item.querySelectorAll('.qw-ch-slot');
+    const status = item.querySelector('.qb-status');
+    let selected = null;
+    tiles.forEach(t => t.onclick = () => {
+      if (t.disabled) return;
+      if (selected === t){ selected.classList.remove('selected'); selected = null; return; }
+      tiles.forEach(x => x.classList.remove('selected'));
+      selected = t; t.classList.add('selected');
+    });
+    slots.forEach(s => s.onclick = () => {
+      if (s.classList.contains('filled') && !selected){
+        s.classList.remove('filled','ok','bad');
+        s.innerHTML = `<span class="qw-ch-slot-num">${+s.dataset.i + 1}</span>`;
+        if (s._tile){ s._tile.classList.remove('used'); s._tile.disabled=false; s._tile=null; }
+        status.textContent=''; status.className='qb-status'; return;
       }
+      if (!selected) return;
+      s.innerHTML = `<span class="qw-ch-slot-num">${+s.dataset.i + 1}</span> <span class="qw-ch-slot-text">${qwEsc(selected.dataset.w)}</span>`;
+      s.classList.add('filled');
+      s._tile = selected;
+      selected.classList.add('used'); selected.disabled = true;
+      selected.classList.remove('selected'); selected = null;
+      status.textContent=''; status.className='qb-status';
+    });
+    item.querySelector('.qb-check').onclick = () => {
+      const expected = qwNorm(item.dataset.answer);
+      const built = qwNorm([...slots].map(s => (s.querySelector('.qw-ch-slot-text')?.textContent||'')).join(' ') + ' ' + item.dataset.punct);
+      if (built === expected){ slots.forEach(s => s.classList.add('ok')); status.textContent='✓ correct'; status.className='qb-status ok'; }
+      else { slots.forEach(s => s.classList.add('bad')); status.textContent='✗ wrong order'; status.className='qb-status bad'; }
     };
     item.querySelector('.qb-reset').onclick = () => {
-      slots.forEach(s => { s.textContent=''; s.classList.remove('filled','ok','bad'); s._btn=null; });
-      words.forEach(b => { b.classList.remove('used'); b.disabled=false; });
+      slots.forEach(s => { s.classList.remove('filled','ok','bad'); s.innerHTML = `<span class="qw-ch-slot-num">${+s.dataset.i + 1}</span>`; s._tile=null; });
+      tiles.forEach(t => { t.classList.remove('used','selected'); t.disabled=false; });
+      selected = null;
       status.textContent=''; status.className='qb-status';
     };
+  });
+
+  app.querySelectorAll('.qw-mech-type').forEach(item => {
+    const input = item.querySelector('.qb-type-input');
+    const status = item.querySelector('.qb-status');
+    item.querySelector('.qb-check').onclick = () => {
+      const expected = qwNorm(item.dataset.answer);
+      const built = qwNorm((input.value||'').trim() + ' ?');
+      if (built === expected){ input.classList.add('ok'); input.classList.remove('bad'); status.textContent='✓ correct'; status.className='qb-status ok'; }
+      else { input.classList.add('bad'); input.classList.remove('ok'); status.textContent='✗ try again'; status.className='qb-status bad'; }
+    };
+    item.querySelector('.qb-reset').onclick = () => { input.value=''; input.classList.remove('ok','bad'); status.textContent=''; status.className='qb-status'; };
   });
 
   app.querySelectorAll('.qw-body').forEach(body => {
     body.querySelector('.qw-check').onclick = () => {
       let ok = 0, total = 0;
-      body.querySelectorAll('.qb-item').forEach(item => {
-        total++;
-        item.querySelector('.qb-check').click();
-        if (item.querySelector('.qb-status.ok')) ok++;
-      });
+      body.querySelectorAll('.qb-item').forEach(item => { total++; item.querySelector('.qb-check').click(); if (item.querySelector('.qb-status.ok')) ok++; });
       body.querySelector('.qw-result').textContent = ok + ' / ' + total + ' correct';
     };
-    body.querySelector('.qw-reset').onclick = () => {
-      body.querySelectorAll('.qb-item .qb-reset').forEach(b => b.click());
-      body.querySelector('.qw-result').textContent = '';
-    };
+    body.querySelector('.qw-reset').onclick = () => { body.querySelectorAll('.qb-item .qb-reset').forEach(b => b.click()); body.querySelector('.qw-result').textContent=''; };
   });
 }
+
 
 
 
