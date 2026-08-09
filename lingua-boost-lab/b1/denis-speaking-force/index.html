@@ -667,6 +667,9 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),var(--accent
       .loco-btn.shuffle{background:#B58900;color:#fff}
       .loco-btn.hint{background:#fff;color:var(--ink);border:1.5px solid var(--line-2)}
       .loco-btn:hover{transform:translateY(-1px)}
+      .loco-line{background:linear-gradient(135deg,#F5F8FC,#EAF2F9);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:8px;min-height:60px}
+      .loco-line:empty::before{content:"✓ Line empty — all sorted!";display:block;width:100%;text-align:center;font-family:var(--display);font-weight:800;color:#1E7A47;padding:8px;font-size:.9rem}
+      .loco-line-hint{text-align:center;font-family:var(--mono);font-size:.72rem;letter-spacing:.10em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;font-weight:700}
       .loco-pool{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
       @media(max-width:900px){.loco-pool{grid-template-columns:repeat(2,1fr)}}
       .loco-col{display:flex;flex-direction:column;padding:12px 10px;border-radius:12px;border:2px solid var(--line);min-height:220px;transition:all .18s}
@@ -699,6 +702,9 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),var(--accent
         <button class="loco-btn hint" id="loco-hint">🔍 Hint (highlight next)</button>
       </div>
 
+      <div class="loco-line" id="loco-line" aria-label="Word line — pick from here"></div>
+      <div class="loco-line-hint">👆 pick a word from the line above · then click a column below to drop it</div>
+
       <div class="loco-pool" id="loco-pool">
         <div class="loco-col s" data-cat="s"><div class="loco-col-title">Subject</div><div class="loco-col-body"></div></div>
         <div class="loco-col f" data-cat="f"><div class="loco-col-title">Frequency</div><div class="loco-col-body"></div></div>
@@ -726,8 +732,8 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),var(--accent
         {cat:'p',w:'at home'},{cat:'p',w:'at work'},{cat:'p',w:'at the office'},{cat:'p',w:'at the gym'},{cat:'p',w:'in the city'},{cat:'p',w:'in the countryside'},{cat:'p',w:'at the café'},
         {cat:'t',w:'in the morning'},{cat:'t',w:'in the evening'},{cat:'t',w:'on weekends'},{cat:'t',w:'on Sundays'},{cat:'t',w:'at night'},{cat:'t',w:'on Fridays'},{cat:'t',w:'in the afternoon'}
       ];
-      var CATS = ['s','f','v','o','p','t'];
       var pool = document.getElementById('loco-pool');
+      var line = document.getElementById('loco-line');
       var okEl = document.getElementById('loco-ok');
       var errEl = document.getElementById('loco-err');
       var doneEl = document.getElementById('loco-done');
@@ -752,25 +758,21 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),var(--accent
       }
 
       function distribute(){
-        // clear all col-body
+        // clear line + all col-body
+        line.innerHTML = '';
         pool.querySelectorAll('.loco-col-body').forEach(function(cb){ cb.innerHTML=''; });
         okCount = 0; errCount = 0;
         okEl.textContent = 0; errEl.textContent = 0;
         doneEl.classList.remove('on');
         selected = null;
 
-        // shuffle words, then place each in a random column that is NOT the correct one
+        // all words go into ONE shuffled line
         var shuffled = shuffle(WORDS.slice());
-        shuffled.forEach(function(word){
-          var wrongCats = CATS.filter(function(c){ return c !== word.cat; });
-          var targetCat = wrongCats[Math.floor(Math.random()*wrongCats.length)];
-          var targetCol = pool.querySelector('.loco-col[data-cat="'+targetCat+'"] .loco-col-body');
-          targetCol.appendChild(makeTile(word));
-        });
+        shuffled.forEach(function(word){ line.appendChild(makeTile(word)); });
       }
 
       function selectWord(tile){
-        pool.querySelectorAll('.loco-word.selected').forEach(function(x){ x.classList.remove('selected'); });
+        document.querySelectorAll('.loco-word.selected').forEach(function(x){ x.classList.remove('selected'); });
         tile.classList.add('selected');
         selected = tile;
       }
@@ -779,19 +781,14 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),var(--accent
         if(!selected) return;
         var wordCat = selected.dataset.cat;
         if(wordCat === colCat){
-          // correct
           selected.classList.remove('selected');
           selected.classList.add('locked');
-          var targetBody = pool.querySelector('.loco-col[data-cat="'+colCat+'"] .loco-col-body');
-          targetBody.appendChild(selected);
+          pool.querySelector('.loco-col[data-cat="'+colCat+'"] .loco-col-body').appendChild(selected);
           okCount += 1;
           okEl.textContent = okCount;
           selected = null;
-          if(okCount === WORDS.length){
-            doneEl.classList.add('on');
-          }
+          if(okCount === WORDS.length){ doneEl.classList.add('on'); }
         } else {
-          // wrong
           errCount += 1;
           errEl.textContent = errCount;
           var tile = selected;
@@ -800,22 +797,18 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),var(--accent
         }
       }
 
-      pool.addEventListener('click', function(e){
+      line.addEventListener('click', function(e){
         var tile = e.target.closest('.loco-word');
-        if(tile && !tile.classList.contains('locked')){
-          selectWord(tile);
-          return;
-        }
+        if(tile && !tile.classList.contains('locked')) selectWord(tile);
+      });
+      pool.addEventListener('click', function(e){
         var col = e.target.closest('.loco-col');
-        if(col && selected){
-          tryDrop(col.dataset.cat);
-        }
+        if(col && selected) tryDrop(col.dataset.cat);
       });
 
       document.getElementById('loco-reshuffle').addEventListener('click', distribute);
       document.getElementById('loco-hint').addEventListener('click', function(){
-        // highlight one unsolved tile
-        var unsolved = pool.querySelectorAll('.loco-word:not(.locked)');
+        var unsolved = line.querySelectorAll('.loco-word:not(.locked)');
         if(unsolved.length === 0) return;
         var tile = unsolved[Math.floor(Math.random()*unsolved.length)];
         selectWord(tile);
