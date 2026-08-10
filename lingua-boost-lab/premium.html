@@ -1721,18 +1721,16 @@ html.lab-locked .lab-gate { display: grid; }
 const UNLOCK_KEY = 'nge-lab-unlocked';
 const LEGACY_KEYS = ['nge-vault-cache', 'nge-vault-cache-v', 'nge-vault-pin'];
 const loginPage = '/lingua-boost-lab/login.html';
-const cards = document.querySelectorAll('.card');
 const premiumAuthButtons = [...document.querySelectorAll('[data-premium-auth]')];
 let premiumHasAccess = false;
-let publicLessonsById = {};
 
 function isUnlocked() {
-  try { return localStorage.getItem(UNLOCK_KEY) === 'yes'; }
-  catch (_) { return false; }
+  return localStorage.getItem(UNLOCK_KEY) === 'yes';
 }
 function clearLegacy() {
   for (const k of LEGACY_KEYS) {
-    try { localStorage.removeItem(k); sessionStorage.removeItem(k); } catch (_) {}
+    localStorage.removeItem(k);
+    sessionStorage.removeItem(k);
   }
 }
 function setPremiumAuthState(hasAccess) {
@@ -1747,27 +1745,7 @@ function goLogin(nextUrl) {
   location.replace(loginPage + '?next=' + encodeURIComponent(next));
 }
 
-async function loadPublicLessonIndex() {
-  try {
-    const response = await fetch('/lingua-boost-lab/premium-lessons.json?_=' + Date.now(), { cache: 'no-store' });
-    if (!response.ok) return;
-    const lessons = await response.json();
-    if (!Array.isArray(lessons)) return;
-    publicLessonsById = Object.fromEntries(lessons.filter(l => l && l.id).map(l => [l.id, l]));
-  } catch (_) {}
-}
-
-function applyLessonUrls() {
-  cards.forEach(c => {
-    const id = c.dataset.id;
-    const l = publicLessonsById[id];
-    if (!l) return;
-    const a = c.querySelector('.card-open');
-    if (a && l.url) a.href = l.url;
-    if (premiumHasAccess) c.classList.add('is-authorized');
-  });
-}
-
+/* Login/Logout button — synchronous, no reload, no async. */
 premiumAuthButtons.forEach((button) => {
   button.addEventListener('click', () => {
     if (!premiumHasAccess) { goLogin('/lingua-boost-lab/premium.html'); return; }
@@ -1780,53 +1758,32 @@ premiumAuthButtons.forEach((button) => {
   });
 });
 
-/* Card click behaviour: hrefs are BAKED into the HTML (real /lingua-boost-lab/...).
- * Browser follows them. Guard.js on the lesson bounces to login if not unlocked.
- * We do NOT intercept the click any more — the old fallback ("if href is #, goLogin")
- * was the bug: an authenticated user clicking a card with a lingering href="#" got
- * bounced back to the catalog. That path is deleted. */
+/* Card hrefs are BAKED into the HTML. Browser follows them. Guard.js on the target
+ * lesson bounces to login if not unlocked. No click interception here. */
 
-async function bootstrapAccess() {
-  await loadPublicLessonIndex();
-  setPremiumAuthState(isUnlocked());
-  applyLessonUrls();
+/* Initial state: button label reflects current lock state. */
+setPremiumAuthState(isUnlocked());
 
-  /* Manual lock helper: /premium.html#lock */
-  if (location.hash === '#lock') {
-    localStorage.removeItem(UNLOCK_KEY);
-    localStorage.removeItem('nge-lab-unlocked-at');
-    clearLegacy();
-    setPremiumAuthState(false);
-    location.hash = '';
-    goLogin('/lingua-boost-lab/premium.html');
-  }
-}
-
-bootstrapAccess();
-
-/* ===== Catalog auto-logout after 10 min idle =====
- * Any user activity refreshes the timestamp.
- * A ticker checks every 30 s: if the timestamp is older than 10 min → clear flag + reload → head-gate shows "Зайти" screen.
- * Lessons themselves DO NOT refresh the timestamp — so if you sit in a lesson for hours and come back to the catalog, the catalog is locked (expected).
- */
-(function catalogIdleTimeout() {
+/* Catalog idle: touch on activity, check every 30 s, kill flag + show gate after 10 min.
+ * Uses CSS class, no reload — visual response is one frame. */
+(function catalogIdle() {
   if (!isUnlocked()) return;
-  const STAMP_KEY = 'nge-lab-unlocked-at';
-  const IDLE_MS   = 10 * 60 * 1000;
-  const touch = () => { try { localStorage.setItem(STAMP_KEY, String(Date.now())); } catch (_) {} };
+  const STAMP = 'nge-lab-unlocked-at';
+  const MAX   = 10 * 60 * 1000;
+  const touch = () => localStorage.setItem(STAMP, String(Date.now()));
   touch();
   ['mousemove','keydown','click','scroll','touchstart'].forEach(ev =>
     window.addEventListener(ev, touch, { passive: true })
   );
   setInterval(() => {
-    const stamp = Number(localStorage.getItem(STAMP_KEY) || 0);
-    if (!stamp) return;
-    if (Date.now() - stamp > IDLE_MS) {
-      localStorage.removeItem(UNLOCK_KEY);
-      localStorage.removeItem(STAMP_KEY);
-      clearLegacy();
-      location.reload();
-    }
+    const t = Number(localStorage.getItem(STAMP) || 0);
+    if (!t || Date.now() - t <= MAX) return;
+    localStorage.removeItem('nge-lab-unlocked');
+    localStorage.removeItem(STAMP);
+    clearLegacy();
+    document.documentElement.classList.add('lab-locked');
+    setPremiumAuthState(false);
+    window.scrollTo(0, 0);
   }, 30000);
 })();
 
