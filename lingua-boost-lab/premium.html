@@ -1770,14 +1770,13 @@ function applyLessonUrls() {
 
 premiumAuthButtons.forEach((button) => {
   button.addEventListener('click', () => {
-    if (!premiumHasAccess) {
-      goLogin('/lingua-boost-lab/premium.html');
-      return;
-    }
-    localStorage.removeItem(UNLOCK_KEY);
+    if (!premiumHasAccess) { goLogin('/lingua-boost-lab/premium.html'); return; }
+    localStorage.removeItem('nge-lab-unlocked');
+    localStorage.removeItem('nge-lab-unlocked-at');
     clearLegacy();
+    document.documentElement.classList.add('lab-locked');
     setPremiumAuthState(false);
-    location.reload();
+    window.scrollTo(0, 0);
   });
 });
 
