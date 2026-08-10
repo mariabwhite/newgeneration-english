@@ -97,13 +97,34 @@ input {
   background: transparent;
   color: var(--text);
   font: 700 16px var(--mono);
-  padding: 0 14px;
+  padding: 0 46px 0 14px;
   outline: none;
 }
 input:focus {
   border-color: rgba(255,116,48,0.72);
   box-shadow: 0 0 0 4px rgba(255,116,48,0.12);
 }
+.pass-wrap { position: relative; }
+.eye {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  min-height: 40px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.eye:hover { color: var(--accent); background: rgba(255,116,48,0.08); }
+.eye[aria-pressed="true"] { color: var(--accent); }
 .actions {
   display: grid;
   grid-template-columns: 1fr;
@@ -157,7 +178,15 @@ a.catalog { background: transparent; }
     <p id="lead">Введите общий пароль подписки. После входа откроются все премиальные уроки.</p>
     <form id="loginForm" novalidate>
       <label for="passInput">Пароль</label>
-      <input id="passInput" name="password" type="password" autocomplete="current-password" spellcheck="false" autofocus>
+      <div class="pass-wrap">
+        <input id="passInput" name="password" type="password" autocomplete="current-password" spellcheck="false" autofocus>
+        <button id="eyeBtn" type="button" class="eye" aria-label="Показать пароль" aria-pressed="false">
+          <svg id="eyeIcon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      </div>
       <div class="actions">
         <button id="loginBtn" type="submit">Открыть Lab</button>
         <a class="catalog" href="./premium.html">← В каталог</a>
@@ -266,6 +295,20 @@ if (localStorage.getItem(UNLOCK_KEY) === 'yes') {
 
 loginForm.addEventListener('submit', handleLogin);
 resetBtn.addEventListener('click', handleReset);
+
+/* Password visibility toggle */
+const eyeBtn  = document.getElementById('eyeBtn');
+const eyeIcon = document.getElementById('eyeIcon');
+const EYE_OPEN   = '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>';
+const EYE_CLOSED = '<path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-6.5 0-10-7-10-7a19.6 19.6 0 0 1 5.06-5.94"/><path d="M9.9 4.24A10.5 10.5 0 0 1 12 4c6.5 0 10 7 10 7a19.5 19.5 0 0 1-3.16 4.19"/><path d="M14.12 14.12A3 3 0 1 1 9.88 9.88"/><line x1="1" y1="1" x2="23" y2="23"/>';
+eyeBtn.addEventListener('click', () => {
+  const show = input.type === 'password';
+  input.type = show ? 'text' : 'password';
+  eyeBtn.setAttribute('aria-pressed', String(show));
+  eyeBtn.setAttribute('aria-label', show ? 'Скрыть пароль' : 'Показать пароль');
+  eyeIcon.innerHTML = show ? EYE_CLOSED : EYE_OPEN;
+  input.focus();
+});
 </script>
 </body>
 </html>
