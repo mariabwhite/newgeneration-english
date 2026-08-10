@@ -1627,104 +1627,28 @@ footer.premium-footer {
 </footer>
 
 <script>
-/* ===== AES-GCM decrypt for premium URLs (unchanged) ===== */
-const VAULT = {
-  salt: "o26Zp3BzmLideI3tWNaewg==",
-  iv:   "ZsGfaWaMu8aZbDI3",
-  ct:   "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",
-  iter: 200000
-};
-const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
-
-async function decryptUrls(pin) {
-  const enc = new TextEncoder();
-  const km = await crypto.subtle.importKey('raw', enc.encode(pin), 'PBKDF2', false, ['deriveKey']);
-  const key = await crypto.subtle.deriveKey(
-    { name: 'PBKDF2', salt: b64(VAULT.salt), iterations: VAULT.iter, hash: 'SHA-256' },
-    km, { name: 'AES-GCM', length: 256 }, false, ['decrypt']
-  );
-  const plain = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(VAULT.iv) }, key, b64(VAULT.ct));
-  return JSON.parse(new TextDecoder().decode(plain));
-}
-
-const cards = document.querySelectorAll('.card');
-let serverLessonsMode = null;
+/* ===== NG Lab · single-password vault (simple model, 2026-08-10) =====
+   One password unlocks ALL premium lessons for this browser.
+   No per-lesson URL check → no more redirect loop on Julia's or anyone else's lesson.
+   Guard.js on each lesson just reads localStorage['nge-lab-unlocked'].
+   ==================================================================== */
+const UNLOCK_KEY = 'nge-lab-unlocked';
+const LEGACY_KEYS = ['nge-vault-cache', 'nge-vault-cache-v', 'nge-vault-pin'];
 const loginPage = '/lingua-boost-lab/login.html';
+const cards = document.querySelectorAll('.card');
 const premiumAuthButtons = [...document.querySelectorAll('[data-premium-auth]')];
 let premiumHasAccess = false;
 let publicLessonsById = {};
 
-function normalizeLessonUrl(url) {
-  if (!url) return '/lingua-boost-lab/premium.html';
-  try {
-    const resolved = new URL(url, window.location.origin + '/lingua-boost-lab/');
-    if (resolved.origin !== window.location.origin) return '/lingua-boost-lab/premium.html';
-    if (!resolved.pathname.startsWith('/lingua-boost-lab/')) return '/lingua-boost-lab/premium.html';
-    if (resolved.pathname.endsWith('/login.html')) return '/lingua-boost-lab/premium.html';
-    return resolved.pathname + resolved.search + resolved.hash;
-  } catch (error) {
-    return '/lingua-boost-lab/premium.html';
+function isUnlocked() {
+  try { return localStorage.getItem(UNLOCK_KEY) === 'yes'; }
+  catch (_) { return false; }
+}
+function clearLegacy() {
+  for (const k of LEGACY_KEYS) {
+    try { localStorage.removeItem(k); sessionStorage.removeItem(k); } catch (_) {}
   }
 }
-
-async function loadPublicLessonIndex() {
-  try {
-    const response = await fetch('/lingua-boost-lab/premium-lessons.json', { cache: 'no-store' });
-    if (!response.ok) return;
-    const lessons = await response.json();
-    if (!Array.isArray(lessons)) return;
-    publicLessonsById = Object.fromEntries(lessons.filter(l => l && l.id).map(l => [l.id, l]));
-  } catch (error) {}
-}
-
-async function loadServerLessons() {
-  try {
-    const response = await fetch('/api/premium-lessons', {
-      credentials: 'include',
-      cache: 'no-store',
-    });
-    if (response.status === 404) return null;
-    if (response.status === 401 || response.status === 403) {
-      serverLessonsMode = true;
-      return { authorized: false, status: response.status };
-    }
-    if (!response.ok) {
-      serverLessonsMode = true;
-      return { authorized: false, status: response.status };
-    }
-    const payload = await response.json();
-    if (!payload || !Array.isArray(payload.lessons)) return null;
-    serverLessonsMode = true;
-    return { authorized: true, version: payload.version || VAULT_VERSION, lessons: payload.lessons };
-  } catch (error) {
-    return null;
-  }
-}
-
-function safeNextUrl() {
-  const next = new URLSearchParams(location.search).get('next');
-  if (!next) return '/lingua-boost-lab/premium.html';
-  try {
-    const url = new URL(next, location.origin);
-    if (url.origin !== location.origin) return '/lingua-boost-lab/premium.html';
-    if (!url.pathname.startsWith('/lingua-boost-lab/')) return '/lingua-boost-lab/premium.html';
-    if (url.pathname.endsWith('/login.html')) return '/lingua-boost-lab/premium.html';
-    return url.pathname + url.search + url.hash;
-  } catch (e) {
-    return '/lingua-boost-lab/premium.html';
-  }
-}
-
-function rememberPremiumAccess(lessons) {
-  localStorage.setItem('nge-vault-cache', JSON.stringify(lessons));
-  localStorage.setItem('nge-vault-cache-v', VAULT_VERSION);
-}
-
-function redirectToLogin(nextUrl) {
-  const target = loginPage + '?next=' + encodeURIComponent(normalizeLessonUrl(nextUrl || '/lingua-boost-lab/premium.html'));
-  window.location.replace(target);
-}
-
 function setPremiumAuthState(hasAccess) {
   premiumHasAccess = !!hasAccess;
   premiumAuthButtons.forEach((button) => {
@@ -1732,30 +1656,42 @@ function setPremiumAuthState(hasAccess) {
     button.setAttribute('aria-label', premiumHasAccess ? 'Выйти из premium' : 'Войти в premium');
   });
 }
+function goLogin(nextUrl) {
+  const next = nextUrl || (location.pathname + location.search + location.hash);
+  location.replace(loginPage + '?next=' + encodeURIComponent(next));
+}
 
-function clearPremiumCache() {
-  localStorage.removeItem('nge-vault-cache');
-  localStorage.removeItem('nge-vault-cache-v');
-  localStorage.removeItem('nge-vault-pin');
-  sessionStorage.removeItem('nge-vault-cache');
-  sessionStorage.removeItem('nge-vault-cache-v');
-  setPremiumAuthState(false);
+async function loadPublicLessonIndex() {
+  try {
+    const response = await fetch('/lingua-boost-lab/premium-lessons.json?_=' + Date.now(), { cache: 'no-store' });
+    if (!response.ok) return;
+    const lessons = await response.json();
+    if (!Array.isArray(lessons)) return;
+    publicLessonsById = Object.fromEntries(lessons.filter(l => l && l.id).map(l => [l.id, l]));
+  } catch (_) {}
+}
+
+function applyLessonUrls() {
+  cards.forEach(c => {
+    const id = c.dataset.id;
+    const l = publicLessonsById[id];
+    if (!l) return;
+    const a = c.querySelector('.card-open');
+    if (a && l.url) a.href = l.url;
+    if (premiumHasAccess) c.classList.add('is-authorized');
+  });
 }
 
 premiumAuthButtons.forEach((button) => {
-  button.addEventListener('click', async () => {
+  button.addEventListener('click', () => {
     if (!premiumHasAccess) {
-      redirectToLogin();
+      goLogin('/lingua-boost-lab/premium.html');
       return;
     }
-    clearPremiumCache();
-    try {
-      await fetch('/api/premium-logout?next=' + encodeURIComponent('/lingua-boost-lab/login.html'), {
-        credentials: 'include',
-        cache: 'no-store',
-      });
-    } catch (error) {}
-    location.replace('/lingua-boost-lab/login.html');
+    localStorage.removeItem(UNLOCK_KEY);
+    clearLegacy();
+    setPremiumAuthState(false);
+    location.reload();
   });
 });
 
@@ -1763,107 +1699,38 @@ cards.forEach(c => {
   const a = c.querySelector('.card-open');
   if (!a) return;
   a.addEventListener('click', e => {
-    if (a.getAttribute('href') === '#') {
+    const href = a.getAttribute('href');
+    if (!href || href === '#') {
       e.preventDefault();
       const lesson = publicLessonsById[c.dataset.id];
-      /* Если урок есть в публичном индексе — открыть его напрямую без редиректа на login. */
       if (lesson && lesson.url) {
-        const direct = new URL(lesson.url, window.location.origin + '/lingua-boost-lab/').href;
-        window.location.href = direct;
-        return;
+        location.href = lesson.url;
+      } else {
+        goLogin();
       }
-      /* Fallback: карточка не в vault, но имеет оригинальный href (публичный урок вне premium-lessons.json — например /practice/) */
-      const orig = a.dataset.origHref;
-      if (orig && orig !== '#') {
-        window.location.href = new URL(orig, window.location.origin + '/lingua-boost-lab/').href;
-        return;
-      }
-      redirectToLogin(lesson && lesson.url);
     }
+    /* Otherwise let the browser follow href normally. Guard.js on the lesson
+       will bounce to login if the flag is missing — that is intentional. */
   });
 });
 
-function applyLessons(lessons) {
-  const byId = Object.fromEntries(lessons.map(l => [l.id, l]));
-  /* Объединяем зашифрованные premium-уроки с публичным индексом — публичные (как OGE Mock) тоже получают правильный href. */
-  const allById = Object.assign({}, publicLessonsById, byId);
-  cards.forEach(c => {
-    c.classList.remove('is-authorized');
-    const a = c.querySelector('.card-open');
-    if (a) {
-      if (!a.dataset.origHref) a.dataset.origHref = a.getAttribute('href') || '#';
-      a.href = '#';
-    }
-  });
-  cards.forEach(c => {
-    const id = c.dataset.id; const l = allById[id]; if (!l) return;
-    const a = c.querySelector('.card-open');
-    a.href = l.url; c.classList.add('is-authorized');
-  });
-  setPremiumAuthState(true);
-}
-
-/* Применяем публичный индекс СРАЗУ после загрузки JSON — публичные карточки работают даже без PIN. */
-function applyPublicLessonsOnly() {
-  cards.forEach(c => {
-    const id = c.dataset.id;
-    const l = publicLessonsById[id];
-    if (!l) return;
-    const a = c.querySelector('.card-open');
-    if (a) a.href = l.url;
-  });
-}
-
-/* version tag — bump it whenever Vault.ct/iv change, so cached browsers re-decrypt */
-const VAULT_VERSION = (document.querySelector('meta[name="vault-version"]')||{}).content || 'v0';
-
-async function bootstrapAccess(){
+async function bootstrapAccess() {
   await loadPublicLessonIndex();
-  /* Сразу применить публичный индекс — открытые уроки (без шифрования) кликабельны без PIN. */
-  applyPublicLessonsOnly();
+  setPremiumAuthState(isUnlocked());
+  applyLessonUrls();
 
-  /* manual lock via hash */
+  /* Manual lock helper: /premium.html#lock */
   if (location.hash === '#lock') {
-    const server = await loadServerLessons();
-    if (server !== null) {
-      location.href = '/api/premium-logout?next=' + encodeURIComponent('/lingua-boost-lab/login.html');
-      return;
-    }
-    clearPremiumCache();
-    location.hash = '';
-    redirectToLogin();
-    return;
-  }
-
-  const server = await loadServerLessons();
-  if (server) {
-    if (server.authorized) {
-      applyLessons(server.lessons);
-    } else {
-      setPremiumAuthState(false);
-    }
-    return;
-  }
-
-  /* persisted cache: silent unlock — only if version matches current vault */
-  const cachedV = localStorage.getItem('nge-vault-cache-v');
-  const cached  = localStorage.getItem('nge-vault-cache');
-  if (cached && cachedV === VAULT_VERSION) {
-    try { applyLessons(JSON.parse(cached)); return; } catch(e){}
-  }
-
-  /* migration fallback: cached lessons from previous vault version exist. */
-  if (cached) {
-    try {
-      applyLessons(JSON.parse(cached));
-    } catch(e){}
-  }
-  if (!cached) {
+    localStorage.removeItem(UNLOCK_KEY);
+    clearLegacy();
     setPremiumAuthState(false);
+    location.hash = '';
+    goLogin('/lingua-boost-lab/premium.html');
   }
 }
 
 bootstrapAccess();
+
 
 /* Theme + language toggles — same pattern as Lab catalog (uses lab-theme-sync.js) */
 (function () {
