@@ -574,9 +574,95 @@ footer.premium-footer {
 .footer-login:hover {
   background: linear-gradient(180deg, #ff8a42 0%, #ff5d2b 100%);
 }
+
+/* ===== LAB GATE · shown while not-unlocked or after 10 min idle ===== */
+html.lab-locked body > *:not(.lab-gate) { display: none !important; }
+.lab-gate {
+  display: none;
+  position: fixed; inset: 0; z-index: 10000;
+  place-items: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 82% 8%, rgba(154,122,217,0.24), transparent 36%),
+    radial-gradient(circle at 8% 88%, rgba(255,116,48,0.14), transparent 34%),
+    #f4f1ff;
+  font-family: "Manrope", system-ui, sans-serif;
+  color: #1a1326;
+}
+html.lab-locked .lab-gate { display: grid; }
+.lab-gate-card {
+  background: #ffffff;
+  border: 1px solid rgba(122,95,207,0.24);
+  border-radius: 18px;
+  padding: 36px 30px 28px;
+  box-shadow: 0 24px 70px rgba(25, 18, 42, 0.18);
+  width: min(420px, calc(100vw - 40px));
+  text-align: center;
+}
+.lab-gate-eyebrow {
+  font-family: "JetBrains Mono", Consolas, monospace;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: #ff7430; margin-bottom: 12px;
+}
+.lab-gate-title {
+  font-family: "Unbounded", "Manrope", system-ui, sans-serif;
+  font-weight: 800; font-size: clamp(24px, 5vw, 32px);
+  line-height: 1.05; margin: 0 0 10px;
+}
+.lab-gate-text {
+  color: #625a73; font-size: 15px; line-height: 1.5;
+  margin: 0 0 22px;
+}
+.lab-gate-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 52px; padding: 0 26px;
+  border-radius: 12px; border: 1px solid rgba(255,116,48,0.72);
+  background: linear-gradient(180deg, #ff7430 0%, #ff5125 100%);
+  color: #fff; font: 800 14px "Manrope", system-ui, sans-serif;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  cursor: pointer; text-decoration: none;
+}
+.lab-gate-btn:hover { background: linear-gradient(180deg, #ff8a42 0%, #ff5d2b 100%); }
+.lab-gate-hint {
+  margin-top: 14px; font-size: 12px; color: #8a7fa8;
+  font-family: "JetBrains Mono", Consolas, monospace; letter-spacing: 0.06em;
+}
 </style>
+<script>
+/* Lab gate — runs BEFORE body so the catalog never flashes. */
+(function () {
+  var UNLOCK_KEY = 'nge-lab-unlocked';
+  var STAMP_KEY  = 'nge-lab-unlocked-at';
+  var IDLE_MS    = 10 * 60 * 1000; /* 10 minutes */
+  try {
+    var unlocked = localStorage.getItem(UNLOCK_KEY) === 'yes';
+    var stampRaw = Number(localStorage.getItem(STAMP_KEY) || 0);
+    var expired  = !stampRaw || (Date.now() - stampRaw) > IDLE_MS;
+    if (!unlocked || expired) {
+      if (expired) {
+        localStorage.removeItem(UNLOCK_KEY);
+        localStorage.removeItem(STAMP_KEY);
+      }
+      document.documentElement.classList.add('lab-locked');
+    }
+  } catch (_) {
+    document.documentElement.classList.add('lab-locked');
+  }
+})();
+</script>
 </head>
 <body>
+
+<!-- LAB GATE OVERLAY (shown by .lab-locked on <html>) -->
+<div class="lab-gate" aria-hidden="true">
+  <div class="lab-gate-card">
+    <div class="lab-gate-eyebrow">NG English · Premium Lab</div>
+    <h1 class="lab-gate-title">Войдите в лабораторию</h1>
+    <p class="lab-gate-text">Каталог платных уроков и сами уроки открываются по общему паролю подписки.</p>
+    <a class="lab-gate-btn" href="./login.html?next=/lingua-boost-lab/premium.html">Зайти</a>
+    <div class="lab-gate-hint">сессия каталога закрывается через 10 минут без активности</div>
+  </div>
+</div>
 
 <header class="canon-l-topbar">
   <a class="canon-l-brand" href="./index.html" aria-label="LinguaBoost Lab · Catalog">
@@ -1722,6 +1808,7 @@ async function bootstrapAccess() {
   /* Manual lock helper: /premium.html#lock */
   if (location.hash === '#lock') {
     localStorage.removeItem(UNLOCK_KEY);
+    localStorage.removeItem('nge-lab-unlocked-at');
     clearLegacy();
     setPremiumAuthState(false);
     location.hash = '';
@@ -1730,6 +1817,32 @@ async function bootstrapAccess() {
 }
 
 bootstrapAccess();
+
+/* ===== Catalog auto-logout after 10 min idle =====
+ * Any user activity refreshes the timestamp.
+ * A ticker checks every 30 s: if the timestamp is older than 10 min → clear flag + reload → head-gate shows "Зайти" screen.
+ * Lessons themselves DO NOT refresh the timestamp — so if you sit in a lesson for hours and come back to the catalog, the catalog is locked (expected).
+ */
+(function catalogIdleTimeout() {
+  if (!isUnlocked()) return;
+  const STAMP_KEY = 'nge-lab-unlocked-at';
+  const IDLE_MS   = 10 * 60 * 1000;
+  const touch = () => { try { localStorage.setItem(STAMP_KEY, String(Date.now())); } catch (_) {} };
+  touch();
+  ['mousemove','keydown','click','scroll','touchstart'].forEach(ev =>
+    window.addEventListener(ev, touch, { passive: true })
+  );
+  setInterval(() => {
+    const stamp = Number(localStorage.getItem(STAMP_KEY) || 0);
+    if (!stamp) return;
+    if (Date.now() - stamp > IDLE_MS) {
+      localStorage.removeItem(UNLOCK_KEY);
+      localStorage.removeItem(STAMP_KEY);
+      clearLegacy();
+      location.reload();
+    }
+  }, 30000);
+})();
 
 
 /* Theme + language toggles — same pattern as Lab catalog (uses lab-theme-sync.js) */

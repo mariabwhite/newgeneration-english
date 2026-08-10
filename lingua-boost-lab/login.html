@@ -174,6 +174,7 @@ a.catalog { background: transparent; }
  * On logout: clear the flag → all premium lessons will redirect back to this page.
  */
 const UNLOCK_KEY  = 'nge-lab-unlocked';
+const STAMP_KEY   = 'nge-lab-unlocked-at';
 const PASS_HASH   = 'e2937adaa5055a2f3aab83730c86589087beec9b44e9db045a47604d97a4845f';
 // Legacy keys we clean up on both login and logout so old vault caches never resurrect access unexpectedly:
 const LEGACY_KEYS = ['nge-vault-cache', 'nge-vault-cache-v', 'nge-vault-pin'];
@@ -228,6 +229,7 @@ async function handleLogin(event) {
       throw new Error('BAD_PASSWORD');
     }
     localStorage.setItem(UNLOCK_KEY, 'yes');
+    localStorage.setItem(STAMP_KEY, String(Date.now()));
     clearLegacy();
     msg.textContent = 'Доступ открыт. Открываю урок…';
     msg.className   = 'msg is-ok';
@@ -242,6 +244,7 @@ async function handleLogin(event) {
 
 function handleReset() {
   localStorage.removeItem(UNLOCK_KEY);
+  localStorage.removeItem(STAMP_KEY);
   clearLegacy();
   msg.textContent = 'Доступ сброшен. Введите пароль заново.';
   msg.className   = 'msg';
