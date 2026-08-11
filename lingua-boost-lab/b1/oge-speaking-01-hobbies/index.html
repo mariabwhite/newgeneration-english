@@ -11,16 +11,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&family=Playfair+Display:wght@600;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f4f8fd;--bg-2:#ffffff;--surface:#ffffff;--surface-2:#eef4fb;--card:#ffffff;
-  --line:#dce7f3;--line-2:#b9cee5;--brand:#1d4ed8;--brand-2:#2563eb;--accent:#2563eb;
-  --accent-2:#1e40af;--text:#0b1c33;--muted:#4b5b75;--faint:#7a8aa3;--ok:#16a34a;--miss:#dc2626;
-  --ribbon:#b45309;--champagne:#e2b45a;--sun:#f59e0b;--sun-2:#d97706;
+  --bg:#f5f1e8;--bg-2:#ffffff;--surface:#ffffff;--surface-2:#f0e9d8;--card:#ffffff;
+  --line:#d9cfba;--line-2:#c1b294;--brand:#1e3a5f;--brand-2:#2c4a72;--accent:#1e3a5f;
+  --accent-2:#0f2745;--text:#0b1c33;--muted:#5a4a3a;--faint:#8b7a63;--ok:#16a34a;--miss:#dc2626;
+  --ribbon:#c65a2c;--champagne:#d69b5c;--sun:#e07a2c;--sun-2:#b04a1a;
   --display:'Unbounded','Manrope',system-ui,sans-serif;--body:'Manrope',system-ui,sans-serif;--mono:'JetBrains Mono',Consolas,monospace;
   --serif:'Playfair Display',Georgia,serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);font-family:var(--body);color:var(--text);min-height:100vh;line-height:1.6;font-size:16px;
-  background-image:radial-gradient(at 20% 10%,rgba(37,99,235,.07) 0,transparent 55%),radial-gradient(at 80% 80%,rgba(245,158,11,.10) 0,transparent 55%)}
+  background-image:radial-gradient(at 20% 10%,rgba(30,58,95,.06) 0,transparent 55%),radial-gradient(at 80% 80%,rgba(198,90,44,.10) 0,transparent 55%)}
 
 .topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;padding:10px clamp(14px,3vw,24px);
   background:rgba(244,248,253,.92);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
@@ -37,8 +37,24 @@ body{background:var(--bg);font-family:var(--body);color:var(--text);min-height:1
 
 .hero{max-width:1240px;margin:32px auto 12px;padding:0 clamp(16px,3vw,28px);position:relative;z-index:2}
 .hero-card{position:relative;border:1px solid var(--line-2);border-radius:24px;overflow:hidden;
-  background:linear-gradient(135deg,#ffffff 0%,#eef4fb 45%,#dee9f6 100%);
-  box-shadow:0 12px 40px rgba(15,40,80,.10);padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px);min-height:360px}
+  background:linear-gradient(135deg,#faf6ec 0%,#f0e5cf 45%,#e6d5b0 100%);
+  box-shadow:0 12px 40px rgba(60,40,20,.14);padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px);min-height:360px}
+.hero-bg{position:absolute;inset:0;background:url("./img/hero-cover.png") center/cover no-repeat;opacity:1;z-index:0}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.20) 0%,rgba(255,255,255,.42) 55%,rgba(244,248,253,.65) 100%)}
+.section-img{display:block;width:100%;max-height:280px;object-fit:cover;height:auto;border-radius:12px;border:1px solid var(--line);margin:0 0 14px;box-shadow:0 6px 18px rgba(15,40,80,.10)}
+h1.hero-title,.hero-lead,.eyebrow,.hero-stats{position:relative;z-index:2}
+h1.hero-title{text-shadow:0 2px 14px rgba(255,255,255,.65)}
+.hero-lead{text-shadow:0 1px 8px rgba(255,255,255,.7)}
+.listen-audio{width:100%;margin:10px 0}
+.bella-fallback{margin-top:8px;padding:10px 14px;background:var(--surface-2);border:1px dashed var(--line-2);border-radius:10px;font-size:.86rem;color:var(--muted)}
+.bella-fallback .fb-h{font-family:var(--mono);font-size:.72rem;font-weight:800;letter-spacing:.12em;color:var(--faint);text-transform:uppercase;margin-bottom:6px}
+.hw-tabs{display:flex;gap:8px;margin:14px 0 12px;flex-wrap:wrap}
+.hw-tab{background:var(--surface-2);border:1.5px solid var(--line-2);color:var(--muted);padding:10px 18px;border-radius:10px;font:700 12px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:.18s}
+.hw-tab:hover{border-color:var(--accent);color:var(--accent-2)}
+.hw-tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.hw-panel{display:none}
+.hw-panel.active{display:block;animation:hwfade .2s ease-out}
+@keyframes hwfade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 .hero-deco{position:absolute;font-size:9rem;opacity:.10;pointer-events:none;line-height:1}
 .hero-deco.dl{top:-10px;right:18px}
 .hero-deco.br{bottom:-30px;left:-10px;font-size:7rem}
@@ -215,6 +231,7 @@ footer .foot-line{margin:4px 0}
 
 <section class="hero">
   <div class="hero-card">
+    <div class="hero-bg" aria-hidden="true"></div>
     <span class="eyebrow">OGE 2026 · full format · pair edition · back from summer</span>
     <h1 class="hero-title">OGE Mock <span class="grad">Return #1</span> · <span class="champ">Education &amp; Career</span></h1>
     <p class="hero-lead">A complete OGE variant to bring us back into shape after the summer break. Two real FIPI demo topics — Education and Choosing a career — run through all five sections: Listening, Reading, Lexico-grammatical, Writing and Speaking. By the end you both have two ready-made monologues to take to any mock exam.</p>
@@ -236,6 +253,7 @@ footer .foot-line{margin:4px 0}
   <div class="section-hdr"><div class="section-num warm">0</div><h2>Warm-up · Summer chat · light speaking</h2></div>
   <p class="section-sub">No exam pressure — just talk. Take turns (Katya first, then Masha). One question at a time, 30-40 seconds each, full sentences, add one detail with <em>because / for example / and then</em>.</p>
   <div class="card">
+    <img class="section-img" src="./img/warmup-summer.png" alt="Summer desk — backpack, camera, sketchbook, guitar, football" loading="lazy">
     <div class="info"><strong>Rules of the round:</strong> no yes/no answers, no Russian, one follow-up question to your partner after her turn. Maria only listens and marks new / missing vocabulary.</div>
     <div id="warmup-questions"></div>
   </div>
@@ -248,6 +266,7 @@ footer .foot-line{margin:4px 0}
   <div class="section-hdr"><div class="section-num warm">V</div><h2>Vocabulary box · 15 key words</h2></div>
   <p class="section-sub">Tap each card to flip and see the definition + example. These words appear across the whole mock.</p>
   <div class="card">
+    <img class="section-img" src="./img/vocab-cards.png" alt="Handwritten vocabulary cards on a desk — career words" loading="lazy">
     <div class="vocab-grid" id="vocab-grid"></div>
   </div>
 </section>
@@ -260,10 +279,15 @@ footer .foot-line{margin:4px 0}
   <div class="section-hdr"><div class="section-num exam">L1-4</div><h2>Listening · Tasks 1-4 · Four short texts · choose one of three</h2></div>
   <p class="section-sub">You will hear four short statements about school and future jobs. For each, choose the answer that matches what the speaker says.</p>
   <div class="card">
+    <img class="section-img" src="./img/listening-tasks-1-4.png" alt="Listening test paper — Tasks 1-4 with headphones and player" loading="lazy">
     <span class="task-num">1-4</span><span class="task-tag">Listening · 4 MCQ · 1 point each</span>
-    <div class="audio-row">
-      <span class="audio-label">▶ Speakers A · B · C · D</span>
-      <button class="tts-btn" id="l1-play">▶ Play all 4</button>
+    <audio class="listen-audio" controls preload="metadata">
+      <source src="./assets/audio/l1-four-statements.mp3" type="audio/mpeg">
+      Your browser does not support audio playback.
+    </audio>
+    <div class="bella-fallback">
+      <div class="fb-h">▶ Fallback · if audio above does not load</div>
+      <button class="tts-btn" id="l1-play">▶ Play all 4 (browser voice)</button>
       <button class="tts-btn stop" id="l1-stop">Stop</button>
     </div>
     <div id="l1-mcqs" style="margin-top:14px"></div>
@@ -279,10 +303,15 @@ footer .foot-line{margin:4px 0}
   <div class="section-hdr"><div class="section-num exam">L5</div><h2>Listening · Task 5 · Match 5 speakers → 6 statements</h2></div>
   <p class="section-sub">You will hear 5 short monologues (A-E) about school subjects and future plans. Match each speaker to one of 6 statements. One statement is extra.</p>
   <div class="card">
+    <img class="section-img" src="./img/listening-match.webp" alt="Icons of school subjects and future jobs" loading="lazy">
     <span class="task-num">5</span><span class="task-tag">Listening · matching · 5 of 6</span>
-    <div class="audio-row">
-      <span class="audio-label">▶ Speakers A · B · C · D · E</span>
-      <button class="tts-btn" id="l5-play">▶ Play all 5</button>
+    <audio class="listen-audio" controls preload="metadata">
+      <source src="./assets/audio/l5-five-speakers.mp3" type="audio/mpeg">
+      Your browser does not support audio playback.
+    </audio>
+    <div class="bella-fallback">
+      <div class="fb-h">▶ Fallback · if audio above does not load</div>
+      <button class="tts-btn" id="l5-play">▶ Play all 5 (browser voice)</button>
       <button class="tts-btn stop" id="l5-stop">Stop</button>
     </div>
     <p style="font-size:.88rem;color:var(--muted);margin-top:10px"><strong>6 statements:</strong></p>
@@ -307,10 +336,15 @@ footer .foot-line{margin:4px 0}
   <div class="section-hdr"><div class="section-num exam">L6-11</div><h2>Listening · Tasks 6-11 · Six MCQ on an interview</h2></div>
   <p class="section-sub">You will hear an interview with Nick, a fifteen-year-old who spent his summer doing a real internship at a design studio. For questions 6-11, choose one of three options.</p>
   <div class="card">
+    <img class="section-img" src="./img/listening-interview.png" alt="Design studio interior with laptop and mock-ups — Nick's internship" loading="lazy">
     <span class="task-num">6-11</span><span class="task-tag">Listening · 6 MCQ · interview</span>
-    <div class="audio-row">
-      <span class="audio-label">▶ Interview · Nick &amp; host</span>
-      <button class="tts-btn" id="l6-play">▶ Play interview</button>
+    <audio class="listen-audio" controls preload="metadata">
+      <source src="./assets/audio/l6-interview.mp3" type="audio/mpeg">
+      Your browser does not support audio playback.
+    </audio>
+    <div class="bella-fallback">
+      <div class="fb-h">▶ Fallback · if audio above does not load</div>
+      <button class="tts-btn" id="l6-play">▶ Play interview (browser voice)</button>
       <button class="tts-btn stop" id="l6-stop">Stop</button>
     </div>
     <div id="l6-mcqs" style="margin-top:14px"></div>
@@ -330,6 +364,7 @@ footer .foot-line{margin:4px 0}
   <div class="section-hdr"><div class="section-num exam">R12</div><h2>Reading · Task 12 · Match 7 headings → 6 texts</h2></div>
   <p class="section-sub">Read six short texts about different professions and match each one to a heading from the list. One heading is extra.</p>
   <div class="card">
+    <img class="section-img" src="./img/reading-professions.png" alt="Six professions gallery on a wall — Explore, Learn, Choose your future" loading="lazy">
     <span class="task-num">12</span><span class="task-tag">Reading · matching · 6 of 7</span>
 
     <p style="font-size:.88rem;color:var(--muted);margin-top:10px"><strong>7 headings:</strong></p>
@@ -374,6 +409,7 @@ footer .foot-line{margin:4px 0}
   <div class="section-hdr"><div class="section-num exam">Q20-28</div><h2>Grammar · Tasks 20-28 · Word transformation · 9 gaps</h2></div>
   <p class="section-sub">Read the text and fill each gap with the correct form of the word given in capitals. Change tenses, articles, pronouns and comparatives where necessary.</p>
   <div class="card">
+    <img class="section-img" src="./img/grammar-transformation.png" alt="Word transformation cards on a desk: BE → was → is → will be" loading="lazy">
     <span class="task-num">20-28</span><span class="task-tag">Grammar · word change · 9 gaps</span>
     <div id="q20-rows"></div>
     <div class="score-badge"><span>Score</span> <span id="q20-score">0</span> <span style="opacity:.6">/ 9</span></div>
@@ -384,6 +420,7 @@ footer .foot-line{margin:4px 0}
   <div class="section-hdr"><div class="section-num exam">Q29-34</div><h2>Vocabulary · Tasks 29-34 · Word formation · 6 gaps</h2></div>
   <p class="section-sub">Read the text and use the word in capitals to form a new word that fits into the gap. Change the part of speech with a suffix or a prefix.</p>
   <div class="card">
+    <img class="section-img" src="./img/grammar-workbook.png" alt="Open English workbook with grammar and word-formation exercises" loading="lazy">
     <span class="task-num">29-34</span><span class="task-tag">Vocabulary · word formation · 6 gaps</span>
     <div id="q29-rows"></div>
     <div class="score-badge"><span>Score</span> <span id="q29-score">0</span> <span style="opacity:.6">/ 6</span></div>
@@ -398,6 +435,7 @@ footer .foot-line{margin:4px 0}
   <div class="section-hdr"><div class="section-num exam">W35</div><h2>Writing · Task 35 · Personal email · 100-120 words</h2></div>
   <p class="section-sub">You have received an email from your English-speaking friend Chris. Read the email and write a reply. Answer all three questions.</p>
   <div class="card">
+    <img class="section-img" src="./img/writing-email.webp" alt="Personal email template layout" loading="lazy">
     <span class="task-num">35</span><span class="task-tag">Writing · email · 10 points</span>
 
     <div class="letter-prompt">
@@ -448,9 +486,12 @@ Katya</div>
 <p>Career specialists say that a good choice depends on three things: your interests, your school results and the demand on the job market. They also advise young people not to be afraid of changing their mind. In fact, most adults today have already worked in two or three different fields, and this experience often helps them find the profession that truly makes them happy.</p>
     </div>
 
-    <div class="audio-row">
-      <span class="audio-label">▶ Listen to the model reading</span>
-      <button class="tts-btn" id="s1-play">▶ Play model (Amy)</button>
+    <audio class="listen-audio" controls preload="metadata">
+      <source src="./assets/audio/s1-read-aloud.mp3" type="audio/mpeg">
+    </audio>
+    <div class="bella-fallback">
+      <div class="fb-h">▶ Fallback · if audio above does not load</div>
+      <button class="tts-btn" id="s1-play">▶ Play model (browser voice)</button>
       <button class="tts-btn stop" id="s1-stop">Stop</button>
     </div>
 
@@ -522,9 +563,12 @@ Katya</div>
       <div class="cue-timing"><span>⏱ 1.5 min prep</span><span>🎙 ≤ 2 min answer</span><span>📏 10-12 sentences</span></div>
     </div>
 
-    <div class="audio-row">
-      <span class="audio-label">▶ Model monologue A · ~ 1 min 40 sec</span>
-      <button class="tts-btn champ" id="s3a-play">▶ Play model A</button>
+    <audio class="listen-audio" controls preload="metadata">
+      <source src="./assets/audio/s3a-career-model.mp3" type="audio/mpeg">
+    </audio>
+    <div class="bella-fallback">
+      <div class="fb-h">▶ Fallback · if audio above does not load</div>
+      <button class="tts-btn champ" id="s3a-play">▶ Play model A (browser voice)</button>
       <button class="tts-btn stop" id="s3a-stop">Stop</button>
     </div>
 
@@ -558,9 +602,12 @@ Katya</div>
       <div class="cue-timing"><span>⏱ 1.5 min prep</span><span>🎙 ≤ 2 min answer</span><span>📏 10-12 sentences</span></div>
     </div>
 
-    <div class="audio-row">
-      <span class="audio-label">▶ Model monologue B · ~ 1 min 45 sec</span>
-      <button class="tts-btn" id="s3b-play">▶ Play model B</button>
+    <audio class="listen-audio" controls preload="metadata">
+      <source src="./assets/audio/s3b-education-model.mp3" type="audio/mpeg">
+    </audio>
+    <div class="bella-fallback">
+      <div class="fb-h">▶ Fallback · if audio above does not load</div>
+      <button class="tts-btn" id="s3b-play">▶ Play model B (browser voice)</button>
       <button class="tts-btn stop" id="s3b-stop">Stop</button>
     </div>
 
@@ -590,23 +637,44 @@ Katya</div>
      HOMEWORK NOTE
 ============================================================= -->
 <section class="section" id="block-hw">
-  <div class="section-hdr"><div class="section-num warm">HW</div><h2>Homework · Travelling monologue</h2></div>
+  <div class="section-hdr"><div class="section-num warm">HW</div><h2>📚 Homework · record both monologues</h2></div>
   <div class="card">
-    <div class="info"><strong>Task:</strong> Record a full 10-12 sentence monologue on the topic below. Send the mp3 or voice message to Maria in Telegram before the next lesson.</div>
+    <div class="info"><strong>Task:</strong> Record a full 10-12 sentence monologue on BOTH topics — Choosing a career and Education. Switch the tab below to see each cue card. Send two mp3 / voice messages to Maria in Telegram before the next lesson.</div>
 
-    <div class="cue-card">
-      <div class="cue-h">Homework cue card · Travelling</div>
-      <div class="cue-topic">You are going to give a talk about travelling. You will have to start in 1.5 minutes and speak for not more than 2 minutes (10-12 sentences). Remember to say:</div>
-      <ol>
-        <li>what people travel for;</li>
-        <li>why people choose different means of transport;</li>
-        <li>why some people are afraid to fly;</li>
-        <li>what your attitude to travelling is.</li>
-      </ol>
-      <div class="cue-timing"><span>⏱ 1.5 min prep</span><span>🎙 ≤ 2 min answer</span><span>📏 10-12 sentences</span></div>
+    <div class="hw-tabs" role="tablist">
+      <button class="hw-tab active" data-tab="career" role="tab">🎯 Choosing a career</button>
+      <button class="hw-tab" data-tab="education" role="tab">🎓 Education</button>
     </div>
 
-    <div class="info"><strong>Self-check before sending:</strong> intro + 4 bullets + outro · at least 3 linking words · 2 different tenses · 10-12 sentences.</div>
+    <div class="hw-panel active" data-panel="career">
+      <div class="cue-card">
+        <div class="cue-h">Homework cue card 1 · Choosing a career</div>
+        <div class="cue-topic">You are going to give a talk about choosing a career. You will have to start in 1.5 minutes and speak for not more than 2 minutes (10-12 sentences). Remember to say:</div>
+        <ol>
+          <li>how people choose a career;</li>
+          <li>when people usually begin making plans for the future;</li>
+          <li>how we can prepare for the future profession;</li>
+          <li>what your choice of future profession is.</li>
+        </ol>
+        <div class="cue-timing"><span>⏱ 1.5 min prep</span><span>🎙 ≤ 2 min answer</span><span>📏 10-12 sentences</span></div>
+      </div>
+    </div>
+
+    <div class="hw-panel" data-panel="education">
+      <div class="cue-card b-track">
+        <div class="cue-h">Homework cue card 2 · Education</div>
+        <div class="cue-topic">You are going to give a talk about education. You will have to start in 1.5 minutes and speak for not more than 2 minutes (10-12 sentences). Remember to say:</div>
+        <ol>
+          <li>why education is important;</li>
+          <li>how long compulsory education in Russia is;</li>
+          <li>what your favourite subject is and why;</li>
+          <li>what your ideas of your future job are.</li>
+        </ol>
+        <div class="cue-timing"><span>⏱ 1.5 min prep</span><span>🎙 ≤ 2 min answer</span><span>📏 10-12 sentences</span></div>
+      </div>
+    </div>
+
+    <div class="info"><strong>Self-check before sending each mp3:</strong> intro + 4 bullets + outro · at least 3 linking words · 2 different tenses · 10-12 sentences.</div>
   </div>
 </section>
 
@@ -643,23 +711,23 @@ WARMUP.forEach((q, i) => {
   warmEl.appendChild(row);
 });
 
-/* ============== VOCAB ============== */
+/* ============== VOCAB · B1+ / B2 upgrade ============== */
 const VOCAB = [
-  {word:'compulsory education', pos:'noun',   def:'the school years that every child must attend',    ex:'In Russia compulsory education lasts nine years.'},
-  {word:'subject',              pos:'noun',   def:'an area you study at school',                       ex:'My favourite subject is biology.'},
-  {word:'entrance exam',        pos:'noun',   def:'a test you must pass to enter a school',            ex:'The entrance exam was really tough.'},
-  {word:'apply for',            pos:'phr. verb', def:'to formally ask for a job or a place',           ex:'She applied for a design school.'},
-  {word:'enter a university',   pos:'phrase', def:'to be accepted and start studying there',           ex:'He wants to enter a state university.'},
-  {word:'career',               pos:'noun',   def:'a job you do for a long part of your life',         ex:'She has built a career in medicine.'},
-  {word:'profession',           pos:'noun',   def:'a job that needs special training or study',        ex:'Teaching is a respected profession.'},
-  {word:'internship',           pos:'noun',   def:'short work experience in a company',                 ex:'She did an internship at a studio.'},
-  {word:'part-time job',        pos:'noun',   def:'a job for only a few hours a week',                  ex:'I have a part-time job at a café.'},
-  {word:'well-paid',            pos:'adj.',   def:'giving a lot of money',                              ex:'IT is a well-paid profession.'},
-  {word:'rewarding',            pos:'adj.',   def:'giving a good feeling, not only money',              ex:'Nursing is a rewarding job.'},
-  {word:'demand',               pos:'noun',   def:'how much people need or want something',             ex:'There is high demand for IT specialists.'},
-  {word:'change one’s mind',    pos:'phrase', def:'to decide something new instead',                     ex:'He changed his mind about medicine.'},
-  {word:'earn a living',        pos:'phrase', def:'to make enough money to live',                        ex:'You can earn a living by drawing.'},
-  {word:'follow in someone’s footsteps', pos:'idiom', def:'to do the same job as a family member',    ex:'He followed in his mother’s footsteps.'}
+  {word:'compulsory education', pos:'noun',   def:'the school years every child is legally required to attend', ex:'Compulsory education in Russia lasts nine years, but many pupils stay longer.'},
+  {word:'higher education',     pos:'noun',   def:'university-level studies after school',                        ex:'She hopes to continue in higher education abroad.'},
+  {word:'apply for',            pos:'phr. verb', def:'to make a formal request for a job, place or scholarship',  ex:'He applied for a scholarship and was shortlisted.'},
+  {word:'enrol on a course',    pos:'phr. verb', def:'to officially join a course of study',                       ex:'She enrolled on an online design course last September.'},
+  {word:'pursue a career in',   pos:'phrase', def:'to work towards success in a particular field',                 ex:'He plans to pursue a career in engineering.'},
+  {word:'vocation',             pos:'noun',   def:'a strong feeling that a certain job is the right one for you',  ex:'For many doctors, medicine is a vocation, not just a profession.'},
+  {word:'internship',           pos:'noun',   def:'short unpaid or low-paid work experience for students',         ex:'She landed an internship at a well-known design studio.'},
+  {word:'side hustle',          pos:'noun',   def:'an extra job you do alongside your main occupation',            ex:'Selling illustrations on Etsy is my side hustle.'},
+  {word:'lucrative',            pos:'adj.',   def:'producing a large amount of money; highly profitable',           ex:'IT remains one of the most lucrative fields for teenagers.'},
+  {word:'rewarding',            pos:'adj.',   def:'giving satisfaction beyond the salary',                          ex:'Teaching is exhausting but incredibly rewarding.'},
+  {word:'high demand',          pos:'noun',   def:'a strong need for particular workers on the job market',         ex:'There is high demand for data analysts across Europe.'},
+  {word:'broaden your horizons',pos:'idiom',  def:'to gain new knowledge or experiences that widen your view',      ex:'A gap year abroad really broadens your horizons.'},
+  {word:'earn a decent living', pos:'phrase', def:'to make enough money to live comfortably',                        ex:'You can earn a decent living from graphic design if you specialise.'},
+  {word:'follow in someone’s footsteps', pos:'idiom', def:'to choose the same profession as an older family member',ex:'She followed in her mother’s footsteps and became a surgeon.'},
+  {word:'have a knack for',     pos:'idiom',  def:'to have a natural talent for something',                          ex:'He has a real knack for solving logical puzzles.'}
 ];
 const vgrid = document.getElementById('vocab-grid');
 VOCAB.forEach(v => {
@@ -864,17 +932,17 @@ R13.forEach(it => {
   r13El.appendChild(row);
 });
 
-/* ============== GRAMMAR Q20-28 · WORD TRANSFORMATION ============== */
+/* ============== GRAMMAR Q20-28 · WORD TRANSFORMATION · B1+ ============== */
 const Q20 = [
-  {ctx:"When Anna (20) ______ (be) six, she said she wanted to be an astronaut.",              hint:"BE",       answer:"was"},
-  {ctx:"Today she (21) ______ (study) design at a professional college in Kazan.",              hint:"STUDY",    answer:"studies"},
-  {ctx:"She (22) ______ (draw) since she was seven years old.",                                  hint:"DRAW",     answer:"has drawn"},
-  {ctx:"Last summer her teacher (23) ______ (organise) a real internship for the whole group.", hint:"ORGANISE", answer:"organised"},
-  {ctx:"Anna thinks it was (24) ______ (good) week of her holiday.",                             hint:"GOOD",     answer:"the best"},
-  {ctx:"Her older brother is (25) ______ (she) main advisor about the future job.",              hint:"SHE",      answer:"her"},
-  {ctx:"If she works hard, she (26) ______ (become) a real UI designer in a few years.",         hint:"BECOME",   answer:"will become"},
-  {ctx:"There (27) ______ (be) three main companies in her city that she dreams of.",            hint:"BE",       answer:"are"},
-  {ctx:"By June next year she (28) ______ (finish) the second year of college.",                 hint:"FINISH",   answer:"will finish"}
+  {ctx:"By the time Anna turned fifteen, she (20) ______ (change) her mind about her future profession at least four times.", hint:"CHANGE", answer:"had changed"},
+  {ctx:"Last April a new career-guidance programme (21) ______ (launch) in her school.",                                       hint:"LAUNCH", answer:"was launched"},
+  {ctx:"Since then Anna (22) ______ (attend) every single meeting with the invited specialists.",                              hint:"ATTEND", answer:"has attended"},
+  {ctx:"Her older brother told her that a real internship (23) ______ (teach) her more than any theory book.",                 hint:"TEACH",  answer:"would teach"},
+  {ctx:"If she (24) ______ (know) about the design studio last summer, she would have applied straight away.",                 hint:"KNOW",   answer:"had known"},
+  {ctx:"By the end of next year Anna (25) ______ (finish) the first stage of her online design course.",                       hint:"FINISH", answer:"will have finished"},
+  {ctx:"Her portfolio is already (26) ______ (impressive) than the portfolios of most first-year students.",                    hint:"IMPRESSIVE", answer:"more impressive"},
+  {ctx:"She wishes she (27) ______ (have) more free time on weekdays to work on her personal projects.",                        hint:"HAVE",   answer:"had"},
+  {ctx:"The advice her mentor gives (28) ______ (base) on twenty years of studio experience.",                                  hint:"BASE",   answer:"is based"}
 ];
 const q20El = document.getElementById('q20-rows');
 let q20Score = 0;
@@ -894,14 +962,14 @@ Q20.forEach((it, i) => {
   q20El.appendChild(row);
 });
 
-/* ============== VOCABULARY Q29-34 · WORD FORMATION ============== */
+/* ============== VOCABULARY Q29-34 · WORD FORMATION · B1+ ============== */
 const Q29 = [
-  {ctx:"Choosing a career is one of the most important (29) ______ in your life.", hint:"DECIDE",   answer:"decisions"},
-  {ctx:"A good school gives every pupil a lot of new (30) ______.",                 hint:"KNOW",     answer:"knowledge"},
-  {ctx:"Nick was very (31) ______ about his first internship.",                     hint:"HAPPY",    answer:"happy"},
-  {ctx:"Some jobs are (32) ______ well-paid, but they are also very stressful.",    hint:"REAL",     answer:"really"},
-  {ctx:"Being a doctor is a (33) ______ profession that saves lives every day.",    hint:"WONDER",   answer:"wonderful"},
-  {ctx:"Career specialists give young people useful (34) ______.",                   hint:"ADVISE",   answer:"advice"}
+  {ctx:"In modern Russia the level of (29) ______ among young graduates has been steadily falling.",  hint:"EMPLOY",       answer:"unemployment"},
+  {ctx:"Most companies now expect their new hires to have solid formal (30) ______.",                  hint:"QUALIFY",      answer:"qualifications"},
+  {ctx:"Nick’s design mentor is a highly (31) ______ specialist with twenty years of experience.",     hint:"RELY",         answer:"reliable"},
+  {ctx:"The job market in the IT field is extremely (32) ______, which pushes candidates to keep learning.", hint:"COMPETE",  answer:"competitive"},
+  {ctx:"Volunteering at a hospital gave Sofia a real sense of (33) ______ for other people.",           hint:"RESPONSIBLE", answer:"responsibility"},
+  {ctx:"Career specialists warn teenagers against (34) ______ their own strengths and interests.",       hint:"ESTIMATE",    answer:"underestimating"}
 ];
 const q29El = document.getElementById('q29-rows');
 let q29Score = 0;
@@ -986,6 +1054,15 @@ monoMine.addEventListener('input', () => {
   monoCount.textContent = sents;
   monoWords.textContent = words;
   monoCount.style.color = (sents>=10 && sents<=12) ? 'var(--ok)' : (sents>0 ? 'var(--miss)' : 'var(--faint)');
+});
+
+/* ============== HW Tabs ============== */
+document.querySelectorAll('.hw-tab').forEach(tab => {
+  tab.onclick = () => {
+    const name = tab.dataset.tab;
+    document.querySelectorAll('.hw-tab').forEach(t => t.classList.toggle('active', t === tab));
+    document.querySelectorAll('.hw-panel').forEach(p => p.classList.toggle('active', p.dataset.panel === name));
+  };
 });
 
 /* ============== Dots ============== */
