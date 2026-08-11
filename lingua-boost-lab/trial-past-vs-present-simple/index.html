@@ -2119,10 +2119,14 @@ section.section[data-station].done .station-mark-btn{background:var(--mint) !imp
     say(el.getAttribute('data-say'));
   }));
 
-  // ─── Flip cards ───
+  // ─── Flip cards (click anywhere = say + flip) ───
   document.querySelectorAll('.flip-card').forEach(c => {
     c.addEventListener('click', e => {
+      // клик по самому слову — только озвучиваем, не переворачиваем
       if (e.target.closest('.say-word')) return;
+      // клик по картинке или пустому месту — играем слово И переворачиваем
+      const w = c.querySelector('.say-word')?.getAttribute('data-say');
+      if (w) say(w);
       c.classList.toggle('flipped');
     });
   });
