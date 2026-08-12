@@ -86,7 +86,7 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),#8a6f1e);-we
 .mech-btn{background:#fff;border:1.5px solid var(--line);color:var(--muted);padding:7px 13px;border-radius:22px;font-family:var(--body);font-weight:700;font-size:.8rem;cursor:pointer;transition:.15s}
 .mech-btn:hover{border-color:var(--accent);color:var(--accent3)}
 .mech-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-.mech{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow)}
+.mech{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow);margin-bottom:16px;scroll-margin-top:140px}
 .mech-title{font-family:var(--display);font-weight:800;color:var(--accent3);font-size:1.05rem;margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .mech-title small{font-size:.72rem;color:var(--muted);font-weight:600;font-family:var(--mono);letter-spacing:.06em}
 .mech-hint{font-size:.85rem;color:var(--muted);margin-bottom:12px;font-style:italic}
@@ -432,24 +432,24 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),#8a6f1e);-we
     </div>
   </div>
 
-  <!-- ═══════════ TAB 2 · Тренажёр словаря (24 слова из монологов) ═══════════ -->
+  <!-- ═══════════ TAB 2 · Vocabulary Trainer (24 words from the monologues) ═══════════ -->
   <div class="tbody" id="tbody-tr">
     <div class="ex-hdr">
-      <h2>📚 24 слова из монологов · Александра и Станислава</h2>
-      <div class="sub">CEO / commercial director vocab · всё из монологов, 11 механик Quizlet-style · Flashcards, Match, Type, Listen, Scramble, Fill, T/F, Builder, Sprint, Reverse, Learn</div>
+      <h2>📚 24 words from the monologues of Alexander &amp; Stanislav</h2>
+      <div class="sub">CEO / commercial director vocabulary. Eleven Quizlet-style exercises, one after another. Please work through them at your own pace.</div>
     </div>
-    <div class="mech-nav" id="mech-nav">
-      <button class="mech-btn active" data-m="fc">🎴 Flashcards</button>
-      <button class="mech-btn" data-m="mp">🃏 Match</button>
-      <button class="mech-btn" data-m="typ">✍️ Type EN</button>
-      <button class="mech-btn" data-m="rev">🔁 Reverse</button>
-      <button class="mech-btn" data-m="lt">🔊 Listen &amp; type</button>
-      <button class="mech-btn" data-m="sc">🔀 Scramble</button>
-      <button class="mech-btn" data-m="fb">📝 Fill-blank</button>
-      <button class="mech-btn" data-m="tf">✅ True/False</button>
-      <button class="mech-btn" data-m="sb">🧩 Sentence builder</button>
-      <button class="mech-btn" data-m="sp">⚡ Sprint 30s</button>
-      <button class="mech-btn" data-m="ln">📚 Learn</button>
+    <div class="k-nav" id="mech-nav">
+      <a href="#mech-fc" class="k-navlink">🎴 Flashcards</a>
+      <a href="#mech-mp" class="k-navlink">🃏 Match</a>
+      <a href="#mech-typ" class="k-navlink">✍️ Type EN</a>
+      <a href="#mech-rev" class="k-navlink">🔁 Reverse</a>
+      <a href="#mech-lt" class="k-navlink">🔊 Listen &amp; type</a>
+      <a href="#mech-sc" class="k-navlink">🔀 Scramble</a>
+      <a href="#mech-fb" class="k-navlink">📝 Fill-blank</a>
+      <a href="#mech-tf" class="k-navlink">✅ True/False</a>
+      <a href="#mech-sb" class="k-navlink">🧩 Sentence builder</a>
+      <a href="#mech-sp" class="k-navlink">⚡ Sprint 30s</a>
+      <a href="#mech-ln" class="k-navlink">📚 Learn (adaptive)</a>
     </div>
     <div id="mech-slot"></div>
   </div>
@@ -959,23 +959,24 @@ const M7 = [
   {wrong:"walkeng", right:"walking", ex:"I love walking with my dog in my free time.", note:"Окончание -ing, не -eng"}
 ];
 
-/* ═══════════════════ TAB 2 · Vocab drill (24 слова × 11 механик) ═══════════════════ */
+/* ═══════════════════ TAB 2 · Vocabulary Trainer · 11 exercises stacked ═══════════════════ */
 function initVocabTrainer(){
-  document.querySelectorAll('#mech-nav .mech-btn').forEach(b => {
-    b.onclick = () => {
-      document.querySelectorAll('#mech-nav .mech-btn').forEach(x => x.classList.toggle('active', x === b));
-      buildMech(b.dataset.m, V24);
-    };
-  });
-  buildMech('fc', V24);
-}
-
-function buildMech(key, V){
   const slot = document.getElementById('mech-slot');
-  slot.innerHTML = `<div class="mech" id="mech-body"></div>`;
-  const body = document.getElementById('mech-body');
-  const P = V.map(v => v.ex || v.w);
-  ({fc:buildFC, mp:buildMP, typ:buildTYP, rev:buildREV, lt:buildLT, sc:buildSC, fb:buildFB, tf:buildTF, sb:buildSB, sp:buildSP, ln:buildLN}[key])(body, V, P);
+  const specs = [
+    {key:'fc',  build:buildFC},
+    {key:'mp',  build:buildMP},
+    {key:'typ', build:buildTYP},
+    {key:'rev', build:buildREV},
+    {key:'lt',  build:buildLT},
+    {key:'sc',  build:buildSC},
+    {key:'fb',  build:buildFB},
+    {key:'tf',  build:buildTF},
+    {key:'sb',  build:buildSB},
+    {key:'sp',  build:buildSP},
+    {key:'ln',  build:buildLN}
+  ];
+  slot.innerHTML = specs.map(s => `<div class="mech" id="mech-${s.key}"></div>`).join('');
+  specs.forEach(s => s.build(document.getElementById('mech-' + s.key), V24));
 }
 
 /* 1. FLASHCARDS */
@@ -984,11 +985,12 @@ function buildFC(el, V){
   function render(){
     const v = V[i];
     el.innerHTML = `
-      <div class="mech-title">🎴 Flashcards <small>tap card = flip · автоозвучка при переворачивании</small></div>
+      <div class="mech-title">🎴 Flashcards <small>Tap the card to flip it · audio plays on reveal</small></div>
+      <div class="mech-hint">Please tap the card to see the translation and an example. The word is spoken automatically when revealed.</div>
       <div class="fc-nav">
         <span class="fc-count">${i+1} / ${V.length}</span>
         <div class="fc-btns">
-          <button class="fc-b" data-fc="prev">← Prev</button>
+          <button class="fc-b" data-fc="prev">← Previous</button>
           <button class="fc-b" data-fc="next">Next →</button>
           <button class="fc-b" data-fc="shuffle">🔀 Shuffle</button>
         </div>
@@ -1020,8 +1022,8 @@ function buildMP(el, V){
   pairs.forEach((v,i) => { cards.push({s:'ru',t:v.ru,p:i}); cards.push({s:'en',t:v.w,p:i}); });
   const shuffled = shuffle(cards);
   el.innerHTML = `
-    <div class="mech-title">🃏 Match RU ↔ EN <small>tap 2 карты = пара</small></div>
-    <div class="mech-hint">Найдите пары: русская сторона и английская.</div>
+    <div class="mech-title">🃏 Match RU ↔ EN <small>tap two cards to form a pair</small></div>
+    <div class="mech-hint">Please find the pairs: Russian side and English side. Tap two cards — if they match, they turn green.</div>
     <div class="mp-grid" id="mp-grid">${shuffled.map(c => `<div class="mp-c" data-p="${c.p}" data-s="${c.s}"><span class="txt">${c.t}</span></div>`).join('')}</div>
     <div class="score" id="mp-score">0 / ${pairs.length} pairs</div>
   `;
@@ -1054,8 +1056,8 @@ function buildMP(el, V){
 function buildTYP(el, V){
   const items = V.slice(0, Math.min(10, V.length));
   el.innerHTML = `
-    <div class="mech-title">✍️ Type EN by RU <small>напечатайте английское слово / фразу</small></div>
-    <div class="mech-hint">Русская подсказка → введите английский эквивалент. Кнопка Show — показать ответ.</div>
+    <div class="mech-title">✍️ Type EN by RU <small>Please type the English word or phrase</small></div>
+    <div class="mech-hint">Russian prompt → kindly type the English equivalent. The «Show» button reveals the answer if needed.</div>
     ${items.map((v,i) => `
       <div class="typ-row">
         <span class="typ-num">${i+1}</span>
@@ -1084,13 +1086,13 @@ function buildTYP(el, V){
 function buildREV(el, V){
   const items = V.slice(0, Math.min(10, V.length));
   el.innerHTML = `
-    <div class="mech-title">🔁 Reverse · EN → RU <small>напишите русский перевод</small></div>
-    <div class="mech-hint">Английское слово → переведите (достаточно первого слова / ключевого корня).</div>
+    <div class="mech-title">🔁 Reverse · EN → RU <small>Please provide the Russian translation</small></div>
+    <div class="mech-hint">English word → kindly translate. The first word or the key root is quite sufficient.</div>
     ${items.map((v,i) => `
       <div class="typ-row">
         <span class="typ-num">${i+1}</span>
         <span class="typ-q" style="font-family:var(--display);color:var(--accent3)">${v.w}</span>
-        <input class="typ-inp" data-ru="${v.ru.replace(/"/g,'&quot;').toLowerCase()}" placeholder="перевод…">
+        <input class="typ-inp" data-ru="${v.ru.replace(/"/g,'&quot;').toLowerCase()}" placeholder="translation…">
         <button class="typ-show" data-show="${v.ru.replace(/"/g,'&quot;')}">Show</button>
       </div>
     `).join('')}
@@ -1119,8 +1121,8 @@ function buildLT(el, V){
   function render(){
     const v = items[i];
     el.innerHTML = `
-      <div class="mech-title">🔊 Listen &amp; type <small>слушайте и печатайте что услышали</small></div>
-      <div class="mech-hint">🎧 Нажмите play, послушайте, наберите. Enter — проверить.</div>
+      <div class="mech-title">🔊 Listen &amp; type <small>Please listen and type what you hear</small></div>
+      <div class="mech-hint">🎧 Kindly press play, listen carefully, then type the word. Press Enter to check.</div>
       <div class="lt-panel">
         <div style="font-size:.86rem;color:var(--muted);margin-bottom:6px">#${i+1} / ${items.length}</div>
         <button class="lt-play" onclick="say(${JSON.stringify(v.w).replace(/"/g,'&quot;')}, 0.75)">🔊</button>
@@ -1148,16 +1150,16 @@ function buildLT(el, V){
 /* 6. SCRAMBLE */
 function buildSC(el, V){
   const items = V.filter(v => v.w.length <= 15 && !v.w.includes(' ')).slice(0, 10);
-  if(!items.length){ el.innerHTML = `<div class="mech-title">🔀 Scramble</div><div class="mech-hint">Нет коротких слов для этого набора — попробуйте другой sub-tab.</div>`; return; }
+  if(!items.length){ el.innerHTML = `<div class="mech-title">🔀 Scramble</div><div class="mech-hint">No short single-word items in this set.</div>`; return; }
   let i = 0;
   function render(){
     const w = items[i].w;
     const L = shuffle(w.split(''));
     el.innerHTML = `
-      <div class="mech-title">🔀 Word scramble <small>соберите слово из букв</small></div>
-      <div class="mech-hint">Нажимайте буквы в правильном порядке. Ошиблись — тапните букву в слоте, вернётся.</div>
+      <div class="mech-title">🔀 Word scramble <small>Please assemble the word from the letters</small></div>
+      <div class="mech-hint">Kindly tap the letters in the correct order. To take a letter back, tap it in the slot.</div>
       <div class="sc-panel">
-        <div class="sc-hint"><strong>#${i+1} / ${items.length}</strong> · собери слово (${w.length} букв) · <button class="fc-b" onclick="say(${JSON.stringify(w).replace(/"/g,'&quot;')})" style="padding:3px 9px;font-size:.72rem">🔊</button></div>
+        <div class="sc-hint"><strong>#${i+1} / ${items.length}</strong> · assemble the word (${w.length} letters) · <button class="fc-b" onclick="say(${JSON.stringify(w).replace(/"/g,'&quot;')})" style="padding:3px 9px;font-size:.72rem">🔊</button></div>
         <div class="sc-slots" data-sc-a></div>
         <div class="sc-letters">${L.map(l => `<div class="sc-l" data-l="${l}">${l}</div>`).join('')}</div>
         <div class="sc-ctrl">
@@ -1199,10 +1201,10 @@ function buildFB(el, V){
     }
     if(rows.length >= 8) break;
   }
-  if(!rows.length){ el.innerHTML = `<div class="mech-title">📝 Fill-blank</div><div class="mech-hint">Нет фраз с ключевыми словами в этом наборе.</div>`; return; }
+  if(!rows.length){ el.innerHTML = `<div class="mech-title">📝 Fill-blank</div><div class="mech-hint">No suitable phrases in this set.</div>`; return; }
   el.innerHTML = `
-    <div class="mech-title">📝 Fill-in-the-blank <small>впишите пропущенное слово</small></div>
-    <div class="mech-hint">Прочитайте предложение и впишите слово, которое подходит по контексту.</div>
+    <div class="mech-title">📝 Fill-in-the-blank <small>Please fill in the missing word</small></div>
+    <div class="mech-hint">Kindly read each sentence and enter the word that fits the context.</div>
     ${rows.map((r,i) => `
       <div class="fb-row"><strong style="color:var(--accent3)">${i+1}.</strong> ${r.p.split('____')[0]}<input class="fb-inp" data-a="${r.a}" placeholder="?">${r.p.split('____')[1]||''}</div>
     `).join('')}
@@ -1229,8 +1231,8 @@ function buildTF(el, V){
     return { en: v.w, ru: isTrue ? v.ru : fakeRu, a: isTrue };
   });
   el.innerHTML = `
-    <div class="mech-title">✅ True or False <small>соответствует ли перевод?</small></div>
-    <div class="mech-hint">Прочитайте английское слово и русский перевод. Правильно ли переведено?</div>
+    <div class="mech-title">✅ True or False <small>Does the translation match?</small></div>
+    <div class="mech-hint">Please read the English word and the Russian translation. Is the translation correct?</div>
     ${items.map((t, i) => `
       <div class="tf-row">
         <div class="tf-t"><strong>${i+1}.</strong> <span style="font-family:var(--display);color:var(--accent3)">${t.en}</span> = <span style="color:var(--muted)">${t.ru}</span></div>
@@ -1253,10 +1255,10 @@ function buildTF(el, V){
 /* 9. SENTENCE BUILDER */
 function buildSB(el, V){
   const src = V.filter(v => v.ex && v.ex.split(/\s+/).length >= 4 && v.ex.split(/\s+/).length <= 14).slice(0, 6);
-  if(!src.length){ el.innerHTML = `<div class="mech-title">🧩 Sentence builder</div><div class="mech-hint">В этом наборе нет фраз подходящей длины.</div>`; return; }
+  if(!src.length){ el.innerHTML = `<div class="mech-title">🧩 Sentence builder</div><div class="mech-hint">No sentences of a suitable length in this set.</div>`; return; }
   el.innerHTML = `
-    <div class="mech-title">🧩 Sentence builder <small>соберите предложение из слов</small></div>
-    <div class="mech-hint">Тапайте слова в правильном порядке. Тап по слову в слоте — вернуть его в банк.</div>
+    <div class="mech-title">🧩 Sentence builder <small>Please assemble the sentence from the words</small></div>
+    <div class="mech-hint">Kindly tap the words in the correct order. Tap a word in the slot to return it to the bank.</div>
     ${src.map((v, i) => {
       const words = v.ex.replace(/[.,!?—]/g,'').split(/\s+/).filter(Boolean);
       const bank = shuffle(words);
@@ -1289,8 +1291,8 @@ function buildSB(el, V){
 /* 10. SPRINT 30s */
 function buildSP(el, V){
   el.innerHTML = `
-    <div class="mech-title">⚡ Sprint · 30 seconds <small>максимум ответов за 30 секунд</small></div>
-    <div class="mech-hint">RU → EN. Печатайте английский эквивалент — правильный ответ засчитывается автоматически.</div>
+    <div class="mech-title">⚡ Sprint · 30 seconds <small>As many correct answers as you can in 30 seconds</small></div>
+    <div class="mech-hint">RU → EN. Please type the English equivalent — a correct answer is counted automatically.</div>
     <div class="sp-panel">
       <div class="sp-timer" id="sp-t">00:30</div>
       <div class="sp-word" id="sp-w">tap Start to begin</div>
@@ -1333,25 +1335,25 @@ function buildLN(el, V){
   function render(){
     if(stack.length === 0){
       el.innerHTML = `<div class="mech-title">📚 Learn</div>
-        <div class="ln-panel"><h3 style="color:var(--ok);font-family:var(--display);font-size:1.6rem;margin-bottom:8px">🎉 done!</h3>
-        <p style="font-size:1rem;margin-bottom:14px">Известно с первого раза: <strong style="color:var(--ok)">${known}</strong> · возвращалось: <strong style="color:var(--miss)">${still}</strong></p>
+        <div class="ln-panel"><h3 style="color:var(--ok);font-family:var(--display);font-size:1.6rem;margin-bottom:8px">🎉 All done, well done!</h3>
+        <p style="font-size:1rem;margin-bottom:14px">Known on the first try: <strong style="color:var(--ok)">${known}</strong> · returned to the stack: <strong style="color:var(--miss)">${still}</strong></p>
         <button class="ln-b start" onclick="location.reload()">🔄 New round</button></div>`;
       return;
     }
     current = stack.shift();
     el.innerHTML = `
-      <div class="mech-title">📚 Learn · Quizlet adaptive <small>reveal → «знаю» уходит, «ещё раз» возвращается</small></div>
-      <div class="mech-hint">Классическая механика Quizlet. Слово, которое пометили «ещё раз», вернётся в конец стопки.</div>
+      <div class="mech-title">📚 Learn · Quizlet adaptive <small>Reveal → «I know it» removes the card, «Again» returns it</small></div>
+      <div class="mech-hint">The classic Quizlet mechanic. Words you mark «Again» are placed at the end of the stack for another attempt.</div>
       <div class="ln-panel" id="ln-p">
-        <div class="ln-prog">card · known <strong style="color:var(--ok)">${known}</strong> · still <strong style="color:var(--miss)">${still}</strong> · left <strong>${stack.length+1}</strong></div>
+        <div class="ln-prog">card · known <strong style="color:var(--ok)">${known}</strong> · returned <strong style="color:var(--miss)">${still}</strong> · left <strong>${stack.length+1}</strong></div>
         <div class="ln-w">${current.w}</div>
-        <div class="ln-hint"><em style="color:var(--muted)">tap Reveal → оцените себя</em></div>
+        <div class="ln-hint"><em style="color:var(--muted)">Please tap Reveal, then rate yourself.</em></div>
         <div class="ln-ex">—</div>
         <div class="ln-acts">
           <button class="ln-b say" onclick="say(${JSON.stringify(current.w).replace(/"/g,'&quot;')})">🔊</button>
           <button class="ln-b rev" id="ln-r">👁 Reveal</button>
-          <button class="ln-b kn" id="ln-k" style="display:none">✓ Знаю</button>
-          <button class="ln-b st" id="ln-s" style="display:none">↺ Ещё раз</button>
+          <button class="ln-b kn" id="ln-k" style="display:none">✓ I know it</button>
+          <button class="ln-b st" id="ln-s" style="display:none">↺ Again</button>
         </div>
       </div>
     `;
