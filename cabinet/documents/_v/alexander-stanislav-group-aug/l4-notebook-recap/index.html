@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>L4 · Notebook Recap · Alexander and Stanislav · A2 · NG English</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:wght@700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F1EA; --paper-2:#EAE6DD;
+  --card:#FFFFFF; --card-2:#FBF9F4;
+  --ink:#1F1F1F; --ink-2:#2C2C2C; --muted:#8B8B8B; --faint:#B0AEA7;
+  --accent:#E8542B; --accent2:#F1A183; --accent3:#B0361A; --accent-soft:#FDECE4;
+  --gold:#F4C84B; --gold-soft:#FFF3D0;
+  --line:rgba(31,31,31,.10); --line-2:rgba(31,31,31,.18);
+  --ok:#4A8F6E; --miss:#B85A5A;
+  --shadow:0 6px 20px rgba(31,31,31,.08);
+  --display:"Fraunces","Manrope",Georgia,serif;
+  --body:"Manrope",system-ui,sans-serif;
+  --mono:"JetBrains Mono",Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--body);background:var(--paper);color:var(--ink);min-height:100vh;line-height:1.62;overflow-x:hidden;font-size:16px}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+
+/* Topbar */
+.topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;padding:10px clamp(14px,3vw,26px);background:color-mix(in srgb,var(--paper) 94%,transparent);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-mark{width:40px;height:40px;border-radius:10px 0 10px 10px;background:var(--accent);color:#fff;font-family:var(--display);font-weight:900;font-size:22px;display:grid;place-items:center;line-height:1;box-shadow:0 2px 6px rgba(232,84,43,.25);position:relative;overflow:hidden}
+.brand-mark::after{content:"";position:absolute;top:0;right:0;width:12px;height:12px;background:#fff;clip-path:polygon(100% 0,0 0,100% 100%)}
+.brand-copy{display:grid;gap:1px}
+.brand-name{font-family:var(--display);font-weight:800;font-size:14px;letter-spacing:.02em}
+.brand-sub{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.spacer{flex:1}
+.tb-pill{padding:5px 11px;border-radius:50px;font:800 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--accent);color:var(--accent);background:var(--accent-soft);white-space:nowrap}
+.tb-pill.gold{border-color:#c8a640;color:#8a6f1e;background:var(--gold-soft)}
+.tb-dots{display:flex;gap:5px;align-items:center}
+.tb-dot{width:10px;height:10px;border-radius:50%;background:var(--line-2);border:none;padding:0;cursor:pointer;transition:.15s}
+.tb-dot:hover{transform:scale(1.4)}
+.tb-dot.done{background:var(--accent);box-shadow:0 0 0 2px rgba(232,84,43,.22)}
+@media(max-width:900px){.tb-dots{display:none}}
+
+/* Hero */
+.hero{width:min(1240px, calc(100% - clamp(32px, 6vw, 56px)));margin:22px auto 20px}
+.hero-card{position:relative;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:linear-gradient(135deg,#FBF9F4 0%,#F1EAD8 55%,#F4E4C6 100%);padding:clamp(28px,4vw,48px) clamp(22px,3.5vw,44px);box-shadow:0 10px 30px rgba(31,31,31,.10);color:var(--ink)}
+.hero-card::before{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:linear-gradient(90deg,var(--accent) 0%,var(--accent) 55%,var(--gold) 100%)}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;background:var(--accent-soft);border:1px solid var(--accent);padding:6px 14px;border-radius:50px;font:800 10.5px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--accent3);margin-bottom:18px}
+h1.hero-title{font-family:var(--display);font-weight:800;letter-spacing:-.015em;line-height:1.05;font-size:clamp(1.75rem,4vw,2.7rem);margin-bottom:14px;color:var(--ink)}
+h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),#8a6f1e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-lead{font-size:1.02rem;color:var(--ink-2);max-width:720px;line-height:1.65;background:rgba(255,255,255,.65);border:1px solid var(--line);border-radius:12px;padding:14px 18px}
+.hero-meta{display:flex;gap:22px;margin-top:16px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.hero-meta strong{color:var(--accent);font-weight:800}
+
+/* Section */
+.section{width:min(1240px, calc(100% - clamp(32px, 6vw, 56px)));margin:0 auto 30px;scroll-margin-top:70px}
+.section-hdr{display:flex;align-items:center;gap:14px;margin:28px 0 14px;flex-wrap:wrap}
+.section .num{font:800 11px/1 var(--mono);letter-spacing:.14em;background:var(--accent);color:#fff;padding:7px 13px;border-radius:50px;text-transform:uppercase}
+.section-hdr h2{font-family:var(--display);font-weight:800;font-size:clamp(1.3rem,2.4vw,1.7rem);letter-spacing:-.01em;line-height:1.15;color:var(--ink)}
+.section.gold .num{background:#c8a640}
+.section-sub{font-size:.95rem;color:var(--muted);margin:0 0 14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 26px;box-shadow:var(--shadow);margin-bottom:14px}
+.task-tag{display:inline-block;font:800 10px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;background:var(--accent-soft);color:var(--accent3);border:1px solid var(--accent);border-radius:50px;padding:4px 10px;margin-bottom:12px}
+.info{background:var(--card-2);border-left:3px solid var(--accent);padding:12px 16px;border-radius:0 8px 8px 0;font-size:.95rem;color:var(--ink);margin:12px 0}
+.info strong{color:var(--accent3)}
+.info.gold{border-left-color:#c8a640;background:var(--gold-soft)}
+.info.gold strong{color:#8a6f1e}
+
+/* Talk rows */
+.talk-grid{display:grid;grid-template-columns:1fr;gap:10px;margin:12px 0}
+.talk-row{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:14px}
+.talk-play{width:44px;height:44px;flex-shrink:0;border-radius:50%;background:var(--accent);color:#fff;border:none;display:grid;place-items:center;cursor:pointer;font-size:1rem;font-family:var(--mono);font-weight:800}
+.talk-play:hover{background:var(--accent3)}
+.talk-play:active{transform:scale(.94)}
+.talk-phrase{font-family:Georgia,serif;color:var(--ink);font-size:1.05rem;font-weight:600;flex:1;line-height:1.4}
+.talk-phrase b{color:var(--accent3);background:var(--accent-soft);padding:1px 6px;border-radius:4px}
+.talk-when{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:right;max-width:36%;line-height:1.5}
+@media(max-width:640px){.talk-when{max-width:none;text-align:left;flex-basis:100%;margin-top:2px}}
+
+/* Rescue rows */
+.rescue-grid{display:grid;grid-template-columns:1fr;gap:10px;margin:14px 0}
+.rescue-row{background:var(--card-2);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;padding:14px 18px;display:flex;align-items:center;gap:14px}
+.rescue-play{width:44px;height:44px;flex-shrink:0;border-radius:50%;background:var(--accent);color:#fff;border:none;display:grid;place-items:center;cursor:pointer;font-size:1rem;font-family:var(--mono);font-weight:800}
+.rescue-play:hover{background:var(--accent3)}
+.rescue-play:active{transform:scale(.94)}
+.rescue-text{flex:1}
+.rescue-text .phrase{font-family:Georgia,serif;color:var(--ink);font-size:1.05rem;font-weight:600;line-height:1.4}
+.rescue-text .phrase b{color:var(--accent3);background:var(--accent-soft);padding:1px 6px;border-radius:4px}
+.rescue-text .when{font-family:Georgia,serif;font-size:.88rem;color:var(--muted);margin-top:4px;font-style:italic}
+
+/* MCQ tap-quiz */
+.mcq-row{background:var(--card-2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
+.mcq-q{font-size:1rem;color:var(--ink);margin-bottom:10px;line-height:1.55;font-family:Georgia,serif}
+.mcq-q .blank{display:inline-block;min-width:64px;padding:0 10px;border-bottom:2px dashed var(--accent);font-weight:700;color:var(--accent3);text-align:center}
+.mcq-opts{display:flex;flex-wrap:wrap;gap:8px}
+.mcq-opts button{background:var(--card);border:1.5px solid var(--line-2);color:var(--ink);padding:10px 16px;border-radius:10px;font-size:1rem;cursor:pointer;transition:.15s;font-family:var(--body);font-weight:600;min-width:64px}
+.mcq-opts button:hover{border-color:var(--accent);color:var(--accent3)}
+.mcq-opts button.correct{background:rgba(74,143,110,.18);border-color:var(--ok);color:var(--ok);font-weight:800}
+.mcq-opts button.wrong{background:rgba(184,90,90,.14);border-color:var(--miss);color:var(--miss)}
+.mcq-row.revealed .mcq-note{display:block}
+.mcq-note{display:none;font:italic 500 .85rem/1.5 Georgia,serif;color:var(--muted);background:var(--gold-soft);border-left:3px solid #c8a640;padding:8px 12px;border-radius:0 6px 6px 0;margin-top:10px}
+
+/* Rule cards */
+.rule-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin:12px 0}
+.rule-card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:grid;gap:8px}
+.rule-card .rule-key{font-family:var(--mono);font-weight:800;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.rule-card .rule-h{font-family:var(--display);font-weight:800;font-size:1.3rem;color:var(--ink)}
+.rule-card .rule-txt{font-family:Georgia,serif;font-size:.94rem;color:var(--ink-2);line-height:1.5}
+.rule-card .rule-ex{font-family:Georgia,serif;font-style:italic;font-size:.9rem;color:var(--muted);background:var(--card-2);padding:6px 10px;border-radius:6px;margin-top:4px}
+.rule-card .rule-ex b{color:var(--accent3);background:var(--accent-soft);padding:1px 5px;border-radius:3px;font-style:normal}
+
+/* Rule strip */
+.rule-strip{background:var(--gold-soft);border:1px solid #dbb54f;border-radius:12px;padding:14px 18px;margin:12px 0;font-family:Georgia,serif;font-size:.98rem;color:var(--ink-2);line-height:1.6}
+.rule-strip b{color:var(--accent3);background:var(--accent-soft);padding:1px 5px;border-radius:3px}
+.rule-strip .warn{color:var(--miss);font-weight:700}
+
+/* Days-of-week grid */
+.days-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:14px 0}
+.day-card{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:0 12px 12px 0;padding:12px 14px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:.15s}
+.day-card:hover{border-left-color:var(--accent3);background:var(--card-2)}
+.day-card .day-play{width:36px;height:36px;flex-shrink:0;border-radius:50%;background:var(--accent-soft);color:var(--accent3);border:1.5px solid var(--accent);display:grid;place-items:center;font-family:var(--mono);font-weight:800;font-size:.85rem}
+.day-card:hover .day-play{background:var(--accent);color:#fff}
+.day-card .day-en{font-family:var(--display);font-weight:800;font-size:1.1rem;color:var(--ink);min-width:82px}
+.day-card .day-ipa{font-family:var(--mono);font-size:.78rem;color:var(--muted);flex:1}
+.day-card .day-ru{font-family:Georgia,serif;font-size:.9rem;color:var(--accent3);font-style:italic}
+
+/* AT / ON / IN preposition cards */
+.prep-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:14px 0}
+.prep-card{background:var(--card);border:1px solid var(--line);border-top:5px solid var(--accent);border-radius:14px;padding:18px 20px}
+.prep-card.on{border-top-color:#c8a640}
+.prep-card.in{border-top-color:#7a8f5c}
+.prep-card .prep-h{font-family:var(--display);font-weight:800;font-size:1.75rem;color:var(--accent);letter-spacing:.02em;margin-bottom:4px}
+.prep-card.on .prep-h{color:#8a6f1e}
+.prep-card.in .prep-h{color:#5c6e42}
+.prep-card .prep-when{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.prep-card ul{list-style:none;padding:0;display:grid;gap:6px}
+.prep-card ul li{font-family:Georgia,serif;font-size:.98rem;color:var(--ink-2);padding:4px 0;border-bottom:1px dashed var(--line)}
+.prep-card ul li:last-child{border-bottom:0}
+.prep-card ul li b{color:var(--accent3);background:var(--accent-soft);padding:1px 5px;border-radius:3px}
+.prep-card.on ul li b{color:#8a6f1e;background:var(--gold-soft)}
+.prep-card.in ul li b{color:#5c6e42;background:#e8ecdc}
+
+/* Comparative row */
+.comp-grid{display:grid;grid-template-columns:1fr;gap:10px;margin:14px 0}
+.comp-row{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:14px;align-items:center}
+@media(max-width:720px){.comp-row{grid-template-columns:1fr;gap:6px;text-align:left}}
+.comp-row .comp-ru{font-family:Georgia,serif;font-style:italic;color:var(--muted);font-size:.92rem}
+.comp-row .comp-base,.comp-row .comp-mid,.comp-row .comp-top{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--ink)}
+.comp-row .comp-mid{color:var(--accent3)}
+.comp-row .comp-top{color:#8a6f1e}
+.comp-row .comp-mid::before{content:"→ ";color:var(--faint);font-weight:400}
+.comp-row .comp-top::before{content:"→ ";color:var(--faint);font-weight:400}
+
+/* Small-talk category headers */
+.st-cat{display:flex;align-items:center;gap:12px;margin:20px 0 10px;font-family:var(--display);font-weight:800;font-size:1.1rem;color:var(--accent3);padding-bottom:6px;border-bottom:2px solid var(--accent-soft)}
+.st-cat .st-num{background:var(--accent);color:#fff;font-family:var(--mono);font-weight:800;font-size:.72rem;letter-spacing:.14em;padding:4px 9px;border-radius:50px;text-transform:uppercase}
+
+/* Monologue block */
+.mono-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0}
+@media(max-width:820px){.mono-grid{grid-template-columns:1fr}}
+.mono-col{background:linear-gradient(135deg,#FFFFFF 0%,var(--card-2) 100%);border:1px solid var(--line);border-radius:14px;padding:18px 22px;display:flex;flex-direction:column;gap:10px}
+.mono-col .m-who{display:inline-flex;align-items:center;gap:8px;font:800 10.5px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:#fff;background:var(--accent);padding:5px 11px;border-radius:6px;align-self:start}
+.mono-col.stan .m-who{background:#c8a640}
+.mono-col .m-title{font-family:var(--display);font-weight:800;font-size:1.15rem;color:var(--ink);line-height:1.2}
+.mono-col .m-play{align-self:start;background:var(--accent-soft);color:var(--accent3);border:1.5px solid var(--accent);padding:8px 14px;border-radius:50px;font-family:var(--mono);font-weight:800;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;gap:8px;cursor:pointer}
+.mono-col .m-play:hover{background:var(--accent);color:#fff}
+.mono-col.stan .m-play{background:var(--gold-soft);color:#8a6f1e;border-color:#c8a640}
+.mono-col.stan .m-play:hover{background:#c8a640;color:#fff}
+.mono-col .m-text{font-family:Georgia,serif;font-size:.98rem;color:var(--ink-2);line-height:1.65;background:rgba(255,255,255,.6);border:1px dashed var(--line-2);border-radius:10px;padding:12px 14px}
+.mono-col .m-text b{color:var(--accent3);background:var(--accent-soft);padding:1px 5px;border-radius:3px;font-family:inherit}
+.mono-col.stan .m-text b{color:#8a6f1e;background:var(--gold-soft)}
+
+.mono-skeleton{background:var(--gold-soft);border:1px dashed #dbb54f;border-radius:12px;padding:16px 20px;margin-top:14px;font-family:Georgia,serif;font-size:.96rem;color:#5f4f19;line-height:1.65}
+.mono-skeleton h4{font-family:var(--display);font-weight:800;font-size:1rem;color:#8a6f1e;margin-bottom:8px}
+.mono-skeleton ol{padding-left:20px;display:grid;gap:4px}
+.mono-skeleton ol li b{color:var(--accent3);background:var(--accent-soft);padding:1px 5px;border-radius:3px;font-family:inherit}
+
+.timer-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;padding:14px 18px;margin-top:14px}
+.timer-btn{background:var(--accent);color:#fff;border:none;padding:10px 18px;border-radius:50px;font-family:var(--mono);font-weight:800;font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+.timer-btn:hover{background:var(--accent3)}
+.timer-display{font-family:var(--mono);font-weight:800;font-size:1.5rem;color:var(--accent3);min-width:80px;text-align:center}
+.timer-hint{font-family:Georgia,serif;font-size:.92rem;color:var(--muted);flex:1;font-style:italic}
+
+/* Now-you */
+.now-you{width:min(1240px, calc(100% - clamp(32px, 6vw, 56px)));margin:-12px auto 30px;padding:0;scroll-margin-top:70px}
+.now-you .now-card{background:linear-gradient(135deg,#FFF9EE 0%,#FFF3D0 100%);border:1px solid #dbb54f;border-left:5px solid #c8a640;border-radius:0 14px 14px 0;padding:18px 24px;box-shadow:0 4px 14px rgba(200,166,64,.14)}
+.now-you .now-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.now-you .now-tag{font:800 10.5px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;background:#c8a640;color:#fff;padding:6px 12px;border-radius:50px}
+.now-you .now-title{font-family:var(--display);font-weight:800;font-size:1.15rem;color:#8a6f1e;letter-spacing:-.01em}
+.now-you .now-sub{font-family:Georgia,serif;font-size:.94rem;color:#5f4f19;margin-bottom:12px;font-style:italic}
+.now-you .now-model{background:rgba(255,255,255,.6);border:1px dashed #c8a640;border-radius:10px;padding:10px 14px;margin:8px 0 12px;display:flex;align-items:center;gap:12px}
+.now-you .now-model-play{width:38px;height:38px;flex-shrink:0;border-radius:50%;background:#c8a640;color:#fff;border:none;display:grid;place-items:center;cursor:pointer;font-family:var(--mono);font-weight:800;font-size:.85rem}
+.now-you .now-model-play:hover{background:var(--accent3)}
+.now-you .now-model-text{font-family:Georgia,serif;color:var(--ink);font-size:1rem}
+.now-you .now-model-text .lbl{display:inline-block;font:800 9px/1 var(--mono);letter-spacing:.14em;color:#8a6f1e;text-transform:uppercase;margin-right:8px;background:rgba(200,166,64,.18);padding:3px 6px;border-radius:4px}
+.now-you .now-qs{display:grid;grid-template-columns:1fr;gap:8px;margin:8px 0}
+.now-you .now-q{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:12px}
+.now-you .now-q .now-q-play{width:38px;height:38px;flex-shrink:0;border-radius:50%;background:var(--accent-soft);color:var(--accent3);border:1.5px solid var(--accent);display:grid;place-items:center;cursor:pointer;font-family:var(--mono);font-weight:800;font-size:.82rem}
+.now-you .now-q .now-q-play:hover{background:var(--accent);color:#fff}
+.now-you .now-q .now-q-text{font-family:Georgia,serif;font-size:1rem;color:var(--ink);flex:1;font-weight:500}
+.now-you .now-round{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:#8a6f1e;letter-spacing:.14em;text-transform:uppercase;margin-top:8px;font-weight:800}
+.now-you .now-round .arrow{color:#c8a640}
+.now-you .now-round .who{background:#c8a640;color:#fff;padding:3px 8px;border-radius:5px}
+.now-you .now-round .who.stan{background:var(--accent)}
+
+/* Footer */
+.footer{width:min(1240px, calc(100% - clamp(32px, 6vw, 56px)));margin:40px auto 30px;padding:22px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);flex-wrap:wrap;gap:14px}
+.footer .foot-brand{display:flex;align-items:center;gap:10px}
+.footer .foot-brand .brand-mark{width:28px;height:28px;font-size:15px;border-radius:7px 0 7px 7px}
+.footer .foot-brand .brand-mark::after{width:9px;height:9px}
+.footer .foot-name{font-family:var(--display);font-weight:800;letter-spacing:.06em;font-size:12px;color:var(--ink-2)}
+
+.talk-play.playing,.rescue-play.playing,.day-card.playing .day-play,.now-model-play.playing,.now-q-play.playing,.mono-col .m-play.playing{background:var(--accent3)!important;color:#fff!important;animation:pulse .6s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.08);box-shadow:0 0 0 6px rgba(232,84,43,.14)}}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="brand">
+    <div class="brand-mark">N</div>
+    <div class="brand-copy">
+      <div class="brand-name">NG English</div>
+      <div class="brand-sub">L4 · Notebook Recap · Trainer</div>
+    </div>
+  </div>
+  <div class="spacer"></div>
+  <span class="tb-pill">A2 · group</span>
+  <span class="tb-pill gold">August 2026</span>
+  <div class="tb-dots" id="tb-dots"></div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-card">
+    <div class="eyebrow">Alexander · Stanislav · L4 · Notebook Recap</div>
+    <h1 class="hero-title">Всё из тетради — <span class="grad">в один тренажёр</span></h1>
+    <p class="hero-lead">
+      Сюда собрано всё, что Вы записали в тетрадь: <b>some / any</b>, <b>a few / little</b>, <b>a / an</b>, дни недели, предлоги времени <b>AT / ON / IN</b>, степени сравнения, полный small talk (1–31) и два монолога-эталона — Alexander и Stanislav. Каждый блок — с примерами и мини-квизом. В конце — таймер на 60 секунд для собственного рассказа.
+    </p>
+    <div class="hero-meta">
+      <span>▸ <strong>8 блоков</strong> + мини-квизы</span>
+      <span>▸ 2 эталонных монолога</span>
+      <span>▸ <strong>tap · read · repeat · speak</strong></span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 1 · SOME / ANY / SOMETHING / NOTHING ============ -->
+<section class="section" id="s1">
+  <div class="section-hdr"><span class="num">1</span><h2>Some / Any · something / anything / nothing</h2></div>
+  <div class="card">
+    <div class="task-tag">rule · 8 моделей · 5 quiz</div>
+    <p class="section-sub">Правило одной строкой: <b>some</b> — в утверждениях и вежливых просьбах, <b>any</b> — в отрицаниях и вопросах.</p>
+
+    <div class="rule-strip">
+      <b>Rule:</b> &nbsp; <em>I would like <b>some</b> tea.</em> ✓ &nbsp; · &nbsp; <em>Would you like <b>some</b> tea?</em> ✓ (полезная просьба) &nbsp; · &nbsp; <em>Do you have <b>any</b> tea?</em> ✓ &nbsp; · &nbsp; <em>I don't have <b>any</b> tea.</em> ✓
+      <br><b>Nouns:</b> <em>something</em> = что-то (утв.), <em>anything</em> = что-нибудь / ничего (вопр./отр.), <em>nothing</em> = ничего.
+    </div>
+
+    <div class="rescue-grid">
+      <div class="rescue-row"><button class="rescue-play" data-say="Would you like some tea?" aria-label="Play">▶</button><div class="rescue-text"><div class="phrase"><b>Would you like some tea?</b></div><div class="when">вежливая просьба — some</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="I would like some water." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">I <b>would like some</b> water.</div><div class="when">утверждение — some</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="Would you like something?" aria-label="Play">▶</button><div class="rescue-text"><div class="phrase"><b>Would you like something?</b></div><div class="when">something — вежл. предложение</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="I would like something to eat." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">I would like <b>something</b> to eat.</div><div class="when">something — что-нибудь конкретное</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="I would not like anything, thank you." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">I <b>would not like anything</b>, thank you.</div><div class="when">отрицание — anything = ничего</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="Do you have any coffee left?" aria-label="Play">▶</button><div class="rescue-text"><div class="phrase"><b>Do you have any</b> coffee left?</div><div class="when">вопрос — any</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="There is nothing new today." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">There is <b>nothing new</b> today.</div><div class="when">nothing new — ничего нового</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="I usually read when I have free time." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">I <b>usually</b> read when I have free time.</div><div class="when">usually — обычно</div></div></div>
+    </div>
+
+    <div class="mcq-row" data-answer="0"><div class="mcq-q">Would you like <span class="blank">?</span> tea?</div><div class="mcq-opts"><button>some</button><button>any</button><button>nothing</button></div><div class="mcq-note">Вежливая просьба → some.</div></div>
+    <div class="mcq-row" data-answer="1"><div class="mcq-q">I don't have <span class="blank">?</span> coffee at home.</div><div class="mcq-opts"><button>some</button><button>any</button><button>something</button></div><div class="mcq-note">Отрицание → any.</div></div>
+    <div class="mcq-row" data-answer="2"><div class="mcq-q">— Would you like <span class="blank">?</span> to eat? — No, thank you.</div><div class="mcq-opts"><button>anything</button><button>nothing</button><button>something</button></div><div class="mcq-note">Вежливое предложение → something.</div></div>
+    <div class="mcq-row" data-answer="0"><div class="mcq-q">She doesn't want <span class="blank">?</span> for breakfast.</div><div class="mcq-opts"><button>anything</button><button>something</button><button>some</button></div><div class="mcq-note">Отрицание → anything.</div></div>
+    <div class="mcq-row" data-answer="1"><div class="mcq-q">— What's new? — <span class="blank">?</span> new.</div><div class="mcq-opts"><button>Anything</button><button>Nothing</button><button>Some</button></div><div class="mcq-note">Nothing new — ничего нового.</div></div>
+  </div>
+</section>
+
+<!-- 1 · NOW YOU -->
+<section class="now-you">
+  <div class="now-card">
+    <div class="now-head"><span class="now-tag">🎤 Now you · block 1</span><span class="now-title">5 полезных реплик · some / any / something</span></div>
+    <div class="now-sub">Александр предлагает гостю (Станиславу). Затем, пожалуйста, поменяйтесь ролями. По 5 реплик от каждого.</div>
+    <div class="now-model"><button class="now-model-play" data-say="Would you like some coffee? Would you like something to eat? I would like some water, please. I don't want anything, thank you. Nothing new today." aria-label="Play">▶</button><div class="now-model-text"><span class="lbl">Model · Alexander</span>Would you like <b>some</b> coffee? Would you like <b>something</b> to eat? I would like <b>some</b> water, please. I don't want <b>anything</b>, thank you. <b>Nothing</b> new today.</div></div>
+    <div class="now-qs">
+      <div class="now-q"><button class="now-q-play" data-say="Would you like some coffee?" aria-label="Play">▶</button><span class="now-q-text"><b>1.</b> Предложите гостю напиток: Would you like <b>some</b> ___?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="Would you like something to eat?" aria-label="Play">▶</button><span class="now-q-text"><b>2.</b> Предложите поесть: Would you like <b>something</b> to ___?</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="I would like some water, please." aria-label="Play">▶</button><span class="now-q-text"><b>3.</b> Скажите что хотите: I would like <b>some</b> ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="I don't want anything, thank you." aria-label="Play">▶</button><span class="now-q-text"><b>4.</b> Вежливо откажитесь: I don't want <b>anything</b>, ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="Nothing new today." aria-label="Play">▶</button><span class="now-q-text"><b>5.</b> Ответьте «What's new?»: <b>Nothing</b> new ___.</span></div>
+    </div>
+    <div class="now-round"><span class="who">Alex</span> · host <span class="arrow">↔</span> <span class="who stan">Stan</span> · guest</div>
+  </div>
+</section>
+
+<!-- ============ 2 · QUANTIFIERS · a few / several / few · little / a little ============ -->
+<section class="section" id="s2">
+  <div class="section-hdr"><span class="num">2</span><h2>Quantifiers · a few / several / few · little / a little</h2></div>
+  <div class="card">
+    <div class="task-tag">countable vs uncountable · 4 rules + 6 quiz</div>
+    <p class="section-sub">Пожалуйста, определите, «считается» или «не считается», и выберите группу. С «+» — хватает; без «+» — мало и мало.</p>
+
+    <div class="rule-grid">
+      <div class="rule-card"><div class="rule-key">§ 1 · countable +</div><div class="rule-h">a few · several</div><div class="rule-txt">Мало, но <b>достаточно</b>. Для того что можно посчитать.</div><div class="rule-ex">I have <b>a few</b> colleagues in Berlin. · <b>Several</b> people came to the dinner.</div></div>
+      <div class="rule-card"><div class="rule-key">§ 2 · countable −</div><div class="rule-h">few</div><div class="rule-txt">Мало и <b>недостаточно</b>. Тот же countable, но с оттенком «жаль».</div><div class="rule-ex">I have <b>few</b> free days this month. (мало и мне это не нравится)</div></div>
+      <div class="rule-card"><div class="rule-key">§ 3 · uncountable +</div><div class="rule-h">a little</div><div class="rule-txt">Мало, но <b>хватает</b>. Для того что <em>не</em> считается: water, time, money, coffee, sleep.</div><div class="rule-ex">I have <b>a little</b> free time in the evening. · Add <b>a little</b> sugar.</div></div>
+      <div class="rule-card"><div class="rule-key">§ 4 · uncountable −</div><div class="rule-h">little</div><div class="rule-txt">Мало и <b>недостаточно</b>. То же uncountable, но с оттенком нехватки.</div><div class="rule-ex">I have <b>little</b> time before the call. (мало и не хватает)</div></div>
+    </div>
+
+    <div class="rule-strip">
+      <b>Быстрая проверка:</b> «Могу ли посчитать 1, 2, 3?» &nbsp;— &nbsp; <b>да</b> → a few / few &nbsp; · &nbsp; <b>нет</b> → a little / little.
+      <br>Дополнительно: <b>several</b> = несколько (нейтрально, чуть больше чем "a few"). Только для countable.
+    </div>
+
+    <div class="mcq-row" data-answer="1"><div class="mcq-q">I have <span class="blank">?</span> colleagues in the Berlin office.</div><div class="mcq-opts"><button>a little</button><button>a few</button><button>little</button></div><div class="mcq-note">colleagues — countable → a few.</div></div>
+    <div class="mcq-row" data-answer="0"><div class="mcq-q">Would you like <span class="blank">?</span> water?</div><div class="mcq-opts"><button>a little</button><button>a few</button><button>several</button></div><div class="mcq-note">water — uncountable → a little.</div></div>
+    <div class="mcq-row" data-answer="2"><div class="mcq-q">We have <span class="blank">?</span> time before the meeting — hurry up.</div><div class="mcq-opts"><button>a few</button><button>a little</button><button>little</button></div><div class="mcq-note">time — uncountable, недостаточно → little (без «а»).</div></div>
+    <div class="mcq-row" data-answer="1"><div class="mcq-q"><span class="blank">?</span> managers came to the training.</div><div class="mcq-opts"><button>Little</button><button>Several</button><button>A little</button></div><div class="mcq-note">managers — countable → Several.</div></div>
+    <div class="mcq-row" data-answer="0"><div class="mcq-q">I get <span class="blank">?</span> sleep during the busy season.</div><div class="mcq-opts"><button>little</button><button>a few</button><button>few</button></div><div class="mcq-note">sleep — uncountable, недостаточно → little.</div></div>
+    <div class="mcq-row" data-answer="2"><div class="mcq-q">She speaks <span class="blank">?</span> foreign languages — French and Italian.</div><div class="mcq-opts"><button>a little</button><button>little</button><button>a few</button></div><div class="mcq-note">languages — countable, достаточно → a few.</div></div>
+  </div>
+</section>
+
+<!-- 2 · NOW YOU -->
+<section class="now-you">
+  <div class="now-card">
+    <div class="now-head"><span class="now-tag">🎤 Now you · block 2</span><span class="now-title">6 фраз о себе · countable / uncountable</span></div>
+    <div class="now-sub">От каждого — по 3 countable и 3 uncountable о Вашей работе или жизни.</div>
+    <div class="now-model"><button class="now-model-play" data-say="I have a few colleagues in the Moscow office. I have several projects at the moment. I know a little Italian. I get little sleep during busy weeks." aria-label="Play">▶</button><div class="now-model-text"><span class="lbl">Model</span>I have <b>a few</b> colleagues in the Moscow office. I have <b>several</b> projects at the moment. I know <b>a little</b> Italian. I get <b>little</b> sleep during busy weeks.</div></div>
+    <div class="now-qs">
+      <div class="now-q"><button class="now-q-play" data-say="I have a few colleagues at the office." aria-label="Play">▶</button><span class="now-q-text"><b>1.</b> countable +: I have <b>a few</b> ___ at ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="Several people work in the sales department." aria-label="Play">▶</button><span class="now-q-text"><b>2.</b> countable neutral: <b>Several</b> ___ work in ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="I have few free evenings this month." aria-label="Play">▶</button><span class="now-q-text"><b>3.</b> countable −: I have <b>few</b> free ___ this month.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="I drink a little coffee in the morning." aria-label="Play">▶</button><span class="now-q-text"><b>4.</b> uncountable +: I drink <b>a little</b> ___ in the morning.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="I have little free time this week." aria-label="Play">▶</button><span class="now-q-text"><b>5.</b> uncountable −: I have <b>little</b> ___ this week.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="Would you like a little tea?" aria-label="Play">▶</button><span class="now-q-text"><b>6.</b> предложение: Would you like <b>a little</b> ___?</span></div>
+    </div>
+    <div class="now-round"><span class="who">Alex</span> · 6 lines <span class="arrow">↔</span> <span class="who stan">Stan</span> · 6 lines</div>
+  </div>
+</section>
+
+<!-- ============ 3 · ARTICLES A / AN ============ -->
+<section class="section" id="s3">
+  <div class="section-hdr"><span class="num">3</span><h2>Articles · a / an · по звуку, не по букве ⭐</h2></div>
+  <div class="card">
+    <div class="task-tag">rule · 8 моделей · 5 quiz</div>
+    <p class="section-sub">«a» и «an» = «один» + существительное в единственном числе. Выбор — по <b>звуку</b>, а не по букве.</p>
+
+    <div class="rule-strip">
+      <b>Rule:</b> <b>a</b> — перед согласным звуком (a computer, a table, a pencil, a university [ju:]). &nbsp; · &nbsp; <b>an</b> — перед гласным звуком (an apple, an interview, an hour [ˈaʊə] — «h» немая!).
+      <br><b>⚠ Ловушки:</b> <em>an hour</em> ✓ · <em>a university</em> ✓ · <em>an MP3</em> ✓ (произносим «эм-пи-три») · <em>a European</em> ✓ (звук [j]).
+    </div>
+
+    <div class="rescue-grid">
+      <div class="rescue-row"><button class="rescue-play" data-say="I work in a large office." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">I work in <b>a</b> large office.</div><div class="when">a + large (согласный звук)</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="I need a pencil and a pen." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">I need <b>a</b> pencil and <b>a</b> pen.</div><div class="when">a + p согласный</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="He has an interview at three p.m." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">He has <b>an</b> interview at three p.m.</div><div class="when">an + i гласный</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="It takes an hour to get there." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">It takes <b>an</b> hour to get there.</div><div class="when">исключение: hour — h немая, звук [аʊə]</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="I would like an apple, please." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">I would like <b>an</b> apple, please.</div><div class="when">an + apple</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="She works in a university." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">She works in <b>a</b> university.</div><div class="when">university звучит как [ju:] — как согласный</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="Let's do some business." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">Let's do some <b>business</b>.</div><div class="when">do some business — решить дела</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="I go to the gym several times a week." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">I go to the gym <b>several times a week</b>.</div><div class="when">X times a week — частота</div></div></div>
+    </div>
+
+    <div class="mcq-row" data-answer="0"><div class="mcq-q">I need <span class="blank">?</span> new laptop.</div><div class="mcq-opts"><button>a</button><button>an</button><button>the</button></div><div class="mcq-note">laptop — согл. звук [l] → a.</div></div>
+    <div class="mcq-row" data-answer="1"><div class="mcq-q">I have <span class="blank">?</span> old friend in Berlin.</div><div class="mcq-opts"><button>a</button><button>an</button><button>—</button></div><div class="mcq-note">old — гласный [ə] → an.</div></div>
+    <div class="mcq-row" data-answer="1"><div class="mcq-q">It takes about <span class="blank">?</span> hour to drive there.</div><div class="mcq-opts"><button>a</button><button>an</button><button>the</button></div><div class="mcq-note">hour — h немая → an.</div></div>
+    <div class="mcq-row" data-answer="0"><div class="mcq-q">She is <span class="blank">?</span> European client.</div><div class="mcq-opts"><button>a</button><button>an</button><button>—</button></div><div class="mcq-note">European начинается на [j] — как согласный → a.</div></div>
+    <div class="mcq-row" data-answer="1"><div class="mcq-q">I need <span class="blank">?</span> umbrella today.</div><div class="mcq-opts"><button>a</button><button>an</button><button>—</button></div><div class="mcq-note">umbrella — гласный [ʌ] → an.</div></div>
+  </div>
+</section>
+
+<!-- 3 · NOW YOU -->
+<section class="now-you">
+  <div class="now-card">
+    <div class="now-head"><span class="now-tag">🎤 Now you · block 3</span><span class="now-title">6 предметов на столе / в офисе · a или an</span></div>
+    <div class="now-sub">Назовите, пожалуйста, 6 предметов вокруг Вас с артиклем — 3 на согласный звук, 3 на гласный.</div>
+    <div class="now-model"><button class="now-model-play" data-say="I have a laptop, a phone, a cup of coffee, an apple, an old notebook and an umbrella." aria-label="Play">▶</button><div class="now-model-text"><span class="lbl">Model</span>I have <b>a</b> laptop, <b>a</b> phone, <b>a</b> cup of coffee, <b>an</b> apple, <b>an</b> old notebook and <b>an</b> umbrella.</div></div>
+    <div class="now-qs">
+      <div class="now-q"><button class="now-q-play" data-say="I have a laptop on the table." aria-label="Play">▶</button><span class="now-q-text"><b>1.</b> согл.: I have <b>a</b> ___ on the table.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="There is a phone in my bag." aria-label="Play">▶</button><span class="now-q-text"><b>2.</b> согл.: There is <b>a</b> ___ in my ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="I would like a cup of tea." aria-label="Play">▶</button><span class="now-q-text"><b>3.</b> согл.: I would like <b>a</b> ___ of ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="I have an apple for breakfast." aria-label="Play">▶</button><span class="now-q-text"><b>4.</b> гласн.: I have <b>an</b> ___ for ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="He is an experienced engineer." aria-label="Play">▶</button><span class="now-q-text"><b>5.</b> гласн.: He is <b>an</b> ___ ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="It takes an hour to drive to the office." aria-label="Play">▶</button><span class="now-q-text"><b>6.</b> исключение: It takes <b>an hour</b> to ___.</span></div>
+    </div>
+    <div class="now-round"><span class="who">Alex</span> · 6 lines <span class="arrow">↔</span> <span class="who stan">Stan</span> · 6 lines</div>
+  </div>
+</section>
+
+<!-- ============ 4 · DAYS OF THE WEEK ============ -->
+<section class="section" id="s4">
+  <div class="section-hdr"><span class="num">4</span><h2>Days of the week · pronunciation drill</h2></div>
+  <div class="card">
+    <div class="task-tag">7 дней + week / weekend / day-off</div>
+    <p class="section-sub">Проверим произношение. Все дни оканчиваются на <b>-day</b> [-deɪ]. Weekend — конец недели; day-off — выходной у Вас на работе.</p>
+
+    <div class="days-grid">
+      <div class="day-card" data-say="Monday"><span class="day-play">▶</span><span class="day-en">Monday</span><span class="day-ipa">[ˈmʌndeɪ]</span><span class="day-ru">понедельник</span></div>
+      <div class="day-card" data-say="Tuesday"><span class="day-play">▶</span><span class="day-en">Tuesday</span><span class="day-ipa">[ˈtjuːzdeɪ]</span><span class="day-ru">вторник</span></div>
+      <div class="day-card" data-say="Wednesday"><span class="day-play">▶</span><span class="day-en">Wednesday</span><span class="day-ipa">[ˈwenzdeɪ]</span><span class="day-ru">среда</span></div>
+      <div class="day-card" data-say="Thursday"><span class="day-play">▶</span><span class="day-en">Thursday</span><span class="day-ipa">[ˈθɜːzdeɪ]</span><span class="day-ru">четверг</span></div>
+      <div class="day-card" data-say="Friday"><span class="day-play">▶</span><span class="day-en">Friday</span><span class="day-ipa">[ˈfraɪdeɪ]</span><span class="day-ru">пятница</span></div>
+      <div class="day-card" data-say="Saturday"><span class="day-play">▶</span><span class="day-en">Saturday</span><span class="day-ipa">[ˈsætədeɪ]</span><span class="day-ru">суббота</span></div>
+      <div class="day-card" data-say="Sunday"><span class="day-play">▶</span><span class="day-en">Sunday</span><span class="day-ipa">[ˈsʌndeɪ]</span><span class="day-ru">воскресенье</span></div>
+      <div class="day-card" data-say="week"><span class="day-play">▶</span><span class="day-en">week</span><span class="day-ipa">[wiːk]</span><span class="day-ru">неделя</span></div>
+      <div class="day-card" data-say="weekend"><span class="day-play">▶</span><span class="day-en">weekend</span><span class="day-ipa">[ˈwiːkend]</span><span class="day-ru">выходные (сб+вс)</span></div>
+      <div class="day-card" data-say="day"><span class="day-play">▶</span><span class="day-en">day</span><span class="day-ipa">[deɪ]</span><span class="day-ru">день</span></div>
+      <div class="day-card" data-say="day-off"><span class="day-play">▶</span><span class="day-en">day-off</span><span class="day-ipa">[ˈdeɪɒf]</span><span class="day-ru">выходной (на работе)</span></div>
+    </div>
+
+    <div class="info gold"><strong>⚠ Ловушка pronunciation:</strong> <em>Wednesday</em> = <b>[wenzdeɪ]</b> — «d» в середине НЕ читается. <em>Thursday</em> = <b>[θɜːzdeɪ]</b> — межзубный «th». <em>Tuesday</em> = <b>[tjuːzdeɪ]</b> — «tj», не «ts».</div>
+  </div>
+</section>
+
+<!-- 4 · NOW YOU -->
+<section class="now-you">
+  <div class="now-card">
+    <div class="now-head"><span class="now-tag">🎤 Now you · block 4</span><span class="now-title">7 фактов Вашей недели · один на каждый день</span></div>
+    <div class="now-sub">По одной фразе на каждый день недели, пожалуйста. Обязательно с предлогом <b>on</b>.</div>
+    <div class="now-model"><button class="now-model-play" data-say="On Monday I have a team call. On Tuesday I go to the gym. On Wednesday I meet clients. On Thursday I have lunch with colleagues. On Friday I finish early. On Saturday I read. On Sunday I rest." aria-label="Play">▶</button><div class="now-model-text"><span class="lbl">Model</span>On Monday I have a team call. On Tuesday I go to the gym. On Wednesday I meet clients. On Thursday I have lunch with colleagues. On Friday I finish early. On Saturday I read. On Sunday I rest.</div></div>
+    <div class="now-qs">
+      <div class="now-q"><button class="now-q-play" data-say="On Monday I have a team call." aria-label="Play">▶</button><span class="now-q-text"><b>1.</b> On <b>Monday</b> I ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="On Tuesday I go to the gym." aria-label="Play">▶</button><span class="now-q-text"><b>2.</b> On <b>Tuesday</b> I ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="On Wednesday I meet clients." aria-label="Play">▶</button><span class="now-q-text"><b>3.</b> On <b>Wednesday</b> I ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="On Thursday I have lunch with colleagues." aria-label="Play">▶</button><span class="now-q-text"><b>4.</b> On <b>Thursday</b> I ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="On Friday I finish work early." aria-label="Play">▶</button><span class="now-q-text"><b>5.</b> On <b>Friday</b> I ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="On Saturday I read books." aria-label="Play">▶</button><span class="now-q-text"><b>6.</b> On <b>Saturday</b> I ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="On Sunday I rest at home." aria-label="Play">▶</button><span class="now-q-text"><b>7.</b> On <b>Sunday</b> I ___.</span></div>
+    </div>
+    <div class="now-round"><span class="who">Alex</span> · 7 дней <span class="arrow">↔</span> <span class="who stan">Stan</span> · 7 дней</div>
+  </div>
+</section>
+
+<!-- ============ 5 · PREPOSITIONS AT / ON / IN ============ -->
+<section class="section gold" id="s5">
+  <div class="section-hdr"><span class="num">5</span><h2>Prepositions of time · AT / ON / IN ⭐</h2></div>
+  <div class="card">
+    <div class="task-tag">3 группы · 8 quiz</div>
+    <p class="section-sub">Три предлога — три категории. Правило простое: точный момент → <b>AT</b>, день или дата → <b>ON</b>, длинный период → <b>IN</b>.</p>
+
+    <div class="prep-grid">
+      <div class="prep-card">
+        <div class="prep-h">AT</div>
+        <div class="prep-when">exact points · точные моменты</div>
+        <ul>
+          <li><b>at 7 o'clock</b> · в 7 часов</li>
+          <li><b>at noon</b> / <b>at midnight</b> · в полдень / в полночь</li>
+          <li><b>at night</b> · ночью</li>
+          <li><b>at the moment</b> · в этот момент</li>
+          <li><b>at lunchtime</b> · в обед</li>
+        </ul>
+      </div>
+      <div class="prep-card on">
+        <div class="prep-h">ON</div>
+        <div class="prep-when">days and dates · дни и даты</div>
+        <ul>
+          <li><b>on Monday</b> · в понедельник</li>
+          <li><b>on 16 May</b> · 16 мая</li>
+          <li><b>on Friday morning</b> · в пятницу утром</li>
+          <li><b>on my birthday</b> · в мой день рождения</li>
+          <li><b>on the weekend</b> (US) / <b>at the weekend</b> (UK)</li>
+        </ul>
+      </div>
+      <div class="prep-card in">
+        <div class="prep-h">IN</div>
+        <div class="prep-when">longer periods · длинные периоды</div>
+        <ul>
+          <li><b>in July</b> · в июле</li>
+          <li><b>in 2026</b> · в 2026 году</li>
+          <li><b>in winter</b> · зимой</li>
+          <li><b>in the morning</b> / <b>in the evening</b></li>
+          <li><b>in an hour</b> · через час</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rule-strip">
+      <b>12 pm / 12 am:</b> <b>12 pm</b> = полдень (12:00 днём). <b>12 am</b> = полночь (00:00 ночью). Утро — am (ante meridiem), после полудня — pm (post meridiem).
+    </div>
+
+    <div class="mcq-row" data-answer="0"><div class="mcq-q">The meeting starts <span class="blank">?</span> 10 a.m.</div><div class="mcq-opts"><button>at</button><button>on</button><button>in</button></div><div class="mcq-note">Точное время → at.</div></div>
+    <div class="mcq-row" data-answer="1"><div class="mcq-q">I have a call <span class="blank">?</span> Tuesday.</div><div class="mcq-opts"><button>at</button><button>on</button><button>in</button></div><div class="mcq-note">День недели → on.</div></div>
+    <div class="mcq-row" data-answer="2"><div class="mcq-q">We open a new office <span class="blank">?</span> September.</div><div class="mcq-opts"><button>at</button><button>on</button><button>in</button></div><div class="mcq-note">Месяц → in.</div></div>
+    <div class="mcq-row" data-answer="2"><div class="mcq-q">I usually go to the gym <span class="blank">?</span> the evening.</div><div class="mcq-opts"><button>at</button><button>on</button><button>in</button></div><div class="mcq-note">In the morning / afternoon / evening → in. НО at night!</div></div>
+    <div class="mcq-row" data-answer="0"><div class="mcq-q">The client will call back <span class="blank">?</span> noon.</div><div class="mcq-opts"><button>at</button><button>on</button><button>in</button></div><div class="mcq-note">noon — точный момент → at.</div></div>
+    <div class="mcq-row" data-answer="1"><div class="mcq-q">My birthday is <span class="blank">?</span> 12 May.</div><div class="mcq-opts"><button>at</button><button>on</button><button>in</button></div><div class="mcq-note">Дата → on.</div></div>
+    <div class="mcq-row" data-answer="2"><div class="mcq-q">He founded the company <span class="blank">?</span> 2015.</div><div class="mcq-opts"><button>at</button><button>on</button><button>in</button></div><div class="mcq-note">Год → in.</div></div>
+    <div class="mcq-row" data-answer="0"><div class="mcq-q">Please send the report <span class="blank">?</span> lunchtime.</div><div class="mcq-opts"><button>at</button><button>on</button><button>in</button></div><div class="mcq-note">lunchtime — точный момент → at.</div></div>
+  </div>
+</section>
+
+<!-- 5 · NOW YOU -->
+<section class="now-you">
+  <div class="now-card">
+    <div class="now-head"><span class="now-tag">🎤 Now you · block 5</span><span class="now-title">6 фактов о Вашем расписании · AT / ON / IN</span></div>
+    <div class="now-sub">От каждого — по 2 фразы с AT, ON и IN.</div>
+    <div class="now-model"><button class="now-model-play" data-say="I start work at nine a.m. I finish at six p.m. I go to the gym on Tuesday. I have a call on Friday morning. I take a holiday in August. In the evening I read the news." aria-label="Play">▶</button><div class="now-model-text"><span class="lbl">Model</span>I start work <b>at</b> 9 a.m. I finish <b>at</b> 6 p.m. I go to the gym <b>on</b> Tuesday. I have a call <b>on</b> Friday morning. I take a holiday <b>in</b> August. <b>In</b> the evening I read the news.</div></div>
+    <div class="now-qs">
+      <div class="now-q"><button class="now-q-play" data-say="I start work at nine a.m." aria-label="Play">▶</button><span class="now-q-text"><b>1. AT</b>: I start work <b>at</b> ___ a.m.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="I have lunch at noon." aria-label="Play">▶</button><span class="now-q-text"><b>2. AT</b>: I have lunch <b>at</b> ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="I go to the gym on Tuesday." aria-label="Play">▶</button><span class="now-q-text"><b>3. ON</b>: I go to the gym <b>on</b> ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="I meet the team on Friday morning." aria-label="Play">▶</button><span class="now-q-text"><b>4. ON</b>: I meet ___ <b>on</b> ___ morning.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="I take a holiday in August." aria-label="Play">▶</button><span class="now-q-text"><b>5. IN</b>: I take a holiday <b>in</b> ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="In the evening I read the news." aria-label="Play">▶</button><span class="now-q-text"><b>6. IN</b>: <b>In</b> the ___ I ___.</span></div>
+    </div>
+    <div class="now-round"><span class="who">Alex</span> · 6 lines <span class="arrow">↔</span> <span class="who stan">Stan</span> · 6 lines</div>
+  </div>
+</section>
+
+<!-- ============ 6 · COMPARATIVES · GOOD/BETTER/BEST ============ -->
+<section class="section" id="s6">
+  <div class="section-hdr"><span class="num">6</span><h2>Comparatives · good → better → best · bad → worse → worst</h2></div>
+  <div class="card">
+    <div class="task-tag">2 исключения + правило + 5 quiz</div>
+    <p class="section-sub">Два самых частых слова — совсем не по правилу. Их нужно просто запомнить.</p>
+
+    <div class="comp-grid">
+      <div class="comp-row"><span class="comp-ru">хороший · лучше · самый лучший</span><span class="comp-base">good</span><span class="comp-mid">better</span><span class="comp-top">the best</span></div>
+      <div class="comp-row"><span class="comp-ru">плохой · хуже · самый худший</span><span class="comp-base">bad</span><span class="comp-mid">worse</span><span class="comp-top">the worst</span></div>
+      <div class="comp-row"><span class="comp-ru">много (кол-во) · больше · больше всего</span><span class="comp-base">much / many</span><span class="comp-mid">more</span><span class="comp-top">the most</span></div>
+      <div class="comp-row"><span class="comp-ru">мало · меньше · меньше всего</span><span class="comp-base">little</span><span class="comp-mid">less</span><span class="comp-top">the least</span></div>
+      <div class="comp-row"><span class="comp-ru">далёкий · дальше · самый дальний</span><span class="comp-base">far</span><span class="comp-mid">further / farther</span><span class="comp-top">the furthest / farthest</span></div>
+    </div>
+
+    <div class="rule-strip">
+      <b>Общее правило (для сравнения):</b>
+      <br>• Короткие (1 слог): + <b>er</b> / <b>est</b> — <em>fast → faster → the fastest</em>
+      <br>• Длинные (2+): <b>more</b> / <b>the most</b> — <em>expensive → more expensive → the most expensive</em>
+      <br>• Исключения выше — заучить.
+    </div>
+
+    <div class="rescue-grid">
+      <div class="rescue-row"><button class="rescue-play" data-say="Nothing new today." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase"><b>Nothing new</b> today.</div><div class="when">nothing new — фиксированная фраза</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="This report is better than the last one." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">This report is <b>better than</b> the last one.</div><div class="when">good → better · чем что</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="This is the best coffee in the office." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">This is <b>the best</b> coffee in the office.</div><div class="when">good → the best · только с «the»</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="The traffic is worse today." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">The traffic is <b>worse</b> today.</div><div class="when">bad → worse</div></div></div>
+      <div class="rescue-row"><button class="rescue-play" data-say="Monday is the worst day of the week." aria-label="Play">▶</button><div class="rescue-text"><div class="phrase">Monday is <b>the worst</b> day of the week.</div><div class="when">bad → the worst</div></div></div>
+    </div>
+
+    <div class="mcq-row" data-answer="1"><div class="mcq-q">Today the weather is <span class="blank">?</span> than yesterday.</div><div class="mcq-opts"><button>gooder</button><button>better</button><button>more good</button></div><div class="mcq-note">good → better (исключение).</div></div>
+    <div class="mcq-row" data-answer="2"><div class="mcq-q">This is <span class="blank">?</span> restaurant in the city.</div><div class="mcq-opts"><button>the goodest</button><button>the more good</button><button>the best</button></div><div class="mcq-note">good → the best (исключение).</div></div>
+    <div class="mcq-row" data-answer="0"><div class="mcq-q">My headache is <span class="blank">?</span> today than yesterday.</div><div class="mcq-opts"><button>worse</button><button>badder</button><button>more bad</button></div><div class="mcq-note">bad → worse.</div></div>
+    <div class="mcq-row" data-answer="1"><div class="mcq-q">This is <span class="blank">?</span> traffic jam of the year.</div><div class="mcq-opts"><button>the baddest</button><button>the worst</button><button>the more bad</button></div><div class="mcq-note">bad → the worst.</div></div>
+    <div class="mcq-row" data-answer="1"><div class="mcq-q">I need <span class="blank">?</span> time to finish the report.</div><div class="mcq-opts"><button>much</button><button>more</button><button>most</button></div><div class="mcq-note">много → больше = more.</div></div>
+  </div>
+</section>
+
+<!-- 6 · NOW YOU -->
+<section class="now-you">
+  <div class="now-card">
+    <div class="now-head"><span class="now-tag">🎤 Now you · block 6</span><span class="now-title">5 сравнений про Вашу неделю / офис / клиентов</span></div>
+    <div class="now-sub">Пожалуйста, составьте: 2 фразы с <b>better</b>, 2 с <b>worse</b>, 1 с <b>the best</b> или <b>the worst</b>.</div>
+    <div class="now-model"><button class="now-model-play" data-say="This coffee is better than the one downstairs. Monday morning is worse than Tuesday. Our new office is better than the old one. The traffic today is worse than yesterday. Stan is the best colleague in the department." aria-label="Play">▶</button><div class="now-model-text"><span class="lbl">Model</span>This coffee is <b>better than</b> the one downstairs. Monday is <b>worse than</b> Tuesday. Our new office is <b>better</b> than the old one. The traffic is <b>worse</b> today. Stan is <b>the best</b> colleague in the department.</div></div>
+    <div class="now-qs">
+      <div class="now-q"><button class="now-q-play" data-say="This coffee is better than the one downstairs." aria-label="Play">▶</button><span class="now-q-text"><b>1. better</b>: ___ is <b>better than</b> ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="Our office is better than the old one." aria-label="Play">▶</button><span class="now-q-text"><b>2. better</b>: Our ___ is <b>better than</b> ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="Monday morning is worse than Tuesday." aria-label="Play">▶</button><span class="now-q-text"><b>3. worse</b>: ___ is <b>worse than</b> ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="The traffic today is worse than yesterday." aria-label="Play">▶</button><span class="now-q-text"><b>4. worse</b>: The traffic today is <b>worse than</b> ___.</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="Stan is the best colleague in the department." aria-label="Play">▶</button><span class="now-q-text"><b>5. the best / worst</b>: ___ is <b>the best</b> ___ / <b>the worst</b> ___.</span></div>
+    </div>
+    <div class="now-round"><span class="who">Alex</span> · 5 sentences <span class="arrow">↔</span> <span class="who stan">Stan</span> · 5 sentences</div>
+  </div>
+</section>
+
+<!-- ============ 7 · SMALL TALK · FULL 1-31 ============ -->
+<section class="section gold" id="s7">
+  <div class="section-hdr"><span class="num">7</span><h2>Small Talk Full · все 31 реплики из тетради ⭐</h2></div>
+  <div class="card">
+    <div class="task-tag">7 категорий · reference &amp; drill</div>
+    <p class="section-sub">Всё, что мы записывали в тетрадь по разговорным конструкциям, — в одном месте с примерами. Нажмите на кнопку, чтобы прослушать.</p>
+
+    <div class="st-cat"><span class="st-num">1–5</span> Приветствия и small talk</div>
+    <div class="talk-grid">
+      <div class="talk-row"><button class="talk-play" data-say="How's it going?" aria-label="Play">▶</button><span class="talk-phrase"><b>How's it going?</b></span><span class="talk-when">Как дела?</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="Long time no see!" aria-label="Play">▶</button><span class="talk-phrase"><b>Long time no see!</b></span><span class="talk-when">Давно не виделись!</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="What's up?" aria-label="Play">▶</button><span class="talk-phrase"><b>What's up?</b></span><span class="talk-when">Как жизнь? Что нового?</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="Nice to meet you. Good to see you." aria-label="Play">▶</button><span class="talk-phrase"><b>Nice to meet you</b> / <b>Good to see you</b></span><span class="talk-when">Приятно познакомиться / Рад Вас видеть</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="How have you been?" aria-label="Play">▶</button><span class="talk-phrase"><b>How have you been?</b></span><span class="talk-when">Как поживаете? (после долгой паузы)</span></div>
+    </div>
+
+    <div class="st-cat"><span class="st-num">6–10</span> Поддержка разговора</div>
+    <div class="talk-grid">
+      <div class="talk-row"><button class="talk-play" data-say="Really?" aria-label="Play">▶</button><span class="talk-phrase"><b>Really?</b></span><span class="talk-when">Правда? Серьёзно?</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="No way!" aria-label="Play">▶</button><span class="talk-phrase"><b>No way!</b></span><span class="talk-when">Да ладно! Не может быть!</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="You're kidding!" aria-label="Play">▶</button><span class="talk-phrase"><b>You're kidding!</b></span><span class="talk-when">Вы шутите!</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="That's awesome!" aria-label="Play">▶</button><span class="talk-phrase"><b>That's awesome!</b></span><span class="talk-when">Круто! Здорово!</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="I know, right!" aria-label="Play">▶</button><span class="talk-phrase"><b>I know, right!</b></span><span class="talk-when">Вот именно! Точно!</span></div>
+    </div>
+
+    <div class="st-cat"><span class="st-num">11–15</span> Вежливость и просьбы</div>
+    <div class="talk-grid">
+      <div class="talk-row"><button class="talk-play" data-say="Could you help me out?" aria-label="Play">▶</button><span class="talk-phrase"><b>Could you help me out?</b></span><span class="talk-when">Не могли бы Вы мне помочь?</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="Do you mind if I sit here?" aria-label="Play">▶</button><span class="talk-phrase"><b>Do you mind if I …?</b></span><span class="talk-when">Вы не против, если я …? / … если я здесь сяду?</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="I'd appreciate that." aria-label="Play">▶</button><span class="talk-phrase"><b>I'd appreciate that.</b></span><span class="talk-when">Я был бы признателен.</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="That would be great." aria-label="Play">▶</button><span class="talk-phrase"><b>That would be great.</b></span><span class="talk-when">Было бы здорово.</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="Thanks anyway." aria-label="Play">▶</button><span class="talk-phrase"><b>Thanks anyway.</b></span><span class="talk-when">Всё равно спасибо.</span></div>
+    </div>
+
+    <div class="st-cat"><span class="st-num">16–20</span> Уточнения и понимание</div>
+    <div class="talk-grid">
+      <div class="talk-row"><button class="talk-play" data-say="Sorry, I didn't catch that." aria-label="Play">▶</button><span class="talk-phrase"><b>Sorry, I didn't catch that.</b></span><span class="talk-when">Извините, я не расслышал.</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="What do you mean?" aria-label="Play">▶</button><span class="talk-phrase"><b>What do you mean?</b></span><span class="talk-when">Что Вы имеете в виду?</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="I'm not sure I follow." aria-label="Play">▶</button><span class="talk-phrase"><b>I'm not sure I follow.</b></span><span class="talk-when">Я не совсем уловил мысль.</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="Could you say that again?" aria-label="Play">▶</button><span class="talk-phrase"><b>Could you say that again?</b></span><span class="talk-when">Не могли бы Вы повторить?</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="Oh, got it!" aria-label="Play">▶</button><span class="talk-phrase"><b>Oh, got it!</b></span><span class="talk-when">Понял!</span></div>
+    </div>
+
+    <div class="st-cat"><span class="st-num">21–25</span> Согласие / несогласие</div>
+    <div class="talk-grid">
+      <div class="talk-row"><button class="talk-play" data-say="Exactly!" aria-label="Play">▶</button><span class="talk-phrase"><b>Exactly!</b></span><span class="talk-when">Точно!</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="Fair enough." aria-label="Play">▶</button><span class="talk-phrase"><b>Fair enough.</b></span><span class="talk-when">Хорошо, понятно.</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="I see your point." aria-label="Play">▶</button><span class="talk-phrase"><b>I see your point.</b></span><span class="talk-when">Понимаю, к чему Вы клоните.</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="I'm not sure about that." aria-label="Play">▶</button><span class="talk-phrase"><b>I'm not sure about that.</b></span><span class="talk-when">Не уверен насчёт этого.</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="You might be right." aria-label="Play">▶</button><span class="talk-phrase"><b>You might be right.</b></span><span class="talk-when">Возможно, Вы правы.</span></div>
+    </div>
+
+    <div class="st-cat"><span class="st-num">26–30</span> Ежедневные действия</div>
+    <div class="talk-grid">
+      <div class="talk-row"><button class="talk-play" data-say="I'm on my way." aria-label="Play">▶</button><span class="talk-phrase"><b>I'm on my way.</b></span><span class="talk-when">Я уже в пути.</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="I just woke up." aria-label="Play">▶</button><span class="talk-phrase"><b>I just woke up.</b></span><span class="talk-when">Я только что проснулся.</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="I'm heading home." aria-label="Play">▶</button><span class="talk-phrase"><b>I'm heading home.</b></span><span class="talk-when">Я направляюсь домой.</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="Let's grab some coffee." aria-label="Play">▶</button><span class="talk-phrase"><b>Let's grab some coffee.</b></span><span class="talk-when">Пойдём выпьем кофе.</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="I'll be right back." aria-label="Play">▶</button><span class="talk-phrase"><b>I'll be right back.</b></span><span class="talk-when">Сейчас вернусь!</span></div>
+    </div>
+
+    <div class="st-cat"><span class="st-num">31</span> Планирование и встречи</div>
+    <div class="talk-grid">
+      <div class="talk-row"><button class="talk-play" data-say="What time works for you?" aria-label="Play">▶</button><span class="talk-phrase"><b>What time works for you?</b></span><span class="talk-when">Во сколько Вам удобно?</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="Anytime after 3 p.m. works for me." aria-label="Play">▶</button><span class="talk-phrase">— <b>Anytime after 3 p.m.</b> works for me.</span><span class="talk-when">Мне подходит после 15:00.</span></div>
+      <div class="talk-row"><button class="talk-play" data-say="Let's set up a call for Friday morning." aria-label="Play">▶</button><span class="talk-phrase"><b>Let's set up a call</b> for Friday morning.</span><span class="talk-when">Давайте назначим созвон.</span></div>
+    </div>
+
+    <div class="info gold" style="margin-top:14px"><strong>💡 Как пользоваться этим блоком:</strong> сначала прослушайте, пожалуйста, всю категорию, затем закройте перевод и попробуйте восстановить русскую сторону. Далее — в обратном порядке: по русской фразе восстановите английскую.</div>
+  </div>
+</section>
+
+<!-- 7 · NOW YOU -->
+<section class="now-you">
+  <div class="now-card">
+    <div class="now-head"><span class="now-tag">🎤 Now you · block 7</span><span class="now-title">Мини-диалог из 8 реплик · Alex приходит на встречу</span></div>
+    <div class="now-sub">Соберите, пожалуйста, короткую сценку — каждый использует по 4 реплики из категорий 1–31.</div>
+    <div class="now-model"><button class="now-model-play" data-say="Stan: How's it going? Long time no see! Alex: Nice to see you. I'm on my way, five more minutes. Stan: No way, you're always on time. Alex: Sorry, I didn't catch that. Stan: I said you're always on time. Alex: Oh, got it. What time works for you tomorrow?" aria-label="Play">▶</button><div class="now-model-text"><span class="lbl">Model dialogue</span><b>Stan:</b> How's it going? Long time no see! <b>Alex:</b> Nice to see you. I'm on my way, five more minutes. <b>Stan:</b> No way, you're always on time. <b>Alex:</b> Sorry, I didn't catch that. <b>Stan:</b> I said you're always on time. <b>Alex:</b> Oh, got it. What time works for you tomorrow?</div></div>
+    <div class="now-qs">
+      <div class="now-q"><button class="now-q-play" data-say="How's it going? Long time no see!" aria-label="Play">▶</button><span class="now-q-text"><b>Stan · 1</b>: Приветствие (кат. 1-5).</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="I'm on my way, five more minutes." aria-label="Play">▶</button><span class="now-q-text"><b>Alex · 2</b>: Реакция + причина опоздания (кат. 26-30).</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="No way, you're always on time!" aria-label="Play">▶</button><span class="now-q-text"><b>Stan · 3</b>: Реакция удивления (кат. 6-10).</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="Sorry, I didn't catch that." aria-label="Play">▶</button><span class="now-q-text"><b>Alex · 4</b>: Уточнение (кат. 16-20).</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="I see your point." aria-label="Play">▶</button><span class="now-q-text"><b>Stan · 5</b>: Согласие (кат. 21-25).</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="Could you help me with the report?" aria-label="Play">▶</button><span class="now-q-text"><b>Alex · 6</b>: Просьба (кат. 11-15).</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="That would be great." aria-label="Play">▶</button><span class="now-q-text"><b>Stan · 7</b>: Ответ на просьбу (кат. 11-15).</span></div>
+      <div class="now-q"><button class="now-q-play" data-say="What time works for you tomorrow?" aria-label="Play">▶</button><span class="now-q-text"><b>Alex · 8</b>: Планирование (кат. 31).</span></div>
+    </div>
+    <div class="now-round"><span class="who">Alex</span> · 4 реплики <span class="arrow">↔</span> <span class="who stan">Stan</span> · 4 реплики</div>
+  </div>
+</section>
+
+<!-- ============ 8 · MONOLOGUE TEMPLATES ============ -->
+<section class="section" id="s8">
+  <div class="section-hdr"><span class="num">8</span><h2>Monologue templates · Alexander &amp; Stanislav ⭐</h2></div>
+  <div class="card">
+    <div class="task-tag">2 эталона · скелет для своей версии · таймер 60 сек</div>
+    <p class="section-sub">Два монолога из тетради — в качестве образцов. Ниже — общий скелет и таймер на минуту для тренировки Вашего собственного рассказа.</p>
+
+    <div class="mono-grid">
+      <div class="mono-col">
+        <span class="m-who">Alexander</span>
+        <div class="m-title">Alex · CEO of a construction &amp; interior decoration company</div>
+        <button class="m-play" data-say="My name is Alexander. I am forty-two years old. I have lived in Moscow for the last fifteen years. I work as a CEO in a construction, interior decoration and development company. In my company there are one thousand eight hundred people. I go to the gym twice a week, and once a week I play hockey. I have a hockey team. When I have some free time, I would like to sleep. Japan is my favourite country.">▶ Прослушать</button>
+        <div class="m-text">
+          <b>My name is Alexander.</b> I am <b>forty-two</b> years old. I have lived in <b>Moscow for the last fifteen years</b>. I work as a <b>CEO</b> in a construction, interior decoration and development company. In my company there are <b>one thousand eight hundred people</b>. I go to the gym <b>twice a week</b>, and <b>once a week</b> I play hockey. I have a hockey team. When I have some free time, I would like to sleep. <b>Japan</b> is my favourite country.
+        </div>
+      </div>
+      <div class="mono-col stan">
+        <span class="m-who">Stanislav</span>
+        <div class="m-title">Stan · Commercial Director · ancient Rome + sober lifestyle</div>
+        <button class="m-play" data-say="Hi. I'm Stanislav Pavlov. I am the commercial director at Athon In. I participate in the work of all departments to one degree or another. I have two sales departments directly under my control, one in Moscow and one in Saint Petersburg. I also manage the procurement department. I have about eighty people under my direct command. I will tell you a little about my hobbies. I love reading books. I'm fascinated by the history of ancient Rome. I also go to the gym in my free time. I practice asceticism. I don't drink alcohol or smoke cigarettes. I have a very negative attitude towards drugs. If I drink alcohol, I become insane. That's why I prefer a sober lifestyle. My current goal is to start speaking English.">▶ Прослушать</button>
+        <div class="m-text">
+          <b>Hi. I'm Stanislav Pavlov.</b> I am the <b>commercial director</b> at Athon.In. I participate in the work of all departments to one degree or another. I have <b>two sales departments</b> under my control — one in Moscow and one in Saint Petersburg. I also manage the <b>procurement department</b>. I have about <b>eighty people</b> under my direct command.
+          <br><br>I'll tell you a little about my <b>hobbies</b>. I love reading books. I'm <b>fascinated by</b> the history of <b>ancient Rome</b>. I also go to the gym. I practice <b>asceticism</b>. I don't drink alcohol or smoke cigarettes. I have a very <b>negative attitude towards</b> drugs. If I drink alcohol, I <b>become insane</b>. That's why I prefer a <b>sober lifestyle</b>. My current goal is to <b>start speaking English</b>.
+        </div>
+      </div>
+    </div>
+
+    <div class="mono-skeleton">
+      <h4>🧱 Скелет Вашего монолога (7 предложений)</h4>
+      <ol>
+        <li><b>Name + age:</b> My name is ___. I am ___ years old.</li>
+        <li><b>City:</b> I live in ___ / I have lived in ___ for ___ years.</li>
+        <li><b>Job + company:</b> I work as ___ at ___. My company is a ___ company.</li>
+        <li><b>Team size:</b> I have ___ people under my command / In my company there are ___ people.</li>
+        <li><b>Routine:</b> I go to ___ ___ times a week. Once a week I ___.</li>
+        <li><b>Free time / hobbies:</b> When I have free time, I ___. I'm fascinated by ___.</li>
+        <li><b>Goal:</b> My current goal is to ___.</li>
+      </ol>
+    </div>
+
+    <div class="timer-row">
+      <button class="timer-btn" id="speak-timer-btn">▶ Start 60 s timer</button>
+      <span class="timer-display" id="speak-timer-display">1:00</span>
+      <span class="timer-hint">Постарайтесь произнести все 7 предложений за 1 минуту. Александр говорит — Станислав слушает и считает предложения (7 из 7?). Затем поменяйтесь.</span>
+    </div>
+
+    <div class="info gold" style="margin-top:14px"><strong>🎯 Self-check после монолога:</strong> Все 7 пунктов скелета — сказаны? Использовали <b>Present Simple</b> (без -s для I / with -s для 3-го лица если говорите о ком-то)? Хотя бы 1 раз использовали <b>always / usually / sometimes</b>? Правильные предлоги <b>at / on / in</b> с временем?</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="foot-brand">
+    <div class="brand-mark">N</div>
+    <div>
+      <div class="foot-name">NEW GENERATION ENGLISH</div>
+      <div>L4 · Notebook Recap · Alexander · Stanislav · August 2026</div>
+    </div>
+  </div>
+  <div>tap · read · repeat · speak</div>
+</div>
+
+<script src="audio/_manifest.js?v=1"></script>
+<script>
+(function(){
+  var audio = new Audio();
+  var currentBtn = null;
+  audio.addEventListener('ended', function(){
+    if(currentBtn){ currentBtn.classList.remove('playing'); currentBtn = null; }
+  });
+  function play(text, btn){
+    if(!text) return;
+    var manifest = window.AUDIO_MANIFEST || {};
+    var file = manifest[text];
+    if(!file){ console.warn('[TTS] no mp3 for:', text); return; }
+    try{ audio.pause(); audio.currentTime = 0; }catch(e){}
+    if(currentBtn){ currentBtn.classList.remove('playing'); }
+    audio.src = 'audio/' + file;
+    audio.play().catch(function(err){ console.warn('[TTS] play failed', err); });
+    currentBtn = btn || null;
+    if(currentBtn) currentBtn.classList.add('playing');
+  }
+  document.addEventListener('click', function(e){
+    var el = e.target.closest('[data-say]');
+    if(!el) return;
+    play(el.dataset.say || el.getAttribute('data-say'), el);
+  });
+
+  /* MCQ tap-quiz */
+  document.querySelectorAll('.mcq-row').forEach(function(row){
+    var correct = parseInt(row.dataset.answer, 10);
+    var opts = row.querySelectorAll('.mcq-opts button');
+    opts.forEach(function(btn, idx){
+      btn.addEventListener('click', function(){
+        if(row.classList.contains('revealed')) return;
+        opts.forEach(function(b, j){
+          if(j === correct) b.classList.add('correct');
+          else if(j === idx) b.classList.add('wrong');
+        });
+        row.classList.add('revealed');
+        updateDots();
+      });
+    });
+  });
+
+  /* PROGRESS DOTS */
+  var sections = document.querySelectorAll('.section[id]');
+  var dotsWrap = document.getElementById('tb-dots');
+  var dots = [];
+  sections.forEach(function(sec){
+    var d = document.createElement('button');
+    d.className = 'tb-dot';
+    var h = sec.querySelector('h2');
+    d.title = h ? h.textContent : sec.id;
+    d.addEventListener('click', function(){ sec.scrollIntoView({behavior:'smooth', block:'start'}); });
+    dotsWrap.appendChild(d);
+    dots.push({sec:sec, el:d});
+  });
+  function updateDots(){
+    dots.forEach(function(p){
+      var sec = p.sec;
+      var touched = sec.querySelector('.mcq-row.revealed');
+      p.el.classList.toggle('done', !!touched);
+    });
+  }
+  updateDots();
+
+  /* 60-second timer */
+  var timerBtn = document.getElementById('speak-timer-btn');
+  var timerDisplay = document.getElementById('speak-timer-display');
+  if(timerBtn && timerDisplay){
+    var timerId = null;
+    var remaining = 60;
+    function format(s){ var m = Math.floor(s/60), r = s%60; return m + ':' + (r<10?'0':'') + r; }
+    function reset(){
+      if(timerId){ clearInterval(timerId); timerId = null; }
+      remaining = 60;
+      timerDisplay.textContent = format(remaining);
+      timerDisplay.style.color = '';
+      timerBtn.textContent = '▶ Start 60 s timer';
+    }
+    reset();
+    timerBtn.addEventListener('click', function(){
+      if(timerId){ reset(); return; }
+      timerBtn.textContent = '⏹ Stop / reset';
+      timerId = setInterval(function(){
+        remaining--;
+        timerDisplay.textContent = format(remaining);
+        if(remaining <= 10) timerDisplay.style.color = 'var(--miss)';
+        if(remaining <= 0){
+          clearInterval(timerId); timerId = null;
+          timerBtn.textContent = '↻ Restart';
+          timerDisplay.textContent = 'time!';
+        }
+      }, 1000);
+    });
+  }
+})();
+</script>
+</body>
+</html>
