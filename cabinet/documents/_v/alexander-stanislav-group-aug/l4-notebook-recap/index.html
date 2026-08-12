@@ -871,39 +871,24 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),#8a6f1e);-we
 </div>
 
 <!-- MP3 audio manifest — Sonia en-GB (edge-tts) · пусто пока -->
-<script src="audio/_manifest.js?v=2"></script>
+<script src="audio/_manifest.js?v=20260812"></script>
 <script>
-/* ═══════════════════ TTS ═══════════════════ */
-const synth = window.speechSynthesis;
-let voice = null, audioCache = {};
-function pickVoice(){
-  if(!synth) return;
-  const vs = synth.getVoices();
-  voice = vs.find(v => v.lang === 'en-GB' && /female|kate|sonia|libby/i.test(v.name))
-       || vs.find(v => v.lang === 'en-GB')
-       || vs.find(v => v.lang.startsWith('en'))
-       || vs[0];
-}
-if(synth){ pickVoice(); synth.onvoiceschanged = pickVoice; }
+/* ═══════════════════ TTS · edge-tts mp3 only · NO Web Speech fallback ═══════════════════ */
+let audioCache = {};
 function say(t, rate=0.92){
   if(!t) return;
   const manifest = window.AUDIO_MANIFEST || {};
   const f = manifest[t];
-  if(f){
-    if(!audioCache[f]) audioCache[f] = new Audio('audio/'+f);
-    const a = audioCache[f];
-    Object.values(audioCache).forEach(x => { if(x !== a){ x.pause(); x.currentTime = 0; } });
-    a.currentTime = 0; a.playbackRate = rate; a.play().catch(() => wsFallback(t, rate));
+  if(!f){
+    console.warn('[TTS] no mp3 for:', t);
     return;
   }
-  wsFallback(t, rate);
-}
-function wsFallback(t, rate){
-  if(!synth) return;
-  synth.cancel();
-  const u = new SpeechSynthesisUtterance(t);
-  u.voice = voice; u.rate = rate; u.pitch = 1.05; u.lang = 'en-GB';
-  synth.speak(u);
+  if(!audioCache[f]) audioCache[f] = new Audio('audio/'+f);
+  const a = audioCache[f];
+  Object.values(audioCache).forEach(x => { if(x !== a){ x.pause(); x.currentTime = 0; } });
+  a.currentTime = 0;
+  a.playbackRate = rate;
+  a.play().catch(err => console.warn('[TTS] play failed:', f, err));
 }
 function shuffle(a){ return a.slice().sort(() => Math.random() - 0.5); }
 
