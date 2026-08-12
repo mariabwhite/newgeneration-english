@@ -44,9 +44,9 @@
   <section class="cab-login" id="loginSection">
     <h1>Вход в кабинет</h1>
     <p class="cab-login-sub">Введите 4-значный PIN (ученик/родитель) или пароль (преподаватель).</p>
-    <form id="loginForm" autocomplete="off">
-      <input id="loginCode" type="text" placeholder="PIN или пароль" maxlength="40" autofocus required>
-      <button type="submit">Войти</button>
+    <form id="loginForm" autocomplete="off" novalidate>
+      <input id="loginCode" type="text" inputmode="numeric" placeholder="PIN или пароль" maxlength="40" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required>
+      <button type="submit" id="loginSubmitBtn">Войти</button>
       <div class="cab-login-error" id="loginError">Не подошло. Проверьте PIN или пароль.</div>
     </form>
 
@@ -143,14 +143,32 @@
     try { NGECabinet.clearSession(); localStorage.clear(); } catch(_) {}
   }
 
-  document.getElementById("loginForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
-    var code = document.getElementById("loginCode").value;
+  var submitBtn = document.getElementById("loginSubmitBtn");
+  var loginBusy = false;
+  async function handleLoginSubmit() {
+    if (loginBusy) return;
+    var codeEl = document.getElementById("loginCode");
+    var code = (codeEl.value || "").trim();
     var errEl = document.getElementById("loginError");
     errEl.classList.remove("is-visible");
+    if (!code) {
+      errEl.textContent = "Введите PIN или пароль.";
+      errEl.classList.add("is-visible");
+      return;
+    }
+    if (typeof NGECabinet === "undefined" || !NGECabinet.tryLogin) {
+      errEl.textContent = "Скрипт кабинета не загрузился. Перезагрузите страницу (кнопка обновления в Safari).";
+      errEl.classList.add("is-visible");
+      return;
+    }
+    loginBusy = true;
+    submitBtn.disabled = true;
+    var prevLabel = submitBtn.textContent;
+    submitBtn.textContent = "Проверяю…";
     try {
       var session = await NGECabinet.tryLogin(code);
       if (!session) {
+        errEl.textContent = "Не подошло. Проверьте PIN или пароль.";
         errEl.classList.add("is-visible");
         return;
       }
@@ -161,7 +179,21 @@
     } catch (err) {
       errEl.textContent = "Ошибка: " + (err && err.message ? err.message : err);
       errEl.classList.add("is-visible");
+    } finally {
+      loginBusy = false;
+      submitBtn.disabled = false;
+      submitBtn.textContent = prevLabel;
     }
+  }
+  document.getElementById("loginForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    handleLoginSubmit();
+  });
+  // iPad Safari fallback: некоторые версии не всегда стреляют form submit
+  // при tap на кнопку внутри async-flow. Прямой click-handler дублирует submit.
+  submitBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+    handleLoginSubmit();
   });
 
   rolePicker.querySelectorAll(".cab-role-btn").forEach(function (btn) {
