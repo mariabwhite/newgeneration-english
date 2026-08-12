@@ -110,17 +110,22 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),#8a6f1e);-we
 .fc-say{position:absolute;top:12px;right:12px;background:var(--accent3);color:#fff;border:none;border-radius:50%;width:38px;height:38px;font-size:.95rem;cursor:pointer;box-shadow:0 2px 6px rgba(176,54,26,.3)}
 .fc-say:hover{background:var(--accent)}
 
-/* MATCH */
-.mp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
-@media(max-width:640px){.mp-grid{grid-template-columns:repeat(3,1fr)}}
-.mp-c{aspect-ratio:1.2;background:linear-gradient(135deg,var(--accent),var(--accent3));color:#fff;border-radius:10px;display:grid;place-items:center;padding:8px;font-family:var(--display);font-weight:700;font-size:.75rem;text-align:center;cursor:pointer;user-select:none;transition:transform .2s;position:relative;line-height:1.2;word-break:break-word;hyphens:auto}
-.mp-c::after{content:"?";font-size:1.6rem;color:rgba(255,255,255,.6);position:absolute}
-.mp-c .txt{display:none}
-.mp-c.open,.mp-c.matched{background:#fff;color:var(--accent3);border:2px solid var(--accent3)}
-.mp-c.open::after,.mp-c.matched::after{content:""}
-.mp-c.open .txt,.mp-c.matched .txt{display:block}
-.mp-c.matched{background:#EBF6EF;color:var(--ok);border-color:var(--ok);opacity:.92}
-.mp-c.wrong{animation:shake .35s}
+/* CARD GALLERY · flip cards grid */
+.cg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin:12px 0}
+.cg-card{background:linear-gradient(135deg,#FBF9F4,#F4E4C6);border:2px solid var(--accent);border-radius:14px;padding:16px 14px 14px;min-height:150px;cursor:pointer;position:relative;transition:transform .18s,box-shadow .18s;outline:none;display:grid;gap:6px}
+.cg-card:hover,.cg-card:focus-visible{transform:translateY(-2px);box-shadow:0 6px 18px rgba(232,84,43,.18)}
+.cg-say{position:absolute;top:8px;right:8px;background:var(--accent3);color:#fff;border:none;border-radius:50%;width:32px;height:32px;font-size:.82rem;cursor:pointer;box-shadow:0 2px 6px rgba(176,54,26,.28);z-index:2}
+.cg-say:hover{background:var(--accent)}
+.cg-front{display:grid;gap:4px}
+.cg-w{font-family:var(--display);font-weight:800;color:var(--accent3);font-size:1.02rem;line-height:1.25;padding-right:38px}
+.cg-ipa{font-family:var(--mono);font-size:.78rem;color:var(--accent);letter-spacing:.02em}
+.cg-pos{font-size:.68rem;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.cg-back{display:none;padding-top:8px;margin-top:6px;border-top:1px dashed var(--accent3)}
+.cg-ru{font-family:var(--display);font-weight:700;color:var(--accent3);font-size:.98rem;margin-bottom:4px;line-height:1.35}
+.cg-ex{font-family:Georgia,serif;font-size:.85rem;font-style:italic;color:var(--ink-2);line-height:1.45}
+.cg-card.revealed{background:linear-gradient(135deg,#FFFFFF,#FBF9F4);border-color:var(--accent3)}
+.cg-card.revealed .cg-back{display:block;animation:cgFade .25s}
+@keyframes cgFade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:translateY(0)}}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
 
 /* TYPE / REVERSE */
@@ -408,7 +413,7 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),#8a6f1e);-we
 <div class="main-tabs">
   <div class="main-tabs-inner">
     <button class="mtab active" data-mtab="nb">📓 Catch-up · L2 + L3 notebooks <span class="badge">2 lessons</span></button>
-    <button class="mtab" data-mtab="tr">🎯 Vocabulary Trainer <span class="badge">24 words · 11 exercises</span></button>
+    <button class="mtab" data-mtab="tr">🎯 Vocabulary Trainer <span class="badge">48 items · 11 exercises</span></button>
     <button class="mtab" data-mtab="nu">🧠 Complete Konspekt Trainer <span class="badge">12 sections</span></button>
   </div>
 </div>
@@ -435,12 +440,12 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),#8a6f1e);-we
   <!-- ═══════════ TAB 2 · Vocabulary Trainer (24 words from the monologues) ═══════════ -->
   <div class="tbody" id="tbody-tr">
     <div class="ex-hdr">
-      <h2>📚 24 words from the monologues of Alexander &amp; Stanislav</h2>
-      <div class="sub">CEO / commercial director vocabulary. Eleven Quizlet-style exercises, one after another. Please work through them at your own pace.</div>
+      <h2>📚 48 vocabulary items from Konspekt 02 · monologues + useful phrases</h2>
+      <div class="sub">Every word and construction from the notebook: Alexander's story, Stanislav's story, useful phrases, and free-time constructions. Eleven exercises stacked, one after another — please work at your own pace.</div>
     </div>
     <div class="k-nav" id="mech-nav">
       <a href="#mech-fc" class="k-navlink">🎴 Flashcards</a>
-      <a href="#mech-mp" class="k-navlink">🃏 Match</a>
+      <a href="#mech-cg" class="k-navlink">🃏 Card gallery</a>
       <a href="#mech-typ" class="k-navlink">✍️ Type EN</a>
       <a href="#mech-rev" class="k-navlink">🔁 Reverse</a>
       <a href="#mech-lt" class="k-navlink">🔊 Listen &amp; type</a>
@@ -876,34 +881,66 @@ function shuffle(a){ return a.slice().sort(() => Math.random() - 0.5); }
 
 /* ═══════════════════ DATA · vocab / phrases / sentences / mistakes ═══════════════════ */
 const V24 = [
-  {w:'CEO',pos:'n',ipa:'/ˌsiː iː ˈəʊ/',ru:'гендиректор',ex:'I work as a CEO in a construction company.'},
+  // ═══ Alexander's story — construction / interior / hockey (10)
+  {w:'CEO',pos:'n',ipa:'/ˌsiː iː ˈəʊ/',ru:'CEO · генеральный директор',ex:'I work as a CEO in a construction company.'},
   {w:'construction',pos:'n',ipa:'/kənˈstrʌkʃən/',ru:'строительство',ex:'I work in construction and interior decoration.'},
   {w:'interior decoration',pos:'phrase',ipa:'/ɪnˈtɪəriə ˌdekəˈreɪʃən/',ru:'внутренняя отделка',ex:'My company also does interior decoration.'},
-  {w:'development',pos:'n',ipa:'/dɪˈveləpmənt/',ru:'девелопмент, застройка',ex:'We are a construction and development company.'},
+  {w:'development',pos:'n',ipa:'/dɪˈveləpmənt/',ru:'девелопмент · застройка',ex:'We are a construction and development company.'},
   {w:'a hockey team',pos:'phrase',ipa:'/ə ˈhɒki tiːm/',ru:'хоккейная команда',ex:'I have my own hockey team.'},
-  {w:'cuisine',pos:'n',ipa:'/kwɪˈziːn/',ru:'кухня (в смысле еды)',ex:'I love Italian cuisine.'},
+  {w:'cuisine',pos:'n',ipa:'/kwɪˈziːn/',ru:'кухня (о еде)',ex:'I love Italian cuisine.'},
   {w:'pets',pos:'n',ipa:'/pets/',ru:'домашние животные',ex:'I have two pets — a dog and a cat.'},
   {w:'a niece',pos:'n',ipa:'/ə niːs/',ru:'племянница',ex:'My niece is six years old.'},
   {w:'a nephew',pos:'n',ipa:'/ə ˈnefjuː/',ru:'племянник',ex:'My nephew loves football.'},
-  {w:'siblings',pos:'n',ipa:'/ˈsɪblɪŋz/',ru:'братья и сёстры',ex:'I have two siblings.'},
-  {w:'a degree',pos:'n',ipa:'/ə dɪˈɡriː/',ru:'степень · градус',ex:'I participate to one degree or another in every project.'},
-  {w:'current',pos:'adj',ipa:'/ˈkʌrənt/',ru:'текущий',ex:'My current goal is to speak English.'},
+  {w:'siblings',pos:'n',ipa:'/ˈsɪblɪŋz/',ru:'братья и сёстры (общий термин)',ex:'I have two siblings.'},
+
+  // ═══ Stanislav's story — Athon.in / ancient Rome / sober lifestyle (16)
+  {w:'a degree',pos:'n',ipa:'/ə dɪˈɡriː/',ru:'степень · градус',ex:'I participate to one degree or another.'},
+  {w:'current',pos:'adj',ipa:'/ˈkʌrənt/',ru:'текущий · нынешний',ex:'My current goal is to speak English.'},
   {w:'goal',pos:'n',ipa:'/ɡəʊl/',ru:'цель',ex:'My main goal this year is fluency.'},
-  {w:'to tell',pos:'v',ipa:'/tel/',ru:'рассказывать',ex:"I'll tell you about my hobbies."},
-  {w:'fascinated by',pos:'phrase',ipa:'/ˈfæsɪneɪtɪd/',ru:'очарованный чем-то',ex:"I'm fascinated by ancient Rome."},
+  {w:'to tell',pos:'v',ipa:'/tel/',ru:'рассказывать · сообщать',ex:"I'll tell you about my hobbies."},
+  {w:'fascinated by',pos:'phrase',ipa:'/ˈfæsɪneɪtɪd/',ru:'очарованный · увлечённый чем-то',ex:"I'm fascinated by ancient Rome."},
   {w:'ancient',pos:'adj',ipa:'/ˈeɪnʃənt/',ru:'древний',ex:'I love the history of ancient Rome.'},
-  {w:'to practice',pos:'v',ipa:'/ˈpræktɪs/',ru:'практиковать',ex:'I practice asceticism.'},
+  {w:'to practice',pos:'v',ipa:'/ˈpræktɪs/',ru:'практиковать · заниматься',ex:'I practice asceticism.'},
   {w:'asceticism',pos:'n',ipa:'/əˈsetɪsɪzəm/',ru:'аскетизм',ex:'Asceticism is my personal choice.'},
   {w:'alcohol',pos:'n',ipa:'/ˈælkəhɒl/',ru:'алкоголь',ex:"I don't drink alcohol."},
-  {w:'attitude towards',pos:'phrase',ipa:'/ˈætɪtjuːd/',ru:'отношение к',ex:'I have a negative attitude towards drugs.'},
+  {w:'attitude towards',pos:'phrase',ipa:'/ˈætɪtjuːd təˈwɔːdz/',ru:'отношение к чему-то',ex:'I have a negative attitude towards drugs.'},
+  {w:'towards',pos:'prep',ipa:'/təˈwɔːdz/',ru:'по отношению к · в сторону',ex:'I walked towards the door.'},
   {w:'to become',pos:'v',ipa:'/bɪˈkʌm/',ru:'становиться',ex:'If I drink alcohol, I become insane.'},
-  {w:'insane',pos:'adj',ipa:'/ɪnˈseɪn/',ru:'безумный',ex:'I become insane after two glasses.'},
+  {w:'insane',pos:'adj',ipa:'/ɪnˈseɪn/',ru:'безумный · невменяемый',ex:'I become insane after two glasses.'},
+  {w:"that's why",pos:'phrase',ipa:'/ðæts waɪ/',ru:'вот почему · поэтому',ex:"That's why I prefer a sober lifestyle."},
   {w:'to prefer',pos:'v',ipa:'/prɪˈfɜː/',ru:'предпочитать',ex:'I prefer a sober lifestyle.'},
-  {w:'sober lifestyle',pos:'phrase',ipa:'/ˈsəʊbə ˈlaɪfstaɪl/',ru:'трезвый образ жизни',ex:"That's why I prefer a sober lifestyle."},
-  {w:'to participate in',pos:'v',ipa:'/pɑːˈtɪsɪpeɪt/',ru:'участвовать в',ex:'I participate in the work of all departments.'},
+  {w:'sober lifestyle',pos:'phrase',ipa:'/ˈsəʊbə ˈlaɪfstaɪl/',ru:'трезвый образ жизни',ex:"I prefer a sober lifestyle."},
+
+  // ═══ Business & workplace vocab (7)
+  {w:'to participate in',pos:'v',ipa:'/pɑːˈtɪsɪpeɪt/',ru:'участвовать в чём-то',ex:'I participate in the work of all departments.'},
   {w:'a department',pos:'n',ipa:'/ə dɪˈpɑːtmənt/',ru:'отдел',ex:'I manage the procurement department.'},
-  {w:'procurement',pos:'n',ipa:'/prəˈkjʊəmənt/',ru:'закупки',ex:'The procurement team has twenty people.'},
-  {w:'under my command',pos:'phrase',ipa:'/ˈʌndə maɪ kəˈmɑːnd/',ru:'в моём подчинении',ex:'I have eighty people under my direct command.'}
+  {w:'procurement',pos:'n',ipa:'/prəˈkjʊəmənt/',ru:'закупки',ex:'The procurement team has 20 people.'},
+  {w:'under my command',pos:'phrase',ipa:'/ˈʌndə maɪ kəˈmɑːnd/',ru:'в моём подчинении',ex:'I have 80 people under my direct command.'},
+  {w:'to smoke',pos:'v',ipa:'/sməʊk/',ru:'курить',ex:"I don't smoke cigarettes."},
+  {w:'a cigarette',pos:'n',ipa:'/ə ˌsɪɡəˈret/',ru:'сигарета',ex:'He smokes cigarettes on the balcony.'},
+  {w:'a hobby / hobbies',pos:'n',ipa:'/ˈhɒbi/',ru:'хобби (одно / несколько)',ex:'My main hobby is reading books.'},
+  {w:'a drug',pos:'n',ipa:'/ə drʌɡ/',ru:'наркотик (≠ medicine — лекарство)',ex:"I don't take drugs."},
+
+  // ═══ Useful phrases from the notebook (5)
+  {w:'to do some business',pos:'phrase',ipa:'/ˈbɪznəs/',ru:'заняться делами · сделать пару дел',ex:"Let's do some business first, then have coffee."},
+  {w:'to relax a little',pos:'phrase',ipa:'/rɪˈlæks/',ru:'немного отдохнуть',ex:'After the call I want to relax a little.'},
+  {w:'several times a week',pos:'phrase',ipa:'/ˈsevrəl/',ru:'несколько раз в неделю',ex:'I go to the gym several times a week.'},
+  {w:'once a week / twice a week',pos:'phrase',ipa:'/wʌns · twaɪs/',ru:'раз / 2 раза в неделю',ex:'I play hockey once a week.'},
+  {w:'once every 3 months',pos:'phrase',ipa:'/ˈevri/',ru:'раз в 3 месяца',ex:'I fly to London once every 3 months.'},
+
+  // ═══ Hobby / free-time phrases (4)
+  {w:'Japan is my favourite country',pos:'sentence',ipa:'',ru:'Япония — моя любимая страна',ex:"I've been to Japan three times."},
+  {w:'to walk with my dog',pos:'phrase',ipa:'',ru:'гулять с собакой',ex:'In the evenings I walk with my dog.'},
+  {w:'to watch football with friends',pos:'phrase',ipa:'',ru:'смотреть футбол с друзьями',ex:'On Sunday I watch football with friends.'},
+  {w:'to read the news',pos:'phrase',ipa:'',ru:'читать новости',ex:'I read the news every morning.'},
+
+  // ═══ Grammar constructions from the monologues (6)
+  {w:"I'd like to",pos:'phrase',ipa:'/aɪd ˈlaɪk tuː/',ru:'я бы хотел · «I would like to»',ex:"I'd like to learn English faster."},
+  {w:'when I have some free time',pos:'phrase',ipa:'',ru:'когда у меня есть свободное время',ex:'When I have some free time, I read.'},
+  {w:'in the evenings',pos:'phrase',ipa:'',ru:'по вечерам',ex:'In the evenings I usually stay at home.'},
+  {w:'to go out',pos:'phrase',ipa:'',ru:'выйти в город · погулять',ex:'I usually go out on Friday.'},
+  {w:'to go to the gym',pos:'phrase',ipa:'',ru:'ходить в спортзал',ex:'I go to the gym twice a week.'},
+  {w:'to have colleagues at the office',pos:'phrase',ipa:'',ru:'иметь коллег на работе',ex:'I have three colleagues at the office.'}
 ];
 
 const PH31 = [
@@ -964,7 +1001,7 @@ function initVocabTrainer(){
   const slot = document.getElementById('mech-slot');
   const specs = [
     {key:'fc',  build:buildFC},
-    {key:'mp',  build:buildMP},
+    {key:'cg',  build:buildCG},
     {key:'typ', build:buildTYP},
     {key:'rev', build:buildREV},
     {key:'lt',  build:buildLT},
@@ -1015,40 +1052,38 @@ function buildFC(el, V){
   render();
 }
 
-/* 2. MATCH */
-function buildMP(el, V){
-  const pairs = V.slice(0, Math.min(8, V.length));
-  const cards = [];
-  pairs.forEach((v,i) => { cards.push({s:'ru',t:v.ru,p:i}); cards.push({s:'en',t:v.w,p:i}); });
-  const shuffled = shuffle(cards);
+/* 2. CARD GALLERY · all cards in a grid · tap to flip + say */
+function buildCG(el, V){
   el.innerHTML = `
-    <div class="mech-title">🃏 Match RU ↔ EN <small>tap two cards to form a pair</small></div>
-    <div class="mech-hint">Please find the pairs: Russian side and English side. Tap two cards — if they match, they turn green.</div>
-    <div class="mp-grid" id="mp-grid">${shuffled.map(c => `<div class="mp-c" data-p="${c.p}" data-s="${c.s}"><span class="txt">${c.t}</span></div>`).join('')}</div>
-    <div class="score" id="mp-score">0 / ${pairs.length} pairs</div>
+    <div class="mech-title">🃏 Card gallery <small>Tap any card to flip it · audio plays on reveal</small></div>
+    <div class="mech-hint">All ${V.length} items at a glance. Please tap a card to see the translation and hear the pronunciation.</div>
+    <div class="cg-grid" id="cg-grid">
+      ${V.map((v, i) => `
+        <div class="cg-card" data-i="${i}" tabindex="0">
+          <button class="cg-say" onclick="event.stopPropagation();say(${JSON.stringify(v.w).replace(/"/g,'&quot;')})" title="Listen">🔊</button>
+          <div class="cg-front">
+            <div class="cg-w">${v.w}</div>
+            <div class="cg-ipa">${v.ipa||''}</div>
+            <div class="cg-pos">${v.pos||''}</div>
+          </div>
+          <div class="cg-back">
+            <div class="cg-ru">${v.ru}</div>
+            <div class="cg-ex">${v.ex||''}</div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
   `;
-  let open = null, matched = 0, busy = false;
-  el.querySelectorAll('.mp-c').forEach(c => {
-    c.onclick = () => {
-      if(busy || c.classList.contains('open') || c.classList.contains('matched')) return;
-      c.classList.add('open');
-      if(!open){ open = c; return; }
-      busy = true;
-      if(open.dataset.p === c.dataset.p && open.dataset.s !== c.dataset.s){
-        setTimeout(() => {
-          open.classList.add('matched'); c.classList.add('matched');
-          open.classList.remove('open'); c.classList.remove('open');
-          const enCard = c.dataset.s==='en' ? c : open;
-          say(enCard.querySelector('.txt').textContent);
-          open=null; busy=false; matched++;
-          document.getElementById('mp-score').textContent = `${matched} / ${pairs.length} pairs`;
-          if(matched===pairs.length) document.getElementById('mp-score').innerHTML = `🎉 all ${pairs.length} matched!`;
-        }, 300);
-      } else {
-        c.classList.add('wrong');
-        setTimeout(() => { open.classList.remove('open'); c.classList.remove('open','wrong'); open=null; busy=false; }, 600);
+  el.querySelectorAll('.cg-card').forEach(card => {
+    const flip = () => {
+      card.classList.toggle('revealed');
+      if(card.classList.contains('revealed')){
+        const w = V[parseInt(card.dataset.i,10)].w;
+        say(w);
       }
     };
+    card.addEventListener('click', flip);
+    card.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); flip(); } });
   });
 }
 
