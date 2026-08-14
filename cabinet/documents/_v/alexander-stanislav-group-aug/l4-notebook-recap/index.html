@@ -398,6 +398,20 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),#8a6f1e);-we
 
 /* Pattern cards (Section 13 · Constructions drill) */
 .pat-list{display:grid;gap:14px;margin:14px 0}
+
+/* Section 14 · 100 verbs · dense grid with 🔊 */
+.v100-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:6px 12px;margin:16px 0}
+.v100-item{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--card-2);font-size:.88rem;transition:.15s}
+.v100-item:hover{border-color:var(--accent);background:#fff}
+.v100-num{font-family:var(--mono);font-size:.68rem;font-weight:800;color:var(--muted);min-width:22px;text-align:right}
+.v100-en{font-weight:800;color:var(--ink)}
+.v100-ru{color:var(--muted);font-size:.82rem;margin-left:6px}
+.v100-say{background:none;border:none;cursor:pointer;font-size:1rem;color:var(--accent3);padding:2px 6px;border-radius:6px;transition:.15s}
+.v100-say:hover{background:var(--accent-soft)}
+
+/* Sub-header inside k15 */
+.sub-hdr{font-family:var(--display);font-weight:800;font-size:1rem;color:var(--accent3);margin:20px 0 10px;padding-top:14px;border-top:1px dashed var(--line)}
+.sub-hdr:first-of-type{border-top:none;padding-top:0;margin-top:12px}
 .pat-card{background:#fff;border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:0 14px 14px 0;padding:14px 18px;box-shadow:var(--shadow)}
 .pat-hdr{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
 .pat-p{font-family:var(--display);font-weight:800;color:var(--accent3);font-size:1.05rem;line-height:1.3}
@@ -456,8 +470,9 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),#8a6f1e);-we
 <div class="main-tabs">
   <div class="main-tabs-inner">
     <button class="mtab active" data-mtab="nb">📓 Catch-up · L2 + L3 notebooks <span class="badge">2 lessons</span></button>
-    <button class="mtab" data-mtab="tr">🎯 Vocabulary Trainer <span class="badge">51 items · 11 exercises</span></button>
-    <button class="mtab" data-mtab="nu">🧠 Complete Konspekt Trainer <span class="badge">13 sections</span></button>
+    <button class="mtab" data-mtab="tr">🎯 Vocabulary Trainer <span class="badge">188 items · 11 exercises</span></button>
+    <button class="mtab" data-mtab="nu">🧠 Complete Konspekt Trainer <span class="badge">15 sections</span></button>
+    <button class="mtab" data-mtab="l5">📓 L5 · Notebook 14.08 <span class="badge">verbs 100 · travel · new vocab</span></button>
   </div>
 </div>
 
@@ -483,8 +498,8 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),#8a6f1e);-we
   <!-- ═══════════ TAB 2 · Vocabulary Trainer (24 words from the monologues) ═══════════ -->
   <div class="tbody" id="tbody-tr">
     <div class="ex-hdr">
-      <h2>📚 51 words and phrases · from Konspekt 02</h2>
-      <div class="sub">All words and phrases from the notebook. 11 games, one after another. Grammar patterns live in Konspekt Trainer · Section 13.</div>
+      <h2>📚 188 words and phrases · Konspekt 02 + 04</h2>
+      <div class="sub">All words and phrases from both notebooks. 11 games, one after another. Grammar patterns live in Konspekt Trainer · Section 13. New verbs / travel / confused pairs live in Sections 14–15.</div>
     </div>
     <div class="k-nav" id="mech-nav">
       <a href="#mech-fc" class="k-navlink">🎴 Flashcards</a>
@@ -523,6 +538,8 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),#8a6f1e);-we
       <a href="#k11" class="k-navlink">11 · 7 mistakes by Alexander</a>
       <a href="#k12" class="k-navlink">12 · Monologue + Homework</a>
       <a href="#k13" class="k-navlink">13 · Constructions drill</a>
+      <a href="#k14" class="k-navlink">14 · 100 core verbs (L5)</a>
+      <a href="#k15" class="k-navlink">15 · L5 · Travel · confused pairs</a>
     </div>
 
     <!-- ══════ 1. SOME / ANY / SOMETHING / ANYTHING / NOTHING ══════ -->
@@ -881,6 +898,91 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),#8a6f1e);-we
       <div class="pat-list" id="pat-list"></div>
     </section>
 
+    <!-- ══════ 14. 100 CORE VERBS (from Konspekt 04, 14.08) ══════ -->
+    <section class="k-sec" id="k14">
+      <div class="k-hdr"><span class="k-num">14</span><h3>100 core English verbs · from Konspekt 04 (14.08)</h3></div>
+      <div class="k-lead">The <b>100 most useful English verbs</b>, in the exact order Maria wrote in the notebook. Learn by 10 at a time. Tap 🔊 to hear the verb.</div>
+      <div class="v100-grid" id="v100-grid"></div>
+    </section>
+
+    <!-- ══════ 15. L5 · TRAVEL vocab + confused pairs (from Konspekt 04) ══════ -->
+    <section class="k-sec" id="k15">
+      <div class="k-hdr"><span class="k-num">15</span><h3>L5 · Travel vocab + confused pairs (14.08)</h3></div>
+      <div class="k-lead">Everything from the second page of Konspekt 04 — travel nouns, prepositions of transport, and the pairs that always confuse: <em>other/another</em>, <em>many/much/a lot</em>, <em>close/clothes/closet</em>, <em>spend/have time</em>, <em>solve/resolve/decide</em>.</div>
+
+      <h4 class="sub-hdr">🧳 Travel · what you carry / where you are</h4>
+      <div class="rule-grid5">
+        <div class="rule-cell"><div class="rk">suitcase</div><div class="rw">[ˈsuːtkeɪs] · чемодан любых размеров</div><div class="re">I always overpack my suitcase.</div></div>
+        <div class="rule-cell"><div class="rk">backpack</div><div class="rw">[ˈbækpæk] · рюкзак</div><div class="re">I travel light — just a backpack.</div></div>
+        <div class="rule-cell"><div class="rk">trolley-bag</div><div class="rw">[ˈtrɒlibæg] · чемодан на колёсиках</div><div class="re">I always take a trolley-bag on business trips.</div></div>
+        <div class="rule-cell"><div class="rk">luggage / baggage</div><div class="rw">весь багаж (uncountable!)</div><div class="re">luggage 100% / baggage 70% · «my luggage is heavy»</div></div>
+        <div class="rule-cell"><div class="rk">briefcase</div><div class="rw">[briːfkeɪs] · кейс для документов</div><div class="re">He carries a leather briefcase to meetings.</div></div>
+        <div class="rule-cell"><div class="rk">wallet</div><div class="rw">[ˈwɒlɪt] · бумажник</div><div class="re">I keep my wallet in the front pocket.</div></div>
+      </div>
+
+      <h4 class="sub-hdr">🚌 Transport prepositions · ON vs BY vs AT</h4>
+      <div class="rule-grid5">
+        <div class="rule-cell"><div class="rk">on the train</div><div class="rw">уже находясь в поезде</div><div class="re">I met her <b>on the train</b> to Moscow.</div></div>
+        <div class="rule-cell"><div class="rk">by train</div><div class="rw">способ · «поездом»</div><div class="re">I travel <b>by train</b> once a month.</div></div>
+        <div class="rule-cell"><div class="rk">by plane</div><div class="rw">самолётом</div><div class="re">Do you prefer to travel <b>by plane</b>?</div></div>
+        <div class="rule-cell"><div class="rk">by bus</div><div class="rw">автобусом</div><div class="re">I go to work <b>by bus</b>.</div></div>
+        <div class="rule-cell"><div class="rk">at the bus stop</div><div class="rw">на остановке</div><div class="re">I'll wait <b>at the bus stop</b>.</div></div>
+        <div class="rule-cell"><div class="rk">at the hotel reception</div><div class="rw">на ресепшн</div><div class="re">Please leave your key <b>at the hotel reception</b>.</div></div>
+        <div class="rule-cell"><div class="rk">on the ferry</div><div class="rw">на пароме</div><div class="re">We had lunch <b>on the ferry</b>.</div></div>
+        <div class="rule-cell"><div class="rk">on foot</div><div class="rw">пешком</div><div class="re">I go to the office <b>on foot</b> when the weather is good.</div></div>
+      </div>
+
+      <h4 class="sub-hdr">⚡ Confused pairs · one glance, one rule</h4>
+      <div class="rule-grid5">
+        <div class="rule-cell"><div class="rk">other</div><div class="rw">другие (много) · plural</div><div class="re">the <b>other</b> countries · <b>other</b> managers</div></div>
+        <div class="rule-cell"><div class="rk">another</div><div class="rw">другой (один) · singular</div><div class="re"><b>another</b> country · <b>another</b> meeting</div></div>
+        <div class="rule-cell"><div class="rk">a lot / many</div><div class="rw">много (считаемое)</div><div class="re">a lot of / <b>many</b> meetings · <b>many</b> people</div></div>
+        <div class="rule-cell"><div class="rk">much</div><div class="rw">много (несчитаемое)</div><div class="re">how <b>much</b> time · not <b>much</b> water</div></div>
+        <div class="rule-cell"><div class="rk">spend time</div><div class="rw">проводить время (нейтральное)</div><div class="re">I <b>spend</b> a lot of time at work.</div></div>
+        <div class="rule-cell"><div class="rk">have time in a hotel</div><div class="rw">предпочтительнее в этом контексте</div><div class="re">I'd love to <b>have</b> some time in a nice hotel.</div></div>
+        <div class="rule-cell"><div class="rk">close</div><div class="rw">закрывать / близкий</div><div class="re">Please <b>close</b> the door. · a <b>close</b> friend.</div></div>
+        <div class="rule-cell"><div class="rk">clothes</div><div class="rw">одежда · plural noun</div><div class="re">official <b>clothes</b> for the meeting.</div></div>
+        <div class="rule-cell"><div class="rk">closet</div><div class="rw">шкаф / туалет · закрытое пространство</div><div class="re">Hang your suit in the <b>closet</b>.</div></div>
+        <div class="rule-cell"><div class="rk">solve</div><div class="rw">решать (проблему) — быстрый ответ</div><div class="re">I need to <b>solve</b> many issues at work.</div></div>
+        <div class="rule-cell"><div class="rk">resolve</div><div class="rw">разрешить (конфликт) — глубже</div><div class="re">We <b>resolved</b> the dispute peacefully.</div></div>
+        <div class="rule-cell"><div class="rk">decide</div><div class="rw">решить (выбор из вариантов)</div><div class="re">I <b>decided</b> to take the offer.</div></div>
+        <div class="rule-cell"><div class="rk">alone</div><div class="rw">[əˈləʊn] · один, в одиночестве</div><div class="re">I like to travel <b>alone</b>.</div></div>
+        <div class="rule-cell"><div class="rk">tough</div><div class="rw">[tʌf] · жёсткий, тяжёлый</div><div class="re">This week has been <b>tough</b>.</div></div>
+        <div class="rule-cell"><div class="rk">issues</div><div class="rw">[ˈɪʃuːz] · вопросы / проблемы</div><div class="re">There were many <b>issues</b> to resolve.</div></div>
+        <div class="rule-cell"><div class="rk">falling leaves</div><div class="rw">падающие листья · процесс сейчас</div><div class="re">Look at the <b>falling leaves</b> outside.</div></div>
+        <div class="rule-cell"><div class="rk">fallen leaves</div><div class="rw">опавшие листья · уже упали</div><div class="re">The garden is covered in <b>fallen leaves</b>.</div></div>
+      </div>
+
+      <h4 class="sub-hdr">🎯 Anchor sentence · put it together</h4>
+      <div class="k-warn" style="background:#fff8ef;border-color:#ffdca8;color:#4a2c00">
+        <b>This week has been tough.</b> There were many work issues to resolve. There were five meetings.<br>
+        <b>However, in the evenings I was able to distract myself with personal matters.</b>
+      </div>
+
+      <h4 class="sub-hdr">🗣️ 8 Wh-questions · daily-routine drill</h4>
+      <div class="mcq-list" data-mcqgroup>
+        <div class="mcq" data-a="0"><div class="mcq-q">1. ___ do you do?</div><div class="mcq-opts"><button>What</button><button>Where</button><button>How</button></div><div class="mcq-note">«What do you do?» = «Кем ты работаешь?»</div></div>
+        <div class="mcq" data-a="1"><div class="mcq-q">2. ___ do you work?</div><div class="mcq-opts"><button>What</button><button>Where</button><button>When</button></div><div class="mcq-note">«Where do you work?» = «Где ты работаешь?»</div></div>
+        <div class="mcq" data-a="2"><div class="mcq-q">3. What ___ do you start work?</div><div class="mcq-opts"><button>day</button><button>place</button><button>time</button></div><div class="mcq-note">«What time» = «Во сколько».</div></div>
+        <div class="mcq" data-a="0"><div class="mcq-q">4. ___ do you finish work?</div><div class="mcq-opts"><button>When</button><button>Where</button><button>Why</button></div><div class="mcq-note">«When do you finish work?»</div></div>
+        <div class="mcq" data-a="0"><div class="mcq-q">5. Where do you have ___ ?</div><div class="mcq-opts"><button>lunch</button><button>the lunch</button><button>a lunch</button></div><div class="mcq-note">«Have lunch» — без артикля.</div></div>
+        <div class="mcq" data-a="1"><div class="mcq-q">6. How ___ do you go to the gym?</div><div class="mcq-opts"><button>many</button><button>often</button><button>much</button></div><div class="mcq-note">«How often» — частотность.</div></div>
+        <div class="mcq" data-a="2"><div class="mcq-q">7. What do you do ___ work?</div><div class="mcq-opts"><button>at</button><button>in</button><button>after</button></div><div class="mcq-note">«After work» = «после работы».</div></div>
+        <div class="mcq" data-a="1"><div class="mcq-q">8. Where does your colleague ___ ?</div><div class="mcq-opts"><button>lives</button><button>live</button><button>living</button></div><div class="mcq-note">В вопросе с «does» — только базовая форма.</div></div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ═══════════ TAB 4 · L5 Notebook 14.08 (iframe on new page) ═══════════ -->
+  <div class="tbody" id="tbody-l5">
+    <div class="frame-hint">
+      <b>How to use:</b> Konspekt 04 (14.08) — 100 verbs, travel vocabulary, confused pairs, anchor sentence. Too small? Click
+      <a href="../l5-notebook-recap-04/" target="_blank">«open in a new tab ↗»</a>.
+    </div>
+    <div class="frame-wrap">
+      <iframe id="l5-frame" src="../l5-notebook-recap-04/" title="L5 · Konspekt 04 · 14.08"></iframe>
+    </div>
   </div>
 
 </div>
@@ -985,7 +1087,149 @@ const V24 = [
   {w:'in the evenings',pos:'phrase',ipa:'',ru:'по вечерам',ex:'In the evenings I usually stay at home.'},
   {w:'to go out',pos:'phrase',ipa:'',ru:'выйти в город · погулять',ex:'I usually go out on Friday.'},
   {w:'to go to the gym',pos:'phrase',ipa:'',ru:'ходить в спортзал',ex:'I go to the gym twice a week.'},
-  {w:'to have colleagues at the office',pos:'phrase',ipa:'',ru:'иметь коллег на работе',ex:'I have three colleagues at the office.'}
+  {w:'to have colleagues at the office',pos:'phrase',ipa:'',ru:'иметь коллег на работе',ex:'I have three colleagues at the office.'},
+
+  // ═══════════════════════════════════════════════════════════════════════════════════════
+  // ═══ KONSPEKT 04 · L5 · 14.08 ═══ +90 items: 15 travel/vocab + 60 verbs (top of 100) + 15 confused ═
+  // ═══════════════════════════════════════════════════════════════════════════════════════
+
+  // ── Travel vocab (15) ──
+  {w:'suitcase',pos:'n',ipa:'/ˈsuːtkeɪs/',ru:'чемодан (любых размеров)',ex:'I always overpack my suitcase.'},
+  {w:'backpack',pos:'n',ipa:'/ˈbækpæk/',ru:'рюкзак',ex:'I travel light — just a backpack.'},
+  {w:'trolley-bag',pos:'n',ipa:'/ˈtrɒlibæg/',ru:'чемодан на колёсиках',ex:'I always take a trolley-bag on business trips.'},
+  {w:'luggage',pos:'n',ipa:'/ˈlʌɡɪdʒ/',ru:'багаж (весь, uncountable)',ex:'My luggage is very heavy today.'},
+  {w:'baggage',pos:'n',ipa:'/ˈbæɡɪdʒ/',ru:'багаж (uncountable, реже)',ex:'Please collect your baggage at belt 4.'},
+  {w:'briefcase',pos:'n',ipa:'/ˈbriːfkeɪs/',ru:'кейс для документов',ex:'He carries a leather briefcase to meetings.'},
+  {w:'wallet',pos:'n',ipa:'/ˈwɒlɪt/',ru:'бумажник',ex:'I keep my wallet in the front pocket.'},
+  {w:'a business trip',pos:'phrase',ipa:'',ru:'командировка',ex:'I have a business trip to Berlin next week.'},
+  {w:'to travel light',pos:'phrase',ipa:'',ru:'путешествовать налегке',ex:'I always travel light with just a backpack.'},
+  {w:'on the train',pos:'phrase',ipa:'',ru:'в поезде (находясь)',ex:'I met her on the train to Moscow.'},
+  {w:'by train',pos:'phrase',ipa:'',ru:'поездом (способ)',ex:'I travel by train once a month.'},
+  {w:'by plane',pos:'phrase',ipa:'',ru:'самолётом',ex:'Do you prefer to travel by plane?'},
+  {w:'by bus',pos:'phrase',ipa:'',ru:'автобусом',ex:'I go to work by bus every morning.'},
+  {w:'at the bus stop',pos:'phrase',ipa:'',ru:'на остановке',ex:"I'll wait at the bus stop."},
+  {w:'on foot',pos:'phrase',ipa:'',ru:'пешком',ex:'I go to the office on foot when the weather is good.'},
+
+  // ── Confused pairs & extra (15) ──
+  {w:'other',pos:'adj',ipa:'/ˈʌðə/',ru:'другие (много) — plural',ex:'The other managers arrived at 9.'},
+  {w:'another',pos:'adj',ipa:'/əˈnʌðə/',ru:'другой (один) — singular',ex:"Let's schedule another meeting."},
+  {w:'many',pos:'quant',ipa:'/ˈmeni/',ru:'много (для считаемых)',ex:'How many meetings do you have today?'},
+  {w:'much',pos:'quant',ipa:'/mʌtʃ/',ru:'много (для несчитаемых)',ex:"I don't have much time this morning."},
+  {w:'a lot of',pos:'quant',ipa:'',ru:'много (нейтральное)',ex:'A lot of clients call us in the mornings.'},
+  {w:'spend time',pos:'phrase',ipa:'',ru:'проводить время (нейтральное)',ex:'I spend a lot of time at work.'},
+  {w:'have time',pos:'phrase',ipa:'',ru:'проводить время (предпочтительно с hotel)',ex:"I'd love to have some time in a nice hotel."},
+  {w:'close',pos:'v/adj',ipa:'/kləʊz/',ru:'закрывать / близкий',ex:'Please close the door. · a close friend.'},
+  {w:'clothes',pos:'n',ipa:'/kləʊðz/',ru:'одежда (plural)',ex:'I need official clothes for the meeting.'},
+  {w:'closet',pos:'n',ipa:'/ˈklɒzɪt/',ru:'шкаф / туалет (закрытое пространство)',ex:'Hang your suit in the closet.'},
+  {w:'alone',pos:'adj',ipa:'/əˈləʊn/',ru:'один, в одиночестве',ex:'I like to travel alone sometimes.'},
+  {w:'tough',pos:'adj',ipa:'/tʌf/',ru:'жёсткий, тяжёлый',ex:'This week has been tough.'},
+  {w:'important',pos:'adj',ipa:'/ɪmˈpɔːtənt/',ru:'важный',ex:'This is an important client.'},
+  {w:'issues',pos:'n',ipa:'/ˈɪʃuːz/',ru:'вопросы, проблемы',ex:'There were many issues to resolve.'},
+  {w:'meetings',pos:'n',ipa:'/ˈmiːtɪŋz/',ru:'совещания',ex:'There were five meetings today.'},
+  {w:'however',pos:'adv',ipa:'/haʊˈevə/',ru:'однако',ex:'However, in the evenings I distract myself.'},
+  {w:'able',pos:'adj',ipa:'/ˈeɪbəl/',ru:'способный',ex:'I was able to finish everything on time.'},
+  {w:'to distract',pos:'v',ipa:'/dɪˈstrækt/',ru:'отвлекать',ex:'I need something to distract myself with.'},
+  {w:'personal matters',pos:'phrase',ipa:'/ˈpɜːsənəl ˈmætəz/',ru:'личные дела',ex:'In the evenings I focus on personal matters.'},
+  {w:'to resolve',pos:'v',ipa:'/rɪˈzɒlv/',ru:'решать (разрешать)',ex:'We need to resolve this conflict.'},
+  {w:'to solve',pos:'v',ipa:'/sɒlv/',ru:'решать (проблему)',ex:'I need to solve many issues at work.'},
+  {w:'to decide',pos:'v',ipa:'/dɪˈsaɪd/',ru:'решать (сделать выбор)',ex:'I decided to take the offer.'},
+  {w:'falling leaves',pos:'phrase',ipa:'',ru:'падающие листья (сейчас)',ex:'Look at the falling leaves outside.'},
+  {w:'fallen leaves',pos:'phrase',ipa:'',ru:'опавшие листья',ex:'The garden is covered in fallen leaves.'},
+
+  // ── Top 40 verbs from the 100-verbs list (be/have/do/say/go/can already covered) ──
+  {w:'be',pos:'v',ipa:'/biː/',ru:'быть',ex:'I am at the office right now.'},
+  {w:'have',pos:'v',ipa:'/hæv/',ru:'иметь',ex:'I have three meetings today.'},
+  {w:'do',pos:'v',ipa:'/duː/',ru:'делать, заниматься',ex:'What do you do for a living?'},
+  {w:'say',pos:'v',ipa:'/seɪ/',ru:'говорить, сказать',ex:'What did she say?'},
+  {w:'get',pos:'v',ipa:'/ɡet/',ru:'получать, становиться',ex:'I get to the office at 9.'},
+  {w:'make',pos:'v',ipa:'/meɪk/',ru:'делать, заставлять',ex:'Let me make a call first.'},
+  {w:'know',pos:'v',ipa:'/nəʊ/',ru:'знать',ex:"I know a good restaurant nearby."},
+  {w:'see',pos:'v',ipa:'/siː/',ru:'видеть',ex:'I see the client tomorrow.'},
+  {w:'come',pos:'v',ipa:'/kʌm/',ru:'приходить',ex:'Please come to the meeting on time.'},
+  {w:'think',pos:'v',ipa:'/θɪŋk/',ru:'думать',ex:'I think we should reschedule.'},
+  {w:'take',pos:'v',ipa:'/teɪk/',ru:'брать, брать с собой',ex:"I'll take the 9 a.m. flight."},
+  {w:'want',pos:'v',ipa:'/wɒnt/',ru:'хотеть',ex:'I want a strong coffee.'},
+  {w:'use',pos:'v',ipa:'/juːz/',ru:'использовать',ex:'I use two laptops at work.'},
+  {w:'find',pos:'v',ipa:'/faɪnd/',ru:'находить',ex:'I need to find a good manager.'},
+  {w:'tell',pos:'v',ipa:'/tel/',ru:'рассказывать, сказать',ex:"I'll tell you a little about my hobbies."},
+  {w:'work',pos:'v',ipa:'/wɜːk/',ru:'работать',ex:'I work in construction.'},
+  {w:'try',pos:'v',ipa:'/traɪ/',ru:'пытаться',ex:'I try to speak English every day.'},
+  {w:'leave',pos:'v',ipa:'/liːv/',ru:'уходить, оставлять',ex:'I leave the office around 7 p.m.'},
+  {w:'put',pos:'v',ipa:'/pʊt/',ru:'класть, поставить',ex:'Put your bag in the closet, please.'},
+  {w:'mean',pos:'v',ipa:'/miːn/',ru:'значить',ex:'What does this word mean?'},
+  {w:'meet',pos:'v',ipa:'/miːt/',ru:'встречать, знакомиться',ex:'Nice to meet you.'},
+  {w:'keep',pos:'v',ipa:'/kiːp/',ru:'держать, хранить',ex:'Please keep this file safe.'},
+  {w:'feel',pos:'v',ipa:'/fiːl/',ru:'чувствовать',ex:'I feel tired today.'},
+  {w:'ask',pos:'v',ipa:'/ɑːsk/',ru:'спрашивать, просить',ex:'Ask her about the report.'},
+  {w:'let',pos:'v',ipa:'/let/',ru:'позволять',ex:'Let me check my calendar.'},
+  {w:'become',pos:'v',ipa:'/bɪˈkʌm/',ru:'становиться',ex:'He became a CEO at 35.'},
+  {w:'begin',pos:'v',ipa:'/bɪˈɡɪn/',ru:'начинать',ex:'The meeting begins at 10.'},
+  {w:'seem',pos:'v',ipa:'/siːm/',ru:'казаться',ex:'She seems happy today.'},
+  {w:'help',pos:'v',ipa:'/help/',ru:'помогать',ex:'Could you help me out?'},
+  {w:'show',pos:'v',ipa:'/ʃəʊ/',ru:'показывать',ex:'Please show me the report.'},
+  {w:'hear',pos:'v',ipa:'/hɪə/',ru:'слышать',ex:"I didn't hear you, sorry."},
+  {w:'play',pos:'v',ipa:'/pleɪ/',ru:'играть',ex:'I play hockey on Sundays.'},
+  {w:'run',pos:'v',ipa:'/rʌn/',ru:'бегать, руководить',ex:'She runs a big sales team.'},
+  {w:'move',pos:'v',ipa:'/muːv/',ru:'двигаться, переезжать',ex:'We moved offices last year.'},
+  {w:'live',pos:'v',ipa:'/lɪv/',ru:'жить',ex:'I live in Moscow.'},
+  {w:'believe',pos:'v',ipa:'/bɪˈliːv/',ru:'верить',ex:'I believe we can do it.'},
+  {w:'bring',pos:'v',ipa:'/brɪŋ/',ru:'приносить',ex:'Please bring your laptop.'},
+  {w:'happen',pos:'v',ipa:'/ˈhæpən/',ru:'случаться',ex:'What happened at the meeting?'},
+  {w:'write',pos:'v',ipa:'/raɪt/',ru:'писать',ex:'I write emails every morning.'},
+  {w:'sit',pos:'v',ipa:'/sɪt/',ru:'сидеть',ex:'Please sit here.'},
+  {w:'stand',pos:'v',ipa:'/stænd/',ru:'стоять',ex:'I have to stand during the call.'},
+  {w:'lose',pos:'v',ipa:'/luːz/',ru:'терять',ex:"Don't lose this receipt."},
+  {w:'pay',pos:'v',ipa:'/peɪ/',ru:'платить',ex:'I pay the invoice on Friday.'},
+  {w:'include',pos:'v',ipa:'/ɪnˈkluːd/',ru:'включать',ex:'The price includes VAT.'},
+  {w:'continue',pos:'v',ipa:'/kənˈtɪnjuː/',ru:'продолжать',ex:'Please continue with the report.'},
+  {w:'set',pos:'v',ipa:'/set/',ru:'устанавливать',ex:"Let's set up a call for Friday."},
+  {w:'learn',pos:'v',ipa:'/lɜːn/',ru:'учить',ex:'I learn English every day.'},
+  {w:'change',pos:'v',ipa:'/tʃeɪndʒ/',ru:'менять',ex:"Let's change the schedule."},
+  {w:'lead',pos:'v',ipa:'/liːd/',ru:'вести, возглавлять',ex:'She leads the sales department.'},
+  {w:'understand',pos:'v',ipa:'/ˌʌndəˈstænd/',ru:'понимать',ex:"I don't understand this sentence."},
+  {w:'watch',pos:'v',ipa:'/wɒtʃ/',ru:'смотреть',ex:'I watch football with friends.'},
+  {w:'follow',pos:'v',ipa:'/ˈfɒləʊ/',ru:'следовать',ex:'Please follow the instructions.'},
+  {w:'stop',pos:'v',ipa:'/stɒp/',ru:'останавливать',ex:'Please stop the meeting for a minute.'},
+  {w:'create',pos:'v',ipa:'/kriˈeɪt/',ru:'создавать',ex:'We create custom reports for clients.'},
+  {w:'speak',pos:'v',ipa:'/spiːk/',ru:'говорить',ex:'I want to speak English fluently.'},
+  {w:'read',pos:'v',ipa:'/riːd/',ru:'читать',ex:'I read the news every morning.'},
+  {w:'spend',pos:'v',ipa:'/spend/',ru:'тратить, проводить',ex:'I spend two hours on emails.'},
+  {w:'grow',pos:'v',ipa:'/ɡrəʊ/',ru:'расти',ex:'The company is growing fast.'},
+  {w:'remember',pos:'v',ipa:'/rɪˈmembə/',ru:'помнить',ex:'Please remember the meeting at 3.'},
+  {w:'walk',pos:'v',ipa:'/wɔːk/',ru:'идти, гулять',ex:'I walk with my dog every evening.'},
+  {w:'win',pos:'v',ipa:'/wɪn/',ru:'побеждать',ex:'We won the contract!'},
+  {w:'open',pos:'v',ipa:'/ˈəʊpən/',ru:'открывать',ex:'The office opens at 9 a.m.'},
+  {w:'teach',pos:'v',ipa:'/tiːtʃ/',ru:'учить (кого-то)',ex:'Maria teaches English.'},
+  {w:'offer',pos:'v',ipa:'/ˈɒfə/',ru:'предлагать',ex:'They offered me a new position.'},
+  {w:'consider',pos:'v',ipa:'/kənˈsɪdə/',ru:'считать, рассматривать',ex:'I consider this a great opportunity.'},
+  {w:'appear',pos:'v',ipa:'/əˈpɪə/',ru:'появляться',ex:'The client appeared at the office at 10.'},
+  {w:'buy',pos:'v',ipa:'/baɪ/',ru:'покупать',ex:'I buy coffee every morning.'},
+  {w:'serve',pos:'v',ipa:'/sɜːv/',ru:'обслуживать',ex:'They serve breakfast until 11.'},
+  {w:'send',pos:'v',ipa:'/send/',ru:'посылать, отправлять',ex:'Please send me the report.'},
+  {w:'build',pos:'v',ipa:'/bɪld/',ru:'строить',ex:'We build houses in the north of Moscow.'},
+  {w:'stay',pos:'v',ipa:'/steɪ/',ru:'оставаться',ex:'I stay at home in the evenings.'},
+  {w:'fall',pos:'v',ipa:'/fɔːl/',ru:'падать',ex:'The leaves fall in October.'},
+  {w:'cut',pos:'v',ipa:'/kʌt/',ru:'резать, сокращать',ex:"Let's cut the meeting to 20 minutes."},
+  {w:'reach',pos:'v',ipa:'/riːtʃ/',ru:'достигать',ex:'We reached our quarterly target.'},
+  {w:'raise',pos:'v',ipa:'/reɪz/',ru:'поднимать',ex:'I need to raise this issue with the CEO.'},
+  {w:'pass',pos:'v',ipa:'/pɑːs/',ru:'миновать, проходить',ex:'Please pass this file to Stanislav.'},
+  {w:'give',pos:'v',ipa:'/ɡɪv/',ru:'давать',ex:'Please give me a minute.'},
+  {w:'sell',pos:'v',ipa:'/sel/',ru:'продавать',ex:'We sell to five markets.'},
+  {w:'return',pos:'v',ipa:'/rɪˈtɜːn/',ru:'возвращаться',ex:'I return to the office at 3 p.m.'},
+  {w:'explain',pos:'v',ipa:'/ɪkˈspleɪn/',ru:'объяснять',ex:'Could you explain the details?'},
+  {w:'hope',pos:'v',ipa:'/həʊp/',ru:'надеяться',ex:'I hope you had a good weekend.'},
+  {w:'develop',pos:'v',ipa:'/dɪˈveləp/',ru:'развивать',ex:'We develop new products every quarter.'},
+  {w:'carry',pos:'v',ipa:'/ˈkæri/',ru:'нести, везти',ex:'I always carry a small notebook.'},
+  {w:'break',pos:'v',ipa:'/breɪk/',ru:'ломать',ex:'The printer broke this morning.'},
+  {w:'receive',pos:'v',ipa:'/rɪˈsiːv/',ru:'получать',ex:'I received your email, thanks.'},
+  {w:'agree',pos:'v',ipa:'/əˈɡriː/',ru:'соглашаться',ex:'I agree with your proposal.'},
+  {w:'support',pos:'v',ipa:'/səˈpɔːt/',ru:'поддерживать',ex:'I support this decision.'},
+  {w:'produce',pos:'v',ipa:'/prəˈdjuːs/',ru:'производить',ex:'We produce 500 units per month.'},
+  {w:'cover',pos:'v',ipa:'/ˈkʌvə/',ru:'покрывать',ex:'The contract covers 12 months.'},
+  {w:'catch',pos:'v',ipa:'/kætʃ/',ru:'ловить',ex:"Sorry, I didn't catch that."},
+  {w:'draw',pos:'v',ipa:'/drɔː/',ru:'рисовать',ex:'She draws diagrams for every meeting.'},
+  {w:'choose',pos:'v',ipa:'/tʃuːz/',ru:'выбирать',ex:"Let's choose a good restaurant."},
+  {w:'call',pos:'v',ipa:'/kɔːl/',ru:'звать, звонить',ex:'I call my mum twice a week.'}
 ];
 
 /* Grammar-construction patterns for Section 13 · each is its own drill */
@@ -1723,6 +1967,44 @@ function initKonspTrainer(){
         <div class="mist-note">💡 ${m.note}</div>
       </div>
     `).join('');
+  }
+
+  /* Section 14 · 100 core verbs (from Konspekt 04) */
+  const V100 = [
+    ['be','быть'],['have','иметь'],['do','делать'],['say','говорить'],['go','идти'],
+    ['can','мочь'],['get','получать'],['make','делать / заставлять'],['know','знать'],['see','видеть'],
+    ['come','приходить'],['think','думать'],['take','брать'],['want','хотеть'],['use','использовать'],
+    ['find','находить'],['tell','рассказывать'],['work','работать'],['try','пытаться'],['leave','уходить'],
+    ['put','класть'],['mean','значить'],['meet','встречать'],['keep','держать'],['feel','чувствовать'],
+    ['ask','спрашивать'],['let','позволять'],['become','становиться'],['begin','начинать'],['seem','казаться'],
+    ['help','помогать'],['show','показывать'],['hear','слышать'],['play','играть'],['run','бежать'],
+    ['move','двигаться'],['live','жить'],['believe','верить'],['bring','приносить'],['happen','случаться'],
+    ['write','писать'],['sit','сидеть'],['stand','стоять'],['lose','терять'],['pay','платить'],
+    ['include','включать'],['continue','продолжать'],['set','устанавливать'],['learn','учить'],['change','менять'],
+    ['lead','вести'],['understand','понимать'],['watch','смотреть'],['follow','следовать'],['stop','останавливать'],
+    ['create','создавать'],['speak','говорить'],['read','читать'],['spend','тратить / проводить'],['grow','расти'],
+    ['remember','помнить'],['walk','идти / гулять'],['win','побеждать'],['open','открывать'],['teach','учить (кого-то)'],
+    ['offer','предлагать'],['consider','считать'],['appear','появляться'],['buy','покупать'],['serve','обслуживать'],
+    ['die','умирать'],['send','посылать'],['build','строить'],['stay','оставаться'],['fall','падать'],
+    ['cut','резать'],['reach','достигать'],['kill','убивать'],['raise','поднимать'],['pass','миновать'],
+    ['give','давать'],['sell','продавать'],['decide','решать'],['return','возвращаться'],['explain','объяснять'],
+    ['hope','надеяться'],['develop','развивать'],['carry','нести / везти'],['break','ломать'],['receive','получать'],
+    ['agree','соглашаться'],['support','поддерживать'],['hit','ударять'],['produce','производить'],['eat','есть'],
+    ['cover','покрывать'],['catch','ловить'],['draw','рисовать'],['choose','выбирать'],['call','звать / звонить']
+  ];
+  const v100grid = document.getElementById('v100-grid');
+  if(v100grid){
+    v100grid.innerHTML = V100.map((row, i) => {
+      const [en, ru] = row;
+      return '<div class="v100-item">'
+        + '<span class="v100-num">' + (i+1) + '.</span>'
+        + '<span><span class="v100-en">' + en + '</span><span class="v100-ru"> — ' + ru + '</span></span>'
+        + '<button class="v100-say" data-say="' + en + '" title="Listen">🔊</button>'
+        + '</div>';
+    }).join('');
+    v100grid.querySelectorAll('.v100-say').forEach(btn => {
+      btn.onclick = () => say(btn.dataset.say, 0.85);
+    });
   }
 
   /* Section 13 · pattern-cards for grammar constructions */

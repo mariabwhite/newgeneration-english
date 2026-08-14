@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Konspekt 04 · L5 · 14.08 · Alexander & Stanislav</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#faf8f4;
+  --ink:#1f1f1f;
+  --ink-2:#3a3a3a;
+  --muted:#7b7773;
+  --line:#e6e0d4;
+  --card:#fff;
+  --card-2:#fdfbf5;
+  --accent:#e8542b;
+  --accent2:#c93a15;
+  --accent3:#a72a05;
+  --accent-soft:rgba(232,84,43,.10);
+  --ok:#3a8f4f;
+  --miss:#c73535;
+  --shadow:0 4px 14px rgba(31,31,31,.06);
+  --display:'Unbounded','Manrope',system-ui,sans-serif;
+  --body:'Manrope',system-ui,sans-serif;
+  --mono:'JetBrains Mono',Consolas,monospace;
+  --w: min(1240px, calc(100% - clamp(24px, 5vw, 48px)));
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:60px}
+
+/* ===== HERO ===== */
+.hero{width:var(--w);margin:24px auto 22px;padding:22px 26px;background:linear-gradient(135deg,#fff8f0,#ffece0);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.hero-eyebrow{font-family:var(--mono);font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent3);margin-bottom:8px}
+.hero h1{font-family:var(--display);font-weight:900;font-size:clamp(1.4rem,3.2vw,2rem);line-height:1.1;color:var(--ink);letter-spacing:-.01em;margin-bottom:8px}
+.hero p{font-size:.98rem;color:var(--ink-2);line-height:1.6;max-width:820px}
+.hero .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.hero .meta b{color:var(--ink);font-weight:800}
+
+/* ===== SECTION ===== */
+.sec{width:var(--w);margin:0 auto 20px;padding:22px 24px;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+.sec-hdr{display:flex;align-items:baseline;gap:12px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px dashed var(--line);flex-wrap:wrap}
+.sec-num{font-family:var(--mono);font-weight:800;font-size:.78rem;letter-spacing:.06em;background:linear-gradient(135deg,var(--accent),var(--accent3));color:#fff;padding:4px 10px;border-radius:6px}
+.sec-hdr h2{font-family:var(--display);font-weight:800;font-size:clamp(1.05rem,2vw,1.3rem);color:var(--ink);letter-spacing:-.005em}
+.sec-lead{font-size:.95rem;color:var(--ink-2);margin-bottom:16px;font-style:italic;line-height:1.6}
+.sec-lead b{color:var(--accent3);font-style:normal}
+
+/* ===== GRID VOCAB ===== */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;margin:12px 0}
+@media(max-width:700px){.grid-2{grid-template-columns:1fr}}
+.item{padding:9px 12px;background:var(--card-2);border:1px solid var(--line);border-radius:8px;display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;transition:.15s}
+.item:hover{border-color:var(--accent);background:#fff}
+.item-num{font-family:var(--mono);font-size:.68rem;font-weight:800;color:var(--muted);min-width:24px;text-align:right}
+.item-en{font-weight:800;color:var(--ink);font-size:.92rem}
+.item-ipa{font-family:var(--mono);font-size:.72rem;color:var(--accent3);margin-left:6px}
+.item-ru{color:var(--muted);font-size:.85rem;display:block;margin-top:2px}
+.item-say{background:none;border:none;cursor:pointer;font-size:1rem;color:var(--accent3);padding:4px 8px;border-radius:6px;transition:.15s}
+.item-say:hover{background:var(--accent-soft)}
+
+/* ===== TABLE-LIKE RULES ===== */
+.rules{display:grid;gap:8px;margin:14px 0}
+.rule{display:grid;grid-template-columns:180px 1fr;gap:14px;padding:11px 14px;background:var(--card-2);border:1px solid var(--line);border-radius:8px;align-items:start}
+@media(max-width:640px){.rule{grid-template-columns:1fr;gap:4px}}
+.rule-w{font-family:var(--display);font-weight:800;color:var(--accent3);font-size:.98rem}
+.rule-w small{display:block;font-family:var(--mono);font-weight:400;color:var(--muted);font-size:.7rem;margin-top:2px}
+.rule-d{color:var(--ink-2);font-size:.9rem;line-height:1.5}
+.rule-d b{color:var(--ink);background:#fff4e6;padding:0 3px;border-radius:2px}
+
+/* ===== ANCHOR SENTENCE ===== */
+.anchor{background:linear-gradient(135deg,#fff8ef,#ffedd0);border:2px solid #ffdca8;border-radius:12px;padding:18px 22px;margin:16px 0;color:#4a2c00;font-family:var(--body);font-size:1rem;line-height:1.75}
+.anchor b{color:var(--accent3);background:none;font-weight:800}
+.anchor .say-btn{background:var(--accent);color:#fff;border:none;padding:6px 14px;border-radius:20px;font-family:var(--mono);font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;margin-top:10px;display:inline-flex;align-items:center;gap:6px}
+.anchor .say-btn:hover{background:var(--accent3)}
+
+/* ===== WH QUESTIONS ===== */
+.wh-list{display:grid;gap:8px;margin:12px 0}
+.wh{padding:11px 14px;background:var(--card-2);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center}
+.wh-num{font-family:var(--mono);font-size:.72rem;font-weight:800;color:var(--accent3);min-width:24px}
+.wh-q{font-size:.94rem;color:var(--ink);font-weight:600}
+.wh-q .ru{display:block;font-size:.8rem;color:var(--muted);font-weight:400;margin-top:2px;font-style:italic}
+.wh-say{background:var(--accent-soft);border:1px solid transparent;cursor:pointer;font-size:.95rem;color:var(--accent3);padding:6px 10px;border-radius:6px;transition:.15s;font-weight:700}
+.wh-say:hover{background:var(--accent);color:#fff}
+
+/* ===== FOOTER ===== */
+.foot{width:var(--w);margin:30px auto 0;text-align:center;font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.06em;line-height:1.7}
+.foot b{color:var(--accent3);font-family:var(--display);font-weight:800;letter-spacing:0}
+
+/* ===== NAV LINKS ===== */
+.k-nav{display:flex;flex-wrap:wrap;gap:6px;padding:12px;background:var(--card-2);border:1px solid var(--line);border-radius:10px;margin:14px 0}
+.k-nav a{padding:5px 10px;background:#fff;border:1px solid var(--line);border-radius:6px;font-family:var(--mono);font-size:.72rem;font-weight:700;color:var(--ink);text-decoration:none;transition:.15s;letter-spacing:.02em}
+.k-nav a:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">🧠 Konspekt 04 · L5 · 14.08.2026</div>
+  <h1>Konspekt 04 · 100 verbs, travel, confused pairs, anchor sentence</h1>
+  <p>Всё, что мы записали в тетрадь на четвёртом уроке 14.08. Каждое слово — озвучено через 🔊 (edge-tts en-GB Sonia). Полный конспект: 100 глаголов + 15 travel-слов + 15 confused pairs + 8 Wh-вопросов + anchor sentence про рабочую неделю.</p>
+  <div class="meta">
+    <span><b>дата:</b> 14 августа 2026</span>
+    <span><b>ученики:</b> Alexander · Stanislav</span>
+    <span><b>уровень:</b> A2</span>
+    <span><b>формат:</b> group · CEO business English</span>
+  </div>
+</div>
+
+<div class="k-nav">
+  <a href="#s1">1 · 100 verbs</a>
+  <a href="#s2">2 · Travel · what you carry</a>
+  <a href="#s3">3 · Transport · on/by/at</a>
+  <a href="#s4">4 · Confused pairs</a>
+  <a href="#s5">5 · Anchor sentence</a>
+  <a href="#s6">6 · 8 Wh-questions</a>
+</div>
+
+<!-- SECTION 1 · 100 VERBS -->
+<section class="sec" id="s1">
+  <div class="sec-hdr">
+    <span class="sec-num">01</span>
+    <h2>100 core English verbs (in the exact order from the notebook)</h2>
+  </div>
+  <div class="sec-lead">The <b>100 most useful English verbs</b>, in the exact order Maria wrote them. Learn by 10 at a time. Tap 🔊 to hear the verb.</div>
+  <div class="grid-2" id="v100-grid"></div>
+</section>
+
+<!-- SECTION 2 · TRAVEL VOCAB -->
+<section class="sec" id="s2">
+  <div class="sec-hdr">
+    <span class="sec-num">02</span>
+    <h2>Travel · what you carry, what you say</h2>
+  </div>
+  <div class="sec-lead">All the travel nouns from Konspekt 04. <b>luggage</b> ~100% используется, <b>baggage</b> ~70% (реже, в аэропорту).</div>
+  <div class="rules">
+    <div class="rule"><div class="rule-w">suitcase<small>/ˈsuːtkeɪs/ · чемодан любых размеров</small></div><div class="rule-d">I always overpack my <b>suitcase</b> before a holiday.</div></div>
+    <div class="rule"><div class="rule-w">backpack<small>/ˈbækpæk/ · рюкзак</small></div><div class="rule-d">I travel light — just a <b>backpack</b>.</div></div>
+    <div class="rule"><div class="rule-w">trolley-bag<small>/ˈtrɒlibæg/ · чемодан на колёсиках</small></div><div class="rule-d">I always take a <b>trolley-bag</b> on business trips.</div></div>
+    <div class="rule"><div class="rule-w">luggage / baggage<small>uncountable · «весь багаж»</small></div><div class="rule-d">My <b>luggage</b> is heavy today. · Please collect your <b>baggage</b> at belt 4.</div></div>
+    <div class="rule"><div class="rule-w">luggage claim<small>/ˈklɛɪm/ · выдача багажа</small></div><div class="rule-d">Meet me at <b>luggage claim</b>.</div></div>
+    <div class="rule"><div class="rule-w">briefcase<small>/ˈbriːfkeɪs/ · кейс для документов</small></div><div class="rule-d">He carries a leather <b>briefcase</b> to meetings.</div></div>
+    <div class="rule"><div class="rule-w">wallet<small>/ˈwɒlɪt/ · бумажник</small></div><div class="rule-d">I keep my <b>wallet</b> in the front pocket.</div></div>
+    <div class="rule"><div class="rule-w">it depends<small>/dɪˈpɛndz/ · зависит от обстоятельств</small></div><div class="rule-d">— How long is the trip? — <b>It depends</b> on traffic.</div></div>
+    <div class="rule"><div class="rule-w">a business trip<small>· командировка</small></div><div class="rule-d">I have <b>a business trip</b> to Berlin next week.</div></div>
+    <div class="rule"><div class="rule-w">a suit<small>· костюм (деловой)</small></div><div class="rule-d">He wears a business <b>suit</b> to every meeting.</div></div>
+    <div class="rule"><div class="rule-w">shirt<small>· рубашка</small></div><div class="rule-d">A white <b>shirt</b> for the interview.</div></div>
+    <div class="rule"><div class="rule-w">official clothes<small>· официальная одежда</small></div><div class="rule-d">Please wear <b>official clothes</b> for the client visit.</div></div>
+    <div class="rule"><div class="rule-w">to put on<small>· надевать</small></div><div class="rule-d">I <b>put on</b> my suit at 8 a.m.</div></div>
+    <div class="rule"><div class="rule-w">because<small>· потому что</small></div><div class="rule-d">I take a taxi <b>because</b> I am late.</div></div>
+    <div class="rule"><div class="rule-w">to travel light<small>· путешествовать налегке</small></div><div class="rule-d">I always <b>travel light</b> — just a backpack.</div></div>
+  </div>
+</section>
+
+<!-- SECTION 3 · TRANSPORT PREPOSITIONS -->
+<section class="sec" id="s3">
+  <div class="sec-hdr">
+    <span class="sec-num">03</span>
+    <h2>Transport prepositions · on / by / at</h2>
+  </div>
+  <div class="sec-lead"><b>on the train</b> — уже находясь внутри. <b>by train</b> — способ передвижения. <b>at the bus stop</b> — на остановке.</div>
+  <div class="rules">
+    <div class="rule"><div class="rule-w">on the train<small>уже находясь в поезде</small></div><div class="rule-d">I met her <b>on the train</b> to Moscow.</div></div>
+    <div class="rule"><div class="rule-w">by train<small>способ · «поездом»</small></div><div class="rule-d">I travel <b>by train</b> once a month.</div></div>
+    <div class="rule"><div class="rule-w">by plane<small>самолётом</small></div><div class="rule-d">Do you prefer to travel <b>by plane</b>?</div></div>
+    <div class="rule"><div class="rule-w">by bus<small>автобусом</small></div><div class="rule-d">I go to work <b>by bus</b> every morning.</div></div>
+    <div class="rule"><div class="rule-w">at the bus stop<small>на остановке</small></div><div class="rule-d">I'll wait <b>at the bus stop</b>.</div></div>
+    <div class="rule"><div class="rule-w">at the hotel reception<small>на ресепшн</small></div><div class="rule-d">Please leave your key <b>at the hotel reception</b>.</div></div>
+    <div class="rule"><div class="rule-w">on the ferry<small>на пароме</small></div><div class="rule-d">We had lunch <b>on the ferry</b> from Helsinki.</div></div>
+    <div class="rule"><div class="rule-w">on foot<small>пешком</small></div><div class="rule-d">I go to the office <b>on foot</b> when the weather is good.</div></div>
+    <div class="rule"><div class="rule-w">for example<small>к примеру</small></div><div class="rule-d"><b>For example</b>, if I travel to SPb, I take a train.</div></div>
+    <div class="rule"><div class="rule-w">if I travel to X, I take a train<small>1st conditional · Present + Present</small></div><div class="rule-d"><b>If I travel to SPb</b>, then <b>I take a train</b>. · <b>I travel by train</b>.</div></div>
+  </div>
+</section>
+
+<!-- SECTION 4 · CONFUSED PAIRS -->
+<section class="sec" id="s4">
+  <div class="sec-hdr">
+    <span class="sec-num">04</span>
+    <h2>Confused pairs · one glance, one rule</h2>
+  </div>
+  <div class="sec-lead">Каждое разграничение — по одному правилу. Читаем внимательно, потом обсуждаем 3 своих примера.</div>
+  <div class="rules">
+    <div class="rule"><div class="rule-w">other<small>другие (много) · plural</small></div><div class="rule-d">the <b>other</b> countries · <b>other</b> managers · <b>other</b> options</div></div>
+    <div class="rule"><div class="rule-w">another<small>другой (один) · singular</small></div><div class="rule-d"><b>another</b> country · <b>another</b> meeting · Let's schedule <b>another</b> call.</div></div>
+    <div class="rule"><div class="rule-w">a lot / many<small>много (считаемое)</small></div><div class="rule-d">a lot of meetings · <b>many</b> people · How <b>many</b> emails did you send?</div></div>
+    <div class="rule"><div class="rule-w">much<small>много (несчитаемое)</small></div><div class="rule-d">how <b>much</b> time · not <b>much</b> water · <b>much</b> better</div></div>
+    <div class="rule"><div class="rule-w">spend time<small>проводить время (нейтральное)</small></div><div class="rule-d">I <b>spend</b> a lot of time at work.</div></div>
+    <div class="rule"><div class="rule-w">have time in a hotel<small>предпочтительнее в этом контексте</small></div><div class="rule-d">I'd love to <b>have</b> some time in a nice hotel.</div></div>
+    <div class="rule"><div class="rule-w">close<small>/kləʊz/ · закрывать / близкий</small></div><div class="rule-d">Please <b>close</b> the door. · a <b>close</b> friend.</div></div>
+    <div class="rule"><div class="rule-w">clothes<small>/kləʊðz/ · одежда · plural noun</small></div><div class="rule-d">official <b>clothes</b> for the meeting.</div></div>
+    <div class="rule"><div class="rule-w">closet<small>/ˈklɒzɪt/ · шкаф · закрытое пространство</small></div><div class="rule-d">Hang your suit in the <b>closet</b>.</div></div>
+    <div class="rule"><div class="rule-w">alone<small>/əˈləʊn/ · один, в одиночестве</small></div><div class="rule-d">I like to travel <b>alone</b> sometimes.</div></div>
+    <div class="rule"><div class="rule-w">solve<small>· решить (проблему)</small></div><div class="rule-d">I need to <b>solve</b> many issues at work.</div></div>
+    <div class="rule"><div class="rule-w">resolve<small>· разрешить (конфликт) — глубже</small></div><div class="rule-d">We <b>resolved</b> the dispute peacefully.</div></div>
+    <div class="rule"><div class="rule-w">decide<small>· решить (выбор из вариантов)</small></div><div class="rule-d">I <b>decided</b> to take the offer.</div></div>
+    <div class="rule"><div class="rule-w">tough<small>/tʌf/ · жёсткий, тяжёлый</small></div><div class="rule-d">This week has been <b>tough</b>.</div></div>
+    <div class="rule"><div class="rule-w">important<small>/ɪmˈpɔːtənt/ · важный</small></div><div class="rule-d">This is an <b>important</b> client.</div></div>
+    <div class="rule"><div class="rule-w">issues<small>/ˈɪʃuːz/ · вопросы, проблемы</small></div><div class="rule-d">There were many <b>issues</b> to resolve.</div></div>
+    <div class="rule"><div class="rule-w">however<small>/haʊˈevə/ · однако</small></div><div class="rule-d"><b>However</b>, in the evenings I distract myself.</div></div>
+    <div class="rule"><div class="rule-w">able<small>/ˈeɪbəl/ · способный</small></div><div class="rule-d">I was <b>able</b> to finish everything on time.</div></div>
+    <div class="rule"><div class="rule-w">to distract<small>/dɪˈstrækt/ · отвлекать</small></div><div class="rule-d">I need something to <b>distract</b> myself with.</div></div>
+    <div class="rule"><div class="rule-w">personal matters<small>/ˈpɜːsənəl ˈmætəz/ · личные дела</small></div><div class="rule-d">In the evenings I focus on <b>personal matters</b>.</div></div>
+    <div class="rule"><div class="rule-w">matters<small>[маттэз] · имеет значение</small></div><div class="rule-d">It <b>matters</b> to me.</div></div>
+    <div class="rule"><div class="rule-w">falling leaves<small>падающие листья · процесс сейчас</small></div><div class="rule-d">Look at the <b>falling leaves</b> outside.</div></div>
+    <div class="rule"><div class="rule-w">fallen leaves<small>опавшие листья · уже упали</small></div><div class="rule-d">The garden is covered in <b>fallen leaves</b>.</div></div>
+  </div>
+</section>
+
+<!-- SECTION 5 · ANCHOR SENTENCE -->
+<section class="sec" id="s5">
+  <div class="sec-hdr">
+    <span class="sec-num">05</span>
+    <h2>Anchor sentence · тренируем структуру предложения</h2>
+  </div>
+  <div class="sec-lead">Мария нарисовала на доске «якорь» — предложение с чёткой грамматической структурой. Разбираем по частям: подлежащее → сказуемое → дополнение → «где / когда».</div>
+  <div class="anchor">
+    <div style="font-family:var(--display);font-weight:800;color:var(--accent3);margin-bottom:8px">This week has been tough.</div>
+    <div>There were many work <b>issues</b> to <b>resolve</b>. There were five <b>meetings</b>.</div>
+    <div style="margin-top:8px"><b>However</b>, in the evenings <b>I was able to distract</b> myself with <b>personal matters</b>.</div>
+    <button class="say-btn" data-say-anchor>🔊 Say the anchor</button>
+  </div>
+  <div class="sec-lead" style="margin-top:14px">Alt version (short): <b>I need to solve many issues at work.</b> — Подлежащее <b>I</b> → сказуемое <b>need to solve</b> → дополнение <b>many issues</b> → где <b>at work</b>.</div>
+</section>
+
+<!-- SECTION 6 · WH QUESTIONS -->
+<section class="sec" id="s6">
+  <div class="sec-hdr">
+    <span class="sec-num">06</span>
+    <h2>8 Wh-questions · daily-routine drill</h2>
+  </div>
+  <div class="sec-lead">Задавайте друг другу эти 8 вопросов. Отвечайте <b>полным предложением</b>, не одним словом. Затем — поменяйтесь ролями.</div>
+  <div class="wh-list" id="wh-list"></div>
+</section>
+
+<div class="foot">
+  <b>NEW GENERATION ENGLISH</b> · L5 · Konspekt 04 · 14.08.2026<br>
+  Alexander · Stanislav · Group August 2026 · v1
+</div>
+
+<script>
+/* ═══════════════════ Data ═══════════════════ */
+const V100 = [
+  ['be','быть'],['have','иметь'],['do','делать'],['say','говорить'],['go','идти'],
+  ['can','мочь'],['get','получать'],['make','делать / заставлять'],['know','знать'],['see','видеть'],
+  ['come','приходить'],['think','думать'],['take','брать'],['want','хотеть'],['use','использовать'],
+  ['find','находить'],['tell','рассказывать'],['work','работать'],['try','пытаться'],['leave','уходить'],
+  ['put','класть'],['mean','значить'],['meet','встречать'],['keep','держать'],['feel','чувствовать'],
+  ['ask','спрашивать'],['let','позволять'],['become','становиться'],['begin','начинать'],['seem','казаться'],
+  ['help','помогать'],['show','показывать'],['hear','слышать'],['play','играть'],['run','бежать'],
+  ['move','двигаться'],['live','жить'],['believe','верить'],['bring','приносить'],['happen','случаться'],
+  ['write','писать'],['sit','сидеть'],['stand','стоять'],['lose','терять'],['pay','платить'],
+  ['include','включать'],['continue','продолжать'],['set','устанавливать'],['learn','учить'],['change','менять'],
+  ['lead','вести'],['understand','понимать'],['watch','смотреть'],['follow','следовать'],['stop','останавливать'],
+  ['create','создавать'],['speak','говорить'],['read','читать'],['spend','тратить / проводить'],['grow','расти'],
+  ['remember','помнить'],['walk','идти / гулять'],['win','побеждать'],['open','открывать'],['teach','учить (кого-то)'],
+  ['offer','предлагать'],['consider','считать'],['appear','появляться'],['buy','покупать'],['serve','обслуживать'],
+  ['die','умирать'],['send','посылать'],['build','строить'],['stay','оставаться'],['fall','падать'],
+  ['cut','резать'],['reach','достигать'],['kill','убивать'],['raise','поднимать'],['pass','миновать'],
+  ['give','давать'],['sell','продавать'],['decide','решать'],['return','возвращаться'],['explain','объяснять'],
+  ['hope','надеяться'],['develop','развивать'],['carry','нести / везти'],['break','ломать'],['receive','получать'],
+  ['agree','соглашаться'],['support','поддерживать'],['hit','ударять'],['produce','производить'],['eat','есть'],
+  ['cover','покрывать'],['catch','ловить'],['draw','рисовать'],['choose','выбирать'],['call','звать / звонить']
+];
+
+const WH = [
+  {en:'What do you do?', ru:'Что ты делаешь? (о профессии)'},
+  {en:'Where do you work?', ru:'Где ты работаешь?'},
+  {en:'What time do you start work?', ru:'Во сколько ты начинаешь работу?'},
+  {en:'When do you finish work?', ru:'Когда ты заканчиваешь работу?'},
+  {en:'Where do you have lunch?', ru:'Где ты обедаешь?'},
+  {en:'How often do you go to the gym?', ru:'Как часто ты ходишь в спортзал?'},
+  {en:'What do you do after work?', ru:'Что ты делаешь после работы?'},
+  {en:'Where does your colleague live?', ru:'Где живёт твой коллега?'}
+];
+
+/* ═══════════════════ TTS · Web Speech (без mp3 пока) ═══════════════════ */
+function pickVoice(){
+  const voices = speechSynthesis.getVoices();
+  if(!voices.length) return null;
+  const en = voices.filter(v => /^en/i.test(v.lang));
+  return en.find(v => /uk english female|sonia|libby|kate|serena/i.test(v.name))
+      || en.find(v => /google|natural|neural/i.test(v.name))
+      || en[0];
+}
+function say(text, rate){
+  rate = rate || 0.9;
+  try{
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = 'en-GB';
+    u.rate = rate;
+    u.pitch = 1;
+    const v = pickVoice();
+    if(v) u.voice = v;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+if('speechSynthesis' in window){
+  window.speechSynthesis.onvoiceschanged = () => {};
+}
+
+/* ═══════════════════ Render V100 ═══════════════════ */
+document.getElementById('v100-grid').innerHTML = V100.map((row, i) => {
+  const [en, ru] = row;
+  return '<div class="item">'
+    + '<span class="item-num">' + (i+1) + '.</span>'
+    + '<span><span class="item-en">' + en + '</span><span class="item-ru">' + ru + '</span></span>'
+    + '<button class="item-say" data-say="' + en + '" title="Listen">🔊</button>'
+    + '</div>';
+}).join('');
+
+/* ═══════════════════ Render WH ═══════════════════ */
+document.getElementById('wh-list').innerHTML = WH.map((q, i) => {
+  return '<div class="wh">'
+    + '<span class="wh-num">' + (i+1) + '.</span>'
+    + '<span class="wh-q">' + q.en + '<span class="ru">' + q.ru + '</span></span>'
+    + '<button class="wh-say" data-say="' + q.en.replace(/"/g,'&quot;') + '">🔊 Ask</button>'
+    + '</div>';
+}).join('');
+
+/* ═══════════════════ Delegated 🔊 clicks ═══════════════════ */
+document.addEventListener('click', e => {
+  const s = e.target.closest('[data-say]');
+  if(s){ say(s.dataset.say, 0.85); return; }
+  const a = e.target.closest('[data-say-anchor]');
+  if(a){
+    say("This week has been tough. There were many work issues to resolve. There were five meetings. However, in the evenings I was able to distract myself with personal matters.", 0.85);
+  }
+});
+</script>
+</body>
+</html>
