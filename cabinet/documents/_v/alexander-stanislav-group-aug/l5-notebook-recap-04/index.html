@@ -556,14 +556,27 @@ gap2.addEventListener('keydown', e => {
 });
 
 /* ═══════════════════ SECTION 3 · MCQ DRILL (prepositions) ═══════════════════ */
+/* v3 · shuffles options per-item so the correct answer lands in a different
+   position each render. Rule from memory feedback_exercise_types_and_answer_shuffle
+   (2026-08-14): NEVER let correct answer sit at position 2 for 12/15 rows. */
 function renderMCQ(listEl, DATA, scoreId){
-  listEl.innerHTML = DATA.map((m, i) => `
-    <div class="mcq" data-a="${m.a}">
-      <div class="mcq-q"><b>${i+1}.</b> ${m.q.replace('___','<span class="blank">___</span>')}</div>
-      <div class="mcq-opts">${m.opts.map((o,j) => `<button class="mcq-opt" data-i="${j}">${o}</button>`).join('')}</div>
-      <div class="mcq-note">💡 ${m.note}</div>
-    </div>
-  `).join('');
+  listEl.innerHTML = DATA.map((m, i) => {
+    // pair each option with its original index, then shuffle
+    const pairs = m.opts.map((o, j) => ({o, orig: j}));
+    for(let k = pairs.length - 1; k > 0; k--){
+      const r = Math.floor(Math.random() * (k + 1));
+      [pairs[k], pairs[r]] = [pairs[r], pairs[k]];
+    }
+    // find where the correct one is now
+    const newCorrectPos = pairs.findIndex(p => p.orig === m.a);
+    return `
+      <div class="mcq" data-a="${newCorrectPos}">
+        <div class="mcq-q"><b>${i+1}.</b> ${m.q.replace('___','<span class="blank">___</span>')}</div>
+        <div class="mcq-opts">${pairs.map((p,j) => `<button class="mcq-opt" data-i="${j}">${p.o}</button>`).join('')}</div>
+        <div class="mcq-note">💡 ${m.note}</div>
+      </div>
+    `;
+  }).join('');
   listEl.addEventListener('click', e => {
     const opt = e.target.closest('.mcq-opt');
     if(!opt) return;

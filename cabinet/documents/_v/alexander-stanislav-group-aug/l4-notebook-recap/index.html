@@ -1830,15 +1830,30 @@ document.querySelectorAll('#subs-nb .stab').forEach(b => {
 /* ═══════════════════ TAB 3 · Konspekt trainer ═══════════════════ */
 function initKonspTrainer(){
 
-  /* MCQ tap-quiz — reveals correct + wrong, shows note */
+  /* MCQ tap-quiz — reveals correct + wrong, shows note.
+     2026-08-14 fix (feedback_exercise_types_and_answer_shuffle): shuffle
+     option order per-row so the correct answer doesn't sit at position 2
+     for 12/27 rows. `data-a` was an index (0/1/2) so we re-index it. */
   document.querySelectorAll('#tbody-nu .mcq').forEach(row => {
-    const correct = parseInt(row.dataset.a, 10);
-    const opts = row.querySelectorAll('.mcq-opts button');
-    opts.forEach((btn, idx) => {
+    const opts = row.querySelector('.mcq-opts');
+    if(!opts) return;
+    const originalCorrect = parseInt(row.dataset.a, 10);
+    const kids = Array.prototype.slice.call(opts.children);
+    // remember original index per button
+    kids.forEach((b, i) => b.dataset.origIdx = String(i));
+    // shuffle
+    kids.sort(() => Math.random() - 0.5);
+    kids.forEach(b => opts.appendChild(b));
+    // find new position of the correct one and rewrite data-a
+    const newKids = Array.prototype.slice.call(opts.children);
+    const newCorrect = newKids.findIndex(b => parseInt(b.dataset.origIdx, 10) === originalCorrect);
+    row.dataset.a = String(newCorrect);
+    // now attach clicks in the new order
+    newKids.forEach((btn, idx) => {
       btn.onclick = () => {
         if(row.classList.contains('revealed')) return;
-        opts.forEach((b, j) => {
-          if(j === correct) b.classList.add('correct');
+        newKids.forEach((b, j) => {
+          if(j === newCorrect) b.classList.add('correct');
           else if(j === idx) b.classList.add('wrong');
         });
         row.classList.add('revealed');
