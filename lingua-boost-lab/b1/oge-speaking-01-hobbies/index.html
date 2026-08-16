@@ -147,6 +147,14 @@ h1.hero-title .champ{color:var(--sun-2)}
 .wf-row input{padding:7px 11px;border:2px solid var(--accent);border-radius:8px;background:#fff;color:var(--accent-2);font:700 .94rem var(--mono);outline:none;width:100%;text-transform:lowercase}
 .wf-row input.right{background:rgba(22,163,74,.10);border-color:var(--ok);color:var(--ok)}
 .wf-row input.wrong{background:rgba(220,38,38,.10);border-color:var(--miss);color:var(--miss)}
+/* Round 2 rows — same look as .wf-row but different class so lab-sync TRACK_SEL (.wf-row input) does not intercept typing */
+.wfr2-row{display:grid;grid-template-columns:1fr 140px 140px;gap:12px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:8px 0}
+@media(max-width:640px){.wfr2-row{grid-template-columns:1fr}}
+.wfr2-row .ctx{font-family:var(--serif);font-size:.98rem;line-height:1.5}
+.wfr2-row .hint{font-family:var(--mono);font-size:.74rem;font-weight:800;letter-spacing:.14em;color:var(--ribbon);background:var(--surface-2);padding:4px 8px;border-radius:6px;text-align:center;text-transform:uppercase}
+.wfr2-row input{padding:7px 11px;border:2px solid var(--accent);border-radius:8px;background:#fff;color:var(--accent-2);font:700 .94rem var(--mono);outline:none;width:100%;text-transform:lowercase}
+.wfr2-row input.right{background:rgba(22,163,74,.10);border-color:var(--ok);color:var(--ok)}
+.wfr2-row input.wrong{background:rgba(220,38,38,.10);border-color:var(--miss);color:var(--miss)}
 
 /* Writing */
 .letter-prompt{background:var(--surface-2);border:1px dashed var(--accent);border-radius:10px;padding:14px 16px;font-family:var(--serif);font-size:.96rem;color:var(--text);line-height:1.7;margin:12px 0}
@@ -1199,8 +1207,8 @@ const q20r2El = document.getElementById('q20-r2-rows');
 let q20r2Score = 0;
 Q20R2.forEach((it) => {
   const row = document.createElement('div');
-  row.className = 'wf-row';
-  row.innerHTML = `<div class="ctx">${it.ctx}</div><div class="hint">${it.hint}</div><input type="text" placeholder="type answer">`;
+  row.className = 'wfr2-row';
+  row.innerHTML = `<div class="ctx">${it.ctx}</div><div class="hint">${it.hint}</div><input type="text" placeholder="type answer" autocomplete="off" spellcheck="false">`;
   const inp = row.querySelector('input');
   inp.addEventListener('change', () => {
     inp.classList.remove('right','wrong');
@@ -1226,8 +1234,8 @@ const q29r2El = document.getElementById('q29-r2-rows');
 let q29r2Score = 0;
 Q29R2.forEach((it) => {
   const row = document.createElement('div');
-  row.className = 'wf-row';
-  row.innerHTML = `<div class="ctx">${it.ctx}</div><div class="hint">${it.hint}</div><input type="text" placeholder="type answer">`;
+  row.className = 'wfr2-row';
+  row.innerHTML = `<div class="ctx">${it.ctx}</div><div class="hint">${it.hint}</div><input type="text" placeholder="type answer" autocomplete="off" spellcheck="false">`;
   const inp = row.querySelector('input');
   inp.addEventListener('change', () => {
     inp.classList.remove('right','wrong');
