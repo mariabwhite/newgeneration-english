@@ -3879,7 +3879,11 @@ document.querySelectorAll('.mc-list').forEach(list => {
 
 /* ============ MATCH RENDERER ============ */
 (function(){
-  function shuffle(arr){ return arr.slice().sort(() => Math.random() - 0.5); }
+  // Deterministic shuffle so teacher & student see the SAME order (parity).
+  // Seed derived from element id keeps each match block stable across reloads.
+  function mulberry32(a){ return function(){ let t = a += 0x6D2B79F5; t = Math.imul(t^t>>>15, t|1); t ^= t + Math.imul(t^t>>>7, t|61); return ((t^t>>>14)>>>0)/4294967296; }; }
+  function seedFromString(s){ let h=2166136261>>>0; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); } return h>>>0; }
+  function seededShuffle(arr, seed){ const rng=mulberry32(seed); const a=arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(rng()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
   document.querySelectorAll('script[type="application/json"][id^="match-"][id$="-data"]').forEach(dataEl => {
     const key = dataEl.id.replace('match-','').replace('-data','');
     const leftHost = document.getElementById('match-' + key + '-left');
@@ -3887,8 +3891,8 @@ document.querySelectorAll('.mc-list').forEach(list => {
     if (!leftHost || !rightHost) return;
     let pairs;
     try { pairs = JSON.parse(dataEl.textContent); } catch(e){ return; }
-    const lefts = shuffle(pairs);
-    const rights = shuffle(pairs);
+    const lefts = seededShuffle(pairs, seedFromString(key + '-L'));
+    const rights = seededShuffle(pairs, seedFromString(key + '-R'));
     lefts.forEach(p => {
       const el = document.createElement('div');
       el.className = 'match-card';
@@ -3927,15 +3931,28 @@ document.querySelectorAll('.mc-list').forEach(list => {
   });
 })();
 
-/* ============ RANDOMIZATION ============ */
+/* ============ DETERMINISTIC RANDOMIZATION ============
+   Same visual order for teacher & student — critical for pair-teaching parity.
+   Seed = stable derivative of element position/id so reloads are identical.
+   Author still needs to avoid predictable answer-key patterns (T-F-T-F, A-A-B-B)
+   in the source data — no runtime hiding of that. */
 (function(){
-  function shuffleKids(parent, childSelector){
+  function mulberry32(a){ return function(){ let t = a += 0x6D2B79F5; t = Math.imul(t^t>>>15, t|1); t ^= t + Math.imul(t^t>>>7, t|61); return ((t^t>>>14)>>>0)/4294967296; }; }
+  function seedFromString(s){ let h=2166136261>>>0; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); } return h>>>0; }
+  function seededShuffleKids(parent, childSelector, seed){
+    const rng = mulberry32(seed);
     const kids = Array.from(childSelector ? parent.querySelectorAll(childSelector) : parent.children);
-    kids.sort(() => Math.random() - 0.5);
+    for (let i = kids.length - 1; i > 0; i--){ const j = Math.floor(rng()*(i+1)); [kids[i],kids[j]] = [kids[j],kids[i]]; }
     kids.forEach(k => parent.appendChild(k));
   }
-  document.querySelectorAll('.mc-list .mc-opts').forEach(opts => shuffleKids(opts));
-  document.querySelectorAll('.bank[data-ex]').forEach(bank => shuffleKids(bank, '.bank-word'));
+  document.querySelectorAll('.mc-list .mc-opts').forEach((opts, idx) => {
+    const q = opts.closest('.mc-item, .mc-q, li, .q-row') || opts;
+    const seedStr = (q.id || q.getAttribute('data-q') || '') + '-mc-' + idx;
+    seededShuffleKids(opts, null, seedFromString(seedStr));
+  });
+  document.querySelectorAll('.bank[data-ex]').forEach((bank, idx) => {
+    seededShuffleKids(bank, '.bank-word', seedFromString((bank.getAttribute('data-ex') || '') + '-bank-' + idx));
+  });
 })();
 
 /* ============ LIGHTBOX for portrait posters ============ */
