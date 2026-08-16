@@ -56,6 +56,15 @@ body > *{position:relative;z-index:1}
 .master-tab-btn.active small{color:var(--gold-soft);opacity:1}
 .master-panel{display:none}
 .master-panel.active{display:block;animation:masterFade .35s ease}
+
+/* PHX sub-tabs (inside Order of the Phoenix) */
+.phx-tabs{width:var(--demo-top-width);max-width:1240px;margin:18px auto 4px;display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 12px}
+@media(max-width:640px){.phx-tabs{grid-template-columns:1fr}}
+.phx-tab-btn{background:linear-gradient(140deg,rgba(43,13,5,.55) 0%,rgba(26,8,5,.75) 100%);color:var(--parchment);border:2px solid rgba(212,168,67,.28);border-radius:12px;padding:12px 18px;font-family:var(--display);font-weight:800;font-size:.98rem;letter-spacing:-.005em;cursor:pointer;text-align:center;line-height:1.15;transition:all .2s}
+.phx-tab-btn:hover{border-color:var(--accent);color:var(--accent)}
+.phx-tab-btn.active{background:linear-gradient(140deg,var(--accent) 0%,#B23A0A 100%);border-color:var(--accent);color:#fff;box-shadow:0 6px 18px rgba(199,75,31,.35)}
+.phx-panel{display:none}
+.phx-panel.active{display:block;animation:masterFade .3s ease}
 @keyframes masterFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
 .lab-hero{width:var(--demo-top-width);max-width:1240px;margin:24px auto 18px;border-radius:18px;overflow:hidden;box-shadow:0 12px 40px rgba(26,8,5,.55),0 0 60px rgba(212,168,67,.15);background:linear-gradient(165deg,rgba(61,31,16,.72) 0%,rgba(43,13,5,.55) 55%,rgba(26,8,5,.85) 100%),url('assets/phoenix-banner.png');background-size:cover;background-position:center;color:var(--parchment);padding:64px clamp(24px,5vw,64px) 56px;position:relative;min-height:340px;border:1px solid rgba(212,168,67,.32)}
@@ -418,6 +427,14 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
 <!-- ═════════ TAB 2 · ORDER OF PHOENIX ═══════ -->
 <!-- ══════════════════════════════════════════ -->
 <div class="master-panel active" id="tab-phoenix">
+
+<!-- Sub-tabs inside Order of the Phoenix -->
+<div class="phx-tabs" role="tablist">
+  <button class="phx-tab-btn active" data-phx-tab="phx-lesson">📖 Урок</button>
+  <button class="phx-tab-btn" data-phx-tab="phx-hw">📚 Домашка</button>
+</div>
+
+<div class="phx-panel active" id="phx-lesson">
 
 <div class="lab-hero">
   <h1>The Order Rises.<em>Chapter V — the Phoenix.</em></h1>
@@ -1018,6 +1035,17 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
       <div class="prompt" data-say="Which new English word from today do you want to use this week?">2. Which <strong>new English word</strong> from today do you want to use this week?</div>
       <div class="prompt" data-say="On a scale from 1 to 10, how did this lesson feel? Too heavy, or right?">3. On a scale from <strong>1 to 10</strong>, how did this lesson feel? Too heavy, or right?</div>
     </div>
+  </div>
+</section>
+
+</div><!-- /phx-lesson -->
+
+<div class="phx-panel" id="phx-hw">
+
+<section class="section">
+  <div class="section-hdr"><div class="num">📚</div><h2>Домашка · Order of the Phoenix</h2></div>
+  <div class="section-sub">три больших задания · плюс два переносёных блока (Six real questions + Three photos)</div>
+  <div class="card">
     <div class="homework">
       <h3>Homework — a real reader's task</h3>
       <p>Before our next lesson, do <strong>one</strong> of these (your choice — pick what suits your mood):</p>
@@ -1097,6 +1125,8 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
   </div>
 </section>
 
+</div><!-- /phx-hw -->
+
 <footer>
   Lesson by <strong>Maria Burtseva</strong> · NGE · LinguaBoost Lab · A2+ · Katya · Lesson 03<br>
   <small>The Order Rises · Chapter V — the Phoenix · Book 5 · tap text to listen · flip cards · drop bank words</small>
@@ -1105,6 +1135,20 @@ footer small{display:block;margin-top:6px;font-family:var(--mono);font-size:.7re
 </div><!-- /tab-phoenix -->
 
 <script>
+// ═══ PHX SUB-TAB SWITCH (inside Order of the Phoenix) ═══
+(function(){
+  var phxTabs = document.querySelector('.phx-tabs');
+  if(!phxTabs) return;
+  phxTabs.addEventListener('click', function(e){
+    var btn = e.target.closest('.phx-tab-btn');
+    if(!btn) return;
+    var target = btn.dataset.phxTab;
+    phxTabs.querySelectorAll('.phx-tab-btn').forEach(function(b){ b.classList.toggle('active', b===btn); });
+    document.querySelectorAll('.phx-panel').forEach(function(p){ p.classList.toggle('active', p.id===target); });
+    window.scrollTo({top:phxTabs.offsetTop-20,behavior:'smooth'});
+  });
+})();
+
 // ═══ MASTER 2-TAB SWITCH ═══
 (function(){
   var tabs = document.querySelector('.master-tabs');
