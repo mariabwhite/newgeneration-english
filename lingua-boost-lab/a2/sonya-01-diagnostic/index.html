@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Соня · Diagnostic · A2-B1 · 18.08.2026 · NG English Lab</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,700;1,500&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#fbf7f0;
+  --card:#ffffff;
+  --card-2:#fdf6e8;
+  --ink:#1f1611;
+  --ink-2:#3a2d1f;
+  --muted:#7d6e5c;
+  --line:#e6dcc8;
+  --accent:#c2410c;
+  --accent-2:#9a3412;
+  --accent-3:#f0844a;
+  --accent-soft:rgba(194,65,12,.08);
+  --gold:#d4a017;
+  --ok:#3f7a3f;
+  --miss:#c04040;
+  --shadow:0 4px 14px rgba(31,22,17,.08);
+  --display:'Fraunces','Times New Roman',serif;
+  --body:'Manrope',system-ui,sans-serif;
+  --mono:'JetBrains Mono',Consolas,monospace;
+  --w: min(880px, calc(100% - clamp(20px, 5vw, 44px)));
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);line-height:1.55;padding-bottom:60px;-webkit-font-smoothing:antialiased}
+
+/* HERO */
+.hero{width:var(--w);margin:26px auto 20px;padding:24px 28px;background:linear-gradient(135deg,#fff4e0,#ffe0c2);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.hero .eyebrow{font-family:var(--mono);font-size:.72rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-2);margin-bottom:8px}
+.hero h1{font-family:var(--display);font-style:italic;font-weight:500;font-size:clamp(1.5rem,3.4vw,2.1rem);line-height:1.15;color:var(--ink);margin-bottom:10px;letter-spacing:-.01em}
+.hero p{color:var(--ink-2);font-size:.98rem;line-height:1.6}
+.hero .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.hero .meta span{padding:5px 12px;background:rgba(255,255,255,.7);border:1px solid var(--line);border-radius:50px;font-family:var(--mono);font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-2)}
+
+/* SECTION */
+.sec{width:var(--w);margin:0 auto 18px;padding:22px 26px;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+.sec-hdr{display:flex;align-items:baseline;gap:12px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px dashed var(--line);flex-wrap:wrap}
+.sec-num{font-family:var(--mono);font-weight:800;font-size:.76rem;letter-spacing:.06em;background:var(--accent);color:#fff;padding:4px 10px;border-radius:6px}
+.sec-hdr h2{font-family:var(--display);font-style:italic;font-weight:500;font-size:clamp(1.1rem,2vw,1.35rem);color:var(--ink);letter-spacing:-.005em}
+.sec-hdr .est{margin-left:auto;font-family:var(--mono);font-size:.68rem;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+
+.explain{background:var(--accent-soft);border-left:4px solid var(--accent-3);padding:12px 16px;border-radius:0 8px 8px 0;margin:10px 0 16px;font-size:.94rem;line-height:1.6;color:var(--ink-2)}
+.explain b{color:var(--accent-2)}
+.explain .ex{display:block;margin-top:6px;font-family:var(--display);font-style:italic;color:var(--accent-2)}
+
+/* GAP-FILL */
+.gap-list{display:grid;gap:9px;margin:12px 0}
+.gap{padding:10px 14px;background:var(--card-2);border:1px solid var(--line);border-radius:8px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.gap-num{font-family:var(--mono);font-size:.72rem;font-weight:800;color:var(--accent);min-width:22px}
+.gap-txt{font-size:.96rem;color:var(--ink);flex:1;min-width:200px;line-height:1.7}
+.gap-inp{padding:5px 10px;border:1.5px solid var(--line);border-radius:6px;font-family:var(--body);font-size:.9rem;font-weight:700;width:140px;background:#fff;color:var(--ink)}
+.gap-inp:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.gap-inp.correct{border-color:var(--ok);background:#e8f2e5;color:var(--ok)}
+.gap-inp.wrong{border-color:var(--miss);background:#fbe6e6;color:var(--miss)}
+
+/* DROPDOWN */
+.dd-list{display:grid;gap:9px;margin:12px 0}
+.dd{padding:10px 14px;background:var(--card-2);border:1px solid var(--line);border-radius:8px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.dd-num{font-family:var(--mono);font-size:.72rem;font-weight:800;color:var(--accent);min-width:22px}
+.dd-txt{font-size:.96rem;color:var(--ink);flex:1;min-width:200px;line-height:1.7}
+.dd-sel{padding:6px 10px;border:1.5px solid var(--line);border-radius:6px;font-family:var(--body);font-size:.9rem;font-weight:700;background:#fff;color:var(--ink);cursor:pointer;min-width:100px}
+.dd-sel:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.dd-sel.correct{border-color:var(--ok);background:#e8f2e5;color:var(--ok)}
+.dd-sel.wrong{border-color:var(--miss);background:#fbe6e6;color:var(--miss)}
+
+/* SORT (word-order) */
+.sort{padding:10px 14px;background:var(--card-2);border:1px solid var(--line);border-radius:8px;margin:9px 0}
+.sort-num{font-family:var(--mono);font-size:.72rem;font-weight:800;color:var(--accent);margin-right:8px}
+.sort-hint{font-size:.86rem;color:var(--muted);font-style:italic;margin-bottom:8px}
+.sort-bank{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;min-height:36px;padding:6px;background:#fff;border:1px dashed var(--line);border-radius:6px}
+.sort-slots{display:flex;flex-wrap:wrap;gap:6px;min-height:36px;padding:6px;background:var(--accent-soft);border:2px solid var(--accent-3);border-radius:6px;margin-bottom:6px}
+.sort-chip{padding:5px 12px;background:#fff;border:1.5px solid var(--line);border-radius:6px;font-family:var(--body);font-size:.9rem;font-weight:600;color:var(--ink);cursor:pointer;transition:.15s;user-select:none}
+.sort-chip:hover{background:var(--accent-soft);border-color:var(--accent);color:var(--accent-2)}
+.sort-chip.placed{background:var(--card-2)}
+.sort-check{padding:7px 16px;background:var(--accent);color:#fff;border:none;border-radius:6px;font-family:var(--mono);font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;margin-right:8px}
+.sort-check:hover{background:var(--accent-2)}
+.sort-reset{padding:7px 16px;background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:6px;font-family:var(--mono);font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.sort-result{margin-top:8px;font-family:var(--mono);font-size:.8rem;font-weight:700}
+.sort-result.ok{color:var(--ok)}
+.sort-result.no{color:var(--miss)}
+
+/* SPEAK PROMPT */
+.speak{background:linear-gradient(135deg,#fff4e0,#ffe4c4);border:2px solid #ffdba8;border-radius:14px;padding:18px 22px;text-align:center;margin-top:6px}
+.speak .prompt{font-family:var(--display);font-style:italic;font-size:1.12rem;color:var(--accent-2);font-weight:500;margin-bottom:14px;line-height:1.4}
+.speak .timer{font-family:var(--mono);font-weight:800;font-size:2.4rem;color:var(--ink);letter-spacing:.04em;line-height:1;margin-bottom:8px}
+.speak .timer.on{color:var(--miss)}
+.speak button{padding:8px 18px;background:var(--accent);color:#fff;border:none;border-radius:6px;font-family:var(--mono);font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;margin:0 4px}
+.speak button.ghost{background:transparent;color:var(--accent-2);border:1px solid var(--line)}
+.speak button:hover{background:var(--accent-2)}
+.speak button.ghost:hover{background:var(--accent);color:#fff}
+.speak .hint{font-family:var(--display);font-style:italic;font-size:.92rem;color:var(--muted);line-height:1.55;margin-top:14px}
+
+/* CHECK BAR */
+.checkbar{position:sticky;bottom:14px;width:var(--w);margin:20px auto 0;padding:14px 20px;background:#fff;border:2px solid var(--accent);border-radius:12px;display:flex;align-items:center;gap:14px;box-shadow:0 8px 22px rgba(31,22,17,.14);z-index:50}
+.checkbar button{padding:10px 22px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-family:var(--mono);font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.checkbar button:hover{background:var(--accent-2)}
+.checkbar .score{margin-left:auto;font-family:var(--mono);font-size:.92rem;font-weight:800;color:var(--accent-2)}
+.checkbar .hint{font-size:.82rem;color:var(--muted);flex:1}
+
+.foot{width:var(--w);margin:24px auto 0;text-align:center;font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.06em;line-height:1.7}
+.foot b{color:var(--accent-2);font-family:var(--display);font-weight:700;letter-spacing:0}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="eyebrow">Diagnostic · A2-B1 · 18.08.2026 · вводный урок</div>
+  <h1>Соня · посмотрим что уже есть</h1>
+  <p>Это не тест на оценку. Задания короткие, вопросы по ситуациям — без грамматических терминов. Просто пробуйте так, как чувствуете. Где ошибётесь — увидим, куда идти. Ответы <b style="color:var(--accent-2)">можно проверить сразу после каждого блока</b> (жёлтая кнопка внизу).</p>
+  <div class="meta">
+    <span>🕐 20-25 минут</span>
+    <span>📝 6 блоков + один рассказ</span>
+    <span>💬 разбор на уроке</span>
+  </div>
+</div>
+
+<!-- ═══════════ 1 · Present Simple vs Present Continuous ═══════════ -->
+<section class="sec" id="s1">
+  <div class="sec-hdr"><span class="sec-num">01</span><h2>Что делаю сейчас vs что делаю обычно</h2><span class="est">6 заданий</span></div>
+  <div class="explain">
+    <b>Обычно, каждый день, всегда</b> — форма без -ing. <span class="ex">I read books every evening. · She drinks coffee in the morning.</span>
+    <b>Сейчас, прямо в этот момент</b> — форма с -ing (и am / is / are перед ней). <span class="ex">I am reading a book right now. · She is drinking coffee.</span>
+  </div>
+  <p style="font-size:.9rem;color:var(--muted);font-style:italic;margin-bottom:10px">Впишите глагол в нужной форме:</p>
+  <div class="gap-list" data-drill="1">
+    <div class="gap" data-a="reads"><span class="gap-num">1.</span><span class="gap-txt">Every morning my brother <input class="gap-inp" data-hint="read"> the news.</span></div>
+    <div class="gap" data-a="am watching|'m watching"><span class="gap-num">2.</span><span class="gap-txt">— Where are you? — I <input class="gap-inp" data-hint="watch"> a film in my room right now.</span></div>
+    <div class="gap" data-a="goes"><span class="gap-num">3.</span><span class="gap-txt">She never <input class="gap-inp" data-hint="go"> to bed before midnight.</span></div>
+    <div class="gap" data-a="are you doing"><span class="gap-num">4.</span><span class="gap-txt">What <input class="gap-inp" data-hint="you / do"> at the moment?</span></div>
+    <div class="gap" data-a="don't like|do not like"><span class="gap-num">5.</span><span class="gap-txt">I <input class="gap-inp" data-hint="not / like"> horror films at all.</span></div>
+    <div class="gap" data-a="is raining|'s raining"><span class="gap-num">6.</span><span class="gap-txt">Take an umbrella — it <input class="gap-inp" data-hint="rain"> outside.</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 2 · Past Simple vs Past Continuous ═══════════ -->
+<section class="sec" id="s2">
+  <div class="sec-hdr"><span class="sec-num">02</span><h2>Вчера и «в тот момент»</h2><span class="est">5 заданий</span></div>
+  <div class="explain">
+    <b>Просто «что-то произошло вчера»</b> — вторая форма глагола (или -ed). <span class="ex">Yesterday I went to school. · She wrote a message last night.</span>
+    <b>«В тот самый момент я делал/делала»</b> — was/were + -ing. <span class="ex">At 8 p.m. I was watching a film. · When she called, I was cooking dinner.</span>
+  </div>
+  <p style="font-size:.9rem;color:var(--muted);font-style:italic;margin-bottom:10px">Впишите глагол в нужной форме:</p>
+  <div class="gap-list" data-drill="2">
+    <div class="gap" data-a="watched"><span class="gap-num">1.</span><span class="gap-txt">Last Saturday we <input class="gap-inp" data-hint="watch"> a new film.</span></div>
+    <div class="gap" data-a="was sleeping"><span class="gap-num">2.</span><span class="gap-txt">At 11 p.m. yesterday I <input class="gap-inp" data-hint="sleep"> already.</span></div>
+    <div class="gap" data-a="was reading"><span class="gap-num">3.</span><span class="gap-txt">When mum came home, I <input class="gap-inp" data-hint="read"> a book.</span></div>
+    <div class="gap" data-a="broke"><span class="gap-num">4.</span><span class="gap-txt">Someone <input class="gap-inp" data-hint="break"> the window last night.</span></div>
+    <div class="gap" data-a="didn't see|did not see"><span class="gap-num">5.</span><span class="gap-txt">I'm sorry, I <input class="gap-inp" data-hint="not / see"> your message this morning.</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 3 · Present Perfect — «уже случилось, важно сейчас» ═══════════ -->
+<section class="sec" id="s3">
+  <div class="sec-hdr"><span class="sec-num">03</span><h2>Что важно прямо сейчас (из прошлого)</h2><span class="est">6 заданий</span></div>
+  <div class="explain">
+    Форма <b>have/has + 3-я форма глагола</b>. Используем когда:
+    <span class="ex">— «Я уже сделал(а)» / «Ты сделал(а)?» — I have finished my homework. Have you seen this film?</span>
+    <span class="ex">— «Никогда не» / «сколько раз» — I have never been to Paris. She has been to Italy three times.</span>
+    <span class="ex">— «Только что» — He has just called.</span>
+  </div>
+  <p style="font-size:.9rem;color:var(--muted);font-style:italic;margin-bottom:10px">Выберите правильный вариант:</p>
+  <div class="dd-list" data-drill="3">
+    <div class="dd" data-a="have you ever been"><span class="dd-num">1.</span><span class="dd-txt">___ to London?</span><select class="dd-sel"><option value="">—</option><option>did you ever be</option><option>have you ever been</option><option>are you ever</option></select></div>
+    <div class="dd" data-a="have never eaten"><span class="dd-num">2.</span><span class="dd-txt">I ___ oysters in my life.</span><select class="dd-sel"><option value="">—</option><option>never eat</option><option>never ate</option><option>have never eaten</option></select></div>
+    <div class="dd" data-a="has just left"><span class="dd-num">3.</span><span class="dd-txt">Sorry, she ___ the office. Try tomorrow.</span><select class="dd-sel"><option value="">—</option><option>just left</option><option>has just left</option><option>is just leaving</option></select></div>
+    <div class="dd" data-a="lost"><span class="dd-num">4.</span><span class="dd-txt">Yesterday I ___ my keys, so I couldn't get in.</span><select class="dd-sel"><option value="">—</option><option>have lost</option><option>lost</option><option>was losing</option></select></div>
+    <div class="dd" data-a="Have you finished"><span class="dd-num">5.</span><span class="dd-txt">___ your homework yet?</span><select class="dd-sel"><option value="">—</option><option>Did you finish</option><option>Have you finished</option><option>Are you finishing</option></select></div>
+    <div class="dd" data-a="hasn't come"><span class="dd-num">6.</span><span class="dd-txt">He ___ back yet. Maybe he's still at work.</span><select class="dd-sel"><option value="">—</option><option>didn't come</option><option>hasn't come</option><option>isn't coming</option></select></div>
+  </div>
+</section>
+
+<!-- ═══════════ 4 · Future: will vs going to ═══════════ -->
+<section class="sec" id="s4">
+  <div class="sec-hdr"><span class="sec-num">04</span><h2>Про будущее</h2><span class="est">5 заданий</span></div>
+  <div class="explain">
+    <b>going to</b> — «планирую заранее, уже решил(а)» или «вижу что вот-вот случится». <span class="ex">I'm going to visit my grandma this weekend. · Look at the sky — it's going to rain.</span>
+    <b>will</b> — «решаю прямо сейчас» или обещание. <span class="ex">— The phone is ringing. — I'll get it! · I promise I will call you.</span>
+  </div>
+  <p style="font-size:.9rem;color:var(--muted);font-style:italic;margin-bottom:10px">Выберите правильный вариант:</p>
+  <div class="dd-list" data-drill="4">
+    <div class="dd" data-a="am going to visit"><span class="dd-num">1.</span><span class="dd-txt">Next summer I ___ my cousins in Germany. We booked the tickets last week.</span><select class="dd-sel"><option value="">—</option><option>will visit</option><option>am going to visit</option><option>visit</option></select></div>
+    <div class="dd" data-a="'ll help|will help"><span class="dd-num">2.</span><span class="dd-txt">— This bag is heavy. — Give it to me, I ___ you.</span><select class="dd-sel"><option value="">—</option><option>will help</option><option>am helping</option><option>am going to help</option></select></div>
+    <div class="dd" data-a="is going to fall"><span class="dd-num">3.</span><span class="dd-txt">Careful! That glass ___.</span><select class="dd-sel"><option value="">—</option><option>will fall</option><option>is going to fall</option><option>falls</option></select></div>
+    <div class="dd" data-a="'ll call|will call"><span class="dd-num">4.</span><span class="dd-txt">Don't worry, I ___ you as soon as I arrive. Promise.</span><select class="dd-sel"><option value="">—</option><option>am calling</option><option>am going to call</option><option>will call</option></select></div>
+    <div class="dd" data-a="are you going to do"><span class="dd-num">5.</span><span class="dd-txt">What ___ after school today?</span><select class="dd-sel"><option value="">—</option><option>do you do</option><option>will you do</option><option>are you going to do</option></select></div>
+  </div>
+</section>
+
+<!-- ═══════════ 5 · Articles a / an / the / — ═══════════ -->
+<section class="sec" id="s5">
+  <div class="sec-hdr"><span class="sec-num">05</span><h2>Артикли: a / an / the / ничего</h2><span class="est">6 заданий</span></div>
+  <div class="explain">
+    <b>a / an</b> — «какой-то один, впервые упоминаем». <span class="ex">I saw a cat in the yard. · She wants an apple.</span>
+    <b>the</b> — «тот самый, о котором уже знаем» или «единственный». <span class="ex">The cat was black. · The sun is bright today.</span>
+    <b>ничего (—)</b> — с именами городов, стран (кроме США, Великобритании), с языками, с большинством видов спорта. <span class="ex">— I live in Moscow. — She speaks Spanish. — We play tennis.</span>
+  </div>
+  <p style="font-size:.9rem;color:var(--muted);font-style:italic;margin-bottom:10px">Выберите артикль:</p>
+  <div class="dd-list" data-drill="5">
+    <div class="dd" data-a="a"><span class="dd-num">1.</span><span class="dd-txt">I have ___ dog. His name is Rex.</span><select class="dd-sel"><option value="">—</option><option>a</option><option>an</option><option>the</option><option value="-">—</option></select></div>
+    <div class="dd" data-a="an"><span class="dd-num">2.</span><span class="dd-txt">Can I have ___ apple, please?</span><select class="dd-sel"><option value="">—</option><option>a</option><option>an</option><option>the</option><option value="-">—</option></select></div>
+    <div class="dd" data-a="the"><span class="dd-num">3.</span><span class="dd-txt">Close ___ door, please. It's cold.</span><select class="dd-sel"><option value="">—</option><option>a</option><option>an</option><option>the</option><option value="-">—</option></select></div>
+    <div class="dd" data-a="-"><span class="dd-num">4.</span><span class="dd-txt">She speaks ___ German very well.</span><select class="dd-sel"><option value="">—</option><option>a</option><option>an</option><option>the</option><option value="-">—</option></select></div>
+    <div class="dd" data-a="the"><span class="dd-num">5.</span><span class="dd-txt">___ sun is very bright today.</span><select class="dd-sel"><option value="">—</option><option>a</option><option>an</option><option>the</option><option value="-">—</option></select></div>
+    <div class="dd" data-a="-"><span class="dd-num">6.</span><span class="dd-txt">I usually play ___ tennis on Sundays.</span><select class="dd-sel"><option value="">—</option><option>a</option><option>an</option><option>the</option><option value="-">—</option></select></div>
+  </div>
+</section>
+
+<!-- ═══════════ 6 · Word order — вопросы ═══════════ -->
+<section class="sec" id="s6">
+  <div class="sec-hdr"><span class="sec-num">06</span><h2>Собери вопрос из слов</h2><span class="est">4 предложения</span></div>
+  <div class="explain">
+    В английском вопросе почти всегда есть маленький помощник впереди: <b>do / does / did / is / are / was / were / have / will</b>. Порядок обычно такой: <b>(что?) → помощник → кто → глагол → остальное?</b>
+    <span class="ex">Where do you live? · What time does she get up? · Have you finished your homework? · What are you doing?</span>
+  </div>
+  <p style="font-size:.9rem;color:var(--muted);font-style:italic;margin-bottom:10px">Тап на слово в банке — оно уйдёт в предложение. Тап в предложении — вернётся.</p>
+  <div class="sort" data-drill="6-1" data-answer="Where do you live ?">
+    <div class="sort-hint"><span class="sort-num">1.</span>Составь вопрос: «Где ты живёшь?»</div>
+    <div class="sort-slots" data-slots></div>
+    <div class="sort-bank" data-bank data-words="live|Where|you|do|?"></div>
+    <button class="sort-check">Проверить</button>
+    <button class="sort-reset">Сбросить</button>
+    <div class="sort-result"></div>
+  </div>
+  <div class="sort" data-drill="6-2" data-answer="What time does she get up ?">
+    <div class="sort-hint"><span class="sort-num">2.</span>Составь вопрос: «Во сколько она встаёт?»</div>
+    <div class="sort-slots" data-slots></div>
+    <div class="sort-bank" data-bank data-words="does|she|What|time|get|?|up"></div>
+    <button class="sort-check">Проверить</button>
+    <button class="sort-reset">Сбросить</button>
+    <div class="sort-result"></div>
+  </div>
+  <div class="sort" data-drill="6-3" data-answer="Have you ever been to Paris ?">
+    <div class="sort-hint"><span class="sort-num">3.</span>Составь вопрос: «Ты когда-нибудь была в Париже?»</div>
+    <div class="sort-slots" data-slots></div>
+    <div class="sort-bank" data-bank data-words="ever|Have|to|been|Paris|you|?"></div>
+    <button class="sort-check">Проверить</button>
+    <button class="sort-reset">Сбросить</button>
+    <div class="sort-result"></div>
+  </div>
+  <div class="sort" data-drill="6-4" data-answer="What are you doing right now ?">
+    <div class="sort-hint"><span class="sort-num">4.</span>Составь вопрос: «Что ты делаешь прямо сейчас?»</div>
+    <div class="sort-slots" data-slots></div>
+    <div class="sort-bank" data-bank data-words="doing|now|are|you|What|right|?"></div>
+    <button class="sort-check">Проверить</button>
+    <button class="sort-reset">Сбросить</button>
+    <div class="sort-result"></div>
+  </div>
+</section>
+
+<!-- ═══════════ 7 · If-clauses (1st conditional) ═══════════ -->
+<section class="sec" id="s7">
+  <div class="sec-hdr"><span class="sec-num">07</span><h2>Если что-то случится...</h2><span class="est">4 задания</span></div>
+  <div class="explain">
+    <b>Реальное условие про будущее:</b> after <b>if</b> — Present Simple (обычная форма), в главной части — <b>will</b>.
+    <span class="ex">If it rains tomorrow, I will stay home. · She will pass the exam if she studies hard.</span>
+    После <b>if</b> НИКОГДА не пишем <em>will</em>.
+  </div>
+  <p style="font-size:.9rem;color:var(--muted);font-style:italic;margin-bottom:10px">Впишите глагол в нужной форме:</p>
+  <div class="gap-list" data-drill="7">
+    <div class="gap" data-a="rains"><span class="gap-num">1.</span><span class="gap-txt">If it <input class="gap-inp" data-hint="rain"> tomorrow, we'll stay home.</span></div>
+    <div class="gap" data-a="'ll be|will be"><span class="gap-num">2.</span><span class="gap-txt">If you don't sleep enough, you <input class="gap-inp" data-hint="be"> tired all day.</span></div>
+    <div class="gap" data-a="study"><span class="gap-num">3.</span><span class="gap-txt">She will pass the exam if she <input class="gap-inp" data-hint="study"> hard.</span></div>
+    <div class="gap" data-a="'ll call|will call"><span class="gap-num">4.</span><span class="gap-txt">If I have time tomorrow, I <input class="gap-inp" data-hint="call"> you.</span></div>
+  </div>
+</section>
+
+<!-- ═══════════ 8 · Speaking · 90 seconds ═══════════ -->
+<section class="sec" id="s8">
+  <div class="sec-hdr"><span class="sec-num">08</span><h2>Расскажите про прошлые выходные · 90 секунд</h2><span class="est">одно задание</span></div>
+  <div class="explain">
+    Просто расскажите вслух что делали в выходные — что угодно, хоть «встала поздно, посмотрела фильм, пошла гулять». Не бойтесь ошибаться. Если забыли слово — говорите «это как ___» или на русском одно слово, дальше по-английски. Смысл — я услышу что уже есть.
+  </div>
+  <div class="speak">
+    <div class="prompt">"Last weekend I ..."</div>
+    <div class="timer" data-time="90">1:30</div>
+    <button data-start>▶ Старт · 1:30</button>
+    <button class="ghost" data-reset>↺ Сброс</button>
+    <div class="hint">
+      Опорные слова если нужны: <b>on Saturday · on Sunday · in the morning · in the evening · with my friends · at home · we watched · we went · it was nice / boring / fun</b>
+    </div>
+  </div>
+</section>
+
+<!-- CHECK BAR -->
+<div class="checkbar">
+  <button data-check-all>Проверить всё</button>
+  <span class="hint">После проверки увидим где всё ок, а где нужно вернуться.</span>
+  <span class="score" id="total-score">—</span>
+</div>
+
+<div class="foot">
+  <b>NEW GENERATION ENGLISH</b> · Diagnostic A2-B1 · 18.08.2026 · Соня Симарзина
+</div>
+
+<script>
+/* ═══════════════════ GAP-FILL ═══════════════════ */
+document.querySelectorAll('.gap-list').forEach(list => {
+  list.querySelectorAll('.gap-inp').forEach(inp => {
+    // set placeholder from data-hint
+    const hint = inp.dataset.hint;
+    if (hint) inp.placeholder = '(' + hint + ')';
+    inp.addEventListener('input', () => inp.classList.remove('correct','wrong'));
+  });
+});
+
+function checkGapList(list){
+  let ok = 0, total = 0;
+  list.querySelectorAll('.gap').forEach(g => {
+    total++;
+    const inp = g.querySelector('.gap-inp');
+    const answers = g.dataset.a.split('|').map(s => s.trim().toLowerCase());
+    const given = (inp.value || '').trim().toLowerCase();
+    inp.classList.remove('correct','wrong');
+    if (answers.includes(given)) {
+      inp.classList.add('correct');
+      ok++;
+    } else {
+      inp.classList.add('wrong');
+      inp.title = 'правильно: ' + g.dataset.a.split('|')[0];
+    }
+  });
+  return {ok, total};
+}
+
+/* ═══════════════════ DROPDOWN ═══════════════════ */
+document.querySelectorAll('.dd-list').forEach(list => {
+  list.querySelectorAll('.dd-sel').forEach(sel => {
+    sel.addEventListener('change', () => sel.classList.remove('correct','wrong'));
+  });
+});
+
+function checkDdList(list){
+  let ok = 0, total = 0;
+  list.querySelectorAll('.dd').forEach(d => {
+    total++;
+    const sel = d.querySelector('.dd-sel');
+    const answers = d.dataset.a.split('|').map(s => s.trim().toLowerCase());
+    const given = (sel.value || '').trim().toLowerCase();
+    sel.classList.remove('correct','wrong');
+    if (answers.includes(given)) { sel.classList.add('correct'); ok++; }
+    else sel.classList.add('wrong');
+  });
+  return {ok, total};
+}
+
+/* ═══════════════════ SORT (word-order) ═══════════════════ */
+function shuffle(a){ const b = a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]]; } return b; }
+
+document.querySelectorAll('.sort').forEach(drill => {
+  const bank = drill.querySelector('[data-bank]');
+  const slots = drill.querySelector('[data-slots]');
+  const result = drill.querySelector('.sort-result');
+  const words = bank.dataset.words.split('|');
+  function makeChip(w, from){
+    const c = document.createElement('span');
+    c.className = 'sort-chip';
+    c.textContent = w;
+    c.dataset.w = w;
+    c.dataset.from = from;
+    c.onclick = () => {
+      if (c.parentElement === bank) {
+        slots.appendChild(c);
+        c.classList.add('placed');
+      } else {
+        bank.appendChild(c);
+        c.classList.remove('placed');
+      }
+      result.textContent = '';
+      result.className = 'sort-result';
+    };
+    return c;
+  }
+  function renderBank(){
+    bank.innerHTML = '';
+    slots.innerHTML = '';
+    shuffle(words).forEach(w => bank.appendChild(makeChip(w, 'bank')));
+    result.textContent = '';
+    result.className = 'sort-result';
+  }
+  renderBank();
+  drill.querySelector('.sort-check').onclick = () => {
+    const given = Array.from(slots.querySelectorAll('.sort-chip')).map(c => c.dataset.w).join(' ');
+    const expected = drill.dataset.answer;
+    if (given === expected) {
+      result.textContent = '✓ верно';
+      result.className = 'sort-result ok';
+    } else {
+      result.textContent = '✗ не совсем · правильно: ' + expected;
+      result.className = 'sort-result no';
+    }
+  };
+  drill.querySelector('.sort-reset').onclick = renderBank;
+});
+
+/* ═══════════════════ SPEAKING TIMER ═══════════════════ */
+document.querySelectorAll('.speak').forEach(box => {
+  const t = box.querySelector('.timer');
+  const total = parseInt(t.dataset.time, 10);
+  let remaining = total, iv = null;
+  function fmt(s){ const m = Math.floor(s/60), r = s%60; return m + ':' + String(r).padStart(2,'0'); }
+  function render(){ t.textContent = fmt(remaining); }
+  function stop(){ if(iv){ clearInterval(iv); iv=null; } t.classList.remove('on'); }
+  function reset(){ stop(); remaining = total; render(); box.querySelector('[data-start]').textContent = '▶ Старт · ' + fmt(total); }
+  box.querySelector('[data-start]').onclick = () => {
+    if(iv) return;
+    t.classList.add('on');
+    box.querySelector('[data-start]').textContent = '⏸ Идёт...';
+    iv = setInterval(() => {
+      remaining--; render();
+      if(remaining <= 0){ stop(); t.textContent = '✓ время'; }
+    }, 1000);
+  };
+  box.querySelector('[data-reset]').onclick = reset;
+  render();
+});
+
+/* ═══════════════════ CHECK ALL ═══════════════════ */
+document.querySelector('[data-check-all]').onclick = () => {
+  let totalOk = 0, totalAll = 0;
+  document.querySelectorAll('.gap-list').forEach(l => { const r = checkGapList(l); totalOk += r.ok; totalAll += r.total; });
+  document.querySelectorAll('.dd-list').forEach(l => { const r = checkDdList(l); totalOk += r.ok; totalAll += r.total; });
+  // sort drills — count already-checked green ones
+  document.querySelectorAll('.sort').forEach(d => {
+    totalAll++;
+    if (d.querySelector('.sort-result.ok')) totalOk++;
+  });
+  document.getElementById('total-score').textContent = totalOk + ' / ' + totalAll;
+};
+</script>
+</body>
+</html>
