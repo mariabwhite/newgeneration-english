@@ -223,6 +223,46 @@ details.class-eng[open] > summary{margin-bottom:10px;border-bottom:1px dashed va
 .gr-formula .gf-body{font-family:var(--display);font-weight:600;font-size:1.05rem;color:var(--ink-strong);line-height:1.5}
 .gr-formula .gf-ex{font-family:var(--serif);font-style:italic;color:var(--muted);margin-top:6px;font-size:.98rem}
 
+/* Topical Vocabulary tabs (Section V full) */
+.tv-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 16px}
+.tv-tab-btn{background:linear-gradient(135deg,#F5E6C8,#EFD9AF);border:1.5px solid var(--line-2);color:var(--accent-3);padding:8px 14px;border-radius:50px;font:800 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:.18s}
+.tv-tab-btn:hover{border-color:var(--accent);color:var(--accent-2)}
+.tv-tab-btn.active{background:var(--accent-2);border-color:var(--accent-2);color:#FFFDF6;box-shadow:0 4px 12px rgba(197,107,59,.28)}
+.tv-panel{display:none;animation:tvFade .2s ease-out}
+.tv-panel.active{display:block}
+@keyframes tvFade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.tv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin:8px 0 0}
+.tv-item{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;transition:.18s;box-sizing:border-box}
+.tv-item:hover{border-color:var(--accent);box-shadow:0 4px 12px rgba(212,146,43,.14)}
+.tv-item .tv-term{font-family:var(--display);font-weight:800;font-size:1.02rem;color:var(--accent-3);line-height:1.25;margin-bottom:4px}
+.tv-item .tv-ipa{font-family:var(--mono);font-size:.76rem;font-weight:600;color:var(--accent-2);margin-bottom:6px;letter-spacing:.02em}
+.tv-item .tv-ru{font-family:var(--serif);font-size:.95rem;color:var(--muted);line-height:1.35;margin-bottom:6px}
+.tv-item .tv-ex{font-family:var(--serif);font-style:italic;font-size:.86rem;color:var(--ink);line-height:1.45;opacity:.85}
+.tv-contrast-card{background:linear-gradient(135deg,#FFFDF6,#F5E6C8);border:1.5px solid var(--accent);border-radius:14px;padding:16px 18px;margin:10px 0}
+.tv-contrast-card h4{font-family:var(--display);font-weight:800;color:var(--accent-3);font-size:1.05rem;margin:0 0 8px}
+.tv-contrast-card .tv-cc-row{display:grid;grid-template-columns:80px 1fr;gap:12px;padding:6px 0;border-bottom:1px dashed var(--line);font-size:.94rem;line-height:1.5}
+.tv-contrast-card .tv-cc-row:last-child{border-bottom:none}
+.tv-contrast-card .tv-cc-flag{font-family:var(--mono);font-weight:800;font-size:.7rem;letter-spacing:.14em;color:var(--accent-2);text-transform:uppercase;padding-top:3px}
+
+/* Match-grid for V-EX Round 1 */
+.match-grid{display:grid;grid-template-columns:1fr 220px;gap:10px;align-items:center;margin:8px 0}
+@media(max-width:640px){.match-grid{grid-template-columns:1fr}}
+.match-grid .m-def{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-family:var(--serif);font-size:.98rem;line-height:1.4}
+.match-grid .m-sel{width:100%;padding:8px 10px;border:2px solid var(--accent);border-radius:8px;background:var(--surface);color:var(--accent-3);font:700 .9rem var(--mono);outline:none;cursor:pointer}
+.match-grid .m-sel.right{background:rgba(90,122,58,.14);border-color:var(--ok);color:var(--ok)}
+.match-grid .m-sel.wrong{background:rgba(181,74,58,.14);border-color:var(--miss);color:var(--miss)}
+
+/* Sort-row for 2-EX Round 1 (advantage vs disadvantage) */
+.sort-row{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:8px 0;display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center}
+@media(max-width:640px){.sort-row{grid-template-columns:1fr}}
+.sort-row .s-txt{font-family:var(--serif);font-size:.98rem;line-height:1.45}
+.sort-row .s-btns{display:flex;gap:6px;flex-shrink:0}
+.sort-row .s-btn{border:1.5px solid var(--line-2);background:var(--surface-2);color:var(--ink);padding:6px 12px;border-radius:8px;font:700 10.5px/1 var(--mono);cursor:pointer;letter-spacing:.08em;text-transform:uppercase;transition:.18s}
+.sort-row .s-btn.pos:hover{border-color:var(--ok);color:var(--ok)}
+.sort-row .s-btn.neg:hover{border-color:var(--miss);color:var(--miss)}
+.sort-row .s-btn.right{background:rgba(90,122,58,.18);border-color:var(--ok);color:var(--ok)}
+.sort-row .s-btn.wrong{background:rgba(181,74,58,.18);border-color:var(--miss);color:var(--miss)}
+
 footer{max-width:1240px;margin:40px auto 24px;padding:0 clamp(16px,3vw,28px);text-align:center;color:var(--faint);font-size:.78rem;font-family:var(--mono);letter-spacing:.08em;position:relative;z-index:2}
 footer .foot-line{margin:4px 0}
 </style>
@@ -319,6 +359,57 @@ footer .foot-line{margin:4px 0}
     <img src="assets/img/vocab-books.png" alt="Stack of classic English books on a warm wooden desk — English Grammar, A History of English Literature, Longman English Dictionary, English Usage, Shakespeare — with a floral teacup, open notebook with fountain pen, and an English textbook 'English for Secondary Schools' by Afanasyeva" style="display:block;width:100%;height:auto;border-radius:14px;margin-bottom:16px;box-shadow:0 6px 22px rgba(139,90,43,.18);border:1px solid var(--line)">
     <div class="vocab-grid" id="vocab-grid"></div>
   </div>
+
+  <div class="card" style="margin-top:20px">
+    <h3 style="margin-top:0">📖 Full Topical Vocabulary from the textbook (Unit 2 · pp. 88-89)</h3>
+    <p class="section-sub" style="margin-top:0">Six grouped tabs. Every term has IPA transcription + Russian translation + example. These are the exact words the exam draws from.</p>
+    <div class="tv-tabs" id="tv-tabs" role="tablist">
+      <button class="tv-tab-btn active" data-tv-tab="tv-types">A · Types of education</button>
+      <button class="tv-tab-btn" data-tv-tab="tv-attend">B · At school</button>
+      <button class="tv-tab-btn" data-tv-tab="tv-schools">C · Types of schools</button>
+      <button class="tv-tab-btn" data-tv-tab="tv-exams">D · Exams</button>
+      <button class="tv-tab-btn" data-tv-tab="tv-life">E · School structure &amp; life</button>
+      <button class="tv-tab-btn" data-tv-tab="tv-rooms">F · Staff, rooms &amp; British vs US</button>
+    </div>
+    <div class="tv-panel active" id="tv-types"><div class="tv-grid"></div></div>
+    <div class="tv-panel" id="tv-attend"><div class="tv-grid"></div></div>
+    <div class="tv-panel" id="tv-schools"><div class="tv-grid"></div></div>
+    <div class="tv-panel" id="tv-exams"><div class="tv-grid"></div></div>
+    <div class="tv-panel" id="tv-life"><div class="tv-grid"></div></div>
+    <div class="tv-panel" id="tv-rooms">
+      <div class="tv-grid" id="tv-rooms-grid"></div>
+      <h4 style="font-family:var(--display);color:var(--accent-3);margin:22px 0 10px">🇬🇧 vs 🇺🇸 · A famous vocabulary trap</h4>
+      <div class="tv-contrast-card">
+        <h4>«High school»</h4>
+        <div class="tv-cc-row"><span class="tv-cc-flag">🇬🇧 UK</span><span>A highly prestigious fee-paying boarding school for pupils aged 13-18 (like Winchester, Eton).</span></div>
+        <div class="tv-cc-row"><span class="tv-cc-flag">🇺🇸 US</span><span>A state or fee-paying secondary school for teenagers between 14 and 17/18 — the most common type of American school.</span></div>
+      </div>
+      <div class="tv-contrast-card">
+        <h4>«Public school»</h4>
+        <div class="tv-cc-row"><span class="tv-cc-flag">🇬🇧 UK</span><span>Private, fee-paying, usually boarding, run by governors — the exact opposite of «public»! Examples: Eton, Harrow, Rugby.</span></div>
+        <div class="tv-cc-row"><span class="tv-cc-flag">🇺🇸 US</span><span>Free, government-funded, run by the state — the normal school every American child can attend.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION V-EX · VOCAB PRACTICE
+============================================================= -->
+<section class="section" id="block-vocab-ex">
+  <div class="section-hdr"><div class="section-num warm">V-EX</div><h2>Vocabulary practice · match + fill</h2></div>
+  <p class="section-sub">Two rounds. Round 1: match 12 definitions to their terms. Round 2: complete 10 sentences with the right vocab word.</p>
+  <div class="card">
+    <h3 style="margin-top:0">Round 1 · Definition → Term (12 items)</h3>
+    <p class="section-sub">Each dropdown lists all 12 terms in alphabetical order. Pick the one that fits.</p>
+    <div id="vex-match" class="match-grid"></div>
+    <div class="score-badge"><span>Round 1 score</span> <span id="vex-match-score">0</span> <span style="opacity:.6">/ 12</span></div>
+
+    <h3 style="margin-top:22px">Round 2 · Gap-fill (10 sentences)</h3>
+    <p class="section-sub">Type the missing vocab term. If two forms are valid («boarders» / «hostel-boarders»), either works.</p>
+    <div id="vex-fills"></div>
+    <div class="score-badge"><span>Round 2 score</span> <span id="vex-fills-score">0</span> <span style="opacity:.6">/ 10</span></div>
+  </div>
 </section>
 
 <!-- ============================================================
@@ -346,6 +437,18 @@ Maria's bottom-5 (red):
 · time-tested traditions
 
 Notice: this is just one opinion. In a real speaking task defend YOUR own choice with «because…» and «for example…».</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 1-EX · FEATURES PRACTICE
+============================================================= -->
+<section class="section" id="block-features-ex">
+  <div class="section-hdr"><div class="section-num">1-EX</div><h2>Features practice · gap-fill from the checklist</h2></div>
+  <p class="section-sub">Ten sentences describing a school. Type the missing feature from the checklist above.</p>
+  <div class="card">
+    <div id="fex-fills"></div>
+    <div class="score-badge"><span>Score</span> <span id="fex-fills-score">0</span> <span style="opacity:.6">/ 10</span></div>
   </div>
 </section>
 
@@ -400,6 +503,25 @@ Notice: this is just one opinion. In a real speaking task defend YOUR own choice
     <div class="q-row">
       <div class="q-h"><span class="q-n">Q3</span><span class="q-text">Which one advantage would convince YOU to become a teacher, and which one disadvantage would stop you?</span><button class="q-play" data-say="Which one advantage would convince you to become a teacher, and which one disadvantage would stop you?">🔊 Play</button></div>
     </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 2-EX · TEACHING PRACTICE
+============================================================= -->
+<section class="section" id="block-teaching-ex">
+  <div class="section-hdr"><div class="section-num">2-EX</div><h2>Teaching profession practice · advantage or disadvantage?</h2></div>
+  <p class="section-sub">Round 1: sort 10 statements into advantage / disadvantage. Round 2: fill 8 sentences with the missing verb or adjective from the two columns above.</p>
+  <div class="card">
+    <h3 style="margin-top:0">Round 1 · Sort 10 statements (advantage / disadvantage)</h3>
+    <p class="section-sub">For each statement, click «advantage» or «disadvantage». Wrong picks turn red; right picks turn green.</p>
+    <div id="tex-sort"></div>
+    <div class="score-badge"><span>Round 1 score</span> <span id="tex-sort-score">0</span> <span style="opacity:.6">/ 10</span></div>
+
+    <h3 style="margin-top:22px">Round 2 · Gap-fill (8 sentences)</h3>
+    <p class="section-sub">Type the missing word — verbs, adjectives and nouns pulled from both columns above.</p>
+    <div id="tex-fills"></div>
+    <div class="score-badge"><span>Round 2 score</span> <span id="tex-fills-score">0</span> <span style="opacity:.6">/ 8</span></div>
   </div>
 </section>
 
@@ -1300,13 +1422,248 @@ const Q29EDU = [
 ];
 renderGapRows('q29-edu-rows', Q29EDU, 'q29-edu-score');
 
+/* ============== SECTION V · FULL TOPICAL VOCABULARY (60+ terms in 6 tabs) ============== */
+const TV_VOCAB = {
+  'tv-types': [
+    {term:'primary education', ipa:'/ˈpraɪməri ˌedʒʊˈkeɪʃən/', ru:'начальное образование', ex:'Primary education in Britain lasts six years — from age five to eleven.'},
+    {term:'secondary education', ipa:'/ˈsekəndəri ˌedʒʊˈkeɪʃən/', ru:'среднее образование', ex:'Secondary education begins at eleven and finishes at sixteen or eighteen.'},
+    {term:'higher education', ipa:'/ˌhaɪə ˌedʒʊˈkeɪʃən/', ru:'высшее образование', ex:'She hopes to continue higher education at Oxford.'},
+    {term:'vocational education', ipa:'/vəʊˈkeɪʃənl ˌedʒʊˈkeɪʃən/', ru:'профессиональное образование', ex:'Vocational education prepares students for a specific trade.'},
+    {term:'compulsory education', ipa:'/kəmˈpʌlsəri ˌedʒʊˈkeɪʃən/', ru:'обязательное образование', ex:'In Russia, compulsory education lasts nine years by law.'},
+    {term:'school age', ipa:'/skuːl eɪdʒ/', ru:'школьный возраст', ex:'British children reach school age at five.'},
+    {term:'a school-leaver', ipa:'/ə ˈskuːl ˌliːvə/', ru:'выпускник школы', ex:'My older brother is a school-leaver — he finished the eleventh grade in June.'}
+  ],
+  'tv-attend': [
+    {term:'to go to school', ipa:'/tə ɡəʊ tə skuːl/', ru:'ходить в школу', ex:'Katya goes to school six days a week.'},
+    {term:'to be at school', ipa:'/tə bi ət skuːl/', ru:'быть в школе / учиться в школе', ex:'My sister is still at school; she\'s in the ninth grade.'},
+    {term:'to leave school', ipa:'/tə liːv skuːl/', ru:'окончить школу (перестать учиться)', ex:'Many teenagers leave school at sixteen to start work.'},
+    {term:'to finish school', ipa:'/tə ˈfɪnɪʃ skuːl/', ru:'закончить школу', ex:'She finished school with excellent marks last summer.'},
+    {term:'to attend school', ipa:'/tə əˈtend skuːl/', ru:'посещать школу (регулярно)', ex:'By law, every child must attend school until the age of sixteen.'}
+  ],
+  'tv-schools': [
+    {term:'nursery school (kindergarten)', ipa:'/ˈnɜːsəri skuːl/', ru:'детский сад / ясли', ex:'British children go to nursery school between the ages of 3 and 5.'},
+    {term:'infant school', ipa:'/ˈɪnfənt skuːl/', ru:'начальная младшая школа (5-7 лет)', ex:'At infant school teaching is very informal — a lot of songs and stories.'},
+    {term:'primary school', ipa:'/ˈpraɪməri skuːl/', ru:'начальная школа', ex:'Most primary schools now teach a foreign language.'},
+    {term:'secondary school', ipa:'/ˈsekəndəri skuːl/', ru:'средняя школа', ex:'At eleven, all pupils move to a secondary school.'},
+    {term:'comprehensive school', ipa:'/kɒmprɪˈhensɪv skuːl/', ru:'общеобразовательная (без отбора) школа', ex:'A comprehensive school accepts children of all abilities.'},
+    {term:'grammar school', ipa:'/ˈɡræmə skuːl/', ru:'академическая школа (с отбором по экзамену)', ex:'Only a few grammar schools still survive in modern Britain.'},
+    {term:'public school', ipa:'/ˈpʌblɪk skuːl/', ru:'частная престижная школа (British paradox!)', ex:'Eton and Harrow are the two most famous public schools.'},
+    {term:'independent school', ipa:'/ˌɪndɪˈpendənt skuːl/', ru:'независимая (частная) школа', ex:'Independent schools charge fees and are not run by the state.'},
+    {term:'private school', ipa:'/ˈpraɪvət skuːl/', ru:'частная школа', ex:'Only about seven per cent of British children attend a private school.'},
+    {term:'state school', ipa:'/steɪt skuːl/', ru:'государственная школа', ex:'The vast majority of British families choose a state school.'},
+    {term:'boarding school', ipa:'/ˈbɔːdɪŋ skuːl/', ru:'школа-пансион', ex:'At a boarding school pupils live from Monday to Friday, or all term long.'},
+    {term:'day school', ipa:'/deɪ skuːl/', ru:'школа без пансиона (учат только днём)', ex:'She goes to a day school and comes home for dinner.'},
+    {term:'co-educational (mixed) school', ipa:'/ˌkəʊ edʒʊˈkeɪʃənl skuːl/', ru:'смешанного типа (мальчики + девочки)', ex:'Most modern schools are co-educational.'},
+    {term:'special school', ipa:'/ˈspeʃəl skuːl/', ru:'школа для детей с особыми потребностями', ex:'The special school has trained staff for children with poor sight or hearing.'},
+    {term:'preparatory (prep) school', ipa:'/prɪˈpærətri skuːl/', ru:'подготовительная школа (для поступления в public school)', ex:'A preparatory school prepares boys of 8-13 for a public school.'},
+    {term:'a college of further education', ipa:'/ə ˈkɒlɪdʒ əv ˈfɜːðə ˌedʒʊˈkeɪʃən/', ru:'колледж дополнительного образования (после 16)', ex:'After sixteen, many teenagers move to a college of further education.'}
+  ],
+  'tv-exams': [
+    {term:'GCSE', ipa:'/ˌdʒiː siː es ˈiː/', ru:'аттестат об общем среднем образовании (16 лет)', ex:'At sixteen, British pupils take the GCSE exams in ten or more subjects.'},
+    {term:'A-Level', ipa:'/ˈeɪ levl/', ru:'экзамен продвинутого уровня (для поступления в вуз)', ex:'Good A-Level results are the main condition for entering a good university.'},
+    {term:'to take an exam', ipa:'/tə teɪk ən ɪɡˈzæm/', ru:'сдавать экзамен (участвовать)', ex:'She is going to take an exam in French next week.'},
+    {term:'to pass an exam', ipa:'/tə pɑːs ən ɪɡˈzæm/', ru:'сдать экзамен (успешно)', ex:'He passed all his exams with flying colours.'},
+    {term:'to sit for an exam', ipa:'/tə sɪt fər ən ɪɡˈzæm/', ru:'проходить экзамен (садиться за него)', ex:'Fifteen candidates sat for the exam in the assembly hall.'},
+    {term:'to fail an exam', ipa:'/tə feɪl ən ɪɡˈzæm/', ru:'провалить экзамен', ex:'If you fail the exam, you can retake it in August.'},
+    {term:'to enter an examination', ipa:'/tə ˈentə ən ɪɡˌzæmɪˈneɪʃən/', ru:'записаться на экзамен', ex:'You have to enter the examination by the first of March.'}
+  ],
+  'tv-life': [
+    {term:'form', ipa:'/fɔːm/', ru:'класс (в британской школе)', ex:'She is in the fifth form.'},
+    {term:'year', ipa:'/jɪə/', ru:'год обучения (year 7, year 8...)', ex:'Peter has just started year eight.'},
+    {term:'term', ipa:'/tɜːm/', ru:'учебная четверть (триместр)', ex:'The autumn term runs from September to December.'},
+    {term:'school year', ipa:'/skuːl jɪə/', ru:'учебный год', ex:'The school year in England begins in September.'},
+    {term:'school holidays', ipa:'/skuːl ˈhɒlədeɪz/', ru:'школьные каникулы', ex:'The summer school holidays last six weeks.'},
+    {term:'to break up (for holidays)', ipa:'/tə breɪk ʌp/', ru:'уйти на каникулы', ex:'We break up on the twentieth of December.'},
+    {term:'regular classes', ipa:'/ˈreɡjələ ˈklɑːsɪz/', ru:'обычные (плановые) занятия', ex:'Regular classes finish at three o\'clock every day.'},
+    {term:'advanced classes', ipa:'/ədˈvɑːnst ˈklɑːsɪz/', ru:'занятия углублённого уровня', ex:'Katya takes advanced classes in English and maths.'},
+    {term:'weekdays / weekends', ipa:'/ˈwiːkdeɪz / ˈwiːkˌendz/', ru:'будни / выходные', ex:'On weekdays school starts at nine; on weekends we have no lessons.'},
+    {term:'lesson / a period', ipa:'/ˈlesən / ə ˈpɪəriəd/', ru:'урок / академический час', ex:'Each period lasts forty minutes at Hampton School.'},
+    {term:'school day', ipa:'/skuːl deɪ/', ru:'учебный день', ex:'A typical school day starts at 8.45 and ends at 3.45.'},
+    {term:'a form tutor', ipa:'/ə fɔːm ˈtjuːtə/', ru:'классный руководитель', ex:'The form tutor follows the same pupils for two or three years.'},
+    {term:'to take a class', ipa:'/tə teɪk ə klɑːs/', ru:'вести урок / посещать урок', ex:'Mr Green takes our class in geography.'},
+    {term:'to skip / cut a class', ipa:'/tə skɪp ə klɑːs/', ru:'прогулять урок', ex:'It\'s dangerous to skip a class before an important test.'},
+    {term:'a class register', ipa:'/ə klɑːs ˈredʒɪstə/', ru:'классный журнал (перекличка)', ex:'The teacher checks the class register every morning.'},
+    {term:'a mark', ipa:'/ə mɑːk/', ru:'отметка, оценка', ex:'She got the top mark in the whole class.'},
+    {term:'a school report', ipa:'/ə skuːl rɪˈpɔːt/', ru:'табель / характеристика по итогам года', ex:'The school report goes home to the parents at the end of each term.'},
+    {term:'curriculum', ipa:'/kəˈrɪkjələm/', ru:'учебная программа', ex:'The National Curriculum is the same for every state school.'},
+    {term:'core subject', ipa:'/kɔː ˈsʌbdʒɪkt/', ru:'основной (обязательный) предмет', ex:'Mathematics is a core subject at every stage.'},
+    {term:'options', ipa:'/ˈɒpʃənz/', ru:'предметы по выбору', ex:'Russian and Latin are available as options from year three.'},
+    {term:'extra-curricular', ipa:'/ˌekstrə kəˈrɪkjələ/', ru:'внеклассный, помимо основной программы', ex:'The school offers many extra-curricular activities: drama, chess, choir.'},
+    {term:'catchment area', ipa:'/ˈkætʃmənt eəriə/', ru:'район, из которого школа принимает детей', ex:'Comprehensive schools take children from the local catchment area.'}
+  ],
+  'tv-rooms': [
+    {term:'headmaster / headmistress', ipa:'/ˌhedˈmɑːstə / ˌhedˈmɪstrəs/', ru:'директор / директриса школы', ex:'The headmaster gives a short speech every Monday morning.'},
+    {term:'staff', ipa:'/stɑːf/', ru:'коллектив, штат сотрудников', ex:'Our school has a friendly and highly qualified staff.'},
+    {term:'staff room', ipa:'/stɑːf ruːm/', ru:'учительская', ex:'The teachers drink tea in the staff room between lessons.'},
+    {term:'classroom', ipa:'/ˈklɑːsruːm/', ru:'классная комната', ex:'Our classroom has an interactive board and thirty desks.'},
+    {term:'assembly hall', ipa:'/əˈsembli hɔːl/', ru:'актовый зал', ex:'The whole school meets in the assembly hall every Friday.'},
+    {term:'chemistry room', ipa:'/ˈkemɪstri ruːm/', ru:'кабинет химии', ex:'The chemistry room is on the second floor.'},
+    {term:'physics laboratory', ipa:'/ˈfɪzɪks ləˈbɒrətri/', ru:'кабинет / лаборатория физики', ex:'Do not eat or drink in the physics laboratory.'},
+    {term:'language classroom', ipa:'/ˈlæŋɡwɪdʒ ˈklɑːsruːm/', ru:'кабинет иностранных языков', ex:'The language classroom has headphones for every student.'},
+    {term:'history room', ipa:'/ˈhɪstəri ruːm/', ru:'кабинет истории', ex:'The history room is decorated with maps and old portraits.'},
+    {term:'geography room', ipa:'/dʒiˈɒɡrəfi ruːm/', ru:'кабинет географии', ex:'There is a huge globe in the geography room.'},
+    {term:'a music room', ipa:'/ə ˈmjuːzɪk ruːm/', ru:'кабинет музыки', ex:'The music room has a real piano and dozens of guitars.'},
+    {term:'the Headmaster\'s office', ipa:'/ðə ˈhedmɑːstəz ˈɒfɪs/', ru:'кабинет директора', ex:'Nobody wants to be sent to the Headmaster\'s office.'}
+  ]
+};
+
+(function renderTV(){
+  Object.keys(TV_VOCAB).forEach(key => {
+    const panel = document.getElementById(key);
+    if (!panel) return;
+    const grid = key === 'tv-rooms' ? document.getElementById('tv-rooms-grid') : panel.querySelector('.tv-grid');
+    if (!grid) return;
+    TV_VOCAB[key].forEach(it => {
+      const div = document.createElement('div');
+      div.className = 'tv-item';
+      const ipa = it.ipa ? `<div class="tv-ipa">${it.ipa}</div>` : '';
+      div.innerHTML = `<div class="tv-term">${it.term}</div>${ipa}<div class="tv-ru">${it.ru}</div><div class="tv-ex">${it.ex}</div>`;
+      grid.appendChild(div);
+    });
+  });
+  document.querySelectorAll('.tv-tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-tv-tab');
+      document.querySelectorAll('.tv-tab-btn').forEach(b => b.classList.toggle('active', b === btn));
+      document.querySelectorAll('.tv-panel').forEach(p => p.classList.toggle('active', p.id === target));
+    });
+  });
+})();
+
+/* ============== SECTION V-EX · MATCH (12) + FILL (10) ============== */
+const VEX_MATCH = [
+  {def:'a school for children from about 3 to 5 years old',                              answer:'nursery school'},
+  {def:'a British school for very young children aged 5-7',                              answer:'infant school'},
+  {def:'a school system that accepts children of all abilities',                         answer:'comprehensive school'},
+  {def:'in Britain, a private fee-paying boarding school (Eton, Harrow)',                answer:'public school'},
+  {def:'a school where boys and girls study together',                                   answer:'co-educational school'},
+  {def:'the local area from which a school must accept children',                        answer:'catchment area'},
+  {def:'the final two years of British secondary school, ages 16-18',                    answer:'sixth form'},
+  {def:'the main exam British students take at the age of 16',                           answer:'GCSE'},
+  {def:'a subject that every student in the school MUST study',                          answer:'core subject'},
+  {def:'a subject you choose in addition to the core ones',                              answer:'option'},
+  {def:'the teacher responsible for the pupils in one class',                            answer:'form tutor'},
+  {def:'the head of a school',                                                           answer:'headmaster / headmistress'}
+];
+(function renderVexMatch(){
+  const container = document.getElementById('vex-match');
+  const scoreEl = document.getElementById('vex-match-score');
+  const allTerms = VEX_MATCH.map(x => x.answer).slice().sort((a,b) => a.localeCompare(b));
+  const state = new Array(VEX_MATCH.length).fill(null);
+  VEX_MATCH.forEach((it, i) => {
+    const defDiv = document.createElement('div');
+    defDiv.className = 'm-def';
+    defDiv.innerHTML = `<strong>${i+1}.</strong> ${it.def}`;
+    const sel = document.createElement('select');
+    sel.className = 'm-sel';
+    sel.dataset.correct = it.answer;
+    sel.innerHTML = `<option value="">— pick —</option>` + allTerms.map(t => `<option>${t}</option>`).join('');
+    sel.addEventListener('change', () => {
+      const val = sel.value;
+      sel.classList.remove('right','wrong');
+      if (!val) { state[i] = null; }
+      else if (val === it.answer) { state[i] = true; sel.classList.add('right'); }
+      else { state[i] = false; sel.classList.add('wrong'); }
+      const s = state.filter(x => x === true).length;
+      scoreEl.textContent = s;
+    });
+    container.appendChild(defDiv);
+    container.appendChild(sel);
+  });
+})();
+
+const VEX_FILLS = [
+  {ctx:'In Russia, ______ education lasts nine years — it\'s the minimum by law.',                                hint:'adjective',   answer:'compulsory'},
+  {ctx:'British children start ______ school at the age of five.',                                                hint:'adjective',   answer:'primary'},
+  {ctx:'Katya\'s older brother is a ______ — he finished the 11th grade in June.',                                hint:'noun',        answer:'school-leaver'},
+  {ctx:'The ______ area of our school covers three nearby streets.',                                              hint:'noun',        answer:'catchment'},
+  {ctx:'At Hampton School, Latin is an ______ , not a core subject.',                                             hint:'noun',        answer:'option'},
+  {ctx:'If you want to sit for the GCSE, you first have to ______ for the examination.',                          hint:'verb',        answer:'enter'},
+  {ctx:'Our ______ tutor is Mrs Ivanova; she checks the register every morning.',                                 hint:'noun',        answer:'form'},
+  {ctx:'In the USA, high schools are usually free because they are ______-funded.',                               hint:'adj',         answer:'government/state'},
+  {ctx:'To be a ______ means you live at your school during the term.',                                           hint:'noun',        answer:'boarder'},
+  {ctx:'Between June and August British schools ______ up for the summer.',                                       hint:'verb',        answer:'break'}
+];
+renderGapRows('vex-fills', VEX_FILLS, 'vex-fills-score');
+
+/* ============== SECTION 1-EX · FEATURES PRACTICE · 10 GAPS ============== */
+const FEX_FILLS = [
+  {ctx:'Our school has an excellent ______ — Olympic-size, indoor, heated.',                                             hint:'2 words', answer:'swimming pool'},
+  {ctx:'Every Wednesday afternoon, small groups meet with a specialist for ______ .',                                    hint:'2 words', answer:'career counselling'},
+  {ctx:'The ______ picks up children from three neighbouring villages twice a day.',                                     hint:'3 words', answer:'school bus service'},
+  {ctx:'When students feel anxious about exams, they can go to the ______ office.',                                      hint:'2 words', answer:'psychological help'},
+  {ctx:'Our ______ have been running for over a hundred years — assemblies, house days, sports colours.',                hint:'3 words', answer:'time-tested traditions'},
+  {ctx:'The ______ prepares 400 hot lunches a day.',                                                                     hint:'1 word',  answer:'canteen'},
+  {ctx:'All the classrooms are equipped with ______ — projectors, laptops, interactive boards.',                         hint:'3 words', answer:'up-to-date equipment'},
+  {ctx:'The new ______ has three floors, ten thousand books and a quiet study zone.',                                    hint:'2 words', answer:'good library'},
+  {ctx:'Our ______ meet every Friday to plan curriculum changes and discuss student progress.',                          hint:'2 words', answer:'caring teachers/staff'},
+  {ctx:'The ______ has organised the school for 12 years — he knows every pupil by name.',                               hint:'4 words', answer:'clever and efficient headmaster'}
+];
+renderGapRows('fex-fills', FEX_FILLS, 'fex-fills-score');
+
+/* ============== SECTION 2-EX · TEACHING · SORT (10) + FILL (8) ============== */
+const TEX_SORT = [
+  {txt:'Serious qualifications are needed to become a teacher.',                     kind:'neg'},
+  {txt:'You can work in a state school or a private school.',                        kind:'pos'},
+  {txt:'The job is often exhausting, tiring and monotonous.',                        kind:'neg'},
+  {txt:'The work is creative, challenging and fulfilling.',                          kind:'pos'},
+  {txt:'Teachers are often underpaid.',                                              kind:'neg'},
+  {txt:'You share your knowledge every day.',                                        kind:'pos'},
+  {txt:'You have to keep studying further, all the time.',                           kind:'neg'},
+  {txt:'There is a real opportunity for promotion.',                                 kind:'pos'},
+  {txt:'You must use modern technologies and update them constantly.',               kind:'neg'},
+  {txt:'Teaching is still considered a prestigious profession.',                     kind:'pos'}
+];
+(function renderTexSort(){
+  const container = document.getElementById('tex-sort');
+  const scoreEl = document.getElementById('tex-sort-score');
+  const state = new Array(TEX_SORT.length).fill(null);
+  TEX_SORT.forEach((it, i) => {
+    const row = document.createElement('div');
+    row.className = 'sort-row';
+    row.innerHTML = `
+      <div class="s-txt"><strong>${i+1}.</strong> ${it.txt}</div>
+      <div class="s-btns">
+        <button class="s-btn pos" data-k="pos">+ Advantage</button>
+        <button class="s-btn neg" data-k="neg">– Disadvantage</button>
+      </div>`;
+    row.querySelectorAll('.s-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (state[i] === true || state[i] === false) return;
+        const k = btn.dataset.k;
+        if (k === it.kind) { state[i] = true; btn.classList.add('right'); }
+        else { state[i] = false; btn.classList.add('wrong');
+               row.querySelector(`.s-btn[data-k="${it.kind}"]`).classList.add('right'); }
+        const s = state.filter(x => x === true).length;
+        scoreEl.textContent = s;
+      });
+    });
+    container.appendChild(row);
+  });
+})();
+
+const TEX_FILLS = [
+  {ctx:'Teaching is often called a ______ profession because it shapes the next generation.',                    hint:'adjective',  answer:'prestigious/rewarding'},
+  {ctx:'Young teachers can be ______ by long hours and hundreds of essays to mark.',                             hint:'adjective',  answer:'exhausted/exhausting'},
+  {ctx:'Unfortunately, in many countries teachers are ______ compared with engineers.',                          hint:'adjective',  answer:'underpaid'},
+  {ctx:'To keep up with new methods, teachers have to keep ______ further, all through their career.',           hint:'-ing verb',  answer:'studying'},
+  {ctx:'Every good teacher shares their ______ every single day.',                                               hint:'noun',       answer:'knowledge'},
+  {ctx:'The work is not only exhausting — it is deeply ______ when a student finally understands.',              hint:'adjective',  answer:'rewarding/fulfilling'},
+  {ctx:'Modern teachers must ______ modern technologies — projectors, tablets, learning platforms.',             hint:'verb',       answer:'use'},
+  {ctx:'In some contexts, teaching without much experience can even be ______ .',                                hint:'adjective',  answer:'dangerous'}
+];
+renderGapRows('tex-fills', TEX_FILLS, 'tex-fills-score');
+
 /* ============== DOTS · progress in-page ============== */
 const SECTIONS = [
   ['block-warmup', 'Warm-up'],
   ['block-0b', 'Phrases'],
   ['block-vocab', 'Vocab'],
+  ['block-vocab-ex', 'Vocab practice'],
   ['block-features', 'Features'],
+  ['block-features-ex', 'Features practice'],
   ['block-teaching', 'Teaching'],
+  ['block-teaching-ex', 'Teaching practice'],
   ['block-story', 'Story'],
   ['block-hand', 'Hand'],
   ['block-subj', 'Subjunctive'],
