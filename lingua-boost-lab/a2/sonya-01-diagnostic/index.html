@@ -496,6 +496,31 @@ html{scroll-behavior:smooth}
 
 .foot{width:var(--w);margin:28px auto 0;text-align:center;font-family:var(--ui);font-size:.72rem;color:var(--muted);letter-spacing:.08em;line-height:1.7;text-transform:uppercase}
 .foot b{color:var(--turq-dark);font-family:var(--display);font-weight:800;letter-spacing:.04em}
+
+/* ═══ PER-DRILL CHECK & KEYS ═══ */
+.drill-actions{display:flex;align-items:center;gap:10px;margin:12px 0 22px;flex-wrap:wrap}
+.drill-btn{padding:8px 16px;border:1.5px solid var(--turq);background:#fff;color:var(--turq-dark);border-radius:6px;font-family:var(--ui);font-size:.78rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:.15s}
+.drill-btn:hover{background:var(--turq);color:#fff}
+.drill-btn.keys{border-color:var(--coral);color:var(--coral-dark)}
+.drill-btn.keys:hover{background:var(--coral);color:#fff}
+.drill-btn:disabled{opacity:.55;cursor:default;background:transparent !important;color:var(--muted) !important;border-color:var(--line-2) !important}
+.drill-score{font-family:var(--display);font-size:1rem;font-weight:800;color:var(--muted);letter-spacing:.02em;margin-left:6px}
+.drill-score.ok{color:var(--ok)}
+.drill-score.miss{color:var(--miss)}
+
+/* ═══ SPEECH COACH · lift contrast + push down ═══ */
+.lab-coach-section, #lab-speech-coach, section:has(> .lab-coach-section), section:has(> #lab-speech-coach){
+  margin-top: 38px !important;
+}
+.lab-coach-section, #lab-speech-coach{
+  color: var(--ink) !important;
+}
+.lab-coach-section h2, .lab-coach-section h3, .lab-coach-section h4,
+#lab-speech-coach h2, #lab-speech-coach h3, #lab-speech-coach h4{color: var(--ink) !important; font-weight:800 !important}
+.lab-coach-section p, .lab-coach-section li, .lab-coach-section span, .lab-coach-section label,
+#lab-speech-coach p, #lab-speech-coach li, #lab-speech-coach span, #lab-speech-coach label{color: var(--ink-2) !important}
+.lab-coach-section .muted, .lab-coach-section .hint,
+#lab-speech-coach .muted, #lab-speech-coach .hint{color: var(--muted) !important}
 </style>
 </head>
 <body>
@@ -1239,6 +1264,114 @@ document.querySelectorAll('.speak').forEach(box=>{
   };
   box.querySelector('[data-reset]').onclick=reset;
   render();
+});
+
+/* ═══ AUTO-INJECT PER-DRILL CHECK & KEYS ═══ */
+document.querySelectorAll('[data-drill]').forEach(d=>{
+  const wrap=document.createElement('div');
+  wrap.className='drill-actions';
+  const hasInputs = d.classList.contains('gap-list')||d.classList.contains('dd-list')||d.classList.contains('tfill')||d.classList.contains('cloze');
+  const isSort = d.classList.contains('sort');
+  let checkBtn=null;
+  if(hasInputs){
+    checkBtn=document.createElement('button');
+    checkBtn.className='drill-btn';
+    checkBtn.textContent='Check ✓';
+    wrap.appendChild(checkBtn);
+  }
+  const keysBtn=document.createElement('button');
+  keysBtn.className='drill-btn keys';
+  keysBtn.textContent='Show keys';
+  wrap.appendChild(keysBtn);
+  const score=document.createElement('span');
+  score.className='drill-score';
+  wrap.appendChild(score);
+
+  // insert AFTER the drill container (or its wrapping .sort for sort-type)
+  d.parentNode.insertBefore(wrap, d.nextSibling);
+
+  if(checkBtn){
+    checkBtn.onclick=()=>{
+      let r={ok:0,total:0};
+      if(d.classList.contains('gap-list')) r=checkGap(d);
+      else if(d.classList.contains('dd-list')) r=checkDd(d);
+      else if(d.classList.contains('tfill')) r=checkTable(d);
+      else if(d.classList.contains('cloze')) r=checkCloze(d);
+      score.textContent=r.ok+' / '+r.total;
+      score.classList.toggle('ok', r.total>0 && r.ok===r.total);
+      score.classList.toggle('miss', r.total>0 && r.ok<r.total);
+    };
+  }
+  keysBtn.onclick=()=>{
+    if(d.classList.contains('gap-list')){
+      d.querySelectorAll('.gap').forEach(g=>{
+        const a=g.dataset.a.split('|')[0];
+        const inp=g.querySelector('.gap-inp');
+        inp.value=a; inp.classList.remove('wrong'); inp.classList.add('correct');
+      });
+    } else if(d.classList.contains('dd-list')){
+      d.querySelectorAll('.dd').forEach(dd=>{
+        const a=dd.dataset.a.split('|')[0].toLowerCase();
+        const sel=dd.querySelector('.dd-sel');
+        Array.from(sel.options).forEach(o=>{if((o.value||o.text).trim().toLowerCase()===a) sel.value=o.value||o.text;});
+        sel.classList.remove('wrong'); sel.classList.add('correct');
+      });
+    } else if(d.classList.contains('tfill')){
+      d.querySelectorAll('td[data-a]').forEach(td=>{
+        const a=td.dataset.a.split('|')[0];
+        const inp=td.querySelector('input');
+        inp.value=a; inp.classList.remove('wrong'); inp.classList.add('correct');
+      });
+    } else if(d.classList.contains('cloze')){
+      d.querySelectorAll('.cz').forEach(cz=>{
+        const a=cz.dataset.a.trim().toLowerCase();
+        const sel=cz.querySelector('select');
+        Array.from(sel.options).forEach(o=>{if((o.value||o.text).trim().toLowerCase()===a) sel.value=o.value||o.text;});
+        sel.classList.remove('wrong'); sel.classList.add('correct');
+      });
+    } else if(d.classList.contains('mist-list')){
+      d.querySelectorAll('.mist').forEach(m=>{
+        if(m.classList.contains('revealed')) return;
+        const target=m.dataset.w.toLowerCase();
+        m.querySelectorAll('.mist-w').forEach(x=>{if(x.textContent.trim().toLowerCase()===target) x.classList.add('picked-ok');});
+        m.classList.add('revealed');
+      });
+    } else if(d.classList.contains('match')){
+      const left=d.querySelectorAll('.match-col:first-child .match-card');
+      left.forEach(l=>{
+        const k=l.dataset.k;
+        const rc=d.querySelector('.match-col:nth-child(2) .match-card[data-k="'+k+'"]');
+        if(rc){ l.classList.add('done'); rc.classList.add('done'); l.style.pointerEvents='none'; if(d.dataset.drill!=='12') rc.style.pointerEvents='none'; }
+      });
+    } else if(d.classList.contains('sit-list')){
+      d.querySelectorAll('.sit').forEach(row=>{
+        if(row.classList.contains('revealed')) return;
+        const a=row.dataset.a.trim().toLowerCase();
+        row.querySelectorAll('.sit-opt').forEach(btn=>{btn.disabled=true; if(btn.textContent.trim().toLowerCase()===a) btn.classList.add('correct');});
+        row.classList.add('revealed');
+      });
+    } else if(d.classList.contains('tf-list')){
+      d.querySelectorAll('.tf').forEach(row=>{
+        if(row.dataset.done) return;
+        const c=row.dataset.a;
+        row.querySelectorAll('.tf-btn').forEach(b=>{if(b.dataset.v===c) b.classList.add('correct');});
+        row.dataset.done='1';
+      });
+    } else if(isSort){
+      const answer=d.dataset.answer;
+      const bank=d.querySelector('.sort-bank');
+      const slots=d.querySelector('[data-slots]');
+      slots.innerHTML=''; bank.innerHTML='';
+      answer.split(' ').forEach(w=>{
+        const c=document.createElement('span');
+        c.className='sort-chip done'; c.textContent=w; c.dataset.w=w;
+        slots.appendChild(c);
+      });
+      const r=d.querySelector('.sort-result');
+      r.textContent='✓ correct'; r.className='sort-result ok';
+    }
+    keysBtn.disabled=true; keysBtn.textContent='Keys shown';
+  };
 });
 
 /* ═══ CHECK ALL ═══ */
