@@ -504,9 +504,19 @@ html{scroll-behavior:smooth}
 .drill-btn.keys{border-color:var(--coral);color:var(--coral-dark)}
 .drill-btn.keys:hover{background:var(--coral);color:#fff}
 .drill-btn:disabled{opacity:.55;cursor:default;background:transparent !important;color:var(--muted) !important;border-color:var(--line-2) !important}
+.drill-btn .drill-btn-icon{display:none}
 .drill-score{font-family:var(--display);font-size:1rem;font-weight:800;color:var(--muted);letter-spacing:.02em;margin-left:6px}
 .drill-score.ok{color:var(--ok)}
 .drill-score.miss{color:var(--miss)}
+
+/* Mobile: shrink buttons to icons + compact score */
+@media(max-width: 620px){
+  .drill-actions{gap:6px;margin:8px 0 16px}
+  .drill-btn{padding:5px 9px;font-size:.9rem;border-width:1px;letter-spacing:0;line-height:1;min-width:32px}
+  .drill-btn .drill-btn-label{display:none}
+  .drill-btn .drill-btn-icon{display:inline}
+  .drill-score{font-size:.85rem;margin-left:2px}
+}
 
 /* ═══ SPEECH COACH · lift contrast + push down ═══ */
 .lab-coach-section, #lab-speech-coach, section:has(> .lab-coach-section), section:has(> #lab-speech-coach){
@@ -1276,12 +1286,14 @@ document.querySelectorAll('[data-drill]').forEach(d=>{
   if(hasInputs){
     checkBtn=document.createElement('button');
     checkBtn.className='drill-btn';
-    checkBtn.textContent='Check ✓';
+    checkBtn.innerHTML='<span class="drill-btn-label">Check ✓</span><span class="drill-btn-icon" aria-label="Check">✓</span>';
+    checkBtn.setAttribute('aria-label','Check');
     wrap.appendChild(checkBtn);
   }
   const keysBtn=document.createElement('button');
   keysBtn.className='drill-btn keys';
-  keysBtn.textContent='Show keys';
+  keysBtn.innerHTML='<span class="drill-btn-label">Show keys</span><span class="drill-btn-icon" aria-label="Show keys">🔑</span>';
+  keysBtn.setAttribute('aria-label','Show keys');
   wrap.appendChild(keysBtn);
   const score=document.createElement('span');
   score.className='drill-score';
@@ -1370,7 +1382,8 @@ document.querySelectorAll('[data-drill]').forEach(d=>{
       const r=d.querySelector('.sort-result');
       r.textContent='✓ correct'; r.className='sort-result ok';
     }
-    keysBtn.disabled=true; keysBtn.textContent='Keys shown';
+    keysBtn.disabled=true;
+    keysBtn.innerHTML='<span class="drill-btn-label">Keys shown</span><span class="drill-btn-icon" aria-label="Keys shown">✓</span>';
   };
 });
 
