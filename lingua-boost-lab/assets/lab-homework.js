@@ -1,9 +1,9 @@
 /* lab-homework.js v48 · 2026-07-15 — БАГ FIX section-0 toggle: sync click-time (line 563) и initial-time (line 730) селекторов с decorate-time (line 553). Раньше эти два были ЁЖе — sections не в узком списке получали `sectionIndex=-1+1=0`, все становились 'section-0' → клики toggle-ли друг друга (только 2 из 12 сохранялись на 14 Grammar Arcade). Теперь indexOf работает на полном списке — уникальные id.
-   v47 · 2026-07-15 — расширен decorateSections: section.booster-map, section.booster-report (09 English Booster), section.canon-l-why (10/13/14/15), section.rules-table (14 Grammar Arcade) — единый регламент «📚 всю секцию в домашку» на КАЖДОЙ секции урока.
+   v47 · 2026-07-15 — расширен decorateSections: section.booster-map, section.booster-report (09 English Booster), section.canon-l-why (10/13/14/15), section.rules-table (14 Grammar Arcade) — единый регламент «📚 whole section to homework» на КАЖДОЙ секции урока.
    v46 · 2026-07-15 — добавлен section.card (Ancient China Explorer): section.card, section.canon-l-card.
    v45 · 2026-07-15 — расширен decorateSections: добавлены canon-l-card, wl-chapter, wl-finale, wl-comic, intro-reading, booster-part, vocab-panel, now-result-zone, time-sort-bank/box, passport-finale — полный охват всех типов секций.
    v44 · 2026-07-15 — расширен decorateSections: добавлены section[class*="mission"] (speak-mission/world-mission/school-mission/arcade-mission/booster-mission/passport-mission и др.) и section.grammar-map — покрыты все пропущенные content-секции.
-   v43 · 2026-07-15 — кнопка «в домашку» ТОЛЬКО на уровне секции/блока (убраны addBtn вызовы на микро-элементах: .mcq-row/.gap/.wf-row и т.д.). Один «📚 всю секцию в домашку» на блок, без + на каждой фразе.
+   v43 · 2026-07-15 — кнопка «в домашку» ТОЛЬКО на уровне секции/блока (убраны addBtn вызовы на микро-элементах: .mcq-row/.gap/.wf-row и т.д.). Один «📚 whole section to homework» на блок, без + на каждой фразе.
    v42 2026-07-12 · one-store migration lab-vocab → lab-hw.
    v37 · 2026-07-07 — раскрытие data-back для vocab-card в клоне.
    v37: клон .vocab-card теперь тоже проявляет data-back атрибут — если у карточки
@@ -13,7 +13,7 @@
    v36: inline styles background/color стираются на клоне.
    Иначе тёмные inline-фоны с урока (hero, темные секции) уезжали в .raw и создавали
    пустые тёмные прямоугольники поверх кремовой палитры домашки.
-   v35 · 2026-07-07 — «Положить в домашку» + event-sourced cloud + чистый клон блока.
+   v35 · 2026-07-07 — «Add to homework» + event-sourced cloud + чистый клон блока.
    v35: расширен фильтр удаления при клонировании секции — теперь режем:
         .section-hdr, .section-head, .lp-submit, .lp-fab, .lp-toc, .lab-hw-fab,
         .lab-hw-top-entry, .lab-hw-overlay, .lab-hw-modal, script, style, link.
@@ -128,7 +128,7 @@
         // .homework/ на другом устройстве видит пусто.
         // Теперь fallback на solo-<random> из localStorage (тот же ID что
         // roomFor() генерирует). Ученик до ввода имени всё равно попадает в
-        // облако как отдельный анонимный room; когда введёт имя, следующая
+        // облако как отдельный anonymousный room; когда введёт имя, следующая
         // запись пойдёт под 'homework:<name>' — учитель получит две линии,
         // но обе увидит.
         var name = getName();
@@ -486,7 +486,7 @@
 
   function rawHomeworkItem(host, kind){
     var item = describe(host, kind);
-    var title = txt(host.querySelector('h3, h4, .mcq-q, .mc-q, .tf-q, .predict-q, .prompt-text, .line-q, .quiz-q, .stmt, .vocab-word, .word, .term, .front, .vocab-front')) || item.question || item.section_title || 'Задание';
+    var title = txt(host.querySelector('h3, h4, .mcq-q, .mc-q, .tf-q, .predict-q, .prompt-text, .line-q, .quiz-q, .stmt, .vocab-word, .word, .term, .front, .vocab-front')) || item.question || item.section_title || 'Task';
     title = (title || '').replace(/\s*\+\s*$/, '').trim();
     item.kind = 'raw-block';
     item.question = short(title, 180);
@@ -506,7 +506,7 @@
     b.type = 'button';
     b.className = 'lab-hw-add';
     b.textContent = '+';
-    b.title = 'Положить в домашку';
+    b.title = 'Add to homework';
     b.addEventListener('mousedown', function(e){ e.preventDefault(); e.stopPropagation(); }, true);
     b.addEventListener('click', function(e){
       e.preventDefault();
@@ -522,12 +522,12 @@
         arr.splice(dupIdx, 1);
         b.classList.remove('added');
         b.textContent = '+';
-        toast('Убрала из домашки');
+        toast('Removed from homework');
       } else {
         arr.push(item);
         b.classList.add('added');
         b.textContent = '✓';
-        toast('Добавила в домашку · ' + arr.length);
+        toast('Added to homework · ' + arr.length);
       }
       saveHw(arr);
       refreshFabCount();
@@ -558,7 +558,7 @@
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'lab-hw-section-btn';
-      btn.innerHTML = '📚 всю секцию в домашку';
+      btn.innerHTML = '📚 whole section to homework';
       btn.addEventListener('click', function(e){
         e.preventDefault();
         e.stopPropagation();
@@ -648,11 +648,11 @@
         if (blockIdx >= 0) {
           blockArr.splice(blockIdx, 1);
           btn.classList.remove('added');
-          toast('Убрала блок из домашки');
+          toast('Removed block from homework');
         } else {
           blockArr.push(blockItem);
           btn.classList.add('added');
-          toast('Блок добавлен в домашку');
+          toast('Block added to homework');
         }
         saveHw(blockArr);
         refreshFabCount();
@@ -672,8 +672,8 @@
             ts: Date.now()
           };
           var dupRaw = arrRaw.some(function(x){ return x.section_id === rawItem.section_id && x.kind === 'raw-block'; });
-          if (!dupRaw) { arrRaw.push(rawItem); saveHw(arrRaw); refreshFabCount(); toast('📦 секция целиком — в домашку'); }
-          else { toast('Этот блок уже в домашке'); }
+          if (!dupRaw) { arrRaw.push(rawItem); saveHw(arrRaw); refreshFabCount(); toast('📦 whole section → homework'); }
+          else { toast('This block is already in homework'); }
           return;
         }
         var arr = loadHw();
@@ -705,7 +705,7 @@
           var b = host.querySelector('.lab-hw-add');
           if (b) { b.classList.add('added'); b.textContent = '✓'; }
         });
-        toast('📚 ' + added + ' заданий из секции — в домашку');
+        toast('📚 ' + added + ' section tasks → homework');
         // BROADCAST ученику — двусторонняя секция
         try {
           var freshItems = [];
@@ -777,7 +777,7 @@
     fabEl.className = 'lab-hw-fab empty is-top-tab-proxy';
     fabEl.innerHTML =
       '<button type="button" class="lab-hw-fab-btn">'+
-        '<span>📚 Моя домашка</span><span class="n">0</span>'+
+        '<span>📚 My Homework</span><span class="n">0</span>'+
       '</button>';
     document.body.appendChild(fabEl);
     fabEl.querySelector('button').addEventListener('click', openHomeworkPage);
@@ -806,7 +806,7 @@
       topEntryEl.className = 'ltab lab-hw-top-tab';
       topEntryEl.setAttribute('data-tab', 'homework');
       topEntryEl.setAttribute('data-lab-homework-top', '');
-      topEntryEl.innerHTML = '📚 Моя домашка <span class="ltab-count n">0</span>';
+      topEntryEl.innerHTML = '📚 My Homework <span class="ltab-count n">0</span>';
       topEntryEl.addEventListener('click', function(e){
         e.preventDefault();
         openHomeworkPage();
@@ -818,7 +818,7 @@
     topEntryEl.className = 'lab-hw-top-entry empty';
     topEntryEl.innerHTML =
       '<button type="button" class="lab-hw-top-entry-btn" data-lab-homework-top>'+
-        '<span>📚 Моя домашка</span><span class="n">0</span>'+
+        '<span>📚 My Homework</span><span class="n">0</span>'+
       '</button>';
     document.body.appendChild(topEntryEl);
     topEntryEl.querySelector('button').addEventListener('click', openHomeworkPage);
@@ -835,7 +835,7 @@
   }
 
   function kindLabel(k){
-    return ({mcq:'Тест',tfns:'True / False / NS',gap:'Пропуск',wf:'Word formation',match:'Match',builder:'Sentence',mic:'Speaking',writing:'Writing',vocab:'Слово'}[k] || k);
+    return ({mcq:'Quiz',tfns:'True / False / NS',gap:'Skipped',wf:'Word formation',match:'Match',builder:'Sentence',mic:'Speaking',writing:'Writing',vocab:'Word'}[k] || k);
   }
 
   function renderList(){
@@ -844,7 +844,7 @@
     var sendBtn = overlayEl.querySelector('.lab-hw-send');
     var clearBtn = overlayEl.querySelector('.lab-hw-clear');
     if (!arr.length) {
-      list.innerHTML = '<div class="lab-hw-empty"><span class="em">📭</span>Пока ничего не положили в домашку.<br>Жми кнопку <strong>+</strong> у заданий которые хочешь повторить.</div>';
+      list.innerHTML = '<div class="lab-hw-empty"><span class="em">📭</span>Nothing in your homework yet.<br>Tap the <strong>+</strong> next to any task you want to review.</div>';
       sendBtn.disabled = true;
       clearBtn.style.display = 'none';
       return;
@@ -855,8 +855,8 @@
       // RAW-BLOCK: показываем целиком HTML секции
       if (it.kind === 'raw-block' && it.html) {
         return '<div class="lab-hw-item" data-i="'+i+'" style="padding:0;overflow:hidden">'+
-          '<button type="button" class="lab-hw-rm" title="Убрать" style="position:absolute;top:8px;right:8px;z-index:2">×</button>'+
-          '<span class="lab-hw-kind" style="position:absolute;top:8px;left:8px;z-index:2">📦 целая секция</span>'+
+          '<button type="button" class="lab-hw-rm" title="Remove" style="position:absolute;top:8px;right:8px;z-index:2">×</button>'+
+          '<span class="lab-hw-kind" style="position:absolute;top:8px;left:8px;z-index:2">📦 whole section</span>'+
           '<div class="lab-hw-raw" style="max-height:520px;overflow:auto;padding:36px 14px 14px;background:#fff;border-radius:8px">'+
             it.html +
           '</div>'+
@@ -864,20 +864,20 @@
       }
       var lines = [];
       var isVocab = it.kind === 'vocab';
-      var qText = it.question || '(без вопроса)';
+      var qText = it.question || '(no question)';
       if (isVocab && it.correct && qText.indexOf(' — ') === -1) {
         qText = qText + ' — ' + it.correct;
       }
-      if (it.section_title) lines.push('<div class="lab-hw-meta"><b>Раздел:</b> '+escapeHTML(it.section_title)+'</div>');
+      if (it.section_title) lines.push('<div class="lab-hw-meta"><b>Section:</b> '+escapeHTML(it.section_title)+'</div>');
       if (isVocab) {
-        if (it.correct) lines.push('<div class="lab-hw-meta"><b>Перевод:</b> '+escapeHTML(it.correct)+'</div>');
-        if (it.student_answer) lines.push('<div class="lab-hw-meta"><b>Пример:</b> '+escapeHTML(it.student_answer)+'</div>');
+        if (it.correct) lines.push('<div class="lab-hw-meta"><b>Translation:</b> '+escapeHTML(it.correct)+'</div>');
+        if (it.student_answer) lines.push('<div class="lab-hw-meta"><b>Example:</b> '+escapeHTML(it.student_answer)+'</div>');
       } else {
-        if (it.correct) lines.push('<div class="lab-hw-meta"><b>Правильный ответ:</b> '+escapeHTML(it.correct)+'</div>');
-        if (it.student_answer) lines.push('<div class="lab-hw-meta"><b>Мой ответ был:</b> '+escapeHTML(it.student_answer)+'</div>');
+        if (it.correct) lines.push('<div class="lab-hw-meta"><b>Correct answer:</b> '+escapeHTML(it.correct)+'</div>');
+        if (it.student_answer) lines.push('<div class="lab-hw-meta"><b>My answer was:</b> '+escapeHTML(it.student_answer)+'</div>');
       }
       return '<div class="lab-hw-item" data-i="'+i+'">'+
-        '<button type="button" class="lab-hw-rm" title="Убрать">×</button>'+
+        '<button type="button" class="lab-hw-rm" title="Remove">×</button>'+
         '<span class="lab-hw-kind">'+escapeHTML(kindLabel(it.kind))+'</span>'+
         '<div class="lab-hw-q">'+escapeHTML(qText)+'</div>'+
         lines.join('')+
@@ -905,22 +905,22 @@
       '<div class="lab-hw-modal">'+
         '<div class="lab-hw-modal-h">'+
           '<div>'+
-            '<h3>📚 Моя домашка</h3>'+
-            '<div class="sub">Задания которые я положил/а сюда. Учитель увидит этот список.</div>'+
+            '<h3>📚 My Homework</h3>'+
+            '<div class="sub">Tasks you saved here. The teacher will see this list.</div>'+
           '</div>'+
-          '<button type="button" class="lab-hw-close" aria-label="Закрыть">×</button>'+
+          '<button type="button" class="lab-hw-close" aria-label="Close">×</button>'+
         '</div>'+
         '<div class="lab-hw-list"></div>'+
         '<div class="lab-hw-modal-f">'+
-          '<button type="button" class="lab-hw-clear">🗑 Очистить</button>'+
-          '<button type="button" class="lab-hw-send">📤 Отправить учителю</button>'+
+          '<button type="button" class="lab-hw-clear">🗑 Clear</button>'+
+          '<button type="button" class="lab-hw-send">📤 Send to teacher</button>'+
         '</div>'+
       '</div>';
     document.body.appendChild(overlayEl);
     overlayEl.addEventListener('click', function(e){ if (e.target === overlayEl) closeOverlay(); });
     overlayEl.querySelector('.lab-hw-close').addEventListener('click', closeOverlay);
     overlayEl.querySelector('.lab-hw-clear').addEventListener('click', function(){
-      if (!confirm('Удалить все задания из домашки?')) return;
+      if (!confirm('Clear all homework tasks?')) return;
       saveHw([]); refreshFabCount(); renderList();
     });
     overlayEl.querySelector('.lab-hw-send').addEventListener('click', sendHomework);
@@ -940,7 +940,7 @@
     if (n) return n;
     // Если ученик ещё не вводил имя — спросим коротко прямо здесь
     return new Promise(function(resolve){
-      var name = window.prompt('Как тебя зовут? (учитель увидит это имя в уведомлении)') || '';
+      var name = window.prompt('What's your name? (teacher will see it in the notification)') || '';
       name = name.trim();
       if (name) setName(name);
       resolve(name);
@@ -948,12 +948,12 @@
   }
 
   async function sendHomework(){
-    if (observerView) { toast('👁 Observer · просто смотрю как ученик отправит'); return; }
+    if (observerView) { toast('👁 Observer · just watching what the student sends'); return; }
     var arr = loadHw();
     if (!arr.length) return;
     var sendBtn = overlayEl.querySelector('.lab-hw-send');
     sendBtn.disabled = true;
-    sendBtn.textContent = '⏳ Отправляю…';
+    sendBtn.textContent = '⏳ Sending…';
     var name = await ensureName();
     var room = roomFor(name);
 
@@ -965,7 +965,7 @@
     try {
       var misses = arr.map(function(it, i){
         var n = (i+1) + '.';
-        var q = short(it.question || '(без вопроса)', 90);
+        var q = short(it.question || '(no question)', 90);
         var extras = [];
         if (it.correct) extras.push('✓ ' + short(it.correct, 60));
         if (it.student_answer) extras.push('✗ ' + short(it.student_answer, 60));
@@ -975,7 +975,7 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          student_name: name || 'аноним',
+          student_name: name || 'anonymous',
           student_id: room,
           lesson_path: location.pathname,
           lesson_title: short(title, 100),
@@ -1031,15 +1031,15 @@
       });
     } catch(e){}
     sendBtn.disabled = false;
-    sendBtn.textContent = '📤 Отправить учителю';
+    sendBtn.textContent = '📤 Send to teacher';
     if (ok) {
       saveHw([]);
       refreshFabCount();
       renderList();
-      toast('Домашка улетела учителю · ' + arr.length + ' заданий');
+      toast('Homework sent to teacher · ' + arr.length + ' tasks');
       setTimeout(closeOverlay, 1200);
     } else {
-      toast('Не получилось отправить: ' + (err || 'попробуй ещё'));
+      toast('Failed to send: ' + (err || 'try again'));
     }
   }
 
@@ -1077,7 +1077,7 @@
           if (added) {
             saveHw(arr);
             refreshFabCount();
-            toast('📚 Учитель закинул в домашку: ' + added + ' заданий');
+            toast('📚 Teacher added to homework: ' + added + ' tasks');
           }
         });
         ch.subscribe();

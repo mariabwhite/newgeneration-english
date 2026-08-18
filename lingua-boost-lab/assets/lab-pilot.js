@@ -62,7 +62,7 @@
       const card = section.querySelector('.card') || section;
       const actions = document.createElement('div');
       actions.className = 'lp-actions';
-      actions.innerHTML = '<button type="button" class="lp-submit'+submitDark+'">📋 Сдать раздел</button>';
+      actions.innerHTML = '<button type="button" class="lp-submit'+submitDark+'">📋 Submit section</button>';
       const report = document.createElement('div');
       report.className = 'lp-report';
       if (theme === 'dark') report.dataset.theme = 'dark';
@@ -74,15 +74,15 @@
     // ===== Lesson summary FAB =====
     const fab = document.createElement('div');
     fab.className = 'lp-fab';
-    fab.innerHTML = '<button type="button" class="lp-fab-btn'+fabDark+'">📊 Итог урока</button>';
+    fab.innerHTML = '<button type="button" class="lp-fab-btn'+fabDark+'">📊 Lesson summary</button>';
     document.body.appendChild(fab);
 
     const overlay = document.createElement('div');
     overlay.className = 'lp-overlay';
     overlay.innerHTML = '<div class="lp-modal"'+themeAttr+'>' +
       '<button type="button" class="lp-close" aria-label="Close">×</button>' +
-      '<h2>📊 Итог урока</h2>' +
-      '<div class="lp-sub">Сводка по всем разделам, что ты прошёл.</div>' +
+      '<h2>📊 Lesson summary</h2>' +
+      '<div class="lp-sub">Summary of all sections you've done.</div>' +
       '<div class="lp-body"></div></div>';
     document.body.appendChild(overlay);
     overlay.querySelector('.lp-close').addEventListener('click', () => overlay.classList.remove('show'));
@@ -210,18 +210,18 @@
     }
 
     function reportHTML(r){
-      let html = '<h4>📋 Результат раздела</h4>';
+      let html = '<h4>📋 Section result</h4>';
       const pct = r.total ? Math.round(r.correct / r.total * 100) : 0;
       html += '<div class="lp-stats">Score: <strong>'+r.correct+' / '+r.total+'</strong> · '+pct+'%</div>';
       if (!r.misses.length) {
-        html += '<div class="lp-good">✅ Всё верно — отлично!</div>';
+        html += '<div class="lp-good">✅ All correct — nice!</div>';
       } else {
         html += '<ul class="lp-list">';
         r.misses.forEach(m => {
           if (m.skip) {
-            html += '<li class="lp-item skip"><div class="q">'+escapeHTML(m.q)+'</div><div class="skip-note">пропущено · правильно: <span class="correct">'+escapeHTML(m.correct||'?')+'</span></div></li>';
+            html += '<li class="lp-item skip"><div class="q">'+escapeHTML(m.q)+'</div><div class="skip-note">skipped · correct: <span class="correct">'+escapeHTML(m.correct||'?')+'</span></div></li>';
           } else {
-            html += '<li class="lp-item"><div class="q">'+escapeHTML(m.q)+'</div><div>твой: <span class="yours">'+escapeHTML(m.yours||'—')+'</span> → правильно: <span class="correct">'+escapeHTML(m.correct||'—')+'</span></div></li>';
+            html += '<li class="lp-item"><div class="q">'+escapeHTML(m.q)+'</div><div>yours: <span class="yours">'+escapeHTML(m.yours||'—')+'</span> → correct: <span class="correct">'+escapeHTML(m.correct||'—')+'</span></div></li>';
           }
         });
         html += '</ul>';
@@ -297,7 +297,7 @@
       normaliseStatusClasses(section);
       const r = collect(section);
       if (!r.total) {
-        container.innerHTML = '<div class="lp-good">ℹ В этом разделе нет автоматически оцениваемых заданий — пройди вручную и обсуди с учителем.</div>';
+        container.innerHTML = '<div class="lp-good">ℹ This section has no auto-scored tasks — do it and discuss with the teacher.</div>';
         container.classList.add('show');
         container.scrollIntoView({behavior:'smooth', block:'nearest'});
         return;
@@ -323,19 +323,19 @@
         const title = (s.querySelector('h2')?.textContent || ('Section '+(i+1))).trim();
         html += '<div class="lp-sec-title">'+String(i+1).padStart(2,'0')+' · '+escapeHTML(title)+' — '+r.correct+'/'+r.total+'</div>';
         if (!realMisses.length) {
-          html += '<div class="lp-good">✅ всё верно</div>';
+          html += '<div class="lp-good">✅ all correct</div>';
         } else {
           html += '<ul class="lp-list">';
           realMisses.slice(0,6).forEach(m => {
-            if (m.skip) html += '<li class="lp-item skip"><div class="q">'+escapeHTML(m.q)+'</div><div class="skip-note">пропущено · правильно: <span class="correct">'+escapeHTML(m.correct||'?')+'</span></div></li>';
-            else html += '<li class="lp-item"><div class="q">'+escapeHTML(m.q)+'</div><div>твой: <span class="yours">'+escapeHTML(m.yours||'—')+'</span> → правильно: <span class="correct">'+escapeHTML(m.correct||'—')+'</span></div></li>';
+            if (m.skip) html += '<li class="lp-item skip"><div class="q">'+escapeHTML(m.q)+'</div><div class="skip-note">skipped · correct: <span class="correct">'+escapeHTML(m.correct||'?')+'</span></div></li>';
+            else html += '<li class="lp-item"><div class="q">'+escapeHTML(m.q)+'</div><div>yours: <span class="yours">'+escapeHTML(m.yours||'—')+'</span> → correct: <span class="correct">'+escapeHTML(m.correct||'—')+'</span></div></li>';
           });
-          if (realMisses.length > 6) html += '<li class="lp-item skip"><div class="skip-note">+ ещё '+(realMisses.length-6)+' ошибок в этом разделе</div></li>';
+          if (realMisses.length > 6) html += '<li class="lp-item skip"><div class="skip-note">+ more '+(realMisses.length-6)+' mistakes in this section</div></li>';
           html += '</ul>';
         }
       });
       const totalPct = totT ? Math.round(totC/totT*100) : 0;
-      body.innerHTML = '<div class="lp-total">Общий счёт: <strong>'+totC+' / '+totT+'</strong> · '+totalPct+'% · ошибок: <strong class="miss-n">'+totM+'</strong></div>' + (html || '<div class="lp-good">Пока ничего не сдано. Нажми «📋 Сдать раздел» под нужной секцией.</div>');
+      body.innerHTML = '<div class="lp-total">Total score: <strong>'+totC+' / '+totT+'</strong> · '+totalPct+'% · mistakes: <strong class="miss-n">'+totM+'</strong></div>' + (html || '<div class="lp-good">Пока ничего не сдано. Нажми «📋 Submit section» под нужной секцией.</div>');
       overlay.classList.add('show');
     }
 

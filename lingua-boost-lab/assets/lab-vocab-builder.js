@@ -5,12 +5,12 @@
         в обычном режиме (не только observer): ученик или учитель кликом
         по слову в тексте .card/.reading/.story добавляет его в блок словаря.
         Guards исключают клики в .homework и по интерактивам упражнений.
-   v47 (2026-07-07): FIX кнопка «+ добавить своё слово» ТЕПЕРЬ появляется и на
+   v47 (2026-07-07): FIX кнопка «+ add your own word» ТЕПЕРЬ появляется и на
         уроках со статичным vocab-контейнером (у 36 уроков раньше была скрыта
         из-за early return null в findOrBuildSection). Инцидент Маша 2026-07-07.
    v46 (2026-07-05): двусторонний режим. Добавление слов в vocab работает у ВСЕХ
         — учителя и ученика одинаково. Guard `if (!teacherMode) return` снят
-        в hookSelection и рендере кнопки «+ добавить своё слово».
+        в hookSelection и рендере кнопки «+ add your own word».
         Единственное ограничение — observer mode (URL ?observe=…): смотришь,
         не добавляешь. teacherMode остаётся только для облачного snapshot в
         Supabase (cloudSyncExtras) — это отдельная механика, не касается UI.
@@ -31,7 +31,7 @@
      • Подсвечивает каждое слово в тексте урока (.card, p, li) — мягкое
        подчёркивание, hover → tooltip с IPA + ru + 🔊.
      • УЧИТЕЛЬСКИЙ «+ добавить слово» — Маша выделяет слово в тексте → плавающая
-       кнопка «+ в словарь» → mini-modal (word/IPA/ru/example) → добавляется
+       кнопка «+ to vocab» → mini-modal (word/IPA/ru/example) → добавляется
        в localStorage extras + перерисовывается vocab section.
 
    Observer mode (URL ?observe=...) — учитель видит структуру, но не добавляет. */
@@ -266,9 +266,9 @@
     card.className = 'vocab-card';
     card.dataset.word = item.word || '';
     card.innerHTML =
-      '<button class="vc-del" type="button" title="Удалить слово">×</button>' +
-      (item.__extra ? '<div class="extra-mark" title="Слово добавлено учителем">⭐</div>' : '') +
-      '<button class="speak" type="button" title="Прослушать">🔊</button>' +
+      '<button class="vc-del" type="button" title="Delete word">×</button>' +
+      (item.__extra ? '<div class="extra-mark" title="Added by teacher">⭐</div>' : '') +
+      '<button class="speak" type="button" title="Listen">🔊</button>' +
       '<div class="face front">'+
         '<div class="word">'+esc(item.word)+'</div>'+
         (item.ipa ? '<div class="ipa">'+esc(item.ipa)+'</div>' : '') +
@@ -333,7 +333,7 @@
     );
     // Также если на странице уже есть хоть одна .vocab-card — Vocabulary считается родной
     if (!existing && document.querySelector('.vocab-card')) existing = document.querySelector('.vocab-card').closest('section, .container, .card, div');
-    // v47 (2026-07-07): если existing нашли — привешиваем «+ добавить своё слово»
+    // v47 (2026-07-07): если existing нашли — привешиваем «+ add your own word»
     // кнопку внутрь, вместо того чтобы уйти. Так учитель + ученик могут добавлять
     // слова к статичному vocab-контейнеру. Инцидент 2026-07-07: у 36 уроков не было
     // никакого способа добавить слово, потому что existing блокировал auto-vocab.
@@ -341,7 +341,7 @@
       if (!existing.querySelector('#vocabAddBtn')) {
         var addWrap = document.createElement('div');
         addWrap.style.cssText = 'margin:18px 0 8px;text-align:center';
-        addWrap.innerHTML = '<button class="lab-vocab-add-btn" id="vocabAddBtn">+ добавить своё слово</button>';
+        addWrap.innerHTML = '<button class="lab-vocab-add-btn" id="vocabAddBtn">+ add your own word</button>';
         existing.appendChild(addWrap);
       }
     }
@@ -353,10 +353,10 @@
       '<div class="lab-vocab-panel">'+
         '<div class="lab-vocab-h">'+
           '<h2>📖 Vocabulary</h2>'+
-          '<div class="meta"><span id="vocabCount">0</span> слов · кликни карточку, чтобы перевернуть</div>'+
+          '<div class="meta"><span id="vocabCount">0</span> words · click a card to flip</div>'+
         '</div>'+
         '<div class="lab-vocab-grid" id="vocabGrid"></div>'+
-        (observeMode ? '' : '<div style="margin-top:18px"><button class="lab-vocab-add-btn" id="vocabAddBtn">+ добавить своё слово</button></div>')+
+        (observeMode ? '' : '<div style="margin-top:18px"><button class="lab-vocab-add-btn" id="vocabAddBtn">+ add your own word</button></div>')+
       '</div>';
     // Vocabulary в общий контейнер первой .section, без clone-стилей (раньше съезжало влево).
     var firstSection = document.querySelector('section.section');
@@ -398,13 +398,13 @@
           card.dataset.extra = '1';
           staticGrid.appendChild(card);
         });
-        // добавляем «+ добавить своё слово» кнопку возле статичного grid если её ещё нет
+        // добавляем «+ add your own word» кнопку возле статичного grid если её ещё нет
         if (!observeMode) {
           var parent = staticGrid.closest('section, .container, .card, div') || staticGrid.parentNode;
           if (parent && !parent.querySelector('#vocabAddBtn')) {
             var addWrap = document.createElement('div');
             addWrap.style.cssText = 'margin:18px auto 0;text-align:center;grid-column:1/-1';
-            addWrap.innerHTML = '<button class="lab-vocab-add-btn" id="vocabAddBtn">+ добавить своё слово</button>';
+            addWrap.innerHTML = '<button class="lab-vocab-add-btn" id="vocabAddBtn">+ add your own word</button>';
             staticGrid.appendChild(addWrap);
             addWrap.querySelector('#vocabAddBtn').addEventListener('click', function(){ openAddModal(); });
           }
@@ -511,7 +511,7 @@
     if (floatBtn) return floatBtn;
     floatBtn = document.createElement('button');
     floatBtn.className = 'teacher-add-float';
-    floatBtn.textContent = '+ в словарь';
+    floatBtn.textContent = '+ to vocab';
     document.body.appendChild(floatBtn);
     return floatBtn;
   }
@@ -547,15 +547,15 @@
       overlay.className = 'vocab-add-overlay';
       overlay.innerHTML =
         '<div class="vocab-add-modal">'+
-          '<h3>Новое слово в словарь</h3>'+
-          '<p>Это слово сохранится для этого устройства и появится в Vocabulary секции этого урока (помечено ⭐ teacher).</p>'+
-          '<label>Слово (EN)</label><input type="text" id="vbWord" maxlength="40">'+
-          '<label>Транскрипция (IPA)</label><input type="text" id="vbIpa" placeholder="/ˈmɔːr.fiːm/">'+
-          '<label>Перевод (RU)</label><input type="text" id="vbRu">'+
-          '<label>Пример (необязательно)</label><textarea id="vbEx"></textarea>'+
+          '<h3>New word for vocab</h3>'+
+          '<p>The word is saved on this device and shows up in the Vocabulary section (marked ⭐ teacher).</p>'+
+          '<label>Word (EN)</label><input type="text" id="vbWord" maxlength="40">'+
+          '<label>Transcription (IPA)</label><input type="text" id="vbIpa" placeholder="/ˈmɔːr.fiːm/">'+
+          '<label>Translation (RU)</label><input type="text" id="vbRu">'+
+          '<label>Example (optional)</label><textarea id="vbEx"></textarea>'+
           '<div class="vocab-add-actions">'+
-            '<button class="cancel" type="button">Отмена</button>'+
-            '<button class="ok" type="button">Добавить</button>'+
+            '<button class="cancel" type="button">Cancel</button>'+
+            '<button class="ok" type="button">Add</button>'+
           '</div>'+
         '</div>';
       document.body.appendChild(overlay);
@@ -563,7 +563,7 @@
       overlay.querySelector('.cancel').addEventListener('click', function(){ overlay.classList.remove('show'); });
       overlay.querySelector('.ok').addEventListener('click', function(){
         var word = (overlay.querySelector('#vbWord').value || '').trim();
-        if (word.length < 2) { alert('Введи слово'); return; }
+        if (word.length < 2) { alert('Enter a word'); return; }
         var item = {
           word: word,
           ipa: (overlay.querySelector('#vbIpa').value || '').trim(),
@@ -577,7 +577,7 @@
         // проверкой, а manual overlay — нет.
         var lc = word.toLowerCase();
         if (extras.some(function(x){ return (x.word || '').toLowerCase() === lc; })) {
-          alert('Такое слово уже есть в словаре — «' + word + '»');
+          alert('This word is already in the vocab — «' + word + '»');
           return;
         }
         extras.push(item);
@@ -623,8 +623,8 @@
         body: JSON.stringify({
           model:'openai', private:true, seed: Math.floor(Math.random()*1e6),
           messages: [
-            { role:'system', content: 'Ты лингвист. Дай для слова: IPA (British), краткий русский перевод (1-3 слова), короткий пример в одном предложении. Ответ СТРОГО в формате JSON без markdown: {"ipa":"/.../","ru":"...","example":"..."}' },
-            { role:'user', content: 'Слово: ' + word }
+            { role:'system', content: 'You are a linguist. Provide for the word: IPA (British), short Russian translation (1-3 words), short one-sentence example. Ответ СТРОГО в формате JSON без markdown: {"ipa":"/.../","ru":"...","example":"..."}' },
+            { role:'user', content: 'Word: ' + word }
           ]
         })
       });
@@ -654,7 +654,7 @@
     highlightInText();
 
     // Тёплый flash + toast
-    showWordToast('✨ Учитель добавил слово: ' + word);
+    showWordToast('✨ Teacher added word: ' + word);
 
     // Enrich in background — IPA + RU + example
     var enrichment = await enrichWord(word);
