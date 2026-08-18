@@ -108,7 +108,7 @@
         + '<button class="lv-close" title="collapse">×</button>'
         + '<div class="lv-title">📒 My Vocabulary · <span>' + list.length + '</span></div>'
         + '<div class="lv-list">' + items + '</div>'
-        + '<div class="lv-actions"><button id="lvCopy">📋 Copy</button><button id="lvClear" class="danger">🗑 Clear</button></div>';
+        + '<div class="lv-actions"><button id="lvCopy">📋 Copy</button></div>';
       box.querySelector('.lv-close').addEventListener('click', function (e) { e.stopPropagation(); box.classList.remove('expanded'); renderBox(); });
       box.querySelector('#lvCopy').addEventListener('click', function (e) {
         e.stopPropagation();
@@ -120,18 +120,6 @@
           btn.textContent = '✓ Copied';
           setTimeout(function () { btn.textContent = old; }, 1400);
         });
-      });
-      box.querySelector('#lvClear').addEventListener('click', function (e) {
-        e.stopPropagation();
-        if (!list.length) return;
-        if (!confirm('Clear vocabulary? (' + list.length + ' words)')) return;
-        list = [];
-        save();
-        document.querySelectorAll('.lv-added, .lv-add-btn.added').forEach(function (el) {
-          el.classList.remove('lv-added', 'added');
-          if (el.classList.contains('lv-add-btn')) el.textContent = '+';
-        });
-        renderBox();
       });
     } else {
       box.innerHTML = '📒 Vocabulary · <span style="color:#2BB673">' + list.length + '</span>';

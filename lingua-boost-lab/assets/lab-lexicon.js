@@ -97,8 +97,7 @@
       '</div>'+
       '<div class="lab-lex-list" id="lab-lex-list">'+
         '<div class="lab-lex-item empty">Click any word card / flip-card / highlighted word — it lands here.</div>'+
-      '</div>'+
-      '<button class="lab-lex-clear" id="lab-lex-clear">🗑 clear</button>';
+      '</div>';
     document.body.appendChild(box);
     list = box.querySelector('#lab-lex-list');
     ctr = box.querySelector('#lab-lex-count');
@@ -107,12 +106,6 @@
     box.querySelector('.lab-lex-title').addEventListener('click', function(){
       box.classList.toggle('expanded');
       hint.textContent = box.classList.contains('expanded') ? 'tap title to close' : 'tap to open';
-    });
-    box.querySelector('#lab-lex-clear').addEventListener('click', function(){
-      state.items = [];
-      added = {};
-      save(state);
-      renderAll();
     });
   }
 
