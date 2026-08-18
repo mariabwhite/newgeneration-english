@@ -82,7 +82,7 @@
     overlay.innerHTML = '<div class="lp-modal"'+themeAttr+'>' +
       '<button type="button" class="lp-close" aria-label="Close">×</button>' +
       '<h2>📊 Lesson summary</h2>' +
-      '<div class="lp-sub">Summary of all sections you've done.</div>' +
+      '<div class="lp-sub">Summary of all sections you have done.</div>' +
       '<div class="lp-body"></div></div>';
     document.body.appendChild(overlay);
     overlay.querySelector('.lp-close').addEventListener('click', () => overlay.classList.remove('show'));

@@ -940,7 +940,7 @@
     if (n) return n;
     // Если ученик ещё не вводил имя — спросим коротко прямо здесь
     return new Promise(function(resolve){
-      var name = window.prompt('What's your name? (teacher will see it in the notification)') || '';
+      var name = window.prompt('What is your name? (teacher will see it in the notification)') || '';
       name = name.trim();
       if (name) setName(name);
       resolve(name);
