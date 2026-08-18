@@ -3945,11 +3945,10 @@ document.querySelectorAll('.mc-list').forEach(list => {
     for (let i = kids.length - 1; i > 0; i--){ const j = Math.floor(rng()*(i+1)); [kids[i],kids[j]] = [kids[j],kids[i]]; }
     kids.forEach(k => parent.appendChild(k));
   }
-  document.querySelectorAll('.mc-list .mc-opts').forEach((opts, idx) => {
-    const q = opts.closest('.mc-item, .mc-q, li, .q-row') || opts;
-    const seedStr = (q.id || q.getAttribute('data-q') || '') + '-mc-' + idx;
-    seededShuffleKids(opts, null, seedFromString(seedStr));
-  });
+  // NOTE: mc-opts SHUFFLE INTENTIONALLY REMOVED (2026-08-18) — the source HTML
+  // already varies answer positions manually; runtime reordering was suspected
+  // of breaking option-toggle behaviour in Prepositions section. Handler stays
+  // position-agnostic (compares data-v vs data-a), so no author change needed.
   document.querySelectorAll('.bank[data-ex]').forEach((bank, idx) => {
     seededShuffleKids(bank, '.bank-word', seedFromString((bank.getAttribute('data-ex') || '') + '-bank-' + idx));
   });
