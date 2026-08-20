@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>L6 · Hotel Arrival &amp; Travel Talk · Alexander &amp; Stanislav · A2 · NG English</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:wght@700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F1EA; --paper-2:#EAE6DD;
+  --card:#FFFFFF; --card-2:#FBF9F4;
+  --ink:#1F1F1F; --ink-2:#2C2C2C; --muted:#8B8B8B; --faint:#B0AEA7;
+  --accent:#E8542B; --accent2:#F1A183; --accent3:#B0361A; --accent-soft:#FDECE4;
+  --gold:#F4C84B; --gold-soft:#FFF3D0; --gold-deep:#8A6F1E;
+  --line:rgba(31,31,31,.10); --line-2:rgba(31,31,31,.18);
+  --ok:#4A8F6E; --miss:#B85A5A;
+  --shadow:0 6px 20px rgba(31,31,31,.08);
+  --display:"Fraunces","Manrope",Georgia,serif;
+  --body:"Manrope",system-ui,sans-serif;
+  --mono:"JetBrains Mono",Consolas,monospace;
+  --bg:#F4F1EA;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--body);background:var(--paper);color:var(--ink);min-height:100vh;line-height:1.55;overflow-x:hidden;font-size:16px}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+img{display:block;max-width:100%}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;padding:10px clamp(14px,3vw,26px);background:color-mix(in srgb,var(--paper) 94%,transparent);border-bottom:1px solid var(--line);backdrop-filter:blur(6px)}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-mark{width:40px;height:40px;border-radius:10px 0 10px 10px;background:var(--accent);color:#fff;font-family:var(--display);font-weight:900;font-size:22px;display:grid;place-items:center;line-height:1;box-shadow:0 2px 6px rgba(232,84,43,.25);position:relative;overflow:hidden}
+.brand-mark::after{content:"";position:absolute;top:0;right:0;width:12px;height:12px;background:#fff;clip-path:polygon(100% 0,0 0,100% 100%)}
+.brand-copy{display:grid;gap:1px}
+.brand-name{font-family:var(--display);font-weight:800;font-size:14px;letter-spacing:.02em}
+.brand-sub{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.spacer{flex:1}
+.tb-pill{padding:5px 11px;border-radius:50px;font:800 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--accent);color:var(--accent);background:var(--accent-soft);white-space:nowrap}
+.tb-pill.gold{border-color:#c8a640;color:#8a6f1e;background:var(--gold-soft)}
+
+/* HERO */
+.hero{width:min(1240px, calc(100% - clamp(32px, 6vw, 56px)));margin:22px auto 16px}
+.hero-card{position:relative;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:linear-gradient(135deg,#FBF9F4 0%,#F1EAD8 55%,#F4E4C6 100%);padding:clamp(24px,3.4vw,40px) clamp(20px,3vw,40px);box-shadow:0 10px 30px rgba(31,31,31,.10);color:var(--ink)}
+.hero-card::before{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:linear-gradient(90deg,var(--accent) 0%,var(--accent) 55%,var(--gold) 100%)}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;background:var(--accent-soft);border:1px solid var(--accent);padding:6px 14px;border-radius:50px;font:800 10.5px/1 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--accent3);margin-bottom:16px}
+h1.hero-title{font-family:var(--display);font-weight:800;letter-spacing:-.015em;line-height:1.05;font-size:clamp(1.6rem,3.6vw,2.4rem);margin-bottom:12px;color:var(--ink)}
+h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),#8a6f1e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-lead{font-size:.98rem;color:var(--ink-2);max-width:820px;line-height:1.6;background:rgba(255,255,255,.65);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.hero-lead strong{color:var(--accent3)}
+.hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.hero-chip{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--line);border-radius:50px;padding:6px 12px;font:700 11px/1 var(--mono);color:var(--ink-2);letter-spacing:.08em;text-transform:uppercase}
+
+/* MAIN NAV — section chips */
+.main-tabs{position:sticky;top:60px;z-index:60;background:color-mix(in srgb,var(--paper) 96%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:8px 0;margin-bottom:6px;box-shadow:0 2px 8px rgba(31,31,31,.04)}
+.main-tabs-inner{width:min(1240px, calc(100% - clamp(32px, 6vw, 56px)));margin:0 auto;display:flex;flex-wrap:wrap;gap:6px}
+.mtab{background:#fff;border:2px solid var(--line);color:var(--muted);padding:8px 12px;border-radius:12px;font-family:var(--display);font-weight:800;font-size:.86rem;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:6px;flex-shrink:0;text-decoration:none}
+.mtab:hover{border-color:var(--accent);color:var(--accent3)}
+.mtab.active{background:linear-gradient(135deg,var(--accent),var(--accent3));color:#fff;border-color:var(--accent3);box-shadow:0 3px 10px rgba(232,84,43,.35)}
+.mtab .num{background:rgba(255,255,255,.28);border-radius:20px;padding:2px 7px;font-size:.7rem;font-weight:700;font-family:var(--mono)}
+.mtab:not(.active) .num{background:var(--accent-soft);color:var(--accent3)}
+
+@media (max-width: 720px){
+  .topbar{padding:8px 12px}
+  .brand-mark{width:34px;height:34px;font-size:18px}
+  .tb-pill{padding:4px 8px;font-size:9px}
+  .main-tabs{top:52px;padding:6px 0}
+  .main-tabs-inner{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}
+  .main-tabs-inner::-webkit-scrollbar{display:none}
+  .mtab{padding:6px 10px;font-size:.78rem}
+  .hero{margin:12px auto 10px}
+  .hero-card{padding:16px 18px}
+  h1.hero-title{font-size:1.35rem}
+  .hero-lead{font-size:.88rem;padding:10px 12px}
+}
+
+/* WRAP */
+.wrap{width:min(1240px, calc(100% - clamp(32px, 6vw, 56px)));margin:0 auto;padding:6px 0 48px}
+
+/* SECTION */
+.section{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:clamp(22px,3vw,32px);margin:18px 0;box-shadow:var(--shadow);scroll-margin-top:120px}
+.section-hdr{display:flex;align-items:center;gap:14px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px dashed var(--line)}
+.section-num{width:44px;height:44px;border-radius:12px;background:var(--accent-soft);color:var(--accent3);display:grid;place-items:center;font-family:var(--display);font-weight:900;font-size:1.05rem;flex-shrink:0;border:1px solid var(--accent)}
+.section h2{font-family:var(--display);font-weight:800;font-size:clamp(1.15rem,2.4vw,1.5rem);color:var(--ink);letter-spacing:-.01em}
+.section h3{font-family:var(--display);font-weight:700;font-size:1.02rem;color:var(--ink-2);margin:16px 0 10px}
+.lead{color:var(--ink-2);margin:0 0 14px;font-size:.96rem}
+.ru{color:var(--muted);font-size:.86rem;font-style:italic;display:block;margin-top:4px}
+
+/* SPEECH BUBBLES / speaker tags */
+.dlg{background:var(--card-2);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:10px 0}
+.dlg + .dlg{margin-top:8px}
+.spk{display:flex;gap:10px;align-items:flex-start;margin:6px 0}
+.spk-tag{flex-shrink:0;width:56px;height:26px;border-radius:14px;display:grid;place-items:center;font:800 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#fff}
+.spk-tag.alex{background:var(--accent)}
+.spk-tag.stan{background:var(--gold-deep)}
+.spk-tag.rec{background:#4a6a8f}
+.spk-tag.desk{background:#4a6a8f}
+.spk-txt{flex:1;font-size:.97rem;line-height:1.55;color:var(--ink)}
+
+/* PLAY / audio button */
+.playbtn{display:inline-flex;align-items:center;gap:6px;background:var(--accent-soft);border:1px solid var(--accent);color:var(--accent3);padding:4px 10px;border-radius:20px;font:800 10.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;transition:.15s}
+.playbtn:hover{background:var(--accent);color:#fff}
+.playbtn.small{padding:3px 8px;font-size:9.5px}
+
+/* VOCAB grid */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(200px, 1fr));gap:10px;margin-top:6px}
+.vocab-card{background:var(--card-2);border:1px solid var(--line);border-radius:14px;padding:12px 14px;transition:.15s}
+.vocab-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.vocab-en{font-family:var(--display);font-weight:800;font-size:1.02rem;color:var(--ink);margin-bottom:2px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.vocab-ru{font-size:.85rem;color:var(--muted);margin-top:2px}
+.vocab-ex{font-size:.82rem;color:var(--ink-2);margin-top:6px;font-style:italic;line-height:1.4}
+
+/* MCQ */
+.mcq{background:var(--card-2);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:12px 0}
+.mcq-q{font-weight:700;color:var(--ink);margin-bottom:10px;font-size:.98rem}
+.mcq-q .num{display:inline-block;background:var(--accent-soft);color:var(--accent3);padding:2px 8px;border-radius:8px;font:800 11px/1 var(--mono);margin-right:8px}
+.mcq-opts{display:flex;flex-direction:column;gap:6px}
+.mcq-opt{background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:9px 12px;font-size:.94rem;color:var(--ink-2);cursor:pointer;text-align:left;transition:.12s;display:flex;align-items:center;gap:8px}
+.mcq-opt:hover{border-color:var(--accent);color:var(--ink)}
+.mcq-opt.correct{background:#E8F4EC;border-color:var(--ok);color:var(--ok)}
+.mcq-opt.wrong{background:#FBE7E7;border-color:var(--miss);color:var(--miss)}
+.mcq-opt .letter{width:22px;height:22px;border-radius:6px;background:var(--paper-2);color:var(--muted);display:grid;place-items:center;font:800 11px/1 var(--mono);flex-shrink:0}
+.mcq-opt.correct .letter{background:var(--ok);color:#fff}
+.mcq-opt.wrong .letter{background:var(--miss);color:#fff}
+
+/* SELECT gap-fill */
+.gap-line{background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:8px 0;font-size:.96rem;line-height:1.7;color:var(--ink)}
+.gap-line select{background:#fff;border:1.5px solid var(--accent2);border-radius:6px;padding:3px 8px;font-family:var(--body);font-weight:700;color:var(--accent3);cursor:pointer;font-size:.94rem;margin:0 3px}
+.gap-line select.correct{border-color:var(--ok);color:var(--ok);background:#E8F4EC}
+.gap-line select.wrong{border-color:var(--miss);color:var(--miss);background:#FBE7E7}
+
+/* STEP LIST */
+.steps{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+.step{background:var(--card-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start}
+.step-n{flex-shrink:0;width:30px;height:30px;border-radius:8px;background:var(--gold-soft);color:var(--gold-deep);display:grid;place-items:center;font:800 12px/1 var(--mono);border:1px solid #c8a640}
+.step-body{flex:1;color:var(--ink)}
+.step-en{font-weight:700;font-size:.97rem;margin-bottom:3px}
+.step-ru{font-size:.82rem;color:var(--muted);font-style:italic;margin-bottom:4px}
+.step-model{font-size:.88rem;color:var(--accent3);font-style:italic;background:var(--accent-soft);border-radius:6px;padding:5px 9px;display:inline-block;margin-top:4px}
+
+/* ROLE-PLAY */
+.role-card{background:linear-gradient(135deg, #FBF9F4 0%, var(--gold-soft) 100%);border:1px solid #c8a640;border-radius:14px;padding:16px 18px;margin:14px 0}
+.role-title{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--gold-deep);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.role-setup{font-size:.9rem;color:var(--ink-2);margin-bottom:10px}
+.role-lines{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.role-cue{background:rgba(255,255,255,.75);border:1px dashed var(--line-2);border-radius:8px;padding:8px 12px;font-size:.9rem;color:var(--ink-2)}
+.role-cue b{color:var(--accent3);font-family:var(--mono);font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;margin-right:8px}
+
+/* TYPING */
+.type-item{background:var(--card-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:8px 0}
+.type-ru{font-size:.9rem;color:var(--muted);margin-bottom:6px}
+.type-in-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.type-input{flex:1;min-width:180px;background:#fff;border:1.5px solid var(--line);border-radius:8px;padding:8px 12px;font-family:var(--body);font-size:.95rem;color:var(--ink)}
+.type-input:focus{outline:none;border-color:var(--accent)}
+.type-input.correct{border-color:var(--ok);background:#F0F9F3}
+.type-input.wrong{border-color:var(--miss);background:#FCF0F0}
+.type-check{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:8px 14px;font:800 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.type-hint{margin-top:6px;font-size:.82rem;color:var(--ok);font-style:italic;display:none}
+.type-item.revealed .type-hint{display:block}
+
+/* SCORE bar */
+.score-bar{position:fixed;bottom:16px;right:16px;background:var(--card);border:1px solid var(--line);border-radius:50px;padding:8px 16px;font:800 12px/1 var(--mono);color:var(--ink-2);box-shadow:var(--shadow);z-index:70;display:none}
+.score-bar.on{display:block}
+.score-bar b{color:var(--accent3)}
+
+/* FOOTER */
+.footer{text-align:center;padding:24px 0;color:var(--muted);font-size:.82rem;font-family:var(--mono);letter-spacing:.08em}
+
+/* MISC */
+.kindly{color:var(--accent3);font-weight:700}
+.tinynote{font-size:.8rem;color:var(--muted);font-style:italic;margin-top:8px}
+.callout{background:var(--gold-soft);border-left:3px solid var(--gold);padding:10px 14px;border-radius:0 10px 10px 0;margin:12px 0;color:var(--ink-2);font-size:.92rem}
+.callout b{color:var(--gold-deep)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+@media (max-width:640px){.two-col{grid-template-columns:1fr}}
+
+/* WORD ORDER */
+.wo-item{background:var(--card-2);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:12px 0}
+.wo-eyebrow{font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent3);margin-bottom:10px}
+.wo-slots{min-height:44px;background:#fff;border:1.5px dashed var(--line-2);border-radius:10px;padding:8px 10px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px}
+.wo-slots:empty::before{content:"tap words below in order...";color:var(--muted);font-size:.85rem;font-style:italic}
+.wo-slots.correct{background:#F0F9F3;border-color:var(--ok);border-style:solid}
+.wo-slots.wrong{background:#FCF0F0;border-color:var(--miss);border-style:solid}
+.wo-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.wo-pill{background:#fff;border:1.5px solid var(--accent2);border-radius:20px;padding:6px 12px;font-family:var(--body);font-weight:700;color:var(--accent3);cursor:pointer;font-size:.93rem;transition:.12s}
+.wo-pill:hover{background:var(--accent);color:#fff;border-color:var(--accent3)}
+.wo-pill:disabled{opacity:.28;pointer-events:none;background:var(--paper-2);color:var(--muted);border-color:var(--line)}
+.wo-slot{background:var(--accent-soft);border:1.5px solid var(--accent);color:var(--accent3);border-radius:20px;padding:6px 12px;font-weight:700;font-size:.93rem;cursor:pointer}
+.wo-slot:hover{background:var(--accent);color:#fff}
+.wo-actions{display:flex;gap:8px;flex-wrap:wrap}
+.wo-check,.wo-reset{border:none;border-radius:8px;padding:7px 14px;font:800 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.wo-check{background:var(--accent);color:#fff}
+.wo-check:hover{background:var(--accent3)}
+.wo-reset{background:var(--paper-2);color:var(--ink-2);border:1px solid var(--line)}
+.wo-hint{margin-top:8px;font-size:.85rem;color:var(--ok);font-style:italic;display:none}
+.wo-item.revealed .wo-hint{display:block}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <a class="brand" href="/cabinet/">
+    <div class="brand-mark">NG</div>
+    <div class="brand-copy">
+      <div class="brand-name">NEW GENERATION</div>
+      <div class="brand-sub">Alexander &amp; Stanislav · L6</div>
+    </div>
+  </a>
+  <div class="spacer"></div>
+  <span class="tb-pill">A2 · Business Pair</span>
+  <span class="tb-pill gold">21.08 · Fri</span>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-card">
+    <div class="eyebrow">🏨 Lesson 6 · NEW · builds on Konspekt 02 addon</div>
+    <h1 class="hero-title">Kindly welcome to <span class="grad">a brand-new travel lesson</span>.</h1>
+    <p class="hero-lead">
+      Alexander, Stanislav — this is a <b>new</b> lesson, not a recap. It stands on your Konspekt 02 addon (20 August · airport model + 31 small-talk phrases) and adds three fresh things: <b>hotel arrival</b>, <b>Present Continuous</b> (live now), and mini-dialogues that put your <b>own 31 phrases</b> to work.
+      <span class="ru">Александр, Станислав — это <b>новый</b> урок, не повторение. Он встаёт на Ваш K02 addon (20.08 · airport model + 31 фраза) и добавляет три свежих кусочка: hotel arrival, Present Continuous («что происходит прямо сейчас») и мини-диалоги, где Ваши 31 фраза работают в реальной travel-сцене. Ваши имена в диалогах — Alex и Stan.</span>
+    </p>
+    <div class="hero-meta">
+      <span class="hero-chip">🎯 Level A2</span>
+      <span class="hero-chip">⏱ 60 min</span>
+      <span class="hero-chip">🗣 Speaking-first</span>
+      <span class="hero-chip">🎧 Amy · Brian</span>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN NAV -->
+<nav class="main-tabs" aria-label="Sections">
+  <div class="main-tabs-inner">
+    <a class="mtab active" href="#s1"><span class="num">01</span> Recap</a>
+    <a class="mtab" href="#s2"><span class="num">02</span> Warm-up</a>
+    <a class="mtab" href="#s3"><span class="num">03</span> Vocab</a>
+    <a class="mtab" href="#s4"><span class="num">04</span> Read</a>
+    <a class="mtab" href="#s5"><span class="num">05</span> Check-in steps</a>
+    <a class="mtab" href="#s6"><span class="num">06</span> Live now</a>
+    <a class="mtab" href="#s7"><span class="num">07</span> Small talk</a>
+    <a class="mtab" href="#s8"><span class="num">08</span> Word order</a>
+    <a class="mtab" href="#s9"><span class="num">09</span> Role-play</a>
+    <a class="mtab" href="#s10"><span class="num">10</span> Quiz</a>
+    <a class="mtab" href="#s11"><span class="num">11</span> Phrase mix</a>
+    <a class="mtab" href="#s12"><span class="num">12</span> Story</a>
+    <a class="mtab" href="#s13"><span class="num">13</span> Debate</a>
+    <a class="mtab" href="#s14"><span class="num">14</span> Homework</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<!-- ============================================================ -->
+<!-- SECTION 1 · RECAP · aligned with Konspekt 02 (addon 20.08) -->
+<!-- ============================================================ -->
+<section class="section" id="s1">
+  <div class="section-hdr">
+    <div class="section-num">01</div>
+    <h2>📍 Recap · from Konspekt 02 airport model</h2>
+  </div>
+  <p class="lead">
+    Quick warm-up on the airport model paragraph from Konspekt 02 (addon · 20 August). Please read each line aloud first, then pick the missing word.
+    <span class="ru">Быстрая разминка на модельном параграфе из Конспекта 02 (стр. 6 · 20.08 · «I always travel light…»). Прочитайте вслух, потом подставьте нужное слово.</span>
+  </p>
+
+  <div class="callout">
+    <b>Model paragraph you have already learned:</b><br>
+    <i>"I always travel light. My luggage is a small trolley-bag. I check in three hours <b>in advance</b>, take my <b>boarding pass</b>, and go to the <b>gate</b>. In the <b>waiting lounge</b> I reply to emails for one hour. When my flight is announced, I find a <b>seat</b> — usually by the window. It is not expensive, and for a busy week it is very <b>beneficial</b>."</i>
+    <span class="ru">Тот самый абзац, который Вы прочитали вслух три раза до сегодняшнего урока.</span>
+  </div>
+
+  <div class="gap-line" data-check="mcq">
+    <b>1.</b> I always
+    <select data-correct="travel"><option value="">—</option><option>travel</option><option>trolley</option><option>trouble</option></select>
+    light — one small trolley-bag is enough.
+  </div>
+
+  <div class="gap-line" data-check="mcq">
+    <b>2.</b> I check in three hours
+    <select data-correct="in advance"><option value="">—</option><option>in advance</option><option>in a hurry</option><option>in the end</option></select>
+    before the flight.
+  </div>
+
+  <div class="gap-line" data-check="mcq">
+    <b>3.</b> In the
+    <select data-correct="waiting lounge"><option value="">—</option><option>waiting lounge</option><option>washing room</option><option>working office</option></select>
+    I reply to emails for one hour.
+  </div>
+
+  <div class="gap-line" data-check="mcq">
+    <b>4.</b> I always book an
+    <select data-correct="aisle"><option value="">—</option><option>aisle</option><option>island</option><option>easy</option></select>
+    seat, not by the window.
+  </div>
+
+  <div class="callout" style="margin-top:12px">
+    <b>Travel vocab from K02 you already own:</b><br>
+    <b>Bags &amp; clothes:</b> suitcase · backpack · trolley-bag · luggage / baggage · briefcase · wallet · business suit · to put on<br>
+    <b>Airport:</b> waiting lounge · flight · check-in · boarding pass · gate · seat · aisle · abroad · in advance · customs<br>
+    <b>Adjectives:</b> beneficial · expensive · cheap · confusing · easily · to find a way<br>
+    <span class="ru">Всё это Вы уже видели в тетради — сегодня используем в новых сценах.</span>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 2 · AIRPORT ARRIVAL — full flow -->
+<!-- ============================================================ -->
+<section class="section" id="s2">
+  <div class="section-hdr">
+    <div class="section-num">02</div>
+    <h2>✈️ Airport arrival · full flow · 5 steps</h2>
+  </div>
+  <p class="lead">
+    You just landed. Between the plane and the taxi you go through five points. One sentence for each — please read aloud, then swap and play the officer / taxi driver. Uses your K02 words: <b>waiting lounge · boarding pass · gate · seat · customs · in advance · to find a way</b>.
+    <span class="ru">Вы только что приземлились. Между самолётом и такси — пять точек. По одной фразе на каждую. Прочитайте вслух, потом поменяйтесь и сыграйте офицера/таксиста. Используем Ваши K02-слова: waiting lounge, boarding pass, gate, seat, customs, in advance, to find a way.</span>
+  </p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">1</div>
+      <div class="step-body">
+        <div class="step-en">Passport control · answer the officer's questions.</div>
+        <div class="step-ru">Паспортный контроль — ответьте офицеру.</div>
+        <div class="step-model">"Business trip. Three nights. At the Marriott hotel."</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">2</div>
+      <div class="step-body">
+        <div class="step-en">Baggage claim · check the belt number.</div>
+        <div class="step-ru">Выдача багажа — уточните номер ленты.</div>
+        <div class="step-model">"Excuse me, is this the belt for flight LH 1441?"</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">3</div>
+      <div class="step-body">
+        <div class="step-en">Customs · nothing to declare.</div>
+        <div class="step-ru">Таможня — «декларировать нечего».</div>
+        <div class="step-model">"Nothing to declare, thank you."</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">4</div>
+      <div class="step-body">
+        <div class="step-en">Buy a local SIM card at the kiosk.</div>
+        <div class="step-ru">Купите местную SIM в киоске.</div>
+        <div class="step-model">"One tourist SIM, please. 10 gigabytes is enough."</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">5</div>
+      <div class="step-body">
+        <div class="step-en">Taxi rank · give the address, ask the time.</div>
+        <div class="step-ru">Стоянка такси — назовите адрес, спросите время.</div>
+        <div class="step-model">"To the Marriott, Marienplatz, please. About how long?"</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Quick drill · fill the airport gap</h3>
+
+  <div class="gap-line" data-check="mcq">
+    <b>1.</b> Officer: "Purpose of visit?" · You:
+    <select data-correct="Business trip"><option value="">—</option><option>Big trip</option><option>Business trip</option><option>Boss trip</option></select>.
+    <span class="ru">Цель поездки?</span>
+  </div>
+  <div class="gap-line" data-check="mcq">
+    <b>2.</b> "Nothing to
+    <select data-correct="declare"><option value="">—</option><option>declare</option><option>decline</option><option>describe</option></select>,
+    thank you."
+    <span class="ru">Декларировать нечего.</span>
+  </div>
+  <div class="gap-line" data-check="mcq">
+    <b>3.</b> At the taxi rank: "To the Marriott hotel, please. About how
+    <select data-correct="long"><option value="">—</option><option>far</option><option>long</option><option>much</option></select>?"
+    <span class="ru">Сколько по времени?</span>
+  </div>
+  <div class="gap-line" data-check="mcq">
+    <b>4.</b> "Excuse me, is this the
+    <select data-correct="belt"><option value="">—</option><option>bell</option><option>belt</option><option>bill</option></select>
+    for flight LH 1441?"
+    <span class="ru">Это лента с багажом рейса LH 1441?</span>
+  </div>
+
+  <div class="callout" style="margin-top:14px">
+    <b>Pair drill:</b> Alexander is the arriving passenger. Stanislav plays the officer, then the taxi driver. Go through the 5 steps. Then swap.
+    <span class="ru">Парный дриль: Александр — пассажир, Станислав — офицер, потом таксист. Пять шагов. Потом меняетесь.</span>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 3 · VOCAB · Hotel essentials -->
+<!-- ============================================================ -->
+<section class="section" id="s3">
+  <div class="section-hdr">
+    <div class="section-num">03</div>
+    <h2>🎒 Vocab · Hotel essentials · 10 NEW words</h2>
+  </div>
+  <p class="lead">
+    Ten <b>new</b> words for today — at the hotel front desk. Airport vocab from K02 stays in your pocket; hotel is fresh territory. Please read the example sentence aloud.
+    <span class="ru">Десять <b>новых</b> слов на сегодня — на ресепшн отеля. Airport-лексика из K02 уже Ваша; hotel — новая территория. Пожалуйста, прочитайте пример вслух.</span>
+  </p>
+
+  <div class="vocab-grid">
+    <div class="vocab-card">
+      <div class="vocab-en">reception <button class="playbtn small" data-say="reception">▶ play</button></div>
+      <div class="vocab-ru">ресепшн, стойка регистрации</div>
+      <div class="vocab-ex">"Good evening, this is the reception."</div>
+    </div>
+    <div class="vocab-card">
+      <div class="vocab-en">check-in <button class="playbtn small" data-say="check-in">▶ play</button></div>
+      <div class="vocab-ru">заселение</div>
+      <div class="vocab-ex">"Check-in starts at 3 p.m."</div>
+    </div>
+    <div class="vocab-card">
+      <div class="vocab-en">check-out <button class="playbtn small" data-say="check-out">▶ play</button></div>
+      <div class="vocab-ru">выселение</div>
+      <div class="vocab-ex">"Check-out is by 12 noon, please."</div>
+    </div>
+    <div class="vocab-card">
+      <div class="vocab-en">key card <button class="playbtn small" data-say="key card">▶ play</button></div>
+      <div class="vocab-ru">электронный ключ-карта</div>
+      <div class="vocab-ex">"Here is your key card, sir."</div>
+    </div>
+    <div class="vocab-card">
+      <div class="vocab-en">single room <button class="playbtn small" data-say="single room">▶ play</button></div>
+      <div class="vocab-ru">одноместный номер</div>
+      <div class="vocab-ex">"I booked a single room for two nights."</div>
+    </div>
+    <div class="vocab-card">
+      <div class="vocab-en">double room <button class="playbtn small" data-say="double room">▶ play</button></div>
+      <div class="vocab-ru">двухместный номер (одна большая кровать)</div>
+      <div class="vocab-ex">"A double room, please, on a high floor."</div>
+    </div>
+    <div class="vocab-card">
+      <div class="vocab-en">twin room <button class="playbtn small" data-say="twin room">▶ play</button></div>
+      <div class="vocab-ru">двухместный номер с двумя кроватями</div>
+      <div class="vocab-ex">"We are two colleagues, so a twin room, please."</div>
+    </div>
+    <div class="vocab-card">
+      <div class="vocab-en">lobby <button class="playbtn small" data-say="lobby">▶ play</button></div>
+      <div class="vocab-ru">лобби, холл отеля</div>
+      <div class="vocab-ex">"I will wait for you in the lobby."</div>
+    </div>
+    <div class="vocab-card">
+      <div class="vocab-en">breakfast is included <button class="playbtn small" data-say="breakfast is included">▶ play</button></div>
+      <div class="vocab-ru">завтрак включён</div>
+      <div class="vocab-ex">"Is breakfast included in the price?"</div>
+    </div>
+    <div class="vocab-card">
+      <div class="vocab-en">receipt <button class="playbtn small" data-say="receipt">▶ play</button></div>
+      <div class="vocab-ru">чек, квитанция</div>
+      <div class="vocab-ex">"Kindly give me a receipt for my company."</div>
+    </div>
+  </div>
+
+  <p class="tinynote">🎧 The audio plays through the browser (Amy / Brian voice via TTSMP3). If your sound is off, please switch it on.</p>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 4 · QUICK READ -->
+<!-- ============================================================ -->
+<section class="section" id="s4">
+  <div class="section-hdr">
+    <div class="section-num">04</div>
+    <h2>📖 Quick Read · Alexander's Berlin trip</h2>
+  </div>
+  <p class="lead">
+    A very short story. Please read it aloud one time, then answer the two questions below.
+    <span class="ru">Совсем короткий текст. Пожалуйста, прочитайте его вслух один раз, потом ответьте на два вопроса ниже.</span>
+  </p>
+
+  <div class="dlg" style="font-size:1rem;line-height:1.75">
+    <p>Alexander lands in <b>Berlin</b> at 7 in the evening. He takes a taxi from the airport to the hotel. At the reception, a lady says, "Good evening, welcome. Do you have a reservation?" Alexander says, "Yes, a single room for three nights, please." The lady checks the computer and gives him a <b>key card</b>. She says, "Breakfast is included, from seven to ten. The lift is on the right." Alexander says, "Kindly thank you." He goes to room 412 and, finally, he sits down.</p>
+  </div>
+
+  <div class="gap-line" data-check="mcq">
+    <b>Q1.</b> Alexander arrives in Berlin
+    <select data-correct="in the evening"><option value="">—</option><option>in the morning</option><option>at noon</option><option>in the evening</option></select>.
+  </div>
+  <div class="gap-line" data-check="mcq">
+    <b>Q2.</b> Breakfast at the hotel is
+    <select data-correct="included"><option value="">—</option><option>included</option><option>extra</option><option>not served</option></select>.
+  </div>
+
+  <p class="tinynote">🎯 Speaking task: retell the story in <b>3 sentences</b> — Stan listens, then swaps.</p>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 5 · CHECK-IN STEPS -->
+<!-- ============================================================ -->
+<section class="section" id="s5">
+  <div class="section-hdr">
+    <div class="section-num">05</div>
+    <h2>🗺️ Smart Planning · Hotel check-in · 6 steps</h2>
+  </div>
+  <p class="lead">
+    Six things you do, in order, at the hotel front desk. Please read the English line, then say the model sentence aloud.
+    <span class="ru">Шесть шагов подряд на ресепшн. Прочитайте английскую строку, потом произнесите модель вслух.</span>
+  </p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">1</div>
+      <div class="step-body">
+        <div class="step-en">Greet the receptionist.</div>
+        <div class="step-ru">Поздоровайтесь с администратором.</div>
+        <div class="step-model">"Good evening. I have a reservation."</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">2</div>
+      <div class="step-body">
+        <div class="step-en">Give your name and show your passport.</div>
+        <div class="step-ru">Назовите фамилию и покажите паспорт.</div>
+        <div class="step-model">"The name is <b>Ivanov</b>. Here is my passport."</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">3</div>
+      <div class="step-body">
+        <div class="step-en">Confirm the type of room.</div>
+        <div class="step-ru">Подтвердите тип номера.</div>
+        <div class="step-model">"A single room for three nights, please."</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">4</div>
+      <div class="step-body">
+        <div class="step-en">Ask about breakfast and Wi-Fi.</div>
+        <div class="step-ru">Спросите про завтрак и интернет.</div>
+        <div class="step-model">"Is breakfast included? And what is the Wi-Fi password?"</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">5</div>
+      <div class="step-body">
+        <div class="step-en">Take the key card and the room number.</div>
+        <div class="step-ru">Возьмите карту-ключ и запомните номер комнаты.</div>
+        <div class="step-model">"Thank you. Room 412 — is that correct?"</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">6</div>
+      <div class="step-body">
+        <div class="step-en">Ask for a receipt for your company.</div>
+        <div class="step-ru">Попросите чек для компании.</div>
+        <div class="step-model">"Kindly give me a receipt on the company name, please."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:14px">
+    <b>Pair drill:</b> Alexander plays the guest, Stanislav plays the receptionist. Go through 6 steps. Then swap.
+    <span class="ru">Парный дриль: сначала Александр — гость, Станислав — администратор. Потом меняетесь.</span>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 6 · LIVE COMMENTARY · Present Continuous (sneaky grammar) -->
+<!-- ============================================================ -->
+<section class="section" id="s6">
+  <div class="section-hdr">
+    <div class="section-num">06</div>
+    <h2>🎬 Live now · what is happening at the airport</h2>
+  </div>
+  <p class="lead">
+    Look around at the airport <b>right now</b>. What do you see? For actions <i>happening in this moment</i>, English uses a special form: <b>am / is / are + verb-ing</b>.
+    <span class="ru">Оглянитесь вокруг в аэропорту <b>прямо сейчас</b>. Что Вы видите? Для действий <i>в этот момент</i> в английском есть форма: <b>am / is / are + глагол-ing</b>. Не путайте с обычным Present Simple ("I fly to Berlin twice a year" = вообще, а "I am flying to Berlin right now" = сейчас, в этот момент).</span>
+  </p>
+
+  <div class="callout">
+    <b>Mini-rule (2 seconds):</b><br>
+    • <b>I am</b> + verb-ing &nbsp;→&nbsp; <i>I am boarding.</i><br>
+    • <b>He / She / It is</b> + verb-ing &nbsp;→&nbsp; <i>The plane is landing.</i><br>
+    • <b>We / You / They are</b> + verb-ing &nbsp;→&nbsp; <i>We are waiting at the gate.</i><br>
+    <span class="ru">Три строчки — вся суть Present Continuous.</span>
+  </div>
+
+  <h3>Read aloud · 6 live scenes</h3>
+  <div class="steps">
+    <div class="step">
+      <div class="step-n">✈️</div>
+      <div class="step-body">
+        <div class="step-en">The plane <b>is landing</b> right now.</div>
+        <div class="step-ru">Самолёт приземляется прямо сейчас.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">🛄</div>
+      <div class="step-body">
+        <div class="step-en">Passengers <b>are collecting</b> their bags at belt 4.</div>
+        <div class="step-ru">Пассажиры забирают багаж на ленте 4.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">👮</div>
+      <div class="step-body">
+        <div class="step-en">The officer <b>is checking</b> Alexander's passport.</div>
+        <div class="step-ru">Офицер проверяет паспорт Александра.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">📱</div>
+      <div class="step-body">
+        <div class="step-en">Stanislav <b>is buying</b> a local SIM card at the kiosk.</div>
+        <div class="step-ru">Станислав покупает местную SIM-карту в киоске.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">🚕</div>
+      <div class="step-body">
+        <div class="step-en">We <b>are looking for</b> the taxi rank.</div>
+        <div class="step-ru">Мы ищем стоянку такси.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-n">🏨</div>
+      <div class="step-body">
+        <div class="step-en">The receptionist <b>is preparing</b> your room on the fourth floor.</div>
+        <div class="step-ru">Администратор готовит Ваш номер на четвёртом этаже.</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>Drill · pick am / is / are</h3>
+
+  <div class="gap-line" data-check="mcq">
+    <b>1.</b> The plane
+    <select data-correct="is"><option value="">—</option><option>am</option><option>is</option><option>are</option></select>
+    landing at gate 7.
+  </div>
+  <div class="gap-line" data-check="mcq">
+    <b>2.</b> We
+    <select data-correct="are"><option value="">—</option><option>am</option><option>is</option><option>are</option></select>
+    waiting for our bags.
+  </div>
+  <div class="gap-line" data-check="mcq">
+    <b>3.</b> I
+    <select data-correct="am"><option value="">—</option><option>am</option><option>is</option><option>are</option></select>
+    filling in the arrival form.
+  </div>
+  <div class="gap-line" data-check="mcq">
+    <b>4.</b> The taxi driver
+    <select data-correct="is"><option value="">—</option><option>am</option><option>is</option><option>are</option></select>
+    helping us with the suitcases.
+  </div>
+
+  <div class="callout" style="margin-top:14px">
+    <b>Pair drill · look around <u>this</u> room right now.</b><br>
+    Describe <b>three</b> things happening in this room using Present Continuous. One sentence each. Then Stanislav does the same.<br>
+    <i>Example: "Alexander is looking at the screen. Stanislav is drinking coffee. The clock is ticking."</i>
+    <span class="ru">Опишите <b>три</b> вещи, которые происходят прямо сейчас в этой комнате. По одному предложению. Потом Станислав делает то же.</span>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 7 · SMALL TALK MAGIC · 5 mini-dialogues (from L&B 1) -->
+<!-- ============================================================ -->
+<section class="section" id="s7">
+  <div class="section-hdr">
+    <div class="section-num">07</div>
+    <h2>💬 Small Talk Magic · 5 mini-dialogues</h2>
+  </div>
+  <p class="lead">
+    Five short chats with a stranger in five typical travel spots. One of you is <b>You</b> (the traveller), the other plays <b>Stranger</b>. Read each dialogue once, then swap and read again.
+    <span class="ru">Пять коротких small talk-разговоров с незнакомцем в пяти типовых точках поездки. Один — <b>You</b> (путешественник), другой — <b>Stranger</b>. Прочитайте каждый раз, потом поменяйтесь ролями и прочитайте ещё раз.</span>
+  </p>
+
+  <p class="tinynote" style="margin-top:-6px">🔊 Tap any line to hear it.</p>
+
+  <div class="dlg">
+    <h3 style="margin-top:0">✈️ 1 · At the airport waiting lounge</h3>
+    <div class="spk" data-say="Excuse me, is this seat taken?"><span class="spk-tag alex">You</span><div class="spk-txt">Excuse me, is this seat taken?</div></div>
+    <div class="spk" data-say="Oh no, please sit."><span class="spk-tag stan">Stranger</span><div class="spk-txt">Oh no, please sit.</div></div>
+    <div class="spk" data-say="Thanks. Is your flight on time?"><span class="spk-tag alex">You</span><div class="spk-txt">Thanks. Is your flight on time?</div></div>
+    <div class="spk" data-say="Yes, so far. Fingers crossed!"><span class="spk-tag stan">Stranger</span><div class="spk-txt">Yes, so far. Fingers crossed!</div></div>
+    <div class="spk" data-say="Same here. I am going to Berlin. And you?"><span class="spk-tag alex">You</span><div class="spk-txt">Same here. I am going to Berlin. And you?</div></div>
+    <div class="spk" data-say="Barcelona — my first time."><span class="spk-tag stan">Stranger</span><div class="spk-txt">Barcelona — my first time.</div></div>
+    <div class="spk" data-say="That sounds great!"><span class="spk-tag alex">You</span><div class="spk-txt">That sounds great!</div></div>
+  </div>
+
+  <div class="dlg">
+    <h3 style="margin-top:0">🚆 2 · On a train</h3>
+    <div class="spk" data-say="Do you know how long this ride to Oxford usually takes?"><span class="spk-tag alex">You</span><div class="spk-txt">Do you know how long this ride to Oxford usually takes?</div></div>
+    <div class="spk" data-say="About one and a half hours."><span class="spk-tag stan">Stranger</span><div class="spk-txt">About one and a half hours.</div></div>
+    <div class="spk" data-say="Perfect — just enough time for a podcast."><span class="spk-tag alex">You</span><div class="spk-txt">Perfect — just enough time for a podcast.</div></div>
+    <div class="spk" data-say="Or a nap if you are lucky!"><span class="spk-tag stan">Stranger</span><div class="spk-txt">Or a nap if you are lucky!</div></div>
+    <div class="spk" data-say="True. Early trains always make me sleepy."><span class="spk-tag alex">You</span><div class="spk-txt">True. Early trains always make me sleepy.</div></div>
+  </div>
+
+  <div class="dlg">
+    <h3 style="margin-top:0">🚌 3 · At a bus station</h3>
+    <div class="spk" data-say="Have you taken this route before?"><span class="spk-tag alex">You</span><div class="spk-txt">Have you taken this route before?</div></div>
+    <div class="spk" data-say="A few times — it is a beautiful ride."><span class="spk-tag stan">Stranger</span><div class="spk-txt">A few times — it is a beautiful ride.</div></div>
+    <div class="spk" data-say="Good to hear. I am new to this city."><span class="spk-tag alex">You</span><div class="spk-txt">Good to hear. I am new to this city.</div></div>
+    <div class="spk" data-say="You will love it! Friendly people and great food."><span class="spk-tag stan">Stranger</span><div class="spk-txt">You will love it! Friendly people and great food.</div></div>
+    <div class="spk" data-say="Sounds promising. Thanks for the tip!"><span class="spk-tag alex">You</span><div class="spk-txt">Sounds promising. Thanks for the tip!</div></div>
+  </div>
+
+  <div class="dlg">
+    <h3 style="margin-top:0">🏨 4 · Waiting in line at a hotel reception</h3>
+    <div class="spk" data-say="Quite a queue, right?"><span class="spk-tag alex">You</span><div class="spk-txt">Quite a queue, right?</div></div>
+    <div class="spk" data-say="Yes — must be check-in rush hour."><span class="spk-tag stan">Stranger</span><div class="spk-txt">Yes — must be check-in rush hour.</div></div>
+    <div class="spk" data-say="I just got in from the airport. You too?"><span class="spk-tag alex">You</span><div class="spk-txt">I just got in from the airport. You too?</div></div>
+    <div class="spk" data-say="No, I have been here a few days. It is a great city."><span class="spk-tag stan">Stranger</span><div class="spk-txt">No, I have been here a few days. It is a great city.</div></div>
+    <div class="spk" data-say="Nice. Any tips for dinner nearby?"><span class="spk-tag alex">You</span><div class="spk-txt">Nice. Any tips for dinner nearby?</div></div>
+  </div>
+
+  <div class="dlg">
+    <h3 style="margin-top:0">⛴ 5 · On a ferry</h3>
+    <div class="spk" data-say="Beautiful view, isn't it?"><span class="spk-tag alex">You</span><div class="spk-txt">Beautiful view, isn't it?</div></div>
+    <div class="spk" data-say="Absolutely. Nothing beats sea breeze."><span class="spk-tag stan">Stranger</span><div class="spk-txt">Absolutely. Nothing beats sea breeze.</div></div>
+    <div class="spk" data-say="Do you travel by ferry often?"><span class="spk-tag alex">You</span><div class="spk-txt">Do you travel by ferry often?</div></div>
+    <div class="spk" data-say="Only when I visit my parents. They live on the island."><span class="spk-tag stan">Stranger</span><div class="spk-txt">Only when I visit my parents. They live on the island.</div></div>
+    <div class="spk" data-say="That is lovely. Must be peaceful."><span class="spk-tag alex">You</span><div class="spk-txt">That is lovely. Must be peaceful.</div></div>
+  </div>
+
+  <div class="callout" style="margin-top:14px">
+    <b>Talk:</b> Which of these five little chats happens to <b>you</b> most often on your business trips? Tell your partner in 2 sentences.
+    <span class="ru">Обсудите: какой из пяти small talk чаще всего случается с Вами в командировках? Ответьте партнёру в двух предложениях.</span>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 8 · WORD ORDER · Build a travel sentence -->
+<!-- ============================================================ -->
+<section class="section" id="s8">
+  <div class="section-hdr">
+    <div class="section-num">08</div>
+    <h2>📐 Word Order · build a travel sentence</h2>
+  </div>
+  <p class="lead">
+    Tap the words in the correct order. When you think the sentence is right, press <b>Check</b>. If you make a mistake, press <b>Reset</b> and try again.
+    <span class="ru">Нажимайте на слова в правильном порядке. Когда предложение готово — нажмите <b>Check</b>. Если ошиблись — <b>Reset</b> и заново.</span>
+  </p>
+
+  <div class="wo-item" data-answer="I have a reservation for two nights">
+    <div class="wo-eyebrow">1 · At the hotel front desk</div>
+    <div class="wo-slots"></div>
+    <div class="wo-pills">
+      <button class="wo-pill" type="button">for</button>
+      <button class="wo-pill" type="button">I</button>
+      <button class="wo-pill" type="button">reservation</button>
+      <button class="wo-pill" type="button">a</button>
+      <button class="wo-pill" type="button">two</button>
+      <button class="wo-pill" type="button">nights</button>
+      <button class="wo-pill" type="button">have</button>
+    </div>
+    <div class="wo-actions">
+      <button class="wo-check" type="button">✓ Check</button>
+      <button class="wo-reset" type="button">↺ Reset</button>
+    </div>
+    <div class="wo-hint">✓ I have a reservation for two nights.</div>
+  </div>
+
+  <div class="wo-item" data-answer="How long does the flight to Berlin take">
+    <div class="wo-eyebrow">2 · Ask at the airport</div>
+    <div class="wo-slots"></div>
+    <div class="wo-pills">
+      <button class="wo-pill" type="button">the</button>
+      <button class="wo-pill" type="button">long</button>
+      <button class="wo-pill" type="button">to</button>
+      <button class="wo-pill" type="button">take</button>
+      <button class="wo-pill" type="button">flight</button>
+      <button class="wo-pill" type="button">How</button>
+      <button class="wo-pill" type="button">does</button>
+      <button class="wo-pill" type="button">Berlin</button>
+    </div>
+    <div class="wo-actions">
+      <button class="wo-check" type="button">✓ Check</button>
+      <button class="wo-reset" type="button">↺ Reset</button>
+    </div>
+    <div class="wo-hint">✓ How long does the flight to Berlin take?</div>
+  </div>
+
+  <div class="wo-item" data-answer="We are staying at the Marriott hotel">
+    <div class="wo-eyebrow">3 · Present Continuous callback</div>
+    <div class="wo-slots"></div>
+    <div class="wo-pills">
+      <button class="wo-pill" type="button">hotel</button>
+      <button class="wo-pill" type="button">Marriott</button>
+      <button class="wo-pill" type="button">We</button>
+      <button class="wo-pill" type="button">at</button>
+      <button class="wo-pill" type="button">the</button>
+      <button class="wo-pill" type="button">staying</button>
+      <button class="wo-pill" type="button">are</button>
+    </div>
+    <div class="wo-actions">
+      <button class="wo-check" type="button">✓ Check</button>
+      <button class="wo-reset" type="button">↺ Reset</button>
+    </div>
+    <div class="wo-hint">✓ We are staying at the Marriott hotel.</div>
+  </div>
+
+  <div class="wo-item" data-answer="Could you please order a taxi for us">
+    <div class="wo-eyebrow">4 · Polite request at reception</div>
+    <div class="wo-slots"></div>
+    <div class="wo-pills">
+      <button class="wo-pill" type="button">taxi</button>
+      <button class="wo-pill" type="button">you</button>
+      <button class="wo-pill" type="button">us</button>
+      <button class="wo-pill" type="button">please</button>
+      <button class="wo-pill" type="button">order</button>
+      <button class="wo-pill" type="button">Could</button>
+      <button class="wo-pill" type="button">a</button>
+      <button class="wo-pill" type="button">for</button>
+    </div>
+    <div class="wo-actions">
+      <button class="wo-check" type="button">✓ Check</button>
+      <button class="wo-reset" type="button">↺ Reset</button>
+    </div>
+    <div class="wo-hint">✓ Could you please order a taxi for us?</div>
+  </div>
+
+  <div class="callout" style="margin-top:12px">
+    <b>Talk:</b> Which sentence was the trickiest to build — and why?
+    <span class="ru">Какое предложение было самым сложным собрать — и почему?</span>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 9 · ROLE-PLAY -->
+<!-- ============================================================ -->
+<section class="section" id="s9">
+  <div class="section-hdr">
+    <div class="section-num">09</div>
+    <h2>🎭 Role-Play Lab · 2 scenarios</h2>
+  </div>
+  <p class="lead">
+    Two short scenes. Read the setup, then improvise. Swap roles after each one.
+    <span class="ru">Две короткие сценки. Прочитайте сетап и импровизируйте. Поменяйтесь ролями после каждой.</span>
+  </p>
+
+  <div class="role-card">
+    <div class="role-title">🎬 Scene A · Late check-in</div>
+    <div class="role-setup">
+      Alexander arrives at the hotel at 11 p.m. after a long flight from Moscow. He has a reservation for a single room. Stanislav plays the receptionist.
+      <span class="ru">Александр приезжает в отель в 23:00 после долгого перелёта из Москвы. У него есть бронь на одноместный номер. Станислав — администратор.</span>
+    </div>
+    <div class="role-lines">
+      <div class="role-cue"><b>Alex cue 1:</b> Greet and give your name.</div>
+      <div class="role-cue"><b>Stan cue 1:</b> Welcome the guest, ask for the passport.</div>
+      <div class="role-cue"><b>Alex cue 2:</b> Ask about breakfast and Wi-Fi.</div>
+      <div class="role-cue"><b>Stan cue 2:</b> Answer both, give the key card and the room number.</div>
+      <div class="role-cue"><b>Alex cue 3:</b> Ask for a receipt in the morning.</div>
+    </div>
+  </div>
+
+  <div class="role-card">
+    <div class="role-title">🎬 Scene B · One small problem</div>
+    <div class="role-setup">
+      Stanislav is in the room. The Wi-Fi does not work. He calls the front desk. Alexander plays the receptionist.
+      <span class="ru">Станислав в номере — не работает Wi-Fi. Он звонит на ресепшн. Александр — администратор.</span>
+    </div>
+    <div class="role-lines">
+      <div class="role-cue"><b>Stan cue 1:</b> Greet, name your room, explain the problem.</div>
+      <div class="role-cue"><b>Alex cue 1:</b> Apologise politely, offer a new password.</div>
+      <div class="role-cue"><b>Stan cue 2:</b> Ask a second question — is there a printer in the business centre?</div>
+      <div class="role-cue"><b>Alex cue 2:</b> Say yes, give the opening hours.</div>
+      <div class="role-cue"><b>Stan cue 3:</b> Thank the receptionist, close the call politely.</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:12px">
+    <b>Language for apology &amp; problem-solving:</b><br>
+    • "I am very sorry, sir. Let me check for you."<br>
+    • "One moment, please. I will send someone right away."<br>
+    • "Kindly try this new password: ATHON2026."<br>
+    <span class="ru">Формулы вежливости для администратора.</span>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 10 · QUIZ -->
+<!-- ============================================================ -->
+<section class="section" id="s10">
+  <div class="section-hdr">
+    <div class="section-num">10</div>
+    <h2>🎯 Quick Quiz · 6 MCQ</h2>
+  </div>
+  <p class="lead">
+    Six quick questions. Tap the correct answer. Green = correct, red = try the next one.
+    <span class="ru">Шесть быстрых вопросов. Нажмите правильный ответ.</span>
+  </p>
+
+  <div class="mcq" data-mcq>
+    <div class="mcq-q"><span class="num">1</span> The person at the front desk is the ___.</div>
+    <div class="mcq-opts">
+      <button class="mcq-opt" data-correct="0"><span class="letter">A</span> receptionist</button>
+      <button class="mcq-opt"><span class="letter">B</span> waiter</button>
+      <button class="mcq-opt"><span class="letter">C</span> driver</button>
+    </div>
+  </div>
+
+  <div class="mcq" data-mcq>
+    <div class="mcq-q"><span class="num">2</span> You want one bed for one person. You ask for a ___.</div>
+    <div class="mcq-opts">
+      <button class="mcq-opt"><span class="letter">A</span> twin room</button>
+      <button class="mcq-opt" data-correct="1"><span class="letter">B</span> single room</button>
+      <button class="mcq-opt"><span class="letter">C</span> lobby room</button>
+    </div>
+  </div>
+
+  <div class="mcq" data-mcq>
+    <div class="mcq-q"><span class="num">3</span> "Kindly give me a ___ for my company."</div>
+    <div class="mcq-opts">
+      <button class="mcq-opt"><span class="letter">A</span> key card</button>
+      <button class="mcq-opt"><span class="letter">B</span> lift</button>
+      <button class="mcq-opt" data-correct="2"><span class="letter">C</span> receipt</button>
+    </div>
+  </div>
+
+  <div class="mcq" data-mcq>
+    <div class="mcq-q"><span class="num">4</span> Check-out is usually ___.</div>
+    <div class="mcq-opts">
+      <button class="mcq-opt"><span class="letter">A</span> at midnight</button>
+      <button class="mcq-opt" data-correct="1"><span class="letter">B</span> by 12 noon</button>
+      <button class="mcq-opt"><span class="letter">C</span> at 6 p.m.</button>
+    </div>
+  </div>
+
+  <div class="mcq" data-mcq>
+    <div class="mcq-q"><span class="num">5</span> "I will wait for you in the ___."</div>
+    <div class="mcq-opts">
+      <button class="mcq-opt" data-correct="0"><span class="letter">A</span> lobby</button>
+      <button class="mcq-opt"><span class="letter">B</span> receipt</button>
+      <button class="mcq-opt"><span class="letter">C</span> lift</button>
+    </div>
+  </div>
+
+  <div class="mcq" data-mcq>
+    <div class="mcq-q"><span class="num">6</span> Polite way to ask a favour at reception:</div>
+    <div class="mcq-opts">
+      <button class="mcq-opt"><span class="letter">A</span> "Give me a taxi now."</button>
+      <button class="mcq-opt" data-correct="1"><span class="letter">B</span> "Could you please order a taxi for us?"</button>
+      <button class="mcq-opt"><span class="letter">C</span> "I need taxi, fast."</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 11 · LISTENING + SPEAKING · mini-dialogues из K02 фраз -->
+<!-- ============================================================ -->
+<section class="section" id="s11">
+  <div class="section-hdr">
+    <div class="section-num">11</div>
+    <h2>🎧 Listening + Speaking · your 31 phrases in travel scenes</h2>
+  </div>
+  <p class="lead">
+    Four mini-dialogues that put <b>your own K02 phrases</b> (numbered 1–31) into a real travel scene. Step 1 — press ▶ and listen twice. Step 2 — read aloud both roles. Step 3 — swap.
+    <span class="ru">Четыре мини-диалога, где <b>Ваши K02-фразы</b> (1–31) работают в реальной travel-сцене. Шаг 1 — нажать ▶ и послушать 2 раза. Шаг 2 — прочитать оба role вслух. Шаг 3 — поменяться.</span>
+  </p>
+
+  <p class="tinynote" style="margin-top:-6px">🔊 Tap any line to hear it (Sonia · en-GB · edge-tts).</p>
+
+  <div class="dlg">
+    <h3 style="margin-top:0">🎧 A · At the check-in desk · delayed flight</h3>
+    <div class="spk" data-say="Good morning. Boarding pass, please. I'm afraid the 9:30 flight to Berlin has been delayed by two hours."><span class="spk-tag desk">Desk</span><div class="spk-txt">Good morning. Boarding pass, please. I'm afraid the 9:30 flight to Berlin has been delayed by two hours.</div></div>
+    <div class="spk" data-say="You're kidding! Two hours?"><span class="spk-tag alex">Alex</span><div class="spk-txt"><b>You're kidding!</b> Two hours? <span class="ru">· K02 №8</span></div></div>
+    <div class="spk" data-say="Yes, I'm sorry. May I offer you access to the business lounge?"><span class="spk-tag desk">Desk</span><div class="spk-txt">Yes, I'm sorry. May I offer you access to the business lounge?</div></div>
+    <div class="spk" data-say="That would be great. Thank you."><span class="spk-tag alex">Alex</span><div class="spk-txt"><b>That would be great.</b> Thank you. <span class="ru">· K02 №14</span></div></div>
+  </div>
+
+  <div class="dlg">
+    <h3 style="margin-top:0">🎧 B · Meeting Stan in the waiting lounge</h3>
+    <div class="spk" data-say="Long time no see! How was your flight?"><span class="spk-tag alex">Alex</span><div class="spk-txt"><b>Long time no see!</b> How was your flight? <span class="ru">· K02 №2</span></div></div>
+    <div class="spk" data-say="How's it going? Not bad — I just woke up an hour ago."><span class="spk-tag stan">Stan</span><div class="spk-txt"><b>How's it going?</b> Not bad — I just woke up an hour ago. <span class="ru">· K02 №1 + №27</span></div></div>
+    <div class="spk" data-say="Let's grab some coffee. There is a café by gate 12."><span class="spk-tag alex">Alex</span><div class="spk-txt"><b>Let's grab some coffee.</b> There is a café by gate 12. <span class="ru">· K02 №29</span></div></div>
+    <div class="spk" data-say="Exactly what I need."><span class="spk-tag stan">Stan</span><div class="spk-txt"><b>Exactly</b> what I need. <span class="ru">· K02 №21</span></div></div>
+  </div>
+
+  <div class="dlg">
+    <h3 style="margin-top:0">🎧 C · Asking a stranger for help at the airport</h3>
+    <div class="spk" data-say="Excuse me — do you mind if I sit here?"><span class="spk-tag alex">Alex</span><div class="spk-txt">Excuse me — <b>do you mind if I</b> sit here? <span class="ru">· K02 №12</span></div></div>
+    <div class="spk" data-say="Oh no, please."><span class="spk-tag stan">Stranger</span><div class="spk-txt">Oh no, please.</div></div>
+    <div class="spk" data-say="Could you help me out? Do you know where gate 8 is?"><span class="spk-tag alex">Alex</span><div class="spk-txt"><b>Could you help me out?</b> Do you know where gate 8 is? <span class="ru">· K02 №11</span></div></div>
+    <div class="spk" data-say="Sorry, I didn't catch that — which gate?"><span class="spk-tag stan">Stranger</span><div class="spk-txt"><b>Sorry, I didn't catch that</b> — which gate? <span class="ru">· K02 №16</span></div></div>
+    <div class="spk" data-say="Gate 8, please."><span class="spk-tag alex">Alex</span><div class="spk-txt">Gate 8, please.</div></div>
+    <div class="spk" data-say="Down the corridor, on the left."><span class="spk-tag stan">Stranger</span><div class="spk-txt">Down the corridor, on the left.</div></div>
+    <div class="spk" data-say="Oh, got it! Thanks."><span class="spk-tag alex">Alex</span><div class="spk-txt"><b>Oh, got it!</b> Thanks. <span class="ru">· K02 №20</span></div></div>
+  </div>
+
+  <div class="dlg">
+    <h3 style="margin-top:0">🎧 D · Calling the client from the taxi</h3>
+    <div class="spk" data-say="I have landed. I'm on my way to the hotel."><span class="spk-tag stan">Stan</span><div class="spk-txt">I have landed. <b>I'm on my way</b> to the hotel. <span class="ru">· K02 №26</span></div></div>
+    <div class="spk" data-say="Perfect. What time works for you for the meeting?"><span class="spk-tag rec">Client</span><div class="spk-txt">Perfect. <b>What time works for you</b> for the meeting? <span class="ru">· K02 №31</span></div></div>
+    <div class="spk" data-say="Anytime after 3 p.m. works for me. How about six?"><span class="spk-tag stan">Stan</span><div class="spk-txt"><b>Anytime after 3 p.m. works for me.</b> How about six? <span class="ru">· K02 +add</span></div></div>
+    <div class="spk" data-say="That would be great. See you at six."><span class="spk-tag rec">Client</span><div class="spk-txt"><b>That would be great.</b> See you at six. <span class="ru">· K02 №14</span></div></div>
+  </div>
+
+  <h3 style="margin-top:20px">🎯 Listening drill · which K02 phrase fits?</h3>
+  <p class="lead" style="font-size:.9rem">You will read (or hear the teacher say) a short travel situation. Choose the K02 phrase you would use in response.</p>
+
+  <div class="mcq" data-mcq>
+    <div class="mcq-q"><span class="num">1</span> The receptionist said your room number too fast. You answer:</div>
+    <div class="mcq-opts">
+      <button class="mcq-opt" data-correct="0"><span class="letter">A</span> Could you say that again? · <i>№19</i></button>
+      <button class="mcq-opt"><span class="letter">B</span> No way! · <i>№7</i></button>
+      <button class="mcq-opt"><span class="letter">C</span> Fair enough. · <i>№22</i></button>
+    </div>
+  </div>
+
+  <div class="mcq" data-mcq>
+    <div class="mcq-q"><span class="num">2</span> Your colleague just told you he lost his passport. You react:</div>
+    <div class="mcq-opts">
+      <button class="mcq-opt"><span class="letter">A</span> Exactly! · <i>№21</i></button>
+      <button class="mcq-opt" data-correct="1"><span class="letter">B</span> You're kidding! · <i>№8</i></button>
+      <button class="mcq-opt"><span class="letter">C</span> I'll be right back. · <i>№30</i></button>
+    </div>
+  </div>
+
+  <div class="mcq" data-mcq>
+    <div class="mcq-q"><span class="num">3</span> A tourist next to you at the airport asks for a small favour. You reply:</div>
+    <div class="mcq-opts">
+      <button class="mcq-opt"><span class="letter">A</span> I know, right! · <i>№10</i></button>
+      <button class="mcq-opt"><span class="letter">B</span> Really? · <i>№6</i></button>
+      <button class="mcq-opt" data-correct="2"><span class="letter">C</span> Could you help me out? · <i>№11</i></button>
+    </div>
+  </div>
+
+  <div class="mcq" data-mcq>
+    <div class="mcq-q"><span class="num">4</span> You want to take the empty seat in the business lounge next to a stranger. You ask:</div>
+    <div class="mcq-opts">
+      <button class="mcq-opt" data-correct="0"><span class="letter">A</span> Do you mind if I sit here? · <i>№12</i></button>
+      <button class="mcq-opt"><span class="letter">B</span> Long time no see! · <i>№2</i></button>
+      <button class="mcq-opt"><span class="letter">C</span> I'm on my way. · <i>№26</i></button>
+    </div>
+  </div>
+
+  <div class="mcq" data-mcq>
+    <div class="mcq-q"><span class="num">5</span> The gate number was announced over the loudspeaker but you didn't hear it. You turn to a neighbour:</div>
+    <div class="mcq-opts">
+      <button class="mcq-opt"><span class="letter">A</span> That's awesome! · <i>№9</i></button>
+      <button class="mcq-opt" data-correct="1"><span class="letter">B</span> Sorry, I didn't catch that. · <i>№16</i></button>
+      <button class="mcq-opt"><span class="letter">C</span> Thanks anyway. · <i>№15</i></button>
+    </div>
+  </div>
+
+  <div class="mcq" data-mcq>
+    <div class="mcq-q"><span class="num">6</span> Your meeting partner asks when you can meet in Berlin. You answer:</div>
+    <div class="mcq-opts">
+      <button class="mcq-opt"><span class="letter">A</span> How's it going? · <i>№1</i></button>
+      <button class="mcq-opt"><span class="letter">B</span> Nice to meet you! · <i>№4</i></button>
+      <button class="mcq-opt" data-correct="2"><span class="letter">C</span> Anytime after 3 p.m. works for me. · <i>№31 add</i></button>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:14px">
+    <b>Speaking round-up:</b> in pairs, invent one more mini-dialogue (3–4 lines) at any travel point (taxi · reception · airport café). Every line must contain <b>at least one K02 phrase</b>. Say it aloud twice, then Maria hears it.
+    <span class="ru">Речевой раунд: в паре придумайте ещё один мини-диалог (3–4 реплики) на любой travel-точке. Каждая реплика — минимум одна K02-фраза.</span>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 12 · STORY CARD · 3-beat travel story frame -->
+<!-- ============================================================ -->
+<section class="section" id="s12">
+  <div class="section-hdr">
+    <div class="section-num">12</div>
+    <h2>📐 Story Card · your travel story · 3 beats</h2>
+  </div>
+  <p class="lead">
+    Any good travel story fits into three beats: <b>Setup · Trouble · Resolution</b>. Same shape as your K02 monolog, just about a trip. This is a scaffold for the homework — say it aloud once now, polish it at home.
+    <span class="ru">Любая travel-история укладывается в три бита: <b>Setup · Trouble · Resolution</b>. Та же форма, что и Ваш монолог из K02, только про поездку. Это каркас для домашки — проговорите один раз сейчас, отшлифуете дома.</span>
+  </p>
+
+  <div class="role-card">
+    <div class="role-title">📐 3-beat frame</div>
+    <div class="role-lines">
+      <div class="role-cue"><b>Beat 1 · Setup:</b> where and when. <i>"Last spring I was flying from Moscow to Berlin for a business meeting…"</i></div>
+      <div class="role-cue"><b>Beat 2 · Trouble:</b> what went wrong. <i>"…but at the gate they announced a two-hour delay, and my suitcase was on a different flight."</i></div>
+      <div class="role-cue"><b>Beat 3 · Resolution:</b> how it ended. <i>"In the end I put on the same shirt for two days, borrowed a charger, and still made the meeting on time."</i></div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:10px">
+    <b>Phrase bank for your story</b> (mix K02 + today):<br>
+    • <b>Setup:</b> <i>"Last spring I was flying from … to … for a business trip."</i><br>
+    • <b>Trouble:</b> <i>"Suddenly the gate closed early / my luggage did not arrive / the taxi was two hours late."</i><br>
+    • <b>Resolution:</b> <i>"In the end I found a way, arrived at the hotel, and reached the meeting easily."</i><br>
+    <b>Connectors:</b> but · suddenly · in the end · finally · so · thanks to that.
+  </div>
+
+  <div class="callout" style="background:var(--accent-soft);border-left-color:var(--accent)">
+    <b>Try it now · 60 seconds each:</b> Alexander goes first — one real (or invented) travel story in 3 beats. Then Stanislav. No script — full sentences only.
+    <span class="ru">Проговорите сейчас: Александр — своя (или придуманная) history в 3 бита, 60 секунд. Потом Станислав.</span>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 13 · MINI-DEBATE · Window vs Aisle seat -->
+<!-- ============================================================ -->
+<section class="section" id="s13">
+  <div class="section-hdr">
+    <div class="section-num">13</div>
+    <h2>⚖️ Mini-debate · Window seat vs Aisle seat</h2>
+  </div>
+  <p class="lead">
+    Two sides, 60 seconds each. Pick the side you honestly prefer, argue it aloud. Then switch and argue the other side (harder — but better English). Vocab from K02 that fits: <b>seat · window · aisle · flight · in advance · beneficial · expensive · cheap</b>.
+    <span class="ru">Две стороны, 60 секунд каждая. Возьмите сторону, за которую Вы честно голосуете, — аргументируйте вслух. Потом поменяйтесь и защитите противоположную (сложнее, но полезнее).</span>
+  </p>
+
+  <div class="two-col">
+    <div class="role-card" style="background:linear-gradient(135deg,#FBF9F4 0%,var(--accent-soft) 100%);border-color:var(--accent)">
+      <div class="role-title" style="color:var(--accent3)">🪟 Side A · Window seat</div>
+      <div class="role-lines">
+        <div class="role-cue">You can look outside and relax.</div>
+        <div class="role-cue">Nobody wakes you up — you can sleep the whole flight.</div>
+        <div class="role-cue">The wall is a good pillow.</div>
+        <div class="role-cue">Better for photos of the city on landing.</div>
+      </div>
+    </div>
+
+    <div class="role-card">
+      <div class="role-title">🚶 Side B · Aisle seat</div>
+      <div class="role-lines">
+        <div class="role-cue">You can stand up any time — for the bathroom or to walk.</div>
+        <div class="role-cue">You leave the plane <b>first</b> — no waiting.</div>
+        <div class="role-cue">More space for your legs.</div>
+        <div class="role-cue">Easier to <b>reply</b> to emails without disturbing your neighbour.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:14px">
+    <b>Debate order:</b><br>
+    ① Alexander picks a side and speaks 60 seconds.<br>
+    ② Stanislav argues the other side, 60 seconds.<br>
+    ③ Each summarises the OTHER side in one sentence — proves you listened.<br>
+    ④ Together: pick one winner for a <b>3-hour flight to Berlin</b>. One winner for a <b>10-hour flight to Tokyo</b>. Same or different?
+    <span class="ru">Порядок: 60 сек Александр → 60 сек Станислав → каждый в одном предложении пересказывает позицию противника → вместе выбираете победителя отдельно для 3-часового рейса и 10-часового.</span>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- SECTION 14 · HOMEWORK · 4 tasks (L&B style) -->
+<!-- ============================================================ -->
+<section class="section" id="s11">
+  <div class="section-hdr">
+    <div class="section-num">11</div>
+    <h2>📚 Homework · 5 tasks · by Tuesday 26.08 · K02 style</h2>
+  </div>
+
+  <div class="callout" style="margin-top:0;margin-bottom:14px">
+    <b>Task 1 · Your own travel monolog · 7–10 sentences.</b><br>
+    Write a monolog <b>"My last business trip"</b> using the airport model paragraph from K02 (page 6) as a scaffold. Include <b>at least 5</b> of your K02 travel words: <i>travel light · trolley-bag · check in · in advance · boarding pass · gate · waiting lounge · seat · aisle / window · to reply · beneficial · easily</i>. Add one Present Continuous sentence at the end (<i>"Right now I am…"</i>).<br>
+    <span class="ru">Задание 1 · Свой монолог «My last business trip» на 7–10 предложений. Каркас — airport model paragraph из K02 (стр. 6). Обязательно ≥ 5 K02-слов + одно предложение в Present Continuous в конце.</span>
+  </div>
+
+  <div class="callout" style="margin-top:0;margin-bottom:14px">
+    <b>Task 2 · Mini-dialogue drill · 3 of 4 scenes by heart.</b><br>
+    From <b>Section 11</b> (Listening + Speaking) pick <b>any 3 of 4</b> mini-dialogues (A · check-in delayed / B · meeting Stan / C · asking a stranger / D · calling the client). Learn <b>both roles by heart</b>. Pair check: Alexander plays one role, Stanislav the other — from memory, no script.
+    <span class="ru">Задание 2 · Выберите ЛЮБЫЕ 3 из 4 мини-диалогов §11 · выучите обе роли <b>наизусть</b> · в паре проиграйте без подсказок.</span>
+  </div>
+
+  <div class="callout" style="margin-top:0;margin-bottom:14px">
+    <b>Task 3 · Present Continuous · 5 sentences about your office right now.</b><br>
+    Write <b>5</b> sentences in Present Continuous describing your own workplace <i>at this moment</i>. Use different subjects: <b>I / He or She / We / They / The …</b>. Example: <i>"Right now I am sitting at my desk. My colleague is talking on the phone. Two managers are preparing a report. The receptionist is greeting a client. The kettle is boiling."</i>
+    <span class="ru">Задание 3 · Present Continuous · 5 предложений про Ваш офис прямо сейчас. Разные подлежащие: I / He or She / We / They / The …</span>
+  </div>
+
+  <div class="callout" style="margin-top:0;margin-bottom:14px">
+    <b>Task 4 · Voice note · 90 seconds · your worst travel moment.</b><br>
+    Record a 90-sec voice message on <b>"Your worst travel moment"</b> using the 3-beat frame from Section 12: <b>Setup → Trouble → Resolution</b>. Use ≥ 2 K02 phrases (any category). Send to Maria in Telegram — we will start Lesson 7 with your story.
+    <span class="ru">Задание 4 · 90-секундное голосовое: «Your worst travel moment» · каркас 3-beat из §12 · ≥ 2 K02-фразы · в Telegram Марии.</span>
+  </div>
+
+  <h3 style="margin-top:20px">Task 5 · Type-drill · 5 sentences below (self-check)</h3>
+  <p class="lead" style="font-size:.9rem">Type the English sentence for each Russian line. Press "Check" — if wrong, the correct answer appears in green.</p>
+  <p class="lead">
+    Please type the English sentence for each Russian line. Press "Check" — if wrong, the correct answer will appear in green.
+    <span class="ru">Пожалуйста, наберите английское предложение к каждой русской строке. Нажмите «Check» — если ошибка, правильный ответ появится зелёным.</span>
+  </p>
+
+  <div class="type-item" data-answer="I have a reservation for two nights.">
+    <div class="type-ru">1) У меня бронь на две ночи.</div>
+    <div class="type-in-row">
+      <input class="type-input" type="text" placeholder="type in English...">
+      <button class="type-check">Check</button>
+    </div>
+    <div class="type-hint">✓ I have a reservation for two nights.</div>
+  </div>
+
+  <div class="type-item" data-answer="Is breakfast included in the price?">
+    <div class="type-ru">2) Завтрак включён в стоимость?</div>
+    <div class="type-in-row">
+      <input class="type-input" type="text" placeholder="type in English...">
+      <button class="type-check">Check</button>
+    </div>
+    <div class="type-hint">✓ Is breakfast included in the price?</div>
+  </div>
+
+  <div class="type-item" data-answer="Could you please order a taxi for 7 a.m.?">
+    <div class="type-ru">3) Не могли бы Вы, пожалуйста, заказать такси на 7 утра?</div>
+    <div class="type-in-row">
+      <input class="type-input" type="text" placeholder="type in English...">
+      <button class="type-check">Check</button>
+    </div>
+    <div class="type-hint">✓ Could you please order a taxi for 7 a.m.?</div>
+  </div>
+
+  <div class="type-item" data-answer="The Wi-Fi does not work in my room.">
+    <div class="type-ru">4) В моём номере не работает интернет.</div>
+    <div class="type-in-row">
+      <input class="type-input" type="text" placeholder="type in English...">
+      <button class="type-check">Check</button>
+    </div>
+    <div class="type-hint">✓ The Wi-Fi does not work in my room.</div>
+  </div>
+
+  <div class="type-item" data-answer="Kindly give me a receipt on the company name.">
+    <div class="type-ru">5) Пожалуйста, дайте мне чек на название компании.</div>
+    <div class="type-in-row">
+      <input class="type-input" type="text" placeholder="type in English...">
+      <button class="type-check">Check</button>
+    </div>
+    <div class="type-hint">✓ Kindly give me a receipt on the company name.</div>
+  </div>
+
+  <div class="callout" style="margin-top:14px">
+    <b>Speaking part (optional):</b> Record a 30-second voice note answering — "Tell me about the last hotel you stayed in for business." Send to Maria on Telegram.
+    <span class="ru">Speaking (по желанию): запишите 30-секундное аудио по вопросу «Расскажите про последний деловой отель». Пришлите в Telegram.</span>
+  </div>
+</section>
+
+<div class="footer">L6 · Hotel Arrival &amp; Travel Talk · Alexander &amp; Stanislav · A2 · New Generation English · 21.08.2026</div>
+</div>
+
+<div class="score-bar" id="scoreBar">Score: <b id="scoreNow">0</b>/<span id="scoreMax">0</span></div>
+
+<!-- MP3 audio manifest — Sonia en-GB (edge-tts) · rebuilt by audio/_gen.py -->
+<script src="audio/_manifest.js?v=20260820"></script>
+<script>
+(function(){
+  /* ─── SECTION NAV highlighting ─── */
+  const tabs = document.querySelectorAll('.mtab');
+  const sects = [...document.querySelectorAll('.section')];
+  function setActive(){
+    const y = window.scrollY + 130;
+    let cur = sects[0]?.id;
+    for (const s of sects){ if (s.offsetTop <= y) cur = s.id; }
+    tabs.forEach(t => t.classList.toggle('active', t.getAttribute('href') === '#'+cur));
+  }
+  window.addEventListener('scroll', setActive, {passive:true});
+  setActive();
+
+  /* ─── TTS · edge-tts mp3 via _manifest.js · NO Web Speech fallback ─── */
+  const audioCache = {};
+  function say(t, rate=0.92){
+    if(!t) return;
+    const manifest = window.AUDIO_MANIFEST || {};
+    const f = manifest[t];
+    if(!f){ console.warn('[TTS] no mp3 for:', t); return; }
+    if(!audioCache[f]) audioCache[f] = new Audio('audio/'+f);
+    const a = audioCache[f];
+    Object.values(audioCache).forEach(x => { if(x !== a){ x.pause(); x.currentTime = 0; } });
+    a.currentTime = 0;
+    a.playbackRate = rate;
+    a.play().catch(err => console.warn('[TTS] play failed:', f, err));
+  }
+  document.querySelectorAll('[data-say]').forEach(el => {
+    el.addEventListener('click', () => say(el.dataset.say));
+    if (el.tagName !== 'BUTTON') el.style.cursor = 'pointer';
+  });
+
+  /* ─── SELECT gap-fill checking ─── */
+  document.querySelectorAll('.gap-line select').forEach(sel => {
+    sel.addEventListener('change', () => {
+      const want = sel.dataset.correct;
+      const got = sel.value;
+      sel.classList.remove('correct','wrong');
+      if (!got) return;
+      sel.classList.add(got === want ? 'correct' : 'wrong');
+      bumpScore(got === want);
+    });
+  });
+
+  /* ─── MCQ ─── */
+  document.querySelectorAll('[data-mcq]').forEach(box => {
+    box.querySelectorAll('.mcq-opt').forEach(opt => {
+      opt.addEventListener('click', () => {
+        if (box.dataset.done) return;
+        const isRight = opt.hasAttribute('data-correct');
+        opt.classList.add(isRight ? 'correct' : 'wrong');
+        if (isRight) box.dataset.done = '1';
+        if (!isRight){
+          setTimeout(() => opt.classList.remove('wrong'), 900);
+        } else {
+          box.querySelectorAll('.mcq-opt').forEach(o => { if (!o.hasAttribute('data-correct')) o.style.opacity='.5'; });
+        }
+        bumpScore(isRight);
+      });
+    });
+  });
+
+  /* ─── TYPING check ─── */
+  function norm(s){ return s.trim().toLowerCase().replace(/[.,!?]/g,'').replace(/\s+/g,' '); }
+  document.querySelectorAll('.type-item').forEach(item => {
+    const inp = item.querySelector('.type-input');
+    const btn = item.querySelector('.type-check');
+    const want = item.dataset.answer;
+    function check(){
+      const ok = norm(inp.value) === norm(want);
+      inp.classList.remove('correct','wrong');
+      inp.classList.add(ok ? 'correct' : 'wrong');
+      if (!ok) item.classList.add('revealed');
+      bumpScore(ok);
+    }
+    btn.addEventListener('click', check);
+    inp.addEventListener('keydown', e => { if (e.key === 'Enter') check(); });
+  });
+
+  /* ─── WORD ORDER · click-in-order ─── */
+  document.querySelectorAll('.wo-item').forEach(item => {
+    const slots = item.querySelector('.wo-slots');
+    const pillsBox = item.querySelector('.wo-pills');
+    const pills = [...item.querySelectorAll('.wo-pill')];
+    const check = item.querySelector('.wo-check');
+    const reset = item.querySelector('.wo-reset');
+    const answer = item.dataset.answer.trim();
+
+    pills.forEach(p => {
+      p.addEventListener('click', () => {
+        if (p.disabled) return;
+        p.disabled = true;
+        const slot = document.createElement('button');
+        slot.type = 'button';
+        slot.className = 'wo-slot';
+        slot.textContent = p.textContent;
+        slot.dataset.origIndex = pills.indexOf(p);
+        slot.addEventListener('click', () => {
+          // click a slot -> return the word back
+          pills[slot.dataset.origIndex].disabled = false;
+          slot.remove();
+          slots.classList.remove('correct','wrong');
+        });
+        slots.appendChild(slot);
+      });
+    });
+
+    check.addEventListener('click', () => {
+      const built = [...slots.querySelectorAll('.wo-slot')].map(s => s.textContent).join(' ');
+      const ok = built.toLowerCase().replace(/[?.,!]/g,'') === answer.toLowerCase().replace(/[?.,!]/g,'');
+      slots.classList.remove('correct','wrong');
+      slots.classList.add(ok ? 'correct' : 'wrong');
+      if (!ok) item.classList.add('revealed');
+      bumpScore(ok);
+    });
+
+    reset.addEventListener('click', () => {
+      slots.innerHTML = '';
+      slots.classList.remove('correct','wrong');
+      item.classList.remove('revealed');
+      pills.forEach(p => p.disabled = false);
+    });
+  });
+
+  /* ─── SCORE bar (very small) ─── */
+  let scoreNow = 0, scoreMax = 0;
+  const bar = document.getElementById('scoreBar');
+  const nowEl = document.getElementById('scoreNow');
+  const maxEl = document.getElementById('scoreMax');
+  function bumpScore(right){
+    scoreMax++;
+    if (right) scoreNow++;
+    nowEl.textContent = scoreNow;
+    maxEl.textContent = scoreMax;
+    bar.classList.add('on');
+  }
+})();
+</script>
+</body>
+</html>
