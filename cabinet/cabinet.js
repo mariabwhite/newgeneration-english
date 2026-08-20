@@ -1739,29 +1739,28 @@
           ${student.weekly_revenue ? `<div class="cab-card-row"><span class="cab-row-label">В неделю</span><span class="cab-row-value">${_esc(student.weekly_revenue)} ₽</span></div>` : ""}
           ${student.payment_status ? `<div class="cab-card-row"><span class="cab-row-label">Статус</span><span class="cab-row-value">${_esc(student.payment_status)}</span></div>` : ""}
 
-          ${payment.sbpPhone ? `
-          <div style="margin-top:16px;padding:16px 18px;background:linear-gradient(135deg,rgba(255,220,80,.10),rgba(255,220,80,.04));border:1.5px solid rgba(255,220,80,.35);border-radius:12px;">
-            <div style="font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cab-muted, #888);font-family:'JetBrains Mono',monospace;margin-bottom:6px;">Способ 1 · Быстрая оплата · СБП</div>
-            <div style="font-size:1.35rem;font-weight:800;letter-spacing:.02em;margin:2px 0 4px;">${_esc(payment.sbpPhone)}</div>
-            <div style="font-size:.9rem;color:var(--cab-muted, #888);margin-bottom:12px;">Получатель: <b>${_esc(payment.sbpBank || payment.bank || "Т-Банк")}</b> · ${_esc(payment.recipient || "")}</div>
-            <button class="cab-action-btn cab-action-btn--primary" type="button" data-action="copy-pay" data-copy="${_esc(payment.sbpPhone)}" data-copy-label="телефон СБП" style="width:100%;">📋 Скопировать номер</button>
-            <div style="font-size:.82rem;color:var(--cab-muted, #888);margin-top:10px;line-height:1.5;">Откройте <b>любое банковское приложение</b> (Сбер, Т-Банк, Альфа, ВТБ…) → <b>СБП по номеру телефона</b> → вставьте номер → введите сумму → готово.</div>
-          </div>
-          ` : ""}
+          <div id="cabPayBox" style="margin-top:16px;padding:20px;background:linear-gradient(135deg,rgba(255,220,80,.10),rgba(255,220,80,.03));border:1.5px solid rgba(255,220,80,.35);border-radius:14px;">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;">
+              <span style="font-size:1.6rem;">💳</span>
+              <div><div style="font-weight:800;font-size:1.05rem;line-height:1.2;">Оплата через Т-Банк</div><div style="font-size:.82rem;color:var(--cab-muted, #888);margin-top:2px;">Карта · СБП · СберPay — на выбор в форме банка</div></div>
+            </div>
 
-          <div style="margin-top:14px;padding:14px 16px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.08);border-radius:12px;">
-            <div style="font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cab-muted, #888);font-family:'JetBrains Mono',monospace;margin-bottom:8px;">Способ 2 · По реквизитам (для перевода со счёта)</div>
-            ${payment.recipient ? `<div class="cab-card-row"><span class="cab-row-label">Получатель</span><span class="cab-row-value">${_esc(payment.recipient)} <button class="cab-copy-mini" type="button" data-action="copy-pay" data-copy="${_esc(payment.recipient)}" data-copy-label="имя получателя" title="Скопировать">📋</button></span></div>` : ""}
-            ${payment.bank ? `<div class="cab-card-row"><span class="cab-row-label">Банк</span><span class="cab-row-value">${_esc(payment.bank)}</span></div>` : ""}
-            ${payment.inn ? `<div class="cab-card-row"><span class="cab-row-label">ИНН</span><span class="cab-row-value"><code>${_esc(payment.inn)}</code> <button class="cab-copy-mini" type="button" data-action="copy-pay" data-copy="${_esc(payment.inn)}" data-copy-label="ИНН" title="Скопировать">📋</button></span></div>` : ""}
-            ${payment.account ? `<div class="cab-card-row"><span class="cab-row-label">Счёт</span><span class="cab-row-value"><code>${_esc(payment.account)}</code> <button class="cab-copy-mini" type="button" data-action="copy-pay" data-copy="${_esc(payment.account)}" data-copy-label="счёт" title="Скопировать">📋</button></span></div>` : ""}
-            ${payment.bik ? `<div class="cab-card-row"><span class="cab-row-label">БИК</span><span class="cab-row-value"><code>${_esc(payment.bik)}</code> <button class="cab-copy-mini" type="button" data-action="copy-pay" data-copy="${_esc(payment.bik)}" data-copy-label="БИК" title="Скопировать">📋</button></span></div>` : ""}
-            ${payment.purpose ? `<div class="cab-card-row"><span class="cab-row-label">Назначение</span><span class="cab-row-value" style="font-size:11px;line-height:1.45;">${_esc(payment.purpose)} <button class="cab-copy-mini" type="button" data-action="copy-pay" data-copy="${_esc(payment.purpose)}" data-copy-label="назначение" title="Скопировать">📋</button></span></div>` : ""}
+            <label style="display:block;font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--cab-muted, #888);margin-bottom:6px;">Сумма к оплате, ₽</label>
+            <input id="cabPayAmount" type="number" inputmode="numeric" min="1" step="1" value="${student.price_per_lesson || ''}" placeholder="например, ${student.monthly_package || student.price_per_lesson || 3000}" style="width:100%;padding:14px 16px;border:1.5px solid rgba(255,255,255,.16);background:rgba(0,0,0,.28);border-radius:10px;color:inherit;font-size:1.15rem;font-weight:700;letter-spacing:.02em;box-sizing:border-box;margin-bottom:12px;">
+
+            <button id="cabPayGoBtn" class="cab-action-btn cab-action-btn--primary" type="button" style="width:100%;font-size:1.05rem;padding:14px;">Перейти к оплате →</button>
+
+            <div id="cabPayWarn" style="display:none;margin-top:12px;padding:10px 14px;background:rgba(255,120,80,.14);border:1px solid rgba(255,120,80,.45);border-radius:10px;font-size:.84rem;line-height:1.5;">
+              <b>⚠️ Вы в мессенджере.</b> Здесь оплата может блокироваться. Откройте кабинет в браузере: нажмите <b>⋮ / •••</b> вверху → <b>«Открыть в Safari»</b> (iPhone) или <b>«Открыть в браузере»</b> (Android).
+              <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;">
+                <button id="cabPayOpenExt" type="button" style="flex:1;min-width:140px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:inherit;padding:8px 12px;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600;">Попробовать открыть</button>
+                <button id="cabPayCopyLink" type="button" style="flex:1;min-width:140px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.28);color:inherit;padding:8px 12px;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600;">📋 Скопировать ссылку</button>
+              </div>
+            </div>
           </div>
 
-          <div style="margin-top:14px;display:flex;flex-direction:column;gap:8px;">
-            ${payment.telegram ? `<a class="cab-action-btn cab-action-btn--primary" href="${_esc(payment.telegram)}" target="_blank" rel="noreferrer">✉️ Написать Марии — я оплатил(а)</a>` : ""}
-            ${payment.tinkoffQuickPay ? `<div style="font-size:.78rem;color:var(--cab-muted, #888);text-align:center;line-height:1.5;">Клиент Т-Банка? Можно быстро: <a href="${_esc(payment.tinkoffQuickPay)}" target="_blank" rel="noreferrer" style="color:inherit;text-decoration:underline;">открыть QuickPay-ссылку</a> <span style="font-size:.72rem;opacity:.7;">(если браузер ругается — используйте Способ 1)</span></div>` : ""}
+          <div style="margin-top:14px;text-align:center;">
+            ${payment.telegram ? `<a href="${_esc(payment.telegram)}" target="_blank" rel="noreferrer" style="font-size:.86rem;color:var(--cab-muted, #888);text-decoration:underline;">Уже оплатил(а)? Написать Марии</a>` : ""}
           </div>
 
           <div id="cab-copy-toast" style="display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2d5d4a;color:#fff;padding:10px 20px;border-radius:24px;font-size:.9rem;font-weight:600;z-index:9999;box-shadow:0 6px 22px rgba(0,0,0,.35);"></div>
@@ -1781,10 +1780,46 @@
     container.querySelectorAll('[data-action="open-report"]').forEach(btn => {
       btn.addEventListener("click", () => openPrintableReport(btn.dataset.student, btn.dataset.report));
     });
-    container.querySelectorAll('[data-action="copy-pay"]').forEach(btn => {
-      btn.addEventListener("click", async () => {
-        const text = btn.getAttribute("data-copy") || "";
-        const label = btn.getAttribute("data-copy-label") || "текст";
+    // ---------- Payment button (Т-Банк QuickPay with amount) ----------
+    (function wirePayBox() {
+      const box = container.querySelector("#cabPayBox");
+      if (!box) return;
+      const input = box.querySelector("#cabPayAmount");
+      const btn = box.querySelector("#cabPayGoBtn");
+      const warn = box.querySelector("#cabPayWarn");
+      const openExt = box.querySelector("#cabPayOpenExt");
+      const copyLink = box.querySelector("#cabPayCopyLink");
+      const base = payment.tinkoffQuickPay || "";
+      if (!base || !btn) return;
+
+      // Build a QuickPay URL with amount + purpose
+      function buildUrl(amount) {
+        const p = new URLSearchParams();
+        if (amount > 0) p.set("sum", String(amount));
+        const purpose = payment.purpose || "Оплата занятий английским";
+        p.set("comment", purpose);
+        const sep = base.indexOf("?") === -1 ? "?" : "&";
+        return base + sep + p.toString();
+      }
+
+      // Detect in-app WebView (Telegram, Instagram, VK, FB)
+      function isInAppWebView() {
+        const ua = (navigator.userAgent || "").toLowerCase();
+        return /telegram|instagram|fban|fbav|vkclient|line\//.test(ua)
+          || window.TelegramWebviewProxy != null
+          || (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.tgWebview);
+      }
+
+      function toast(msg) {
+        const t = document.getElementById("cab-copy-toast");
+        if (!t) return;
+        t.textContent = msg;
+        t.style.display = "block";
+        clearTimeout(window.__cabCopyToastT);
+        window.__cabCopyToastT = setTimeout(() => { t.style.display = "none"; }, 2200);
+      }
+
+      async function copyToClipboard(text) {
         try {
           if (navigator.clipboard && window.isSecureContext) {
             await navigator.clipboard.writeText(text);
@@ -1794,18 +1829,61 @@
             document.body.appendChild(ta); ta.select();
             document.execCommand("copy"); document.body.removeChild(ta);
           }
-          const toast = document.getElementById("cab-copy-toast");
-          if (toast) {
-            toast.textContent = "✅ Скопировано: " + label;
-            toast.style.display = "block";
-            clearTimeout(window.__cabCopyToastT);
-            window.__cabCopyToastT = setTimeout(() => { toast.style.display = "none"; }, 2000);
-          }
-        } catch (e) {
-          alert("Не удалось скопировать. Выделите текст вручную:\n\n" + text);
+          return true;
+        } catch (e) { return false; }
+      }
+
+      btn.addEventListener("click", () => {
+        const raw = (input && input.value || "").replace(/[^\d]/g, "");
+        const amount = parseInt(raw, 10);
+        if (!amount || amount < 1) {
+          input.focus();
+          input.style.borderColor = "#c94a4a";
+          setTimeout(() => { input.style.borderColor = ""; }, 1400);
+          toast("Введите сумму в рублях");
+          return;
+        }
+        const url = buildUrl(amount);
+
+        if (isInAppWebView()) {
+          // Show the warning + external-open helpers
+          warn.style.display = "block";
+          openExt.dataset.url = url;
+          copyLink.dataset.url = url;
+          warn.scrollIntoView({ behavior: "smooth", block: "center" });
+          return;
+        }
+
+        // Normal browser: just go
+        window.location.assign(url);
+      });
+
+      if (openExt) openExt.addEventListener("click", () => {
+        const url = openExt.dataset.url || buildUrl(parseInt((input.value || "").replace(/[^\d]/g,""), 10) || 0);
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        const isAndroid = /Android/.test(navigator.userAgent);
+        if (isIOS) {
+          // iOS: x-safari-https:// hack — opens system Safari from most in-app WebViews
+          const safariUrl = "x-safari-" + url.replace(/^https?:\/\//, "https://");
+          window.location.href = safariUrl;
+          setTimeout(() => { window.location.href = url; }, 700); // fallback if scheme blocked
+        } else if (isAndroid) {
+          // Android intent:// — force system Chrome
+          const noProto = url.replace(/^https?:\/\//, "");
+          const intent = "intent://" + noProto + "#Intent;scheme=https;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.android.chrome;end";
+          window.location.href = intent;
+          setTimeout(() => { window.location.href = url; }, 700);
+        } else {
+          window.open(url, "_blank", "noopener");
         }
       });
-    });
+
+      if (copyLink) copyLink.addEventListener("click", async () => {
+        const url = copyLink.dataset.url || buildUrl(parseInt((input.value || "").replace(/[^\d]/g,""), 10) || 0);
+        const ok = await copyToClipboard(url);
+        toast(ok ? "✅ Ссылка скопирована — вставьте в Safari/Chrome" : "Не удалось скопировать");
+      });
+    })();
   }
 
   /* ---------- printable report ---------- */
