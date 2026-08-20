@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Julia · Recap 01 — Back to School · LinguaBoost Lab</title>
+<meta name="description" content="Recap lesson for A2 learners: clothes, prepositions of time and place, present simple vs continuous, was/were, past simple, containers, polite requests. Textbook style.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* mature muted palette for a 12-year-old — dusty mauve · steel blue · khaki · warm cream */
+  --bg:#F6F1E8;--surface:#FFFDF8;
+  --accent:#A67685;      /* dusty mauve */
+  --accent2:#7A97A8;     /* steel blue */
+  --accent3:#B5A87F;     /* khaki sage */
+  --ok:#7A9673;
+  --miss:#B87879;
+  --ink:#3D3849;
+  --muted:#7C7484;
+  --card-border:#E5DBC9;
+  --radius:14px;--shadow:0 3px 14px rgba(60,55,70,.07);
+  --display:'Fraunces','Manrope',serif;--body:'Manrope',sans-serif;--mono:'JetBrains Mono',Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);font-family:var(--body);color:var(--ink);min-height:100vh;overflow-x:hidden;line-height:1.55;font-size:16px}
+
+.topbar{position:relative;z-index:100;display:flex;align-items:center;gap:14px;padding:10px clamp(14px,3vw,24px);background:rgba(255,253,248,.92);border-bottom:1px solid rgba(60,55,70,.06);backdrop-filter:blur(14px)}
+.brand{font-family:var(--display);font-weight:700;font-size:.95rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand-mark{width:36px;height:36px;border-radius:8px;background:#A67685;color:#fff;font-family:var(--display);font-weight:700;font-size:1.05rem;display:grid;place-items:center;flex-shrink:0}
+.brand-copy{display:grid;gap:1px}
+.brand-name{font-weight:700;font-size:.9rem;line-height:1}
+.brand-sub{font-family:var(--mono);font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.spacer{flex:1}
+.btn-sm{min-height:32px;padding:0 12px;border-radius:8px;font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border:1px solid rgba(60,55,70,.14);background:transparent;color:var(--muted);text-decoration:none;display:inline-flex;align-items:center}
+.btn-sm:hover{border-color:var(--accent);color:var(--accent)}
+
+.page-title{max-width:960px;margin:24px auto 8px;padding:0 clamp(16px,3vw,28px)}
+.page-title h1{font-family:var(--display);font-size:clamp(1.6rem,4vw,2.2rem);font-weight:700;color:var(--ink);line-height:1.15}
+.page-title .lead{margin-top:6px;font-size:.95rem;color:var(--muted);font-weight:500}
+.page-title .meta{margin-top:12px;display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.page-title .meta span{padding:3px 10px;border:1px solid var(--card-border);border-radius:99px;background:var(--surface)}
+
+.progress{max-width:960px;margin:8px auto 20px;padding:0 clamp(16px,3vw,28px)}
+.dots{display:flex;gap:5px;justify-content:center;flex-wrap:wrap}
+.dot{width:10px;height:10px;border-radius:50%;background:#e7ddc9;border:1.5px solid #d5c8ad;transition:.3s;cursor:pointer}
+.dot.lit{background:var(--accent3);border-color:#9c8f68;transform:scale(1.15)}
+
+.section{max-width:960px;margin:0 auto 22px;padding:0 clamp(16px,3vw,28px)}
+.section-head{display:flex;align-items:baseline;gap:12px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--card-border)}
+.section-head .n{font-family:var(--mono);font-size:.72rem;font-weight:800;letter-spacing:.14em;color:var(--accent2);background:#eaf0f4;padding:3px 8px;border-radius:6px}
+.section-head h2{font-family:var(--display);font-size:1.15rem;font-weight:700;color:var(--ink)}
+.section-sub{font-size:.78rem;color:var(--muted);font-style:italic;margin-bottom:12px}
+
+.card{background:var(--surface);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow);border:1px solid var(--card-border);margin-bottom:10px}
+h3{font-family:var(--display);font-size:1rem;font-weight:600;margin-bottom:8px;color:var(--ink)}
+h4{font-family:var(--mono);font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin:12px 0 6px}
+p{margin-bottom:6px}
+strong{font-weight:700;color:var(--ink)}
+.hi-pink{background:linear-gradient(transparent 60%,#EEDDE1 60%);font-weight:700;padding:0 2px}
+.hi-blue{background:linear-gradient(transparent 60%,#DFE7EC 60%);font-weight:700;padding:0 2px}
+.hi-khaki{background:linear-gradient(transparent 60%,#E9E3CA 60%);font-weight:700;padding:0 2px}
+
+.story{font-family:Georgia,'Fraunces',serif;font-size:.98rem;line-height:1.75;color:#3D3849;background:#fdf9f0;border-radius:12px;padding:16px 20px;border-left:3px solid var(--accent3);margin-bottom:10px}
+.story p{margin-bottom:8px}
+.story .speak-line{cursor:pointer;border-radius:6px;padding:2px 4px;transition:.15s}
+.story .speak-line:hover{background:#f0e9d6}
+
+.rule-box{background:#f4eff5;border:1px dashed var(--accent);border-radius:10px;padding:12px 14px;margin:8px 0;font-size:.9rem}
+.rule-box .rule-title{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:800;color:var(--accent);margin-bottom:6px}
+
+.gap-line{padding:7px 10px;background:#fff;border-radius:8px;margin-bottom:5px;font-size:.95rem;border:1px solid var(--card-border)}
+.gap-line .num{display:inline-block;width:22px;color:var(--muted);font-family:var(--mono);font-weight:700;font-size:.82rem}
+.mcq{border:1.5px solid var(--card-border);border-radius:6px;padding:3px 6px;font-family:inherit;font-weight:700;background:#fdfaf3;color:var(--ink);cursor:pointer;font-size:.88rem}
+.mcq.right{background:#e7ede4;border-color:var(--ok);color:#4a6444}
+.mcq.wrong{background:#f5e0e0;border-color:var(--miss);color:#8a5555;animation:shake .35s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+.gap{display:inline-block;min-width:78px;background:#f6ecee;border:2px dashed var(--accent);color:var(--accent);border-radius:6px;padding:2px 10px;font-weight:700;text-align:center;cursor:pointer;transition:.15s;font-family:var(--mono);font-size:.88rem}
+.gap:hover{background:#efdee2}
+.gap.filled{background:#e7ede4;border-color:var(--ok);color:#4a6444;border-style:solid}
+.gap.selected-gap{box-shadow:0 0 0 2px var(--accent)}
+.gap.wrong{background:#f5e0e0;border-color:var(--miss);color:#8a5555;animation:shake .35s}
+.kid-bank{display:flex;gap:5px;flex-wrap:wrap;background:#f5efe0;border-radius:10px;padding:8px;margin-top:10px;border:1px dashed var(--accent3)}
+.kid-bank-word{background:#fff;border:1.5px solid var(--card-border);border-radius:6px;padding:4px 10px;cursor:pointer;font-weight:700;font-size:.85rem;transition:.15s;color:var(--ink);font-family:var(--mono)}
+.kid-bank-word:hover{border-color:var(--accent);transform:translateY(-1px)}
+.kid-bank-word.used{opacity:.32;text-decoration:line-through;pointer-events:none}
+
+.vocab-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:6px}
+@media(max-width:600px){.vocab-grid{grid-template-columns:1fr}}
+.vocab-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#fff;border:1px solid var(--card-border);border-radius:8px;padding:8px 12px;font-size:.9rem}
+.vocab-row .en{font-weight:700;color:var(--accent);cursor:pointer}
+.vocab-row .ru{color:var(--muted);font-weight:500}
+.vocab-row:hover{background:#fdfaf3;border-color:var(--accent)}
+
+.tf-row{display:flex;align-items:center;gap:8px;padding:7px 10px;background:#fff;border-radius:8px;margin-bottom:5px;border:1px solid var(--card-border);font-size:.9rem}
+.tf-row .tf-text{flex:1;font-weight:500}
+.tf-btn{padding:4px 12px;border-radius:6px;border:1.5px solid var(--card-border);background:#fff;cursor:pointer;font-weight:700;font-size:.78rem;transition:.15s;color:var(--ink);font-family:var(--mono);letter-spacing:.06em}
+.tf-btn:hover{border-color:var(--accent)}
+.tf-btn.yes-on{background:#e7ede4;border-color:var(--ok);color:#4a6444}
+.tf-btn.no-on{background:#f5e0e0;border-color:var(--miss);color:#8a5555;animation:shake .35s}
+
+.match-cols{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:8px}
+.match-cols.match-2col{grid-auto-flow:column}
+.match-item{background:#fff;border:1.5px solid var(--card-border);border-radius:8px;padding:7px 10px;cursor:pointer;font-weight:600;transition:.15s;font-size:.88rem;text-align:center;color:var(--ink)}
+.match-item:hover{border-color:var(--accent);transform:translateY(-1px)}
+.match-item.selected{background:#f6ecee;border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.match-item.matched{background:#e7ede4;border-color:var(--ok);color:#4a6444;pointer-events:none;opacity:.78}
+.match-item.wrong{background:#f5e0e0;border-color:var(--miss);animation:shake .35s}
+
+.drop-zone{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+@media(max-width:600px){.drop-zone{grid-template-columns:1fr}}
+.drop-basket{background:#fff;border:1.5px dashed var(--accent2);border-radius:10px;padding:8px;min-height:80px}
+.drop-basket h4{font-family:var(--mono);font-size:.76rem;font-weight:800;color:var(--accent2);text-transform:uppercase;letter-spacing:.06em;margin:0 0 6px;text-align:center}
+.drop-basket-items{display:flex;flex-direction:column;gap:3px;min-height:40px}
+.drop-basket-items .drop-word{background:#eaf0f4;border:1px solid var(--accent2);color:var(--accent2);padding:3px 8px;border-radius:6px;font-weight:600;font-size:.82rem;text-align:center}
+.drop-basket-items .drop-word.wrong-drop{background:#f5e0e0;border-color:var(--miss);color:#8a5555;animation:shake .35s}
+.drop-pool{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px;padding:8px;background:#f5efe0;border:1px dashed var(--accent3);border-radius:10px;justify-content:center}
+.drop-token{background:#fff;border:1.5px solid var(--card-border);border-radius:6px;padding:5px 10px;cursor:pointer;font-weight:600;font-size:.85rem;transition:.15s;color:var(--ink)}
+.drop-token:hover{border-color:var(--accent);transform:translateY(-1px)}
+.drop-token.selected{background:#f6ecee;border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.drop-token.used{opacity:.32;text-decoration:line-through;pointer-events:none}
+
+.q-block{background:#fdf9f0;border-radius:10px;padding:10px 12px;margin:6px 0;border:1px solid var(--card-border)}
+.q-block .q-text{font-weight:600;margin-bottom:6px;font-size:.9rem;color:var(--ink)}
+.choice-row{display:flex;gap:6px;flex-wrap:wrap}
+.choice{background:#fff;border:1.5px solid var(--card-border);border-radius:8px;padding:6px 12px;cursor:pointer;font-weight:600;transition:.15s;color:var(--ink);font-family:inherit;font-size:.85rem}
+.choice:hover{border-color:var(--accent)}
+.choice.right{background:#e7ede4;border-color:var(--ok);color:#4a6444}
+.choice.wrong{background:#f5e0e0;border-color:var(--miss);color:#8a5555;animation:shake .35s}
+
+.play-btn{width:32px;height:32px;border-radius:50%;background:var(--accent2);color:#fff;border:none;font-size:.95rem;cursor:pointer;display:inline-grid;place-items:center;flex-shrink:0}
+.play-btn:hover{transform:scale(1.05)}
+
+.hw-block{background:#f4eff5;border:1px solid var(--accent);border-radius:12px;padding:14px 16px;margin-top:20px}
+.hw-block > summary{cursor:pointer;font-family:var(--display);font-weight:700;color:var(--accent);font-size:1.05rem;list-style:none;padding:2px 0}
+.hw-block > summary::before{content:'▸ ';color:var(--accent);font-family:var(--mono)}
+.hw-block[open] > summary::before{content:'▾ '}
+
+.tts-hint{font-size:.75rem;color:var(--muted);margin-top:6px;font-style:italic;text-align:right}
+
+footer{text-align:center;padding:16px;color:var(--muted);font-size:.82rem;background:#f0e9d8;margin-top:24px;font-weight:500}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a class="brand" href="/lingua-boost-lab/premium.html">
+    <div class="brand-mark">J</div>
+    <div class="brand-copy">
+      <div class="brand-name">LINGUA BOOST · LAB</div>
+      <div class="brand-sub">Julia · Recap 01 · Back to School</div>
+    </div>
+  </a>
+  <div class="spacer"></div>
+  <a href="/lingua-boost-lab/premium.html" class="btn-sm">All lessons</a>
+</nav>
+
+<header class="page-title">
+  <h1>Recap 01 — Back to School</h1>
+  <p class="lead">Everything from the summer program in one lesson: clothes, prepositions of time and place, present simple vs continuous, was / were, past simple, containers, polite phrases.</p>
+  <div class="meta">
+    <span>Level A2</span>
+    <span>8 sections</span>
+    <span>≈ 45–55 min</span>
+  </div>
+</header>
+
+<div class="progress"><div class="dots" id="dots"></div></div>
+
+<!-- ================================================================ -->
+<!-- SECTION 1 · STORY -->
+<!-- ================================================================ -->
+<section class="section" id="block-1">
+  <div class="section-head"><span class="n">Section 1</span><h2>Julia's first school day back</h2></div>
+  <div class="section-sub">Read the story. Then answer True / False / Not stated.</div>
+  <div class="story">
+    <p><span class="speak-line" data-say="It was Monday, the first of September. Julia woke up at seven o'clock in the morning.">It was Monday, the first of September. Julia woke up at seven o'clock in the morning.</span></p>
+    <p><span class="speak-line" data-say="She put on her white shirt, a dark skirt and her new sneakers. Her old sneakers were too small now.">She put on her white shirt, a dark skirt and her new sneakers. Her old sneakers were too small now.</span></p>
+    <p><span class="speak-line" data-say="In the kitchen, her mum was making breakfast. Her little brother John was already eating a sandwich and reading a comic.">In the kitchen, her mum was making breakfast. Her little brother John was already eating a sandwich and reading a comic.</span></p>
+    <p><span class="speak-line" data-say="Julia had a cup of tea and a packet of biscuits. She put a bottle of water and an apple into her bag.">Julia had a cup of tea and a packet of biscuits. She put a bottle of water and an apple into her bag.</span></p>
+    <p><span class="speak-line" data-say="She walked out of the house at eight. The street was quiet. She walked past a small park, across the road, and up the hill to the school.">She walked out of the house at eight. The street was quiet. She walked past a small park, across the road, and up the hill to the school.</span></p>
+    <p><span class="speak-line" data-say="At the gate she saw her friend Emma. Emma was wearing a blue dress. They walked into the classroom together.">At the gate she saw her friend Emma. Emma was wearing a blue dress. They walked into the classroom together.</span></p>
+    <p><span class="speak-line" data-say="The first lesson was English. The teacher, Mrs Brown, said: «Welcome back, girls! Today we are speaking about your summer.» Julia was a bit nervous, but she was ready.">The first lesson was English. The teacher, Mrs Brown, said: «Welcome back, girls! Today we are speaking about your summer.» Julia was a bit nervous, but she was ready.</span></p>
+  </div>
+  <div class="tts-hint">Tap any line to hear it.</div>
+  <div class="card">
+    <h4>True · False · Not stated</h4>
+    <div id="tf-story"></div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- SECTION 2 · VOCABULARY -->
+<!-- ================================================================ -->
+<section class="section" id="block-2">
+  <div class="section-head"><span class="n">Section 2</span><h2>Vocabulary from the story</h2></div>
+  <div class="section-sub">Read and remember. Tap the English word to hear it.</div>
+  <div class="card">
+    <div class="vocab-grid" id="vocab-list"></div>
+  </div>
+  <div class="card">
+    <h4>Match English to Russian</h4>
+    <p style="font-size:.82rem;color:var(--muted);margin:0 0 8px">Tap one word on the left, then its pair on the right.</p>
+    <div class="match-cols match-2col" id="vocab-match" style="grid-auto-flow:column;grid-template-rows:repeat(8,auto)"></div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- SECTION 3 · WAS / WERE + PAST SIMPLE -->
+<!-- ================================================================ -->
+<section class="section" id="block-3">
+  <div class="section-head"><span class="n">Section 3</span><h2>Was / Were + Past Simple</h2></div>
+  <div class="section-sub">Choose the correct past form for each gap.</div>
+  <div class="rule-box">
+    <div class="rule-title">Reminder</div>
+    <p><strong>I / he / she / it</strong> → <span class="hi-pink">was</span> · &nbsp; <strong>you / we / they</strong> → <span class="hi-blue">were</span>.<br>
+    Regular verbs: walk → walk<strong>ed</strong>. Irregular: go → <strong>went</strong>, see → <strong>saw</strong>, buy → <strong>bought</strong>, put → <strong>put</strong>, have → <strong>had</strong>.</p>
+  </div>
+  <div class="card">
+    <h4>Part A · Was or Were?</h4>
+    <div class="gap-line"><span class="num">1</span>Yesterday Julia <select class="mcq" data-answer="was"><option value="" disabled selected>—</option><option>was</option><option>were</option></select> in the classroom at eight.</div>
+    <div class="gap-line"><span class="num">2</span>Her sneakers <select class="mcq" data-answer="were"><option value="" disabled selected>—</option><option>was</option><option>were</option></select> new and comfortable.</div>
+    <div class="gap-line"><span class="num">3</span>The lesson <select class="mcq" data-answer="was"><option value="" disabled selected>—</option><option>was</option><option>were</option></select> interesting.</div>
+    <div class="gap-line"><span class="num">4</span>Julia and Emma <select class="mcq" data-answer="were"><option value="" disabled selected>—</option><option>was</option><option>were</option></select> in the same class.</div>
+    <div class="gap-line"><span class="num">5</span>The corridors <select class="mcq" data-answer="were"><option value="" disabled selected>—</option><option>was</option><option>were</option></select> full of children.</div>
+    <div class="gap-line"><span class="num">6</span>Mrs Brown <select class="mcq" data-answer="was"><option value="" disabled selected>—</option><option>was</option><option>were</option></select> the English teacher.</div>
+    <h4 style="margin-top:14px">Part B · Past Simple</h4>
+    <div class="gap-line"><span class="num">1</span>In the morning Julia <select class="mcq" data-answer="put on"><option value="" disabled selected>—</option><option>puts on</option><option>put on</option><option>putted on</option></select> her white shirt.</div>
+    <div class="gap-line"><span class="num">2</span>She <select class="mcq" data-answer="had"><option value="" disabled selected>—</option><option>haved</option><option>had</option><option>has</option></select> tea and biscuits for breakfast.</div>
+    <div class="gap-line"><span class="num">3</span>She <select class="mcq" data-answer="walked"><option value="" disabled selected>—</option><option>walk</option><option>walked</option><option>walkt</option></select> to school.</div>
+    <div class="gap-line"><span class="num">4</span>At the gate she <select class="mcq" data-answer="saw"><option value="" disabled selected>—</option><option>seed</option><option>saw</option><option>seen</option></select> her friend Emma.</div>
+    <div class="gap-line"><span class="num">5</span>The girls <select class="mcq" data-answer="went"><option value="" disabled selected>—</option><option>goed</option><option>went</option><option>gone</option></select> into the classroom together.</div>
+    <div class="gap-line"><span class="num">6</span>Mrs Brown <select class="mcq" data-answer="said"><option value="" disabled selected>—</option><option>say</option><option>said</option><option>sayed</option></select> «Welcome back!»</div>
+    <div class="gap-line"><span class="num">7</span>Julia <select class="mcq" data-answer="took"><option value="" disabled selected>—</option><option>take</option><option>taked</option><option>took</option></select> a notebook out of her bag.</div>
+    <div class="gap-line"><span class="num">8</span>She <select class="mcq" data-answer="drank"><option value="" disabled selected>—</option><option>drank</option><option>drinked</option><option>drunk</option></select> water at the break.</div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- SECTION 4 · PRESENT SIMPLE vs PRESENT CONTINUOUS -->
+<!-- ================================================================ -->
+<section class="section" id="block-4">
+  <div class="section-head"><span class="n">Section 4</span><h2>Present Simple vs Continuous</h2></div>
+  <div class="section-sub">Read the marker word. Choose the right form.</div>
+  <div class="rule-box">
+    <div class="rule-title">Reminder</div>
+    <p>Marker words like <span class="hi-pink">now / at the moment / look!</span> → <strong>Present Continuous</strong> (am / is / are + -ing).<br>
+    Markers like <span class="hi-blue">usually / every day / often / sometimes</span> → <strong>Present Simple</strong>.</p>
+  </div>
+  <div class="card">
+    <div class="gap-line"><span class="num">1</span>Look! Julia <select class="mcq" data-answer="is opening"><option value="" disabled selected>—</option><option>opens</option><option>is opening</option><option>open</option></select> her notebook.</div>
+    <div class="gap-line"><span class="num">2</span>Julia usually <select class="mcq" data-answer="wakes up"><option value="" disabled selected>—</option><option>is waking up</option><option>wakes up</option><option>wake up</option></select> at seven.</div>
+    <div class="gap-line"><span class="num">3</span>At the moment Mrs Brown <select class="mcq" data-answer="is writing"><option value="" disabled selected>—</option><option>writes</option><option>write</option><option>is writing</option></select> on the board.</div>
+    <div class="gap-line"><span class="num">4</span>Every morning John <select class="mcq" data-answer="reads"><option value="" disabled selected>—</option><option>is reading</option><option>reads</option><option>read</option></select> a comic at breakfast.</div>
+    <div class="gap-line"><span class="num">5</span>Now Emma <select class="mcq" data-answer="is wearing"><option value="" disabled selected>—</option><option>wears</option><option>is wearing</option><option>wear</option></select> a blue dress.</div>
+    <div class="gap-line"><span class="num">6</span>Julia often <select class="mcq" data-answer="goes"><option value="" disabled selected>—</option><option>is going</option><option>goes</option><option>go</option></select> to school with Emma.</div>
+    <div class="gap-line"><span class="num">7</span>Listen! Someone <select class="mcq" data-answer="is speaking"><option value="" disabled selected>—</option><option>speaks</option><option>speak</option><option>is speaking</option></select> Russian in the corridor.</div>
+    <div class="gap-line"><span class="num">8</span>Mum <select class="mcq" data-answer="makes"><option value="" disabled selected>—</option><option>is making</option><option>makes</option><option>make</option></select> pancakes every Sunday.</div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- SECTION 5 · PREPOSITIONS OF PLACE -->
+<!-- ================================================================ -->
+<section class="section" id="block-5">
+  <div class="section-head"><span class="n">Section 5</span><h2>Prepositions of place</h2></div>
+  <div class="section-sub">Match English to Russian. Then fill the gaps.</div>
+  <div class="card">
+    <h4>Part A · Match</h4>
+    <p style="font-size:.82rem;color:var(--muted);margin:0 0 8px">Tap a word on the left, then its meaning on the right.</p>
+    <div class="match-cols match-2col" id="prep-place-match" style="grid-auto-flow:column;grid-template-rows:repeat(8,auto)"></div>
+    <h4 style="margin-top:14px">Part B · Choose the preposition</h4>
+    <div class="gap-line"><span class="num">1</span>Julia walked <select class="mcq" data-answer="out of"><option value="" disabled selected>—</option><option>into</option><option>out of</option><option>up</option></select> the house.</div>
+    <div class="gap-line"><span class="num">2</span>She went <select class="mcq" data-answer="past"><option value="" disabled selected>—</option><option>past</option><option>through</option><option>up</option></select> the small park on the corner.</div>
+    <div class="gap-line"><span class="num">3</span>Then she walked <select class="mcq" data-answer="across"><option value="" disabled selected>—</option><option>along</option><option>across</option><option>into</option></select> the road at the traffic light.</div>
+    <div class="gap-line"><span class="num">4</span>The school is <select class="mcq" data-answer="up"><option value="" disabled selected>—</option><option>up</option><option>down</option><option>into</option></select> the hill.</div>
+    <div class="gap-line"><span class="num">5</span>She walked <select class="mcq" data-answer="through"><option value="" disabled selected>—</option><option>through</option><option>past</option><option>across</option></select> the school gate.</div>
+    <div class="gap-line"><span class="num">6</span>She walked <select class="mcq" data-answer="along"><option value="" disabled selected>—</option><option>up</option><option>along</option><option>out of</option></select> the long corridor to her classroom.</div>
+    <div class="gap-line"><span class="num">7</span>A cat ran <select class="mcq" data-answer="into"><option value="" disabled selected>—</option><option>past</option><option>through</option><option>into</option></select> the garden.</div>
+    <div class="gap-line"><span class="num">8</span>After the lesson she walked <select class="mcq" data-answer="down"><option value="" disabled selected>—</option><option>up</option><option>down</option><option>along</option></select> the stairs to the canteen.</div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- SECTION 6 · PREPOSITIONS OF TIME -->
+<!-- ================================================================ -->
+<section class="section" id="block-6">
+  <div class="section-head"><span class="n">Section 6</span><h2>Prepositions of time · in / on / at</h2></div>
+  <div class="section-sub">Sort the phrases. Then complete the sentences.</div>
+  <div class="rule-box">
+    <div class="rule-title">Reminder</div>
+    <p><span class="hi-pink">in</span> months, seasons, years, morning / afternoon / evening<br>
+    <span class="hi-blue">on</span> days of the week, dates, «on Monday morning»<br>
+    <span class="hi-khaki">at</span> exact time, «at night», «at noon», «at the weekend»</p>
+  </div>
+  <div class="card">
+    <h4>Part A · Sort the phrases</h4>
+    <p style="font-size:.82rem;color:var(--muted);margin:0 0 8px">Tap a phrase in the pool → tap the correct basket.</p>
+    <div class="drop-zone" id="prep-time-baskets">
+      <div class="drop-basket" data-key="in"><h4>in</h4><div class="drop-basket-items"></div></div>
+      <div class="drop-basket" data-key="on"><h4>on</h4><div class="drop-basket-items"></div></div>
+      <div class="drop-basket" data-key="at"><h4>at</h4><div class="drop-basket-items"></div></div>
+    </div>
+    <div class="drop-pool" id="prep-time-pool"></div>
+    <h4 style="margin-top:14px">Part B · Fill the gap</h4>
+    <div class="gap-line"><span class="num">1</span>The first lesson starts <select class="mcq" data-answer="at"><option value="" disabled selected>—</option><option>at</option><option>in</option><option>on</option></select> eight thirty.</div>
+    <div class="gap-line"><span class="num">2</span>Julia goes to school <select class="mcq" data-answer="on"><option value="" disabled selected>—</option><option>at</option><option>in</option><option>on</option></select> Monday.</div>
+    <div class="gap-line"><span class="num">3</span>Her birthday is <select class="mcq" data-answer="in"><option value="" disabled selected>—</option><option>in</option><option>on</option><option>at</option></select> May.</div>
+    <div class="gap-line"><span class="num">4</span>She reads a book <select class="mcq" data-answer="in"><option value="" disabled selected>—</option><option>at</option><option>in</option><option>on</option></select> the evening.</div>
+    <div class="gap-line"><span class="num">5</span>Julia was born <select class="mcq" data-answer="in"><option value="" disabled selected>—</option><option>in</option><option>on</option><option>at</option></select> 2014.</div>
+    <div class="gap-line"><span class="num">6</span>School finishes early <select class="mcq" data-answer="on"><option value="" disabled selected>—</option><option>on</option><option>in</option><option>at</option></select> Friday.</div>
+    <div class="gap-line"><span class="num">7</span>She usually goes to bed <select class="mcq" data-answer="at"><option value="" disabled selected>—</option><option>in</option><option>at</option><option>on</option></select> ten o'clock.</div>
+    <div class="gap-line"><span class="num">8</span>The autumn holiday is <select class="mcq" data-answer="in"><option value="" disabled selected>—</option><option>on</option><option>in</option><option>at</option></select> October.</div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- SECTION 7 · CONTAINERS + POLITE REQUESTS -->
+<!-- ================================================================ -->
+<section class="section" id="block-7">
+  <div class="section-head"><span class="n">Section 7</span><h2>Containers + polite phrases</h2></div>
+  <div class="section-sub">At the school canteen and the little shop.</div>
+  <div class="card">
+    <h4>Part A · What is inside?</h4>
+    <div class="gap-line"><span class="num">1</span>A <select class="mcq" data-answer="bottle"><option value="" disabled selected>—</option><option>bottle</option><option>jar</option><option>packet</option></select> of water.</div>
+    <div class="gap-line"><span class="num">2</span>A <select class="mcq" data-answer="packet"><option value="" disabled selected>—</option><option>tin</option><option>packet</option><option>carton</option></select> of biscuits.</div>
+    <div class="gap-line"><span class="num">3</span>A <select class="mcq" data-answer="jar"><option value="" disabled selected>—</option><option>bottle</option><option>jar</option><option>box</option></select> of honey.</div>
+    <div class="gap-line"><span class="num">4</span>A <select class="mcq" data-answer="carton"><option value="" disabled selected>—</option><option>bottle</option><option>packet</option><option>carton</option></select> of orange juice.</div>
+    <div class="gap-line"><span class="num">5</span>A <select class="mcq" data-answer="box"><option value="" disabled selected>—</option><option>box</option><option>tin</option><option>jar</option></select> of chocolate.</div>
+    <div class="gap-line"><span class="num">6</span>A <select class="mcq" data-answer="tin"><option value="" disabled selected>—</option><option>packet</option><option>tin</option><option>bottle</option></select> of tuna.</div>
+    <h4 style="margin-top:14px">Part B · Choose the polite phrase</h4>
+    <div class="q-block">
+      <div class="q-text">1. You want a bottle of water at the school canteen. What do you say?</div>
+      <div class="choice-row">
+        <button class="choice" data-correct="true">Could I have a bottle of water, please?</button>
+        <button class="choice" data-correct="false">Give me water!</button>
+        <button class="choice" data-correct="false">I want water now.</button>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-text">2. You do not know the price. What do you ask?</div>
+      <div class="choice-row">
+        <button class="choice" data-correct="false">Money?</button>
+        <button class="choice" data-correct="true">How much is it, please?</button>
+        <button class="choice" data-correct="false">Say the price!</button>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-text">3. You need help with your bag. What do you say?</div>
+      <div class="choice-row">
+        <button class="choice" data-correct="false">Help!</button>
+        <button class="choice" data-correct="false">You must help me.</button>
+        <button class="choice" data-correct="true">Could you help me, please?</button>
+      </div>
+    </div>
+    <div class="q-block">
+      <div class="q-text">4. The teacher gave you a new notebook. What do you say?</div>
+      <div class="choice-row">
+        <button class="choice" data-correct="true">Thank you very much!</button>
+        <button class="choice" data-correct="false">OK, bye.</button>
+        <button class="choice" data-correct="false">And another one?</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- SECTION 8 · SPEAKING · Q&A -->
+<!-- ================================================================ -->
+<section class="section" id="block-8">
+  <div class="section-head"><span class="n">Section 8</span><h2>Speaking · match question and answer</h2></div>
+  <div class="section-sub">Read a question on the left, then find its natural answer on the right.</div>
+  <div class="card">
+    <div class="match-cols" id="speak-match"></div>
+    <h4 style="margin-top:16px">Speak about yourself</h4>
+    <p style="font-size:.85rem;color:var(--muted);margin-bottom:8px">Answer each question out loud in full sentences.</p>
+    <ol style="padding-left:22px;line-height:1.9;font-size:.92rem">
+      <li>What time do you usually wake up on a school day?</li>
+      <li>What did you have for breakfast this morning?</li>
+      <li>What are you wearing right now?</li>
+      <li>How do you go to school? Which streets do you walk past?</li>
+      <li>Which lesson do you like the most, and why?</li>
+      <li>What did you do last weekend?</li>
+      <li>What do you usually put in your school bag?</li>
+      <li>When is your birthday?</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- HOMEWORK -->
+<!-- ================================================================ -->
+<details class="hw-block" id="homework">
+  <summary>Homework · three short exercises</summary>
+  <div class="card" style="margin-top:12px">
+    <h4>HW 1 · Present Simple or Present Continuous?</h4>
+    <div class="gap-line"><span class="num">1</span>Every day I <select class="mcq" data-answer="wake up"><option value="" disabled selected>—</option><option>wake up</option><option>am waking up</option></select> at seven.</div>
+    <div class="gap-line"><span class="num">2</span>Look! It <select class="mcq" data-answer="is raining"><option value="" disabled selected>—</option><option>rains</option><option>is raining</option></select> outside.</div>
+    <div class="gap-line"><span class="num">3</span>My brother <select class="mcq" data-answer="usually plays"><option value="" disabled selected>—</option><option>usually plays</option><option>is usually playing</option></select> football on Saturday.</div>
+    <div class="gap-line"><span class="num">4</span>Now Mum <select class="mcq" data-answer="is cooking"><option value="" disabled selected>—</option><option>cooks</option><option>is cooking</option></select> dinner.</div>
+  </div>
+  <div class="card">
+    <h4>HW 2 · Past Simple gap-fill</h4>
+    <p style="font-size:.85rem;color:var(--muted);margin-bottom:6px">Tap a verb in the bank, then tap the gap.</p>
+    <p class="gap-line"><span class="num">1</span>Last Sunday I <span class="gap" data-answer="went">___</span> to the park with my friends.</p>
+    <p class="gap-line"><span class="num">2</span>We <span class="gap" data-answer="saw">___</span> a small brown dog near the fountain.</p>
+    <p class="gap-line"><span class="num">3</span>My mum <span class="gap" data-answer="bought">___</span> a jar of honey at the market.</p>
+    <p class="gap-line"><span class="num">4</span>My little brother <span class="gap" data-answer="ate">___</span> two ice creams — chocolate and vanilla.</p>
+    <div class="kid-bank">
+      <span class="kid-bank-word" data-word="went">went</span>
+      <span class="kid-bank-word" data-word="saw">saw</span>
+      <span class="kid-bank-word" data-word="bought">bought</span>
+      <span class="kid-bank-word" data-word="ate">ate</span>
+    </div>
+  </div>
+  <div class="card">
+    <h4>HW 3 · Mini-write · four sentences</h4>
+    <p style="font-size:.85rem;color:var(--muted);margin-bottom:6px">Write about <strong>yesterday</strong>. Use at least: <em>was / were, went, saw, wore</em>.</p>
+    <textarea id="hw-write" placeholder="Yesterday morning I…" style="width:100%;min-height:110px;padding:10px 12px;border:1.5px solid var(--card-border);border-radius:10px;font-family:Georgia,serif;font-size:.95rem;line-height:1.6;background:#fdfaf3;color:#3D3849;resize:vertical;outline:none"></textarea>
+    <div style="display:flex;justify-content:space-between;margin-top:6px;font-family:monospace;font-size:.75rem;color:var(--muted);font-weight:700">
+      <span><strong>Target:</strong> 4 sentences · 30–50 words</span>
+      <span>words: <strong id="hw-wc">0</strong></span>
+    </div>
+  </div>
+</details>
+
+<script>
+// ============================
+// TTS — Web Speech API (British female preferred)
+// ============================
+const synth = window.speechSynthesis;
+let voice = null;
+function pickVoice(){
+  const voices = synth.getVoices();
+  voice = voices.find(v => v.lang === 'en-GB' && v.name.toLowerCase().includes('female')) ||
+          voices.find(v => v.lang === 'en-GB') ||
+          voices.find(v => v.lang.startsWith('en-US') && v.name.toLowerCase().includes('female')) ||
+          voices.find(v => v.lang.startsWith('en')) || voices[0];
+}
+if(synth){ pickVoice(); synth.onvoiceschanged = pickVoice; }
+function say(text, rate = 0.85){
+  if(!synth) return;
+  synth.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.voice = voice; u.rate = rate; u.pitch = 1.05;
+  synth.speak(u);
+}
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-say]');
+  if(t){ say(t.dataset.say); }
+});
+
+// MCQ handler (global)
+document.querySelectorAll('.mcq').forEach(s => {
+  s.addEventListener('change', () => {
+    if(s.value === s.dataset.answer){ s.classList.add('right'); s.classList.remove('wrong'); say(s.value, 0.9); }
+    else { s.classList.add('wrong'); s.classList.remove('right'); }
+  });
+});
+
+// Choice buttons (right/wrong)
+document.querySelectorAll('.q-block').forEach(qb => {
+  qb.querySelectorAll('.choice').forEach(c => {
+    c.addEventListener('click', () => {
+      say(c.textContent, 0.88);
+      if (c.dataset.correct === 'true') {
+        c.classList.add('right');
+        qb.querySelectorAll('.choice').forEach(x => x.disabled = true);
+      } else {
+        c.classList.add('wrong');
+        setTimeout(() => c.classList.remove('wrong'), 500);
+      }
+    });
+  });
+});
+
+// Progress dots
+const dotsEl = document.getElementById('dots');
+const blocks = [...document.querySelectorAll('.section[id^="block-"]')];
+blocks.forEach((b, idx) => {
+  const d = document.createElement('div');
+  d.className = 'dot';
+  d.onclick = () => b.scrollIntoView({behavior:'smooth', block:'start'});
+  dotsEl.appendChild(d);
+});
+function updateDots(){
+  const top = window.scrollY + 200;
+  blocks.forEach((b,i)=>{
+    const inView = b.offsetTop <= top;
+    const dot = dotsEl.children[i];
+    if (dot) dot.classList.toggle('lit', inView);
+  });
+}
+window.addEventListener('scroll', updateDots); updateDots();
+
+// ============================
+// SECTION 1 · True / False / Not stated
+// ============================
+const tfItems = [
+  {t:'Julia woke up at seven o\'clock.', a:'true'},
+  {t:'Her old sneakers were still comfortable.', a:'false'},
+  {t:'John was reading a book at breakfast.', a:'false'},
+  {t:'Julia put a bottle of water in her bag.', a:'true'},
+  {t:'The weather was very warm and sunny.', a:'ns'},
+  {t:'Julia saw Emma at the school gate.', a:'true'},
+  {t:'Emma was wearing a red T-shirt.', a:'false'},
+  {t:'The English teacher\'s name was Mrs Brown.', a:'true'},
+  {t:'Julia\'s first lesson on Monday was Maths.', a:'false'}
+];
+const tfEl = document.getElementById('tf-story');
+if(tfEl){
+  tfItems.forEach(item => {
+    const row = document.createElement('div');
+    row.className = 'tf-row';
+    row.innerHTML = `<span class="tf-text">${item.t}</span>
+      <button class="tf-btn" data-ans="true">T</button>
+      <button class="tf-btn" data-ans="false">F</button>
+      <button class="tf-btn" data-ans="ns">NS</button>`;
+    row.querySelectorAll('.tf-btn').forEach(b => {
+      b.addEventListener('click', () => {
+        if(b.dataset.ans === item.a){ b.classList.add('yes-on'); row.querySelectorAll('.tf-btn').forEach(x => x.disabled = true); }
+        else { b.classList.add('no-on'); setTimeout(()=>b.classList.remove('no-on'), 500); }
+      });
+    });
+    tfEl.appendChild(row);
+  });
+}
+
+// ============================
+// SECTION 2 · Vocabulary + match
+// ============================
+const vocab = [
+  {en:'sneakers', ru:'кроссовки'},
+  {en:'shirt', ru:'рубашка'},
+  {en:'skirt', ru:'юбка'},
+  {en:'dress', ru:'платье'},
+  {en:'a packet of biscuits', ru:'пачка печенья'},
+  {en:'a bottle of water', ru:'бутылка воды'},
+  {en:'a jar of honey', ru:'банка мёда'},
+  {en:'a carton of juice', ru:'коробка сока'},
+  {en:'to walk past', ru:'проходить мимо'},
+  {en:'to walk across', ru:'переходить (напр. дорогу)'},
+  {en:'up the hill', ru:'вверх по холму'},
+  {en:'into the classroom', ru:'внутрь класса'},
+  {en:'nervous', ru:'нервный, волнующийся'},
+  {en:'corridor', ru:'коридор'},
+  {en:'canteen', ru:'столовая'},
+  {en:'gate', ru:'ворота, калитка'}
+];
+const vlEl = document.getElementById('vocab-list');
+if(vlEl){
+  vocab.forEach(w => {
+    const row = document.createElement('div');
+    row.className = 'vocab-row';
+    row.innerHTML = `<span class="en" data-say="${w.en}">${w.en}</span><span class="ru">${w.ru}</span>`;
+    vlEl.appendChild(row);
+  });
+}
+const vmEl = document.getElementById('vocab-match');
+let vmSel = null;
+const vmSubset = vocab.slice(0, 8); // 8 pairs for the match
+function handleVMatch(el){
+  say(el.dataset.word, 0.85);
+  if (el.classList.contains('matched')) return;
+  if (!vmSel) { vmSel = el; el.classList.add('selected'); return; }
+  if (vmSel === el) { el.classList.remove('selected'); vmSel = null; return; }
+  if (vmSel.dataset.pair === el.dataset.word && vmSel.dataset.side !== el.dataset.side) {
+    vmSel.classList.remove('selected'); vmSel.classList.add('matched'); el.classList.add('matched');
+    vmSel = null;
+  } else {
+    el.classList.add('wrong');
+    setTimeout(() => { el.classList.remove('wrong'); if(vmSel) vmSel.classList.remove('selected'); vmSel = null; }, 500);
+  }
+}
+if(vmEl){
+  const shuffledEn = [...vmSubset].sort(()=>Math.random()-0.5);
+  const shuffledRu = [...vmSubset].sort(()=>Math.random()-0.5);
+  shuffledEn.forEach(v => {
+    const el = document.createElement('div');
+    el.className = 'match-item';
+    el.dataset.word = v.en; el.dataset.side = 'e'; el.dataset.pair = v.ru;
+    el.textContent = v.en;
+    el.addEventListener('click', () => handleVMatch(el));
+    vmEl.appendChild(el);
+  });
+  shuffledRu.forEach(v => {
+    const el = document.createElement('div');
+    el.className = 'match-item';
+    el.dataset.word = v.ru; el.dataset.side = 'r'; el.dataset.pair = v.en;
+    el.textContent = v.ru;
+    el.addEventListener('click', () => handleVMatch(el));
+    vmEl.appendChild(el);
+  });
+}
+
+// ============================
+// SECTION 5 · Prepositions of place · match
+// ============================
+const preps = [
+  {en:'up', ru:'вверх'},
+  {en:'down', ru:'вниз'},
+  {en:'along', ru:'вдоль'},
+  {en:'across', ru:'через (с одной стороны на другую)'},
+  {en:'into', ru:'внутрь, в'},
+  {en:'out of', ru:'из, наружу'},
+  {en:'through', ru:'сквозь, через'},
+  {en:'past', ru:'мимо'}
+];
+const ppEl = document.getElementById('prep-place-match');
+let ppSel = null;
+function handlePPMatch(el){
+  say(el.dataset.word, 0.85);
+  if (el.classList.contains('matched')) return;
+  if (!ppSel) { ppSel = el; el.classList.add('selected'); return; }
+  if (ppSel === el) { el.classList.remove('selected'); ppSel = null; return; }
+  if (ppSel.dataset.pair === el.dataset.word && ppSel.dataset.side !== el.dataset.side) {
+    ppSel.classList.remove('selected'); ppSel.classList.add('matched'); el.classList.add('matched');
+    ppSel = null;
+  } else {
+    el.classList.add('wrong');
+    setTimeout(() => { el.classList.remove('wrong'); if(ppSel) ppSel.classList.remove('selected'); ppSel = null; }, 500);
+  }
+}
+if(ppEl){
+  const shuffledEn = [...preps].sort(()=>Math.random()-0.5);
+  const shuffledRu = [...preps].sort(()=>Math.random()-0.5);
+  shuffledEn.forEach(p => {
+    const el = document.createElement('div');
+    el.className = 'match-item';
+    el.dataset.word = p.en; el.dataset.side = 'e'; el.dataset.pair = p.ru;
+    el.textContent = p.en;
+    el.addEventListener('click', () => handlePPMatch(el));
+    ppEl.appendChild(el);
+  });
+  shuffledRu.forEach(p => {
+    const el = document.createElement('div');
+    el.className = 'match-item';
+    el.dataset.word = p.ru; el.dataset.side = 'r'; el.dataset.pair = p.en;
+    el.textContent = p.ru;
+    el.addEventListener('click', () => handlePPMatch(el));
+    ppEl.appendChild(el);
+  });
+}
+
+// ============================
+// SECTION 6 · Prepositions of time · baskets
+// ============================
+const timePhrases = [
+  {w:'the morning', k:'in'}, {w:'the evening', k:'in'}, {w:'September', k:'in'},
+  {w:'autumn', k:'in'}, {w:'2014', k:'in'},
+  {w:'Monday', k:'on'}, {w:'Friday', k:'on'}, {w:'the 1st of September', k:'on'},
+  {w:'my birthday', k:'on'},
+  {w:'seven o\'clock', k:'at'}, {w:'noon', k:'at'}, {w:'night', k:'at'}, {w:'the weekend', k:'at'}
+];
+const ptPool = document.getElementById('prep-time-pool');
+const ptBaskets = document.getElementById('prep-time-baskets');
+let ptSel = null;
+if(ptPool && ptBaskets){
+  const shuffled = [...timePhrases].sort(()=>Math.random()-0.5);
+  shuffled.forEach(item => {
+    const t = document.createElement('div');
+    t.className = 'drop-token';
+    t.textContent = item.w;
+    t.dataset.key = item.k;
+    t.addEventListener('click', () => {
+      say(item.k + ' ' + item.w, 0.85);
+      if(t.classList.contains('used')) return;
+      if(!ptSel){ ptSel = t; t.classList.add('selected'); }
+      else if(ptSel === t){ t.classList.remove('selected'); ptSel = null; }
+      else { ptSel.classList.remove('selected'); ptSel = t; t.classList.add('selected'); }
+    });
+    ptPool.appendChild(t);
+  });
+  ptBaskets.querySelectorAll('.drop-basket').forEach(b => {
+    b.addEventListener('click', () => {
+      if(!ptSel) return;
+      const container = b.querySelector('.drop-basket-items');
+      if(ptSel.dataset.key === b.dataset.key){
+        const w = document.createElement('div');
+        w.className = 'drop-word';
+        w.textContent = ptSel.textContent;
+        container.appendChild(w);
+        ptSel.classList.add('used');
+        ptSel.classList.remove('selected');
+        ptSel = null;
+      } else {
+        const w = document.createElement('div');
+        w.className = 'drop-word wrong-drop';
+        w.textContent = ptSel.textContent;
+        container.appendChild(w);
+        setTimeout(() => w.remove(), 500);
+        ptSel.classList.remove('selected');
+        ptSel = null;
+      }
+    });
+  });
+}
+
+// ============================
+// SECTION 8 · Speaking · Q&A match
+// ============================
+const qaPairs = [
+  ['What time do you wake up?', 'I usually wake up at seven.'],
+  ['What are you wearing today?', 'A grey T-shirt and jeans.'],
+  ['Where were you yesterday?', 'I was at home with my brother.'],
+  ['How do you go to school?', 'I walk past the park and across the road.'],
+  ['What did you have for breakfast?', 'A cup of tea and a packet of biscuits.'],
+  ['When is your birthday?', 'It is in May.'],
+  ['What do you have in your bag?', 'A bottle of water and my notebook.'],
+  ['What did you do last weekend?', 'I went to the cinema with my friend.']
+];
+const smEl = document.getElementById('speak-match');
+let smSel = null;
+function handleSMatch(el){
+  say(el.textContent, 0.85);
+  if (el.classList.contains('matched')) return;
+  if (!smSel) { smSel = el; el.classList.add('selected'); return; }
+  if (smSel === el) { el.classList.remove('selected'); smSel = null; return; }
+  if (smSel.dataset.pair === el.dataset.word && smSel.dataset.side !== el.dataset.side) {
+    smSel.classList.remove('selected'); smSel.classList.add('matched'); el.classList.add('matched');
+    smSel = null;
+  } else {
+    el.classList.add('wrong');
+    setTimeout(() => { el.classList.remove('wrong'); if(smSel) smSel.classList.remove('selected'); smSel = null; }, 500);
+  }
+}
+if(smEl){
+  const questions = qaPairs.map(p => p[0]);
+  const answers = qaPairs.map(p => p[1]).sort(() => Math.random() - 0.5);
+  questions.forEach(q => {
+    const el = document.createElement('div');
+    el.className = 'match-item';
+    el.dataset.word = q; el.dataset.side = 'q';
+    el.dataset.pair = qaPairs.find(p => p[0] === q)[1];
+    el.textContent = q;
+    el.addEventListener('click', () => handleSMatch(el));
+    smEl.appendChild(el);
+  });
+  answers.forEach(a => {
+    const el = document.createElement('div');
+    el.className = 'match-item';
+    el.dataset.word = a; el.dataset.side = 'a';
+    el.dataset.pair = qaPairs.find(p => p[1] === a)[0];
+    el.textContent = a;
+    el.addEventListener('click', () => handleSMatch(el));
+    smEl.appendChild(el);
+  });
+}
+
+// ============================
+// Gap fill · HW2
+// ============================
+document.querySelectorAll('.gap').forEach(g => {
+  g.addEventListener('click', () => {
+    document.querySelectorAll('.gap.selected-gap').forEach(o => o.classList.remove('selected-gap'));
+    g.classList.add('selected-gap');
+  });
+});
+document.querySelectorAll('.kid-bank-word').forEach(w => {
+  w.addEventListener('click', () => {
+    const target = document.querySelector('.gap.selected-gap');
+    const txt = w.dataset.word || w.textContent.trim();
+    if(target){
+      if(target.dataset.answer === txt){
+        target.textContent = txt;
+        target.classList.remove('selected-gap');
+        target.classList.add('filled');
+        w.classList.add('used');
+        say(txt, 0.9);
+      } else {
+        target.classList.add('wrong');
+        setTimeout(() => target.classList.remove('wrong'), 400);
+      }
+    } else say(txt, 0.9);
+  });
+});
+
+// HW3 word count
+const hwta = document.getElementById('hw-write');
+const hwc = document.getElementById('hw-wc');
+if(hwta && hwc) hwta.addEventListener('input', () => {
+  hwc.textContent = (hwta.value.match(/\b[\w'-]+\b/g)||[]).length;
+});
+</script>
+
+<footer>
+  Lesson by Maria Burtseva · NG English · LinguaBoost Lab · Julia · <strong>Recap 01 · Back to School</strong>
+</footer>
+
+<script src="../../assets/lab-persist.js?v=3" defer></script>
+<script src="../../assets/lab-send-pill.js?v=4" defer></script>
+<script src="../../assets/lab-total.js?v=4" defer></script>
+<script src="../../assets/lab-pilot.js?v=6" defer></script>
+<script src="../../assets/lab-ai-feedback.js?v=6" defer></script>
+<script src="../../assets/lab-sync.js?v=21" defer></script>
+<link rel="stylesheet" href="/lingua-boost-lab/assets/mobile-compact.css?v=1">
+<script src="/lingua-boost-lab/assets/mobile-compact.js?v=1" defer></script>
+<script src="../../assets/lab-tabs.js?v=12" defer></script>
+<script src="../../assets/lab-homework.js?v=50" defer></script>
+<script src="../../assets/lab-telemost.js?v=1" defer></script>
+<script src="../../assets/lab-vocab-builder.js?v=54" defer></script>
+<script src="../../assets/lab-coach-persist.js?v=1" defer></script>
+<script src="../../assets/lab-clean-bottom-dock.js?v=1" defer></script>
+</body>
+</html>
