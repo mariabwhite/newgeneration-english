@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -105,7 +105,7 @@
   </section>
 </main>
 
-<script src="./data.js?v=202"></script>
+<script src="./data.js?v=203"></script>
 <script src="./cabinet.js?v=99019"></script>
 <script src="./supabase-client.js?v=1"></script>
 <script>
@@ -148,7 +148,10 @@
   async function handleLoginSubmit() {
     if (loginBusy) return;
     var codeEl = document.getElementById("loginCode");
-    var code = (codeEl.value || "").trim();
+    // Strip ALL whitespace (spaces between digits, nbsp, zero-width, etc)
+    // Bug reported 2026-08-18 by Sonya's mum: PIN "51 85" copied with a space
+    // between digits, .trim() didn't catch it, login silently failed.
+    var code = String(codeEl.value || "").replace(/\s+/g, "");
     var errEl = document.getElementById("loginError");
     errEl.classList.remove("is-visible");
     if (!code) {

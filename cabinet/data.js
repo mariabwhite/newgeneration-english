@@ -61,10 +61,35 @@
   // cabinet.js увидит пустые массивы и просто покажет login-форму.
   const EMPTY = { students: [], reports: [], teacher: { id: "teacher", name: "", passwordHash: "" } };
 
+  // Payment defaults — статические реквизиты Марии для кнопки «Оплатить через Т-Банк»
+  // в кабинете родителя (cabinet.js renderParent → payment.tinkoffQuickPay).
+  // Edge fn family-data пока не возвращает payment — доклеиваем клиентски.
+  const PAYMENT_DEFAULTS = {
+    tinkoffQuickPay: "https://www.tinkoff.ru/rm/r_PnDqHEqsDu.EkrmOLeXmQ/MIhLS10143",
+    telegram: "https://t.me/mariabwhite",
+    recipient: "Бурцева Мария Витальевна",
+    bank: "Т-Банк",
+    inn: "771771016209",
+    purpose: "Оплата занятий английским языком (самозанятая, без НДС)."
+  };
+  function _ensurePayment(data) {
+    if (!data) return data;
+    if (!data.payment || typeof data.payment !== "object") {
+      data.payment = PAYMENT_DEFAULTS;
+    } else {
+      // не затираем то, что уже пришло с сервера
+      Object.keys(PAYMENT_DEFAULTS).forEach(function (k) {
+        if (data.payment[k] == null || data.payment[k] === "") data.payment[k] = PAYMENT_DEFAULTS[k];
+      });
+    }
+    return data;
+  }
+
   window.NGE_DATA_PROMISE = (async function boot() {
     // 1) Быстрый путь: свежий кэш в sessionStorage
     const cached = readCache();
     if (cached) {
+      _ensurePayment(cached);
       window.NGE_DATA = cached;
       return cached;
     }
@@ -74,12 +99,14 @@
     try {
       if (session && session.role === "teacher" && session.teacher_password) {
         const data = await callFn("all-data", { teacher_password: session.teacher_password });
+        _ensurePayment(data);
         writeCache(data);
         window.NGE_DATA = data;
         return data;
       }
       if (session && session.pin) {
         const data = await callFn("family-data", { pin: session.pin });
+        _ensurePayment(data);
         writeCache(data);
         window.NGE_DATA = data;
         return data;
@@ -100,6 +127,7 @@
   // Helper для cabinet.js: сохранить только что полученные данные вручную
   // (используется после tryLogin — чтобы не перезапрашивать).
   window.NGE_DATA_HYDRATE = function (data) {
+    _ensurePayment(data);
     writeCache(data);
     window.NGE_DATA = data;
   };
