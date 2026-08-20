@@ -1734,24 +1734,37 @@
         ${_renderReportsCard(student, (window.NGE_DATA && window.NGE_DATA.reports) || [], payment)}
 
         <article class="cab-card">
-          <h3>Оплата</h3>
+          <h3>💳 Оплата</h3>
           ${student.price_per_lesson ? `<div class="cab-card-row"><span class="cab-row-label">Цена занятия</span><span class="cab-row-value">${_esc(student.price_per_lesson)} ₽</span></div>` : ""}
           ${student.weekly_revenue ? `<div class="cab-card-row"><span class="cab-row-label">В неделю</span><span class="cab-row-value">${_esc(student.weekly_revenue)} ₽</span></div>` : ""}
           ${student.payment_status ? `<div class="cab-card-row"><span class="cab-row-label">Статус</span><span class="cab-row-value">${_esc(student.payment_status)}</span></div>` : ""}
-          <div style="margin-top: 14px; display: flex; flex-direction: column; gap: 8px;">
-            ${payment.tinkoffQuickPay ? `<a class="cab-action-btn cab-action-btn--primary" href="${_esc(payment.tinkoffQuickPay)}" target="_blank" rel="noreferrer">Оплатить через Т-Банк</a>` : ""}
-            ${payment.telegram ? `<a class="cab-action-btn cab-action-btn--ghost" href="${_esc(payment.telegram)}" target="_blank" rel="noreferrer">Я оплатил(а) — написать Марии</a>` : ""}
-            <button class="cab-action-btn cab-action-btn--text" type="button" data-action="toggle-bank-details">Перевод по реквизитам ▾</button>
+
+          ${payment.sbpPhone ? `
+          <div style="margin-top:16px;padding:16px 18px;background:linear-gradient(135deg,rgba(255,220,80,.10),rgba(255,220,80,.04));border:1.5px solid rgba(255,220,80,.35);border-radius:12px;">
+            <div style="font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cab-muted, #888);font-family:'JetBrains Mono',monospace;margin-bottom:6px;">Способ 1 · Быстрая оплата · СБП</div>
+            <div style="font-size:1.35rem;font-weight:800;letter-spacing:.02em;margin:2px 0 4px;">${_esc(payment.sbpPhone)}</div>
+            <div style="font-size:.9rem;color:var(--cab-muted, #888);margin-bottom:12px;">Получатель: <b>${_esc(payment.sbpBank || payment.bank || "Т-Банк")}</b> · ${_esc(payment.recipient || "")}</div>
+            <button class="cab-action-btn cab-action-btn--primary" type="button" data-action="copy-pay" data-copy="${_esc(payment.sbpPhone)}" data-copy-label="телефон СБП" style="width:100%;">📋 Скопировать номер</button>
+            <div style="font-size:.82rem;color:var(--cab-muted, #888);margin-top:10px;line-height:1.5;">Откройте <b>любое банковское приложение</b> (Сбер, Т-Банк, Альфа, ВТБ…) → <b>СБП по номеру телефона</b> → вставьте номер → введите сумму → готово.</div>
           </div>
-          <div class="cab-bank-details" style="display:none;">
-            ${payment.recipient ? `<div class="cab-card-row"><span class="cab-row-label">Получатель</span><span class="cab-row-value">${_esc(payment.recipient)}</span></div>` : ""}
+          ` : ""}
+
+          <div style="margin-top:14px;padding:14px 16px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.08);border-radius:12px;">
+            <div style="font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cab-muted, #888);font-family:'JetBrains Mono',monospace;margin-bottom:8px;">Способ 2 · По реквизитам (для перевода со счёта)</div>
+            ${payment.recipient ? `<div class="cab-card-row"><span class="cab-row-label">Получатель</span><span class="cab-row-value">${_esc(payment.recipient)} <button class="cab-copy-mini" type="button" data-action="copy-pay" data-copy="${_esc(payment.recipient)}" data-copy-label="имя получателя" title="Скопировать">📋</button></span></div>` : ""}
             ${payment.bank ? `<div class="cab-card-row"><span class="cab-row-label">Банк</span><span class="cab-row-value">${_esc(payment.bank)}</span></div>` : ""}
-            ${payment.account ? `<div class="cab-card-row"><span class="cab-row-label">Счёт</span><span class="cab-row-value"><code>${_esc(payment.account)}</code></span></div>` : ""}
-            ${payment.bik ? `<div class="cab-card-row"><span class="cab-row-label">БИК</span><span class="cab-row-value"><code>${_esc(payment.bik)}</code></span></div>` : ""}
-            ${payment.inn ? `<div class="cab-card-row"><span class="cab-row-label">ИНН</span><span class="cab-row-value"><code>${_esc(payment.inn)}</code></span></div>` : ""}
-            ${payment.phone ? `<div class="cab-card-row"><span class="cab-row-label">Телефон СБП</span><span class="cab-row-value"><code>${_esc(payment.phone)}</code></span></div>` : ""}
-            ${payment.purpose ? `<div class="cab-card-row"><span class="cab-row-label">Назначение</span><span class="cab-row-value" style="font-size:11px;line-height:1.45;">${_esc(payment.purpose)}</span></div>` : ""}
+            ${payment.inn ? `<div class="cab-card-row"><span class="cab-row-label">ИНН</span><span class="cab-row-value"><code>${_esc(payment.inn)}</code> <button class="cab-copy-mini" type="button" data-action="copy-pay" data-copy="${_esc(payment.inn)}" data-copy-label="ИНН" title="Скопировать">📋</button></span></div>` : ""}
+            ${payment.account ? `<div class="cab-card-row"><span class="cab-row-label">Счёт</span><span class="cab-row-value"><code>${_esc(payment.account)}</code> <button class="cab-copy-mini" type="button" data-action="copy-pay" data-copy="${_esc(payment.account)}" data-copy-label="счёт" title="Скопировать">📋</button></span></div>` : ""}
+            ${payment.bik ? `<div class="cab-card-row"><span class="cab-row-label">БИК</span><span class="cab-row-value"><code>${_esc(payment.bik)}</code> <button class="cab-copy-mini" type="button" data-action="copy-pay" data-copy="${_esc(payment.bik)}" data-copy-label="БИК" title="Скопировать">📋</button></span></div>` : ""}
+            ${payment.purpose ? `<div class="cab-card-row"><span class="cab-row-label">Назначение</span><span class="cab-row-value" style="font-size:11px;line-height:1.45;">${_esc(payment.purpose)} <button class="cab-copy-mini" type="button" data-action="copy-pay" data-copy="${_esc(payment.purpose)}" data-copy-label="назначение" title="Скопировать">📋</button></span></div>` : ""}
           </div>
+
+          <div style="margin-top:14px;display:flex;flex-direction:column;gap:8px;">
+            ${payment.telegram ? `<a class="cab-action-btn cab-action-btn--primary" href="${_esc(payment.telegram)}" target="_blank" rel="noreferrer">✉️ Написать Марии — я оплатил(а)</a>` : ""}
+            ${payment.tinkoffQuickPay ? `<div style="font-size:.78rem;color:var(--cab-muted, #888);text-align:center;line-height:1.5;">Клиент Т-Банка? Можно быстро: <a href="${_esc(payment.tinkoffQuickPay)}" target="_blank" rel="noreferrer" style="color:inherit;text-decoration:underline;">открыть QuickPay-ссылку</a> <span style="font-size:.72rem;opacity:.7;">(если браузер ругается — используйте Способ 1)</span></div>` : ""}
+          </div>
+
+          <div id="cab-copy-toast" style="display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2d5d4a;color:#fff;padding:10px 20px;border-radius:24px;font-size:.9rem;font-weight:600;z-index:9999;box-shadow:0 6px 22px rgba(0,0,0,.35);"></div>
         </article>
 
         ${_renderContractsCard(student)}
@@ -1768,13 +1781,29 @@
     container.querySelectorAll('[data-action="open-report"]').forEach(btn => {
       btn.addEventListener("click", () => openPrintableReport(btn.dataset.student, btn.dataset.report));
     });
-    container.querySelectorAll('[data-action="toggle-bank-details"]').forEach(btn => {
-      btn.addEventListener("click", () => {
-        const details = container.querySelector(".cab-bank-details");
-        if (!details) return;
-        const isOpen = details.style.display !== "none";
-        details.style.display = isOpen ? "none" : "block";
-        btn.textContent = isOpen ? "Перевод по реквизитам ▾" : "Перевод по реквизитам ▴";
+    container.querySelectorAll('[data-action="copy-pay"]').forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const text = btn.getAttribute("data-copy") || "";
+        const label = btn.getAttribute("data-copy-label") || "текст";
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+          } else {
+            const ta = document.createElement("textarea");
+            ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+            document.body.appendChild(ta); ta.select();
+            document.execCommand("copy"); document.body.removeChild(ta);
+          }
+          const toast = document.getElementById("cab-copy-toast");
+          if (toast) {
+            toast.textContent = "✅ Скопировано: " + label;
+            toast.style.display = "block";
+            clearTimeout(window.__cabCopyToastT);
+            window.__cabCopyToastT = setTimeout(() => { toast.style.display = "none"; }, 2000);
+          }
+        } catch (e) {
+          alert("Не удалось скопировать. Выделите текст вручную:\n\n" + text);
+        }
       });
     });
   }

@@ -65,6 +65,8 @@
   // в кабинете родителя (cabinet.js renderParent → payment.tinkoffQuickPay).
   // Edge fn family-data пока не возвращает payment — доклеиваем клиентски.
   const PAYMENT_DEFAULTS = {
+    sbpPhone: "+7 916 510-17-92",
+    sbpBank: "Т-Банк",
     tinkoffQuickPay: "https://www.tinkoff.ru/rm/r_PnDqHEqsDu.EkrmOLeXmQ/MIhLS10143",
     telegram: "https://t.me/mariabwhite",
     recipient: "Бурцева Мария Витальевна",
