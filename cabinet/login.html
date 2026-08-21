@@ -189,16 +189,33 @@
       submitBtn.textContent = prevLabel;
     }
   }
-  document.getElementById("loginForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    handleLoginSubmit();
-  });
+  var loginFormEl = document.getElementById("loginForm");
+  if (loginFormEl) {
+    loginFormEl.addEventListener("submit", function (e) {
+      e.preventDefault();
+      handleLoginSubmit();
+    });
+  }
   // iPad Safari fallback: некоторые версии не всегда стреляют form submit
   // при tap на кнопку внутри async-flow. Прямой click-handler дублирует submit.
-  submitBtn.addEventListener("click", function (e) {
-    e.preventDefault();
-    handleLoginSubmit();
-  });
+  // 2026-08-21: guard against submitBtn=null (stale iPad cache mixing new JS + old HTML
+  // without id="loginSubmitBtn" was crashing the whole script with TypeError, so the
+  // form submit handler above never got attached either → button did nothing).
+  if (submitBtn) {
+    submitBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      handleLoginSubmit();
+    });
+  } else if (loginFormEl) {
+    // Fallback: find any submit button inside the form
+    var anySubmit = loginFormEl.querySelector('button[type="submit"]');
+    if (anySubmit) {
+      anySubmit.addEventListener("click", function (e) {
+        e.preventDefault();
+        handleLoginSubmit();
+      });
+    }
+  }
 
   rolePicker.querySelectorAll(".cab-role-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
