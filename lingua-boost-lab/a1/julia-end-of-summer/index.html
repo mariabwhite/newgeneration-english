@@ -95,6 +95,9 @@ strong{font-weight:800}
 .draw-size input{cursor:pointer}
 .draw-clear{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:6px 14px;font-family:var(--mono);font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
 .draw-clear:hover{filter:brightness(1.08)}
+.draw-eraser{background:#fff;color:var(--muted);border:2px solid var(--card-border);border-radius:8px;padding:5px 12px;font-family:var(--mono);font-size:.72rem;font-weight:800;letter-spacing:.06em;cursor:pointer;transition:.12s}
+.draw-eraser:hover{border-color:var(--accent);color:var(--ink)}
+.draw-eraser.active{background:var(--accent2);color:#fff;border-color:transparent;box-shadow:0 3px 8px rgba(168,206,227,.5)}
 .vocab-card.played{background:#eef5fb;border-color:var(--accent2)}
 
 .choice-row{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0}
@@ -180,7 +183,9 @@ footer{text-align:center;padding:20px;color:var(--muted);font-size:.85rem;backgr
 .scene svg{width:82%;height:82%}
 
 /* Illustrated lesson images (watercolour art) */
-.lesson-img{width:100%;max-width:760px;border-radius:16px;box-shadow:0 6px 22px rgba(90,85,104,.14);display:block;margin:0 auto 16px;border:1px solid var(--card-border)}
+.lesson-img{width:100%;max-width:760px;border-radius:16px;box-shadow:0 6px 22px rgba(90,85,104,.14);display:block;margin:0 auto 16px;border:1px solid var(--card-border);cursor:pointer;transition:transform .15s}
+.lesson-img:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(90,85,104,.2)}
+.lesson-img[data-say]{position:relative}
 .hero-card.hero-photo{background:url('img/hero.png') center/cover no-repeat;min-height:280px;padding:36px 24px;position:relative}
 .hero-card.hero-photo::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(233,174,184,.55) 0%,rgba(168,206,227,.35) 45%,rgba(233,196,106,.55) 100%);border-radius:24px}
 .hero-card.hero-photo h1,.hero-card.hero-photo .sub,.hero-card.hero-photo .tags{position:relative;z-index:2}
@@ -283,7 +288,7 @@ footer{text-align:center;padding:20px;color:var(--muted);font-size:.85rem;backgr
   <div class="section-head"><div class="n">1</div><h2>Good morning, last Sunday! 🌅</h2></div>
   <div class="section-sub">Warm-up · the last week of summer · tap to hear</div>
   <div class="card">
-    <img src="img/01-breakfast.png" alt="Julia at the kitchen table, warm morning light" class="lesson-img">
+    <img src="img/01-breakfast.png" alt="" class="lesson-img" data-say="Julia is having breakfast in the kitchen on a warm summer morning. She has a cup of tea and a plate of pancakes.">
     <div class="audio-row">
       <button class="play-btn" data-say="Good morning! Today is the last Sunday of summer. Next Monday I start school. Today I want to walk in the town and buy new pencils. I am a little bit sad, but also happy!" aria-label="Play">▶</button>
       <div><div class="label">Julia says:</div><div class="text">Good morning! Today is the last Sunday of summer. Next Monday I start school!</div></div>
@@ -305,7 +310,7 @@ footer{text-align:center;padding:20px;color:var(--muted);font-size:.85rem;backgr
   <div class="section-head"><div class="n">2</div><h2>Getting dressed 👗</h2></div>
   <div class="section-sub">Present Continuous · what is Julia wearing NOW?</div>
   <div class="card">
-    <img src="img/02-outfit-flatlay.png" alt="Summer outfit flat-lay: yellow T-shirt, blue shorts, sneakers, straw hat" class="lesson-img">
+    <img src="img/02-outfit-flatlay.png" alt="" class="lesson-img" data-say="Julia is choosing her summer clothes: a yellow T-shirt, blue shorts, white sneakers, a straw hat and sunglasses.">
     <h3 style="margin-top:14px">📝 Choose the right form (Present Simple or Continuous):</h3>
     <div class="gap-line">Right now Julia <select class="mcq" data-answer="is putting on"><option value="" disabled selected>—</option><option>puts on</option><option>is putting on</option><option>put on</option></select> her T-shirt.</div>
     <div class="gap-line">She <select class="mcq" data-answer="usually wears"><option value="" disabled selected>—</option><option>usually wears</option><option>is usually wearing</option><option>wear usually</option></select> shorts in summer.</div>
@@ -324,7 +329,7 @@ footer{text-align:center;padding:20px;color:var(--muted);font-size:.85rem;backgr
   <div class="section-head"><div class="n">3</div><h2>A walk to the shops 🚶‍♀️</h2></div>
   <div class="section-sub">Story · Present Simple · prepositions of place (up · across · into · through · along · past)</div>
   <div class="card story">
-    <img src="img/03-walk-street.png" alt="Julia with pink backpack walking along a pastel cobbled street with a little dog" class="lesson-img">
+    <img src="img/03-walk-street.png" alt="" class="lesson-img" data-say="Julia is walking along a quiet pastel street with her pink backpack. A little dog is trotting near her.">
     <p style="font-size:.92rem;font-weight:700;color:var(--accent2);margin-bottom:10px">📖 Tap any line to hear it · choose the right preposition! 🎯</p>
     <p><span class="speak-line" data-say="Julia walks out of the house at eleven.">Julia walks <select class="mcq" data-answer="out of"><option value="" disabled selected>—</option><option>into</option><option>out of</option><option>up</option></select> the house at eleven.</span></p>
     <p><span class="speak-line" data-say="She walks along her quiet street for five minutes.">She walks <select class="mcq" data-answer="along"><option value="" disabled selected>—</option><option>along</option><option>over</option><option>through</option></select> her quiet street for five minutes.</span></p>
@@ -357,7 +362,7 @@ footer{text-align:center;padding:20px;color:var(--muted);font-size:.85rem;backgr
   <div class="section-head"><div class="n">5</div><h2>At the little shop 🛒</h2></div>
   <div class="section-sub">Containers · «a bottle of…» · «Could I have…?»</div>
   <div class="card">
-    <img src="img/05-shop.png" alt="Little shop counter with jam jars, box of pencils, milk carton, water bottle and biscuits" class="lesson-img">
+    <img src="img/05-shop.png" alt="" class="lesson-img" data-say="Julia is at a little shop. She can see jars of jam, boxes of pencils, a carton of milk, a bottle of water and a packet of biscuits.">
     <h3>📦 Match the container to the food · what is inside?</h3>
     <div class="verb-table" id="containers-table"></div>
     <h3 style="margin-top:16px">🧺 Fill the shopping basket:</h3>
@@ -400,14 +405,16 @@ footer{text-align:center;padding:20px;color:var(--muted);font-size:.85rem;backgr
       <canvas class="draw-canvas" id="prep-draw-canvas"></canvas>
     </div>
     <div class="draw-tools">
+      <button class="btn-sm" data-say="Six scenes: up the stairs, across the bridge, into the doorway, through the arch, along the fence, past the fountain." title="Listen" style="min-height:32px">🔊 Listen</button>
       <span class="draw-size">🖍️ colour:</span>
       <button class="draw-color active" style="--c:#5A5568" data-c="#5A5568" title="ink"></button>
       <button class="draw-color" style="--c:#E9AEB8" data-c="#E9AEB8" title="rose"></button>
       <button class="draw-color" style="--c:#A8CEE3" data-c="#A8CEE3" title="sky"></button>
       <button class="draw-color" style="--c:#E9C46A" data-c="#E9C46A" title="gold"></button>
       <button class="draw-color" style="--c:#8FAF87" data-c="#8FAF87" title="sage"></button>
-      <span class="draw-size">size <input type="range" id="prep-draw-size" min="2" max="12" value="4" style="width:70px"></span>
-      <button class="draw-clear" id="prep-draw-clear">Clear</button>
+      <button class="draw-eraser" id="prep-draw-eraser" title="Eraser">🩹 Eraser</button>
+      <span class="draw-size">size <input type="range" id="prep-draw-size" min="2" max="20" value="4" style="width:70px"></span>
+      <button class="draw-clear" id="prep-draw-clear">Clear all</button>
     </div>
     <div class="tts-hint">🖍️ Write the English preposition under each scene: up · across · into · through · along · past</div>
     <h3>🔤 Match preposition → translation</h3>
@@ -434,7 +441,7 @@ footer{text-align:center;padding:20px;color:var(--muted);font-size:.85rem;backgr
   <div class="section-head"><div class="n">7</div><h2>Yesterday at the park 🌳</h2></div>
   <div class="section-sub">Story · Past Simple · irregular + regular verbs</div>
   <div class="card story">
-    <img src="img/07-park-picnic.png" alt="Family picnic under a big tree, squirrel on a branch, two bikes leaning" class="lesson-img">
+    <img src="img/07-park-picnic.png" alt="" class="lesson-img" data-say="Yesterday the family had a picnic under a big tree in the park. Julia and John pointed at a small squirrel on a branch. Their two bikes were leaning on the tree.">
     <p style="font-size:.95rem;font-weight:700;margin-bottom:10px">📝 Choose the right past-tense verb for each gap:</p>
     <div class="gap-line">Yesterday morning Julia <select class="mcq" data-answer="woke up"><option value="" disabled selected>—</option><option>woke up</option><option>waked up</option><option>wakes up</option></select> at nine o'clock.</div>
     <div class="gap-line">She <select class="mcq" data-answer="put on"><option value="" disabled selected>—</option><option>puts on</option><option>put on</option><option>putted on</option></select> her yellow T-shirt and shorts.</div>
@@ -526,7 +533,7 @@ footer{text-align:center;padding:20px;color:var(--muted);font-size:.85rem;backgr
   <div class="section-head"><div class="n">11</div><h2>Julia's last Sunday · listening 🎧</h2></div>
   <div class="section-sub">Listen · then answer what you remember</div>
   <div class="card">
-    <img src="img/11-listening-bench.png" alt="Julia sitting on a park bench with headphones, warm evening light" class="lesson-img">
+    <img src="img/11-listening-bench.png" alt="" class="lesson-img" data-say="Julia is sitting on a wooden park bench with her headphones on. It is a warm summer evening and the sky is pink.">
     <p style="font-size:.92rem;margin-bottom:10px">🎧 Tap ▶ and just <strong>listen</strong>. Don't read! Close your eyes if you want.</p>
     <div class="audio-row" style="background:linear-gradient(135deg,#D8EAF5,#F7DDE3);color:var(--ink)">
       <button class="play-btn" id="story-play" style="background:#fff;color:var(--accent)">▶</button>
@@ -555,7 +562,7 @@ footer{text-align:center;padding:20px;color:var(--muted);font-size:.85rem;backgr
   <div class="section-head"><div class="n">12</div><h2>A letter to Grandma 📮</h2></div>
   <div class="section-sub">4 sentences · Past Simple · use «went / saw / ate / was»</div>
   <div class="card">
-    <img src="img/12-letter-grandma.png" alt="Postcard on a wooden desk with fountain pen, envelope and dried daisy" class="lesson-img">
+    <img src="img/12-letter-grandma.png" alt="" class="lesson-img" data-say="A postcard is waiting on a wooden desk. There is a fountain pen, an envelope with a stamp, a dried daisy and a small tin of watercolour paints.">
     <p style="font-size:.92rem;color:var(--muted);margin-bottom:10px">Tell Grandma about your summer. Use <strong>Past Simple</strong>: <em>went · saw · ate · had · was / were · wore</em>.</p>
     <textarea id="write-postcard" placeholder="Dear Grandma, this summer I went to…" style="width:100%;min-height:130px;padding:12px 14px;border:2px solid var(--card-border);border-radius:12px;font-family:Georgia,serif;font-size:1rem;line-height:1.6;background:#fdf5e6;color:#5A5568;resize:vertical;outline:none"></textarea>
     <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-family:monospace;font-size:.78rem;color:var(--muted);font-weight:700">
@@ -1200,6 +1207,7 @@ document.querySelectorAll('.kid-bank-word').forEach(w => {
   const ctx = canvas.getContext('2d');
   let colour = '#5A5568';
   let size = 4;
+  let eraser = false;
   let drawing = false;
   let last = null;
 
@@ -1230,12 +1238,20 @@ document.querySelectorAll('.kid-bank-word').forEach(w => {
     if(!drawing) return;
     e.preventDefault();
     const p = pos(e);
-    ctx.strokeStyle = colour;
-    ctx.lineWidth = size;
+    if(eraser){
+      ctx.save();
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.lineWidth = Math.max(size * 2.5, 12);
+      ctx.strokeStyle = 'rgba(0,0,0,1)';
+    } else {
+      ctx.strokeStyle = colour;
+      ctx.lineWidth = size;
+    }
     ctx.beginPath();
     ctx.moveTo(last.x, last.y);
     ctx.lineTo(p.x, p.y);
     ctx.stroke();
+    if(eraser) ctx.restore();
     last = p;
   }
   function end(){ drawing = false; last = null; }
@@ -1251,7 +1267,25 @@ document.querySelectorAll('.kid-bank-word').forEach(w => {
       document.querySelectorAll('.draw-color').forEach(x => x.classList.remove('active'));
       b.classList.add('active');
       colour = b.dataset.c;
+      eraser = false;
+      const er = document.getElementById('prep-draw-eraser');
+      if(er) er.classList.remove('active');
+      canvas.style.cursor = 'crosshair';
     });
+  });
+  const eraserBtn = document.getElementById('prep-draw-eraser');
+  if(eraserBtn) eraserBtn.addEventListener('click', () => {
+    eraser = !eraser;
+    eraserBtn.classList.toggle('active', eraser);
+    if(eraser){
+      document.querySelectorAll('.draw-color').forEach(x => x.classList.remove('active'));
+      canvas.style.cursor = 'cell';
+    } else {
+      canvas.style.cursor = 'crosshair';
+      // reactivate first colour swatch
+      const firstColour = document.querySelector('.draw-color');
+      if(firstColour){ firstColour.classList.add('active'); colour = firstColour.dataset.c; }
+    }
   });
   const sizeInput = document.getElementById('prep-draw-size');
   if(sizeInput) sizeInput.addEventListener('input', () => { size = +sizeInput.value; });
