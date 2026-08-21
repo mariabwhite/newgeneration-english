@@ -44,9 +44,9 @@
   <section class="cab-login" id="loginSection">
     <h1>Вход в кабинет</h1>
     <p class="cab-login-sub">Введите 4-значный PIN (ученик/родитель) или пароль (преподаватель).</p>
-    <form id="loginForm" autocomplete="off">
-      <input id="loginCode" type="text" placeholder="PIN или пароль" maxlength="40" autofocus required>
-      <button type="submit">Войти</button>
+    <form id="loginForm" autocomplete="off" novalidate>
+      <input id="loginCode" name="pin" type="text" inputmode="numeric" placeholder="PIN или пароль" maxlength="40" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true" required>
+      <button type="submit" id="loginSubmitBtn">Войти</button>
       <div class="cab-login-error" id="loginError">Не подошло. Проверьте PIN или пароль.</div>
     </form>
 
@@ -143,14 +143,36 @@
     try { NGECabinet.clearSession(); localStorage.clear(); } catch(_) {}
   }
 
-  document.getElementById("loginForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
-    var code = document.getElementById("loginCode").value;
+  var submitBtn = document.getElementById("loginSubmitBtn");
+  var loginBusy = false;
+  async function handleLoginSubmit() {
+    if (loginBusy) return;
+    var codeEl = document.getElementById("loginCode");
+    // Strip ALL whitespace (spaces between digits, nbsp, zero-width, etc)
+    // Bug reported 2026-08-18 by Sonya's mum: PIN "51 85" copied with a space
+    // between digits, .trim() didn't catch it, login silently failed.
+    var code = String(codeEl.value || "").replace(/\s+/g, "");
     var errEl = document.getElementById("loginError");
     errEl.classList.remove("is-visible");
+    if (!code) {
+      errEl.textContent = "Введите PIN или пароль.";
+      errEl.classList.add("is-visible");
+      return;
+    }
+    if (typeof NGECabinet === "undefined" || !NGECabinet.tryLogin) {
+      errEl.textContent = "Скрипт кабинета не загрузился. Перезагрузите страницу (кнопка обновления в Safari).";
+      errEl.classList.add("is-visible");
+      return;
+    }
+    loginBusy = true;
+    submitBtn.disabled = true;
+    var prevLabel = submitBtn.textContent;
+    submitBtn.textContent = "Проверяю…";
     try {
       var session = await NGECabinet.tryLogin(code);
       if (!session) {
+        var masked = code.length <= 6 ? code : (code.slice(0, 2) + "…" + code.slice(-2));
+        errEl.textContent = "Не подошло. Вы ввели: «" + masked + "» (" + code.length + " симв.). Проверьте PIN или пароль.";
         errEl.classList.add("is-visible");
         return;
       }
@@ -161,8 +183,39 @@
     } catch (err) {
       errEl.textContent = "Ошибка: " + (err && err.message ? err.message : err);
       errEl.classList.add("is-visible");
+    } finally {
+      loginBusy = false;
+      submitBtn.disabled = false;
+      submitBtn.textContent = prevLabel;
     }
-  });
+  }
+  var loginFormEl = document.getElementById("loginForm");
+  if (loginFormEl) {
+    loginFormEl.addEventListener("submit", function (e) {
+      e.preventDefault();
+      handleLoginSubmit();
+    });
+  }
+  // iPad Safari fallback: некоторые версии не всегда стреляют form submit
+  // при tap на кнопку внутри async-flow. Прямой click-handler дублирует submit.
+  // 2026-08-21: guard against submitBtn=null (stale iPad cache mixing new JS + old HTML
+  // without id="loginSubmitBtn" was crashing the whole script with TypeError, so the
+  // form submit handler above never got attached either → button did nothing).
+  if (submitBtn) {
+    submitBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      handleLoginSubmit();
+    });
+  } else if (loginFormEl) {
+    // Fallback: find any submit button inside the form
+    var anySubmit = loginFormEl.querySelector('button[type="submit"]');
+    if (anySubmit) {
+      anySubmit.addEventListener("click", function (e) {
+        e.preventDefault();
+        handleLoginSubmit();
+      });
+    }
+  }
 
   rolePicker.querySelectorAll(".cab-role-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
