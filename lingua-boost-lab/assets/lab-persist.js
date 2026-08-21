@@ -21,17 +21,26 @@
   var CLOUD_THROTTLE_MS = 2000;
   var LESSON_PATH = location.pathname;
 
-  /* state-bearing class flags we will persist (broad list — safe to add) */
+  /* state-bearing class flags we will persist (broad list — safe to add).
+     2026-08-21: removed transient/interactive-only flags — they were being
+     restored on reload and, when the lesson shuffles the bank, landed on
+     wrong elements. Symptom: bank-words came back with `used`, click bailed
+     out early (if (used) return), drops silently failed.
+     Excluded: selected, sel, hover, active, recording — all mid-interaction. */
   var FLAGS = ['done','correct','wrong','filled','miss','missed','used',
-               'selected','sel','revealed','visited','picked','guessed',
+               'revealed','visited','picked','guessed',
                'match','show','shown','placed','hit','ok','heard','spoken',
-               'lit','bad','hover','active','recording',
+               'lit','bad',
                'flipped','scored','show-sample'];
   var FLAG_SET = Object.create(null);
   FLAGS.forEach(function(f){ FLAG_SET[f] = 1; });
 
   var SEL = [
-    '.match-card', '.tf-btn', '.mc-opt', '.mc-q .gap', '.bank-word',
+    /* 2026-08-21: '.bank-word' removed. Lessons shuffle the bank on load —
+       pathOf() uses positional index, so restored `used` classes landed on
+       wrong bank-words after shuffle → click bail-out → drops silently
+       failed. bank-word state is derived from drop-gap.filled anyway. */
+    '.match-card', '.tf-btn', '.mc-opt', '.mc-q .gap',
     '.drop-gap', '.gap-input', '.ord-slot', '.ord-pill', '.dict-input',
     '.dict-answer', '.trans-input', '.predict-btn', '.predict-card',
     '.choice-card', '.script-card', '.map-dot', '.postcard',
