@@ -45,7 +45,7 @@
     <h1>Вход в кабинет</h1>
     <p class="cab-login-sub">Введите 4-значный PIN (ученик/родитель) или пароль (преподаватель).</p>
     <form id="loginForm" autocomplete="off" novalidate>
-      <input id="loginCode" type="text" inputmode="numeric" placeholder="PIN или пароль" maxlength="40" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" required>
+      <input id="loginCode" name="pin" type="text" inputmode="numeric" placeholder="PIN или пароль" maxlength="40" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true" required>
       <button type="submit" id="loginSubmitBtn">Войти</button>
       <div class="cab-login-error" id="loginError">Не подошло. Проверьте PIN или пароль.</div>
     </form>
@@ -171,7 +171,8 @@
     try {
       var session = await NGECabinet.tryLogin(code);
       if (!session) {
-        errEl.textContent = "Не подошло. Проверьте PIN или пароль.";
+        var masked = code.length <= 6 ? code : (code.slice(0, 2) + "…" + code.slice(-2));
+        errEl.textContent = "Не подошло. Вы ввели: «" + masked + "» (" + code.length + " симв.). Проверьте PIN или пароль.";
         errEl.classList.add("is-visible");
         return;
       }
