@@ -74,13 +74,19 @@ strong{font-weight:800}
 .audio-row .text{flex:1;font-weight:700;font-size:.95rem}
 
 .vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
-.vocab-card{background:#fff;border:2px solid var(--card-border);border-radius:14px;padding:14px 10px;text-align:center;cursor:pointer;transition:.15s;font-weight:700;font-size:.95rem;position:relative}
+.vocab-card{background:#fff;border:2px solid var(--card-border);border-radius:14px;padding:10px 8px 12px;text-align:center;cursor:pointer;transition:.15s;font-weight:700;font-size:.9rem;position:relative}
 .vocab-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 4px 12px rgba(233,174,184,.22)}
 .vocab-card .emoji{font-size:2rem;display:block;margin-bottom:4px}
+.vocab-card img{display:block;width:100%;height:110px;object-fit:contain;margin:0 auto 6px;border-radius:8px}
+/* hide vocab-builder overlay buttons (speaker + star) — carrying cards click already speaks */
+.vocab-card .speak,
+.vocab-card .extra-mark{display:none !important}
 .vocab-card.played{background:#eef5fb;border-color:var(--accent2)}
 
 .choice-row{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0}
 .choice{background:#fff;border:2px solid var(--card-border);border-radius:14px;padding:10px 18px;cursor:pointer;font-weight:700;transition:.15s;color:var(--ink);font-family:inherit;font-size:.95rem}
+.choice.polite-choice{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px;width:110px;font-size:.88rem}
+.choice.polite-choice img{width:78px;height:78px;object-fit:contain;border-radius:8px;display:block}
 .choice:hover{border-color:var(--accent);transform:translateY(-1px)}
 .choice.right{background:#e4efe0;border-color:var(--ok);color:#5e7c56}
 .choice.wrong{background:#f7dede;border-color:var(--miss);color:#a35a5a;animation:shake .35s}
@@ -261,7 +267,6 @@ footer{text-align:center;padding:20px;color:var(--muted);font-size:.85rem;backgr
   <div class="section-head"><div class="n">4</div><h2>Summer clothes · school clothes 👚</h2></div>
   <div class="section-sub">Tap each card to hear the word</div>
   <div class="card">
-    <img src="img/04-summer-vs-school.png" alt="Split panel: summer outfit on the left, school uniform on the right" class="lesson-img">
     <div class="vocab-grid" id="clothes-vocab"></div>
     <div class="tts-hint">🌻 top row · what Julia wears NOW · 🎒 bottom row · what Julia wears at school</div>
   </div>
@@ -295,12 +300,12 @@ footer{text-align:center;padding:20px;color:var(--muted);font-size:.85rem;backgr
     <h3 style="color:var(--accent)">🗣️ Ask politely!</h3>
     <p style="font-size:.92rem;color:var(--muted);margin-bottom:8px">Julia is at the shop. Choose the polite phrase to hear it:</p>
     <div class="choice-row">
-      <button class="choice" data-say="Could I have a bottle of water, please?">💧 water</button>
-      <button class="choice" data-say="Could I have a jar of jam, please?">🍓 jam</button>
-      <button class="choice" data-say="Can I have a box of pencils, please?">✏️ pencils</button>
-      <button class="choice" data-say="How much is it, please?">💰 price</button>
-      <button class="choice" data-say="Can you help me, please?">🙏 help</button>
-      <button class="choice" data-say="Thank you very much!">🌸 thanks</button>
+      <button class="choice polite-choice" data-say="Could I have a bottle of water, please?"><img src="img/polite/water.png" alt="water">water</button>
+      <button class="choice polite-choice" data-say="Could I have a jar of jam, please?"><img src="img/polite/jam.png" alt="jam">jam</button>
+      <button class="choice polite-choice" data-say="Can I have a box of pencils, please?"><img src="img/polite/pencils.png" alt="pencils">pencils</button>
+      <button class="choice polite-choice" data-say="How much is it, please?"><img src="img/polite/price.png" alt="price">price</button>
+      <button class="choice polite-choice" data-say="Can you help me, please?"><img src="img/polite/help.png" alt="help">help</button>
+      <button class="choice polite-choice" data-say="Thank you very much!"><img src="img/polite/thanks.png" alt="thanks">thanks</button>
     </div>
   </div>
 </section>
@@ -552,10 +557,10 @@ window.addEventListener('scroll', updateDots); updateDots();
 // BLOCK 4 · Clothes vocab (summer NOW + school SOON)
 // ============================
 const clothes = [
-  {en:'T-shirt', emoji:'👕'}, {en:'shorts', emoji:'🩳'}, {en:'sundress', emoji:'👗'},
-  {en:'sun hat', emoji:'👒'}, {en:'sunglasses', emoji:'🕶️'}, {en:'sandals', emoji:'🩴'},
-  {en:'white shirt', emoji:'👔'}, {en:'skirt', emoji:'🥻'}, {en:'trousers', emoji:'👖'},
-  {en:'sneakers', emoji:'👟'}, {en:'backpack', emoji:'🎒'}, {en:'jumper', emoji:'🧥'}
+  {en:'T-shirt', img:'t-shirt.png'}, {en:'shorts', img:'shorts.png'}, {en:'sundress', img:'sundress.png'},
+  {en:'sun hat', img:'sun-hat.png'}, {en:'sunglasses', img:'sunglasses.png'}, {en:'sandals', img:'sandals.png'},
+  {en:'white shirt', img:'white-shirt.png'}, {en:'skirt', img:'skirt.png'}, {en:'trousers', img:'trousers.png'},
+  {en:'sneakers', img:'sneakers.png'}, {en:'backpack', img:'backpack.png'}, {en:'jumper', img:'jumper.png'}
 ];
 const cvEl = document.getElementById('clothes-vocab');
 if(cvEl){
@@ -563,7 +568,7 @@ if(cvEl){
     const card = document.createElement('div');
     card.className = 'vocab-card';
     card.dataset.say = w.en;
-    card.innerHTML = `<span class="emoji">${w.emoji}</span>${w.en}`;
+    card.innerHTML = `<img src="img/clothes/${w.img}" alt="${w.en}" loading="lazy">${w.en}`;
     card.addEventListener('click', () => { say(w.en); card.classList.add('played'); });
     cvEl.appendChild(card);
   });
