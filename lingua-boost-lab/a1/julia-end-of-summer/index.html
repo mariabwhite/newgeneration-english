@@ -182,6 +182,59 @@ footer{text-align:center;padding:20px;color:var(--muted);font-size:.85rem;backgr
 .hero-card.hero-photo{background:url('img/hero.png') center/cover no-repeat;min-height:280px;padding:36px 24px;position:relative}
 .hero-card.hero-photo::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(233,174,184,.55) 0%,rgba(168,206,227,.35) 45%,rgba(233,196,106,.55) 100%);border-radius:24px}
 .hero-card.hero-photo h1,.hero-card.hero-photo .sub,.hero-card.hero-photo .tags{position:relative;z-index:2}
+
+/* ================================================================ */
+/* TABS — Lesson / Workbook */
+/* ================================================================ */
+.tabs-nav{max-width:1240px;margin:14px auto 6px;padding:0 clamp(16px,3vw,28px);display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.tab-btn{background:#fff;border:2px solid var(--card-border);border-radius:14px;padding:12px 28px;font-family:var(--display);font-weight:700;font-size:1rem;color:var(--muted);cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:8px}
+.tab-btn:hover{border-color:var(--accent);color:var(--ink);transform:translateY(-1px)}
+.tab-btn.active{background:linear-gradient(135deg,var(--accent),var(--gold));color:#fff;border-color:transparent;box-shadow:0 6px 18px rgba(233,174,184,.4)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* Workbook-specific look — a bit softer, worksheet feeling */
+#tab-workbook .section-head .n{background:var(--accent2)}
+#tab-workbook .card{background:#FFFEF7}
+
+/* Rule box — for grammar rules inside workbook */
+.rule-box{background:linear-gradient(135deg,#FFF5EA,#FDF6EE);border:2px dashed var(--accent3);border-radius:14px;padding:14px 18px;margin:10px 0;line-height:1.6}
+.rule-box h4{font-family:var(--display);font-weight:700;color:var(--accent);margin:8px 0 6px;font-size:.98rem}
+.rule-box code{background:#fff;padding:2px 8px;border-radius:6px;font-family:var(--mono);font-weight:800;color:var(--ink);border:1px solid var(--card-border)}
+.rule-box .ipa{font-family:var(--mono);font-weight:800;color:var(--accent);background:#fff;padding:2px 8px;border-radius:6px;border:1px solid var(--card-border)}
+
+/* Word-order builder */
+.wo-item{background:#fff5f0;border:2px dashed var(--accent);border-radius:12px;padding:10px 14px;margin:10px 0}
+.wo-item .wo-prompt{font-family:var(--mono);font-size:.72rem;font-weight:800;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.wo-target{min-height:44px;background:#fff;border:2px solid var(--card-border);border-radius:10px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.wo-target:empty::before{content:"tap words below in the right order →";color:var(--muted);font-family:var(--mono);font-size:.78rem;letter-spacing:.06em}
+.wo-pool{display:flex;flex-wrap:wrap;gap:6px;padding:8px;background:#fbf1e2;border:1px dashed var(--accent3);border-radius:10px}
+.wo-chip{background:#fff;border:2px solid var(--card-border);border-radius:8px;padding:6px 14px;font-weight:700;font-size:.9rem;cursor:pointer;color:var(--ink);transition:.12s;font-family:inherit}
+.wo-chip:hover{border-color:var(--accent);transform:translateY(-1px)}
+.wo-chip.placed{opacity:.35;pointer-events:none;text-decoration:line-through}
+.wo-target .wo-chip{background:#eef5fb;border-color:var(--accent2);color:var(--accent2)}
+.wo-actions{display:flex;gap:8px;margin-top:8px;justify-content:flex-end}
+.wo-btn{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:6px 14px;font-family:var(--mono);font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.wo-btn.wo-clear{background:transparent;color:var(--muted);border:1px solid var(--card-border)}
+.wo-item.ok{background:#e4efe0;border-color:var(--ok)}
+.wo-item.err{animation:shake .35s}
+
+/* Three-form irregular verb table */
+.verb3-table{display:grid;grid-template-columns:1fr 1fr 1fr 1.2fr;gap:6px;margin:12px 0;font-size:.92rem}
+.verb3-table .h{font-family:var(--display);font-weight:800;font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;padding:6px 8px;background:#fbf1e2;border-radius:6px;text-align:center}
+.verb3-table .c{background:#fff;border:1px solid var(--card-border);border-radius:8px;padding:8px 10px;text-align:center;font-weight:700}
+.verb3-table .c input{border:none;background:transparent;font-family:inherit;font-weight:700;font-size:.92rem;text-align:center;width:100%;color:var(--accent);outline:none}
+.verb3-table .c input.right{color:#5e7c56;background:#e4efe0;border-radius:4px}
+.verb3-table .c input.wrong{color:#a35a5a;background:#f7dede;border-radius:4px;animation:shake .35s}
+.verb3-table .c.ru{color:var(--muted);font-style:italic;font-size:.85rem}
+
+/* Three-option T/F/NS row */
+.tfn-row{display:flex;align-items:center;gap:8px;padding:8px;background:#fff;border-radius:10px;margin-bottom:6px;border:1px solid var(--card-border);flex-wrap:wrap}
+.tfn-row .tf-text{flex:1;min-width:60%;font-size:.92rem;font-weight:600}
+.tfn-btn{padding:6px 12px;border-radius:8px;border:2px solid var(--card-border);background:#fff;cursor:pointer;font-weight:800;font-size:.75rem;transition:.15s;color:var(--ink);font-family:inherit;text-transform:uppercase;letter-spacing:.06em}
+.tfn-btn:hover{border-color:var(--accent)}
+.tfn-btn.right{background:#e4efe0;border-color:var(--ok);color:#5e7c56}
+.tfn-btn.wrong{background:#f7dede;border-color:var(--miss);color:#a35a5a;animation:shake .35s}
 </style>
 </head>
 <body>
@@ -197,6 +250,13 @@ footer{text-align:center;padding:20px;color:var(--muted);font-size:.85rem;backgr
   <div class="spacer"></div>
   <a href="/lingua-boost-lab/premium.html" class="btn-sm">All lessons</a>
 </nav>
+
+<nav class="tabs-nav">
+  <button class="tab-btn active" data-tab="lesson">📖 Lesson</button>
+  <button class="tab-btn" data-tab="workbook">📝 Workbook</button>
+</nav>
+
+<div id="tab-lesson" class="tab-panel active">
 
 <section class="hero">
   <div class="hero-card hero-photo">
@@ -516,6 +576,252 @@ footer{text-align:center;padding:20px;color:var(--muted);font-size:.85rem;backgr
     <div id="full-strip" style="line-height:2.2"></div>
   </div>
 </section>
+
+</div><!-- /#tab-lesson -->
+
+<div id="tab-workbook" class="tab-panel">
+
+<section class="hero">
+  <div class="hero-card" style="background:linear-gradient(135deg,#A8CEE3,#C0DBBB 55%,#E9C46A);">
+    <h1>📝 Workbook</h1>
+    <div class="sub">Grammar drills · pronunciation · vocabulary · word-order · questions</div>
+    <div class="tags">
+      <span class="tag">🎧 -ED pronunciation</span>
+      <span class="tag">🔤 Word order</span>
+      <span class="tag">⚡ Irregular · 3 forms</span>
+      <span class="tag">🕒 Time markers</span>
+      <span class="tag">💇 Hairdresser</span>
+      <span class="tag">✈️ Trip</span>
+      <span class="tag">🦁 Zoo</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- W1 · -ED PRONUNCIATION -->
+<!-- ================================================================ -->
+<section class="section" id="w-block-1">
+  <div class="section-head"><div class="n">1</div><h2>-ED pronunciation 🎧</h2></div>
+  <div class="section-sub">The rule: three sounds for the -ed ending</div>
+  <div class="card">
+    <div class="rule-box">
+      <h4>1️⃣ <span class="ipa">/t/</span> — after voiceless sounds</h4>
+      after <code>/p/ /k/ /f/ /s/ /ʃ/ /tʃ/</code> → <strong>watched, liked, washed, jumped</strong>
+      <h4>2️⃣ <span class="ipa">/d/</span> — after voiced sounds</h4>
+      after <code>/b/ /g/ /v/ /z/ /m/ /n/ /l/ /r/</code> + vowels → <strong>played, lived, cleaned, opened</strong>
+      <h4>3️⃣ <span class="ipa">/ɪd/</span> — after <code>/t/</code> or <code>/d/</code></h4>
+      one extra syllable → <strong>wanted, started, visited, needed</strong>
+    </div>
+    <h3 style="margin-top:16px">Sort the verbs into 3 baskets:</h3>
+    <div class="drop-zone" id="ed-baskets">
+      <div class="drop-basket" data-key="t"><h4>1 · /t/</h4><div class="drop-basket-items"></div></div>
+      <div class="drop-basket" data-key="d"><h4>2 · /d/</h4><div class="drop-basket-items"></div></div>
+      <div class="drop-basket" data-key="id"><h4>3 · /ɪd/</h4><div class="drop-basket-items"></div></div>
+    </div>
+    <div class="drop-pool" id="ed-pool"></div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- W2 · TIME MARKERS -->
+<!-- ================================================================ -->
+<section class="section" id="w-block-2">
+  <div class="section-head"><div class="n">2</div><h2>Time markers · past vs present 🕒</h2></div>
+  <div class="section-sub">Drag each phrase into PAST or PRESENT basket</div>
+  <div class="card">
+    <p style="text-align:center;font-weight:800;margin-bottom:8px"><span class="hi-pink">PAST</span> = yesterday, last…, …ago · <span class="hi-blue">PRESENT</span> = today, now, at the moment, usually, every day</p>
+    <div class="drop-zone" id="time-baskets" style="grid-template-columns:1fr 1fr">
+      <div class="drop-basket" data-key="past"><h4>⏳ PAST time</h4><div class="drop-basket-items"></div></div>
+      <div class="drop-basket" data-key="present"><h4>⏰ PRESENT time</h4><div class="drop-basket-items"></div></div>
+    </div>
+    <div class="drop-pool" id="time-pool"></div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- W3 · REGULAR VERBS · PAST FORM DRILL -->
+<!-- ================================================================ -->
+<section class="section" id="w-block-3">
+  <div class="section-head"><div class="n">3</div><h2>Regular verbs · past form drill ✍️</h2></div>
+  <div class="section-sub">Choose the correct past form for each verb in brackets</div>
+  <div class="card">
+    <div class="gap-line">1. Yesterday Julia <select class="mcq" data-answer="opened"><option value="" disabled selected>—</option><option>opens</option><option>opened</option><option>openned</option></select> her old notebook. <em>(open)</em></div>
+    <div class="gap-line">2. She <select class="mcq" data-answer="watered"><option value="" disabled selected>—</option><option>watered</option><option>watred</option><option>watering</option></select> the flowers on the balcony. <em>(water)</em></div>
+    <div class="gap-line">3. The little dog <select class="mcq" data-answer="jumped"><option value="" disabled selected>—</option><option>jumpt</option><option>jumped</option><option>jumps</option></select> onto the sofa. <em>(jump)</em></div>
+    <div class="gap-line">4. Mum <select class="mcq" data-answer="cleaned"><option value="" disabled selected>—</option><option>cleand</option><option>cleaning</option><option>cleaned</option></select> the kitchen after breakfast. <em>(clean)</em></div>
+    <div class="gap-line">5. Julia <select class="mcq" data-answer="walked"><option value="" disabled selected>—</option><option>walked</option><option>walkt</option><option>walking</option></select> to the shop with Mum. <em>(walk)</em></div>
+    <div class="gap-line">6. She <select class="mcq" data-answer="watched"><option value="" disabled selected>—</option><option>watchd</option><option>watched</option><option>watch</option></select> a funny cartoon in the evening. <em>(watch)</em></div>
+    <div class="gap-line">7. A small squirrel <select class="mcq" data-answer="appeared"><option value="" disabled selected>—</option><option>appearing</option><option>appeard</option><option>appeared</option></select> on the branch. <em>(appear)</em></div>
+    <div class="gap-line">8. Julia <select class="mcq" data-answer="closed"><option value="" disabled selected>—</option><option>closed</option><option>closd</option><option>closing</option></select> the window before bed. <em>(close)</em></div>
+    <div class="gap-line">9. They <select class="mcq" data-answer="visited"><option value="" disabled selected>—</option><option>visitd</option><option>visited</option><option>visitted</option></select> Grandma at the weekend. <em>(visit)</em></div>
+    <div class="gap-line">10. Julia <select class="mcq" data-answer="studied"><option value="" disabled selected>—</option><option>studyed</option><option>studies</option><option>studied</option></select> English for one hour. <em>(study)</em></div>
+    <div class="score-badge" data-ex="w3-regular" data-max="10"><span>Score</span> <span class="val">0</span> <span style="opacity:.6">/ 10</span></div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- W4 · IRREGULAR VERBS · 3 FORMS TABLE -->
+<!-- ================================================================ -->
+<section class="section" id="w-block-4">
+  <div class="section-head"><div class="n">4</div><h2>Irregular verbs · 3 forms ⚡</h2></div>
+  <div class="section-sub">Fill in the missing form (Base — Past — Past Participle)</div>
+  <div class="card">
+    <div class="verb3-table" id="v3-table"></div>
+    <div class="tts-hint">💡 Tap outside the cell to check · green = correct · red = try again</div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- W5 · IRREGULAR VERBS · GROUPS BY VOWEL PATTERN -->
+<!-- ================================================================ -->
+<section class="section" id="w-block-5">
+  <div class="section-head"><div class="n">5</div><h2>Irregular verbs · sort by pattern 🎯</h2></div>
+  <div class="section-sub">Drag each verb into the group with the same vowel pattern</div>
+  <div class="card">
+    <div class="drop-zone" id="v-pattern-baskets" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+      <div class="drop-basket" data-key="ing-ang-ung"><h4>1 · i → a → u<br><small>sing–sang–sung</small></h4><div class="drop-basket-items"></div></div>
+      <div class="drop-basket" data-key="ought"><h4>2 · ought / aught<br><small>think–thought</small></h4><div class="drop-basket-items"></div></div>
+      <div class="drop-basket" data-key="same"><h4>3 · all same<br><small>put–put–put</small></h4><div class="drop-basket-items"></div></div>
+      <div class="drop-basket" data-key="e-t"><h4>4 · -t ending<br><small>sleep–slept</small></h4><div class="drop-basket-items"></div></div>
+      <div class="drop-basket" data-key="o-o"><h4>5 · o → o<br><small>break–broke–broken</small></h4><div class="drop-basket-items"></div></div>
+    </div>
+    <div class="drop-pool" id="v-pattern-pool"></div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- W6 · WORD ORDER -->
+<!-- ================================================================ -->
+<section class="section" id="w-block-6">
+  <div class="section-head"><div class="n">6</div><h2>Word order 🔤</h2></div>
+  <div class="section-sub">Tap the words in the right order to build the sentence</div>
+  <div class="card" id="wo-holder"></div>
+</section>
+
+<!-- ================================================================ -->
+<!-- W7 · TRUE / FALSE / NOT STATED -->
+<!-- ================================================================ -->
+<section class="section" id="w-block-7">
+  <div class="section-head"><div class="n">7</div><h2>True / False / Not Stated 🤔</h2></div>
+  <div class="section-sub">Read the story above (Block 7 · Yesterday at the park) — then decide</div>
+  <div class="card">
+    <div id="tfn-holder"></div>
+    <div class="tts-hint">💡 «Not stated» = the story doesn't say anything about this</div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- W8 · PRESENT SIMPLE vs PRESENT CONTINUOUS · deep drill -->
+<!-- ================================================================ -->
+<section class="section" id="w-block-8">
+  <div class="section-head"><div class="n">8</div><h2>Present Simple vs Continuous · deep drill 🌀</h2></div>
+  <div class="section-sub">Choose do / does / don't / doesn't / am / is / are + the right form</div>
+  <div class="card">
+    <div class="gap-line">1. Excuse me, <select class="mcq" data-answer="do"><option value="" disabled selected>—</option><option>do</option><option>are</option><option>does</option></select> you speak English?</div>
+    <div class="gap-line">2. «Where's Tom?» «He <select class="mcq" data-answer="is having"><option value="" disabled selected>—</option><option>has</option><option>is having</option><option>have</option></select> a shower.»</div>
+    <div class="gap-line">3. I <select class="mcq" data-answer="don't watch"><option value="" disabled selected>—</option><option>don't watch</option><option>am not watching</option><option>doesn't watch</option></select> television very often.</div>
+    <div class="gap-line">4. Listen! Somebody <select class="mcq" data-answer="is singing"><option value="" disabled selected>—</option><option>sings</option><option>is singing</option><option>sing</option></select>.</div>
+    <div class="gap-line">5. Sandra is tired. She <select class="mcq" data-answer="wants"><option value="" disabled selected>—</option><option>is wanting</option><option>wants</option><option>want</option></select> to go home now.</div>
+    <div class="gap-line">6. How often <select class="mcq" data-answer="do you read"><option value="" disabled selected>—</option><option>are you reading</option><option>do you read</option><option>you read</option></select> a newspaper?</div>
+    <div class="gap-line">7. «Excuse me, but you <select class="mcq" data-answer="are sitting"><option value="" disabled selected>—</option><option>sit</option><option>are sitting</option><option>are sit</option></select> in my place.» «Oh, sorry.»</div>
+    <div class="gap-line">8. I'm sorry, I <select class="mcq" data-answer="don't understand"><option value="" disabled selected>—</option><option>don't understand</option><option>am not understanding</option><option>doesn't understand</option></select>. Can you speak more slowly?</div>
+    <div class="gap-line">9. It's late. I <select class="mcq" data-answer="am going"><option value="" disabled selected>—</option><option>go</option><option>am going</option><option>going</option></select> home now.</div>
+    <div class="gap-line">10. What time <select class="mcq" data-answer="does your father finish"><option value="" disabled selected>—</option><option>your father finishes</option><option>does your father finish</option><option>is your father finishing</option></select> work every day?</div>
+    <div class="gap-line">11. You can turn off the radio. I <select class="mcq" data-answer="am not listening"><option value="" disabled selected>—</option><option>don't listen</option><option>am not listening</option><option>not listen</option></select> to it.</div>
+    <div class="gap-line">12. «Where's Paul?» «In the kitchen. He <select class="mcq" data-answer="is cooking"><option value="" disabled selected>—</option><option>cooks</option><option>is cooking</option><option>cook</option></select> something.»</div>
+    <div class="score-badge" data-ex="w8-simple-cont" data-max="12"><span>Score</span> <span class="val">0</span> <span style="opacity:.6">/ 12</span></div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- W9 · PAST SIMPLE · Questions & Negatives -->
+<!-- ================================================================ -->
+<section class="section" id="w-block-9">
+  <div class="section-head"><div class="n">9</div><h2>Past Simple · did / didn't ❓</h2></div>
+  <div class="section-sub">Choose the correct question or negative form</div>
+  <div class="card">
+    <div class="rule-box" style="margin-bottom:12px">
+      <h4>Rule</h4>
+      Question: <code>Did + subject + base form?</code> → <strong>Did you go? Did she see?</strong><br>
+      Negative: <code>didn't + base form</code> → <strong>I didn't go. She didn't see.</strong><br>
+      🔴 Never <code>did + went</code> or <code>didn't + saw</code>!
+    </div>
+    <div class="gap-line">1. I saw Barbara, but I <select class="mcq" data-answer="didn't see"><option value="" disabled selected>—</option><option>didn't see</option><option>didn't saw</option><option>don't see</option></select> Jane.</div>
+    <div class="gap-line">2. They worked on Monday, but they <select class="mcq" data-answer="didn't work"><option value="" disabled selected>—</option><option>didn't worked</option><option>didn't work</option><option>don't work</option></select> on Tuesday.</div>
+    <div class="gap-line">3. We went to the post office, but we <select class="mcq" data-answer="didn't go"><option value="" disabled selected>—</option><option>didn't went</option><option>didn't go</option><option>don't go</option></select> to the bank.</div>
+    <div class="gap-line">4. She had a pen, but she <select class="mcq" data-answer="didn't have"><option value="" disabled selected>—</option><option>didn't had</option><option>didn't have</option><option>not have</option></select> any paper.</div>
+    <div class="gap-line">5. «<select class="mcq" data-answer="Did you watch"><option value="" disabled selected>—</option><option>Did you watched</option><option>Did you watch</option><option>Do you watch</option></select> TV last night?» «Yes, I did.»</div>
+    <div class="gap-line">6. «<select class="mcq" data-answer="Did you sleep"><option value="" disabled selected>—</option><option>Did you sleep</option><option>Did you slept</option><option>Do you sleep</option></select> well last night?» «No, I didn't.»</div>
+    <div class="gap-line">7. «Where <select class="mcq" data-answer="did you go"><option value="" disabled selected>—</option><option>you went</option><option>did you went</option><option>did you go</option></select> on holiday?» «To Turkey.»</div>
+    <div class="gap-line">8. «How much <select class="mcq" data-answer="did it cost"><option value="" disabled selected>—</option><option>did it cost</option><option>did it costed</option><option>it cost</option></select>?» «Sixty pounds.»</div>
+    <div class="score-badge" data-ex="w9-did" data-max="8"><span>Score</span> <span class="val">0</span> <span style="opacity:.6">/ 8</span></div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- W10 · HAIRDRESSER VOCAB -->
+<!-- ================================================================ -->
+<section class="section" id="w-block-10">
+  <div class="section-head"><div class="n">10</div><h2>At the hairdresser's 💇</h2></div>
+  <div class="section-sub">Match the word to the meaning</div>
+  <div class="card">
+    <h3>🔤 Match English → Русский</h3>
+    <div class="match-cols match-2col" id="hair-match" style="grid-auto-flow:column;grid-template-rows:repeat(8,auto)"></div>
+    <h3 style="margin-top:16px">✍️ Fill in the gap:</h3>
+    <div class="gap-line">1. Julia sits in the chair and looks in the <select class="mcq" data-answer="mirror"><option value="" disabled selected>—</option><option>mirror</option><option>comb</option><option>brush</option></select>.</div>
+    <div class="gap-line">2. The hairdresser cuts her hair with <select class="mcq" data-answer="scissors"><option value="" disabled selected>—</option><option>a brush</option><option>scissors</option><option>a comb</option></select>.</div>
+    <div class="gap-line">3. After the wash, she dries her hair with a <select class="mcq" data-answer="hairdryer"><option value="" disabled selected>—</option><option>comb</option><option>mirror</option><option>hairdryer</option></select>.</div>
+    <div class="gap-line">4. Julia's new <select class="mcq" data-answer="hairstyle"><option value="" disabled selected>—</option><option>haircut</option><option>hairstyle</option><option>hairdryer</option></select> is beautiful.</div>
+    <div class="gap-line">5. Mum uses <select class="mcq" data-answer="shampoo"><option value="" disabled selected>—</option><option>a comb</option><option>a mirror</option><option>shampoo</option></select> to wash her hair.</div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- W11 · TRIP: AIRPORT · HOTEL · BEACH -->
+<!-- ================================================================ -->
+<section class="section" id="w-block-11">
+  <div class="section-head"><div class="n">11</div><h2>Trip · airport, hotel, beach ✈️</h2></div>
+  <div class="section-sub">Three little vocabularies for holiday travel</div>
+  <div class="card">
+    <h3>✈️ Airport — fill in the gap:</h3>
+    <div class="gap-line">1. First we go to the <select class="mcq" data-answer="check-in desk"><option value="" disabled selected>—</option><option>check-in desk</option><option>swimming pool</option><option>reception</option></select> to give our bags.</div>
+    <div class="gap-line">2. Then we find our <select class="mcq" data-answer="gate"><option value="" disabled selected>—</option><option>towel</option><option>gate</option><option>buffet</option></select> and wait for the plane.</div>
+    <div class="gap-line">3. Julia puts her clothes in her <select class="mcq" data-answer="suitcase"><option value="" disabled selected>—</option><option>hat</option><option>suitcase</option><option>gate</option></select>.</div>
+    <div class="gap-line">4. Dad shows the <select class="mcq" data-answer="tickets"><option value="" disabled selected>—</option><option>towel</option><option>goggles</option><option>tickets</option></select> to the airport staff.</div>
+    <h3 style="margin-top:14px">🏨 Hotel — fill in the gap:</h3>
+    <div class="gap-line">5. We come to the hotel and go to <select class="mcq" data-answer="reception"><option value="" disabled selected>—</option><option>reception</option><option>a suitcase</option><option>the gate</option></select> to get our room key.</div>
+    <div class="gap-line">6. Julia loves the big <select class="mcq" data-answer="swimming pool"><option value="" disabled selected>—</option><option>gate</option><option>swimming pool</option><option>ticket</option></select> in the garden.</div>
+    <div class="gap-line">7. In the morning, we have breakfast at the <select class="mcq" data-answer="buffet"><option value="" disabled selected>—</option><option>buffet</option><option>reception</option><option>towel</option></select> — you can choose many foods.</div>
+    <h3 style="margin-top:14px">🏖️ Beach — fill in the gap:</h3>
+    <div class="gap-line">8. Julia wears her pink <select class="mcq" data-answer="goggles"><option value="" disabled selected>—</option><option>goggles</option><option>tickets</option><option>buffet</option></select> and jumps into the sea.</div>
+    <div class="gap-line">9. She puts on her <select class="mcq" data-answer="swimsuit"><option value="" disabled selected>—</option><option>gate</option><option>swimsuit</option><option>comb</option></select> before she runs to the water.</div>
+    <div class="gap-line">10. Mum brings a big <select class="mcq" data-answer="towel"><option value="" disabled selected>—</option><option>ticket</option><option>towel</option><option>buffet</option></select> for after the swim.</div>
+    <div class="gap-line">11. John <select class="mcq" data-answer="splashes"><option value="" disabled selected>—</option><option>splashes</option><option>packs</option><option>dries</option></select> water everywhere and laughs.</div>
+    <div class="gap-line">12. Julia <select class="mcq" data-answer="dives"><option value="" disabled selected>—</option><option>drives</option><option>dries</option><option>dives</option></select> under the water and looks at the fish.</div>
+    <div class="score-badge" data-ex="w11-trip" data-max="12"><span>Score</span> <span class="val">0</span> <span style="opacity:.6">/ 12</span></div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- W12 · ZOO ANIMALS & HABITS -->
+<!-- ================================================================ -->
+<section class="section" id="w-block-12">
+  <div class="section-head"><div class="n">12</div><h2>Zoo animals & habits 🦁</h2></div>
+  <div class="section-sub">What do animals do — and when?</div>
+  <div class="card">
+    <h3>🔤 Match animal → typical action</h3>
+    <div class="match-cols match-2col" id="zoo-match" style="grid-auto-flow:column;grid-template-rows:repeat(8,auto)"></div>
+    <h3 style="margin-top:16px">🕒 Fill in the gap (in the morning / afternoon / at night):</h3>
+    <div class="gap-line">1. The birds are noisy <select class="mcq" data-answer="in the morning"><option value="" disabled selected>—</option><option>in the morning</option><option>at night</option><option>in the afternoon</option></select> when the sun comes up.</div>
+    <div class="gap-line">2. The lions sleep a lot <select class="mcq" data-answer="in the afternoon"><option value="" disabled selected>—</option><option>at night</option><option>in the morning</option><option>in the afternoon</option></select> when it is hot.</div>
+    <div class="gap-line">3. Owls are very active <select class="mcq" data-answer="at night"><option value="" disabled selected>—</option><option>in the morning</option><option>at night</option><option>in the afternoon</option></select>.</div>
+    <div class="gap-line">4. Monkeys play <select class="mcq" data-answer="in the morning"><option value="" disabled selected>—</option><option>in the morning</option><option>at night</option><option>in the afternoon</option></select> when the zoo opens.</div>
+    <div class="gap-line">5. Elephants have a rest <select class="mcq" data-answer="in the afternoon"><option value="" disabled selected>—</option><option>at night</option><option>in the morning</option><option>in the afternoon</option></select> under the trees.</div>
+    <div class="gap-line">6. Bats fly <select class="mcq" data-answer="at night"><option value="" disabled selected>—</option><option>in the morning</option><option>at night</option><option>in the afternoon</option></select>.</div>
+  </div>
+</section>
+
+</div><!-- /#tab-workbook -->
 
 <script>
 // ============================
@@ -995,6 +1301,373 @@ if(fullStrip){
   totalEl.style.cssText = 'text-align:center;margin-top:12px;font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;color:var(--muted);font-weight:800';
   totalEl.textContent = '✨ ' + total + ' WORDS & PHRASES';
   fullStrip.appendChild(totalEl);
+}
+
+// ============================================================
+// TAB SWITCHING · Lesson / Workbook
+// ============================================================
+document.querySelectorAll('.tab-btn').forEach(b => {
+  b.addEventListener('click', () => {
+    const key = b.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(x => x.classList.toggle('active', x.dataset.tab === key));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + key));
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+});
+
+// ============================================================
+// W1 · -ED pronunciation baskets
+// ============================================================
+(function initEdBaskets(){
+  const words = [
+    {w:'watched', k:'t'}, {w:'liked', k:'t'}, {w:'washed', k:'t'}, {w:'jumped', k:'t'}, {w:'walked', k:'t'}, {w:'looked', k:'t'},
+    {w:'played', k:'d'}, {w:'lived', k:'d'}, {w:'cleaned', k:'d'}, {w:'opened', k:'d'}, {w:'answered', k:'d'}, {w:'showed', k:'d'},
+    {w:'wanted', k:'id'}, {w:'started', k:'id'}, {w:'visited', k:'id'}, {w:'needed', k:'id'}, {w:'decided', k:'id'}, {w:'waited', k:'id'}
+  ];
+  const pool = document.getElementById('ed-pool');
+  const baskets = document.getElementById('ed-baskets');
+  if(!pool || !baskets) return;
+  let sel = null;
+  const shuffled = [...words].sort(()=>Math.random()-0.5);
+  shuffled.forEach(item => {
+    const t = document.createElement('div');
+    t.className = 'drop-token';
+    t.textContent = item.w;
+    t.dataset.key = item.k;
+    t.addEventListener('click', () => {
+      say(item.w, 0.85);
+      if(t.classList.contains('used')) return;
+      if(!sel){ sel = t; t.classList.add('selected'); }
+      else if(sel === t){ t.classList.remove('selected'); sel = null; }
+      else { sel.classList.remove('selected'); sel = t; t.classList.add('selected'); }
+    });
+    pool.appendChild(t);
+  });
+  baskets.querySelectorAll('.drop-basket').forEach(b => {
+    b.addEventListener('click', () => {
+      if(!sel) return;
+      const box = b.querySelector('.drop-basket-items');
+      if(sel.dataset.key === b.dataset.key){
+        const w = document.createElement('div'); w.className = 'drop-word'; w.textContent = sel.textContent;
+        box.appendChild(w); sel.classList.add('used'); sel.classList.remove('selected'); sel = null;
+      } else {
+        const w = document.createElement('div'); w.className = 'drop-word wrong-drop'; w.textContent = sel.textContent;
+        box.appendChild(w); setTimeout(() => w.remove(), 500);
+        sel.classList.remove('selected'); sel = null;
+      }
+    });
+  });
+})();
+
+// ============================================================
+// W2 · Time markers · past vs present
+// ============================================================
+(function initTimeBaskets(){
+  const items = [
+    {w:'yesterday', k:'past'}, {w:'last night', k:'past'}, {w:'two days ago', k:'past'}, {w:'an hour ago', k:'past'},
+    {w:'last week', k:'past'}, {w:'this morning', k:'past'}, {w:'in 2021', k:'past'},
+    {w:'now', k:'present'}, {w:'today', k:'present'}, {w:'at the moment', k:'present'},
+    {w:'every day', k:'present'}, {w:'usually', k:'present'}, {w:'tonight', k:'present'}
+  ];
+  const pool = document.getElementById('time-pool');
+  const baskets = document.getElementById('time-baskets');
+  if(!pool || !baskets) return;
+  let sel = null;
+  const shuffled = [...items].sort(()=>Math.random()-0.5);
+  shuffled.forEach(item => {
+    const t = document.createElement('div');
+    t.className = 'drop-token';
+    t.textContent = item.w;
+    t.dataset.key = item.k;
+    t.addEventListener('click', () => {
+      say(item.w, 0.85);
+      if(t.classList.contains('used')) return;
+      if(!sel){ sel = t; t.classList.add('selected'); }
+      else if(sel === t){ t.classList.remove('selected'); sel = null; }
+      else { sel.classList.remove('selected'); sel = t; t.classList.add('selected'); }
+    });
+    pool.appendChild(t);
+  });
+  baskets.querySelectorAll('.drop-basket').forEach(b => {
+    b.addEventListener('click', () => {
+      if(!sel) return;
+      const box = b.querySelector('.drop-basket-items');
+      if(sel.dataset.key === b.dataset.key){
+        const w = document.createElement('div'); w.className = 'drop-word'; w.textContent = sel.textContent;
+        box.appendChild(w); sel.classList.add('used'); sel.classList.remove('selected'); sel = null;
+      } else {
+        const w = document.createElement('div'); w.className = 'drop-word wrong-drop'; w.textContent = sel.textContent;
+        box.appendChild(w); setTimeout(() => w.remove(), 500);
+        sel.classList.remove('selected'); sel = null;
+      }
+    });
+  });
+})();
+
+// ============================================================
+// W4 · Irregular verbs · 3 forms table
+// ============================================================
+(function initV3Table(){
+  const rows = [
+    { base:'go',    past:'went',   pp:'gone',    ru:'идти / ехать' },
+    { base:'see',   past:'saw',    pp:'seen',    ru:'видеть' },
+    { base:'write', past:'wrote',  pp:'written', ru:'писать' },
+    { base:'stand', past:'stood',  pp:'stood',   ru:'стоять' },
+    { base:'give',  past:'gave',   pp:'given',   ru:'давать' },
+    { base:'wake',  past:'woke',   pp:'woken',   ru:'просыпаться' },
+    { base:'run',   past:'ran',    pp:'run',     ru:'бежать' },
+    { base:'do',    past:'did',    pp:'done',    ru:'делать' },
+    { base:'have',  past:'had',    pp:'had',     ru:'иметь' },
+    { base:'say',   past:'said',   pp:'said',    ru:'говорить' },
+    { base:'win',   past:'won',    pp:'won',     ru:'побеждать' },
+    { base:'wear',  past:'wore',   pp:'worn',    ru:'носить (одежду)' }
+  ];
+  // for each row, pick one column to hide (turn into input)
+  const table = document.getElementById('v3-table');
+  if(!table) return;
+  // headers
+  ['Base', 'Past', 'Past Participle', 'Перевод'].forEach(h => {
+    const el = document.createElement('div'); el.className = 'h'; el.textContent = h; table.appendChild(el);
+  });
+  rows.forEach((r, i) => {
+    const hideIdx = i % 3; // 0=base, 1=past, 2=pp
+    ['base','past','pp'].forEach((k, ki) => {
+      const c = document.createElement('div'); c.className = 'c';
+      if(ki === hideIdx){
+        const inp = document.createElement('input');
+        inp.type = 'text'; inp.placeholder = '…'; inp.dataset.answer = r[k];
+        inp.addEventListener('blur', () => {
+          const v = inp.value.trim().toLowerCase();
+          if(!v) return;
+          if(v === r[k]){ inp.classList.add('right'); inp.classList.remove('wrong'); inp.value = r[k]; say(r[k], 0.9); }
+          else { inp.classList.add('wrong'); inp.classList.remove('right'); }
+        });
+        c.appendChild(inp);
+      } else {
+        c.textContent = r[k];
+        c.addEventListener('click', () => say(r[k], 0.9));
+        c.style.cursor = 'pointer';
+      }
+      table.appendChild(c);
+    });
+    const ru = document.createElement('div'); ru.className = 'c ru'; ru.textContent = r.ru; table.appendChild(ru);
+  });
+})();
+
+// ============================================================
+// W5 · Irregular verbs · sort by pattern
+// ============================================================
+(function initVPattern(){
+  const items = [
+    // i-a-u
+    {w:'sing–sang–sung', k:'ing-ang-ung'}, {w:'drink–drank–drunk', k:'ing-ang-ung'}, {w:'ring–rang–rung', k:'ing-ang-ung'}, {w:'swim–swam–swum', k:'ing-ang-ung'}, {w:'begin–began–begun', k:'ing-ang-ung'}, {w:'run–ran–run', k:'ing-ang-ung'},
+    // ought/aught
+    {w:'think–thought', k:'ought'}, {w:'bring–brought', k:'ought'}, {w:'buy–bought', k:'ought'}, {w:'teach–taught', k:'ought'}, {w:'catch–caught', k:'ought'}, {w:'fight–fought', k:'ought'},
+    // all same
+    {w:'put–put–put', k:'same'}, {w:'cut–cut–cut', k:'same'}, {w:'hit–hit–hit', k:'same'}, {w:'let–let–let', k:'same'}, {w:'set–set–set', k:'same'},
+    // -t ending
+    {w:'sleep–slept', k:'e-t'}, {w:'keep–kept', k:'e-t'}, {w:'feel–felt', k:'e-t'}, {w:'leave–left', k:'e-t'}, {w:'mean–meant', k:'e-t'},
+    // o-o (broken pattern)
+    {w:'break–broke–broken', k:'o-o'}, {w:'speak–spoke–spoken', k:'o-o'}, {w:'choose–chose–chosen', k:'o-o'}, {w:'steal–stole–stolen', k:'o-o'}, {w:'wake–woke–woken', k:'o-o'}
+  ];
+  const pool = document.getElementById('v-pattern-pool');
+  const baskets = document.getElementById('v-pattern-baskets');
+  if(!pool || !baskets) return;
+  let sel = null;
+  const shuffled = [...items].sort(()=>Math.random()-0.5);
+  shuffled.forEach(item => {
+    const t = document.createElement('div');
+    t.className = 'drop-token';
+    t.textContent = item.w;
+    t.dataset.key = item.k;
+    t.addEventListener('click', () => {
+      if(t.classList.contains('used')) return;
+      if(!sel){ sel = t; t.classList.add('selected'); }
+      else if(sel === t){ t.classList.remove('selected'); sel = null; }
+      else { sel.classList.remove('selected'); sel = t; t.classList.add('selected'); }
+    });
+    pool.appendChild(t);
+  });
+  baskets.querySelectorAll('.drop-basket').forEach(b => {
+    b.addEventListener('click', () => {
+      if(!sel) return;
+      const box = b.querySelector('.drop-basket-items');
+      if(sel.dataset.key === b.dataset.key){
+        const w = document.createElement('div'); w.className = 'drop-word'; w.textContent = sel.textContent;
+        box.appendChild(w); sel.classList.add('used'); sel.classList.remove('selected'); sel = null;
+      } else {
+        const w = document.createElement('div'); w.className = 'drop-word wrong-drop'; w.textContent = sel.textContent;
+        box.appendChild(w); setTimeout(() => w.remove(), 500);
+        sel.classList.remove('selected'); sel = null;
+      }
+    });
+  });
+})();
+
+// ============================================================
+// W6 · Word order builder
+// ============================================================
+(function initWordOrder(){
+  const sentences = [
+    'Julia went to the theatre yesterday .',
+    'She did not sleep well last night .',
+    'The lights went out at nine o\'clock .',
+    'We visited Grandma at the weekend .',
+    'Did you watch TV last night ?',
+    'Where did you go on holiday ?'
+  ];
+  const holder = document.getElementById('wo-holder');
+  if(!holder) return;
+  sentences.forEach((sent, idx) => {
+    const words = sent.split(' ');
+    const item = document.createElement('div');
+    item.className = 'wo-item';
+    item.innerHTML = `<div class="wo-prompt">Sentence ${idx+1}</div>
+      <div class="wo-target" id="wo-tg-${idx}"></div>
+      <div class="wo-pool" id="wo-pl-${idx}"></div>
+      <div class="wo-actions">
+        <button class="wo-btn wo-clear" data-i="${idx}">Clear</button>
+        <button class="wo-btn wo-check" data-i="${idx}">Check</button>
+      </div>`;
+    holder.appendChild(item);
+    const pool = item.querySelector('.wo-pool');
+    const target = item.querySelector('.wo-target');
+    const shuffled = [...words].sort(()=>Math.random()-0.5);
+    shuffled.forEach(w => {
+      const chip = document.createElement('button');
+      chip.className = 'wo-chip'; chip.type = 'button'; chip.textContent = w;
+      chip.addEventListener('click', () => {
+        if(chip.classList.contains('placed')) return;
+        chip.classList.add('placed');
+        const clone = document.createElement('button');
+        clone.className = 'wo-chip'; clone.type = 'button'; clone.textContent = w;
+        clone.addEventListener('click', () => { clone.remove(); chip.classList.remove('placed'); });
+        target.appendChild(clone);
+      });
+      pool.appendChild(chip);
+    });
+    item.querySelector('.wo-clear').addEventListener('click', () => {
+      target.innerHTML = '';
+      pool.querySelectorAll('.wo-chip').forEach(c => c.classList.remove('placed'));
+      item.classList.remove('ok','err');
+    });
+    item.querySelector('.wo-check').addEventListener('click', () => {
+      const built = [...target.querySelectorAll('.wo-chip')].map(c => c.textContent).join(' ');
+      if(built === sent){
+        item.classList.add('ok'); item.classList.remove('err');
+        say(sent.replace(/\s([?.,!])/g, '$1'), 0.9);
+      } else {
+        item.classList.add('err'); item.classList.remove('ok');
+        setTimeout(() => item.classList.remove('err'), 400);
+      }
+    });
+  });
+})();
+
+// ============================================================
+// W7 · True / False / Not Stated
+// ============================================================
+(function initTFN(){
+  const items = [
+    // based on Block 7 story "Yesterday at the park"
+    {t:'Julia woke up at nine o\'clock yesterday.', a:'T'},
+    {t:'The family went to the park by bus.', a:'F'},
+    {t:'Julia took photos of the flowers.', a:'T'},
+    {t:'Julia\'s grandmother came with them to the park.', a:'N'},
+    {t:'Mum drank apple juice on a bench.', a:'T'},
+    {t:'Julia and John climbed a big tree.', a:'T'},
+    {t:'They saw five little squirrels in the tree.', a:'F'},
+    {t:'Julia\'s father took beautiful photos with a big camera.', a:'N'}
+  ];
+  const holder = document.getElementById('tfn-holder');
+  if(!holder) return;
+  items.forEach(item => {
+    const row = document.createElement('div');
+    row.className = 'tfn-row';
+    row.innerHTML = `<span class="tf-text">${item.t}</span>
+      <button class="tfn-btn" data-a="T">True</button>
+      <button class="tfn-btn" data-a="F">False</button>
+      <button class="tfn-btn" data-a="N">Not stated</button>`;
+    row.querySelectorAll('.tfn-btn').forEach(b => {
+      b.addEventListener('click', () => {
+        if(b.dataset.a === item.a){
+          row.querySelectorAll('.tfn-btn').forEach(x => x.classList.remove('right','wrong'));
+          b.classList.add('right');
+        } else {
+          b.classList.add('wrong');
+          setTimeout(() => b.classList.remove('wrong'), 500);
+        }
+      });
+    });
+    holder.appendChild(row);
+  });
+})();
+
+// ============================================================
+// W10 · Hairdresser match
+// ============================================================
+(function initHairMatch(){
+  const pairs = [
+    {en:'mirror',    ru:'зеркало'},
+    {en:'comb',      ru:'расчёска'},
+    {en:'brush',     ru:'щётка для волос'},
+    {en:'scissors',  ru:'ножницы'},
+    {en:'hairdryer', ru:'фен'},
+    {en:'shampoo',   ru:'шампунь'},
+    {en:'haircut',   ru:'стрижка (процесс)'},
+    {en:'hairstyle', ru:'причёска (результат)'}
+  ];
+  buildMatch('hair-match', pairs);
+})();
+
+// ============================================================
+// W12 · Zoo animals match
+// ============================================================
+(function initZooMatch(){
+  const pairs = [
+    {en:'monkeys',   ru:'active and playful'},
+    {en:'lions',     ru:'big and strong, sleep a lot'},
+    {en:'birds',     ru:'fly in the sky'},
+    {en:'elephants', ru:'big and slow, quiet in the afternoon'},
+    {en:'snakes',    ru:'sit quietly, move slowly'},
+    {en:'dogs',      ru:'play with people'},
+    {en:'cats',      ru:'calm, sleep a lot'},
+    {en:'fish',      ru:'swim in the water'}
+  ];
+  buildMatch('zoo-match', pairs);
+})();
+
+// helper: build match column pair
+function buildMatch(elId, pairs){
+  const el = document.getElementById(elId);
+  if(!el) return;
+  const shuffledEn = [...pairs].sort(()=>Math.random()-0.5);
+  const shuffledRu = [...pairs].sort(()=>Math.random()-0.5);
+  let sel = null;
+  function handle(item){
+    if(item.classList.contains('matched')) return;
+    if(!sel){ sel = item; item.classList.add('selected'); return; }
+    if(sel === item){ item.classList.remove('selected'); sel = null; return; }
+    if(sel.dataset.pair === item.dataset.word && sel.dataset.side !== item.dataset.side){
+      sel.classList.remove('selected'); sel.classList.add('matched'); item.classList.add('matched');
+      sel = null;
+    } else {
+      item.classList.add('wrong');
+      setTimeout(() => { item.classList.remove('wrong'); if(sel) sel.classList.remove('selected'); sel = null; }, 500);
+    }
+  }
+  shuffledEn.forEach(p => {
+    const el2 = document.createElement('div');
+    el2.className = 'match-item'; el2.dataset.word = p.en; el2.dataset.side = 'e'; el2.dataset.pair = p.ru; el2.textContent = p.en;
+    el2.addEventListener('click', () => { say(p.en, 0.85); handle(el2); });
+    el.appendChild(el2);
+  });
+  shuffledRu.forEach(p => {
+    const el2 = document.createElement('div');
+    el2.className = 'match-item'; el2.dataset.word = p.ru; el2.dataset.side = 'r'; el2.dataset.pair = p.en; el2.textContent = p.ru;
+    el2.addEventListener('click', () => handle(el2));
+    el.appendChild(el2);
+  });
 }
 </script>
 
