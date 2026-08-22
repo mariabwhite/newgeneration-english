@@ -196,6 +196,67 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),#8a6f1e);-we
 .wo-reset{background:var(--paper-2);color:var(--ink-2);border:1px solid var(--line)}
 .wo-hint{margin-top:8px;font-size:.85rem;color:var(--ok);font-style:italic;display:none}
 .wo-item.revealed .wo-hint{display:block}
+
+/* SPEAKING CARDS · v2 (21.08) */
+.speak-block{display:grid;gap:14px}
+.spk-part{background:var(--card-2);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.spk-part h3{font-family:var(--display);font-weight:800;font-size:.94rem;color:var(--accent3);margin:0 0 8px;display:flex;align-items:center;gap:8px}
+.spk-part h3::before{content:"";width:6px;height:16px;background:var(--accent);border-radius:3px;display:inline-block}
+.spk-part p{font-size:.96rem;color:var(--ink);line-height:1.55}
+.spk-part.situation{background:linear-gradient(135deg,#FFF8F1,#FDECE4);border-color:var(--accent)}
+.spk-part.formula{background:var(--gold-soft);border-color:#c8a640}
+.spk-part.formula h3{color:var(--gold-deep)}
+.spk-part.formula h3::before{background:var(--gold)}
+.spk-part.task{background:#FFFFFF}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.chip{display:inline-block;background:#FFFFFF;border:1.5px solid var(--accent);color:var(--accent3);padding:5px 11px;border-radius:20px;font:700 12.5px/1.3 var(--body);white-space:nowrap}
+.chip.must{background:var(--accent);color:#fff}
+.chip.opt{border-color:var(--gold-deep);color:var(--gold-deep);background:var(--gold-soft)}
+.spk-swap{display:flex;gap:10px;margin-top:8px;flex-wrap:wrap}
+.spk-swap .who{background:#fff;border:1px solid var(--line);border-radius:20px;padding:6px 14px;font:800 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase}
+.spk-swap .who.alex{border-color:var(--accent);color:var(--accent3)}
+.spk-swap .who.stan{border-color:var(--gold-deep);color:var(--gold-deep)}
+.trigger{background:var(--card-2);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:10px 14px;font-style:italic;color:var(--ink-2);font-size:.92rem;margin:6px 0}
+.trigger::before{content:"👉 ";font-style:normal}
+.mini-model{background:#FBF9F4;border:1px dashed var(--accent);border-radius:12px;padding:12px 14px;margin-top:8px;font-family:var(--display);font-weight:700;color:var(--ink);font-size:.98rem;line-height:1.6}
+
+/* ABOUT-YOU FLIP CARDS · Card 1 */
+.ay-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:14px 0}
+.ay-card{perspective:900px;height:180px;cursor:pointer}
+.ay-inner{position:relative;width:100%;height:100%;transition:transform .55s;transform-style:preserve-3d}
+.ay-card.flipped .ay-inner{transform:rotateY(180deg)}
+.ay-front,.ay-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:12px 12px;display:flex;flex-direction:column;justify-content:center;border:1.5px solid var(--line);box-shadow:var(--shadow)}
+.ay-front{background:linear-gradient(135deg,#FFFFFF,#FDECE4);align-items:center;text-align:center}
+.ay-front .ay-n{font:800 10px/1 var(--mono);color:var(--accent3);letter-spacing:.16em;padding:3px 8px;background:var(--accent-soft);border-radius:20px;margin-bottom:8px}
+.ay-front .ay-t{font-family:var(--display);font-weight:800;font-size:1rem;color:var(--ink);line-height:1.2}
+.ay-front .ay-h{font-size:.78rem;color:var(--muted);margin-top:6px;font-style:italic}
+.ay-back{background:var(--gold-soft);transform:rotateY(180deg);font-size:.78rem;line-height:1.4;color:var(--ink);overflow-y:auto}
+.ay-back b{color:var(--accent3);display:block;margin-bottom:4px;font-family:var(--display);font-size:.86rem}
+@media(max-width:900px){.ay-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:600px){.ay-grid{grid-template-columns:repeat(2,1fr)}.ay-card{height:160px}.ay-back{font-size:.72rem}}
+
+/* GAP-FILL INTERACTIVE · Card 12+ */
+.gap-item{background:#FFFFFF;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin:8px 0;display:grid;gap:10px}
+.gap-txt{font-size:.98rem;color:var(--ink);line-height:1.55}
+.gap-txt b:first-child{color:var(--accent3);margin-right:6px;font-family:var(--mono)}
+.gap{display:inline-block;min-width:90px;padding:2px 10px;border-bottom:2px dashed var(--accent);color:var(--accent3);font-weight:700;text-align:center}
+.gap.filled{border-bottom-color:var(--ok);color:var(--ok);font-weight:800}
+.gap-opts{display:flex;flex-wrap:wrap;gap:6px}
+.gopt{background:var(--card-2);border:1.5px solid var(--line-2);color:var(--ink-2);padding:6px 12px;border-radius:8px;font:700 .88rem/1.2 var(--body);cursor:pointer;transition:.15s}
+.gopt:hover{border-color:var(--accent);color:var(--accent3)}
+.gopt.correct{background:rgba(74,143,110,.15);border-color:var(--ok);color:var(--ok);font-weight:800}
+.gopt.wrong{background:rgba(184,90,90,.14);border-color:var(--miss);color:var(--miss);opacity:.7}
+
+/* MATCH-PAIR game · Card 21 */
+.match-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0}
+.mp-col{display:flex;flex-direction:column;gap:6px}
+.mp-item{background:#FFFFFF;border:1.5px solid var(--line-2);color:var(--ink);padding:9px 12px;border-radius:10px;font-family:var(--body);font-size:.9rem;text-align:left;cursor:pointer;transition:.15s}
+.mp-item:hover{border-color:var(--accent);color:var(--accent3)}
+.mp-item.selected{background:var(--gold-soft);border-color:var(--gold-deep);color:var(--gold-deep);font-weight:700}
+.mp-item.matched{background:rgba(74,143,110,.18);border-color:var(--ok);color:var(--ok);font-weight:700;cursor:default;pointer-events:none}
+.mp-item.wrong{background:rgba(184,90,90,.14);border-color:var(--miss);color:var(--miss);animation:mpShake .3s}
+@keyframes mpShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+@media(max-width:600px){.match-pair{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -217,1015 +278,839 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),#8a6f1e);-we
 <!-- HERO -->
 <section class="hero">
   <div class="hero-card">
-    <div class="eyebrow">🏨 Lesson 6 · NEW · builds on Konspekt 02 addon</div>
-    <h1 class="hero-title">Kindly welcome to <span class="grad">a brand-new travel lesson</span>.</h1>
+    <div class="eyebrow">🗣️ Lesson 6 · PURE SPEAKING · every K02 topic in a card</div>
+    <h1 class="hero-title">Every Konspekt 02 topic — <span class="grad">as a speaking card</span>.</h1>
     <p class="hero-lead">
-      Alexander, Stanislav — this is a <b>new</b> lesson, not a recap. It stands on your Konspekt 02 addon (20 August · airport model + 31 small-talk phrases) and adds three fresh things: <b>hotel arrival</b>, <b>Present Continuous</b> (live now), and mini-dialogues that put your <b>own 31 phrases</b> to work.
-      <span class="ru">Александр, Станислав — это <b>новый</b> урок, не повторение. Он встаёт на Ваш K02 addon (20.08 · airport model + 31 фраза) и добавляет три свежих кусочка: hotel arrival, Present Continuous («что происходит прямо сейчас») и мини-диалоги, где Ваши 31 фраза работают в реальной travel-сцене. Ваши имена в диалогах — Alex и Stan.</span>
+      Alexander, Stanislav — today only speaking. Every card = one situation from Konspekt 02 (all 8 pages, from monologues to add-on 21.08 airport), with the exact words you must use. Read the situation, look at the chips, speak. Then swap roles. No writing, no MCQ.
+      <span class="ru">Только говорим. Каждая карточка — одна ситуация из Конспекта 02 (все 8 страниц, от монологов до add-on 21.08 «аэропорт»), с точным списком слов, которые надо использовать. Читаете ситуацию — смотрите на chips — говорите. Потом меняетесь ролями. Никаких MCQ, никакого письма.</span>
     </p>
     <div class="hero-meta">
       <span class="hero-chip">🎯 Level A2</span>
       <span class="hero-chip">⏱ 60 min</span>
-      <span class="hero-chip">🗣 Speaking-first</span>
-      <span class="hero-chip">🎧 Amy · Brian</span>
+      <span class="hero-chip">🗣 Speaking only</span>
+      <span class="hero-chip">📓 covers K02 · pp. 1-8</span>
     </div>
   </div>
 </section>
-
-<!-- MAIN NAV -->
-<nav class="main-tabs" aria-label="Sections">
-  <div class="main-tabs-inner">
-    <a class="mtab active" href="#s1"><span class="num">01</span> Recap</a>
-    <a class="mtab" href="#s2"><span class="num">02</span> Warm-up</a>
-    <a class="mtab" href="#s3"><span class="num">03</span> Vocab</a>
-    <a class="mtab" href="#s4"><span class="num">04</span> Read</a>
-    <a class="mtab" href="#s5"><span class="num">05</span> Check-in steps</a>
-    <a class="mtab" href="#s6"><span class="num">06</span> Live now</a>
-    <a class="mtab" href="#s7"><span class="num">07</span> Small talk</a>
-    <a class="mtab" href="#s8"><span class="num">08</span> Word order</a>
-    <a class="mtab" href="#s9"><span class="num">09</span> Role-play</a>
-    <a class="mtab" href="#s10"><span class="num">10</span> Quiz</a>
-    <a class="mtab" href="#s11"><span class="num">11</span> Phrase mix</a>
-    <a class="mtab" href="#s12"><span class="num">12</span> Story</a>
-    <a class="mtab" href="#s13"><span class="num">13</span> Debate</a>
-    <a class="mtab" href="#s14"><span class="num">14</span> Homework</a>
-  </div>
-</nav>
 
 <div class="wrap">
+<!-- ============================================================
+     SPEAKING-ONLY BODY v4 · 21.08.2026
+     СТРОГО ПО КОНСПЕКТУ 02 · ничего лишнего
+     Каждая карточка = один блок из K02, тот же вокаб, та же схема.
+     ============================================================ -->
 
-<!-- ============================================================ -->
-<!-- SECTION 1 · RECAP · aligned with Konspekt 02 (addon 20.08) -->
-<!-- ============================================================ -->
+<!-- ═════════ PART A · ABOUT YOURSELF (K02 p.1) · 10 ═════════ -->
+
+<!-- CARD 1 · ABOUT YOURSELF · 10 FLIP CARDS -->
 <section class="section" id="s1">
-  <div class="section-hdr">
-    <div class="section-num">01</div>
-    <h2>📍 Recap · from Konspekt 02 airport model</h2>
-  </div>
-  <p class="lead">
-    Quick warm-up on the airport model paragraph from Konspekt 02 (addon · 20 August). Please read each line aloud first, then pick the missing word.
-    <span class="ru">Быстрая разминка на модельном параграфе из Конспекта 02 (стр. 6 · 20.08 · «I always travel light…»). Прочитайте вслух, потом подставьте нужное слово.</span>
-  </p>
+  <div class="section-hdr"><div class="section-num">01</div><h2>Card 1 · About yourself · 10 flip-cards · one full monologue</h2></div>
+  <p class="lead">One exercise · 10 flip-cards · 5 x 2. Face — «Speak about your …». Click to flip -> the real example from YOUR own K02 monologue (page 1). Go through all 10 -> assemble one full monologue about yourself.</p>
+  <div class="ay-grid">
 
-  <div class="callout">
-    <b>Model paragraph you have already learned:</b><br>
-    <i>"I always travel light. My luggage is a small trolley-bag. I check in three hours <b>in advance</b>, take my <b>boarding pass</b>, and go to the <b>gate</b>. In the <b>waiting lounge</b> I reply to emails for one hour. When my flight is announced, I find a <b>seat</b> — usually by the window. It is not expensive, and for a busy week it is very <b>beneficial</b>."</i>
-    <span class="ru">Тот самый абзац, который Вы прочитали вслух три раза до сегодняшнего урока.</span>
-  </div>
+    <div class="ay-card"><div class="ay-inner">
+      <div class="ay-front"><div class="ay-n">01</div><div class="ay-t">Speak about your<br>NAME &amp; AGE</div><div class="ay-h">3 sentences</div></div>
+      <div class="ay-back"><b>Alexander:</b> «My name is Alexander. I am 42 years old. I have lived in Moscow for the last 15 years.»<br><br><b>Stanislav:</b> «Hi. I'm Stanislav Pavlov.»</div>
+    </div></div>
 
-  <div class="gap-line" data-check="mcq">
-    <b>1.</b> I always
-    <select data-correct="travel"><option value="">—</option><option>travel</option><option>trolley</option><option>trouble</option></select>
-    light — one small trolley-bag is enough.
-  </div>
+    <div class="ay-card"><div class="ay-inner">
+      <div class="ay-front"><div class="ay-n">02</div><div class="ay-t">Speak about your<br>JOB</div><div class="ay-h">what you do</div></div>
+      <div class="ay-back"><b>Alexander:</b> «I work as a CEO in a construction, interior decoration and development company.»<br><br><b>Stanislav:</b> «I am the commercial director at Athon.In. I participate in the work of all departments to one degree or another.»</div>
+    </div></div>
 
-  <div class="gap-line" data-check="mcq">
-    <b>2.</b> I check in three hours
-    <select data-correct="in advance"><option value="">—</option><option>in advance</option><option>in a hurry</option><option>in the end</option></select>
-    before the flight.
-  </div>
+    <div class="ay-card"><div class="ay-inner">
+      <div class="ay-front"><div class="ay-n">03</div><div class="ay-t">Speak about your<br>TEAM</div><div class="ay-h">how many people</div></div>
+      <div class="ay-back"><b>Alexander:</b> «In my company there are 1,800 people (one thousand eight hundred).»<br><br><b>Stanislav:</b> «I have two sales departments directly under my control — one in Moscow and one in St Petersburg. I also manage the procurement department. I have about 80 people under my direct command.»</div>
+    </div></div>
 
-  <div class="gap-line" data-check="mcq">
-    <b>3.</b> In the
-    <select data-correct="waiting lounge"><option value="">—</option><option>waiting lounge</option><option>washing room</option><option>working office</option></select>
-    I reply to emails for one hour.
-  </div>
+    <div class="ay-card"><div class="ay-inner">
+      <div class="ay-front"><div class="ay-n">04</div><div class="ay-t">Speak about your<br>SPORT</div><div class="ay-h">how often</div></div>
+      <div class="ay-back"><b>Alexander:</b> «I go to the gym twice a week, and once a week I play hockey. I have a hockey team.»<br><br><b>Stanislav:</b> «I also go to the gym. I practice asceticism.»</div>
+    </div></div>
 
-  <div class="gap-line" data-check="mcq">
-    <b>4.</b> I always book an
-    <select data-correct="aisle"><option value="">—</option><option>aisle</option><option>island</option><option>easy</option></select>
-    seat, not by the window.
-  </div>
+    <div class="ay-card"><div class="ay-inner">
+      <div class="ay-front"><div class="ay-n">05</div><div class="ay-t">Speak about your<br>READING</div><div class="ay-h">interests</div></div>
+      <div class="ay-back"><b>Stanislav:</b> «I love reading books. I'm fascinated by the history of ancient Rome.»<br><br><b>Alexander:</b> K02 hobby list — <em>to read the news</em>.</div>
+    </div></div>
 
-  <div class="callout" style="margin-top:12px">
-    <b>Travel vocab from K02 you already own:</b><br>
-    <b>Bags &amp; clothes:</b> suitcase · backpack · trolley-bag · luggage / baggage · briefcase · wallet · business suit · to put on<br>
-    <b>Airport:</b> waiting lounge · flight · check-in · boarding pass · gate · seat · aisle · abroad · in advance · customs<br>
-    <b>Adjectives:</b> beneficial · expensive · cheap · confusing · easily · to find a way<br>
-    <span class="ru">Всё это Вы уже видели в тетради — сегодня используем в новых сценах.</span>
+    <div class="ay-card"><div class="ay-inner">
+      <div class="ay-front"><div class="ay-n">06</div><div class="ay-t">Speak about<br>WHAT YOU DON'T DO</div><div class="ay-h">your rules</div></div>
+      <div class="ay-back"><b>Stanislav:</b> «I don't drink alcohol or smoke cigarettes. I have a very negative attitude towards drugs. If I drink alcohol, I become insane. That's why I prefer a sober lifestyle.»<br><br><b>Alexander:</b> «When I have some free time, I would like to sleep.»</div>
+    </div></div>
+
+    <div class="ay-card"><div class="ay-inner">
+      <div class="ay-front"><div class="ay-n">07</div><div class="ay-t">Speak about your<br>FAMILY</div><div class="ay-h">siblings · pets</div></div>
+      <div class="ay-back"><b>K02 words:</b> siblings /'sibliŋz/ · a niece /ni:s/ · a nephew /'nefju:/ · pets · to walk with my dog.</div>
+    </div></div>
+
+    <div class="ay-card"><div class="ay-inner">
+      <div class="ay-front"><div class="ay-n">08</div><div class="ay-t">Speak about your<br>FAVOURITE COUNTRY</div><div class="ay-h">+ cuisine</div></div>
+      <div class="ay-back"><b>Alexander:</b> «Japan is my favourite country.»<br><br><b>K02 word:</b> cuisine /kwɪ'zi:n/.</div>
+    </div></div>
+
+    <div class="ay-card"><div class="ay-inner">
+      <div class="ay-front"><div class="ay-n">09</div><div class="ay-t">Speak about your<br>FREE TIME</div><div class="ay-h">3 activities</div></div>
+      <div class="ay-back"><b>Alexander:</b> «When I have some free time, I would like to sleep.»<br><br><b>K02 hobby list:</b> to walk with my dog · to watch football with friends · to read the news.</div>
+    </div></div>
+
+    <div class="ay-card"><div class="ay-inner">
+      <div class="ay-front"><div class="ay-n">10</div><div class="ay-t">Speak about your<br>ENGLISH GOAL</div><div class="ay-h">why now</div></div>
+      <div class="ay-back"><b>Stanislav:</b> «My current goal is to start speaking English.»<br><br><b>K02 verbs:</b> to become · to participate in.</div>
+    </div></div>
+
   </div>
+  <div class="trigger">Same order as K02 p. 1. Flip all 10 -> assemble one full 60–90 sec monologue. Alexander first, then Stanislav.</div>
 </section>
 
-<!-- ============================================================ -->
-<!-- SECTION 2 · AIRPORT ARRIVAL — full flow -->
-<!-- ============================================================ -->
-<section class="section" id="s2">
-  <div class="section-hdr">
-    <div class="section-num">02</div>
-    <h2>✈️ Airport arrival · full flow · 5 steps</h2>
-  </div>
-  <p class="lead">
-    You just landed. Between the plane and the taxi you go through five points. One sentence for each — please read aloud, then swap and play the officer / taxi driver. Uses your K02 words: <b>waiting lounge · boarding pass · gate · seat · customs · in advance · to find a way</b>.
-    <span class="ru">Вы только что приземлились. Между самолётом и такси — пять точек. По одной фразе на каждую. Прочитайте вслух, потом поменяйтесь и сыграйте офицера/таксиста. Используем Ваши K02-слова: waiting lounge, boarding pass, gate, seat, customs, in advance, to find a way.</span>
-  </p>
-
-  <div class="steps">
-    <div class="step">
-      <div class="step-n">1</div>
-      <div class="step-body">
-        <div class="step-en">Passport control · answer the officer's questions.</div>
-        <div class="step-ru">Паспортный контроль — ответьте офицеру.</div>
-        <div class="step-model">"Business trip. Three nights. At the Marriott hotel."</div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-n">2</div>
-      <div class="step-body">
-        <div class="step-en">Baggage claim · check the belt number.</div>
-        <div class="step-ru">Выдача багажа — уточните номер ленты.</div>
-        <div class="step-model">"Excuse me, is this the belt for flight LH 1441?"</div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-n">3</div>
-      <div class="step-body">
-        <div class="step-en">Customs · nothing to declare.</div>
-        <div class="step-ru">Таможня — «декларировать нечего».</div>
-        <div class="step-model">"Nothing to declare, thank you."</div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-n">4</div>
-      <div class="step-body">
-        <div class="step-en">Buy a local SIM card at the kiosk.</div>
-        <div class="step-ru">Купите местную SIM в киоске.</div>
-        <div class="step-model">"One tourist SIM, please. 10 gigabytes is enough."</div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-n">5</div>
-      <div class="step-body">
-        <div class="step-en">Taxi rank · give the address, ask the time.</div>
-        <div class="step-ru">Стоянка такси — назовите адрес, спросите время.</div>
-        <div class="step-model">"To the Marriott, Marienplatz, please. About how long?"</div>
-      </div>
-    </div>
-  </div>
-
-  <h3>Quick drill · fill the airport gap</h3>
-
-  <div class="gap-line" data-check="mcq">
-    <b>1.</b> Officer: "Purpose of visit?" · You:
-    <select data-correct="Business trip"><option value="">—</option><option>Big trip</option><option>Business trip</option><option>Boss trip</option></select>.
-    <span class="ru">Цель поездки?</span>
-  </div>
-  <div class="gap-line" data-check="mcq">
-    <b>2.</b> "Nothing to
-    <select data-correct="declare"><option value="">—</option><option>declare</option><option>decline</option><option>describe</option></select>,
-    thank you."
-    <span class="ru">Декларировать нечего.</span>
-  </div>
-  <div class="gap-line" data-check="mcq">
-    <b>3.</b> At the taxi rank: "To the Marriott hotel, please. About how
-    <select data-correct="long"><option value="">—</option><option>far</option><option>long</option><option>much</option></select>?"
-    <span class="ru">Сколько по времени?</span>
-  </div>
-  <div class="gap-line" data-check="mcq">
-    <b>4.</b> "Excuse me, is this the
-    <select data-correct="belt"><option value="">—</option><option>bell</option><option>belt</option><option>bill</option></select>
-    for flight LH 1441?"
-    <span class="ru">Это лента с багажом рейса LH 1441?</span>
-  </div>
-
-  <div class="callout" style="margin-top:14px">
-    <b>Pair drill:</b> Alexander is the arriving passenger. Stanislav plays the officer, then the taxi driver. Go through the 5 steps. Then swap.
-    <span class="ru">Парный дриль: Александр — пассажир, Станислав — офицер, потом таксист. Пять шагов. Потом меняетесь.</span>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- SECTION 3 · VOCAB · Hotel essentials -->
-<!-- ============================================================ -->
-<section class="section" id="s3">
-  <div class="section-hdr">
-    <div class="section-num">03</div>
-    <h2>🎒 Vocab · Hotel essentials · 10 NEW words</h2>
-  </div>
-  <p class="lead">
-    Ten <b>new</b> words for today — at the hotel front desk. Airport vocab from K02 stays in your pocket; hotel is fresh territory. Please read the example sentence aloud.
-    <span class="ru">Десять <b>новых</b> слов на сегодня — на ресепшн отеля. Airport-лексика из K02 уже Ваша; hotel — новая территория. Пожалуйста, прочитайте пример вслух.</span>
-  </p>
-
-  <div class="vocab-grid">
-    <div class="vocab-card">
-      <div class="vocab-en">reception <button class="playbtn small" data-say="reception">▶ play</button></div>
-      <div class="vocab-ru">ресепшн, стойка регистрации</div>
-      <div class="vocab-ex">"Good evening, this is the reception."</div>
-    </div>
-    <div class="vocab-card">
-      <div class="vocab-en">check-in <button class="playbtn small" data-say="check-in">▶ play</button></div>
-      <div class="vocab-ru">заселение</div>
-      <div class="vocab-ex">"Check-in starts at 3 p.m."</div>
-    </div>
-    <div class="vocab-card">
-      <div class="vocab-en">check-out <button class="playbtn small" data-say="check-out">▶ play</button></div>
-      <div class="vocab-ru">выселение</div>
-      <div class="vocab-ex">"Check-out is by 12 noon, please."</div>
-    </div>
-    <div class="vocab-card">
-      <div class="vocab-en">key card <button class="playbtn small" data-say="key card">▶ play</button></div>
-      <div class="vocab-ru">электронный ключ-карта</div>
-      <div class="vocab-ex">"Here is your key card, sir."</div>
-    </div>
-    <div class="vocab-card">
-      <div class="vocab-en">single room <button class="playbtn small" data-say="single room">▶ play</button></div>
-      <div class="vocab-ru">одноместный номер</div>
-      <div class="vocab-ex">"I booked a single room for two nights."</div>
-    </div>
-    <div class="vocab-card">
-      <div class="vocab-en">double room <button class="playbtn small" data-say="double room">▶ play</button></div>
-      <div class="vocab-ru">двухместный номер (одна большая кровать)</div>
-      <div class="vocab-ex">"A double room, please, on a high floor."</div>
-    </div>
-    <div class="vocab-card">
-      <div class="vocab-en">twin room <button class="playbtn small" data-say="twin room">▶ play</button></div>
-      <div class="vocab-ru">двухместный номер с двумя кроватями</div>
-      <div class="vocab-ex">"We are two colleagues, so a twin room, please."</div>
-    </div>
-    <div class="vocab-card">
-      <div class="vocab-en">lobby <button class="playbtn small" data-say="lobby">▶ play</button></div>
-      <div class="vocab-ru">лобби, холл отеля</div>
-      <div class="vocab-ex">"I will wait for you in the lobby."</div>
-    </div>
-    <div class="vocab-card">
-      <div class="vocab-en">breakfast is included <button class="playbtn small" data-say="breakfast is included">▶ play</button></div>
-      <div class="vocab-ru">завтрак включён</div>
-      <div class="vocab-ex">"Is breakfast included in the price?"</div>
-    </div>
-    <div class="vocab-card">
-      <div class="vocab-en">receipt <button class="playbtn small" data-say="receipt">▶ play</button></div>
-      <div class="vocab-ru">чек, квитанция</div>
-      <div class="vocab-ex">"Kindly give me a receipt for my company."</div>
-    </div>
-  </div>
-
-  <p class="tinynote">🎧 The audio plays through the browser (Amy / Brian voice via TTSMP3). If your sound is off, please switch it on.</p>
-</section>
-
-<!-- ============================================================ -->
-<!-- SECTION 4 · QUICK READ -->
-<!-- ============================================================ -->
-<section class="section" id="s4">
-  <div class="section-hdr">
-    <div class="section-num">04</div>
-    <h2>📖 Quick Read · Alexander's Berlin trip</h2>
-  </div>
-  <p class="lead">
-    A very short story. Please read it aloud one time, then answer the two questions below.
-    <span class="ru">Совсем короткий текст. Пожалуйста, прочитайте его вслух один раз, потом ответьте на два вопроса ниже.</span>
-  </p>
-
-  <div class="dlg" style="font-size:1rem;line-height:1.75">
-    <p>Alexander lands in <b>Berlin</b> at 7 in the evening. He takes a taxi from the airport to the hotel. At the reception, a lady says, "Good evening, welcome. Do you have a reservation?" Alexander says, "Yes, a single room for three nights, please." The lady checks the computer and gives him a <b>key card</b>. She says, "Breakfast is included, from seven to ten. The lift is on the right." Alexander says, "Kindly thank you." He goes to room 412 and, finally, he sits down.</p>
-  </div>
-
-  <div class="gap-line" data-check="mcq">
-    <b>Q1.</b> Alexander arrives in Berlin
-    <select data-correct="in the evening"><option value="">—</option><option>in the morning</option><option>at noon</option><option>in the evening</option></select>.
-  </div>
-  <div class="gap-line" data-check="mcq">
-    <b>Q2.</b> Breakfast at the hotel is
-    <select data-correct="included"><option value="">—</option><option>included</option><option>extra</option><option>not served</option></select>.
-  </div>
-
-  <p class="tinynote">🎯 Speaking task: retell the story in <b>3 sentences</b> — Stan listens, then swaps.</p>
-</section>
-
-<!-- ============================================================ -->
-<!-- SECTION 5 · CHECK-IN STEPS -->
-<!-- ============================================================ -->
-<section class="section" id="s5">
-  <div class="section-hdr">
-    <div class="section-num">05</div>
-    <h2>🗺️ Smart Planning · Hotel check-in · 6 steps</h2>
-  </div>
-  <p class="lead">
-    Six things you do, in order, at the hotel front desk. Please read the English line, then say the model sentence aloud.
-    <span class="ru">Шесть шагов подряд на ресепшн. Прочитайте английскую строку, потом произнесите модель вслух.</span>
-  </p>
-
-  <div class="steps">
-    <div class="step">
-      <div class="step-n">1</div>
-      <div class="step-body">
-        <div class="step-en">Greet the receptionist.</div>
-        <div class="step-ru">Поздоровайтесь с администратором.</div>
-        <div class="step-model">"Good evening. I have a reservation."</div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-n">2</div>
-      <div class="step-body">
-        <div class="step-en">Give your name and show your passport.</div>
-        <div class="step-ru">Назовите фамилию и покажите паспорт.</div>
-        <div class="step-model">"The name is <b>Ivanov</b>. Here is my passport."</div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-n">3</div>
-      <div class="step-body">
-        <div class="step-en">Confirm the type of room.</div>
-        <div class="step-ru">Подтвердите тип номера.</div>
-        <div class="step-model">"A single room for three nights, please."</div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-n">4</div>
-      <div class="step-body">
-        <div class="step-en">Ask about breakfast and Wi-Fi.</div>
-        <div class="step-ru">Спросите про завтрак и интернет.</div>
-        <div class="step-model">"Is breakfast included? And what is the Wi-Fi password?"</div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-n">5</div>
-      <div class="step-body">
-        <div class="step-en">Take the key card and the room number.</div>
-        <div class="step-ru">Возьмите карту-ключ и запомните номер комнаты.</div>
-        <div class="step-model">"Thank you. Room 412 — is that correct?"</div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-n">6</div>
-      <div class="step-body">
-        <div class="step-en">Ask for a receipt for your company.</div>
-        <div class="step-ru">Попросите чек для компании.</div>
-        <div class="step-model">"Kindly give me a receipt on the company name, please."</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="callout" style="margin-top:14px">
-    <b>Pair drill:</b> Alexander plays the guest, Stanislav plays the receptionist. Go through 6 steps. Then swap.
-    <span class="ru">Парный дриль: сначала Александр — гость, Станислав — администратор. Потом меняетесь.</span>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- SECTION 6 · LIVE COMMENTARY · Present Continuous (sneaky grammar) -->
-<!-- ============================================================ -->
-<section class="section" id="s6">
-  <div class="section-hdr">
-    <div class="section-num">06</div>
-    <h2>🎬 Live now · what is happening at the airport</h2>
-  </div>
-  <p class="lead">
-    Look around at the airport <b>right now</b>. What do you see? For actions <i>happening in this moment</i>, English uses a special form: <b>am / is / are + verb-ing</b>.
-    <span class="ru">Оглянитесь вокруг в аэропорту <b>прямо сейчас</b>. Что Вы видите? Для действий <i>в этот момент</i> в английском есть форма: <b>am / is / are + глагол-ing</b>. Не путайте с обычным Present Simple ("I fly to Berlin twice a year" = вообще, а "I am flying to Berlin right now" = сейчас, в этот момент).</span>
-  </p>
-
-  <div class="callout">
-    <b>Mini-rule (2 seconds):</b><br>
-    • <b>I am</b> + verb-ing &nbsp;→&nbsp; <i>I am boarding.</i><br>
-    • <b>He / She / It is</b> + verb-ing &nbsp;→&nbsp; <i>The plane is landing.</i><br>
-    • <b>We / You / They are</b> + verb-ing &nbsp;→&nbsp; <i>We are waiting at the gate.</i><br>
-    <span class="ru">Три строчки — вся суть Present Continuous.</span>
-  </div>
-
-  <h3>Read aloud · 6 live scenes</h3>
-  <div class="steps">
-    <div class="step">
-      <div class="step-n">✈️</div>
-      <div class="step-body">
-        <div class="step-en">The plane <b>is landing</b> right now.</div>
-        <div class="step-ru">Самолёт приземляется прямо сейчас.</div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-n">🛄</div>
-      <div class="step-body">
-        <div class="step-en">Passengers <b>are collecting</b> their bags at belt 4.</div>
-        <div class="step-ru">Пассажиры забирают багаж на ленте 4.</div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-n">👮</div>
-      <div class="step-body">
-        <div class="step-en">The officer <b>is checking</b> Alexander's passport.</div>
-        <div class="step-ru">Офицер проверяет паспорт Александра.</div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-n">📱</div>
-      <div class="step-body">
-        <div class="step-en">Stanislav <b>is buying</b> a local SIM card at the kiosk.</div>
-        <div class="step-ru">Станислав покупает местную SIM-карту в киоске.</div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-n">🚕</div>
-      <div class="step-body">
-        <div class="step-en">We <b>are looking for</b> the taxi rank.</div>
-        <div class="step-ru">Мы ищем стоянку такси.</div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-n">🏨</div>
-      <div class="step-body">
-        <div class="step-en">The receptionist <b>is preparing</b> your room on the fourth floor.</div>
-        <div class="step-ru">Администратор готовит Ваш номер на четвёртом этаже.</div>
-      </div>
-    </div>
-  </div>
-
-  <h3>Drill · pick am / is / are</h3>
-
-  <div class="gap-line" data-check="mcq">
-    <b>1.</b> The plane
-    <select data-correct="is"><option value="">—</option><option>am</option><option>is</option><option>are</option></select>
-    landing at gate 7.
-  </div>
-  <div class="gap-line" data-check="mcq">
-    <b>2.</b> We
-    <select data-correct="are"><option value="">—</option><option>am</option><option>is</option><option>are</option></select>
-    waiting for our bags.
-  </div>
-  <div class="gap-line" data-check="mcq">
-    <b>3.</b> I
-    <select data-correct="am"><option value="">—</option><option>am</option><option>is</option><option>are</option></select>
-    filling in the arrival form.
-  </div>
-  <div class="gap-line" data-check="mcq">
-    <b>4.</b> The taxi driver
-    <select data-correct="is"><option value="">—</option><option>am</option><option>is</option><option>are</option></select>
-    helping us with the suitcases.
-  </div>
-
-  <div class="callout" style="margin-top:14px">
-    <b>Pair drill · look around <u>this</u> room right now.</b><br>
-    Describe <b>three</b> things happening in this room using Present Continuous. One sentence each. Then Stanislav does the same.<br>
-    <i>Example: "Alexander is looking at the screen. Stanislav is drinking coffee. The clock is ticking."</i>
-    <span class="ru">Опишите <b>три</b> вещи, которые происходят прямо сейчас в этой комнате. По одному предложению. Потом Станислав делает то же.</span>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- SECTION 7 · SMALL TALK MAGIC · 5 mini-dialogues (from L&B 1) -->
-<!-- ============================================================ -->
-<section class="section" id="s7">
-  <div class="section-hdr">
-    <div class="section-num">07</div>
-    <h2>💬 Small Talk Magic · 5 mini-dialogues</h2>
-  </div>
-  <p class="lead">
-    Five short chats with a stranger in five typical travel spots. One of you is <b>You</b> (the traveller), the other plays <b>Stranger</b>. Read each dialogue once, then swap and read again.
-    <span class="ru">Пять коротких small talk-разговоров с незнакомцем в пяти типовых точках поездки. Один — <b>You</b> (путешественник), другой — <b>Stranger</b>. Прочитайте каждый раз, потом поменяйтесь ролями и прочитайте ещё раз.</span>
-  </p>
-
-  <p class="tinynote" style="margin-top:-6px">🔊 Tap any line to hear it.</p>
-
-  <div class="dlg">
-    <h3 style="margin-top:0">✈️ 1 · At the airport waiting lounge</h3>
-    <div class="spk" data-say="Excuse me, is this seat taken?"><span class="spk-tag alex">You</span><div class="spk-txt">Excuse me, is this seat taken?</div></div>
-    <div class="spk" data-say="Oh no, please sit."><span class="spk-tag stan">Stranger</span><div class="spk-txt">Oh no, please sit.</div></div>
-    <div class="spk" data-say="Thanks. Is your flight on time?"><span class="spk-tag alex">You</span><div class="spk-txt">Thanks. Is your flight on time?</div></div>
-    <div class="spk" data-say="Yes, so far. Fingers crossed!"><span class="spk-tag stan">Stranger</span><div class="spk-txt">Yes, so far. Fingers crossed!</div></div>
-    <div class="spk" data-say="Same here. I am going to Berlin. And you?"><span class="spk-tag alex">You</span><div class="spk-txt">Same here. I am going to Berlin. And you?</div></div>
-    <div class="spk" data-say="Barcelona — my first time."><span class="spk-tag stan">Stranger</span><div class="spk-txt">Barcelona — my first time.</div></div>
-    <div class="spk" data-say="That sounds great!"><span class="spk-tag alex">You</span><div class="spk-txt">That sounds great!</div></div>
-  </div>
-
-  <div class="dlg">
-    <h3 style="margin-top:0">🚆 2 · On a train</h3>
-    <div class="spk" data-say="Do you know how long this ride to Oxford usually takes?"><span class="spk-tag alex">You</span><div class="spk-txt">Do you know how long this ride to Oxford usually takes?</div></div>
-    <div class="spk" data-say="About one and a half hours."><span class="spk-tag stan">Stranger</span><div class="spk-txt">About one and a half hours.</div></div>
-    <div class="spk" data-say="Perfect — just enough time for a podcast."><span class="spk-tag alex">You</span><div class="spk-txt">Perfect — just enough time for a podcast.</div></div>
-    <div class="spk" data-say="Or a nap if you are lucky!"><span class="spk-tag stan">Stranger</span><div class="spk-txt">Or a nap if you are lucky!</div></div>
-    <div class="spk" data-say="True. Early trains always make me sleepy."><span class="spk-tag alex">You</span><div class="spk-txt">True. Early trains always make me sleepy.</div></div>
-  </div>
-
-  <div class="dlg">
-    <h3 style="margin-top:0">🚌 3 · At a bus station</h3>
-    <div class="spk" data-say="Have you taken this route before?"><span class="spk-tag alex">You</span><div class="spk-txt">Have you taken this route before?</div></div>
-    <div class="spk" data-say="A few times — it is a beautiful ride."><span class="spk-tag stan">Stranger</span><div class="spk-txt">A few times — it is a beautiful ride.</div></div>
-    <div class="spk" data-say="Good to hear. I am new to this city."><span class="spk-tag alex">You</span><div class="spk-txt">Good to hear. I am new to this city.</div></div>
-    <div class="spk" data-say="You will love it! Friendly people and great food."><span class="spk-tag stan">Stranger</span><div class="spk-txt">You will love it! Friendly people and great food.</div></div>
-    <div class="spk" data-say="Sounds promising. Thanks for the tip!"><span class="spk-tag alex">You</span><div class="spk-txt">Sounds promising. Thanks for the tip!</div></div>
-  </div>
-
-  <div class="dlg">
-    <h3 style="margin-top:0">🏨 4 · Waiting in line at a hotel reception</h3>
-    <div class="spk" data-say="Quite a queue, right?"><span class="spk-tag alex">You</span><div class="spk-txt">Quite a queue, right?</div></div>
-    <div class="spk" data-say="Yes — must be check-in rush hour."><span class="spk-tag stan">Stranger</span><div class="spk-txt">Yes — must be check-in rush hour.</div></div>
-    <div class="spk" data-say="I just got in from the airport. You too?"><span class="spk-tag alex">You</span><div class="spk-txt">I just got in from the airport. You too?</div></div>
-    <div class="spk" data-say="No, I have been here a few days. It is a great city."><span class="spk-tag stan">Stranger</span><div class="spk-txt">No, I have been here a few days. It is a great city.</div></div>
-    <div class="spk" data-say="Nice. Any tips for dinner nearby?"><span class="spk-tag alex">You</span><div class="spk-txt">Nice. Any tips for dinner nearby?</div></div>
-  </div>
-
-  <div class="dlg">
-    <h3 style="margin-top:0">⛴ 5 · On a ferry</h3>
-    <div class="spk" data-say="Beautiful view, isn't it?"><span class="spk-tag alex">You</span><div class="spk-txt">Beautiful view, isn't it?</div></div>
-    <div class="spk" data-say="Absolutely. Nothing beats sea breeze."><span class="spk-tag stan">Stranger</span><div class="spk-txt">Absolutely. Nothing beats sea breeze.</div></div>
-    <div class="spk" data-say="Do you travel by ferry often?"><span class="spk-tag alex">You</span><div class="spk-txt">Do you travel by ferry often?</div></div>
-    <div class="spk" data-say="Only when I visit my parents. They live on the island."><span class="spk-tag stan">Stranger</span><div class="spk-txt">Only when I visit my parents. They live on the island.</div></div>
-    <div class="spk" data-say="That is lovely. Must be peaceful."><span class="spk-tag alex">You</span><div class="spk-txt">That is lovely. Must be peaceful.</div></div>
-  </div>
-
-  <div class="callout" style="margin-top:14px">
-    <b>Talk:</b> Which of these five little chats happens to <b>you</b> most often on your business trips? Tell your partner in 2 sentences.
-    <span class="ru">Обсудите: какой из пяти small talk чаще всего случается с Вами в командировках? Ответьте партнёру в двух предложениях.</span>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- SECTION 8 · WORD ORDER · Build a travel sentence -->
-<!-- ============================================================ -->
-<section class="section" id="s8">
-  <div class="section-hdr">
-    <div class="section-num">08</div>
-    <h2>📐 Word Order · build a travel sentence</h2>
-  </div>
-  <p class="lead">
-    Tap the words in the correct order. When you think the sentence is right, press <b>Check</b>. If you make a mistake, press <b>Reset</b> and try again.
-    <span class="ru">Нажимайте на слова в правильном порядке. Когда предложение готово — нажмите <b>Check</b>. Если ошиблись — <b>Reset</b> и заново.</span>
-  </p>
-
-  <div class="wo-item" data-answer="I have a reservation for two nights">
-    <div class="wo-eyebrow">1 · At the hotel front desk</div>
-    <div class="wo-slots"></div>
-    <div class="wo-pills">
-      <button class="wo-pill" type="button">for</button>
-      <button class="wo-pill" type="button">I</button>
-      <button class="wo-pill" type="button">reservation</button>
-      <button class="wo-pill" type="button">a</button>
-      <button class="wo-pill" type="button">two</button>
-      <button class="wo-pill" type="button">nights</button>
-      <button class="wo-pill" type="button">have</button>
-    </div>
-    <div class="wo-actions">
-      <button class="wo-check" type="button">✓ Check</button>
-      <button class="wo-reset" type="button">↺ Reset</button>
-    </div>
-    <div class="wo-hint">✓ I have a reservation for two nights.</div>
-  </div>
-
-  <div class="wo-item" data-answer="How long does the flight to Berlin take">
-    <div class="wo-eyebrow">2 · Ask at the airport</div>
-    <div class="wo-slots"></div>
-    <div class="wo-pills">
-      <button class="wo-pill" type="button">the</button>
-      <button class="wo-pill" type="button">long</button>
-      <button class="wo-pill" type="button">to</button>
-      <button class="wo-pill" type="button">take</button>
-      <button class="wo-pill" type="button">flight</button>
-      <button class="wo-pill" type="button">How</button>
-      <button class="wo-pill" type="button">does</button>
-      <button class="wo-pill" type="button">Berlin</button>
-    </div>
-    <div class="wo-actions">
-      <button class="wo-check" type="button">✓ Check</button>
-      <button class="wo-reset" type="button">↺ Reset</button>
-    </div>
-    <div class="wo-hint">✓ How long does the flight to Berlin take?</div>
-  </div>
-
-  <div class="wo-item" data-answer="We are staying at the Marriott hotel">
-    <div class="wo-eyebrow">3 · Present Continuous callback</div>
-    <div class="wo-slots"></div>
-    <div class="wo-pills">
-      <button class="wo-pill" type="button">hotel</button>
-      <button class="wo-pill" type="button">Marriott</button>
-      <button class="wo-pill" type="button">We</button>
-      <button class="wo-pill" type="button">at</button>
-      <button class="wo-pill" type="button">the</button>
-      <button class="wo-pill" type="button">staying</button>
-      <button class="wo-pill" type="button">are</button>
-    </div>
-    <div class="wo-actions">
-      <button class="wo-check" type="button">✓ Check</button>
-      <button class="wo-reset" type="button">↺ Reset</button>
-    </div>
-    <div class="wo-hint">✓ We are staying at the Marriott hotel.</div>
-  </div>
-
-  <div class="wo-item" data-answer="Could you please order a taxi for us">
-    <div class="wo-eyebrow">4 · Polite request at reception</div>
-    <div class="wo-slots"></div>
-    <div class="wo-pills">
-      <button class="wo-pill" type="button">taxi</button>
-      <button class="wo-pill" type="button">you</button>
-      <button class="wo-pill" type="button">us</button>
-      <button class="wo-pill" type="button">please</button>
-      <button class="wo-pill" type="button">order</button>
-      <button class="wo-pill" type="button">Could</button>
-      <button class="wo-pill" type="button">a</button>
-      <button class="wo-pill" type="button">for</button>
-    </div>
-    <div class="wo-actions">
-      <button class="wo-check" type="button">✓ Check</button>
-      <button class="wo-reset" type="button">↺ Reset</button>
-    </div>
-    <div class="wo-hint">✓ Could you please order a taxi for us?</div>
-  </div>
-
-  <div class="callout" style="margin-top:12px">
-    <b>Talk:</b> Which sentence was the trickiest to build — and why?
-    <span class="ru">Какое предложение было самым сложным собрать — и почему?</span>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- SECTION 9 · ROLE-PLAY -->
-<!-- ============================================================ -->
-<section class="section" id="s9">
-  <div class="section-hdr">
-    <div class="section-num">09</div>
-    <h2>🎭 Role-Play Lab · 2 scenarios</h2>
-  </div>
-  <p class="lead">
-    Two short scenes. Read the setup, then improvise. Swap roles after each one.
-    <span class="ru">Две короткие сценки. Прочитайте сетап и импровизируйте. Поменяйтесь ролями после каждой.</span>
-  </p>
-
-  <div class="role-card">
-    <div class="role-title">🎬 Scene A · Late check-in</div>
-    <div class="role-setup">
-      Alexander arrives at the hotel at 11 p.m. after a long flight from Moscow. He has a reservation for a single room. Stanislav plays the receptionist.
-      <span class="ru">Александр приезжает в отель в 23:00 после долгого перелёта из Москвы. У него есть бронь на одноместный номер. Станислав — администратор.</span>
-    </div>
-    <div class="role-lines">
-      <div class="role-cue"><b>Alex cue 1:</b> Greet and give your name.</div>
-      <div class="role-cue"><b>Stan cue 1:</b> Welcome the guest, ask for the passport.</div>
-      <div class="role-cue"><b>Alex cue 2:</b> Ask about breakfast and Wi-Fi.</div>
-      <div class="role-cue"><b>Stan cue 2:</b> Answer both, give the key card and the room number.</div>
-      <div class="role-cue"><b>Alex cue 3:</b> Ask for a receipt in the morning.</div>
-    </div>
-  </div>
-
-  <div class="role-card">
-    <div class="role-title">🎬 Scene B · One small problem</div>
-    <div class="role-setup">
-      Stanislav is in the room. The Wi-Fi does not work. He calls the front desk. Alexander plays the receptionist.
-      <span class="ru">Станислав в номере — не работает Wi-Fi. Он звонит на ресепшн. Александр — администратор.</span>
-    </div>
-    <div class="role-lines">
-      <div class="role-cue"><b>Stan cue 1:</b> Greet, name your room, explain the problem.</div>
-      <div class="role-cue"><b>Alex cue 1:</b> Apologise politely, offer a new password.</div>
-      <div class="role-cue"><b>Stan cue 2:</b> Ask a second question — is there a printer in the business centre?</div>
-      <div class="role-cue"><b>Alex cue 2:</b> Say yes, give the opening hours.</div>
-      <div class="role-cue"><b>Stan cue 3:</b> Thank the receptionist, close the call politely.</div>
-    </div>
-  </div>
-
-  <div class="callout" style="margin-top:12px">
-    <b>Language for apology &amp; problem-solving:</b><br>
-    • "I am very sorry, sir. Let me check for you."<br>
-    • "One moment, please. I will send someone right away."<br>
-    • "Kindly try this new password: ATHON2026."<br>
-    <span class="ru">Формулы вежливости для администратора.</span>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- SECTION 10 · QUIZ -->
-<!-- ============================================================ -->
-<section class="section" id="s10">
-  <div class="section-hdr">
-    <div class="section-num">10</div>
-    <h2>🎯 Quick Quiz · 6 MCQ</h2>
-  </div>
-  <p class="lead">
-    Six quick questions. Tap the correct answer. Green = correct, red = try the next one.
-    <span class="ru">Шесть быстрых вопросов. Нажмите правильный ответ.</span>
-  </p>
-
-  <div class="mcq" data-mcq>
-    <div class="mcq-q"><span class="num">1</span> The person at the front desk is the ___.</div>
-    <div class="mcq-opts">
-      <button class="mcq-opt" data-correct="0"><span class="letter">A</span> receptionist</button>
-      <button class="mcq-opt"><span class="letter">B</span> waiter</button>
-      <button class="mcq-opt"><span class="letter">C</span> driver</button>
-    </div>
-  </div>
-
-  <div class="mcq" data-mcq>
-    <div class="mcq-q"><span class="num">2</span> You want one bed for one person. You ask for a ___.</div>
-    <div class="mcq-opts">
-      <button class="mcq-opt"><span class="letter">A</span> twin room</button>
-      <button class="mcq-opt" data-correct="1"><span class="letter">B</span> single room</button>
-      <button class="mcq-opt"><span class="letter">C</span> lobby room</button>
-    </div>
-  </div>
-
-  <div class="mcq" data-mcq>
-    <div class="mcq-q"><span class="num">3</span> "Kindly give me a ___ for my company."</div>
-    <div class="mcq-opts">
-      <button class="mcq-opt"><span class="letter">A</span> key card</button>
-      <button class="mcq-opt"><span class="letter">B</span> lift</button>
-      <button class="mcq-opt" data-correct="2"><span class="letter">C</span> receipt</button>
-    </div>
-  </div>
-
-  <div class="mcq" data-mcq>
-    <div class="mcq-q"><span class="num">4</span> Check-out is usually ___.</div>
-    <div class="mcq-opts">
-      <button class="mcq-opt"><span class="letter">A</span> at midnight</button>
-      <button class="mcq-opt" data-correct="1"><span class="letter">B</span> by 12 noon</button>
-      <button class="mcq-opt"><span class="letter">C</span> at 6 p.m.</button>
-    </div>
-  </div>
-
-  <div class="mcq" data-mcq>
-    <div class="mcq-q"><span class="num">5</span> "I will wait for you in the ___."</div>
-    <div class="mcq-opts">
-      <button class="mcq-opt" data-correct="0"><span class="letter">A</span> lobby</button>
-      <button class="mcq-opt"><span class="letter">B</span> receipt</button>
-      <button class="mcq-opt"><span class="letter">C</span> lift</button>
-    </div>
-  </div>
-
-  <div class="mcq" data-mcq>
-    <div class="mcq-q"><span class="num">6</span> Polite way to ask a favour at reception:</div>
-    <div class="mcq-opts">
-      <button class="mcq-opt"><span class="letter">A</span> "Give me a taxi now."</button>
-      <button class="mcq-opt" data-correct="1"><span class="letter">B</span> "Could you please order a taxi for us?"</button>
-      <button class="mcq-opt"><span class="letter">C</span> "I need taxi, fast."</button>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- SECTION 11 · LISTENING + SPEAKING · mini-dialogues из K02 фраз -->
-<!-- ============================================================ -->
+<!-- CARD 11 · Would you like some…? -->
 <section class="section" id="s11">
-  <div class="section-hdr">
-    <div class="section-num">11</div>
-    <h2>🎧 Listening + Speaking · your 31 phrases in travel scenes</h2>
-  </div>
-  <p class="lead">
-    Four mini-dialogues that put <b>your own K02 phrases</b> (numbered 1–31) into a real travel scene. Step 1 — press ▶ and listen twice. Step 2 — read aloud both roles. Step 3 — swap.
-    <span class="ru">Четыре мини-диалога, где <b>Ваши K02-фразы</b> (1–31) работают в реальной travel-сцене. Шаг 1 — нажать ▶ и послушать 2 раза. Шаг 2 — прочитать оба role вслух. Шаг 3 — поменяться.</span>
-  </p>
-
-  <p class="tinynote" style="margin-top:-6px">🔊 Tap any line to hear it (Sonia · en-GB · edge-tts).</p>
-
-  <div class="dlg">
-    <h3 style="margin-top:0">🎧 A · At the check-in desk · delayed flight</h3>
-    <div class="spk" data-say="Good morning. Boarding pass, please. I'm afraid the 9:30 flight to Berlin has been delayed by two hours."><span class="spk-tag desk">Desk</span><div class="spk-txt">Good morning. Boarding pass, please. I'm afraid the 9:30 flight to Berlin has been delayed by two hours.</div></div>
-    <div class="spk" data-say="You're kidding! Two hours?"><span class="spk-tag alex">Alex</span><div class="spk-txt"><b>You're kidding!</b> Two hours? <span class="ru">· K02 №8</span></div></div>
-    <div class="spk" data-say="Yes, I'm sorry. May I offer you access to the business lounge?"><span class="spk-tag desk">Desk</span><div class="spk-txt">Yes, I'm sorry. May I offer you access to the business lounge?</div></div>
-    <div class="spk" data-say="That would be great. Thank you."><span class="spk-tag alex">Alex</span><div class="spk-txt"><b>That would be great.</b> Thank you. <span class="ru">· K02 №14</span></div></div>
-  </div>
-
-  <div class="dlg">
-    <h3 style="margin-top:0">🎧 B · Meeting Stan in the waiting lounge</h3>
-    <div class="spk" data-say="Long time no see! How was your flight?"><span class="spk-tag alex">Alex</span><div class="spk-txt"><b>Long time no see!</b> How was your flight? <span class="ru">· K02 №2</span></div></div>
-    <div class="spk" data-say="How's it going? Not bad — I just woke up an hour ago."><span class="spk-tag stan">Stan</span><div class="spk-txt"><b>How's it going?</b> Not bad — I just woke up an hour ago. <span class="ru">· K02 №1 + №27</span></div></div>
-    <div class="spk" data-say="Let's grab some coffee. There is a café by gate 12."><span class="spk-tag alex">Alex</span><div class="spk-txt"><b>Let's grab some coffee.</b> There is a café by gate 12. <span class="ru">· K02 №29</span></div></div>
-    <div class="spk" data-say="Exactly what I need."><span class="spk-tag stan">Stan</span><div class="spk-txt"><b>Exactly</b> what I need. <span class="ru">· K02 №21</span></div></div>
-  </div>
-
-  <div class="dlg">
-    <h3 style="margin-top:0">🎧 C · Asking a stranger for help at the airport</h3>
-    <div class="spk" data-say="Excuse me — do you mind if I sit here?"><span class="spk-tag alex">Alex</span><div class="spk-txt">Excuse me — <b>do you mind if I</b> sit here? <span class="ru">· K02 №12</span></div></div>
-    <div class="spk" data-say="Oh no, please."><span class="spk-tag stan">Stranger</span><div class="spk-txt">Oh no, please.</div></div>
-    <div class="spk" data-say="Could you help me out? Do you know where gate 8 is?"><span class="spk-tag alex">Alex</span><div class="spk-txt"><b>Could you help me out?</b> Do you know where gate 8 is? <span class="ru">· K02 №11</span></div></div>
-    <div class="spk" data-say="Sorry, I didn't catch that — which gate?"><span class="spk-tag stan">Stranger</span><div class="spk-txt"><b>Sorry, I didn't catch that</b> — which gate? <span class="ru">· K02 №16</span></div></div>
-    <div class="spk" data-say="Gate 8, please."><span class="spk-tag alex">Alex</span><div class="spk-txt">Gate 8, please.</div></div>
-    <div class="spk" data-say="Down the corridor, on the left."><span class="spk-tag stan">Stranger</span><div class="spk-txt">Down the corridor, on the left.</div></div>
-    <div class="spk" data-say="Oh, got it! Thanks."><span class="spk-tag alex">Alex</span><div class="spk-txt"><b>Oh, got it!</b> Thanks. <span class="ru">· K02 №20</span></div></div>
-  </div>
-
-  <div class="dlg">
-    <h3 style="margin-top:0">🎧 D · Calling the client from the taxi</h3>
-    <div class="spk" data-say="I have landed. I'm on my way to the hotel."><span class="spk-tag stan">Stan</span><div class="spk-txt">I have landed. <b>I'm on my way</b> to the hotel. <span class="ru">· K02 №26</span></div></div>
-    <div class="spk" data-say="Perfect. What time works for you for the meeting?"><span class="spk-tag rec">Client</span><div class="spk-txt">Perfect. <b>What time works for you</b> for the meeting? <span class="ru">· K02 №31</span></div></div>
-    <div class="spk" data-say="Anytime after 3 p.m. works for me. How about six?"><span class="spk-tag stan">Stan</span><div class="spk-txt"><b>Anytime after 3 p.m. works for me.</b> How about six? <span class="ru">· K02 +add</span></div></div>
-    <div class="spk" data-say="That would be great. See you at six."><span class="spk-tag rec">Client</span><div class="spk-txt"><b>That would be great.</b> See you at six. <span class="ru">· K02 №14</span></div></div>
-  </div>
-
-  <h3 style="margin-top:20px">🎯 Listening drill · which K02 phrase fits?</h3>
-  <p class="lead" style="font-size:.9rem">You will read (or hear the teacher say) a short travel situation. Choose the K02 phrase you would use in response.</p>
-
-  <div class="mcq" data-mcq>
-    <div class="mcq-q"><span class="num">1</span> The receptionist said your room number too fast. You answer:</div>
-    <div class="mcq-opts">
-      <button class="mcq-opt" data-correct="0"><span class="letter">A</span> Could you say that again? · <i>№19</i></button>
-      <button class="mcq-opt"><span class="letter">B</span> No way! · <i>№7</i></button>
-      <button class="mcq-opt"><span class="letter">C</span> Fair enough. · <i>№22</i></button>
+  <div class="section-hdr"><div class="section-num">11</div><h2>☕ Card 11 · Would you like some…? · 10 situations</h2></div>
+  <div class="speak-block">
+    <div class="spk-part formula"><h3>Formulas</h3>
+      <p>Offer: <b>Would you like some coffee?</b> · <b>Would you like a coffee?</b> · <b>Can I get you some water?</b><br>
+      Accept: <b>Yes, please.</b> · <b>That would be great.</b> · <b>I'd love some.</b><br>
+      Refuse: <b>No, thank you.</b> · <b>I'm fine, thanks.</b> · <b>Not right now, thanks anyway.</b></p>
     </div>
-  </div>
-
-  <div class="mcq" data-mcq>
-    <div class="mcq-q"><span class="num">2</span> Your colleague just told you he lost his passport. You react:</div>
-    <div class="mcq-opts">
-      <button class="mcq-opt"><span class="letter">A</span> Exactly! · <i>№21</i></button>
-      <button class="mcq-opt" data-correct="1"><span class="letter">B</span> You're kidding! · <i>№8</i></button>
-      <button class="mcq-opt"><span class="letter">C</span> I'll be right back. · <i>№30</i></button>
+    <div class="spk-part task">
+      <h3>10 situations · Alexander is HOST, Stanislav is GUEST · then swap</h3>
+      <p>За каждую сцену: HOST предлагает 2-3 разные вещи (используй <b>some</b>). GUEST — принимает одно, вежливо отказывается от второго, задаёт 1 встречный вопрос.</p>
+      <div class="trigger">1. <b>A foreign partner is your guest at the office.</b> First 5 min in the lobby. -> offer <em>some coffee / some tea / some water</em>.</div>
+      <div class="trigger">2. <b>At a café with your partner.</b> You sit first, order first. -> offer <em>some coffee / a croissant / some tea</em>.</div>
+      <div class="trigger">3. <b>Morning at the office.</b> Partner has just arrived. -> offer <em>some coffee / some sugar / some milk</em>.</div>
+      <div class="trigger">4. <b>After lunch in the meeting room.</b> -> offer <em>some water / more coffee / a mint</em>.</div>
+      <div class="trigger">5. <b>Partner is tired · 2-hour meeting.</b> -> offer <em>a break / some coffee / a snack</em>.</div>
+      <div class="trigger">6. <b>In the car on the way to the airport.</b> -> offer <em>some music / some water / a mint</em>.</div>
+      <div class="trigger">7. <b>On the plane · partner next to you.</b> -> offer <em>half of your croissant / your bottle of water / your magazine</em>.</div>
+      <div class="trigger">8. <b>In the waiting lounge.</b> -> offer <em>coffee to go / a sandwich / a newspaper</em>.</div>
+      <div class="trigger">9. <b>Dinner at a restaurant.</b> -> offer <em>some wine / some bread / a starter</em>.</div>
+      <div class="trigger">10. <b>Late in the office · past 20:00.</b> -> offer <em>some coffee / some tea / a short break</em>.</div>
     </div>
-  </div>
-
-  <div class="mcq" data-mcq>
-    <div class="mcq-q"><span class="num">3</span> A tourist next to you at the airport asks for a small favour. You reply:</div>
-    <div class="mcq-opts">
-      <button class="mcq-opt"><span class="letter">A</span> I know, right! · <i>№10</i></button>
-      <button class="mcq-opt"><span class="letter">B</span> Really? · <i>№6</i></button>
-      <button class="mcq-opt" data-correct="2"><span class="letter">C</span> Could you help me out? · <i>№11</i></button>
+    <div class="spk-part"><h3>Words · use each ≥ 3 times</h3>
+      <div class="chips">
+        <span class="chip must">Would you like some …?</span>
+        <span class="chip must">Would you like a …?</span>
+        <span class="chip must">Can I get you …?</span>
+        <span class="chip must">Yes, please</span>
+        <span class="chip must">That would be great</span>
+        <span class="chip must">I'd love some</span>
+        <span class="chip must">No, thank you</span>
+        <span class="chip must">I'm fine, thanks</span>
+        <span class="chip must">Thanks anyway</span>
+        <span class="chip">some coffee / tea / water / sugar / milk / bread / wine</span>
+      </div>
     </div>
-  </div>
-
-  <div class="mcq" data-mcq>
-    <div class="mcq-q"><span class="num">4</span> You want to take the empty seat in the business lounge next to a stranger. You ask:</div>
-    <div class="mcq-opts">
-      <button class="mcq-opt" data-correct="0"><span class="letter">A</span> Do you mind if I sit here? · <i>№12</i></button>
-      <button class="mcq-opt"><span class="letter">B</span> Long time no see! · <i>№2</i></button>
-      <button class="mcq-opt"><span class="letter">C</span> I'm on my way. · <i>№26</i></button>
-    </div>
-  </div>
-
-  <div class="mcq" data-mcq>
-    <div class="mcq-q"><span class="num">5</span> The gate number was announced over the loudspeaker but you didn't hear it. You turn to a neighbour:</div>
-    <div class="mcq-opts">
-      <button class="mcq-opt"><span class="letter">A</span> That's awesome! · <i>№9</i></button>
-      <button class="mcq-opt" data-correct="1"><span class="letter">B</span> Sorry, I didn't catch that. · <i>№16</i></button>
-      <button class="mcq-opt"><span class="letter">C</span> Thanks anyway. · <i>№15</i></button>
-    </div>
-  </div>
-
-  <div class="mcq" data-mcq>
-    <div class="mcq-q"><span class="num">6</span> Your meeting partner asks when you can meet in Berlin. You answer:</div>
-    <div class="mcq-opts">
-      <button class="mcq-opt"><span class="letter">A</span> How's it going? · <i>№1</i></button>
-      <button class="mcq-opt"><span class="letter">B</span> Nice to meet you! · <i>№4</i></button>
-      <button class="mcq-opt" data-correct="2"><span class="letter">C</span> Anytime after 3 p.m. works for me. · <i>№31 add</i></button>
-    </div>
-  </div>
-
-  <div class="callout" style="margin-top:14px">
-    <b>Speaking round-up:</b> in pairs, invent one more mini-dialogue (3–4 lines) at any travel point (taxi · reception · airport café). Every line must contain <b>at least one K02 phrase</b>. Say it aloud twice, then Maria hears it.
-    <span class="ru">Речевой раунд: в паре придумайте ещё один мини-диалог (3–4 реплики) на любой travel-точке. Каждая реплика — минимум одна K02-фраза.</span>
+    <div class="trigger">⚠ <b>some</b> — в вежливых предложениях («Would you like <b>some</b> tea?»), не «any».</div>
   </div>
 </section>
 
-<!-- ============================================================ -->
-<!-- SECTION 12 · STORY CARD · 3-beat travel story frame -->
-<!-- ============================================================ -->
+<!-- CARD 12 · Do you have any…? -->
 <section class="section" id="s12">
-  <div class="section-hdr">
-    <div class="section-num">12</div>
-    <h2>📐 Story Card · your travel story · 3 beats</h2>
-  </div>
-  <p class="lead">
-    Any good travel story fits into three beats: <b>Setup · Trouble · Resolution</b>. Same shape as your K02 monolog, just about a trip. This is a scaffold for the homework — say it aloud once now, polish it at home.
-    <span class="ru">Любая travel-история укладывается в три бита: <b>Setup · Trouble · Resolution</b>. Та же форма, что и Ваш монолог из K02, только про поездку. Это каркас для домашки — проговорите один раз сейчас, отшлифуете дома.</span>
-  </p>
-
-  <div class="role-card">
-    <div class="role-title">📐 3-beat frame</div>
-    <div class="role-lines">
-      <div class="role-cue"><b>Beat 1 · Setup:</b> where and when. <i>"Last spring I was flying from Moscow to Berlin for a business meeting…"</i></div>
-      <div class="role-cue"><b>Beat 2 · Trouble:</b> what went wrong. <i>"…but at the gate they announced a two-hour delay, and my suitcase was on a different flight."</i></div>
-      <div class="role-cue"><b>Beat 3 · Resolution:</b> how it ended. <i>"In the end I put on the same shirt for two days, borrowed a charger, and still made the meeting on time."</i></div>
+  <div class="section-hdr"><div class="section-num">12</div><h2>❓ Card 12 · some / any / anything / nothing · 10 gap-fills + speaking</h2></div>
+  <div class="speak-block">
+    <div class="spk-part formula"><h3>Rule (2 lines)</h3>
+      <p><b>some</b> — утверждения + вежливые предложения. <b>any</b> — вопросы и отрицания.<br>
+      <b>anything</b> — вопрос/отрицание. <b>nothing</b> — «ничего» + утвердительный глагол.</p>
     </div>
-  </div>
-
-  <div class="callout" style="margin-top:10px">
-    <b>Phrase bank for your story</b> (mix K02 + today):<br>
-    • <b>Setup:</b> <i>"Last spring I was flying from … to … for a business trip."</i><br>
-    • <b>Trouble:</b> <i>"Suddenly the gate closed early / my luggage did not arrive / the taxi was two hours late."</i><br>
-    • <b>Resolution:</b> <i>"In the end I found a way, arrived at the hotel, and reached the meeting easily."</i><br>
-    <b>Connectors:</b> but · suddenly · in the end · finally · so · thanks to that.
-  </div>
-
-  <div class="callout" style="background:var(--accent-soft);border-left-color:var(--accent)">
-    <b>Try it now · 60 seconds each:</b> Alexander goes first — one real (or invented) travel story in 3 beats. Then Stanislav. No script — full sentences only.
-    <span class="ru">Проговорите сейчас: Александр — своя (или придуманная) history в 3 бита, 60 секунд. Потом Станислав.</span>
+    <div class="spk-part task">
+      <h3>PART A · click the right word in each gap · then answer aloud from real life</h3>
+      <p>Каждое предложение — личный вопрос. Кликни правильное слово (<b>some / any / anything / nothing</b>) — потом партнёр отвечает по жизни. Затем меняетесь ролями.</p>
+      <div class="gap-item"><div class="gap-txt"><b>1.</b> Have you heard <span class="gap" data-ans="anything">___</span> news today?</div><div class="gap-opts"><button class="gopt" data-v="some">some</button><button class="gopt" data-v="any">any</button><button class="gopt" data-v="anything">anything</button><button class="gopt" data-v="nothing">nothing</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><b>2.</b> Did you have <span class="gap" data-ans="any">___</span> coffee this morning?</div><div class="gap-opts"><button class="gopt" data-v="some">some</button><button class="gopt" data-v="any">any</button><button class="gopt" data-v="anything">anything</button><button class="gopt" data-v="nothing">nothing</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><b>3.</b> Do you have <span class="gap" data-ans="any">___</span> meetings this afternoon?</div><div class="gap-opts"><button class="gopt" data-v="some">some</button><button class="gopt" data-v="any">any</button><button class="gopt" data-v="anything">anything</button><button class="gopt" data-v="nothing">nothing</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><b>4.</b> Is there <span class="gap" data-ans="anything">___</span> interesting in your inbox?</div><div class="gap-opts"><button class="gopt" data-v="some">some</button><button class="gopt" data-v="any">any</button><button class="gopt" data-v="anything">anything</button><button class="gopt" data-v="nothing">nothing</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><b>5.</b> Have you got <span class="gap" data-ans="any">___</span> questions for me?</div><div class="gap-opts"><button class="gopt" data-v="some">some</button><button class="gopt" data-v="any">any</button><button class="gopt" data-v="anything">anything</button><button class="gopt" data-v="nothing">nothing</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><b>6.</b> Do you know <span class="gap" data-ans="any">___</span> good restaurants near the office?</div><div class="gap-opts"><button class="gopt" data-v="some">some</button><button class="gopt" data-v="any">any</button><button class="gopt" data-v="anything">anything</button><button class="gopt" data-v="nothing">nothing</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><b>7.</b> Did <span class="gap" data-ans="anything">___</span> happen in the office yesterday?</div><div class="gap-opts"><button class="gopt" data-v="some">some</button><button class="gopt" data-v="any">any</button><button class="gopt" data-v="anything">anything</button><button class="gopt" data-v="nothing">nothing</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><b>8.</b> Would you like <span class="gap" data-ans="some">___</span> tea?</div><div class="gap-opts"><button class="gopt" data-v="some">some</button><button class="gopt" data-v="any">any</button><button class="gopt" data-v="anything">anything</button><button class="gopt" data-v="nothing">nothing</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><b>9.</b> — What did you do last Sunday? — <span class="gap" data-ans="nothing">___</span> special, just rested.</div><div class="gap-opts"><button class="gopt" data-v="some">some</button><button class="gopt" data-v="any">any</button><button class="gopt" data-v="anything">anything</button><button class="gopt" data-v="nothing">nothing</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><b>10.</b> Have you got <span class="gap" data-ans="any">___</span> plans for the weekend?</div><div class="gap-opts"><button class="gopt" data-v="some">some</button><button class="gopt" data-v="any">any</button><button class="gopt" data-v="anything">anything</button><button class="gopt" data-v="nothing">nothing</button></div></div>
+    </div>
+    <div class="spk-part task">
+      <h3>PART B · then swap and answer aloud from real life</h3>
+      <p>Один задаёт вопрос из PART A — второй отвечает полным предложением («Yes, I've heard some news…» / «No, I haven't heard any…» / «Nothing special.»).</p>
+    </div>
+    <div class="trigger">⚠ Двойного отрицания нет: «I know nothing.» ✓ или «I don't know anything.» ✓ — но не «I don't know nothing.» ❌</div>
   </div>
 </section>
 
-<!-- ============================================================ -->
-<!-- SECTION 13 · MINI-DEBATE · Window vs Aisle seat -->
-<!-- ============================================================ -->
+<!-- CARD 13 · a few / a little · 10 gaps + partner Q -->
 <section class="section" id="s13">
-  <div class="section-hdr">
-    <div class="section-num">13</div>
-    <h2>⚖️ Mini-debate · Window seat vs Aisle seat</h2>
-  </div>
-  <p class="lead">
-    Two sides, 60 seconds each. Pick the side you honestly prefer, argue it aloud. Then switch and argue the other side (harder — but better English). Vocab from K02 that fits: <b>seat · window · aisle · flight · in advance · beneficial · expensive · cheap</b>.
-    <span class="ru">Две стороны, 60 секунд каждая. Возьмите сторону, за которую Вы честно голосуете, — аргументируйте вслух. Потом поменяйтесь и защитите противоположную (сложнее, но полезнее).</span>
-  </p>
-
-  <div class="two-col">
-    <div class="role-card" style="background:linear-gradient(135deg,#FBF9F4 0%,var(--accent-soft) 100%);border-color:var(--accent)">
-      <div class="role-title" style="color:var(--accent3)">🪟 Side A · Window seat</div>
-      <div class="role-lines">
-        <div class="role-cue">You can look outside and relax.</div>
-        <div class="role-cue">Nobody wakes you up — you can sleep the whole flight.</div>
-        <div class="role-cue">The wall is a good pillow.</div>
-        <div class="role-cue">Better for photos of the city on landing.</div>
+  <div class="section-hdr"><div class="section-num">13</div><h2>Card 13 · a few · a little · several · 10 gap-fills + partner questions</h2></div>
+  <div class="speak-block">
+    <div class="spk-part formula"><h3>Rule (2 lines)</h3>
+      <p>Считается (1, 2, 3)? -> <b>a few</b> (+, хватает) · <b>few</b> (–, мало и не хватает) · <b>several</b> (нейтр.).<br>
+      Не считается (время, деньги, кофе)? -> <b>a little</b> (+, хватает) · <b>little</b> (–, мало и не хватает).</p>
+    </div>
+    <div class="spk-part task">
+      <h3>PART A · click the right word · 10 sentences</h3>
+      <div class="gap-item"><div class="gap-txt"><b>1.</b> I have <span class="gap" data-ans="a few">___</span> colleagues in Berlin.</div><div class="gap-opts"><button class="gopt" data-v="a few">a few</button><button class="gopt" data-v="few">few</button><button class="gopt" data-v="a little">a little</button><button class="gopt" data-v="little">little</button><button class="gopt" data-v="several">several</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><b>2.</b> Sorry, I have <span class="gap" data-ans="a little">___</span> time before the call.</div><div class="gap-opts"><button class="gopt" data-v="a few">a few</button><button class="gopt" data-v="few">few</button><button class="gopt" data-v="a little">a little</button><button class="gopt" data-v="little">little</button><button class="gopt" data-v="several">several</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><b>3.</b> I go to the gym <span class="gap" data-ans="several">___</span> times a week.</div><div class="gap-opts"><button class="gopt" data-v="a few">a few</button><button class="gopt" data-v="few">few</button><button class="gopt" data-v="a little">a little</button><button class="gopt" data-v="little">little</button><button class="gopt" data-v="several">several</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><b>4.</b> I have <span class="gap" data-ans="few">___</span> free days this month.</div><div class="gap-opts"><button class="gopt" data-v="a few">a few</button><button class="gopt" data-v="few">few</button><button class="gopt" data-v="a little">a little</button><button class="gopt" data-v="little">little</button><button class="gopt" data-v="several">several</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><b>5.</b> After the call I want to relax <span class="gap" data-ans="a little">___</span>.</div><div class="gap-opts"><button class="gopt" data-v="a few">a few</button><button class="gopt" data-v="few">few</button><button class="gopt" data-v="a little">a little</button><button class="gopt" data-v="little">little</button><button class="gopt" data-v="several">several</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><b>6.</b> I fly abroad once every <span class="gap" data-ans="several">___</span> months.</div><div class="gap-opts"><button class="gopt" data-v="a few">a few</button><button class="gopt" data-v="few">few</button><button class="gopt" data-v="a little">a little</button><button class="gopt" data-v="little">little</button><button class="gopt" data-v="several">several</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><b>7.</b> Only <span class="gap" data-ans="a few">___</span> managers came to the training.</div><div class="gap-opts"><button class="gopt" data-v="a few">a few</button><button class="gopt" data-v="few">few</button><button class="gopt" data-v="a little">a little</button><button class="gopt" data-v="little">little</button><button class="gopt" data-v="several">several</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><b>8.</b> Give me <span class="gap" data-ans="a few">___</span> minutes, please.</div><div class="gap-opts"><button class="gopt" data-v="a few">a few</button><button class="gopt" data-v="few">few</button><button class="gopt" data-v="a little">a little</button><button class="gopt" data-v="little">little</button><button class="gopt" data-v="several">several</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><b>9.</b> Very <span class="gap" data-ans="few">___</span> people know this.</div><div class="gap-opts"><button class="gopt" data-v="a few">a few</button><button class="gopt" data-v="few">few</button><button class="gopt" data-v="a little">a little</button><button class="gopt" data-v="little">little</button><button class="gopt" data-v="several">several</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><b>10.</b> I've got <span class="gap" data-ans="a little">___</span> Italian, but not enough to negotiate.</div><div class="gap-opts"><button class="gopt" data-v="a few">a few</button><button class="gopt" data-v="few">few</button><button class="gopt" data-v="a little">a little</button><button class="gopt" data-v="little">little</button><button class="gopt" data-v="several">several</button></div></div>
+    </div>
+    <div class="spk-part task">
+      <h3>PART B · Stanislav → Alexander (5 questions)</h3>
+      <p>Станислав задаёт Александру 5 вопросов, тот отвечает по жизни, используя <b>a few / a little / several</b>.</p>
+      <div class="trigger">1. How many meetings do you have this week?</div>
+      <div class="trigger">2. How much free time do you have on Fridays?</div>
+      <div class="trigger">3. How many times a week do you go to the gym?</div>
+      <div class="trigger">4. How much sleep did you have last night?</div>
+      <div class="trigger">5. How many colleagues went to the last training?</div>
+    </div>
+    <div class="spk-part task">
+      <h3>PART C · Alexander → Stanislav (5 questions)</h3>
+      <p>Александр задаёт Станиславу 5 вопросов, тот отвечает по жизни.</p>
+      <div class="trigger">1. How many hockey games do you watch a month?</div>
+      <div class="trigger">2. How much time do you spend reading about ancient Rome?</div>
+      <div class="trigger">3. How many people from Athon.In do you see every day?</div>
+      <div class="trigger">4. How many days-off did you take this summer?</div>
+      <div class="trigger">5. How much English do you use at work right now?</div>
+    </div>
+    <div class="spk-part"><h3>Words</h3>
+      <div class="chips">
+        <span class="chip must">a few colleagues</span>
+        <span class="chip must">a little free time</span>
+        <span class="chip must">several times a week</span>
+        <span class="chip must">once every 3 months</span>
+        <span class="chip">to do some business</span>
+        <span class="chip">to relax a little</span>
       </div>
     </div>
-
-    <div class="role-card">
-      <div class="role-title">🚶 Side B · Aisle seat</div>
-      <div class="role-lines">
-        <div class="role-cue">You can stand up any time — for the bathroom or to walk.</div>
-        <div class="role-cue">You leave the plane <b>first</b> — no waiting.</div>
-        <div class="role-cue">More space for your legs.</div>
-        <div class="role-cue">Easier to <b>reply</b> to emails without disturbing your neighbour.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="callout" style="margin-top:14px">
-    <b>Debate order:</b><br>
-    ① Alexander picks a side and speaks 60 seconds.<br>
-    ② Stanislav argues the other side, 60 seconds.<br>
-    ③ Each summarises the OTHER side in one sentence — proves you listened.<br>
-    ④ Together: pick one winner for a <b>3-hour flight to Berlin</b>. One winner for a <b>10-hour flight to Tokyo</b>. Same or different?
-    <span class="ru">Порядок: 60 сек Александр → 60 сек Станислав → каждый в одном предложении пересказывает позицию противника → вместе выбираете победителя отдельно для 3-часового рейса и 10-часового.</span>
   </div>
 </section>
 
-<!-- ============================================================ -->
-<!-- SECTION 14 · HOMEWORK · 4 tasks (L&B style) -->
-<!-- ============================================================ -->
-<section class="section" id="s11">
-  <div class="section-hdr">
-    <div class="section-num">11</div>
-    <h2>📚 Homework · 5 tasks · by Tuesday 26.08 · K02 style</h2>
-  </div>
-
-  <div class="callout" style="margin-top:0;margin-bottom:14px">
-    <b>Task 1 · Your own travel monolog · 7–10 sentences.</b><br>
-    Write a monolog <b>"My last business trip"</b> using the airport model paragraph from K02 (page 6) as a scaffold. Include <b>at least 5</b> of your K02 travel words: <i>travel light · trolley-bag · check in · in advance · boarding pass · gate · waiting lounge · seat · aisle / window · to reply · beneficial · easily</i>. Add one Present Continuous sentence at the end (<i>"Right now I am…"</i>).<br>
-    <span class="ru">Задание 1 · Свой монолог «My last business trip» на 7–10 предложений. Каркас — airport model paragraph из K02 (стр. 6). Обязательно ≥ 5 K02-слов + одно предложение в Present Continuous в конце.</span>
-  </div>
-
-  <div class="callout" style="margin-top:0;margin-bottom:14px">
-    <b>Task 2 · Mini-dialogue drill · 3 of 4 scenes by heart.</b><br>
-    From <b>Section 11</b> (Listening + Speaking) pick <b>any 3 of 4</b> mini-dialogues (A · check-in delayed / B · meeting Stan / C · asking a stranger / D · calling the client). Learn <b>both roles by heart</b>. Pair check: Alexander plays one role, Stanislav the other — from memory, no script.
-    <span class="ru">Задание 2 · Выберите ЛЮБЫЕ 3 из 4 мини-диалогов §11 · выучите обе роли <b>наизусть</b> · в паре проиграйте без подсказок.</span>
-  </div>
-
-  <div class="callout" style="margin-top:0;margin-bottom:14px">
-    <b>Task 3 · Present Continuous · 5 sentences about your office right now.</b><br>
-    Write <b>5</b> sentences in Present Continuous describing your own workplace <i>at this moment</i>. Use different subjects: <b>I / He or She / We / They / The …</b>. Example: <i>"Right now I am sitting at my desk. My colleague is talking on the phone. Two managers are preparing a report. The receptionist is greeting a client. The kettle is boiling."</i>
-    <span class="ru">Задание 3 · Present Continuous · 5 предложений про Ваш офис прямо сейчас. Разные подлежащие: I / He or She / We / They / The …</span>
-  </div>
-
-  <div class="callout" style="margin-top:0;margin-bottom:14px">
-    <b>Task 4 · Voice note · 90 seconds · your worst travel moment.</b><br>
-    Record a 90-sec voice message on <b>"Your worst travel moment"</b> using the 3-beat frame from Section 12: <b>Setup → Trouble → Resolution</b>. Use ≥ 2 K02 phrases (any category). Send to Maria in Telegram — we will start Lesson 7 with your story.
-    <span class="ru">Задание 4 · 90-секундное голосовое: «Your worst travel moment» · каркас 3-beat из §12 · ≥ 2 K02-фразы · в Telegram Марии.</span>
-  </div>
-
-  <h3 style="margin-top:20px">Task 5 · Type-drill · 5 sentences below (self-check)</h3>
-  <p class="lead" style="font-size:.9rem">Type the English sentence for each Russian line. Press "Check" — if wrong, the correct answer appears in green.</p>
-  <p class="lead">
-    Please type the English sentence for each Russian line. Press "Check" — if wrong, the correct answer will appear in green.
-    <span class="ru">Пожалуйста, наберите английское предложение к каждой русской строке. Нажмите «Check» — если ошибка, правильный ответ появится зелёным.</span>
-  </p>
-
-  <div class="type-item" data-answer="I have a reservation for two nights.">
-    <div class="type-ru">1) У меня бронь на две ночи.</div>
-    <div class="type-in-row">
-      <input class="type-input" type="text" placeholder="type in English...">
-      <button class="type-check">Check</button>
+<!-- CARD 14 · a / an -->
+<section class="section" id="s14">
+  <div class="section-hdr"><div class="section-num">14</div><h2>Card 14 · a / an — click the right article</h2></div>
+  <div class="speak-block">
+    <div class="spk-part formula"><h3>Rule (2 lines)</h3>
+      <p>По <b>звуку</b>, не по букве. <b>a</b> — перед согласным звуком (a computer, a university /ˈjuː/). <b>an</b> — перед гласным звуком (an apple, an hour /ˈaʊə/, an MP3 /ˈem-piː/).</p>
     </div>
-    <div class="type-hint">✓ I have a reservation for two nights.</div>
-  </div>
-
-  <div class="type-item" data-answer="Is breakfast included in the price?">
-    <div class="type-ru">2) Завтрак включён в стоимость?</div>
-    <div class="type-in-row">
-      <input class="type-input" type="text" placeholder="type in English...">
-      <button class="type-check">Check</button>
+    <div class="spk-part task">
+      <h3>PART A · click <b>A</b> or <b>AN</b> · 12 words</h3>
+      <div class="gap-item"><div class="gap-txt">1. <span class="gap" data-ans="a">___</span> computer</div><div class="gap-opts"><button class="gopt" data-v="a">a</button><button class="gopt" data-v="an">an</button></div></div>
+      <div class="gap-item"><div class="gap-txt">2. <span class="gap" data-ans="an">___</span> apple</div><div class="gap-opts"><button class="gopt" data-v="a">a</button><button class="gopt" data-v="an">an</button></div></div>
+      <div class="gap-item"><div class="gap-txt">3. <span class="gap" data-ans="an">___</span> hour</div><div class="gap-opts"><button class="gopt" data-v="a">a</button><button class="gopt" data-v="an">an</button></div></div>
+      <div class="gap-item"><div class="gap-txt">4. <span class="gap" data-ans="a">___</span> university</div><div class="gap-opts"><button class="gopt" data-v="a">a</button><button class="gopt" data-v="an">an</button></div></div>
+      <div class="gap-item"><div class="gap-txt">5. <span class="gap" data-ans="an">___</span> MP3</div><div class="gap-opts"><button class="gopt" data-v="a">a</button><button class="gopt" data-v="an">an</button></div></div>
+      <div class="gap-item"><div class="gap-txt">6. <span class="gap" data-ans="a">___</span> European client</div><div class="gap-opts"><button class="gopt" data-v="a">a</button><button class="gopt" data-v="an">an</button></div></div>
+      <div class="gap-item"><div class="gap-txt">7. <span class="gap" data-ans="an">___</span> interview</div><div class="gap-opts"><button class="gopt" data-v="a">a</button><button class="gopt" data-v="an">an</button></div></div>
+      <div class="gap-item"><div class="gap-txt">8. <span class="gap" data-ans="an">___</span> honest man</div><div class="gap-opts"><button class="gopt" data-v="a">a</button><button class="gopt" data-v="an">an</button></div></div>
+      <div class="gap-item"><div class="gap-txt">9. <span class="gap" data-ans="a">___</span> one-time offer</div><div class="gap-opts"><button class="gopt" data-v="a">a</button><button class="gopt" data-v="an">an</button></div></div>
+      <div class="gap-item"><div class="gap-txt">10. <span class="gap" data-ans="an">___</span> office</div><div class="gap-opts"><button class="gopt" data-v="a">a</button><button class="gopt" data-v="an">an</button></div></div>
+      <div class="gap-item"><div class="gap-txt">11. <span class="gap" data-ans="an">___</span> airport</div><div class="gap-opts"><button class="gopt" data-v="a">a</button><button class="gopt" data-v="an">an</button></div></div>
+      <div class="gap-item"><div class="gap-txt">12. <span class="gap" data-ans="a">___</span> CEO</div><div class="gap-opts"><button class="gopt" data-v="a">a</button><button class="gopt" data-v="an">an</button></div></div>
     </div>
-    <div class="type-hint">✓ Is breakfast included in the price?</div>
   </div>
+</section>
 
-  <div class="type-item" data-answer="Could you please order a taxi for 7 a.m.?">
-    <div class="type-ru">3) Не могли бы Вы, пожалуйста, заказать такси на 7 утра?</div>
-    <div class="type-in-row">
-      <input class="type-input" type="text" placeholder="type in English...">
-      <button class="type-check">Check</button>
+<!-- CARD 16 · Days + AT / ON / IN · MERGED · gap-fills + your week -->
+<section class="section" id="s16">
+  <div class="section-hdr"><div class="section-num">16</div><h2>Card 16 · Days + AT / ON / IN · click + your week</h2></div>
+  <div class="speak-block">
+    <div class="spk-part formula"><h3>Rule (2 lines)</h3>
+      <p>«Точка часов» → <b>AT</b> · «День или дата» → <b>ON</b> · «Длинный период / месяц / год / часть суток» → <b>IN</b>.<br>
+      Ловушки: <b>at night</b> · <b>at lunchtime</b> · <b>at the weekend</b> (UK).</p>
     </div>
-    <div class="type-hint">✓ Could you please order a taxi for 7 a.m.?</div>
-  </div>
-
-  <div class="type-item" data-answer="The Wi-Fi does not work in my room.">
-    <div class="type-ru">4) В моём номере не работает интернет.</div>
-    <div class="type-in-row">
-      <input class="type-input" type="text" placeholder="type in English...">
-      <button class="type-check">Check</button>
+    <div class="spk-part task">
+      <h3>PART A · click AT / ON / IN · 12 sentences</h3>
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="1. What do you usually do at 7 o'clock in the morning?">▶</button> <b>1.</b> What do you usually do <span class="gap" data-ans="at">___</span> 7 o'clock in the morning?</div><div class="gap-opts"><button class="gopt" data-v="at">at</button><button class="gopt" data-v="on">on</button><button class="gopt" data-v="in">in</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="2. Do you have any meetings on Monday?">▶</button> <b>2.</b> Do you have any meetings <span class="gap" data-ans="on">___</span> Monday?</div><div class="gap-opts"><button class="gopt" data-v="at">at</button><button class="gopt" data-v="on">on</button><button class="gopt" data-v="in">in</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="3. Do you go to the gym in the morning or in the evening?">▶</button> <b>3.</b> Do you go to the gym <span class="gap" data-ans="in">___</span> the morning or in the evening?</div><div class="gap-opts"><button class="gopt" data-v="at">at</button><button class="gopt" data-v="on">on</button><button class="gopt" data-v="in">in</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="4. What are you doing on 16 May?">▶</button> <b>4.</b> What are you doing <span class="gap" data-ans="on">___</span> 16 May?</div><div class="gap-opts"><button class="gopt" data-v="at">at</button><button class="gopt" data-v="on">on</button><button class="gopt" data-v="in">in</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="5. Where are you usually at lunchtime?">▶</button> <b>5.</b> Where are you usually <span class="gap" data-ans="at">___</span> lunchtime?</div><div class="gap-opts"><button class="gopt" data-v="at">at</button><button class="gopt" data-v="on">on</button><button class="gopt" data-v="in">in</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="6. What is your biggest project in July?">▶</button> <b>6.</b> What is your biggest project <span class="gap" data-ans="in">___</span> July?</div><div class="gap-opts"><button class="gopt" data-v="at">at</button><button class="gopt" data-v="on">on</button><button class="gopt" data-v="in">in</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="7. Do you ever work at night?">▶</button> <b>7.</b> Do you ever work <span class="gap" data-ans="at">___</span> night?</div><div class="gap-opts"><button class="gopt" data-v="at">at</button><button class="gopt" data-v="on">on</button><button class="gopt" data-v="in">in</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="8. What did your company do in 2024?">▶</button> <b>8.</b> What did your company do <span class="gap" data-ans="in">___</span> 2024?</div><div class="gap-opts"><button class="gopt" data-v="at">at</button><button class="gopt" data-v="on">on</button><button class="gopt" data-v="in">in</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="9. What do you usually do at the weekend?">▶</button> <b>9.</b> What do you usually do <span class="gap" data-ans="at">___</span> the weekend?</div><div class="gap-opts"><button class="gopt" data-v="at">at</button><button class="gopt" data-v="on">on</button><button class="gopt" data-v="in">in</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="10. Are you free on Friday evening?">▶</button> <b>10.</b> Are you free <span class="gap" data-ans="on">___</span> Friday evening?</div><div class="gap-opts"><button class="gopt" data-v="at">at</button><button class="gopt" data-v="on">on</button><button class="gopt" data-v="in">in</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="11. How cold is Moscow in winter?">▶</button> <b>11.</b> How cold is Moscow <span class="gap" data-ans="in">___</span> winter?</div><div class="gap-opts"><button class="gopt" data-v="at">at</button><button class="gopt" data-v="on">on</button><button class="gopt" data-v="in">in</button></div></div>
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="12. Can you be there in an hour?">▶</button> <b>12.</b> Can you be there <span class="gap" data-ans="in">___</span> an hour?</div><div class="gap-opts"><button class="gopt" data-v="at">at</button><button class="gopt" data-v="on">on</button><button class="gopt" data-v="in">in</button></div></div>
     </div>
-    <div class="type-hint">✓ The Wi-Fi does not work in my room.</div>
-  </div>
-
-  <div class="type-item" data-answer="Kindly give me a receipt on the company name.">
-    <div class="type-ru">5) Пожалуйста, дайте мне чек на название компании.</div>
-    <div class="type-in-row">
-      <input class="type-input" type="text" placeholder="type in English...">
-      <button class="type-check">Check</button>
+    <div class="spk-part task">
+      <h3>PART B · Stanislav → Alexander (5 questions about your week)</h3>
+      <div class="trigger"><button class="playbtn small" data-say="What time do you usually start work — at what o'clock?">▶</button> 1. What time do you usually start work — <b>at</b> what o'clock?</div>
+      <div class="trigger"><button class="playbtn small" data-say="What do you do on Fridays after 6 p.m.?">▶</button> 2. What do you do <b>on</b> Fridays after 6 p.m.?</div>
+      <div class="trigger"><button class="playbtn small" data-say="Do you go to the gym in the morning or in the evening?">▶</button> 3. Do you go to the gym <b>in</b> the morning or <b>in</b> the evening?</div>
+      <div class="trigger"><button class="playbtn small" data-say="Where are you usually at lunchtime?">▶</button> 4. Where are you usually <b>at</b> lunchtime?</div>
+      <div class="trigger"><button class="playbtn small" data-say="What are your plans in September?">▶</button> 5. What are your plans <b>in</b> September?</div>
     </div>
-    <div class="type-hint">✓ Kindly give me a receipt on the company name.</div>
+    <div class="spk-part task">
+      <h3>PART C · Alexander → Stanislav (5 questions)</h3>
+      <div class="trigger"><button class="playbtn small" data-say="What time is your first meeting on Monday?">▶</button> 1. What time is your first meeting <b>on</b> Monday?</div>
+      <div class="trigger"><button class="playbtn small" data-say="Do you read history books at night or in the morning?">▶</button> 2. Do you read history books <b>at</b> night or <b>in</b> the morning?</div>
+      <div class="trigger"><button class="playbtn small" data-say="When did you last take a full day-off at the weekend?">▶</button> 3. When did you last take a full day-off <b>at</b> the weekend?</div>
+      <div class="trigger"><button class="playbtn small" data-say="What's the biggest event for Athon.In in 2026?">▶</button> 4. What's the biggest event for Athon.In <b>in</b> 2026?</div>
+      <div class="trigger"><button class="playbtn small" data-say="What did you do on your last birthday?">▶</button> 5. What did you do <b>on</b> your last birthday?</div>
+    </div>
   </div>
+</section>
 
-  <div class="callout" style="margin-top:14px">
-    <b>Speaking part (optional):</b> Record a 30-second voice note answering — "Tell me about the last hotel you stayed in for business." Send to Maria on Telegram.
-    <span class="ru">Speaking (по желанию): запишите 30-секундное аудио по вопросу «Расскажите про последний деловой отель». Пришлите в Telegram.</span>
+<!-- CARD 17 · Comparatives · numbered speaking cards -->
+<section class="section" id="s17">
+  <div class="section-hdr"><div class="section-num">17</div><h2>Card 17 · Comparatives · 10 personal questions</h2></div>
+  <div class="speak-block">
+    <div class="spk-part formula"><h3>Forms (from K02)</h3>
+      <p>good → <b>better</b> → the best · bad → <b>worse</b> → the worst · much / many → <b>more</b> → the most · little → <b>less</b> → the least · far → <b>further</b> → the furthest.<br>
+      Короткие: fast → faster → the fastest. Длинные: more expensive → the most expensive. После <b>the best / the worst</b> — обязательно <b>the</b>. После сравнительной формы часто <b>than</b>.</p>
+    </div>
+    <div class="spk-part task">
+      <h3>10 speaking cards · Stanislav asks 5, Alexander asks 5 (swap after №5)</h3>
+      <div class="trigger"><b>1.</b> What's <b>better</b> for you — a morning meeting or an evening call?</div>
+      <div class="trigger"><b>2.</b> Which city is <b>the best</b> for a business trip — Moscow, St Petersburg, or Berlin?</div>
+      <div class="trigger"><b>3.</b> What was <b>the worst</b> holiday of your life? Why?</div>
+      <div class="trigger"><b>4.</b> What are <b>the best</b> holidays of your life so far?</div>
+      <div class="trigger"><b>5.</b> Who works <b>more</b> — you or your partner?</div>
+      <div class="trigger"><b>6.</b> Which restaurant near the office is <b>the most expensive</b>? Is it worth it?</div>
+      <div class="trigger"><b>7.</b> Which city do you want to visit — the one that is <b>further</b> or the one that is closer?</div>
+      <div class="trigger"><b>8.</b> Is it <b>worse</b> to lose your passport or your phone abroad?</div>
+      <div class="trigger"><b>9.</b> Who is <b>the best</b> business partner you have ever worked with? Why?</div>
+      <div class="trigger"><b>10.</b> What is <b>the most</b> important thing in a business trip — the hotel, the flight or the meetings?</div>
+    </div>
+    <div class="spk-part"><h3>Use in every answer</h3>
+      <div class="chips">
+        <span class="chip must">better than</span>
+        <span class="chip must">worse than</span>
+        <span class="chip must">the best</span>
+        <span class="chip must">the worst</span>
+        <span class="chip must">more expensive than</span>
+        <span class="chip must">the most</span>
+        <span class="chip">the least</span>
+        <span class="chip">further than</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARD 18 · Frequency · click into position + speak -->
+<section class="section" id="s18">
+  <div class="section-hdr"><div class="section-num">18</div><h2>Card 18 · Frequency · click the right adverb · then speak</h2></div>
+  <div class="speak-block">
+    <div class="spk-part formula"><h3>Rule (2 lines)</h3>
+      <p>Место: <b>перед обычным глаголом</b> — <em>«I <b>always</b> drink coffee.»</em> · <b>После be</b> — <em>«She <b>is never</b> late.»</em></p>
+    </div>
+    <div class="spk-part task">
+      <h3>PART A · pick the adverb that is TRUE about you · click aloud · 10 personal facts</h3>
+      <p>No right/wrong here — these are facts about yourself. Click the adverb that matches your life, say the full sentence aloud. Then swap with your partner and hear his version.</p>
+      <div class="gap-item" data-mode="free"><div class="gap-txt"><button class="playbtn small" data-say="I always start my day with coffee.">▶</button> <b>1.</b> I <span class="gap" data-ans="">___</span> start my day with coffee.</div><div class="gap-opts"><button class="gopt" data-v="always">always</button><button class="gopt" data-v="usually">usually</button><button class="gopt" data-v="often">often</button><button class="gopt" data-v="sometimes">sometimes</button><button class="gopt" data-v="rarely">rarely</button><button class="gopt" data-v="never">never</button></div></div>
+      <div class="gap-item" data-mode="free"><div class="gap-txt"><button class="playbtn small" data-say="I always arrive at the office before nine.">▶</button> <b>2.</b> I <span class="gap" data-ans="">___</span> arrive at the office before 9.</div><div class="gap-opts"><button class="gopt" data-v="always">always</button><button class="gopt" data-v="usually">usually</button><button class="gopt" data-v="often">often</button><button class="gopt" data-v="sometimes">sometimes</button><button class="gopt" data-v="rarely">rarely</button><button class="gopt" data-v="never">never</button></div></div>
+      <div class="gap-item" data-mode="free"><div class="gap-txt"><button class="playbtn small" data-say="I often go to the gym.">▶</button> <b>3.</b> I go to the gym <span class="gap" data-ans="">___</span>.</div><div class="gap-opts"><button class="gopt" data-v="always">always</button><button class="gopt" data-v="frequently">frequently</button><button class="gopt" data-v="often">often</button><button class="gopt" data-v="sometimes">sometimes</button><button class="gopt" data-v="occasionally">occasionally</button><button class="gopt" data-v="rarely">rarely</button><button class="gopt" data-v="never">never</button></div></div>
+      <div class="gap-item" data-mode="free"><div class="gap-txt"><button class="playbtn small" data-say="We often travel abroad on business.">▶</button> <b>4.</b> We <span class="gap" data-ans="">___</span> travel abroad on business.</div><div class="gap-opts"><button class="gopt" data-v="always">always</button><button class="gopt" data-v="often">often</button><button class="gopt" data-v="sometimes">sometimes</button><button class="gopt" data-v="rarely">rarely</button><button class="gopt" data-v="never">never</button></div></div>
+      <div class="gap-item" data-mode="free"><div class="gap-txt"><button class="playbtn small" data-say="I sometimes work on Saturdays.">▶</button> <b>5.</b> I <span class="gap" data-ans="">___</span> work on Saturdays.</div><div class="gap-opts"><button class="gopt" data-v="always">always</button><button class="gopt" data-v="usually">usually</button><button class="gopt" data-v="often">often</button><button class="gopt" data-v="sometimes">sometimes</button><button class="gopt" data-v="rarely">rarely</button><button class="gopt" data-v="never">never</button></div></div>
+      <div class="gap-item" data-mode="free"><div class="gap-txt"><button class="playbtn small" data-say="I sometimes read the news in the evening.">▶</button> <b>6.</b> I <span class="gap" data-ans="">___</span> read the news in the evening.</div><div class="gap-opts"><button class="gopt" data-v="always">always</button><button class="gopt" data-v="often">often</button><button class="gopt" data-v="sometimes">sometimes</button><button class="gopt" data-v="occasionally">occasionally</button><button class="gopt" data-v="rarely">rarely</button><button class="gopt" data-v="never">never</button></div></div>
+      <div class="gap-item" data-mode="free"><div class="gap-txt"><button class="playbtn small" data-say="I seldom take a full day off during the week.">▶</button> <b>7.</b> I <span class="gap" data-ans="">___</span> take a full day-off during the week.</div><div class="gap-opts"><button class="gopt" data-v="always">always</button><button class="gopt" data-v="often">often</button><button class="gopt" data-v="sometimes">sometimes</button><button class="gopt" data-v="occasionally">occasionally</button><button class="gopt" data-v="seldom">seldom</button><button class="gopt" data-v="never">never</button></div></div>
+      <div class="gap-item" data-mode="free"><div class="gap-txt"><button class="playbtn small" data-say="I rarely drink alcohol.">▶</button> <b>8.</b> I <span class="gap" data-ans="">___</span> drink alcohol.</div><div class="gap-opts"><button class="gopt" data-v="always">always</button><button class="gopt" data-v="often">often</button><button class="gopt" data-v="sometimes">sometimes</button><button class="gopt" data-v="rarely">rarely</button><button class="gopt" data-v="never">never</button></div></div>
+      <div class="gap-item" data-mode="free"><div class="gap-txt"><button class="playbtn small" data-say="I never smoke.">▶</button> <b>9.</b> I <span class="gap" data-ans="">___</span> smoke.</div><div class="gap-opts"><button class="gopt" data-v="always">always</button><button class="gopt" data-v="sometimes">sometimes</button><button class="gopt" data-v="rarely">rarely</button><button class="gopt" data-v="never">never</button></div></div>
+      <div class="gap-item" data-mode="free"><div class="gap-txt"><button class="playbtn small" data-say="I am never late for meetings.">▶</button> <b>10.</b> I am <span class="gap" data-ans="">___</span> late for meetings.</div><div class="gap-opts"><button class="gopt" data-v="always">always</button><button class="gopt" data-v="usually">usually</button><button class="gopt" data-v="often">often</button><button class="gopt" data-v="sometimes">sometimes</button><button class="gopt" data-v="rarely">rarely</button><button class="gopt" data-v="never">never</button></div></div>
+    </div>
+    <div class="spk-part task">
+      <h3>PART B · ask your partner · 5 «How often …?» questions (then swap)</h3>
+      <p>Answer must start with <b>I always / usually / often / sometimes / rarely / never …</b> + 1 short detail.</p>
+      <div class="trigger"><button class="playbtn small" data-say="How often do you check your work email in the evening?">▶</button> 1. How often do you check your work email in the evening?</div>
+      <div class="trigger"><button class="playbtn small" data-say="How often do you eat breakfast?">▶</button> 2. How often do you eat breakfast?</div>
+      <div class="trigger"><button class="playbtn small" data-say="How often do you take a taxi to work?">▶</button> 3. How often do you take a taxi to work?</div>
+      <div class="trigger"><button class="playbtn small" data-say="How often do you have meetings before nine?">▶</button> 4. How often do you have meetings before 9 a.m.?</div>
+      <div class="trigger"><button class="playbtn small" data-say="How often do you take a full day off?">▶</button> 5. How often do you take a full day-off?</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════ PART D · 31 SMALL TALK PHRASES (K02 p.11-14) ═════════ -->
+
+<!-- CARD 19 · Openers · MATCH phrase ↔ reply -->
+<section class="section" id="s19">
+  <div class="section-hdr"><div class="section-num">19</div><h2>Card 19 · Openers · MATCH · phrase ↔ reply</h2></div>
+  <div class="speak-block">
+    <div class="spk-part formula"><h3>All 5 openers (K02)</h3>
+      <p><b>How's it going?</b> · <b>Long time no see!</b> · <b>What's up?</b> · <b>Nice to meet you! / Good to see you!</b> · <b>How have you been?</b></p>
+    </div>
+    <div class="spk-part task">
+      <h3>Match · click a phrase on the left → then the matching reply on the right</h3>
+      <p>Правильная пара — оба чипа зеленеют. Ошибка — красная вспышка. Затем в парах: Alexander читает фразу, Stanislav отвечает реалистично + 1 деталь. Потом swap.</p>
+      <div class="match-pair" id="matchOpeners">
+        <div class="mp-col mp-left">
+          <button class="mp-item" data-k="a">How's it going?</button>
+          <button class="mp-item" data-k="b">Long time no see!</button>
+          <button class="mp-item" data-k="c">What's up?</button>
+          <button class="mp-item" data-k="d">Nice to meet you! / Good to see you!</button>
+          <button class="mp-item" data-k="e">How have you been?</button>
+        </div>
+        <div class="mp-col mp-right">
+          <button class="mp-item" data-k="c">Preparing the Q3 report — busy.</button>
+          <button class="mp-item" data-k="e">I've been well, thanks. A lot of travel this summer.</button>
+          <button class="mp-item" data-k="a">Not bad, thanks. Busy week.</button>
+          <button class="mp-item" data-k="d">Good to see you too. How was Berlin?</button>
+          <button class="mp-item" data-k="b">Yeah, three months! I was in St Petersburg.</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARD 20 · Support · MATCH trigger ↔ reaction -->
+<section class="section" id="s20">
+  <div class="section-hdr"><div class="section-num">20</div><h2>Card 20 · Support · MATCH · trigger ↔ reaction</h2></div>
+  <div class="speak-block">
+    <div class="spk-part formula"><h3>All 5 reactions (K02)</h3>
+      <p><b>Really?</b> · <b>No way!</b> · <b>You're kidding!</b> · <b>That's awesome!</b> · <b>I know, right!</b></p>
+    </div>
+    <div class="spk-part task">
+      <h3>Match · trigger on the left → best reaction on the right</h3>
+      <p>Совпадёт — обе кнопки зеленеют. Потом в парах: Alexander читает trigger, Stanislav реагирует нужной фразой + 1 follow-up.</p>
+      <div class="match-pair" id="matchSupport">
+        <div class="mp-col mp-left">
+          <button class="mp-item" data-k="a">«I ran 10 km on Saturday.»</button>
+          <button class="mp-item" data-k="b">«Our office is moving to St Petersburg.»</button>
+          <button class="mp-item" data-k="c">«I've booked a two-week trip to Japan.»</button>
+          <button class="mp-item" data-k="d">«The gym near the office is closing tomorrow.»</button>
+          <button class="mp-item" data-k="e">«Rush hour is always a nightmare on Fridays.»</button>
+        </div>
+        <div class="mp-col mp-right">
+          <button class="mp-item" data-k="d">You're kidding!</button>
+          <button class="mp-item" data-k="a">That's awesome!</button>
+          <button class="mp-item" data-k="e">I know, right!</button>
+          <button class="mp-item" data-k="c">Really?</button>
+          <button class="mp-item" data-k="b">No way!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARDS 21-25 · MERGED · Small-Talk phrases 11-31 · flip-cards «What do you say if…» -->
+<section class="section" id="s21">
+  <div class="section-hdr"><div class="section-num">21</div><h2>Card 21 · Small-Talk phrases 11-31 · flip-cards «What do you say if…»</h2></div>
+  <div class="speak-block">
+    <div class="spk-part formula"><h3>All 21 phrases (K02 pp. 12-14) · read once before the flip drill</h3>
+      <p><b>Requests (11-15):</b> Could you help me out? · Do you mind if I …? · I'd appreciate that. · That would be great. · Thanks anyway.<br>
+      <b>Understanding (16-20):</b> Sorry, I didn't catch that. · What do you mean? · I'm not sure I follow. · Could you say that again? · Oh, got it!<br>
+      <b>Agreement (21-25):</b> Exactly! · Fair enough. · I see your point. · I'm not sure about that. · You might be right.<br>
+      <b>Daily (26-30):</b> I'm on my way. · I just woke up. · I'm heading home. · Let's grab some coffee. · I'll be right back.<br>
+      <b>Planning (31):</b> What time works for you? / Anytime after 3 p.m. works for me. / Let's set up a call for Friday morning.</p>
+    </div>
+    <div class="spk-part task">
+      <h3>EXERCISE 1 · match · click situation on the left → then the matching phrase on the right</h3>
+      <p>10 пар. Правильная пара — оба чипа зеленеют. Ошибка — красная вспышка, попробуйте ещё раз.</p>
+      <div class="match-pair" id="matchPhrases">
+        <div class="mp-col mp-left">
+          <button class="mp-item" data-k="a">ask for help</button>
+          <button class="mp-item" data-k="b">ask permission (sit / open the window)</button>
+          <button class="mp-item" data-k="c">someone agreed to help you</button>
+          <button class="mp-item" data-k="d">didn't hear (noisy café)</button>
+          <button class="mp-item" data-k="e">whole idea escapes you</button>
+          <button class="mp-item" data-k="f">finally understood</button>
+          <button class="mp-item" data-k="g">fully agree with a strong statement</button>
+          <button class="mp-item" data-k="h">politely disagree</button>
+          <button class="mp-item" data-k="i">partner asks where you are (5 min late)</button>
+          <button class="mp-item" data-k="j">step out for 2 min, want them to wait</button>
+        </div>
+        <div class="mp-col mp-right">
+          <button class="mp-item" data-k="i">I'm on my way.</button>
+          <button class="mp-item" data-k="c">I'd appreciate that.</button>
+          <button class="mp-item" data-k="e">I'm not sure I follow.</button>
+          <button class="mp-item" data-k="a">Could you help me out?</button>
+          <button class="mp-item" data-k="h">I'm not sure about that.</button>
+          <button class="mp-item" data-k="b">Do you mind if I …?</button>
+          <button class="mp-item" data-k="j">I'll be right back.</button>
+          <button class="mp-item" data-k="g">Exactly!</button>
+          <button class="mp-item" data-k="d">Sorry, I didn't catch that.</button>
+          <button class="mp-item" data-k="f">Oh, got it!</button>
+        </div>
+      </div>
+    </div>
+    <div class="spk-part task">
+      <h3>EXERCISE 2 · guess · flip each card · say the phrase aloud · partner checks</h3>
+      <p>Front = situation. Click → back shows the K02 phrase. Alexander flips odd (1, 3, 5…), Stanislav even (2, 4, 6…). Cover the back, try to guess before clicking.</p>
+    </div>
+    <div class="ay-grid">
+
+      <div class="ay-card"><div class="ay-inner">
+        <div class="ay-front"><div class="ay-n">01</div><div class="ay-t">What do you say if…<br>you want to ask for help?</div></div>
+        <div class="ay-back"><b>Could you help me out?</b></div>
+      </div></div>
+
+      <div class="ay-card"><div class="ay-inner">
+        <div class="ay-front"><div class="ay-n">02</div><div class="ay-t">…you want to ask permission to sit / open the window?</div></div>
+        <div class="ay-back"><b>Do you mind if I …?</b><br>e.g. Do you mind if I sit here?</div>
+      </div></div>
+
+      <div class="ay-card"><div class="ay-inner">
+        <div class="ay-front"><div class="ay-n">03</div><div class="ay-t">…someone agrees to help you?</div></div>
+        <div class="ay-back"><b>I'd appreciate that.</b></div>
+      </div></div>
+
+      <div class="ay-card"><div class="ay-inner">
+        <div class="ay-front"><div class="ay-n">04</div><div class="ay-t">…partner offers you exactly what you need?</div></div>
+        <div class="ay-back"><b>That would be great.</b></div>
+      </div></div>
+
+      <div class="ay-card"><div class="ay-inner">
+        <div class="ay-front"><div class="ay-n">05</div><div class="ay-t">…someone refuses, but was polite about it?</div></div>
+        <div class="ay-back"><b>Thanks anyway.</b></div>
+      </div></div>
+
+      <div class="ay-card"><div class="ay-inner">
+        <div class="ay-front"><div class="ay-n">06</div><div class="ay-t">…you missed what the partner said (noisy café)?</div></div>
+        <div class="ay-back"><b>Sorry, I didn't catch that.</b></div>
+      </div></div>
+
+      <div class="ay-card"><div class="ay-inner">
+        <div class="ay-front"><div class="ay-n">07</div><div class="ay-t">…partner used a new word, and you want to check?</div></div>
+        <div class="ay-back"><b>What do you mean?</b></div>
+      </div></div>
+
+      <div class="ay-card"><div class="ay-inner">
+        <div class="ay-front"><div class="ay-n">08</div><div class="ay-t">…the whole idea escapes you?</div></div>
+        <div class="ay-back"><b>I'm not sure I follow.</b></div>
+      </div></div>
+
+      <div class="ay-card"><div class="ay-inner">
+        <div class="ay-front"><div class="ay-n">09</div><div class="ay-t">…you want the partner to repeat?</div></div>
+        <div class="ay-back"><b>Could you say that again?</b></div>
+      </div></div>
+
+      <div class="ay-card"><div class="ay-inner">
+        <div class="ay-front"><div class="ay-n">10</div><div class="ay-t">…and finally you understood?</div></div>
+        <div class="ay-back"><b>Oh, got it!</b></div>
+      </div></div>
+
+      <div class="ay-card"><div class="ay-inner">
+        <div class="ay-front"><div class="ay-n">11</div><div class="ay-t">…you fully agree with a strong statement?</div></div>
+        <div class="ay-back"><b>Exactly!</b></div>
+      </div></div>
+
+      <div class="ay-card"><div class="ay-inner">
+        <div class="ay-front"><div class="ay-n">12</div><div class="ay-t">…the explanation is OK, you accept it?</div></div>
+        <div class="ay-back"><b>Fair enough.</b></div>
+      </div></div>
+
+      <div class="ay-card"><div class="ay-inner">
+        <div class="ay-front"><div class="ay-n">13</div><div class="ay-t">…you understand but do NOT fully agree?</div></div>
+        <div class="ay-back"><b>I see your point.</b></div>
+      </div></div>
+
+      <div class="ay-card"><div class="ay-inner">
+        <div class="ay-front"><div class="ay-n">14</div><div class="ay-t">…you politely disagree?</div></div>
+        <div class="ay-back"><b>I'm not sure about that.</b></div>
+      </div></div>
+
+      <div class="ay-card"><div class="ay-inner">
+        <div class="ay-front"><div class="ay-n">15</div><div class="ay-t">…you soften and half-agree?</div></div>
+        <div class="ay-back"><b>You might be right.</b></div>
+      </div></div>
+
+      <div class="ay-card"><div class="ay-inner">
+        <div class="ay-front"><div class="ay-n">16</div><div class="ay-t">…partner asks where you are (5 min late)?</div></div>
+        <div class="ay-back"><b>I'm on my way.</b></div>
+      </div></div>
+
+      <div class="ay-card"><div class="ay-inner">
+        <div class="ay-front"><div class="ay-n">17</div><div class="ay-t">…partner calls at 7 a.m., voice sleepy?</div></div>
+        <div class="ay-back"><b>I just woke up.</b></div>
+      </div></div>
+
+      <div class="ay-card"><div class="ay-inner">
+        <div class="ay-front"><div class="ay-n">18</div><div class="ay-t">…partner asks where you're going after work?</div></div>
+        <div class="ay-back"><b>I'm heading home.</b></div>
+      </div></div>
+
+      <div class="ay-card"><div class="ay-inner">
+        <div class="ay-front"><div class="ay-n">19</div><div class="ay-t">…you want a short break with a colleague?</div></div>
+        <div class="ay-back"><b>Let's grab some coffee.</b></div>
+      </div></div>
+
+      <div class="ay-card"><div class="ay-inner">
+        <div class="ay-front"><div class="ay-n">20</div><div class="ay-t">…you step out for 2 minutes and want them to wait?</div></div>
+        <div class="ay-back"><b>I'll be right back.</b></div>
+      </div></div>
+
+      <div class="ay-card"><div class="ay-inner">
+        <div class="ay-front"><div class="ay-n">21</div><div class="ay-t">…you want to schedule a call and ask the other person?</div></div>
+        <div class="ay-back"><b>What time works for you?</b><br>+ Let's set up a call for Friday morning.</div>
+      </div></div>
+
+    </div>
+    <div class="trigger">Задача: пройти все 21 карточку → каждый должен произнести все 21 фразу минимум по разу. Затем в парах — партнёр читает ситуацию (front), другой сразу выдаёт фразу (back).</div>
+  </div>
+</section>
+
+<!-- CARDS 26-30 MERGED · 3 short stories + make your own questions -->
+<section class="section" id="s26">
+  <div class="section-hdr"><div class="section-num">26</div><h2>Card 26 · 3 short stories · read aloud · then make questions on each story</h2></div>
+  <div class="speak-block">
+
+    <!-- STORY 1 · Present Simple only -->
+    <div class="spk-part situation">
+      <h3>Story 1 · A typical Monday at the office <button class="playbtn small" data-say="It is Monday morning. Alex arrives at the office at seven forty-five. Good morning! he says to the receptionist. His first meeting is at nine. At lunchtime he has a quick coffee with Stan. At six fifteen in the evening he is still working. See you tomorrow! he says to Stan on his way out. Have a good evening! Stan replies. Alex is home by nine. At ten thirty he texts his sister — Good night! — and goes to bed.">▶</button></h3>
+      <p>«It <b>is</b> Monday morning. Alex <b>arrives</b> at the office at 7:45. <b>Good morning!</b> he <b>says</b> to the receptionist. His first meeting <b>is</b> at nine. <b>At lunchtime</b> he <b>has</b> a quick coffee with Stan. At 6:15 in the evening he <b>is</b> still working. <b>See you tomorrow!</b> he <b>says</b> to Stan on his way out. <b>Have a good evening!</b> Stan <b>replies</b>. Alex <b>is</b> home by nine. At 10:30 he <b>texts</b> his sister — <b>Good night!</b> — and <b>goes</b> to bed.»</p>
+    </div>
+    <div class="spk-part task">
+      <h3>Task 1 · make 5 questions on Story 1 (Alexander asks, Stanislav answers · then swap)</h3>
+      <p>Use only <b>Present Simple</b>: What / When / Where / Who / How often. Every question about a fact from the story.</p>
+      <div class="trigger"><button class="playbtn small" data-say="Example: What time does Alex arrive at the office?">▶</button> Example: «What time does Alex arrive at the office?»</div>
+    </div>
+    <div class="spk-part"><h3>Target words to hear in the questions / answers</h3>
+      <div class="chips">
+        <span class="chip must">Good morning!</span>
+        <span class="chip must">Good afternoon</span>
+        <span class="chip must">Have a good evening!</span>
+        <span class="chip must">See you tomorrow.</span>
+        <span class="chip must">Good night.</span>
+        <span class="chip">See you later.</span>
+      </div>
+    </div>
+
+    <!-- STORY 2 · Present Simple only -->
+    <div class="spk-part situation" style="margin-top:16px">
+      <h3>Story 2 · A tricky partner <button class="playbtn small" data-say="Our new business partner in Berlin is a strange man. On paper, he protects the deal and values a long-term relationship. In practice, he never replies to my emails on time, but always answers his phone in three seconds. Every quarter he borrows a large sum from our supplier and does not return it on time. Some people say he tries to deceive previous partners. In the worst rumour, he steals or even launders money. I have no evidence — only a feeling.">▶</button></h3>
+      <p>«Our new business partner in Berlin <b>is</b> a strange man. On paper, he <b>protects</b> the deal and <b>values</b> a long-term relationship. In practice, he never <b>replies</b> to my emails on time, but always <b>answers</b> his phone in three seconds. Every quarter he <b>borrows</b> a large sum from our supplier and <b>does not return</b> it on time. Some people <b>say</b> he <b>tries</b> to <b>deceive</b> previous partners. In the worst rumour, he <b>steals</b> or even <b>launders</b> money. I <b>have</b> no evidence — only a feeling.»</p>
+    </div>
+    <div class="spk-part task">
+      <h3>Task 2 · make 5 questions on Story 2 (Stanislav asks, Alexander answers · then swap)</h3>
+      <p>Present Simple only. Use: Why / What / Who / How often / Where.</p>
+      <div class="trigger"><button class="playbtn small" data-say="Example: Why does he answer the phone so fast?">▶</button> Example: «Why does he answer the phone so fast?»</div>
+    </div>
+    <div class="spk-part"><h3>Target verbs · 110-116</h3>
+      <div class="chips">
+        <span class="chip must">to protect</span>
+        <span class="chip must">to value</span>
+        <span class="chip must">to borrow</span>
+        <span class="chip must">to reply</span>
+        <span class="chip must">to answer</span>
+        <span class="chip must">to deceive</span>
+        <span class="chip must">to steal</span>
+        <span class="chip must">to launder money</span>
+      </div>
+    </div>
+
+    <!-- STORY 3 -->
+    <div class="spk-part situation" style="margin-top:16px">
+      <h3>Story 3 · My travel routine · airport day <button class="playbtn small" data-say="I always travel light. My luggage is a small trolley-bag. I check in three hours in advance, take my boarding pass, and go to the gate. In the waiting lounge I reply to emails for one hour. When my flight is announced, I find a seat — usually by the window. It is not expensive, and for a busy week it is very beneficial. If it is my first time abroad in that country, I find a way to the hotel easily. Sometimes the schedule is confusing, but customs is quick, and my flight is rarely delayed.">▶</button></h3>
+      <p>«I always <b>travel light</b>. My <b>luggage</b> is a small <b>trolley-bag</b>. I <b>check in</b> three hours <b>in advance</b>, take my <b>boarding pass</b>, and go to the <b>gate</b>. In the <b>waiting lounge</b> I reply to emails for one hour. When my <b>flight</b> is announced, I find <b>a seat</b> — usually by the window. It is not <b>expensive</b>, and for a busy week it is very <b>beneficial</b>. If it is my first time <b>abroad</b> in that country, I <b>find a way</b> to the hotel <b>easily</b>. Sometimes the <b>schedule</b> is <b>confusing</b>, but <b>customs</b> is quick, and my flight is rarely delayed.»</p>
+    </div>
+    <div class="spk-part task">
+      <h3>Task 3 · make 6 questions on Story 3 · use these patterns</h3>
+      <div class="trigger"><button class="playbtn small" data-say="How long does it take you to check in?">▶</button> How long does it take you to check in?</div>
+      <div class="trigger"><button class="playbtn small" data-say="How long is the way to the nearest gate?">▶</button> How long is the way to the nearest gate?</div>
+      <div class="trigger"><button class="playbtn small" data-say="Why do you check in three hours in advance?">▶</button> Why do you check in three hours in advance?</div>
+      <div class="trigger"><button class="playbtn small" data-say="What takes you so long at customs?">▶</button> What takes you so long at customs?</div>
+    </div>
+    <div class="spk-part"><h3>Target airport words</h3>
+      <div class="chips">
+        <span class="chip must">abroad</span>
+        <span class="chip must">waiting lounge</span>
+        <span class="chip must">flight</span>
+        <span class="chip must">check-in</span>
+        <span class="chip must">a boarding pass</span>
+        <span class="chip must">a gate</span>
+        <span class="chip must">a seat</span>
+        <span class="chip must">easily</span>
+        <span class="chip must">to find a way</span>
+        <span class="chip must">beneficial</span>
+        <span class="chip must">expensive</span>
+        <span class="chip must">cheap</span>
+        <span class="chip must">customs</span>
+        <span class="chip must">confusing</span>
+        <span class="chip must">schedule</span>
+        <span class="chip must">in advance</span>
+      </div>
+    </div>
+
+    <div class="trigger" style="margin-top:14px">⚠ For the question patterns: <b>How long does it take + you + to do?</b> / <b>Why do you …?</b> / <b>What takes you so long?</b></div>
+
+  </div>
+</section>
+
+<!-- CARD 27 · «How» question constructions · full table + build your own -->
+<section class="section" id="s27b">
+  <div class="section-hdr"><div class="section-num">27</div><h2>Card 27 · «How …?» constructions · full table + build your own</h2></div>
+  <div class="speak-block">
+    <div class="spk-part formula"><h3>All «How + word» openers (K02 + basic A2)</h3>
+      <table style="width:100%;border-collapse:collapse;margin-top:8px;font-size:.92rem">
+        <thead><tr><th style="text-align:left;padding:6px;border-bottom:2px solid var(--line);color:var(--accent3);font-family:var(--display)">Opener</th><th style="text-align:left;padding:6px;border-bottom:2px solid var(--line);color:var(--accent3);font-family:var(--display)">Example</th></tr></thead>
+        <tbody>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--line)"><b>How long does it take you to …?</b></td><td style="padding:6px;border-bottom:1px solid var(--line)">How long does it take you <em>to get dressed</em>?</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--line)"><b>How long is …?</b></td><td style="padding:6px;border-bottom:1px solid var(--line)">How long is <em>the way to the nearest market</em>?</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--line)"><b>Why does it take you so long?</b></td><td style="padding:6px;border-bottom:1px solid var(--line)">— polite / formal</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--line)"><b>What takes you so long?</b></td><td style="padding:6px;border-bottom:1px solid var(--line)">— casual same meaning</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--line)"><b>How much is …?</b></td><td style="padding:6px;border-bottom:1px solid var(--line)">How much is <em>a taxi to the airport</em>?</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--line)"><b>How many …?</b></td><td style="padding:6px;border-bottom:1px solid var(--line)">How many <em>people</em> are in your team?</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--line)"><b>How often do you …?</b></td><td style="padding:6px;border-bottom:1px solid var(--line)">How often do you <em>fly abroad</em>?</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--line)"><b>How far is …?</b></td><td style="padding:6px;border-bottom:1px solid var(--line)">How far is <em>the office from your home</em>?</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--line)"><b>How was …? / How is …?</b></td><td style="padding:6px;border-bottom:1px solid var(--line)">How was <em>your trip</em>? · How is <em>the coffee</em>?</td></tr>
+          <tr><td style="padding:6px;border-bottom:1px solid var(--line)"><b>How do you say … in English?</b></td><td style="padding:6px;border-bottom:1px solid var(--line)">How do you say <em>«запутанный»</em> in English?</td></tr>
+          <tr><td style="padding:6px"><b>How come …?</b></td><td style="padding:6px">— informal «why?» · «How come you're late?»</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="spk-part task">
+      <h3>PART A · click a starter · read the question aloud · then partner answers</h3>
+      <div class="gap-item" data-mode="free"><div class="gap-txt"><button class="playbtn small" data-say="How long does it take you to get to work?">▶</button> <b>1.</b> <span class="gap" data-ans="">___</span> does it take you to get to work?</div><div class="gap-opts"><button class="gopt" data-v="How long">How long</button><button class="gopt" data-v="How often">How often</button><button class="gopt" data-v="How much">How much</button><button class="gopt" data-v="Why">Why</button></div></div>
+      <div class="gap-item" data-mode="free"><div class="gap-txt"><button class="playbtn small" data-say="How much is a business class ticket to Berlin?">▶</button> <b>2.</b> <span class="gap" data-ans="">___</span> is a business class ticket to Berlin?</div><div class="gap-opts"><button class="gopt" data-v="How long">How long</button><button class="gopt" data-v="How much">How much</button><button class="gopt" data-v="How many">How many</button><button class="gopt" data-v="How far">How far</button></div></div>
+      <div class="gap-item" data-mode="free"><div class="gap-txt"><button class="playbtn small" data-say="How many people work in your Moscow office?">▶</button> <b>3.</b> <span class="gap" data-ans="">___</span> people work in your Moscow office?</div><div class="gap-opts"><button class="gopt" data-v="How many">How many</button><button class="gopt" data-v="How much">How much</button><button class="gopt" data-v="How long">How long</button><button class="gopt" data-v="How often">How often</button></div></div>
+      <div class="gap-item" data-mode="free"><div class="gap-txt"><button class="playbtn small" data-say="How often do you go to the gym?">▶</button> <b>4.</b> <span class="gap" data-ans="">___</span> do you go to the gym?</div><div class="gap-opts"><button class="gopt" data-v="How long">How long</button><button class="gopt" data-v="How often">How often</button><button class="gopt" data-v="How much">How much</button><button class="gopt" data-v="Why">Why</button></div></div>
+      <div class="gap-item" data-mode="free"><div class="gap-txt"><button class="playbtn small" data-say="How far is the airport from your home?">▶</button> <b>5.</b> <span class="gap" data-ans="">___</span> is the airport from your home?</div><div class="gap-opts"><button class="gopt" data-v="How long">How long</button><button class="gopt" data-v="How far">How far</button><button class="gopt" data-v="How much">How much</button><button class="gopt" data-v="How many">How many</button></div></div>
+      <div class="gap-item" data-mode="free"><div class="gap-txt"><button class="playbtn small" data-say="How was your last business trip?">▶</button> <b>6.</b> <span class="gap" data-ans="">___</span> your last business trip?</div><div class="gap-opts"><button class="gopt" data-v="How was">How was</button><button class="gopt" data-v="How is">How is</button><button class="gopt" data-v="How long">How long</button><button class="gopt" data-v="How often">How often</button></div></div>
+      <div class="gap-item" data-mode="free"><div class="gap-txt"><button class="playbtn small" data-say="Why does it take you so long to reply to emails?">▶</button> <b>7.</b> <span class="gap" data-ans="">___</span> does it take you so long to reply to emails?</div><div class="gap-opts"><button class="gopt" data-v="Why">Why</button><button class="gopt" data-v="What">What</button><button class="gopt" data-v="How long">How long</button><button class="gopt" data-v="How much">How much</button></div></div>
+      <div class="gap-item" data-mode="free"><div class="gap-txt"><button class="playbtn small" data-say="What takes you so long every morning?">▶</button> <b>8.</b> <span class="gap" data-ans="">___</span> takes you so long every morning?</div><div class="gap-opts"><button class="gopt" data-v="Why">Why</button><button class="gopt" data-v="What">What</button><button class="gopt" data-v="How">How</button><button class="gopt" data-v="How long">How long</button></div></div>
+    </div>
+
+    <div class="spk-part task">
+      <h3>PART B · build your own questions · one per row (5 each, then swap)</h3>
+      <p>Alexander picks a starter from the table → asks Stanislav any question. Stanislav answers. Then swap. Cover 5 different starters each.</p>
+      <div class="chips">
+        <span class="chip must">How long does it take you to …?</span>
+        <span class="chip must">How long is …?</span>
+        <span class="chip must">How much is …?</span>
+        <span class="chip must">How many …?</span>
+        <span class="chip must">How often do you …?</span>
+        <span class="chip must">How far is …?</span>
+        <span class="chip must">How was …?</span>
+        <span class="chip must">Why does it take you so long?</span>
+        <span class="chip must">What takes you so long?</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARDS 31-35 MERGED · Airport add-on 21.08 · vocab practice + speaking + long story -->
+<section class="section" id="s31">
+  <div class="section-hdr"><div class="section-num">31</div><h2>Card 31 · Airport add-on · vocab + speaking + long story</h2></div>
+  <div class="speak-block">
+
+    <div class="spk-part formula"><h3>Rule (2 lines)</h3>
+      <p>Only <b>Present Simple</b>. <b>leave</b> — про рейс в целом («my flight leaves Moscow»). <b>take off</b> — момент отрыва от полосы. UK <b>trousers</b> (US: pants). <b>check-in desk</b> ≠ <b>check-in</b> (stage).</p>
+    </div>
+
+    <div class="spk-part task">
+      <h3>PART A · click ▶ · hear each word · then say a Present-Simple sentence with it</h3>
+      <p>Alexander clicks first 14 (rows 1-2), Stanislav — last 14 (rows 3-4). Each word: click ▶, hear it, say one sentence about your own life using it. Partner listens and repeats the same word in a different sentence.</p>
+
+      <h4 style="font-family:var(--display);color:var(--accent3);font-size:.9rem;margin-top:10px">Row 1 · Airport verbs (K02 add-on)</h4>
+      <div class="chips">
+        <span class="chip"><button class="playbtn small" data-say="to leave">▶</button> to leave</span>
+        <span class="chip"><button class="playbtn small" data-say="to set off">▶</button> to set off</span>
+        <span class="chip"><button class="playbtn small" data-say="to take off">▶</button> to take off</span>
+        <span class="chip"><button class="playbtn small" data-say="delayed">▶</button> delayed</span>
+        <span class="chip"><button class="playbtn small" data-say="on time">▶</button> on time</span>
+        <span class="chip"><button class="playbtn small" data-say="had to">▶</button> had to</span>
+      </div>
+
+      <h4 style="font-family:var(--display);color:var(--accent3);font-size:.9rem;margin-top:10px">Row 2 · Baggage + clothes</h4>
+      <div class="chips">
+        <span class="chip"><button class="playbtn small" data-say="baggage claim">▶</button> baggage claim</span>
+        <span class="chip"><button class="playbtn small" data-say="lost luggage">▶</button> lost luggage</span>
+        <span class="chip"><button class="playbtn small" data-say="handbag">▶</button> handbag</span>
+        <span class="chip"><button class="playbtn small" data-say="clothes">▶</button> clothes</span>
+        <span class="chip"><button class="playbtn small" data-say="things">▶</button> things</span>
+        <span class="chip"><button class="playbtn small" data-say="trousers">▶</button> trousers (UK)</span>
+        <span class="chip"><button class="playbtn small" data-say="pants">▶</button> pants (US)</span>
+        <span class="chip"><button class="playbtn small" data-say="jeans">▶</button> jeans</span>
+      </div>
+
+      <h4 style="font-family:var(--display);color:var(--accent3);font-size:.9rem;margin-top:10px">Row 3 · What I do in the terminal</h4>
+      <div class="chips">
+        <span class="chip"><button class="playbtn small" data-say="grab a coffee">▶</button> grab a coffee</span>
+        <span class="chip"><button class="playbtn small" data-say="walk through duty-free">▶</button> walk through duty-free</span>
+        <span class="chip"><button class="playbtn small" data-say="find a quiet seat">▶</button> find a quiet seat</span>
+        <span class="chip"><button class="playbtn small" data-say="text someone">▶</button> text someone</span>
+        <span class="chip"><button class="playbtn small" data-say="put on headphones">▶</button> put on headphones</span>
+        <span class="chip"><button class="playbtn small" data-say="watch the gate screen">▶</button> watch the gate screen</span>
+      </div>
+
+      <h4 style="font-family:var(--display);color:var(--accent3);font-size:.9rem;margin-top:10px">Row 4 · Places at the airport</h4>
+      <div class="chips">
+        <span class="chip"><button class="playbtn small" data-say="check-in desk">▶</button> check-in desk</span>
+        <span class="chip"><button class="playbtn small" data-say="passport control">▶</button> passport control</span>
+        <span class="chip"><button class="playbtn small" data-say="security check">▶</button> security check</span>
+        <span class="chip"><button class="playbtn small" data-say="flight board">▶</button> flight board</span>
+        <span class="chip"><button class="playbtn small" data-say="information desk">▶</button> information desk</span>
+        <span class="chip"><button class="playbtn small" data-say="emergency exit">▶</button> emergency exit</span>
+        <span class="chip"><button class="playbtn small" data-say="customs">▶</button> customs</span>
+        <span class="chip"><button class="playbtn small" data-say="pick pockets">▶</button> pick pockets</span>
+      </div>
+    </div>
+
+    <div class="spk-part task">
+      <h3>PART B · say each word in a real Present-Simple sentence · 28 sentences total · swap after each row</h3>
+      <div class="trigger"><button class="playbtn small" data-say="My flight leaves Moscow at seven a.m.">▶</button> Example (Row 1): «My flight <b>leaves</b> Moscow at seven a.m.»</div>
+      <div class="trigger"><button class="playbtn small" data-say="I always carry one handbag as my carry-on.">▶</button> Example (Row 2): «I always carry one <b>handbag</b> as my carry-on.»</div>
+      <div class="trigger"><button class="playbtn small" data-say="I grab a coffee before every flight.">▶</button> Example (Row 3): «I <b>grab a coffee</b> before every flight.»</div>
+      <div class="trigger"><button class="playbtn small" data-say="Passport control at Sheremetyevo is quick in the morning.">▶</button> Example (Row 4): «<b>Passport control</b> at Sheremetyevo is quick in the morning.»</div>
+    </div>
+
+    <div class="spk-part task">
+      <h3>PART C · airport routine cloze · click the missing word in each sentence · then read the full story aloud</h3>
+      <p>17 sentences → one full airport story. Каждая заполненная строка — озвучка ▶. В конце — прочитать вслух × 2 (потом swap).</p>
+
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="I set off from home at five in the morning.">▶</button> <b>1.</b> I <span class="gap" data-ans="set off">___</span> from home at five in the morning.</div><div class="gap-opts"><button class="gopt" data-v="set off">set off</button><button class="gopt" data-v="leave">leave</button><button class="gopt" data-v="take off">take off</button></div></div>
+
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="My luggage is a small trolley-bag.">▶</button> <b>2.</b> My luggage is a small <span class="gap" data-ans="trolley-bag">___</span>.</div><div class="gap-opts"><button class="gopt" data-v="trolley-bag">trolley-bag</button><button class="gopt" data-v="handbag">handbag</button><button class="gopt" data-v="baggage claim">baggage claim</button></div></div>
+
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="And one handbag with my documents.">▶</button> <b>3.</b> And one <span class="gap" data-ans="handbag">___</span> with my documents.</div><div class="gap-opts"><button class="gopt" data-v="handbag">handbag</button><button class="gopt" data-v="trousers">trousers</button><button class="gopt" data-v="customs">customs</button></div></div>
+
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="At the check-in desk I show my passport.">▶</button> <b>4.</b> At the <span class="gap" data-ans="check-in desk">___</span> I show my passport.</div><div class="gap-opts"><button class="gopt" data-v="check-in desk">check-in desk</button><button class="gopt" data-v="gate">gate</button><button class="gopt" data-v="baggage claim">baggage claim</button></div></div>
+
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="And I get my boarding pass.">▶</button> <b>5.</b> And I get my <span class="gap" data-ans="boarding pass">___</span>.</div><div class="gap-opts"><button class="gopt" data-v="boarding pass">boarding pass</button><button class="gopt" data-v="handbag">handbag</button><button class="gopt" data-v="flight board">flight board</button></div></div>
+
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="Then passport control.">▶</button> <b>6.</b> Then <span class="gap" data-ans="passport control">___</span>.</div><div class="gap-opts"><button class="gopt" data-v="passport control">passport control</button><button class="gopt" data-v="customs">customs</button><button class="gopt" data-v="baggage claim">baggage claim</button></div></div>
+
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="And security check: I take off my belt.">▶</button> <b>7.</b> And <span class="gap" data-ans="security check">___</span>: I take off my belt.</div><div class="gap-opts"><button class="gopt" data-v="security check">security check</button><button class="gopt" data-v="passport control">passport control</button><button class="gopt" data-v="flight board">flight board</button></div></div>
+
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="In the waiting lounge I grab a coffee.">▶</button> <b>8.</b> In the <span class="gap" data-ans="waiting lounge">___</span> I <span class="gap" data-ans="grab a coffee">___</span>.</div><div class="gap-opts"><button class="gopt" data-v="waiting lounge">waiting lounge</button><button class="gopt" data-v="grab a coffee">grab a coffee</button><button class="gopt" data-v="customs">customs</button><button class="gopt" data-v="pick pockets">pick pockets</button></div></div>
+
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="I put on my headphones.">▶</button> <b>9.</b> I <span class="gap" data-ans="put on">___</span> my headphones.</div><div class="gap-opts"><button class="gopt" data-v="put on">put on</button><button class="gopt" data-v="take off">take off</button><button class="gopt" data-v="walk through">walk through</button></div></div>
+
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="I text my colleague.">▶</button> <b>10.</b> I <span class="gap" data-ans="text">___</span> my colleague.</div><div class="gap-opts"><button class="gopt" data-v="text">text</button><button class="gopt" data-v="grab">grab</button><button class="gopt" data-v="find">find</button></div></div>
+
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="I watch the gate screen every ten minutes.">▶</button> <b>11.</b> I <span class="gap" data-ans="watch the gate screen">___</span> every ten minutes.</div><div class="gap-opts"><button class="gopt" data-v="watch the gate screen">watch the gate screen</button><button class="gopt" data-v="walk through duty-free">walk through duty-free</button><button class="gopt" data-v="find a quiet seat">find a quiet seat</button></div></div>
+
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="When my flight is announced, I walk to the gate.">▶</button> <b>12.</b> When my <span class="gap" data-ans="flight">___</span> is announced, I walk to the <span class="gap" data-ans="gate">___</span>.</div><div class="gap-opts"><button class="gopt" data-v="flight">flight</button><button class="gopt" data-v="gate">gate</button><button class="gopt" data-v="customs">customs</button><button class="gopt" data-v="baggage claim">baggage claim</button></div></div>
+
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="I find a quiet seat by the window.">▶</button> <b>13.</b> I <span class="gap" data-ans="find a quiet seat">___</span> by the window.</div><div class="gap-opts"><button class="gopt" data-v="find a quiet seat">find a quiet seat</button><button class="gopt" data-v="put on headphones">put on headphones</button><button class="gopt" data-v="grab a coffee">grab a coffee</button></div></div>
+
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="My plane takes off on time.">▶</button> <b>14.</b> My plane <span class="gap" data-ans="takes off">___</span> <span class="gap" data-ans="on time">___</span>.</div><div class="gap-opts"><button class="gopt" data-v="takes off">takes off</button><button class="gopt" data-v="on time">on time</button><button class="gopt" data-v="leaves">leaves</button><button class="gopt" data-v="delayed">delayed</button></div></div>
+
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="If it is delayed, I stay calm.">▶</button> <b>15.</b> If it is <span class="gap" data-ans="delayed">___</span>, I stay calm.</div><div class="gap-opts"><button class="gopt" data-v="delayed">delayed</button><button class="gopt" data-v="on time">on time</button><button class="gopt" data-v="had to">had to</button></div></div>
+
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="At baggage claim I pick up my trolley-bag.">▶</button> <b>16.</b> At <span class="gap" data-ans="baggage claim">___</span> I pick up my trolley-bag.</div><div class="gap-opts"><button class="gopt" data-v="baggage claim">baggage claim</button><button class="gopt" data-v="check-in desk">check-in desk</button><button class="gopt" data-v="gate">gate</button></div></div>
+
+      <div class="gap-item"><div class="gap-txt"><button class="playbtn small" data-say="Then I walk through customs.">▶</button> <b>17.</b> Then I walk through <span class="gap" data-ans="customs">___</span> — and I am out.</div><div class="gap-opts"><button class="gopt" data-v="customs">customs</button><button class="gopt" data-v="security check">security check</button><button class="gopt" data-v="passport control">passport control</button></div></div>
+
+    </div>
+
+    <div class="spk-part task">
+      <h3>PART D · read the full story aloud × 2 (each) · then tell your own version (Present Simple only)</h3>
+      <div class="spk-swap"><span class="who alex">Alexander first</span><span class="who stan">Stanislav second</span></div>
+      <p><button class="playbtn small" data-say="I set off from home at five in the morning. My luggage is a small trolley-bag and one handbag. At the check-in desk I show my passport and get my boarding pass. Then passport control and security check: I take off my belt, put my phone in the tray, and walk through. In the waiting lounge I grab a coffee, put on my headphones and text my colleague. I watch the gate screen every ten minutes. When my flight is announced, I walk to the gate, find a quiet seat by the window, and my plane takes off on time. If it is delayed, I stay calm — I read a book. At baggage claim I pick up my trolley-bag, walk through customs, and I am out.">▶ play full story</button></p>
+    </div>
+
+    <div class="spk-part task">
+      <h3>PART E · make 6 Present-Simple questions on the story (then swap)</h3>
+      <div class="trigger"><button class="playbtn small" data-say="What time do you set off from home?">▶</button> Example: «What time <b>do</b> you <b>set off</b> from home?»</div>
+      <div class="trigger"><button class="playbtn small" data-say="Where do you find a quiet seat?">▶</button> Example: «Where <b>do</b> you <b>find a quiet seat</b>?»</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CARD 36 · Homework -->
+<section class="section" id="s36">
+  <div class="section-hdr"><div class="section-num">36</div><h2>✅ Card 36 · Homework · 3 tasks</h2></div>
+  <div class="speak-block">
+    <div class="spk-part formula">
+      <h3>Homework · 3 days</h3>
+      <p><b>1.</b> Record Card 35 story on voice-note × 3 (each). Send to Maria.<br>
+         <b>2.</b> Learn 10 new words from K02 add-on 21.08 by heart (with transcription).<br>
+         <b>3.</b> Ready 5 phrases 1-5 (openers) + 5 phrases 26-30 (daily) — must speak them without notes.</p>
+    </div>
   </div>
 </section>
 
@@ -1238,17 +1123,6 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),#8a6f1e);-we
 <script src="audio/_manifest.js?v=20260820"></script>
 <script>
 (function(){
-  /* ─── SECTION NAV highlighting ─── */
-  const tabs = document.querySelectorAll('.mtab');
-  const sects = [...document.querySelectorAll('.section')];
-  function setActive(){
-    const y = window.scrollY + 130;
-    let cur = sects[0]?.id;
-    for (const s of sects){ if (s.offsetTop <= y) cur = s.id; }
-    tabs.forEach(t => t.classList.toggle('active', t.getAttribute('href') === '#'+cur));
-  }
-  window.addEventListener('scroll', setActive, {passive:true});
-  setActive();
 
   /* ─── TTS · edge-tts mp3 via _manifest.js · NO Web Speech fallback ─── */
   const audioCache = {};
@@ -1373,6 +1247,89 @@ h1.hero-title .grad{background:linear-gradient(120deg,var(--accent),#8a6f1e);-we
     maxEl.textContent = scoreMax;
     bar.classList.add('on');
   }
+
+  /* ─── ABOUT-YOU flip cards (Card 1) ─── */
+  document.querySelectorAll('.ay-card').forEach(c => {
+    c.addEventListener('click', () => c.classList.toggle('flipped'));
+  });
+
+  /* ─── MATCH-PAIR game (Card 21) ─── */
+  document.querySelectorAll('.match-pair').forEach(box => {
+    let sel = null;
+    box.querySelectorAll('.mp-item').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (btn.classList.contains('matched')) return;
+        if (!sel) { sel = btn; btn.classList.add('selected'); return; }
+        if (sel === btn) { btn.classList.remove('selected'); sel = null; return; }
+        if (sel.parentElement === btn.parentElement) {
+          sel.classList.remove('selected'); sel = btn; btn.classList.add('selected'); return;
+        }
+        if (sel.dataset.k === btn.dataset.k) {
+          sel.classList.remove('selected'); sel.classList.add('matched'); btn.classList.add('matched');
+          bumpScore(true); sel = null;
+        } else {
+          const a = sel, b = btn;
+          a.classList.add('wrong'); b.classList.add('wrong');
+          setTimeout(() => { a.classList.remove('wrong','selected'); b.classList.remove('wrong'); sel = null; }, 380);
+          bumpScore(false);
+        }
+      });
+    });
+  });
+
+  /* ─── TTS play buttons (inline SpeechSynthesis en-GB) ─── */
+  function _ttsSpeak(text){
+    try {
+      if (!('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-GB';
+      u.rate = 0.9;
+      u.pitch = 1;
+      const vs = window.speechSynthesis.getVoices();
+      const enGB = vs.find(v => /en-GB/i.test(v.lang)) || vs.find(v => /en_GB/i.test(v.lang)) || vs.find(v => /en-US/i.test(v.lang));
+      if (enGB) u.voice = enGB;
+      window.speechSynthesis.speak(u);
+    } catch(e){}
+  }
+  document.querySelectorAll('.playbtn').forEach(b => {
+    b.addEventListener('click', e => {
+      e.stopPropagation();
+      _ttsSpeak(b.dataset.say || b.closest('.gap-item, .trigger')?.innerText || '');
+    });
+  });
+
+  /* ─── GAP-FILL interactive (Card 12+) ─── */
+  document.querySelectorAll('.gap-item').forEach(item => {
+    const gap = item.querySelector('.gap');
+    const want = (gap.dataset.ans || '').toLowerCase();
+    const isFree = item.dataset.mode === 'free';
+    item.querySelectorAll('.gopt').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const v = (btn.dataset.v || '').toLowerCase();
+        if (isFree) {
+          // personal fact — accept any, allow re-select
+          item.querySelectorAll('.gopt').forEach(b => b.classList.remove('correct'));
+          btn.classList.add('correct');
+          gap.textContent = btn.dataset.v;
+          gap.classList.add('filled');
+          return;
+        }
+        if (btn.disabled) return;
+        if (v === want) {
+          btn.classList.add('correct');
+          gap.textContent = btn.dataset.v;
+          gap.classList.add('filled');
+          item.querySelectorAll('.gopt').forEach(b => b.disabled = true);
+          bumpScore(true);
+        } else {
+          btn.classList.add('wrong');
+          btn.disabled = true;
+          bumpScore(false);
+        }
+      });
+    });
+  });
 })();
 </script>
 </body>
