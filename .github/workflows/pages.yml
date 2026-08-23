@@ -51,19 +51,7 @@ jobs:
             --exclude '*.log' \
             ./ _site/
           du -sh _site
-      - name: Compress publish PNGs
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y pngquant
-          before=$(du -sm _site | cut -f1)
-          find _site -type f -iname '*.png' -size +512k -print0 \
-            | xargs -0 -r -n 1 -P 2 pngquant --force --skip-if-larger --quality=55-82 --ext .png
-          after=$(du -sm _site | cut -f1)
-          echo "Publish artifact size before PNG compression: ${before} MB"
-          echo "Publish artifact size after PNG compression: ${after} MB"
-          if [ "$after" -gt 1000 ]; then
-            echo "::warning::Publish artifact is still above 1 GB; move or replace heavy video/unused lesson media next."
-          fi
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
