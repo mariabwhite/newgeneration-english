@@ -1046,12 +1046,22 @@
       reportHint.textContent = "Запрос ушёл в AI Hub. Claude собирает черновик — это займёт 30-120 сек. Не закрывай это окно.";
 
       const started = Date.now();
+      const aiTimeout = timeoutSignal(150000);
       try {
-        const resp = await fetch(AI_HUB_URL + "/api/generate-report", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ prompt: prompt })
-        });
+        let resp;
+        try {
+          resp = await fetch(AI_HUB_URL + "/api/generate-report", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ prompt: prompt }),
+            signal: aiTimeout.signal
+          });
+        } catch (e) {
+          if (e && e.name === "AbortError") throw new Error("AI Hub не ответил за 150 секунд. Перезапусти start_hub.bat и попробуй ещё раз.");
+          throw e;
+        } finally {
+          aiTimeout.cancel();
+        }
         if (!resp.ok) {
           let errMsg = "HTTP " + resp.status;
           try { const j = await resp.json(); if (j && j.error) errMsg = j.error; } catch (_) {}
