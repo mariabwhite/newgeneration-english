@@ -405,19 +405,17 @@ window.LAB_VOCAB = [
   <div class="section-hdr"><div class="section-num">04</div><h2>🎬 Cinema · 60 sec on the world's craziest parks</h2></div>
   <p class="section-sub">Real footage from Pexels + audio narration in British English. Click ▶ once — the video and the voice-over start together.</p>
   <div class="card">
-    <div style="position:relative;border-radius:14px;overflow:hidden;box-shadow:0 8px 26px rgba(141,46,30,.22);background:#000">
-      <video id="parkCinema"
-             src="https://videos.pexels.com/video-files/854201/854201-hd_1920_1080_30fps.mp4"
-             poster="https://images.pexels.com/videos/854201/free-video-854201.jpg?auto=compress&cs=tinysrgb&w=1200"
-             preload="metadata"
-             muted
-             playsinline
-             style="width:100%;display:block;background:#111"
-             crossorigin="anonymous"></video>
-      <button id="parkCinemaBtn"
-              style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(232,84,43,.92);color:#fff;border:none;width:96px;height:96px;border-radius:50%;font-size:2.4rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.4);transition:.15s">▶</button>
+    <div style="position:relative;border-radius:14px;overflow:hidden;box-shadow:0 8px 26px rgba(141,46,30,.22);background:#000;aspect-ratio:16/9">
+      <iframe id="parkCinema"
+              src="https://www.youtube.com/embed/QDweC0iIHQ8?enablejsapi=1&controls=1&modestbranding=1&rel=0&playsinline=1"
+              title="Kingda Ka POV · Six Flags Great Adventure"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>
     </div>
-    <audio id="parkCinemaAudio" src="audio/world-parks-narration.mp3" preload="auto"></audio>
+    <audio id="parkCinemaAudio" src="audio/world-parks-narration.mp3" preload="auto" controls style="width:100%;margin-top:10px"></audio>
+    <p style="font-size:.82rem;color:#8B8B8B;margin:6px 0 0;text-align:center">▶ start the video, then press ▶ on the audio to hear the 60-sec narration in English on top of the visual.</p>
 
     <div style="display:flex;gap:10px;align-items:center;margin:12px 0 0;padding:10px 14px;background:#FDECE4;border:1px solid #E8542B;border-radius:10px;font-size:.9rem;color:#2C2C2C">
       <b style="color:#B0361A">🎧 Listen for:</b> tallest · fastest · longest · km/h · goggles · drop · queue · haunted · nobody ever
@@ -437,28 +435,43 @@ window.LAB_VOCAB = [
     <div class="mcq-row" data-ans="c"><p class="mcq-q"><strong>4.</strong> When did Action Park close?</p><div class="mcq-opts"><button data-v="a">1980</button><button data-v="b">2020</button><button data-v="c">1996</button></div></div>
     <div class="mcq-row" data-ans="b"><p class="mcq-q"><strong>5.</strong> How much money is the McKamey Manor prize?</p><div class="mcq-opts"><button data-v="a">$200</button><button data-v="b">$20,000</button><button data-v="c">$2 million</button></div></div>
 
-    <script>
-    (function(){
-      const v=document.getElementById('parkCinema');
-      const a=document.getElementById('parkCinemaAudio');
-      const btn=document.getElementById('parkCinemaBtn');
-      let playing=false;
-      function playBoth(){
-        v.currentTime=0;a.currentTime=0;
-        v.play().catch(e=>console.warn('video play blocked',e));
-        a.play().catch(e=>console.warn('audio play blocked',e));
-        btn.style.display='none';playing=true;
-      }
-      function stopBoth(){
-        v.pause();a.pause();
-        btn.style.display='block';playing=false;
-      }
-      btn.addEventListener('click',playBoth);
-      v.addEventListener('click',()=>{if(playing)stopBoth();else playBoth();});
-      a.addEventListener('ended',()=>{v.pause();btn.style.display='block';playing=false;});
-      v.addEventListener('ended',()=>{a.pause();btn.style.display='block';playing=false;});
-    })();
-    </script>
+  </div>
+</section>
+
+<!-- 04b · MORE PARK VIDEOS (YouTube playlist) -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">4b</div><h2>🎥 More rides · 4 more clips (2 min total)</h2></div>
+  <p class="section-sub">Four short YouTube clips — Formula Rossa, Steel Dragon 2000, Kingda Ka full launch, and a look inside McKamey Manor.</p>
+  <div class="card">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div>
+        <div style="aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000;box-shadow:0 4px 12px rgba(0,0,0,.15)">
+          <iframe src="https://www.youtube.com/embed/kgD3s5CQnKQ?rel=0" title="Formula Rossa · Ferrari World · UAE" frameborder="0" allowfullscreen style="width:100%;height:100%;border:0"></iframe>
+        </div>
+        <p style="margin:6px 0 0;font-size:.85rem"><b>🇦🇪 Formula Rossa</b> · 240 km/h in 5 seconds · Ferrari World, Abu Dhabi</p>
+      </div>
+      <div>
+        <div style="aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000;box-shadow:0 4px 12px rgba(0,0,0,.15)">
+          <iframe src="https://www.youtube.com/embed/PWpxFR96VNs?rel=0" title="Steel Dragon 2000 · Nagashima Spa Land · Japan" frameborder="0" allowfullscreen style="width:100%;height:100%;border:0"></iframe>
+        </div>
+        <p style="margin:6px 0 0;font-size:.85rem"><b>🇯🇵 Steel Dragon 2000</b> · 2.5 km long, 93-metre drop · Nagashima Spa Land</p>
+      </div>
+      <div>
+        <div style="aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000;box-shadow:0 4px 12px rgba(0,0,0,.15)">
+          <iframe src="https://www.youtube.com/embed/ptelVpjhkYc?rel=0" title="Action Park documentary teaser" frameborder="0" allowfullscreen style="width:100%;height:100%;border:0"></iframe>
+        </div>
+        <p style="margin:6px 0 0;font-size:.85rem"><b>🇺🇸 Action Park</b> · «the most dangerous water park in history» · closed 1996</p>
+      </div>
+      <div>
+        <div style="aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000;box-shadow:0 4px 12px rgba(0,0,0,.15)">
+          <iframe src="https://www.youtube.com/embed/o8QwJcXaRRc?rel=0" title="McKamey Manor · haunted house documentary" frameborder="0" allowfullscreen style="width:100%;height:100%;border:0"></iframe>
+        </div>
+        <p style="margin:6px 0 0;font-size:.85rem"><b>🇺🇸 McKamey Manor</b> · 10-hour extreme haunted house · $20,000 prize</p>
+      </div>
+    </div>
+    <div style="margin-top:14px;padding:12px 16px;background:#FDECE4;border-left:4px solid #E8542B;border-radius:0 8px 8px 0;font-size:.9rem">
+      <b>🎙 Speak · after each clip say one sentence in English:</b> what did you see? what surprised you? would you ride this?
+    </div>
   </div>
 </section>
 
