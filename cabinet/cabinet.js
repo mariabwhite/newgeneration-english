@@ -40,12 +40,28 @@
   /* Supabase edge-fn helpers (mirror config from data.js bootstrap) */
   const _SB_URL  = "https://iqzlphbvmfgoygnozbya.supabase.co";
   const _SB_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlxemxwaGJ2bWZnb3lnbm96YnlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAxNjg2ODMsImV4cCI6MjA5NTc0NDY4M30.SvpjaT31L2pRWWi6CU6ZISYu0_wYEK-yqf6q7GizBHs";
+  function _timeoutSignal(ms) {
+    if (typeof AbortController === "undefined") return { signal: undefined, cancel: function () {} };
+    const ctrl = new AbortController();
+    const timer = setTimeout(function () { ctrl.abort(); }, ms);
+    return { signal: ctrl.signal, cancel: function () { clearTimeout(timer); } };
+  }
   async function _sbCall(name, body) {
-    const r = await fetch(_SB_URL + "/functions/v1/" + name, {
-      method: "POST",
-      headers: { "Authorization": "Bearer " + _SB_ANON, "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
+    const timeout = _timeoutSignal(12000);
+    let r;
+    try {
+      r = await fetch(_SB_URL + "/functions/v1/" + name, {
+        method: "POST",
+        headers: { "Authorization": "Bearer " + _SB_ANON, "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+        signal: timeout.signal,
+      });
+    } catch (e) {
+      if (e && e.name === "AbortError") throw new Error("Сервер не отвечает. Попробуйте ещё раз через минуту.");
+      throw e;
+    } finally {
+      timeout.cancel();
+    }
     const j = await r.json().catch(function () { return { error: "BAD_JSON", status: r.status }; });
     if (!r.ok) throw Object.assign(new Error(j.error || ("HTTP " + r.status)), { status: r.status, body: j });
     return j;

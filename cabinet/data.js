@@ -44,15 +44,32 @@
     try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data })); } catch (_) {}
   }
 
+  function timeoutSignal(ms) {
+    if (typeof AbortController === "undefined") return { signal: undefined, cancel: function () {} };
+    const ctrl = new AbortController();
+    const timer = setTimeout(function () { ctrl.abort(); }, ms);
+    return { signal: ctrl.signal, cancel: function () { clearTimeout(timer); } };
+  }
+
   async function callFn(name, body) {
-    const r = await fetch(SB_URL + "/functions/v1/" + name, {
-      method: "POST",
-      headers: {
-        "Authorization": "Bearer " + SB_ANON,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
+    const timeout = timeoutSignal(12000);
+    let r;
+    try {
+      r = await fetch(SB_URL + "/functions/v1/" + name, {
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer " + SB_ANON,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+        signal: timeout.signal,
+      });
+    } catch (e) {
+      if (e && e.name === "AbortError") throw new Error("Сервер не отвечает. Попробуйте ещё раз через минуту.");
+      throw e;
+    } finally {
+      timeout.cancel();
+    }
     if (!r.ok) throw new Error("HTTP " + r.status);
     return await r.json();
   }
