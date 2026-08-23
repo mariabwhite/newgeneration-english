@@ -7,6 +7,14 @@
   if (window.__cabLiveLoaded) return;
   window.__cabLiveLoaded = true;
 
+  var liveParam = (location.search.match(/[?&](live|realtime)=([^&]+)/) || [])[2];
+  var liveEnabled = liveParam === 'on' || liveParam === '1';
+  try {
+    if (liveEnabled) localStorage.setItem('cabinet-live-feed-enabled', 'on');
+    if (liveParam === 'off' || liveParam === '0') localStorage.removeItem('cabinet-live-feed-enabled');
+    liveEnabled = liveEnabled || localStorage.getItem('cabinet-live-feed-enabled') === 'on';
+  } catch(e){}
+  if (!liveEnabled) return;
   var SUPABASE_URL  = "https://iqzlphbvmfgoygnozbya.supabase.co";
   var SUPABASE_ANON = "sb_publishable_hYhBk3xS90uouUFd_DZWUw_sOv-6JGO";
 
