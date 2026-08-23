@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Отчёт · Андрей Круглов · лето 2026 · C1 · держим базу до TOEFL</title>
+<style>
+  :root{
+    --bg:#E9E7E2;
+    --paper:#FFFFFF;
+    --cream:#EFEEE9;
+    --cream-soft:#F4F3EE;
+    --orange:#E8542B;
+    --orange-soft:#F4A86A;
+    --gold:#F4C84B;
+    --gold-soft:#FFF3CE;
+    --green:#5BA872;
+    --green-soft:#E5F1E9;
+    --ink:#1F1F1F;
+    --ink-2:#2C2C2C;
+    --muted:#7B7B7B;
+    --rule:#D9D7D2;
+    --tag-bg:#FFF1E8;
+    --tag-border:#F0C7AE;
+    --tag-ink:#A5421F;
+    --table-head:#F7F4EE;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;
+    font-size:14.5px; line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  .page{
+    max-width:210mm; margin:18px auto;
+    background:var(--paper);
+    box-shadow:0 12px 40px rgba(0,0,0,.10);
+    padding:0 0 32px;
+  }
+  .hero{ background:var(--cream); padding:30px 44px 30px; position:relative; }
+  .hero::after{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:4px;
+    background:linear-gradient(90deg,var(--orange) 0%,var(--orange) 55%,var(--gold) 100%);
+  }
+  .brandline{display:flex; align-items:center; gap:12px; margin-bottom:10px;}
+  .logo{
+    width:38px;height:38px;border-radius:9px;background:var(--orange);
+    color:#fff;font-weight:800;font-size:22px;display:grid;place-items:center;line-height:1;
+    box-shadow:0 2px 4px rgba(232,84,43,.25);
+  }
+  .brand-name{font-weight:800;letter-spacing:.06em;font-size:14.5px;}
+  .brand-sub{font-size:11px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;font-weight:500;margin-top:2px;}
+  .kicker{margin-top:14px;font-size:11px;letter-spacing:.22em;color:var(--orange);text-transform:uppercase;font-weight:700;}
+  h1.title{font-size:32px;line-height:1.1;margin:6px 0 6px;color:var(--ink);letter-spacing:-.01em;font-weight:800;}
+  p.subtitle{margin:0;font-size:14px;color:var(--ink-2);max-width:62ch;}
+
+  .meta{
+    padding:18px 44px 4px;
+    display:grid; grid-template-columns:repeat(3,1fr); gap:14px 22px;
+  }
+  .meta dt{font-size:10.5px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;font-weight:600;margin-bottom:3px;}
+  .meta dd{margin:0;font-size:14px;font-weight:700;}
+  .meta-rule{margin:18px 44px 8px;border:0;height:1px;background:var(--rule);}
+
+  section.chapter{padding:20px 44px 4px; scroll-margin-top:14px;}
+  h2{
+    margin:8px 0 14px; padding-left:14px; position:relative;
+    font-size:20px; font-weight:800; letter-spacing:-.005em;
+  }
+  h2::before{content:""; position:absolute; left:0; top:6px; bottom:6px; width:4px; background:var(--orange); border-radius:2px;}
+  h2 .ch-num{color:var(--orange); margin-right:6px;}
+  h3{font-size:12.5px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;font-weight:700;margin:16px 0 8px;}
+  ul.bul{list-style:none;padding:0;margin:0 0 12px;}
+  ul.bul li{position:relative;padding:4px 0 4px 22px;}
+  ul.bul li::before{content:"";position:absolute;left:4px;top:13px;width:7px;height:7px;border-radius:50%;background:var(--orange);}
+  ul.bul li b, ul.bul li .lex{color:var(--orange);font-weight:700;margin-right:6px;}
+
+  .tag-row{display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 14px;}
+  .tag{
+    font-size:12px;font-weight:600;color:var(--tag-ink);
+    background:var(--tag-bg); border:1px solid var(--tag-border);
+    padding:4px 10px; border-radius:999px;
+  }
+  .tag.green{color:#2f6f43;background:var(--green-soft);border-color:#c1e0cc;}
+  .tag.gold{color:#7a5c00;background:var(--gold-soft);border-color:#e5c76b;}
+
+  table.t{
+    width:100%; border-collapse:collapse; margin:10px 0 14px;
+    font-size:13.5px; background:#fff; border:1px solid var(--rule); border-radius:10px; overflow:hidden;
+  }
+  table.t th, table.t td{padding:9px 11px; text-align:left; border-bottom:1px solid var(--rule); vertical-align:top;}
+  table.t th{background:var(--table-head); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:700;}
+  table.t tr:last-child td{border-bottom:0;}
+  table.t td.num{font-weight:800;color:var(--orange);width:34px;text-align:center;}
+  table.t td.date{color:var(--muted);white-space:nowrap;font-family:"JetBrains Mono",Consolas,monospace;font-size:12px;}
+  table.t td.tag-cell{text-align:right;white-space:nowrap;}
+  .status-pill{font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:999px;letter-spacing:.06em;}
+  .status-pill.done{background:var(--green-soft);color:#2f6f43;border:1px solid #c1e0cc;}
+  .status-pill.plan{background:var(--cream-soft);color:var(--muted);border:1px solid var(--rule);}
+
+  .callout{
+    background:var(--cream-soft); border:1px solid var(--rule); border-left:4px solid var(--orange);
+    border-radius:10px; padding:14px 18px; margin:14px 0;
+  }
+  .callout.gold{border-left-color:var(--gold); background:var(--gold-soft);}
+  .callout.green{border-left-color:var(--green); background:var(--green-soft);}
+  .callout h4{margin:0 0 6px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);font-weight:800;}
+  .callout.gold h4{color:#7a5c00}
+  .callout.green h4{color:#2f6f43}
+
+  .links{display:grid;grid-template-columns:1fr;gap:8px;margin:12px 0;}
+  .links a{display:block;padding:12px 16px;background:var(--cream);border:1px solid var(--rule);border-left:4px solid var(--orange);border-radius:8px;color:var(--ink);text-decoration:none;font-weight:600;transition:.15s;}
+  .links a:hover{background:var(--cream-soft);border-left-color:var(--gold);}
+  .links a .lbl{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:3px;}
+
+  .signature{margin:20px 44px 0;padding-top:16px;border-top:1px solid var(--rule);color:var(--muted);font-size:12.5px;}
+
+  @media print {
+    body{background:#fff;}
+    .page{box-shadow:none;margin:0;}
+  }
+  @media (max-width:640px){
+    .meta{grid-template-columns:1fr 1fr;padding:18px 22px 4px}
+    .meta-rule{margin:18px 22px 8px}
+    .hero{padding:22px 22px}
+    section.chapter{padding:20px 22px 4px}
+    .signature{margin:20px 22px 0}
+  }
+</style>
+</head>
+<body>
+<article class="page">
+
+  <header class="hero">
+    <div class="brandline">
+      <div class="logo">N</div>
+      <div>
+        <div class="brand-name">NEW GENERATION ENGLISH</div>
+        <div class="brand-sub">Maria Burtseva · Parent Report</div>
+      </div>
+    </div>
+    <div class="kicker">Отчёт · лето 2026 · июнь – август</div>
+    <h1 class="title">Андрей Круглов · C1 · держим базу до TOEFL</h1>
+    <p class="subtitle">Летний режим: спокойный, без нагрузки. Три встречи, чтобы английский оставался живым в голове до того момента, как Андрей определится с датой TOEFL. Ниже — что делали, что держим в форме и как готовы двигаться дальше.</p>
+  </header>
+
+  <dl class="meta">
+    <div><dt>Уровень</dt><dd>C1 · TOEFL prep</dd></div>
+    <div><dt>Режим лета</dt><dd>1 встреча в месяц · «поддерживающий»</dd></div>
+    <div><dt>Проведено (лето)</dt><dd>3 урока (9, 10, 11)</dd></div>
+    <div><dt>Формат</dt><dd>онлайн · 60–90 мин</dd></div>
+    <div><dt>Материалов на лето</dt><dd>3 в кабинете (2 конспекта + Lab-модуль)</dd></div>
+    <div><dt>Следующий шаг</dt><dd>ждём дату теста → перейдём в mock-режим</dd></div>
+  </dl>
+
+  <hr class="meta-rule">
+
+  <!-- 1. Summer summary -->
+  <section class="chapter">
+    <h2><span class="ch-num">1</span>Как прошло лето</h2>
+
+    <p>Мы договаривались, что лето — не про новый материал, а про то, чтобы не потерять форму. Андрей уже вышел на устойчивый C1: он свободно читает и обсуждает научные тексты, чувствует стиль, различает регистры. В таком состоянии главное — не разгонять, а поддерживать: чтобы после паузы не пришлось «раскачиваться» перед TOEFL.</p>
+
+    <p>Поэтому летом мы встречались редко (примерно раз в месяц) и работали блоками, которые дают максимальный прирост «на единицу времени»: научная лексика, стратегии чтения TOEFL, hedges и связки академического английского.</p>
+
+    <div class="callout">
+      <h4>Коротко</h4>
+      Немного позанимались, держали базу. Пока Андрей планирует TOEFL — мы не грузим новый материал, а поддерживаем то, что уже есть, и точечно закрываем «узкие места» в академическом чтении. Как только будет ясна дата теста — перестроимся в mock-режим (полные разделы Reading / Listening на время).
+    </div>
+  </section>
+
+  <!-- 2. Lessons table -->
+  <section class="chapter">
+    <h2><span class="ch-num">2</span>Три летние встречи</h2>
+
+    <table class="t">
+      <thead><tr><th class="num">#</th><th>Дата</th><th>Тема</th><th class="tag-cell">Статус</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="num">9</td>
+          <td class="date">30 июн</td>
+          <td>Science Systems · TOEFL iBT prep (C1) — научная лексика + reading strategies</td>
+          <td class="tag-cell"><span class="status-pill done">пройдено</span></td>
+        </tr>
+        <tr>
+          <td class="num">10</td>
+          <td class="date">29 июл</td>
+          <td>Summer Systems · TOEFL iBT prep — weather / natural systems + hedges (may, tend to, appear to)</td>
+          <td class="tag-cell"><span class="status-pill done">пройдено</span></td>
+        </tr>
+        <tr>
+          <td class="num">11</td>
+          <td class="date">23 авг</td>
+          <td>Summer Systems (повтор) + «As It Seems» · weather · C1 core · hedges · 4 reading vocab-блока</td>
+          <td class="tag-cell"><span class="status-pill done">пройдено</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 3. What we're holding -->
+  <section class="chapter">
+    <h2><span class="ch-num">3</span>Что держим в форме</h2>
+
+    <h3>C1 · академические навыки</h3>
+    <ul class="bul">
+      <li><b>Reading strategies</b> — сканирование научного текста, работа с параграфом, вычленение main idea и supporting details</li>
+      <li><b>Hedges</b> — <em>may, tend to, appear to, it is likely that, suggests that</em> (базовый академический регистр TOEFL)</li>
+      <li><b>Science lexis</b> — научная лексика: погодные системы, полимеры, ядерная физика, аллергология, нейробиология</li>
+      <li><b>Discussion mode</b> — Андрей уверенно разбирает и обсуждает научные темы вслух, держит паузы, аргументирует</li>
+      <li><b>Vocabulary maintenance</b> — активная работа со словарём предыдущего блока (spring), чтобы слова не «уходили в пассив»</li>
+    </ul>
+
+    <h3>Тематические блоки, которые проходили</h3>
+    <div class="tag-row">
+      <span class="tag">science &amp; systems</span>
+      <span class="tag">weather · natural systems</span>
+      <span class="tag">polymers · nuclear physics</span>
+      <span class="tag">neuroscience</span>
+      <span class="tag">allergy · health</span>
+      <span class="tag">TOEFL hedges</span>
+      <span class="tag">4 reading vocab-блока</span>
+    </div>
+  </section>
+
+  <!-- 4. Materials -->
+  <section class="chapter">
+    <h2><span class="ch-num">4</span>Материалы в кабинете</h2>
+
+    <div class="links">
+      <a href="konspekt-03-as-it-seems-summer-systems.html">
+        <span class="lbl">Конспект урока 11 · 23 августа</span>
+        📄 Summer Systems + «As It Seems» · weather · C1 core · hedges · 4 reading vocab
+      </a>
+      <a href="konspekt-03-summer-systems-as-it-seems.pdf">
+        <span class="lbl">PDF-версия конспекта урока 11</span>
+        📎 Тот же конспект в PDF (удобно распечатать / сохранить)
+      </a>
+      <a href="vocab-sheet-summer-l2.html">
+        <span class="lbl">Конспект урока 10 · 29 июля</span>
+        📖 Summer Systems · vocab + hedges + Reading 1
+      </a>
+      <a href="https://newgeneration-english.ru/lingua-boost-lab/c1/summer-systems-c1-andrew/">
+        <span class="lbl">Открытый Lab-модуль</span>
+        ☀ Summer Systems · TOEFL prep — можно возвращаться в любое время
+      </a>
+    </div>
+  </section>
+
+  <!-- 5. Next steps -->
+  <section class="chapter">
+    <h2><span class="ch-num">5</span>Что дальше</h2>
+
+    <ul class="bul">
+      <li><b>Пока не назначен TOEFL</b> — сохраняем текущий комфортный ритм (1 встреча в 2–4 недели), поддерживаем форму, точечно добираем узкие места</li>
+      <li><b>Как только появится дата теста</b> — переключаемся в mock-режим: полноценные разделы Reading (60 минут, 3 текста) и Listening на время, разбор с калибровкой стратегии</li>
+      <li><b>Speaking / Writing секции</b> — по договорённости; готовы включить, если Андрей хочет отработать independent / integrated task формат</li>
+      <li><b>Если тест сдвигается на более поздний срок</b> — не проблема, просто продолжаем поддерживающий режим столько, сколько нужно</li>
+    </ul>
+
+    <div class="callout gold">
+      <h4>Если что-то важно</h4>
+      Если хотите обсудить дату теста, интенсивный режим или иные вопросы — напишите Марии, договоримся о комфортном ритме. Ничего срочного «навёрстывать» не нужно — уровень удержан.
+    </div>
+  </section>
+
+  <div class="signature">
+    Мария Бурцева · New Generation English · Отчёт от 23 августа 2026 · <i>для мамы Андрея Круглова</i>
+  </div>
+
+</article>
+</body>
+</html>
