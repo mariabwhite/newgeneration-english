@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<script>(function(){var B='20260823-pin-normalize';if(location.search.indexOf('bust=')>-1)return;fetch('/cabinet/build.txt?_='+Date.now(),{cache:'no-store'}).then(function(r){return r.text()}).then(function(t){if(t.trim()!==B){location.href=location.pathname+'?bust='+Date.now()}}).catch(function(){})})();</script>
+<script>(function(){var B='20260824-login-entry-reset';if(location.search.indexOf('bust=')>-1)return;fetch('/cabinet/build.txt?_='+Date.now(),{cache:'no-store'}).then(function(r){return r.text()}).then(function(t){if(t.trim()!==B){location.href=location.pathname+'?bust='+Date.now()}}).catch(function(){})})();</script>
 <meta name="description" content="Вход в кабинет — New Generation English">
 <link rel="icon" type="image/svg+xml" href="data:," id="nofavicon">
 <title>Вход · NG English</title>
@@ -105,6 +105,7 @@
   </section>
 </main>
 
+<script>(function(){try{localStorage.removeItem("nge_session_v2");sessionStorage.removeItem("nge_data_cache_v3");}catch(_){}})();</script>
 <script src="./data.js?v=204"></script>
 <script src="./cabinet.js?v=99021"></script>
 <script src="./supabase-client.js?v=1"></script>
@@ -140,7 +141,7 @@
   // Теперь login.html всегда показывает форму. После PIN — редирект.
   // Если хочешь явно очистить старую сессию, добавь ?reset=1 в URL.
   if (location.search.indexOf("reset=1") >= 0) {
-    try { NGECabinet.clearSession(); localStorage.clear(); } catch(_) {}
+    try { NGECabinet.clearSession(); sessionStorage.removeItem("nge_data_cache_v3"); } catch(_) {}
   }
 
 
