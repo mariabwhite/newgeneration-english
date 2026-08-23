@@ -121,7 +121,7 @@
       } catch (e) {
         if (e && e.status === 404) return null; // PIN_NOT_FOUND
         console.warn("[tryLogin] family-data failed:", e && e.message);
-        // Legacy fallback: if bootstrap already loaded, try locally.
+        // Legacy fallback: only use cached data if it actually contains this PIN.
         try {
           const cached = window.NGE_DATA;
           if (cached && cached.students && cached.students.length) {
@@ -130,7 +130,11 @@
             if (st) return { role: "family", studentId: st.id, name: st.name, pin: trimmed };
           }
         } catch (_) {}
-        return null;
+        const msg = e && e.message ? e.message : "";
+        if (/Failed to fetch|Load failed|NetworkError|Network request failed/i.test(msg)) {
+          throw new Error("Сервер кабинета не открылся в этом браузере. Проверьте интернет, выключите блокировщик/Private Relay для сайта и попробуйте ещё раз.");
+        }
+        throw e;
       }
     }
 
