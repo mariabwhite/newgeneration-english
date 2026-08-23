@@ -25,10 +25,49 @@ jobs:
         uses: actions/checkout@v4
       - name: Configure Pages
         uses: actions/configure-pages@v5
+      - name: Build publish artifact
+        run: |
+          rm -rf _site
+          mkdir _site
+          rsync -a \
+            --exclude '.git/' \
+            --exclude '.github/' \
+            --exclude '_site/' \
+            --exclude '_archive/' \
+            --exclude '_backups/' \
+            --exclude '_internal/' \
+            --exclude '_WIP_not_published_*/' \
+            --exclude 'audit-shots/' \
+            --exclude 'scripts/' \
+            --exclude 'node_modules/' \
+            --exclude '__pycache__/' \
+            --exclude '*.bak' \
+            --exclude '*.bak-*' \
+            --exclude '*.backup-*' \
+            --exclude '*.nullbackup-*' \
+            --exclude '*.codex-backup-*' \
+            --exclude '*.broken' \
+            --exclude '*.tmp' \
+            --exclude '*.log' \
+            ./ _site/
+          du -sh _site
+      - name: Compress publish PNGs
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pngquant
+          before=$(du -sm _site | cut -f1)
+          find _site -type f -iname '*.png' -size +512k -print0 \
+            | xargs -0 -r -n 1 -P 2 pngquant --force --skip-if-larger --quality=55-82 --ext .png
+          after=$(du -sm _site | cut -f1)
+          echo "Publish artifact size before PNG compression: ${before} MB"
+          echo "Publish artifact size after PNG compression: ${after} MB"
+          if [ "$after" -gt 1000 ]; then
+            echo "::warning::Publish artifact is still above 1 GB; move or replace heavy video/unused lesson media next."
+          fi
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
