@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<script>(function(){var B='20260823-realtime-kill';if(location.search.indexOf('bust=')>-1)return;fetch('/cabinet/build.txt?_='+Date.now(),{cache:'no-store'}).then(function(r){return r.text()}).then(function(t){if(t.trim()!==B){location.href=location.pathname+'?bust='+Date.now()}}).catch(function(){})})();</script>
+<script>(function(){var B='20260823-pin-normalize';if(location.search.indexOf('bust=')>-1)return;fetch('/cabinet/build.txt?_='+Date.now(),{cache:'no-store'}).then(function(r){return r.text()}).then(function(t){if(t.trim()!==B){location.href=location.pathname+'?bust='+Date.now()}}).catch(function(){})})();</script>
 <meta name="description" content="Вход в кабинет — New Generation English">
 <link rel="icon" type="image/svg+xml" href="data:," id="nofavicon">
 <title>Вход · NG English</title>
@@ -45,7 +45,7 @@
     <h1>Вход в кабинет</h1>
     <p class="cab-login-sub">Введите 4-значный PIN (ученик/родитель) или пароль (преподаватель).</p>
     <form id="loginForm" autocomplete="off" novalidate>
-      <input id="loginCode" name="pin" type="text" inputmode="numeric" placeholder="PIN или пароль" maxlength="40" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true" required>
+      <input id="loginCode" name="pin" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="PIN или пароль" maxlength="40" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true" required>
       <button type="submit" id="loginSubmitBtn">Войти</button>
       <div class="cab-login-error" id="loginError">Не подошло. Проверьте PIN или пароль.</div>
     </form>
@@ -143,15 +143,20 @@
     try { NGECabinet.clearSession(); localStorage.clear(); } catch(_) {}
   }
 
+
+  function normalizeLoginCode(value) {
+    return String(value || "")
+      .replace(/[\s\u00A0\u1680\u180E\u2000-\u200D\u2028\u2029\u202F\u205F\u3000\uFEFF]/g, "")
+      .replace(/[０-９]/g, function (ch) { return String(ch.charCodeAt(0) - 0xFF10); })
+      .replace(/[٠-٩]/g, function (ch) { return String(ch.charCodeAt(0) - 0x0660); })
+      .replace(/[۰-۹]/g, function (ch) { return String(ch.charCodeAt(0) - 0x06F0); });
+  }
   var submitBtn = document.getElementById("loginSubmitBtn");
   var loginBusy = false;
   async function handleLoginSubmit() {
     if (loginBusy) return;
     var codeEl = document.getElementById("loginCode");
-    // Strip ALL whitespace (spaces between digits, nbsp, zero-width, etc)
-    // Bug reported 2026-08-18 by Sonya's mum: PIN "51 85" copied with a space
-    // between digits, .trim() didn't catch it, login silently failed.
-    var code = String(codeEl.value || "").replace(/\s+/g, "");
+    var code = normalizeLoginCode(codeEl.value);
     var errEl = document.getElementById("loginError");
     errEl.classList.remove("is-visible");
     if (!code) {

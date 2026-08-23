@@ -11,7 +11,7 @@ interface Env {
   SESSION_SECRET: string;
 }
 
-const GATE_PIN_HASH = "b9169d38442158a96b9ab0a9b77a87d830b74ba9b559c94b29d6044bfbee7faa"; // sha256(Watchmaker-2026-Q3)
+const GATE_PIN_HASH = "b9169d38442158a96b9ab0a9b77a87d830b74ba9b559c94b29d6044bfbee7faa"; // sha256(current premium PIN)
 const COOKIE_NAME = "nge_gate";
 const COOKIE_TTL_SECONDS = 60 * 60 * 24 * 30;
 const MAX_ATTEMPTS = 5;

@@ -21,7 +21,7 @@
 
 После этого:
 - `https://newgeneration-english.ru/lingua-boost-lab/…` → редирект на `/enter`.
-- Ввести PIN `Watchmaker-2026-Q3` → возврат к запрошенной странице, cookie на 30 дней.
+- Ввести текущий premium PIN → возврат к запрошенной странице, cookie на 30 дней.
 
 ## Как сбросить cookie вручную (если PIN сменится)
 
