@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Андрей Круглов · Урок 3 · Summer Systems + «As It Seems» · конспект</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF;--cream:#EFEEE9;--cream-soft:#F4F3EE;
+    --orange:#E8542B;--gold:#F4C84B;
+    --ink:#1F1F1F;--ink-2:#2C2C2C;--muted:#8B8B8B;--rule:#D9D7D2;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#E9E7E2;color:var(--ink);
+    font-family:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;
+    font-size:15.5px;line-height:1.6;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .page{width:210mm;min-height:297mm;margin:18px auto;background:var(--bg);
+    box-shadow:0 12px 40px rgba(0,0,0,.10);padding:0 0 28px;}
+  .hero{background:var(--cream);padding:26px 44px 26px;position:relative;}
+  .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;
+    background:linear-gradient(90deg,var(--orange) 0%,var(--orange) 55%,var(--gold) 100%);}
+  .brandline{display:flex;align-items:center;gap:12px;margin-bottom:6px;}
+  .logo{width:38px;height:38px;border-radius:9px 0 9px 9px;background:var(--orange);
+    color:white;font-weight:800;font-family:"Manrope",sans-serif;
+    font-size:22px;display:grid;place-items:center;line-height:1;
+    box-shadow:0 2px 4px rgba(232,84,43,.25);position:relative;overflow:hidden;}
+  .logo::after{content:"";position:absolute;top:0;right:0;width:11px;height:11px;background:#fff;
+    clip-path:polygon(100% 0,0 0,100% 100%);}
+  .brand-name{font-weight:800;letter-spacing:.06em;font-size:14.5px;color:var(--ink);}
+  .brand-sub{font-size:11px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;font-weight:500;margin-top:2px;}
+  .kicker{margin-top:16px;font-size:11px;letter-spacing:.22em;color:var(--orange);text-transform:uppercase;font-weight:700;}
+  h1.title{font-family:"Manrope","Inter",sans-serif;font-weight:800;font-size:32px;line-height:1.05;
+    margin:6px 0 6px;color:var(--ink);letter-spacing:-.01em;}
+  .subtitle{font-size:14.5px;color:var(--ink-2);margin:0;max-width:640px;}
+  .meta{padding:20px 44px 6px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px 22px;}
+  .meta dt{font-size:10.5px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;font-weight:600;margin-bottom:3px;}
+  .meta dd{margin:0;font-size:14.5px;font-weight:700;color:var(--ink);}
+  .meta-rule{margin:16px 44px 8px;border:0;height:1px;background:var(--rule);}
+  .body{padding:6px 44px 8px;}
+  h2{font-family:"Inter",sans-serif;font-size:17px;font-weight:800;color:var(--ink);
+    margin:22px 0 10px;padding-left:14px;position:relative;}
+  h2::before{content:"";position:absolute;left:0;top:3px;bottom:3px;width:5px;background:var(--orange);border-radius:2px;}
+  h3{font-family:"Inter",sans-serif;font-size:14px;font-weight:700;color:var(--orange);
+    margin:14px 0 6px;letter-spacing:.02em;}
+  ul.simple{list-style:none;padding:0;margin:0 0 12px;}
+  ul.simple li{padding:6px 0 6px 20px;position:relative;font-size:15px;color:var(--ink-2);border-bottom:1px dashed var(--rule);}
+  ul.simple li::before{content:"";position:absolute;left:4px;top:15px;width:7px;height:7px;border-radius:50%;background:var(--orange);}
+  ul.simple li b{color:var(--ink);font-weight:700;margin-right:8px;}
+  ul.simple li em{color:var(--muted);font-style:italic;font-size:13.5px;margin-left:8px;}
+  .rule-mini{background:#FFF8EB;border-left:3px solid var(--gold);padding:8px 12px;font-size:13px;color:var(--ink-2);border-radius:0 6px 6px 0;margin:0 0 10px;}
+  .row-en-ru{display:grid;grid-template-columns:1fr 1fr;gap:8px 20px;margin:0 0 12px;}
+  .row-en-ru .pair{padding:8px 12px;background:var(--cream-soft);border-radius:8px;border-left:3px solid var(--orange);}
+  .row-en-ru .pair .en{font-weight:700;color:var(--ink);}
+  .row-en-ru .pair .ru{color:var(--muted);font-size:13.5px;margin-top:2px;}
+  table.simple{width:100%;border-collapse:collapse;margin:8px 0 12px;font-size:14px;}
+  table.simple th,table.simple td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--rule);vertical-align:top;}
+  table.simple th{background:var(--cream-soft);font-weight:700;font-size:11.5px;text-transform:uppercase;letter-spacing:.10em;color:var(--ink-2);}
+  table.simple td.k{color:var(--orange);font-weight:700;white-space:nowrap;width:32%;}
+  .focus-box{background:var(--cream-soft);border-left:5px solid var(--orange);
+    padding:16px 20px;margin:14px 0 12px;border-radius:0 8px 8px 0;font-size:15px;}
+  .focus-box strong{color:var(--orange);}
+  .footer{margin:22px 44px 0;padding-top:14px;border-top:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--muted);letter-spacing:.06em;}
+  .foot-brand{display:flex;align-items:center;gap:10px;}
+  .foot-brand .logo{width:26px;height:26px;font-size:14px;border-radius:6px 0 6px 6px;}
+  .foot-brand .logo::after{width:8px;height:8px;}
+  .foot-name{font-weight:700;color:var(--ink-2);letter-spacing:.08em;font-size:12px;}
+  .foot-sub{font-size:10px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;font-weight:500;}
+  @media print{body{background:white;}.page{margin:0;box-shadow:none;width:auto;min-height:auto;page-break-after:always;}.page:last-child{page-break-after:auto;}}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="brandline">
+      <div class="logo">N</div>
+      <div>
+        <div class="brand-name">NEW GENERATION ENGLISH</div>
+        <div class="brand-sub">урок 3 · конспект + домашнее задание</div>
+      </div>
+    </div>
+    <div class="kicker">Андрей Круглов · C1 · TOEFL iBT prep · August 2026</div>
+    <h1 class="title">Summer Systems + «As It Seems»</h1>
+    <p class="subtitle">Weather adjectives · C1 academic core · hedging register (as it seems / arguably / to a certain extent) · четыре reading-фрагмента на летние темы. Всё в одном листе — открывайте и прогоняйте вслух.</p>
+  </div>
+
+  <dl class="meta">
+    <div><dt>Ученик</dt><dd>Андрей Круглов</dd></div>
+    <div><dt>Уровень</dt><dd>C1 · TOEFL band 5.0–5.5</dd></div>
+    <div><dt>Дата</dt><dd>23 · 08 · 2026</dd></div>
+  </dl>
+  <hr class="meta-rule">
+
+  <div class="body">
+
+    <h2>1 · Weather · 10 C1 adjectives (upgrade от «hot / cold»)</h2>
+    <div class="rule-mini"><b>Задача:</b> в TOEFL Speaking (и в small-talk с носителем) заменять «it's hot» / «it's cold» на конкретное прилагательное. Каждое из десяти — реальный, естественный C1 register.</div>
+    <table class="simple">
+      <thead><tr><th>Adjective</th><th>Meaning · когда использовать</th></tr></thead>
+      <tbody>
+        <tr><td class="k">scorching</td><td>Extremely hot — hot enough to feel painful. <em>«A scorching afternoon in Seville.»</em></td></tr>
+        <tr><td class="k">sweltering</td><td>Hot AND humid — makes you sweat just walking. <em>«Sweltering July in Moscow.»</em></td></tr>
+        <tr><td class="k">muggy</td><td>Warm and heavy with humidity — sticky, oppressive, hard to breathe. <em>«A muggy evening after the rain.»</em></td></tr>
+        <tr><td class="k">balmy</td><td>Pleasantly warm, gentle, soft breeze — perfect summer evening. <em>«A balmy night on the terrace.»</em></td></tr>
+        <tr><td class="k">crisp</td><td>Cool, fresh, dry, invigorating — as early autumn feels. <em>«A crisp September morning.»</em></td></tr>
+        <tr><td class="k">breezy</td><td>With a light, pleasant wind. <em>«A breezy afternoon at the coast.»</em></td></tr>
+        <tr><td class="k">drizzling</td><td>Very light, continuous rain — barely wet but constant. <em>«It's been drizzling all morning.»</em></td></tr>
+        <tr><td class="k">torrential</td><td>Very heavy, pouring rain — you can't see through it. <em>«Torrential rain flooded the roads.»</em></td></tr>
+        <tr><td class="k">overcast</td><td>Completely covered with grey clouds — no sun visible. <em>«A gloomy, overcast day.»</em></td></tr>
+        <tr><td class="k">crystal-clear</td><td>Perfectly clear sky, not a single cloud — long visibility. <em>«A crystal-clear morning over the lake.»</em></td></tr>
+      </tbody>
+    </table>
+
+    <h2>2 · C1 academic core · 16 words + collocations</h2>
+    <div class="rule-mini"><b>Register:</b> это то, что отличает band 4.5 от band 5.0 в TOEFL Speaking/Writing. Переносится в любую тему — наука, экономика, бизнес, эссе. Учить парой «слово + пример-коллокация».</div>
+    <table class="simple">
+      <thead><tr><th>Word / phrase</th><th>Register + example</th></tr></thead>
+      <tbody>
+        <tr><td class="k">pivotal <em style="color:var(--muted);font-weight:400">(adj)</em></td><td>Absolutely central, decisive (upgrade of «very important»). <em>Peer review plays a <b>pivotal</b> role in academic publishing.</em></td></tr>
+        <tr><td class="k">to underscore <em style="color:var(--muted);font-weight:400">(v)</em></td><td>To emphasise formally (upgrade of «to stress»). <em>The 2023 data <b>underscore</b> the urgency of adaptation policy.</em></td></tr>
+        <tr><td class="k">to give rise to</td><td>To cause / produce (essay-friendly). <em>Overreliance on air travel <b>gives rise to</b> significant emissions.</em></td></tr>
+        <tr><td class="k">notwithstanding</td><td>Despite / in spite of (high-C1 connector). <em><b>Notwithstanding</b> the cost, the policy has broad public support.</em></td></tr>
+        <tr><td class="k">to a certain extent</td><td>Partly, not fully — softens a claim. <em><b>To a certain extent</b>, technology can offset labour shortages.</em></td></tr>
+        <tr><td class="k">arguably</td><td>It can be argued that — sounds informed, not dogmatic. <em><b>Arguably</b>, the most valuable asset of any firm is its people.</em></td></tr>
+        <tr><td class="k">compelling evidence</td><td>Very strong evidence, hard to reject. <em>There is <b>compelling evidence</b> that early intervention improves outcomes.</em></td></tr>
+        <tr><td class="k">to strike a balance between</td><td>Find the right proportion of two competing things. <em>It is crucial to <b>strike a balance between</b> growth and sustainability.</em></td></tr>
+        <tr><td class="k">overriding concern</td><td>The most important worry, more than all others. <em>Data privacy remains the <b>overriding concern</b> in this partnership.</em></td></tr>
+        <tr><td class="k">far-reaching implications</td><td>Consequences beyond the immediate case. <em>The court's ruling has <b>far-reaching implications</b> for future contracts.</em></td></tr>
+        <tr><td class="k">to constitute <em style="color:var(--muted);font-weight:400">(v)</em></td><td>To form / to be (upgrade of plain «to be»). <em>Renewable sources now <b>constitute</b> a third of national output.</em></td></tr>
+        <tr><td class="k">to warrant <em style="color:var(--muted);font-weight:400">(v)</em></td><td>To justify / make necessary. <em>These findings <b>warrant</b> a full independent review.</em></td></tr>
+        <tr><td class="k">discernible <em style="color:var(--muted);font-weight:400">(adj)</em></td><td>Noticeable, perceivable (formal «visible»). <em>There is a <b>discernible</b> shift in consumer preferences.</em></td></tr>
+        <tr><td class="k">to leverage <em style="color:var(--muted);font-weight:400">(v)</em></td><td>Use to maximum advantage (business). <em>The company <b>leveraged</b> its brand to enter new markets.</em></td></tr>
+        <tr><td class="k">stakeholder</td><td>Any party with an interest — investors, staff, customers, community. <em>Every major decision requires <b>stakeholder</b> consultation.</em></td></tr>
+        <tr><td class="k">trade-off</td><td>Compromise: accept a loss on one side to gain on another. <em>There is always a <b>trade-off</b> between speed and accuracy.</em></td></tr>
+      </tbody>
+    </table>
+
+    <h2>3 · «As It Seems» · hedging register</h2>
+    <div class="focus-box">
+      <strong>Что это и зачем.</strong> Hedging — это «мягкие» слова, которые не позволяют звучать слишком категорично. В TOEFL Speaking их наличие поднимает score на пол-балла: показывает, что Вы понимаете границы своего аргумента и учитываете альтернативные точки зрения. Это разница между «Climate change causes X» и «Climate change appears to give rise to X».
+    </div>
+    <table class="simple">
+      <thead><tr><th>Hedge</th><th>Register + когда использовать</th></tr></thead>
+      <tbody>
+        <tr><td class="k">seemingly</td><td>«По-видимому, кажется». Мягко ставит наблюдение под условие. <em>A <b>seemingly</b> small policy change had major consequences.</em></td></tr>
+        <tr><td class="k">apparently</td><td>«Судя по всему». Ссылка на внешнее подтверждение (данные, отчёт, чьи-то слова). <em><b>Apparently</b>, the report has already been submitted.</em></td></tr>
+        <tr><td class="k">it appears that</td><td>«Судя по всему, / представляется, что». Формальный аналог «apparently». <em><b>It appears that</b> reef recovery depends on local conditions.</em></td></tr>
+        <tr><td class="k">one might argue</td><td>«Можно возразить, что». Открывает контраргумент без личной атаки. <em><b>One might argue</b> that regulation stifles innovation.</em></td></tr>
+        <tr><td class="k">to a certain extent</td><td>«В какой-то мере, отчасти». Полусогласие. <em><b>To a certain extent</b>, the criticism is fair.</em></td></tr>
+        <tr><td class="k">arguably</td><td>«Можно утверждать, что». Уверенно, но с признанием, что это не абсолют. <em><b>Arguably</b>, the summer of 2023 marked a turning point.</em></td></tr>
+        <tr><td class="k">tends to</td><td>«Как правило, имеет тенденцию». Обобщение без категоричности. <em>Public opinion <b>tends to</b> lag behind scientific consensus.</em></td></tr>
+        <tr><td class="k">is likely to</td><td>«Скорее всего, вероятно». Прогноз с вероятностной оговоркой. <em>The policy <b>is likely to</b> face legal challenges.</em></td></tr>
+      </tbody>
+    </table>
+    <div class="rule-mini" style="border-left-color:var(--orange);background:#FFF3EC"><b>Правило big-picture:</b> в 60-секундном ответе TOEFL Speaking — минимум <b>2 hedge</b>. В Independent Writing (300 слов) — минимум <b>4</b>. Без хеджирования — потолок 4.0. С хеджированием (и точной лексикой) — 5.0 и выше.</div>
+
+    <h2>4 · Reading-фрагменты · ключевые слова из четырёх текстов</h2>
+    <h3>Text 1 · Heat as a public-health emergency</h3>
+    <div class="row-en-ru">
+      <div class="pair"><div class="en">to overtake</div><div class="ru">обогнать · превзойти (heat has overtaken cold)</div></div>
+      <div class="pair"><div class="en">excess mortality</div><div class="ru">избыточная смертность</div></div>
+      <div class="pair"><div class="en">urban heat island</div><div class="ru">городской остров жары</div></div>
+      <div class="pair"><div class="en">to intensify</div><div class="ru">усиливать · интенсифицировать</div></div>
+      <div class="pair"><div class="en">cardiovascular</div><div class="ru">сердечно-сосудистый</div></div>
+      <div class="pair"><div class="en">the trigger</div><div class="ru">пусковой фактор, спусковой крючок</div></div>
+      <div class="pair"><div class="en">retrofit</div><div class="ru">модернизация (существующего здания)</div></div>
+      <div class="pair"><div class="en">to treat X as</div><div class="ru">относиться к X как к…</div></div>
+    </div>
+
+    <h3>Text 2 · Cool roofs · adaptation vs. mitigation</h3>
+    <div class="row-en-ru">
+      <div class="pair"><div class="en">albedo</div><div class="ru">альбедо · коэффициент отражения</div></div>
+      <div class="pair"><div class="en">reflectivity</div><div class="ru">отражательная способность</div></div>
+      <div class="pair"><div class="en">high-reflectance</div><div class="ru">высокоотражающий (о материале)</div></div>
+      <div class="pair"><div class="en">cooling energy demand</div><div class="ru">спрос на энергию для охлаждения</div></div>
+      <div class="pair"><div class="en">aggregated programme</div><div class="ru">агрегированная / масштабная программа</div></div>
+      <div class="pair"><div class="en">adaptation vs. mitigation</div><div class="ru">адаптация (приспособиться) vs. митигация (уменьшить причину)</div></div>
+      <div class="pair"><div class="en">to sit alongside</div><div class="ru">существовать наряду с (не заменяя)</div></div>
+      <div class="pair"><div class="en">emissions reductions</div><div class="ru">сокращение выбросов</div></div>
+    </div>
+
+    <h3>Text 3 · Coral bleaching · when reefs recover</h3>
+    <div class="row-en-ru">
+      <div class="pair"><div class="en">symbiotic algae</div><div class="ru">симбиотические водоросли</div></div>
+      <div class="pair"><div class="en">to expel</div><div class="ru">изгонять · извергать (кораллы «выбрасывают» водоросли)</div></div>
+      <div class="pair"><div class="en">bleaching</div><div class="ru">обесцвечивание (кораллов)</div></div>
+      <div class="pair"><div class="en">energy source</div><div class="ru">источник энергии</div></div>
+      <div class="pair"><div class="en">nuanced</div><div class="ru">нюансированный · сложный, неоднозначный</div></div>
+      <div class="pair"><div class="en">tipping point</div><div class="ru">точка невозврата, критическая точка</div></div>
+      <div class="pair"><div class="en">a fighting chance</div><div class="ru">реальный шанс (не гарантия, но и не безнадёжно)</div></div>
+      <div class="pair"><div class="en">to catch up</div><div class="ru">догнать (о митигации)</div></div>
+    </div>
+
+    <h3>Text 4 · Overtourism · когда success становится problem</h3>
+    <div class="row-en-ru">
+      <div class="pair"><div class="en">overtourism</div><div class="ru">чрезмерный туризм</div></div>
+      <div class="pair"><div class="en">cruise-ship arrivals</div><div class="ru">заходы круизных лайнеров</div></div>
+      <div class="pair"><div class="en">short-let apartment</div><div class="ru">квартира краткосрочной аренды (Airbnb-типа)</div></div>
+      <div class="pair"><div class="en">to concentrate</div><div class="ru">сосредотачивать (в одном месте)</div></div>
+      <div class="pair"><div class="en">to thin out</div><div class="ru">уменьшать плотность, разрежать (population)</div></div>
+      <div class="pair"><div class="en">to price out</div><div class="ru">вытеснять по цене (families priced out of centre)</div></div>
+      <div class="pair"><div class="en">to erode</div><div class="ru">размывать, разрушать (eroded the cultural fabric)</div></div>
+      <div class="pair"><div class="en">cultural fabric</div><div class="ru">культурная ткань · культурный уклад</div></div>
+      <div class="pair"><div class="en">tourist cap</div><div class="ru">лимит на количество туристов</div></div>
+      <div class="pair"><div class="en">day-visitor fee</div><div class="ru">сбор с однодневных посетителей</div></div>
+    </div>
+
+    <h2>5 · Speaking recap · формула C1 ответа за 60 секунд</h2>
+    <div class="focus-box">
+      <strong>Структура:</strong>
+      <br>1. <b>Position</b> (1 sentence) — say what you think, cleanly.
+      <br>2. <b>Reason with hedge</b> (2 sentences) — «It appears that… / Arguably… / One might argue that…»
+      <br>3. <b>Example / evidence</b> (1–2 sentences) — a concrete case, a number, a data point.
+      <br>4. <b>Concession + return</b> (1 sentence) — «To a certain extent, X — but on balance, Y».
+      <br><br><strong>Замок ответа (не «finish», а «resolve»):</strong> заканчивайте той же нотой, что открывали. Слушатель должен почувствовать, что мысль вернулась к точке.
+    </div>
+
+    <h2>Домашнее задание · 3 задачи до следующего урока</h2>
+    <ul class="simple">
+      <li><b>1 · Weather TAP</b> · <em>напишите 5 предложений о погоде этим летом, используя минимум 5 разных adjectives из списка (§ 1). Не «it was hot» — «it was scorching / sweltering / muggy…».</em></li>
+      <li><b>2 · Academic core drill</b> · <em>к следующему уроку — 4 предложения, по одному на each из четырёх reading-текстов, используя минимум 2 слова из § 2 (C1 academic core) в каждом. Пример: «Cool-roof programmes constitute an important adaptation strategy, though they warrant careful evaluation.»</em></li>
+      <li><b>3 · Independent-Writing draft</b> · <em>напишите 250–300 слов на любой из 4 вопросов discussion-блоков в уроке. Условие: минимум 4 hedges из § 3. Прогоните перед сдачей на предмет «to be»-повторов — заменяйте на constitute / represent / underscore.</em></li>
+    </ul>
+
+    <div class="focus-box">
+      <strong>Следующий урок · L4:</strong> продолжаем TOEFL prep, переходим к <b>Integrated Writing</b> (Reading + Listening → Response 150–225 слов). Разбираем note-taking + template. К уроку — просмотрите §§ 2–3 этого конспекта, эти слова понадобятся все.
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div class="foot-brand">
+      <div class="logo">N</div>
+      <div>
+        <div class="foot-name">NEW GENERATION ENGLISH</div>
+        <div class="foot-sub">konspekt · adult C1 · TOEFL prep</div>
+      </div>
+    </div>
+    <div>урок 3 · 23.08.2026</div>
+  </div>
+
+</div>
+
+</body>
+</html>
