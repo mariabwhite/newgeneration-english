@@ -66,6 +66,40 @@
     if (!r.ok) throw Object.assign(new Error(j.error || ("HTTP " + r.status)), { status: r.status, body: j });
     return j;
   }
+  function _b64ToBytes(s) {
+    const bin = atob(s);
+    const out = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+    return out;
+  }
+  function _hex(bytes) {
+    return Array.from(new Uint8Array(bytes)).map(b => b.toString(16).padStart(2, "0")).join("");
+  }
+  async function _vaultDerive(pin, saltB64, iter) {
+    if (!crypto || !crypto.subtle) throw new Error("WebCrypto недоступен в этом браузере");
+    const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(String(pin)), "PBKDF2", false, ["deriveBits"]);
+    const bits = await crypto.subtle.deriveBits({ name: "PBKDF2", salt: _b64ToBytes(saltB64), iterations: iter, hash: "SHA-256" }, base, 256);
+    const raw = new Uint8Array(bits);
+    const lookup = _hex(await crypto.subtle.digest("SHA-256", raw)).slice(0, 16);
+    const key = await crypto.subtle.importKey("raw", raw, "AES-GCM", false, ["decrypt"]);
+    return { key, lookup };
+  }
+  async function _vaultFamilyLogin(pin) {
+    const idxRes = await fetch("./vault/index.json?_=" + Date.now(), { cache: "no-store" });
+    if (!idxRes.ok) return null;
+    const idx = await idxRes.json();
+    if (!idx || !idx.salt || !idx.iter || !idx.users) return null;
+    const derived = await _vaultDerive(pin, idx.salt, idx.iter);
+    const entry = idx.users.find(u => u.hash === derived.lookup);
+    if (!entry || !entry.blob) return null;
+    const blobRes = await fetch("./vault/" + entry.blob + "?_=" + Date.now(), { cache: "no-store" });
+    if (!blobRes.ok) return null;
+    const sealed = new Uint8Array(await blobRes.arrayBuffer());
+    const iv = sealed.slice(0, 12);
+    const body = sealed.slice(12);
+    const plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv }, derived.key, body);
+    return JSON.parse(new TextDecoder().decode(plain));
+  }
 
   /* ---------- session ---------- */
 
@@ -130,9 +164,19 @@
             if (st) return { role: "family", studentId: st.id, name: st.name, pin: trimmed };
           }
         } catch (_) {}
+        try {
+          const data = await _vaultFamilyLogin(trimmed);
+          if (data && data.students && data.students.length) {
+            const student = data.students[0];
+            if (typeof window.NGE_DATA_HYDRATE === "function") window.NGE_DATA_HYDRATE(data);
+            return { role: "family", studentId: student.id, name: student.name, pin: trimmed };
+          }
+        } catch (vaultError) {
+          console.warn("[tryLogin] vault fallback failed:", vaultError && vaultError.message);
+        }
         const msg = e && e.message ? e.message : "";
-        if (/Failed to fetch|Load failed|NetworkError|Network request failed/i.test(msg)) {
-          throw new Error("Сервер кабинета не открылся в этом браузере. Проверьте интернет, выключите блокировщик/Private Relay для сайта и попробуйте ещё раз.");
+        if (/Failed to fetch|Load failed|NetworkError|Network request failed|Сервер не отвечает/i.test(msg)) {
+          throw new Error("Сервер кабинета не ответил, и запасной вход не нашёл этот PIN. Проверьте PIN или попробуйте другую сеть.");
         }
         throw e;
       }
