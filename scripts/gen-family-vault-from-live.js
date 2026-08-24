@@ -5,12 +5,14 @@ const crypto = require("crypto");
 const ROOT = path.resolve(__dirname, "..");
 const CABINET_JS = path.join(ROOT, "cabinet", "cabinet.js");
 const OUT_DIR = path.join(ROOT, "cabinet", "vault");
+const TMP_DIR = path.join(ROOT, "cabinet", ".vault-next");
 const SB_URL = "https://iqzlphbvmfgoygnozbya.supabase.co";
 const PBKDF2_ITER = 600000;
 const SALT_BYTES = 16;
 const IV_BYTES = 12;
 const KEY_BYTES = 32;
 const LOOKUP_HEX = 16;
+const FETCH_TIMEOUT_MS = 15000;
 
 function getAnon() {
   const js = fs.readFileSync(CABINET_JS, "utf8");
@@ -33,41 +35,60 @@ function encryptJSON(obj, key) {
   return Buffer.concat([iv, ciphertext, tag]);
 }
 function blobName() { return crypto.randomBytes(16).toString("hex") + ".enc"; }
-
+function resetDir(dir) {
+  fs.rmSync(dir, { recursive: true, force: true });
+  fs.mkdirSync(dir, { recursive: true });
+}
+async function fetchFamilyData(anon, pin) {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
+  try {
+    const res = await fetch(SB_URL + "/functions/v1/family-data", {
+      method: "POST",
+      headers: { Authorization: "Bearer " + anon, "Content-Type": "application/json" },
+      body: JSON.stringify({ pin }),
+      signal: ctrl.signal,
+    });
+    if (!res.ok) throw new Error("family-data HTTP " + res.status + ": " + await res.text());
+    return await res.json();
+  } catch (e) {
+    if (e && e.name === "AbortError") throw new Error("family-data timeout");
+    throw e;
+  } finally {
+    clearTimeout(timer);
+  }
+}
 async function main() {
   const pins = (process.env.CABINET_PIN_LIST || "")
     .split(/[,;\s]+/)
     .map(s => s.trim())
     .filter(Boolean);
   if (!pins.length) throw new Error("Set CABINET_PIN_LIST=<comma-separated-active-pins>");
+  if (!pins.every(p => /^\d{4}$/.test(p))) throw new Error("CABINET_PIN_LIST must contain only 4-digit PINs");
   if (new Set(pins).size !== pins.length) throw new Error("Duplicate PIN in CABINET_PIN_LIST");
+
   const anon = getAnon();
-  fs.mkdirSync(OUT_DIR, { recursive: true });
-  for (const f of fs.readdirSync(OUT_DIR)) fs.unlinkSync(path.join(OUT_DIR, f));
+  resetDir(TMP_DIR);
   const salt = crypto.randomBytes(SALT_BYTES);
   const users = [];
+  let n = 0;
   for (const pin of pins) {
-    const res = await fetch(`${SB_URL}/functions/v1/family-data`, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${anon}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ pin }),
-    });
-    if (!res.ok) throw new Error(`family-data ${pin} HTTP ${res.status}: ${await res.text()}`);
-    const data = await res.json();
-    if (!data.students || !data.students.length) throw new Error(`family-data ${pin}: empty students`);
+    n += 1;
+    const data = await fetchFamilyData(anon, pin);
+    if (!data.students || !data.students.length) throw new Error("family-data entry " + n + ": empty students");
     const key = deriveKey(pin, salt);
     const hash = lookupHash(key);
     if (users.some(u => u.hash === hash)) throw new Error("lookup collision");
     const blob = blobName();
-    fs.writeFileSync(path.join(OUT_DIR, blob), encryptJSON(data, key));
+    fs.writeFileSync(path.join(TMP_DIR, blob), encryptJSON(data, key));
     users.push({ hash, blob });
-    console.log(`${pin} -> ${data.students[0].id} -> ${blob}`);
+    console.log("entry " + n + " -> " + data.students[0].id + " -> " + blob);
   }
   for (let i = users.length - 1; i > 0; i--) {
     const j = crypto.randomInt(i + 1);
     [users[i], users[j]] = [users[j], users[i]];
   }
-  fs.writeFileSync(path.join(OUT_DIR, "index.json"), JSON.stringify({
+  fs.writeFileSync(path.join(TMP_DIR, "index.json"), JSON.stringify({
     version: 2,
     mode: "family-data-fallback",
     generated: new Date().toISOString(),
@@ -75,6 +96,13 @@ async function main() {
     iter: PBKDF2_ITER,
     users,
   }, null, 2));
-  console.log(`Wrote ${users.length} family vault entries to ${OUT_DIR}`);
+
+  fs.rmSync(OUT_DIR, { recursive: true, force: true });
+  fs.renameSync(TMP_DIR, OUT_DIR);
+  console.log("Wrote " + users.length + " family vault entries to " + OUT_DIR);
 }
-main().catch(e => { console.error(e); process.exit(1); });
+main().catch(e => {
+  try { fs.rmSync(TMP_DIR, { recursive: true, force: true }); } catch (_) {}
+  console.error(e);
+  process.exit(1);
+});

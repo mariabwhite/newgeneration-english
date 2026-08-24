@@ -21,7 +21,7 @@
  *   cabinet PIN — so the login screen was an inescapable dead end.
  *
  *   Also: /lingua-boost-lab/.homework/ was gated by the same script, which
- *   caused a cross-origin loop between cabinet.newgeneration-english.ru
+ *   caused a cross-origin loop between the old cabinet subdomain
  *   (Cloudflare Pages) and newgeneration-english.ru (GH Pages) because the
  *   unlock flag lives in localStorage per-origin and doesn't cross domains.
  *

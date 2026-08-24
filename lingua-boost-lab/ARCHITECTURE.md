@@ -341,7 +341,7 @@ localStorage `lab-lex:<pathname>` · TTL 7 дней · MutationObserver ре-б�
 ## 17. Домен, кэш, deploy — что запомнить
 
 - `newgeneration-english.ru` = **GitHub Pages + Fastly CDN** (не Cloudflare, как раньше писали!). HTML `Cache-Control: max-age=600` = 10 мин. Ctrl+Shift+R обходит.
-- Кабинет `cabinet.newgeneration-english.ru` = **Cloudflare Pages**, `no-cache, must-revalidate`. Свежее сразу.
+- Канонический кабинет: `https://newgeneration-english.ru/cabinet/`. Старый `cabinet.newgeneration-english.ru` должен только редиректить на `/cabinet/`, чтобы не повторять split-brain.
 - **Двойной push обязателен** (feedback: `feedback_dual_push_lab_repos.md`):
   1. `site-public-clean/` → `mariabwhite/newgeneration-english` main (production)
   2. `site/` → `mariabwhite/newgeneration` **`gh-pages`** (NOT `deploy-gh-pages` — legacy branch, ничего не деплоит)
