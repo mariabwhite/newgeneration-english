@@ -630,18 +630,7 @@ h3.micro-h:first-of-type{padding-top:0;border-top:0}
 /* ═══ LISTENING (S6) small overrides ═══ */
 .listen-transcript.show{display:block !important}
 
-/* ═══ TABS (Lesson | Workbook) ═══ */
-.tabs-nav{width:min(1240px,calc(100% - clamp(32px,6vw,56px)));margin:22px auto 6px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.tab-btn{background:var(--card);border:2px solid var(--line);border-radius:6px;padding:11px 26px;font-family:var(--display);font-weight:700;font-size:1rem;color:var(--muted);cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:8px;letter-spacing:.01em}
-.tab-btn:hover{border-color:var(--turq);color:var(--turq-dark);transform:translateY(-1px)}
-.tab-btn.active{background:var(--turq);color:#fff;border-color:var(--turq-dark);box-shadow:0 4px 14px var(--turq-ring)}
-/* tab-panels always visible so canon-L (lab-pilot lift + lab-homework btns + lab-vocab-builder) sees ALL sections */
-.tab-panel{display:block}
-.tab-panel.active{display:block}
-.tab-panel + .tab-panel{margin-top:40px;padding-top:20px;border-top:2px dashed var(--line-2)}
-#tab-workbook .sec-num{background:var(--coral)}
-#tab-workbook .sec-num.grammar{background:var(--coral)}
-#tab-workbook .sec{border-top-color:var(--coral)}
+
 
 /* ═══ HERO with background banner (memory: hero = bg, not <img>) ═══ */
 
@@ -712,25 +701,8 @@ h3.micro-h:first-of-type{padding-top:0;border-top:0}
   .hero-inner.hero-bg h1, .hero-inner.hero-bg p, .hero-inner.hero-bg .meta{ max-width: 100%; }
 }
 </style>
-<script>
-function switchTab(key, btn){
-  document.querySelectorAll('.tab-btn').forEach(x=>x.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-  // Tab-panels stay always visible so canon-L infra (lift + homework btns) works.
-  // Tab-nav is now anchor-scroll navigation.
-  const target = document.getElementById('tab-'+key);
-  if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
-}
-</script>
 </head>
 <body>
-
-<nav class="tabs-nav">
-  <button class="tab-btn active" data-tab="lesson" onclick="switchTab('lesson',this)">📖 Lesson</button>
-  <button class="tab-btn" data-tab="workbook" onclick="switchTab('workbook',this)">📝 Workbook</button>
-</nav>
-
-<div id="tab-lesson" class="tab-panel active">
 
 <div class="hero">
   <div class="hero-inner hero-bg">
@@ -1548,11 +1520,6 @@ function switchTab(key, btn){
   </div>
 </section>
 
-</div><!-- /#tab-lesson -->
-
-
-<div id="tab-workbook" class="tab-panel">
-
 <div class="hero">
   <div class="hero-inner">
     <div>
@@ -1862,8 +1829,6 @@ function switchTab(key, btn){
     <div class="gap" data-a="don't understand what|do not understand what"><span class="gap-num">8.</span><span class="gap-txt">Your question is not clear to me. <b>UNDERSTAND</b><br>I <input class="gap-inp"> you mean.</span></div>
   </div>
 </section>
-
-</div><!-- /#tab-workbook -->
 
 <div class="foot">
   <b>NEW GENERATION ENGLISH</b> · Lesson 02 · 25 Aug 2026 · Sonya Simarzina · Present Simple vs Present Continuous + Spelling
@@ -2291,14 +2256,7 @@ document.querySelector('[data-check-all]').onclick=()=>{
 };
 
 
-/* ═══ TAB SWITCH · Lesson / Workbook ═══ */
-document.querySelectorAll('.tab-btn').forEach(b=>{
-  b.addEventListener('click', ()=>{
-    const key = b.dataset.tab;
-    document.querySelectorAll('.tab-btn').forEach(x=>x.classList.toggle('active', x.dataset.tab===key));
-    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active', p.id==='tab-'+key));
-    window.scrollTo({top:0, behavior:'smooth'});
-  });
+});
 });
 
 
