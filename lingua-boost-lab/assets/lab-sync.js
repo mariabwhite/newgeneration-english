@@ -340,19 +340,6 @@
     var name = '';
     try { name = localStorage.getItem('lab-student-name') || ''; } catch(e){}
 
-    var realtimeParam = qs('realtime') || qs('live');
-    var realtimeEnabled = realtimeParam === 'on' || realtimeParam === '1';
-    try {
-      if (realtimeEnabled) localStorage.setItem('lab-realtime-enabled', 'on');
-      if (realtimeParam === 'off' || realtimeParam === '0') localStorage.removeItem('lab-realtime-enabled');
-      realtimeEnabled = realtimeEnabled || localStorage.getItem('lab-realtime-enabled') === 'on';
-    } catch(e){}
-    if (!realtimeEnabled) {
-      window.__labRealtimeDisabled = true;
-      window.__labVocabSend = window.__labVocabSend || function(){};
-      return;
-    }
-
     // TEACHER banner — рендерится СРАЗУ, независимо от Supabase SDK.
     // Раньше банер висел внутри loadSDK().then() — если SDK не грузился
     // (сеть/CDN/RU-блок Supabase), банер не появлялся вообще. Теперь UI
@@ -418,6 +405,22 @@
         addBtnPre.addEventListener('click', localPush);
         inpPre.addEventListener('keydown', function(e){ if (e.key === 'Enter') localPush(); });
       }
+    }
+
+    // Realtime guard — стоит ПОСЛЕ teacher banner, чтобы UI корзиночки
+    // жил независимо от Supabase firehose (см. 7b9b05b3 emergency stop-crane
+    // → регрессия banner: guard был ВЫШЕ, отрезал banner. Восстановлено v24).
+    var realtimeParam = qs('realtime') || qs('live');
+    var realtimeEnabled = realtimeParam === 'on' || realtimeParam === '1';
+    try {
+      if (realtimeEnabled) localStorage.setItem('lab-realtime-enabled', 'on');
+      if (realtimeParam === 'off' || realtimeParam === '0') localStorage.removeItem('lab-realtime-enabled');
+      realtimeEnabled = realtimeEnabled || localStorage.getItem('lab-realtime-enabled') === 'on';
+    } catch(e){}
+    if (!realtimeEnabled) {
+      window.__labRealtimeDisabled = true;
+      window.__labVocabSend = window.__labVocabSend || function(){};
+      return;
     }
 
     loadSDK().then(function(sb){
