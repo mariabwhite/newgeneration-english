@@ -1,0 +1,2062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Julia · Irregular Verbs · LinguaBoost Lab</title>
+<meta name="description" content="Beginner English lesson: 100 most common irregular verbs in Past Simple. Four patterns, story, drills, workbook, voice — no boring lists.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/lab-pilot.css?v=8">
+<style>
+:root{
+  /* irregular-verbs palette — blue → violet → indigo gradient family */
+  --bg:#F4F0FB;--surface:#FDFBFF;
+  --accent:#8B7ED1;      /* soft violet */
+  --accent2:#6EA8DB;     /* sky blue */
+  --accent3:#B9A9E6;     /* pale lavender */
+  --indigo:#4B4691;      /* deep indigo */
+  --mint:#B7D9C4;--gold:#F0C674;
+  --ink:#3D3557;--muted:#8880A5;
+  --ok:#7CA07A;--miss:#D48FA5;
+  --card-border:#E4DCF3;
+  --radius:18px;--shadow:0 4px 20px rgba(75,70,145,.10);
+  --display:'Unbounded','Manrope',sans-serif;--body:'Manrope',sans-serif;--mono:'JetBrains Mono',Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);font-family:var(--body);color:var(--ink);min-height:100vh;overflow-x:hidden;line-height:1.55;font-size:17px}
+.topbar{position:relative;z-index:100;display:flex;align-items:center;gap:14px;padding:10px clamp(14px,3vw,24px);background:rgba(253,251,255,.92);border-bottom:1px solid rgba(75,70,145,.08);backdrop-filter:blur(14px)}
+.brand{font-family:var(--display);font-weight:800;font-size:.95rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand-mark{width:38px;height:38px;border-radius:9px 0 9px 9px;background:#E8542B;color:#fff;font-family:var(--display);font-weight:800;font-size:1.2rem;display:grid;place-items:center;position:relative;overflow:hidden;flex-shrink:0}
+.brand-mark::after{content:"";position:absolute;right:0;top:0;width:14px;height:14px;background:#fff;clip-path:polygon(100% 0, 0 0, 100% 100%)}
+.brand-copy{display:grid;gap:1px}
+.brand-name{font-weight:800;font-size:.95rem;line-height:1}
+.brand-sub{font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.spacer{flex:1}
+.btn-sm{min-height:32px;padding:0 12px;border-radius:8px;font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border:1px solid rgba(75,70,145,.16);background:transparent;color:var(--muted);text-decoration:none;display:inline-flex;align-items:center}
+.btn-sm:hover{border-color:var(--accent);color:var(--accent)}
+
+.hero{max-width:1240px;margin:18px auto 12px;padding:0 clamp(16px,3vw,28px)}
+.hero-card{background:linear-gradient(135deg,#6EA8DB 0%,#8B7ED1 45%,#B9A9E6 75%,#4B4691 100%);border-radius:24px;padding:36px 24px;box-shadow:var(--shadow);text-align:center;position:relative;overflow:hidden;min-height:260px;display:flex;flex-direction:column;justify-content:center}
+.hero-card.hero-photo{background:url('img/hero.png') center 32%/cover no-repeat;min-height:380px;padding:36px 24px;position:relative;display:flex;flex-direction:column;justify-content:flex-end}
+.hero-card.hero-photo::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0) 40%,rgba(75,70,145,.45) 100%),linear-gradient(135deg,rgba(110,168,219,.20) 0%,rgba(139,126,209,.20) 60%,rgba(75,70,145,.35) 100%);border-radius:24px;pointer-events:none;opacity:0}
+#tab-lesson .hero-card.hero-photo::before{opacity:1}
+.hero-card.hero-photo::after{display:none}
+.hero-card.hero-photo h1,.hero-card.hero-photo .sub,.hero-card.hero-photo .tags{position:relative;z-index:2}
+.hero-card.hero-photo h1{text-shadow:2px 2px 0 rgba(75,70,145,.55),0 0 24px rgba(0,0,0,.4)}
+.hero-card.hero-photo .sub{text-shadow:1px 1px 0 rgba(75,70,145,.6)}
+
+.story-img{width:100%;max-width:520px;border-radius:14px;box-shadow:0 6px 20px rgba(75,70,145,.16);display:block;margin:14px auto 8px;border:1px solid var(--card-border);cursor:pointer;transition:transform .15s}
+.story-img:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(75,70,145,.22)}
+.lesson-img{width:100%;max-width:640px;border-radius:14px;box-shadow:0 6px 20px rgba(75,70,145,.16);display:block;margin:10px auto 12px;border:1px solid var(--card-border);cursor:pointer}
+
+/* Reading · 2-col text + workbook-page visual */
+.reading-2col{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(300px,1fr);gap:22px;align-items:start;margin-top:12px}
+.reading-2col .r-body-col{min-width:0}
+.reading-2col .r-visual{position:sticky;top:14px;background:#fff;border:1px solid var(--card-border);border-radius:14px;padding:10px;box-shadow:0 4px 14px rgba(75,70,145,.10)}
+.reading-2col .r-visual img{display:block;width:100%;height:auto;border-radius:10px;cursor:zoom-in}
+.reading-2col .r-visual .r-task{margin-top:10px;padding:10px 12px;background:#F4EEFC;border-radius:10px;font-size:.88rem;line-height:1.5;color:var(--ink)}
+.reading-2col .r-visual .r-task strong{color:var(--accent)}
+@media (max-width:900px){.reading-2col{grid-template-columns:1fr}.reading-2col .r-visual{position:static}}
+.find15-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--accent2),var(--accent));color:#fff;padding:6px 14px;border-radius:99px;font-family:var(--mono);font-size:.75rem;font-weight:800;letter-spacing:.06em;margin:4px 0}
+.rv.tapped{background:linear-gradient(transparent 30%,#B9A9E6 30%)!important;color:var(--indigo);position:relative}
+.rv.tapped::after{content:"✓";position:absolute;top:-8px;right:-6px;background:var(--ok);color:#fff;width:14px;height:14px;border-radius:50%;font-size:.65rem;font-weight:800;display:grid;place-items:center}
+
+/* Literary-anthology cover style */
+.lit-cover{background:linear-gradient(135deg,#F4EEFC,#EAF3FB);border:1.5px dashed var(--accent);border-radius:12px;padding:12px 18px;margin-bottom:14px;text-align:center}
+.lit-cover .lit-author{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:800}
+.lit-cover .lit-title{font-family:var(--display);font-size:1.15rem;font-weight:800;color:var(--indigo);margin:4px 0}
+.lit-cover .lit-year{font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.06em}
+.hero-card::before,.hero-card::after{content:"";position:absolute;border-radius:50%;opacity:.35}
+.hero-card::before{width:140px;height:140px;background:#fff;top:-40px;right:-40px}
+.hero-card::after{width:90px;height:90px;background:#F0C674;bottom:-20px;left:24px;opacity:.5}
+.hero-card h1{font-family:var(--display);font-size:clamp(1.7rem,5vw,2.6rem);font-weight:700;color:#fff;text-shadow:1px 1px 0 rgba(75,70,145,.35);line-height:1.1;position:relative;z-index:1}
+.hero-card .sub{font-size:.98rem;color:#fff;font-weight:700;margin-top:10px;letter-spacing:.02em;position:relative;z-index:1;text-shadow:1px 1px 0 rgba(75,70,145,.35)}
+.hero-card .tags{margin-top:16px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;position:relative;z-index:1}
+.hero-card .tag{background:rgba(255,255,255,.9);color:var(--indigo);padding:6px 14px;border-radius:99px;font-size:.72rem;font-weight:800;letter-spacing:.04em}
+
+.progress{max-width:1240px;margin:0 auto 18px;padding:0 clamp(16px,3vw,28px)}
+.dots{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.dot{width:14px;height:14px;border-radius:50%;background:#e8dff5;border:2px solid #d3c5ee;transition:.3s;cursor:pointer}
+.dot.lit{background:var(--accent);border-color:var(--indigo);box-shadow:0 0 0 3px rgba(139,126,209,.32);transform:scale(1.1)}
+
+.section{max-width:1240px;margin:0 auto 28px;padding:0 clamp(16px,3vw,28px)}
+.section-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.section-head .n{width:38px;height:38px;border-radius:50%;background:var(--accent);color:#fff;font-family:var(--display);font-weight:700;font-size:1.1rem;display:grid;place-items:center;flex-shrink:0;box-shadow:0 3px 8px rgba(139,126,209,.4)}
+.section-head h2{font-family:var(--display);font-size:1.3rem;font-weight:700;color:var(--ink)}
+.section-sub{font-size:.78rem;color:var(--muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;margin-left:50px;margin-bottom:10px}
+
+.card{background:var(--surface);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);border:1px solid var(--card-border);margin-bottom:10px}
+h3{font-family:var(--display);font-size:1.05rem;font-weight:700;margin-bottom:10px;color:var(--ink)}
+p{margin-bottom:8px}
+strong{font-weight:800}
+.hi-violet{background:linear-gradient(transparent 60%,#E1D8F4 60%);font-weight:800;padding:0 2px}
+.hi-blue{background:linear-gradient(transparent 60%,#D5E5F5 60%);font-weight:800;padding:0 2px}
+.hi-indigo{background:linear-gradient(transparent 60%,#C6BEE9 60%);font-weight:800;padding:0 2px;color:var(--indigo)}
+.hi-gold{background:linear-gradient(transparent 60%,#FBE8BE 60%);font-weight:800;padding:0 2px}
+
+.story p{font-size:1rem;line-height:1.75;margin-bottom:6px}
+.story .speak-line{cursor:pointer;border-radius:8px;padding:4px 8px;transition:.15s;display:inline-block}
+.story .speak-line:hover{background:#eee5fa}
+
+.audio-row{display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,#EEE5FA,#F4EEFC);border-radius:14px;padding:12px 16px;margin:10px 0;border-left:5px solid var(--accent)}
+.audio-row .play-btn{width:44px;height:44px;border-radius:50%;background:var(--accent);color:#fff;border:none;font-size:1.3rem;cursor:pointer;display:grid;place-items:center;flex-shrink:0;box-shadow:0 3px 8px rgba(139,126,209,.5)}
+.audio-row .play-btn:hover{transform:scale(1.08)}
+.audio-row .label{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.audio-row .text{flex:1;font-weight:700;font-size:.95rem}
+
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.vocab-card{background:#fff;border:2px solid var(--card-border);border-radius:14px;padding:12px 8px 14px;text-align:center;cursor:pointer;transition:.15s;font-weight:800;font-size:.95rem;position:relative;color:var(--ink)}
+.vocab-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 4px 12px rgba(139,126,209,.22)}
+.vocab-card .emoji{font-size:2.1rem;display:block;margin-bottom:6px}
+.vocab-card .base{color:var(--accent2);font-size:1.05rem;letter-spacing:.02em}
+.vocab-card .arrow{color:var(--muted);font-family:var(--mono);font-size:.75rem;margin:4px 0 2px;display:block}
+.vocab-card .past{color:var(--accent);font-size:1.05rem;letter-spacing:.02em}
+.vocab-card.played{background:#f5eefb;border-color:var(--accent)}
+
+.choice-row{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0}
+.choice{background:#fff;border:2px solid var(--card-border);border-radius:14px;padding:10px 18px;cursor:pointer;font-weight:700;transition:.15s;color:var(--ink);font-family:inherit;font-size:.95rem}
+.choice:hover{border-color:var(--accent);transform:translateY(-1px)}
+.choice.right{background:#e4efe0;border-color:var(--ok);color:#5e7c56}
+.choice.wrong{background:#f7dede;border-color:var(--miss);color:#a35a5a;animation:shake .35s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
+
+.q-block{background:#f6f0fb;border-radius:14px;padding:14px 16px;margin:10px 0;border:1px solid #e4d8f2}
+.q-block .q-text{font-weight:700;margin-bottom:8px;font-size:.95rem;color:var(--ink)}
+
+.gap-line{padding:8px 10px;background:#fff;border-radius:10px;margin-bottom:6px;font-size:.95rem;border:1px solid var(--card-border)}
+.mcq{border:2px solid var(--card-border);border-radius:8px;padding:4px 8px;font-family:inherit;font-weight:700;background:#fdfbff;color:var(--ink);cursor:pointer;font-size:.9rem}
+.mcq.right{background:#e4efe0;border-color:var(--ok);color:#5e7c56}
+.mcq.wrong{background:#f7dede;border-color:var(--miss);color:#a35a5a;animation:shake .35s}
+.gap{display:inline-block;min-width:80px;background:#f0e6fa;border:2px dashed var(--accent);color:var(--accent);border-radius:8px;padding:2px 10px;font-weight:800;text-align:center;cursor:pointer;transition:.15s;font-family:var(--mono);font-size:.9rem}
+.gap:hover{background:#e5d6f5}
+.gap.filled{background:#e4efe0;border-color:var(--ok);color:#5e7c56;border-style:solid}
+.gap.selected-gap{box-shadow:0 0 0 3px var(--accent)}
+.gap.wrong{background:#f7dede;border-color:var(--miss);color:#a35a5a;animation:shake .35s}
+.kid-bank{display:flex;gap:6px;flex-wrap:wrap;background:#eee5fa;border-radius:12px;padding:10px;margin-top:10px;border:1px dashed var(--accent)}
+.kid-bank-word{background:#fff;border:2px solid var(--card-border);border-radius:8px;padding:5px 12px;cursor:pointer;font-weight:700;font-size:.88rem;transition:.15s;color:var(--ink)}
+.kid-bank-word:hover{border-color:var(--accent);transform:translateY(-1px)}
+.kid-bank-word.used{opacity:.35;text-decoration:line-through;pointer-events:none}
+
+.verb-table{display:grid;grid-template-columns:1fr 30px 1fr 30px 1fr;gap:6px 10px;align-items:center;margin:10px 0}
+.verb-cell{background:#fff;border:2px solid var(--card-border);border-radius:10px;padding:8px 12px;text-align:center;font-weight:800;cursor:pointer;transition:.15s;font-size:.95rem;color:var(--ink)}
+.verb-cell:hover{border-color:var(--accent);transform:translateY(-1px);background:#f5eefb}
+.verb-cell.base{color:var(--accent2)}
+.verb-cell.past{color:var(--accent)}
+.verb-cell.pp{color:var(--indigo)}
+.verb-arrow{text-align:center;color:var(--muted);font-weight:800;font-size:1rem}
+
+.match-cols{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+.match-item{background:#fff;border:2px solid var(--card-border);border-radius:10px;padding:8px 12px;cursor:pointer;font-weight:700;transition:.15s;font-size:.92rem;text-align:center;color:var(--ink)}
+.match-item:hover{border-color:var(--accent);transform:translateY(-1px)}
+.match-item.selected{background:#f0e6fa;border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.match-item.matched{background:#e4efe0;border-color:var(--ok);color:#5e7c56;pointer-events:none;opacity:.75}
+.match-item.wrong{background:#f7dede;border-color:var(--miss);animation:shake .35s}
+
+.drop-zone{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-top:10px}
+.drop-basket{background:#fff;border:2px dashed var(--accent2);border-radius:14px;padding:10px;min-height:100px}
+.drop-basket h4{font-family:var(--display);font-size:.85rem;font-weight:800;color:var(--accent2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;text-align:center}
+.drop-basket.pat-A{border-color:var(--accent2)}
+.drop-basket.pat-A h4{color:var(--accent2)}
+.drop-basket.pat-B{border-color:var(--accent)}
+.drop-basket.pat-B h4{color:var(--accent)}
+.drop-basket.pat-C{border-color:var(--indigo)}
+.drop-basket.pat-C h4{color:var(--indigo)}
+.drop-basket.pat-D{border-color:var(--gold)}
+.drop-basket.pat-D h4{color:#b7863d}
+.drop-basket-items{display:flex;flex-wrap:wrap;gap:4px;min-height:44px}
+.drop-basket-items .drop-word{background:#eee5fa;border:1.5px solid var(--accent);color:var(--accent);padding:4px 10px;border-radius:8px;font-weight:700;font-size:.85rem;text-align:center;cursor:pointer}
+.drop-basket-items .drop-word.wrong-drop{background:#f7dede;border-color:var(--miss);color:#a35a5a;animation:shake .35s}
+.drop-pool{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px;padding:10px;background:#eee5fa;border:1px dashed var(--accent);border-radius:12px;justify-content:center}
+.drop-token{background:#fff;border:2px solid var(--card-border);border-radius:8px;padding:6px 12px;cursor:pointer;font-weight:700;font-size:.88rem;transition:.15s;color:var(--ink)}
+.drop-token:hover{border-color:var(--accent);transform:translateY(-1px)}
+.drop-token.selected{background:#f0e6fa;border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.drop-token.used{opacity:.32;text-decoration:line-through;pointer-events:none}
+
+.tts-hint{font-size:.78rem;color:var(--muted);margin-top:8px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;font-weight:700;text-align:center}
+
+.reward{background:linear-gradient(135deg,var(--accent),var(--indigo));color:#fff;border-radius:20px;padding:24px;text-align:center;margin-top:14px;box-shadow:0 8px 24px rgba(75,70,145,.4)}
+.reward h2{font-family:var(--display);color:#fff;text-shadow:1px 1px 0 rgba(75,70,145,.25);margin-bottom:10px}
+.reward .stars{font-size:2rem;margin-bottom:6px}
+.reward .word-of-day{background:#fff;color:var(--accent);font-family:var(--display);font-weight:800;font-size:1.6rem;padding:10px 18px;border-radius:14px;display:inline-block;margin-top:8px;box-shadow:0 4px 12px rgba(75,70,145,.15)}
+
+.score-badge{display:inline-flex;align-items:center;gap:10px;margin-top:14px;padding:8px 14px;border-radius:10px;background:#eee5fa;border:1px solid var(--card-border);font-family:var(--mono);font-size:.78rem;font-weight:800;color:var(--accent)}
+
+footer{text-align:center;padding:20px;color:var(--muted);font-size:.85rem;background:#eee5fa;margin-top:20px;font-weight:600}
+
+/* Tabs */
+.tabs-nav{max-width:1240px;margin:14px auto 6px;padding:0 clamp(16px,3vw,28px);display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.tab-btn{background:#fff;border:2px solid var(--card-border);border-radius:14px;padding:12px 28px;font-family:var(--display);font-weight:700;font-size:1rem;color:var(--muted);cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:8px}
+.tab-btn:hover{border-color:var(--accent);color:var(--ink);transform:translateY(-1px)}
+.tab-btn.active{background:linear-gradient(135deg,var(--accent2),var(--accent),var(--indigo));color:#fff;border-color:transparent;box-shadow:0 6px 18px rgba(75,70,145,.4)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+#tab-workbook .section-head .n{background:var(--indigo)}
+#tab-workbook .card{background:#FBFAFF}
+
+.rule-box{background:linear-gradient(135deg,#F4EEFC,#EAF2FA);border:2px dashed var(--accent3);border-radius:14px;padding:14px 18px;margin:10px 0;line-height:1.6}
+.rule-box h4{font-family:var(--display);font-weight:700;color:var(--accent);margin:8px 0 6px;font-size:.98rem}
+.rule-box code{background:#fff;padding:2px 8px;border-radius:6px;font-family:var(--mono);font-weight:800;color:var(--ink);border:1px solid var(--card-border)}
+.rule-box .ipa{font-family:var(--mono);font-weight:800;color:var(--accent);background:#fff;padding:2px 8px;border-radius:6px;border:1px solid var(--card-border)}
+.rule-box table{width:100%;border-collapse:collapse;margin-top:8px}
+.rule-box th,.rule-box td{padding:6px 10px;border:1px solid var(--card-border);text-align:left;font-size:.9rem}
+.rule-box th{background:#fff;font-family:var(--display);font-weight:700;color:var(--accent);text-transform:uppercase;font-size:.72rem;letter-spacing:.06em}
+.rule-box td{background:#fdfbff}
+
+.pattern-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:12px 0}
+.pattern-cell{background:#fff;border:2px solid var(--card-border);border-radius:14px;padding:14px}
+.pattern-cell.pA{border-color:var(--accent2);background:linear-gradient(180deg,#EAF3FB 0%,#fff 100%)}
+.pattern-cell.pB{border-color:var(--accent);background:linear-gradient(180deg,#F1E9FA 0%,#fff 100%)}
+.pattern-cell.pC{border-color:var(--indigo);background:linear-gradient(180deg,#E5E1F4 0%,#fff 100%)}
+.pattern-cell.pD{border-color:var(--gold);background:linear-gradient(180deg,#FBF3DF 0%,#fff 100%)}
+.pattern-cell h4{font-family:var(--display);font-weight:800;margin-bottom:6px;font-size:1rem}
+.pattern-cell.pA h4{color:var(--accent2)}
+.pattern-cell.pB h4{color:var(--accent)}
+.pattern-cell.pC h4{color:var(--indigo)}
+.pattern-cell.pD h4{color:#b7863d}
+.pattern-cell .pat-example{font-family:var(--mono);font-weight:800;font-size:.95rem;margin:6px 0}
+.pattern-cell .pat-note{font-size:.85rem;color:var(--muted)}
+
+/* Word-order builder */
+.wo-item{background:#f6f0fb;border:2px dashed var(--accent);border-radius:12px;padding:10px 14px;margin:10px 0}
+.wo-item .wo-prompt{font-family:var(--mono);font-size:.72rem;font-weight:800;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.wo-target{min-height:44px;background:#fff;border:2px solid var(--card-border);border-radius:10px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.wo-target:empty::before{content:"tap words below in the right order →";color:var(--muted);font-family:var(--mono);font-size:.78rem;letter-spacing:.06em}
+.wo-pool{display:flex;flex-wrap:wrap;gap:6px;padding:8px;background:#eee5fa;border:1px dashed var(--accent3);border-radius:10px}
+.wo-chip{background:#fff;border:2px solid var(--card-border);border-radius:8px;padding:6px 14px;font-weight:700;font-size:.9rem;cursor:pointer;color:var(--ink);transition:.12s;font-family:inherit}
+.wo-chip:hover{border-color:var(--accent);transform:translateY(-1px)}
+.wo-chip.placed{opacity:.35;pointer-events:none;text-decoration:line-through}
+.wo-target .wo-chip{background:#eaf3fb;border-color:var(--accent2);color:var(--accent2)}
+.wo-actions{display:flex;gap:8px;margin-top:8px;justify-content:flex-end}
+.wo-btn{background:var(--accent);color:#fff;border:none;border-radius:8px;padding:6px 14px;font-family:var(--mono);font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.wo-btn.wo-clear{background:transparent;color:var(--muted);border:1px solid var(--card-border)}
+.wo-item.ok{background:#e4efe0;border-color:var(--ok)}
+.wo-item.err{animation:shake .35s}
+
+.type-row{display:flex;align-items:center;gap:8px;margin:6px 0;padding:8px 10px;background:#fff;border:1px solid var(--card-border);border-radius:10px}
+.type-row .base-word{flex:0 0 auto;font-family:var(--mono);font-weight:800;color:var(--accent2);min-width:110px}
+.type-row .type-arrow{color:var(--muted);font-family:var(--mono);font-weight:800}
+.type-row input.type-input{flex:1;border:2px solid var(--card-border);border-radius:8px;padding:6px 10px;font-family:inherit;font-weight:800;font-size:.95rem;color:var(--ink);background:#fdfbff;min-width:80px;text-transform:lowercase}
+.type-row input.type-input:focus{outline:none;border-color:var(--accent)}
+.type-row input.type-input.right{background:#e4efe0;border-color:var(--ok);color:#5e7c56}
+.type-row input.type-input.wrong{background:#f7dede;border-color:var(--miss);color:#a35a5a;animation:shake .35s}
+
+/* Reference table for 100 verbs */
+.ref-controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.ref-search{flex:1;min-width:180px;padding:8px 12px;border:2px solid var(--card-border);border-radius:10px;font-family:inherit;font-size:.95rem;color:var(--ink);background:#fdfbff}
+.ref-search:focus{outline:none;border-color:var(--accent)}
+.ref-filter{padding:6px 10px;border:2px solid var(--card-border);border-radius:8px;background:#fff;font-family:var(--mono);font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;cursor:pointer;color:var(--muted)}
+.ref-filter.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.ref-table-wrap{max-height:520px;overflow:auto;border:1px solid var(--card-border);border-radius:12px}
+table.ref-table{width:100%;border-collapse:collapse;background:#fff}
+table.ref-table th{position:sticky;top:0;background:linear-gradient(180deg,#F4EEFC,#EAE1F5);font-family:var(--display);font-size:.78rem;font-weight:800;color:var(--indigo);text-transform:uppercase;letter-spacing:.06em;padding:10px 12px;text-align:left;border-bottom:2px solid var(--card-border);z-index:1}
+table.ref-table td{padding:8px 12px;border-bottom:1px solid #f0eaf8;font-size:.92rem;font-weight:600}
+table.ref-table tr:hover td{background:#faf7ff;cursor:pointer}
+table.ref-table td.base{color:var(--accent2);font-weight:800}
+table.ref-table td.past{color:var(--accent);font-weight:800}
+table.ref-table td.pp{color:var(--indigo);font-weight:800}
+table.ref-table td.tag{font-family:var(--mono);font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+table.ref-table tr.hidden{display:none}
+
+.tf-row{display:flex;align-items:center;gap:8px;padding:8px;background:#fff;border-radius:10px;margin-bottom:6px;border:1px solid var(--card-border)}
+.tf-row .tf-text{flex:1;font-size:.92rem;font-weight:600}
+.tf-btn{padding:6px 14px;border-radius:8px;border:2px solid var(--card-border);background:#fff;cursor:pointer;font-weight:800;font-size:.8rem;transition:.15s;color:var(--ink);font-family:inherit}
+.tf-btn:hover{border-color:var(--accent)}
+.tf-btn.yes-on{background:#e4efe0;border-color:var(--ok);color:#5e7c56}
+.tf-btn.no-on{background:#f7dede;border-color:var(--miss);color:#a35a5a;animation:shake .35s}
+
+/* Workbook · verb-table + exercise side-by-side */
+.wb-2col{display:grid;grid-template-columns:minmax(240px,1fr) minmax(0,2.2fr);gap:22px;align-items:stretch}
+.wb-2col .wb-ref{background:#fff;border:1px solid var(--card-border);border-radius:14px;padding:10px;box-shadow:0 4px 14px rgba(75,70,145,.08);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;overflow:hidden}
+.wb-2col .wb-ref img{display:block;width:100%;height:auto;max-height:100%;object-fit:contain;border-radius:10px}
+.wb-2col .wb-ref .wb-ref-caption{font-family:var(--mono);font-size:.68rem;font-weight:800;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:8px;padding:0 6px 4px;text-align:center}
+.wb-2col .wb-body{min-width:0}
+@media (max-width:820px){.wb-2col{grid-template-columns:1fr}.wb-2col .wb-ref{max-height:520px}}
+
+/* Reading tab */
+#tab-reading .section-head .n{background:var(--accent2)}
+#tab-reading .card{background:#FBFAFF}
+.reading-body{background:#fff;border:1px solid var(--card-border);border-radius:14px;padding:22px 26px;font-size:1.02rem;line-height:1.85;color:#2E2848}
+.reading-body p{margin-bottom:14px}
+.reading-body .drop-cap::first-letter{font-family:var(--display);font-size:3rem;float:left;line-height:.9;padding:4px 10px 0 0;color:var(--indigo)}
+.reading-body .rv{background:linear-gradient(transparent 60%,#E1D8F4 60%);font-weight:800;color:var(--indigo);cursor:pointer;padding:0 2px;border-radius:3px}
+.reading-body .rv:hover{background:linear-gradient(transparent 60%,#C6BEE9 60%)}
+.reading-body em{color:var(--muted);font-style:italic}
+.gloss-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin:12px 0}
+.gloss-card{background:#fff;border:2px solid var(--card-border);border-radius:10px;padding:10px 12px;cursor:pointer;transition:.15s}
+.gloss-card:hover{border-color:var(--accent);transform:translateY(-1px)}
+.gloss-card .g-verb{font-family:var(--display);font-weight:800;color:var(--accent);font-size:1rem}
+.gloss-card .g-forms{font-family:var(--mono);font-size:.78rem;color:var(--accent2);font-weight:700;letter-spacing:.04em}
+.gloss-card .g-ru{font-size:.88rem;color:var(--muted);margin-top:4px}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a class="brand" href="/lingua-boost-lab/premium.html">
+    <div class="brand-mark">N</div>
+    <div class="brand-copy">
+      <div class="brand-name">LINGUA BOOST · LAB</div>
+      <div class="brand-sub">Julia · Irregular Verbs</div>
+    </div>
+  </a>
+  <div class="spacer"></div>
+  <a href="/lingua-boost-lab/premium.html" class="btn-sm">All lessons</a>
+</nav>
+
+<nav class="tabs-nav">
+  <button class="tab-btn active" data-tab="lesson">📖 Lesson</button>
+  <button class="tab-btn" data-tab="workbook">📝 Workbook</button>
+  <button class="tab-btn" data-tab="reading">📚 Reading</button>
+</nav>
+
+<div id="tab-lesson" class="tab-panel active">
+
+<section class="hero">
+  <div class="hero-card hero-photo">
+    <h1>Julia · Irregular Verbs 🔀</h1>
+    <div class="sub">100 верных друзей · Past Simple · 4 паттерна · story + drills + workbook + reading</div>
+    <div class="tags">
+      <span class="tag">🔀 Past Simple</span>
+      <span class="tag">📚 100 verbs</span>
+      <span class="tag">🧩 4 patterns</span>
+      <span class="tag">🎯 A2+</span>
+      <span class="tag">🎧 with voice</span>
+    </div>
+  </div>
+</section>
+
+<div class="progress"><div class="dots" id="dots"></div></div>
+
+<!-- BLOCK 1 · WARM-UP · What is an irregular verb? -->
+<section class="section" id="block-1">
+  <div class="section-head"><div class="n">1</div><h2>What is an irregular verb? 🔀</h2></div>
+  <div class="section-sub">Warm-up · regular vs irregular · listen &amp; compare</div>
+  <div class="card">
+    <div class="rule-box">
+      <h4>🧠 The one rule you need</h4>
+      To make Past Simple of a <strong>regular verb</strong>, we add <code>-ed</code>: <em>play → played, cook → cooked, watch → watched.</em><br>
+      But some verbs are old and stubborn — they change in their own way. These are <span class="hi-violet">irregular verbs</span>.<br>
+      There is <strong>no rule</strong> — we just <em>learn them</em>. Good news: they are only about 100, and today we meet all of them.
+      <table style="margin-top:12px">
+        <tr><th>Type</th><th>Base</th><th>Past Simple</th><th>How?</th></tr>
+        <tr><td>regular</td><td>play</td><td>play<strong>ed</strong></td><td>+ed</td></tr>
+        <tr><td>regular</td><td>cook</td><td>cook<strong>ed</strong></td><td>+ed</td></tr>
+        <tr><td class="tag" style="color:var(--accent)">IRREGULAR</td><td>go</td><td class="past" style="color:var(--accent);font-weight:800">went</td><td>own way</td></tr>
+        <tr><td class="tag" style="color:var(--accent)">IRREGULAR</td><td>see</td><td class="past" style="color:var(--accent);font-weight:800">saw</td><td>own way</td></tr>
+        <tr><td class="tag" style="color:var(--accent)">IRREGULAR</td><td>eat</td><td class="past" style="color:var(--accent);font-weight:800">ate</td><td>own way</td></tr>
+      </table>
+    </div>
+    <div class="audio-row" style="margin-top:14px">
+      <button class="play-btn" data-say="Yesterday I went to Bodrum. I saw the blue sea. I ate ice-cream. I swam in the pool. I met a nice girl. I made a sandcastle. All of these are Past Simple, but there is no ed. These are irregular verbs — my new friends today." aria-label="Play">▶</button>
+      <div><div class="label">Julia says:</div><div class="text">Yesterday I <span class="hi-violet">went</span>, <span class="hi-violet">saw</span>, <span class="hi-violet">ate</span>, <span class="hi-violet">swam</span>, <span class="hi-violet">met</span>, <span class="hi-violet">made</span> — no -ed anywhere! 🎯</div></div>
+    </div>
+    <p style="margin-top:14px;font-size:.92rem"><strong>Tap and ask Julia:</strong></p>
+    <div class="choice-row">
+      <button class="choice" data-say="Yesterday I went to Bodrum with my mum. It was so warm and sunny.">Where did you go yesterday? 🌊</button>
+      <button class="choice" data-say="I saw the sea, some fish, and a big yellow boat with a red sail.">What did you see? 🐟</button>
+      <button class="choice" data-say="I ate ice-cream and a fresh watermelon at the beach café.">What did you eat? 🍉</button>
+      <button class="choice" data-say="I swam in the pool for a whole hour. The water was cold at first, then perfect.">How long did you swim? 🏊</button>
+      <button class="choice" data-say="I met a friendly girl from Germany. Her name is Anna and she is nine years old.">Who did you meet? 👋</button>
+    </div>
+  </div>
+</section>
+
+<!-- BLOCK 2 · TOP-12 ESSENTIALS -->
+<section class="section" id="block-2">
+  <div class="section-head"><div class="n">2</div><h2>Top-12 essentials 🌟</h2></div>
+  <div class="section-sub">The most useful irregular verbs · tap a card to hear it</div>
+  <div class="card">
+    <div class="rule-box" style="margin-bottom:14px">
+      <h4>⭐ Start with these twelve</h4>
+      If you know these 12 verbs in Past Simple, you can already tell a big story about your day.<br>
+      Every card shows <span class="hi-blue"><strong>base</strong></span> → <span class="hi-violet"><strong>past</strong></span>. Tap to hear both.
+    </div>
+    <div class="vocab-grid" id="top12-vocab"></div>
+    <div class="tts-hint">💡 Tap a card once → hear base and past. Tap again → repeat.</div>
+  </div>
+</section>
+
+<!-- BLOCK 3 · 4 PATTERNS -->
+<section class="section" id="block-3">
+  <div class="section-head"><div class="n">3</div><h2>Meet the 4 patterns 🧩</h2></div>
+  <div class="section-sub">All 100 verbs fall into these four families</div>
+  <div class="card">
+    <div class="rule-box">
+      <h4>🧩 Four families, one lesson</h4>
+      Do not try to memorise all 100 at once. Learn the <strong>pattern</strong>, then the verb sits in the right box in your head.
+    </div>
+    <div class="pattern-grid">
+      <div class="pattern-cell pA">
+        <h4>A · Same-same-same</h4>
+        <div class="pat-example">cut → cut → cut</div>
+        <div class="pat-example">put → put → put</div>
+        <div class="pat-example">hit → hit → hit</div>
+        <div class="pat-example">let → let → let</div>
+        <div class="pat-note">No change at all. Only your intonation tells the tense.</div>
+      </div>
+      <div class="pattern-cell pB">
+        <h4>B · Past = Participle</h4>
+        <div class="pat-example">buy → bought → bought</div>
+        <div class="pat-example">bring → brought → brought</div>
+        <div class="pat-example">say → said → said</div>
+        <div class="pat-example">make → made → made</div>
+        <div class="pat-note">Base changes once, and the new form serves for both past and participle.</div>
+      </div>
+      <div class="pattern-cell pC">
+        <h4>C · Vowel triple</h4>
+        <div class="pat-example">sing → sang → sung</div>
+        <div class="pat-example">drink → drank → drunk</div>
+        <div class="pat-example">swim → swam → swum</div>
+        <div class="pat-example">begin → began → begun</div>
+        <div class="pat-note">i–a–u. A little song inside the verb.</div>
+      </div>
+      <div class="pattern-cell pD">
+        <h4>D · Three different words</h4>
+        <div class="pat-example">go → went → gone</div>
+        <div class="pat-example">see → saw → seen</div>
+        <div class="pat-example">eat → ate → eaten</div>
+        <div class="pat-example">take → took → taken</div>
+        <div class="pat-note">Three completely different shapes — the biggest family.</div>
+      </div>
+    </div>
+    <p style="margin-top:10px;font-size:.9rem;color:var(--muted)">📌 Today we mostly work with the <strong>middle column</strong> — Past Simple. The third column (participle) we will meet again when we do Present Perfect.</p>
+  </div>
+</section>
+
+<!-- BLOCK 4 · STORY -->
+<section class="section" id="block-4">
+  <div class="section-head"><div class="n">4</div><h2>Julia's Saturday 📖</h2></div>
+  <div class="section-sub">Story · tap any line to hear · every violet word is an irregular past</div>
+  <div class="card story">
+    <p style="font-size:.92rem;font-weight:700;color:var(--accent);margin-bottom:10px">📖 Tap any picture or sentence to hear it. Count how many irregular verbs you notice! 🎯</p>
+    <img src="img/s01-woke.png" alt="" class="story-img" data-say="Yesterday I woke up at eight o'clock. I got out of bed and went to the bathroom.">
+    <p><span class="speak-line" data-say="Yesterday I woke up at eight o'clock.">Yesterday I <span class="hi-violet">woke</span> up at eight o'clock. ⏰</span></p>
+    <p><span class="speak-line" data-say="I got out of bed and I went to the bathroom.">I <span class="hi-violet">got</span> out of bed and I <span class="hi-violet">went</span> to the bathroom.</span></p>
+    <img src="img/s02-breakfast.png" alt="" class="story-img" data-say="Mum made pancakes. I ate three of them and I drank a cup of cocoa.">
+    <p><span class="speak-line" data-say="Mum made pancakes. I ate three of them and I drank a cup of cocoa.">Mum <span class="hi-violet">made</span> pancakes. I <span class="hi-violet">ate</span> three of them and I <span class="hi-violet">drank</span> a cup of cocoa. 🥞</span></p>
+    <img src="img/s03-bike.png" alt="" class="story-img" data-say="After breakfast I took my bike and I rode to the park.">
+    <p><span class="speak-line" data-say="After breakfast I took my bike and I rode to the park.">After breakfast I <span class="hi-violet">took</span> my bike and I <span class="hi-violet">rode</span> to the park. 🚲</span></p>
+    <img src="img/s04-lake.png" alt="" class="story-img" data-say="I met my friend Sonya. We ran together and we swam in the little lake.">
+    <p><span class="speak-line" data-say="I met my friend Sonya. We ran together and we swam in the little lake.">I <span class="hi-violet">met</span> my friend Sonya. We <span class="hi-violet">ran</span> together and we <span class="hi-violet">swam</span> in the little lake. 🏊</span></p>
+    <img src="img/s05-fish-duck.png" alt="" class="story-img" data-say="I saw a big red fish. I gave a piece of bread to a small duck.">
+    <p><span class="speak-line" data-say="I saw a big red fish. I gave a piece of bread to a small duck.">I <span class="hi-violet">saw</span> a big red fish. I <span class="hi-violet">gave</span> a piece of bread to a small duck. 🦆</span></p>
+    <img src="img/s06-rain.png" alt="" class="story-img" data-say="Suddenly it began to rain. My phone rang and Mum said, come home!">
+    <p><span class="speak-line" data-say="Suddenly it began to rain. My phone rang and Mum said, come home!">Suddenly it <span class="hi-violet">began</span> to rain. My phone <span class="hi-violet">rang</span> and Mum <span class="hi-violet">said</span>, "come home!" ☔</span></p>
+    <img src="img/s07-window.png" alt="" class="story-img" data-say="I came home wet. I put on dry clothes and I sat by the window.">
+    <p><span class="speak-line" data-say="I came home wet. I put on dry clothes and I sat by the window.">I <span class="hi-violet">came</span> home wet. I <span class="hi-violet">put</span> on dry clothes and I <span class="hi-violet">sat</span> by the window. 🪟</span></p>
+    <img src="img/s08-letter.png" alt="" class="story-img" data-say="I read my new book, I wrote a letter to Grandma and I drew a small picture.">
+    <p><span class="speak-line" data-say="I read my new book, I wrote a letter to Grandma and I drew a small picture.">I <span class="hi-violet">read</span> my new book, I <span class="hi-violet">wrote</span> a letter to Grandma and I <span class="hi-violet">drew</span> a small picture. 📮</span></p>
+    <img src="img/s09-sleep.png" alt="" class="story-img" data-say="I felt happy and a little sleepy. I thought about the day and I fell asleep with a smile.">
+    <p><span class="speak-line" data-say="I felt happy and a little sleepy. I thought about the day and I fell asleep with a smile.">I <span class="hi-violet">felt</span> happy and a little sleepy. I <span class="hi-violet">thought</span> about the day and I <span class="hi-violet">fell</span> asleep with a smile. 😴</span></p>
+    <div class="tts-hint">💡 <span class="hi-violet">Violet</span> = irregular past · try to spot 20 different verbs!</div>
+  </div>
+</section>
+
+<!-- BLOCK 5 · MATCH -->
+<section class="section" id="block-5">
+  <div class="section-head"><div class="n">5</div><h2>Match base ↔ past 🔗</h2></div>
+  <div class="section-sub">Tap a base verb, then tap its Past Simple pair</div>
+  <div class="card">
+    <div class="rule-box" style="margin-bottom:12px">
+      <h4>🎯 How to play</h4>
+      Tap a <span class="hi-blue">base verb</span> on the left → then tap the correct <span class="hi-violet">past form</span> on the right. Green = matched, shake = try again.
+    </div>
+    <div class="match-cols" id="match-block-5"></div>
+    <div class="score-badge" data-match="b5"><span>Matched</span> <span class="val">0</span> <span style="opacity:.6">/ 12</span></div>
+  </div>
+</section>
+
+<!-- BLOCK 6 · GAP-FILL -->
+<section class="section" id="block-6">
+  <div class="section-head"><div class="n">6</div><h2>Put the verb into Past Simple 📝</h2></div>
+  <div class="section-sub">Gap-fill · tap a gap, then tap the correct word from the bank</div>
+  <div class="card">
+    <div class="rule-box" style="margin-bottom:12px">
+      <h4>💡 Tip</h4>
+      The base form is given in <em>brackets</em>. You need the <strong>past</strong>. All eight past forms live in the bank at the bottom — every word is used exactly once.
+    </div>
+    <p class="gap-line">1. Yesterday I <span class="gap" data-answer="ate">__</span> a big pizza for dinner. <em>(eat)</em> 🍕</p>
+    <p class="gap-line">2. She <span class="gap" data-answer="wrote">__</span> a long letter to her friend. <em>(write)</em> ✉️</p>
+    <p class="gap-line">3. We <span class="gap" data-answer="drank">__</span> tea and ate biscuits. <em>(drink)</em> 🫖</p>
+    <p class="gap-line">4. He <span class="gap" data-answer="took">__</span> the bus to school. <em>(take)</em> 🚌</p>
+    <p class="gap-line">5. The dog <span class="gap" data-answer="ran">__</span> across the garden. <em>(run)</em> 🐕</p>
+    <p class="gap-line">6. My little brother <span class="gap" data-answer="fell">__</span> off his bike. <em>(fall)</em> 🚲</p>
+    <p class="gap-line">7. Dad <span class="gap" data-answer="gave">__</span> me a small present. <em>(give)</em> 🎁</p>
+    <p class="gap-line">8. Grandma <span class="gap" data-answer="made">__</span> apple pie on Sunday. <em>(make)</em> 🥧</p>
+    <div class="kid-bank" id="bank-block-6"></div>
+    <div class="tts-hint">💡 Tap a gap first → then tap the correct past form from the bank.</div>
+  </div>
+</section>
+
+<!-- BLOCK 7 · MCQ -->
+<section class="section" id="block-7">
+  <div class="section-head"><div class="n">7</div><h2>Choose the right past form 🎯</h2></div>
+  <div class="section-sub">MCQ · 3 options · all look past-y, only one is correct</div>
+  <div class="card">
+    <div class="rule-box" style="margin-bottom:12px">
+      <h4>🕵️ Watch out</h4>
+      All three options look like past forms of <em>some</em> verb — but only one matches the sentence. Look at the whole sentence, then choose.
+    </div>
+    <div class="gap-line">1. Julia <select class="mcq" data-answer="saw"><option value="" disabled selected>—</option><option>saw</option><option>seen</option><option>see</option></select> a rainbow after the rain. 🌈</div>
+    <div class="gap-line">2. My cat <select class="mcq" data-answer="caught"><option value="" disabled selected>—</option><option>catched</option><option>caught</option><option>catch</option></select> a small mouse in the garden. 🐭</div>
+    <div class="gap-line">3. Yesterday I <select class="mcq" data-answer="brought"><option value="" disabled selected>—</option><option>brang</option><option>bringed</option><option>brought</option></select> my umbrella to school. ☂️</div>
+    <div class="gap-line">4. She <select class="mcq" data-answer="knew"><option value="" disabled selected>—</option><option>knew</option><option>known</option><option>knowed</option></select> the answer straight away. ✅</div>
+    <div class="gap-line">5. Dad <select class="mcq" data-answer="drove"><option value="" disabled selected>—</option><option>drived</option><option>driven</option><option>drove</option></select> us to the mountains last weekend. 🏔️</div>
+    <div class="gap-line">6. The bird <select class="mcq" data-answer="flew"><option value="" disabled selected>—</option><option>flied</option><option>flown</option><option>flew</option></select> away when I opened the window. 🕊️</div>
+    <div class="gap-line">7. Grandma <select class="mcq" data-answer="told"><option value="" disabled selected>—</option><option>telled</option><option>told</option><option>said me</option></select> me a beautiful bedtime story. 🌙</div>
+    <div class="gap-line">8. I <select class="mcq" data-answer="lost"><option value="" disabled selected>—</option><option>losed</option><option>lost</option><option>loosed</option></select> my favourite pen at school. ✏️</div>
+    <div class="gap-line">9. My friends <select class="mcq" data-answer="came"><option value="" disabled selected>—</option><option>came</option><option>come</option><option>comed</option></select> to my birthday party. 🎂</div>
+    <div class="gap-line">10. I <select class="mcq" data-answer="thought"><option value="" disabled selected>—</option><option>thinked</option><option>thought</option><option>thinked of</option></select> about my summer in Bodrum. 🏖️</div>
+    <div class="score-badge" data-ex="b7-mcq" data-max="10"><span>Score</span> <span class="val">0</span> <span style="opacity:.6">/ 10</span></div>
+  </div>
+</section>
+
+<!-- BLOCK 8 · ODD ONE OUT -->
+<section class="section" id="block-8">
+  <div class="section-head"><div class="n">8</div><h2>Odd one out 🕵️</h2></div>
+  <div class="section-sub">Five sets · which verb breaks the pattern of the other two?</div>
+  <div class="card">
+    <div class="rule-box" style="margin-bottom:12px">
+      <h4>🎯 The idea</h4>
+      In every row, two verbs follow the <strong>same</strong> pattern (same vowel change, or all same-same, or all i→a). One is different. Pick the different one.
+    </div>
+    <div class="gap-line">1. <select class="mcq" data-answer="went"><option value="" disabled selected>—</option><option>sang</option><option>ran</option><option>went</option></select> — which past form breaks the a-vowel pattern?</div>
+    <div class="gap-line">2. <select class="mcq" data-answer="ate"><option value="" disabled selected>—</option><option>put</option><option>cut</option><option>ate</option></select> — which one is not "same-same-same"?</div>
+    <div class="gap-line">3. <select class="mcq" data-answer="took"><option value="" disabled selected>—</option><option>bought</option><option>brought</option><option>took</option></select> — which past does not end in <em>-ought</em>?</div>
+    <div class="gap-line">4. <select class="mcq" data-answer="wrote"><option value="" disabled selected>—</option><option>drank</option><option>swam</option><option>wrote</option></select> — which past is not i→a?</div>
+    <div class="gap-line">5. <select class="mcq" data-answer="said"><option value="" disabled selected>—</option><option>sold</option><option>told</option><option>said</option></select> — which past does not end in <em>-old</em>?</div>
+    <div class="score-badge" data-ex="b8-odd" data-max="5"><span>Score</span> <span class="val">0</span> <span style="opacity:.6">/ 5</span></div>
+  </div>
+</section>
+
+<!-- BLOCK 9 · LISTENING -->
+<section class="section" id="block-9">
+  <div class="section-head"><div class="n">9</div><h2>Listening · Julia's Sunday 🎧</h2></div>
+  <div class="section-sub">Listen once · then answer ten questions</div>
+  <div class="card">
+    <div class="rule-box" style="margin-bottom:12px">
+      <h4>🎧 What to do</h4>
+      Tap the big play button. Listen — do <em>not</em> read at the same time. Then answer the questions below from memory. If you miss one, tap play again.
+    </div>
+    <img src="img/s09-sleep.png" alt="" class="lesson-img" data-say="Julia is in bed at the end of a long Sunday. Listen to her story.">
+    <div class="audio-row" style="background:linear-gradient(135deg,#E1D8F4,#EAF3FB)">
+      <button class="play-btn" id="story-play" aria-label="Play story">▶</button>
+      <div><div class="label">Julia's Sunday · listening</div><div class="text" id="story-preview">Full story — press play</div></div>
+    </div>
+    <p style="font-size:.92rem;font-weight:700;margin-top:10px;color:var(--accent)">🎯 Now answer:</p>
+    <div id="memory-quiz"></div>
+    <div id="reward" class="reward" style="display:none">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <h2>Great job, Julia!</h2>
+      <div class="word-of-day">Past Simple ⭐ mastered</div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOCK 10 · SPEAKING -->
+<section class="section" id="block-10">
+  <div class="section-head"><div class="n">10</div><h2>Tell me about YOUR yesterday 💬</h2></div>
+  <div class="section-sub">Speaking · every question needs an irregular past form</div>
+  <div class="card">
+    <div class="rule-box" style="margin-bottom:12px">
+      <h4>💬 How to answer</h4>
+      Speak in full sentences. Every hint starts you off. Use the irregular past — do not slip back to Present Simple!
+    </div>
+    <div id="speak-questions"></div>
+  </div>
+</section>
+
+<!-- BLOCK 11 · SORT -->
+<section class="section" id="block-11">
+  <div class="section-head"><div class="n">11</div><h2>Sort by pattern 🧩</h2></div>
+  <div class="section-sub">Drop each verb into the right family basket</div>
+  <div class="card">
+    <div class="rule-box" style="margin-bottom:12px">
+      <h4>🎯 Reminder of the four families</h4>
+      <strong>A</strong> — same-same-same (cut/cut).
+      <strong>B</strong> — past = participle (buy/bought).
+      <strong>C</strong> — vowel triple i-a-u (sing/sang/sung).
+      <strong>D</strong> — three different words (go/went/gone).
+    </div>
+    <p style="font-size:.92rem;font-weight:700;margin-bottom:8px">👆 Tap a verb in the pool, then tap a basket:</p>
+    <div class="drop-zone" id="pattern-baskets">
+      <div class="drop-basket pat-A" data-basket="A"><h4>A · same-same</h4><div class="drop-basket-items"></div></div>
+      <div class="drop-basket pat-B" data-basket="B"><h4>B · past = participle</h4><div class="drop-basket-items"></div></div>
+      <div class="drop-basket pat-C" data-basket="C"><h4>C · vowel triple</h4><div class="drop-basket-items"></div></div>
+      <div class="drop-basket pat-D" data-basket="D"><h4>D · three shapes</h4><div class="drop-basket-items"></div></div>
+    </div>
+    <div class="drop-pool" id="pattern-pool"></div>
+    <div class="score-badge" data-ex="b11-sort" data-max="12"><span>Sorted</span> <span class="val">0</span> <span style="opacity:.6">/ 12</span></div>
+  </div>
+</section>
+
+<!-- BLOCK 12 · MOVEMENT -->
+<section class="section" id="block-12">
+  <div class="section-head"><div class="n">12</div><h2>Movement verbs 🚶‍♀️</h2></div>
+  <div class="section-sub">Verbs of moving your body · base / past / participle</div>
+  <div class="card">
+    <div class="rule-box" style="margin-bottom:12px">
+      <h4>🚶‍♀️ Eight verbs for movement</h4>
+      Look at all three columns — but for today, focus on the middle one. Tap any cell to hear it.
+    </div>
+    <div class="verb-table" id="movement-table"></div>
+    <p style="font-size:.92rem;font-weight:700;margin:14px 0 8px">✍️ Now drop them into the sentences:</p>
+    <div class="gap-line">1. Yesterday I <select class="mcq" data-answer="went"><option value="" disabled selected>—</option><option>goed</option><option>went</option><option>gone</option></select> to school on foot. 🚶</div>
+    <div class="gap-line">2. My uncle <select class="mcq" data-answer="drove"><option value="" disabled selected>—</option><option>drove</option><option>drived</option><option>driven</option></select> his new car to Moscow. 🚗</div>
+    <div class="gap-line">3. The birds <select class="mcq" data-answer="flew"><option value="" disabled selected>—</option><option>flied</option><option>flown</option><option>flew</option></select> south for the winter. 🦜</div>
+    <div class="gap-line">4. She <select class="mcq" data-answer="rode"><option value="" disabled selected>—</option><option>rided</option><option>rode</option><option>ridden</option></select> a black horse in the countryside. 🐴</div>
+    <div class="gap-line">5. I <select class="mcq" data-answer="swam"><option value="" disabled selected>—</option><option>swam</option><option>swum</option><option>swimmed</option></select> two hundred metres in the pool. 🏊</div>
+    <div class="gap-line">6. My little brother <select class="mcq" data-answer="fell"><option value="" disabled selected>—</option><option>felled</option><option>felt</option><option>fell</option></select> off a chair. 😲</div>
+    <div class="score-badge" data-ex="b12-move" data-max="6"><span>Score</span> <span class="val">0</span> <span style="opacity:.6">/ 6</span></div>
+  </div>
+</section>
+
+<!-- BLOCK 13 · COMMUNICATION -->
+<section class="section" id="block-13">
+  <div class="section-head"><div class="n">13</div><h2>Say · tell · hear · see 🗣️</h2></div>
+  <div class="section-sub">Verbs of talking, listening, seeing · easy to mix up</div>
+  <div class="card">
+    <div class="rule-box" style="margin-bottom:12px">
+      <h4>🗣️ Do not mix them up</h4>
+      <strong>say / said</strong> — no person: <em>She said "hi".</em><br>
+      <strong>tell / told</strong> — with a person: <em>She told me a story.</em><br>
+      <strong>speak / spoke</strong> — about a language or a talk: <em>I spoke in English.</em><br>
+      <strong>hear / heard</strong> — sound arrives to your ear.<br>
+      <strong>see / saw</strong> — image arrives to your eye.<br>
+      <strong>feel / felt</strong> — for feelings and body sense.
+    </div>
+    <div class="verb-table" id="comm-table"></div>
+    <p style="font-size:.92rem;font-weight:700;margin:14px 0 8px">✍️ Mini-drill:</p>
+    <div class="gap-line">1. Mum <select class="mcq" data-answer="said"><option value="" disabled selected>—</option><option>told</option><option>said</option><option>spoke</option></select> "good morning" and smiled.</div>
+    <div class="gap-line">2. Grandpa <select class="mcq" data-answer="told"><option value="" disabled selected>—</option><option>said</option><option>told</option><option>spoke</option></select> me a funny story about his childhood.</div>
+    <div class="gap-line">3. Last summer we <select class="mcq" data-answer="spoke"><option value="" disabled selected>—</option><option>spoke</option><option>said</option><option>talked to</option></select> only English at the camp.</div>
+    <div class="gap-line">4. I <select class="mcq" data-answer="heard"><option value="" disabled selected>—</option><option>heard</option><option>heared</option><option>hearded</option></select> a strange noise in the garden last night. 👂</div>
+    <div class="gap-line">5. We <select class="mcq" data-answer="saw"><option value="" disabled selected>—</option><option>seen</option><option>saw</option><option>see</option></select> a beautiful sunset from the balcony. 🌅</div>
+    <div class="gap-line">6. Julia <select class="mcq" data-answer="felt"><option value="" disabled selected>—</option><option>feeled</option><option>fell</option><option>felt</option></select> very proud after her exam. 😊</div>
+    <div class="score-badge" data-ex="b13-comm" data-max="6"><span>Score</span> <span class="val">0</span> <span style="opacity:.6">/ 6</span></div>
+  </div>
+</section>
+
+<!-- BLOCK 14 · BODY -->
+<section class="section" id="block-14">
+  <div class="section-head"><div class="n">14</div><h2>Body &amp; everyday verbs 🍎</h2></div>
+  <div class="section-sub">Eat, drink, sleep, wake, sit, stand, hold</div>
+  <div class="card">
+    <div class="rule-box" style="margin-bottom:12px">
+      <h4>🍎 Seven small verbs, huge use</h4>
+      You do these things every day — so you say them every day. Learn the past forms tight.
+    </div>
+    <div class="verb-table" id="body-table"></div>
+    <p style="font-size:.92rem;font-weight:700;margin:14px 0 8px">✍️ Mini-drill:</p>
+    <div class="gap-line">1. This morning I <select class="mcq" data-answer="ate"><option value="" disabled selected>—</option><option>eated</option><option>eat</option><option>ate</option></select> two eggs and a slice of bread. 🍳</div>
+    <div class="gap-line">2. Yesterday she <select class="mcq" data-answer="drank"><option value="" disabled selected>—</option><option>drank</option><option>drunk</option><option>drinked</option></select> a big glass of orange juice. 🥤</div>
+    <div class="gap-line">3. Last night I <select class="mcq" data-answer="slept"><option value="" disabled selected>—</option><option>sleeped</option><option>slept</option><option>sleep</option></select> for nine hours! 😴</div>
+    <div class="gap-line">4. The baby <select class="mcq" data-answer="woke"><option value="" disabled selected>—</option><option>waked</option><option>woke</option><option>woken</option></select> up at six in the morning. 👶</div>
+    <div class="gap-line">5. Julia <select class="mcq" data-answer="sat"><option value="" disabled selected>—</option><option>sitted</option><option>sat</option><option>sits</option></select> next to the window on the train. 🚆</div>
+    <div class="gap-line">6. Mum <select class="mcq" data-answer="held"><option value="" disabled selected>—</option><option>holded</option><option>held</option><option>helded</option></select> my hand at the doctor's. 🤝</div>
+    <div class="score-badge" data-ex="b14-body" data-max="6"><span>Score</span> <span class="val">0</span> <span style="opacity:.6">/ 6</span></div>
+  </div>
+</section>
+
+<!-- BLOCK 15 · THINKING -->
+<section class="section" id="block-15">
+  <div class="section-head"><div class="n">15</div><h2>Thinking &amp; feeling 💭</h2></div>
+  <div class="section-sub">Think, know, understand, forget, forgive, choose, mean</div>
+  <div class="card">
+    <div class="rule-box" style="margin-bottom:12px">
+      <h4>💭 The "-ought / -eant" family</h4>
+      Many thinking verbs end in <strong>-ought</strong> in Past Simple: <em>thought, brought, bought, caught, taught, fought, sought.</em><br>
+      A close cousin: <strong>-eant</strong> — <em>meant, dreamt.</em>
+    </div>
+    <div class="verb-table" id="think-table"></div>
+    <p style="font-size:.92rem;font-weight:700;margin:14px 0 8px">✍️ Fill in the past form:</p>
+    <p class="gap-line">1. I <span class="gap" data-answer="thought">__</span> about the answer for a long minute. 💭 <em>(think)</em></p>
+    <p class="gap-line">2. She <span class="gap" data-answer="knew">__</span> the poem by heart. 🎓 <em>(know)</em></p>
+    <p class="gap-line">3. We <span class="gap" data-answer="understood">__</span> the teacher very well today. 👍 <em>(understand)</em></p>
+    <p class="gap-line">4. I <span class="gap" data-answer="forgot">__</span> my homework at home! 😱 <em>(forget)</em></p>
+    <p class="gap-line">5. Mum <span class="gap" data-answer="forgave">__</span> me for the broken cup. 💕 <em>(forgive)</em></p>
+    <p class="gap-line">6. Julia <span class="gap" data-answer="chose">__</span> a purple T-shirt from the shop. 👕 <em>(choose)</em></p>
+    <p class="gap-line">7. When she said "later", she <span class="gap" data-answer="meant">__</span> "never". 🤔 <em>(mean)</em></p>
+    <p class="gap-line">8. Last night I <span class="gap" data-answer="dreamt">__</span> about a flying whale. 🐋 <em>(dream)</em></p>
+    <div class="kid-bank" id="bank-block-15"></div>
+    <div class="tts-hint">💡 Tap a gap → then tap the correct past form.</div>
+  </div>
+</section>
+
+<!-- BLOCK 16 · MONEY -->
+<section class="section" id="block-16">
+  <div class="section-head"><div class="n">16</div><h2>Money &amp; things 💰</h2></div>
+  <div class="section-sub">Buy, sell, pay, spend, cost, lose, win, find, keep, give</div>
+  <div class="card">
+    <div class="rule-box" style="margin-bottom:12px">
+      <h4>💰 Money in the past</h4>
+      Notice: <strong>cost</strong> stays the same (same-same pattern). <strong>buy/bought, pay/paid, sell/sold, spend/spent</strong> — pattern B (past = participle).
+    </div>
+    <div class="verb-table" id="money-table"></div>
+    <p style="font-size:.92rem;font-weight:700;margin:14px 0 8px">✍️ MCQ:</p>
+    <div class="gap-line">1. Last Sunday Mum <select class="mcq" data-answer="bought"><option value="" disabled selected>—</option><option>buyed</option><option>bought</option><option>bringed</option></select> a new pair of shoes.</div>
+    <div class="gap-line">2. We <select class="mcq" data-answer="paid"><option value="" disabled selected>—</option><option>payed</option><option>paid</option><option>pay</option></select> five hundred rubles for two tickets. 🎫</div>
+    <div class="gap-line">3. The new phone <select class="mcq" data-answer="cost"><option value="" disabled selected>—</option><option>costed</option><option>cost</option><option>costs</option></select> a lot of money last year. 💸</div>
+    <div class="gap-line">4. My grandma <select class="mcq" data-answer="sold"><option value="" disabled selected>—</option><option>selled</option><option>sold</option><option>salt</option></select> her old bike to a neighbour.</div>
+    <div class="gap-line">5. I <select class="mcq" data-answer="lost"><option value="" disabled selected>—</option><option>losed</option><option>lost</option><option>loosed</option></select> my keys in the park yesterday. 🔑</div>
+    <div class="gap-line">6. Our team <select class="mcq" data-answer="won"><option value="" disabled selected>—</option><option>winned</option><option>wined</option><option>won</option></select> the football match three-nil! ⚽</div>
+    <div class="gap-line">7. She <select class="mcq" data-answer="found"><option value="" disabled selected>—</option><option>finded</option><option>found</option><option>funded</option></select> a small kitten under the porch. 🐱</div>
+    <div class="gap-line">8. Grandpa <select class="mcq" data-answer="kept"><option value="" disabled selected>—</option><option>keeped</option><option>kept</option><option>keeper</option></select> all my drawings in a big box.</div>
+    <div class="score-badge" data-ex="b16-money" data-max="8"><span>Score</span> <span class="val">0</span> <span style="opacity:.6">/ 8</span></div>
+  </div>
+</section>
+
+<!-- BLOCK 17 · REFERENCE 100 -->
+<section class="section" id="block-17">
+  <div class="section-head"><div class="n">17</div><h2>The full 100 · your reference 📚</h2></div>
+  <div class="section-sub">Searchable table · all three forms · filter by pattern</div>
+  <div class="card">
+    <div class="rule-box" style="margin-bottom:12px">
+      <h4>📚 Your pocket dictionary</h4>
+      Type in the search box or filter by pattern. Tap any row to hear all three forms.
+    </div>
+    <div class="ref-controls">
+      <input type="text" class="ref-search" id="ref-search" placeholder="🔍 search: e.g. go, buy, thought…">
+      <button class="ref-filter active" data-filter="all">All</button>
+      <button class="ref-filter" data-filter="A">A · same</button>
+      <button class="ref-filter" data-filter="B">B · past=pp</button>
+      <button class="ref-filter" data-filter="C">C · vowel</button>
+      <button class="ref-filter" data-filter="D">D · three</button>
+    </div>
+    <div class="ref-table-wrap">
+      <table class="ref-table" id="ref-table">
+        <thead><tr><th>Base</th><th>Past Simple</th><th>Participle</th><th>Pattern</th></tr></thead>
+        <tbody id="ref-tbody"></tbody>
+      </table>
+    </div>
+    <div class="tts-hint">💡 Tap a row to hear <em>base — past — participle</em>.</div>
+  </div>
+</section>
+
+<!-- BLOCK 18 · FINAL CHALLENGE -->
+<section class="section" id="block-18">
+  <div class="section-head"><div class="n">18</div><h2>Final challenge 🏆</h2></div>
+  <div class="section-sub">Rewrite 12 sentences from present to past · verb bank below</div>
+  <div class="card">
+    <div class="rule-box" style="margin-bottom:12px">
+      <h4>🏆 One last push</h4>
+      Every sentence starts in the present. Change the verb in <em>brackets</em> to Past Simple and tap the right word from the bank at the bottom.
+    </div>
+    <p class="gap-line">1. Every morning I <em>eat</em> porridge → Yesterday I <span class="gap" data-answer="ate">__</span> porridge.</p>
+    <p class="gap-line">2. Every Sunday we <em>go</em> to the park → Last Sunday we <span class="gap" data-answer="went">__</span> to the park.</p>
+    <p class="gap-line">3. She <em>writes</em> a letter every week → Last week she <span class="gap" data-answer="wrote">__</span> a letter.</p>
+    <p class="gap-line">4. I <em>see</em> my grandma on Fridays → Last Friday I <span class="gap" data-answer="saw">__</span> my grandma.</p>
+    <p class="gap-line">5. He <em>drinks</em> tea in the evening → Yesterday evening he <span class="gap" data-answer="drank">__</span> tea.</p>
+    <p class="gap-line">6. We <em>take</em> the bus at eight → This morning we <span class="gap" data-answer="took">__</span> the bus at eight.</p>
+    <p class="gap-line">7. They <em>swim</em> in the lake in July → Last July they <span class="gap" data-answer="swam">__</span> in the lake.</p>
+    <p class="gap-line">8. Mum <em>makes</em> pancakes on Sunday → Last Sunday Mum <span class="gap" data-answer="made">__</span> pancakes.</p>
+    <p class="gap-line">9. I <em>buy</em> apples at the market → Yesterday I <span class="gap" data-answer="bought">__</span> apples at the market.</p>
+    <p class="gap-line">10. He <em>brings</em> flowers on my birthday → On my birthday he <span class="gap" data-answer="brought">__</span> flowers.</p>
+    <p class="gap-line">11. She <em>sings</em> in the choir every Thursday → Last Thursday she <span class="gap" data-answer="sang">__</span> in the choir.</p>
+    <p class="gap-line">12. We <em>begin</em> our lesson at four → Today we <span class="gap" data-answer="began">__</span> our lesson at four.</p>
+    <div class="kid-bank" id="bank-block-18"></div>
+    <div class="score-badge" data-ex="b18-final" data-max="12"><span>Score</span> <span class="val">0</span> <span style="opacity:.6">/ 12</span></div>
+  </div>
+</section>
+
+<section class="section" id="recap">
+  <div class="card" style="background:linear-gradient(135deg,#EAF3FB,#F4EEFC);border:2px dashed var(--accent)">
+    <h3 style="text-align:center;color:var(--accent)">🎉 You met all 100 irregular verbs today!</h3>
+    <p style="text-align:center;color:var(--muted)">Next lesson we start using them in <strong>questions</strong> and <strong>short answers</strong> — <em>Did you go? Yes, I did. No, I didn't.</em></p>
+  </div>
+</section>
+
+</div><!-- /#tab-lesson -->
+
+<!-- ================ WORKBOOK ================ -->
+<div id="tab-workbook" class="tab-panel">
+
+<section class="hero">
+  <div class="hero-card hero-photo" style="background:url('img/reading-bakery-hero.png') center/contain no-repeat #F4EEFC;aspect-ratio:1536/864;min-height:0;padding:0;border-radius:24px"></div>
+</section>
+
+<div class="progress"><div class="dots" id="dots-w"></div></div>
+
+<section class="section" id="w-block-1">
+  <div class="section-head"><div class="n">1</div><h2>Theory recap 📚</h2></div>
+  <div class="section-sub">One card · everything you need to remember today</div>
+  <div class="card">
+    <div class="rule-box">
+      <h4>🧠 The whole irregular-verbs world in one card</h4>
+      <p style="margin-bottom:8px">Past Simple = "yesterday, last week, in 2020, when I was five…"</p>
+      <p style="margin-bottom:8px"><strong>Regular verbs</strong> = base + <code>-ed</code>. <em>played, watched, cooked.</em></p>
+      <p style="margin-bottom:8px"><strong>Irregular verbs</strong> ≈ 100 stubborn old verbs, four families:</p>
+      <table>
+        <tr><th>Family</th><th>Example</th><th>How</th></tr>
+        <tr><td><strong>A</strong> · same-same</td><td>cut → cut · put → put · hit → hit</td><td>no change</td></tr>
+        <tr><td><strong>B</strong> · past = pp</td><td>buy → bought · say → said · make → made</td><td>one change, then stays</td></tr>
+        <tr><td><strong>C</strong> · vowel triple</td><td>sing → sang → sung · drink → drank → drunk</td><td>i - a - u</td></tr>
+        <tr><td><strong>D</strong> · three shapes</td><td>go → went → gone · eat → ate → eaten</td><td>three different words</td></tr>
+      </table>
+      <p style="margin-top:10px;font-size:.9rem;color:var(--muted)">💡 Questions and negatives use <code>did / didn't + base</code>: <em>Did you go? I didn't go.</em> — even for irregular verbs.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="w-block-2">
+  <div class="section-head"><div class="n">2</div><h2>Sort 20 verbs by family 🧺</h2></div>
+  <div class="section-sub">Drop each verb into the correct basket · A / B / C / D</div>
+  <div class="wb-2col">
+    <div class="wb-ref">
+      <img src="img/verbs-1-20.png" alt="100 irregular verbs · Set 1 · verbs 1-20">
+      <div class="wb-ref-caption">Reference · verbs 1–20</div>
+    </div>
+    <div class="wb-body">
+      <div class="card">
+        <div class="rule-box" style="margin-bottom:10px"><h4>🎯 Reminder</h4>A same-same · B past=pp · C i-a-u · D three shapes. Peek at the table on the left if you forget a past form.</div>
+        <div class="drop-zone" id="w-pattern-baskets">
+          <div class="drop-basket pat-A" data-basket="A"><h4>A · same-same</h4><div class="drop-basket-items"></div></div>
+          <div class="drop-basket pat-B" data-basket="B"><h4>B · past = pp</h4><div class="drop-basket-items"></div></div>
+          <div class="drop-basket pat-C" data-basket="C"><h4>C · vowel triple</h4><div class="drop-basket-items"></div></div>
+          <div class="drop-basket pat-D" data-basket="D"><h4>D · three shapes</h4><div class="drop-basket-items"></div></div>
+        </div>
+        <div class="drop-pool" id="w-pattern-pool"></div>
+        <div class="score-badge" data-ex="w2-sort" data-max="20"><span>Sorted</span> <span class="val">0</span> <span style="opacity:.6">/ 20</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="w-block-3">
+  <div class="section-head"><div class="n">3</div><h2>Type the past form ⌨️</h2></div>
+  <div class="section-sub">Fifteen verbs · write the Past Simple in the box</div>
+  <div class="wb-2col">
+    <div class="wb-ref">
+      <img src="img/verbs-21-40.png" alt="100 irregular verbs · Set 2 · verbs 21-40">
+      <div class="wb-ref-caption">Reference · verbs 21–40</div>
+    </div>
+    <div class="wb-body">
+      <div class="card">
+        <div class="rule-box" style="margin-bottom:10px"><h4>⌨️ Spelling matters</h4>Small letters. Green when correct. Pink shake when wrong — try again. Peek at the table if you need a hint.</div>
+        <div id="type-list"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="w-block-4">
+  <div class="section-head"><div class="n">4</div><h2>Match columns 🔗</h2></div>
+  <div class="section-sub">Ten more pairs · base ↔ past</div>
+  <div class="card">
+    <div class="match-cols" id="match-w-4"></div>
+    <div class="score-badge" data-match="w4"><span>Matched</span> <span class="val">0</span> <span style="opacity:.6">/ 10</span></div>
+  </div>
+</section>
+
+<section class="section" id="w-block-5">
+  <div class="section-head"><div class="n">5</div><h2>True or False · past forms ❓</h2></div>
+  <div class="section-sub">Ten statements · YES if the past form is correct, NO if wrong</div>
+  <div class="wb-2col">
+    <div class="wb-ref">
+      <img src="img/verbs-61-80.png" alt="100 irregular verbs · Set 4 · verbs 61-80">
+      <div class="wb-ref-caption">Reference · verbs 61–80</div>
+    </div>
+    <div class="wb-body">
+      <div class="card">
+        <div id="tf-list"></div>
+        <div class="score-badge" data-ex="w5-tf" data-max="10"><span>Score</span> <span class="val">0</span> <span style="opacity:.6">/ 10</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="w-block-6">
+  <div class="section-head"><div class="n">6</div><h2>Rewrite present → past ✍️</h2></div>
+  <div class="section-sub">Ten sentences · change only the verb</div>
+  <div class="wb-2col">
+    <div class="wb-ref">
+      <img src="img/verbs-81-100.png" alt="100 irregular verbs · Set 5 · verbs 81-100">
+      <div class="wb-ref-caption">Reference · verbs 81–100</div>
+    </div>
+    <div class="wb-body">
+      <div class="card">
+        <div class="rule-box" style="margin-bottom:10px"><h4>✍️ How</h4>Pick the past form from the drop-down. The rest of the sentence stays the same.</div>
+    <div class="gap-line">1. Every day I <em>go</em> to school → Yesterday I <select class="mcq" data-answer="went"><option value="" disabled selected>—</option><option>went</option><option>gone</option><option>goed</option></select> to school.</div>
+    <div class="gap-line">2. He <em>writes</em> in his diary → Last night he <select class="mcq" data-answer="wrote"><option value="" disabled selected>—</option><option>writed</option><option>wrote</option><option>written</option></select> in his diary.</div>
+    <div class="gap-line">3. We <em>drink</em> water at lunch → At lunch we <select class="mcq" data-answer="drank"><option value="" disabled selected>—</option><option>drinked</option><option>drunk</option><option>drank</option></select> water.</div>
+    <div class="gap-line">4. They <em>run</em> in the park → Yesterday they <select class="mcq" data-answer="ran"><option value="" disabled selected>—</option><option>ran</option><option>runned</option><option>run</option></select> in the park.</div>
+    <div class="gap-line">5. She <em>sees</em> the doctor → Last Monday she <select class="mcq" data-answer="saw"><option value="" disabled selected>—</option><option>seen</option><option>saw</option><option>seed</option></select> the doctor.</div>
+    <div class="gap-line">6. I <em>fall</em> asleep quickly → Last night I <select class="mcq" data-answer="fell"><option value="" disabled selected>—</option><option>felt</option><option>falled</option><option>fell</option></select> asleep quickly.</div>
+    <div class="gap-line">7. He <em>takes</em> the metro → This morning he <select class="mcq" data-answer="took"><option value="" disabled selected>—</option><option>taked</option><option>took</option><option>taken</option></select> the metro.</div>
+    <div class="gap-line">8. We <em>have</em> lessons at four → Yesterday we <select class="mcq" data-answer="had"><option value="" disabled selected>—</option><option>haved</option><option>had</option><option>has</option></select> lessons at four.</div>
+    <div class="gap-line">9. The children <em>sing</em> a song → In the concert the children <select class="mcq" data-answer="sang"><option value="" disabled selected>—</option><option>sung</option><option>singed</option><option>sang</option></select> a song.</div>
+    <div class="gap-line">10. My cat <em>hides</em> under the sofa → Yesterday my cat <select class="mcq" data-answer="hid"><option value="" disabled selected>—</option><option>hidded</option><option>hid</option><option>hidden</option></select> under the sofa.</div>
+    <div class="score-badge" data-ex="w6-rewrite" data-max="10"><span>Score</span> <span class="val">0</span> <span style="opacity:.6">/ 10</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="w-block-7">
+  <div class="section-head"><div class="n">7</div><h2>Gap-fill story · My Sunday ☀️</h2></div>
+  <div class="section-sub">Twelve gaps · verb bank below</div>
+  <div class="card">
+    <p class="gap-line" style="padding:14px 16px;line-height:1.9">Last Sunday I <span class="gap" data-answer="woke">__</span> up early. Mum <span class="gap" data-answer="made">__</span> pancakes and I <span class="gap" data-answer="ate">__</span> six of them. My dad <span class="gap" data-answer="drank">__</span> two cups of coffee. After breakfast, I <span class="gap" data-answer="took">__</span> my bike and I <span class="gap" data-answer="rode">__</span> to my friend Sonya. We <span class="gap" data-answer="went">__</span> to the park, we <span class="gap" data-answer="ran">__</span> a little, and we <span class="gap" data-answer="saw">__</span> a squirrel. In the evening, Grandma <span class="gap" data-answer="told">__</span> me a story. I <span class="gap" data-answer="felt">__</span> very happy and I <span class="gap" data-answer="fell">__</span> asleep fast. 🌙</p>
+    <div class="kid-bank" id="bank-w-7"></div>
+    <div class="tts-hint">💡 Tap a gap → then tap the correct past form.</div>
+  </div>
+</section>
+
+<section class="section" id="w-block-8">
+  <div class="section-head"><div class="n">8</div><h2>Choose the correct past form 🎯</h2></div>
+  <div class="section-sub">Ten more · one option is right, two look tricky</div>
+  <div class="card">
+    <div class="gap-line">1. Julia <select class="mcq" data-answer="gave"><option value="" disabled selected>—</option><option>gived</option><option>gave</option><option>given</option></select> a gift to her friend.</div>
+    <div class="gap-line">2. I <select class="mcq" data-answer="lost"><option value="" disabled selected>—</option><option>losed</option><option>lost</option><option>loosed</option></select> my scarf on the bus.</div>
+    <div class="gap-line">3. The bell <select class="mcq" data-answer="rang"><option value="" disabled selected>—</option><option>ringed</option><option>rung</option><option>rang</option></select> and everyone left.</div>
+    <div class="gap-line">4. My uncle <select class="mcq" data-answer="taught"><option value="" disabled selected>—</option><option>teached</option><option>taught</option><option>teach</option></select> me chess.</div>
+    <div class="gap-line">5. She <select class="mcq" data-answer="stood"><option value="" disabled selected>—</option><option>standed</option><option>stood</option><option>stand</option></select> by the door for ten minutes.</div>
+    <div class="gap-line">6. We <select class="mcq" data-answer="sent"><option value="" disabled selected>—</option><option>sended</option><option>sant</option><option>sent</option></select> a postcard from Bodrum.</div>
+    <div class="gap-line">7. He <select class="mcq" data-answer="grew"><option value="" disabled selected>—</option><option>growed</option><option>grew</option><option>grown</option></select> ten centimetres this year!</div>
+    <div class="gap-line">8. The vase <select class="mcq" data-answer="broke"><option value="" disabled selected>—</option><option>breaked</option><option>broke</option><option>broken</option></select> when the cat jumped.</div>
+    <div class="gap-line">9. I <select class="mcq" data-answer="wore"><option value="" disabled selected>—</option><option>weared</option><option>worn</option><option>wore</option></select> my new dress to the party.</div>
+    <div class="gap-line">10. Dad <select class="mcq" data-answer="cut"><option value="" disabled selected>—</option><option>cutted</option><option>cuts</option><option>cut</option></select> the bread with a big knife.</div>
+    <div class="score-badge" data-ex="w8-mcq" data-max="10"><span>Score</span> <span class="val">0</span> <span style="opacity:.6">/ 10</span></div>
+  </div>
+</section>
+
+<section class="section" id="w-block-9">
+  <div class="section-head"><div class="n">9</div><h2>Fix the mistake 🔧</h2></div>
+  <div class="section-sub">Eight sentences · one wrong past form each · type the correct one</div>
+  <div class="card">
+    <div class="rule-box" style="margin-bottom:10px"><h4>🔧 Look carefully</h4>Every sentence has a wrong past form (like "goed" or "buyed"). Type the correct past form in the box.</div>
+    <div id="fix-list"></div>
+  </div>
+</section>
+
+<section class="section" id="w-block-10">
+  <div class="section-head"><div class="n">10</div><h2>Sentence builder 🧱</h2></div>
+  <div class="section-sub">Six sentences · tap the words in the right order</div>
+  <div class="card" id="wo-container"></div>
+</section>
+
+<section class="section" id="w-block-11">
+  <div class="section-head"><div class="n">11</div><h2>Ten questions about yesterday ❓</h2></div>
+  <div class="section-sub">Speaking · every answer needs an irregular past</div>
+  <div class="card">
+    <div class="rule-box" style="margin-bottom:10px"><h4>❓ How</h4>Read the question, press play, then answer in a full sentence out loud. Try to use the verb from the question.</div>
+    <div id="yesterday-questions"></div>
+  </div>
+</section>
+
+<section class="section" id="w-block-12">
+  <div class="section-head"><div class="n">12</div><h2>Final mixed quiz 🏆</h2></div>
+  <div class="section-sub">Fifteen · MCQ mixed across all families</div>
+  <div class="card">
+    <div class="gap-line">1. She <select class="mcq" data-answer="won"><option value="" disabled selected>—</option><option>winned</option><option>won</option><option>wined</option></select> a gold medal at the school race. 🥇</div>
+    <div class="gap-line">2. I <select class="mcq" data-answer="did"><option value="" disabled selected>—</option><option>done</option><option>did</option><option>doed</option></select> my homework before dinner.</div>
+    <div class="gap-line">3. Mum <select class="mcq" data-answer="found"><option value="" disabled selected>—</option><option>finded</option><option>found</option><option>find</option></select> a coin under the sofa. 🪙</div>
+    <div class="gap-line">4. Grandpa <select class="mcq" data-answer="read"><option value="" disabled selected>—</option><option>readed</option><option>readden</option><option>read</option></select> the newspaper this morning. 📰 <em>(sounds like "red")</em></div>
+    <div class="gap-line">5. My little sister <select class="mcq" data-answer="drew"><option value="" disabled selected>—</option><option>drawed</option><option>drew</option><option>drawn</option></select> a beautiful cat. 🎨</div>
+    <div class="gap-line">6. The ice <select class="mcq" data-answer="froze"><option value="" disabled selected>—</option><option>freezed</option><option>froze</option><option>frozen</option></select> on the lake in December. ❄️</div>
+    <div class="gap-line">7. I <select class="mcq" data-answer="hurt"><option value="" disabled selected>—</option><option>hurted</option><option>hurt</option><option>hurten</option></select> my knee at football. 🤕</div>
+    <div class="gap-line">8. We <select class="mcq" data-answer="left"><option value="" disabled selected>—</option><option>leaved</option><option>lefted</option><option>left</option></select> the party at nine o'clock.</div>
+    <div class="gap-line">9. The kids <select class="mcq" data-answer="hid"><option value="" disabled selected>—</option><option>hided</option><option>hid</option><option>hidden</option></select> behind the big tree. 🌳</div>
+    <div class="gap-line">10. Julia <select class="mcq" data-answer="chose"><option value="" disabled selected>—</option><option>chose</option><option>chosen</option><option>choosed</option></select> the blue jacket.</div>
+    <div class="gap-line">11. The sun <select class="mcq" data-answer="rose"><option value="" disabled selected>—</option><option>raised</option><option>rose</option><option>risen</option></select> at six in the morning. ☀️</div>
+    <div class="gap-line">12. He <select class="mcq" data-answer="shook"><option value="" disabled selected>—</option><option>shaked</option><option>shook</option><option>shaken</option></select> the bottle before pouring. 🥤</div>
+    <div class="gap-line">13. The wind <select class="mcq" data-answer="blew"><option value="" disabled selected>—</option><option>blowed</option><option>blew</option><option>blown</option></select> my hat off. 🎩</div>
+    <div class="gap-line">14. She <select class="mcq" data-answer="bit"><option value="" disabled selected>—</option><option>bited</option><option>bit</option><option>bitten</option></select> the apple and made a face. 🍎</div>
+    <div class="gap-line">15. We <select class="mcq" data-answer="spent"><option value="" disabled selected>—</option><option>spended</option><option>spend</option><option>spent</option></select> two hours at the museum. 🏛️</div>
+    <div class="score-badge" data-ex="w12-final" data-max="15"><span>Score</span> <span class="val">0</span> <span style="opacity:.6">/ 15</span></div>
+    <div style="text-align:center;margin-top:20px">
+      <div class="reward" style="display:inline-block;text-align:center">
+        <div class="stars">⭐⭐⭐⭐⭐</div>
+        <h2>Workbook complete!</h2>
+        <div class="word-of-day">100 verbs · in the pocket</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /#tab-workbook -->
+
+<!-- ================ READING ================ -->
+<div id="tab-reading" class="tab-panel">
+
+<section class="hero">
+  <div class="hero-card hero-photo" style="background:url('img/reading-secret-key-hero.png') center/contain no-repeat #F4EEFC;aspect-ratio:1536/864;min-height:0;padding:0;border-radius:24px"></div>
+</section>
+
+<div class="progress"><div class="dots" id="dots-r"></div></div>
+
+<!-- R1 · PRE-READING VOCAB -->
+<section class="section" id="r-block-1">
+  <div class="section-head"><div class="n">1</div><h2>Before you read 📖</h2></div>
+  <div class="section-sub">Twelve less-common irregular verbs · learn now, meet inside the story</div>
+  <div class="card">
+    <div class="rule-box" style="margin-bottom:12px">
+      <h4>🎯 Warm-up</h4>
+      Today's story uses verbs you rarely met in the main lesson: <em>hang, hide, dig, shine, sweep, lay, lead, seek, spread, steal, stick, swing, tear, weep, beat, build, slide, swore.</em>
+      Tap each card to hear the three forms.
+    </div>
+    <div class="gloss-grid" id="pre-reading-vocab"></div>
+    <div class="tts-hint">💡 Tap a card → hear <em>base — past — participle</em>.</div>
+  </div>
+</section>
+
+<!-- R2 · THE STORY -->
+<section class="section" id="r-block-2">
+  <div class="section-head"><div class="n">2</div><h2>The Old Bakery on Rose Street 🥐</h2></div>
+  <div class="section-sub">A short story · about 500 words · violet words = irregular past</div>
+  <div class="card">
+    <div class="rule-box" style="margin-bottom:12px">
+      <h4>🎧 How to read</h4>
+      Read the whole story once, then tap the <button class="wo-btn" id="read-play-btn" style="background:var(--accent);padding:2px 10px;font-size:.7rem">▶ hear it</button> button to hear it read aloud. Tap any violet verb to hear that verb alone with its base form.
+    </div>
+    <div class="find15-badge">🔍 Find 15 irregular verbs · <span id="find15-bakery">0</span> / 15</div>
+    <div class="reading-2col">
+    <div class="r-body-col">
+    <div class="reading-body" id="reading-story">
+      <p class="drop-cap">Last Sunday afternoon, Julia and her friend Sonya <span class="rv" data-base="set out">set out</span> on a little adventure. They <span class="rv" data-base="hear">had heard</span> from Julia's grandma that the old bakery on Rose Street was closing after fifty-two years, so they decided to go and say goodbye to Aunt Marta, the baker.</p>
+      <p>The afternoon sun <span class="rv" data-base="shine">shone</span> brightly, and Julia's little dog Toby <span class="rv" data-base="lead">led</span> the way, wagging his tail. When the girls <span class="rv" data-base="come">came</span> around the corner, they <span class="rv" data-base="see">saw</span> a small crowd standing outside the bakery. A big paper <span class="rv" data-base="hang">hung</span> in the window, and someone <span class="rv" data-base="write">had written</span> on it: "Thank you for fifty-two beautiful years."</p>
+      <p>Aunt Marta <span class="rv" data-base="stand">stood</span> in the doorway. She <span class="rv" data-base="wear">wore</span> her flour-white apron and <span class="rv" data-base="hold">held</span> a wooden spoon. When she <span class="rv" data-base="see">saw</span> the girls, she smiled and waved. "Come in, come in! I <span class="rv" data-base="save">saved</span> a warm cinnamon bun for each of you."</p>
+      <p>Inside, the smell of fresh bread was everywhere. Julia <span class="rv" data-base="bite">bit</span> into her bun and closed her eyes. Sonya <span class="rv" data-base="eat">ate</span> hers slowly and <span class="rv" data-base="say">said</span>, "Aunt Marta, why are you closing?"</p>
+      <p>The old baker <span class="rv" data-base="sit">sat</span> down and sighed. "I <span class="rv" data-base="grow">grew</span> tired, my dear. And I <span class="rv" data-base="lose">lost</span> my grandmother's secret recipe last month. Without it, my honey cake is not the same." She <span class="rv" data-base="feel">felt</span> sad. "I <span class="rv" data-base="seek">have sought</span> that little brown notebook for six weeks. I <span class="rv" data-base="dig">dug</span> through every drawer, I <span class="rv" data-base="sweep">swept</span> every corner — nothing."</p>
+      <p>Julia's eyes <span class="rv" data-base="shine">shone</span>. "Can we help you look?"</p>
+      <p>"You can try," Aunt Marta laughed. "But do not <span class="rv" data-base="spread">spread</span> the flour on my clean floor!"</p>
+      <p>The girls searched everywhere. Sonya <span class="rv" data-base="slide">slid</span> a small ladder to the top shelf and <span class="rv" data-base="dig">dug</span> behind the old cake tins. Julia <span class="rv" data-base="lie">lay</span> down on the wooden floor and <span class="rv" data-base="stick">stuck</span> her head under the counter. Toby <span class="rv" data-base="steal">stole</span> a crumb of bread and <span class="rv" data-base="hide">hid</span> behind a chair.</p>
+      <p>Suddenly, Sonya cried out. "Julia, look!" Between two old cookbooks, she <span class="rv" data-base="find">found</span> a tiny brown notebook. Its cover was <span class="rv" data-base="tear">torn</span>, its pages were yellow. She <span class="rv" data-base="hold">held</span> it up like a trophy.</p>
+      <p>Aunt Marta <span class="rv" data-base="weep">wept</span> a little. She had not <span class="rv" data-base="see">seen</span> the notebook since her grandmother had <span class="rv" data-base="give">given</span> it to her sixty years earlier. "You <span class="rv" data-base="bring">brought</span> back my whole family," she whispered. "You dear little detectives!"</p>
+      <p>That afternoon, Aunt Marta <span class="rv" data-base="teach">taught</span> the girls how to make honey cake the old way. Julia <span class="rv" data-base="beat">beat</span> the eggs, Sonya <span class="rv" data-base="spread">spread</span> the honey, and together they <span class="rv" data-base="build">built</span> a warm, golden cake. When it <span class="rv" data-base="come">came</span> out of the oven, the smell filled the whole street. People came in with wide eyes.</p>
+      <p>"Maybe I will not close after all," Aunt Marta <span class="rv" data-base="say">said</span> quietly.</p>
+      <p>By evening, the sun had <span class="rv" data-base="set">set</span> and the streetlamps had <span class="rv" data-base="light">lit</span> up. Julia and Sonya walked home tired but proud. They <span class="rv" data-base="swing">swung</span> their empty bag between them and <span class="rv" data-base="sing">sang</span> a silly song. Julia <span class="rv" data-base="think">thought</span> about the day. She had <span class="rv" data-base="spend">spent</span> only three hours at the bakery, but she <span class="rv" data-base="feel">felt</span> she had lived a whole little story.</p>
+      <p>At home, she <span class="rv" data-base="sit">sat</span> down and <span class="rv" data-base="write">wrote</span> in her diary: <em>"Today we found something old, and something old found us back."</em></p>
+      <p style="text-align:center;font-family:var(--display);color:var(--accent);margin-top:14px">— The end —</p>
+    </div>
+    <div class="tts-hint">💡 Tap any <span class="rv" data-base="tap">violet</span> verb to hear "base → past → participle" — each unique verb counts in the badge above.</div>
+    </div><!-- /.r-body-col -->
+    <aside class="r-visual">
+      <img src="img/spread-bakery.png" alt="Reading workbook · The Old Bakery page" data-say="A workbook-style page of The Old Bakery. Julia, Sonya and Aunt Marta with warm bread. Fifteen irregular verbs are highlighted in violet.">
+      <div class="r-task">
+        <strong>📝 Your tasks</strong><br>
+        1. <strong>Read</strong> the story on the left.<br>
+        2. <strong>Find</strong> and tap all <strong>15</strong> violet verbs — the counter fills up.<br>
+        3. <strong>Sort</strong> them by pattern (A/B/C/D) in your head.<br>
+        4. <strong>Type</strong> the past forms in R5 below.<br>
+        5. <strong>Build</strong> 5 own sentences in Past Simple.
+      </div>
+    </aside>
+    </div><!-- /.reading-2col -->
+  </div>
+</section>
+
+<!-- R3 · COMPREHENSION MCQ -->
+<section class="section" id="r-block-3">
+  <div class="section-head"><div class="n">3</div><h2>Did you understand? 🎯</h2></div>
+  <div class="section-sub">Eight questions · choose the best answer</div>
+  <div class="card">
+    <div class="rule-box" style="margin-bottom:12px"><h4>🎯 How</h4>Look back at the story if you need to. Every question has one right answer.</div>
+    <div class="gap-line">1. Why was Aunt Marta closing the bakery? <select class="mcq" data-answer="she grew tired and lost the recipe"><option value="" disabled selected>—</option><option>she got a new job</option><option>she grew tired and lost the recipe</option><option>the shop was too small</option></select></div>
+    <div class="gap-line">2. How long had the bakery been open? <select class="mcq" data-answer="fifty-two years"><option value="" disabled selected>—</option><option>thirty-two years</option><option>fifty-two years</option><option>sixty years</option></select></div>
+    <div class="gap-line">3. Who led the way to the bakery? <select class="mcq" data-answer="Julia's little dog Toby"><option value="" disabled selected>—</option><option>Aunt Marta</option><option>Julia's little dog Toby</option><option>Sonya's brother</option></select></div>
+    <div class="gap-line">4. What did Aunt Marta save for the girls? <select class="mcq" data-answer="a warm cinnamon bun each"><option value="" disabled selected>—</option><option>a big honey cake</option><option>a warm cinnamon bun each</option><option>a slice of bread</option></select></div>
+    <div class="gap-line">5. Where did Sonya find the notebook? <select class="mcq" data-answer="between two old cookbooks"><option value="" disabled selected>—</option><option>under the counter</option><option>between two old cookbooks</option><option>in the oven</option></select></div>
+    <div class="gap-line">6. What did Aunt Marta teach the girls to bake? <select class="mcq" data-answer="honey cake"><option value="" disabled selected>—</option><option>white bread</option><option>cinnamon buns</option><option>honey cake</option></select></div>
+    <div class="gap-line">7. Who beat the eggs? <select class="mcq" data-answer="Julia"><option value="" disabled selected>—</option><option>Julia</option><option>Sonya</option><option>Aunt Marta</option></select></div>
+    <div class="gap-line">8. What did Julia write in her diary? <select class="mcq" data-answer="something old found us back"><option value="" disabled selected>—</option><option>we lost the notebook again</option><option>something old found us back</option><option>I want a new bike</option></select></div>
+    <div class="score-badge" data-ex="r3-mcq" data-max="8"><span>Score</span> <span class="val">0</span> <span style="opacity:.6">/ 8</span></div>
+  </div>
+</section>
+
+<!-- R4 · TRUE / FALSE -->
+<section class="section" id="r-block-4">
+  <div class="section-head"><div class="n">4</div><h2>True or False? ✅❌</h2></div>
+  <div class="section-sub">Six statements about the story</div>
+  <div class="card">
+    <div id="reading-tf"></div>
+    <div class="score-badge" data-ex="r4-tf" data-max="6"><span>Score</span> <span class="val">0</span> <span style="opacity:.6">/ 6</span></div>
+  </div>
+</section>
+
+<!-- R5 · GAP-FILL FROM STORY -->
+<section class="section" id="r-block-5">
+  <div class="section-head"><div class="n">5</div><h2>Fill the verb · straight from the story ✍️</h2></div>
+  <div class="section-sub">Six sentences · pick the past form from the bank</div>
+  <div class="card">
+    <div class="rule-box" style="margin-bottom:12px"><h4>💡 Tip</h4>These are exact lines (or almost exact) from "The Old Bakery". The base form is in brackets.</div>
+    <p class="gap-line">1. The afternoon sun <span class="gap" data-answer="shone">__</span> brightly. <em>(shine)</em> ☀️</p>
+    <p class="gap-line">2. Toby <span class="gap" data-answer="stole">__</span> a crumb of bread and <span class="gap" data-answer="hid">__</span> behind a chair. <em>(steal, hide)</em> 🐕</p>
+    <p class="gap-line">3. Sonya <span class="gap" data-answer="slid">__</span> a small ladder to the top shelf. <em>(slide)</em> 🪜</p>
+    <p class="gap-line">4. Aunt Marta <span class="gap" data-answer="taught">__</span> the girls how to make honey cake. <em>(teach)</em> 👩‍🍳</p>
+    <p class="gap-line">5. Julia <span class="gap" data-answer="beat">__</span> the eggs and Sonya <span class="gap" data-answer="spread">__</span> the honey. <em>(beat, spread)</em> 🥚</p>
+    <p class="gap-line">6. By evening, the sun had <span class="gap" data-answer="set">__</span> and the streetlamps had lit up. <em>(set)</em> 🌆</p>
+    <div class="kid-bank" id="bank-r-5"></div>
+    <div class="tts-hint">💡 Tap a gap → then tap the correct past form from the bank.</div>
+  </div>
+</section>
+
+<!-- R6 · DISCUSSION -->
+<section class="section" id="r-block-6">
+  <div class="section-head"><div class="n">6</div><h2>Now talk about it 💬</h2></div>
+  <div class="section-sub">Six discussion questions · answer aloud in full sentences</div>
+  <div class="card">
+    <div class="rule-box" style="margin-bottom:12px"><h4>💬 How</h4>Speak in full sentences, use Past Simple where you can. Every hint starts you off.</div>
+    <div id="reading-discussion"></div>
+  </div>
+</section>
+
+<!-- R7 · SECOND STORY · The Secret Key -->
+<section class="section" id="r-block-7">
+  <div class="section-head"><div class="n">7</div><h2>Second story · The Secret Key 🗝️</h2></div>
+  <div class="section-sub">Another A2+ story · adventure · Julia, Sonya and the hidden door</div>
+  <div class="card">
+    <div class="rule-box" style="margin-bottom:12px">
+      <h4>🎧 How to read</h4>
+      Same as before: read the whole story once, then tap <button class="wo-btn" id="key-play-btn" style="background:var(--accent);padding:2px 10px;font-size:.7rem">▶ hear it</button> to hear it read aloud. Tap any violet verb for base → past.
+    </div>
+    <div class="find15-badge">🔍 Find 15 irregular verbs · <span id="find15-key">0</span> / 15</div>
+    <div class="reading-2col">
+    <div class="r-body-col">
+    <div class="reading-body" id="key-story">
+      <p class="drop-cap">One warm afternoon last summer, Julia and Sonya <span class="rv" data-base="go">went</span> exploring behind the old town library. Nobody had <span class="rv" data-base="tell">told</span> them what <span class="rv" data-base="lie">lay</span> there — and that <span class="rv" data-base="make">made</span> it even more exciting.</p>
+      <p>Between two thick ivy vines, Julia's eyes <span class="rv" data-base="shine">shone</span>. She <span class="rv" data-base="see">saw</span> a loose red brick in the wall. She pulled it — carefully — and it <span class="rv" data-base="slide">slid</span> out into her hand. A cool wind <span class="rv" data-base="come">came</span> through the little hole. Then, with a soft creak, a small wooden door <span class="rv" data-base="swing">swung</span> open on its own.</p>
+      <p>Sonya's mouth <span class="rv" data-base="fall">fell</span> open. "It was <span class="rv" data-base="hide">hidden</span> all this time," she whispered. Toby, their little dog, <span class="rv" data-base="hide">hid</span> behind Julia's leg for a moment, then bravely <span class="rv" data-base="lead">led</span> the way.</p>
+      <p>Inside was a small forgotten room. Dust <span class="rv" data-base="lie">lay</span> thick on the shelves. Old cobwebs <span class="rv" data-base="hang">hung</span> from the ceiling like grey lace. A pale beam of sun <span class="rv" data-base="shine">shone</span> through a narrow window and <span class="rv" data-base="light">lit</span> up a wooden trunk in the corner.</p>
+      <p>Julia sat down beside the trunk. Someone had <span class="rv" data-base="sweep">swept</span> a small circle of dust away from the top, as if a person had been here not long ago. Sonya's heart <span class="rv" data-base="beat">beat</span> fast. On top of the trunk, a small brown key <span class="rv" data-base="stick">stuck</span> up from a slit in the wood.</p>
+      <p>Julia <span class="rv" data-base="hold">held</span> the key gently. She turned it, and the lock clicked open. Inside they <span class="rv" data-base="find">found</span> a small diary and a little velvet bag. Sonya opened the bag and gasped — inside were three old copper coins and a folded map.</p>
+      <p>Julia <span class="rv" data-base="read">read</span> the first page of the diary aloud:<br><em>"If you found this, you followed the path we made. Take one coin, take the map. The last treasure is yours."</em></p>
+      <p>The girls looked at each other. They <span class="rv" data-base="choose">chose</span> one coin each, <span class="rv" data-base="lay">laid</span> the third one gently back, and <span class="rv" data-base="take">took</span> the map. Then they <span class="rv" data-base="write">wrote</span> a small note on the last empty page of the diary: <em>"Thank you. We will keep the story safe. — Julia and Sonya."</em></p>
+      <p>Toby <span class="rv" data-base="stick">stuck</span> his nose into the bag, then sat proudly like a tiny guard. Julia <span class="rv" data-base="lay">laid</span> a hand on his soft head. Sonya <span class="rv" data-base="put">put</span> the diary back into the trunk, and together they <span class="rv" data-base="slide">slid</span> it into the corner where they had <span class="rv" data-base="find">found</span> it.</p>
+      <p>Before they left, they <span class="rv" data-base="stand">stood</span> in the doorway for a long moment. The little room <span class="rv" data-base="feel">felt</span> warm now, as if it had waited a very long time to be found. Sonya <span class="rv" data-base="light">lit</span> an old candle on the shelf — just for a second — and its light danced across the walls. Julia <span class="rv" data-base="think">thought</span> about the person who had <span class="rv" data-base="build">built</span> this hidden room. Whoever they were, they had left something kind.</p>
+      <p>The girls stepped back into the sunlight. They laughed, they <span class="rv" data-base="hold">held</span> their coins tight, and they <span class="rv" data-base="know">knew</span> that this little secret would stay with them forever.</p>
+      <p style="text-align:center;font-family:var(--display);color:var(--accent);margin-top:14px">— The end —</p>
+    </div>
+    </div><!-- /.r-body-col -->
+    <aside class="r-visual">
+      <img src="img/spread-secret-key.png" alt="Reading workbook · The Secret Key page" data-say="A workbook-style page of The Secret Key. Julia and Sonya find a chest with an old key and a diary. Fifteen irregular verbs are highlighted in violet.">
+      <div class="r-task">
+        <strong>📝 Your tasks</strong><br>
+        1. <strong>Read</strong> the story on the left.<br>
+        2. <strong>Find</strong> and tap all <strong>15</strong> violet verbs — the counter fills up.<br>
+        3. <strong>Sort</strong> them by pattern (A/B/C/D) in your head.<br>
+        4. <strong>Answer</strong> the quick check below (R8).<br>
+        5. <strong>Retell</strong> the story to your teacher in your own words.
+      </div>
+    </aside>
+    </div><!-- /.reading-2col -->
+  </div>
+</section>
+
+<!-- R8 · COMPREHENSION FOR SECRET KEY -->
+<section class="section" id="r-block-8">
+  <div class="section-head"><div class="n">8</div><h2>Secret Key · quick check ✅</h2></div>
+  <div class="section-sub">Five MCQ + three True/False + three questions for you</div>
+  <div class="card">
+    <p style="font-size:.92rem;font-weight:700;color:var(--accent);margin-bottom:8px">Part 1 · Multiple choice</p>
+    <div class="gap-line">1. Where did the girls go exploring? <select class="mcq" data-answer="behind the old town library"><option value="" disabled selected>—</option><option>behind the school</option><option>behind the old town library</option><option>in Julia's garden</option></select></div>
+    <div class="gap-line">2. What did Julia find in the wall? <select class="mcq" data-answer="a loose red brick"><option value="" disabled selected>—</option><option>a metal key</option><option>a loose red brick</option><option>a small window</option></select></div>
+    <div class="gap-line">3. Who led the way into the room? <select class="mcq" data-answer="Toby the dog"><option value="" disabled selected>—</option><option>Julia</option><option>Sonya</option><option>Toby the dog</option></select></div>
+    <div class="gap-line">4. What was in the velvet bag? <select class="mcq" data-answer="three copper coins and a folded map"><option value="" disabled selected>—</option><option>an old photo</option><option>three copper coins and a folded map</option><option>a small silver ring</option></select></div>
+    <div class="gap-line">5. How many coins did the girls take? <select class="mcq" data-answer="one each · they left the third"><option value="" disabled selected>—</option><option>all three</option><option>one each · they left the third</option><option>none · they left everything</option></select></div>
+    <div class="score-badge" data-ex="r8-mcq" data-max="5"><span>Score</span> <span class="val">0</span> <span style="opacity:.6">/ 5</span></div>
+
+    <p style="font-size:.92rem;font-weight:700;color:var(--accent);margin:16px 0 8px">Part 2 · True or False</p>
+    <div id="key-tf"></div>
+    <div class="score-badge" data-ex="r8-tf" data-max="3"><span>Score</span> <span class="val">0</span> <span style="opacity:.6">/ 3</span></div>
+
+    <p style="font-size:.92rem;font-weight:700;color:var(--accent);margin:16px 0 8px">Part 3 · Now think and talk 💬</p>
+    <div id="key-discussion"></div>
+  </div>
+</section>
+
+<!-- R9 · BONUS STORY · The Little Shelter · gentle -->
+<section class="section" id="r-block-9">
+  <div class="section-head"><div class="n">9</div><h2>Bonus story · The Little Shelter 🐾</h2></div>
+  <div class="section-sub">A very warm short story · quiet kindness · about 450 words · no quiz</div>
+  <div class="card" style="background:linear-gradient(180deg,#FBFAFF 0%,#F4EEFC 100%);border:2px solid var(--accent3)">
+    <div class="lit-cover" style="border-color:var(--gold);background:linear-gradient(135deg,#FFF3E4,#F4EEFC)">
+      <div class="lit-author">💛 Bonus · gentle read</div>
+      <div class="lit-title">The Little Shelter</div>
+      <div class="lit-year">Sunny Hill · quiet love</div>
+    </div>
+    <div class="rule-box" style="margin-bottom:12px">
+      <h4>💛 Just for reading</h4>
+      No quiz, no gaps — only warmth. Notice all the small ways Julia and Sonya help animals who need quiet love.
+    </div>
+    <div class="audio-row" style="background:#fff;margin-bottom:12px">
+      <button class="play-btn" id="shelter-play-btn" aria-label="Play bonus story">▶</button>
+      <div><div class="label">Bonus story · listening</div><div class="text">Press play to hear it read aloud (about 3 minutes)</div></div>
+    </div>
+    <div class="reading-body" id="shelter-story">
+      <p class="drop-cap">Last Saturday morning, Julia and Sonya <span class="rv" data-base="wake">woke</span> up early because they had a special plan. Julia's grandma had <span class="rv" data-base="tell">told</span> them about a small animal shelter on Sunny Hill, and the girls wanted to help. They <span class="rv" data-base="put">put</span> on their warmest jumpers, <span class="rv" data-base="take">took</span> a bag of old blankets and some cat treats, and walked up the hill together.</p>
+      <p>When they <span class="rv" data-base="come">came</span> in, a kind volunteer named Anna <span class="rv" data-base="give">gave</span> each of them a soft green apron. "You have to be very gentle here," she <span class="rv" data-base="say">said</span>. "Some of our animals are very old, and some are getting better slowly. What they need most is quiet love."</p>
+      <p>The first room was full of cats. In a warm corner, on an old red pillow, <span class="rv" data-base="lie">lay</span> a small white cat named Snowball. Her eyes were half-closed and her breathing was slow. "This is Snowball," Anna said softly. "She is a little sleepy today, but every week she gets a bit stronger. She just needs friends."</p>
+      <p>Julia sat down next to the pillow. She <span class="rv" data-base="speak">spoke</span> in a very quiet voice: "Hi, Snowball. I <span class="rv" data-base="bring">brought</span> you a soft blanket." Slowly, very slowly, Snowball <span class="rv" data-base="open">opened</span> one eye. Then the other. Julia <span class="rv" data-base="lay">laid</span> the blanket beside her and gently stroked her tiny head. Snowball <span class="rv" data-base="begin">began</span> to purr. Anna smiled and whispered, "She hasn't purred in three days. You <span class="rv" data-base="bring">brought</span> that sound back."</p>
+      <p>Sonya <span class="rv" data-base="go">went</span> to the dogs' room. A very shy little dog named Biscuit had <span class="rv" data-base="hide">hidden</span> behind a chair for weeks. Sonya <span class="rv" data-base="sit">sat</span> on the floor and did not move. She <span class="rv" data-base="sing">sang</span> a very quiet song. After ten long minutes, Biscuit <span class="rv" data-base="come">came</span> out slowly. He sniffed her hand and <span class="rv" data-base="lie">lay</span> down beside her. His tail <span class="rv" data-base="swing">swung</span> just a little. Anna said, "That is the first time he has come close to a person since he arrived here."</p>
+      <p>The girls <span class="rv" data-base="feed">fed</span> Snowball with a tiny spoon. They cleaned an old bowl. They <span class="rv" data-base="sweep">swept</span> the floor. They <span class="rv" data-base="write">wrote</span> little name cards for each cat and dog. Toby, who had come with them, <span class="rv" data-base="keep">kept</span> quiet watch by the door, like a small brown guard.</p>
+      <p>Before they left, Anna <span class="rv" data-base="give">gave</span> them each a small photo of Snowball and Biscuit. "You <span class="rv" data-base="give">gave</span> them a very good day," she said. "And they gave you something too, I think."</p>
+      <p>On the way home, Julia and Sonya did not speak much. They just <span class="rv" data-base="hold">held</span> their photos tight. Julia <span class="rv" data-base="think">thought</span> about how a soft blanket, a quiet song and a tiny bit of warm love can help someone who is hurting. She <span class="rv" data-base="feel">felt</span> full and calm and a little bit brave.</p>
+      <p>That evening, Julia <span class="rv" data-base="sit">sat</span> on her bed with her own little cat curled up next to her. She stroked her softly and <span class="rv" data-base="say">said</span>, <em>"Thank you for staying with me."</em></p>
+      <p style="text-align:center;font-family:var(--display);color:var(--accent);margin-top:14px;font-size:1.05rem">— Sometimes the smallest act of love is the biggest medicine. —</p>
+    </div>
+
+    <div class="rule-box" style="margin-top:18px">
+      <h4>💬 Just to think about (no wrong answers)</h4>
+    </div>
+    <div id="shelter-discussion"></div>
+  </div>
+</section>
+
+<section class="section" id="r-recap">
+  <div class="card" style="background:linear-gradient(135deg,#EAF3FB,#F4EEFC);border:2px dashed var(--accent)">
+    <h3 style="text-align:center;color:var(--accent)">🎉 Three A2+ stories · 40+ irregular verbs in real context</h3>
+    <p style="text-align:center;color:var(--muted)"><strong>The Old Bakery</strong> gave you <em>shone, led, hung, sought, dug, swept, slid, lay, stuck, stole, hid, wept, spread, built, swung, torn</em>. <strong>The Secret Key</strong> added <em>fell, beat, held, chose, laid, wrote, put, stood, felt, lit, thought, knew</em>. <strong>The Little Shelter</strong> quietly added <em>fed, sang, brought, spoke, kept</em> — plus a soft reminder that a small kind act can change a whole day. That is how real English speakers meet these verbs: not from lists, but from moments they remember.</p>
+    <p style="text-align:center;color:var(--muted);margin-top:12px;font-size:.88rem">📖 <em>Coming soon in a separate lesson: "Five on a Treasure Island" — Enid Blyton's five children and their dog Timmy, adapted into 5 chapters at A2+.</em></p>
+  </div>
+</section>
+
+</div><!-- /#tab-reading -->
+
+<footer>
+  Julia · Irregular Verbs · LinguaBoost Lab · A2 · Past Simple<br>
+  Palette: sky blue · violet · lavender · indigo
+</footer>
+
+<script>
+// FULL DATA · 100 irregular verbs · pattern: A=same, B=past=pp, C=i-a-u, D=three shapes
+const VERBS = [
+  ['awake','awoke','awaken','D'],['be','was/were','been','D'],['beat','beat','beaten','B'],
+  ['begin','began','begun','C'],['bite','bit','bitten','D'],['blow','blew','blown','D'],
+  ['break','broke','broken','D'],['bring','brought','brought','B'],['build','built','built','B'],
+  ['buy','bought','bought','B'],['catch','caught','caught','B'],['choose','chose','chosen','D'],
+  ['come','came','come','D'],['cost','cost','cost','A'],['cut','cut','cut','A'],
+  ['do','did','done','D'],['deal','dealt','dealt','B'],['dig','dug','dug','B'],
+  ['dream','dreamt','dreamt','B'],['draw','drew','drawn','D'],['drink','drank','drunk','C'],
+  ['drive','drove','driven','D'],['eat','ate','eaten','D'],['fall','fell','fallen','D'],
+  ['feed','fed','fed','B'],['feel','felt','felt','B'],['fight','fought','fought','B'],
+  ['find','found','found','B'],['fly','flew','flown','D'],['forget','forgot','forgotten','D'],
+  ['forgive','forgave','forgiven','D'],['freeze','froze','frozen','D'],['get','got','gotten','D'],
+  ['give','gave','given','D'],['go','went','gone','D'],['grow','grew','grown','D'],
+  ['hang','hung','hung','B'],['have','had','had','B'],['hear','heard','heard','B'],
+  ['hide','hid','hidden','D'],['hit','hit','hit','A'],['hold','held','held','B'],
+  ['hurt','hurt','hurt','A'],['keep','kept','kept','B'],['know','knew','known','D'],
+  ['lay','laid','laid','B'],['lead','led','led','B'],['leave','left','left','B'],
+  ['lend','lent','lent','B'],['let','let','let','A'],['lie','lay','lain','D'],
+  ['lose','lost','lost','B'],['make','made','made','B'],['mean','meant','meant','B'],
+  ['meet','met','met','B'],['pay','paid','paid','B'],['put','put','put','A'],
+  ['quit','quit','quit','A'],['read','read','read','A'],['ride','rode','ridden','D'],
+  ['ring','rang','rung','C'],['rise','rose','risen','D'],['run','ran','run','C'],
+  ['say','said','said','B'],['see','saw','seen','D'],['seek','sought','sought','B'],
+  ['sell','sold','sold','B'],['send','sent','sent','B'],['set','set','set','A'],
+  ['sew','sewed','sewn','D'],['shake','shook','shaken','D'],['shine','shone','shone','B'],
+  ['shoot','shot','shot','B'],['show','showed','shown','D'],['sing','sang','sung','C'],
+  ['sink','sank','sunk','C'],['sit','sat','sat','B'],['sleep','slept','slept','B'],
+  ['slide','slid','slid','B'],['speak','spoke','spoken','D'],['spend','spent','spent','B'],
+  ['spread','spread','spread','A'],['stand','stood','stood','B'],['steal','stole','stolen','D'],
+  ['stick','stuck','stuck','B'],['strike','struck','stricken','D'],['swear','swore','sworn','D'],
+  ['sweep','swept','swept','B'],['swell','swelled','swollen','D'],['swim','swam','swum','C'],
+  ['swing','swung','swung','B'],['take','took','taken','D'],['teach','taught','taught','B'],
+  ['tear','tore','torn','D'],['tell','told','told','B'],['think','thought','thought','B'],
+  ['understand','understood','understood','B'],['wear','wore','worn','D'],['weep','wept','wept','B'],
+  ['win','won','won','B'],['write','wrote','written','D']
+];
+
+// TTS — Web Speech, prefer en-GB female
+const synth = window.speechSynthesis;
+let voice = null;
+function pickVoice(){
+  if(!synth) return;
+  const voices = synth.getVoices();
+  voice = voices.find(v => v.lang === 'en-GB' && /female|Kate|Amy|Emma|Serena|Susan/i.test(v.name)) ||
+          voices.find(v => v.lang === 'en-GB') ||
+          voices.find(v => v.lang.startsWith('en-US') && /female|Samantha|Victoria/i.test(v.name)) ||
+          voices.find(v => v.lang.startsWith('en')) || voices[0];
+}
+if(synth){ pickVoice(); synth.onvoiceschanged = pickVoice; }
+function say(text, rate = 0.9){
+  if(!synth) return;
+  synth.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  if(voice) u.voice = voice;
+  u.rate = rate; u.pitch = 1.05; u.lang = voice ? voice.lang : 'en-GB';
+  synth.speak(u);
+}
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-say]');
+  if(t){ say(t.dataset.say); }
+});
+
+// TABS
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    const target = document.getElementById('tab-' + btn.dataset.tab);
+    if(target) target.classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+});
+
+// MCQ selects — global handler
+document.querySelectorAll('.mcq').forEach(s => {
+  s.addEventListener('change', () => {
+    if(s.value === s.dataset.answer){
+      s.classList.add('right'); s.classList.remove('wrong'); say(s.value, 0.9);
+    } else {
+      s.classList.add('wrong'); s.classList.remove('right');
+    }
+    document.querySelectorAll('.score-badge[data-ex]').forEach(b => {
+      const block = b.closest('section');
+      if(!block) return;
+      const ok = Array.from(block.querySelectorAll('select.mcq')).filter(x => x.value === x.dataset.answer).length;
+      const val = b.querySelector('.val');
+      if(val) val.textContent = ok;
+    });
+  });
+});
+
+// PROGRESS DOTS · both tabs
+function buildDots(dotsEl, blocks){
+  if(!dotsEl) return;
+  blocks.forEach((b, idx) => {
+    const d = document.createElement('div');
+    d.className = 'dot';
+    d.onclick = () => b.scrollIntoView({behavior:'smooth', block:'start'});
+    dotsEl.appendChild(d);
+  });
+  function updateDots(){
+    const top = window.scrollY + 200;
+    blocks.forEach((b,i)=>{
+      const inView = b.offsetTop <= top;
+      const dot = dotsEl.children[i];
+      if(dot) dot.classList.toggle('lit', inView);
+    });
+  }
+  window.addEventListener('scroll', updateDots); updateDots();
+}
+buildDots(document.getElementById('dots'), [...document.querySelectorAll('#tab-lesson .section[id^="block-"]')]);
+buildDots(document.getElementById('dots-w'), [...document.querySelectorAll('#tab-workbook .section[id^="w-block-"]')]);
+buildDots(document.getElementById('dots-r'), [...document.querySelectorAll('#tab-reading .section[id^="r-block-"]')]);
+
+// BLOCK 2 · TOP-12 vocab cards
+const TOP12 = [
+  {emoji:'🌟', base:'be',    past:'was/were'},
+  {emoji:'📦', base:'have',  past:'had'},
+  {emoji:'💪', base:'do',    past:'did'},
+  {emoji:'🚶', base:'go',    past:'went'},
+  {emoji:'🚪', base:'come',  past:'came'},
+  {emoji:'🎁', base:'get',   past:'got'},
+  {emoji:'💬', base:'say',   past:'said'},
+  {emoji:'🧠', base:'know',  past:'knew'},
+  {emoji:'✋', base:'take',  past:'took'},
+  {emoji:'🔨', base:'make',  past:'made'},
+  {emoji:'👀', base:'see',   past:'saw'},
+  {emoji:'🎀', base:'give',  past:'gave'},
+];
+const t12 = document.getElementById('top12-vocab');
+if(t12){
+  TOP12.forEach(v => {
+    const card = document.createElement('div');
+    card.className = 'vocab-card';
+    card.innerHTML = '<span class="emoji">'+v.emoji+'</span><span class="base">'+v.base+'</span><span class="arrow">→ past</span><span class="past">'+v.past+'</span>';
+    card.addEventListener('click', () => {
+      say(v.base+'. '+v.past.replace('/', ' or ')+'.', 0.85);
+      card.classList.add('played');
+    });
+    t12.appendChild(card);
+  });
+}
+
+// MATCH base ↔ past
+function buildMatch(container, pairs, badgeKey){
+  if(!container) return;
+  container.innerHTML = '';
+  const shuffle = a => a.map(x => [Math.random(),x]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+  const bases = pairs.map(p => ({txt:p[0], type:'base', pair:p[0]}));
+  const shuffledPasts = shuffle(pairs.map(p => ({txt:p[1], type:'past', pair:p[0]})));
+  for(let i=0; i<pairs.length; i++){
+    const b = document.createElement('div');
+    b.className = 'match-item'; b.dataset.type='base'; b.dataset.pair = bases[i].pair; b.textContent = bases[i].txt;
+    container.appendChild(b);
+    const p = document.createElement('div');
+    p.className = 'match-item'; p.dataset.type='past'; p.dataset.pair = shuffledPasts[i].pair; p.textContent = shuffledPasts[i].txt;
+    container.appendChild(p);
+  }
+  let selected = null; let matched = 0;
+  container.querySelectorAll('.match-item').forEach(el => {
+    el.addEventListener('click', () => {
+      say(el.textContent, 0.9);
+      if(el.classList.contains('matched')) return;
+      if(!selected){ selected = el; el.classList.add('selected'); return; }
+      if(selected === el){ el.classList.remove('selected'); selected = null; return; }
+      if(selected.dataset.pair === el.dataset.pair && selected.dataset.type !== el.dataset.type){
+        selected.classList.remove('selected'); selected.classList.add('matched');
+        el.classList.add('matched');
+        matched++;
+        const badge = document.querySelector('.score-badge[data-match="'+badgeKey+'"] .val');
+        if(badge) badge.textContent = matched;
+        selected = null;
+      } else {
+        selected.classList.add('wrong'); el.classList.add('wrong');
+        const s = selected;
+        setTimeout(() => { s.classList.remove('wrong','selected'); el.classList.remove('wrong'); }, 500);
+        selected = null;
+      }
+    });
+  });
+}
+buildMatch(document.getElementById('match-block-5'), [
+  ['go','went'], ['see','saw'], ['eat','ate'], ['take','took'],
+  ['make','made'], ['come','came'], ['give','gave'], ['write','wrote'],
+  ['drink','drank'], ['run','ran'], ['fall','fell'], ['find','found']
+], 'b5');
+buildMatch(document.getElementById('match-w-4'), [
+  ['buy','bought'], ['bring','brought'], ['catch','caught'], ['teach','taught'],
+  ['think','thought'], ['sell','sold'], ['tell','told'], ['sing','sang'],
+  ['sleep','slept'], ['stand','stood']
+], 'w4');
+
+// GAP-FILL + kid-bank
+function buildBank(container, section){
+  if(!container) return;
+  const gaps = section.querySelectorAll('.gap');
+  const words = [...new Set([...gaps].map(g => g.dataset.answer))];
+  words.sort(() => Math.random() - 0.5);
+  words.forEach(w => {
+    const chip = document.createElement('span');
+    chip.className = 'kid-bank-word';
+    chip.dataset.word = w;
+    chip.textContent = w;
+    container.appendChild(chip);
+  });
+}
+[
+  ['bank-block-6','block-6'],
+  ['bank-block-15','block-15'],
+  ['bank-block-18','block-18'],
+  ['bank-w-7','w-block-7'],
+  ['bank-r-5','r-block-5'],
+].forEach(pair => {
+  buildBank(document.getElementById(pair[0]), document.getElementById(pair[1]));
+});
+
+document.querySelectorAll('.gap').forEach(g => {
+  g.addEventListener('click', () => {
+    if(g.classList.contains('filled')) return;
+    document.querySelectorAll('.gap.selected-gap').forEach(o => o.classList.remove('selected-gap'));
+    g.classList.add('selected-gap');
+  });
+});
+document.querySelectorAll('.kid-bank-word').forEach(w => {
+  w.addEventListener('click', () => {
+    const target = document.querySelector('.gap.selected-gap');
+    const txt = w.dataset.word || w.textContent.trim();
+    say(txt, 0.9);
+    if(!target) return;
+    if(target.dataset.answer === txt){
+      target.textContent = txt;
+      target.classList.remove('selected-gap');
+      target.classList.add('filled');
+      w.classList.add('used');
+    } else {
+      target.classList.add('wrong');
+      setTimeout(() => target.classList.remove('wrong'), 500);
+    }
+  });
+});
+
+// BLOCK 9 · LISTENING story + memory quiz
+const STORY = "Last Sunday Julia woke up early and got out of bed at seven o'clock. She went to the kitchen. Mum made pancakes and Julia ate five of them with strawberry jam. After breakfast, she took her bike and rode to the park. She met her friend Sonya. They ran together and swam a little in the small lake. Julia saw a big red fish and gave a piece of bread to a duck. Suddenly it began to rain. Julia's phone rang and Mum said 'come home now'. Julia came home wet. She put on dry clothes, sat by the window, and read her new book. She wrote a short letter to Grandma. She felt happy and fell asleep with a big smile.";
+const storyPreview = document.getElementById('story-preview');
+if(storyPreview) storyPreview.textContent = "Full story — press play to hear (about 40 seconds)";
+const storyBtn = document.getElementById('story-play');
+if(storyBtn){
+  storyBtn.addEventListener('click', () => {
+    const trySay = (retries = 5) => {
+      if(synth && synth.getVoices().length === 0 && retries > 0){
+        setTimeout(() => trySay(retries - 1), 250); return;
+      }
+      pickVoice(); say(STORY, 0.85);
+    };
+    trySay();
+  });
+}
+
+const MEMQ = [
+  {q:'🎧 What time did Julia get out of bed?', opts:['at six', 'at seven', 'at eight'], ans:'at seven'},
+  {q:'🎧 What did Mum make for breakfast?', opts:['pancakes', 'porridge', 'sandwiches'], ans:'pancakes'},
+  {q:'🎧 How many pancakes did Julia eat?', opts:['three', 'four', 'five'], ans:'five'},
+  {q:'🎧 What did Julia take after breakfast?', opts:['her bike', 'her bag', 'her book'], ans:'her bike'},
+  {q:'🎧 Who did Julia meet?', opts:['her friend Sonya', 'her cousin', 'her teacher'], ans:'her friend Sonya'},
+  {q:'🎧 What did they do in the lake?', opts:['fished', 'swam', 'rowed'], ans:'swam'},
+  {q:'🎧 What did Julia give to the duck?', opts:['a fish', 'a piece of bread', 'a coin'], ans:'a piece of bread'},
+  {q:'🎧 What happened suddenly?', opts:['it began to rain', 'the sun went out', 'she fell'], ans:'it began to rain'},
+  {q:'🎧 What did Julia do by the window?', opts:['painted', 'read her book', 'watched TV'], ans:'read her book'},
+  {q:'🎧 How did Julia feel at the end?', opts:['tired', 'sad', 'happy'], ans:'happy'},
+];
+const mq = document.getElementById('memory-quiz');
+let mScore = 0;
+if(mq){
+  MEMQ.forEach((item,i) => {
+    const opts = [...item.opts].sort(() => Math.random() - 0.5);
+    const block = document.createElement('div');
+    block.className = 'q-block';
+    block.innerHTML = '<div class="q-text">'+(i+1)+'. '+item.q+'</div><div class="choice-row">'+opts.map(o => '<button class="choice" data-ans="'+o+'">'+o+'</button>').join('')+'</div>';
+    block.querySelectorAll('.choice').forEach(c => {
+      c.addEventListener('click', () => {
+        say(c.dataset.ans, 0.9);
+        if(c.dataset.ans === item.ans){
+          c.classList.add('right');
+          block.querySelectorAll('.choice').forEach(x => x.disabled = true);
+          mScore++;
+          if(mScore === MEMQ.length){
+            const rw = document.getElementById('reward');
+            if(rw) rw.style.display = 'block';
+            setTimeout(() => say("Wonderful! You know irregular verbs now. See you next lesson!", 0.85), 500);
+          }
+        } else {
+          c.classList.add('wrong');
+          setTimeout(() => c.classList.remove('wrong'), 500);
+        }
+      });
+    });
+    mq.appendChild(block);
+  });
+}
+
+// BLOCK 10 · SPEAKING
+const SPEAKQ = [
+  {q:"What time did you wake up yesterday?", hint:"Yesterday I woke up at ___"},
+  {q:"What did you eat for breakfast this morning?", hint:"For breakfast I ate ___"},
+  {q:"Where did you go last weekend?", hint:"Last weekend I went to ___"},
+  {q:"Who did you see yesterday at school?", hint:"Yesterday I saw ___"},
+  {q:"What did you do after your English lesson last time?", hint:"After the lesson I ___"},
+  {q:"What did you take with you to school today?", hint:"Today I took ___"},
+  {q:"What did you drink at lunch yesterday?", hint:"At lunch I drank ___"},
+  {q:"What did your mum make for dinner last night?", hint:"Last night Mum made ___"},
+];
+const sq = document.getElementById('speak-questions');
+if(sq){
+  SPEAKQ.forEach((item,i) => {
+    const block = document.createElement('div');
+    block.className = 'q-block';
+    block.innerHTML = '<div class="q-text">'+(i+1)+'. '+item.q+'</div><div class="audio-row" style="background:#fff"><button class="play-btn" data-say="'+item.q.replace(/"/g,'&quot;')+'">▶</button><div><div class="label">Start like this →</div><div class="text">'+item.hint+'</div></div></div>';
+    sq.appendChild(block);
+  });
+}
+
+// SORT BY PATTERN (blocks 11 · w2)
+function buildSort(poolId, basketsId, verbList, badgeKey){
+  const pool = document.getElementById(poolId);
+  const zone = document.getElementById(basketsId);
+  if(!pool || !zone) return;
+  const shuffled = [...verbList].sort(() => Math.random() - 0.5);
+  shuffled.forEach(v => {
+    const chip = document.createElement('span');
+    chip.className = 'drop-token';
+    chip.dataset.pattern = v[1];
+    chip.textContent = v[0];
+    pool.appendChild(chip);
+  });
+  let selected = null; let sorted = 0;
+  pool.querySelectorAll('.drop-token').forEach(chip => {
+    chip.addEventListener('click', () => {
+      say(chip.textContent, 0.9);
+      if(chip.classList.contains('used')) return;
+      pool.querySelectorAll('.drop-token.selected').forEach(x => x.classList.remove('selected'));
+      chip.classList.add('selected');
+      selected = chip;
+    });
+  });
+  zone.querySelectorAll('.drop-basket').forEach(basket => {
+    basket.addEventListener('click', () => {
+      if(!selected) return;
+      const b = basket.dataset.basket;
+      if(selected.dataset.pattern === b){
+        const items = basket.querySelector('.drop-basket-items');
+        const chip = document.createElement('span');
+        chip.className = 'drop-word';
+        chip.textContent = selected.textContent;
+        items.appendChild(chip);
+        selected.classList.add('used');
+        selected.classList.remove('selected');
+        sorted++;
+        const badge = document.querySelector('.score-badge[data-ex="'+badgeKey+'"] .val');
+        if(badge) badge.textContent = sorted;
+        selected = null;
+      } else {
+        basket.style.animation = 'shake .35s';
+        setTimeout(() => basket.style.animation = '', 400);
+      }
+    });
+  });
+}
+buildSort('pattern-pool','pattern-baskets', [
+  ['cut','A'],['put','A'],['hit','A'],
+  ['buy','B'],['say','B'],['make','B'],
+  ['sing','C'],['drink','C'],['swim','C'],
+  ['go','D'],['see','D'],['eat','D']
+], 'b11-sort');
+buildSort('w-pattern-pool','w-pattern-baskets', [
+  ['hurt','A'],['let','A'],['cost','A'],['read','A'],
+  ['bring','B'],['catch','B'],['teach','B'],['keep','B'],['tell','B'],
+  ['begin','C'],['ring','C'],['sink','C'],
+  ['take','D'],['give','D'],['write','D'],['drive','D'],['fly','D'],['choose','D'],['break','D'],
+], 'w2-sort');
+
+// VERB TABLES (base/past/participle)
+function buildTable(id, verbs){
+  const el = document.getElementById(id);
+  if(!el) return;
+  verbs.forEach(v => {
+    ['base','past','pp'].forEach((cls, idx) => {
+      const c = document.createElement('div');
+      c.className = 'verb-cell '+cls;
+      c.textContent = v[idx];
+      c.addEventListener('click', () => say(v[idx], 0.9));
+      el.appendChild(c);
+      if(idx < 2){
+        const a = document.createElement('div');
+        a.className = 'verb-arrow';
+        a.textContent = '→';
+        el.appendChild(a);
+      }
+    });
+  });
+}
+buildTable('movement-table', [
+  ['go','went','gone'],['come','came','come'],['run','ran','run'],['fly','flew','flown'],
+  ['drive','drove','driven'],['ride','rode','ridden'],['swim','swam','swum'],['fall','fell','fallen']
+]);
+buildTable('comm-table', [
+  ['say','said','said'],['tell','told','told'],['speak','spoke','spoken'],
+  ['hear','heard','heard'],['see','saw','seen'],['feel','felt','felt']
+]);
+buildTable('body-table', [
+  ['eat','ate','eaten'],['drink','drank','drunk'],['sleep','slept','slept'],
+  ['wake','woke','woken'],['sit','sat','sat'],['stand','stood','stood'],['hold','held','held']
+]);
+buildTable('think-table', [
+  ['think','thought','thought'],['know','knew','known'],['understand','understood','understood'],
+  ['forget','forgot','forgotten'],['forgive','forgave','forgiven'],['choose','chose','chosen'],['mean','meant','meant']
+]);
+buildTable('money-table', [
+  ['buy','bought','bought'],['sell','sold','sold'],['pay','paid','paid'],
+  ['spend','spent','spent'],['cost','cost','cost'],['lose','lost','lost'],
+  ['win','won','won'],['find','found','found'],['keep','kept','kept'],['give','gave','given']
+]);
+
+// REFERENCE TABLE · 100 verbs · search + filter
+const tbody = document.getElementById('ref-tbody');
+if(tbody){
+  VERBS.forEach(v => {
+    const tr = document.createElement('tr');
+    tr.dataset.pattern = v[3];
+    tr.dataset.search = (v[0]+' '+v[1]+' '+v[2]).toLowerCase();
+    tr.innerHTML = '<td class="base">'+v[0]+'</td><td class="past">'+v[1]+'</td><td class="pp">'+v[2]+'</td><td class="tag">'+v[3]+'</td>';
+    tr.addEventListener('click', () => say(v[0]+'. '+v[1]+'. '+v[2]+'.', 0.85));
+    tbody.appendChild(tr);
+  });
+}
+const refSearch = document.getElementById('ref-search');
+let activeFilter = 'all';
+function applyFilter(){
+  const q = refSearch ? refSearch.value.toLowerCase().trim() : '';
+  tbody.querySelectorAll('tr').forEach(tr => {
+    const okFilter = activeFilter === 'all' || tr.dataset.pattern === activeFilter;
+    const okSearch = !q || tr.dataset.search.includes(q);
+    tr.classList.toggle('hidden', !(okFilter && okSearch));
+  });
+}
+if(refSearch) refSearch.addEventListener('input', applyFilter);
+document.querySelectorAll('.ref-filter').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('.ref-filter').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    activeFilter = b.dataset.filter;
+    applyFilter();
+  });
+});
+
+// WORKBOOK · W3 · TYPE THE PAST FORM
+const TYPE_LIST = [
+  ['go','went'],['see','saw'],['eat','ate'],['take','took'],
+  ['make','made'],['come','came'],['write','wrote'],['drink','drank'],
+  ['buy','bought'],['bring','brought'],['sing','sang'],['run','ran'],
+  ['fall','fell'],['sleep','slept'],['find','found']
+];
+const typeList = document.getElementById('type-list');
+if(typeList){
+  TYPE_LIST.forEach((v,i) => {
+    const row = document.createElement('div');
+    row.className = 'type-row';
+    row.innerHTML = '<span class="base-word">'+(i+1)+'. '+v[0]+'</span><span class="type-arrow">→</span><input type="text" class="type-input" data-answer="'+v[1]+'" placeholder="past…" autocomplete="off">';
+    typeList.appendChild(row);
+  });
+  typeList.querySelectorAll('input').forEach(inp => {
+    const check = () => {
+      const val = inp.value.trim().toLowerCase();
+      if(!val){ inp.classList.remove('right','wrong'); return; }
+      const ans = inp.dataset.answer.toLowerCase();
+      if(val === ans || (ans.indexOf('/')>=0 && ans.split('/').indexOf(val)>=0)){
+        inp.classList.add('right'); inp.classList.remove('wrong');
+        say(val, 0.9);
+      } else {
+        inp.classList.add('wrong'); inp.classList.remove('right');
+      }
+    };
+    inp.addEventListener('change', check);
+    inp.addEventListener('blur', check);
+  });
+}
+
+// WORKBOOK · W5 · TRUE / FALSE
+const TF = [
+  {t:'go → went', ok:true},
+  {t:'buy → buyed', ok:false},
+  {t:'eat → ate', ok:true},
+  {t:'take → taken', ok:false},
+  {t:'drink → drank', ok:true},
+  {t:'catch → catched', ok:false},
+  {t:'fly → flew', ok:true},
+  {t:'read → read (sounds "red")', ok:true},
+  {t:'think → thinked', ok:false},
+  {t:'sing → sung', ok:false},
+];
+const tfList = document.getElementById('tf-list');
+let tfScore = 0;
+if(tfList){
+  TF.forEach((item,i) => {
+    const row = document.createElement('div');
+    row.className = 'tf-row';
+    row.innerHTML = '<span class="tf-text">'+(i+1)+'. '+item.t+'</span><button class="tf-btn" data-v="yes">✓ YES</button><button class="tf-btn" data-v="no">✗ NO</button>';
+    row.querySelectorAll('.tf-btn').forEach(b => {
+      b.addEventListener('click', () => {
+        const said = b.dataset.v === 'yes';
+        if(said === item.ok){
+          b.classList.add('yes-on');
+          row.querySelectorAll('.tf-btn').forEach(x => x.disabled = true);
+          tfScore++;
+          const badge = document.querySelector('.score-badge[data-ex="w5-tf"] .val');
+          if(badge) badge.textContent = tfScore;
+        } else {
+          b.classList.add('no-on');
+          setTimeout(() => b.classList.remove('no-on'), 500);
+        }
+      });
+    });
+    tfList.appendChild(row);
+  });
+}
+
+// WORKBOOK · W9 · FIX THE MISTAKE
+const FIX = [
+  {before:'Yesterday I ', wrong:'goed', after:' to the shop.', ans:'went'},
+  {before:'She ', wrong:'buyed', after:' a new dress.', ans:'bought'},
+  {before:'He ', wrong:'catched', after:' the ball.', ans:'caught'},
+  {before:'We ', wrong:'eated', after:' pizza for dinner.', ans:'ate'},
+  {before:'The cat ', wrong:'drinked', after:' some milk.', ans:'drank'},
+  {before:'I ', wrong:'thinked', after:' about you.', ans:'thought'},
+  {before:'They ', wrong:'runned', after:' in the park.', ans:'ran'},
+  {before:'She ', wrong:'teached', after:' me a new word.', ans:'taught'},
+];
+const fixList = document.getElementById('fix-list');
+if(fixList){
+  FIX.forEach((item,i) => {
+    const row = document.createElement('div');
+    row.className = 'type-row';
+    row.innerHTML = '<span class="base-word" style="min-width:0;flex:1;color:var(--ink);font-family:inherit">'+(i+1)+'. '+item.before+'<s style="color:var(--miss)">'+item.wrong+'</s>'+item.after+'</span><span class="type-arrow">→</span><input type="text" class="type-input" data-answer="'+item.ans+'" placeholder="correct past…" autocomplete="off">';
+    fixList.appendChild(row);
+  });
+  fixList.querySelectorAll('input').forEach(inp => {
+    const check = () => {
+      const val = inp.value.trim().toLowerCase();
+      if(!val){ inp.classList.remove('right','wrong'); return; }
+      if(val === inp.dataset.answer.toLowerCase()){
+        inp.classList.add('right'); inp.classList.remove('wrong');
+        say(val, 0.9);
+      } else {
+        inp.classList.add('wrong'); inp.classList.remove('right');
+      }
+    };
+    inp.addEventListener('change', check);
+    inp.addEventListener('blur', check);
+  });
+}
+
+// WORKBOOK · W10 · SENTENCE BUILDER
+const WO = [
+  {prompt:'YESTERDAY / GO / SCHOOL',   words:['I','went','to','school','yesterday','.']},
+  {prompt:'SHE / EAT / SANDWICH',      words:['She','ate','a','sandwich','for','lunch','.']},
+  {prompt:'WE / SEE / FILM',           words:['We','saw','a','good','film','last','night','.']},
+  {prompt:'MUM / MAKE / CAKE',         words:['Mum','made','a','birthday','cake','.']},
+  {prompt:'BROTHER / RIDE / BIKE',     words:['My','brother','rode','his','new','bike','.']},
+  {prompt:'THEY / SING / SONG',        words:['They','sang','a','song','at','the','concert','.']},
+];
+const woC = document.getElementById('wo-container');
+if(woC){
+  WO.forEach((item, i) => {
+    const shuffled = [...item.words].sort(() => Math.random() - 0.5);
+    const wrap = document.createElement('div');
+    wrap.className = 'wo-item';
+    wrap.innerHTML = '<div class="wo-prompt">'+(i+1)+'. '+item.prompt+'</div><div class="wo-target"></div><div class="wo-pool">'+shuffled.map(w => '<span class="wo-chip">'+w+'</span>').join('')+'</div><div class="wo-actions"><button class="wo-btn wo-clear">clear</button><button class="wo-btn wo-check">check</button></div>';
+    const target = wrap.querySelector('.wo-target');
+    const check = wrap.querySelector('.wo-check');
+    const clear = wrap.querySelector('.wo-clear');
+    wrap.querySelectorAll('.wo-pool .wo-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        if(chip.classList.contains('placed')) return;
+        const clone = document.createElement('span');
+        clone.className = 'wo-chip'; clone.textContent = chip.textContent;
+        clone.addEventListener('click', () => { clone.remove(); chip.classList.remove('placed'); });
+        target.appendChild(clone);
+        chip.classList.add('placed');
+      });
+    });
+    check.addEventListener('click', () => {
+      const got = [...target.querySelectorAll('.wo-chip')].map(c => c.textContent).join(' ').replace(/ \./,'.');
+      const want = item.words.join(' ').replace(/ \./,'.');
+      if(got === want){
+        wrap.classList.remove('err'); wrap.classList.add('ok');
+        say(want, 0.85);
+      } else {
+        wrap.classList.add('err');
+        setTimeout(() => wrap.classList.remove('err'), 400);
+      }
+    });
+    clear.addEventListener('click', () => {
+      target.innerHTML = '';
+      wrap.querySelectorAll('.wo-pool .wo-chip').forEach(c => c.classList.remove('placed'));
+      wrap.classList.remove('ok','err');
+    });
+    woC.appendChild(wrap);
+  });
+}
+
+// WORKBOOK · W11 · YESTERDAY QUESTIONS
+// ============================
+// READING · pre-reading vocab
+// ============================
+const READING_VOCAB = [
+  ['hang','hung','hung','висеть'],
+  ['hide','hid','hidden','прятать(ся)'],
+  ['dig','dug','dug','копать'],
+  ['shine','shone','shone','сиять'],
+  ['sweep','swept','swept','подметать'],
+  ['lay','laid','laid','класть'],
+  ['lead','led','led','вести'],
+  ['seek','sought','sought','искать'],
+  ['spread','spread','spread','расстилать/разносить'],
+  ['steal','stole','stolen','красть'],
+  ['stick','stuck','stuck','сунуть/прилипнуть'],
+  ['swing','swung','swung','раскачивать'],
+  ['tear','tore','torn','рвать'],
+  ['weep','wept','wept','плакать'],
+  ['beat','beat','beaten','взбивать/бить'],
+  ['build','built','built','строить'],
+  ['slide','slid','slid','скользить'],
+  ['set','set','set','устанавливать/садиться (о солнце)'],
+];
+const prv = document.getElementById('pre-reading-vocab');
+if(prv){
+  READING_VOCAB.forEach(v => {
+    const card = document.createElement('div');
+    card.className = 'gloss-card';
+    card.innerHTML = '<div class="g-verb">'+v[0]+'</div><div class="g-forms">'+v[1]+' · '+v[2]+'</div><div class="g-ru">'+v[3]+'</div>';
+    card.addEventListener('click', () => say(v[0]+'. '+v[1]+'. '+v[2]+'.', 0.85));
+    prv.appendChild(card);
+  });
+}
+
+// READING · violet verb click — say + tap-toggle + count unique per story
+function bindFind15(storyId, badgeId){
+  const story = document.getElementById(storyId);
+  const badge = document.getElementById(badgeId);
+  if(!story || !badge) return;
+  const found = new Set();
+  story.querySelectorAll('.rv').forEach(el => {
+    el.addEventListener('click', () => {
+      const base = el.dataset.base || '';
+      const past = el.textContent.trim();
+      if(base && base !== 'tap') say(base+' — '+past, 0.85);
+      else say(past, 0.9);
+      el.classList.add('tapped');
+      const key = (base || past).toLowerCase();
+      found.add(key);
+      badge.textContent = Math.min(found.size, 15);
+    });
+  });
+}
+bindFind15('reading-story','find15-bakery');
+bindFind15('key-story','find15-key');
+// legacy handler for any other .rv (like sample in tts-hint)
+document.querySelectorAll('.rv').forEach(el => {
+  if(el.closest('#reading-story') || el.closest('#key-story')) return;
+  el.addEventListener('click', () => { say(el.textContent.trim(), 0.9); });
+});
+
+// READING · play whole story (Old Bakery)
+function bindStoryPlay(btnId, storyId){
+  const btn = document.getElementById(btnId);
+  if(!btn) return;
+  btn.addEventListener('click', () => {
+    const paragraphs = document.querySelectorAll('#'+storyId+' p');
+    const text = [...paragraphs].map(p => p.textContent).join(' ').replace(/—/g,',');
+    const trySay = (retries = 5) => {
+      if(synth && synth.getVoices().length === 0 && retries > 0){
+        setTimeout(() => trySay(retries - 1), 250); return;
+      }
+      pickVoice(); say(text, 0.85);
+    };
+    trySay();
+  });
+}
+bindStoryPlay('read-play-btn','reading-story');
+bindStoryPlay('key-play-btn','key-story');
+bindStoryPlay('shelter-play-btn','shelter-story');
+
+// READING · Shelter · discussion questions (3 gentle)
+const SDISC = [
+  {q:'Have you ever helped a pet or an animal who was sad or scared? What did you do?', hint:'Once I ___'},
+  {q:'What do you think Snowball gave Julia in return?', hint:'I think Snowball gave her ___'},
+  {q:'If you could open a small animal shelter, what would you name it?', hint:'I would name it ___ because ___'},
+];
+const sdEl = document.getElementById('shelter-discussion');
+if(sdEl){
+  SDISC.forEach((item,i) => {
+    const block = document.createElement('div');
+    block.className = 'q-block';
+    block.innerHTML = '<div class="q-text">'+(i+1)+'. '+item.q+'</div><div class="audio-row" style="background:#fff"><button class="play-btn" data-say="'+item.q.replace(/"/g,'&quot;')+'">▶</button><div><div class="label">Start like this →</div><div class="text">'+item.hint+'</div></div></div>';
+    sdEl.appendChild(block);
+  });
+}
+
+// READING · T/F
+const RTF = [
+  {t:'The bakery was on Rose Street.', ok:true},
+  {t:'Aunt Marta had worked there for 32 years.', ok:false},
+  {t:'Julia’s little dog Toby led the way.', ok:true},
+  {t:'The notebook was hidden inside the oven.', ok:false},
+  {t:'Aunt Marta taught the girls how to bake honey cake.', ok:true},
+  {t:'At the end, Julia wrote in her diary.', ok:true},
+];
+const rtfEl = document.getElementById('reading-tf');
+let rtfScore = 0;
+if(rtfEl){
+  RTF.forEach((item,i) => {
+    const row = document.createElement('div');
+    row.className = 'tf-row';
+    row.innerHTML = '<span class="tf-text">'+(i+1)+'. '+item.t+'</span><button class="tf-btn" data-v="yes">✓ TRUE</button><button class="tf-btn" data-v="no">✗ FALSE</button>';
+    row.querySelectorAll('.tf-btn').forEach(b => {
+      b.addEventListener('click', () => {
+        const said = b.dataset.v === 'yes';
+        if(said === item.ok){
+          b.classList.add('yes-on');
+          row.querySelectorAll('.tf-btn').forEach(x => x.disabled = true);
+          rtfScore++;
+          const badge = document.querySelector('.score-badge[data-ex="r4-tf"] .val');
+          if(badge) badge.textContent = rtfScore;
+        } else {
+          b.classList.add('no-on');
+          setTimeout(() => b.classList.remove('no-on'), 500);
+        }
+      });
+    });
+    rtfEl.appendChild(row);
+  });
+}
+
+// READING · Secret Key · T/F
+const KTF = [
+  {t:'Toby led the way into the hidden room.', ok:true},
+  {t:'The trunk was completely empty inside.', ok:false},
+  {t:'The girls took all three coins with them.', ok:false},
+];
+const ktfEl = document.getElementById('key-tf');
+let ktfScore = 0;
+if(ktfEl){
+  KTF.forEach((item,i) => {
+    const row = document.createElement('div');
+    row.className = 'tf-row';
+    row.innerHTML = '<span class="tf-text">'+(i+1)+'. '+item.t+'</span><button class="tf-btn" data-v="yes">✓ TRUE</button><button class="tf-btn" data-v="no">✗ FALSE</button>';
+    row.querySelectorAll('.tf-btn').forEach(b => {
+      b.addEventListener('click', () => {
+        const said = b.dataset.v === 'yes';
+        if(said === item.ok){
+          b.classList.add('yes-on');
+          row.querySelectorAll('.tf-btn').forEach(x => x.disabled = true);
+          ktfScore++;
+          const badge = document.querySelector('.score-badge[data-ex="r8-tf"] .val');
+          if(badge) badge.textContent = ktfScore;
+        } else {
+          b.classList.add('no-on');
+          setTimeout(() => b.classList.remove('no-on'), 500);
+        }
+      });
+    });
+    ktfEl.appendChild(row);
+  });
+}
+
+// READING · Secret Key · discussion
+const KDISC = [
+  {q:'If you found a secret door in your town, what would you hope to find behind it?', hint:'I would hope to find ___'},
+  {q:'Would you tell others about your secret room, or keep it a secret with your best friend?', hint:'I would ___ because ___'},
+  {q:'Have you ever felt like something magical was hidden in an old place?', hint:'Yes, once I ___ / Not yet, but I would love to ___'},
+];
+const kdEl = document.getElementById('key-discussion');
+if(kdEl){
+  KDISC.forEach((item,i) => {
+    const block = document.createElement('div');
+    block.className = 'q-block';
+    block.innerHTML = '<div class="q-text">'+(i+1)+'. '+item.q+'</div><div class="audio-row" style="background:#fff"><button class="play-btn" data-say="'+item.q.replace(/"/g,'&quot;')+'">▶</button><div><div class="label">Start like this →</div><div class="text">'+item.hint+'</div></div></div>';
+    kdEl.appendChild(block);
+  });
+}
+
+// READING · Old Bakery · discussion questions
+const RDISC = [
+  {q:'Have you ever helped somebody find something they had lost? What was it?', hint:'One day my ___ lost ___. I found it in ___'},
+  {q:'What is a special recipe in your family? Who taught it to you?', hint:'My favourite is ___. My ___ taught me how to make it.'},
+  {q:'Would you like to visit an old bakery like Aunt Marta’s? Why?', hint:'Yes, because I love ___ / No, because ___'},
+  {q:'Tell me about a Sunday you remember well.', hint:'Last ___ I went to ___ and I ___'},
+  {q:'What did Julia and Sonya learn from Aunt Marta besides baking?', hint:'They learnt that ___'},
+  {q:'If you had found the notebook, what would you have done first?', hint:'First I would have ___'},
+];
+const rdEl = document.getElementById('reading-discussion');
+if(rdEl){
+  RDISC.forEach((item,i) => {
+    const block = document.createElement('div');
+    block.className = 'q-block';
+    block.innerHTML = '<div class="q-text">'+(i+1)+'. '+item.q+'</div><div class="audio-row" style="background:#fff"><button class="play-btn" data-say="'+item.q.replace(/"/g,'&quot;')+'">▶</button><div><div class="label">Start like this →</div><div class="text">'+item.hint+'</div></div></div>';
+    rdEl.appendChild(block);
+  });
+}
+
+const YQ = [
+  {q:'Where did you go yesterday afternoon?', hint:'Yesterday afternoon I went ___'},
+  {q:'What did you eat for breakfast today?', hint:'For breakfast I ate ___'},
+  {q:'Who did you see at the weekend?', hint:'At the weekend I saw ___'},
+  {q:'What time did you wake up yesterday?', hint:'I woke up at ___'},
+  {q:'What did you drink after dinner last night?', hint:'After dinner I drank ___'},
+  {q:'What book did you read last month?', hint:'Last month I read ___'},
+  {q:'What present did somebody give you this year?', hint:'This year my ___ gave me ___'},
+  {q:'How long did you sleep last night?', hint:'I slept ___ hours'},
+  {q:'What did you take with you to your last lesson?', hint:'I took ___'},
+  {q:'What did you feel when you finished this workbook?', hint:'I felt ___'},
+];
+const yqEl = document.getElementById('yesterday-questions');
+if(yqEl){
+  YQ.forEach((item,i) => {
+    const block = document.createElement('div');
+    block.className = 'q-block';
+    block.innerHTML = '<div class="q-text">'+(i+1)+'. '+item.q+'</div><div class="audio-row" style="background:#fff"><button class="play-btn" data-say="'+item.q.replace(/"/g,'&quot;')+'">▶</button><div><div class="label">Start like this →</div><div class="text">'+item.hint+'</div></div></div>';
+    yqEl.appendChild(block);
+  });
+}
+</script>
+</body>
+</html>
