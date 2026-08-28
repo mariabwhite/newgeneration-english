@@ -1337,11 +1337,14 @@
         const topicText = l.topic && l.topic.trim()
           ? `<span class="cab-lesson-topic">${_esc(l.topic)}</span>`
           : `<span class="cab-lesson-topic cab-lesson-topic--empty">—</span>`;
+        const linkHtml = l.url
+          ? `<a class="cab-lesson-archive-link" href="${_esc(l.url)}" target="_blank" rel="noopener" style="margin-left:8px;font-size:12px;text-decoration:none;opacity:.85">🚀 ${_esc(l.title || "Открыть")}</a>`
+          : "";
         return `
           <li class="cab-lesson-row ${badge.cls}">
             ${num}
             <span class="cab-lesson-date">${dateStr} · ${dow}</span>
-            <span class="cab-lesson-topic-wrap">${topicText}</span>
+            <span class="cab-lesson-topic-wrap">${topicText}${linkHtml}</span>
             <span class="cab-lesson-badge">${badge.label}</span>
           </li>
         `;
