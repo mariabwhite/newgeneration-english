@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>Julia · The Famous Five · Reader · LinguaBoost Lab</title>
+<meta name="description" content="Five on a Treasure Island by Enid Blyton — 12 chapters adapted for the Vereshchagina 7 reader. Full book, illustrations, exercises after every chapter.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/lab-pilot.css?v=8">
+<style>
+:root{
+  --bg:#F3F7FB;--surface:#FFFDF7;
+  --accent:#3B7EA1;--accent2:#E8A85C;--accent3:#7FB09E;--indigo:#1F3A5F;
+  --ivory:#FBF6E9;--gold:#E8A85C;
+  --ink:#2A3547;--muted:#7E8BA0;
+  --ok:#7CA07A;--miss:#D48FA5;--card-border:#DCE4EE;
+  --radius:18px;--shadow:0 4px 20px rgba(31,58,95,.10);
+  --display:'Unbounded','Manrope',sans-serif;--body:'Manrope',sans-serif;--mono:'JetBrains Mono',Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);font-family:var(--body);color:var(--ink);min-height:100vh;overflow-x:hidden;line-height:1.6;font-size:17px}
+.topbar{position:relative;z-index:100;display:flex;align-items:center;gap:14px;padding:10px clamp(14px,3vw,24px);background:rgba(255,253,247,.92);border-bottom:1px solid rgba(31,58,95,.08);backdrop-filter:blur(14px)}
+.brand{font-family:var(--display);font-weight:800;font-size:.95rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand-mark{width:38px;height:38px;border-radius:9px 0 9px 9px;background:#E8542B;color:#fff;font-family:var(--display);font-weight:800;font-size:1.2rem;display:grid;place-items:center;position:relative;overflow:hidden;flex-shrink:0}
+.brand-mark::after{content:"";position:absolute;right:0;top:0;width:14px;height:14px;background:#fff;clip-path:polygon(100% 0, 0 0, 100% 100%)}
+.brand-copy{display:grid;gap:1px}
+.brand-name{font-weight:800;font-size:.95rem;line-height:1}
+.brand-sub{font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.spacer{flex:1}
+.btn-sm{min-height:32px;padding:0 12px;border-radius:8px;font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border:1px solid rgba(31,58,95,.16);background:transparent;color:var(--muted);text-decoration:none;display:inline-flex;align-items:center}
+.btn-sm:hover{border-color:var(--accent);color:var(--accent)}
+
+.hero{max-width:1240px;margin:18px auto 12px;padding:0 clamp(16px,3vw,28px)}
+.hero-card{background:url('img/ff-hero-timmy-sunset.png') center 35%/cover no-repeat #1F3A5F;border-radius:24px;padding:40px 24px;box-shadow:var(--shadow);text-align:center;position:relative;overflow:hidden;min-height:420px;display:flex;flex-direction:column;justify-content:flex-end}
+.hero-card::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(31,58,95,.15) 0%,rgba(31,58,95,.15) 45%,rgba(31,58,95,.75) 100%);border-radius:24px;z-index:0}
+.hero-card::after{content:"⚓";position:absolute;top:20px;right:24px;font-size:2.2rem;opacity:.85;color:#FBF6E9;line-height:1;text-shadow:1px 1px 3px rgba(31,58,95,.6);z-index:1}
+.hero-card > *{position:relative;z-index:1}
+.hero-card h1{font-family:var(--display);font-size:clamp(1.7rem,5vw,2.6rem);font-weight:700;color:#fff;text-shadow:2px 2px 0 rgba(31,58,95,.65),0 0 16px rgba(0,0,0,.4);line-height:1.1}
+.hero-card .book-cred{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:#FBF6E9;margin-bottom:10px;opacity:.95;text-shadow:1px 1px 0 rgba(31,58,95,.6)}
+.hero-card .sub{font-size:.98rem;color:#fff;font-weight:700;margin-top:10px;text-shadow:1px 1px 0 rgba(31,58,95,.6)}
+.hero-card .tags{margin-top:16px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.hero-card .tag{background:rgba(255,255,255,.9);color:var(--indigo);padding:6px 14px;border-radius:99px;font-size:.72rem;font-weight:800;letter-spacing:.04em}
+
+.progress{max-width:1240px;margin:0 auto 18px;padding:0 clamp(16px,3vw,28px)}
+.dots{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.dot{width:14px;height:14px;border-radius:50%;background:#dbe4ee;border:2px solid #c3cfdd;transition:.3s;cursor:pointer}
+.dot.lit{background:var(--accent);border-color:var(--indigo);box-shadow:0 0 0 3px rgba(59,126,161,.32);transform:scale(1.1)}
+
+.section{max-width:1240px;margin:0 auto 32px;padding:0 clamp(16px,3vw,28px)}
+.section-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.section-head .n{width:40px;height:40px;border-radius:50%;background:var(--accent);color:#fff;font-family:var(--display);font-weight:700;font-size:1.1rem;display:grid;place-items:center;flex-shrink:0;box-shadow:0 3px 8px rgba(59,126,161,.4)}
+.section-head h2{font-family:var(--display);font-size:1.35rem;font-weight:700;color:var(--ink)}
+.section-sub{font-size:.78rem;color:var(--muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;margin-left:52px;margin-bottom:10px}
+
+.card{background:var(--surface);border-radius:var(--radius);padding:20px 22px;box-shadow:var(--shadow);border:1px solid var(--card-border);margin-bottom:10px}
+h3{font-family:var(--display);font-size:1.05rem;font-weight:700;margin-bottom:10px;color:var(--ink)}
+p{margin-bottom:10px}
+strong{font-weight:800}
+
+.reading-body{background:#fff;border:1px solid var(--card-border);border-radius:14px;padding:22px 28px;font-size:1.02rem;line-height:1.9;color:#2A3547}
+.reading-body p{margin-bottom:12px}
+.reading-body .drop-cap::first-letter{font-family:var(--display);font-size:3rem;float:left;line-height:.9;padding:4px 12px 0 0;color:var(--indigo)}
+.reading-body em{color:var(--muted);font-style:italic}
+.reading-body .quote{font-family:var(--display);font-style:italic;color:var(--accent);text-align:center;margin:12px 0;font-size:1rem}
+
+.lit-cover{background:linear-gradient(135deg,#FBF6E9,#E8EFF6);border:2px solid var(--accent2);border-radius:14px;padding:14px 18px;margin-bottom:14px;text-align:center;position:relative}
+.lit-cover::before{content:"❦";position:absolute;top:6px;left:12px;color:var(--accent2);font-size:1rem;opacity:.5}
+.lit-cover::after{content:"❦";position:absolute;top:6px;right:12px;color:var(--accent2);font-size:1rem;opacity:.5}
+.lit-cover .lit-chapter{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:800;margin-bottom:4px}
+.lit-cover .lit-title{font-family:var(--display);font-size:1.35rem;font-weight:800;color:var(--indigo);margin:4px 0}
+.lit-cover .lit-sub{font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.06em}
+
+.chap-img{width:100%;border-radius:14px;box-shadow:0 6px 18px rgba(31,58,95,.25);margin:14px 0 6px;display:block;cursor:pointer}
+.chap-caption{text-align:center;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+
+.audio-row{display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,#EAF2F8,#F3F7FB);border-radius:14px;padding:12px 16px;margin:14px 0;border-left:5px solid var(--accent)}
+.audio-row .play-btn{width:46px;height:46px;border-radius:50%;background:var(--accent);color:#fff;border:none;font-size:1.3rem;cursor:pointer;display:grid;place-items:center;flex-shrink:0;box-shadow:0 3px 8px rgba(59,126,161,.5)}
+.audio-row .play-btn:hover{transform:scale(1.08)}
+.audio-row .label{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.audio-row .text{flex:1;font-weight:700;font-size:.95rem}
+
+.gap-line{padding:8px 10px;background:#fff;border-radius:10px;margin-bottom:6px;font-size:.95rem;border:1px solid var(--card-border)}
+.mcq{border:2px solid var(--card-border);border-radius:8px;padding:4px 10px;font-family:inherit;font-weight:700;background:#fdfbf5;color:var(--ink);cursor:pointer;font-size:.9rem}
+.mcq.right{background:#e4efe0;border-color:var(--ok);color:#5e7c56}
+.mcq.wrong{background:#f7dede;border-color:var(--miss);color:#a35a5a;animation:shake .35s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+.tf-row{display:flex;align-items:center;gap:8px;padding:8px;background:#fff;border-radius:10px;margin-bottom:6px;border:1px solid var(--card-border)}
+.tf-row .tf-text{flex:1;font-size:.92rem;font-weight:600}
+.tf-btn{padding:6px 14px;border-radius:8px;border:2px solid var(--card-border);background:#fff;cursor:pointer;font-weight:800;font-size:.78rem;transition:.15s;color:var(--ink);font-family:inherit}
+.tf-btn:hover{border-color:var(--accent)}
+.tf-btn.yes-on{background:#e4efe0;border-color:var(--ok);color:#5e7c56}
+.tf-btn.no-on{background:#f7dede;border-color:var(--miss);color:#a35a5a;animation:shake .35s}
+
+.exercises{margin-top:16px;padding-top:16px;border-top:2px dashed var(--card-border)}
+.exercises h4{font-family:var(--display);font-size:.85rem;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;margin:12px 0 8px}
+
+/* Exercise cards (Tom Sawyer style, 5 types) */
+.ex-card{background:#fff;border:1px solid var(--card-border);border-radius:12px;padding:16px 18px;margin:10px 0}
+.ex-card h4.ex-title{font-family:var(--display);font-weight:800;font-size:1rem;color:var(--indigo);margin-bottom:12px}
+.ex-num{font-family:var(--mono);font-weight:900;color:var(--accent);font-size:.85rem;background:#EAF2F8;padding:2px 8px;border-radius:4px;letter-spacing:.04em;margin-right:8px}
+
+/* 1.1 T/F */
+.tf-list{display:grid;gap:8px}
+.tf-item2{background:#F8FAFC;border:1px solid var(--card-border);border-radius:10px;padding:10px 14px}
+.tf-q2{font-weight:600;font-size:.92rem;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.tf-q2 .num{font-family:var(--mono);font-weight:900;color:var(--accent);font-size:.76rem;flex-shrink:0;width:22px}
+.tf-btns2{display:flex;gap:8px;margin-left:32px}
+.tf-btn2{padding:5px 16px;border-radius:50px;border:2px solid var(--card-border);background:#fff;font-weight:800;font-size:.75rem;cursor:pointer;transition:.15s;font-family:var(--mono);color:var(--ink);letter-spacing:.06em;text-transform:uppercase}
+.tf-btn2:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.tf-btn2.correct{background:var(--ok);color:#fff;border-color:var(--ok)}
+.tf-btn2.wrong{background:var(--miss);color:#fff;border-color:var(--miss)}
+
+/* 1.2 MCQ inline */
+.mc-list{display:grid;gap:8px}
+.mc-item{background:#F8FAFC;border:1px solid var(--card-border);border-radius:10px;padding:10px 14px}
+.mc-q{font-weight:600;font-size:.92rem;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.mc-q .num{font-family:var(--mono);font-weight:900;color:var(--accent);font-size:.76rem;flex-shrink:0;width:22px}
+.mc-q .gap-mini{display:inline-block;min-width:80px;background:#fff;border:2px dashed var(--accent);border-radius:6px;padding:2px 8px;margin:0 4px;font-weight:700;color:var(--muted);font-style:italic;font-size:.85rem}
+.mc-q .gap-mini.filled{background:#e4efe0;border-style:solid;border-color:var(--ok);color:var(--ok);font-style:normal}
+.mc-opts{display:flex;gap:6px;flex-wrap:wrap;margin-left:30px}
+.mc-opt{padding:5px 14px;border-radius:50px;background:#fff;border:2px solid var(--card-border);font-weight:700;font-size:.82rem;cursor:pointer;transition:.15s;font-family:inherit;color:var(--ink)}
+.mc-opt:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.mc-opt.correct{background:var(--ok);color:#fff;border-color:var(--ok)}
+.mc-opt.wrong{background:var(--miss);color:#fff;border-color:var(--miss);text-decoration:line-through}
+
+/* 1.3 Ordering */
+.ord-wrap{display:grid;gap:12px}
+.ord-bank{background:#F8FAFC;border:1px dashed var(--card-border);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:6px;min-height:60px}
+.ord-bank::before{content:'BANK · click to add';display:block;font-family:var(--mono);font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.ord-pill{background:#fff;border:2px solid var(--accent);color:var(--accent);padding:7px 13px;border-radius:8px;font-weight:600;font-size:.88rem;cursor:pointer;transition:.15s;user-select:none}
+.ord-pill:hover{background:#EAF2F8;transform:translateX(3px)}
+.ord-pill.used{opacity:.3;pointer-events:none}
+.ord-slots{display:grid;gap:6px;background:#fff;border:1px solid var(--card-border);border-radius:10px;padding:10px;counter-reset:slot}
+.ord-slot{display:grid;grid-template-columns:30px 1fr;gap:8px;align-items:center;padding:8px 10px;border:2px dashed var(--accent2);border-radius:8px;cursor:pointer;background:#FBFDFF;min-height:40px;color:var(--muted);font-size:.86rem;font-style:italic}
+.ord-slot::before{counter-increment:slot;content:counter(slot);font-family:var(--mono);font-weight:900;color:var(--accent);font-size:.9rem;text-align:center}
+.ord-slot.filled{background:#fff;border-style:solid;color:var(--ink);font-style:normal;font-weight:600}
+.ord-slot.correct{background:#e4efe0;border-color:var(--ok);color:#5e7c56}
+.ord-slot.wrong{background:#f7dede;border-color:var(--miss);color:#a35a5a;animation:shake .35s}
+.ord-check,.ord-reset{display:inline-block;background:var(--accent);color:#fff;border:none;border-radius:8px;padding:7px 18px;font-family:var(--mono);font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:.72rem;cursor:pointer;margin-right:6px}
+.ord-reset{background:transparent;color:var(--muted);border:1px solid var(--muted)}
+
+/* 1.4 Gap-fill drag */
+.bank{background:#F8FAFC;border:1px solid var(--card-border);border-radius:10px;padding:12px;display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.bank::before{content:'WORD BANK';display:block;width:100%;font-family:var(--mono);font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.bank-word{background:#fff;border:2px solid var(--accent);color:var(--accent);padding:5px 12px;border-radius:50px;font-weight:700;font-size:.85rem;cursor:pointer;transition:.15s;user-select:none;font-family:inherit}
+.bank-word:hover{background:#EAF2F8;transform:translateY(-2px)}
+.bank-word.selected{background:var(--accent);color:#fff;transform:scale(1.05)}
+.bank-word.used{opacity:.25;pointer-events:none}
+.drag-text{font-size:.95rem;line-height:2.4}
+.drag-text .line-q{margin-bottom:6px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.drag-text .line-q .num{font-family:var(--mono);font-weight:900;color:var(--accent);font-size:.76rem;flex-shrink:0}
+.drop-gap{display:inline-block;background:#fff;border:2px dashed var(--accent);min-width:100px;padding:3px 12px;border-radius:8px;cursor:pointer;font-weight:700;color:var(--muted);font-size:.85rem;text-align:center;transition:.18s}
+.drop-gap:hover{border-color:var(--accent2);background:#EAF2F8}
+.drop-gap.filled{background:#e4efe0;border-style:solid;border-color:var(--ok);color:#5e7c56}
+.drop-gap.wrong{background:#f7dede;border-style:solid;border-color:var(--miss);color:#a35a5a;animation:shake .35s}
+
+/* 1.5 Speaking prompts */
+.prompts{display:grid;gap:8px;margin-top:4px}
+.prompt{background:#F8FAFC;padding:11px 16px;border-radius:10px;cursor:pointer;border-left:4px solid var(--accent);font-size:.92rem;transition:.15s;display:flex;align-items:flex-start;gap:10px;line-height:1.5}
+.prompt:hover{background:#EAF2F8;transform:translateX(3px)}
+.prompt .play-mini{width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;flex-shrink:0;font-size:.72rem;border:none;cursor:pointer}
+.prompt .num{font-family:var(--mono);font-weight:900;color:var(--accent);font-size:.74rem;flex-shrink:0;margin-top:3px;width:18px}
+.prompt-text{flex:1;font-weight:500}
+.starters{background:linear-gradient(135deg,#FBF6E9,#FFEDB8);padding:11px 16px;border-radius:10px;font-size:.85rem;color:var(--indigo);margin-top:10px;font-weight:500;font-style:italic;border:1px solid var(--card-border)}
+.starters strong{display:block;font-family:var(--mono);font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;font-style:normal}
+
+.rule-box{background:linear-gradient(135deg,#FBF6E9,#EAF2F8);border:2px dashed var(--accent2);border-radius:14px;padding:14px 18px;margin:10px 0;line-height:1.6}
+.rule-box h4{font-family:var(--display);font-weight:700;color:var(--accent);margin:2px 0 8px;font-size:1rem}
+.rule-box p{margin-bottom:8px}
+
+.chars-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:12px 0}
+.char-card{background:#fff;border:2px solid var(--card-border);border-radius:12px;padding:12px 14px;cursor:pointer;transition:.15s}
+.char-card:hover{border-color:var(--accent);transform:translateY(-1px)}
+.char-card .char-emoji{font-size:1.6rem;display:block;margin-bottom:4px}
+.char-card .char-name{font-family:var(--display);font-weight:800;color:var(--indigo);font-size:1rem}
+.char-card .char-desc{font-size:.85rem;color:var(--muted);margin-top:4px}
+
+.reward{background:linear-gradient(135deg,var(--accent),var(--indigo));color:#fff;border-radius:20px;padding:26px;text-align:center;margin-top:14px;box-shadow:0 8px 24px rgba(31,58,95,.4)}
+.reward h2{font-family:var(--display);color:#fff;text-shadow:1px 1px 0 rgba(31,58,95,.25);margin-bottom:10px}
+.reward .stars{font-size:2rem;margin-bottom:6px}
+
+footer{text-align:center;padding:24px;color:var(--muted);font-size:.85rem;background:#EAF2F8;margin-top:20px;font-weight:600}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a class="brand" href="/lingua-boost-lab/premium.html">
+    <div class="brand-mark">N</div>
+    <div class="brand-copy">
+      <div class="brand-name">LINGUA BOOST · LAB</div>
+      <div class="brand-sub">Julia · The Famous Five · Reader</div>
+    </div>
+  </a>
+  <div class="spacer"></div>
+  <a href="/lingua-boost-lab/premium.html" class="btn-sm">All lessons</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-card">
+    <div class="book-cred">Enid Blyton · 1942 · Vereshchagina Reader 7 · adapted</div>
+    <h1>Five on a Treasure Island 🏝️</h1>
+    <div class="sub">Julian, Dick, Anne, George &amp; Timmy · 12 chapters</div>
+    <div class="tags">
+      <span class="tag">📖 12 chapters</span>
+      <span class="tag">🗝️ full book</span>
+      <span class="tag">🐕 with Timmy</span>
+      <span class="tag">⚓ Kirrin Island</span>
+      <span class="tag">🎯 A2+</span>
+    </div>
+  </div>
+</section>
+
+<div class="progress"><div class="dots" id="dots"></div></div>
+
+<!-- AUTHOR -->
+<section class="section" id="block-author">
+  <div class="section-head"><div class="n" style="background:var(--accent2);color:var(--indigo)">✒</div><h2>About the author · Enid Blyton</h2></div>
+  <div class="section-sub">A short life story of the woman who wrote The Famous Five</div>
+  <div class="card">
+    <div class="rule-box">
+      <h4>✒ Who wrote this book?</h4>
+      <p><strong>Enid Blyton</strong> was born in London in <strong>1897</strong>. She loved books, gardens and — most of all — animals. She had many dogs during her life, and her love for dogs is why Timmy is such an important character.</p>
+      <p>She wrote more than <strong>700 books</strong> for children. Her most famous series is <em>The Famous Five</em> — <strong>21 books</strong> about the same four cousins and their dog. She also wrote <em>The Secret Seven</em>, <em>Malory Towers</em> and the little bear <em>Noddy</em>.</p>
+      <p>Her books have sold more than <strong>600 million copies</strong>. The book you are about to read — <em>Five on a Treasure Island</em> — is the <strong>very first Famous Five book</strong>, written in 1942. This lesson follows the <strong>Vereshchagina Reader 7</strong> adaptation in <strong>12 chapters</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MEET THE FIVE -->
+<section class="section" id="block-0">
+  <div class="section-head"><div class="n">0</div><h2>Meet the Five 👋</h2></div>
+  <div class="section-sub">Before you read · the characters and the place</div>
+  <div class="card">
+    <img src="img/ff-meet-timmy.png" alt="The children meet Timmy" class="chap-img" data-say="The five children meet Timmy — a small brown-and-black puppy who will follow them on every adventure.">
+    <div class="rule-box">
+      <h4>👋 Who is who</h4>
+      Julian, Dick and Anne are three siblings from London. They spend the summer with their cousin George at Kirrin Cottage by the sea. George is a girl but wants to be called George — never Georgina! And Timmy is George's big loving dog. Together they are <em>The Famous Five</em>.
+    </div>
+    <div class="chars-grid">
+      <div class="char-card" data-say="Julian. The oldest. Kind and clever."><span class="char-emoji">👦</span><div class="char-name">Julian</div><div class="char-desc">Oldest · calm, clever, the leader</div></div>
+      <div class="char-card" data-say="Dick. Julian's younger brother. Brave and full of jokes."><span class="char-emoji">🧢</span><div class="char-name">Dick</div><div class="char-desc">Julian's brother · brave, full of jokes</div></div>
+      <div class="char-card" data-say="Anne. The youngest. Gentle and loves order."><span class="char-emoji">🎀</span><div class="char-name">Anne</div><div class="char-desc">Youngest · gentle, loves warmth and order</div></div>
+      <div class="char-card" data-say="George. Their cousin. A girl who wants to be called George, not Georgina."><span class="char-emoji">⛵</span><div class="char-name">George</div><div class="char-desc">Cousin · a tomboy, loves her island fiercely</div></div>
+      <div class="char-card" data-say="Timmy. George's big brown and black dog. Brave and loyal."><span class="char-emoji">🐕</span><div class="char-name">Timmy</div><div class="char-desc">George's dog · loyal as a lion</div></div>
+      <div class="char-card" data-say="Kirrin Island. A small rocky island with old castle ruins."><span class="char-emoji">🏝️</span><div class="char-name">Kirrin Island</div><div class="char-desc">Small rocky island · old castle ruins</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CH 1 -->
+<section class="section" id="block-1">
+  <div class="section-head"><div class="n">1</div><h2>Chapter 1 · The Strange Cousin 🎀</h2></div>
+  <div class="section-sub">The cousins arrive at Kirrin Cottage · they meet Georgina, who wants to be called George</div>
+  <div class="card">
+    <div class="lit-cover"><div class="lit-chapter">Chapter One</div><div class="lit-title">The Strange Cousin</div><div class="lit-sub">arrival · a shy fierce girl · a strange promise</div></div>
+    <img src="img/ff-ch1-first-meeting.png" alt="The children meet George and Timmy at the garden gate" class="chap-img" data-say="The children meet George and Timmy at the garden gate of Kirrin Cottage.">
+    <div class="chap-caption">Chapter 1 · a taxi at the gate · a shy fierce girl · the first look at Timmy</div>
+    <div class="audio-row"><button class="play-btn" data-play="ch1-story">▶</button><div><div class="label">Chapter 1 · listening</div><div class="text">Press play to hear the whole chapter</div></div></div>
+    <div class="reading-body" id="ch1-story">
+      <p class="drop-cap">Julian, Dick and Anne arrived at Kirrin Cottage on a warm summer afternoon. Their Aunt Fanny came running out of the old wooden door. "Welcome to Kirrin!" she cried. She hugged them one by one and gave each a big kiss.</p>
+      <p>"Where's George?" asked Julian, looking round.</p>
+      <p>"Oh — that girl!" said Aunt Fanny with a sigh. "I asked her to wait, and she has gone off somewhere. You will meet her at supper, I hope."</p>
+      <p>Aunt Fanny took them into the house. It was a very old house, and the garden was full of flowers. Uncle Quentin came out of his study to say hello. He was tall and serious. He worked with big books full of numbers and did not like noise.</p>
+      <p>At tea, Georgina came in. She was a small girl with short brown hair and brown skin from the sun. She looked more like a boy than a girl. A huge brown-and-black dog stood by her side.</p>
+      <p>"This is my cousin Georgina," said Aunt Fanny.</p>
+      <p>The girl's face went hard. "I am not Georgina. I am George. If you call me Georgina, I will not answer."</p>
+      <p>Julian smiled. "All right, George. Are you glad we came?"</p>
+      <p>George looked at him with serious eyes. "Maybe. It depends. This is Timmy."</p>
+      <p>The big dog wagged his tail. Anne laughed and put out her hand. Timmy licked it at once, and Anne fell in love with him.</p>
+      <p>After tea, George took them into the garden. From the top of a small rocky cliff, they saw a wide blue bay. In the middle of the bay, like a green ship on the water, stood a small rocky island. On the island were the grey ruins of a castle.</p>
+      <p>"That is Kirrin Island," said George. Her eyes shone with pride. "It belongs to me. My mother gave it to me. Nobody goes there without my permission — nobody at all."</p>
+      <p class="quote">— End of Chapter 1 —</p>
+    </div>
+    <div class="exercises">
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">1.1</span> Read and choose · True or False</h4><div class="tf-list">
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">1.</span>The children arrived at Kirrin Cottage in the summer.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="F"><div class="tf-q2"><span class="num">2.</span>George was waiting at the door with her mother.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">3.</span>Uncle Quentin worked with big books and did not like noise.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="F"><div class="tf-q2"><span class="num">4.</span>George was happy when someone called her Georgina.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">5.</span>Anne loved Timmy from the very first moment.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+      </div></div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">1.2</span> Choose the correct word</h4><div class="mc-list">
+        <div class="mc-item" data-a="Aunt"><div class="mc-q"><span class="num">1.</span>Fanny is the children's <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="Mother">Mother</button><button class="mc-opt" data-v="Aunt">Aunt</button><button class="mc-opt" data-v="teacher">teacher</button></div></div>
+        <div class="mc-item" data-a="serious"><div class="mc-q"><span class="num">2.</span>Uncle Quentin is tall and <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="funny">funny</button><button class="mc-opt" data-v="serious">serious</button><button class="mc-opt" data-v="small">small</button></div></div>
+        <div class="mc-item" data-a="short"><div class="mc-q"><span class="num">3.</span>George had <span class="gap-mini">___</span> brown hair.</div><div class="mc-opts"><button class="mc-opt" data-v="long">long</button><button class="mc-opt" data-v="short">short</button><button class="mc-opt" data-v="curly">curly</button></div></div>
+        <div class="mc-item" data-a="dog"><div class="mc-q"><span class="num">4.</span>Timmy is a big brown-and-black <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="cat">cat</button><button class="mc-opt" data-v="dog">dog</button><button class="mc-opt" data-v="horse">horse</button></div></div>
+        <div class="mc-item" data-a="island"><div class="mc-q"><span class="num">5.</span>Kirrin <span class="gap-mini">___</span> belongs to George.</div><div class="mc-opts"><button class="mc-opt" data-v="cottage">cottage</button><button class="mc-opt" data-v="island">island</button><button class="mc-opt" data-v="school">school</button></div></div>
+      </div></div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">1.3</span> Put the events in the correct order</h4>
+        <div class="ord-wrap" data-answer="a,b,c,d,e">
+          <div class="ord-bank"></div>
+          <div class="ord-slots"><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div></div>
+          <div><button class="ord-check">Check</button><button class="ord-reset">Reset</button></div>
+          <script type="application/json" class="ord-data">[
+            {"id":"a","text":"The children arrived at Kirrin Cottage."},
+            {"id":"b","text":"Aunt Fanny welcomed them warmly."},
+            {"id":"c","text":"George came in with Timmy at tea."},
+            {"id":"d","text":"George told them not to call her Georgina."},
+            {"id":"e","text":"They saw Kirrin Island from the cliff."}
+          ]</script>
+        </div>
+      </div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">1.4</span> Complete the sentences</h4>
+        <div class="bank">
+          <span class="bank-word" data-w="cottage">cottage</span>
+          <span class="bank-word" data-w="George">George</span>
+          <span class="bank-word" data-w="Timmy">Timmy</span>
+          <span class="bank-word" data-w="island">island</span>
+          <span class="bank-word" data-w="cliff">cliff</span>
+          <span class="bank-word" data-w="tea">tea</span>
+        </div>
+        <div class="drag-text">
+          <div class="line-q"><span class="num">1.</span>The three cousins arrived at Kirrin <span class="drop-gap" data-a="cottage"></span>.</div>
+          <div class="line-q"><span class="num">2.</span>They met <span class="drop-gap" data-a="George"></span> at tea time.</div>
+          <div class="line-q"><span class="num">3.</span>Her big dog <span class="drop-gap" data-a="Timmy"></span> stood by her side.</div>
+          <div class="line-q"><span class="num">4.</span>Anne loved Timmy over a cup of <span class="drop-gap" data-a="tea"></span>.</div>
+          <div class="line-q"><span class="num">5.</span>From the rocky <span class="drop-gap" data-a="cliff"></span> they saw the small green <span class="drop-gap" data-a="island"></span>.</div>
+        </div>
+      </div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">1.5</span> Discuss the questions</h4>
+        <div class="prompts">
+          <div class="prompt"><button class="play-mini" data-say="Why does George want to be called George, not Georgina?">▶</button><span class="num">1.</span><span class="prompt-text">Why does George want to be called George, not Georgina?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="What was your first thought when you met George in the story?">▶</button><span class="num">2.</span><span class="prompt-text">What was your first thought when you met George?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="Why did Anne fall in love with Timmy so quickly?">▶</button><span class="num">3.</span><span class="prompt-text">Why did Anne fall in love with Timmy so quickly?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="Would you like to have a cousin like George? Why or why not?">▶</button><span class="num">4.</span><span class="prompt-text">Would you like to have a cousin like George? Why or why not?</span></div>
+        </div>
+        <div class="starters"><strong>Use these to start</strong>I think… / In my opinion… / At first… / What I like about George is…</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CH 2 -->
+<section class="section" id="block-2">
+  <div class="section-head"><div class="n">2</div><h2>Chapter 2 · A Queer Story and a New Friend 🐕</h2></div>
+  <div class="section-sub">George tells the family legend · Timmy becomes their friend</div>
+  <div class="card">
+    <div class="lit-cover"><div class="lit-chapter">Chapter Two</div><div class="lit-title">A Queer Story and a New Friend</div><div class="lit-sub">a family legend · a lost ship · a big warm dog</div></div>
+    <img src="img/ff-timmy-big.png" alt="Timmy the big loyal dog on the castle ruins" class="chap-img" data-say="Timmy the big loyal dog. The children love him at once.">
+    <div class="chap-caption">Chapter 2 · a story from long ago · a lost ship full of gold · a new best friend</div>
+    <div class="audio-row"><button class="play-btn" data-play="ch2-story">▶</button><div><div class="label">Chapter 2 · listening</div><div class="text">Press play to hear the whole chapter</div></div></div>
+    <div class="reading-body" id="ch2-story">
+      <p class="drop-cap">That evening, George sat with her cousins on the beach. Timmy lay warm at her feet. "I will tell you a queer story," she said. "It is about my great-great-grandfather. He was a Kirrin, like me. He had a big ship full of gold — real gold bars."</p>
+      <p>"Gold!" cried Dick. "Where did it go?"</p>
+      <p>"One dark night," said George, "there was a terrible storm. His ship hit the rocks near Kirrin Island and went down. The gold went with it. Everyone said the sea took it forever."</p>
+      <p>Anne's eyes were wide. "But is the story true?"</p>
+      <p>"Nobody knows for certain," said George. "The wreck is still there, under the water near the island. On very calm days, you can see the dark shape of it from the rocks."</p>
+      <p>Julian looked at George. "Do you believe the gold is still there?"</p>
+      <p>George was quiet for a moment. Then she said, "I do. And one day I will find it."</p>
+      <p>Timmy stood up and put his big head on George's knee. Anne stroked his warm fur.</p>
+      <p>"George," she said softly, "why do you love Timmy so much?"</p>
+      <p>George's face changed. It became warm and soft. "Because he is my friend," she said. "Mother does not let me have him in the house. Father says he is too noisy. So he lives in the village with Alf the fisher-boy. But he is really mine. He knows me. He would do anything for me."</p>
+      <p>"He is a lovely dog," said Julian. "We love him too."</p>
+      <p>George looked at her three cousins. For the first time, she smiled a proper big smile. "Then you can be his friends too," she said.</p>
+      <p>That was the moment when the Famous Five really began. The three cousins from London, the strange girl from Kirrin, and the big brown-and-black dog. Five friends together.</p>
+      <p class="quote">— End of Chapter 2 —</p>
+    </div>
+    <div class="exercises">
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">2.1</span> Read and choose · True or False</h4><div class="tf-list">
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">1.</span>George told the story on the beach in the evening.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="F"><div class="tf-q2"><span class="num">2.</span>Her great-great-grandfather's ship was full of silver.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">3.</span>The wreck is still under the water near the island.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="F"><div class="tf-q2"><span class="num">4.</span>George's mother lets Timmy live in the house.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">5.</span>By the end of Chapter 2, the Famous Five really begin.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+      </div></div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">2.2</span> Choose the correct word</h4><div class="mc-list">
+        <div class="mc-item" data-a="grandfather"><div class="mc-q"><span class="num">1.</span>The ship belonged to George's great-great-<span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="uncle">uncle</button><button class="mc-opt" data-v="grandfather">grandfather</button><button class="mc-opt" data-v="brother">brother</button></div></div>
+        <div class="mc-item" data-a="storm"><div class="mc-q"><span class="num">2.</span>The ship went down in a terrible <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="storm">storm</button><button class="mc-opt" data-v="race">race</button><button class="mc-opt" data-v="fog">fog</button></div></div>
+        <div class="mc-item" data-a="fisher-boy"><div class="mc-q"><span class="num">3.</span>Timmy lives with Alf the <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="fisher-boy">fisher-boy</button><button class="mc-opt" data-v="farmer">farmer</button><button class="mc-opt" data-v="baker">baker</button></div></div>
+        <div class="mc-item" data-a="friend"><div class="mc-q"><span class="num">4.</span>George said Timmy is her best <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="cousin">cousin</button><button class="mc-opt" data-v="friend">friend</button><button class="mc-opt" data-v="student">student</button></div></div>
+        <div class="mc-item" data-a="smile"><div class="mc-q"><span class="num">5.</span>George smiled a big real <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="smile">smile</button><button class="mc-opt" data-v="laugh">laugh</button><button class="mc-opt" data-v="cry">cry</button></div></div>
+      </div></div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">2.3</span> Put the events in the correct order</h4>
+        <div class="ord-wrap" data-answer="a,b,c,d,e">
+          <div class="ord-bank"></div>
+          <div class="ord-slots"><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div></div>
+          <div><button class="ord-check">Check</button><button class="ord-reset">Reset</button></div>
+          <script type="application/json" class="ord-data">[
+            {"id":"a","text":"George sat on the beach with her cousins."},
+            {"id":"b","text":"She told them the story of the sunk ship."},
+            {"id":"c","text":"She explained why she loves Timmy so much."},
+            {"id":"d","text":"The cousins said they loved Timmy too."},
+            {"id":"e","text":"The Famous Five really began."}
+          ]</script>
+        </div>
+      </div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">2.4</span> Complete the sentences</h4>
+        <div class="bank">
+          <span class="bank-word" data-w="story">story</span>
+          <span class="bank-word" data-w="gold">gold</span>
+          <span class="bank-word" data-w="wreck">wreck</span>
+          <span class="bank-word" data-w="Alf">Alf</span>
+          <span class="bank-word" data-w="Timmy">Timmy</span>
+          <span class="bank-word" data-w="friends">friends</span>
+        </div>
+        <div class="drag-text">
+          <div class="line-q"><span class="num">1.</span>George told a queer old <span class="drop-gap" data-a="story"></span>.</div>
+          <div class="line-q"><span class="num">2.</span>The ship was full of <span class="drop-gap" data-a="gold"></span>.</div>
+          <div class="line-q"><span class="num">3.</span>The <span class="drop-gap" data-a="wreck"></span> lies under the water near the island.</div>
+          <div class="line-q"><span class="num">4.</span><span class="drop-gap" data-a="Timmy"></span> lives with <span class="drop-gap" data-a="Alf"></span> the fisher-boy.</div>
+          <div class="line-q"><span class="num">5.</span>Now they are all <span class="drop-gap" data-a="friends"></span> — the Famous Five.</div>
+        </div>
+      </div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">2.5</span> Discuss the questions</h4>
+        <div class="prompts">
+          <div class="prompt"><button class="play-mini" data-say="Do you believe old family stories like this one? Why or why not?">▶</button><span class="num">1.</span><span class="prompt-text">Do you believe old family stories like this one? Why or why not?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="Would you go looking for the sunk gold? What would you need?">▶</button><span class="num">2.</span><span class="prompt-text">Would you go looking for the sunk gold? What would you need?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="Why is Timmy so important to George?">▶</button><span class="num">3.</span><span class="prompt-text">Why is Timmy so important to George?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="Do you have a special friend like George has Timmy? Tell us.">▶</button><span class="num">4.</span><span class="prompt-text">Do you have a special friend like George has Timmy? Tell us.</span></div>
+        </div>
+        <div class="starters"><strong>Use these to start</strong>I believe / I don't believe… / If I went there, I would… / Timmy is important because… / My best friend is…</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CH 3 -->
+<section class="section" id="block-3">
+  <div class="section-head"><div class="n">3</div><h2>Chapter 3 · An Exciting Afternoon ☀️</h2></div>
+  <div class="section-sub">Beach games · an old ship's log · the plan to visit the island</div>
+  <div class="card">
+    <div class="lit-cover"><div class="lit-chapter">Chapter Three</div><div class="lit-title">An Exciting Afternoon</div><div class="lit-sub">sand · sea · an old paper · a big decision</div></div>
+    <img src="img/ff-anne-picnic.png" alt="Anne sits with a picnic on the cliff, sunset over the sea" class="chap-img" data-say="Anne sits with a picnic on the cliff. Kirrin Island shines gold at sunset.">
+    <div class="chap-caption">Chapter 3 · sandcastles · old family papers · a plan</div>
+    <div class="audio-row"><button class="play-btn" data-play="ch3-story">▶</button><div><div class="label">Chapter 3 · listening</div><div class="text">Press play to hear the whole chapter</div></div></div>
+    <div class="reading-body" id="ch3-story">
+      <p class="drop-cap">The next afternoon was bright and warm. The Five went down to the little beach below Kirrin Cottage. Timmy ran ahead, barking at every wave. The three cousins built a big sandcastle. George helped a little, but her eyes kept going to Kirrin Island out in the bay.</p>
+      <p>After a while, Julian said, "George — do you have any old family papers? Any old maps or notes about the ship?"</p>
+      <p>George's eyes lit up. "Maybe. There is a big wooden box in the attic. My mother said it belonged to my great-grandfather. Nobody has opened it for years."</p>
+      <p>They ran back to the cottage. In the dusty attic, they found the box. It was heavy. Julian carried it down. On the kitchen table they opened it.</p>
+      <p>Inside were old letters, brown with age, an old pipe, a broken watch, and — right at the bottom — a small leather notebook. Julian took it out very carefully.</p>
+      <p>"A ship's log," he whispered. He opened it. The pages were yellow. In old ink, someone had drawn small pictures — a ship, an island, a cross.</p>
+      <p>"Look!" cried Anne. "There is a map here!"</p>
+      <p>All four children leaned over the little book. On one page was a rough drawing of Kirrin Island. And on the island — clearly — was a small cross.</p>
+      <p>"What does the cross mean?" asked Dick, almost afraid to say it.</p>
+      <p>George's face was pale with excitement. "It must be the place where the gold was hidden — if any of the gold ever came back to land. Or perhaps something else — something from the wreck."</p>
+      <p>Julian folded the map carefully and put it into his pocket. "Tomorrow," he said, "we go to the island."</p>
+      <p>George nodded. Timmy wagged his tail. Nobody could sleep well that night.</p>
+      <p class="quote">— End of Chapter 3 —</p>
+    </div>
+    <div class="exercises">
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">3.1</span> Read and choose · True or False</h4><div class="tf-list">
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">1.</span>The children built a big sandcastle on the beach.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="F"><div class="tf-q2"><span class="num">2.</span>They found the old wooden box in the garden.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">3.</span>Inside the box was a small leather ship's log.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">4.</span>They saw a map with a small cross on the island.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="F"><div class="tf-q2"><span class="num">5.</span>Nobody was excited and everyone slept well that night.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+      </div></div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">3.2</span> Choose the correct word</h4><div class="mc-list">
+        <div class="mc-item" data-a="attic"><div class="mc-q"><span class="num">1.</span>The old box was in the dusty <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="attic">attic</button><button class="mc-opt" data-v="garden">garden</button><button class="mc-opt" data-v="kitchen">kitchen</button></div></div>
+        <div class="mc-item" data-a="letters"><div class="mc-q"><span class="num">2.</span>Inside the box they saw old <span class="gap-mini">___</span>, brown with age.</div><div class="mc-opts"><button class="mc-opt" data-v="letters">letters</button><button class="mc-opt" data-v="photos">photos</button><button class="mc-opt" data-v="coins">coins</button></div></div>
+        <div class="mc-item" data-a="notebook"><div class="mc-q"><span class="num">3.</span>At the bottom lay a small leather <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="notebook">notebook</button><button class="mc-opt" data-v="bag">bag</button><button class="mc-opt" data-v="pillow">pillow</button></div></div>
+        <div class="mc-item" data-a="cross"><div class="mc-q"><span class="num">4.</span>On the map there was a small <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="star">star</button><button class="mc-opt" data-v="cross">cross</button><button class="mc-opt" data-v="line">line</button></div></div>
+        <div class="mc-item" data-a="tomorrow"><div class="mc-q"><span class="num">5.</span>Julian said, "<span class="gap-mini">___</span> we go to the island."</div><div class="mc-opts"><button class="mc-opt" data-v="tonight">tonight</button><button class="mc-opt" data-v="tomorrow">tomorrow</button><button class="mc-opt" data-v="never">never</button></div></div>
+      </div></div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">3.3</span> Put the events in the correct order</h4>
+        <div class="ord-wrap" data-answer="a,b,c,d,e">
+          <div class="ord-bank"></div>
+          <div class="ord-slots"><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div></div>
+          <div><button class="ord-check">Check</button><button class="ord-reset">Reset</button></div>
+          <script type="application/json" class="ord-data">[
+            {"id":"a","text":"The children built a sandcastle."},
+            {"id":"b","text":"Julian asked George about old family papers."},
+            {"id":"c","text":"They ran up to the attic and found a box."},
+            {"id":"d","text":"They opened the box and found a small notebook."},
+            {"id":"e","text":"They saw a map with a cross on Kirrin Island."}
+          ]</script>
+        </div>
+      </div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">3.4</span> Complete the sentences</h4>
+        <div class="bank">
+          <span class="bank-word" data-w="beach">beach</span>
+          <span class="bank-word" data-w="attic">attic</span>
+          <span class="bank-word" data-w="box">box</span>
+          <span class="bank-word" data-w="map">map</span>
+          <span class="bank-word" data-w="cross">cross</span>
+          <span class="bank-word" data-w="tomorrow">tomorrow</span>
+        </div>
+        <div class="drag-text">
+          <div class="line-q"><span class="num">1.</span>They built a sandcastle on the <span class="drop-gap" data-a="beach"></span>.</div>
+          <div class="line-q"><span class="num">2.</span>In the dusty <span class="drop-gap" data-a="attic"></span> they found a wooden <span class="drop-gap" data-a="box"></span>.</div>
+          <div class="line-q"><span class="num">3.</span>Inside was an old <span class="drop-gap" data-a="map"></span>.</div>
+          <div class="line-q"><span class="num">4.</span>On the map — a small <span class="drop-gap" data-a="cross"></span>.</div>
+          <div class="line-q"><span class="num">5.</span>"<span class="drop-gap" data-a="tomorrow"></span> we go to the island," said Julian.</div>
+        </div>
+      </div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">3.5</span> Discuss the questions</h4>
+        <div class="prompts">
+          <div class="prompt"><button class="play-mini" data-say="What is the most exciting thing you have ever found in an old box?">▶</button><span class="num">1.</span><span class="prompt-text">What is the most exciting thing you have ever found in an old box?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="If you saw a cross on a map, what would you think it means?">▶</button><span class="num">2.</span><span class="prompt-text">If you saw a cross on a map, what would you think it means?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="Why do you think nobody had opened the box for many years?">▶</button><span class="num">3.</span><span class="prompt-text">Why do you think nobody had opened the box for many years?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="Why could nobody sleep well that night?">▶</button><span class="num">4.</span><span class="prompt-text">Why could nobody sleep well that night?</span></div>
+        </div>
+        <div class="starters"><strong>Use these to start</strong>The most exciting thing… / The cross means… / Nobody opened it because… / They couldn't sleep because…</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CH 4 -->
+<section class="section" id="block-4">
+  <div class="section-head"><div class="n">4</div><h2>Chapter 4 · A Visit to the Island ⛵</h2></div>
+  <div class="section-sub">The first boat trip · the castle ruins · a look at the wreck</div>
+  <div class="card">
+    <div class="lit-cover"><div class="lit-chapter">Chapter Four</div><div class="lit-title">A Visit to the Island</div><div class="lit-sub">rowing · ruins · a dark shape under the water</div></div>
+    <img src="img/ff-ch2-rowing.png" alt="The five row to Kirrin Island" class="chap-img" data-say="The five row to Kirrin Island in George's little boat.">
+    <div class="chap-caption">Chapter 4 · picnic basket · calm sea · the ruined castle</div>
+    <div class="audio-row"><button class="play-btn" data-play="ch4-story">▶</button><div><div class="label">Chapter 4 · listening</div><div class="text">Press play to hear the whole chapter</div></div></div>
+    <div class="reading-body" id="ch4-story">
+      <p class="drop-cap">The next morning the sun rose bright and calm. Aunt Fanny packed them a big picnic — sandwiches, cold chicken, tomatoes, a jar of lemonade and a cake. "Be back before dark, children!"</p>
+      <p>George's little wooden boat waited on the sand. Julian and Dick took the oars. Anne sat in the middle with the basket. George held Timmy tight. They pushed off into the shining blue water.</p>
+      <p>The sea was so clear they could see silver fish below. Timmy tried to bite the water, and Anne laughed until she almost fell in. After twenty minutes, they came near the island. Rocks stood sharp up from the sea. George knew the safe way. She led them around a big grey rock, then into a small quiet cove. The boat slid onto soft sand.</p>
+      <img src="img/ff-ch2-ruins.png" alt="Exploring the old ruined castle" class="chap-img" style="margin:12px 0" data-say="The children walk through the old ruined castle. Ivy hangs from the towers.">
+      <p>They climbed the little hill and saw the old castle. It was ruined and roofless. Grass grew inside the walls. Ivy hung from the towers. A few grey seabirds sat on the top of one tower and cried out at them.</p>
+      <p>"It is like a story," Julian whispered.</p>
+      <p>They walked through the ruins. In one broken room they found an old fireplace. In another, a broken stairway. Anne collected small stones for her collection at home.</p>
+      <p>Then George called them. She was standing on a high rock, looking down into the sea on the far side of the island. "Look!" she said. Her voice was low and excited.</p>
+      <p>They came and looked. Deep down under the water, they saw a long dark shape. It lay on the sea floor like a huge sleeping fish. Wood, half-broken. A shape that had once been a great ship.</p>
+      <p>"The wreck," George said. "That is my great-great-grandfather's ship. It has been there for over a hundred years."</p>
+      <p>They stood in silence. The wind pulled at their hair. The sea below them held the ship — and, maybe, the gold.</p>
+      <p class="quote">— End of Chapter 4 —</p>
+    </div>
+    <div class="exercises">
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">4.1</span> Read and choose · True or False</h4><div class="tf-list">
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">1.</span>Aunt Fanny packed a big picnic for the children.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="F"><div class="tf-q2"><span class="num">2.</span>George took the oars alone all the way to the island.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">3.</span>The old castle on the island was ruined and roofless.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">4.</span>They saw a dark shape of a ship under the water.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="F"><div class="tf-q2"><span class="num">5.</span>The wreck had been under the water for only ten years.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+      </div></div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">4.2</span> Choose the correct word</h4><div class="mc-list">
+        <div class="mc-item" data-a="calm"><div class="mc-q"><span class="num">1.</span>The sea was blue and <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="calm">calm</button><button class="mc-opt" data-v="wild">wild</button><button class="mc-opt" data-v="cold">cold</button></div></div>
+        <div class="mc-item" data-a="silver"><div class="mc-q"><span class="num">2.</span>They could see <span class="gap-mini">___</span> fish deep in the water.</div><div class="mc-opts"><button class="mc-opt" data-v="gold">gold</button><button class="mc-opt" data-v="silver">silver</button><button class="mc-opt" data-v="red">red</button></div></div>
+        <div class="mc-item" data-a="ruined"><div class="mc-q"><span class="num">3.</span>The castle on the hill was <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="new">new</button><button class="mc-opt" data-v="ruined">ruined</button><button class="mc-opt" data-v="painted">painted</button></div></div>
+        <div class="mc-item" data-a="ivy"><div class="mc-q"><span class="num">4.</span><span class="gap-mini">___</span> hung from the old towers.</div><div class="mc-opts"><button class="mc-opt" data-v="Snow">Snow</button><button class="mc-opt" data-v="Ivy">Ivy</button><button class="mc-opt" data-v="Rope">Rope</button></div></div>
+        <div class="mc-item" data-a="wreck"><div class="mc-q"><span class="num">5.</span>They saw the old sunk <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="wreck">wreck</button><button class="mc-opt" data-v="whale">whale</button><button class="mc-opt" data-v="boat">boat</button></div></div>
+      </div></div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">4.3</span> Put the events in the correct order</h4>
+        <div class="ord-wrap" data-answer="a,b,c,d,e">
+          <div class="ord-bank"></div>
+          <div class="ord-slots"><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div></div>
+          <div><button class="ord-check">Check</button><button class="ord-reset">Reset</button></div>
+          <script type="application/json" class="ord-data">[
+            {"id":"a","text":"Aunt Fanny gave them a big picnic basket."},
+            {"id":"b","text":"They rowed to the island in George's boat."},
+            {"id":"c","text":"They climbed the little hill and saw the ruined castle."},
+            {"id":"d","text":"They walked through the ruins and looked at the sea."},
+            {"id":"e","text":"George showed them the dark wreck below the water."}
+          ]</script>
+        </div>
+      </div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">4.4</span> Complete the sentences</h4>
+        <div class="bank">
+          <span class="bank-word" data-w="picnic">picnic</span>
+          <span class="bank-word" data-w="oars">oars</span>
+          <span class="bank-word" data-w="island">island</span>
+          <span class="bank-word" data-w="castle">castle</span>
+          <span class="bank-word" data-w="wreck">wreck</span>
+          <span class="bank-word" data-w="ship">ship</span>
+        </div>
+        <div class="drag-text">
+          <div class="line-q"><span class="num">1.</span>Aunt Fanny packed a big <span class="drop-gap" data-a="picnic"></span> basket.</div>
+          <div class="line-q"><span class="num">2.</span>Julian and Dick took the <span class="drop-gap" data-a="oars"></span>.</div>
+          <div class="line-q"><span class="num">3.</span>They rowed to Kirrin <span class="drop-gap" data-a="island"></span>.</div>
+          <div class="line-q"><span class="num">4.</span>Grass grew inside the ruined <span class="drop-gap" data-a="castle"></span>.</div>
+          <div class="line-q"><span class="num">5.</span>Deep in the sea lay the sunk <span class="drop-gap" data-a="wreck"></span> — the old <span class="drop-gap" data-a="ship"></span>.</div>
+        </div>
+      </div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">4.5</span> Discuss the questions</h4>
+        <div class="prompts">
+          <div class="prompt"><button class="play-mini" data-say="What would you take on a picnic to an island?">▶</button><span class="num">1.</span><span class="prompt-text">What would you take on a picnic to an island?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="Do you like exploring old ruined places? Why or why not?">▶</button><span class="num">2.</span><span class="prompt-text">Do you like exploring old ruined places? Why or why not?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="What do you feel when you look at a wreck under the water?">▶</button><span class="num">3.</span><span class="prompt-text">What do you feel when you look at a wreck under the water?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="Would you row a small boat across a bay? Why?">▶</button><span class="num">4.</span><span class="prompt-text">Would you row a small boat across a bay? Why?</span></div>
+        </div>
+        <div class="starters"><strong>Use these to start</strong>I would take… / Yes, because… / I feel a little… / I would / would not row because…</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CH 5 -->
+<section class="section" id="block-5">
+  <div class="section-head"><div class="n">5</div><h2>Chapter 5 · Exploring the Wreck ⚓</h2></div>
+  <div class="section-sub">A great storm · the wreck comes up to the rocks · the children explore it</div>
+  <div class="card">
+    <div class="lit-cover"><div class="lit-chapter">Chapter Five</div><div class="lit-title">Exploring the Wreck</div><div class="lit-sub">storm · surprise · old wood on the rocks</div></div>
+    <img src="img/ff-ch2-boat-splash.png" alt="Timmy leans over the side of the boat" class="chap-img" data-say="After the great storm, the sea has changed. Something is different at Kirrin Island.">
+    <div class="chap-caption">Chapter 5 · a wild night · the sea gives up a secret</div>
+    <div class="audio-row"><button class="play-btn" data-play="ch5-story">▶</button><div><div class="label">Chapter 5 · listening</div><div class="text">Press play to hear the whole chapter</div></div></div>
+    <div class="reading-body" id="ch5-story">
+      <p class="drop-cap">That night a great storm came to Kirrin Bay. The wind was so strong that the windows shook. Rain hit the roof like small stones. The sea beat against the cliffs. Anne could not sleep. She sat by the window and watched the black waves.</p>
+      <p>In the morning the storm was over. The sun came out, but the sea was still wild. The children ran down to the beach. And then George gave a great cry.</p>
+      <p>"LOOK! Look at the island!"</p>
+      <p>They stared. On the rocks near the island, sitting high above the water, was a huge old wooden shape. The storm had lifted the wreck up from the sea bottom and thrown it on to the rocks.</p>
+      <p>"The wreck is out of the water!" cried Julian. "We can go into it! We can walk through it!"</p>
+      <p>They could hardly wait. As soon as the sea was calm enough, they took the boat and rowed to the island. They climbed carefully up to the wreck. The old wood was wet, dark and cold. The name of the ship was still just visible on the side: <em>KIRRIN</em>.</p>
+      <img src="img/ff-ch2-boat-calm.png" alt="Rowing back through calm water after the storm" class="chap-img" style="margin:12px 0" data-say="They row out to the wreck through calm morning water. The great old ship sits high on the rocks.">
+      <p>They stepped into the old cabin. Everything was covered in dark green sea-plants. A broken lantern hung from a hook. A rusty knife lay on the floor. In one corner, half hidden under wood, they saw a small wooden box, closed with old iron bands.</p>
+      <p>"A box!" whispered George. Her eyes were huge.</p>
+      <p>Together they pulled it out. It was heavy. They carried it back down to the boat with great care. Timmy walked in front, wagging his tail as if he understood everything.</p>
+      <p>"Home to Kirrin Cottage," said Julian. "We open the box tonight."</p>
+      <p class="quote">— End of Chapter 5 —</p>
+    </div>
+    <div class="exercises">
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">5.1</span> Read and choose · True or False</h4><div class="tf-list">
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">1.</span>A great storm came to Kirrin Bay in the night.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">2.</span>The storm lifted the wreck out of the sea onto the rocks.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">3.</span>The name KIRRIN was still visible on the side of the ship.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="F"><div class="tf-q2"><span class="num">4.</span>Inside the cabin there was only clean bright wood.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="F"><div class="tf-q2"><span class="num">5.</span>The children opened the wooden box straight on the wreck.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+      </div></div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">5.2</span> Choose the correct word</h4><div class="mc-list">
+        <div class="mc-item" data-a="storm"><div class="mc-q"><span class="num">1.</span>That night a great <span class="gap-mini">___</span> came.</div><div class="mc-opts"><button class="mc-opt" data-v="storm">storm</button><button class="mc-opt" data-v="party">party</button><button class="mc-opt" data-v="rain">rain</button></div></div>
+        <div class="mc-item" data-a="rocks"><div class="mc-q"><span class="num">2.</span>The wreck sat high on the <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="sand">sand</button><button class="mc-opt" data-v="rocks">rocks</button><button class="mc-opt" data-v="grass">grass</button></div></div>
+        <div class="mc-item" data-a="cabin"><div class="mc-q"><span class="num">3.</span>They stepped into the old <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="attic">attic</button><button class="mc-opt" data-v="cabin">cabin</button><button class="mc-opt" data-v="kitchen">kitchen</button></div></div>
+        <div class="mc-item" data-a="box"><div class="mc-q"><span class="num">4.</span>In one corner they saw a small wooden <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="chair">chair</button><button class="mc-opt" data-v="box">box</button><button class="mc-opt" data-v="lamp">lamp</button></div></div>
+        <div class="mc-item" data-a="home"><div class="mc-q"><span class="num">5.</span>Julian said, "We take it <span class="gap-mini">___</span> and open it tonight."</div><div class="mc-opts"><button class="mc-opt" data-v="here">here</button><button class="mc-opt" data-v="home">home</button><button class="mc-opt" data-v="away">away</button></div></div>
+      </div></div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">5.3</span> Put the events in the correct order</h4>
+        <div class="ord-wrap" data-answer="a,b,c,d,e">
+          <div class="ord-bank"></div>
+          <div class="ord-slots"><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div></div>
+          <div><button class="ord-check">Check</button><button class="ord-reset">Reset</button></div>
+          <script type="application/json" class="ord-data">[
+            {"id":"a","text":"A great storm came in the night."},
+            {"id":"b","text":"In the morning, they saw the wreck on the rocks."},
+            {"id":"c","text":"They rowed to the island and climbed onto the wreck."},
+            {"id":"d","text":"They stepped into the old cabin and found a wooden box."},
+            {"id":"e","text":"They carried the box back down to the boat."}
+          ]</script>
+        </div>
+      </div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">5.4</span> Complete the sentences</h4>
+        <div class="bank">
+          <span class="bank-word" data-w="storm">storm</span>
+          <span class="bank-word" data-w="wreck">wreck</span>
+          <span class="bank-word" data-w="rocks">rocks</span>
+          <span class="bank-word" data-w="Kirrin">Kirrin</span>
+          <span class="bank-word" data-w="box">box</span>
+          <span class="bank-word" data-w="home">home</span>
+        </div>
+        <div class="drag-text">
+          <div class="line-q"><span class="num">1.</span>A great <span class="drop-gap" data-a="storm"></span> came in the night.</div>
+          <div class="line-q"><span class="num">2.</span>The <span class="drop-gap" data-a="wreck"></span> came up onto the <span class="drop-gap" data-a="rocks"></span>.</div>
+          <div class="line-q"><span class="num">3.</span>The name on the side was <span class="drop-gap" data-a="Kirrin"></span>.</div>
+          <div class="line-q"><span class="num">4.</span>In the cabin they found a wooden <span class="drop-gap" data-a="box"></span>.</div>
+          <div class="line-q"><span class="num">5.</span>They took the box <span class="drop-gap" data-a="home"></span> to Kirrin Cottage.</div>
+        </div>
+      </div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">5.5</span> Discuss the questions</h4>
+        <div class="prompts">
+          <div class="prompt"><button class="play-mini" data-say="Have you ever seen a big storm at the sea? What did it look like?">▶</button><span class="num">1.</span><span class="prompt-text">Have you ever seen a big storm at the sea? What did it look like?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="Why do you think the storm lifted the wreck?">▶</button><span class="num">2.</span><span class="prompt-text">Why do you think the storm lifted the wreck?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="Would you go inside an old wreck? Why or why not?">▶</button><span class="num">3.</span><span class="prompt-text">Would you go inside an old wreck? Why or why not?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="What do you think is inside the small wooden box?">▶</button><span class="num">4.</span><span class="prompt-text">What do you think is inside the small wooden box?</span></div>
+        </div>
+        <div class="starters"><strong>Use these to start</strong>Yes, I once saw… / The storm lifted the wreck because… / I would / would not go inside because… / I think inside there is…</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CH 6 -->
+<section class="section" id="block-6">
+  <div class="section-head"><div class="n">6</div><h2>Chapter 6 · The Box from the Wreck 📜</h2></div>
+  <div class="section-sub">Back at the cottage · opening the box · a real treasure map</div>
+  <div class="card">
+    <div class="lit-cover"><div class="lit-chapter">Chapter Six</div><div class="lit-title">The Box from the Wreck</div><div class="lit-sub">rust · iron · a folded paper · a map</div></div>
+    <img src="img/ff-ch3-map-study.png" alt="The four children study the map by torchlight" class="chap-img" data-say="The four children study the old map by torchlight inside the ruins.">
+    <div class="chap-caption">Chapter 6 · candles at the kitchen table · a very old paper · a real treasure map</div>
+    <div class="audio-row"><button class="play-btn" data-play="ch6-story">▶</button><div><div class="label">Chapter 6 · listening</div><div class="text">Press play to hear the whole chapter</div></div></div>
+    <div class="reading-body" id="ch6-story">
+      <p class="drop-cap">Back at Kirrin Cottage the box sat on the kitchen table. The children waited until it was dark, when Aunt Fanny and Uncle Quentin were in the sitting-room. Then they closed the kitchen door and lit two candles.</p>
+      <p>"Very quiet," Julian whispered. "We do not want Uncle to hear."</p>
+      <p>The lock of the box was black with rust. Julian tried his pocket knife. Nothing. Dick tried. Nothing. Then George brought her father's old chisel from the shed. Julian pushed the chisel under the iron band and pushed hard. With a small dry snap, the band broke. Julian pushed again. The lid opened.</p>
+      <p>Inside, wrapped in wet leather, was a folded paper.</p>
+      <p>Very carefully, Julian unwrapped it and laid it flat on the table. The four heads leaned in close. Timmy put his nose up too.</p>
+      <p>It was a map. A real map. On it was Kirrin Island — every rock, every wall of the castle, every stone stairway. And in one place, deep under the castle, was a small cross. Beside the cross, in old ink, someone had written:</p>
+      <p class="quote">"Here the gold of Kirrin was hidden. — Henry Kirrin, 1802."</p>
+      <p>Nobody spoke. Anne's hand was on Timmy's back. Dick's mouth was open. George was very white.</p>
+      <p>"So it is true," she whispered at last. "The gold never went down with the ship. My great-great-grandfather hid it under the castle. Under my castle."</p>
+      <p>Julian folded the map carefully. "We tell nobody yet," he said. "Only the five of us know. Agreed?"</p>
+      <p>"Agreed," they said, all together.</p>
+      <p>Timmy gave one soft bark, as if to say yes too. Outside, the wind moved in the garden trees. The candles gave a small warm light. And on the table, the old map waited.</p>
+      <p class="quote">— End of Chapter 6 —</p>
+    </div>
+    <div class="exercises">
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">6.1</span> Read and choose · True or False</h4><div class="tf-list">
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">1.</span>The children opened the box on the kitchen table at night.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="F"><div class="tf-q2"><span class="num">2.</span>Julian's pocket knife opened the rusty iron lock easily.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">3.</span>Inside the box was a folded paper wrapped in wet leather.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">4.</span>The map was a real treasure map with a small cross.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="F"><div class="tf-q2"><span class="num">5.</span>They ran to tell Uncle Quentin at once.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+      </div></div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">6.2</span> Choose the correct word</h4><div class="mc-list">
+        <div class="mc-item" data-a="candles"><div class="mc-q"><span class="num">1.</span>They lit two <span class="gap-mini">___</span> on the kitchen table.</div><div class="mc-opts"><button class="mc-opt" data-v="lamps">lamps</button><button class="mc-opt" data-v="candles">candles</button><button class="mc-opt" data-v="fires">fires</button></div></div>
+        <div class="mc-item" data-a="chisel"><div class="mc-q"><span class="num">2.</span>George brought her father's old <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="knife">knife</button><button class="mc-opt" data-v="chisel">chisel</button><button class="mc-opt" data-v="hammer">hammer</button></div></div>
+        <div class="mc-item" data-a="leather"><div class="mc-q"><span class="num">3.</span>Inside was a paper wrapped in wet <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="leather">leather</button><button class="mc-opt" data-v="cloth">cloth</button><button class="mc-opt" data-v="paper">paper</button></div></div>
+        <div class="mc-item" data-a="cross"><div class="mc-q"><span class="num">4.</span>On the map there was a small <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="star">star</button><button class="mc-opt" data-v="cross">cross</button><button class="mc-opt" data-v="line">line</button></div></div>
+        <div class="mc-item" data-a="1802"><div class="mc-q"><span class="num">5.</span>Henry Kirrin signed the map in the year <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="1802">1802</button><button class="mc-opt" data-v="1500">1500</button><button class="mc-opt" data-v="1900">1900</button></div></div>
+      </div></div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">6.3</span> Put the events in the correct order</h4>
+        <div class="ord-wrap" data-answer="a,b,c,d,e">
+          <div class="ord-bank"></div>
+          <div class="ord-slots"><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div></div>
+          <div><button class="ord-check">Check</button><button class="ord-reset">Reset</button></div>
+          <script type="application/json" class="ord-data">[
+            {"id":"a","text":"They waited until it was dark."},
+            {"id":"b","text":"They closed the kitchen door and lit candles."},
+            {"id":"c","text":"George brought her father's chisel to open the lock."},
+            {"id":"d","text":"Julian opened the box and unwrapped the leather."},
+            {"id":"e","text":"They read the words of Henry Kirrin, 1802."}
+          ]</script>
+        </div>
+      </div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">6.4</span> Complete the sentences</h4>
+        <div class="bank">
+          <span class="bank-word" data-w="candles">candles</span>
+          <span class="bank-word" data-w="chisel">chisel</span>
+          <span class="bank-word" data-w="lock">lock</span>
+          <span class="bank-word" data-w="map">map</span>
+          <span class="bank-word" data-w="Henry">Henry</span>
+          <span class="bank-word" data-w="secret">secret</span>
+        </div>
+        <div class="drag-text">
+          <div class="line-q"><span class="num">1.</span>Two <span class="drop-gap" data-a="candles"></span> lit the kitchen table.</div>
+          <div class="line-q"><span class="num">2.</span>George brought her father's old <span class="drop-gap" data-a="chisel"></span>.</div>
+          <div class="line-q"><span class="num">3.</span>They broke the rusty iron <span class="drop-gap" data-a="lock"></span>.</div>
+          <div class="line-q"><span class="num">4.</span>Inside was a real treasure <span class="drop-gap" data-a="map"></span>.</div>
+          <div class="line-q"><span class="num">5.</span><span class="drop-gap" data-a="Henry"></span> Kirrin's <span class="drop-gap" data-a="secret"></span> was written on it.</div>
+        </div>
+      </div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">6.5</span> Discuss the questions</h4>
+        <div class="prompts">
+          <div class="prompt"><button class="play-mini" data-say="Why did the children open the box at night, in secret?">▶</button><span class="num">1.</span><span class="prompt-text">Why did the children open the box at night, in secret?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="Would you tell adults about a treasure map you found? Why?">▶</button><span class="num">2.</span><span class="prompt-text">Would you tell adults about a treasure map you found? Why?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="What did George feel when she read the words on the map?">▶</button><span class="num">3.</span><span class="prompt-text">What did George feel when she read the words on the map?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="What would you do next, if you were Julian?">▶</button><span class="num">4.</span><span class="prompt-text">What would you do next, if you were Julian?</span></div>
+        </div>
+        <div class="starters"><strong>Use these to start</strong>They opened it at night because… / I would / would not tell adults because… / George felt… / If I were Julian I would…</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CH 7 -->
+<section class="section" id="block-7">
+  <div class="section-head"><div class="n">7</div><h2>Chapter 7 · An Astonishing Offer 💰</h2></div>
+  <div class="section-sub">Two strangers · a very high price · the island is not for sale</div>
+  <div class="card">
+    <div class="lit-cover"><div class="lit-chapter">Chapter Seven</div><div class="lit-title">An Astonishing Offer</div><div class="lit-sub">a car at the door · a lot of money · a firm "no"</div></div>
+    <img src="img/ff-julian-portrait.png" alt="Julian looks out at the sea, thoughtful" class="chap-img" data-say="Julian stops in the road. Something is wrong. Two strangers are at the cottage.">
+    <div class="chap-caption">Chapter 7 · a shiny car · two men with polite smiles · but why do they want the island?</div>
+    <div class="audio-row"><button class="play-btn" data-play="ch7-story">▶</button><div><div class="label">Chapter 7 · listening</div><div class="text">Press play to hear the whole chapter</div></div></div>
+    <div class="reading-body" id="ch7-story">
+      <p class="drop-cap">The next morning a shiny black car came to Kirrin Cottage. Two men stepped out. One was tall and thin, with a long face. The other was short, with red hair. They rang the bell.</p>
+      <p>Aunt Fanny opened the door. "Good morning?"</p>
+      <p>"Good morning, madam," said the tall one. "We would like to speak to Mr. Quentin Kirrin, please. About the island."</p>
+      <p>George heard the word "island" and ran to the door. She stood behind her mother. Julian, Dick and Anne came from the garden. Timmy came too. He growled softly. George put a hand on his head.</p>
+      <img src="img/ff-george-portrait.png" alt="George stands firm — the island is hers" class="chap-img" style="margin:12px 0" data-say="George stands firm. The island is hers. She will not sell it — never.">
+      <p>Uncle Quentin came out of his study. "Come in, gentlemen."</p>
+      <p>The men sat in the sitting-room. The tall one spoke. "Mr. Kirrin, we have a business offer. Kirrin Island is your family's, we understand. It is a small island. There is nothing on it — only old stones. We would like to buy it. We will pay a very good price. We will pay two thousand pounds."</p>
+      <p>Uncle Quentin's eyes opened wide. Two thousand pounds was a great deal of money. He looked at his wife.</p>
+      <p>But before he could speak, George spoke very loudly. "The island is NOT for sale. It is MY island. My mother gave it to me. I will not sell it. Never."</p>
+      <p>The tall man looked at George coldly. "Little girl, you are not the owner in law. Your father is."</p>
+      <p>Uncle Quentin's face went red. He did not like the tall man's tone. "My daughter is right," he said. "The island belongs to her. She does not wish to sell. That is the end of it. Good morning, gentlemen."</p>
+      <p>The men left. Their car drove away fast.</p>
+      <p>Julian looked at Dick. "Something is very wrong here," he said quietly. "Nobody offers two thousand pounds for old stones. They know about the gold. Somehow — they know."</p>
+      <p>George nodded. Her hands were fists. "Then we go to the island. Tomorrow. Before they do."</p>
+      <p class="quote">— End of Chapter 7 —</p>
+    </div>
+    <div class="exercises">
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">7.1</span> Read and choose · True or False</h4><div class="tf-list">
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">1.</span>A shiny black car came to Kirrin Cottage in the morning.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">2.</span>Two men wanted to buy Kirrin Island.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="F"><div class="tf-q2"><span class="num">3.</span>The men offered only fifty pounds.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">4.</span>George said very loudly that the island was not for sale.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="F"><div class="tf-q2"><span class="num">5.</span>Uncle Quentin decided to sell the island for the money.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+      </div></div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">7.2</span> Choose the correct word</h4><div class="mc-list">
+        <div class="mc-item" data-a="two"><div class="mc-q"><span class="num">1.</span><span class="gap-mini">___</span> men stepped out of the car.</div><div class="mc-opts"><button class="mc-opt" data-v="Two">Two</button><button class="mc-opt" data-v="Three">Three</button><button class="mc-opt" data-v="Five">Five</button></div></div>
+        <div class="mc-item" data-a="tall"><div class="mc-q"><span class="num">2.</span>One man was <span class="gap-mini">___</span> and thin, with a long face.</div><div class="mc-opts"><button class="mc-opt" data-v="tall">tall</button><button class="mc-opt" data-v="small">small</button><button class="mc-opt" data-v="red">red</button></div></div>
+        <div class="mc-item" data-a="pounds"><div class="mc-q"><span class="num">3.</span>They offered two thousand <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="pounds">pounds</button><button class="mc-opt" data-v="dollars">dollars</button><button class="mc-opt" data-v="coins">coins</button></div></div>
+        <div class="mc-item" data-a="sale"><div class="mc-q"><span class="num">4.</span>George said, "It is not for <span class="gap-mini">___</span>!"</div><div class="mc-opts"><button class="mc-opt" data-v="sale">sale</button><button class="mc-opt" data-v="rent">rent</button><button class="mc-opt" data-v="you">you</button></div></div>
+        <div class="mc-item" data-a="gold"><div class="mc-q"><span class="num">5.</span>Julian said the men must know about the <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="gold">gold</button><button class="mc-opt" data-v="cottage">cottage</button><button class="mc-opt" data-v="cake">cake</button></div></div>
+      </div></div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">7.3</span> Put the events in the correct order</h4>
+        <div class="ord-wrap" data-answer="a,b,c,d,e">
+          <div class="ord-bank"></div>
+          <div class="ord-slots"><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div></div>
+          <div><button class="ord-check">Check</button><button class="ord-reset">Reset</button></div>
+          <script type="application/json" class="ord-data">[
+            {"id":"a","text":"A shiny black car came to Kirrin Cottage."},
+            {"id":"b","text":"Two men asked to speak to Uncle Quentin."},
+            {"id":"c","text":"They offered two thousand pounds for the island."},
+            {"id":"d","text":"George said very loudly that the island was NOT for sale."},
+            {"id":"e","text":"Julian realised the men must know about the gold."}
+          ]</script>
+        </div>
+      </div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">7.4</span> Complete the sentences</h4>
+        <div class="bank">
+          <span class="bank-word" data-w="car">car</span>
+          <span class="bank-word" data-w="men">men</span>
+          <span class="bank-word" data-w="thousand">thousand</span>
+          <span class="bank-word" data-w="sale">sale</span>
+          <span class="bank-word" data-w="wrong">wrong</span>
+          <span class="bank-word" data-w="gold">gold</span>
+        </div>
+        <div class="drag-text">
+          <div class="line-q"><span class="num">1.</span>A shiny black <span class="drop-gap" data-a="car"></span> came to the cottage.</div>
+          <div class="line-q"><span class="num">2.</span>Two <span class="drop-gap" data-a="men"></span> wanted to buy the island.</div>
+          <div class="line-q"><span class="num">3.</span>They offered two <span class="drop-gap" data-a="thousand"></span> pounds.</div>
+          <div class="line-q"><span class="num">4.</span>George cried, "It is not for <span class="drop-gap" data-a="sale"></span>!"</div>
+          <div class="line-q"><span class="num">5.</span>Julian said something was <span class="drop-gap" data-a="wrong"></span> — the men must know about the <span class="drop-gap" data-a="gold"></span>.</div>
+        </div>
+      </div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">7.5</span> Discuss the questions</h4>
+        <div class="prompts">
+          <div class="prompt"><button class="play-mini" data-say="Why do you think the two men wanted the island so much?">▶</button><span class="num">1.</span><span class="prompt-text">Why do you think the two men wanted the island so much?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="Would you sell something special for a lot of money? Why?">▶</button><span class="num">2.</span><span class="prompt-text">Would you sell something special for a lot of money? Why?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="How did George feel when the men called her 'little girl'?">▶</button><span class="num">3.</span><span class="prompt-text">How did George feel when the men called her "little girl"?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="What would you do if strangers wanted to buy your favourite thing?">▶</button><span class="num">4.</span><span class="prompt-text">What would you do if strangers wanted to buy your favourite thing?</span></div>
+        </div>
+        <div class="starters"><strong>Use these to start</strong>I think the men wanted… because… / I would / would not sell because… / George felt… / I would say…</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CH 8 -->
+<section class="section" id="block-8">
+  <div class="section-head"><div class="n">8</div><h2>Chapter 8 · Off to Kirrin Island 🚣</h2></div>
+  <div class="section-sub">Early morning · secret picnic · racing the strangers</div>
+  <div class="card">
+    <div class="lit-cover"><div class="lit-chapter">Chapter Eight</div><div class="lit-title">Off to Kirrin Island</div><div class="lit-sub">before dawn · a rope, a torch, a spade · Timmy in the front</div></div>
+    <img src="img/ff-cliff-view-4.png" alt="The four look at the island from the cliff at sunset" class="chap-img" data-say="The four cousins look at Kirrin Island in the morning light. Today they must reach the gold first.">
+    <div class="chap-caption">Chapter 8 · a race against the two men · everything ready in George's boat</div>
+    <div class="audio-row"><button class="play-btn" data-play="ch8-story">▶</button><div><div class="label">Chapter 8 · listening</div><div class="text">Press play to hear the whole chapter</div></div></div>
+    <div class="reading-body" id="ch8-story">
+      <p class="drop-cap">Before the sun rose, four children and a dog crept out of Kirrin Cottage. They took a rope, two torches, Uncle Quentin's old spade, a bottle of water, sandwiches from the kitchen and a very old folded map. The garden was cool. Nobody saw them.</p>
+      <p>At the beach, George's boat was ready. The sea was calm and grey in the early light. Julian and Dick took the oars. Anne sat with the picnic basket. George held Timmy tight and watched the horizon. She was afraid of one thing — that the two men had come already.</p>
+      <p>They rowed hard. The island came closer. When they reached the cove, they looked around. No other boat. They were the first.</p>
+      <p>"Quick," George whispered. "Up to the castle."</p>
+      <p>They pulled the boat high on the sand and ran up the little hill. In the ruined castle, they found a quiet corner and Julian opened the map on a flat stone. Everyone leaned in.</p>
+      <p>"Here we are," said Julian, pointing. "The castle. And here — deep under it — is the cross. The gold room."</p>
+      <p>"But how do we get under the castle?" asked Anne.</p>
+      <p>Julian looked at the map. "There must be a way down. A stone stairway, or an old well, or a hidden trap-door. We look for anything that leads down."</p>
+      <img src="img/ff-dick-climb.png" alt="Dick climbs the rocks to search" class="chap-img" style="margin:12px 0" data-say="Dick climbs the rocks to search for the way down. The others look for hidden stones.">
+      <p>They began to search. Dick looked at every corner of the walls. Anne checked the old fireplaces. George walked along the outside. Timmy sniffed the ground.</p>
+      <p>Suddenly Timmy stopped. He put his nose to a big square stone in the floor of one broken room, and gave a small excited bark. George ran to him.</p>
+      <p>"Julian! Come here! Timmy has found something!"</p>
+      <p class="quote">— End of Chapter 8 —</p>
+    </div>
+    <div class="exercises">
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">8.1</span> Read and choose · True or False</h4><div class="tf-list">
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">1.</span>The children left the cottage before sunrise.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">2.</span>They took a rope, two torches and a spade.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="F"><div class="tf-q2"><span class="num">3.</span>They saw the two strangers' boat already in the cove.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">4.</span>Timmy found a big square stone in the floor of one broken room.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">5.</span>The map showed a place deep under the castle marked with a cross.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+      </div></div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">8.2</span> Choose the correct word</h4><div class="mc-list">
+        <div class="mc-item" data-a="dawn"><div class="mc-q"><span class="num">1.</span>They left before <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="dawn">dawn</button><button class="mc-opt" data-v="lunch">lunch</button><button class="mc-opt" data-v="night">night</button></div></div>
+        <div class="mc-item" data-a="rope"><div class="mc-q"><span class="num">2.</span>They took a strong <span class="gap-mini">___</span> for going down.</div><div class="mc-opts"><button class="mc-opt" data-v="rope">rope</button><button class="mc-opt" data-v="ladder">ladder</button><button class="mc-opt" data-v="stick">stick</button></div></div>
+        <div class="mc-item" data-a="first"><div class="mc-q"><span class="num">3.</span>They were the <span class="gap-mini">___</span> at the island — no other boat was there.</div><div class="mc-opts"><button class="mc-opt" data-v="first">first</button><button class="mc-opt" data-v="last">last</button><button class="mc-opt" data-v="only">only</button></div></div>
+        <div class="mc-item" data-a="Timmy"><div class="mc-q"><span class="num">4.</span><span class="gap-mini">___</span> barked at a big square stone.</div><div class="mc-opts"><button class="mc-opt" data-v="Julian">Julian</button><button class="mc-opt" data-v="Anne">Anne</button><button class="mc-opt" data-v="Timmy">Timmy</button></div></div>
+        <div class="mc-item" data-a="cross"><div class="mc-q"><span class="num">5.</span>On the map — the gold room was marked with a small <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="star">star</button><button class="mc-opt" data-v="cross">cross</button><button class="mc-opt" data-v="dot">dot</button></div></div>
+      </div></div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">8.3</span> Put the events in the correct order</h4>
+        <div class="ord-wrap" data-answer="a,b,c,d,e">
+          <div class="ord-bank"></div>
+          <div class="ord-slots"><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div></div>
+          <div><button class="ord-check">Check</button><button class="ord-reset">Reset</button></div>
+          <script type="application/json" class="ord-data">[
+            {"id":"a","text":"They crept out of Kirrin Cottage before sunrise."},
+            {"id":"b","text":"They rowed to the island in George's boat."},
+            {"id":"c","text":"They pulled the boat high and ran up to the ruins."},
+            {"id":"d","text":"They opened the map on a flat stone."},
+            {"id":"e","text":"Timmy barked at a hidden square stone in the floor."}
+          ]</script>
+        </div>
+      </div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">8.4</span> Complete the sentences</h4>
+        <div class="bank">
+          <span class="bank-word" data-w="dawn">dawn</span>
+          <span class="bank-word" data-w="rope">rope</span>
+          <span class="bank-word" data-w="spade">spade</span>
+          <span class="bank-word" data-w="first">first</span>
+          <span class="bank-word" data-w="map">map</span>
+          <span class="bank-word" data-w="Timmy">Timmy</span>
+        </div>
+        <div class="drag-text">
+          <div class="line-q"><span class="num">1.</span>Before <span class="drop-gap" data-a="dawn"></span> they crept out of the house.</div>
+          <div class="line-q"><span class="num">2.</span>They took a <span class="drop-gap" data-a="rope"></span> and a <span class="drop-gap" data-a="spade"></span>.</div>
+          <div class="line-q"><span class="num">3.</span>They were the <span class="drop-gap" data-a="first"></span> at the island.</div>
+          <div class="line-q"><span class="num">4.</span>Julian opened the old <span class="drop-gap" data-a="map"></span> on a flat stone.</div>
+          <div class="line-q"><span class="num">5.</span><span class="drop-gap" data-a="Timmy"></span> was the one who found the hidden stone.</div>
+        </div>
+      </div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">8.5</span> Discuss the questions</h4>
+        <div class="prompts">
+          <div class="prompt"><button class="play-mini" data-say="Why did the children leave so early in the morning?">▶</button><span class="num">1.</span><span class="prompt-text">Why did the children leave so early in the morning?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="How would you feel if you were racing bad people to a secret place?">▶</button><span class="num">2.</span><span class="prompt-text">How would you feel if you were racing bad people to a secret place?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="Why do you think Timmy found the hidden stone before the children?">▶</button><span class="num">3.</span><span class="prompt-text">Why do you think Timmy found the hidden stone before the children?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="What would you take with you on an adventure like this?">▶</button><span class="num">4.</span><span class="prompt-text">What would you take with you on an adventure like this?</span></div>
+        </div>
+        <div class="starters"><strong>Use these to start</strong>They left early because… / I would feel… / Timmy found it because… / I would take…</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CH 9 -->
+<section class="section" id="block-9">
+  <div class="section-head"><div class="n">9</div><h2>Chapter 9 · Exciting Discoveries 🕳️</h2></div>
+  <div class="section-sub">The trap-door · the stone stairway · down into the dungeons</div>
+  <div class="card">
+    <div class="lit-cover"><div class="lit-chapter">Chapter Nine</div><div class="lit-title">Exciting Discoveries</div><div class="lit-sub">a trap-door · steep steps · cold air rising from below</div></div>
+    <img src="img/ff-ch2-well.png" alt="The children look down into an old dark opening" class="chap-img" data-say="A big flat stone lifts. Cold air rises. Steps go down into the dark.">
+    <div class="chap-caption">Chapter 9 · a stone that lifts · a stairway hidden for a hundred years</div>
+    <div class="audio-row"><button class="play-btn" data-play="ch9-story">▶</button><div><div class="label">Chapter 9 · listening</div><div class="text">Press play to hear the whole chapter</div></div></div>
+    <div class="reading-body" id="ch9-story">
+      <p class="drop-cap">Julian, Dick and Anne came running. The big square stone was covered with grass and small yellow flowers. It looked like all the other stones. But Timmy would not move from it.</p>
+      <p>Julian bent down. He pushed the grass away. Along one edge of the stone he saw a small dark line — not much wider than a finger. He put his fingers in and pulled. Nothing.</p>
+      <p>"Dick, help me."</p>
+      <p>Together they pulled hard. The stone moved a little. Then a little more. Then, with a soft grating sound, it swung up on old iron hinges. Cold air came out of the dark hole below.</p>
+      <p>Anne stepped back. "Oh! It smells old!"</p>
+      <p>Below the stone, they saw a stone stairway going down into the dark. Timmy sniffed at it and did not seem afraid. He wagged his tail.</p>
+      <p>Julian looked at George. Her face was pale with excitement. "Do we go?"</p>
+      <p>"Of course we go," she whispered.</p>
+      <p>Julian tied the rope to a strong old tree stump growing at the corner of the ruined wall. He tested it. Then he lit his torch. "I go first."</p>
+      <p>He climbed carefully down the stairs. Dick came second. Then Anne, holding the rope. George came last, with Timmy right behind her.</p>
+      <p>The stairway curved. The walls were cold and wet. Their torches made small circles of light. After twenty steps, they reached the bottom. A low tunnel led away into the dark. Water dripped somewhere.</p>
+      <p>Julian looked at the map by torchlight. "This way. Not far now."</p>
+      <p>The tunnel was narrow. In some places they had to bend low. In one place they had to squeeze past a fallen stone. But the tunnel led somewhere. The gold was near.</p>
+      <p class="quote">— End of Chapter 9 —</p>
+    </div>
+    <div class="exercises">
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">9.1</span> Read and choose · True or False</h4><div class="tf-list">
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">1.</span>Along one edge of the stone Julian saw a small dark line.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="F"><div class="tf-q2"><span class="num">2.</span>The stone was easy to lift alone.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">3.</span>Below the stone there was a stone stairway going down.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">4.</span>Julian went down first with a torch.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="F"><div class="tf-q2"><span class="num">5.</span>Timmy was too afraid to follow.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+      </div></div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">9.2</span> Choose the correct word</h4><div class="mc-list">
+        <div class="mc-item" data-a="hinges"><div class="mc-q"><span class="num">1.</span>The stone swung up on old iron <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="hinges">hinges</button><button class="mc-opt" data-v="chains">chains</button><button class="mc-opt" data-v="bones">bones</button></div></div>
+        <div class="mc-item" data-a="stairway"><div class="mc-q"><span class="num">2.</span>Underneath was a stone <span class="gap-mini">___</span> going down.</div><div class="mc-opts"><button class="mc-opt" data-v="stairway">stairway</button><button class="mc-opt" data-v="river">river</button><button class="mc-opt" data-v="cave">cave</button></div></div>
+        <div class="mc-item" data-a="stump"><div class="mc-q"><span class="num">3.</span>Julian tied the rope to a strong old tree <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="branch">branch</button><button class="mc-opt" data-v="stump">stump</button><button class="mc-opt" data-v="leaf">leaf</button></div></div>
+        <div class="mc-item" data-a="torch"><div class="mc-q"><span class="num">4.</span>Julian lit his <span class="gap-mini">___</span> and went down first.</div><div class="mc-opts"><button class="mc-opt" data-v="lamp">lamp</button><button class="mc-opt" data-v="candle">candle</button><button class="mc-opt" data-v="torch">torch</button></div></div>
+        <div class="mc-item" data-a="tunnel"><div class="mc-q"><span class="num">5.</span>At the bottom a low <span class="gap-mini">___</span> led away into the dark.</div><div class="mc-opts"><button class="mc-opt" data-v="tunnel">tunnel</button><button class="mc-opt" data-v="road">road</button><button class="mc-opt" data-v="bridge">bridge</button></div></div>
+      </div></div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">9.3</span> Put the events in the correct order</h4>
+        <div class="ord-wrap" data-answer="a,b,c,d,e">
+          <div class="ord-bank"></div>
+          <div class="ord-slots"><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div></div>
+          <div><button class="ord-check">Check</button><button class="ord-reset">Reset</button></div>
+          <script type="application/json" class="ord-data">[
+            {"id":"a","text":"Julian and Dick pulled the big stone up together."},
+            {"id":"b","text":"They saw a stone stairway going down into the dark."},
+            {"id":"c","text":"Julian tied the rope to an old tree stump."},
+            {"id":"d","text":"They lit their torches and climbed down carefully."},
+            {"id":"e","text":"A low tunnel led away into the dark below."}
+          ]</script>
+        </div>
+      </div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">9.4</span> Complete the sentences</h4>
+        <div class="bank">
+          <span class="bank-word" data-w="stone">stone</span>
+          <span class="bank-word" data-w="stairway">stairway</span>
+          <span class="bank-word" data-w="rope">rope</span>
+          <span class="bank-word" data-w="torch">torch</span>
+          <span class="bank-word" data-w="tunnel">tunnel</span>
+          <span class="bank-word" data-w="Timmy">Timmy</span>
+        </div>
+        <div class="drag-text">
+          <div class="line-q"><span class="num">1.</span>Julian and Dick pulled the big square <span class="drop-gap" data-a="stone"></span>.</div>
+          <div class="line-q"><span class="num">2.</span>Below they saw a cold stone <span class="drop-gap" data-a="stairway"></span>.</div>
+          <div class="line-q"><span class="num">3.</span>Julian tied the <span class="drop-gap" data-a="rope"></span> to a tree stump.</div>
+          <div class="line-q"><span class="num">4.</span>He lit his <span class="drop-gap" data-a="torch"></span> and went first.</div>
+          <div class="line-q"><span class="num">5.</span>A low <span class="drop-gap" data-a="tunnel"></span> waited below — <span class="drop-gap" data-a="Timmy"></span> was not afraid at all.</div>
+        </div>
+      </div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">9.5</span> Discuss the questions</h4>
+        <div class="prompts">
+          <div class="prompt"><button class="play-mini" data-say="Would you go down into a dark old tunnel? Why or why not?">▶</button><span class="num">1.</span><span class="prompt-text">Would you go down into a dark old tunnel? Why or why not?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="What do you think it smells like inside a tunnel a hundred years old?">▶</button><span class="num">2.</span><span class="prompt-text">What do you think it smells like inside a tunnel a hundred years old?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="Why did Julian go down first, not George?">▶</button><span class="num">3.</span><span class="prompt-text">Why did Julian go down first, not George?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="What do you take with you when you go somewhere dark?">▶</button><span class="num">4.</span><span class="prompt-text">What do you take with you when you go somewhere dark?</span></div>
+        </div>
+        <div class="starters"><strong>Use these to start</strong>I would / would not go because… / It smells… / Julian went first because… / I take…</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CH 10 -->
+<section class="section" id="block-10">
+  <div class="section-head"><div class="n">10</div><h2>Chapter 10 · Down in the Dungeons 🪙</h2></div>
+  <div class="section-sub">The gold chamber · a great chest · shining coins in the torchlight</div>
+  <div class="card">
+    <div class="lit-cover"><div class="lit-chapter">Chapter Ten</div><div class="lit-title">Down in the Dungeons</div><div class="lit-sub">a hidden room · a heavy chest · real gold</div></div>
+    <img src="img/ff-ch5-treasure.png" alt="The five open the treasure chest full of gold" class="chap-img" data-say="Deep under the castle, the five open a great chest full of gold coins.">
+    <div class="chap-caption">Chapter 10 · the deepest room · the treasure of Kirrin</div>
+    <div class="audio-row"><button class="play-btn" data-play="ch10-story">▶</button><div><div class="label">Chapter 10 · listening</div><div class="text">Press play to hear the whole chapter</div></div></div>
+    <div class="reading-body" id="ch10-story">
+      <p class="drop-cap">The tunnel opened into a small round room. It was much bigger than they had thought. Old spider webs hung from the ceiling. Their torches shone across the walls. Everyone stopped.</p>
+      <p>In the middle of the room stood a large wooden chest. It was black with age. Around it, on the floor, were smaller bags — many bags, all covered in thick dust.</p>
+      <p>Anne bent down. She touched one bag with her fingers. Inside, hard round things moved.</p>
+      <p>"Julian," she whispered. "I think — I think —"</p>
+      <p>Julian opened the bag very slowly. He poured some of the hard round things into his palm. In the torch light, they gave back a soft yellow shine.</p>
+      <p>"Gold," he said. Just the one word. His voice was small.</p>
+      <p>Dick opened another bag. More coins fell out. Some were bright gold. Some were older, darker. Some had strange writing. All were real.</p>
+      <p>George opened the big chest. It creaked open. Inside, wrapped in old red cloth, was a beautiful silver cup. And under the cup — more gold bars, thick as her arm, three of them.</p>
+      <p>"This is the treasure of Kirrin," George said very quietly. "This is my great-great-grandfather's gold. It has been under the castle for a hundred and fifty years, waiting for us."</p>
+      <p>The four cousins stood in silence around the chest. Anne's hand slipped into Dick's. Nobody knew what to say.</p>
+      <p>Then Timmy's ears went up. He turned. From the tunnel behind them came a very small sound — voices.</p>
+      <p>Voices coming down. Two voices.</p>
+      <img src="img/ff-ch2-butterflies.png" alt="A moment of quiet before danger" class="chap-img" style="margin:12px 0" data-say="A quiet moment. But something is coming through the tunnel.">
+      <p>George's face went white. "The men," she whispered. "They followed us."</p>
+      <p class="quote">— End of Chapter 10 —</p>
+    </div>
+    <div class="exercises">
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">10.1</span> Read and choose · True or False</h4><div class="tf-list">
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">1.</span>The tunnel opened into a small round dungeon room.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">2.</span>In the middle stood a large old wooden chest.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">3.</span>The bags around it were full of gold and silver coins.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="F"><div class="tf-q2"><span class="num">4.</span>Inside the chest they found only dust and small bones.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">5.</span>Timmy heard voices in the tunnel behind them.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+      </div></div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">10.2</span> Choose the correct word</h4><div class="mc-list">
+        <div class="mc-item" data-a="round"><div class="mc-q"><span class="num">1.</span>The room was small and <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="round">round</button><button class="mc-opt" data-v="square">square</button><button class="mc-opt" data-v="tall">tall</button></div></div>
+        <div class="mc-item" data-a="chest"><div class="mc-q"><span class="num">2.</span>In the middle stood a large wooden <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="chair">chair</button><button class="mc-opt" data-v="chest">chest</button><button class="mc-opt" data-v="table">table</button></div></div>
+        <div class="mc-item" data-a="gold"><div class="mc-q"><span class="num">3.</span>Inside the little bags they found real <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="salt">salt</button><button class="mc-opt" data-v="gold">gold</button><button class="mc-opt" data-v="paper">paper</button></div></div>
+        <div class="mc-item" data-a="silver"><div class="mc-q"><span class="num">4.</span>Inside the chest was a beautiful <span class="gap-mini">___</span> cup.</div><div class="mc-opts"><button class="mc-opt" data-v="silver">silver</button><button class="mc-opt" data-v="stone">stone</button><button class="mc-opt" data-v="glass">glass</button></div></div>
+        <div class="mc-item" data-a="voices"><div class="mc-q"><span class="num">5.</span>From the tunnel behind them came the sound of <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="water">water</button><button class="mc-opt" data-v="voices">voices</button><button class="mc-opt" data-v="wind">wind</button></div></div>
+      </div></div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">10.3</span> Put the events in the correct order</h4>
+        <div class="ord-wrap" data-answer="a,b,c,d,e">
+          <div class="ord-bank"></div>
+          <div class="ord-slots"><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div></div>
+          <div><button class="ord-check">Check</button><button class="ord-reset">Reset</button></div>
+          <script type="application/json" class="ord-data">[
+            {"id":"a","text":"The tunnel opened into a small round room."},
+            {"id":"b","text":"They saw a wooden chest and many bags on the floor."},
+            {"id":"c","text":"Julian poured out gold coins from one bag."},
+            {"id":"d","text":"George opened the chest — a silver cup and gold bars!"},
+            {"id":"e","text":"Timmy suddenly heard voices in the tunnel."}
+          ]</script>
+        </div>
+      </div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">10.4</span> Complete the sentences</h4>
+        <div class="bank">
+          <span class="bank-word" data-w="round">round</span>
+          <span class="bank-word" data-w="chest">chest</span>
+          <span class="bank-word" data-w="gold">gold</span>
+          <span class="bank-word" data-w="cup">cup</span>
+          <span class="bank-word" data-w="treasure">treasure</span>
+          <span class="bank-word" data-w="voices">voices</span>
+        </div>
+        <div class="drag-text">
+          <div class="line-q"><span class="num">1.</span>The dungeon room was small and <span class="drop-gap" data-a="round"></span>.</div>
+          <div class="line-q"><span class="num">2.</span>They found a huge wooden <span class="drop-gap" data-a="chest"></span>.</div>
+          <div class="line-q"><span class="num">3.</span>Inside the bags — real <span class="drop-gap" data-a="gold"></span>!</div>
+          <div class="line-q"><span class="num">4.</span>Inside the chest — a beautiful silver <span class="drop-gap" data-a="cup"></span>.</div>
+          <div class="line-q"><span class="num">5.</span>This was the <span class="drop-gap" data-a="treasure"></span> of Kirrin — but suddenly they heard <span class="drop-gap" data-a="voices"></span>.</div>
+        </div>
+      </div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">10.5</span> Discuss the questions</h4>
+        <div class="prompts">
+          <div class="prompt"><button class="play-mini" data-say="How do you think the children felt when they saw the gold?">▶</button><span class="num">1.</span><span class="prompt-text">How do you think the children felt when they saw the gold?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="Why do you think the men came so quickly after the children?">▶</button><span class="num">2.</span><span class="prompt-text">Why do you think the men came so quickly after the children?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="If you found real gold, what would you do first?">▶</button><span class="num">3.</span><span class="prompt-text">If you found real gold, what would you do first?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="What would you do if you heard bad voices coming in a dark tunnel?">▶</button><span class="num">4.</span><span class="prompt-text">What would you do if you heard bad voices coming in a dark tunnel?</span></div>
+        </div>
+        <div class="starters"><strong>Use these to start</strong>They felt… / The men followed because… / I would first… / If I heard voices, I would…</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CH 11 -->
+<section class="section" id="block-11">
+  <div class="section-head"><div class="n">11</div><h2>Chapter 11 · Prisoners! 🔒</h2></div>
+  <div class="section-sub">The trap-door falls · locked in the dungeons · Timmy on the other side</div>
+  <div class="card">
+    <div class="lit-cover"><div class="lit-chapter">Chapter Eleven</div><div class="lit-title">Prisoners!</div><div class="lit-sub">a slam · darkness · a plan is needed</div></div>
+    <img src="img/ff-ch4-tunnel.png" alt="Inside a dark passage with torches" class="chap-img" data-say="A dark passage. A slammed stone. The four cousins are prisoners.">
+    <div class="chap-caption">Chapter 11 · caught underground · Timmy escapes just in time</div>
+    <div class="audio-row"><button class="play-btn" data-play="ch11-story">▶</button><div><div class="label">Chapter 11 · listening</div><div class="text">Press play to hear the whole chapter</div></div></div>
+    <div class="reading-body" id="ch11-story">
+      <p class="drop-cap">"Hide!" Julian whispered. "All of us!"</p>
+      <p>Behind the great chest was a shadow. They all crouched down. Timmy hid with George. His fur was warm. Nobody made a sound.</p>
+      <p>The voices came closer. Torch light flickered on the walls of the tunnel. Two men stepped into the room. The tall thin one and the short red-haired one. They gave a great shout.</p>
+      <p>"Look at this! Gold! Real gold!"</p>
+      <p>The tall one was greedy. He rushed to the chest. He picked up coins in both hands. His eyes shone. "We are rich," he said. "Rich!"</p>
+      <p>Then he saw Timmy's tail behind the chest.</p>
+      <p>His face changed. He turned to his friend. "There is someone here. Get the rope."</p>
+      <p>They pulled Julian, Dick, Anne and George out. George tried to keep Timmy quiet, but Timmy growled. The short one raised his hand. Timmy jumped forward, snarling.</p>
+      <p>"Quick!" cried George. She threw Timmy up the tunnel. "Go, Timmy! Go find help!"</p>
+      <p>The dog understood. He shot up the tunnel like a brown-and-black arrow. The tall man ran after him but was too slow.</p>
+      <p>The two men pushed the four children into the round room. "You stay here," said the tall one. "We take the gold up. Then we lock the trap-door above. Nobody will ever find you. Nobody knows you are here — except one dog, and one dog cannot open a locked door."</p>
+      <p>They carried the chest up the tunnel. They came back. They carried the bags. It took a long time. The children could hear their footsteps on the stone stairway above.</p>
+      <p>Then — a great heavy sound. The trap-door falling shut.</p>
+      <p>Then — silence.</p>
+      <p>Anne began to cry. Julian put an arm around her. George's hands were fists. Dick looked at the tunnel and said quietly, "Timmy will bring somebody. He always does."</p>
+      <p class="quote">— End of Chapter 11 —</p>
+    </div>
+    <div class="exercises">
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">11.1</span> Read and choose · True or False</h4><div class="tf-list">
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">1.</span>The children hid behind the great chest when the men came.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">2.</span>The tall man saw Timmy's tail behind the chest.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">3.</span>George threw Timmy up the tunnel to find help.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="F"><div class="tf-q2"><span class="num">4.</span>The men left the children free with the gold.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">5.</span>The trap-door above them closed with a great heavy sound.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+      </div></div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">11.2</span> Choose the correct word</h4><div class="mc-list">
+        <div class="mc-item" data-a="chest"><div class="mc-q"><span class="num">1.</span>They all hid behind the great <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="chest">chest</button><button class="mc-opt" data-v="stone">stone</button><button class="mc-opt" data-v="wall">wall</button></div></div>
+        <div class="mc-item" data-a="tail"><div class="mc-q"><span class="num">2.</span>Then the tall man saw Timmy's <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="tail">tail</button><button class="mc-opt" data-v="ear">ear</button><button class="mc-opt" data-v="nose">nose</button></div></div>
+        <div class="mc-item" data-a="help"><div class="mc-q"><span class="num">3.</span>George cried, "Go, Timmy! Go find <span class="gap-mini">___</span>!"</div><div class="mc-opts"><button class="mc-opt" data-v="Alf">Alf</button><button class="mc-opt" data-v="help">help</button><button class="mc-opt" data-v="Mum">Mum</button></div></div>
+        <div class="mc-item" data-a="chest"><div class="mc-q"><span class="num">4.</span>The men carried the <span class="gap-mini">___</span> up the tunnel.</div><div class="mc-opts"><button class="mc-opt" data-v="chest">chest</button><button class="mc-opt" data-v="bench">bench</button><button class="mc-opt" data-v="rope">rope</button></div></div>
+        <div class="mc-item" data-a="cried"><div class="mc-q"><span class="num">5.</span>Anne <span class="gap-mini">___</span> when the trap-door shut.</div><div class="mc-opts"><button class="mc-opt" data-v="laughed">laughed</button><button class="mc-opt" data-v="sang">sang</button><button class="mc-opt" data-v="cried">cried</button></div></div>
+      </div></div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">11.3</span> Put the events in the correct order</h4>
+        <div class="ord-wrap" data-answer="a,b,c,d,e">
+          <div class="ord-bank"></div>
+          <div class="ord-slots"><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div></div>
+          <div><button class="ord-check">Check</button><button class="ord-reset">Reset</button></div>
+          <script type="application/json" class="ord-data">[
+            {"id":"a","text":"The children hid behind the great chest."},
+            {"id":"b","text":"The two men rushed in and grabbed the gold."},
+            {"id":"c","text":"The tall man saw Timmy's tail behind the chest."},
+            {"id":"d","text":"George threw Timmy up the tunnel to find help."},
+            {"id":"e","text":"The men carried the gold up and shut the trap-door."}
+          ]</script>
+        </div>
+      </div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">11.4</span> Complete the sentences</h4>
+        <div class="bank">
+          <span class="bank-word" data-w="chest">chest</span>
+          <span class="bank-word" data-w="Timmy">Timmy</span>
+          <span class="bank-word" data-w="help">help</span>
+          <span class="bank-word" data-w="trap-door">trap-door</span>
+          <span class="bank-word" data-w="prisoners">prisoners</span>
+          <span class="bank-word" data-w="always">always</span>
+        </div>
+        <div class="drag-text">
+          <div class="line-q"><span class="num">1.</span>The children hid behind the great <span class="drop-gap" data-a="chest"></span>.</div>
+          <div class="line-q"><span class="num">2.</span>George threw <span class="drop-gap" data-a="Timmy"></span> up the tunnel.</div>
+          <div class="line-q"><span class="num">3.</span>She told him to go and find <span class="drop-gap" data-a="help"></span>.</div>
+          <div class="line-q"><span class="num">4.</span>Then the men shut the <span class="drop-gap" data-a="trap-door"></span> and the children became <span class="drop-gap" data-a="prisoners"></span>.</div>
+          <div class="line-q"><span class="num">5.</span>Dick said quietly, "Timmy will bring somebody. He <span class="drop-gap" data-a="always"></span> does."</div>
+        </div>
+      </div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">11.5</span> Discuss the questions</h4>
+        <div class="prompts">
+          <div class="prompt"><button class="play-mini" data-say="Why do you think George threw Timmy up the tunnel and did not keep him?">▶</button><span class="num">1.</span><span class="prompt-text">Why did George throw Timmy up the tunnel and not keep him?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="How would you feel if you were locked in a dark room?">▶</button><span class="num">2.</span><span class="prompt-text">How would you feel if you were locked in a dark room?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="Why is Anne the one who cries, and not Dick or George?">▶</button><span class="num">3.</span><span class="prompt-text">Why is Anne the one who cries, and not Dick or George?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="What would you say to your friends to keep them calm?">▶</button><span class="num">4.</span><span class="prompt-text">What would you say to your friends to keep them calm?</span></div>
+        </div>
+        <div class="starters"><strong>Use these to start</strong>George threw Timmy up because… / I would feel… / Anne cries because… / I would say to my friends…</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CH 12 -->
+<section class="section" id="block-12">
+  <div class="section-head"><div class="n">12</div><h2>Chapter 12 · Dick to the Rescue! 🐕</h2></div>
+  <div class="section-sub">Timmy finds Alf · Alf finds the police · rescue and a happy end</div>
+  <div class="card">
+    <div class="lit-cover"><div class="lit-chapter">Chapter Twelve</div><div class="lit-title">Dick to the Rescue!</div><div class="lit-sub">a dog runs · a boy listens · the police come · everyone is safe</div></div>
+    <img src="img/ff-wrap-fireside.png" alt="The five and Timmy warm by the fireside at the end of the adventure" class="chap-img" data-say="Back at Kirrin Cottage, warm by the fire. The adventure has ended well.">
+    <div class="chap-caption">Chapter 12 · Timmy the hero · truth wins · fireside end</div>
+    <div class="audio-row"><button class="play-btn" data-play="ch12-story">▶</button><div><div class="label">Chapter 12 · listening</div><div class="text">Press play to hear the whole chapter</div></div></div>
+    <div class="reading-body" id="ch12-story">
+      <p class="drop-cap">Meanwhile, Timmy ran. Up the tunnel. Up the stone stairway. He pushed hard at the trap-door — but the men had put a great stone on top. He could not open it. So Timmy did not stop. He went to the highest broken window of the castle and squeezed out.</p>
+      <p>Down the cove. Into the sea. Timmy could swim like a fish. He swam across the bay to the beach.</p>
+      <p>On the beach, Alf the fisher-boy was mending his nets. He looked up and saw a wet dog running to him. "Timmy!" he cried. "Where is George?"</p>
+      <p>Timmy pulled at Alf's coat. He barked. He ran a few steps and looked back. He barked again. Alf understood. Something was very wrong.</p>
+      <p>Alf ran to Kirrin Cottage. He told Aunt Fanny. Aunt Fanny cried and ran to Uncle Quentin. Uncle Quentin telephoned the police at once. Ten minutes later, a car with three officers was on the road to the sea.</p>
+      <p>Meanwhile, the two men in the boat rowed away from the island with the gold. They laughed. They did not see the police boat coming from the other side.</p>
+      <p>The police caught the two men at sea. Their boat was full of gold bags. There was no way to say it was theirs. The officers took them back to the town.</p>
+      <p>Then the officers rowed to the island with Alf and Uncle Quentin. Timmy led them to the trap-door. Uncle Quentin pushed off the great stone. The trap-door opened.</p>
+      <p>"Children!" he called down. "It is all right! Come up!"</p>
+      <p>One by one, four dusty happy children climbed out into the sun. Anne cried again — but this time from joy. George hugged Timmy so hard he almost fell over.</p>
+      <img src="img/ff-wrap-campfire.png" alt="The five celebrate by the campfire" class="chap-img" style="margin:12px 0" data-say="The five together at the campfire — the adventure is safely over.">
+      <p>That evening, back at Kirrin Cottage, Aunt Fanny made hot chocolate and cake. Uncle Quentin held one gold coin in his hand for a long time. "This will change everything for our family," he said quietly. "We can pay all our bills. I can buy new books for my work. And, George — the island is truly yours. Nobody will ever try to take it again."</p>
+      <p>George nodded. Her eyes were bright. She looked at her three cousins. She looked at Timmy — who lay warm on the rug like a small brown-and-black lion. And she smiled her real, big smile.</p>
+      <p>The Famous Five had had their first adventure. And it was only the beginning.</p>
+      <p class="quote">— The End —</p>
+    </div>
+    <div class="exercises">
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">12.1</span> Read and choose · True or False</h4><div class="tf-list">
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">1.</span>Timmy squeezed out through a high broken window.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">2.</span>Alf the fisher-boy understood something was very wrong.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">3.</span>Uncle Quentin telephoned the police at once.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="F"><div class="tf-q2"><span class="num">4.</span>The police were too late — the men got away with the gold.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+        <div class="tf-item2" data-a="T"><div class="tf-q2"><span class="num">5.</span>At the end, the Famous Five's adventure ends happily.</div><div class="tf-btns2"><button class="tf-btn2" data-v="T">True</button><button class="tf-btn2" data-v="F">False</button><button class="tf-btn2" data-v="NS">Not Stated</button></div></div>
+      </div></div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">12.2</span> Choose the correct word</h4><div class="mc-list">
+        <div class="mc-item" data-a="window"><div class="mc-q"><span class="num">1.</span>Timmy squeezed out of a broken <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="door">door</button><button class="mc-opt" data-v="window">window</button><button class="mc-opt" data-v="wall">wall</button></div></div>
+        <div class="mc-item" data-a="Alf"><div class="mc-q"><span class="num">2.</span>On the beach, Timmy found <span class="gap-mini">___</span> the fisher-boy.</div><div class="mc-opts"><button class="mc-opt" data-v="Alf">Alf</button><button class="mc-opt" data-v="Dick">Dick</button><button class="mc-opt" data-v="Julian">Julian</button></div></div>
+        <div class="mc-item" data-a="police"><div class="mc-q"><span class="num">3.</span>Uncle Quentin telephoned the <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="police">police</button><button class="mc-opt" data-v="doctor">doctor</button><button class="mc-opt" data-v="school">school</button></div></div>
+        <div class="mc-item" data-a="sea"><div class="mc-q"><span class="num">4.</span>The police caught the two men at <span class="gap-mini">___</span>.</div><div class="mc-opts"><button class="mc-opt" data-v="home">home</button><button class="mc-opt" data-v="sea">sea</button><button class="mc-opt" data-v="school">school</button></div></div>
+        <div class="mc-item" data-a="hot"><div class="mc-q"><span class="num">5.</span>Aunt Fanny made <span class="gap-mini">___</span> chocolate and cake.</div><div class="mc-opts"><button class="mc-opt" data-v="cold">cold</button><button class="mc-opt" data-v="hot">hot</button><button class="mc-opt" data-v="white">white</button></div></div>
+      </div></div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">12.3</span> Put the events in the correct order</h4>
+        <div class="ord-wrap" data-answer="a,b,c,d,e">
+          <div class="ord-bank"></div>
+          <div class="ord-slots"><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div><div class="ord-slot"></div></div>
+          <div><button class="ord-check">Check</button><button class="ord-reset">Reset</button></div>
+          <script type="application/json" class="ord-data">[
+            {"id":"a","text":"Timmy climbed out through a broken window and swam to the beach."},
+            {"id":"b","text":"Alf the fisher-boy ran to Aunt Fanny with Timmy."},
+            {"id":"c","text":"Uncle Quentin phoned the police."},
+            {"id":"d","text":"The police caught the two men at sea with the gold."},
+            {"id":"e","text":"The family celebrated at the cottage with hot chocolate and cake."}
+          ]</script>
+        </div>
+      </div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">12.4</span> Complete the sentences</h4>
+        <div class="bank">
+          <span class="bank-word" data-w="window">window</span>
+          <span class="bank-word" data-w="Alf">Alf</span>
+          <span class="bank-word" data-w="police">police</span>
+          <span class="bank-word" data-w="gold">gold</span>
+          <span class="bank-word" data-w="hot">hot</span>
+          <span class="bank-word" data-w="Timmy">Timmy</span>
+        </div>
+        <div class="drag-text">
+          <div class="line-q"><span class="num">1.</span>Timmy squeezed out of a broken <span class="drop-gap" data-a="window"></span>.</div>
+          <div class="line-q"><span class="num">2.</span>He found <span class="drop-gap" data-a="Alf"></span> the fisher-boy on the beach.</div>
+          <div class="line-q"><span class="num">3.</span>Uncle Quentin phoned the <span class="drop-gap" data-a="police"></span>.</div>
+          <div class="line-q"><span class="num">4.</span>They caught the men at sea with all the <span class="drop-gap" data-a="gold"></span>.</div>
+          <div class="line-q"><span class="num">5.</span>At home, Aunt Fanny made <span class="drop-gap" data-a="hot"></span> chocolate — and the real hero was <span class="drop-gap" data-a="Timmy"></span>.</div>
+        </div>
+      </div>
+
+      <div class="ex-card"><h4 class="ex-title"><span class="ex-num">12.5</span> Discuss the questions · about the whole book</h4>
+        <div class="prompts">
+          <div class="prompt"><button class="play-mini" data-say="Which chapter was your favourite and why?">▶</button><span class="num">1.</span><span class="prompt-text">Which chapter was your favourite and why?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="Who is your favourite of the Five — Julian, Dick, Anne, George or Timmy?">▶</button><span class="num">2.</span><span class="prompt-text">Who is your favourite of the Five — Julian, Dick, Anne, George or Timmy? Why?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="What did you learn from George in this story?">▶</button><span class="num">3.</span><span class="prompt-text">What did you learn from George in this story?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="If you were on Kirrin Island with the Five, what would you have done differently?">▶</button><span class="num">4.</span><span class="prompt-text">If you were on Kirrin Island with the Five, what would you have done differently?</span></div>
+          <div class="prompt"><button class="play-mini" data-say="Would you like to read the next Famous Five book? Why?">▶</button><span class="num">5.</span><span class="prompt-text">Would you like to read the next Famous Five book? Why?</span></div>
+        </div>
+        <div class="starters"><strong>Use these to start</strong>My favourite chapter was… because… / I liked … most because… / I learnt that… / If I were there, I would… / Yes / No, because…</div>
+      </div>
+    </div>
+    <div class="reward">
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <h2>You have read a whole English book, Julia!</h2>
+      <p style="color:#fff;margin-top:8px">Enid Blyton · <em>Five on a Treasure Island</em> · 12 chapters · Vereshchagina Reader 7 adaptation.<br>Next: <em>Five Go Adventuring Again</em> — Book 2 in the series.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Julia · The Famous Five · LinguaBoost Lab · A2+<br>
+  Adapted after Enid Blyton (1942) · following the Vereshchagina Reader 7 chapter list · deep-sea palette
+</footer>
+
+<script>
+// TTS
+const synth = window.speechSynthesis;
+let voice = null;
+function pickVoice(){
+  if(!synth) return;
+  const voices = synth.getVoices();
+  voice = voices.find(v => v.lang === 'en-GB' && /female|Kate|Amy|Emma|Serena|Susan/i.test(v.name)) ||
+          voices.find(v => v.lang === 'en-GB') ||
+          voices.find(v => v.lang.startsWith('en-US') && /female|Samantha|Victoria/i.test(v.name)) ||
+          voices.find(v => v.lang.startsWith('en')) || voices[0];
+}
+if(synth){ pickVoice(); synth.onvoiceschanged = pickVoice; }
+function say(text, rate = 0.88){
+  if(!synth) return;
+  synth.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  if(voice) u.voice = voice;
+  u.rate = rate; u.pitch = 1.05; u.lang = voice ? voice.lang : 'en-GB';
+  synth.speak(u);
+}
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-say]');
+  if(t){ say(t.dataset.say); }
+});
+
+// Chapter play buttons
+document.querySelectorAll('[data-play]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const el = document.getElementById(btn.dataset.play);
+    if(!el) return;
+    const text = [...el.querySelectorAll('p')].map(p => p.textContent).join(' ').replace(/—/g,',');
+    const trySay = (retries = 5) => {
+      if(synth && synth.getVoices().length === 0 && retries > 0){
+        setTimeout(() => trySay(retries - 1), 250); return;
+      }
+      pickVoice(); say(text, 0.85);
+    };
+    trySay();
+  });
+});
+
+// MCQ
+document.querySelectorAll('.mcq').forEach(s => {
+  s.addEventListener('change', () => {
+    if(s.value === s.dataset.answer){ s.classList.add('right'); s.classList.remove('wrong'); say(s.value, 0.9); }
+    else { s.classList.add('wrong'); s.classList.remove('right'); }
+  });
+});
+
+// T/F — data-tf format: "chapter|t" or "chapter|f" for the correct answer, and "chapter|t-no" or "chapter|f-no" for the wrong option
+document.querySelectorAll('.tf-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const [ch, tag] = btn.dataset.tf.split('|');
+    const isYes = btn.textContent.includes('TRUE');
+    const correctIsYes = tag === 't';
+    const correctIsNo = tag === 'f';
+    // if this button represents the correct answer state
+    const rightBtn = btn.parentElement.querySelector('.tf-btn[data-tf$="'+(tag.endsWith('-no') ? tag.replace('-no','') : tag)+'"]:not([data-tf$="-no"])');
+    // simpler: mark correct if pressing yes when tag=='t' OR pressing no when tag=='f'
+    // But 'tag' here is on this button. We need to know the intended answer for this row.
+    // Use a simpler convention: rows with tag 't' → correct is TRUE; tag 'f' → correct is FALSE; both '-no' versions must show wrong on click.
+    let isCorrect;
+    if(tag === 't') isCorrect = true;      // this is the correct TRUE button
+    else if(tag === 'f') isCorrect = true; // this is the correct FALSE button
+    else isCorrect = false;                // '-no' variants
+    if(isCorrect){
+      btn.classList.add('yes-on');
+      btn.parentElement.querySelectorAll('.tf-btn').forEach(x => x.disabled = true);
+    } else {
+      btn.classList.add('no-on');
+      setTimeout(() => btn.classList.remove('no-on'), 500);
+    }
+  });
+});
+
+// ===== T/F 2 (Tom Sawyer style) =====
+document.querySelectorAll('.tf-item2').forEach(item => {
+  const answer = item.dataset.a; // 'T' or 'F'
+  item.querySelectorAll('.tf-btn2').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const v = btn.dataset.v;
+      if(v === answer){ btn.classList.add('correct'); item.querySelectorAll('.tf-btn2').forEach(b => b.disabled = true); say(item.querySelector('.tf-q2').textContent.replace(/^\d+\.\s*/,''), 0.9); }
+      else { btn.classList.add('wrong'); setTimeout(() => btn.classList.remove('wrong'), 500); }
+    });
+  });
+});
+// Play buttons inside T/F questions
+document.querySelectorAll('.tf-q2 .play-mini, .mc-q .play-mini').forEach(btn => {
+  btn.addEventListener('click', e => { e.stopPropagation(); const say_text = btn.dataset.say; if(say_text) say(say_text, 0.9); });
+});
+
+// ===== MCQ inline (Tom Sawyer style) =====
+document.querySelectorAll('.mc-item').forEach(item => {
+  const answer = item.dataset.a;
+  const gap = item.querySelector('.gap-mini');
+  item.querySelectorAll('.mc-opt').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const v = btn.dataset.v;
+      if(v === answer){
+        btn.classList.add('correct');
+        if(gap){ gap.classList.add('filled'); gap.textContent = v; }
+        item.querySelectorAll('.mc-opt').forEach(b => b.disabled = true);
+        say(v, 0.9);
+      } else { btn.classList.add('wrong'); setTimeout(() => btn.classList.remove('wrong'), 500); }
+    });
+  });
+});
+
+// ===== ORDERING =====
+document.querySelectorAll('.ord-wrap').forEach(wrap => {
+  const bank = wrap.querySelector('.ord-bank');
+  const slots = wrap.querySelector('.ord-slots');
+  const dataScript = wrap.querySelector('script.ord-data');
+  if(!dataScript) return;
+  const items = JSON.parse(dataScript.textContent);
+  const correctOrder = wrap.dataset.answer.split(',');
+  // shuffle bank
+  const shuffled = [...items].sort(() => Math.random() - 0.5);
+  shuffled.forEach(it => {
+    const pill = document.createElement('div');
+    pill.className = 'ord-pill'; pill.dataset.id = it.id; pill.textContent = it.text;
+    pill.addEventListener('click', () => {
+      const emptySlot = [...slots.querySelectorAll('.ord-slot')].find(s => !s.dataset.id);
+      if(!emptySlot) return;
+      emptySlot.dataset.id = it.id;
+      emptySlot.textContent = it.text;
+      emptySlot.classList.add('filled');
+      pill.classList.add('used');
+      emptySlot.addEventListener('click', () => {
+        // return to bank
+        pill.classList.remove('used');
+        emptySlot.textContent = '';
+        emptySlot.classList.remove('filled','correct','wrong');
+        delete emptySlot.dataset.id;
+      }, {once:true});
+    });
+    bank.appendChild(pill);
+  });
+  wrap.querySelector('.ord-check').addEventListener('click', () => {
+    slots.querySelectorAll('.ord-slot').forEach((slot, i) => {
+      if(slot.dataset.id === correctOrder[i]){ slot.classList.add('correct'); slot.classList.remove('wrong'); }
+      else { slot.classList.add('wrong'); slot.classList.remove('correct'); }
+    });
+  });
+  wrap.querySelector('.ord-reset').addEventListener('click', () => {
+    slots.querySelectorAll('.ord-slot').forEach(s => { s.textContent = ''; s.classList.remove('filled','correct','wrong'); delete s.dataset.id; });
+    bank.querySelectorAll('.ord-pill').forEach(p => p.classList.remove('used'));
+  });
+});
+
+// ===== GAP-FILL drag-bank =====
+let selectedBankWord = null;
+document.querySelectorAll('.bank-word').forEach(w => {
+  w.addEventListener('click', () => {
+    if(w.classList.contains('used')) return;
+    document.querySelectorAll('.bank-word.selected').forEach(x => x.classList.remove('selected'));
+    if(selectedBankWord === w){ selectedBankWord = null; return; }
+    w.classList.add('selected'); selectedBankWord = w;
+  });
+});
+document.querySelectorAll('.drop-gap').forEach(g => {
+  g.addEventListener('click', () => {
+    if(g.classList.contains('filled')) return;
+    if(!selectedBankWord) return;
+    const w = selectedBankWord.dataset.w;
+    if(g.dataset.a === w){
+      g.textContent = w; g.classList.add('filled');
+      selectedBankWord.classList.add('used'); selectedBankWord.classList.remove('selected');
+      selectedBankWord = null; say(w, 0.9);
+    } else {
+      g.classList.add('wrong'); setTimeout(() => g.classList.remove('wrong'), 500);
+    }
+  });
+});
+
+// ===== Speaking prompt play =====
+document.querySelectorAll('.prompt .play-mini').forEach(btn => {
+  btn.addEventListener('click', e => { e.stopPropagation(); const t = btn.dataset.say; if(t) say(t, 0.9); });
+});
+
+// Progress dots
+const dotsEl = document.getElementById('dots');
+const blocks = [...document.querySelectorAll('.section[id^="block-"]')];
+blocks.forEach(b => {
+  const d = document.createElement('div');
+  d.className = 'dot';
+  d.onclick = () => b.scrollIntoView({behavior:'smooth', block:'start'});
+  dotsEl.appendChild(d);
+});
+function updateDots(){
+  const top = window.scrollY + 200;
+  blocks.forEach((b,i)=>{
+    const inView = b.offsetTop <= top;
+    const dot = dotsEl.children[i];
+    if(dot) dot.classList.toggle('lit', inView);
+  });
+}
+window.addEventListener('scroll', updateDots); updateDots();
+</script>
+</body>
+</html>
