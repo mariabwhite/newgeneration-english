@@ -218,6 +218,17 @@ details.script p .spk{color:var(--accent-2);font-family:var(--mono);font-size:.7
 
 footer{max-width:1240px;margin:40px auto 24px;padding:0 clamp(16px,3vw,28px);text-align:center;color:var(--faint);font-size:.78rem;font-family:var(--mono);letter-spacing:.08em}
 footer .foot-line{margin:4px 0}
+
+/* ============== TABS · Lesson · Workbook ============== */
+.tabs-nav{max-width:1240px;margin:14px auto 6px;padding:0 clamp(16px,3vw,28px);display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.tab-btn{background:#fff;border:2px solid var(--line-2);border-radius:14px;padding:12px 28px;font-family:var(--display);font-weight:700;font-size:1rem;color:var(--muted);cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:8px}
+.tab-btn:hover{border-color:var(--accent);color:var(--accent-2);transform:translateY(-1px)}
+.tab-btn.active{background:linear-gradient(135deg,var(--accent),var(--ribbon));color:#fff;border-color:transparent;box-shadow:0 6px 18px rgba(198,90,44,.35)}
+.tab-panel{display:none}
+.tab-panel.active{display:block;animation:hwfade .2s ease-out}
+/* Workbook-specific look */
+#tab-workbook .section-num.wb{background:var(--ribbon);color:#fff}
+#tab-workbook .card{background:#fffef7}
 </style>
 <link rel="stylesheet" href="/lingua-boost-lab/assets/lab-pills-canon.css?v=3">
 </head>
@@ -236,6 +247,13 @@ footer .foot-line{margin:4px 0}
   <span class="spacer"></span>
   <a class="btn-sm" href="../../index.html">All lessons</a>
 </nav>
+
+<nav class="tabs-nav">
+  <button class="tab-btn active" data-tab="lesson" onclick="switchTab('lesson',this)">📖 Lesson</button>
+  <button class="tab-btn" data-tab="workbook" onclick="switchTab('workbook',this)">📝 Workbook</button>
+</nav>
+
+<div id="tab-lesson" class="tab-panel active">
 
 <section class="hero">
   <div class="hero-card">
@@ -880,6 +898,153 @@ Katya</div>
   </div>
 </section>
 
+</div><!-- /#tab-lesson -->
+
+<!-- ============================================================
+     WORKBOOK · DRILLS & PRACTICE
+============================================================= -->
+<div id="tab-workbook" class="tab-panel">
+
+<section class="section" id="wb1">
+  <div class="section-hdr"><div class="section-num wb">W1</div><h2>Vocabulary Gym · 15 key words in action</h2></div>
+  <p class="section-sub">Same 15 words from Section V of the lesson — now used, not just read. Pick the best word for each context.</p>
+  <div class="card">
+    <span class="task-num">W1</span><span class="task-tag">Workbook · vocab · dropdown</span>
+
+    <div class="info"><strong>Mini theory:</strong> a word is only <em>yours</em> when you can fit it into a new sentence. Look for signal words — <em>lasts, joined, working towards, feeling, extra job, well-paid, satisfying, natural talent</em> — each one triggers a specific word from the box.</div>
+
+    <h3>Drill 1 · Pick the right word · 10 gaps</h3>
+    <div id="wb1-drill"></div>
+    <div class="score-badge">Correct: <span id="wb1-score">0</span> / 10</div>
+
+    <details class="script">
+      <summary>▶ Reveal all keys</summary>
+      <p><span class="spk">Keys:</span> 1 higher education · 2 apply for · 3 internship · 4 lucrative · 5 rewarding · 6 vocation · 7 side hustle · 8 high demand · 9 broaden your horizons · 10 have a knack for</p>
+    </details>
+  </div>
+</section>
+
+<section class="section" id="wb2">
+  <div class="section-hdr"><div class="section-num wb">W2</div><h2>Word-Formation Gym · suffix families</h2></div>
+  <p class="section-sub">Every Q29 gap follows one of four suffix families. Master them and save a mark on every mock.</p>
+  <div class="card">
+    <span class="task-num">W2</span><span class="task-tag">Workbook · word formation · 10 gaps</span>
+
+    <div class="info"><strong>Mini theory · 4 suffix families:</strong><br>
+      <strong>Verb → noun:</strong> <em>-ment</em> (employ → employment) · <em>-tion / -sion</em> (qualify → qualification) · <em>-ance / -ence</em> (depend → dependence).<br>
+      <strong>Adj → noun:</strong> <em>-ity</em> (responsible → responsibility) · <em>-ness</em> (happy → happiness).<br>
+      <strong>Noun → adj:</strong> <em>-ful</em> (pain → painful) · <em>-able / -ible</em> (reason → reasonable) · <em>-ive</em> (effect → effective) · <em>-ous</em> (danger → dangerous).<br>
+      <strong>Negative prefixes:</strong> <em>un-, in-, im-, dis-</em> (employ → unemployment · possible → impossible).
+    </div>
+
+    <h3>Drill · Fill 10 gaps · mix of career, hobbies, education</h3>
+    <div id="wb2-drill"></div>
+    <div class="score-badge">Correct: <span id="wb2-score">0</span> / 10</div>
+
+    <details class="script">
+      <summary>▶ Reveal all keys</summary>
+      <p><span class="spk">Keys:</span> 1 creativity · 2 successful · 3 imagination · 4 unusual · 5 competition · 6 achievement · 7 confidence · 8 disappointed · 9 traditional · 10 helpful</p>
+    </details>
+  </div>
+</section>
+
+<section class="section" id="wb3">
+  <div class="section-hdr"><div class="section-num wb">W3</div><h2>Grammar Corner · 5 OGE core structures</h2></div>
+  <p class="section-sub">Every Q20 gap in the OGE tests one of five structures. Recognise the trigger, apply the formula.</p>
+  <div class="card">
+    <span class="task-num">W3</span><span class="task-tag">Workbook · grammar transformation · 8 gaps</span>
+
+    <div class="info"><strong>Mini theory · 5 grammar triggers you must spot:</strong><br>
+      1. <strong>Past Perfect</strong> — trigger: <em>by the time · before / after + past</em>. Formula: <em>had + V3</em>.<br>
+      2. <strong>Passive</strong> — trigger: focus on the action, doer unknown. Formula: <em>be + V3</em>, tense from context.<br>
+      3. <strong>Second conditional</strong> — trigger: <em>if + past</em>, hypothetical present. Formula: <em>if + V2 …, would + V1</em>.<br>
+      4. <strong>Third conditional</strong> — trigger: <em>if + past perfect</em>, hypothetical past. Formula: <em>if + had V3 …, would have V3</em>.<br>
+      5. <strong>Wish + past</strong> — trigger: regret about now. Formula: <em>wish + V2</em> (or <em>wish + had V3</em> for past regret).
+    </div>
+
+    <h3>Drill · Transform 8 verbs · mixed structures</h3>
+    <div id="wb3-drill"></div>
+    <div class="score-badge">Correct: <span id="wb3-score">0</span> / 8</div>
+
+    <details class="script">
+      <summary>▶ Reveal all keys</summary>
+      <p><span class="spk">Keys:</span> 1 had finished · 2 was written · 3 would visit · 4 had studied · 5 knew · 6 has been repaired · 7 would have won · 8 will be announced</p>
+    </details>
+  </div>
+</section>
+
+<section class="section" id="wb4">
+  <div class="section-hdr"><div class="section-num wb">W4</div><h2>Speaking booster · 4 fresh S2 prompts</h2></div>
+  <p class="section-sub">Practise fluency on new questions between mock rounds. Answer in full sentences with <em>because · for example · such as</em>.</p>
+  <div class="card">
+    <span class="task-num">W4</span><span class="task-tag">Workbook · speaking · extended answers</span>
+
+    <div class="info"><strong>Golden rule (again):</strong> never single words, never <em>yes / no</em>. One core sentence + one supporting detail = minimum answer. Aim for 3-4 sentences and 40 seconds.</div>
+
+    <div class="q-row">
+      <div class="q-h"><span class="q-n">Q1</span><span class="q-text">What subjects at school do you find the most difficult and why?</span></div>
+      <button class="sample-toggle">Show sample answer</button>
+      <div class="sample-reveal">Personally, I find physics and geometry the most difficult, because they need a very logical way of thinking that I still have to develop. For example, in last week's test I understood the topic during the lesson, but at home I could not solve half of the problems. That said, I know I only get better with practice.</div>
+    </div>
+
+    <div class="q-row">
+      <div class="q-h"><span class="q-n">Q2</span><span class="q-text">Do you think teenagers should try a part-time job during summer? Why?</span></div>
+      <button class="sample-toggle">Show sample answer</button>
+      <div class="sample-reveal">Yes, I really think a summer job is a good idea, but only if it does not damage the rest. For example, working two or three weeks as a camp helper or a courier gives you pocket money and shows you how a real workplace feels. It also teaches you to plan your time, which becomes very useful in the ninth grade.</div>
+    </div>
+
+    <div class="q-row">
+      <div class="q-h"><span class="q-n">Q3</span><span class="q-text">Is it better to choose a career you love or a career that pays well?</span></div>
+      <button class="sample-toggle">Show sample answer</button>
+      <div class="sample-reveal">In my opinion, the best choice is a career that combines both, but if I really had to pick one, I would choose a job I love. Money is important, but you spend at least eight hours a day at work, and doing something boring for that long is exhausting. My grandma always says that a happy worker earns better in the long run.</div>
+    </div>
+
+    <div class="q-row">
+      <div class="q-h"><span class="q-n">Q4</span><span class="q-text">How important is knowing English for a modern career in Russia?</span></div>
+      <button class="sample-toggle">Show sample answer</button>
+      <div class="sample-reveal">Knowing English is very important today, especially in IT, tourism and international companies. For example, most software documentation and online courses are still in English, so people who read it well can learn new things much faster. Even in local companies, an English-speaking employee is often paid better than a colleague without the language.</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="wb5">
+  <div class="section-hdr"><div class="section-num wb">W5</div><h2>Writing lab · 2 extra email prompts</h2></div>
+  <p class="section-sub">Same 100-120 word format, different topic. Pick one and draft below.</p>
+  <div class="card">
+    <span class="task-num">W5</span><span class="task-tag">Workbook · writing · personal email</span>
+
+    <div class="info"><strong>Structure reminder:</strong> greeting · thanks + reference · answer all 3 questions · closing question or comment · sign-off with your name. Aim for 100-120 words.</div>
+
+    <h3>Prompt A · Ben asks about your hobbies</h3>
+    <div class="letter-prompt">
+      <p>Hi!</p>
+      <p>My English teacher is doing a project on teenage hobbies around the world, and I promised to write to a Russian friend. Please help!</p>
+      <p>What is your favourite hobby and how often do you do it? Do you prefer hobbies that you do alone or with friends? Would you like to try any new hobby this year?</p>
+      <p>Write back soon,<br>Ben</p>
+    </div>
+
+    <h3>Prompt B · Emma asks about school life</h3>
+    <div class="letter-prompt">
+      <p>Hi!</p>
+      <p>We are studying different school systems in class and I want to include Russia in my report. Could you tell me a little about your school day?</p>
+      <p>How many lessons do you usually have a day? What is the atmosphere between pupils and teachers like? What would you change about your school if you could?</p>
+      <p>Write back soon,<br>Emma</p>
+    </div>
+
+    <div class="write">
+      <textarea id="w5-text" placeholder="Hi Ben / Emma,
+
+Thanks a lot for your email. It was great to hear from you..."></textarea>
+      <div class="write-meta">
+        <span>Words: <span id="w5-count">0</span> · aim 100-120</span>
+        <span>3 questions answered? Check yourself.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /#tab-workbook -->
+
 <footer>
   <div class="foot-line">LinguaBoost Lab · OGE Mock Return #1 · Education &amp; Career · built 2026-08-11</div>
   <div class="foot-line">Katya &amp; Masha · pair edition · after summer break</div>
@@ -1375,6 +1540,129 @@ function updateDots(){
 }
 window.addEventListener('scroll', updateDots);
 updateDots();
+
+/* ============== TAB SWITCHING · Lesson · Workbook ============== */
+function switchTab(key, btn){
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === key));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + key));
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ============== WORKBOOK · W1 · Vocabulary Gym ============== */
+const WB1 = [
+  {ctx:"Compulsory education in Russia lasts nine years, and most pupils continue on to (____).", opts:["higher education","side hustle","internship","vocation"], answer:"higher education"},
+  {ctx:"She wants to (____) a scholarship in Germany next spring.", opts:["apply for","enrol on","pursue","broaden"], answer:"apply for"},
+  {ctx:"Nick spent six weeks doing a real (____) at a design studio.", opts:["internship","vocation","knack","side hustle"], answer:"internship"},
+  {ctx:"IT is still one of the most (____) fields for teenagers who plan a career in tech.", opts:["lucrative","rewarding","reliable","compulsory"], answer:"lucrative"},
+  {ctx:"Teaching is exhausting but incredibly (____) — you see your pupils change every year.", opts:["rewarding","lucrative","compulsory","competitive"], answer:"rewarding"},
+  {ctx:"For many doctors medicine is a real (____), not just a profession.", opts:["vocation","internship","knack","hustle"], answer:"vocation"},
+  {ctx:"Selling handmade illustrations online is her (____) — she still studies full-time.", opts:["side hustle","internship","vocation","apply"], answer:"side hustle"},
+  {ctx:"There is (____) for data analysts across Europe right now.", opts:["high demand","broad horizon","reliable","reward"], answer:"high demand"},
+  {ctx:"A gap year abroad really helps you (____).", opts:["broaden your horizons","apply for","earn a decent living","have a knack for"], answer:"broaden your horizons"},
+  {ctx:"He really seems to (____) solving logical puzzles — it takes him minutes.", opts:["have a knack for","earn a decent living from","pursue a career in","follow in the footsteps of"], answer:"have a knack for"}
+];
+(function initWB1(){
+  const el = document.getElementById('wb1-drill'); if (!el) return;
+  let score = 0;
+  WB1.forEach((it, idx) => {
+    const row = document.createElement('div');
+    row.className = 'match-row';
+    const opts = [...it.opts].sort(() => Math.random() - 0.5);
+    row.innerHTML = `<div class="label">Gap ${idx+1}</div><div class="stmt">${it.ctx}</div><select><option value="">— pick —</option>${opts.map(o => `<option>${o}</option>`).join('')}</select>`;
+    const sel = row.querySelector('select');
+    sel.addEventListener('change', () => {
+      sel.classList.remove('right','wrong');
+      if (sel.value === it.answer){ sel.classList.add('right'); score++; }
+      else sel.classList.add('wrong');
+      document.getElementById('wb1-score').textContent = Math.min(score, 10);
+    });
+    el.appendChild(row);
+  });
+})();
+
+/* ============== WORKBOOK · W2 · Word Formation ============== */
+const WB2 = [
+  {ctx:"Painting on her tablet gives Marina a real sense of ______.",           hint:"CREATE",    answer:"creativity"},
+  {ctx:"Timur is a very ______ young skater — he never gives up.",              hint:"SUCCESS",   answer:"successful"},
+  {ctx:"Reading fantasy books really develops your ______.",                    hint:"IMAGINE",   answer:"imagination"},
+  {ctx:"His summer job at the vet clinic was really ______ and eye-opening.",   hint:"USUAL",     answer:"unusual"},
+  {ctx:"The ______ for the city dance festival was very high this year.",       hint:"COMPETE",   answer:"competition"},
+  {ctx:"Passing the OGE is a real ______ for any ninth-grader.",                hint:"ACHIEVE",   answer:"achievement"},
+  {ctx:"Speaking English in class gives you ______ for the real exam.",         hint:"CONFIDENT", answer:"confidence"},
+  {ctx:"Katya was quite ______ when her music project was cancelled.",          hint:"APPOINT",   answer:"disappointed"},
+  {ctx:"Chess remains a ______ hobby for many Russian teenagers.",              hint:"TRADITION", answer:"traditional"},
+  {ctx:"A good tutor is always ______ before an important exam.",               hint:"HELP",      answer:"helpful"}
+];
+(function initWB2(){
+  const el = document.getElementById('wb2-drill'); if (!el) return;
+  let score = 0;
+  WB2.forEach((it, idx) => {
+    const row = document.createElement('div');
+    row.className = 'wfr2-row';
+    row.innerHTML = `<div class="ctx">${(idx+1)+'. '}${it.ctx}</div><div class="hint">${it.hint}</div><input type="text" placeholder="type answer" autocomplete="off" spellcheck="false">`;
+    const inp = row.querySelector('input');
+    inp.addEventListener('change', () => {
+      inp.classList.remove('right','wrong');
+      if (inp.value.trim().toLowerCase() === it.answer.toLowerCase()){ inp.classList.add('right'); score++; }
+      else inp.classList.add('wrong');
+      document.getElementById('wb2-score').textContent = Math.min(score, 10);
+    });
+    el.appendChild(row);
+  });
+})();
+
+/* ============== WORKBOOK · W3 · Grammar Corner ============== */
+const WB3 = [
+  {ctx:"By the time we arrived at the cinema, the film ______ already. (finish)",                                    hint:"FINISH",  answer:"had finished"},
+  {ctx:"«War and Peace» ______ by Leo Tolstoy in the 19th century. (write)",                                          hint:"WRITE",   answer:"was written"},
+  {ctx:"If I had more free time on weekdays, I ______ my grandma more often. (visit)",                                 hint:"VISIT",   answer:"would visit"},
+  {ctx:"If Katya ______ harder last term, she would have passed the maths test. (study)",                              hint:"STUDY",   answer:"had studied"},
+  {ctx:"I wish I ______ about the deadline yesterday — I could have finished the essay in time. (know)",                hint:"KNOW",    answer:"knew"},
+  {ctx:"The old school library ______ since June — the smell of paint is still everywhere. (repair)",                   hint:"REPAIR",  answer:"has been repaired"},
+  {ctx:"If Nikita had started chess at six, he ______ a serious tournament by now. (win)",                              hint:"WIN",     answer:"would have won"},
+  {ctx:"The results of the OGE ______ on the school website next week. (announce)",                                     hint:"ANNOUNCE",answer:"will be announced"}
+];
+(function initWB3(){
+  const el = document.getElementById('wb3-drill'); if (!el) return;
+  let score = 0;
+  WB3.forEach((it) => {
+    const row = document.createElement('div');
+    row.className = 'wfr2-row';
+    row.innerHTML = `<div class="ctx">${it.ctx}</div><div class="hint">${it.hint}</div><input type="text" placeholder="type answer" autocomplete="off" spellcheck="false">`;
+    const inp = row.querySelector('input');
+    inp.addEventListener('change', () => {
+      inp.classList.remove('right','wrong');
+      const val = inp.value.trim().toLowerCase();
+      const acc = it.answer.toLowerCase();
+      const alt = acc.replace('had ','\'d ').replace('would ','\'d ').replace('will ','\'ll ').replace('has ','\'s ');
+      if (val === acc || val === alt){ inp.classList.add('right'); score++; }
+      else inp.classList.add('wrong');
+      document.getElementById('wb3-score').textContent = Math.min(score, 8);
+    });
+    el.appendChild(row);
+  });
+})();
+
+/* ============== WORKBOOK · W4 · sample-toggle wiring ============== */
+document.querySelectorAll('#tab-workbook .q-row .sample-toggle').forEach(b => {
+  b.onclick = () => {
+    const row = b.closest('.q-row');
+    row.classList.toggle('show-sample');
+    b.textContent = row.classList.contains('show-sample') ? 'Hide sample answer' : 'Show sample answer';
+  };
+});
+
+/* ============== WORKBOOK · W5 · word counter ============== */
+(function initW5(){
+  const t = document.getElementById('w5-text');
+  const c = document.getElementById('w5-count');
+  if (!t || !c) return;
+  t.addEventListener('input', () => {
+    const words = t.value.trim() ? t.value.trim().split(/\s+/).filter(Boolean).length : 0;
+    c.textContent = words;
+    c.style.color = (words >= 100 && words <= 120) ? 'var(--ok)' : (words > 0 ? 'var(--miss)' : 'var(--faint)');
+  });
+})();
 </script>
 
 <script src="../../assets/lab-persist.js?v=4" defer></script>
