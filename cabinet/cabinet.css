@@ -1527,7 +1527,7 @@ body.light .cab-bank-details .cab-card-row { border-color: rgba(0, 0, 0, 0.08); 
 
 .cab-lesson-row {
   display: grid;
-  grid-template-columns: 28px 110px 1fr auto;
+  grid-template-columns: 28px 110px 1fr minmax(160px, 260px) auto;
   align-items: center;
   gap: 12px;
   padding: 10px 12px;
@@ -1537,6 +1537,21 @@ body.light .cab-bank-details .cab-card-row { border-color: rgba(0, 0, 0, 0.08); 
   font-size: 13px;
   line-height: 1.4;
   transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.cab-lesson-hw-cell {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+
+.cab-lesson-hw-empty {
+  color: var(--text-3);
+  font-family: var(--mono);
+  font-size: 12px;
+  opacity: .6;
 }
 
 .cab-lesson-num {
@@ -1752,16 +1767,21 @@ body.light .cab-card--security .cab-card-note { color: #7b2818; opacity: 1; }
 @media (max-width: 600px) {
   .cab-lesson-row {
     grid-template-columns: 24px 1fr auto;
-    grid-template-rows: auto auto;
+    grid-template-rows: auto auto auto;
     gap: 4px 10px;
   }
   .cab-lesson-date {
     grid-column: 2;
+    grid-row: 1;
   }
-  .cab-lesson-topic {
+  .cab-lesson-topic-wrap {
     grid-column: 2 / -1;
     grid-row: 2;
     font-size: 12.5px;
+  }
+  .cab-lesson-hw-cell {
+    grid-column: 2 / -1;
+    grid-row: 3;
   }
   .cab-lesson-badge {
     grid-column: 3;

@@ -1301,7 +1301,8 @@
         <li class="cab-lesson-row ${badge.cls}">
           ${num}
           <span class="cab-lesson-date">${dateStr} · ${dow}</span>
-          <span class="cab-lesson-topic-wrap">${topicText}${hwChip}</span>
+          <span class="cab-lesson-topic-wrap">${topicText}</span>
+          <span class="cab-lesson-hw-cell">${hwChip || '<span class="cab-lesson-hw-empty">—</span>'}</span>
           <span class="cab-lesson-badge">${badge.label}</span>
         </li>
       `;
@@ -1344,7 +1345,8 @@
           <li class="cab-lesson-row ${badge.cls}">
             ${num}
             <span class="cab-lesson-date">${dateStr} · ${dow}</span>
-            <span class="cab-lesson-topic-wrap">${topicText}${linkHtml}</span>
+            <span class="cab-lesson-topic-wrap">${topicText}</span>
+            <span class="cab-lesson-hw-cell">${linkHtml || '<span class="cab-lesson-hw-empty">—</span>'}</span>
             <span class="cab-lesson-badge">${badge.label}</span>
           </li>
         `;
