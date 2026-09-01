@@ -1311,7 +1311,16 @@
     const currentTable = `
       <article class="cab-card cab-card--wide">
         <h3>Уроки · ${_esc(hasSummerPlan ? "лето 2026" : _monthLabelFromISO(month))}</h3>
-        <ul class="cab-lessons-list">${rows}</ul>
+        <ul class="cab-lessons-list">
+          <li class="cab-lesson-row cab-lesson-header" aria-hidden="true">
+            <span class="cab-lesson-num" style="visibility:hidden">·</span>
+            <span class="cab-lesson-date">Дата</span>
+            <span class="cab-lesson-topic-wrap">Тема</span>
+            <span class="cab-lesson-hw-cell">Домашка</span>
+            <span class="cab-lesson-badge">Статус</span>
+          </li>
+          ${rows}
+        </ul>
       </article>
     `;
 
