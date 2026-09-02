@@ -1717,15 +1717,18 @@
   function _renderMaterialsCard(student, opts) {
     opts = opts || {};
     const m = student && student.materials;
-    if (!m || !m.folder || !Array.isArray(m.files) || !m.files.length) return "";
+    if (!m) return "";
+    const hasFiles = Array.isArray(m.files) && m.files.length > 0;
+    const hasExt   = Array.isArray(m.external_links) && m.external_links.length > 0;
+    if (!hasFiles && !hasExt) return "";
     const isStudent = !!opts.studentView;
-    const files = m.files.filter(f => {
+    const files = hasFiles ? m.files.filter(f => {
       if (typeof f === "string") return true;
       const a = f.audience;
       if (!a || a === "all") return true;
       return isStudent ? (a === "student") : (a === "parent");
-    });
-    if (!files.length && !(Array.isArray(m.external_links) && m.external_links.length)) return "";
+    }) : [];
+    if (!files.length && !hasExt) return "";
     const note = m.note ? `<p class="cab-card-note">${_esc(m.note)}</p>` : "";
     const items = files.map(f => {
       const isExternal = typeof f === "object" && f && f.url;
