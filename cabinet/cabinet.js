@@ -1611,10 +1611,23 @@
   }
 
   async function _vaultOpenSignedUrl(pin, contractId, mime) {
-    const r = await _sbCall("contract-signed-url", { pin: pin, contract_id: contractId });
-    if (!r || !r.url) throw new Error("no signed url");
-    // Один URL, работает 60 сек: открываем сразу.
-    window.open(r.url, "_blank", "noopener,noreferrer");
+    // iOS Safari / Android Chrome popup blocker: window.open after async await
+    // теряет user-gesture context и получает null. Открываем окно ДО await —
+    // потом просто меняем location. Fallback — same-tab navigation.
+    const w = (typeof window !== "undefined") ? window.open("about:blank", "_blank") : null;
+    try {
+      const r = await _sbCall("contract-signed-url", { pin: pin, contract_id: contractId });
+      if (!r || !r.url) throw new Error("no signed url");
+      if (w && !w.closed) {
+        w.location = r.url;
+      } else {
+        // popup был заблокирован даже с pre-open — открываем в текущей вкладке.
+        window.location.href = r.url;
+      }
+    } catch (e) {
+      if (w && !w.closed) { try { w.close(); } catch (_) {} }
+      throw e;
+    }
   }
 
   // Delegated click on any decrypt-me button (file or manifest-loader).
