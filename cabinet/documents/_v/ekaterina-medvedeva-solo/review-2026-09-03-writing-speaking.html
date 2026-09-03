@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Катя · разбор письма и двух monologue · 2026-09-03</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EFEEE9;
+  --card:#FFFFFF;
+  --ink:#1F1B16;
+  --ink-2:#4A4238;
+  --muted:#7B7266;
+  --brand:#E8542B;
+  --brand-2:#F4C84B;
+  --brand-3:#B93E1E;
+  --ok:#4E7A2A;
+  --ok-bg:#E6F0D9;
+  --miss:#C43A2B;
+  --miss-bg:#FBE1DD;
+  --line:#E6DFD3;
+  --display:'Fraunces','Manrope',serif;
+  --body:'Manrope','Inter',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.55;font-size:16px;padding:0;min-height:100vh}
+.wrap{max-width:920px;margin:0 auto;padding:28px clamp(14px,3vw,28px) 60px}
+
+/* Hero */
+.hero{background:linear-gradient(135deg,var(--brand) 0%,var(--brand-3) 100%);color:#FFF;border-radius:20px;padding:28px clamp(20px,4vw,36px);position:relative;overflow:hidden;box-shadow:0 12px 40px rgba(232,84,43,.24)}
+.hero::before{content:"";position:absolute;top:-20%;right:-10%;width:280px;height:280px;background:radial-gradient(circle,rgba(244,200,75,.35) 0%,transparent 65%);pointer-events:none}
+.hero .eyebrow{font:800 11px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;opacity:.85;margin-bottom:12px}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(1.6rem,4vw,2.4rem);letter-spacing:-.01em;line-height:1.15;margin-bottom:10px}
+.hero .lead{max-width:680px;line-height:1.55;opacity:.95;font-size:1rem}
+.hero .stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.hero .stat{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);padding:8px 12px;border-radius:10px;font:700 12px/1 var(--mono);letter-spacing:.06em}
+
+/* Section shell */
+.section{background:var(--card);border-radius:18px;padding:24px clamp(18px,3vw,32px);margin-top:20px;box-shadow:0 4px 18px rgba(31,27,22,.06)}
+.sec-hdr{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:12px;border-bottom:2px solid var(--brand-2)}
+.sec-tag{background:var(--brand);color:#FFF;font:800 11px/1 var(--mono);letter-spacing:.14em;padding:5px 10px;border-radius:6px;text-transform:uppercase}
+.sec-hdr h2{font-family:var(--display);font-weight:700;font-size:clamp(1.2rem,2.6vw,1.55rem);color:var(--ink);line-height:1.2}
+.sec-hdr .task-note{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
+
+/* Content boxes */
+.script-box{background:#FFF9EB;border-left:4px solid var(--brand-2);border-radius:0 12px 12px 0;padding:14px 18px;margin:10px 0 16px;font-family:var(--display);font-size:1rem;line-height:1.65;color:var(--ink-2);white-space:pre-line}
+.script-box strong.pen{color:var(--brand-3);font-weight:800}
+
+.h3{font-family:var(--display);font-weight:700;font-size:1.1rem;color:var(--ink);margin:18px 0 8px}
+.h3-ok{color:var(--ok)}
+.h3-miss{color:var(--miss)}
+
+.ok-box{background:var(--ok-bg);border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:12px 16px;margin:8px 0 14px}
+.ok-box ul{margin:0;padding-left:22px;line-height:1.65}
+.ok-box li{margin:4px 0}
+
+/* Error table */
+table.errs{width:100%;border-collapse:collapse;margin:10px 0 14px;font-size:.94rem;background:#FEFEFE;border-radius:10px;overflow:hidden}
+table.errs th,table.errs td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+table.errs th{background:var(--miss-bg);color:var(--miss);font:800 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase}
+table.errs tr:last-child td{border-bottom:none}
+table.errs td.was{color:var(--miss);font-family:var(--mono);font-weight:700;font-size:.88rem}
+table.errs td.fix{color:var(--ok);font-family:var(--mono);font-weight:700;font-size:.88rem}
+table.errs td.why{color:var(--ink-2);font-size:.9rem}
+@media(max-width:640px){table.errs th:nth-child(3),table.errs td.why{display:none}}
+
+/* Score */
+.scores{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:14px 0 6px}
+.score-cell{background:#FDF6E9;border:1.5px solid var(--brand-2);border-radius:12px;padding:12px 14px}
+.score-cell .k{font:800 10.5px/1 var(--mono);letter-spacing:.14em;color:var(--brand-3);text-transform:uppercase;margin-bottom:6px}
+.score-cell .v{font-family:var(--display);font-weight:800;font-size:1.4rem;color:var(--ink)}
+.score-cell .v small{font-size:.75rem;color:var(--muted);font-weight:600}
+.total-cell{background:var(--brand);color:#FFF;border-color:var(--brand)}
+.total-cell .k{color:#FFF;opacity:.85}
+.total-cell .v{color:#FFF}
+
+/* Verdict + plan */
+.verdict{background:linear-gradient(135deg,#FFF4E5,#FFE9D0);border-radius:14px;padding:14px 18px;margin:14px 0 6px;font-family:var(--display);font-weight:600;font-size:1.02rem;color:var(--ink);border:1px solid var(--brand-2)}
+.plan{background:#FFFFFF;border:2px dashed var(--brand);border-radius:14px;padding:18px 22px;margin:20px 0 8px}
+.plan h3{font-family:var(--display);font-weight:800;color:var(--brand-3);margin:0 0 8px;font-size:1.15rem}
+.plan ol{margin:0;padding-left:22px}
+.plan ol li{margin:6px 0;line-height:1.55}
+.plan ol li b{color:var(--brand-3)}
+
+footer{text-align:center;color:var(--muted);font:600 11px/1.6 var(--mono);letter-spacing:.12em;margin-top:26px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow">Разбор письма и двух monologue · 2026-09-03</div>
+  <h1>Катя · 4 работы · 2026-09-03</h1>
+  <p class="lead">Письмо Бену (задание 35) + три monologue (Sculpture, Free time #1, Free time #2). Разбор по официальным критериям ФИПИ ОГЭ 2026.</p>
+  <div class="stats">
+    <span class="stat">Письмо · 95 слов · 8/10</span>
+    <span class="stat">Sculpture · 1:24 · 5/7</span>
+    <span class="stat">Free time · 1:54 · 7/7</span>
+    <span class="stat">Free time v2 · 1:48 · 3/7</span>
+    <span class="stat" style="background:rgba(78,122,42,.28);border-color:rgba(255,255,255,.5)">Итог по ФИПИ ОГЭ 2026</span>
+  </div>
+</div>
+
+<!-- =============== SECTION 1 · ПИСЬМО =============== -->
+<section class="section" id="letter">
+  <div class="sec-hdr">
+    <span class="sec-tag">Task 1</span>
+    <h2>Письмо Бену · «Time out» (о фильмах)</h2>
+    <span class="task-note">personal letter · 100-120 слов</span>
+  </div>
+
+  <p class="h3">Твой текст</p>
+  <div class="script-box">Dear Ben,
+Thanks for your email. I'm glad to hear from you again. Sorry I havent written you for so long. I was very busy with my school.
+In your email you asked me about films. I'm going to answer your questions. Personaly I really like comedies and romantic films. These genres are my favorite, I usualy enjoy that kinds of films.
+I prefer to go to the cinema, because of its <s>atmosphere</s> vibe. The smell of popcorn, the ligh is off make a special atmosphere. Honestly, <s>it</s> If I had a chance to make a film, it would be a romantic comedy. <s>with happy ending</s> I will have a happy ending, because what comedy have a sad ending, right?
+Anyway, I have to help my mother with cooking.
+Write back soon.
+Best wishes,
+Kate</div>
+
+  <p class="h3">Формат</p>
+  <ul style="margin:0 0 14px 22px;line-height:1.65;font-size:.94rem">
+    <li>Приветствие: Dear Ben, — есть.</li>
+    <li>Благодарность: Thanks for your email. I'm glad to hear from you again. — есть.</li>
+    <li>Извинение: Sorry I havent written you for so long. — есть. Апостроф отсутствует.</li>
+    <li>Ответ на 3 вопроса: films (comedies + romantic), cinema, romantic comedy — раскрыто.</li>
+    <li>Мост: Anyway, I have to help my mother with cooking. — есть.</li>
+    <li>Завершающая: Write back soon. Best wishes, — есть.</li>
+    <li>Подпись: Kate — есть, регистр корректен.</li>
+    <li>Second Conditional: «If I had a chance to make a film, it would be a romantic comedy» — построен корректно.</li>
+    <li>Само-исправление: «with happy ending» зачёркнуто, вставлено «a happy ending».</li>
+  </ul>
+
+  <p class="h3 h3-miss">Что править</p>
+  <table class="errs">
+    <thead><tr><th>Что было</th><th>Как надо</th><th>Почему</th></tr></thead>
+    <tbody>
+      <tr><td class="was">havent</td><td class="fix">haven't</td><td class="why">Апостроф в сокращённых формах обязателен — правило английского.</td></tr>
+      <tr><td class="was">Personaly · usualy</td><td class="fix">Personally · usually</td><td class="why">Удвоенная <b>L</b> перед -y. Твоя стабильная ошибка — соберём отдельный drill.</td></tr>
+      <tr><td class="was">favorite</td><td class="fix">favourite</td><td class="why">В ОГЭ строгий British English: <em>colour, centre, favourite, realise</em>.</td></tr>
+      <tr><td class="was">that kinds of films</td><td class="fix">those kinds of films</td><td class="why">Согласование по числу: <em>that + ед.ч. / those + мн.ч.</em></td></tr>
+      <tr><td class="was">of its <s>atmosphere</s> vibe</td><td class="fix">of its atmosphere</td><td class="why">«Vibe» — разговорное, в письменной формальной задаче ОГЭ не подойдёт. Первый твой вариант был правильный — зря переправила!</td></tr>
+      <tr><td class="was">the ligh is off make a special atmosphere</td><td class="fix">the lights being off create a special atmosphere</td><td class="why">Пропущена «t» + число (lights = мн.ч. → are) + один общий глагол на два подлежащих.</td></tr>
+      <tr><td class="was">Honestly, <s>it</s> If I had…</td><td class="fix">Honestly, if I had…</td><td class="why">«It» осталось после само-правки — надо было полностью зачеркнуть.</td></tr>
+      <tr><td class="was">I will have a happy ending</td><td class="fix">It will have a happy ending</td><td class="why">Речь про фильм, не про тебя. Subject = the film → it.</td></tr>
+      <tr><td class="was">what comedy have a sad ending</td><td class="fix">what comedy has a sad one</td><td class="why">3-е лицо ед.ч. Present Simple → -s. И <em>one</em> вместо повтора «ending».</td></tr>
+      <tr><td class="was">These genres are my favorite, I usually enjoy…</td><td class="fix">These genres are my favourite. I usually enjoy…</td><td class="why">Run-on предложение — нужна точка (или союз and/because).</td></tr>
+    </tbody>
+  </table>
+
+  <p class="h3">Оценка по шкале ФИПИ ОГЭ 2026 (задание 35, макс 10)</p>
+  <div class="scores">
+    <div class="score-cell"><div class="k">К1 · Комм. задача</div><div class="v">3<small>/3</small></div></div>
+    <div class="score-cell"><div class="k">К2 · Организация</div><div class="v">2<small>/2</small></div></div>
+    <div class="score-cell"><div class="k">К3 · Лекс-грамм</div><div class="v">2<small>/3</small></div></div>
+    <div class="score-cell"><div class="k">К4 · Орф-пункт</div><div class="v">1<small>/2</small></div></div>
+    <div class="score-cell total-cell"><div class="k">ИТОГО</div><div class="v">8<small>/10</small></div></div>
+  </div>
+  <div class="verdict"><b>К1 · 3/3</b>: 3 вопроса, нормы вежливости, стиль — раскрыты.<br><b>К2 · 2/2</b>: логика, абзацы, средства связи, обращение и подпись на отдельных строках.<br><b>К3 · 2/3</b>: 3 л-г ошибки — that kinds → those kinds; I will → it will; comedy have → has.<br><b>К4 · 1/2</b>: 4 орфографические — havent, Personaly, usualy, ligh.</div>
+</section>
+
+<!-- =============== SECTION 2 · MONOLOGUE 1 · SCULPTURE =============== -->
+<section class="section" id="mono1">
+  <div class="sec-hdr">
+    <span class="sec-tag">Speaking · Task 3</span>
+    <h2>Monologue #1 · Sculpture</h2>
+    <span class="task-note">2 min · a hobby I would like to try</span>
+  </div>
+
+  <p class="h3">Расшифровка (85 сек)</p>
+  <div class="script-box">Today I would like to give a talk about hobbies I would like to try. My dream hobby is sculpture. I think it's very interesting and specific hobby. I find this hobby interesting because I like to — I like making something with something beautiful with my hands. Sculptures are really beautiful things that humans create, so I'd like to try it one day. For start sculpturing, people need sticks and, for example, clay, special clay, and it's all they need — and their hands, of course. Um, I plan to try it very… [пауза между записями] liked it, so I will try it as soon as I can. That's all, that's all I wanted to say. Thanks for your attention.</div>
+
+  <p class="h3">Что есть в тексте</p>
+  <ul style="margin:0 0 14px 22px;line-height:1.65;font-size:.94rem">
+    <li>Вступление: «Today I would like to give a talk about hobbies I would like to try» — полное.</li>
+    <li>Тема: sculpture — названа.</li>
+    <li>Причина: «I like making something beautiful with my hands» — сформулирована.</li>
+    <li>Что нужно: «sticks, clay, special clay, and their hands» — перечислено.</li>
+    <li>План попробовать: «I plan to try it… I will try it as soon as I can» — есть.</li>
+    <li>Заключение: «That's all I wanted to say. Thanks for your attention.» — полное.</li>
+    <li>Само-правка: «I like to — I like making» — присутствует.</li>
+  </ul>
+
+  <p class="h3 h3-miss">Что править</p>
+  <table class="errs">
+    <thead><tr><th>Что было</th><th>Как надо</th><th>Почему</th></tr></thead>
+    <tbody>
+      <tr><td class="was">hobbies I would like to try</td><td class="fix">a hobby I would like to try</td><td class="why">В ОГЭ Task 3 говорят про ОДНО хобби. Ед.ч. + артикль.</td></tr>
+      <tr><td class="was">it's very interesting and specific hobby</td><td class="fix">it's a very interesting and specific hobby</td><td class="why">Перед сингулярным сущ. с прилагательными нужен неопределённый артикль.</td></tr>
+      <tr><td class="was">making something with something beautiful</td><td class="fix">making something beautiful</td><td class="why">Лишнее «with something» — заикание, при разборе убираем.</td></tr>
+      <tr><td class="was">For start sculpturing</td><td class="fix">To start sculpting</td><td class="why">Цель = <em>to + инфинитив</em> (не «for + …ing»). И правильный глагол — <b>sculpt</b>, не sculpture.</td></tr>
+      <tr><td class="was">people need sticks</td><td class="fix">people need sculpting tools / modelling sticks</td><td class="why">«Sticks» = палки с улицы. Правильные инструменты — sculpting tools.</td></tr>
+      <tr><td class="was">it's all they need</td><td class="fix">that's all they need</td><td class="why">Указательное «that» → результат перечисления. «It» здесь не catchy.</td></tr>
+      <tr><td class="was">пауза «I plan to try it very… liked it»</td><td class="fix">закончить одну мысль до записи следующей</td><td class="why">Между двумя записями пропала связка. На экзамене пауза для дыхания — норма, но фраза должна быть цельной.</td></tr>
+      <tr><td class="was">that's all, that's all</td><td class="fix">That's all I wanted to say.</td><td class="why">Повтор фразы. Один раз достаточно.</td></tr>
+    </tbody>
+  </table>
+
+  <p class="h3">Оценка по шкале ФИПИ ОГЭ 2026 (задание 3, макс 7)</p>
+  <div class="scores">
+    <div class="score-cell"><div class="k">К1 · Комм. задача</div><div class="v">2<small>/3</small></div></div>
+    <div class="score-cell"><div class="k">К2 · Организация</div><div class="v">2<small>/2</small></div></div>
+    <div class="score-cell"><div class="k">К3 · Языковое оф.</div><div class="v">1<small>/2</small></div></div>
+    <div class="score-cell total-cell"><div class="k">ИТОГО</div><div class="v">5<small>/7</small></div></div>
+  </div>
+  <div class="verdict"><b>К1 · 2/3</b>: 4 аспекта затронуты, 1 (что нужно) раскрыт неточно (sticks вместо sculpting tools). Объём фраз меньше 10.<br><b>К2 · 2/2</b>: обе frames на месте, средства связи есть.<br><b>К3 · 1/2</b>: 4 л-г ошибки — hobbies → a hobby; пропущен артикль перед interesting; for start sculpturing → to start sculpting; sticks — некорректный выбор слова.</div>
+</section>
+
+<!-- =============== SECTION 3 · MONOLOGUE 2 · FREE-TIME =============== -->
+<section class="section" id="mono2">
+  <div class="sec-hdr">
+    <span class="sec-tag">Speaking · Task 3</span>
+    <h2>Monologue #2 · Free-time activities of Russian teenagers</h2>
+    <span class="task-note">2 min · trending topic</span>
+  </div>
+
+  <p class="h3">Расшифровка (114 сек)</p>
+  <div class="script-box">Today I would give a talk about free time activities of Russian teenagers. I think that the most popular activities among Russian teenagers are computer gaming, football and maybe skateboarding. Actually, teenagers don't have a lot of free time after school during the school year because most of them spend a lot of time for studying. But even those teens who have hobbies and really love them spend even one hour a day for their hobbies and activities. I don't think that computers and smartphones spoil their real hobbies because some teens may have hobbies connected with phones or computers. For example, gaming or making edits. So I don't think that's a problem. Honestly, my favorite way to spend my free time is just chilling, for example, watching movies and series, but I also like to ride a bike for real activities. That's all I wanted to say. Thanks for your attention.</div>
+
+  <p class="h3">Что есть в тексте</p>
+  <ul style="margin:0 0 14px 22px;line-height:1.65;font-size:.94rem">
+    <li>Вступление: «Today I would give a talk about free time activities of Russian teenagers» — есть, «like to» отсутствует.</li>
+    <li>Аспект 1 (популярные виды): computer gaming, football, skateboarding — перечислены.</li>
+    <li>Аспект 2 (мало времени): «teenagers don't have a lot of free time after school» — раскрыто.</li>
+    <li>Аспект 3 (влияние компьютеров): «I don't think that computers and smartphones spoil their real hobbies» — раскрыто.</li>
+    <li>Аспект 4 (свой выбор): «my favorite way to spend my free time is just chilling, watching movies and series, but I also like to ride a bike» — есть.</li>
+    <li>Заключение: «That's all I wanted to say. Thanks for your attention.» — полное.</li>
+  </ul>
+
+  <p class="h3 h3-miss">Что править</p>
+  <table class="errs">
+    <thead><tr><th>Что было</th><th>Как надо</th><th>Почему</th></tr></thead>
+    <tbody>
+      <tr><td class="was">I would give a talk</td><td class="fix">I would <b>like to</b> give a talk</td><td class="why">Потерян «like to» в первой строке — сама frame-фраза чуть кривая. Полная форма обязательна.</td></tr>
+      <tr><td class="was">spend a lot of time for studying</td><td class="fix">spend a lot of time <b>on</b> studying</td><td class="why">С <em>spend time</em> идёт предлог <b>on</b> (не for).</td></tr>
+      <tr><td class="was">spend even one hour a day for their hobbies</td><td class="fix">spend <b>at least</b> one hour a day <b>on</b> their hobbies</td><td class="why">«Even one hour» дословно = «даже один час» — в англ. семантика другая. «At least» лучше передаёт мысль.</td></tr>
+      <tr><td class="was">for real activities</td><td class="fix">for something more active / for outdoor activities</td><td class="why">«Real activities» звучит как калька — противопоставляешь чиллу, но не хватает точности.</td></tr>
+      <tr><td class="was">my favorite</td><td class="fix">my favourite</td><td class="why">British English — стандарт ОГЭ (уже говорили в письме).</td></tr>
+      <tr><td class="was">just chilling</td><td class="fix">just relaxing at home</td><td class="why">«Chilling» на экзамене на грани сленга. Экзаменатор может снять балл за style.</td></tr>
+      <tr><td class="was">no structural connectors</td><td class="fix">First, / Second, / Also, / To sum up,</td><td class="why">Есть Actually / But / So / Honestly — это норм, но добавь 1-2 явных First / To sum up для K2.</td></tr>
+    </tbody>
+  </table>
+
+  <p class="h3">Оценка по шкале ФИПИ ОГЭ 2026 (задание 3, макс 7)</p>
+  <div class="scores">
+    <div class="score-cell"><div class="k">К1 · Комм. задача</div><div class="v">3<small>/3</small></div></div>
+    <div class="score-cell"><div class="k">К2 · Организация</div><div class="v">2<small>/2</small></div></div>
+    <div class="score-cell"><div class="k">К3 · Языковое оф.</div><div class="v">2<small>/2</small></div></div>
+    <div class="score-cell total-cell"><div class="k">ИТОГО</div><div class="v">7<small>/7</small></div></div>
+  </div>
+  <div class="verdict"><b>К1 · 3/3</b>: 4 аспекта раскрыты, 10-12 фраз, логика последовательная.<br><b>К2 · 2/2</b>: вступление, заключение, средства связи (Actually, but, so, honestly).<br><b>К3 · 2/2</b>: 2 незначительные ошибки — for studying → on studying; chilling — разговорное. Смысл не искажён.</div>
+</section>
+
+<!-- =============== SECTION 4 · MONOLOGUE 3 · FREE-TIME v2 =============== -->
+<section class="section" id="mono3">
+  <div class="sec-hdr">
+    <span class="sec-tag">Speaking · Task 3</span>
+    <h2>Monologue #3 · Free time · вторая попытка</h2>
+    <span class="task-note">1:48 · та же тема, другой заход</span>
+  </div>
+
+  <p class="h3">Расшифровка (1:48)</p>
+  <div class="script-box">Today I would like to give a talk about free time activities of Russian teenagers. I think the most popular activities among Russian teenagers today is dancing. It's very interesting for girls and boys. They have classes with their friends, they give fun, and dancing is a really cool sport. I think it's necessary to usually spend a lot of time after school. Sometimes they don't have any time to do their life, they have free time. Well, for us and the computers, it is important, it is very important, and complements a teenager's life, and maybe computer games will be activities for any teenagers. My favorite way to spend free time is mobile, because I think it is my favorite sport, and I feel connection with these activities.</div>
+
+  <p class="h3">Что есть в тексте</p>
+  <ul style="margin:0 0 14px 22px;line-height:1.65;font-size:.94rem">
+    <li>Вступление: «Today I would like to give a talk about free time activities of Russian teenagers» — полное.</li>
+    <li>Аспект 1 (популярные виды): dancing — назван.</li>
+    <li>Аспект 2 (нехватка времени): «Sometimes they don't have any time to do their life» — попытка, сформулировано некорректно.</li>
+    <li>Аспект 3 (компьютеры): «Well, for us and the computers, it is important» — попытка, сформулировано некорректно.</li>
+    <li>Аспект 4 (свой выбор): «My favorite way to spend free time is mobile» — есть, слово некорректно.</li>
+    <li>Заключения OGE-канона нет.</li>
+    <li>Лексика: «complements a teenager's life» — присутствует.</li>
+  </ul>
+
+  <p class="h3 h3-miss">Что править</p>
+  <table class="errs">
+    <thead><tr><th>Что было</th><th>Как надо</th><th>Почему</th></tr></thead>
+    <tbody>
+      <tr><td class="was">the most popular activities <b>is</b> dancing</td><td class="fix">the most popular activity <b>is</b> dancing (или activities <b>are</b>)</td><td class="why">Подлежащее и глагол должны быть в одном числе. Проще: единственный самый популярный вид → <em>the most popular activity is dancing</em>.</td></tr>
+      <tr><td class="was">they give fun</td><td class="fix">it is fun / it's a lot of fun</td><td class="why">«Give fun» — калька. По-английски развлечение <b>is</b> fun, не даётся.</td></tr>
+      <tr><td class="was">it's necessary to usually spend a lot of time after school</td><td class="fix">they usually have to spend a lot of time studying after school</td><td class="why">Логика сломалась: <em>«необходимо обычно тратить время после школы»</em> = что необходимо? Учиться. Скажи это прямо.</td></tr>
+      <tr><td class="was">Sometimes they don't have any time to do their life, they have free time</td><td class="fix">Sometimes they don't have any free time at all</td><td class="why">«Do their life» — калька («заниматься своей жизнью»). И противоречие: «нет времени, но есть свободное время» — сама себя запутала.</td></tr>
+      <tr><td class="was">Well, for us and the computers, it is important</td><td class="fix">As for us and computers, they are very important…</td><td class="why">«For us and the computers» = грамматически «для нас и компьютеров». Правильная связка = <em>As for X…</em></td></tr>
+      <tr><td class="was">maybe computer games will be activities for any teenagers</td><td class="fix">computer games are a common hobby for many teenagers</td><td class="why">Будущее время не подходит — это общее правило (Present Simple). И «any teenagers» → «many».</td></tr>
+      <tr><td class="was">My favorite way to spend free time is mobile</td><td class="fix">My favourite way to spend free time is playing mobile games</td><td class="why">«Mobile» само по себе = телефон/подвижный. Нужно «playing mobile games» / «watching videos on my phone».</td></tr>
+      <tr><td class="was">it is my favorite sport</td><td class="fix">it's my favourite hobby</td><td class="why">Мобильные игры — не спорт. Ошибка категории.</td></tr>
+      <tr><td class="was">Отсутствует концовка</td><td class="fix">That's all I wanted to say. Thanks for your attention.</td><td class="why">Обязательная OGE-frame. Без неё K2 = 1 балл максимум.</td></tr>
+    </tbody>
+  </table>
+
+  <p class="h3">Оценка по шкале ФИПИ ОГЭ 2026 (задание 3, макс 7)</p>
+  <div class="scores">
+    <div class="score-cell"><div class="k">К1 · Комм. задача</div><div class="v">2<small>/3</small></div></div>
+    <div class="score-cell"><div class="k">К2 · Организация</div><div class="v">1<small>/2</small></div></div>
+    <div class="score-cell"><div class="k">К3 · Языковое оф.</div><div class="v">0<small>/2</small></div></div>
+    <div class="score-cell total-cell"><div class="k">ИТОГО</div><div class="v">3<small>/7</small></div></div>
+  </div>
+  <div class="verdict"><b>К1 · 2/3</b>: 4 аспекта затронуты, 2 раскрыты неточно (логика про компьютеры и mobile сформулирована некорректно).<br><b>К2 · 1/2</b>: заключения OGE-канона нет — «That's all I wanted to say. Thanks for your attention.» отсутствует.<br><b>К3 · 0/2</b>: 5+ л-г ошибок, часть искажает смысл — activities is (subject-verb); they give fun → it is fun; to do their life — калька; for us and the computers → as for us and computers; is mobile → is playing mobile games; is my favorite sport → hobby.</div>
+</section>
+
+<!-- =============== FIPI SHKALA · SUMMARY =============== -->
+<section class="section" id="fipi">
+  <div class="sec-hdr">
+    <span class="sec-tag" style="background:#4E7A2A">ФИПИ</span>
+    <h2>Итог по официальным критериям ОГЭ 2026</h2>
+    <span class="task-note">Приказ Рособрнадзора · демоверсия 2026</span>
+  </div>
+
+  <table class="errs">
+    <thead><tr><th>Работа</th><th style="color:var(--ok)">Балл</th><th style="color:var(--miss)">Из чего</th></tr></thead>
+    <tbody>
+      <tr><td class="why">Письмо Бену · 95 слов</td><td class="fix">8/10</td><td class="why">К1:3 · К2:2 · К3:2 · К4:1</td></tr>
+      <tr><td class="why">Monologue #1 · Sculpture · 1:24</td><td class="fix">5/7</td><td class="why">К1:2 · К2:2 · К3:1</td></tr>
+      <tr><td class="why">Monologue #2 · Free time (best) · 1:54</td><td class="fix"><b>7/7</b></td><td class="why">К1:3 · К2:2 · К3:2</td></tr>
+      <tr><td class="why">Monologue #3 · Free time (dancing/mobile) · 1:48</td><td class="fix">3/7</td><td class="why">К1:2 · К2:1 · К3:0</td></tr>
+    </tbody>
+  </table>
+
+  <div class="verdict">Динамика Speaking: Sculpture 5/7 → Free time #1 7/7 → Free time #2 3/7. Обязательные frames (вступление + заключение) присутствуют в #1 и #2, отсутствует заключение в #3.</div>
+
+  <p class="h3" style="margin-top:16px">Точные формулировки уровней (для справки)</p>
+  <p style="font-size:.86rem;color:var(--muted);line-height:1.55;margin-bottom:8px"><b>Письмо · К1 (макс 3):</b> 3 = все аспекты раскрыты + 1 неполный допускается · 2 = 1 аспект не раскрыт ИЛИ 2-3 неполно · 1 = 2 не раскрыты ИЛИ 4 неполно · 0 = хуже.</p>
+  <p style="font-size:.86rem;color:var(--muted);line-height:1.55;margin-bottom:8px"><b>Письмо · К3 (макс 3):</b> 3 = 1 л-г ошибка · 2 = 2-3 · 1 = 4 · 0 = 5+.</p>
+  <p style="font-size:.86rem;color:var(--muted);line-height:1.55;margin-bottom:8px"><b>Письмо · К4 (макс 2):</b> 2 = 2 ошибки · 1 = 3-4 · 0 = 5+.</p>
+  <p style="font-size:.86rem;color:var(--muted);line-height:1.55"><b>Monologue · К1 (макс 3):</b> все 4 аспекта, 10-12 фраз, полно · <b>К2 (макс 2):</b> вступление + заключение обязательны · <b>К3 (макс 2):</b> 1-2 ошибки = 2 балла, 3-4 = 1, 5+ = 0.</p>
+</section>
+
+<!-- =============== PLAN =============== -->
+<div class="plan">
+  <h3>Что тянем на следующей паре (15 мин точечно)</h3>
+  <ol>
+    <li><b>Double-L drill</b>: personally · usually · really · finally · actually · especially · generally — 10 слов на карточке.</li>
+    <li><b>Апостроф-drill</b>: haven't · don't · isn't · doesn't · won't — 10 предложений на слух.</li>
+    <li><b>British English свод</b>: favourite · colour · centre · realise · organise · theatre.</li>
+    <li><b>Spend time + предлог</b>: <em>spend time <b>on</b></em> hobby · <em>spend money <b>on</b></em> something.</li>
+    <li><b>Slang → formal замена</b>: chilling → relaxing at home / hanging out → spending time with friends / vibe → atmosphere.</li>
+    <li><b>Sculpt vs sculpture</b> и «to start + gerund»: <em>to start sculpting</em> · <em>to start learning</em>.</li>
+    <li><b>Structural connectors для Task 3</b>: First / Second / Also / To sum up — вставь минимум 2 в следующий монолог.</li>
+  </ol>
+</div>
+
+<footer>
+  Разбор · Мария · 2026-09-03 · newgeneration-english.ru
+</footer>
+
+</div>
+</body>
+</html>

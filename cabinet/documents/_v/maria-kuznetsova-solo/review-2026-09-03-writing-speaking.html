@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Маша · разбор письма и monologue · 2026-09-03</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EFEEE9;
+  --card:#FFFFFF;
+  --ink:#1F1B16;
+  --ink-2:#4A4238;
+  --muted:#7B7266;
+  --brand:#E8542B;
+  --brand-2:#F4C84B;
+  --brand-3:#B93E1E;
+  --ok:#4E7A2A;
+  --ok-bg:#E6F0D9;
+  --miss:#C43A2B;
+  --miss-bg:#FBE1DD;
+  --line:#E6DFD3;
+  --display:'Fraunces','Manrope',serif;
+  --body:'Manrope','Inter',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.55;font-size:16px;padding:0;min-height:100vh}
+.wrap{max-width:920px;margin:0 auto;padding:28px clamp(14px,3vw,28px) 60px}
+
+.hero{background:linear-gradient(135deg,var(--brand) 0%,var(--brand-3) 100%);color:#FFF;border-radius:20px;padding:28px clamp(20px,4vw,36px);position:relative;overflow:hidden;box-shadow:0 12px 40px rgba(232,84,43,.24)}
+.hero::before{content:"";position:absolute;top:-20%;right:-10%;width:280px;height:280px;background:radial-gradient(circle,rgba(244,200,75,.35) 0%,transparent 65%);pointer-events:none}
+.hero .eyebrow{font:800 11px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;opacity:.85;margin-bottom:12px}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(1.6rem,4vw,2.4rem);letter-spacing:-.01em;line-height:1.15;margin-bottom:10px}
+.hero .lead{max-width:680px;line-height:1.55;opacity:.95;font-size:1rem}
+.hero .stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.hero .stat{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);padding:8px 12px;border-radius:10px;font:700 12px/1 var(--mono);letter-spacing:.06em}
+
+.section{background:var(--card);border-radius:18px;padding:24px clamp(18px,3vw,32px);margin-top:20px;box-shadow:0 4px 18px rgba(31,27,22,.06)}
+.sec-hdr{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:12px;border-bottom:2px solid var(--brand-2)}
+.sec-tag{background:var(--brand);color:#FFF;font:800 11px/1 var(--mono);letter-spacing:.14em;padding:5px 10px;border-radius:6px;text-transform:uppercase}
+.sec-hdr h2{font-family:var(--display);font-weight:700;font-size:clamp(1.2rem,2.6vw,1.55rem);color:var(--ink);line-height:1.2}
+.sec-hdr .task-note{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
+
+.script-box{background:#FFF9EB;border-left:4px solid var(--brand-2);border-radius:0 12px 12px 0;padding:14px 18px;margin:10px 0 16px;font-family:var(--display);font-size:1rem;line-height:1.65;color:var(--ink-2);white-space:pre-line}
+.script-box strong.pen{color:var(--brand-3);font-weight:800}
+
+.h3{font-family:var(--display);font-weight:700;font-size:1.1rem;color:var(--ink);margin:18px 0 8px}
+.h3-ok{color:var(--ok)}
+.h3-miss{color:var(--miss)}
+
+.ok-box{background:var(--ok-bg);border-left:4px solid var(--ok);border-radius:0 10px 10px 0;padding:12px 16px;margin:8px 0 14px}
+.ok-box ul{margin:0;padding-left:22px;line-height:1.65}
+.ok-box li{margin:4px 0}
+
+table.errs{width:100%;border-collapse:collapse;margin:10px 0 14px;font-size:.94rem;background:#FEFEFE;border-radius:10px;overflow:hidden}
+table.errs th,table.errs td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+table.errs th{background:var(--miss-bg);color:var(--miss);font:800 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase}
+table.errs tr:last-child td{border-bottom:none}
+table.errs td.was{color:var(--miss);font-family:var(--mono);font-weight:700;font-size:.88rem}
+table.errs td.fix{color:var(--ok);font-family:var(--mono);font-weight:700;font-size:.88rem}
+table.errs td.why{color:var(--ink-2);font-size:.9rem}
+@media(max-width:640px){table.errs th:nth-child(3),table.errs td.why{display:none}}
+
+.scores{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:14px 0 6px}
+.score-cell{background:#FDF6E9;border:1.5px solid var(--brand-2);border-radius:12px;padding:12px 14px}
+.score-cell .k{font:800 10.5px/1 var(--mono);letter-spacing:.14em;color:var(--brand-3);text-transform:uppercase;margin-bottom:6px}
+.score-cell .v{font-family:var(--display);font-weight:800;font-size:1.4rem;color:var(--ink)}
+.score-cell .v small{font-size:.75rem;color:var(--muted);font-weight:600}
+.total-cell{background:var(--brand);color:#FFF;border-color:var(--brand)}
+.total-cell .k{color:#FFF;opacity:.85}
+.total-cell .v{color:#FFF}
+
+.verdict{background:linear-gradient(135deg,#FFF4E5,#FFE9D0);border-radius:14px;padding:14px 18px;margin:14px 0 6px;font-family:var(--display);font-weight:600;font-size:1.02rem;color:var(--ink);border:1px solid var(--brand-2)}
+.plan{background:#FFFFFF;border:2px dashed var(--brand);border-radius:14px;padding:18px 22px;margin:20px 0 8px}
+.plan h3{font-family:var(--display);font-weight:800;color:var(--brand-3);margin:0 0 8px;font-size:1.15rem}
+.plan ol{margin:0;padding-left:22px}
+.plan ol li{margin:6px 0;line-height:1.55}
+.plan ol li b{color:var(--brand-3)}
+
+footer{text-align:center;color:var(--muted);font:600 11px/1.6 var(--mono);letter-spacing:.12em;margin-top:26px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow">Разбор письма и monologue · 2026-09-03</div>
+  <h1>Маша · 4 работы · 2026-09-03</h1>
+  <p class="lead">Письмо Бену (задание 35) + три monologue (Snowboarding, Career v1, Career v2). Разбор по официальным критериям ФИПИ ОГЭ 2026.</p>
+  <div class="stats">
+    <span class="stat">Письмо · ≈ 90 слов · 7/10</span>
+    <span class="stat">Snowboarding · 2:05 · 3/7</span>
+    <span class="stat">Career v1 · 1:46 · 4/7</span>
+    <span class="stat">Career v2 · 2:30 · 6/7</span>
+    <span class="stat" style="background:rgba(78,122,42,.28);border-color:rgba(255,255,255,.5)">Итог по ФИПИ ОГЭ 2026</span>
+  </div>
+</div>
+
+<!-- =============== SECTION 1 · ПИСЬМО =============== -->
+<section class="section" id="letter">
+  <div class="sec-hdr">
+    <span class="sec-tag">Task 1</span>
+    <h2>Письмо Бену · «Time out» (о фильмах)</h2>
+    <span class="task-note">personal letter · 100-120 слов</span>
+  </div>
+
+  <p class="h3">Твой текст</p>
+  <div class="script-box">Dear Ben,
+Thank you for your recent email. I am glad to hear from you again. Sorry, I could not answer earlier because I was busy with my homework.
+In your email you asked me about time out. So I prefer a scary movie, it is very interesting every time. People had many different emotions when they whatched scary movie, not only fear. For my opinion it is not have matter, this two option have charm. Well if I had the chance to make a film it will be about people's relationships.
+Sorry, but I need to help my mother.
+Write Back soon.
+Love,
+Manny</div>
+
+  <p class="h3">Формат</p>
+  <ul style="margin:0 0 14px 22px;line-height:1.65;font-size:.94rem">
+    <li>Приветствие: Dear Ben, — есть.</li>
+    <li>Благодарность: Thank you for your recent email. I am glad to hear from you again. — есть.</li>
+    <li>Извинение: Sorry, I could not answer earlier because I was busy with my homework. — есть.</li>
+    <li>Мост: Sorry, but I need to help my mother. — есть.</li>
+    <li>Подпись: Manny — есть. Регистр (Love) — некорректен для peer-friend, см. ниже.</li>
+    <li>Апостроф в people's — стоит.</li>
+    <li>Second Conditional попытан («if I had the chance to make a film…»), связка нарушена.</li>
+  </ul>
+
+  <p class="h3 h3-miss">Что править</p>
+  <table class="errs">
+    <thead><tr><th>Что было</th><th>Как надо</th><th>Почему</th></tr></thead>
+    <tbody>
+      <tr><td class="was">asked me about time out</td><td class="fix">asked me about films</td><td class="why"><b>Ты прочитала Subject строку («Time out») как тему запроса.</b> Это была тема письма Бена, а спрашивает он <b>про фильмы</b>. Всегда читай сам текст письма, не заголовок.</td></tr>
+      <tr><td class="was">For my opinion</td><td class="fix">In my opinion</td><td class="why">Классическая ошибка русских — калька с «по моему мнению». Правильный предлог = <b>in</b>.</td></tr>
+      <tr><td class="was">it is not have matter</td><td class="fix">it doesn't matter</td><td class="why">Прямая калька с «это не имеет значения». В английском есть готовая фраза <em>«it doesn't matter»</em>. Запомни целиком.</td></tr>
+      <tr><td class="was">this two option</td><td class="fix">these two options</td><td class="why">Число ломается сразу в 3 местах: <em>this → these</em> (мн.ч.), <em>option → options</em>, <em>have → have</em> (с these ок).</td></tr>
+      <tr><td class="was">People had many emotions when they whatched scary movie</td><td class="fix">People have many emotions when they watch scary movies</td><td class="why">Это общее правило (правда всегда) → <b>Present Simple</b>, не Past. И <b>watched</b> без «h» в начале.</td></tr>
+      <tr><td class="was">if I had the chance to make a film it <b>will</b> be…</td><td class="fix">…it <b>would</b> be…</td><td class="why"><b>Second Conditional</b>: если <em>If + past → главное с would</em>. У тебя first половина правильная, вторая сломалась.</td></tr>
+      <tr><td class="was">prefer a scary movie, it is very interesting every time</td><td class="fix">prefer scary movies. They are always exciting.</td><td class="why">1) Обобщение → множ. ч. (scary movies). 2) Точка перед «They» — было run-on. 3) «Interesting every time» → «always exciting».</td></tr>
+      <tr><td class="was">Love, / Write Back soon</td><td class="fix">Best wishes, / Write back soon</td><td class="why"><b>Love</b> = только очень близким (родителям, парню). Ben — pen-friend, ему <b>Best wishes</b> / <b>All the best</b>. И <b>Back</b> с маленькой буквы — это глагол, не имя.</td></tr>
+    </tbody>
+  </table>
+
+  <p class="h3">Оценка по шкале ФИПИ ОГЭ 2026 (задание 35, макс 10)</p>
+  <div class="scores">
+    <div class="score-cell"><div class="k">К1 · Комм. задача</div><div class="v">2<small>/3</small></div></div>
+    <div class="score-cell"><div class="k">К2 · Организация</div><div class="v">2<small>/2</small></div></div>
+    <div class="score-cell"><div class="k">К3 · Лекс-грамм</div><div class="v">1<small>/3</small></div></div>
+    <div class="score-cell"><div class="k">К4 · Орф-пункт</div><div class="v">2<small>/2</small></div></div>
+    <div class="score-cell total-cell"><div class="k">ИТОГО</div><div class="v">7<small>/10</small></div></div>
+  </div>
+  <div class="verdict"><b>К1 · 2/3</b>: Q2 (cinema или дома) не раскрыт («this two option have charm» — уход от выбора). Подпись Love — неточное соответствие адресату. 1 аспект не раскрыт + 1 неполно → 2 балла.<br><b>К2 · 2/2</b>: обращение, завершающая фраза, подпись на отдельных строках, средства связи — есть.<br><b>К3 · 1/3</b>: 4 л-г ошибки — will → would, this → these + option → options, For → In (opinion), «it is not have matter».<br><b>К4 · 2/2</b>: 2 ошибки — whatched, Write Back.</div>
+</section>
+
+<!-- =============== SECTION 2 · MONOLOGUE 1 · SNOWBOARDING =============== -->
+<section class="section" id="mono1">
+  <div class="sec-hdr">
+    <span class="sec-tag">Speaking · Task 3</span>
+    <h2>Monologue #1 · Snowboarding</h2>
+    <span class="task-note">2:05 · a hobby I would like to try</span>
+  </div>
+
+  <p class="h3">Расшифровка</p>
+  <div class="script-box">Today I would like to give a talk about a hobby I like to try. I think my dream hobby is snowboarding, because I think about this hobby a lot of time, and never tried this hobby. This hobby is very interesting for me, because it's winter, snow is a beautiful atmosphere. It's something same with skateboarding, and I think people take adrenaline when they are… [пауза между записями] The one thing that stops me from snowboarding is that it is a very expensive hobby. It's very difficult to buy all this complex equipment. What was the equipment? All the equipment. I think I will be trying soon this winter when I have time or weekends and I hope it will be nice. I hope it will be nice.</div>
+
+  <p class="h3">Что есть в тексте</p>
+  <ul style="margin:0 0 14px 22px;line-height:1.65;font-size:.94rem">
+    <li>Вступление: «Today I would like to give a talk about a hobby I like to try». Есть, но пропущен «would» перед «like to try».</li>
+    <li>Тема: snowboarding — названа.</li>
+    <li>Причина: «it's winter, snow is a beautiful atmosphere», «people take adrenaline» — сформулированы.</li>
+    <li>План попробовать: «I will be trying this winter» — есть.</li>
+    <li>Заключения OGE-канона нет.</li>
+    <li>Само-правка «What was the equipment? All the equipment.» — присутствует.</li>
+  </ul>
+
+  <p class="h3 h3-miss">Что править</p>
+  <table class="errs">
+    <thead><tr><th>Что было</th><th>Как надо</th><th>Почему</th></tr></thead>
+    <tbody>
+      <tr><td class="was">a hobby I <b>like</b> to try</td><td class="fix">a hobby I <b>would like</b> to try</td><td class="why">Задание ОГЭ буквально: <em>a hobby you WOULD like to try</em>. Пропущенный <b>would</b> — сразу минус к solution of task.</td></tr>
+      <tr><td class="was">I think about this hobby a lot of time</td><td class="fix">I've been thinking about it for a long time</td><td class="why">«A lot of time» = калька. Норма — <b>for a long time</b>. С Present Perfect Continuous («долго думаю»).</td></tr>
+      <tr><td class="was">and never tried this hobby</td><td class="fix">but I have never tried it</td><td class="why">1) <b>but</b> для контраста, не <b>and</b>. 2) <b>Present Perfect</b> = have + V3. 3) «It» вместо повтора «this hobby».</td></tr>
+      <tr><td class="was">it's winter, snow is a beautiful atmosphere</td><td class="fix">I love winter — the snow creates a beautiful atmosphere</td><td class="why">Снег ≠ атмосфера. Снег её <b>создаёт</b>. Логика чуть перевернулась.</td></tr>
+      <tr><td class="was">It's something same with skateboarding</td><td class="fix">It's similar to skateboarding</td><td class="why">«Something same» = калька («что-то такое же»). Английский: <em>similar to</em> / <em>just like</em>.</td></tr>
+      <tr><td class="was">people take adrenaline</td><td class="fix">people get an adrenaline rush</td><td class="why">«Take adrenaline» = принимать препарат (как лекарство). Правильный сet phrase: <em>get an adrenaline rush</em>.</td></tr>
+      <tr><td class="was">buy all this complex equipment</td><td class="fix">buy all the expensive equipment / all the gear</td><td class="why">Equipment — uncountable, поэтому <em>all the</em>, не «all this». «Gear» — молодёжное, но норм в устной речи.</td></tr>
+      <tr><td class="was">I will be trying soon this winter</td><td class="fix">I will try it this winter</td><td class="why">Future Continuous не оправдан — событие разовое, не долгий процесс.</td></tr>
+      <tr><td class="was">when I have time or weekends</td><td class="fix">when I have free time or on weekends</td><td class="why">Порядок слов и предлог. «On weekends» — стандартная английская фраза.</td></tr>
+      <tr><td class="was">I hope it will be nice. I hope it will be nice.</td><td class="fix">I hope it will be a great experience. That's all I wanted to say. Thanks for your attention.</td><td class="why"><b>Нет OGE-концовки!</b> На экзамене это -1 балл в K2. Всегда завершай двумя каноничными фразами.</td></tr>
+    </tbody>
+  </table>
+
+  <p class="h3">Оценка по шкале ФИПИ ОГЭ 2026 (задание 3, макс 7)</p>
+  <div class="scores">
+    <div class="score-cell"><div class="k">К1 · Комм. задача</div><div class="v">2<small>/3</small></div></div>
+    <div class="score-cell"><div class="k">К2 · Организация</div><div class="v">1<small>/2</small></div></div>
+    <div class="score-cell"><div class="k">К3 · Языковое оф.</div><div class="v">0<small>/2</small></div></div>
+    <div class="score-cell total-cell"><div class="k">ИТОГО</div><div class="v">3<small>/7</small></div></div>
+  </div>
+  <div class="verdict"><b>К1 · 2/3</b>: 4 аспекта плана затронуты, 2 раскрыты неточно (equipment смято, финал обрывается).<br><b>К2 · 1/2</b>: заключения OGE-канона нет («That's all I wanted to say. Thanks for your attention.»).<br><b>К3 · 0/2</b>: 6+ л-г ошибок — «I like to try» → would like to; «never tried» без have; «snow is a beautiful atmosphere»; «something same with» → similar to; «take adrenaline» → get an adrenaline rush; «all this complex equipment» → all the equipment.</div>
+</section>
+
+<!-- =============== SECTION 3 · MONOLOGUE 2 · CAREER =============== -->
+<section class="section" id="mono2">
+  <div class="sec-hdr">
+    <span class="sec-tag">Speaking · Task 3</span>
+    <h2>Monologue #2 · Choosing a career</h2>
+    <span class="task-note">1:46 · how people choose a profession</span>
+  </div>
+
+  <p class="h3">Расшифровка</p>
+  <div class="script-box">Today I will give a talk about choosing a career. I think that different people have different ways to choose a career, but I think that a lot of people choose a career. Depends on what they are good at and what they want to be, what they enjoy doing, but… But not always. I think that people start, personally, I think that people begin making plans for the future. In their childhood, the real plans, like for example what will happen in five years, they think about it in high school or maybe in college. Well, if you want to prepare for your future profession, you may enroll on a course or go to college for example. And if your profession needs higher education, go to the university. Honestly, I choose to be a translator for my future profession because these things that I really can do, can do good and I understand English and I love learning languages. That's all I wanted to say.</div>
+
+  <p class="h3">Что есть в тексте</p>
+  <ul style="margin:0 0 14px 22px;line-height:1.65;font-size:.94rem">
+    <li>Вступление: «Today I will give a talk about choosing a career». Есть, «would like to» отсутствует.</li>
+    <li>Аспект 1 (как выбирают): «different people have different ways to choose a career» — есть, с тавтологией.</li>
+    <li>Аспект 2 (когда начинают): «in their childhood… high school or college» — есть.</li>
+    <li>Аспект 3 (как готовятся): «enrol on a course / go to college / go to university» — есть.</li>
+    <li>Аспект 4 (личный выбор): «I choose to be a translator because I understand English and I love learning languages» — есть.</li>
+    <li>Заключение: «That's all I wanted to say» — есть, «Thanks for your attention» отсутствует.</li>
+  </ul>
+
+  <p class="h3 h3-miss">Что править</p>
+  <table class="errs">
+    <thead><tr><th>Что было</th><th>Как надо</th><th>Почему</th></tr></thead>
+    <tbody>
+      <tr><td class="was">I <b>will</b> give a talk</td><td class="fix">I <b>would like to</b> give a talk</td><td class="why">Обязательная OGE-frame. У тебя во всех monologue она хромает — учи её первой.</td></tr>
+      <tr><td class="was">I think that different people have different ways to choose a career, but I think that a lot of people choose a career</td><td class="fix">Different people choose a career in different ways.</td><td class="why">Тавтология «choose a career» × 2 в одном предложении. Одна чистая фраза лучше двух путаных.</td></tr>
+      <tr><td class="was">Depends on what they are good at</td><td class="fix"><b>It</b> depends on what they are good at</td><td class="why">Пропущен субъект. В английском предложение без подлежащего звучит рвано.</td></tr>
+      <tr><td class="was">I think that people start, personally, I think that people begin</td><td class="fix">Personally, I think people begin</td><td class="why">Двойное «I think that people» — хезитация. Оставить одну версию.</td></tr>
+      <tr><td class="was">go to the university</td><td class="fix">go to university</td><td class="why">В BrE «университет как этап» — без артикля: <em>go to university, go to school, go to hospital</em>.</td></tr>
+      <tr><td class="was">these things that I really can do, can do good</td><td class="fix">this is something I can really do well</td><td class="why">1) «Things» → «something». 2) <b>do good</b> = делать добро (моральное). <b>do well</b> = делать хорошо (умение).</td></tr>
+      <tr><td class="was">That's all I wanted to say.</td><td class="fix">That's all I wanted to say. <b>Thanks for your attention.</b></td><td class="why">Концовка неполная. Обе фразы обязательны — вторая = +1 балл к организации.</td></tr>
+      <tr><td class="was">нет структурных connectors</td><td class="fix">First, / Second, / Also, / To sum up,</td><td class="why">Есть Well / Honestly / Personally — они good, но для K2 нужны явные First/To sum up.</td></tr>
+    </tbody>
+  </table>
+
+  <p class="h3">Оценка по шкале ФИПИ ОГЭ 2026 (задание 3, макс 7)</p>
+  <div class="scores">
+    <div class="score-cell"><div class="k">К1 · Комм. задача</div><div class="v">2<small>/3</small></div></div>
+    <div class="score-cell"><div class="k">К2 · Организация</div><div class="v">1<small>/2</small></div></div>
+    <div class="score-cell"><div class="k">К3 · Языковое оф.</div><div class="v">1<small>/2</small></div></div>
+    <div class="score-cell total-cell"><div class="k">ИТОГО</div><div class="v">4<small>/7</small></div></div>
+  </div>
+  <div class="verdict"><b>К1 · 2/3</b>: 4 аспекта затронуты, 1 (когда начинают) раскрыт неточно.<br><b>К2 · 1/2</b>: открытие без «would like to», концовка без «Thanks for your attention» — обе frames неполные.<br><b>К3 · 1/2</b>: 4 л-г ошибки — «will give» → would like to give; тавтология «I think that…, but I think that»; «go to the university» → go to university; «can do good» → can do well.</div>
+</section>
+
+<!-- =============== SECTION 4 · MONOLOGUE 3 · CAREER v2 =============== -->
+<section class="section" id="mono3">
+  <div class="sec-hdr">
+    <span class="sec-tag">Speaking · Task 3</span>
+    <h2>Monologue #3 · Choosing a career · вторая попытка</h2>
+    <span class="task-note">2:30 · та же тема, лучше frames</span>
+  </div>
+
+  <p class="h3">Расшифровка (2:30 · склейка двух файлов)</p>
+  <div class="script-box">Today I would like to give a talk about choosing a career. I think people choose the career for two [reasons] because they are different and their [tastes] are so different. Most of people [choose] the career for the stability future and also for their soul. Usually people usually be making [plans] when they're [little] because they're around their parents who give them examples for their life. I think people can prepare for the future profession — [it] is harder when they [have to choose] a subject. I think that there are many [things] that they will need in the future for their job. I think I choose my future profession for myself because I… Um… [Avocation / vocation] [склейка] I want to be [a director] because I think it is my [vocation]. I like this movie industry and it is very important for my life. That's all I wanted to say. Thank you for your attention.</div>
+
+  <p class="h3">Что есть в тексте</p>
+  <ul style="margin:0 0 14px 22px;line-height:1.65;font-size:.94rem">
+    <li>Вступление: «Today I would like to give a talk about choosing a career» — полное.</li>
+    <li>Аспект 1 (причины выбора): «for two options because they are different» — затронут (options → reasons).</li>
+    <li>Аспект 2 (когда начинают): «when they're little» — есть.</li>
+    <li>Аспект 3 (как готовятся): «if you want to prepare, enrol on a course, go to college, go to university» — есть.</li>
+    <li>Аспект 4 (личный выбор): «I want to be a director because it is my vocation» — есть.</li>
+    <li>Заключение: «That's all I wanted to say. Thank you for your attention.» — полное.</li>
+  </ul>
+
+  <p class="h3 h3-miss">Что править</p>
+  <table class="errs">
+    <thead><tr><th>Что было</th><th>Как надо</th><th>Почему</th></tr></thead>
+    <tbody>
+      <tr><td class="was">for two options</td><td class="fix">for two reasons</td><td class="why">«Options» = варианты. «Reasons» = причины. Ты имеешь в виду <b>причины</b> выбора.</td></tr>
+      <tr><td class="was">Most of people</td><td class="fix">Most people</td><td class="why">Правило: <em>most + существительное во множ.</em> — без <b>of</b>. Or: <em>most of the people</em> (с определённым артиклем).</td></tr>
+      <tr><td class="was">for the stability future</td><td class="fix">for a stable future</td><td class="why">Прилагательное перед существительным: <em>stable future</em>, не <em>stability future</em> (существительное+существительное).</td></tr>
+      <tr><td class="was">for their soul</td><td class="fix">because they love it / for their passion</td><td class="why">«For the soul» = русская калька «для души». В английском такой формы нет.</td></tr>
+      <tr><td class="was">Usually people usually be making plans</td><td class="fix">Usually people make plans / People usually make plans</td><td class="why">1) Двойное «usually» — уберите одно. 2) <b>be making</b> нельзя без «are/is» — сломанная конструкция. Present Simple: <em>people make</em>.</td></tr>
+      <tr><td class="was">when they're legal</td><td class="fix">when they are little / when they are children</td><td class="why">«Legal» = совершеннолетний в юр. смысле (18+). Ты имеешь в виду «маленькие» — <b>little</b>.</td></tr>
+      <tr><td class="was">people can prepare for the future profession is harder when they can for subject</td><td class="fix">preparing for the future is harder when you have to choose a school subject</td><td class="why">Синтаксис сломался. Разбей на одну чистую мысль: «готовиться сложно, когда надо выбрать предмет».</td></tr>
+      <tr><td class="was">many implications that they will need</td><td class="fix">many things / many skills they will need</td><td class="why">«Implications» = последствия / выводы. Не то слово. Простое <b>things</b> or <b>skills</b>.</td></tr>
+      <tr><td class="was">I want to be in the <b>direction</b></td><td class="fix">I want to be <b>a director</b></td><td class="why">Direction = направление. Director = режиссёр. Классический ложный друг.</td></tr>
+      <tr><td class="was">it is my vacation</td><td class="fix">it is my <b>vocation</b></td><td class="why">Vacation = отпуск. Vocation = призвание. Одна буква — совершенно разные слова.</td></tr>
+      <tr><td class="was">I like this movie industry</td><td class="fix">I love the movie industry</td><td class="why">«This movie industry» — как будто указываешь на конкретный фильм. Общее понятие → <b>the</b> movie industry.</td></tr>
+    </tbody>
+  </table>
+
+  <p class="h3">Оценка по шкале ФИПИ ОГЭ 2026 (задание 3, макс 7)</p>
+  <div class="scores">
+    <div class="score-cell"><div class="k">К1 · Комм. задача</div><div class="v">3<small>/3</small></div></div>
+    <div class="score-cell"><div class="k">К2 · Организация</div><div class="v">2<small>/2</small></div></div>
+    <div class="score-cell"><div class="k">К3 · Языковое оф.</div><div class="v">1<small>/2</small></div></div>
+    <div class="score-cell total-cell"><div class="k">ИТОГО</div><div class="v">6<small>/7</small></div></div>
+  </div>
+  <div class="verdict"><b>К1 · 3/3</b>: 4 аспекта раскрыты, есть личный ответ.<br><b>К2 · 2/2</b>: обе frames полные — «I would like to give a talk» и «That's all I wanted to say. Thank you for your attention».<br><b>К3 · 1/2</b>: 4 л-г ошибки — options → reasons; direction → director; vacation → vocation; stability future → stable future.</div>
+</section>
+
+<!-- =============== FIPI SHKALA · SUMMARY =============== -->
+<section class="section" id="fipi">
+  <div class="sec-hdr">
+    <span class="sec-tag" style="background:#4E7A2A">ФИПИ</span>
+    <h2>Итог по официальным критериям ОГЭ 2026</h2>
+    <span class="task-note">Приказ Рособрнадзора · демоверсия 2026</span>
+  </div>
+
+  <table class="errs">
+    <thead><tr><th>Работа</th><th style="color:var(--ok)">Балл</th><th style="color:var(--miss)">Из чего</th></tr></thead>
+    <tbody>
+      <tr><td class="why">Письмо Бену · ≈90 слов</td><td class="fix">7/10</td><td class="why">К1:2 · К2:2 · К3:1 · К4:2</td></tr>
+      <tr><td class="why">Monologue #1 · Snowboarding · 2:05</td><td class="fix">3/7</td><td class="why">К1:2 · К2:1 · К3:0</td></tr>
+      <tr><td class="why">Monologue #2 · Career v1 · 1:46</td><td class="fix">4/7</td><td class="why">К1:2 · К2:1 · К3:1</td></tr>
+      <tr><td class="why">Monologue #3 · Career v2 · 2:30</td><td class="fix"><b>6/7</b></td><td class="why">К1:3 · К2:2 · К3:1</td></tr>
+    </tbody>
+  </table>
+
+  <div class="verdict">Динамика: Snowboarding 3/7 → Career v1 4/7 → Career v2 6/7. Обязательные frames присутствуют только в Career v2. В остальных двух — открытие без «would like to» и заключение без «Thanks for your attention». Устойчивые ошибки К3 во всех трёх: калька с русского, потерянный would в условных, пропуск have в Present Perfect.</div>
+
+  <p class="h3" style="margin-top:16px">Точные формулировки уровней (для справки)</p>
+  <p style="font-size:.86rem;color:var(--muted);line-height:1.55;margin-bottom:8px"><b>Письмо · К1 (макс 3):</b> 3 = все аспекты + 1 неполный допускается · 2 = 1 не раскрыт ИЛИ 2-3 неполно · 1 = 2 не раскрыты ИЛИ 4 неполно · 0 = хуже.</p>
+  <p style="font-size:.86rem;color:var(--muted);line-height:1.55;margin-bottom:8px"><b>Письмо · К3 (макс 3):</b> 3 = 1 л-г ошибка · 2 = 2-3 · 1 = 4 · 0 = 5+.</p>
+  <p style="font-size:.86rem;color:var(--muted);line-height:1.55;margin-bottom:8px"><b>Письмо · К4 (макс 2):</b> 2 = 2 ошибки · 1 = 3-4 · 0 = 5+.</p>
+  <p style="font-size:.86rem;color:var(--muted);line-height:1.55"><b>Monologue · К1 (макс 3):</b> все 4 аспекта, 10-12 фраз, полно · <b>К2 (макс 2):</b> вступление + заключение обязательны · <b>К3 (макс 2):</b> 1-2 ошибки = 2 балла, 3-4 = 1, 5+ = 0.</p>
+</section>
+
+<!-- =============== PLAN =============== -->
+<div class="plan">
+  <h3>Что тянем на следующей паре (15-20 мин точечно)</h3>
+  <ol>
+    <li><b>Калька-детектор</b>: 5 частых русских фраз → английские эквиваленты:<br>
+      <em>For my opinion → In my opinion</em> · <em>it is not have matter → it doesn't matter</em> · <em>this two option → these two options</em> · <em>I think about this a lot of time → for a long time</em> · <em>take adrenaline → get an adrenaline rush</em>.
+    </li>
+    <li><b>Second Conditional pattern</b>: 8 пар <em>If I had… I would…</em>. Целевая ошибка — сохранить <b>would</b> в главном предложении.</li>
+    <li><b>Present Perfect с never</b>: <em>I have never tried / I have never been / I have never seen…</em> — 10 фраз на карточке.</li>
+    <li><b>Register test</b>: <em>Love / Best wishes / Yours faithfully / Yours sincerely</em> — кому какая подпись. Ben = <b>Best wishes</b>.</li>
+    <li><b>OGE Task 3 · обязательные frames</b>:<br>
+      1) <em>Today I would like to give a talk about…</em><br>
+      2) <em>First, / Second, / Also,</em><br>
+      3) <em>In my opinion,</em><br>
+      4) <em>To sum up,</em><br>
+      5) <em>That's all I wanted to say. Thanks for your attention.</em><br>
+      Выучи наизусть — каждая даёт балл за организацию.
+    </li>
+    <li><b>Q-mapping тренировка</b>: возьми 5 писем-заданий и подчеркни все вопросительные знаки в тексте письма. Subject строка — <b>не тема запроса</b>, тема — внутри самого письма.</li>
+  </ol>
+</div>
+
+<footer>
+  Разбор · Мария · 2026-09-03 · newgeneration-english.ru
+</footer>
+
+</div>
+</body>
+</html>
