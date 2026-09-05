@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light-lab">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Personality Adjectives · A2 · Katya · NG Lab</title>
+<meta name="description" content="Personality adjectives · 19 слов + антонимы · 3 подвкладки (Positive, Negative, Temperament) · 11 Quizlet-style механик в каждой · Flashcards · Match · Type · Listen · Scramble · Fill-blank · T/F · Sentence builder · Sprint · Reverse · Learn.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800;900&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --display:'Unbounded',ui-sans-serif,system-ui,sans-serif;
+  --body:'Manrope',ui-sans-serif,system-ui,sans-serif;
+  --bg:#FFF6EE;--surface:#FFFFFF;--accent:#E88B4F;--accent2:#B94F1F;--accent3:#F4C29A;
+  --text:#24304A;--muted:#6D7A94;--line:#F2E1CB;--ok:#4caf50;--miss:#ef5350;--gold:#F4C84B;
+}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{font-family:var(--body);background:var(--bg);color:var(--text);line-height:1.55;font-size:16px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1160px;margin:0 auto;padding:20px clamp(14px,3vw,28px)}
+header.hero{background:linear-gradient(135deg,rgba(232,139,79,.72) 0%,rgba(185,79,31,.86) 100%),url('assets/hero.jpg') center/cover no-repeat;color:#FFF6EE;border-radius:18px;padding:clamp(20px,3.5vw,32px);box-shadow:0 8px 24px rgba(185,79,31,.25);margin-bottom:18px;min-height:180px;position:relative;overflow:hidden}
+.eyebrow{font-size:.74rem;font-weight:900;letter-spacing:.24em;text-transform:uppercase;color:#FFE7D0;margin-bottom:6px}
+h1{font-family:var(--display);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;margin:0 0 8px;letter-spacing:-.02em;line-height:1.1}
+.hero-lead{font-size:.94rem;opacity:.94;max-width:720px}
+
+.prog{position:sticky;top:0;background:rgba(245,247,251,.96);backdrop-filter:blur(10px);padding:8px 12px;margin:-20px calc(-1 * clamp(14px,3vw,28px)) 12px;border-bottom:1px solid var(--line);z-index:60;display:flex;gap:10px;align-items:center;max-width:1160px}
+.prog-track{flex:1;height:8px;background:#E1E7F0;border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0;transition:.4s}
+.prog-count{font-family:var(--display);font-weight:900;color:var(--accent2);font-size:.82rem}
+
+.tabs{position:sticky;top:52px;background:rgba(245,247,251,.96);backdrop-filter:blur(10px);padding:8px 0;z-index:50;border-bottom:1px solid var(--line)}
+.tabs-inner{display:flex;flex-wrap:wrap;gap:6px;max-width:1160px;margin:0 auto;padding:0 6px}
+.tab{background:#fff;border:2px solid var(--line);color:var(--muted);padding:8px 14px;border-radius:10px;font-family:var(--display);font-weight:800;font-size:.84rem;cursor:pointer;transition:.15s;display:flex;align-items:center;gap:6px}
+.tab:hover{border-color:var(--accent);color:var(--accent2)}
+.tab.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-color:var(--accent2);box-shadow:0 3px 10px rgba(232,139,79,.35)}
+.tab .badge{background:rgba(255,255,255,.25);border-radius:20px;padding:2px 7px;font-size:.68rem;font-weight:700}
+.tab:not(.active) .badge{background:var(--line);color:var(--muted)}
+
+.sub-tabs-wrap{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px;margin:10px 0}
+.sub-tabs{display:flex;flex-wrap:wrap;gap:6px}
+.stab{background:#FFF6EE;border:1px solid var(--line);color:var(--muted);padding:6px 12px;border-radius:8px;font-family:var(--body);font-weight:700;font-size:.78rem;cursor:pointer;transition:.15s}
+.stab:hover{border-color:var(--accent);color:var(--accent2)}
+.stab.active{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 2px 6px rgba(232,139,79,.3)}
+
+.ex-hdr{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;padding:14px 18px;border-radius:12px;margin:14px 0 12px}
+.ex-hdr h2{font-family:var(--display);font-weight:800;font-size:1.1rem;margin:0 0 3px}
+.ex-hdr .sub{font-size:.82rem;opacity:.92}
+
+.mech-nav{display:flex;flex-wrap:wrap;gap:5px;margin:12px 0}
+.mech-btn{background:#fff;border:1.5px solid var(--line);color:var(--muted);padding:6px 11px;border-radius:20px;font-family:var(--body);font-weight:700;font-size:.75rem;cursor:pointer;transition:.15s}
+.mech-btn:hover{border-color:var(--accent);color:var(--accent2)}
+.mech-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+.mech{display:none;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 2px 8px rgba(185,79,31,.06)}
+.mech.active{display:block;animation:fade .25s}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.mech-title{font-family:var(--display);font-weight:800;color:var(--accent2);font-size:1rem;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.mech-hint{font-size:.8rem;color:var(--muted);margin-bottom:12px;font-style:italic}
+.score{text-align:center;font-family:var(--display);font-weight:800;color:var(--accent2);margin-top:12px;min-height:22px;font-size:.95rem}
+
+.fc-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.fc-count{font-family:var(--display);font-weight:800;color:var(--accent2)}
+.fc-btns{display:flex;gap:6px}
+.fc-b{background:#fff;border:2px solid var(--accent);color:var(--accent2);border-radius:8px;padding:6px 12px;font-family:var(--display);font-weight:800;font-size:.82rem;cursor:pointer}
+.fc-b:hover{background:var(--accent);color:#fff}
+.fc-card{background:linear-gradient(135deg,#FFF6EE,#FFE7D0);border:2px solid var(--accent);border-radius:16px;padding:36px 20px;min-height:220px;text-align:center;cursor:pointer;position:relative;transition:transform .3s}
+.fc-card:hover{transform:translateY(-2px)}
+.fc-word{font-family:var(--display);font-weight:800;font-size:2rem;color:var(--accent2);margin-bottom:6px;line-height:1.2}
+.fc-ipa{font-family:'Courier New',monospace;font-size:.9rem;color:var(--accent);letter-spacing:.02em;margin-bottom:4px}
+.fc-pos{font-size:.72rem;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.fc-back{display:none;margin-top:14px;padding-top:14px;border-top:1px dashed var(--accent2)}
+.fc-back .ru{font-family:var(--display);font-weight:700;font-size:1.1rem;color:var(--accent2);margin-bottom:6px}
+.fc-back .ex{font-size:.85rem;font-style:italic;color:var(--text);line-height:1.4}
+.fc-card.revealed .fc-back{display:block}
+.fc-say{position:absolute;top:10px;right:10px;background:var(--accent2);color:#fff;border:none;border-radius:50%;width:36px;height:36px;font-size:.9rem;cursor:pointer}
+
+.mp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
+@media(max-width:600px){.mp-grid{grid-template-columns:repeat(3,1fr)}}
+.mp-c{aspect-ratio:1.2;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-radius:9px;display:grid;place-items:center;padding:6px;font-family:var(--display);font-weight:700;font-size:.72rem;text-align:center;cursor:pointer;user-select:none;transition:transform .2s;position:relative;line-height:1.15;word-break:break-word;hyphens:auto}
+.mp-c::after{content:"?";font-size:1.6rem;color:rgba(255,255,255,.55);position:absolute}
+.mp-c .txt{display:none}
+.mp-c.open,.mp-c.matched{background:#fff;color:var(--accent2);border:2px solid var(--accent2)}
+.mp-c.open::after,.mp-c.matched::after{content:""}
+.mp-c.open .txt,.mp-c.matched .txt{display:block}
+.mp-c.matched{background:#E8F5E9;color:var(--ok);border-color:var(--ok);opacity:.9}
+.mp-c.wrong{animation:shake .35s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+
+.typ-row{background:#FFF6EE;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:6px 0;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.typ-num{font-family:var(--display);font-weight:900;color:var(--accent2);min-width:22px}
+.typ-q{flex:1;font-weight:700;font-size:.92rem;min-width:140px}
+.typ-inp{width:180px;padding:6px 10px;border:2px solid var(--accent);border-radius:8px;font-family:var(--body);font-weight:700;color:var(--text);background:#fff;text-align:center;outline:none;font-size:.9rem}
+.typ-inp.right{background:#E8F5E9;border-color:var(--ok);color:var(--ok)}
+.typ-inp.wrong{background:#FFEBEE;border-color:var(--miss);color:var(--miss)}
+.typ-show{background:transparent;color:var(--muted);border:1px dashed var(--muted);border-radius:6px;padding:4px 8px;font-size:.72rem;font-weight:700;cursor:pointer}
+.mech-check{background:var(--accent2);color:#fff;border:none;border-radius:10px;padding:9px 18px;font-family:var(--display);font-weight:800;font-size:.85rem;cursor:pointer;margin-top:8px}
+.mech-check:hover{background:#8f3d18}
+
+.lt-panel{background:#FFF6EE;border:2px solid var(--accent);border-radius:14px;padding:20px;text-align:center;margin:8px 0}
+.lt-play{background:var(--accent);color:#fff;border:none;border-radius:50%;width:60px;height:60px;font-size:1.4rem;cursor:pointer;box-shadow:0 4px 12px rgba(232,139,79,.35);margin-bottom:12px}
+.lt-inp{width:80%;max-width:340px;padding:12px 14px;border:2px solid var(--accent);border-radius:10px;font-family:var(--body);font-size:1.02rem;color:var(--text);background:#fff;text-align:center;font-weight:600;outline:none}
+.lt-inp.right{background:#E8F5E9;border-color:var(--ok);color:var(--ok)}
+.lt-inp.wrong{background:#FFEBEE;border-color:var(--miss)}
+.lt-ctrl{display:flex;gap:6px;justify-content:center;margin-top:10px;flex-wrap:wrap}
+
+.sc-panel{background:linear-gradient(135deg,#FFF6EE,#FFE7D0);border:2px solid var(--accent);border-radius:14px;padding:16px;text-align:center}
+.sc-hint{font-size:.82rem;color:var(--muted);margin-bottom:8px}
+.sc-hint strong{color:var(--accent2);font-family:var(--display)}
+.sc-slots{display:flex;justify-content:center;flex-wrap:wrap;gap:5px;min-height:44px;padding:8px;background:#fff;border:2px dashed var(--accent2);border-radius:10px;margin-bottom:10px}
+.sc-slot{background:var(--accent2);color:#fff;padding:6px 12px;border-radius:8px;font-family:var(--display);font-weight:800;font-size:1rem;cursor:pointer;text-transform:uppercase;min-width:34px;text-align:center}
+.sc-slots.right{border-color:var(--ok)}
+.sc-slots.right .sc-slot{background:var(--ok)}
+.sc-slots.wrong{border-color:var(--miss);animation:shake .35s}
+.sc-letters{display:flex;justify-content:center;flex-wrap:wrap;gap:5px;margin:10px 0}
+.sc-l{background:#fff;border:2px solid var(--accent);color:var(--accent2);width:38px;height:38px;border-radius:8px;display:grid;place-items:center;font-family:var(--display);font-weight:900;font-size:1.05rem;cursor:pointer;text-transform:uppercase}
+.sc-l:hover{background:var(--accent);color:#fff}
+.sc-l.used{opacity:.3;pointer-events:none}
+.sc-ctrl{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+
+.fb-row{background:#FFF6EE;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:5px 0;font-size:.93rem;line-height:1.5}
+.fb-inp{padding:3px 8px;border:2px solid var(--accent);border-radius:6px;font-weight:700;color:var(--accent2);background:#fff;width:130px;text-align:center;outline:none;font-size:.86rem;margin:0 4px}
+.fb-inp.right{background:#E8F5E9;border-color:var(--ok);color:var(--ok)}
+.fb-inp.wrong{background:#FFEBEE;border-color:var(--miss);color:var(--miss)}
+
+.tf-row{background:#FFF6EE;border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:9px 12px;margin:5px 0;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tf-t{flex:1;font-size:.88rem;min-width:150px}
+.tf-b{background:#fff;border:2px solid var(--accent);color:var(--accent2);padding:5px 12px;border-radius:6px;font-family:var(--display);font-weight:800;font-size:.76rem;cursor:pointer}
+.tf-b.right{background:var(--ok);border-color:var(--ok);color:#fff}
+.tf-b.wrong{background:var(--miss);border-color:var(--miss);color:#fff}
+
+.sb-row{background:#FFF6EE;border:1px solid var(--line);border-radius:10px;padding:12px;margin:6px 0}
+.sb-target{font-size:.82rem;color:var(--muted);margin-bottom:6px;font-style:italic}
+.sb-target strong{color:var(--accent2);font-family:var(--display);font-style:normal}
+.sb-slots{display:flex;flex-wrap:wrap;gap:5px;padding:8px;background:#fff;border:2px dashed var(--accent);border-radius:8px;min-height:40px;margin:6px 0}
+.sb-slot{background:var(--accent2);color:#fff;padding:5px 10px;border-radius:6px;font-weight:700;font-size:.86rem;cursor:pointer}
+.sb-slots.right{border-color:var(--ok);background:#F0FBF0}
+.sb-slots.right .sb-slot{background:var(--ok)}
+.sb-slots.wrong{border-color:var(--miss);animation:shake .35s}
+.sb-bank{display:flex;flex-wrap:wrap;gap:5px}
+.sb-w{background:#fff;border:2px solid var(--accent);color:var(--accent2);padding:5px 11px;border-radius:6px;font-weight:700;font-size:.86rem;cursor:pointer}
+.sb-w:hover{background:var(--accent);color:#fff}
+.sb-w.used{opacity:.3;pointer-events:none;text-decoration:line-through}
+
+.sp-panel{background:linear-gradient(135deg,var(--accent2),#24304A);color:#fff;border-radius:14px;padding:20px;text-align:center}
+.sp-timer{font-family:var(--display);font-weight:900;font-size:2.4rem;color:var(--gold);margin:4px 0}
+.sp-word{font-family:var(--display);font-weight:800;font-size:1.3rem;min-height:32px;margin:8px 0}
+.sp-inp{width:80%;max-width:280px;padding:10px 14px;border:2px solid var(--accent);border-radius:10px;background:rgba(255,255,255,.95);color:var(--text);text-align:center;font-weight:700;outline:none;font-size:1rem}
+.sp-btn{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:9px 20px;font-family:var(--display);font-weight:800;cursor:pointer;margin:10px 4px 0;font-size:.9rem}
+.sp-score{color:var(--gold);font-family:var(--display);font-weight:800;font-size:1rem;margin-top:6px}
+
+.ln-panel{background:linear-gradient(135deg,#FFF6EE,#FFE7D0);border:2px solid var(--accent);border-radius:16px;padding:24px 20px;text-align:center;min-height:240px}
+.ln-prog{font-size:.82rem;color:var(--muted);margin-bottom:10px}
+.ln-prog strong{color:var(--accent2);font-family:var(--display)}
+.ln-w{font-family:var(--display);font-weight:800;font-size:1.8rem;color:var(--accent2);margin:14px 0;min-height:40px}
+.ln-hint{font-size:.88rem;color:var(--text);margin:6px 0}
+.ln-hint strong{color:var(--accent2)}
+.ln-ex{font-size:.84rem;color:var(--muted);font-style:italic;margin-top:8px;line-height:1.5;display:none}
+.ln-panel.revealed .ln-ex{display:block}
+.ln-acts{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.ln-b{padding:9px 18px;border-radius:10px;font-family:var(--display);font-weight:800;font-size:.85rem;cursor:pointer;border:none}
+.ln-b.rev{background:var(--accent3);color:#fff}
+.ln-b.kn{background:var(--ok);color:#fff}
+.ln-b.st{background:var(--miss);color:#fff}
+.ln-b.say{background:var(--accent);color:#fff;border-radius:50%;width:40px;padding:0;font-size:1rem}
+.ln-b.start{background:var(--accent);color:#fff}
+
+footer{text-align:center;color:var(--muted);font-size:.76rem;padding:20px 0}
+</style>
+<script>window.AUDIO_MANIFEST = {"generous":"generous.mp3","My grandma is very generous with sweets.":"my-grandma-is-very-generous-with-sweets.mp3","mature":"mature.mp3","He's very mature for a 13-year-old.":"he-s-very-mature-for-a-13-year-old.mp3","honest":"honest.mp3","Please be honest with me.":"please-be-honest-with-me.mp3","determined":"determined.mp3","She's determined to become a doctor.":"she-s-determined-to-become-a-doctor.mp3","confident":"confident.mp3","He feels confident before every exam.":"he-feels-confident-before-every-exam.mp3","polite":"polite.mp3","Always be polite to teachers.":"always-be-polite-to-teachers.mp3","modest":"modest.mp3","She's modest about her medals.":"she-s-modest-about-her-medals.mp3","rude":"rude.mp3","Don't be rude to your sister.":"don-t-be-rude-to-your-sister.mp3","arrogant":"arrogant.mp3","He is arrogant and never listens.":"he-is-arrogant-and-never-listens.mp3","mean":"mean.mp3","Why are you so mean to the cat?":"why-are-you-so-mean-to-the-cat.mp3","weak":"weak.mp3","I felt weak after the flu.":"i-felt-weak-after-the-flu.mp3","nasty":"nasty.mp3","She said something nasty about my hair.":"she-said-something-nasty-about-my-hair.mp3","impatient":"impatient.mp3","He's very impatient in the queue.":"he-s-very-impatient-in-the-queue.mp3","dishonest":"dishonest.mp3","I hate dishonest people.":"i-hate-dishonest-people.mp3","patient":"patient.mp3","My mum is very patient with little kids.":"my-mum-is-very-patient-with-little-kids.mp3","sensitive":"sensitive.mp3","She's very sensitive, don't shout at her.":"she-s-very-sensitive-don-t-shout-at-her.mp3","quiet":"quiet.mp3","He's a quiet boy, but very kind.":"he-s-a-quiet-boy-but-very-kind.mp3","shy":"shy.mp3","I was shy on my first day at school.":"i-was-shy-on-my-first-day-at-school.mp3","talkative":"talkative.mp3","My grandma is very talkative.":"my-grandma-is-very-talkative.mp3"};</script>
+  <script src="/lingua-boost-lab/assets/premium-lesson-guard.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">Vocab · A2 · Katya</div>
+  <h1>Personality Adjectives · 19 traits</h1>
+  <p class="hero-lead">Все слова темы «What is she like?» · 3 подвкладки (Positive, Negative, Temperament) · 11 Quizlet-style механик в каждой · edge-tts Sonia British audio, никаких синтетических голосов.</p>
+</header>
+
+<div class="prog">
+  <span style="font-family:var(--display);font-weight:800;color:var(--accent2);font-size:.82rem">Progress</span>
+  <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:5%"></div></div>
+  <span class="prog-count" id="prog-count">start</span>
+</div>
+
+<div class="tabs">
+  <div class="tabs-inner">
+    <button class="tab active" data-tab="pos">✨ Positive <span class="badge">7</span></button>
+    <button class="tab" data-tab="neg">💢 Negative <span class="badge">7</span></button>
+    <button class="tab" data-tab="tmp">🌊 Temperament <span class="badge">5</span></button>
+    <button class="tab" data-tab="learn">📚 Learn all <span class="badge">Quizlet</span></button>
+  </div>
+</div>
+
+<div id="app"></div>
+
+<footer>
+  Personality Adjectives · 3 подвкладки × 11 механик · edge-tts Sonia British audio · Katya · A2 · NG Lab · 2026
+</footer>
+
+</div>
+
+<script>
+/* ═══════════════════ AUDIO · ONLY edge-tts MP3 · NO Web Speech fallback ═══════════════════ */
+/* Regulation: never use Web Speech synth (falls back to Russian/Japanese system voice). */
+let audioManifest = window.AUDIO_MANIFEST || {};
+let audioCache = {};
+
+function say(t, rate=0.92){
+  if(!t) return;
+  const f = audioManifest[t];
+  if(!f){ console.warn('[audio] no mp3 for:', t); return; }
+  if(!audioCache[f]) audioCache[f] = new Audio('assets/audio/'+f);
+  const a = audioCache[f];
+  Object.values(audioCache).forEach(x => { if(x !== a){ x.pause(); x.currentTime = 0; } });
+  a.currentTime = 0; a.playbackRate = rate;
+  a.play().catch(err => console.warn('[audio] play failed:', f, err));
+}
+function shuffle(a){ return a.slice().sort(() => Math.random() - 0.5); }
+
+/* ═══════════════════ VOCAB DATA ═══════════════════ */
+/* ✨ POSITIVE · 7 */
+const POS = {
+  title: '✨ Positive traits',
+  intro: 'Что говорят про хорошего человека.',
+  vocab: [
+    {w:'generous',pos:'adj',ipa:'/ˈdʒenərəs/',ru:'щедрый',ex:'My grandma is very generous with sweets.'},
+    {w:'mature',pos:'adj',ipa:'/məˈtʃʊə/',ru:'зрелый, взрослый по поведению',ex:"He's very mature for a 13-year-old."},
+    {w:'honest',pos:'adj',ipa:'/ˈɒnɪst/',ru:'честный',ex:'Please be honest with me.'},
+    {w:'determined',pos:'adj',ipa:'/dɪˈtɜːmɪnd/',ru:'целеустремлённый, упорный',ex:"She's determined to become a doctor."},
+    {w:'confident',pos:'adj',ipa:'/ˈkɒnfɪdənt/',ru:'уверенный в себе',ex:'He feels confident before every exam.'},
+    {w:'polite',pos:'adj',ipa:'/pəˈlaɪt/',ru:'вежливый',ex:'Always be polite to teachers.'},
+    {w:'modest',pos:'adj',ipa:'/ˈmɒdɪst/',ru:'скромный',ex:"She's modest about her medals."}
+  ],
+  phrases: [
+    "My grandma is very generous with sweets.",
+    "He's very mature for a 13-year-old.",
+    "Please be honest with me.",
+    "She's determined to become a doctor.",
+    "He feels confident before every exam.",
+    "Always be polite to teachers.",
+    "She's modest about her medals."
+  ]
+};
+
+/* 💢 NEGATIVE · 7 */
+const NEG = {
+  title: '💢 Negative traits',
+  intro: 'Что говорят про неприятного человека — включая антонимы (im-, dis-).',
+  vocab: [
+    {w:'rude',pos:'adj',ipa:'/ruːd/',ru:'грубый',ex:"Don't be rude to your sister."},
+    {w:'arrogant',pos:'adj',ipa:'/ˈærəɡənt/',ru:'высокомерный',ex:'He is arrogant and never listens.'},
+    {w:'mean',pos:'adj',ipa:'/miːn/',ru:'злой, вредный',ex:'Why are you so mean to the cat?'},
+    {w:'weak',pos:'adj',ipa:'/wiːk/',ru:'слабый',ex:'I felt weak after the flu.'},
+    {w:'nasty',pos:'adj',ipa:'/ˈnɑːsti/',ru:'противный, гадкий',ex:'She said something nasty about my hair.'},
+    {w:'impatient',pos:'adj',ipa:'/ɪmˈpeɪʃənt/',ru:'нетерпеливый (im- + patient)',ex:"He's very impatient in the queue."},
+    {w:'dishonest',pos:'adj',ipa:'/dɪsˈɒnɪst/',ru:'нечестный (dis- + honest)',ex:'I hate dishonest people.'}
+  ],
+  phrases: [
+    "Don't be rude to your sister.",
+    "He is arrogant and never listens.",
+    "Why are you so mean to the cat?",
+    "I felt weak after the flu.",
+    "She said something nasty about my hair.",
+    "He's very impatient in the queue.",
+    "I hate dishonest people."
+  ]
+};
+
+/* 🌊 TEMPERAMENT · 5 (neutral / mixed) */
+const TMP = {
+  title: '🌊 Temperament',
+  intro: 'Слова про характер, которые сами по себе не хорошие и не плохие — зависит от ситуации.',
+  vocab: [
+    {w:'patient',pos:'adj',ipa:'/ˈpeɪʃənt/',ru:'терпеливый',ex:'My mum is very patient with little kids.'},
+    {w:'sensitive',pos:'adj',ipa:'/ˈsensɪtɪv/',ru:'чувствительный, ранимый',ex:"She's very sensitive, don't shout at her."},
+    {w:'quiet',pos:'adj',ipa:'/ˈkwaɪət/',ru:'тихий, немногословный',ex:"He's a quiet boy, but very kind."},
+    {w:'shy',pos:'adj',ipa:'/ʃaɪ/',ru:'застенчивый',ex:'I was shy on my first day at school.'},
+    {w:'talkative',pos:'adj',ipa:'/ˈtɔːkətɪv/',ru:'разговорчивый, болтливый',ex:'My grandma is very talkative.'}
+  ],
+  phrases: [
+    "My mum is very patient with little kids.",
+    "She's very sensitive, don't shout at her.",
+    "He's a quiet boy, but very kind.",
+    "I was shy on my first day at school.",
+    "My grandma is very talkative."
+  ]
+};
+
+/* ═══════════════════ ROUTING ═══════════════════ */
+const TOPICS = { pos: POS, neg: NEG, tmp: TMP };
+
+const app = document.getElementById('app');
+let currentTopic = 'pos';
+
+function renderTopic(topicKey){
+  currentTopic = topicKey;
+  if(topicKey === 'learn'){ renderLearnAll(); return; }
+  const data = TOPICS[topicKey];
+  app.innerHTML = `
+    <div class="ex-hdr">
+      <h2>${data.title}</h2>
+      <div class="sub">${data.intro} · ${data.vocab.length} слов · ${data.phrases.length} фраз</div>
+    </div>
+    <div class="mech-nav" id="mech-nav">
+      <button class="mech-btn active" data-m="fc">🎴 Flashcards</button>
+      <button class="mech-btn" data-m="mp">🃏 Match</button>
+      <button class="mech-btn" data-m="typ">✍️ Type EN</button>
+      <button class="mech-btn" data-m="rev">🔁 Reverse</button>
+      <button class="mech-btn" data-m="lt">🔊 Listen &amp; type</button>
+      <button class="mech-btn" data-m="sc">🔀 Scramble</button>
+      <button class="mech-btn" data-m="fb">📝 Fill-blank</button>
+      <button class="mech-btn" data-m="tf">✅ True/False</button>
+      <button class="mech-btn" data-m="sb">🧩 Sentence builder</button>
+      <button class="mech-btn" data-m="sp">⚡ Sprint 30s</button>
+      <button class="mech-btn" data-m="ln">📚 Learn</button>
+    </div>
+    <div id="mech-slot"></div>
+  `;
+  const nav = document.getElementById('mech-nav');
+  nav.querySelectorAll('.mech-btn').forEach(b => {
+    b.onclick = () => {
+      nav.querySelectorAll('.mech-btn').forEach(x => x.classList.toggle('active', x === b));
+      buildMech(b.dataset.m, data);
+    };
+  });
+  buildMech('fc', data);
+}
+
+/* ═══════════════════ MECHANICS FACTORY ═══════════════════ */
+function buildMech(key, data){
+  const slot = document.getElementById('mech-slot');
+  slot.innerHTML = `<div class="mech active" id="mech-body"></div>`;
+  const body = document.getElementById('mech-body');
+  const V = data.vocab, P = data.phrases;
+  ({fc:buildFC, mp:buildMP, typ:buildTYP, rev:buildREV, lt:buildLT, sc:buildSC, fb:buildFB, tf:buildTF, sb:buildSB, sp:buildSP, ln:buildLN}[key])(body, V, P);
+}
+
+/* 1. FLASHCARDS */
+function buildFC(el, V){
+  let i = 0;
+  function render(){
+    const v = V[i];
+    el.innerHTML = `
+      <div class="mech-title">🎴 Flashcards <span style="font-size:.75rem;color:var(--muted);font-weight:600">tap card to flip · ← → nav</span></div>
+      <div class="fc-nav">
+        <span class="fc-count">${i+1} / ${V.length}</span>
+        <div class="fc-btns">
+          <button class="fc-b" data-fc="prev">←</button>
+          <button class="fc-b" data-fc="next">→</button>
+          <button class="fc-b" data-fc="shuffle">🔀 Shuffle</button>
+        </div>
+      </div>
+      <div class="fc-card" id="fc-card">
+        <button class="fc-say" onclick="event.stopPropagation();say(${JSON.stringify(v.w).replace(/"/g,'&quot;')})" title="Listen">🔊</button>
+        <div class="fc-word">${v.w}</div>
+        <div class="fc-ipa">${v.ipa||''}</div>
+        <div class="fc-pos">${v.pos||''}</div>
+        <div class="fc-back">
+          <div class="ru">${v.ru}</div>
+          <div class="ex">${v.ex||''}</div>
+        </div>
+      </div>
+    `;
+    const card = document.getElementById('fc-card');
+    card.onclick = () => { card.classList.toggle('revealed'); if(card.classList.contains('revealed')) say(v.w); };
+    el.querySelector('[data-fc="prev"]').onclick = () => { i = (i-1+V.length)%V.length; render(); };
+    el.querySelector('[data-fc="next"]').onclick = () => { i = (i+1)%V.length; render(); };
+    el.querySelector('[data-fc="shuffle"]').onclick = () => { V.sort(() => Math.random()-.5); i=0; render(); };
+  }
+  render();
+}
+
+/* 2. MATCH */
+function buildMP(el, V){
+  const pairs = V.slice(0, Math.min(8, V.length));
+  const cards = [];
+  pairs.forEach((v,i) => { cards.push({s:'ru',t:v.ru,p:i}); cards.push({s:'en',t:v.w,p:i}); });
+  const shuffled = shuffle(cards);
+  el.innerHTML = `
+    <div class="mech-title">🃏 Match RU ↔ EN</div>
+    <div class="mech-hint">tap 2 cards to make a pair</div>
+    <div class="mp-grid" id="mp-grid">${shuffled.map(c => `<div class="mp-c" data-p="${c.p}" data-s="${c.s}"><span class="txt">${c.t}</span></div>`).join('')}</div>
+    <div class="score" id="mp-score">0 / ${pairs.length} pairs</div>
+  `;
+  let open = null, matched = 0, busy = false;
+  el.querySelectorAll('.mp-c').forEach(c => {
+    c.onclick = () => {
+      if(busy || c.classList.contains('open') || c.classList.contains('matched')) return;
+      c.classList.add('open');
+      if(!open){ open = c; return; }
+      busy = true;
+      if(open.dataset.p === c.dataset.p && open.dataset.s !== c.dataset.s){
+        setTimeout(() => { open.classList.add('matched'); c.classList.add('matched'); open.classList.remove('open'); c.classList.remove('open'); open=null; busy=false; matched++; document.getElementById('mp-score').textContent = `${matched} / ${pairs.length} pairs`; if(matched===pairs.length) document.getElementById('mp-score').innerHTML = `🎉 all ${pairs.length} matched!`; say(c.dataset.s==='en'?c.querySelector('.txt').textContent:''); }, 300);
+      } else {
+        c.classList.add('wrong');
+        setTimeout(() => { open.classList.remove('open'); c.classList.remove('open','wrong'); open=null; busy=false; }, 600);
+      }
+    };
+  });
+}
+
+/* 3. TYPE EN */
+function buildTYP(el, V){
+  const items = V.slice();
+  el.innerHTML = `
+    <div class="mech-title">✍️ Type EN by RU</div>
+    <div class="mech-hint">RU-подсказка → напечатай английское слово</div>
+    ${items.map((v,i) => `
+      <div class="typ-row">
+        <span class="typ-num">${i+1}</span>
+        <span class="typ-q">${v.ru}</span>
+        <input class="typ-inp" data-a="${v.w.replace(/"/g,'&quot;')}" placeholder="?">
+        <button class="typ-show" data-show="${v.w.replace(/"/g,'&quot;')}">Show</button>
+      </div>
+    `).join('')}
+    <div style="text-align:center"><button class="mech-check" id="typ-check">✓ Check</button></div>
+    <div class="score" id="typ-score"></div>
+  `;
+  el.querySelectorAll('.typ-show').forEach(b => b.onclick = () => { const inp = b.previousElementSibling; inp.value = b.dataset.show; inp.classList.add('right'); });
+  document.getElementById('typ-check').onclick = () => {
+    const inps = [...el.querySelectorAll('.typ-inp')];
+    let r = 0;
+    inps.forEach(i => { const v = (i.value||'').trim().toLowerCase(); if(v === i.dataset.a.toLowerCase()){ i.classList.remove('wrong'); i.classList.add('right'); r++; } else { i.classList.remove('right'); i.classList.add('wrong'); } });
+    document.getElementById('typ-score').textContent = `${r} / ${inps.length} correct`;
+  };
+}
+
+/* 4. REVERSE · EN→RU */
+function buildREV(el, V){
+  const items = V.slice();
+  el.innerHTML = `
+    <div class="mech-title">🔁 Reverse · EN → RU</div>
+    <div class="mech-hint">EN-слово → напиши перевод по-русски (первое слово)</div>
+    ${items.map((v,i) => `
+      <div class="typ-row">
+        <span class="typ-num">${i+1}</span>
+        <span class="typ-q" style="font-family:var(--display);color:var(--accent2)">${v.w}</span>
+        <input class="typ-inp" data-ru="${v.ru.replace(/"/g,'&quot;').toLowerCase()}" placeholder="перевод…">
+        <button class="typ-show" data-show="${v.ru.replace(/"/g,'&quot;')}">Show</button>
+      </div>
+    `).join('')}
+    <div style="text-align:center"><button class="mech-check" id="rev-check">✓ Check</button></div>
+    <div class="score" id="rev-score"></div>
+  `;
+  el.querySelectorAll('.typ-show').forEach(b => b.onclick = () => { const inp = b.previousElementSibling; inp.value = b.dataset.show; inp.classList.add('right'); });
+  document.getElementById('rev-check').onclick = () => {
+    const inps = [...el.querySelectorAll('.typ-inp')];
+    let r = 0;
+    inps.forEach(i => {
+      const v = (i.value||'').trim().toLowerCase();
+      const t = i.dataset.ru;
+      const firstWord = t.split(/[,\s(]/)[0];
+      if(v && (v === t || t.startsWith(v) || v === firstWord || t.includes(v))){ i.classList.remove('wrong'); i.classList.add('right'); r++; }
+      else { i.classList.remove('right'); i.classList.add('wrong'); }
+    });
+    document.getElementById('rev-score').textContent = `${r} / ${inps.length} correct`;
+  };
+}
+
+/* 5. LISTEN & TYPE */
+function buildLT(el, V){
+  const items = V.slice();
+  let i = 0;
+  function render(){
+    const v = items[i];
+    el.innerHTML = `
+      <div class="mech-title">🔊 Listen &amp; type</div>
+      <div class="mech-hint">🎧 нажми play, слушай, напечатай что услышал</div>
+      <div class="lt-panel">
+        <div style="font-size:.82rem;color:var(--muted);margin-bottom:6px">#${i+1} / ${items.length}</div>
+        <button class="lt-play" onclick="say(${JSON.stringify(v.w).replace(/"/g,'&quot;')}, 0.7)">🔊</button>
+        <div><input class="lt-inp" placeholder="type what you hear…"></div>
+        <div class="lt-ctrl">
+          <button class="mech-check" data-lt-c>✓ Check</button>
+          <button class="fc-b" data-lt-s>↷ Skip</button>
+          <button class="fc-b" data-lt-r>💡 Show</button>
+        </div>
+      </div>
+    `;
+    const inp = el.querySelector('.lt-inp');
+    setTimeout(() => { inp.focus(); say(v.w, 0.7); }, 200);
+    inp.onkeydown = e => { if(e.key === 'Enter') el.querySelector('[data-lt-c]').click(); };
+    el.querySelector('[data-lt-c]').onclick = () => {
+      if((inp.value||'').trim().toLowerCase() === v.w.toLowerCase()){ inp.classList.add('right'); setTimeout(() => { i=(i+1)%items.length; render(); }, 700); }
+      else inp.classList.add('wrong');
+    };
+    el.querySelector('[data-lt-s]').onclick = () => { i=(i+1)%items.length; render(); };
+    el.querySelector('[data-lt-r]').onclick = () => { inp.value = v.w; inp.classList.add('right'); };
+  }
+  render();
+}
+
+/* 6. SCRAMBLE */
+function buildSC(el, V){
+  const items = V.filter(v => v.w.length <= 15 && !v.w.includes(' '));
+  if(!items.length){ el.innerHTML = `<div class="mech-title">🔀 Scramble</div><div class="mech-hint">Нет коротких слов для scramble в этой теме.</div>`; return; }
+  let i = 0;
+  function render(){
+    const w = items[i].w;
+    const L = shuffle(w.split(''));
+    el.innerHTML = `
+      <div class="mech-title">🔀 Word scramble</div>
+      <div class="mech-hint">tap буквы в правильном порядке</div>
+      <div class="sc-panel">
+        <div class="sc-hint"><strong>#${i+1} / ${items.length}</strong> · собери слово (${w.length} букв) · <button class="fc-b" onclick="say('${w}')" style="padding:3px 8px;font-size:.7rem">🔊</button></div>
+        <div class="sc-slots" data-sc-a></div>
+        <div class="sc-letters">${L.map(l => `<div class="sc-l" data-l="${l}">${l}</div>`).join('')}</div>
+        <div class="sc-ctrl">
+          <button class="mech-check" data-sc-c>✓ Check</button>
+          <button class="fc-b" data-sc-s>↷ Skip</button>
+          <button class="fc-b" data-sc-r>💡 Show</button>
+        </div>
+      </div>
+    `;
+    const ans = el.querySelector('[data-sc-a]');
+    el.querySelectorAll('.sc-l').forEach(l => {
+      l.onclick = () => {
+        if(l.classList.contains('used')) return;
+        const s = document.createElement('div'); s.className = 'sc-slot'; s.textContent = l.dataset.l;
+        s.onclick = () => { l.classList.remove('used'); s.remove(); };
+        ans.appendChild(s); l.classList.add('used');
+      };
+    });
+    el.querySelector('[data-sc-c]').onclick = () => {
+      const b = [...ans.querySelectorAll('.sc-slot')].map(s => s.textContent).join('');
+      if(b.toLowerCase() === w.toLowerCase()){ ans.classList.add('right'); say(w); setTimeout(() => { i=(i+1)%items.length; render(); }, 800); }
+      else ans.classList.add('wrong');
+    };
+    el.querySelector('[data-sc-s]').onclick = () => { i=(i+1)%items.length; render(); };
+    el.querySelector('[data-sc-r]').onclick = () => { ans.innerHTML = w.split('').map(l => `<div class="sc-slot">${l}</div>`).join(''); ans.classList.add('right'); };
+  }
+  render();
+}
+
+/* 7. FILL-BLANK — берём фразы и прячем ключевое слово */
+function buildFB(el, V, P){
+  const rows = [];
+  for(const p of P){
+    for(const v of V){
+      const w = v.w.split(/\s|\|/)[0];
+      const re = new RegExp('\\b' + w.replace(/[.*+?^${}()|[\\]\\\\]/g,'\\$&') + '\\b', 'i');
+      if(re.test(p) && !rows.some(r => r.p === p)){
+        rows.push({ p: p.replace(re, '____'), a: w.toLowerCase() });
+        break;
+      }
+    }
+  }
+  if(!rows.length){ el.innerHTML = `<div class="mech-title">📝 Fill-blank</div><div class="mech-hint">Нет фраз с ключевыми словами.</div>`; return; }
+  el.innerHTML = `
+    <div class="mech-title">📝 Fill-in-the-blank</div>
+    <div class="mech-hint">впиши пропущенное слово в предложение</div>
+    ${rows.map((r,i) => `
+      <div class="fb-row"><strong style="color:var(--accent2)">${i+1}.</strong> ${r.p.split('____')[0]}<input class="fb-inp" data-a="${r.a}" placeholder="?">${r.p.split('____')[1]||''}</div>
+    `).join('')}
+    <div style="text-align:center"><button class="mech-check" id="fb-check">✓ Check</button></div>
+    <div class="score" id="fb-score"></div>
+  `;
+  document.getElementById('fb-check').onclick = () => {
+    const inps = [...el.querySelectorAll('.fb-inp')];
+    let r = 0;
+    inps.forEach(i => { const v = (i.value||'').trim().toLowerCase(); if(v === i.dataset.a){ i.classList.remove('wrong'); i.classList.add('right'); r++; } else { i.classList.remove('right'); i.classList.add('wrong'); } });
+    document.getElementById('fb-score').textContent = `${r} / ${inps.length} correct`;
+  };
+}
+
+/* 8. TRUE / FALSE / NOT STATED · 3-option variant */
+function buildTF(el, V, P){
+  /* Готовим смесь True / False / Not Stated по фразам. */
+  const src = P.slice();
+  const items = src.map((p, idx) => {
+    const type = idx % 3; // 0=T, 1=F, 2=NS
+    if(type === 0) return { text: p, a: 'T' };
+    if(type === 1){
+      /* False: заменяем прилагательное на противоположное из другой темы */
+      const antonyms = {generous:'mean',mature:'weak',honest:'dishonest',determined:'weak',confident:'shy',polite:'rude',modest:'arrogant',rude:'polite',arrogant:'modest',mean:'generous',weak:'confident',nasty:'kind',impatient:'patient',dishonest:'honest',patient:'impatient',sensitive:'confident',quiet:'talkative',shy:'confident',talkative:'quiet'};
+      let alt = p;
+      for(const [orig, anti] of Object.entries(antonyms)){
+        const re = new RegExp('\\b' + orig + '\\b', 'i');
+        if(re.test(p)){ alt = p.replace(re, anti); break; }
+      }
+      return { text: alt, a: 'F' };
+    }
+    /* Not Stated: добавляем факт, которого нет во фразе */
+    return { text: p.replace(/\.$/, '') + ' every single day.', a: 'NS' };
+  });
+  el.innerHTML = `
+    <div class="mech-title">✅ True / False / Not Stated</div>
+    <div class="mech-hint">tap True (T) · False (F) · Not Stated (NS) — стандарт ОГЭ</div>
+    ${items.map((t, i) => `
+      <div class="tf-row">
+        <div class="tf-t"><strong>${i+1}.</strong> ${t.text}</div>
+        <button class="tf-b" data-v="T" data-a="${t.a}">True</button>
+        <button class="tf-b" data-v="F" data-a="${t.a}">False</button>
+        <button class="tf-b" data-v="NS" data-a="${t.a}">Not Stated</button>
+      </div>
+    `).join('')}
+  `;
+  el.querySelectorAll('.tf-b').forEach(b => {
+    b.onclick = () => {
+      const row = b.closest('.tf-row'); if(row.dataset.done) return; row.dataset.done = '1';
+      row.querySelectorAll('.tf-b').forEach(x => x.disabled = true);
+      if(b.dataset.v === b.dataset.a) b.classList.add('right');
+      else { b.classList.add('wrong'); [...row.querySelectorAll('.tf-b')].find(x => x.dataset.v === b.dataset.a).classList.add('right'); }
+    };
+  });
+}
+
+/* 9. SENTENCE BUILDER */
+function buildSB(el, V, P){
+  const items = P.filter(p => p.split(/\s+/).length <= 12);
+  if(!items.length){ el.innerHTML = `<div class="mech-title">🧩 Sentence builder</div><div class="mech-hint">Фразы слишком длинные для этой темы.</div>`; return; }
+  el.innerHTML = `
+    <div class="mech-title">🧩 Sentence builder</div>
+    <div class="mech-hint">tap слова в правильном порядке · tap slot чтобы вернуть слово</div>
+    ${items.map((s, i) => {
+      const words = s.replace(/[.,!?]/g,'').split(/\s+/);
+      const bank = shuffle(words);
+      return `<div class="sb-row" data-i="${i}" data-target='${JSON.stringify(words).replace(/'/g,"&#39;")}'>
+        <div class="sb-target"><strong>${i+1}.</strong> collect this sentence</div>
+        <div class="sb-slots"></div>
+        <div class="sb-bank">${bank.map(w => `<div class="sb-w" data-w="${w}">${w}</div>`).join('')}</div>
+        <div style="text-align:center"><button class="mech-check sb-c">✓ Check</button></div>
+      </div>`;
+    }).join('')}
+  `;
+  el.querySelectorAll('.sb-row').forEach(row => {
+    const slots = row.querySelector('.sb-slots');
+    row.querySelectorAll('.sb-w').forEach(w => {
+      w.onclick = () => {
+        if(w.classList.contains('used')) return;
+        const s = document.createElement('div'); s.className = 'sb-slot'; s.textContent = w.dataset.w;
+        s.onclick = () => { w.classList.remove('used'); s.remove(); slots.classList.remove('right','wrong'); };
+        slots.appendChild(s); w.classList.add('used');
+      };
+    });
+    row.querySelector('.sb-c').onclick = () => {
+      const b = [...slots.querySelectorAll('.sb-slot')].map(s => s.textContent).join(' ');
+      const t = JSON.parse(row.dataset.target).join(' ');
+      if(b === t){ slots.classList.add('right'); say(t); } else slots.classList.add('wrong');
+    };
+  });
+}
+
+/* 10. SPRINT · 30s */
+function buildSP(el, V){
+  el.innerHTML = `
+    <div class="mech-title">⚡ Sprint · 30 seconds</div>
+    <div class="mech-hint">RU → EN · максимум ответов за 30 секунд</div>
+    <div class="sp-panel">
+      <div class="sp-timer" id="sp-t">00:30</div>
+      <div class="sp-word" id="sp-w">tap Start to begin</div>
+      <input class="sp-inp" id="sp-i" placeholder="type EN…" disabled>
+      <div><button class="sp-btn" id="sp-btn">▶ Start 30s</button></div>
+      <div class="sp-score">score: <strong id="sp-s">0</strong></div>
+    </div>
+  `;
+  let timer, left, score, idx = 0, active = false;
+  const words = V.slice();
+  const t = document.getElementById('sp-t'), w = document.getElementById('sp-w'), i = document.getElementById('sp-i'), s = document.getElementById('sp-s'), b = document.getElementById('sp-btn');
+  const cur = () => words[idx % words.length];
+  i.oninput = () => {
+    if(!active) return;
+    const v = i.value.trim().toLowerCase();
+    if(v === cur().w.toLowerCase()){ score++; s.textContent = score; w.textContent = '✓ ' + cur().w; w.style.color = 'var(--ok)'; idx++; setTimeout(() => { w.style.color = '#fff'; w.textContent = cur().ru; i.value = ''; }, 250); }
+  };
+  i.onkeydown = e => { if(e.key === 'Enter' && active){ idx++; w.textContent = cur().ru; i.value = ''; } };
+  b.onclick = () => {
+    active = true; left = 30; score = 0; idx = 0;
+    i.disabled = false; i.value = ''; i.focus();
+    w.textContent = cur().ru; w.style.color = '#fff'; s.textContent = 0;
+    if(timer) clearInterval(timer);
+    timer = setInterval(() => {
+      left--;
+      t.textContent = `00:${String(left).padStart(2,'0')}`;
+      if(left <= 0){ clearInterval(timer); active = false; i.disabled = true; w.textContent = `⏱ time! score ${score}`; w.style.color = 'var(--gold)'; }
+    }, 1000);
+  };
+}
+
+/* 11. LEARN · Quizlet adaptive */
+function buildLN(el, V){
+  let stack = shuffle(V.slice()), known = 0, still = 0, current = null;
+  function render(){
+    if(stack.length === 0){
+      el.innerHTML = `<div class="mech-title">📚 Learn</div>
+        <div class="ln-panel"><h3 style="color:var(--ok);font-family:var(--display)">🎉 done!</h3>
+        <p>Известно с первого раза: <strong style="color:var(--ok)">${known}</strong> · возвращалось: <strong style="color:var(--miss)">${still}</strong></p>
+        <button class="ln-b start" onclick="location.reload()">🔄 New round</button></div>`;
+      return;
+    }
+    current = stack.shift();
+    el.innerHTML = `
+      <div class="mech-title">📚 Learn · Quizlet adaptive</div>
+      <div class="mech-hint">reveal → «знаю» уходит из стопки, «ещё раз» возвращается</div>
+      <div class="ln-panel" id="ln-p">
+        <div class="ln-prog">card · known <strong style="color:var(--ok)">${known}</strong> · still <strong style="color:var(--miss)">${still}</strong> · left <strong>${stack.length+1}</strong></div>
+        <div class="ln-w">${current.w}</div>
+        <div class="ln-hint"><em style="color:var(--muted)">tap Reveal → rate yourself</em></div>
+        <div class="ln-ex">—</div>
+        <div class="ln-acts">
+          <button class="ln-b say" onclick="say(${JSON.stringify(current.w).replace(/"/g,'&quot;')})">🔊</button>
+          <button class="ln-b rev" id="ln-r">👁 Reveal</button>
+          <button class="ln-b kn" id="ln-k" style="display:none">✓ Знаю</button>
+          <button class="ln-b st" id="ln-s" style="display:none">↺ Ещё раз</button>
+        </div>
+      </div>
+    `;
+    say(current.w);
+    document.getElementById('ln-r').onclick = () => {
+      const p = document.getElementById('ln-p');
+      p.classList.add('revealed');
+      p.querySelector('.ln-hint').innerHTML = `<strong>${current.ru}</strong> · <em style="color:var(--muted)">${current.pos||''} ${current.ipa||''}</em>`;
+      p.querySelector('.ln-ex').textContent = current.ex || '';
+      document.getElementById('ln-r').style.display = 'none';
+      document.getElementById('ln-k').style.display = 'inline-block';
+      document.getElementById('ln-s').style.display = 'inline-block';
+    };
+    document.getElementById('ln-k').onclick = () => { known++; render(); };
+    document.getElementById('ln-s').onclick = () => { still++; stack.push(current); render(); };
+  }
+  render();
+}
+
+/* LEARN ALL · aggregate mode */
+function renderLearnAll(){
+  const all = [];
+  Object.values(TOPICS).forEach(t => all.push(...t.vocab));
+  app.innerHTML = `<div class="ex-hdr"><h2>📚 Learn all · ${all.length} words</h2><div class="sub">Quizlet-style · adaptive stack · выбирает случайно из всех personality-слов</div></div><div id="mech-slot"></div>`;
+  buildLN(document.getElementById('mech-slot'), all);
+}
+
+/* MAIN TABS */
+document.querySelectorAll('.tab').forEach(b => {
+  b.onclick = () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.toggle('active', x === b));
+    renderTopic(b.dataset.tab);
+  };
+});
+renderTopic('pos');
+</script>
+
+</body>
+</html>
