@@ -1518,7 +1518,9 @@
 
   function _renderAbonementCard(student, opts) {
     opts = opts || {};
-    const studentView = !!opts.studentView; // в кабинете ребёнка — скрываем цены и статус оплаты
+    const studentView = !!opts.studentView; // в кабинете ребёнка — скрываем весь абонемент (для не-adult)
+    // В детском кабинете абонемент вообще не показываем — только у родителя
+    if (studentView && !student.is_adult) return "";
     const total = student.lessons_in_package;
     const used = student.lessons_used_this_month || 0;
     const remaining = total ? Math.max(total - used, 0) : null;
@@ -1557,6 +1559,9 @@
 
   function _renderPaymentsCard(student, opts) {
     opts = opts || {};
+    const studentView = !!opts.studentView;
+    // В детском кабинете таблицу оплат не показываем — только у родителя
+    if (studentView && !student.is_adult) return "";
     const payments = student && Array.isArray(student.payments) ? student.payments : [];
     if (!payments.length) return "";
     const rows = payments.map(p => {
