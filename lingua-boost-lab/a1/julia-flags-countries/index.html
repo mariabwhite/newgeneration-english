@@ -216,6 +216,17 @@ h3{font-family:var(--display);font-size:1.06rem;font-weight:700;margin-bottom:10
 .filters button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 .bank-card.hidden{display:none}
 
+/* PRONUNCIATION GRID */
+.say-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;margin-top:8px}
+.say-btn{background:#fff;border:1.5px solid var(--card-border);border-radius:10px;padding:8px 12px;cursor:pointer;transition:.15s;font-family:var(--body);font-size:.92rem;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:8px;text-align:left}
+.say-btn:hover{border-color:var(--accent);background:#FEFBF6;transform:translateY(-1px)}
+.say-btn:active{background:var(--accent);color:#fff}
+.say-btn .flag{font-size:1.3rem;flex-shrink:0}
+.say-btn .word{flex:1;overflow:hidden;text-overflow:ellipsis}
+.say-btn .icon{font-size:.9rem;opacity:.55;flex-shrink:0}
+.say-sub-h{font-family:var(--mono);font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);margin:14px 0 6px}
+.say-sub-h:first-child{margin-top:0}
+
 /* CLOSING */
 .closing{background:linear-gradient(135deg,#A8CEE3,#F7D8E0 55%,#E9C46A);color:#fff;border-radius:14px;text-align:center;padding:28px 24px;text-shadow:1px 1px 0 rgba(90,85,104,.22)}
 .closing h3{color:#fff;font-family:var(--display);font-weight:700;font-size:1.3rem;margin-bottom:8px}
@@ -526,19 +537,19 @@ footer .by{display:block;margin-top:5px;font-size:.68rem;opacity:.85}
   <div class="section-sub">Tap the greeting · then the flag it belongs to</div>
   <div class="card">
     <div class="match-wrap" data-ex="2">
-      <div class="match-col"><h4>Greeting</h4>
-        <div class="match-card" data-w="fr" data-side="a"><b>Bonjour!</b></div>
-        <div class="match-card" data-w="es" data-side="a"><b>¡Hola!</b></div>
-        <div class="match-card" data-w="it" data-side="a"><b>Ciao!</b></div>
-        <div class="match-card" data-w="de" data-side="a"><b>Hallo! / Guten Tag!</b></div>
-        <div class="match-card" data-w="jp" data-side="a"><b>Konnichiwa!</b></div>
-        <div class="match-card" data-w="cn" data-side="a"><b>Nǐ hǎo!</b></div>
-        <div class="match-card" data-w="ru" data-side="a"><b>Privet!</b></div>
-        <div class="match-card" data-w="tr" data-side="a"><b>Merhaba!</b></div>
-        <div class="match-card" data-w="gr" data-side="a"><b>Kalimera!</b></div>
-        <div class="match-card" data-w="pt" data-side="a"><b>Olá!</b></div>
-        <div class="match-card" data-w="in" data-side="a"><b>Namaste!</b></div>
-        <div class="match-card" data-w="eg" data-side="a"><b>As-salamu alaykum!</b></div>
+      <div class="match-col"><h4>Greeting · 🔊 click to hear</h4>
+        <div class="match-card" data-w="fr" data-side="a" data-say="hello_bonjour"><b>Bonjour!</b> <span style="margin-left:auto;font-size:.9rem">🔊</span></div>
+        <div class="match-card" data-w="es" data-side="a" data-say="hello_hola"><b>¡Hola!</b> <span style="margin-left:auto;font-size:.9rem">🔊</span></div>
+        <div class="match-card" data-w="it" data-side="a" data-say="hello_ciao"><b>Ciao!</b> <span style="margin-left:auto;font-size:.9rem">🔊</span></div>
+        <div class="match-card" data-w="de" data-side="a" data-say="hello_hallo"><b>Hallo! / Guten Tag!</b> <span style="margin-left:auto;font-size:.9rem">🔊</span></div>
+        <div class="match-card" data-w="jp" data-side="a" data-say="hello_konnichiwa"><b>Konnichiwa!</b> <span style="margin-left:auto;font-size:.9rem">🔊</span></div>
+        <div class="match-card" data-w="cn" data-side="a" data-say="hello_nihao"><b>Nǐ hǎo!</b> <span style="margin-left:auto;font-size:.9rem">🔊</span></div>
+        <div class="match-card" data-w="ru" data-side="a" data-say="hello_privet"><b>Privet!</b> <span style="margin-left:auto;font-size:.9rem">🔊</span></div>
+        <div class="match-card" data-w="tr" data-side="a" data-say="hello_merhaba"><b>Merhaba!</b> <span style="margin-left:auto;font-size:.9rem">🔊</span></div>
+        <div class="match-card" data-w="gr" data-side="a" data-say="hello_kalimera"><b>Kalimera!</b> <span style="margin-left:auto;font-size:.9rem">🔊</span></div>
+        <div class="match-card" data-w="pt" data-side="a" data-say="hello_ola"><b>Olá!</b> <span style="margin-left:auto;font-size:.9rem">🔊</span></div>
+        <div class="match-card" data-w="in" data-side="a" data-say="hello_namaste"><b>Namaste!</b> <span style="margin-left:auto;font-size:.9rem">🔊</span></div>
+        <div class="match-card" data-w="eg" data-side="a" data-say="hello_salam"><b>As-salamu alaykum!</b> <span style="margin-left:auto;font-size:.9rem">🔊</span></div>
       </div>
       <div class="match-col"><h4>Flag</h4>
         <div class="match-card" data-w="fr" data-side="b"><span class="flag">🇫🇷</span> France</div>
@@ -733,6 +744,94 @@ footer .by{display:block;margin-top:5px;font-size:.68rem;opacity:.85}
   </div>
 </section>
 
+<!-- 15b · Pronunciation drill -->
+<section class="section" id="sec-15b">
+  <div class="section-head"><div class="n">🔊</div><h2>Pronunciation drill · click any word to hear</h2><span class="tag">65 clicks</span></div>
+  <div class="section-sub">One click = one word · countries · nationalities · greetings</div>
+  <div class="card">
+    <div class="say-sub-h">🌍 Countries · 23 клика</div>
+    <div class="say-grid">
+      <button class="say-btn" data-say="uk"><span class="flag">🇬🇧</span><span class="word">the UK</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="usa"><span class="flag">🇺🇸</span><span class="word">the USA</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="canada"><span class="flag">🇨🇦</span><span class="word">Canada</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="australia"><span class="flag">🇦🇺</span><span class="word">Australia</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="france"><span class="flag">🇫🇷</span><span class="word">France</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="italy"><span class="flag">🇮🇹</span><span class="word">Italy</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="spain"><span class="flag">🇪🇸</span><span class="word">Spain</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="germany"><span class="flag">🇩🇪</span><span class="word">Germany</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="portugal"><span class="flag">🇵🇹</span><span class="word">Portugal</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="netherlands"><span class="flag">🇳🇱</span><span class="word">the Netherlands</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="greece"><span class="flag">🇬🇷</span><span class="word">Greece</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="sweden"><span class="flag">🇸🇪</span><span class="word">Sweden</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="russia"><span class="flag">🇷🇺</span><span class="word">Russia</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="poland"><span class="flag">🇵🇱</span><span class="word">Poland</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="turkey"><span class="flag">🇹🇷</span><span class="word">Turkey</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="china"><span class="flag">🇨🇳</span><span class="word">China</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="japan"><span class="flag">🇯🇵</span><span class="word">Japan</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="korea"><span class="flag">🇰🇷</span><span class="word">South Korea</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="india"><span class="flag">🇮🇳</span><span class="word">India</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="egypt"><span class="flag">🇪🇬</span><span class="word">Egypt</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="brazil"><span class="flag">🇧🇷</span><span class="word">Brazil</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="argentina"><span class="flag">🇦🇷</span><span class="word">Argentina</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="mexico"><span class="flag">🇲🇽</span><span class="word">Mexico</span><span class="icon">🔊</span></button>
+    </div>
+
+    <div class="say-sub-h">🗣 Nationalities · 22 клика</div>
+    <div class="say-grid">
+      <button class="say-btn" data-say="british"><span class="word">British</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="american"><span class="word">American</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="canadian"><span class="word">Canadian</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="australian"><span class="word">Australian</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="french"><span class="word">French</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="italian"><span class="word">Italian</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="spanish"><span class="word">Spanish</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="german"><span class="word">German</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="portuguese"><span class="word">Portuguese</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="dutch"><span class="word">Dutch</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="greek"><span class="word">Greek</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="swedish"><span class="word">Swedish</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="russian"><span class="word">Russian</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="polish"><span class="word">Polish</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="turkish"><span class="word">Turkish</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="chinese"><span class="word">Chinese</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="japanese"><span class="word">Japanese</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="korean"><span class="word">Korean</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="indian"><span class="word">Indian</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="egyptian"><span class="word">Egyptian</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="brazilian"><span class="word">Brazilian</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="mexican"><span class="word">Mexican</span><span class="icon">🔊</span></button>
+    </div>
+
+    <div class="say-sub-h">🎭 Special person nouns · Pattern C · 8 клика</div>
+    <div class="say-grid">
+      <button class="say-btn" data-say="englishman"><span class="word">an Englishman</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="frenchman"><span class="word">a Frenchman</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="dutchman"><span class="word">a Dutchman</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="spaniard"><span class="word">a Spaniard</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="pole"><span class="word">a Pole</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="turk"><span class="word">a Turk</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="swede"><span class="word">a Swede</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="briton"><span class="word">a Briton</span><span class="icon">🔊</span></button>
+    </div>
+
+    <div class="say-sub-h">👋 Say hello · 12 клика · как в жизни</div>
+    <div class="say-grid">
+      <button class="say-btn" data-say="hello_bonjour"><span class="flag">🇫🇷</span><span class="word">Bonjour</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="hello_hola"><span class="flag">🇪🇸</span><span class="word">¡Hola!</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="hello_ciao"><span class="flag">🇮🇹</span><span class="word">Ciao</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="hello_hallo"><span class="flag">🇩🇪</span><span class="word">Hallo</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="hello_konnichiwa"><span class="flag">🇯🇵</span><span class="word">Konnichiwa</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="hello_nihao"><span class="flag">🇨🇳</span><span class="word">Nǐ hǎo</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="hello_privet"><span class="flag">🇷🇺</span><span class="word">Privet</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="hello_merhaba"><span class="flag">🇹🇷</span><span class="word">Merhaba</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="hello_kalimera"><span class="flag">🇬🇷</span><span class="word">Kalimera</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="hello_ola"><span class="flag">🇵🇹</span><span class="word">Olá</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="hello_namaste"><span class="flag">🇮🇳</span><span class="word">Namaste</span><span class="icon">🔊</span></button>
+      <button class="say-btn" data-say="hello_salam"><span class="flag">🇪🇬</span><span class="word">As-salamu alaykum</span><span class="icon">🔊</span></button>
+    </div>
+  </div>
+</section>
+
 <!-- 16 · Vocabulary Bank -->
 <section class="section" id="sec-16">
   <div class="section-head"><div class="n">16</div><h2>Vocabulary Bank · 25 country cards</h2><span class="tag">📚 Click to open</span></div>
@@ -897,6 +996,20 @@ document.querySelectorAll('.riddle').forEach(r => {
       else btn.classList.add('wrong');
     });
   });
+});
+
+/* SPEAK · [data-say] click plays assets/audio/{slug}.mp3 */
+const audioCache = {};
+function playSlug(slug) {
+  if (!slug) return;
+  let a = audioCache[slug];
+  if (!a) { a = new Audio('assets/audio/' + slug + '.mp3'); audioCache[slug] = a; }
+  try { a.currentTime = 0; a.play().catch(()=>{}); } catch(e){}
+}
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-say]');
+  if (!el) return;
+  playSlug(el.dataset.say);
 });
 
 /* VOCAB BANK + FILTERS */
