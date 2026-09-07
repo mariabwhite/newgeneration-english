@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Julia · Flags & Countries · LinguaBoost Lab</title>
+<meta name="description" content="A2 lesson for Julia: country flags, nationalities, languages, capitals. Matching, typing, gap-fill, reading and speaking.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700;800;900&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FDF6EE;--surface:#FFFDF9;
+  --accent:#E9AEB8;--accent2:#A8CEE3;--accent3:#F5CB9F;
+  --mint:#C0DBBB;--lavender:#D6C7E5;--gold:#E9C46A;
+  --ink:#5A5568;--muted:#928A8F;--ok:#8FAF87;--miss:#D9A5A5;
+  --card-border:#F1E4CE;
+  --radius:18px;--shadow:0 4px 20px rgba(90,85,104,.08);
+  --display:'Unbounded','Manrope',sans-serif;--body:'Manrope',sans-serif;--mono:'JetBrains Mono',Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);font-family:var(--body);color:var(--ink);min-height:100vh;overflow-x:hidden;line-height:1.55;font-size:17px}
+.topbar{position:relative;display:flex;align-items:center;gap:14px;padding:10px clamp(14px,3vw,24px);background:rgba(255,253,249,.92);border-bottom:1px solid rgba(90,85,104,.06);backdrop-filter:blur(14px)}
+.brand{font-family:var(--display);font-weight:800;font-size:.95rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:10px}
+.brand-mark{width:38px;height:38px;border-radius:9px 0 9px 9px;background:#E8542B;color:#fff;font-family:var(--display);font-weight:800;font-size:1.2rem;display:grid;place-items:center;position:relative;overflow:hidden}
+.brand-mark::after{content:"";position:absolute;right:0;top:0;width:14px;height:14px;background:#fff;clip-path:polygon(100% 0, 0 0, 100% 100%)}
+.brand-copy{display:grid;gap:1px}
+.brand-name{font-weight:800;font-size:.95rem;line-height:1}
+.brand-sub{font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.spacer{flex:1}
+.btn-sm{min-height:32px;padding:0 12px;border-radius:8px;font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;border:1px solid rgba(90,85,104,.14);background:transparent;color:var(--muted);text-decoration:none;display:inline-flex;align-items:center}
+.btn-sm:hover{border-color:var(--accent);color:var(--accent)}
+
+.hero{max-width:1240px;margin:18px auto 12px;padding:0 clamp(16px,3vw,28px)}
+.hero-card{background:linear-gradient(135deg,#A8CEE3 0%,#F7D8E0 45%,#E9C46A 100%);border-radius:24px;padding:32px 24px;box-shadow:var(--shadow);text-align:center;position:relative;overflow:hidden}
+.hero-card::before,.hero-card::after{content:"";position:absolute;border-radius:50%;opacity:.45;pointer-events:none}
+.hero-card::before{width:120px;height:120px;background:#fff;top:-30px;right:-30px}
+.hero-card::after{width:80px;height:80px;background:#fff;bottom:-20px;left:24px}
+.hero-card h1{font-family:var(--display);font-size:clamp(1.6rem,5vw,2.5rem);font-weight:700;color:#fff;text-shadow:1px 1px 0 rgba(90,85,104,.28);line-height:1.1;position:relative}
+.hero-card .sub{font-size:.95rem;color:#fff;font-weight:700;margin-top:8px;letter-spacing:.04em;position:relative;text-shadow:1px 1px 0 rgba(90,85,104,.22)}
+.hero-card .tags{margin-top:14px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;position:relative}
+.hero-card .tag{background:rgba(255,255,255,.9);color:var(--ink);padding:5px 12px;border-radius:99px;font-size:.72rem;font-weight:800;letter-spacing:.04em}
+.hero-card .flags{font-size:2.2rem;margin-top:12px;letter-spacing:6px;position:relative}
+
+.section{max-width:1240px;margin:0 auto 28px;padding:0 clamp(16px,3vw,28px)}
+.section-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.section-head .n{width:38px;height:38px;border-radius:50%;background:var(--accent);color:#fff;font-family:var(--display);font-weight:700;font-size:1.1rem;display:grid;place-items:center;flex-shrink:0;box-shadow:0 3px 8px rgba(233,174,184,.4)}
+.section-head h2{font-family:var(--display);font-size:1.3rem;font-weight:700;color:var(--ink)}
+.section-sub{font-size:.78rem;color:var(--muted);font-family:var(--mono);text-transform:uppercase;letter-spacing:.1em;margin-left:50px;margin-bottom:10px}
+
+.card{background:var(--surface);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);border:1px solid var(--card-border);margin-bottom:10px}
+h3{font-family:var(--display);font-size:1.05rem;font-weight:700;margin-bottom:10px;color:var(--ink)}
+
+.theory{background:linear-gradient(135deg,#FFF7E1,#FBE8D0);border:2px solid var(--gold);border-radius:12px;padding:14px 18px;margin:6px 0 12px;font-size:.95rem;line-height:1.65}
+.theory h4{font-family:var(--display);color:var(--accent);font-size:.96rem;margin-bottom:6px}
+.theory table{width:100%;border-collapse:collapse;margin-top:6px}
+.theory th,.theory td{padding:6px 10px;text-align:left;border-bottom:1px dashed var(--card-border);font-size:.9rem}
+.theory th{font-family:var(--mono);font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.theory .flag{font-size:1.3rem}
+
+.mcq{background:#FDF6EE;border:1px solid var(--card-border);border-radius:12px;padding:12px 14px;margin-bottom:10px}
+.mcq-q{font-size:.98rem;margin-bottom:8px}
+.mcq-q .n{font-family:var(--mono);font-weight:800;color:var(--accent);background:#fff;padding:2px 8px;border-radius:5px;margin-right:8px;font-size:.8rem}
+.mcq-q .big-flag{font-size:2rem;display:inline-block;vertical-align:middle;margin:0 6px}
+.mcq-opts{display:flex;flex-wrap:wrap;gap:6px}
+.mcq-opts button{background:#fff;border:2px solid var(--card-border);color:var(--ink);padding:7px 14px;border-radius:50px;font-family:var(--body);font-weight:700;font-size:.88rem;cursor:pointer;transition:.15s}
+.mcq-opts button:hover{border-color:var(--accent);color:var(--accent)}
+.mcq-opts button.right{background:var(--ok);color:#fff;border-color:var(--ok)}
+.mcq-opts button.wrong{background:var(--miss);color:#fff;border-color:var(--miss)}
+
+.match-wrap{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:680px){.match-wrap{grid-template-columns:1fr}}
+.match-col h4{font-family:var(--mono);font-size:.66rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.match-card{background:#fff;border:1.5px solid var(--card-border);border-radius:10px;padding:10px 14px;cursor:pointer;margin-bottom:6px;font-weight:700;font-size:.95rem;transition:.15s;display:flex;align-items:center;gap:10px}
+.match-card:hover{border-color:var(--accent);background:#FEFBF6}
+.match-card.sel{background:var(--accent);color:#fff;border-color:var(--accent)}
+.match-card.done{background:#EEF6EB;border-color:var(--ok);color:#4A7143}
+.match-card.bad{background:#FBECEC;border-color:var(--miss);color:#8A3D3D;animation:shake .35s}
+.match-card .flag{font-size:1.5rem}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+
+.type-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px}
+.type-row{background:#FDF6EE;border:1px solid var(--card-border);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:6px}
+.type-cue{font-size:.92rem}
+.type-cue .flag{font-size:1.3rem;margin-right:4px}
+.type-cue .n{font-family:var(--mono);font-weight:800;color:var(--accent);background:#fff;padding:1px 7px;border-radius:5px;margin-right:6px;font-size:.75rem}
+.type-in{background:#fff;border:1.5px solid var(--card-border);border-radius:6px;padding:6px 10px;font-family:var(--body);font-size:.94rem;font-weight:700;color:var(--ink);outline:none}
+.type-in:focus{border-color:var(--accent)}
+.type-in.right{border-color:var(--ok);background:#EEF6EB;color:#4A7143;border-width:2px}
+.type-in.wrong{border-color:var(--miss);background:#FBECEC;color:#8A3D3D;border-width:2px}
+
+.gap-input{display:inline-block;min-width:100px;background:#fff;border:2px dashed var(--accent2);padding:2px 10px;border-radius:6px;font-weight:700;color:var(--accent);font-family:var(--body);font-size:.9rem;text-align:center;margin:0 3px}
+.gap-input.right{background:#EEF6EB;border-style:solid;border-color:var(--ok);color:#4A7143}
+.gap-input.wrong{background:#FBECEC;border-style:solid;border-color:var(--miss);color:#8A3D3D}
+
+.story{background:linear-gradient(135deg,#FFF7E1,#F7D8E0 60%,#A8CEE3 100%);border-radius:14px;padding:20px 22px;font-family:var(--body);font-size:1rem;line-height:1.75;color:var(--ink)}
+.story .stamp{display:inline-block;background:rgba(255,255,255,.85);font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);padding:3px 10px;border-radius:5px;margin-bottom:10px;font-weight:800}
+.story em{color:var(--accent);font-style:italic;font-weight:700}
+.story b{color:var(--ink);font-weight:800}
+.story .flag{font-size:1.3rem;vertical-align:middle}
+
+.prompts{display:grid;gap:8px}
+.prompt{background:#FDF6EE;border:1px solid var(--card-border);border-left:4px solid var(--accent);border-radius:10px;padding:12px 16px;font-size:.98rem;line-height:1.6}
+.prompt .num{font-family:var(--mono);font-weight:800;color:var(--accent);margin-right:10px}
+.prompt em{color:var(--accent);font-style:italic;font-weight:600}
+.prompt .flag{font-size:1.5rem;margin-right:4px}
+
+.bank-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
+.bank-card{background:#FDF6EE;border:1.5px solid var(--card-border);border-radius:10px;padding:10px 14px;cursor:pointer;transition:.15s}
+.bank-card:hover{border-color:var(--accent);background:#FEFBF6}
+.bank-card.open{background:#fff;border-color:var(--accent);box-shadow:0 4px 12px rgba(233,174,184,.2)}
+.bank-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.bank-country{font-family:var(--display);font-weight:800;font-size:1rem;color:var(--accent);display:flex;align-items:center;gap:8px}
+.bank-country .flag{font-size:1.5rem}
+.bank-cap{font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.bank-body{display:none;margin-top:8px;font-size:.88rem;line-height:1.6}
+.bank-body b{color:var(--ink);font-weight:800}
+.bank-card.open .bank-body{display:block}
+
+footer{max-width:1240px;margin:40px auto 24px;padding:0 24px;text-align:center;color:var(--muted);font-family:var(--mono);font-size:.76rem;letter-spacing:.06em;line-height:1.7}
+footer strong{color:var(--accent);font-family:var(--display);font-weight:800}
+footer .by{display:block;margin-top:5px;font-size:.68rem;opacity:.85}
+
+.closing{background:linear-gradient(135deg,#A8CEE3,#E9C46A);color:#fff;border-radius:14px;text-align:center;padding:24px 22px;text-shadow:1px 1px 0 rgba(90,85,104,.22)}
+.closing h3{color:#fff;font-family:var(--display);font-weight:700;font-size:1.2rem;margin-bottom:8px}
+.closing p{font-family:var(--body);font-size:.96rem;line-height:1.6;color:#fff}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a class="brand" href="../../"><span class="brand-mark"><span>N</span></span><span class="brand-copy"><span class="brand-name">NG ENGLISH</span><span class="brand-sub">Flags & Countries · A2</span></span></a>
+  <span class="spacer"></span>
+  <a class="btn-sm" href="../../premium.html">Catalog</a>
+  <span class="btn-sm" style="background:var(--accent);color:#fff;border-color:var(--accent)">A2</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-card">
+    <h1>Flags & Countries</h1>
+    <div class="sub">Around the world in one lesson</div>
+    <div class="flags">🇬🇧 🇺🇸 🇫🇷 🇮🇹 🇪🇸 🇩🇪 🇯🇵 🇧🇷</div>
+    <div class="tags">
+      <span class="tag">🌍 20 countries</span>
+      <span class="tag">🗣 languages</span>
+      <span class="tag">🏛 capitals</span>
+      <span class="tag">✍️ nationality adjectives</span>
+    </div>
+  </div>
+</div>
+
+<!-- 1 · Warm-up · flag → country -->
+<section class="section" id="sec-1">
+  <div class="section-head"><div class="n">1</div><h2>Warm-up · which country?</h2></div>
+  <div class="section-sub">8 flags · tap the country name</div>
+  <div class="card">
+    <div class="mcq" data-answer="United Kingdom"><div class="mcq-q"><span class="n">1</span><span class="big-flag">🇬🇧</span> Which country?</div><div class="mcq-opts"><button data-v="United States">United States</button><button data-v="United Kingdom">United Kingdom</button><button data-v="Australia">Australia</button></div></div>
+    <div class="mcq" data-answer="Italy"><div class="mcq-q"><span class="n">2</span><span class="big-flag">🇮🇹</span> Which country?</div><div class="mcq-opts"><button data-v="Spain">Spain</button><button data-v="France">France</button><button data-v="Italy">Italy</button></div></div>
+    <div class="mcq" data-answer="Japan"><div class="mcq-q"><span class="n">3</span><span class="big-flag">🇯🇵</span> Which country?</div><div class="mcq-opts"><button data-v="China">China</button><button data-v="Japan">Japan</button><button data-v="South Korea">South Korea</button></div></div>
+    <div class="mcq" data-answer="Brazil"><div class="mcq-q"><span class="n">4</span><span class="big-flag">🇧🇷</span> Which country?</div><div class="mcq-opts"><button data-v="Argentina">Argentina</button><button data-v="Brazil">Brazil</button><button data-v="Mexico">Mexico</button></div></div>
+    <div class="mcq" data-answer="Germany"><div class="mcq-q"><span class="n">5</span><span class="big-flag">🇩🇪</span> Which country?</div><div class="mcq-opts"><button data-v="Germany">Germany</button><button data-v="Belgium">Belgium</button><button data-v="Netherlands">Netherlands</button></div></div>
+    <div class="mcq" data-answer="Spain"><div class="mcq-q"><span class="n">6</span><span class="big-flag">🇪🇸</span> Which country?</div><div class="mcq-opts"><button data-v="Portugal">Portugal</button><button data-v="Italy">Italy</button><button data-v="Spain">Spain</button></div></div>
+    <div class="mcq" data-answer="Turkey"><div class="mcq-q"><span class="n">7</span><span class="big-flag">🇹🇷</span> Which country?</div><div class="mcq-opts"><button data-v="Turkey">Turkey</button><button data-v="China">China</button><button data-v="Morocco">Morocco</button></div></div>
+    <div class="mcq" data-answer="India"><div class="mcq-q"><span class="n">8</span><span class="big-flag">🇮🇳</span> Which country?</div><div class="mcq-opts"><button data-v="Pakistan">Pakistan</button><button data-v="India">India</button><button data-v="Bangladesh">Bangladesh</button></div></div>
+  </div>
+</section>
+
+<!-- 2 · Theory table -->
+<section class="section" id="sec-2">
+  <div class="section-head"><div class="n">2</div><h2>Countries · people · languages · capitals</h2></div>
+  <div class="section-sub">The main table · read + say out loud</div>
+  <div class="card">
+    <div class="theory">
+      <h4>📖 How it works</h4>
+      Every country has three sister-words: <b>country</b> (the place), <b>nationality</b> (the people, the adjective), and <b>language</b> (what they speak). <em>«I am from <b>France</b>. I am <b>French</b>. I speak <b>French</b>.»</em>
+    </div>
+    <table class="theory">
+      <tr><th>Flag</th><th>Country</th><th>Person / adjective</th><th>Language</th><th>Capital</th></tr>
+      <tr><td class="flag">🇬🇧</td><td>the United Kingdom</td><td>British / an Englishman, an Englishwoman</td><td>English</td><td>London</td></tr>
+      <tr><td class="flag">🇺🇸</td><td>the United States</td><td>American</td><td>English</td><td>Washington, D.C.</td></tr>
+      <tr><td class="flag">🇫🇷</td><td>France</td><td>French / a Frenchman, a Frenchwoman</td><td>French</td><td>Paris</td></tr>
+      <tr><td class="flag">🇮🇹</td><td>Italy</td><td>Italian</td><td>Italian</td><td>Rome</td></tr>
+      <tr><td class="flag">🇪🇸</td><td>Spain</td><td>Spanish / a Spaniard</td><td>Spanish</td><td>Madrid</td></tr>
+      <tr><td class="flag">🇩🇪</td><td>Germany</td><td>German</td><td>German</td><td>Berlin</td></tr>
+      <tr><td class="flag">🇵🇹</td><td>Portugal</td><td>Portuguese</td><td>Portuguese</td><td>Lisbon</td></tr>
+      <tr><td class="flag">🇳🇱</td><td>the Netherlands</td><td>Dutch / a Dutchman</td><td>Dutch</td><td>Amsterdam</td></tr>
+      <tr><td class="flag">🇬🇷</td><td>Greece</td><td>Greek</td><td>Greek</td><td>Athens</td></tr>
+      <tr><td class="flag">🇸🇪</td><td>Sweden</td><td>Swedish / a Swede</td><td>Swedish</td><td>Stockholm</td></tr>
+      <tr><td class="flag">🇳🇴</td><td>Norway</td><td>Norwegian</td><td>Norwegian</td><td>Oslo</td></tr>
+      <tr><td class="flag">🇷🇺</td><td>Russia</td><td>Russian</td><td>Russian</td><td>Moscow</td></tr>
+      <tr><td class="flag">🇵🇱</td><td>Poland</td><td>Polish / a Pole</td><td>Polish</td><td>Warsaw</td></tr>
+      <tr><td class="flag">🇹🇷</td><td>Turkey</td><td>Turkish / a Turk</td><td>Turkish</td><td>Ankara</td></tr>
+      <tr><td class="flag">🇨🇳</td><td>China</td><td>Chinese</td><td>Chinese (Mandarin)</td><td>Beijing</td></tr>
+      <tr><td class="flag">🇯🇵</td><td>Japan</td><td>Japanese</td><td>Japanese</td><td>Tokyo</td></tr>
+      <tr><td class="flag">🇮🇳</td><td>India</td><td>Indian</td><td>Hindi, English</td><td>New Delhi</td></tr>
+      <tr><td class="flag">🇪🇬</td><td>Egypt</td><td>Egyptian</td><td>Arabic</td><td>Cairo</td></tr>
+      <tr><td class="flag">🇧🇷</td><td>Brazil</td><td>Brazilian</td><td>Portuguese</td><td>Brasilia</td></tr>
+      <tr><td class="flag">🇦🇺</td><td>Australia</td><td>Australian</td><td>English</td><td>Canberra</td></tr>
+    </table>
+    <div class="theory" style="margin-top:12px">
+      <h4>⚡ Two small traps</h4>
+      Some nationalities have a <b>special noun for the person</b>: 🇬🇧 <em>an Englishman</em>, 🇫🇷 <em>a Frenchman</em>, 🇳🇱 <em>a Dutchman</em>, 🇸🇪 <em>a Swede</em>, 🇵🇱 <em>a Pole</em>, 🇹🇷 <em>a Turk</em>, 🇪🇸 <em>a Spaniard</em>. In everyday talk you can just say «I'm British / French / Dutch / Swedish / Polish / Turkish / Spanish».<br>
+      Two countries speak Portuguese: 🇵🇹 <b>Portugal</b> AND 🇧🇷 <b>Brazil</b>. English is spoken in 🇬🇧, 🇺🇸, 🇦🇺, 🇨🇦 and many others.
+    </div>
+  </div>
+</section>
+
+<!-- 3 · Flag match -->
+<section class="section" id="sec-3">
+  <div class="section-head"><div class="n">3</div><h2>Match · flag ↔ country</h2></div>
+  <div class="section-sub">Tap a flag, then tap the matching country name</div>
+  <div class="card">
+    <div class="match-wrap" data-ex="1">
+      <div class="match-col"><h4>Flag</h4>
+        <div class="match-card" data-w="uk" data-side="a"><span class="flag">🇬🇧</span> flag 1</div>
+        <div class="match-card" data-w="fr" data-side="a"><span class="flag">🇫🇷</span> flag 2</div>
+        <div class="match-card" data-w="jp" data-side="a"><span class="flag">🇯🇵</span> flag 3</div>
+        <div class="match-card" data-w="it" data-side="a"><span class="flag">🇮🇹</span> flag 4</div>
+        <div class="match-card" data-w="br" data-side="a"><span class="flag">🇧🇷</span> flag 5</div>
+        <div class="match-card" data-w="tr" data-side="a"><span class="flag">🇹🇷</span> flag 6</div>
+        <div class="match-card" data-w="in" data-side="a"><span class="flag">🇮🇳</span> flag 7</div>
+        <div class="match-card" data-w="de" data-side="a"><span class="flag">🇩🇪</span> flag 8</div>
+        <div class="match-card" data-w="cn" data-side="a"><span class="flag">🇨🇳</span> flag 9</div>
+        <div class="match-card" data-w="eg" data-side="a"><span class="flag">🇪🇬</span> flag 10</div>
+        <div class="match-card" data-w="es" data-side="a"><span class="flag">🇪🇸</span> flag 11</div>
+        <div class="match-card" data-w="ru" data-side="a"><span class="flag">🇷🇺</span> flag 12</div>
+      </div>
+      <div class="match-col"><h4>Country</h4>
+        <div class="match-card" data-w="uk" data-side="b">the United Kingdom</div>
+        <div class="match-card" data-w="fr" data-side="b">France</div>
+        <div class="match-card" data-w="jp" data-side="b">Japan</div>
+        <div class="match-card" data-w="it" data-side="b">Italy</div>
+        <div class="match-card" data-w="br" data-side="b">Brazil</div>
+        <div class="match-card" data-w="tr" data-side="b">Turkey</div>
+        <div class="match-card" data-w="in" data-side="b">India</div>
+        <div class="match-card" data-w="de" data-side="b">Germany</div>
+        <div class="match-card" data-w="cn" data-side="b">China</div>
+        <div class="match-card" data-w="eg" data-side="b">Egypt</div>
+        <div class="match-card" data-w="es" data-side="b">Spain</div>
+        <div class="match-card" data-w="ru" data-side="b">Russia</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · Type the nationality -->
+<section class="section" id="sec-4">
+  <div class="section-head"><div class="n">4</div><h2>Type the nationality</h2></div>
+  <div class="section-sub">12 boxes · country → adjective</div>
+  <div class="card">
+    <div class="type-grid">
+      <div class="type-row"><div class="type-cue"><span class="n">1</span><span class="flag">🇫🇷</span> from France → he is …</div><input class="type-in" data-ans="French" autocomplete="off"></div>
+      <div class="type-row"><div class="type-cue"><span class="n">2</span><span class="flag">🇮🇹</span> from Italy → she is …</div><input class="type-in" data-ans="Italian" autocomplete="off"></div>
+      <div class="type-row"><div class="type-cue"><span class="n">3</span><span class="flag">🇪🇸</span> from Spain → he is …</div><input class="type-in" data-ans="Spanish" autocomplete="off"></div>
+      <div class="type-row"><div class="type-cue"><span class="n">4</span><span class="flag">🇩🇪</span> from Germany → she is …</div><input class="type-in" data-ans="German" autocomplete="off"></div>
+      <div class="type-row"><div class="type-cue"><span class="n">5</span><span class="flag">🇬🇧</span> from the UK → he is …</div><input class="type-in" data-ans="British" autocomplete="off"></div>
+      <div class="type-row"><div class="type-cue"><span class="n">6</span><span class="flag">🇯🇵</span> from Japan → she is …</div><input class="type-in" data-ans="Japanese" autocomplete="off"></div>
+      <div class="type-row"><div class="type-cue"><span class="n">7</span><span class="flag">🇧🇷</span> from Brazil → he is …</div><input class="type-in" data-ans="Brazilian" autocomplete="off"></div>
+      <div class="type-row"><div class="type-cue"><span class="n">8</span><span class="flag">🇹🇷</span> from Turkey → she is …</div><input class="type-in" data-ans="Turkish" autocomplete="off"></div>
+      <div class="type-row"><div class="type-cue"><span class="n">9</span><span class="flag">🇷🇺</span> from Russia → he is …</div><input class="type-in" data-ans="Russian" autocomplete="off"></div>
+      <div class="type-row"><div class="type-cue"><span class="n">10</span><span class="flag">🇬🇷</span> from Greece → she is …</div><input class="type-in" data-ans="Greek" autocomplete="off"></div>
+      <div class="type-row"><div class="type-cue"><span class="n">11</span><span class="flag">🇵🇱</span> from Poland → he is …</div><input class="type-in" data-ans="Polish" autocomplete="off"></div>
+      <div class="type-row"><div class="type-cue"><span class="n">12</span><span class="flag">🇨🇳</span> from China → she is …</div><input class="type-in" data-ans="Chinese" autocomplete="off"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · Gap-fill · postcard sentences -->
+<section class="section" id="sec-5">
+  <div class="section-head"><div class="n">5</div><h2>Gap-fill · country · adjective · language</h2></div>
+  <div class="section-sub">10 postcards · complete the sentence</div>
+  <div class="card">
+    <div class="story" data-ex="5" style="background:#FDF6EE;color:var(--ink);font-family:var(--body);line-height:2">
+      <p>1 · 🇮🇹 Marco is from <b>Italy</b>. He is <input class="gap-input" data-ans="Italian" size="8"> and speaks <input class="gap-input" data-ans="Italian" size="8">.</p>
+      <p>2 · 🇫🇷 Amélie is from <b>France</b>. She is <input class="gap-input" data-ans="French" size="7"> and speaks <input class="gap-input" data-ans="French" size="7">.</p>
+      <p>3 · 🇯🇵 Yuki is from <b>Japan</b>. She is <input class="gap-input" data-ans="Japanese" size="9"> and speaks <input class="gap-input" data-ans="Japanese" size="9">.</p>
+      <p>4 · 🇬🇧 Oliver is from <b>the UK</b>. He is <input class="gap-input" data-ans="British" size="8"> and speaks <input class="gap-input" data-ans="English" size="8">.</p>
+      <p>5 · 🇧🇷 Rafael is from <b>Brazil</b>. He is <input class="gap-input" data-ans="Brazilian" size="10"> and speaks <input class="gap-input" data-ans="Portuguese" size="11">.</p>
+      <p>6 · 🇩🇪 Anna is from <b>Germany</b>. She is <input class="gap-input" data-ans="German" size="8"> and speaks <input class="gap-input" data-ans="German" size="8">.</p>
+      <p>7 · 🇪🇸 Pablo is from <b>Spain</b>. He is <input class="gap-input" data-ans="Spanish" size="8"> and speaks <input class="gap-input" data-ans="Spanish" size="8">.</p>
+      <p>8 · 🇨🇳 Mei is from <b>China</b>. She is <input class="gap-input" data-ans="Chinese" size="8"> and speaks <input class="gap-input" data-ans="Chinese" size="8">.</p>
+      <p>9 · 🇹🇷 Emre is from <b>Turkey</b>. He is <input class="gap-input" data-ans="Turkish" size="8"> and speaks <input class="gap-input" data-ans="Turkish" size="8">.</p>
+      <p>10 · 🇬🇷 Sophia is from <b>Greece</b>. She is <input class="gap-input" data-ans="Greek" size="6"> and speaks <input class="gap-input" data-ans="Greek" size="6">.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · Reading -->
+<section class="section" id="sec-6">
+  <div class="section-head"><div class="n">6</div><h2>Reading · Julia's postcards</h2></div>
+  <div class="section-sub">A little world tour · 5 comprehension questions</div>
+  <div class="card">
+    <div class="story">
+      <span class="stamp">Julia's world tour · 5 postcards</span>
+      <p><span class="flag">🇮🇹</span> «Ciao, mum! I'm in <b>Rome</b>. My friend Marco is <em>Italian</em> — of course! He speaks <em>Italian</em> so fast, but he teaches me two words a day. Yesterday we ate pizza in a small café.»</p>
+      <p><span class="flag">🇯🇵</span> «Hi from <b>Tokyo</b>! It is very big. My host sister Yuki is <em>Japanese</em>. She speaks <em>Japanese</em> and a little English. She showed me how to write my name in Japanese letters.»</p>
+      <p><span class="flag">🇧🇷</span> «Hola from <b>Brasilia</b>! Well — actually it's «olá», not «hola», because in <b>Brazil</b> people speak <em>Portuguese</em>, not Spanish. That surprised me.»</p>
+      <p><span class="flag">🇬🇷</span> «Kalimera from <b>Athens</b>! Sophia is <em>Greek</em>. She showed me the letters of the Greek alphabet. Some of them look like maths!»</p>
+      <p><span class="flag">🇹🇷</span> «Last stop: <b>Istanbul</b>. My friend Emre is <em>Turkish</em>. We drank tiny cups of tea. The capital of Turkey is <b>Ankara</b>, not Istanbul — I always forget!»</p>
+      <p style="text-align:right;margin-top:8px">— <em>Love, Julia</em></p>
+    </div>
+
+    <div style="margin-top:12px">
+      <div class="mcq" data-answer="Marco"><div class="mcq-q"><span class="n">R1</span>Who is Julia's Italian friend?</div><div class="mcq-opts"><button data-v="Marco">Marco</button><button data-v="Yuki">Yuki</button><button data-v="Emre">Emre</button></div></div>
+      <div class="mcq" data-answer="Portuguese"><div class="mcq-q"><span class="n">R2</span>What language do people speak in Brazil?</div><div class="mcq-opts"><button data-v="Spanish">Spanish</button><button data-v="Portuguese">Portuguese</button><button data-v="Brazilian">Brazilian</button></div></div>
+      <div class="mcq" data-answer="Ankara"><div class="mcq-q"><span class="n">R3</span>What is the capital of Turkey?</div><div class="mcq-opts"><button data-v="Istanbul">Istanbul</button><button data-v="Ankara">Ankara</button><button data-v="Cairo">Cairo</button></div></div>
+      <div class="mcq" data-answer="False"><div class="mcq-q"><span class="n">R4</span>«Sophia is from Japan.» — True / False / Not Stated?</div><div class="mcq-opts"><button data-v="True">True</button><button data-v="False">False</button><button data-v="Not Stated">Not Stated</button></div></div>
+      <div class="mcq" data-answer="Not Stated"><div class="mcq-q"><span class="n">R5</span>«Julia visited five countries in one week.» — True / False / Not Stated?</div><div class="mcq-opts"><button data-v="True">True</button><button data-v="False">False</button><button data-v="Not Stated">Not Stated</button></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · Speaking -->
+<section class="section" id="sec-7">
+  <div class="section-head"><div class="n">7</div><h2>Speaking · pick a country card</h2></div>
+  <div class="section-sub">Choose one · describe it aloud in 5-6 sentences</div>
+  <div class="card">
+    <div class="prompts">
+      <div class="prompt"><span class="num">A</span><span class="flag">🇯🇵</span>My country is <b>Japan</b>. Tell me: what is the capital, what language people speak, one food you know, one word in that language.</div>
+      <div class="prompt"><span class="num">B</span><span class="flag">🇮🇹</span>My country is <b>Italy</b>. Where is it? What language do people speak? What do you eat there? What is the capital?</div>
+      <div class="prompt"><span class="num">C</span><span class="flag">🇧🇷</span>My country is <b>Brazil</b>. Which continent is it on? What language do Brazilians speak? What is the capital? What holiday is famous there?</div>
+      <div class="prompt"><span class="num">D</span><span class="flag">🇬🇷</span>My country is <b>Greece</b>. What is the capital? What alphabet do people use? Name one famous Greek word.</div>
+      <div class="prompt"><span class="num">E</span><span class="flag">🇷🇺</span>My country is <b>Russia</b>. What is the capital? What language do people speak? Name one Russian food and one Russian city.</div>
+    </div>
+
+    <div class="theory" style="margin-top:12px">
+      <h4>🎯 Model sentence · use for every card</h4>
+      «This is <b>[country]</b>. The capital is <b>[city]</b>. People are <b>[nationality]</b>. They speak <b>[language]</b>. In this country you can eat <b>[food]</b>. One word I know is <em>[word]</em>.»
+    </div>
+  </div>
+</section>
+
+<!-- 8 · Vocabulary Bank -->
+<section class="section" id="sec-8">
+  <div class="section-head"><div class="n">8</div><h2>Vocabulary Bank · 20 countries</h2></div>
+  <div class="section-sub">Click any card to open · country · nationality · language · capital</div>
+  <div class="card">
+    <div class="bank-grid">
+      <div class="bank-card"><div class="bank-head"><span class="bank-country"><span class="flag">🇬🇧</span> the UK</span><span class="bank-cap">London</span></div><div class="bank-body">People: <b>British</b> · An <b>Englishman</b> / <b>Englishwoman</b>. Language: <b>English</b>.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-country"><span class="flag">🇺🇸</span> the USA</span><span class="bank-cap">Washington, D.C.</span></div><div class="bank-body">People: <b>American</b>. Language: <b>English</b>.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-country"><span class="flag">🇫🇷</span> France</span><span class="bank-cap">Paris</span></div><div class="bank-body">People: <b>French</b> · A <b>Frenchman</b> / <b>Frenchwoman</b>. Language: <b>French</b>.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-country"><span class="flag">🇮🇹</span> Italy</span><span class="bank-cap">Rome</span></div><div class="bank-body">People: <b>Italian</b>. Language: <b>Italian</b>. Famous food: pizza, pasta.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-country"><span class="flag">🇪🇸</span> Spain</span><span class="bank-cap">Madrid</span></div><div class="bank-body">People: <b>Spanish</b> · A <b>Spaniard</b>. Language: <b>Spanish</b>.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-country"><span class="flag">🇩🇪</span> Germany</span><span class="bank-cap">Berlin</span></div><div class="bank-body">People: <b>German</b>. Language: <b>German</b>.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-country"><span class="flag">🇵🇹</span> Portugal</span><span class="bank-cap">Lisbon</span></div><div class="bank-body">People: <b>Portuguese</b>. Language: <b>Portuguese</b>.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-country"><span class="flag">🇳🇱</span> the Netherlands</span><span class="bank-cap">Amsterdam</span></div><div class="bank-body">People: <b>Dutch</b> · A <b>Dutchman</b>. Language: <b>Dutch</b>.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-country"><span class="flag">🇬🇷</span> Greece</span><span class="bank-cap">Athens</span></div><div class="bank-body">People: <b>Greek</b>. Language: <b>Greek</b>.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-country"><span class="flag">🇸🇪</span> Sweden</span><span class="bank-cap">Stockholm</span></div><div class="bank-body">People: <b>Swedish</b> · A <b>Swede</b>. Language: <b>Swedish</b>.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-country"><span class="flag">🇳🇴</span> Norway</span><span class="bank-cap">Oslo</span></div><div class="bank-body">People: <b>Norwegian</b>. Language: <b>Norwegian</b>.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-country"><span class="flag">🇷🇺</span> Russia</span><span class="bank-cap">Moscow</span></div><div class="bank-body">People: <b>Russian</b>. Language: <b>Russian</b>.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-country"><span class="flag">🇵🇱</span> Poland</span><span class="bank-cap">Warsaw</span></div><div class="bank-body">People: <b>Polish</b> · A <b>Pole</b>. Language: <b>Polish</b>.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-country"><span class="flag">🇹🇷</span> Turkey</span><span class="bank-cap">Ankara</span></div><div class="bank-body">People: <b>Turkish</b> · A <b>Turk</b>. Language: <b>Turkish</b>.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-country"><span class="flag">🇨🇳</span> China</span><span class="bank-cap">Beijing</span></div><div class="bank-body">People: <b>Chinese</b>. Language: <b>Chinese</b> (Mandarin).</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-country"><span class="flag">🇯🇵</span> Japan</span><span class="bank-cap">Tokyo</span></div><div class="bank-body">People: <b>Japanese</b>. Language: <b>Japanese</b>.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-country"><span class="flag">🇮🇳</span> India</span><span class="bank-cap">New Delhi</span></div><div class="bank-body">People: <b>Indian</b>. Languages: <b>Hindi</b>, <b>English</b>.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-country"><span class="flag">🇪🇬</span> Egypt</span><span class="bank-cap">Cairo</span></div><div class="bank-body">People: <b>Egyptian</b>. Language: <b>Arabic</b>.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-country"><span class="flag">🇧🇷</span> Brazil</span><span class="bank-cap">Brasilia</span></div><div class="bank-body">People: <b>Brazilian</b>. Language: <b>Portuguese</b>. Not Spanish!</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-country"><span class="flag">🇦🇺</span> Australia</span><span class="bank-cap">Canberra</span></div><div class="bank-body">People: <b>Australian</b>. Language: <b>English</b>. Capital is Canberra, not Sydney!</div></div>
+    </div>
+  </div>
+
+  <div class="closing" style="margin-top:16px">
+    <h3>🌍 One lesson · 20 flags</h3>
+    <p>You now know the flag, the nationality, the language and the capital of twenty countries. Next time you see a flag in the news — you will know exactly what to say about it.</p>
+  </div>
+</section>
+
+<footer>
+  <strong>Flags & Countries</strong> · Julia · A2 · 60 min<br>
+  20 countries · 20 flags · nationality adjectives · languages · capitals · MCQ · match · gap-fill · reading · speaking<br>
+  <span class="by">Lesson by Maria Burtseva · NG English Lab · 2026</span>
+</footer>
+
+<script>
+/* MCQ */
+document.querySelectorAll('.mcq').forEach(row => {
+  const correct = row.dataset.answer;
+  row.querySelectorAll('.mcq-opts button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (row.classList.contains('locked')) return;
+      const v = btn.dataset.v;
+      if (v === correct) { btn.classList.add('right'); row.classList.add('locked'); }
+      else btn.classList.add('wrong');
+    });
+  });
+});
+
+/* MATCH */
+document.querySelectorAll('[data-ex="1"]').forEach(box => {
+  if (!box.classList.contains('match-wrap')) return;
+  let sel = null;
+  box.querySelectorAll('.match-card').forEach(card => {
+    card.addEventListener('click', () => {
+      if (card.classList.contains('done')) return;
+      if (!sel) { sel = card; card.classList.add('sel'); return; }
+      if (sel === card) { card.classList.remove('sel'); sel = null; return; }
+      if (sel.dataset.w === card.dataset.w && sel.dataset.side !== card.dataset.side) {
+        sel.classList.remove('sel'); sel.classList.add('done'); card.classList.add('done');
+      } else {
+        sel.classList.remove('sel'); sel.classList.add('bad'); card.classList.add('bad');
+        setTimeout(() => { sel.classList.remove('bad'); card.classList.remove('bad'); sel = null; }, 400);
+        return;
+      }
+      sel = null;
+    });
+  });
+});
+
+/* TYPE / GAP */
+function norm(s){ return (s||'').trim().toLowerCase().replace(/\s+/g,' '); }
+document.querySelectorAll('.type-in, .gap-input').forEach(inp => {
+  const ans = norm(inp.dataset.ans);
+  const check = () => {
+    const v = norm(inp.value);
+    inp.classList.remove('right','wrong');
+    if (!v) return;
+    if (v === ans) inp.classList.add('right');
+    else if (v.length >= ans.length + 2) inp.classList.add('wrong');
+  };
+  inp.addEventListener('input', check);
+  inp.addEventListener('blur', () => {
+    const v = norm(inp.value);
+    inp.classList.remove('right','wrong');
+    if (!v) return;
+    inp.classList.add(v === ans ? 'right' : 'wrong');
+  });
+});
+
+/* VOCAB BANK */
+document.querySelectorAll('.bank-card').forEach(c => c.addEventListener('click', () => c.classList.toggle('open')));
+</script>
+
+</body>
+</html>
