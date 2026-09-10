@@ -1,439 +1,759 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light-lab">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Mini-Trainer · Feelings, Plans, Trips · Aleksandra · NG English</title>
-<meta name="description" content="A2 mini-trainer for feelings adjectives, be going to, be allergic to, because of. English-only.">
+<title>Feelings · Plans · Trips · A2 · Aleksandra · NG Lab</title>
+<meta name="description" content="Feelings, small-talk phrases, be going to, allergic to, because of · 3 подвкладки (Feelings, Nouns, Patterns) + Learn all · 10 Quizlet-style механик.">
 <meta name="robots" content="noindex,nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800;900&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --display:'Fraunces',Georgia,serif;
+  --display:'Unbounded',ui-sans-serif,system-ui,sans-serif;
   --body:'Manrope',ui-sans-serif,system-ui,sans-serif;
-  --bg:#FFFAF0;
-  --paper:#FFF3DE;
-  --card:#FFFFFF;
-  --ink:#1E2532;
-  --ink-2:#3A4152;
-  --muted:#7A7060;
-  --line:#F1E4CB;
-  --accent:#FF7A5B;
-  --accent-2:#E85F3E;
-  --gold:#F4C542;
-  --ok:#5C9A4F;
-  --ok-bg:#E3F1DB;
-  --bad:#D6493C;
-  --bad-bg:#FCE1DE;
-  --shadow:0 6px 22px rgba(30,37,50,.07);
+  --bg:#FFF6EE;--surface:#FFFFFF;--accent:#E88B4F;--accent2:#B94F1F;--accent3:#F4C29A;
+  --text:#24304A;--muted:#6D7A94;--line:#F2E1CB;--ok:#4caf50;--miss:#ef5350;--gold:#F4C84B;
 }
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.6;font-size:16.5px;-webkit-font-smoothing:antialiased}
-.wrap{max-width:820px;margin:0 auto;padding:24px 18px 80px}
+*{box-sizing:border-box}html,body{margin:0;padding:0}
+body{font-family:var(--body);background:var(--bg);color:var(--text);line-height:1.55;font-size:16px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1160px;margin:0 auto;padding:20px clamp(14px,3vw,28px)}
+header.hero{background:linear-gradient(135deg,rgba(232,139,79,.82) 0%,rgba(185,79,31,.92) 100%);color:#FFF6EE;border-radius:18px;padding:clamp(20px,3.5vw,32px);box-shadow:0 8px 24px rgba(185,79,31,.25);margin-bottom:18px;min-height:180px;position:relative;overflow:hidden}
+.eyebrow{font-size:.74rem;font-weight:900;letter-spacing:.24em;text-transform:uppercase;color:#FFE7D0;margin-bottom:6px}
+h1{font-family:var(--display);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;margin:0 0 8px;letter-spacing:-.02em;line-height:1.1}
+.hero-lead{font-size:.94rem;opacity:.94;max-width:720px}
 
-.hero{background:linear-gradient(135deg,#FF7A5B 0%,#E85F3E 100%);color:#FBF8F1;border-radius:22px;padding:32px 28px;margin-bottom:28px;box-shadow:var(--shadow)}
-.hero-eyebrow{font-size:.72rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#FFE4B5;margin-bottom:6px}
-.hero h1{font-family:var(--display);font-size:clamp(1.7rem,4vw,2.2rem);margin:0 0 8px;font-weight:700;line-height:1.2}
-.hero p{margin:0;opacity:.94;font-size:.95rem}
+.prog{position:sticky;top:0;background:rgba(245,247,251,.96);backdrop-filter:blur(10px);padding:8px 12px;margin:-20px calc(-1 * clamp(14px,3vw,28px)) 12px;border-bottom:1px solid var(--line);z-index:60;display:flex;gap:10px;align-items:center;max-width:1160px}
+.prog-track{flex:1;height:8px;background:#E1E7F0;border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0;transition:.4s}
+.prog-count{font-family:var(--display);font-weight:900;color:var(--accent2);font-size:.82rem}
 
-.section{background:var(--card);border-radius:18px;padding:24px 22px;margin-bottom:20px;box-shadow:var(--shadow);border:1px solid var(--line)}
-.section-num{display:inline-block;background:var(--gold);color:var(--ink);font-family:var(--display);font-weight:700;padding:3px 12px;border-radius:20px;font-size:.85rem;margin-bottom:10px}
-.section h2{font-family:var(--display);font-size:1.35rem;margin:0 0 6px;font-weight:700;color:var(--ink)}
-.section .task-hint{color:var(--muted);font-size:.9rem;margin:0 0 16px}
+.tabs{position:sticky;top:52px;background:rgba(245,247,251,.96);backdrop-filter:blur(10px);padding:8px 0;z-index:50;border-bottom:1px solid var(--line)}
+.tabs-inner{display:flex;flex-wrap:wrap;gap:6px;max-width:1160px;margin:0 auto;padding:0 6px}
+.tab{background:#fff;border:2px solid var(--line);color:var(--muted);padding:8px 14px;border-radius:10px;font-family:var(--display);font-weight:800;font-size:.84rem;cursor:pointer;transition:.15s;display:flex;align-items:center;gap:6px}
+.tab:hover{border-color:var(--accent);color:var(--accent2)}
+.tab.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-color:var(--accent2);box-shadow:0 3px 10px rgba(232,139,79,.35)}
+.tab .badge{background:rgba(255,255,255,.25);border-radius:20px;padding:2px 7px;font-size:.68rem;font-weight:700}
+.tab:not(.active) .badge{background:var(--line);color:var(--muted)}
 
-.theory{background:var(--paper);border-left:4px solid var(--accent);padding:14px 16px;border-radius:10px;margin-bottom:18px;font-size:.94rem}
-.theory strong{color:var(--accent-2)}
-.theory .ex{display:block;font-family:var(--display);font-style:italic;color:var(--ink-2);margin-top:6px}
+.ex-hdr{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;padding:14px 18px;border-radius:12px;margin:14px 0 12px}
+.ex-hdr h2{font-family:var(--display);font-weight:800;font-size:1.1rem;margin:0 0 3px}
+.ex-hdr .sub{font-size:.82rem;opacity:.92}
 
-/* Match cards */
-.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.match-row{display:contents}
-.chip{background:var(--paper);border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;font-weight:600;color:var(--ink)}
-select.pick{width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid var(--line);background:#fff;font-family:inherit;font-size:1rem;font-weight:600;color:var(--ink);cursor:pointer}
-select.pick:focus{outline:none;border-color:var(--accent)}
-select.pick.ok{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
-select.pick.bad{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.mech-nav{display:flex;flex-wrap:wrap;gap:5px;margin:12px 0}
+.mech-btn{background:#fff;border:1.5px solid var(--line);color:var(--muted);padding:6px 11px;border-radius:20px;font-family:var(--body);font-weight:700;font-size:.75rem;cursor:pointer;transition:.15s}
+.mech-btn:hover{border-color:var(--accent);color:var(--accent2)}
+.mech-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
 
-/* Gap-fill */
-.gap-item{background:var(--paper);padding:14px 16px;border-radius:10px;margin-bottom:10px;font-size:1.02rem;line-height:1.9}
-.gap-item .num{color:var(--accent);font-weight:800;margin-right:8px}
-input.gap{border:none;border-bottom:2px solid var(--accent);background:transparent;font-family:inherit;font-size:1rem;font-weight:600;color:var(--ink);width:110px;padding:2px 4px;text-align:center}
-input.gap:focus{outline:none;border-bottom-color:var(--accent-2);background:#FFF3DE}
-input.gap.ok{border-bottom-color:var(--ok);color:var(--ok);background:var(--ok-bg)}
-input.gap.bad{border-bottom-color:var(--bad);color:var(--bad);background:var(--bad-bg)}
+.mech{display:none;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 2px 8px rgba(185,79,31,.06)}
+.mech.active{display:block;animation:fade .25s}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.mech-title{font-family:var(--display);font-weight:800;color:var(--accent2);font-size:1rem;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.mech-hint{font-size:.8rem;color:var(--muted);margin-bottom:12px;font-style:italic}
+.score{text-align:center;font-family:var(--display);font-weight:800;color:var(--accent2);margin-top:12px;min-height:22px;font-size:.95rem}
 
-/* Fix mistake */
-.fix-item{background:var(--paper);padding:14px 16px;border-radius:10px;margin-bottom:10px}
-.fix-wrong{color:var(--bad);font-weight:600;text-decoration:line-through;margin-bottom:6px;font-family:var(--display);font-style:italic}
-.fix-input{width:100%;border:1.5px solid var(--line);border-radius:8px;padding:10px 12px;font-family:inherit;font-size:1rem;background:#fff}
-.fix-input:focus{outline:none;border-color:var(--accent)}
-.fix-input.ok{background:var(--ok-bg);border-color:var(--ok);color:var(--ok);font-weight:600}
-.fix-input.bad{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
-.fix-hint{margin-top:6px;font-size:.82rem;color:var(--muted);display:none}
-.fix-hint.show{display:block}
+.fc-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.fc-count{font-family:var(--display);font-weight:800;color:var(--accent2)}
+.fc-btns{display:flex;gap:6px}
+.fc-b{background:#fff;border:2px solid var(--accent);color:var(--accent2);border-radius:8px;padding:6px 12px;font-family:var(--display);font-weight:800;font-size:.82rem;cursor:pointer}
+.fc-b:hover{background:var(--accent);color:#fff}
+.fc-card{background:linear-gradient(135deg,#FFF6EE,#FFE7D0);border:2px solid var(--accent);border-radius:16px;padding:36px 20px;min-height:220px;text-align:center;cursor:pointer;position:relative;transition:transform .3s}
+.fc-card:hover{transform:translateY(-2px)}
+.fc-word{font-family:var(--display);font-weight:800;font-size:2rem;color:var(--accent2);margin-bottom:6px;line-height:1.2}
+.fc-ipa{font-family:'Courier New',monospace;font-size:.9rem;color:var(--accent);letter-spacing:.02em;margin-bottom:4px}
+.fc-pos{font-size:.72rem;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.fc-back{display:none;margin-top:14px;padding-top:14px;border-top:1px dashed var(--accent2)}
+.fc-back .ru{font-family:var(--display);font-weight:700;font-size:1.1rem;color:var(--accent2);margin-bottom:6px}
+.fc-back .ex{font-size:.85rem;font-style:italic;color:var(--text);line-height:1.4}
+.fc-card.revealed .fc-back{display:block}
+.fc-say{position:absolute;top:10px;right:10px;background:var(--accent2);color:#fff;border:none;border-radius:50%;width:36px;height:36px;font-size:.9rem;cursor:pointer}
 
-/* Builder */
-.builder-target{min-height:52px;background:var(--paper);border:2px dashed var(--line);border-radius:10px;padding:10px;margin-bottom:12px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.builder-source{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
-.word{background:#fff;border:1.5px solid var(--line);border-radius:8px;padding:6px 12px;font-weight:600;cursor:pointer;font-size:.95rem;user-select:none;transition:transform .1s}
-.word:hover{border-color:var(--accent);transform:translateY(-1px)}
-.word.used{opacity:.3;pointer-events:none}
-.builder-target .word{background:var(--accent);color:#fff;border-color:var(--accent-2)}
-.builder-target.ok{border-color:var(--ok);background:var(--ok-bg)}
-.builder-target.bad{border-color:var(--bad);background:var(--bad-bg)}
-button.btn{background:var(--accent);color:#fff;border:none;padding:9px 16px;border-radius:8px;font-family:inherit;font-weight:700;font-size:.9rem;cursor:pointer;margin-right:6px}
-button.btn:hover{background:var(--accent-2)}
-button.btn.ghost{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.mp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
+@media(max-width:600px){.mp-grid{grid-template-columns:repeat(3,1fr)}}
+.mp-c{aspect-ratio:1.2;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-radius:9px;display:grid;place-items:center;padding:6px;font-family:var(--display);font-weight:700;font-size:.72rem;text-align:center;cursor:pointer;user-select:none;transition:transform .2s;position:relative;line-height:1.15;word-break:break-word;hyphens:auto}
+.mp-c::after{content:"?";font-size:1.6rem;color:rgba(255,255,255,.55);position:absolute}
+.mp-c .txt{display:none}
+.mp-c.open,.mp-c.matched{background:#fff;color:var(--accent2);border:2px solid var(--accent2)}
+.mp-c.open::after,.mp-c.matched::after{content:""}
+.mp-c.open .txt,.mp-c.matched .txt{display:block}
+.mp-c.matched{background:#E8F5E9;color:var(--ok);border-color:var(--ok);opacity:.9}
+.mp-c.wrong{animation:shake .35s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
 
-.score{position:fixed;bottom:16px;right:16px;background:var(--ink);color:#fff;padding:10px 18px;border-radius:24px;font-weight:700;box-shadow:var(--shadow);font-size:.9rem;z-index:100}
-.score .n{color:var(--gold)}
+.typ-row{background:#FFF6EE;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:6px 0;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.typ-num{font-family:var(--display);font-weight:900;color:var(--accent2);min-width:22px}
+.typ-q{flex:1;font-weight:700;font-size:.92rem;min-width:140px}
+.typ-inp{width:220px;padding:6px 10px;border:2px solid var(--accent);border-radius:8px;font-family:var(--body);font-weight:700;color:var(--text);background:#fff;text-align:center;outline:none;font-size:.9rem}
+.typ-inp.right{background:#E8F5E9;border-color:var(--ok);color:var(--ok)}
+.typ-inp.wrong{background:#FFEBEE;border-color:var(--miss);color:var(--miss)}
+.typ-show{background:transparent;color:var(--muted);border:1px dashed var(--muted);border-radius:6px;padding:4px 8px;font-size:.72rem;font-weight:700;cursor:pointer}
+.mech-check{background:var(--accent2);color:#fff;border:none;border-radius:10px;padding:9px 18px;font-family:var(--display);font-weight:800;font-size:.85rem;cursor:pointer;margin-top:8px}
+.mech-check:hover{background:#8f3d18}
 
-footer{max-width:820px;margin:32px auto 24px;padding:0 18px;text-align:center;color:var(--muted);font-size:.78rem}
+.lt-panel{background:#FFF6EE;border:2px solid var(--accent);border-radius:14px;padding:20px;text-align:center;margin:8px 0}
+.lt-play{background:var(--accent);color:#fff;border:none;border-radius:50%;width:60px;height:60px;font-size:1.4rem;cursor:pointer;box-shadow:0 4px 12px rgba(232,139,79,.35);margin-bottom:12px}
+.lt-inp{width:80%;max-width:340px;padding:12px 14px;border:2px solid var(--accent);border-radius:10px;font-family:var(--body);font-size:1.02rem;color:var(--text);background:#fff;text-align:center;font-weight:600;outline:none}
+.lt-inp.right{background:#E8F5E9;border-color:var(--ok);color:var(--ok)}
+.lt-inp.wrong{background:#FFEBEE;border-color:var(--miss)}
+.lt-ctrl{display:flex;gap:6px;justify-content:center;margin-top:10px;flex-wrap:wrap}
+
+.sc-panel{background:linear-gradient(135deg,#FFF6EE,#FFE7D0);border:2px solid var(--accent);border-radius:14px;padding:16px;text-align:center}
+.sc-hint{font-size:.82rem;color:var(--muted);margin-bottom:8px}
+.sc-hint strong{color:var(--accent2);font-family:var(--display)}
+.sc-slots{display:flex;justify-content:center;flex-wrap:wrap;gap:5px;min-height:44px;padding:8px;background:#fff;border:2px dashed var(--accent2);border-radius:10px;margin-bottom:10px}
+.sc-slot{background:var(--accent2);color:#fff;padding:6px 12px;border-radius:8px;font-family:var(--display);font-weight:800;font-size:1rem;cursor:pointer;text-transform:uppercase;min-width:34px;text-align:center}
+.sc-slots.right{border-color:var(--ok)}
+.sc-slots.right .sc-slot{background:var(--ok)}
+.sc-slots.wrong{border-color:var(--miss);animation:shake .35s}
+.sc-letters{display:flex;justify-content:center;flex-wrap:wrap;gap:5px;margin:10px 0}
+.sc-l{background:#fff;border:2px solid var(--accent);color:var(--accent2);width:38px;height:38px;border-radius:8px;display:grid;place-items:center;font-family:var(--display);font-weight:900;font-size:1.05rem;cursor:pointer;text-transform:uppercase}
+.sc-l:hover{background:var(--accent);color:#fff}
+.sc-l.used{opacity:.3;pointer-events:none}
+.sc-ctrl{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+
+.fb-row{background:#FFF6EE;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:5px 0;font-size:.93rem;line-height:1.5}
+.fb-inp{padding:3px 8px;border:2px solid var(--accent);border-radius:6px;font-weight:700;color:var(--accent2);background:#fff;width:150px;text-align:center;outline:none;font-size:.86rem;margin:0 4px}
+.fb-inp.right{background:#E8F5E9;border-color:var(--ok);color:var(--ok)}
+.fb-inp.wrong{background:#FFEBEE;border-color:var(--miss);color:var(--miss)}
+
+.tf-row{background:#FFF6EE;border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:9px 12px;margin:5px 0;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tf-t{flex:1;font-size:.88rem;min-width:150px}
+.tf-b{background:#fff;border:2px solid var(--accent);color:var(--accent2);padding:5px 12px;border-radius:6px;font-family:var(--display);font-weight:800;font-size:.76rem;cursor:pointer}
+.tf-b.right{background:var(--ok);border-color:var(--ok);color:#fff}
+.tf-b.wrong{background:var(--miss);border-color:var(--miss);color:#fff}
+
+.sb-row{background:#FFF6EE;border:1px solid var(--line);border-radius:10px;padding:12px;margin:6px 0}
+.sb-target{font-size:.82rem;color:var(--muted);margin-bottom:6px;font-style:italic}
+.sb-target strong{color:var(--accent2);font-family:var(--display);font-style:normal}
+.sb-slots{display:flex;flex-wrap:wrap;gap:5px;padding:8px;background:#fff;border:2px dashed var(--accent);border-radius:8px;min-height:40px;margin:6px 0}
+.sb-slot{background:var(--accent2);color:#fff;padding:5px 10px;border-radius:6px;font-weight:700;font-size:.86rem;cursor:pointer}
+.sb-slots.right{border-color:var(--ok);background:#F0FBF0}
+.sb-slots.right .sb-slot{background:var(--ok)}
+.sb-slots.wrong{border-color:var(--miss);animation:shake .35s}
+.sb-bank{display:flex;flex-wrap:wrap;gap:5px}
+.sb-w{background:#fff;border:2px solid var(--accent);color:var(--accent2);padding:5px 11px;border-radius:6px;font-weight:700;font-size:.86rem;cursor:pointer}
+.sb-w:hover{background:var(--accent);color:#fff}
+.sb-w.used{opacity:.3;pointer-events:none;text-decoration:line-through}
+
+.sp-panel{background:linear-gradient(135deg,var(--accent2),#24304A);color:#fff;border-radius:14px;padding:20px;text-align:center}
+.sp-timer{font-family:var(--display);font-weight:900;font-size:2.4rem;color:var(--gold);margin:4px 0}
+.sp-word{font-family:var(--display);font-weight:800;font-size:1.3rem;min-height:32px;margin:8px 0}
+.sp-inp{width:80%;max-width:280px;padding:10px 14px;border:2px solid var(--accent);border-radius:10px;background:rgba(255,255,255,.95);color:var(--text);text-align:center;font-weight:700;outline:none;font-size:1rem}
+.sp-btn{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:9px 20px;font-family:var(--display);font-weight:800;cursor:pointer;margin:10px 4px 0;font-size:.9rem}
+.sp-score{color:var(--gold);font-family:var(--display);font-weight:800;font-size:1rem;margin-top:6px}
+
+.ln-panel{background:linear-gradient(135deg,#FFF6EE,#FFE7D0);border:2px solid var(--accent);border-radius:16px;padding:24px 20px;text-align:center;min-height:240px}
+.ln-prog{font-size:.82rem;color:var(--muted);margin-bottom:10px}
+.ln-prog strong{color:var(--accent2);font-family:var(--display)}
+.ln-w{font-family:var(--display);font-weight:800;font-size:1.8rem;color:var(--accent2);margin:14px 0;min-height:40px}
+.ln-hint{font-size:.88rem;color:var(--text);margin:6px 0}
+.ln-hint strong{color:var(--accent2)}
+.ln-ex{font-size:.84rem;color:var(--muted);font-style:italic;margin-top:8px;line-height:1.5;display:none}
+.ln-panel.revealed .ln-ex{display:block}
+.ln-acts{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.ln-b{padding:9px 18px;border-radius:10px;font-family:var(--display);font-weight:800;font-size:.85rem;cursor:pointer;border:none}
+.ln-b.rev{background:var(--accent3);color:#fff}
+.ln-b.kn{background:var(--ok);color:#fff}
+.ln-b.st{background:var(--miss);color:#fff}
+.ln-b.say{background:var(--accent);color:#fff;border-radius:50%;width:40px;padding:0;font-size:1rem}
+.ln-b.start{background:var(--accent);color:#fff}
+
+.pat-theory{background:linear-gradient(135deg,#FFF6EE,#FFE7D0);border:2px solid var(--accent);border-radius:14px;padding:14px 18px;margin:10px 0}
+.pat-theory h3{font-family:var(--display);font-weight:800;color:var(--accent2);font-size:1rem;margin:0 0 10px}
+.pat-theory table{width:100%;border-collapse:collapse;font-size:.86rem}
+.pat-theory td{padding:6px 8px;border-bottom:1px dashed var(--line);vertical-align:top}
+.pat-theory tr:last-child td{border-bottom:none}
+.pat-theory td:first-child{font-family:var(--display);font-weight:900;color:var(--accent2);width:130px;font-size:.92rem}
+.pat-theory td:nth-child(2){color:var(--muted);font-style:italic;width:220px}
+.pat-theory td:last-child{color:var(--text)}
+@media(max-width:600px){.pat-theory td:nth-child(2){display:none}.pat-theory td:first-child{width:100px}}
+
+footer{text-align:center;color:var(--muted);font-size:.76rem;padding:20px 0}
 </style>
+<script>window.AUDIO_MANIFEST = {};</script>
 </head>
 <body>
 <div class="wrap">
 
-  <div class="hero">
-    <div class="hero-eyebrow">Aleksandra · Lesson 2 · Mini-Trainer</div>
-    <h1>Feelings, Plans &amp; Trips</h1>
-    <p>Five short drills. Feelings adjectives, <em>be going to</em>, <em>be allergic to</em>, <em>because of</em>. Answers auto-check.</p>
-  </div>
+<header class="hero">
+  <div class="eyebrow">Vocab · A2 · Aleksandra</div>
+  <h1>Feelings · Plans · Trips</h1>
+  <p class="hero-lead">Слова из говорения 7 сентября: чувства, лексика (team, research, business trip, tour, free medicine) + три опорные конструкции (be going to, be allergic to, because of). 3 подвкладки · 10 механик Quizlet-style.</p>
+</header>
 
-  <!-- 1. MATCH -->
-  <section class="section">
-    <div class="section-num">01 · Match</div>
-    <h2>Feelings &amp; nouns → meaning</h2>
-    <p class="task-hint">Pick the meaning that fits each word.</p>
-
-    <div class="theory">
-      <strong>To be + feeling:</strong> use <em>am / is / are</em> before the adjective, not the verb alone.
-      <span class="ex">✔ I <b>am</b> tired. &nbsp; ✘ <s>I tired.</s></span>
-    </div>
-
-    <div class="match-grid">
-      <div class="chip">tired</div>
-      <select class="pick" data-a="low energy, needs sleep">
-        <option value="">— pick —</option>
-        <option value="low energy, needs sleep">low energy, needs sleep</option>
-        <option value="needs food">needs food</option>
-        <option value="feeling bad, very unpleasant">feeling bad, very unpleasant</option>
-        <option value="short work trip">short work trip</option>
-      </select>
-
-      <div class="chip">horrible</div>
-      <select class="pick" data-a="feeling bad, very unpleasant">
-        <option value="">— pick —</option>
-        <option value="low energy, needs sleep">low energy, needs sleep</option>
-        <option value="feeling bad, very unpleasant">feeling bad, very unpleasant</option>
-        <option value="mad, upset with someone">mad, upset with someone</option>
-        <option value="short work trip">short work trip</option>
-      </select>
-
-      <div class="chip">hungry</div>
-      <select class="pick" data-a="needs food">
-        <option value="">— pick —</option>
-        <option value="needs food">needs food</option>
-        <option value="worried, scared">worried, scared</option>
-        <option value="a group working together">a group working together</option>
-        <option value="short work trip">short work trip</option>
-      </select>
-
-      <div class="chip">angry</div>
-      <select class="pick" data-a="mad, upset with someone">
-        <option value="">— pick —</option>
-        <option value="worried, scared">worried, scared</option>
-        <option value="mad, upset with someone">mad, upset with someone</option>
-        <option value="needs food">needs food</option>
-        <option value="a study, deep investigation">a study, deep investigation</option>
-      </select>
-
-      <div class="chip">afraid / stressed</div>
-      <select class="pick" data-a="worried, scared">
-        <option value="">— pick —</option>
-        <option value="a group working together">a group working together</option>
-        <option value="worried, scared">worried, scared</option>
-        <option value="short work trip">short work trip</option>
-        <option value="feeling bad, very unpleasant">feeling bad, very unpleasant</option>
-      </select>
-
-      <div class="chip">team</div>
-      <select class="pick" data-a="a group working together">
-        <option value="">— pick —</option>
-        <option value="a study, deep investigation">a study, deep investigation</option>
-        <option value="a group working together">a group working together</option>
-        <option value="a guided visit / sightseeing trip">a guided visit / sightseeing trip</option>
-        <option value="short work trip">short work trip</option>
-      </select>
-
-      <div class="chip">research</div>
-      <select class="pick" data-a="a study, deep investigation">
-        <option value="">— pick —</option>
-        <option value="a group working together">a group working together</option>
-        <option value="a study, deep investigation">a study, deep investigation</option>
-        <option value="a guided visit / sightseeing trip">a guided visit / sightseeing trip</option>
-        <option value="short work trip">short work trip</option>
-      </select>
-
-      <div class="chip">a business trip</div>
-      <select class="pick" data-a="short work trip">
-        <option value="">— pick —</option>
-        <option value="short work trip">short work trip</option>
-        <option value="a guided visit / sightseeing trip">a guided visit / sightseeing trip</option>
-        <option value="mad, upset with someone">mad, upset with someone</option>
-        <option value="a study, deep investigation">a study, deep investigation</option>
-      </select>
-
-      <div class="chip">a tour</div>
-      <select class="pick" data-a="a guided visit / sightseeing trip">
-        <option value="">— pick —</option>
-        <option value="short work trip">short work trip</option>
-        <option value="a guided visit / sightseeing trip">a guided visit / sightseeing trip</option>
-        <option value="free doctor / no cost treatment">free doctor / no cost treatment</option>
-        <option value="a group working together">a group working together</option>
-      </select>
-
-      <div class="chip">free medicine</div>
-      <select class="pick" data-a="free doctor / no cost treatment">
-        <option value="">— pick —</option>
-        <option value="a guided visit / sightseeing trip">a guided visit / sightseeing trip</option>
-        <option value="free doctor / no cost treatment">free doctor / no cost treatment</option>
-        <option value="needs food">needs food</option>
-        <option value="short work trip">short work trip</option>
-      </select>
-    </div>
-  </section>
-
-  <!-- 2. GAP-FILL be going to -->
-  <section class="section">
-    <div class="section-num">02 · Gap-fill</div>
-    <h2><em>be going to</em> — future plans</h2>
-    <p class="task-hint">Fill in one word per gap.</p>
-
-    <div class="theory">
-      <strong>be going to + verb</strong> = plan or intention for the near future.<br>
-      Structure: <b>I am going to</b> + <b>verb</b>. She <b>is going to</b> travel. They <b>are going to</b> call.
-      <span class="ex">✔ I <b>am going to</b> call my mother. &nbsp; ✘ <s>I go call.</s> ✘ <s>I going call.</s></span>
-    </div>
-
-    <div class="gap-item"><span class="num">1.</span> I <input class="gap" data-a="am"> going to call my mother.</div>
-    <div class="gap-item"><span class="num">2.</span> She is going <input class="gap" data-a="to"> ask her how she is.</div>
-    <div class="gap-item"><span class="num">3.</span> We are <input class="gap" data-a="going"> to visit our team.</div>
-    <div class="gap-item"><span class="num">4.</span> He <input class="gap" data-a="is"> going to have a business trip.</div>
-    <div class="gap-item"><span class="num">5.</span> They are going to <input class="gap" data-a="do"> some research.</div>
-  </section>
-
-  <!-- 3. FIX THE MISTAKE -->
-  <section class="section">
-    <div class="section-num">03 · Fix the mistake</div>
-    <h2>Rewrite these sentences correctly</h2>
-    <p class="task-hint">Type the full corrected sentence.</p>
-
-    <div class="theory">
-      <strong>Common A2 mistakes:</strong><br>
-      • With feelings, don't forget <b>am / is / are</b>.<br>
-      • <b>be allergic to</b> + noun (add <em>the</em> for specific things like the sun).<br>
-      • For a past finished trip use <b>had</b>, not <em>have</em>.
-    </div>
-
-    <div class="fix-item">
-      <div class="fix-wrong">I allergic to sun.</div>
-      <input class="fix-input" data-a="i am allergic to the sun.">
-      <div class="fix-hint">Correct: <b>I am allergic to the sun.</b></div>
-    </div>
-
-    <div class="fix-item">
-      <div class="fix-wrong">I hungry.</div>
-      <input class="fix-input" data-a="i am hungry.">
-      <div class="fix-hint">Correct: <b>I am hungry.</b></div>
-    </div>
-
-    <div class="fix-item">
-      <div class="fix-wrong">I have business trip last week.</div>
-      <input class="fix-input" data-a="i had a business trip last week.">
-      <div class="fix-hint">Correct: <b>I had a business trip last week.</b></div>
-    </div>
-
-    <div class="fix-item">
-      <div class="fix-wrong">I go call my mom now.</div>
-      <input class="fix-input" data-a="i am going to call my mom now.">
-      <div class="fix-hint">Correct: <b>I am going to call my mom now.</b></div>
-    </div>
-  </section>
-
-  <!-- 4. SENTENCE BUILDER -->
-  <section class="section">
-    <div class="section-num">04 · Builder</div>
-    <h2>Build the sentence</h2>
-    <p class="task-hint">Click words in the right order. Target: <em>I am going to call my mother and ask her how she is.</em></p>
-
-    <div class="theory">
-      <strong>Combining two actions:</strong> use <b>and</b> to connect verbs of one plan.
-      <span class="ex">I am going to <b>call</b> her <b>and</b> <b>ask</b> her how she is.</span>
-    </div>
-
-    <div class="builder-target" id="btgt" data-target="I am going to call my mother and ask her how she is"></div>
-    <div class="builder-source" id="bsrc"></div>
-    <button class="btn" onclick="checkBuilder()">Check</button>
-    <button class="btn ghost" onclick="resetBuilder()">Reset</button>
-  </section>
-
-  <!-- 5. MULTIPLE CHOICE -->
-  <section class="section">
-    <div class="section-num">05 · Pick the right one</div>
-    <h2><em>because of</em>, <em>allergic to</em>, past trips</h2>
-    <p class="task-hint">Choose the correct option in each blank.</p>
-
-    <div class="theory">
-      <strong>because of + noun</strong> (reason as a thing): <em>because of this situation, I am afraid.</em><br>
-      <strong>because + full clause</strong>: <em>I am afraid because this situation is hard.</em>
-    </div>
-
-    <div class="gap-item"><span class="num">1.</span>
-      I am
-      <select class="pick" data-a="allergic" style="display:inline-block;width:auto;padding:6px 10px">
-        <option value="">—</option><option>allergy</option><option>allergic</option><option>allergics</option>
-      </select>
-      to the sun.
-    </div>
-
-    <div class="gap-item"><span class="num">2.</span>
-      Yesterday I
-      <select class="pick" data-a="had" style="display:inline-block;width:auto;padding:6px 10px">
-        <option value="">—</option><option>have</option><option>had</option><option>did</option>
-      </select>
-      a business trip.
-    </div>
-
-    <div class="gap-item"><span class="num">3.</span>
-      <select class="pick" data-a="Because of" style="display:inline-block;width:auto;padding:6px 10px">
-        <option value="">—</option><option>Because</option><option>Because of</option><option>Of</option>
-      </select>
-      this situation, I am stressed.
-    </div>
-
-    <div class="gap-item"><span class="num">4.</span>
-      I am going
-      <select class="pick" data-a="to" style="display:inline-block;width:auto;padding:6px 10px">
-        <option value="">—</option><option>to</option><option>for</option><option>—</option>
-      </select>
-      call my mom.
-    </div>
-
-    <div class="gap-item"><span class="num">5.</span>
-      Our
-      <select class="pick" data-a="team" style="display:inline-block;width:auto;padding:6px 10px">
-        <option value="">—</option><option>tour</option><option>team</option><option>trip</option>
-      </select>
-      does deep research on new topics.
-    </div>
-  </section>
-
-  <footer>NG English · Lab · Mini-Trainer · English only</footer>
+<div class="prog">
+  <span style="font-family:var(--display);font-weight:800;color:var(--accent2);font-size:.82rem">Progress</span>
+  <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:5%"></div></div>
+  <span class="prog-count" id="prog-count">start</span>
 </div>
 
-<div class="score">Correct: <span class="n" id="score">0</span> / <span id="total">0</span></div>
+<div class="tabs">
+  <div class="tabs-inner">
+    <button class="tab active" data-tab="feel">✨ Feelings <span class="badge">6</span></button>
+    <button class="tab" data-tab="noun">📦 Nouns <span class="badge">5</span></button>
+    <button class="tab" data-tab="pat">🔑 Patterns <span class="badge">3</span></button>
+    <button class="tab" data-tab="learn">📚 Learn all <span class="badge">Quizlet</span></button>
+  </div>
+</div>
+
+<div id="app"></div>
+
+<footer>
+  Feelings · Plans · Trips · 3 подвкладки × 10 механик · Aleksandra · A2 · NG Lab · 2026-09-10
+</footer>
+
+</div>
 
 <script>
-const norm = s => (s||'').toLowerCase().replace(/[.,!?;:'"`]/g,'').replace(/\s+/g,' ').trim();
+/* ═══════════════════ AUDIO · edge-tts MP3 only (empty manifest — silent, no Web Speech fallback) ═══════════════════ */
+let audioManifest = window.AUDIO_MANIFEST || {};
+let audioCache = {};
 
-function updateScore(){
-  const oks = document.querySelectorAll('.ok').length;
-  const total = document.querySelectorAll('[data-a]').length +
-    (document.getElementById('btgt').classList.contains('ok') || document.getElementById('btgt').classList.contains('bad') ? 1 : 0);
-  document.getElementById('score').textContent = oks;
-  document.getElementById('total').textContent = document.querySelectorAll('[data-a]').length + 1;
+function say(t, rate=0.92){
+  if(!t) return;
+  const f = audioManifest[t];
+  if(!f){ return; }
+  if(!audioCache[f]) audioCache[f] = new Audio('assets/audio/'+f);
+  const a = audioCache[f];
+  Object.values(audioCache).forEach(x => { if(x !== a){ x.pause(); x.currentTime = 0; } });
+  a.currentTime = 0; a.playbackRate = rate;
+  a.play().catch(err => console.warn('[audio] play failed:', f, err));
 }
+function shuffle(a){ return a.slice().sort(() => Math.random() - 0.5); }
 
-// Auto-check selects
-document.querySelectorAll('select.pick').forEach(sel => {
-  sel.addEventListener('change', () => {
-    const a = norm(sel.dataset.a);
-    const v = norm(sel.value);
-    sel.classList.remove('ok','bad');
-    if(!v) return;
-    sel.classList.add(v === a ? 'ok' : 'bad');
-    updateScore();
-  });
-});
+/* ═══════════════════ VOCAB DATA ═══════════════════ */
+/* ✨ FEELINGS · 6 adjectives */
+const FEEL = {
+  title: '✨ Feelings',
+  intro: 'How you feel right now. Always with am / is / are.',
+  vocab: [
+    {w:'tired',    pos:'adj', ipa:'/ˈtaɪəd/',    ru:'уставший',              ex:'I am tired today.'},
+    {w:'horrible', pos:'adj', ipa:'/ˈhɒrɪbl/',   ru:'ужасный, отвратительный',ex:'The weather is horrible.'},
+    {w:'hungry',   pos:'adj', ipa:'/ˈhʌŋɡri/',   ru:'голодный',              ex:'I am hungry, let’s eat.'},
+    {w:'angry',    pos:'adj', ipa:'/ˈæŋɡri/',    ru:'злой, сердитый',        ex:'Don’t be angry with me.'},
+    {w:'afraid',   pos:'adj', ipa:'/əˈfreɪd/',   ru:'испуганный, боящийся',  ex:'I am afraid of the dark.'},
+    {w:'stressed', pos:'adj', ipa:'/strest/',    ru:'в стрессе',             ex:'She is stressed about the exam.'}
+  ],
+  phrases: [
+    'I am tired today.',
+    'The weather is horrible.',
+    'I am hungry, let’s eat.',
+    'Don’t be angry with me.',
+    'I am afraid of the dark.',
+    'She is stressed about the exam.',
+    'You look tired.',
+    'This soup is horrible.',
+    'The kids are hungry after school.',
+    'My boss is angry today.',
+    'I am afraid of spiders.',
+    'He feels stressed at work.'
+  ]
+};
 
-// Auto-check gaps
-document.querySelectorAll('input.gap').forEach(inp => {
-  inp.addEventListener('blur', () => {
-    const a = norm(inp.dataset.a);
-    const v = norm(inp.value);
-    inp.classList.remove('ok','bad');
-    if(!v) return;
-    inp.classList.add(v === a ? 'ok' : 'bad');
-    updateScore();
-  });
-});
+/* 📦 NOUNS · 5 useful nouns */
+const NOUN = {
+  title: '📦 Small-talk nouns',
+  intro: 'Пять существительных, чтобы говорить о работе, здоровье и поездках.',
+  vocab: [
+    {w:'free medicine', pos:'n',  ipa:'/friː ˈmedsn/', ru:'бесплатные лекарства',  ex:'The clinic gives free medicine to pensioners.'},
+    {w:'team',          pos:'n',  ipa:'/tiːm/',        ru:'команда',                ex:'Our team works well together.'},
+    {w:'research',      pos:'n',  ipa:'/rɪˈsɜːtʃ/',    ru:'исследование',           ex:'She does research on climate.'},
+    {w:'business trip', pos:'n',  ipa:'/ˈbɪznəs trɪp/',ru:'командировка',           ex:'I had a business trip last week.'},
+    {w:'tour',          pos:'n',  ipa:'/tʊə/',         ru:'экскурсия, тур',         ex:'We took a tour of the museum.'}
+  ],
+  phrases: [
+    'The clinic gives free medicine to pensioners.',
+    'Our team works well together.',
+    'She does research on climate.',
+    'I had a business trip last week.',
+    'We took a tour of the museum.',
+    'The doctor gave me free medicine.',
+    'My team is small but strong.',
+    'His research takes a lot of time.',
+    'The business trip was three days long.',
+    'The tour starts at ten o’clock.'
+  ]
+};
 
-// Auto-check fix inputs
-document.querySelectorAll('.fix-input').forEach(inp => {
-  inp.addEventListener('blur', () => {
-    const a = norm(inp.dataset.a);
-    const v = norm(inp.value);
-    const hint = inp.parentElement.querySelector('.fix-hint');
-    inp.classList.remove('ok','bad');
-    if(!v){ hint.classList.remove('show'); return; }
-    if(v === a){
-      inp.classList.add('ok');
-      hint.classList.remove('show');
-    } else {
-      inp.classList.add('bad');
-      hint.classList.add('show');
-    }
-    updateScore();
-  });
-});
+/* 🔑 PATTERNS · 3 grammar constructions as vocab-cards */
+const PAT = {
+  title: '🔑 Patterns',
+  intro: 'Три опорные конструкции для говорения. Cheat-sheet + drill.',
+  vocab: [
+    {w:'be going to',    pos:'pattern', ipa:'/biː ˈɡəʊɪŋ tuː/', ru:'собираться (что-то сделать)',    ex:'I am going to call my mother.'},
+    {w:'be allergic to', pos:'pattern', ipa:'/biː əˈlɜːdʒɪk tuː/', ru:'иметь аллергию на',            ex:'I am allergic to the sun.'},
+    {w:'because of',     pos:'pattern', ipa:'/bɪˈkɒz ɒv/',      ru:'из-за (+ существительное)',       ex:'Because of this situation, I am stressed.'}
+  ],
+  phrases: [
+    'I am going to call my mother and ask her how she is.',
+    'I am going to ask her about the situation.',
+    'She is going to travel next week.',
+    'They are going to have a business trip.',
+    'I am allergic to the sun.',
+    'He is allergic to nuts.',
+    'She is allergic to cats.',
+    'Because of this situation, I am afraid.',
+    'Because of the weather, we stayed at home.',
+    'I am tired because of the trip.'
+  ]
+};
 
-// Builder
-const TARGET = document.getElementById('btgt').dataset.target;
-const words = TARGET.split(' ');
-const shuffled = [...words].sort(() => Math.random() - 0.5);
-const src = document.getElementById('bsrc');
-const tgt = document.getElementById('btgt');
+/* ═══════════════════ ROUTING ═══════════════════ */
+const TOPICS = { feel: FEEL, noun: NOUN, pat: PAT };
+const app = document.getElementById('app');
+let currentTopic = 'feel';
 
-function renderBuilder(){
-  src.innerHTML = '';
-  tgt.innerHTML = '';
-  tgt.classList.remove('ok','bad');
-  shuffled.forEach((w,i) => {
-    const el = document.createElement('span');
-    el.className = 'word';
-    el.textContent = w;
-    el.dataset.idx = i;
-    el.onclick = () => moveWord(el);
-    src.appendChild(el);
-  });
-}
-function moveWord(el){
-  if(el.parentElement === src){
-    el.classList.add('used');
-    const cp = document.createElement('span');
-    cp.className = 'word';
-    cp.textContent = el.textContent;
-    cp.onclick = () => {
-      cp.remove();
-      el.classList.remove('used');
-      tgt.classList.remove('ok','bad');
+function renderTopic(topicKey){
+  currentTopic = topicKey;
+  if(topicKey === 'learn'){ renderLearnAll(); return; }
+  const data = TOPICS[topicKey];
+  const isPat = topicKey === 'pat';
+  const theoryHtml = isPat ? `
+    <div class="pat-theory">
+      <h3>Cheat-sheet · три конструкции</h3>
+      <table>
+        <tr><td>be going to</td><td>plan / intention</td><td>I <b>am going to</b> call · She <b>is going to</b> travel · We <b>are going to</b> ask</td></tr>
+        <tr><td>be allergic to</td><td>+ noun (add <em>the</em> for specific things)</td><td>I am <b>allergic to</b> the sun · He is <b>allergic to</b> nuts</td></tr>
+        <tr><td>because of</td><td>+ noun (reason)</td><td><b>Because of</b> this situation, I am afraid · I am tired <b>because of</b> the trip</td></tr>
+        <tr><td>because</td><td>+ full clause</td><td>I am tired <b>because</b> I worked all day</td></tr>
+      </table>
+    </div>
+  ` : '';
+  app.innerHTML = `
+    <div class="ex-hdr">
+      <h2>${data.title}</h2>
+      <div class="sub">${data.intro} · ${data.vocab.length} items · ${data.phrases.length} phrases</div>
+    </div>
+    ${theoryHtml}
+    <div class="mech-nav" id="mech-nav">
+      <button class="mech-btn active" data-m="fc">🎴 Flashcards</button>
+      <button class="mech-btn" data-m="mp">🃏 Match</button>
+      <button class="mech-btn" data-m="typ">✍️ Type EN</button>
+      <button class="mech-btn" data-m="rev">🔁 Reverse</button>
+      <button class="mech-btn" data-m="sc">🔀 Scramble</button>
+      <button class="mech-btn" data-m="fb">📝 Fill-blank</button>
+      <button class="mech-btn" data-m="tf">✅ True/False</button>
+      <button class="mech-btn" data-m="sb">🧩 Sentence builder</button>
+      <button class="mech-btn" data-m="sp">⚡ Sprint 30s</button>
+      <button class="mech-btn" data-m="ln">📚 Learn</button>
+    </div>
+    <div id="mech-slot"></div>
+  `;
+  const nav = document.getElementById('mech-nav');
+  nav.querySelectorAll('.mech-btn').forEach(b => {
+    b.onclick = () => {
+      nav.querySelectorAll('.mech-btn').forEach(x => x.classList.toggle('active', x === b));
+      buildMech(b.dataset.m, data);
     };
-    tgt.appendChild(cp);
+  });
+  buildMech('fc', data);
+}
+
+/* ═══════════════════ MECHANICS FACTORY ═══════════════════ */
+function buildMech(key, data){
+  const slot = document.getElementById('mech-slot');
+  slot.innerHTML = `<div class="mech active" id="mech-body"></div>`;
+  const body = document.getElementById('mech-body');
+  const V = data.vocab, P = data.phrases || [];
+  ({fc:buildFC, mp:buildMP, typ:buildTYP, rev:buildREV, sc:buildSC, fb:buildFB, tf:buildTF, sb:buildSB, sp:buildSP, ln:buildLN}[key])(body, V, P, data);
+}
+
+/* 1. FLASHCARDS */
+function buildFC(el, V){
+  let i = 0;
+  function render(){
+    const v = V[i];
+    el.innerHTML = `
+      <div class="mech-title">🎴 Flashcards <span style="font-size:.75rem;color:var(--muted);font-weight:600">tap card to flip · ← → nav</span></div>
+      <div class="fc-nav">
+        <span class="fc-count">${i+1} / ${V.length}</span>
+        <div class="fc-btns">
+          <button class="fc-b" data-fc="prev">←</button>
+          <button class="fc-b" data-fc="next">→</button>
+          <button class="fc-b" data-fc="shuffle">🔀 Shuffle</button>
+        </div>
+      </div>
+      <div class="fc-card" id="fc-card">
+        <button class="fc-say" onclick="event.stopPropagation();say(${JSON.stringify(v.w).replace(/"/g,'&quot;')})" title="Listen">🔊</button>
+        <div class="fc-word">${v.w}</div>
+        <div class="fc-ipa">${v.ipa||''}</div>
+        <div class="fc-pos">${v.pos||''}</div>
+        <div class="fc-back">
+          <div class="ru">${v.ru}</div>
+          <div class="ex">${v.ex||''}</div>
+        </div>
+      </div>
+    `;
+    const card = document.getElementById('fc-card');
+    card.onclick = () => { card.classList.toggle('revealed'); if(card.classList.contains('revealed')) say(v.w); };
+    el.querySelector('[data-fc="prev"]').onclick = () => { i = (i-1+V.length)%V.length; render(); };
+    el.querySelector('[data-fc="next"]').onclick = () => { i = (i+1)%V.length; render(); };
+    el.querySelector('[data-fc="shuffle"]').onclick = () => { V.sort(() => Math.random()-.5); i=0; render(); };
   }
+  render();
 }
-function checkBuilder(){
-  const built = [...tgt.children].map(c => c.textContent).join(' ');
-  tgt.classList.remove('ok','bad');
-  tgt.classList.add(built === TARGET ? 'ok' : 'bad');
-  updateScore();
+
+/* 2. MATCH */
+function buildMP(el, V){
+  const pairs = V.slice(0, Math.min(8, V.length));
+  const cards = [];
+  pairs.forEach((v,i) => { cards.push({s:'ru',t:v.ru,p:i}); cards.push({s:'en',t:v.w,p:i}); });
+  const shuffled = shuffle(cards);
+  el.innerHTML = `
+    <div class="mech-title">🃏 Match RU ↔ EN</div>
+    <div class="mech-hint">tap 2 cards to make a pair</div>
+    <div class="mp-grid" id="mp-grid">${shuffled.map(c => `<div class="mp-c" data-p="${c.p}" data-s="${c.s}"><span class="txt">${c.t}</span></div>`).join('')}</div>
+    <div class="score" id="mp-score">0 / ${pairs.length} pairs</div>
+  `;
+  let open = null, matched = 0, busy = false;
+  el.querySelectorAll('.mp-c').forEach(c => {
+    c.onclick = () => {
+      if(busy || c.classList.contains('open') || c.classList.contains('matched')) return;
+      c.classList.add('open');
+      if(!open){ open = c; return; }
+      busy = true;
+      if(open.dataset.p === c.dataset.p && open.dataset.s !== c.dataset.s){
+        setTimeout(() => { open.classList.add('matched'); c.classList.add('matched'); open.classList.remove('open'); c.classList.remove('open'); open=null; busy=false; matched++; document.getElementById('mp-score').textContent = `${matched} / ${pairs.length} pairs`; if(matched===pairs.length) document.getElementById('mp-score').innerHTML = `🎉 all ${pairs.length} matched!`; }, 300);
+      } else {
+        c.classList.add('wrong');
+        setTimeout(() => { open.classList.remove('open'); c.classList.remove('open','wrong'); open=null; busy=false; }, 600);
+      }
+    };
+  });
 }
-function resetBuilder(){ renderBuilder(); updateScore(); }
-renderBuilder();
-updateScore();
+
+/* 3. TYPE EN */
+function buildTYP(el, V){
+  const items = V.slice();
+  el.innerHTML = `
+    <div class="mech-title">✍️ Type EN by RU</div>
+    <div class="mech-hint">RU-подсказка → напечатай английское слово или конструкцию</div>
+    ${items.map((v,i) => `
+      <div class="typ-row">
+        <span class="typ-num">${i+1}</span>
+        <span class="typ-q">${v.ru}</span>
+        <input class="typ-inp" data-a="${v.w.replace(/"/g,'&quot;')}" placeholder="?">
+        <button class="typ-show" data-show="${v.w.replace(/"/g,'&quot;')}">Show</button>
+      </div>
+    `).join('')}
+    <div style="text-align:center"><button class="mech-check" id="typ-check">✓ Check</button></div>
+    <div class="score" id="typ-score"></div>
+  `;
+  el.querySelectorAll('.typ-show').forEach(b => b.onclick = () => { const inp = b.previousElementSibling; inp.value = b.dataset.show; inp.classList.add('right'); });
+  document.getElementById('typ-check').onclick = () => {
+    const inps = [...el.querySelectorAll('.typ-inp')];
+    let r = 0;
+    inps.forEach(i => { const v = (i.value||'').trim().toLowerCase(); if(v === i.dataset.a.toLowerCase()){ i.classList.remove('wrong'); i.classList.add('right'); r++; } else { i.classList.remove('right'); i.classList.add('wrong'); } });
+    document.getElementById('typ-score').textContent = `${r} / ${inps.length} correct`;
+  };
+}
+
+/* 4. REVERSE · EN→RU */
+function buildREV(el, V){
+  const items = V.slice();
+  el.innerHTML = `
+    <div class="mech-title">🔁 Reverse · EN → RU</div>
+    <div class="mech-hint">EN-слово → напиши перевод по-русски (первое слово)</div>
+    ${items.map((v,i) => `
+      <div class="typ-row">
+        <span class="typ-num">${i+1}</span>
+        <span class="typ-q" style="font-family:var(--display);color:var(--accent2)">${v.w}</span>
+        <input class="typ-inp" data-ru="${v.ru.replace(/"/g,'&quot;').toLowerCase()}" placeholder="перевод…">
+        <button class="typ-show" data-show="${v.ru.replace(/"/g,'&quot;')}">Show</button>
+      </div>
+    `).join('')}
+    <div style="text-align:center"><button class="mech-check" id="rev-check">✓ Check</button></div>
+    <div class="score" id="rev-score"></div>
+  `;
+  el.querySelectorAll('.typ-show').forEach(b => b.onclick = () => { const inp = b.previousElementSibling; inp.value = b.dataset.show; inp.classList.add('right'); });
+  document.getElementById('rev-check').onclick = () => {
+    const inps = [...el.querySelectorAll('.typ-inp')];
+    let r = 0;
+    inps.forEach(i => {
+      const v = (i.value||'').trim().toLowerCase();
+      const t = i.dataset.ru;
+      const firstWord = t.split(/[,\s(]/)[0];
+      if(v && (v === t || t.startsWith(v) || v === firstWord || t.includes(v))){ i.classList.remove('wrong'); i.classList.add('right'); r++; }
+      else { i.classList.remove('right'); i.classList.add('wrong'); }
+    });
+    document.getElementById('rev-score').textContent = `${r} / ${inps.length} correct`;
+  };
+}
+
+/* 6. SCRAMBLE — только для одиночных коротких слов */
+function buildSC(el, V){
+  const items = V.filter(v => v.w.length <= 15 && !v.w.includes(' '));
+  if(!items.length){ el.innerHTML = `<div class="mech-title">🔀 Scramble</div><div class="mech-hint">Nothing to scramble on this tab (all items are multi-word). Открой вкладку Feelings.</div>`; return; }
+  let i = 0;
+  function render(){
+    const w = items[i].w;
+    const L = shuffle(w.split(''));
+    el.innerHTML = `
+      <div class="mech-title">🔀 Word scramble</div>
+      <div class="mech-hint">tap буквы в правильном порядке</div>
+      <div class="sc-panel">
+        <div class="sc-hint"><strong>#${i+1} / ${items.length}</strong> · собери слово (${w.length} букв)</div>
+        <div class="sc-slots" data-sc-a></div>
+        <div class="sc-letters">${L.map(l => `<div class="sc-l" data-l="${l}">${l}</div>`).join('')}</div>
+        <div class="sc-ctrl">
+          <button class="mech-check" data-sc-c>✓ Check</button>
+          <button class="fc-b" data-sc-s>↷ Skip</button>
+          <button class="fc-b" data-sc-r>💡 Show</button>
+        </div>
+      </div>
+    `;
+    const ans = el.querySelector('[data-sc-a]');
+    el.querySelectorAll('.sc-l').forEach(l => {
+      l.onclick = () => {
+        if(l.classList.contains('used')) return;
+        const s = document.createElement('div'); s.className = 'sc-slot'; s.textContent = l.dataset.l;
+        s.onclick = () => { l.classList.remove('used'); s.remove(); };
+        ans.appendChild(s); l.classList.add('used');
+      };
+    });
+    el.querySelector('[data-sc-c]').onclick = () => {
+      const b = [...ans.querySelectorAll('.sc-slot')].map(s => s.textContent).join('');
+      if(b.toLowerCase() === w.toLowerCase()){ ans.classList.add('right'); say(w); setTimeout(() => { i=(i+1)%items.length; render(); }, 800); }
+      else ans.classList.add('wrong');
+    };
+    el.querySelector('[data-sc-s]').onclick = () => { i=(i+1)%items.length; render(); };
+    el.querySelector('[data-sc-r]').onclick = () => { ans.innerHTML = w.split('').map(l => `<div class="sc-slot">${l}</div>`).join(''); ans.classList.add('right'); };
+  }
+  render();
+}
+
+/* 7. FILL-BLANK — берём фразы и прячем ключевое слово */
+function buildFB(el, V, P){
+  const rows = [];
+  for(const p of P){
+    for(const v of V){
+      const w = v.w.split(/[|]/)[0];
+      const re = new RegExp('\\b' + w.replace(/[.*+?^${}()|[\\]\\\\]/g,'\\$&') + '\\b', 'i');
+      if(re.test(p) && !rows.some(r => r.p === p)){
+        rows.push({ p: p.replace(re, '____'), a: w.toLowerCase() });
+        break;
+      }
+    }
+  }
+  if(!rows.length){ el.innerHTML = `<div class="mech-title">📝 Fill-blank</div><div class="mech-hint">No matching phrases on this tab.</div>`; return; }
+  el.innerHTML = `
+    <div class="mech-title">📝 Fill-in-the-blank</div>
+    <div class="mech-hint">впиши пропущенное слово / конструкцию в предложение</div>
+    ${rows.map((r,i) => `
+      <div class="fb-row"><strong style="color:var(--accent2)">${i+1}.</strong> ${r.p.split('____')[0]}<input class="fb-inp" data-a="${r.a.replace(/"/g,'&quot;')}" placeholder="?">${r.p.split('____')[1]||''}</div>
+    `).join('')}
+    <div style="text-align:center"><button class="mech-check" id="fb-check">✓ Check</button></div>
+    <div class="score" id="fb-score"></div>
+  `;
+  document.getElementById('fb-check').onclick = () => {
+    const inps = [...el.querySelectorAll('.fb-inp')];
+    let r = 0;
+    inps.forEach(i => { const v = (i.value||'').trim().toLowerCase(); if(v === i.dataset.a){ i.classList.remove('wrong'); i.classList.add('right'); r++; } else { i.classList.remove('right'); i.classList.add('wrong'); } });
+    document.getElementById('fb-score').textContent = `${r} / ${inps.length} correct`;
+  };
+}
+
+/* 8. TRUE / FALSE / NOT STATED · 3-option variant */
+function buildTF(el, V, P){
+  const antonyms = {tired:'energetic',horrible:'wonderful',hungry:'full',angry:'calm',afraid:'brave',stressed:'relaxed',free:'expensive'};
+  const src = P.slice();
+  const items = src.map((p, idx) => {
+    const type = idx % 3;
+    if(type === 0) return { text: p, a: 'T' };
+    if(type === 1){
+      let alt = p;
+      for(const [orig, anti] of Object.entries(antonyms)){
+        const re = new RegExp('\\b' + orig + '\\b', 'i');
+        if(re.test(p)){ alt = p.replace(re, anti); break; }
+      }
+      if(alt === p){
+        alt = p.replace(/\bam\b/i,'am not').replace(/\bis\b/i,'is not').replace(/\bare\b/i,'are not');
+      }
+      return { text: alt, a: 'F' };
+    }
+    return { text: p.replace(/\.$/, '') + ' every single day.', a: 'NS' };
+  });
+  el.innerHTML = `
+    <div class="mech-title">✅ True / False / Not Stated</div>
+    <div class="mech-hint">tap True · False · Not Stated — стандарт ОГЭ</div>
+    ${items.map((t, i) => `
+      <div class="tf-row">
+        <div class="tf-t"><strong>${i+1}.</strong> ${t.text}</div>
+        <button class="tf-b" data-v="T" data-a="${t.a}">True</button>
+        <button class="tf-b" data-v="F" data-a="${t.a}">False</button>
+        <button class="tf-b" data-v="NS" data-a="${t.a}">Not Stated</button>
+      </div>
+    `).join('')}
+  `;
+  el.querySelectorAll('.tf-b').forEach(b => {
+    b.onclick = () => {
+      const row = b.closest('.tf-row'); if(row.dataset.done) return; row.dataset.done = '1';
+      row.querySelectorAll('.tf-b').forEach(x => x.disabled = true);
+      if(b.dataset.v === b.dataset.a) b.classList.add('right');
+      else { b.classList.add('wrong'); [...row.querySelectorAll('.tf-b')].find(x => x.dataset.v === b.dataset.a).classList.add('right'); }
+    };
+  });
+}
+
+/* 9. SENTENCE BUILDER */
+function buildSB(el, V, P){
+  const items = P.filter(p => p.split(/\s+/).length <= 12).slice(0, 8);
+  if(!items.length){ el.innerHTML = `<div class="mech-title">🧩 Sentence builder</div><div class="mech-hint">Phrases are too long on this tab.</div>`; return; }
+  el.innerHTML = `
+    <div class="mech-title">🧩 Sentence builder</div>
+    <div class="mech-hint">tap слова в правильном порядке · tap slot чтобы вернуть слово</div>
+    ${items.map((s, i) => {
+      const words = s.replace(/[.,!?]/g,'').split(/\s+/);
+      const bank = shuffle(words);
+      return `<div class="sb-row" data-i="${i}" data-target='${JSON.stringify(words).replace(/'/g,"&#39;")}'>
+        <div class="sb-target"><strong>${i+1}.</strong> collect this sentence</div>
+        <div class="sb-slots"></div>
+        <div class="sb-bank">${bank.map(w => `<div class="sb-w" data-w="${w}">${w}</div>`).join('')}</div>
+        <div style="text-align:center"><button class="mech-check sb-c">✓ Check</button></div>
+      </div>`;
+    }).join('')}
+  `;
+  el.querySelectorAll('.sb-row').forEach(row => {
+    const slots = row.querySelector('.sb-slots');
+    row.querySelectorAll('.sb-w').forEach(w => {
+      w.onclick = () => {
+        if(w.classList.contains('used')) return;
+        const s = document.createElement('div'); s.className = 'sb-slot'; s.textContent = w.dataset.w;
+        s.onclick = () => { w.classList.remove('used'); s.remove(); slots.classList.remove('right','wrong'); };
+        slots.appendChild(s); w.classList.add('used');
+      };
+    });
+    row.querySelector('.sb-c').onclick = () => {
+      const b = [...slots.querySelectorAll('.sb-slot')].map(s => s.textContent).join(' ');
+      const t = JSON.parse(row.dataset.target).join(' ');
+      if(b === t){ slots.classList.add('right'); say(t); } else slots.classList.add('wrong');
+    };
+  });
+}
+
+/* 10. SPRINT · 30s */
+function buildSP(el, V){
+  el.innerHTML = `
+    <div class="mech-title">⚡ Sprint · 30 seconds</div>
+    <div class="mech-hint">RU → EN · максимум ответов за 30 секунд</div>
+    <div class="sp-panel">
+      <div class="sp-timer" id="sp-t">00:30</div>
+      <div class="sp-word" id="sp-w">tap Start to begin</div>
+      <input class="sp-inp" id="sp-i" placeholder="type EN…" disabled>
+      <div><button class="sp-btn" id="sp-btn">▶ Start 30s</button></div>
+      <div class="sp-score">score: <strong id="sp-s">0</strong></div>
+    </div>
+  `;
+  let timer, left, score, idx = 0, active = false;
+  const words = V.slice();
+  const t = document.getElementById('sp-t'), w = document.getElementById('sp-w'), i = document.getElementById('sp-i'), s = document.getElementById('sp-s'), b = document.getElementById('sp-btn');
+  const cur = () => words[idx % words.length];
+  i.oninput = () => {
+    if(!active) return;
+    const v = i.value.trim().toLowerCase();
+    if(v === cur().w.toLowerCase()){ score++; s.textContent = score; w.textContent = '✓ ' + cur().w; w.style.color = 'var(--ok)'; idx++; setTimeout(() => { w.style.color = '#fff'; w.textContent = cur().ru; i.value = ''; }, 250); }
+  };
+  i.onkeydown = e => { if(e.key === 'Enter' && active){ idx++; w.textContent = cur().ru; i.value = ''; } };
+  b.onclick = () => {
+    active = true; left = 30; score = 0; idx = 0;
+    i.disabled = false; i.value = ''; i.focus();
+    w.textContent = cur().ru; w.style.color = '#fff'; s.textContent = 0;
+    if(timer) clearInterval(timer);
+    timer = setInterval(() => {
+      left--;
+      t.textContent = `00:${String(left).padStart(2,'0')}`;
+      if(left <= 0){ clearInterval(timer); active = false; i.disabled = true; w.textContent = `⏱ time! score ${score}`; w.style.color = 'var(--gold)'; }
+    }, 1000);
+  };
+}
+
+/* 11. LEARN · Quizlet adaptive */
+function buildLN(el, V){
+  let stack = shuffle(V.slice()), known = 0, still = 0, current = null;
+  function render(){
+    if(stack.length === 0){
+      el.innerHTML = `<div class="mech-title">📚 Learn</div>
+        <div class="ln-panel"><h3 style="color:var(--ok);font-family:var(--display)">🎉 done!</h3>
+        <p>Known first-try: <strong style="color:var(--ok)">${known}</strong> · still: <strong style="color:var(--miss)">${still}</strong></p>
+        <button class="ln-b start" onclick="location.reload()">🔄 New round</button></div>`;
+      return;
+    }
+    current = stack.shift();
+    el.innerHTML = `
+      <div class="mech-title">📚 Learn · Quizlet adaptive</div>
+      <div class="mech-hint">reveal → «знаю» уходит из стопки, «ещё раз» возвращается</div>
+      <div class="ln-panel" id="ln-p">
+        <div class="ln-prog">card · known <strong style="color:var(--ok)">${known}</strong> · still <strong style="color:var(--miss)">${still}</strong> · left <strong>${stack.length+1}</strong></div>
+        <div class="ln-w">${current.w}</div>
+        <div class="ln-hint"><em style="color:var(--muted)">tap Reveal → rate yourself</em></div>
+        <div class="ln-ex">—</div>
+        <div class="ln-acts">
+          <button class="ln-b say" onclick="say(${JSON.stringify(current.w).replace(/"/g,'&quot;')})">🔊</button>
+          <button class="ln-b rev" id="ln-r">👁 Reveal</button>
+          <button class="ln-b kn" id="ln-k" style="display:none">✓ Знаю</button>
+          <button class="ln-b st" id="ln-s" style="display:none">↺ Ещё раз</button>
+        </div>
+      </div>
+    `;
+    say(current.w);
+    document.getElementById('ln-r').onclick = () => {
+      const p = document.getElementById('ln-p');
+      p.classList.add('revealed');
+      p.querySelector('.ln-hint').innerHTML = `<strong>${current.ru}</strong> · <em style="color:var(--muted)">${current.pos||''} ${current.ipa||''}</em>`;
+      p.querySelector('.ln-ex').textContent = current.ex || '';
+      document.getElementById('ln-r').style.display = 'none';
+      document.getElementById('ln-k').style.display = 'inline-block';
+      document.getElementById('ln-s').style.display = 'inline-block';
+    };
+    document.getElementById('ln-k').onclick = () => { known++; render(); };
+    document.getElementById('ln-s').onclick = () => { still++; stack.push(current); render(); };
+  }
+  render();
+}
+
+/* LEARN ALL · aggregate */
+function renderLearnAll(){
+  const seen = new Set(), allV = [], allP = [];
+  ['feel','noun','pat'].forEach(k => {
+    TOPICS[k].vocab.forEach(v => { if(!seen.has(v.w)){ seen.add(v.w); allV.push(v); } });
+    (TOPICS[k].phrases||[]).forEach(p => allP.push(p));
+  });
+  const data = { title:'📚 Learn all', vocab: allV, phrases: allP };
+  app.innerHTML = `
+    <div class="ex-hdr">
+      <h2>📚 Learn all · ${allV.length} items + patterns</h2>
+      <div class="sub">Всё вместе · ${allV.length} items · ${allP.length} phrases · 6 механик</div>
+    </div>
+    <div class="mech-nav" id="mech-nav">
+      <button class="mech-btn active" data-m="ln">📚 Learn</button>
+      <button class="mech-btn" data-m="fc">🎴 Flashcards</button>
+      <button class="mech-btn" data-m="typ">✍️ Type EN</button>
+      <button class="mech-btn" data-m="rev">🔁 Reverse</button>
+      <button class="mech-btn" data-m="fb">📝 Fill-blank</button>
+      <button class="mech-btn" data-m="sp">⚡ Sprint 30s</button>
+    </div>
+    <div id="mech-slot"></div>
+  `;
+  const nav = document.getElementById('mech-nav');
+  nav.querySelectorAll('.mech-btn').forEach(b => {
+    b.onclick = () => {
+      nav.querySelectorAll('.mech-btn').forEach(x => x.classList.toggle('active', x === b));
+      buildMech(b.dataset.m, data);
+    };
+  });
+  buildMech('ln', data);
+}
+
+/* MAIN TABS */
+document.querySelectorAll('.tab').forEach(b => {
+  b.onclick = () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.toggle('active', x === b));
+    renderTopic(b.dataset.tab);
+  };
+});
+renderTopic('feel');
 </script>
+
 </body>
 </html>
