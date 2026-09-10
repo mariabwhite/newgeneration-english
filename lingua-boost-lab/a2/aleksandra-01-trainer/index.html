@@ -158,6 +158,33 @@ h1{font-family:var(--display);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800
 .ln-b.st{background:var(--miss);color:#fff}
 .ln-b.start{background:var(--accent);color:#fff}
 
+/* MCQ */
+.mcq-row{background:#FFF6EE;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:6px 0}
+.mcq-q{font-weight:700;font-size:.95rem;color:var(--text);margin-bottom:8px}
+.mcq-q .num{font-family:var(--display);font-weight:900;color:var(--accent2);margin-right:8px}
+.mcq-q .en{font-family:var(--display);color:var(--accent2)}
+.mcq-opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:6px}
+.mcq-b{background:#fff;border:2px solid var(--accent);color:var(--accent2);border-radius:8px;padding:8px 12px;font-family:var(--body);font-weight:700;font-size:.9rem;cursor:pointer;transition:.15s;text-align:left}
+.mcq-b:hover{background:var(--accent3);color:var(--accent2);border-color:var(--accent2)}
+.mcq-b.right{background:var(--ok);border-color:var(--ok);color:#fff;cursor:default}
+.mcq-b.wrong{background:var(--miss);border-color:var(--miss);color:#fff;cursor:default}
+.mcq-b:disabled{opacity:.6;cursor:default}
+.fb-sel{padding:3px 8px;border:2px solid var(--accent);border-radius:6px;font-weight:700;color:var(--accent2);background:#fff;text-align:center;outline:none;font-size:.86rem;margin:0 4px;font-family:inherit;cursor:pointer}
+.fb-sel.right{background:#E8F5E9;border-color:var(--ok);color:var(--ok)}
+.fb-sel.wrong{background:#FFEBEE;border-color:var(--miss);color:var(--miss)}
+
+/* Speed pick */
+.sk-panel{background:linear-gradient(135deg,var(--accent2),#24304A);color:#fff;border-radius:14px;padding:20px;text-align:center}
+.sk-timer{font-family:var(--display);font-weight:900;font-size:2.4rem;color:var(--gold);margin:4px 0}
+.sk-word{font-family:var(--display);font-weight:800;font-size:1.4rem;min-height:36px;margin:8px 0;color:#fff}
+.sk-opts{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;max-width:520px;margin:12px auto 0}
+.sk-b{background:rgba(255,255,255,.95);color:var(--accent2);border:none;border-radius:10px;padding:12px 10px;font-family:var(--display);font-weight:800;font-size:.9rem;cursor:pointer;transition:.15s}
+.sk-b:hover{background:var(--accent3)}
+.sk-b.right{background:var(--ok);color:#fff}
+.sk-b.wrong{background:var(--miss);color:#fff}
+.sk-btn{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:9px 20px;font-family:var(--display);font-weight:800;cursor:pointer;margin:14px 4px 0;font-size:.9rem}
+.sk-score{color:var(--gold);font-family:var(--display);font-weight:800;font-size:1rem;margin-top:10px}
+
 footer{text-align:center;color:var(--muted);font-size:.76rem;padding:20px 0}
 
 /* Topic tabs (deeper drill) */
@@ -222,30 +249,30 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:20px 0}
 </div>
 <div class="mech" id="mech-mp"></div>
 
-<!-- 02 TYPE -->
+<!-- 02 PICK EN -->
 <div class="ex-hdr">
-  <h2><span class="num">02</span> ✍️ Type EN by RU</h2>
-  <div class="sub">Type the English word from the Russian hint</div>
+  <h2><span class="num">02</span> 🎯 Pick EN by RU</h2>
+  <div class="sub">Choose the correct English word · 4 options each</div>
 </div>
 <div class="theory">
-  <strong>Tip:</strong> mind the spelling — <em>hungry</em>, <em>afraid</em>, <em>research</em>, <em>allergic</em> have tricky letters.
+  <strong>Tip:</strong> read all four options first, then pick. Beware of look-alikes — <em>hungry</em> vs <em>angry</em>, <em>tired</em> vs <em>stressed</em>.
 </div>
 <div class="mech" id="mech-typ"></div>
 
-<!-- 03 REVERSE -->
+<!-- 03 PICK RU -->
 <div class="ex-hdr">
-  <h2><span class="num">03</span> 🔁 Reverse · EN → RU</h2>
-  <div class="sub">Type the Russian translation (first word is enough)</div>
+  <h2><span class="num">03</span> 🔁 Pick RU by EN</h2>
+  <div class="sub">Choose the correct Russian meaning · 4 options each</div>
 </div>
 <div class="theory">
-  <strong>Trick:</strong> <em>tired</em> ≠ <em>sleepy</em>, <em>afraid</em> ≠ <em>scared</em> здесь одно поле — используй самое короткое слово из подсказки.
+  <strong>Trick:</strong> some options are close — <em>уставший</em> ≠ <em>сонный</em>, <em>испуганный</em> ≠ <em>злой</em>. Pick the exact match.
 </div>
 <div class="mech" id="mech-rev"></div>
 
 <!-- 04 FILL-BLANK -->
 <div class="ex-hdr">
-  <h2><span class="num">04</span> 📝 Fill in the blank</h2>
-  <div class="sub">Type the missing word / pattern</div>
+  <h2><span class="num">04</span> 📝 Fill in the blank · dropdown</h2>
+  <div class="sub">Pick the missing word from a dropdown menu</div>
 </div>
 <div class="theory">
   <strong>Patterns to watch:</strong>
@@ -289,21 +316,21 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:20px 0}
 
 <!-- 08 FIX -->
 <div class="ex-hdr">
-  <h2><span class="num">08</span> 🎯 Fix the mistake</h2>
-  <div class="sub">Rewrite each broken sentence correctly</div>
+  <h2><span class="num">08</span> ✅ Pick the correct sentence</h2>
+  <div class="sub">Choose the version without A2 mistakes · 3 options each</div>
 </div>
 <div class="theory">
-  <strong>Typical A2 slips:</strong> missing <em>am / is / are</em>, dropping <em>the</em> before natural things (the sun, the moon), and <em>have</em> vs <em>had</em> for a finished past event.
+  <strong>Typical A2 slips:</strong> missing <em>am / is / are</em>, dropping <em>the</em> before natural things (the sun, the moon), <em>have</em> vs <em>had</em> for a finished past event.
 </div>
 <div class="mech" id="mech-fix"></div>
 
-<!-- 09 SPRINT -->
+<!-- 09 SPEED PICK -->
 <div class="ex-hdr">
-  <h2><span class="num">09</span> ⚡ Sprint · 30 seconds</h2>
-  <div class="sub">RU → EN as fast as possible · answers auto-submit on match</div>
+  <h2><span class="num">09</span> ⚡ Speed pick · 30 seconds</h2>
+  <div class="sub">RU shown · tap the correct EN word · beat your score</div>
 </div>
 <div class="theory">
-  <strong>Goal:</strong> beat your last score. Restart to reshuffle the queue.
+  <strong>Goal:</strong> as many correct taps as possible in 30 seconds. Wrong tap = red flash, right = next word.
 </div>
 <div class="mech" id="mech-sp"></div>
 
@@ -446,57 +473,65 @@ function buildMP(){
   });
 }
 
-/* ═══════════════════ 02 · TYPE EN ═══════════════════ */
+/* ═══════════════════ 02 · PICK EN by RU (MCQ) ═══════════════════ */
 function buildTYP(){
   const el = document.getElementById('mech-typ');
-  el.innerHTML = `
-    ${VOCAB.map((v,i) => `
-      <div class="typ-row">
-        <span class="typ-num">${i+1}</span>
-        <span class="typ-q">${v.ru}</span>
-        <input class="typ-inp" data-a="${v.w.replace(/"/g,'&quot;')}" placeholder="?">
-        <button class="typ-show" data-show="${v.w.replace(/"/g,'&quot;')}">Show</button>
+  el.innerHTML = VOCAB.map((v,i) => {
+    const pool = VOCAB.filter(x => x.pos === v.pos && x.w !== v.w);
+    const distractors = shuffle(pool).slice(0, 3).map(x => x.w);
+    const fallback = shuffle(VOCAB.filter(x => x.w !== v.w).map(x => x.w)).slice(0, 3 - distractors.length);
+    const opts = shuffle([v.w, ...distractors, ...fallback].slice(0, 4));
+    return `
+      <div class="mcq-row">
+        <div class="mcq-q"><span class="num">${i+1}.</span> ${v.ru}</div>
+        <div class="mcq-opts">
+          ${opts.map(o => `<button class="mcq-b" data-a="${v.w.replace(/"/g,'&quot;')}" data-v="${o.replace(/"/g,'&quot;')}">${o}</button>`).join('')}
+        </div>
       </div>
-    `).join('')}
-    <div style="text-align:center"><button class="mech-check" id="typ-check">✓ Check all</button></div>
-    <div class="score" id="typ-score"></div>
-  `;
-  el.querySelectorAll('.typ-show').forEach(b => b.onclick = () => { const inp = b.previousElementSibling; inp.value = b.dataset.show; inp.classList.add('right'); });
-  document.getElementById('typ-check').onclick = () => {
-    const inps = [...el.querySelectorAll('.typ-inp')]; let r = 0;
-    inps.forEach(i => { const v = (i.value||'').trim().toLowerCase(); if(v === i.dataset.a.toLowerCase()){ i.classList.remove('wrong'); i.classList.add('right'); r++; } else { i.classList.remove('right'); i.classList.add('wrong'); } });
-    document.getElementById('typ-score').textContent = `${r} / ${inps.length} correct`;
-  };
+    `;
+  }).join('') + `<div class="score" id="typ-score">0 / ${VOCAB.length}</div>`;
+  const correct = new Set();
+  el.querySelectorAll('.mcq-b').forEach(b => {
+    b.onclick = () => {
+      const row = b.closest('.mcq-row'); if(row.dataset.done) return; row.dataset.done = '1';
+      row.querySelectorAll('.mcq-b').forEach(x => x.disabled = true);
+      if(b.dataset.v === b.dataset.a){ b.classList.add('right'); correct.add(row); }
+      else { b.classList.add('wrong'); [...row.querySelectorAll('.mcq-b')].find(x => x.dataset.v === x.dataset.a).classList.add('right'); }
+      document.getElementById('typ-score').textContent = `${correct.size} / ${VOCAB.length} correct`;
+    };
+  });
 }
 
-/* ═══════════════════ 03 · REVERSE EN→RU ═══════════════════ */
+/* ═══════════════════ 03 · PICK RU by EN (MCQ) ═══════════════════ */
 function buildREV(){
   const el = document.getElementById('mech-rev');
-  el.innerHTML = `
-    ${VOCAB.map((v,i) => `
-      <div class="typ-row">
-        <span class="typ-num">${i+1}</span>
-        <span class="typ-q" style="font-family:var(--display);color:var(--accent2)">${v.w}</span>
-        <input class="typ-inp" data-ru="${v.ru.replace(/"/g,'&quot;').toLowerCase()}" placeholder="перевод…">
-        <button class="typ-show" data-show="${v.ru.replace(/"/g,'&quot;')}">Show</button>
+  el.innerHTML = VOCAB.map((v,i) => {
+    const pool = VOCAB.filter(x => x.pos === v.pos && x.ru !== v.ru);
+    const distractors = shuffle(pool).slice(0, 3).map(x => x.ru);
+    const fallback = shuffle(VOCAB.filter(x => x.ru !== v.ru).map(x => x.ru)).slice(0, 3 - distractors.length);
+    const opts = shuffle([v.ru, ...distractors, ...fallback].slice(0, 4));
+    return `
+      <div class="mcq-row">
+        <div class="mcq-q"><span class="num">${i+1}.</span> <span class="en">${v.w}</span></div>
+        <div class="mcq-opts">
+          ${opts.map(o => `<button class="mcq-b" data-a="${v.ru.replace(/"/g,'&quot;')}" data-v="${o.replace(/"/g,'&quot;')}">${o}</button>`).join('')}
+        </div>
       </div>
-    `).join('')}
-    <div style="text-align:center"><button class="mech-check" id="rev-check">✓ Check all</button></div>
-    <div class="score" id="rev-score"></div>
-  `;
-  el.querySelectorAll('.typ-show').forEach(b => b.onclick = () => { const inp = b.previousElementSibling; inp.value = b.dataset.show; inp.classList.add('right'); });
-  document.getElementById('rev-check').onclick = () => {
-    const inps = [...el.querySelectorAll('.typ-inp')]; let r = 0;
-    inps.forEach(i => {
-      const v = (i.value||'').trim().toLowerCase(); const t = i.dataset.ru; const firstWord = t.split(/[,\s(]/)[0];
-      if(v && (v === t || t.startsWith(v) || v === firstWord || t.includes(v))){ i.classList.remove('wrong'); i.classList.add('right'); r++; }
-      else { i.classList.remove('right'); i.classList.add('wrong'); }
-    });
-    document.getElementById('rev-score').textContent = `${r} / ${inps.length} correct`;
-  };
+    `;
+  }).join('') + `<div class="score" id="rev-score">0 / ${VOCAB.length}</div>`;
+  const correct = new Set();
+  el.querySelectorAll('.mcq-b').forEach(b => {
+    b.onclick = () => {
+      const row = b.closest('.mcq-row'); if(row.dataset.done) return; row.dataset.done = '1';
+      row.querySelectorAll('.mcq-b').forEach(x => x.disabled = true);
+      if(b.dataset.v === b.dataset.a){ b.classList.add('right'); correct.add(row); }
+      else { b.classList.add('wrong'); [...row.querySelectorAll('.mcq-b')].find(x => x.dataset.v === x.dataset.a).classList.add('right'); }
+      document.getElementById('rev-score').textContent = `${correct.size} / ${VOCAB.length} correct`;
+    };
+  });
 }
 
-/* ═══════════════════ 04 · FILL-BLANK ═══════════════════ */
+/* ═══════════════════ 04 · FILL-BLANK with dropdown ═══════════════════ */
 function buildFB(){
   const el = document.getElementById('mech-fb');
   const rows = [];
@@ -506,25 +541,35 @@ function buildFB(){
       const w = v.w.split(/[|]/)[0];
       const re = new RegExp('\\b' + w.replace(/[.*+?^${}()|[\\]\\\\]/g,'\\$&') + '\\b', 'i');
       if(re.test(p) && !used.has(p)){
-        rows.push({ p: p.replace(re, '____'), a: w.toLowerCase() });
+        rows.push({ before: p.split(re)[0], after: p.replace(re,'').split('')[1]||'', a: w });
         used.add(p);
         break;
       }
     }
     if(rows.length >= 10) break;
   }
-  el.innerHTML = `
-    ${rows.map((r,i) => `
-      <div class="fb-row"><strong style="color:var(--accent2)">${i+1}.</strong> ${r.p.split('____')[0]}<input class="fb-inp" data-a="${r.a.replace(/"/g,'&quot;')}" placeholder="?">${r.p.split('____')[1]||''}</div>
-    `).join('')}
-    <div style="text-align:center"><button class="mech-check" id="fb-check">✓ Check all</button></div>
-    <div class="score" id="fb-score"></div>
-  `;
-  document.getElementById('fb-check').onclick = () => {
-    const inps = [...el.querySelectorAll('.fb-inp')]; let r = 0;
-    inps.forEach(i => { const v = (i.value||'').trim().toLowerCase(); if(v === i.dataset.a){ i.classList.remove('wrong'); i.classList.add('right'); r++; } else { i.classList.remove('right'); i.classList.add('wrong'); } });
-    document.getElementById('fb-score').textContent = `${r} / ${inps.length} correct`;
-  };
+  el.innerHTML = rows.map((r,i) => {
+    const pool = VOCAB.filter(v => v.w.toLowerCase() !== r.a.toLowerCase());
+    const distractors = shuffle(pool).slice(0, 3).map(v => v.w);
+    const opts = shuffle([r.a, ...distractors]);
+    return `
+      <div class="fb-row"><strong style="color:var(--accent2)">${i+1}.</strong> ${r.before}
+        <select class="fb-sel" data-a="${r.a.replace(/"/g,'&quot;').toLowerCase()}">
+          <option value="">— pick —</option>
+          ${opts.map(o => `<option value="${o.replace(/"/g,'&quot;')}">${o}</option>`).join('')}
+        </select>${r.after}</div>
+    `;
+  }).join('') + `<div class="score" id="fb-score">0 / ${rows.length}</div>`;
+  el.querySelectorAll('.fb-sel').forEach(s => {
+    s.onchange = () => {
+      const v = (s.value||'').trim().toLowerCase();
+      s.classList.remove('right','wrong');
+      if(!v) return;
+      s.classList.add(v === s.dataset.a ? 'right' : 'wrong');
+      const r = el.querySelectorAll('.fb-sel.right').length;
+      document.getElementById('fb-score').textContent = `${r} / ${rows.length} correct`;
+    };
+  });
 }
 
 /* ═══════════════════ 05 · TRUE/FALSE/NS ═══════════════════ */
@@ -636,74 +681,81 @@ function buildSC(){
   render();
 }
 
-/* ═══════════════════ 08 · FIX THE MISTAKE ═══════════════════ */
+/* ═══════════════════ 08 · PICK THE CORRECT SENTENCE (MCQ) ═══════════════════ */
 const FIX_ITEMS = [
-  { wrong: 'I allergic to sun.',           right: 'i am allergic to the sun.' },
-  { wrong: 'I hungry.',                    right: 'i am hungry.' },
-  { wrong: 'I have business trip last week.', right: 'i had a business trip last week.' },
-  { wrong: 'I go call my mom now.',        right: 'i am going to call my mom now.' },
-  { wrong: 'She afraid dogs.',             right: 'she is afraid of dogs.' },
-  { wrong: 'Because this situation I stressed.', right: 'because of this situation, i am stressed.' },
-  { wrong: 'We had tour museum yesterday.', right: 'we had a tour of the museum yesterday.' },
-  { wrong: 'Our team do research every day.', right: 'our team does research every day.' }
+  { wrong: 'I allergic to sun.',                   right: 'I am allergic to the sun.',                  alt: 'I am allergic on the sun.' },
+  { wrong: 'I hungry.',                            right: 'I am hungry.',                                alt: 'I is hungry.' },
+  { wrong: 'I have business trip last week.',      right: 'I had a business trip last week.',            alt: 'I have a business trip last week.' },
+  { wrong: 'I go call my mom now.',                right: 'I am going to call my mom now.',              alt: 'I going to call my mom now.' },
+  { wrong: 'She afraid dogs.',                     right: 'She is afraid of dogs.',                      alt: 'She afraids of dogs.' },
+  { wrong: 'Because this situation I stressed.',   right: 'Because of this situation, I am stressed.',   alt: 'Because on this situation, I am stressed.' },
+  { wrong: 'We had tour museum yesterday.',        right: 'We had a tour of the museum yesterday.',      alt: 'We had a tour to the museum yesterday.' },
+  { wrong: 'Our team do research every day.',      right: 'Our team does research every day.',           alt: 'Our team doing research every day.' }
 ];
 function buildFIX(){
   const el = document.getElementById('mech-fix');
-  el.innerHTML = `
-    ${FIX_ITEMS.map((f,i) => `
-      <div class="fix-item">
-        <div class="fix-wrong">${i+1}. ${f.wrong}</div>
-        <input class="fix-input" data-a="${f.right.replace(/"/g,'&quot;')}" placeholder="Type the correct version…">
-        <div class="fix-hint">Correct: <b>${f.right}</b></div>
+  el.innerHTML = FIX_ITEMS.map((f,i) => {
+    const opts = shuffle([f.right, f.wrong, f.alt]);
+    return `
+      <div class="mcq-row">
+        <div class="mcq-q"><span class="num">${i+1}.</span> Pick the correct sentence:</div>
+        <div class="mcq-opts" style="grid-template-columns:1fr">
+          ${opts.map(o => `<button class="mcq-b" data-a="${f.right.replace(/"/g,'&quot;')}" data-v="${o.replace(/"/g,'&quot;')}">${o}</button>`).join('')}
+        </div>
       </div>
-    `).join('')}
-    <div style="text-align:center"><button class="mech-check" id="fix-check">✓ Check all</button></div>
-    <div class="score" id="fix-score"></div>
-  `;
-  const norm = s => (s||'').toLowerCase().replace(/[.,!?;:'"`]/g,'').replace(/\s+/g,' ').trim();
-  document.getElementById('fix-check').onclick = () => {
-    const inps = [...el.querySelectorAll('.fix-input')]; let r = 0;
-    inps.forEach(i => {
-      const v = norm(i.value); const a = norm(i.dataset.a);
-      const hint = i.parentElement.querySelector('.fix-hint');
-      i.classList.remove('right','wrong');
-      if(v === a){ i.classList.add('right'); r++; hint.classList.remove('show'); }
-      else { i.classList.add('wrong'); hint.classList.add('show'); }
-    });
-    document.getElementById('fix-score').textContent = `${r} / ${inps.length} correct`;
-  };
+    `;
+  }).join('') + `<div class="score" id="fix-score">0 / ${FIX_ITEMS.length}</div>`;
+  const correct = new Set();
+  el.querySelectorAll('.mcq-b').forEach(b => {
+    b.onclick = () => {
+      const row = b.closest('.mcq-row'); if(row.dataset.done) return; row.dataset.done = '1';
+      row.querySelectorAll('.mcq-b').forEach(x => x.disabled = true);
+      if(b.dataset.v === b.dataset.a){ b.classList.add('right'); correct.add(row); }
+      else { b.classList.add('wrong'); [...row.querySelectorAll('.mcq-b')].find(x => x.dataset.v === x.dataset.a).classList.add('right'); }
+      document.getElementById('fix-score').textContent = `${correct.size} / ${FIX_ITEMS.length} correct`;
+    };
+  });
 }
 
-/* ═══════════════════ 09 · SPRINT 30s ═══════════════════ */
+/* ═══════════════════ 09 · SPEED PICK · 30s (tap not type) ═══════════════════ */
 function buildSP(){
   const el = document.getElementById('mech-sp');
   el.innerHTML = `
-    <div class="sp-panel">
-      <div class="sp-timer" id="sp-t">00:30</div>
-      <div class="sp-word" id="sp-w">tap Start to begin</div>
-      <input class="sp-inp" id="sp-i" placeholder="type EN…" disabled>
-      <div><button class="sp-btn" id="sp-btn">▶ Start 30s</button></div>
-      <div class="sp-score">score: <strong id="sp-s">0</strong></div>
+    <div class="sk-panel">
+      <div class="sk-timer" id="sk-t">00:30</div>
+      <div class="sk-word" id="sk-w">tap Start to begin</div>
+      <div class="sk-opts" id="sk-o"></div>
+      <div><button class="sk-btn" id="sk-b">▶ Start 30s</button></div>
+      <div class="sk-score">score: <strong id="sk-s">0</strong></div>
     </div>
   `;
   let timer, left, score, idx = 0, active = false;
   const words = shuffle(VOCAB.slice());
-  const t = document.getElementById('sp-t'), w = document.getElementById('sp-w'), i = document.getElementById('sp-i'), s = document.getElementById('sp-s'), b = document.getElementById('sp-btn');
-  const cur = () => words[idx % words.length];
-  i.oninput = () => {
-    if(!active) return;
-    const v = i.value.trim().toLowerCase();
-    if(v === cur().w.toLowerCase()){ score++; s.textContent = score; w.textContent = '✓ ' + cur().w; w.style.color = 'var(--ok)'; idx++; setTimeout(() => { w.style.color = '#fff'; w.textContent = cur().ru; i.value = ''; }, 250); }
-  };
-  i.onkeydown = e => { if(e.key === 'Enter' && active){ idx++; w.textContent = cur().ru; i.value = ''; } };
+  const t = document.getElementById('sk-t'), w = document.getElementById('sk-w'), opts = document.getElementById('sk-o'), s = document.getElementById('sk-s'), b = document.getElementById('sk-b');
+
+  function drawOpts(){
+    const cur = words[idx % words.length];
+    const pool = shuffle(VOCAB.filter(v => v.w !== cur.w)).slice(0, 3).map(v => v.w);
+    const four = shuffle([cur.w, ...pool]);
+    w.textContent = cur.ru;
+    opts.innerHTML = four.map(o => `<button class="sk-b" data-v="${o.replace(/"/g,'&quot;')}" data-a="${cur.w.replace(/"/g,'&quot;')}">${o}</button>`).join('');
+    opts.querySelectorAll('.sk-b').forEach(btn => {
+      btn.onclick = () => {
+        if(!active) return;
+        if(btn.dataset.v === btn.dataset.a){ btn.classList.add('right'); score++; s.textContent = score; idx++; setTimeout(drawOpts, 220); }
+        else { btn.classList.add('wrong'); setTimeout(() => btn.classList.remove('wrong'), 350); }
+      };
+    });
+  }
+
   b.onclick = () => {
     active = true; left = 30; score = 0; idx = 0;
-    i.disabled = false; i.value = ''; i.focus();
-    w.textContent = cur().ru; w.style.color = '#fff'; s.textContent = 0;
+    s.textContent = 0;
+    drawOpts();
     if(timer) clearInterval(timer);
     timer = setInterval(() => {
       left--; t.textContent = `00:${String(left).padStart(2,'0')}`;
-      if(left <= 0){ clearInterval(timer); active = false; i.disabled = true; w.textContent = `⏱ time! score ${score}`; w.style.color = 'var(--gold)'; }
+      if(left <= 0){ clearInterval(timer); active = false; opts.innerHTML = ''; w.textContent = `⏱ time! score ${score}`; }
     }, 1000);
   };
 }
@@ -793,13 +845,13 @@ buildLN();
       <div class="t-mech-nav" id="t-mech-nav">
         <button class="t-mech-btn active" data-m="fc">🎴 Flashcards</button>
         <button class="t-mech-btn" data-m="mp">🃏 Match</button>
-        <button class="t-mech-btn" data-m="typ">✍️ Type EN</button>
-        <button class="t-mech-btn" data-m="rev">🔁 Reverse</button>
+        <button class="t-mech-btn" data-m="typ">🎯 Pick EN</button>
+        <button class="t-mech-btn" data-m="rev">🔁 Pick RU</button>
         <button class="t-mech-btn" data-m="sc">🔀 Scramble</button>
         <button class="t-mech-btn" data-m="fb">📝 Fill-blank</button>
         <button class="t-mech-btn" data-m="tf">✅ True/False</button>
         <button class="t-mech-btn" data-m="sb">🧩 Sentence builder</button>
-        <button class="t-mech-btn" data-m="sp">⚡ Sprint 30s</button>
+        <button class="t-mech-btn" data-m="sp">⚡ Speed pick 30s</button>
         <button class="t-mech-btn" data-m="ln">📚 Learn</button>
       </div>
       <div id="t-mech-slot"></div>
@@ -824,9 +876,9 @@ buildLN();
       <div class="t-mech-nav" id="t-mech-nav">
         <button class="t-mech-btn active" data-m="ln">📚 Learn</button>
         <button class="t-mech-btn" data-m="fc">🎴 Flashcards</button>
-        <button class="t-mech-btn" data-m="typ">✍️ Type EN</button>
-        <button class="t-mech-btn" data-m="rev">🔁 Reverse</button>
-        <button class="t-mech-btn" data-m="sp">⚡ Sprint 30s</button>
+        <button class="t-mech-btn" data-m="typ">🎯 Pick EN</button>
+        <button class="t-mech-btn" data-m="rev">🔁 Pick RU</button>
+        <button class="t-mech-btn" data-m="sp">⚡ Speed pick 30s</button>
       </div>
       <div id="t-mech-slot"></div>
     `;
@@ -907,52 +959,60 @@ buildLN();
     });
   }
 
-  /* Type EN */
+  /* Pick EN by RU (MCQ) */
   function tTYP(el, V){
-    el.innerHTML = `
-      ${V.map((v,i) => `
-        <div class="typ-row">
-          <span class="typ-num">${i+1}</span>
-          <span class="typ-q">${v.ru}</span>
-          <input class="typ-inp" data-a="${v.w.replace(/"/g,'&quot;')}" placeholder="?">
-          <button class="typ-show" data-show="${v.w.replace(/"/g,'&quot;')}">Show</button>
+    if(V.length < 2){ el.innerHTML = '<em>need at least 2 items</em>'; return; }
+    el.innerHTML = V.map((v,i) => {
+      const pool = VOCAB.filter(x => x.w !== v.w);
+      const distractors = shuffle(pool).slice(0, 3).map(x => x.w);
+      const opts = shuffle([v.w, ...distractors]);
+      return `
+        <div class="mcq-row">
+          <div class="mcq-q"><span class="num">${i+1}.</span> ${v.ru}</div>
+          <div class="mcq-opts">
+            ${opts.map(o => `<button class="mcq-b" data-a="${v.w.replace(/"/g,'&quot;')}" data-v="${o.replace(/"/g,'&quot;')}">${o}</button>`).join('')}
+          </div>
         </div>
-      `).join('')}
-      <div style="text-align:center"><button class="mech-check" id="t-typ-c">✓ Check all</button></div>
-      <div class="score" id="t-typ-s"></div>
-    `;
-    el.querySelectorAll('.typ-show').forEach(b => b.onclick = () => { const inp = b.previousElementSibling; inp.value = b.dataset.show; inp.classList.add('right'); });
-    document.getElementById('t-typ-c').onclick = () => {
-      const inps = [...el.querySelectorAll('.typ-inp')]; let r = 0;
-      inps.forEach(i => { const v = (i.value||'').trim().toLowerCase(); if(v === i.dataset.a.toLowerCase()){ i.classList.remove('wrong'); i.classList.add('right'); r++; } else { i.classList.remove('right'); i.classList.add('wrong'); } });
-      document.getElementById('t-typ-s').textContent = `${r} / ${inps.length} correct`;
-    };
+      `;
+    }).join('') + `<div class="score" id="t-typ-s">0 / ${V.length}</div>`;
+    const correct = new Set();
+    el.querySelectorAll('.mcq-b').forEach(b => {
+      b.onclick = () => {
+        const row = b.closest('.mcq-row'); if(row.dataset.done) return; row.dataset.done = '1';
+        row.querySelectorAll('.mcq-b').forEach(x => x.disabled = true);
+        if(b.dataset.v === b.dataset.a){ b.classList.add('right'); correct.add(row); }
+        else { b.classList.add('wrong'); [...row.querySelectorAll('.mcq-b')].find(x => x.dataset.v === x.dataset.a).classList.add('right'); }
+        document.getElementById('t-typ-s').textContent = `${correct.size} / ${V.length} correct`;
+      };
+    });
   }
 
-  /* Reverse EN→RU */
+  /* Pick RU by EN (MCQ) */
   function tREV(el, V){
-    el.innerHTML = `
-      ${V.map((v,i) => `
-        <div class="typ-row">
-          <span class="typ-num">${i+1}</span>
-          <span class="typ-q" style="font-family:var(--display);color:var(--accent2)">${v.w}</span>
-          <input class="typ-inp" data-ru="${v.ru.replace(/"/g,'&quot;').toLowerCase()}" placeholder="перевод…">
-          <button class="typ-show" data-show="${v.ru.replace(/"/g,'&quot;')}">Show</button>
+    if(V.length < 2){ el.innerHTML = '<em>need at least 2 items</em>'; return; }
+    el.innerHTML = V.map((v,i) => {
+      const pool = VOCAB.filter(x => x.ru !== v.ru);
+      const distractors = shuffle(pool).slice(0, 3).map(x => x.ru);
+      const opts = shuffle([v.ru, ...distractors]);
+      return `
+        <div class="mcq-row">
+          <div class="mcq-q"><span class="num">${i+1}.</span> <span class="en">${v.w}</span></div>
+          <div class="mcq-opts">
+            ${opts.map(o => `<button class="mcq-b" data-a="${v.ru.replace(/"/g,'&quot;')}" data-v="${o.replace(/"/g,'&quot;')}">${o}</button>`).join('')}
+          </div>
         </div>
-      `).join('')}
-      <div style="text-align:center"><button class="mech-check" id="t-rev-c">✓ Check all</button></div>
-      <div class="score" id="t-rev-s"></div>
-    `;
-    el.querySelectorAll('.typ-show').forEach(b => b.onclick = () => { const inp = b.previousElementSibling; inp.value = b.dataset.show; inp.classList.add('right'); });
-    document.getElementById('t-rev-c').onclick = () => {
-      const inps = [...el.querySelectorAll('.typ-inp')]; let r = 0;
-      inps.forEach(i => {
-        const v = (i.value||'').trim().toLowerCase(); const t = i.dataset.ru; const firstWord = t.split(/[,\s(]/)[0];
-        if(v && (v === t || t.startsWith(v) || v === firstWord || t.includes(v))){ i.classList.remove('wrong'); i.classList.add('right'); r++; }
-        else { i.classList.remove('right'); i.classList.add('wrong'); }
-      });
-      document.getElementById('t-rev-s').textContent = `${r} / ${inps.length} correct`;
-    };
+      `;
+    }).join('') + `<div class="score" id="t-rev-s">0 / ${V.length}</div>`;
+    const correct = new Set();
+    el.querySelectorAll('.mcq-b').forEach(b => {
+      b.onclick = () => {
+        const row = b.closest('.mcq-row'); if(row.dataset.done) return; row.dataset.done = '1';
+        row.querySelectorAll('.mcq-b').forEach(x => x.disabled = true);
+        if(b.dataset.v === b.dataset.a){ b.classList.add('right'); correct.add(row); }
+        else { b.classList.add('wrong'); [...row.querySelectorAll('.mcq-b')].find(x => x.dataset.v === x.dataset.a).classList.add('right'); }
+        document.getElementById('t-rev-s').textContent = `${correct.size} / ${V.length} correct`;
+      };
+    });
   }
 
   /* Scramble */
@@ -995,7 +1055,7 @@ buildLN();
     render();
   }
 
-  /* Fill-blank */
+  /* Fill-blank · dropdown */
   function tFB(el, V, P){
     const rows = [];
     const used = new Set();
@@ -1004,25 +1064,36 @@ buildLN();
         const w = v.w.split(/[|]/)[0];
         const re = new RegExp('\\b' + w.replace(/[.*+?^${}()|[\\]\\\\]/g,'\\$&') + '\\b', 'i');
         if(re.test(p) && !used.has(p)){
-          rows.push({ p: p.replace(re, '____'), a: w.toLowerCase() });
+          const parts = p.split(re);
+          rows.push({ before: parts[0], after: parts.slice(1).join(''), a: w });
           used.add(p);
           break;
         }
       }
     }
     if(!rows.length){ el.innerHTML = `<div style="color:var(--muted);font-style:italic">No matching phrases on this subtopic.</div>`; return; }
-    el.innerHTML = `
-      ${rows.map((r,i) => `
-        <div class="fb-row"><strong style="color:var(--accent2)">${i+1}.</strong> ${r.p.split('____')[0]}<input class="fb-inp" data-a="${r.a.replace(/"/g,'&quot;')}" placeholder="?">${r.p.split('____')[1]||''}</div>
-      `).join('')}
-      <div style="text-align:center"><button class="mech-check" id="t-fb-c">✓ Check all</button></div>
-      <div class="score" id="t-fb-s"></div>
-    `;
-    document.getElementById('t-fb-c').onclick = () => {
-      const inps = [...el.querySelectorAll('.fb-inp')]; let r = 0;
-      inps.forEach(i => { const v = (i.value||'').trim().toLowerCase(); if(v === i.dataset.a){ i.classList.remove('wrong'); i.classList.add('right'); r++; } else { i.classList.remove('right'); i.classList.add('wrong'); } });
-      document.getElementById('t-fb-s').textContent = `${r} / ${inps.length} correct`;
-    };
+    el.innerHTML = rows.map((r,i) => {
+      const pool = VOCAB.filter(v => v.w.toLowerCase() !== r.a.toLowerCase());
+      const distractors = shuffle(pool).slice(0, 3).map(v => v.w);
+      const opts = shuffle([r.a, ...distractors]);
+      return `
+        <div class="fb-row"><strong style="color:var(--accent2)">${i+1}.</strong> ${r.before}
+          <select class="fb-sel" data-a="${r.a.replace(/"/g,'&quot;').toLowerCase()}">
+            <option value="">— pick —</option>
+            ${opts.map(o => `<option value="${o.replace(/"/g,'&quot;')}">${o}</option>`).join('')}
+          </select>${r.after}</div>
+      `;
+    }).join('') + `<div class="score" id="t-fb-s">0 / ${rows.length}</div>`;
+    el.querySelectorAll('.fb-sel').forEach(s => {
+      s.onchange = () => {
+        const v = (s.value||'').trim().toLowerCase();
+        s.classList.remove('right','wrong');
+        if(!v) return;
+        s.classList.add(v === s.dataset.a ? 'right' : 'wrong');
+        const r = el.querySelectorAll('.fb-sel.right').length;
+        document.getElementById('t-fb-s').textContent = `${r} / ${rows.length} correct`;
+      };
+    });
   }
 
   /* T/F/NS */
@@ -1094,36 +1165,45 @@ buildLN();
     });
   }
 
-  /* Sprint 30s */
+  /* Speed pick 30s · tap 1 of 4 EN buttons */
   function tSP(el, V){
-    if(!V.length){ el.innerHTML = '<em>no items</em>'; return; }
+    if(V.length < 2){ el.innerHTML = '<em>need at least 2 items</em>'; return; }
     el.innerHTML = `
-      <div class="sp-panel">
-        <div class="sp-timer" id="t-sp-t">00:30</div>
-        <div class="sp-word" id="t-sp-w">tap Start to begin</div>
-        <input class="sp-inp" id="t-sp-i" placeholder="type EN…" disabled>
-        <div><button class="sp-btn" id="t-sp-b">▶ Start 30s</button></div>
-        <div class="sp-score">score: <strong id="t-sp-s">0</strong></div>
+      <div class="sk-panel">
+        <div class="sk-timer" id="t-sk-t">00:30</div>
+        <div class="sk-word" id="t-sk-w">tap Start to begin</div>
+        <div class="sk-opts" id="t-sk-o"></div>
+        <div><button class="sk-btn" id="t-sk-b">▶ Start 30s</button></div>
+        <div class="sk-score">score: <strong id="t-sk-s">0</strong></div>
       </div>
     `;
     let timer, left, score, idx = 0, active = false;
     const words = shuffle(V.slice());
-    const t = document.getElementById('t-sp-t'), w = document.getElementById('t-sp-w'), inp = document.getElementById('t-sp-i'), s = document.getElementById('t-sp-s'), b = document.getElementById('t-sp-b');
-    const cur = () => words[idx % words.length];
-    inp.oninput = () => {
-      if(!active) return;
-      const v = inp.value.trim().toLowerCase();
-      if(v === cur().w.toLowerCase()){ score++; s.textContent = score; w.textContent = '✓ ' + cur().w; w.style.color = 'var(--ok)'; idx++; setTimeout(() => { w.style.color = '#fff'; w.textContent = cur().ru; inp.value = ''; }, 250); }
-    };
-    inp.onkeydown = e => { if(e.key === 'Enter' && active){ idx++; w.textContent = cur().ru; inp.value = ''; } };
+    const t = document.getElementById('t-sk-t'), w = document.getElementById('t-sk-w'), opts = document.getElementById('t-sk-o'), s = document.getElementById('t-sk-s'), b = document.getElementById('t-sk-b');
+
+    function drawOpts(){
+      const cur = words[idx % words.length];
+      const pool = shuffle(VOCAB.filter(v => v.w !== cur.w)).slice(0, 3).map(v => v.w);
+      const four = shuffle([cur.w, ...pool]);
+      w.textContent = cur.ru;
+      opts.innerHTML = four.map(o => `<button class="sk-b" data-v="${o.replace(/"/g,'&quot;')}" data-a="${cur.w.replace(/"/g,'&quot;')}">${o}</button>`).join('');
+      opts.querySelectorAll('.sk-b').forEach(btn => {
+        btn.onclick = () => {
+          if(!active) return;
+          if(btn.dataset.v === btn.dataset.a){ btn.classList.add('right'); score++; s.textContent = score; idx++; setTimeout(drawOpts, 220); }
+          else { btn.classList.add('wrong'); setTimeout(() => btn.classList.remove('wrong'), 350); }
+        };
+      });
+    }
+
     b.onclick = () => {
       active = true; left = 30; score = 0; idx = 0;
-      inp.disabled = false; inp.value = ''; inp.focus();
-      w.textContent = cur().ru; w.style.color = '#fff'; s.textContent = 0;
+      s.textContent = 0;
+      drawOpts();
       if(timer) clearInterval(timer);
       timer = setInterval(() => {
         left--; t.textContent = `00:${String(left).padStart(2,'0')}`;
-        if(left <= 0){ clearInterval(timer); active = false; inp.disabled = true; w.textContent = `⏱ time! score ${score}`; w.style.color = 'var(--gold)'; }
+        if(left <= 0){ clearInterval(timer); active = false; opts.innerHTML = ''; w.textContent = `⏱ time! score ${score}`; }
       }, 1000);
     };
   }
