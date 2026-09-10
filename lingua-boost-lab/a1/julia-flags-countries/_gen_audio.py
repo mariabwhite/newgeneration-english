@@ -35,6 +35,10 @@ CLIPS = {
     "brazil":            ("Brazil",              "f"),
     "argentina":         ("Argentina",           "f"),
     "mexico":            ("Mexico",              "f"),
+    "peru":              ("Peru",                "f"),
+    "belgium":           ("Belgium",             "f"),
+    "morocco":           ("Morocco",             "f"),
+    "israel":            ("Israel",              "f"),
 
     # ─── 20 nationality adjectives / person nouns ─────────────
     "british":           ("British",             "f"),
@@ -59,6 +63,7 @@ CLIPS = {
     "egyptian":          ("Egyptian",            "f"),
     "brazilian":         ("Brazilian",           "f"),
     "mexican":           ("Mexican",             "f"),
+    "peruvian":          ("Peruvian",            "f"),
 
     # ─── 8 special person nouns (Pattern C from Afanasyeva 8) ─
     "englishman":        ("an Englishman",       "f"),
