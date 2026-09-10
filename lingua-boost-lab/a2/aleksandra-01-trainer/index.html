@@ -159,6 +159,33 @@ h1{font-family:var(--display);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800
 .ln-b.start{background:var(--accent);color:#fff}
 
 footer{text-align:center;color:var(--muted);font-size:.76rem;padding:20px 0}
+
+/* Topic tabs (deeper drill) */
+.t-tabs{background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px;margin:14px 0;position:sticky;top:0;z-index:40;box-shadow:0 2px 8px rgba(185,79,31,.06)}
+.t-tabs-inner{display:flex;flex-wrap:wrap;gap:6px}
+.t-tab{background:#FFF6EE;border:2px solid var(--line);color:var(--muted);padding:8px 14px;border-radius:10px;font-family:var(--display);font-weight:800;font-size:.82rem;cursor:pointer;transition:.15s;display:flex;align-items:center;gap:6px}
+.t-tab:hover{border-color:var(--accent);color:var(--accent2)}
+.t-tab.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-color:var(--accent2);box-shadow:0 3px 10px rgba(232,139,79,.35)}
+.t-badge{background:rgba(255,255,255,.25);border-radius:20px;padding:2px 7px;font-size:.66rem;font-weight:700}
+.t-tab:not(.active) .t-badge{background:var(--line);color:var(--muted)}
+.t-mech-nav{display:flex;flex-wrap:wrap;gap:5px;margin:12px 0}
+.t-mech-btn{background:#fff;border:1.5px solid var(--line);color:var(--muted);padding:6px 11px;border-radius:20px;font-family:var(--body);font-weight:700;font-size:.75rem;cursor:pointer;transition:.15s}
+.t-mech-btn:hover{border-color:var(--accent);color:var(--accent2)}
+.t-mech-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.t-mech{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 2px 8px rgba(185,79,31,.06)}
+.fc-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.fc-count{font-family:var(--display);font-weight:800;color:var(--accent2)}
+.fc-btns{display:flex;gap:6px}
+.fc-card{background:linear-gradient(135deg,#FFF6EE,#FFE7D0);border:2px solid var(--accent);border-radius:16px;padding:36px 20px;min-height:220px;text-align:center;cursor:pointer;position:relative;transition:transform .3s}
+.fc-card:hover{transform:translateY(-2px)}
+.fc-word{font-family:var(--display);font-weight:800;font-size:2rem;color:var(--accent2);margin-bottom:6px;line-height:1.2}
+.fc-ipa{font-family:'Courier New',monospace;font-size:.9rem;color:var(--accent);letter-spacing:.02em;margin-bottom:4px}
+.fc-pos{font-size:.72rem;font-weight:700;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+.fc-back{display:none;margin-top:14px;padding-top:14px;border-top:1px dashed var(--accent2)}
+.fc-back .ru{font-family:var(--display);font-weight:700;font-size:1.1rem;color:var(--accent2);margin-bottom:6px}
+.fc-back .ex{font-size:.85rem;font-style:italic;color:var(--text);line-height:1.4}
+.fc-card.revealed .fc-back{display:block}
+.fc-say{position:absolute;top:10px;right:10px;background:var(--accent2);color:#fff;border:none;border-radius:50%;width:36px;height:36px;font-size:.9rem;cursor:pointer}
 </style>
 <script>window.AUDIO_MANIFEST = {};</script>
 </head>
@@ -290,8 +317,26 @@ footer{text-align:center;color:var(--muted);font-size:.76rem;padding:20px 0}
 </div>
 <div class="mech" id="mech-ln"></div>
 
+<!-- 11 BY SUBTOPIC — tabs со всеми механиками -->
+<div class="ex-hdr" style="margin-top:40px">
+  <h2><span class="num">11</span> 🎯 By subtopic · deeper drill</h2>
+  <div class="sub">3 подтемы × 10 механик · переключай темы вкладками ниже</div>
+</div>
+<div class="theory">
+  <strong>How to use:</strong> pick a subtopic tab (Feelings / Nouns / Patterns / Learn all), then switch mechanic chips. Every mechanic runs on the words of the current subtopic only — deeper drill than the general blocks above.
+</div>
+<div class="t-tabs">
+  <div class="t-tabs-inner">
+    <button class="t-tab active" data-t-tab="feel">✨ Feelings <span class="t-badge">6</span></button>
+    <button class="t-tab" data-t-tab="noun">📦 Nouns <span class="t-badge">5</span></button>
+    <button class="t-tab" data-t-tab="pat">🔑 Patterns <span class="t-badge">3</span></button>
+    <button class="t-tab" data-t-tab="learn">📚 Learn all <span class="t-badge">14</span></button>
+  </div>
+</div>
+<div id="topic-app"></div>
+
 <footer>
-  Feelings · Plans · Trips · 14 items · 10 exercises · Aleksandra · A2 · NG Lab · 2026-09-10
+  Feelings · Plans · Trips · 14 items · 10 exercises + 3-topic drill · Aleksandra · A2 · NG Lab · 2026-09-10
 </footer>
 
 </div>
@@ -716,6 +761,423 @@ buildSC();
 buildFIX();
 buildSP();
 buildLN();
+
+/* ═══════════════════ 11 · BY SUBTOPIC (tabs × 10 mechanics) ═══════════════════ */
+(function(){
+  const FEEL = {
+    title: '✨ Feelings',
+    vocab: VOCAB.filter(v => v.pos === 'adj'),
+    phrases: PHRASES.filter(p => /\b(tired|horrible|hungry|angry|afraid|stressed)\b/i.test(p))
+  };
+  const NOUN = {
+    title: '📦 Small-talk nouns',
+    vocab: VOCAB.filter(v => v.pos === 'n'),
+    phrases: PHRASES.filter(p => /\b(free medicine|team|research|business trip|tour|museum|climate|pensioners|clinic|doctor)\b/i.test(p))
+  };
+  const PAT = {
+    title: '🔑 Patterns',
+    vocab: VOCAB.filter(v => v.pos === 'pattern'),
+    phrases: PHRASES.filter(p => /(going to|allergic to|because of)/i.test(p))
+  };
+  const TOPICS = { feel: FEEL, noun: NOUN, pat: PAT };
+  const app = document.getElementById('topic-app');
+
+  function render(key){
+    if(key === 'learn'){ renderLearn(); return; }
+    const data = TOPICS[key];
+    app.innerHTML = `
+      <div class="ex-hdr" style="background:linear-gradient(135deg,#F4C29A,#E88B4F)">
+        <h2>${data.title}</h2>
+        <div class="sub">${data.vocab.length} items · ${data.phrases.length} phrases · 10 mechanics</div>
+      </div>
+      <div class="t-mech-nav" id="t-mech-nav">
+        <button class="t-mech-btn active" data-m="fc">🎴 Flashcards</button>
+        <button class="t-mech-btn" data-m="mp">🃏 Match</button>
+        <button class="t-mech-btn" data-m="typ">✍️ Type EN</button>
+        <button class="t-mech-btn" data-m="rev">🔁 Reverse</button>
+        <button class="t-mech-btn" data-m="sc">🔀 Scramble</button>
+        <button class="t-mech-btn" data-m="fb">📝 Fill-blank</button>
+        <button class="t-mech-btn" data-m="tf">✅ True/False</button>
+        <button class="t-mech-btn" data-m="sb">🧩 Sentence builder</button>
+        <button class="t-mech-btn" data-m="sp">⚡ Sprint 30s</button>
+        <button class="t-mech-btn" data-m="ln">📚 Learn</button>
+      </div>
+      <div id="t-mech-slot"></div>
+    `;
+    const nav = document.getElementById('t-mech-nav');
+    nav.querySelectorAll('.t-mech-btn').forEach(b => {
+      b.onclick = () => {
+        nav.querySelectorAll('.t-mech-btn').forEach(x => x.classList.toggle('active', x === b));
+        buildTMech(b.dataset.m, data);
+      };
+    });
+    buildTMech('fc', data);
+  }
+
+  function renderLearn(){
+    const all = { title:'📚 Learn all', vocab: VOCAB.slice(), phrases: PHRASES.slice() };
+    app.innerHTML = `
+      <div class="ex-hdr" style="background:linear-gradient(135deg,#F4C29A,#E88B4F)">
+        <h2>📚 Learn all · ${all.vocab.length} items</h2>
+        <div class="sub">Всё вместе · 5 focus-механик</div>
+      </div>
+      <div class="t-mech-nav" id="t-mech-nav">
+        <button class="t-mech-btn active" data-m="ln">📚 Learn</button>
+        <button class="t-mech-btn" data-m="fc">🎴 Flashcards</button>
+        <button class="t-mech-btn" data-m="typ">✍️ Type EN</button>
+        <button class="t-mech-btn" data-m="rev">🔁 Reverse</button>
+        <button class="t-mech-btn" data-m="sp">⚡ Sprint 30s</button>
+      </div>
+      <div id="t-mech-slot"></div>
+    `;
+    const nav = document.getElementById('t-mech-nav');
+    nav.querySelectorAll('.t-mech-btn').forEach(b => {
+      b.onclick = () => {
+        nav.querySelectorAll('.t-mech-btn').forEach(x => x.classList.toggle('active', x === b));
+        buildTMech(b.dataset.m, all);
+      };
+    });
+    buildTMech('ln', all);
+  }
+
+  function buildTMech(key, data){
+    const slot = document.getElementById('t-mech-slot');
+    slot.innerHTML = `<div class="t-mech" id="t-mech-body"></div>`;
+    const body = document.getElementById('t-mech-body');
+    ({fc:tFC, mp:tMP, typ:tTYP, rev:tREV, sc:tSC, fb:tFB, tf:tTF, sb:tSB, sp:tSP, ln:tLN}[key])(body, data.vocab, data.phrases);
+  }
+
+  /* Flashcards */
+  function tFC(el, V){
+    if(!V.length){ el.innerHTML = '<em>no items</em>'; return; }
+    let i = 0;
+    function render(){
+      const v = V[i];
+      el.innerHTML = `
+        <div class="fc-nav">
+          <span class="fc-count">${i+1} / ${V.length}</span>
+          <div class="fc-btns">
+            <button class="fc-b" data-fc="prev">←</button>
+            <button class="fc-b" data-fc="next">→</button>
+            <button class="fc-b" data-fc="shuffle">🔀 Shuffle</button>
+          </div>
+        </div>
+        <div class="fc-card" id="t-fc">
+          <button class="fc-say" onclick="event.stopPropagation();say(${JSON.stringify(v.w).replace(/"/g,'&quot;')})">🔊</button>
+          <div class="fc-word">${v.w}</div>
+          <div class="fc-ipa">${v.ipa||''}</div>
+          <div class="fc-pos">${v.pos||''}</div>
+          <div class="fc-back"><div class="ru">${v.ru}</div><div class="ex">${v.ex||''}</div></div>
+        </div>
+      `;
+      const card = document.getElementById('t-fc');
+      card.onclick = () => card.classList.toggle('revealed');
+      el.querySelector('[data-fc="prev"]').onclick = () => { i = (i-1+V.length)%V.length; render(); };
+      el.querySelector('[data-fc="next"]').onclick = () => { i = (i+1)%V.length; render(); };
+      el.querySelector('[data-fc="shuffle"]').onclick = () => { V.sort(() => Math.random()-.5); i=0; render(); };
+    }
+    render();
+  }
+
+  /* Match */
+  function tMP(el, V){
+    if(V.length < 2){ el.innerHTML = '<em>need at least 2 items</em>'; return; }
+    const pairs = V.slice(0, Math.min(8, V.length));
+    const cards = [];
+    pairs.forEach((v,i) => { cards.push({s:'ru',t:v.ru,p:i}); cards.push({s:'en',t:v.w,p:i}); });
+    const shuffled = shuffle(cards);
+    el.innerHTML = `
+      <div class="mp-grid">${shuffled.map(c => `<div class="mp-c" data-p="${c.p}" data-s="${c.s}"><span class="txt">${c.t}</span></div>`).join('')}</div>
+      <div class="score" id="t-mp-score">0 / ${pairs.length} pairs</div>
+    `;
+    let open = null, matched = 0, busy = false;
+    el.querySelectorAll('.mp-c').forEach(c => {
+      c.onclick = () => {
+        if(busy || c.classList.contains('open') || c.classList.contains('matched')) return;
+        c.classList.add('open');
+        if(!open){ open = c; return; }
+        busy = true;
+        if(open.dataset.p === c.dataset.p && open.dataset.s !== c.dataset.s){
+          setTimeout(() => { open.classList.add('matched'); c.classList.add('matched'); open.classList.remove('open'); c.classList.remove('open'); open=null; busy=false; matched++; document.getElementById('t-mp-score').textContent = `${matched} / ${pairs.length} pairs`; if(matched===pairs.length) document.getElementById('t-mp-score').innerHTML = `🎉 all ${pairs.length} matched!`; }, 300);
+        } else {
+          c.classList.add('wrong');
+          setTimeout(() => { open.classList.remove('open'); c.classList.remove('open','wrong'); open=null; busy=false; }, 600);
+        }
+      };
+    });
+  }
+
+  /* Type EN */
+  function tTYP(el, V){
+    el.innerHTML = `
+      ${V.map((v,i) => `
+        <div class="typ-row">
+          <span class="typ-num">${i+1}</span>
+          <span class="typ-q">${v.ru}</span>
+          <input class="typ-inp" data-a="${v.w.replace(/"/g,'&quot;')}" placeholder="?">
+          <button class="typ-show" data-show="${v.w.replace(/"/g,'&quot;')}">Show</button>
+        </div>
+      `).join('')}
+      <div style="text-align:center"><button class="mech-check" id="t-typ-c">✓ Check all</button></div>
+      <div class="score" id="t-typ-s"></div>
+    `;
+    el.querySelectorAll('.typ-show').forEach(b => b.onclick = () => { const inp = b.previousElementSibling; inp.value = b.dataset.show; inp.classList.add('right'); });
+    document.getElementById('t-typ-c').onclick = () => {
+      const inps = [...el.querySelectorAll('.typ-inp')]; let r = 0;
+      inps.forEach(i => { const v = (i.value||'').trim().toLowerCase(); if(v === i.dataset.a.toLowerCase()){ i.classList.remove('wrong'); i.classList.add('right'); r++; } else { i.classList.remove('right'); i.classList.add('wrong'); } });
+      document.getElementById('t-typ-s').textContent = `${r} / ${inps.length} correct`;
+    };
+  }
+
+  /* Reverse EN→RU */
+  function tREV(el, V){
+    el.innerHTML = `
+      ${V.map((v,i) => `
+        <div class="typ-row">
+          <span class="typ-num">${i+1}</span>
+          <span class="typ-q" style="font-family:var(--display);color:var(--accent2)">${v.w}</span>
+          <input class="typ-inp" data-ru="${v.ru.replace(/"/g,'&quot;').toLowerCase()}" placeholder="перевод…">
+          <button class="typ-show" data-show="${v.ru.replace(/"/g,'&quot;')}">Show</button>
+        </div>
+      `).join('')}
+      <div style="text-align:center"><button class="mech-check" id="t-rev-c">✓ Check all</button></div>
+      <div class="score" id="t-rev-s"></div>
+    `;
+    el.querySelectorAll('.typ-show').forEach(b => b.onclick = () => { const inp = b.previousElementSibling; inp.value = b.dataset.show; inp.classList.add('right'); });
+    document.getElementById('t-rev-c').onclick = () => {
+      const inps = [...el.querySelectorAll('.typ-inp')]; let r = 0;
+      inps.forEach(i => {
+        const v = (i.value||'').trim().toLowerCase(); const t = i.dataset.ru; const firstWord = t.split(/[,\s(]/)[0];
+        if(v && (v === t || t.startsWith(v) || v === firstWord || t.includes(v))){ i.classList.remove('wrong'); i.classList.add('right'); r++; }
+        else { i.classList.remove('right'); i.classList.add('wrong'); }
+      });
+      document.getElementById('t-rev-s').textContent = `${r} / ${inps.length} correct`;
+    };
+  }
+
+  /* Scramble */
+  function tSC(el, V){
+    const items = V.filter(v => v.w.length <= 15 && !v.w.includes(' '));
+    if(!items.length){ el.innerHTML = `<div style="color:var(--muted);font-style:italic">No single-word items on this tab — try Feelings or Nouns (tour).</div>`; return; }
+    let i = 0;
+    function render(){
+      const w = items[i].w;
+      const L = shuffle(w.split(''));
+      el.innerHTML = `
+        <div class="sc-panel">
+          <div class="sc-hint"><strong>#${i+1} / ${items.length}</strong> · собери слово (${w.length} букв)</div>
+          <div class="sc-slots" data-a></div>
+          <div class="sc-letters">${L.map(l => `<div class="sc-l" data-l="${l}">${l}</div>`).join('')}</div>
+          <div class="sc-ctrl">
+            <button class="mech-check" data-c>✓ Check</button>
+            <button class="fc-b" data-s>↷ Skip</button>
+            <button class="fc-b" data-r>💡 Show</button>
+          </div>
+        </div>
+      `;
+      const ans = el.querySelector('[data-a]');
+      el.querySelectorAll('.sc-l').forEach(l => {
+        l.onclick = () => {
+          if(l.classList.contains('used')) return;
+          const s = document.createElement('div'); s.className = 'sc-slot'; s.textContent = l.dataset.l;
+          s.onclick = () => { l.classList.remove('used'); s.remove(); };
+          ans.appendChild(s); l.classList.add('used');
+        };
+      });
+      el.querySelector('[data-c]').onclick = () => {
+        const b = [...ans.querySelectorAll('.sc-slot')].map(s => s.textContent).join('');
+        if(b.toLowerCase() === w.toLowerCase()){ ans.classList.add('right'); setTimeout(() => { i=(i+1)%items.length; render(); }, 800); }
+        else ans.classList.add('wrong');
+      };
+      el.querySelector('[data-s]').onclick = () => { i=(i+1)%items.length; render(); };
+      el.querySelector('[data-r]').onclick = () => { ans.innerHTML = w.split('').map(l => `<div class="sc-slot">${l}</div>`).join(''); ans.classList.add('right'); };
+    }
+    render();
+  }
+
+  /* Fill-blank */
+  function tFB(el, V, P){
+    const rows = [];
+    const used = new Set();
+    for(const p of P){
+      for(const v of V){
+        const w = v.w.split(/[|]/)[0];
+        const re = new RegExp('\\b' + w.replace(/[.*+?^${}()|[\\]\\\\]/g,'\\$&') + '\\b', 'i');
+        if(re.test(p) && !used.has(p)){
+          rows.push({ p: p.replace(re, '____'), a: w.toLowerCase() });
+          used.add(p);
+          break;
+        }
+      }
+    }
+    if(!rows.length){ el.innerHTML = `<div style="color:var(--muted);font-style:italic">No matching phrases on this subtopic.</div>`; return; }
+    el.innerHTML = `
+      ${rows.map((r,i) => `
+        <div class="fb-row"><strong style="color:var(--accent2)">${i+1}.</strong> ${r.p.split('____')[0]}<input class="fb-inp" data-a="${r.a.replace(/"/g,'&quot;')}" placeholder="?">${r.p.split('____')[1]||''}</div>
+      `).join('')}
+      <div style="text-align:center"><button class="mech-check" id="t-fb-c">✓ Check all</button></div>
+      <div class="score" id="t-fb-s"></div>
+    `;
+    document.getElementById('t-fb-c').onclick = () => {
+      const inps = [...el.querySelectorAll('.fb-inp')]; let r = 0;
+      inps.forEach(i => { const v = (i.value||'').trim().toLowerCase(); if(v === i.dataset.a){ i.classList.remove('wrong'); i.classList.add('right'); r++; } else { i.classList.remove('right'); i.classList.add('wrong'); } });
+      document.getElementById('t-fb-s').textContent = `${r} / ${inps.length} correct`;
+    };
+  }
+
+  /* T/F/NS */
+  function tTF(el, V, P){
+    if(!P.length){ el.innerHTML = `<div style="color:var(--muted);font-style:italic">No phrases on this subtopic.</div>`; return; }
+    const antonyms = {tired:'energetic',horrible:'wonderful',hungry:'full',angry:'calm',afraid:'brave',stressed:'relaxed'};
+    const src = shuffle(P.slice()).slice(0, Math.min(9, P.length));
+    const items = src.map((p, idx) => {
+      const type = idx % 3;
+      if(type === 0) return { text: p, a: 'T' };
+      if(type === 1){
+        let alt = p;
+        for(const [orig, anti] of Object.entries(antonyms)){
+          const re = new RegExp('\\b' + orig + '\\b', 'i');
+          if(re.test(p)){ alt = p.replace(re, anti); break; }
+        }
+        if(alt === p) alt = p.replace(/\bam\b/i,'am not').replace(/\bis\b/i,'is not').replace(/\bare\b/i,'are not');
+        return { text: alt, a: 'F' };
+      }
+      return { text: p.replace(/\.$/, '') + ' every single day.', a: 'NS' };
+    });
+    el.innerHTML = items.map((t, i) => `
+      <div class="tf-row">
+        <div class="tf-t"><strong>${i+1}.</strong> ${t.text}</div>
+        <button class="tf-b" data-v="T" data-a="${t.a}">True</button>
+        <button class="tf-b" data-v="F" data-a="${t.a}">False</button>
+        <button class="tf-b" data-v="NS" data-a="${t.a}">Not Stated</button>
+      </div>
+    `).join('');
+    el.querySelectorAll('.tf-b').forEach(b => {
+      b.onclick = () => {
+        const row = b.closest('.tf-row'); if(row.dataset.done) return; row.dataset.done = '1';
+        row.querySelectorAll('.tf-b').forEach(x => x.disabled = true);
+        if(b.dataset.v === b.dataset.a) b.classList.add('right');
+        else { b.classList.add('wrong'); [...row.querySelectorAll('.tf-b')].find(x => x.dataset.v === b.dataset.a).classList.add('right'); }
+      };
+    });
+  }
+
+  /* Sentence builder */
+  function tSB(el, V, P){
+    const items = P.filter(p => p.split(/\s+/).length <= 12).slice(0, 8);
+    if(!items.length){ el.innerHTML = `<div style="color:var(--muted);font-style:italic">Phrases too long or missing on this subtopic.</div>`; return; }
+    el.innerHTML = items.map((s, i) => {
+      const words = s.replace(/[.,!?]/g,'').split(/\s+/);
+      const bank = shuffle(words);
+      return `<div class="sb-row" data-target='${JSON.stringify(words).replace(/'/g,"&#39;")}'>
+        <div class="sb-target"><strong>${i+1}.</strong> collect this sentence</div>
+        <div class="sb-slots"></div>
+        <div class="sb-bank">${bank.map(w => `<div class="sb-w" data-w="${w}">${w}</div>`).join('')}</div>
+        <div style="text-align:center"><button class="mech-check sb-c">✓ Check</button></div>
+      </div>`;
+    }).join('');
+    el.querySelectorAll('.sb-row').forEach(row => {
+      const slots = row.querySelector('.sb-slots');
+      row.querySelectorAll('.sb-w').forEach(w => {
+        w.onclick = () => {
+          if(w.classList.contains('used')) return;
+          const s = document.createElement('div'); s.className = 'sb-slot'; s.textContent = w.dataset.w;
+          s.onclick = () => { w.classList.remove('used'); s.remove(); slots.classList.remove('right','wrong'); };
+          slots.appendChild(s); w.classList.add('used');
+        };
+      });
+      row.querySelector('.sb-c').onclick = () => {
+        const b = [...slots.querySelectorAll('.sb-slot')].map(s => s.textContent).join(' ');
+        const t = JSON.parse(row.dataset.target).join(' ');
+        if(b === t) slots.classList.add('right'); else slots.classList.add('wrong');
+      };
+    });
+  }
+
+  /* Sprint 30s */
+  function tSP(el, V){
+    if(!V.length){ el.innerHTML = '<em>no items</em>'; return; }
+    el.innerHTML = `
+      <div class="sp-panel">
+        <div class="sp-timer" id="t-sp-t">00:30</div>
+        <div class="sp-word" id="t-sp-w">tap Start to begin</div>
+        <input class="sp-inp" id="t-sp-i" placeholder="type EN…" disabled>
+        <div><button class="sp-btn" id="t-sp-b">▶ Start 30s</button></div>
+        <div class="sp-score">score: <strong id="t-sp-s">0</strong></div>
+      </div>
+    `;
+    let timer, left, score, idx = 0, active = false;
+    const words = shuffle(V.slice());
+    const t = document.getElementById('t-sp-t'), w = document.getElementById('t-sp-w'), inp = document.getElementById('t-sp-i'), s = document.getElementById('t-sp-s'), b = document.getElementById('t-sp-b');
+    const cur = () => words[idx % words.length];
+    inp.oninput = () => {
+      if(!active) return;
+      const v = inp.value.trim().toLowerCase();
+      if(v === cur().w.toLowerCase()){ score++; s.textContent = score; w.textContent = '✓ ' + cur().w; w.style.color = 'var(--ok)'; idx++; setTimeout(() => { w.style.color = '#fff'; w.textContent = cur().ru; inp.value = ''; }, 250); }
+    };
+    inp.onkeydown = e => { if(e.key === 'Enter' && active){ idx++; w.textContent = cur().ru; inp.value = ''; } };
+    b.onclick = () => {
+      active = true; left = 30; score = 0; idx = 0;
+      inp.disabled = false; inp.value = ''; inp.focus();
+      w.textContent = cur().ru; w.style.color = '#fff'; s.textContent = 0;
+      if(timer) clearInterval(timer);
+      timer = setInterval(() => {
+        left--; t.textContent = `00:${String(left).padStart(2,'0')}`;
+        if(left <= 0){ clearInterval(timer); active = false; inp.disabled = true; w.textContent = `⏱ time! score ${score}`; w.style.color = 'var(--gold)'; }
+      }, 1000);
+    };
+  }
+
+  /* Learn */
+  function tLN(el, V){
+    if(!V.length){ el.innerHTML = '<em>no items</em>'; return; }
+    let stack = shuffle(V.slice()), known = 0, still = 0, current = null;
+    function render(){
+      if(stack.length === 0){
+        el.innerHTML = `<div class="ln-panel"><h3 style="color:var(--ok);font-family:var(--display)">🎉 done!</h3>
+          <p>Known first-try: <strong style="color:var(--ok)">${known}</strong> · still: <strong style="color:var(--miss)">${still}</strong></p>
+          <button class="ln-b start" id="t-ln-rs">🔄 New round</button></div>`;
+        document.getElementById('t-ln-rs').onclick = () => { stack = shuffle(V.slice()); known = 0; still = 0; render(); };
+        return;
+      }
+      current = stack.shift();
+      el.innerHTML = `
+        <div class="ln-panel" id="t-ln-p">
+          <div class="ln-prog">card · known <strong style="color:var(--ok)">${known}</strong> · still <strong style="color:var(--miss)">${still}</strong> · left <strong>${stack.length+1}</strong></div>
+          <div class="ln-w">${current.w}</div>
+          <div class="ln-hint"><em style="color:var(--muted)">tap Reveal → rate yourself</em></div>
+          <div class="ln-ex">—</div>
+          <div class="ln-acts">
+            <button class="ln-b rev" id="t-ln-r">👁 Reveal</button>
+            <button class="ln-b kn" id="t-ln-k" style="display:none">✓ Знаю</button>
+            <button class="ln-b st" id="t-ln-s" style="display:none">↺ Ещё раз</button>
+          </div>
+        </div>
+      `;
+      document.getElementById('t-ln-r').onclick = () => {
+        const p = document.getElementById('t-ln-p');
+        p.classList.add('revealed');
+        p.querySelector('.ln-hint').innerHTML = `<strong>${current.ru}</strong> · <em style="color:var(--muted)">${current.pos||''} ${current.ipa||''}</em>`;
+        p.querySelector('.ln-ex').textContent = current.ex || '';
+        document.getElementById('t-ln-r').style.display = 'none';
+        document.getElementById('t-ln-k').style.display = 'inline-block';
+        document.getElementById('t-ln-s').style.display = 'inline-block';
+      };
+      document.getElementById('t-ln-k').onclick = () => { known++; render(); };
+      document.getElementById('t-ln-s').onclick = () => { still++; stack.push(current); render(); };
+    }
+    render();
+  }
+
+  /* wire main tabs */
+  document.querySelectorAll('.t-tab').forEach(b => {
+    b.onclick = () => {
+      document.querySelectorAll('.t-tab').forEach(x => x.classList.toggle('active', x === b));
+      render(b.dataset.tTab);
+    };
+  });
+  render('feel');
+})();
 </script>
 
 </body>
