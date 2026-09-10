@@ -57,9 +57,9 @@ button{font:inherit;cursor:pointer}
 @media(max-width:680px){.lesson-tabs{padding:6px;gap:6px;top:54px}.ltab{padding:7px 12px;font-size:9.5px;letter-spacing:.08em}.topbar{gap:8px;padding:8px 12px}.brand-mark{width:32px;height:32px;font-size:18px}.brand-name{font-size:13px}.brand-sub{display:none}.pill{padding:4px 8px;font-size:8.5px;letter-spacing:.08em}.pill:nth-of-type(2){display:none}.btn-sm{height:28px;padding:0 8px;font-size:9.5px}}
 
 .hero{width:var(--demo-top-width);max-width:1240px;margin:32px auto 12px;padding:0 12px}
-.hero-card{position:relative;border:1px solid var(--line);border-radius:24px;overflow:hidden;background:radial-gradient(circle at 82% 30%,rgba(217,160,39,.42) 0%,rgba(217,160,39,0) 55%),linear-gradient(135deg,#7A0F1B 0%,#B71C2A 42%,#3E0B12 100%);box-shadow:var(--shadow-lg);min-height:420px;color:#fff;isolation:isolate}
-.hero-card::before{content:"中 国";position:absolute;top:6%;right:6%;font-family:var(--display);font-weight:900;font-size:clamp(4rem,10vw,8rem);color:rgba(217,160,39,.18);letter-spacing:.02em;line-height:.9;z-index:1;pointer-events:none;user-select:none}
-.hero-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(31,19,21,0) 45%,rgba(31,19,21,.5) 100%);z-index:1}
+.hero-card{position:relative;border:1px solid var(--line);border-radius:24px;overflow:hidden;background-image:url('./assets/img/hero-beijing-skyline.png');background-size:cover;background-position:center center;box-shadow:var(--shadow-lg);min-height:420px;color:#fff;isolation:isolate}
+.hero-card::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,rgba(62,11,18,.82) 0%,rgba(62,11,18,.5) 55%,rgba(62,11,18,.22) 100%);z-index:1}
+.hero-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(31,19,21,0) 45%,rgba(31,19,21,.55) 100%);z-index:1}
 .hero-card>*{position:relative;z-index:2}
 .hero-keys{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.5}
 .hero-keys::before,.hero-keys::after{content:"⌘ ⌘   ⌘ ⌘ ⌘   ⌘ ⌘";position:absolute;color:rgba(245,239,224,.35);font-size:9px;letter-spacing:.4em;animation:twinkle 4.2s ease-in-out infinite}
@@ -181,6 +181,42 @@ h1.hero-title .grad{color:var(--gold)}
 .mood-card.picked{outline:3px solid var(--gold);outline-offset:-3px}
 
 footer{padding:40px 16px;text-align:center;color:var(--faint);font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;border-top:1px solid var(--line);margin-top:40px}
+
+.section-banner{width:calc(100% + 48px);margin:-22px -24px 18px;height:220px;object-fit:cover;object-position:center;display:block;border-bottom:2px solid var(--gold);border-radius:16px 16px 0 0}
+@media(max-width:680px){.section-banner{height:160px;width:calc(100% + 44px);margin:-22px -22px 16px}}
+
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin:14px 0}
+.voc{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:0 12px 12px 0;padding:11px 14px 11px 12px;transition:.2s}
+.voc:hover{border-left-color:var(--gold);box-shadow:0 4px 14px rgba(217,160,39,.16)}
+.voc-play{flex-shrink:0;width:38px;height:38px;border-radius:50%;border:none;background:var(--accent);color:#fff;font-size:14px;cursor:pointer;display:grid;place-items:center;transition:.15s}
+.voc-play:hover{background:var(--accent-2);transform:scale(1.08)}
+.voc-play.playing{background:var(--gold);animation:pulse-ring 1.2s ease-in-out infinite}
+@keyframes pulse-ring{0%,100%{box-shadow:0 0 0 0 rgba(217,160,39,.5)}50%{box-shadow:0 0 0 8px rgba(217,160,39,0)}}
+.voc-body{flex:1;min-width:0}
+.voc-w{font-family:var(--display);font-weight:800;font-size:1.02rem;color:var(--ink);letter-spacing:-.01em;line-height:1.25;margin-bottom:2px}
+.voc-ex{font-size:.83rem;color:var(--muted);font-style:italic;line-height:1.4}
+
+.dlg-play{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;border:none;background:var(--accent);color:#fff;font-size:10px;cursor:pointer;vertical-align:middle;margin-right:6px;flex-shrink:0}
+.dlg-play:hover{background:var(--accent-2)}
+.dlg-play.playing{background:var(--gold)}
+.role-card p{display:flex;align-items:flex-start;gap:8px;line-height:1.55}
+.role-card p .dlg-play{margin-top:2px}
+
+.scene-play-all{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;border:none;padding:9px 16px;border-radius:50px;font-family:var(--mono);font-weight:800;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;margin-bottom:10px;transition:.15s}
+.scene-play-all:hover{background:var(--accent-2)}
+.scene-play-all.playing{background:var(--gold);color:var(--ink)}
+
+.listen-card{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--sage);border-radius:0 14px 14px 0;padding:16px 18px;margin:14px 0}
+.listen-card h3{font-family:var(--display);font-weight:800;font-size:1.02rem;color:var(--sage);margin-bottom:6px}
+.listen-audio{width:100%;margin:8px 0 12px;height:38px}
+.tf3-row{padding:10px 0;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.tf3-row:first-of-type{border-top:none}
+.tf3-q{flex:1;min-width:220px;font-size:.94rem;color:var(--ink);line-height:1.5}
+.tf3-opts{display:flex;gap:6px;flex-wrap:wrap}
+.tf3-opts button{background:var(--surface-2);border:1.5px solid var(--line-2);color:var(--ink);padding:7px 12px;border-radius:8px;font-family:var(--mono);font-size:.78rem;font-weight:800;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.tf3-opts button:hover{border-color:var(--accent);color:var(--accent)}
+.tf3-opts button.right{background:var(--ok);color:#fff;border-color:var(--ok)}
+.tf3-opts button.wrong{background:var(--miss);color:#fff;border-color:var(--miss)}
 </style>
 <style id="codex-white-corner-logo-20260701">
 .topbar .brand-mark,.friendly-topbar .brand-mark,.lab-topbar .brand-mark,.cmdbar .brand-mark,.cmdbar .cb-mark,.canon-l-topbar .brand-mark,.canon-l-topbar .canon-l-mark,.friendly-topbar .brand-logo-mark{position:relative!important;overflow:visible!important;border-top-right-radius:0!important}
@@ -266,19 +302,19 @@ window.LAB_VOCAB = [
         <div class="pc-num">Card 01</div>
         <div class="pc-q">Where in China are you flying, and for how many days?</div>
         <div class="pc-hint">City · dates · who you go with · what you want to see most.</div>
-        <button class="pc-tts" data-say="Where in China are you flying, and for how many days?">▶ Hear</button>
+        <button class="pc-tts" data-audio="./audio/prompt/prompt-01-where-china.mp3">▶ Hear</button>
       </div>
       <div class="prompt-card gold">
         <div class="pc-num">Card 02</div>
         <div class="pc-q">What are you a little afraid of on this trip?</div>
         <div class="pc-hint">Language · food · getting lost · money · airport. One thing, one sentence.</div>
-        <button class="pc-tts" data-say="What are you a little afraid of on this trip?">▶ Hear</button>
+        <button class="pc-tts" data-audio="./audio/prompt/prompt-02-afraid.mp3">▶ Hear</button>
       </div>
       <div class="prompt-card accent">
         <div class="pc-num">Card 03</div>
         <div class="pc-q">One thing you already know how to say in Chinese — say it now.</div>
         <div class="pc-hint">Hello, thank you, sorry, how much. Anything. Say it aloud.</div>
-        <button class="pc-tts" data-say="One thing you already know how to say in Chinese. Say it now.">▶ Hear</button>
+        <button class="pc-tts" data-audio="./audio/prompt/prompt-03-chinese-say.mp3">▶ Hear</button>
       </div>
     </div>
   </div>
@@ -287,22 +323,23 @@ window.LAB_VOCAB = [
 <!-- 02 · VOCAB · AIRPORT & IMMIGRATION -->
 <section class="section">
   <div class="section-hdr"><div class="section-num">02</div><h2>Vocab · airport &amp; immigration</h2></div>
-  <p class="section-sub">Twelve words you will hear or say in the first hour on Chinese soil. Tap each one to hear it.</p>
+  <p class="section-sub">Twelve airport words. Click ▶ on each one to hear a British voice.</p>
   <div class="card">
+    <img class="section-banner" src="./assets/img/section-airport-departures.png" alt="A Chinese airport departures hall at sunset with a plane on the tarmac and 出发 signs">
     <div class="info"><strong>Micro-theory · listen for the question word first.</strong> An officer's questions are short: <em>Purpose? How long? Where staying? Return ticket?</em> Catch the question word, not every syllable. Your answer can be one clean sentence.</div>
-    <div class="frame-grid">
-      <div class="frame"><div class="when">01</div><div class="pat">boarding pass</div><div class="ex">The paper (or phone screen) they scan at the gate.</div></div>
-      <div class="frame gold"><div class="when">02</div><div class="pat">passport control · immigration</div><div class="ex">The desk with the officer and the stamp.</div></div>
-      <div class="frame sage"><div class="when">03</div><div class="pat">customs</div><div class="ex">The green / red channel after you get your bag.</div></div>
-      <div class="frame"><div class="when">04</div><div class="pat">to declare</div><div class="ex">"Do you have anything to declare?" — food, medicine, big money.</div></div>
-      <div class="frame gold"><div class="when">05</div><div class="pat">a return ticket</div><div class="ex">Your ticket back. They may ask about it.</div></div>
-      <div class="frame sage"><div class="when">06</div><div class="pat">purpose of visit</div><div class="ex">Tourism · study · visiting family · business.</div></div>
-      <div class="frame"><div class="when">07</div><div class="pat">to stay at</div><div class="ex">"I'm staying at the Hilton Beijing." Not <em>in</em>, not <em>on</em> — <strong>at</strong>.</div></div>
-      <div class="frame gold"><div class="when">08</div><div class="pat">baggage claim</div><div class="ex">The moving belt where suitcases come out.</div></div>
-      <div class="frame sage"><div class="when">09</div><div class="pat">arrival hall</div><div class="ex">The big room after customs with the taxi signs.</div></div>
-      <div class="frame"><div class="when">10</div><div class="pat">exit · Exit 5</div><div class="ex">Airports and metro stations have numbered exits. Learn yours.</div></div>
-      <div class="frame gold"><div class="when">11</div><div class="pat">Wi-Fi · SIM card · eSIM</div><div class="ex">First mission after landing — get internet.</div></div>
-      <div class="frame sage"><div class="when">12</div><div class="pat">a QR code</div><div class="ex">Nearly everything in China is a QR code. Scan first, ask later.</div></div>
+    <div class="vocab-grid">
+      <div class="voc"><button class="voc-play" data-audio="./audio/vocab/boarding-pass.mp3" aria-label="play boarding pass">▶</button><div class="voc-body"><div class="voc-w">boarding pass</div><div class="voc-ex">The paper (or phone screen) they scan at the gate.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/vocab/immigration.mp3" aria-label="play immigration">▶</button><div class="voc-body"><div class="voc-w">immigration · passport control</div><div class="voc-ex">The desk with the officer and the stamp.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/vocab/customs.mp3" aria-label="play customs">▶</button><div class="voc-body"><div class="voc-w">customs</div><div class="voc-ex">The green / red channel after you get your bag.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/vocab/to-declare.mp3" aria-label="play to declare">▶</button><div class="voc-body"><div class="voc-w">to declare</div><div class="voc-ex">"Do you have anything to declare?" — food, medicine, big money.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/vocab/return-ticket.mp3" aria-label="play return ticket">▶</button><div class="voc-body"><div class="voc-w">a return ticket</div><div class="voc-ex">Your ticket back. They may ask about it.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/vocab/purpose.mp3" aria-label="play purpose">▶</button><div class="voc-body"><div class="voc-w">a purpose (of visit)</div><div class="voc-ex">Tourism · study · visiting family · business.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/vocab/to-stay-at.mp3" aria-label="play to stay at">▶</button><div class="voc-body"><div class="voc-w">to stay at</div><div class="voc-ex">"I'm staying at the Hilton Beijing." Not <em>in</em>, not <em>on</em> — <strong>at</strong>.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/vocab/qr-code.mp3" aria-label="play QR code">▶</button><div class="voc-body"><div class="voc-w">a QR code</div><div class="voc-ex">Nearly everything in China is a QR code. Scan first, ask later.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/vocab/taxi-rank.mp3" aria-label="play taxi rank">▶</button><div class="voc-body"><div class="voc-w">a taxi rank</div><div class="voc-ex">The line of taxis just outside the arrival hall.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/vocab/ride-hailing.mp3" aria-label="play ride-hailing">▶</button><div class="voc-body"><div class="voc-w">a ride-hailing app</div><div class="voc-ex">Didi = the Chinese Uber.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/vocab/subway.mp3" aria-label="play subway">▶</button><div class="voc-body"><div class="voc-w">a subway</div><div class="voc-ex">The underground / metro. Cheapest way into town.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/vocab/lost.mp3" aria-label="play lost">▶</button><div class="voc-body"><div class="voc-w">lost</div><div class="voc-ex">"I'm lost. Could you help me?"</div></div></div>
     </div>
   </div>
 </section>
@@ -332,23 +369,23 @@ window.LAB_VOCAB = [
     <div class="role-pair">
       <div class="role-card">
         <div class="role-h">👮 Officer (A)</div>
-        <div class="dlg-meta">You read this</div>
-        <p><strong>1.</strong> Passport, please.</p>
-        <p><strong>2.</strong> Purpose of your visit?</p>
-        <p><strong>3.</strong> How long are you staying?</p>
-        <p><strong>4.</strong> Where are you staying?</p>
-        <p><strong>5.</strong> Do you have a return ticket?</p>
-        <p><strong>6.</strong> Enjoy your stay in China.</p>
+        <div class="dlg-meta">You read this · click ▶ to hear the officer</div>
+        <p><button class="dlg-play" data-audio="./audio/roleplay-immigration/officer-01.mp3" aria-label="play">▶</button><span><strong>1.</strong> Passport, please.</span></p>
+        <p><button class="dlg-play" data-audio="./audio/roleplay-immigration/officer-02.mp3" aria-label="play">▶</button><span><strong>2.</strong> Purpose of your visit?</span></p>
+        <p><button class="dlg-play" data-audio="./audio/roleplay-immigration/officer-03.mp3" aria-label="play">▶</button><span><strong>3.</strong> How long are you staying?</span></p>
+        <p><button class="dlg-play" data-audio="./audio/roleplay-immigration/officer-04.mp3" aria-label="play">▶</button><span><strong>4.</strong> Where are you staying?</span></p>
+        <p><button class="dlg-play" data-audio="./audio/roleplay-immigration/officer-05.mp3" aria-label="play">▶</button><span><strong>5.</strong> Do you have a return ticket?</span></p>
+        <p><button class="dlg-play" data-audio="./audio/roleplay-immigration/officer-06.mp3" aria-label="play">▶</button><span><strong>6.</strong> Enjoy your stay in China.</span></p>
       </div>
       <div class="role-card b">
         <div class="role-h">🎒 You (B)</div>
-        <div class="dlg-meta">Say aloud · full sentences</div>
-        <p><strong>1.</strong> Here you are.</p>
-        <p><strong>2.</strong> The purpose of my visit is tourism.</p>
-        <p><strong>3.</strong> I'm staying for ten days.</p>
-        <p><strong>4.</strong> I'm staying at the Grand Beijing Hotel in Chaoyang.</p>
-        <p><strong>5.</strong> Yes, my return flight is on the twentieth of October.</p>
-        <p><strong>6.</strong> Thank you very much!</p>
+        <div class="dlg-meta">Say aloud · then ▶ to compare your version</div>
+        <p><button class="dlg-play" data-audio="./audio/roleplay-immigration/student-01.mp3" aria-label="play">▶</button><span><strong>1.</strong> Here you are.</span></p>
+        <p><button class="dlg-play" data-audio="./audio/roleplay-immigration/student-02.mp3" aria-label="play">▶</button><span><strong>2.</strong> The purpose of my visit is tourism.</span></p>
+        <p><button class="dlg-play" data-audio="./audio/roleplay-immigration/student-03.mp3" aria-label="play">▶</button><span><strong>3.</strong> I'm staying for ten days.</span></p>
+        <p><button class="dlg-play" data-audio="./audio/roleplay-immigration/student-04.mp3" aria-label="play">▶</button><span><strong>4.</strong> I'm staying at the Grand Beijing Hotel in Chaoyang.</span></p>
+        <p><button class="dlg-play" data-audio="./audio/roleplay-immigration/student-05.mp3" aria-label="play">▶</button><span><strong>5.</strong> Yes, my return flight is on the twentieth of October.</span></p>
+        <p><button class="dlg-play" data-audio="./audio/roleplay-immigration/student-06.mp3" aria-label="play">▶</button><span><strong>6.</strong> Thank you very much!</span></p>
       </div>
     </div>
     <div class="info"><strong>Second round:</strong> now change three details — city, hotel, length of trip. Same frames, new facts.</div>
@@ -358,17 +395,18 @@ window.LAB_VOCAB = [
 <!-- 05 · VOCAB · TAXI & DIDI -->
 <section class="section">
   <div class="section-hdr"><div class="section-num">05</div><h2>Vocab · taxi &amp; Didi</h2></div>
-  <p class="section-sub">Most drivers speak no English. You need seven survival phrases and a screen with the address in Chinese.</p>
+  <p class="section-sub">Most drivers speak no English. You need seven survival phrases and a phone with the hotel address in Chinese.</p>
   <div class="card">
     <div class="info"><strong>Micro-theory · the address trick.</strong> Save the Chinese name of your hotel as a screenshot before you land. Show it. Point. Don't try to pronounce it — just show and say "please".</div>
-    <div class="frame-grid">
-      <div class="frame"><div class="when">01</div><div class="pat">"To this address, please." + <em>show phone</em></div><div class="ex">Golden phrase. Works everywhere.</div></div>
-      <div class="frame gold"><div class="when">02</div><div class="pat">"How much is it to the airport?"</div><div class="ex">Ask before you get in. Show fingers if needed.</div></div>
-      <div class="frame sage"><div class="when">03</div><div class="pat">"Please turn on the meter."</div><div class="ex">Meter = the little box with a price. If it's off, price will jump.</div></div>
-      <div class="frame"><div class="when">04</div><div class="pat">"Stop here, please."</div><div class="ex">Point out of the window. "Here, thank you."</div></div>
-      <div class="frame gold"><div class="when">05</div><div class="pat">"Can I pay by card / by WeChat / by cash?"</div><div class="ex">Most drivers want WeChat or Alipay QR. Cash is a backup.</div></div>
-      <div class="frame sage"><div class="when">06</div><div class="pat">Didi</div><div class="ex">Chinese Uber. You need Wi-Fi + local number or the English "Didi" app.</div></div>
-      <div class="frame"><div class="when">07</div><div class="pat">the subway · line 2 · exit A</div><div class="ex">Cheapest transport. Signs are in English too.</div></div>
+    <div class="vocab-grid">
+      <div class="voc"><button class="voc-play" data-audio="./audio/scene/taxi-01.mp3" aria-label="play">▶</button><div class="voc-body"><div class="voc-w">"To this address, please."</div><div class="voc-ex">Golden phrase — plus show your phone.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/scene/taxi-03.mp3" aria-label="play">▶</button><div class="voc-body"><div class="voc-w">"How much is it, more or less?"</div><div class="voc-ex">Ask before you get in. Show fingers if needed.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/scene/taxi-05.mp3" aria-label="play">▶</button><div class="voc-body"><div class="voc-w">"Could you turn on the meter, please?"</div><div class="voc-ex">Meter = the little box with a price. If it's off, the price will jump.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/scene/taxi-07.mp3" aria-label="play">▶</button><div class="voc-body"><div class="voc-w">"Stop here, please."</div><div class="voc-ex">Point out of the window. "Here, thank you."</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/scene/taxi-07.mp3" aria-label="play">▶</button><div class="voc-body"><div class="voc-w">"Can I pay by WeChat?"</div><div class="voc-ex">Most drivers want WeChat / Alipay QR. Cash is a backup.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/scene/taxi-09.mp3" aria-label="play">▶</button><div class="voc-body"><div class="voc-w">"Could I get a receipt?"</div><div class="voc-ex">Useful for expenses and complaints.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/vocab/ride-hailing.mp3" aria-label="play">▶</button><div class="voc-body"><div class="voc-w">Didi · a ride-hailing app</div><div class="voc-ex">Chinese Uber. Wi-Fi + local number needed, or the English "Didi" app.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/vocab/subway.mp3" aria-label="play">▶</button><div class="voc-body"><div class="voc-w">the subway · line 2 · exit A</div><div class="voc-ex">Cheapest transport. Signs are in English too.</div></div></div>
     </div>
   </div>
 </section>
@@ -376,8 +414,9 @@ window.LAB_VOCAB = [
 <!-- 06 · GAP-SCENE · GETTING INTO A TAXI -->
 <section class="section">
   <div class="section-hdr"><div class="section-num">06</div><h2>Gap-scene · at the taxi rank</h2></div>
-  <p class="section-sub">Fill each blank with a word from the bank. Say the full line aloud after you check it.</p>
+  <p class="section-sub">Fill each blank with a word from the bank. Then hit ▶ to hear the full scene and read along.</p>
   <div class="card">
+    <button class="scene-play-all" data-scene="taxi" data-count="9">▶ Play whole scene</button>
     <div class="gap-scene">
       <div class="gs-bank">
         <span class="gs-word">meter</span>
@@ -403,18 +442,18 @@ window.LAB_VOCAB = [
 <!-- 07 · VOCAB · HOTEL CHECK-IN -->
 <section class="section">
   <div class="section-hdr"><div class="section-num">07</div><h2>Vocab · hotel check-in</h2></div>
-  <p class="section-sub">Eight phrases from the front desk. The clerk usually speaks basic English — you speak slowly and simply back.</p>
+  <p class="section-sub">Eight phrases from the front desk. The clerk usually speaks basic English — you speak slowly and simply back. Click ▶.</p>
   <div class="card">
     <div class="info"><strong>Micro-theory · slow, not loud.</strong> If they don't understand, don't say it louder. Say it <em>slower</em> and shorter. "I have a booking" is better than "Well, I actually pre-booked a room online".</div>
-    <div class="frame-grid">
-      <div class="frame"><div class="when">Opening</div><div class="pat">"Hi, I have a reservation under Protasov."</div><div class="ex">Say your surname twice, clearly.</div></div>
-      <div class="frame gold"><div class="when">Docs</div><div class="pat">"Here is my passport."</div><div class="ex">They will scan or copy it. Normal.</div></div>
-      <div class="frame sage"><div class="when">Deposit</div><div class="pat">"Is there a deposit?"</div><div class="ex">Some hotels ask 200–500 yuan cash or card as security.</div></div>
-      <div class="frame"><div class="when">Wi-Fi</div><div class="pat">"What is the Wi-Fi password?"</div><div class="ex">Ask for it in writing if the number is long.</div></div>
-      <div class="frame gold"><div class="when">Breakfast</div><div class="pat">"Is breakfast included, and until what time?"</div><div class="ex">"Included" or "extra". "Until 10 a.m." typical.</div></div>
-      <div class="frame sage"><div class="when">Room</div><div class="pat">"Could I have a room on a higher floor / away from the elevator?"</div><div class="ex">Reasonable requests are fine.</div></div>
-      <div class="frame"><div class="when">Extra bed</div><div class="pat">"Could we have an extra pillow / a bottle of water?"</div><div class="ex">"Could we…" is more polite than "I want…".</div></div>
-      <div class="frame gold"><div class="when">Check-out</div><div class="pat">"What time is check-out tomorrow?"</div><div class="ex">Standard: 12:00. Late check-out often costs extra.</div></div>
+    <div class="vocab-grid">
+      <div class="voc"><button class="voc-play" data-audio="./audio/roleplay-hotel/guest-02.mp3" aria-label="play">▶</button><div class="voc-body"><div class="voc-w">"Yes, I have a reservation under Protasov."</div><div class="voc-ex">Say your surname twice, clearly.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/roleplay-hotel/guest-03.mp3" aria-label="play">▶</button><div class="voc-body"><div class="voc-w">"Of course. Here you are."</div><div class="voc-ex">Handing your passport over — casual polite.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/vocab/check-in.mp3" aria-label="play">▶</button><div class="voc-body"><div class="voc-w">to check in / check-out</div><div class="voc-ex">Standard check-out 12:00. Late check-out often costs extra.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/vocab/reservation.mp3" aria-label="play">▶</button><div class="voc-body"><div class="voc-w">a reservation</div><div class="voc-ex">= a booking. Same thing.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/vocab/key-card.mp3" aria-label="play">▶</button><div class="voc-body"><div class="voc-w">a key card</div><div class="voc-ex">Card that opens your room door — don't lose it.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/roleplay-hotel/guest-05.mp3" aria-label="play">▶</button><div class="voc-body"><div class="voc-w">"What's the Wi-Fi password, please?"</div><div class="voc-ex">Ask them to write it if the number is long.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/roleplay-hotel/reception-05.mp3" aria-label="play">▶</button><div class="voc-body"><div class="voc-w">"Breakfast is included, from seven to ten."</div><div class="voc-ex">"Included" or "extra". "Until 10 a.m." typical.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/roleplay-hotel/reception-06.mp3" aria-label="play">▶</button><div class="voc-body"><div class="voc-w">"Room 508, on the fifth floor. Enjoy your stay!"</div><div class="voc-ex">Note down your room number in your phone.</div></div></div>
     </div>
   </div>
 </section>
@@ -427,24 +466,65 @@ window.LAB_VOCAB = [
     <div class="role-pair">
       <div class="role-card">
         <div class="role-h">🛎️ Receptionist (A)</div>
-        <div class="dlg-meta">You read this</div>
-        <p><strong>1.</strong> Good evening. Welcome to the Grand Beijing.</p>
-        <p><strong>2.</strong> Do you have a reservation?</p>
-        <p><strong>3.</strong> Could I see your passport, please?</p>
-        <p><strong>4.</strong> One twin room for four nights. Correct?</p>
-        <p><strong>5.</strong> Breakfast is included, from seven to ten in the restaurant on floor two.</p>
-        <p><strong>6.</strong> Here is your key card. Room 508, on the fifth floor. Enjoy your stay!</p>
+        <div class="dlg-meta">You read this · ▶ to hear it</div>
+        <p><button class="dlg-play" data-audio="./audio/roleplay-hotel/reception-01.mp3" aria-label="play">▶</button><span><strong>1.</strong> Good evening. Welcome to the Grand Beijing.</span></p>
+        <p><button class="dlg-play" data-audio="./audio/roleplay-hotel/reception-02.mp3" aria-label="play">▶</button><span><strong>2.</strong> Do you have a reservation?</span></p>
+        <p><button class="dlg-play" data-audio="./audio/roleplay-hotel/reception-03.mp3" aria-label="play">▶</button><span><strong>3.</strong> Could I see your passport, please?</span></p>
+        <p><button class="dlg-play" data-audio="./audio/roleplay-hotel/reception-04.mp3" aria-label="play">▶</button><span><strong>4.</strong> One twin room for four nights. Correct?</span></p>
+        <p><button class="dlg-play" data-audio="./audio/roleplay-hotel/reception-05.mp3" aria-label="play">▶</button><span><strong>5.</strong> Breakfast is included, from seven to ten in the restaurant on floor two.</span></p>
+        <p><button class="dlg-play" data-audio="./audio/roleplay-hotel/reception-06.mp3" aria-label="play">▶</button><span><strong>6.</strong> Here is your key card. Room 508, on the fifth floor. Enjoy your stay!</span></p>
       </div>
       <div class="role-card b">
         <div class="role-h">🎒 You (B)</div>
-        <div class="dlg-meta">Full sentences · unhurried</div>
-        <p><strong>1.</strong> Good evening. Thank you.</p>
-        <p><strong>2.</strong> Yes, I have a reservation under Protasov.</p>
-        <p><strong>3.</strong> Of course. Here you are.</p>
-        <p><strong>4.</strong> Yes, that's right — one twin room for four nights.</p>
-        <p><strong>5.</strong> Great, thank you. And what's the Wi-Fi password, please?</p>
-        <p><strong>6.</strong> Thank you very much. Have a good evening!</p>
+        <div class="dlg-meta">Say aloud · then ▶ to compare</div>
+        <p><button class="dlg-play" data-audio="./audio/roleplay-hotel/guest-01.mp3" aria-label="play">▶</button><span><strong>1.</strong> Good evening. Thank you.</span></p>
+        <p><button class="dlg-play" data-audio="./audio/roleplay-hotel/guest-02.mp3" aria-label="play">▶</button><span><strong>2.</strong> Yes, I have a reservation under Protasov.</span></p>
+        <p><button class="dlg-play" data-audio="./audio/roleplay-hotel/guest-03.mp3" aria-label="play">▶</button><span><strong>3.</strong> Of course. Here you are.</span></p>
+        <p><button class="dlg-play" data-audio="./audio/roleplay-hotel/guest-04.mp3" aria-label="play">▶</button><span><strong>4.</strong> Yes, that's right — one twin room for four nights.</span></p>
+        <p><button class="dlg-play" data-audio="./audio/roleplay-hotel/guest-05.mp3" aria-label="play">▶</button><span><strong>5.</strong> Great, thank you. And what's the Wi-Fi password, please?</span></p>
+        <p><button class="dlg-play" data-audio="./audio/roleplay-hotel/guest-06.mp3" aria-label="play">▶</button><span><strong>6.</strong> Thank you very much. Have a good evening!</span></p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- 08b · LISTENING · 3 SHORT STORIES + T/F/NS -->
+<section class="section">
+  <div class="section-hdr"><div class="section-num">08+</div><h2>Listening · three short scenes</h2></div>
+  <p class="section-sub">Play each recording once. Decide for each statement: <strong>True</strong>, <strong>False</strong> or <strong>Not stated</strong>. Then play it again and check.</p>
+  <div class="card">
+    <div class="info"><strong>Micro-theory · "Not stated" is a real answer.</strong> If the recording did not say it — do not guess. Not stated is not "wrong". It just means: I have no evidence. On exams and in real life, this is a strong skill.</div>
+
+    <div class="listen-card">
+      <h3>Story 01 · Airport announcement</h3>
+      <p class="section-sub" style="margin:0 0 6px 0">You are at Beijing Capital Airport. This announcement plays over the speakers.</p>
+      <audio class="listen-audio" controls preload="none" src="./audio/listening/story-01-airport-announcement.mp3"></audio>
+      <div class="tf3-row" data-ans="t"><div class="tf3-q"><strong>1.</strong> The flight is going to Moscow.</div><div class="tf3-opts"><button data-v="t">True</button><button data-v="f">False</button><button data-v="n">Not stated</button></div></div>
+      <div class="tf3-row" data-ans="f"><div class="tf3-q"><strong>2.</strong> Passengers should go to gate A17.</div><div class="tf3-opts"><button data-v="t">True</button><button data-v="f">False</button><button data-v="n">Not stated</button></div></div>
+      <div class="tf3-row" data-ans="t"><div class="tf3-q"><strong>3.</strong> Passengers with children can board first.</div><div class="tf3-opts"><button data-v="t">True</button><button data-v="f">False</button><button data-v="n">Not stated</button></div></div>
+      <div class="tf3-row" data-ans="n"><div class="tf3-q"><strong>4.</strong> There is free coffee for economy-class passengers.</div><div class="tf3-opts"><button data-v="t">True</button><button data-v="f">False</button><button data-v="n">Not stated</button></div></div>
+    </div>
+
+    <div class="listen-card">
+      <h3>Story 02 · The reservation problem</h3>
+      <p class="section-sub" style="margin:0 0 6px 0">You are at the hotel reception. Something is wrong with your booking.</p>
+      <audio class="listen-audio" controls preload="none" src="./audio/listening/story-02-hotel-check-in.mp3"></audio>
+      <div class="tf3-row" data-ans="t"><div class="tf3-q"><strong>1.</strong> Your reservation is for tomorrow, not for today.</div><div class="tf3-opts"><button data-v="t">True</button><button data-v="f">False</button><button data-v="n">Not stated</button></div></div>
+      <div class="tf3-row" data-ans="f"><div class="tf3-q"><strong>2.</strong> The available room is on the fifth floor.</div><div class="tf3-opts"><button data-v="t">True</button><button data-v="f">False</button><button data-v="n">Not stated</button></div></div>
+      <div class="tf3-row" data-ans="t"><div class="tf3-q"><strong>3.</strong> The available room costs the same as the one you booked.</div><div class="tf3-opts"><button data-v="t">True</button><button data-v="f">False</button><button data-v="n">Not stated</button></div></div>
+      <div class="tf3-row" data-ans="n"><div class="tf3-q"><strong>4.</strong> Breakfast is included in this cheaper room.</div><div class="tf3-opts"><button data-v="t">True</button><button data-v="f">False</button><button data-v="n">Not stated</button></div></div>
+      <div class="tf3-row" data-ans="f"><div class="tf3-q"><strong>5.</strong> The available room is bigger than the one you booked.</div><div class="tf3-opts"><button data-v="t">True</button><button data-v="f">False</button><button data-v="n">Not stated</button></div></div>
+    </div>
+
+    <div class="listen-card">
+      <h3>Story 03 · Street directions</h3>
+      <p class="section-sub" style="margin:0 0 6px 0">You are lost on a Beijing street. A local stops to help you.</p>
+      <audio class="listen-audio" controls preload="none" src="./audio/listening/story-03-street-directions.mp3"></audio>
+      <div class="tf3-row" data-ans="t"><div class="tf3-q"><strong>1.</strong> You are looking for the subway.</div><div class="tf3-opts"><button data-v="t">True</button><button data-v="f">False</button><button data-v="n">Not stated</button></div></div>
+      <div class="tf3-row" data-ans="t"><div class="tf3-q"><strong>2.</strong> You should walk straight for about two minutes.</div><div class="tf3-opts"><button data-v="t">True</button><button data-v="f">False</button><button data-v="n">Not stated</button></div></div>
+      <div class="tf3-row" data-ans="f"><div class="tf3-q"><strong>3.</strong> The big sign is on your right.</div><div class="tf3-opts"><button data-v="t">True</button><button data-v="f">False</button><button data-v="n">Not stated</button></div></div>
+      <div class="tf3-row" data-ans="t"><div class="tf3-q"><strong>4.</strong> The correct metro exit is exit C.</div><div class="tf3-opts"><button data-v="t">True</button><button data-v="f">False</button><button data-v="n">Not stated</button></div></div>
+      <div class="tf3-row" data-ans="n"><div class="tf3-q"><strong>5.</strong> The metro station is called Beijing East.</div><div class="tf3-opts"><button data-v="t">True</button><button data-v="f">False</button><button data-v="n">Not stated</button></div></div>
     </div>
   </div>
 </section>
@@ -452,18 +532,18 @@ window.LAB_VOCAB = [
 <!-- 09 · VOCAB · FOOD & SPICY -->
 <section class="section">
   <div class="section-hdr"><div class="section-num">09</div><h2>Vocab · food, spicy &amp; allergies</h2></div>
-  <p class="section-sub">Chinese food is amazing — and often unexpectedly spicy. These words save you from tears at dinner.</p>
+  <p class="section-sub">Chinese food is amazing — and often unexpectedly spicy. These phrases save you from tears at dinner.</p>
   <div class="card">
     <div class="info"><strong>Micro-theory · point + say.</strong> In small places the waiter brings a picture menu. Point and say <em>"This one, please."</em> Add <em>"Not spicy, please."</em> if you're unsure. That is a full order.</div>
-    <div class="frame-grid">
-      <div class="frame"><div class="when">Ask</div><div class="pat">"Could I see the menu with pictures, please?"</div><div class="ex">Magic sentence in small restaurants.</div></div>
-      <div class="frame gold"><div class="when">Point</div><div class="pat">"I'd like this one, please." + <em>point</em></div><div class="ex">"I'd like" = "I would like" = polite "I want".</div></div>
-      <div class="frame sage"><div class="when">Spicy</div><div class="pat">"Not spicy, please. / A little spicy is OK."</div><div class="ex">Chinese "a little spicy" is usually your "very spicy".</div></div>
-      <div class="frame"><div class="when">Allergy</div><div class="pat">"I'm allergic to <em>peanuts / seafood</em>."</div><div class="ex">If serious — write it on your phone in Chinese too.</div></div>
-      <div class="frame gold"><div class="when">Water</div><div class="pat">"Could I have some water, please? Not hot."</div><div class="ex">Default in China is hot water. Ask for cold or room-temperature if you want.</div></div>
-      <div class="frame sage"><div class="when">Bill</div><div class="pat">"Excuse me, could I have the bill?"</div><div class="ex">Or just make a small "writing" gesture in the air.</div></div>
-      <div class="frame"><div class="when">Recommend</div><div class="pat">"What do you recommend for a first-timer?"</div><div class="ex">People love this question. Great small talk.</div></div>
-      <div class="frame gold"><div class="when">Pay</div><div class="pat">"Can I pay by card? Or only WeChat / Alipay?"</div><div class="ex">Have a small amount of cash as backup.</div></div>
+    <div class="vocab-grid">
+      <div class="voc"><button class="voc-play" data-audio="./audio/scene/restaurant-01.mp3" aria-label="play">▶</button><div class="voc-body"><div class="voc-w">"Could I see the menu with pictures, please?"</div><div class="voc-ex">Magic sentence in small restaurants.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/scene/restaurant-03.mp3" aria-label="play">▶</button><div class="voc-body"><div class="voc-w">"What do you recommend for a first-timer?"</div><div class="voc-ex">People love this question. Great small talk too.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/vocab/spicy.mp3" aria-label="play">▶</button><div class="voc-body"><div class="voc-w">spicy · "Not spicy, please."</div><div class="voc-ex">Chinese "a little spicy" is usually your "very spicy".</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/vocab/allergic-to.mp3" aria-label="play">▶</button><div class="voc-body"><div class="voc-w">"I'm allergic to peanuts / seafood."</div><div class="voc-ex">If serious — write it on your phone in Chinese too.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/scene/restaurant-07.mp3" aria-label="play">▶</button><div class="voc-body"><div class="voc-w">"Water, please. Not hot."</div><div class="voc-ex">Default in China is hot water. Ask for cold or room-temperature.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/scene/restaurant-08.mp3" aria-label="play">▶</button><div class="voc-body"><div class="voc-w">"Could I have the bill, please?"</div><div class="voc-ex">Or just make a small "writing" gesture in the air.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/vocab/bill.mp3" aria-label="play">▶</button><div class="voc-body"><div class="voc-w">the bill / a receipt</div><div class="voc-ex">Bill = what you pay. Receipt = the printed proof.</div></div></div>
+      <div class="voc"><button class="voc-play" data-audio="./audio/scene/restaurant-10.mp3" aria-label="play">▶</button><div class="voc-body"><div class="voc-w">"WeChat, please."</div><div class="voc-ex">Have a small amount of cash as backup.</div></div></div>
     </div>
   </div>
 </section>
@@ -471,8 +551,9 @@ window.LAB_VOCAB = [
 <!-- 10 · GAP-SCENE · RESTAURANT -->
 <section class="section">
   <div class="section-hdr"><div class="section-num">10</div><h2>Gap-scene · dinner in Xi'an</h2></div>
-  <p class="section-sub">Fill the blanks. Read the whole scene aloud after you finish — twice.</p>
+  <p class="section-sub">Fill the blanks. Then hit ▶ to hear the full scene — twice — and read along.</p>
   <div class="card">
+    <button class="scene-play-all" data-scene="restaurant" data-count="10">▶ Play whole scene</button>
     <div class="gap-scene">
       <div class="gs-bank">
         <span class="gs-word">menu</span>
@@ -593,37 +674,37 @@ window.LAB_VOCAB = [
         <div class="pc-num">Starter 01</div>
         <div class="pc-q">"Where are you from originally?"</div>
         <div class="pc-hint">Locals love this question. Follow up with the city name.</div>
-        <button class="pc-tts" data-say="Where are you from originally?">▶ Hear</button>
+        <button class="pc-tts" data-audio="./audio/prompt/prompt-04-where-from.mp3">▶ Hear</button>
       </div>
       <div class="prompt-card gold">
         <div class="pc-num">Starter 02</div>
         <div class="pc-q">"What is a dish I really must try here?"</div>
         <div class="pc-hint">Instant local expert mode — people always have an answer.</div>
-        <button class="pc-tts" data-say="What is a dish I really must try here?">▶ Hear</button>
+        <button class="pc-tts" data-audio="./audio/prompt/prompt-05-dish-try.mp3">▶ Hear</button>
       </div>
       <div class="prompt-card sage">
         <div class="pc-num">Starter 03</div>
         <div class="pc-q">"How do you say <em>thank you</em> in your language?"</div>
         <div class="pc-hint">You already know it, but ask anyway — it opens smiles.</div>
-        <button class="pc-tts" data-say="How do you say thank you in your language?">▶ Hear</button>
+        <button class="pc-tts" data-audio="./audio/prompt/prompt-06-thank-you.mp3">▶ Hear</button>
       </div>
       <div class="prompt-card">
         <div class="pc-num">Starter 04</div>
         <div class="pc-q">"Is this your first time in this city too?"</div>
         <div class="pc-hint">Great with other tourists at a viewpoint.</div>
-        <button class="pc-tts" data-say="Is this your first time in this city too?">▶ Hear</button>
+        <button class="pc-tts" data-audio="./audio/prompt/prompt-07-first-time.mp3">▶ Hear</button>
       </div>
       <div class="prompt-card gold">
         <div class="pc-num">Starter 05</div>
         <div class="pc-q">"Do you play football / basketball / video games?"</div>
         <div class="pc-hint">Teenager to teenager, always works. Add a name of a player.</div>
-        <button class="pc-tts" data-say="Do you play football, basketball or video games?">▶ Hear</button>
+        <button class="pc-tts" data-audio="./audio/prompt/prompt-08-sports.mp3">▶ Hear</button>
       </div>
       <div class="prompt-card sage">
         <div class="pc-num">Starter 06</div>
         <div class="pc-q">"How do I get to the metro from here?"</div>
         <div class="pc-hint">A safe fallback when you literally can't think of anything.</div>
-        <button class="pc-tts" data-say="How do I get to the metro from here?">▶ Hear</button>
+        <button class="pc-tts" data-audio="./audio/prompt/prompt-09-metro.mp3">▶ Hear</button>
       </div>
     </div>
   </div>
@@ -634,6 +715,7 @@ window.LAB_VOCAB = [
   <div class="section-hdr"><div class="section-num">15</div><h2>Mic drill · ten phrases without stopping</h2></div>
   <p class="section-sub">This is the anti-fear finisher. Say all ten phrases aloud, one after another, no pauses. If you get stuck — skip that one and go on. Do it three times.</p>
   <div class="card">
+    <img class="section-banner" src="./assets/img/final-china-collage.png" alt="A mosaic of Chinese travel scenes — Beijing skyline, taxi, hotel reception, dumplings, Great Wall lion, street market, and travel icons">
     <div class="info"><strong>Why:</strong> speaking without pausing to translate rewires the fear. After three passes, the phrases live in your mouth, not in your head. That is the real goal of today.</div>
     <div class="frame-grid">
       <div class="frame"><div class="when">01</div><div class="pat">"Excuse me, do you speak English?"</div><div class="ex">Always ask. Some people do.</div></div>
@@ -821,6 +903,98 @@ window.LAB_VOCAB = [
       u.lang='en-US';u.rate=0.95;
       window.speechSynthesis.speak(u);
       if(btn.classList.contains('voc-pill')||btn.classList.contains('facility-item'))btn.classList.add('heard');
+    });
+  });
+})();
+</script>
+
+<!-- Audio play buttons ([data-audio]) -->
+<script>
+(function(){
+  var currentA = null, currentBtn = null;
+  function stopCurrent(){
+    if(currentA){ try{ currentA.pause(); currentA.currentTime = 0; }catch(e){} }
+    if(currentBtn){ currentBtn.classList.remove('playing'); }
+    currentA = null; currentBtn = null;
+  }
+  document.querySelectorAll('[data-audio]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var src = btn.dataset.audio;
+      if(!src) return;
+      if(currentBtn === btn){ stopCurrent(); return; }
+      stopCurrent();
+      var a = new Audio(src);
+      currentA = a; currentBtn = btn;
+      btn.classList.add('playing');
+      a.addEventListener('ended', function(){
+        if(btn === currentBtn){ btn.classList.remove('playing'); currentA = null; currentBtn = null; }
+      });
+      a.play().catch(function(){ btn.classList.remove('playing'); });
+    });
+  });
+})();
+</script>
+
+<!-- Gap-scene play-all (sequential per-line) -->
+<script>
+(function(){
+  document.querySelectorAll('.scene-play-all').forEach(function(btn){
+    var scene = btn.dataset.scene;
+    var count = parseInt(btn.dataset.count || '0', 10);
+    if(!scene || !count) return;
+    var audios = [];
+    var i = 0;
+    var playing = false;
+    function pad(n){ return (n < 10 ? '0' + n : '' + n); }
+    function playNext(){
+      if(!playing) return;
+      if(i >= count){ btn.classList.remove('playing'); btn.textContent = '▶ Play whole scene'; playing = false; i = 0; return; }
+      var src = './audio/scene/' + scene + '-' + pad(i + 1) + '.mp3';
+      var a = new Audio(src);
+      audios.push(a);
+      a.addEventListener('ended', function(){ i++; playNext(); });
+      a.play().catch(function(){ i++; playNext(); });
+    }
+    btn.addEventListener('click', function(){
+      if(playing){
+        playing = false;
+        audios.forEach(function(a){ try{ a.pause(); }catch(e){} });
+        audios = [];
+        i = 0;
+        btn.classList.remove('playing');
+        btn.textContent = '▶ Play whole scene';
+        return;
+      }
+      playing = true;
+      i = 0;
+      audios = [];
+      btn.classList.add('playing');
+      btn.textContent = '■ Stop';
+      playNext();
+    });
+  });
+})();
+</script>
+
+<!-- T/F/Not-Stated scoring -->
+<script>
+(function(){
+  document.querySelectorAll('.tf3-row').forEach(function(row){
+    var ans = (row.dataset.ans || '').toLowerCase();
+    var done = false;
+    row.querySelectorAll('.tf3-opts button').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        if(done) return;
+        var pick = (btn.dataset.v || '').toLowerCase();
+        if(pick === ans){ btn.classList.add('right'); }
+        else{
+          btn.classList.add('wrong');
+          row.querySelectorAll('.tf3-opts button').forEach(function(b){
+            if((b.dataset.v || '').toLowerCase() === ans) b.classList.add('right');
+          });
+        }
+        done = true;
+      });
     });
   });
 })();
