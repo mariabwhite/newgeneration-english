@@ -32,6 +32,8 @@ VOCAB = [
     ("be going to",    "I am going to call my mother."),
     ("be allergic to", "I am allergic to the sun."),
     ("because of",     "Because of this situation, I am stressed."),
+    ("Switzerland",    "I would like to visit Switzerland."),
+    ("I agree",        "I agree with you."),
 ]
 
 PHRASES = [
@@ -53,6 +55,10 @@ PHRASES = [
     "He is allergic to nuts.",
     "Because of this situation, I am afraid.",
     "I am tired because of the trip.",
+    "I would like to visit Switzerland.",
+    "Switzerland is famous for chocolate and mountains.",
+    "I agree with you.",
+    "I agree, that is a good idea.",
 ]
 
 # Deduplicate all texts to voice.
