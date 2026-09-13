@@ -1,63 +1,74 @@
 # varvara-03-atlas · asset list
 
-Всё, что нужно догенерить/нарисовать/найти для визуалки. Урок работает и без картинок (`onerror` прячет битые `<img>`), но с ними — красивее.
+Урок работает целиком: 11 reading текстов + 6 listening треков (аудио уже вшито, MP3 сгенерены через edge-tts). Всё, что ниже — украшательства.
 
-## Файлы, которые ждут ассетов
+## Уже готово
 
 | # | путь | статус | назначение |
 |---|------|--------|------------|
-| 1 | `assets/img/reading-vantablack.png` | **пусто** — обязательно | hero-картинка в reading passage (шапка «The Blackest Black») |
-| 2 | `assets/img/plan-elmswood.png` | **опционально** — сейчас inline SVG | замена SVG-плейсхолдеру карты для L-03 |
-| 3 | `assets/img/listening-elmswood.png` | опционально — красотка | фото палм-хауса перед transcript'ом (сейчас нет `<img>` в разметке — нужно будет вставить) |
-| 4 | `../varvara-02-tour/assets/img/hero-culture-shapes-us.png` | **уже есть** | hero-фон всей страницы (reuse из L2) |
-| 5 | `assets/img/map-granford.jpg` | уже лежит | залоченный запас на будущий map-урок, в текущем не используется |
-| 6 | `assets/img/plan-library.jpg` | уже лежит | залоченный запас на будущий plan-урок, в текущем не используется |
+| 1 | `assets/audio/l-01-concert.mp3` … `l-06-tour.mp3` | **готово** — 6 файлов ~1.4 MB суммарно | listening треки, вшиты `<audio>` в карточки L-01…L-06 |
+| 2 | `assets/audio/_gen.py` | готово | скрипт edge-tts, чтобы пересгенерить любой трек (`py -3 _gen.py`) |
+| 3 | inline SVG · L-03 map (Elmswood plan) | готово | 5 пронумерованных зон + компас в HTML |
+| 4 | inline SVG · R-10 flow-chart (chocolate) | готово | процесс обработки какао в HTML |
+| 5 | `../varvara-02-tour/assets/img/hero-culture-shapes-us.png` | reuse | hero-фон всей страницы |
 
-## Промпты для ChatGPT / Playwright / DALL-E 3
+## Голоса edge-tts (по трекам)
 
-### 1. `reading-vantablack.png` — MUST HAVE
+| track | voice | тема | длительность |
+|---|---|---|---|
+| L-01 | en-GB-SoniaNeural | community concert venue change | ~40 с |
+| L-02 | en-GB-RyanNeural | tutor · 4 university modules | ~45 с |
+| L-03 | en-GB-LibbyNeural | Elmswood Botanic Gardens tour | ~55 с |
+| L-04 | en-GB-SoniaNeural | Camden language course booking | ~55 с |
+| L-05 | en-GB-LibbyNeural | Céide Fields Neolithic lecture | ~55 с |
+| L-06 | en-GB-MaisieNeural | Sunday walking tour phone enquiry | ~35 с |
 
-Формат: **1200×675 (16:9), PNG**
+Пересгенерить трек: правь текст в `_gen.py`, запусти `py -3 _gen.py`, все 6 файлов перезапишутся.
 
-**Prompt:**
-> Photorealistic editorial close-up: on the left, a small crumpled aluminium foil ball sitting on a matte grey studio surface — normal, shiny, dimensional. On the right, an identical crumpled foil ball but this one is entirely coated in Vantablack — it looks like a flat two-dimensional black silhouette, absolutely no visible depth or texture, as if a black felt-tip pen has cut a hole through the photograph. Dramatic side lighting from the left. Minimal composition, plenty of negative space. Editorial magazine quality, muted grey background, no text, no logos. 16:9 landscape.
+## Опциональные картинки (для украшения)
 
-**Alt phrasing (art-world variant):**
-> Museum-quality product photograph of Anish Kapoor's installation Descent Into Limbo — a matte black circle painted on a white gallery floor that appears to be a bottomless void. Overhead lighting, minimalist white gallery interior, no visitors visible, 16:9 landscape crop.
+Не обязательные — урок без них полноценный.
 
----
+### 1. Hero-иллюстрации к 11 reading текстам
 
-### 2. `plan-elmswood.png` — OPTIONAL upgrade
+Формат: **1200×675 (16:9), PNG**. Стилистика — минимализм, тёмный фон #0F151A, teal + gold акценты.
 
-Сейчас inline SVG внутри HTML работает и функционален (5 пронумерованных зон + компас + опции). Если хочешь красивее — сгенерь и я подменю `<svg>` на `<img>`.
+| card | topic | prompt (короткий) |
+|---|---|---|
+| R-01 | Octopus cognition | "Underwater dramatic photo of an octopus with two arms rotating the lid of a glass screw-top jar containing a live crab, deep blue background, editorial macro" |
+| R-02 | Ottoman Selimiye Mosque | "Interior wide-angle photo of Selimiye Mosque in Edirne, Turkey, dome with 999 windows, warm golden light beams" |
+| R-03 | Sarajevo reconstruction | "Editorial photo of a Sarajevo façade showing wartime shrapnel scars framed and preserved as memorial, muted colours" |
+| R-04 | Medici patronage | "Detail of Verrocchio's terracotta bust of Cosimo de' Medici on plain grey museum background" |
+| R-05 | Coffee & sleep | "Overhead flat lay of a coffee cup with an EEG sleep-line graph rising from steam, dark moody kitchen surface" |
+| R-06 | Nordic film composers | "Split-screen editorial portrait of three film composers at work — a Lithuanian power plant control room, a mixing desk, a full orchestra recording session" |
+| R-07 | Iceberg calving | "Aerial drone photo of a large iceberg mid-rotation in Arctic water, blue-green ice, dramatic light, small tsunami wave visible" |
+| R-08 | Silk Road caravanserai | "Wide-angle photo of a Central Asian caravanserai courtyard at dusk, camels resting, warm orange lighting from arched cells" |
+| R-09 | Solar sail LightSail 2 | "Space photograph of a Mylar solar sail unfolded in low Earth orbit, sunlight bouncing off, dark space background, small shoebox spacecraft visible" |
+| R-10 | Chocolate processing | "Overhead photo of split cacao pods with wet white beans and pulp on wooden fermenting box, tropical plantation background" |
+| R-11 | Blue whale acoustics | "Underwater side-view of blue whale with subtle overlay of sonar hydrophone waveforms in accent teal, deep ocean" |
 
-Формат: **1200×900 (4:3), PNG**
+Куда класть → `assets/img/r-01.png` … `r-11.png`. Затем добавляй `<img class="hero-img">` в начало каждого `.passage` (если хочешь).
 
-**Prompt:**
-> Top-down flat illustration of a botanic garden site plan titled "Elmswood Botanic Gardens". Rectangular boundary with a compass rose in the corner showing North at the top. Main entrance labelled at the south (bottom centre). On the central north-south axis: a large glass palm house labelled "55" (biggest structure). Top-left corner: a small building labelled "52" (herbarium). Top-right corner: a small building labelled "53" (seed bank). Middle-left, west of the palm house: a building labelled "54" (tea room and shop). Middle-right, east of the palm house: a building labelled "56" (education pavilion). Directly behind the palm house: a small pond and a rock garden zone. Between all buildings: green lawn with a few trees. Hand-drawn Wes Anderson symmetrical style, warm off-white paper background, muted mint + terracotta + navy palette, no other text besides the numbers 52-56 and the labels "Main entrance", "Pond", "Rock garden". 4:3 landscape.
+### 2. Иллюстрации к listening (по желанию)
 
----
+| track | prompt |
+|---|---|
+| L-01 | "Photo of a Victorian British village hall with 'concert tonight' sandwich board" |
+| L-02 | "Overhead photo of a university tutor's desk with four coloured module folders labelled" |
+| L-03 | "Aerial photo of a Victorian palm house glasshouse in a botanic garden" |
+| L-04 | "Photo of language school reception desk with course brochures" |
+| L-05 | "Aerial photo of Céide Fields Neolithic stone walls under peat, Irish Atlantic coast" |
+| L-06 | "Photo of Trafalgar Square north lion at 10 a.m. with a small tour group gathered" |
 
-### 3. `listening-elmswood.png` — OPTIONAL hero for transcript
+### 3. Замена L-03 SVG-плана на нарисованную карту
 
-Если добавляем — надо будет вставить `<img class="hero-img" src="./assets/img/listening-elmswood.png">` в начало `.transcript` блока.
+Если хочешь красивее — сгенерь **plan-elmswood.png** (1200×900) под Wes-Anderson-style top-down site plan (детальный prompt был в предыдущей версии этого файла).
 
-Формат: **1200×675 (16:9), PNG**
+## Регенерация аудио
 
-**Prompt:**
-> Warm midday photograph of a Victorian-era palm house glasshouse in a British botanic garden, seen from three-quarter angle, with tall palms visible through the glass and a small group of tour visitors gathered at the entrance. Soft late-morning light, gravel path in the foreground, no visible text or signage, editorial travel-magazine quality. 16:9 landscape.
+```powershell
+cd "C:\Users\Whitenois\Desktop\Новый центр управления\08_Projects\01_Сайт New Generation — сайт, Lab, кабинет\site-public-clean\lingua-boost-lab\ielts\varvara-03-atlas\assets\audio"
+py -3 _gen.py
+```
 
----
-
-## Быстрая проверка после генерации
-
-1. Кинуть файл в `assets/img/`
-2. Открыть `https://newgeneration-english.ru/lingua-boost-lab/ielts/varvara-03-atlas/` с `?v=2`
-3. Vantablack должен появиться в hero passage; если 404 — картинка просто спрячется (не сломает разметку)
-
-## Что уже inline / SVG (не требует ассетов)
-
-- R-10 · Vantablack production flow-chart (SVG inside HTML)
-- L-03 · Elmswood garden plan (SVG inside HTML — заменяемо `plan-elmswood.png`)
-- Vocab · 14 flip cards (текст + CSS)
-- Type badges · CSS + номера
+Все 6 треков перезапишутся за ~30-40 сек. Затем `git add . && git commit && git push`.
