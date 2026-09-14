@@ -1937,5 +1937,214 @@ function switchTab(key, btn){
 }
 </script>
 
+<script>
+/* ═══ GAP-FILL ═══ */
+function checkGap(list){
+  let ok=0, total=0;
+  list.querySelectorAll('.gap').forEach(g=>{
+    total++;
+    const inp = g.querySelector('.gap-inp');
+    const answers = g.dataset.a.split('|').map(s=>s.trim().toLowerCase());
+    const given = (inp.value||'').trim().toLowerCase();
+    inp.classList.remove('correct','wrong');
+    if(answers.includes(given)){inp.classList.add('correct'); ok++;}
+    else{inp.classList.add('wrong'); inp.title='right: '+g.dataset.a.split('|')[0];}
+  });
+  return {ok,total};
+}
+document.querySelectorAll('.gap-list .gap-inp').forEach(i=>i.addEventListener('input',()=>i.classList.remove('correct','wrong')));
+
+/* ═══ DROPDOWN ═══ */
+function checkDd(list){
+  let ok=0,total=0;
+  list.querySelectorAll('.dd').forEach(d=>{
+    total++;
+    const sel = d.querySelector('.dd-sel');
+    const answers = d.dataset.a.split('|').map(s=>s.trim().toLowerCase());
+    const given = (sel.value||'').trim().toLowerCase();
+    sel.classList.remove('correct','wrong');
+    if(answers.includes(given)){sel.classList.add('correct'); ok++;}
+    else sel.classList.add('wrong');
+  });
+  return {ok,total};
+}
+document.querySelectorAll('.dd-list .dd-sel').forEach(s=>s.addEventListener('change',()=>s.classList.remove('correct','wrong')));
+
+/* ═══ CLICK-THE-MISTAKE ═══ */
+document.querySelectorAll('.mist-list .mist-w').forEach(w=>{
+  w.onclick = ()=>{
+    const row = w.closest('.mist');
+    if(row.classList.contains('revealed')) return;
+    const target = row.dataset.w.toLowerCase();
+    row.querySelectorAll('.mist-w').forEach(x=>x.classList.remove('picked-wrong','picked-ok'));
+    if(w.textContent.trim().toLowerCase() === target){
+      w.classList.add('picked-ok');
+    } else {
+      w.classList.add('picked-wrong');
+      row.querySelectorAll('.mist-w').forEach(x=>{
+        if(x.textContent.trim().toLowerCase()===target) x.classList.add('picked-ok');
+      });
+    }
+    row.classList.add('revealed');
+  };
+});
+function checkMist(){
+  let ok=0,total=0;
+  document.querySelectorAll('.mist-list .mist').forEach(m=>{
+    total++;
+    if(m.classList.contains('revealed') && m.querySelector('.picked-ok') && !m.querySelector('.picked-wrong')) ok++;
+  });
+  return {ok,total};
+}
+
+/* ═══ CLOZE ═══ */
+function checkCloze(box){
+  let ok=0,total=0;
+  box.querySelectorAll('.cz').forEach(cz=>{
+    total++;
+    const inp = cz.querySelector('input, select');
+    const answers = cz.dataset.a.split('|').map(s=>s.trim().toLowerCase());
+    const given = (inp.value||'').trim().toLowerCase();
+    inp.classList.remove('correct','wrong');
+    if(answers.includes(given)){inp.classList.add('correct'); ok++;}
+    else{inp.classList.add('wrong'); inp.title='right: '+cz.dataset.a.split('|')[0];}
+  });
+  return {ok,total};
+}
+document.querySelectorAll('.cloze .cz input, .cloze .cz select').forEach(s=>s.addEventListener('input',()=>s.classList.remove('correct','wrong')));
+
+/* ═══ SITUATIONAL MCQ ═══ */
+function shuffle(a){const b=a.slice();for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+document.querySelectorAll('.sit-list .sit').forEach(row=>{
+  const opts = row.querySelector('.sit-opts');
+  const kids = Array.from(opts.children);
+  shuffle(kids).forEach(k=>opts.appendChild(k));
+  const answer = row.dataset.a.trim().toLowerCase();
+  opts.querySelectorAll('.sit-opt').forEach(btn=>{
+    btn.onclick=()=>{
+      if(row.classList.contains('revealed')) return;
+      opts.querySelectorAll('.sit-opt').forEach(b=>{
+        b.disabled=true;
+        if(b.textContent.trim().toLowerCase()===answer) b.classList.add('correct');
+        else if(b===btn) b.classList.add('wrong');
+      });
+      row.classList.add('revealed');
+    };
+  });
+});
+function checkSit(){
+  let ok=0,total=0;
+  document.querySelectorAll('.sit-list .sit').forEach(row=>{
+    total++;
+    if(row.classList.contains('revealed') && row.querySelector('.sit-opt.correct') && !row.querySelector('.sit-opt.wrong')) ok++;
+  });
+  return {ok,total};
+}
+
+/* ═══ AUTO-INJECT PER-DRILL CHECK & KEYS ═══ */
+document.querySelectorAll('[data-drill]').forEach(d=>{
+  const wrap=document.createElement('div');
+  wrap.className='drill-actions';
+  const hasInputs = d.classList.contains('gap-list')||d.classList.contains('dd-list')||d.classList.contains('cloze');
+  let checkBtn=null;
+  if(hasInputs){
+    checkBtn=document.createElement('button');
+    checkBtn.className='drill-btn';
+    checkBtn.innerHTML='<span class="drill-btn-label">Check ✓</span><span class="drill-btn-icon" aria-label="Check">✓</span>';
+    checkBtn.setAttribute('aria-label','Check');
+    wrap.appendChild(checkBtn);
+  }
+  const keysBtn=document.createElement('button');
+  keysBtn.className='drill-btn keys';
+  keysBtn.innerHTML='<span class="drill-btn-label">Show keys</span><span class="drill-btn-icon" aria-label="Show keys">🔑</span>';
+  keysBtn.setAttribute('aria-label','Show keys');
+  wrap.appendChild(keysBtn);
+  const score=document.createElement('span');
+  score.className='drill-score';
+  wrap.appendChild(score);
+
+  d.parentNode.insertBefore(wrap, d.nextSibling);
+
+  if(checkBtn){
+    checkBtn.onclick=()=>{
+      let r={ok:0,total:0};
+      if(d.classList.contains('gap-list')) r=checkGap(d);
+      else if(d.classList.contains('dd-list')) r=checkDd(d);
+      else if(d.classList.contains('cloze')) r=checkCloze(d);
+      score.textContent=r.ok+' / '+r.total;
+      score.classList.toggle('ok', r.total>0 && r.ok===r.total);
+      score.classList.toggle('miss', r.total>0 && r.ok<r.total);
+    };
+  }
+  keysBtn.onclick=()=>{
+    if(d.classList.contains('gap-list')){
+      d.querySelectorAll('.gap').forEach(g=>{
+        const a=g.dataset.a.split('|')[0];
+        const inp=g.querySelector('.gap-inp');
+        inp.value=a; inp.classList.remove('wrong'); inp.classList.add('correct');
+      });
+    } else if(d.classList.contains('dd-list')){
+      d.querySelectorAll('.dd').forEach(dd=>{
+        const a=dd.dataset.a.split('|')[0].toLowerCase();
+        const sel=dd.querySelector('.dd-sel');
+        Array.from(sel.options).forEach(o=>{if((o.value||o.text).trim().toLowerCase()===a) sel.value=o.value||o.text;});
+        sel.classList.remove('wrong'); sel.classList.add('correct');
+      });
+    } else if(d.classList.contains('cloze')){
+      d.querySelectorAll('.cz').forEach(cz=>{
+        const a=cz.dataset.a.split('|')[0];
+        const inp=cz.querySelector('input, select');
+        inp.value=a; inp.classList.remove('wrong'); inp.classList.add('correct');
+      });
+    } else if(d.classList.contains('mist-list')){
+      d.querySelectorAll('.mist').forEach(m=>{
+        if(m.classList.contains('revealed')) return;
+        const target=m.dataset.w.toLowerCase();
+        m.querySelectorAll('.mist-w').forEach(x=>{if(x.textContent.trim().toLowerCase()===target) x.classList.add('picked-ok');});
+        m.classList.add('revealed');
+      });
+    } else if(d.classList.contains('sit-list')){
+      d.querySelectorAll('.sit').forEach(row=>{
+        if(row.classList.contains('revealed')) return;
+        const a=row.dataset.a.trim().toLowerCase();
+        row.querySelectorAll('.sit-opt').forEach(btn=>{btn.disabled=true; if(btn.textContent.trim().toLowerCase()===a) btn.classList.add('correct');});
+        row.classList.add('revealed');
+      });
+    }
+    keysBtn.disabled=true;
+    keysBtn.innerHTML='<span class="drill-btn-label">Keys shown</span><span class="drill-btn-icon" aria-label="Keys shown">✓</span>';
+  };
+});
+
+/* ═══ CHECK ALL (guarded) ═══ */
+const _cbAll = document.querySelector('[data-check-all]');
+if(_cbAll){
+  _cbAll.onclick=()=>{
+    let ok=0,total=0;
+    document.querySelectorAll('.gap-list').forEach(l=>{const r=checkGap(l); ok+=r.ok; total+=r.total;});
+    document.querySelectorAll('.dd-list').forEach(l=>{const r=checkDd(l); ok+=r.ok; total+=r.total;});
+    document.querySelectorAll('.cloze').forEach(c=>{const r=checkCloze(c); ok+=r.ok; total+=r.total;});
+    {const r=checkMist(); ok+=r.ok; total+=r.total;}
+    {const r=checkSit(); ok+=r.ok; total+=r.total;}
+    const ts = document.getElementById('total-score');
+    if(ts) ts.textContent = ok + ' / ' + total;
+  };
+}
+</script>
+
+<!-- ═══ Shared Lab infra · match sonya-02 canonical stack ═══ -->
+<script src="../../assets/lab-persist.js?v=4" defer></script>
+<script src="../../assets/lab-send-pill.js?v=4" defer></script>
+<script src="../../assets/lab-total.js?v=4" defer></script>
+<script src="../../assets/lab-pilot.js?v=6" defer></script>
+<script src="../../assets/lab-ai-feedback.js?v=6" defer></script>
+<script src="../../assets/lab-sync.js?v=24" defer></script>
+<script src="../../assets/lab-tabs.js?v=12" defer></script>
+<script src="../../assets/lab-homework.js?v=50" defer></script>
+<script src="../../assets/lab-vocab-builder.js?v=54" defer></script>
+<script src="../../assets/lab-coach-persist.js?v=1" defer></script>
+<script src="../../assets/lab-clean-bottom-dock.js?v=1" defer></script>
+<link rel="stylesheet" href="/lingua-boost-lab/assets/mobile-compact.css?v=1">
+<script src="/lingua-boost-lab/assets/mobile-compact.js?v=1" defer></script>
 </body>
 </html>
