@@ -1256,6 +1256,7 @@
     const monthLessons = lessons
       .filter(l => {
         if (!l.date) return false;
+        if (l.status === "cancelled") return false;
         if (spanStart && spanEnd) return l.date >= spanStart && l.date <= spanEnd;
         if (hasSummerPlan) return l.date >= "2026-06-01" && l.date <= "2026-08-31";
         return l.date.startsWith(month);
