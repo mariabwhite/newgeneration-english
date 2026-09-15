@@ -1387,7 +1387,7 @@
     const archiveTables = archivedPackages.map(pkg => {
       const rows = _renderArchiveRows(pkg.lessons || []);
       return `
-        <details class="cab-card cab-card--wide cab-card--past" style="margin-top:12px" open>
+        <details class="cab-card cab-card--wide cab-card--past" style="margin-top:12px">
           <summary style="cursor:pointer;font-family:var(--display,'Unbounded',sans-serif);font-weight:800;font-size:16px;padding:6px 0;opacity:.75">📦 ${_esc(pkg.label || "Прошлый абонемент")}</summary>
           <ul class="cab-lessons-list" style="margin-top:10px">${rows}</ul>
         </details>
