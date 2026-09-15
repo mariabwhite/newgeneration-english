@@ -20,7 +20,7 @@
   const SB_URL  = "https://iqzlphbvmfgoygnozbya.supabase.co";
   const SB_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlxemxwaGJ2bWZnb3lnbm96YnlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAxNjg2ODMsImV4cCI6MjA5NTc0NDY4M30.SvpjaT31L2pRWWi6CU6ZISYu0_wYEK-yqf6q7GizBHs";
 
-  const CACHE_KEY = "nge_data_cache_v7"; // v7: Lyubaeva archive keeps homework modules
+  const CACHE_KEY = "nge_data_cache_v8"; // v8: close-of-day display fixes for 15.09
   const CACHE_TTL_MS = 5 * 60 * 1000;
 
   const SESSION_KEY = "nge_session_v2";
@@ -168,12 +168,89 @@
     return data;
   }
 
+  function _archiveLessonFrom(lesson, num) {
+    if (!lesson) return null;
+    return {
+      num: num,
+      date: lesson.date,
+      status: lesson.status || "completed",
+      topic: lesson.topic || "",
+      homework: lesson.homework || null,
+      url: lesson.homework && lesson.homework.modules && lesson.homework.modules[0] ? lesson.homework.modules[0].url : "",
+      title: lesson.homework && lesson.homework.modules && lesson.homework.modules[0] ? lesson.homework.modules[0].title : "Открыть"
+    };
+  }
+
+  function _normalizeCloseOfDay20260915(data) {
+    if (!data || !Array.isArray(data.students)) return data;
+    const twinSlugs = {
+      "ekaterina-medvedeva-solo": true,
+      "maria-kuznetsova-solo": true
+    };
+
+    data.students.forEach(function (student) {
+      if (!student || !Array.isArray(student.lessons)) return;
+      const lessons = student.lessons;
+      const byDate = {};
+      lessons.forEach(function (lesson) {
+        if (lesson && lesson.date) byDate[lesson.date] = lesson;
+      });
+
+      if (twinSlugs[student.slug]) {
+        const activeDates = ["2026-09-15", "2026-09-22", "2026-09-29"];
+        const activeLessons = activeDates.map(function (date, index) {
+          const lesson = byDate[date] || { date: date };
+          return Object.assign({}, lesson, {
+            num: index + 1,
+            status: index === 0 ? "completed" : "planned",
+            topic: lesson.topic || null,
+            homework: lesson.homework || null
+          });
+        });
+        const archiveDates = ["2026-08-13", "2026-08-16", "2026-09-01", "2026-09-03", "2026-09-08", "2026-09-10"];
+        const archiveLessons = archiveDates
+          .map(function (date, index) { return _archiveLessonFrom(byDate[date], index + 1); })
+          .filter(Boolean);
+
+        student.subscription_month = "2026-09";
+        student.subscription_span_start = "2026-09-15";
+        student.subscription_span_end = "2026-09-29";
+        student.lessons_in_package = 3;
+        student.lessons_used_this_month = 1;
+        student.payment_status = "Оплачено";
+        student.lessons = activeLessons;
+        student.archived_packages = [{
+          label: "Август–сентябрь · закрытый пакет · 6/6",
+          lessons: archiveLessons
+        }];
+        return;
+      }
+
+      if (student.slug === "sova-elena") {
+        const activeDates = ["2026-09-15", "2026-09-16", "2026-09-23", "2026-09-30"];
+        student.subscription_span_start = "2026-09-15";
+        student.subscription_span_end = "2026-09-30";
+        student.lessons_in_package = 4;
+        student.lessons_used_this_month = 1;
+        student.lessons = activeDates.map(function (date, index) {
+          const lesson = byDate[date] || { date: date };
+          return Object.assign({}, lesson, {
+            num: index + 1,
+            status: index === 0 ? "completed" : "planned"
+          });
+        });
+      }
+    });
+    return data;
+  }
+
   window.NGE_DATA_PROMISE = (async function boot() {
     // 1) Быстрый путь: свежий кэш в sessionStorage
     const cached = readCache();
     if (cached) {
       _ensurePayment(cached);
       _normalizeAleksandraLyubaeva(cached);
+      _normalizeCloseOfDay20260915(cached);
       window.NGE_DATA = cached;
       return cached;
     }
@@ -185,6 +262,7 @@
         const data = await callFn("all-data", { teacher_password: session.teacher_password });
         _ensurePayment(data);
         _normalizeAleksandraLyubaeva(data);
+        _normalizeCloseOfDay20260915(data);
         writeCache(data);
         window.NGE_DATA = data;
         return data;
@@ -193,6 +271,7 @@
         const data = await callFn("family-data", { pin: session.pin });
         _ensurePayment(data);
         _normalizeAleksandraLyubaeva(data);
+        _normalizeCloseOfDay20260915(data);
         writeCache(data);
         window.NGE_DATA = data;
         return data;
@@ -215,6 +294,7 @@
   window.NGE_DATA_HYDRATE = function (data) {
     _ensurePayment(data);
     _normalizeAleksandraLyubaeva(data);
+    _normalizeCloseOfDay20260915(data);
     writeCache(data);
     window.NGE_DATA = data;
   };
