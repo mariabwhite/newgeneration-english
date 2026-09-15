@@ -20,7 +20,7 @@
   const SB_URL  = "https://iqzlphbvmfgoygnozbya.supabase.co";
   const SB_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlxemxwaGJ2bWZnb3lnbm96YnlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAxNjg2ODMsImV4cCI6MjA5NTc0NDY4M30.SvpjaT31L2pRWWi6CU6ZISYu0_wYEK-yqf6q7GizBHs";
 
-  const CACHE_KEY = "nge_data_cache_v11"; // v11: Sova lesson link title
+  const CACHE_KEY = "nge_data_cache_v12"; // v12: Sova names every lesson link
   const CACHE_TTL_MS = 5 * 60 * 1000;
 
   const SESSION_KEY = "nge_session_v2";
@@ -243,11 +243,22 @@
         student.lessons_used_this_month = 1;
         student.lessons = activeDates.map(function (date, index) {
           const lesson = byDate[date] || { date: date };
+          const topic = index === 0 ? "Recap L4 · Three Worlds" : (lesson.topic || "Chocolat · Three Winds (Cinema Speaking Lab)");
+          const homework = index === 0 ? sovaRecapHomework : (lesson.homework || null);
+          if (homework && Array.isArray(homework.modules)) {
+            homework.modules = homework.modules.map(function (module) {
+              return Object.assign({}, module, {
+                title: module.title && module.title !== "📚 Открыть" && module.title !== "Открыть"
+                  ? module.title
+                  : "📚 " + topic
+              });
+            });
+          }
           return Object.assign({}, lesson, {
             num: index + 1,
             status: index === 0 ? "completed" : "planned",
-            topic: index === 0 ? "Recap L4 · Three Worlds" : (lesson.topic || null),
-            homework: index === 0 ? sovaRecapHomework : (lesson.homework || null)
+            topic: topic,
+            homework: homework
           });
         });
       }
