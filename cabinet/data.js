@@ -20,7 +20,7 @@
   const SB_URL  = "https://iqzlphbvmfgoygnozbya.supabase.co";
   const SB_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlxemxwaGJ2bWZnb3lnbm96YnlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAxNjg2ODMsImV4cCI6MjA5NTc0NDY4M30.SvpjaT31L2pRWWi6CU6ZISYu0_wYEK-yqf6q7GizBHs";
 
-  const CACHE_KEY = "nge_data_cache_v5"; // v5: Lyubaeva 14.09 as active lesson 1
+  const CACHE_KEY = "nge_data_cache_v6"; // v6: Lyubaeva archive is 3/3, active starts 14.09
   const CACHE_TTL_MS = 5 * 60 * 1000;
 
   const SESSION_KEY = "nge_session_v2";
@@ -140,8 +140,8 @@
       student.lessons = [Object.assign({}, first, { num: 1, status: "completed" })].concat(planned);
 
       student.archived_packages = [{
-        label: "Сентябрь · пилот · 2/2 · 7 000 ₽",
-        lessons: ["2026-09-10", "2026-09-11"]
+        label: "Сентябрь · пилот · 3/3 · 10 500 ₽",
+        lessons: ["2026-09-07", "2026-09-10", "2026-09-11"]
           .map(function (date, index) {
             const lesson = byDate[date];
             if (!lesson) return null;
@@ -158,7 +158,7 @@
       }];
 
       const payments = [
-        { month: "Сентябрь · пилот", package: "2 × 3 500 ₽", amount: "7 000 ₽", status: "paid", date: null, note: "пилотные уроки" },
+        { month: "Сентябрь · пилот", package: "3 × 3 500 ₽", amount: "10 500 ₽", status: "paid", date: null, note: "пилотные уроки" },
         { month: "Октябрь 2026", package: "10 × 3 500 ₽", amount: "35 000 ₽", status: "pending", date: null, note: "активный абонемент · 1/10" }
       ];
       student.payments = payments;
