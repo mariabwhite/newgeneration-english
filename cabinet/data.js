@@ -20,7 +20,7 @@
   const SB_URL  = "https://iqzlphbvmfgoygnozbya.supabase.co";
   const SB_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlxemxwaGJ2bWZnb3lnbm96YnlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAxNjg2ODMsImV4cCI6MjA5NTc0NDY4M30.SvpjaT31L2pRWWi6CU6ZISYu0_wYEK-yqf6q7GizBHs";
 
-  const CACHE_KEY = "nge_data_cache_v4"; // v4: Lyubaeva active package hotfix
+  const CACHE_KEY = "nge_data_cache_v5"; // v5: Lyubaeva 14.09 as active lesson 1
   const CACHE_TTL_MS = 5 * 60 * 1000;
 
   const SESSION_KEY = "nge_session_v2";
@@ -115,24 +115,23 @@
         if (lesson && lesson.date) byDate[lesson.date] = lesson;
       });
 
-      const first = byDate["2026-09-07"];
+      const first = byDate["2026-09-14"];
       if (!first) return;
 
-      const planned = lessons
-        .filter(function (lesson) {
-          return lesson &&
-            lesson.status === "planned" &&
-            lesson.date >= "2026-10-05" &&
-            lesson.date <= "2026-10-23";
-        })
-        .sort(function (a, b) { return a.date.localeCompare(b.date); })
-        .slice(0, 9)
-        .map(function (lesson, index) {
-          return Object.assign({}, lesson, { num: index + 2 });
+      const plannedDates = ["2026-09-24", "2026-09-25", "2026-09-28", "2026-10-01", "2026-10-02", "2026-10-05", "2026-10-08", "2026-10-09", "2026-10-12"];
+      const planned = plannedDates
+        .map(function (date, index) {
+          const lesson = byDate[date] || { date: date };
+          return Object.assign({}, lesson, {
+            num: index + 2,
+            status: "planned",
+            topic: null,
+            homework: null
+          });
         });
 
       student.subscription_month = "2026-10";
-      student.subscription_span_start = "2026-09-07";
+      student.subscription_span_start = "2026-09-14";
       student.subscription_span_end = planned.length ? planned[planned.length - 1].date : "2026-10-23";
       student.lessons_in_package = 10;
       student.lessons_used_this_month = 1;
@@ -141,7 +140,7 @@
       student.lessons = [Object.assign({}, first, { num: 1, status: "completed" })].concat(planned);
 
       student.archived_packages = [{
-        label: "Сентябрь 2026 · 2/2 · 7 000 ₽ · оплачено",
+        label: "Сентябрь · пилот · 2/2 · 7 000 ₽",
         lessons: ["2026-09-10", "2026-09-11"]
           .map(function (date, index) {
             const lesson = byDate[date];
@@ -159,7 +158,7 @@
       }];
 
       const payments = [
-        { month: "Сентябрь 2026", package: "2 × 3 500 ₽", amount: "7 000 ₽", status: "paid", date: null, note: "пилотные уроки" },
+        { month: "Сентябрь · пилот", package: "2 × 3 500 ₽", amount: "7 000 ₽", status: "paid", date: null, note: "пилотные уроки" },
         { month: "Октябрь 2026", package: "10 × 3 500 ₽", amount: "35 000 ₽", status: "pending", date: null, note: "активный абонемент · 1/10" }
       ];
       student.payments = payments;
