@@ -20,7 +20,7 @@
   const SB_URL  = "https://iqzlphbvmfgoygnozbya.supabase.co";
   const SB_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlxemxwaGJ2bWZnb3lnbm96YnlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAxNjg2ODMsImV4cCI6MjA5NTc0NDY4M30.SvpjaT31L2pRWWi6CU6ZISYu0_wYEK-yqf6q7GizBHs";
 
-  const CACHE_KEY = "nge_data_cache_v8"; // v8: close-of-day display fixes for 15.09
+  const CACHE_KEY = "nge_data_cache_v9"; // v9: Katya/Masha current package is 4 rows
   const CACHE_TTL_MS = 5 * 60 * 1000;
 
   const SESSION_KEY = "nge_session_v2";
@@ -197,14 +197,16 @@
       });
 
       if (twinSlugs[student.slug]) {
-        const activeDates = ["2026-09-15", "2026-09-22", "2026-09-29"];
+        const activeDates = ["2026-09-15", "2026-09-17", "2026-09-22", "2026-09-24"];
+        const todaySource = byDate["2026-09-10"] || {};
         const activeLessons = activeDates.map(function (date, index) {
           const lesson = byDate[date] || { date: date };
+          const source = index === 0 ? Object.assign({}, lesson, todaySource, { date: date }) : lesson;
           return Object.assign({}, lesson, {
             num: index + 1,
             status: index === 0 ? "completed" : "planned",
-            topic: lesson.topic || null,
-            homework: lesson.homework || null
+            topic: index === 0 ? (source.topic || lesson.topic || null) : (lesson.topic || null),
+            homework: index === 0 ? (source.homework || lesson.homework || null) : (lesson.homework || null)
           });
         });
         const archiveDates = ["2026-08-13", "2026-08-16", "2026-09-01", "2026-09-03", "2026-09-08", "2026-09-10"];
@@ -214,8 +216,8 @@
 
         student.subscription_month = "2026-09";
         student.subscription_span_start = "2026-09-15";
-        student.subscription_span_end = "2026-09-29";
-        student.lessons_in_package = 3;
+        student.subscription_span_end = "2026-09-24";
+        student.lessons_in_package = 4;
         student.lessons_used_this_month = 1;
         student.payment_status = "Оплачено";
         student.lessons = activeLessons;
