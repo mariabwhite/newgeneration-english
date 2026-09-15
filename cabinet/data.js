@@ -20,7 +20,7 @@
   const SB_URL  = "https://iqzlphbvmfgoygnozbya.supabase.co";
   const SB_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlxemxwaGJ2bWZnb3lnbm96YnlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAxNjg2ODMsImV4cCI6MjA5NTc0NDY4M30.SvpjaT31L2pRWWi6CU6ZISYu0_wYEK-yqf6q7GizBHs";
 
-  const CACHE_KEY = "nge_data_cache_v6"; // v6: Lyubaeva archive is 3/3, active starts 14.09
+  const CACHE_KEY = "nge_data_cache_v7"; // v7: Lyubaeva archive keeps homework modules
   const CACHE_TTL_MS = 5 * 60 * 1000;
 
   const SESSION_KEY = "nge_session_v2";
@@ -150,6 +150,7 @@
               date: lesson.date,
               status: lesson.status || "completed",
               topic: lesson.topic || "",
+              homework: lesson.homework || null,
               url: lesson.homework && lesson.homework.modules && lesson.homework.modules[0] ? lesson.homework.modules[0].url : "",
               title: lesson.homework && lesson.homework.modules && lesson.homework.modules[0] ? lesson.homework.modules[0].title : "Открыть"
             };

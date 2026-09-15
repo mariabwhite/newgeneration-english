@@ -1348,8 +1348,12 @@
         const topicText = l.topic && l.topic.trim()
           ? `<span class="cab-lesson-topic">${_esc(l.topic)}</span>`
           : `<span class="cab-lesson-topic cab-lesson-topic--empty">—</span>`;
-        const linkHtml = l.url
-          ? `<a class="cab-lesson-archive-link" href="${_esc(l.url)}" target="_blank" rel="noopener" style="margin-left:8px;font-size:12px;text-decoration:none;opacity:.85">🚀 ${_esc(l.title || "Открыть")}</a>`
+        const hw = l.homework || {};
+        const modules = Array.isArray(hw.modules) && hw.modules.length
+          ? hw.modules
+          : (l.url ? [{ url: l.url, title: l.title || "Открыть" }] : []);
+        const linkHtml = modules.length
+          ? modules.map(m => `<a class="cab-lesson-hw" href="${_esc(m.url)}" target="_blank" rel="noopener">${_esc(m.title || "Открыть")}</a>`).join(" ")
           : "";
         return `
           <li class="cab-lesson-row ${badge.cls}">
@@ -1383,7 +1387,7 @@
     const archiveTables = archivedPackages.map(pkg => {
       const rows = _renderArchiveRows(pkg.lessons || []);
       return `
-        <details class="cab-card cab-card--wide cab-card--past" style="margin-top:12px">
+        <details class="cab-card cab-card--wide cab-card--past" style="margin-top:12px" open>
           <summary style="cursor:pointer;font-family:var(--display,'Unbounded',sans-serif);font-weight:800;font-size:16px;padding:6px 0;opacity:.75">📦 ${_esc(pkg.label || "Прошлый абонемент")}</summary>
           <ul class="cab-lessons-list" style="margin-top:10px">${rows}</ul>
         </details>
