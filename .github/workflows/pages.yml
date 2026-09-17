@@ -61,3 +61,18 @@ jobs:
         uses: actions/deploy-pages@v5
         with:
           timeout: 1800000
+      - name: Verify live cabinet build
+        run: |
+          expected="$(cat cabinet/build.txt | tr -d '\r\n')"
+          echo "Expected cabinet build: $expected"
+          for i in $(seq 1 60); do
+            actual="$(curl -fsSL "https://newgeneration-english.ru/cabinet/build.txt?verify=${GITHUB_SHA}-${i}" | tr -d '\r\n' || true)"
+            echo "Attempt $i: ${actual:-<empty>}"
+            if [ "$actual" = "$expected" ]; then
+              echo "Live cabinet build verified."
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "Live cabinet build did not update to $expected in time." >&2
+          exit 1
