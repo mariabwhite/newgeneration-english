@@ -121,7 +121,13 @@
 
   function signOut() {
     clearSession();
+    if (typeof window.NGE_DATA_INVALIDATE === "function") window.NGE_DATA_INVALIDATE();
     location.href = "./login.html";
+  }
+
+  function invalidateData() {
+    if (typeof window.NGE_DATA_INVALIDATE === "function") window.NGE_DATA_INVALIDATE();
+    window.NGE_DATA = null;
   }
 
   /* ---------- auth ---------- */
@@ -2239,6 +2245,7 @@
     getSession,
     setSession,
     clearSession,
+    invalidateData,
     signOut,
     tryLogin,
     requireSession,

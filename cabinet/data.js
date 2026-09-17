@@ -20,8 +20,9 @@
   const SB_URL  = "https://iqzlphbvmfgoygnozbya.supabase.co";
   const SB_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlxemxwaGJ2bWZnb3lnbm96YnlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAxNjg2ODMsImV4cCI6MjA5NTc0NDY4M30.SvpjaT31L2pRWWi6CU6ZISYu0_wYEK-yqf6q7GizBHs";
 
-  const CACHE_KEY = "nge_data_cache_v16"; // v16: normalized active_package model
-  const CACHE_TTL_MS = 5 * 60 * 1000;
+  const DATA_BUILD_ID = "20260917-cabinet-cache-hardening";
+  const CACHE_KEY = "nge_data_cache_v17"; // v17: build-bound short cache
+  const CACHE_TTL_MS = 15 * 1000;
 
   const SESSION_KEY = "nge_session_v2";
   function readSession() {
@@ -36,12 +37,21 @@
       const raw = sessionStorage.getItem(CACHE_KEY);
       if (!raw) return null;
       const obj = JSON.parse(raw);
+      if (!obj || obj.build !== DATA_BUILD_ID) return null;
       if (!obj || !obj.ts || (Date.now() - obj.ts) > CACHE_TTL_MS) return null;
       return obj.data;
     } catch (_) { return null; }
   }
   function writeCache(data) {
-    try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data })); } catch (_) {}
+    try { sessionStorage.setItem(CACHE_KEY, JSON.stringify({ build: DATA_BUILD_ID, ts: Date.now(), data })); } catch (_) {}
+  }
+  function clearDataCaches() {
+    try {
+      for (let i = sessionStorage.length - 1; i >= 0; i--) {
+        const k = sessionStorage.key(i);
+        if (k && k.indexOf("nge_data_cache_") === 0) sessionStorage.removeItem(k);
+      }
+    } catch (_) {}
   }
 
   function timeoutSignal(ms) {
@@ -57,6 +67,7 @@
     try {
       r = await fetch(SB_URL + "/functions/v1/" + name, {
         method: "POST",
+        cache: "no-store",
         headers: {
           "Authorization": "Bearer " + SB_ANON,
           "Content-Type": "application/json",
@@ -240,6 +251,6 @@
     window.NGE_DATA = data;
   };
   window.NGE_DATA_INVALIDATE = function () {
-    try { sessionStorage.removeItem(CACHE_KEY); } catch (_) {}
+    clearDataCaches();
   };
 })();
