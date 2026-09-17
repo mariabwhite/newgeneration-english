@@ -20,7 +20,7 @@
   const SB_URL  = "https://iqzlphbvmfgoygnozbya.supabase.co";
   const SB_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlxemxwaGJ2bWZnb3lnbm96YnlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAxNjg2ODMsImV4cCI6MjA5NTc0NDY4M30.SvpjaT31L2pRWWi6CU6ZISYu0_wYEK-yqf6q7GizBHs";
 
-  const CACHE_KEY = "nge_data_cache_v15"; // v15: Ivan September package correction
+  const CACHE_KEY = "nge_data_cache_v16"; // v16: normalized active_package model
   const CACHE_TTL_MS = 5 * 60 * 1000;
 
   const SESSION_KEY = "nge_session_v2";
@@ -135,172 +135,61 @@
     return data;
   }
 
+  function _isActiveLesson(student, lesson) {
+    if (!student || !lesson || !lesson.date) return false;
+    if (lesson.status === "cancelled") return false;
+    const start = student.subscription_span_start;
+    const end = student.subscription_span_end;
+    if (start && end) return lesson.date >= start && lesson.date <= end;
+    const month = student.subscription_month;
+    if (month) return lesson.date.startsWith(month);
+    return false;
+  }
+
+  function _normalizeCabinetPackages(data) {
+    if (!data || !Array.isArray(data.students)) return data;
+    data.students.forEach(function (student) {
+      if (!student || !Array.isArray(student.lessons)) return;
+
+      student.lessons = student.lessons
+        .filter(function (lesson) { return lesson && lesson.date; })
+        .sort(function (a, b) { return String(a.date).localeCompare(String(b.date)); });
+
+      const activeLessons = student.lessons.filter(function (lesson) {
+        return _isActiveLesson(student, lesson);
+      });
+      const completed = activeLessons.filter(function (lesson) {
+        return lesson.status === "completed";
+      }).length;
+      const declaredTotal = Number(student.lessons_in_package) || activeLessons.length || null;
+      const declaredUsed = Number(student.lessons_used_this_month);
+      const used = Number.isFinite(declaredUsed) ? Math.max(declaredUsed, completed) : completed;
+      const first = activeLessons[0];
+      const last = activeLessons[activeLessons.length - 1];
+
+      if (!student.subscription_span_start && first) student.subscription_span_start = first.date;
+      if (!student.subscription_span_end && last) student.subscription_span_end = last.date;
+      if (!student.subscription_month && (student.subscription_span_start || (first && first.date))) {
+        student.subscription_month = String(student.subscription_span_start || first.date).slice(0, 7);
+      }
+      if (declaredTotal != null) student.lessons_in_package = declaredTotal;
+      student.lessons_used_this_month = used;
+      student.active_package = {
+        month: student.subscription_month || null,
+        span_start: student.subscription_span_start || null,
+        span_end: student.subscription_span_end || null,
+        lessons_total: declaredTotal,
+        lessons_used: used,
+        lesson_dates: activeLessons.map(function (lesson) { return lesson.date; })
+      };
+    });
+    return data;
+  }
+
   function _prepareData(data) {
     _ensurePayment(data);
     _applyIvanSeptember20260917Correction(data);
-    return data;
-  }
-
-  function _normalizeAleksandraLyubaeva(data) {
-    if (!data || !Array.isArray(data.students)) return data;
-    data.students.forEach(function (student) {
-      if (!student || student.name !== "Александра Любаева") return;
-
-      const lessons = Array.isArray(student.lessons) ? student.lessons : [];
-      const byDate = {};
-      lessons.forEach(function (lesson) {
-        if (lesson && lesson.date) byDate[lesson.date] = lesson;
-      });
-
-      const first = byDate["2026-09-14"];
-      if (!first) return;
-
-      const plannedDates = ["2026-09-24", "2026-09-25", "2026-09-28", "2026-10-01", "2026-10-02", "2026-10-05", "2026-10-08", "2026-10-09", "2026-10-12"];
-      const planned = plannedDates
-        .map(function (date, index) {
-          const lesson = byDate[date] || { date: date };
-          return Object.assign({}, lesson, {
-            num: index + 2,
-            status: "planned",
-            topic: null,
-            homework: null
-          });
-        });
-
-      student.subscription_month = "2026-10";
-      student.subscription_span_start = "2026-09-14";
-      student.subscription_span_end = planned.length ? planned[planned.length - 1].date : "2026-10-23";
-      student.lessons_in_package = 10;
-      student.lessons_used_this_month = 1;
-      student.monthly_package = student.monthly_package || 35000;
-      student.payment_status = student.payment_status || "Ожидает";
-      student.lessons = [Object.assign({}, first, { num: 1, status: "completed" })].concat(planned);
-
-      student.archived_packages = [{
-        label: "Сентябрь · пилот · 3/3 · 10 500 ₽",
-        lessons: ["2026-09-07", "2026-09-10", "2026-09-11"]
-          .map(function (date, index) {
-            const lesson = byDate[date];
-            if (!lesson) return null;
-            return {
-              num: index + 1,
-              date: lesson.date,
-              status: lesson.status || "completed",
-              topic: lesson.topic || "",
-              homework: lesson.homework || null,
-              url: lesson.homework && lesson.homework.modules && lesson.homework.modules[0] ? lesson.homework.modules[0].url : "",
-              title: lesson.homework && lesson.homework.modules && lesson.homework.modules[0] ? lesson.homework.modules[0].title : "Открыть"
-            };
-          })
-          .filter(Boolean)
-      }];
-
-      const payments = [
-        { month: "Сентябрь · пилот", package: "3 × 3 500 ₽", amount: "10 500 ₽", status: "paid", date: null, note: "пилотные уроки" },
-        { month: "Октябрь 2026", package: "10 × 3 500 ₽", amount: "35 000 ₽", status: "pending", date: null, note: "активный абонемент · 1/10" }
-      ];
-      student.payments = payments;
-      data.payments = payments;
-    });
-    return data;
-  }
-
-  function _archiveLessonFrom(lesson, num) {
-    if (!lesson) return null;
-    return {
-      num: num,
-      date: lesson.date,
-      status: lesson.status || "completed",
-      topic: lesson.topic || "",
-      homework: lesson.homework || null,
-      url: lesson.homework && lesson.homework.modules && lesson.homework.modules[0] ? lesson.homework.modules[0].url : "",
-      title: lesson.homework && lesson.homework.modules && lesson.homework.modules[0] ? lesson.homework.modules[0].title : "Открыть"
-    };
-  }
-
-  function _normalizeCloseOfDay20260915(data) {
-    if (!data || !Array.isArray(data.students)) return data;
-    const twinSlugs = {
-      "ekaterina-medvedeva-solo": true,
-      "maria-kuznetsova-solo": true
-    };
-
-    data.students.forEach(function (student) {
-      if (!student || !Array.isArray(student.lessons)) return;
-      const lessons = student.lessons;
-      const byDate = {};
-      lessons.forEach(function (lesson) {
-        if (lesson && lesson.date) byDate[lesson.date] = lesson;
-      });
-
-      if (twinSlugs[student.slug]) {
-        const activeDates = ["2026-09-15", "2026-09-17", "2026-09-22", "2026-09-24"];
-        const todaySource = byDate["2026-09-10"] || {};
-        const activeLessons = activeDates.map(function (date, index) {
-          const lesson = byDate[date] || { date: date };
-          const source = index === 0 ? Object.assign({}, lesson, todaySource, { date: date }) : lesson;
-          return Object.assign({}, lesson, {
-            num: index + 1,
-            status: index === 0 ? "completed" : "planned",
-            topic: index === 0 ? (source.topic || lesson.topic || null) : (lesson.topic || null),
-            homework: index === 0 ? (source.homework || lesson.homework || null) : (lesson.homework || null)
-          });
-        });
-        const archiveDates = ["2026-08-13", "2026-08-16", "2026-09-01", "2026-09-03", "2026-09-08", "2026-09-10"];
-        const archiveLessons = archiveDates
-          .map(function (date, index) { return _archiveLessonFrom(byDate[date], index + 1); })
-          .filter(Boolean);
-
-        student.subscription_month = "2026-09";
-        student.subscription_span_start = "2026-09-15";
-        student.subscription_span_end = "2026-09-24";
-        student.lessons_in_package = 4;
-        student.lessons_used_this_month = 1;
-        student.payment_status = "Оплачено";
-        student.lessons = activeLessons;
-        student.archived_packages = [{
-          label: "Август–сентябрь · закрытый пакет · 6/6",
-          lessons: archiveLessons
-        }];
-        return;
-      }
-
-      if (student.slug === "sova-elena") {
-        const activeDates = ["2026-09-09", "2026-09-15", "2026-09-16", "2026-09-23"];
-        const sovaRecapHomework = {
-          text: "Recap L4 · Three Worlds",
-          modules: [{
-            url: "https://newgeneration-english.ru/lingua-boost-lab/a2/elena-recap-4/",
-            title: "📚 Recap L4 · Three Worlds"
-          }]
-        };
-        student.subscription_span_start = "2026-09-09";
-        student.subscription_span_end = "2026-09-23";
-        student.lessons_in_package = 4;
-        student.lessons_used_this_month = 2;
-        student.lessons = activeDates.map(function (date, index) {
-          const lesson = byDate[date] || { date: date };
-          const isRecap = index < 2;
-          const topic = isRecap ? "Recap L4 · Three Worlds" : (lesson.topic || "Chocolat · Three Winds (Cinema Speaking Lab)");
-          const homework = isRecap ? sovaRecapHomework : (lesson.homework || null);
-          if (homework && Array.isArray(homework.modules)) {
-            homework.modules = homework.modules.map(function (module) {
-              return Object.assign({}, module, {
-                title: module.title && module.title !== "📚 Открыть" && module.title !== "Открыть"
-                  ? module.title
-                  : "📚 " + topic
-              });
-            });
-          }
-          return Object.assign({}, lesson, {
-            num: index + 1,
-            status: isRecap ? "completed" : "planned",
-            topic: topic,
-            homework: homework
-          });
-        });
-      }
-    });
+    _normalizeCabinetPackages(data);
     return data;
   }
 

@@ -1245,6 +1245,39 @@
     return { cls: "is-future", label: "запланирован" };
   }
 
+  function _studentActivePackage(student) {
+    const active = student && student.active_package && typeof student.active_package === "object"
+      ? student.active_package
+      : {};
+    return {
+      month: active.month || student.subscription_month || _currentMonthISO(),
+      spanStart: active.span_start || student.subscription_span_start || null,
+      spanEnd: active.span_end || student.subscription_span_end || null,
+      lessonDates: Array.isArray(active.lesson_dates) ? active.lesson_dates : [],
+      total: active.lessons_total || student.lessons_in_package || null,
+      used: active.lessons_used != null ? active.lessons_used : (student.lessons_used_this_month || 0)
+    };
+  }
+
+  function _isLessonInActivePackage(student, lesson, active) {
+    if (!lesson || !lesson.date || lesson.status === "cancelled") return false;
+    active = active || _studentActivePackage(student);
+    if (active.lessonDates.length) return active.lessonDates.indexOf(lesson.date) !== -1;
+    if (active.spanStart && active.spanEnd) return lesson.date >= active.spanStart && lesson.date <= active.spanEnd;
+    if (active.month) return lesson.date.startsWith(active.month);
+    return false;
+  }
+
+  function _activePackageLabel(active, fallbackSummer) {
+    if (active && active.spanStart && active.spanEnd) return _monthLabelFromISO(active.month || active.spanStart.slice(0, 7));
+    if (fallbackSummer) return "лето 2026";
+    return _monthLabelFromISO(active && active.month ? active.month : _currentMonthISO());
+  }
+
+  function _lessonArchiveKey(lesson) {
+    return [lesson && lesson.date, lesson && lesson.status, lesson && lesson.topic].join("|");
+  }
+
   function _renderExternalPlatformsCard(student) {
     const platforms = Array.isArray(student && student.external_platforms) ? student.external_platforms : [];
     if (!platforms.length) return "";
@@ -1268,17 +1301,13 @@
     const lessons = Array.isArray(student.lessons) ? student.lessons : [];
     if (!lessons.length) return "";
 
-    const month = student.subscription_month || _currentMonthISO();
-    const spanStart = student.subscription_span_start; // ISO, включительно
-    const spanEnd   = student.subscription_span_end;   // ISO, включительно
-    const hasSummerPlan = !!student.summer_plan_note && !(spanStart && spanEnd);
+    const active = _studentActivePackage(student);
+    const hasSummerPlan = !!student.summer_plan_note && !(active.spanStart && active.spanEnd);
     const todayISO = _todayISO();
     const isCurrentLesson = (l) => {
-      if (!l.date) return false;
-      if (l.status === "cancelled") return false;
-      if (spanStart && spanEnd) return l.date >= spanStart && l.date <= spanEnd;
+      if (_isLessonInActivePackage(student, l, active)) return true;
       if (hasSummerPlan) return l.date >= "2026-06-01" && l.date <= "2026-08-31";
-      return l.date.startsWith(month);
+      return false;
     };
     const monthLessons = lessons
       .filter(l => {
@@ -1336,7 +1365,7 @@
 
     const currentTable = `
       <article class="cab-card cab-card--wide">
-        <h3>Уроки · ${_esc(hasSummerPlan ? "лето 2026" : _monthLabelFromISO(month))}</h3>
+        <h3>Уроки · ${_esc(_activePackageLabel(active, hasSummerPlan))}</h3>
         <ul class="cab-lessons-list">
           <li class="cab-lesson-row cab-lesson-header" aria-hidden="true">
             <span class="cab-lesson-num" style="visibility:hidden">·</span>
@@ -1362,10 +1391,10 @@
         lessons: pastLessons
       });
     }
-    const archivedDates = new Set();
+    const archivedKeys = new Set();
     archivedPackages.forEach(pkg => {
       (pkg.lessons || []).forEach(l => {
-        if (l && l.date) archivedDates.add(l.date);
+        if (l && l.date) archivedKeys.add(_lessonArchiveKey(l));
       });
     });
     const derivedPastLessons = lessons
@@ -1373,9 +1402,9 @@
         if (!l || !l.date) return false;
         if (l.status === "cancelled") return false;
         if (isCurrentLesson(l)) return false;
-        if (archivedDates.has(l.date)) return false;
-        if (spanStart && l.date > spanEnd) return false;
-        if (!spanStart && l.date > todayISO) return false;
+        if (archivedKeys.has(_lessonArchiveKey(l))) return false;
+        if (active.spanStart && active.spanEnd && l.date > active.spanEnd) return false;
+        if (!active.spanStart && l.date > todayISO) return false;
         return true;
       })
       .sort((a, b) => a.date.localeCompare(b.date));
@@ -1575,10 +1604,11 @@
     const studentView = !!opts.studentView; // в кабинете ребёнка — скрываем весь абонемент (для не-adult)
     // В детском кабинете абонемент вообще не показываем — только у родителя
     if (studentView && !student.is_adult) return "";
-    const total = student.lessons_in_package;
-    const used = student.lessons_used_this_month || 0;
+    const active = _studentActivePackage(student);
+    const total = active.total;
+    const used = active.used || 0;
     const remaining = total ? Math.max(total - used, 0) : null;
-    const month = student.subscription_month || _currentMonthLabel();
+    const month = _activePackageLabel(active, false);
     const pkg = student.monthly_package;
     const pricePer = student.price_per_lesson;
 
