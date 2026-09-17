@@ -679,7 +679,7 @@
         <td>${_esc(s.schedule || "—")}</td>
         <td title="${_esc(s.parent_name || "")}">${_esc(_shortParent(s.parent_name, s.is_adult))}</td>
         <td>${s.price_per_lesson ? _esc(s.price_per_lesson) + " ₽" : "—"}</td>
-        <td>${_esc(s.payment_status || "Не выставлено")}</td>
+        <td class="${_isPaidStatus(s.payment_status) ? "cab-row-value--paid" : ""}">${_esc(s.payment_status || "Не выставлено")}</td>
         <td>${_reportCellHtml(reportStates[s.id], s.id)}</td>
         <td><code>${_esc(s.pin)}</code></td>
         <td style="white-space: nowrap;">
@@ -759,6 +759,7 @@
           <h3 class="cab-lesson-title">➕ Запись урока: <span id="lessonStudentName"></span></h3>
           <div class="cab-lesson-grid">
             <label>Дата <input type="date" name="date" id="lessonDate" required></label>
+            <label>Время <input type="time" name="time" id="lessonTime"></label>
             <label>Статус
               <select name="status" id="lessonStatus">
                 <option value="completed">✅ completed</option>
@@ -828,6 +829,7 @@
     const dialog = container.querySelector("#lessonDialog");
     const nameEl = container.querySelector("#lessonStudentName");
     const dateEl = container.querySelector("#lessonDate");
+    const timeEl = container.querySelector("#lessonTime");
     const lessonNumEl = container.querySelector("input[name='lessonNum']");
     const form = container.querySelector("#lessonForm");
     const hint = container.querySelector("#lessonHint");
@@ -870,6 +872,7 @@
         const used = parseInt(btn.dataset.lessonsUsed || "0", 10);
         nameEl.textContent = sname;
         dateEl.value = todayISO();
+        if (timeEl) timeEl.value = "";
         lessonNumEl.value = used + 1;
         if (labSelect) labSelect.value = "";
         form.dataset.studentId = sid;
@@ -901,6 +904,7 @@
         `📝 Запись урока (для Claude → Lesson Log):\n` +
         `- ученик: ${sname} (id: ${sid})\n` +
         `- дата: ${data.get("date")}\n` +
+        `- время: ${data.get("time") || "—"}\n` +
         `- статус: ${data.get("status")}\n` +
         `- тема: ${data.get("topic")}\n` +
         `- активности: ${data.get("activities") || "—"}\n` +
@@ -1189,6 +1193,22 @@
     return parseInt(day, 10) + " " + (_MONTH_NAMES_RU[monIdx] || "");
   }
 
+  function _lessonTimeValue(lesson) {
+    if (!lesson) return "";
+    const raw = lesson.time || lesson.lesson_time || lesson.start_time || lesson.starts_at || lesson.scheduled_at || lesson.datetime || "";
+    if (!raw) return "";
+    const value = String(raw);
+    const isoMatch = value.match(/T(\d{2}:\d{2})/);
+    if (isoMatch) return isoMatch[1];
+    const timeMatch = value.match(/\b(\d{1,2}:\d{2})\b/);
+    if (timeMatch) return timeMatch[1].padStart(5, "0");
+    return value;
+  }
+
+  function _isPaidStatus(value) {
+    return /оплач|paid|🟢/i.test(String(value || ""));
+  }
+
   function _dowFromISO(iso) {
     const [y, m, d] = iso.split("-").map(Number);
     return _DOW_RU[new Date(y, m - 1, d).getDay()];
@@ -1253,13 +1273,16 @@
     const spanStart = student.subscription_span_start; // ISO, включительно
     const spanEnd   = student.subscription_span_end;   // ISO, включительно
     const todayISO = _todayISO();
+    const isCurrentLesson = (l) => {
+      if (!l.date) return false;
+      if (l.status === "cancelled") return false;
+      if (spanStart && spanEnd) return l.date >= spanStart && l.date <= spanEnd;
+      if (hasSummerPlan) return l.date >= "2026-06-01" && l.date <= "2026-08-31";
+      return l.date.startsWith(month);
+    };
     const monthLessons = lessons
       .filter(l => {
-        if (!l.date) return false;
-        if (l.status === "cancelled") return false;
-        if (spanStart && spanEnd) return l.date >= spanStart && l.date <= spanEnd;
-        if (hasSummerPlan) return l.date >= "2026-06-01" && l.date <= "2026-08-31";
-        return l.date.startsWith(month);
+        return isCurrentLesson(l);
       })
       .sort((a, b) => a.date.localeCompare(b.date));
 
@@ -1269,6 +1292,7 @@
       const badge = _lessonStatusBadge(l, todayISO);
       const dateStr = _formatLessonDate(l.date);
       const dow = _dowFromISO(l.date);
+      const timeStr = _lessonTimeValue(l);
       const num = l.num ? `<span class="cab-lesson-num">${_esc(l.num)}</span>` : "";
       const topicText = l.topic && l.topic.trim()
         ? `<span class="cab-lesson-topic">${_esc(l.topic)}</span>`
@@ -1301,7 +1325,7 @@
       return `
         <li class="cab-lesson-row ${badge.cls}">
           ${num}
-          <span class="cab-lesson-date">${dateStr} · ${dow}</span>
+          <span class="cab-lesson-date">${dateStr} · ${dow}${timeStr ? " · " + _esc(timeStr) : ""}</span>
           <span class="cab-lesson-topic-wrap">${topicText}</span>
           <span class="cab-lesson-hw-cell">${hwChip || '<span class="cab-lesson-hw-empty">—</span>'}</span>
           <span class="cab-lesson-badge">${badge.label}</span>
@@ -1337,6 +1361,29 @@
         lessons: pastLessons
       });
     }
+    const archivedDates = new Set();
+    archivedPackages.forEach(pkg => {
+      (pkg.lessons || []).forEach(l => {
+        if (l && l.date) archivedDates.add(l.date);
+      });
+    });
+    const derivedPastLessons = lessons
+      .filter(l => {
+        if (!l || !l.date) return false;
+        if (l.status === "cancelled") return false;
+        if (isCurrentLesson(l)) return false;
+        if (archivedDates.has(l.date)) return false;
+        if (spanStart && l.date > spanEnd) return false;
+        if (!spanStart && l.date > todayISO) return false;
+        return true;
+      })
+      .sort((a, b) => a.date.localeCompare(b.date));
+    if (derivedPastLessons.length) {
+      archivedPackages.unshift({
+        label: "Архив прошлых уроков",
+        lessons: derivedPastLessons
+      });
+    }
 
     const _renderArchiveRows = (lessons) => {
       const sorted = lessons.slice().sort((a, b) => a.date.localeCompare(b.date));
@@ -1344,6 +1391,7 @@
         const badge = _lessonStatusBadge(l, todayISO);
         const dateStr = _formatLessonDate(l.date);
         const dow = _dowFromISO(l.date);
+        const timeStr = _lessonTimeValue(l);
         const num = l.num ? `<span class="cab-lesson-num">${_esc(l.num)}</span>` : "";
         const topicText = l.topic && l.topic.trim()
           ? `<span class="cab-lesson-topic">${_esc(l.topic)}</span>`
@@ -1358,7 +1406,7 @@
         return `
           <li class="cab-lesson-row ${badge.cls}">
             ${num}
-            <span class="cab-lesson-date">${dateStr} · ${dow}</span>
+            <span class="cab-lesson-date">${dateStr} · ${dow}${timeStr ? " · " + _esc(timeStr) : ""}</span>
             <span class="cab-lesson-topic-wrap">${topicText}</span>
             <span class="cab-lesson-hw-cell">${linkHtml || '<span class="cab-lesson-hw-empty">—</span>'}</span>
             <span class="cab-lesson-badge">${badge.label}</span>
@@ -1557,7 +1605,7 @@
         ${!studentView && pricePer ? `<div class="cab-card-row"><span class="cab-row-label">Цена занятия</span><span class="cab-row-value">${_esc(pricePer)} ₽</span></div>` : ""}
         ${!studentView && pkg ? `<div class="cab-card-row"><span class="cab-row-label">Стоимость пакета</span><span class="cab-row-value"><b>${_esc(pkg)} ₽</b></span></div>` : ""}
         <div class="cab-card-row"><span class="cab-row-label">Расписание</span><span class="cab-row-value">${_esc(student.schedule || "—")}</span></div>
-        ${!studentView && student.payment_status ? `<div class="cab-card-row"><span class="cab-row-label">Статус</span><span class="cab-row-value">${_esc(student.payment_status)}</span></div>` : ""}
+        ${!studentView && student.payment_status ? `<div class="cab-card-row"><span class="cab-row-label">Статус</span><span class="cab-row-value ${_isPaidStatus(student.payment_status) ? "cab-row-value--paid" : ""}">${_esc(student.payment_status)}</span></div>` : ""}
       </article>
     `;
   }
@@ -1850,7 +1898,7 @@
         <article class="cab-card cab-pay-card">
           <h3>💳 Оплата</h3>
           ${student.price_per_lesson ? `<div class="cab-card-row"><span class="cab-row-label">Цена занятия</span><span class="cab-row-value">${_esc(student.price_per_lesson)} ₽</span></div>` : ""}
-          ${student.payment_status ? `<div class="cab-card-row"><span class="cab-row-label">Статус</span><span class="cab-row-value">${_esc(student.payment_status)}</span></div>` : ""}
+          ${student.payment_status ? `<div class="cab-card-row"><span class="cab-row-label">Статус</span><span class="cab-row-value ${_isPaidStatus(student.payment_status) ? "cab-row-value--paid" : ""}">${_esc(student.payment_status)}</span></div>` : ""}
           <div class="cab-pay-btns">
             ${payment.tinkoffQuickPay ? `<a class="cab-pay-btn cab-pay-btn--tbank" href="${_esc(payment.tinkoffQuickPay)}" target="_blank" rel="noopener external"><span class="cab-pay-btn-icon">💳</span><span class="cab-pay-btn-txt"><b>Оплатить в Т-Банке</b><span>один клик · карта или СБП</span></span><span class="cab-pay-btn-arrow">→</span></a>` : ""}
             ${payment.sbpPhone ? `<button class="cab-pay-btn cab-pay-btn--sbp" type="button" data-action="copy-pay" data-copy="${_esc(payment.sbpPhone)}" data-copy-label="номер СБП"><span class="cab-pay-btn-icon">📱</span><span class="cab-pay-btn-txt"><b>СБП: ${_esc(payment.sbpPhone)}</b><span>клик — скопировать, вставить в приложение банка</span></span><span class="cab-pay-btn-arrow">📋</span></button>` : ""}

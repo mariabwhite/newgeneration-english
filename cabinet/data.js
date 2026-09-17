@@ -20,7 +20,7 @@
   const SB_URL  = "https://iqzlphbvmfgoygnozbya.supabase.co";
   const SB_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlxemxwaGJ2bWZnb3lnbm96YnlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAxNjg2ODMsImV4cCI6MjA5NTc0NDY4M30.SvpjaT31L2pRWWi6CU6ZISYu0_wYEK-yqf6q7GizBHs";
 
-  const CACHE_KEY = "nge_data_cache_v13"; // v13: Sova package is 2/4 after 15.09
+  const CACHE_KEY = "nge_data_cache_v14"; // v14: no client-side lesson/package rewrites
   const CACHE_TTL_MS = 5 * 60 * 1000;
 
   const SESSION_KEY = "nge_session_v2";
@@ -272,8 +272,6 @@
     const cached = readCache();
     if (cached) {
       _ensurePayment(cached);
-      _normalizeAleksandraLyubaeva(cached);
-      _normalizeCloseOfDay20260915(cached);
       window.NGE_DATA = cached;
       return cached;
     }
@@ -284,8 +282,6 @@
       if (session && session.role === "teacher" && session.teacher_password) {
         const data = await callFn("all-data", { teacher_password: session.teacher_password });
         _ensurePayment(data);
-        _normalizeAleksandraLyubaeva(data);
-        _normalizeCloseOfDay20260915(data);
         writeCache(data);
         window.NGE_DATA = data;
         return data;
@@ -293,8 +289,6 @@
       if (session && session.pin) {
         const data = await callFn("family-data", { pin: session.pin });
         _ensurePayment(data);
-        _normalizeAleksandraLyubaeva(data);
-        _normalizeCloseOfDay20260915(data);
         writeCache(data);
         window.NGE_DATA = data;
         return data;
@@ -316,8 +310,6 @@
   // (используется после tryLogin — чтобы не перезапрашивать).
   window.NGE_DATA_HYDRATE = function (data) {
     _ensurePayment(data);
-    _normalizeAleksandraLyubaeva(data);
-    _normalizeCloseOfDay20260915(data);
     writeCache(data);
     window.NGE_DATA = data;
   };
