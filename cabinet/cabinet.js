@@ -1245,13 +1245,6 @@
     return { cls: "is-future", label: "запланирован" };
   }
 
-  function _lessonRowClass(student, lesson, badge) {
-    if (student && student.id === "ivanov-ivan" && lesson && lesson.date === "2026-09-02") {
-      return "is-completed";
-    }
-    return badge.cls;
-  }
-
   function _renderExternalPlatformsCard(student) {
     const platforms = Array.isArray(student && student.external_platforms) ? student.external_platforms : [];
     if (!platforms.length) return "";
@@ -1276,9 +1269,9 @@
     if (!lessons.length) return "";
 
     const month = student.subscription_month || _currentMonthISO();
-    const hasSummerPlan = !!student.summer_plan_note;
     const spanStart = student.subscription_span_start; // ISO, включительно
     const spanEnd   = student.subscription_span_end;   // ISO, включительно
+    const hasSummerPlan = !!student.summer_plan_note && !(spanStart && spanEnd);
     const todayISO = _todayISO();
     const isCurrentLesson = (l) => {
       if (!l.date) return false;
@@ -1297,7 +1290,7 @@
 
     const rows = monthLessons.map(l => {
       const badge = _lessonStatusBadge(l, todayISO);
-      const rowClass = _lessonRowClass(student, l, badge);
+      const rowClass = badge.cls;
       const dateStr = _formatLessonDate(l.date);
       const dow = _dowFromISO(l.date);
       const timeStr = _lessonTimeValue(l);

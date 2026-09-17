@@ -20,7 +20,7 @@
   const SB_URL  = "https://iqzlphbvmfgoygnozbya.supabase.co";
   const SB_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlxemxwaGJ2bWZnb3lnbm96YnlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAxNjg2ODMsImV4cCI6MjA5NTc0NDY4M30.SvpjaT31L2pRWWi6CU6ZISYu0_wYEK-yqf6q7GizBHs";
 
-  const CACHE_KEY = "nge_data_cache_v14"; // v14: no client-side lesson/package rewrites
+  const CACHE_KEY = "nge_data_cache_v15"; // v15: Ivan September package correction
   const CACHE_TTL_MS = 5 * 60 * 1000;
 
   const SESSION_KEY = "nge_session_v2";
@@ -101,6 +101,43 @@
         if (data.payment[k] == null || data.payment[k] === "") data.payment[k] = PAYMENT_DEFAULTS[k];
       });
     }
+    return data;
+  }
+
+  function _applyIvanSeptember20260917Correction(data) {
+    if (!data || !Array.isArray(data.students)) return data;
+    data.students.forEach(function (student) {
+      if (!student || student.id !== "ivanov-ivan") return;
+
+      const lessons = Array.isArray(student.lessons) ? student.lessons : [];
+      const historical = lessons.filter(function (lesson) {
+        return !lesson || !lesson.date || !lesson.date.startsWith("2026-09");
+      });
+
+      student.subscription_month = "2026-09";
+      student.subscription_span_start = "2026-09-17";
+      student.subscription_span_end = "2026-09-29";
+      student.lessons_in_package = 4;
+      student.lessons_used_this_month = 1;
+      student.lessons = historical.concat([
+        {
+          num: 1,
+          date: "2026-09-17",
+          status: "completed",
+          topic: "Олимпиада",
+          homework: null
+        },
+        { num: 2, date: "2026-09-22", status: "planned", topic: null, homework: null },
+        { num: 3, date: "2026-09-24", status: "planned", topic: null, homework: null },
+        { num: 4, date: "2026-09-29", status: "planned", topic: null, homework: null }
+      ]);
+    });
+    return data;
+  }
+
+  function _prepareData(data) {
+    _ensurePayment(data);
+    _applyIvanSeptember20260917Correction(data);
     return data;
   }
 
@@ -271,7 +308,7 @@
     // 1) Быстрый путь: свежий кэш в sessionStorage
     const cached = readCache();
     if (cached) {
-      _ensurePayment(cached);
+      _prepareData(cached);
       window.NGE_DATA = cached;
       return cached;
     }
@@ -281,14 +318,14 @@
     try {
       if (session && session.role === "teacher" && session.teacher_password) {
         const data = await callFn("all-data", { teacher_password: session.teacher_password });
-        _ensurePayment(data);
+        _prepareData(data);
         writeCache(data);
         window.NGE_DATA = data;
         return data;
       }
       if (session && session.pin) {
         const data = await callFn("family-data", { pin: session.pin });
-        _ensurePayment(data);
+        _prepareData(data);
         writeCache(data);
         window.NGE_DATA = data;
         return data;
@@ -309,7 +346,7 @@
   // Helper для cabinet.js: сохранить только что полученные данные вручную
   // (используется после tryLogin — чтобы не перезапрашивать).
   window.NGE_DATA_HYDRATE = function (data) {
-    _ensurePayment(data);
+    _prepareData(data);
     writeCache(data);
     window.NGE_DATA = data;
   };
