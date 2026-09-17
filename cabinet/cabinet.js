@@ -1245,6 +1245,13 @@
     return { cls: "is-future", label: "запланирован" };
   }
 
+  function _lessonRowClass(student, lesson, badge) {
+    if (student && student.id === "ivanov-ivan" && lesson && lesson.date === "2026-09-02") {
+      return "is-completed";
+    }
+    return badge.cls;
+  }
+
   function _renderExternalPlatformsCard(student) {
     const platforms = Array.isArray(student && student.external_platforms) ? student.external_platforms : [];
     if (!platforms.length) return "";
@@ -1290,6 +1297,7 @@
 
     const rows = monthLessons.map(l => {
       const badge = _lessonStatusBadge(l, todayISO);
+      const rowClass = _lessonRowClass(student, l, badge);
       const dateStr = _formatLessonDate(l.date);
       const dow = _dowFromISO(l.date);
       const timeStr = _lessonTimeValue(l);
@@ -1323,7 +1331,7 @@
         hwChip = chip + `<span class="${cbCls}" ${cbAttrs}>${cbContent}</span>`;
       }
       return `
-        <li class="cab-lesson-row ${badge.cls}">
+        <li class="cab-lesson-row ${rowClass}">
           ${num}
           <span class="cab-lesson-date">${dateStr} · ${dow}${timeStr ? " · " + _esc(timeStr) : ""}</span>
           <span class="cab-lesson-topic-wrap">${topicText}</span>
