@@ -180,12 +180,27 @@ em{font-style:italic;color:var(--accent)}
 footer{max-width:1240px;margin:36px auto 24px;padding:0 clamp(16px,3vw,28px);text-align:center;color:var(--muted);font-family:var(--mono);font-size:.75rem;letter-spacing:.06em;line-height:1.7}
 footer strong{color:var(--deep)}
 
+/* TABS */
+.tabs-nav{max-width:1240px;margin:16px auto 6px;padding:0 clamp(16px,3vw,28px);display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.tab-btn{background:#fff;border:2px solid var(--card-border);border-radius:14px;padding:11px 22px;font-family:var(--display);font-weight:700;font-size:.98rem;color:var(--muted);cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:8px}
+.tab-btn:hover{border-color:var(--accent);color:var(--deep);transform:translateY(-1px)}
+.tab-btn.active{background:linear-gradient(135deg,var(--accent2),var(--accent),var(--deep));color:#fff;border-color:transparent;box-shadow:0 6px 18px rgba(62,124,177,.4)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* PROGRESS DOTS */
+.progress{max-width:1240px;margin:0 auto 12px;padding:0 clamp(16px,3vw,28px)}
+.dots{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
+.dot{width:12px;height:12px;border-radius:50%;background:#DFECF7;border:2px solid #C4DAEF;transition:.2s;cursor:pointer}
+.dot.lit{background:var(--accent);border-color:var(--deep);box-shadow:0 0 0 3px rgba(62,124,177,.28);transform:scale(1.1)}
+
 @media (max-width:640px){
   .vocab-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .pet-match{grid-template-columns:60px 1fr}
   .pet-match .pm-sound{grid-column:2}
   .d-turn{flex-direction:column;gap:4px}
   .d-who{align-self:flex-start}
+  .tab-btn{padding:9px 14px;font-size:.88rem}
 }
 </style>
 </head>
@@ -203,6 +218,15 @@ footer strong{color:var(--deep)}
   <a class="btn-sm" href="../julia-irregular-verbs/">← Irregular Verbs</a>
   <a class="btn-sm" href="../../index.html">All lessons</a>
 </nav>
+
+<nav class="tabs-nav">
+  <button class="tab-btn active" data-tab="story">📖 Story</button>
+  <button class="tab-btn" data-tab="vocab">🐾 Vocab</button>
+  <button class="tab-btn" data-tab="grammar">🔀 Grammar</button>
+  <button class="tab-btn" data-tab="practice">📝 Practice</button>
+</nav>
+
+<div id="tab-story" class="tab-panel active">
 
 <!-- ═════════════════════════ HERO ═════════════════════════ -->
 <section class="hero">
@@ -407,6 +431,10 @@ footer strong{color:var(--deep)}
   </div>
 </section>
 
+</div><!-- /tab-story · closes vocab-tab immediately below OPENS after 4c-story-chapter-2 -->
+
+<div id="tab-vocab" class="tab-panel">
+
 <!-- ═════════════════════════ 2b · MORE PETS + SHOP THINGS ═════════════════════════ -->
 <section class="section" id="sec-2b">
   <div class="section-head"><div class="n">2b</div><h2>🎒 More animals + shop things · 16 more words</h2><span class="tag">🎧 tap to hear · repeat</span></div>
@@ -502,6 +530,10 @@ footer strong{color:var(--deep)}
     </div>
   </div>
 </section>
+
+</div><!-- /tab-vocab -->
+
+<div id="tab-grammar" class="tab-panel">
 
 <!-- ═════════════════════════ 4 · GRAMMAR · Can I have + How much + Do you have ═════════════════════════ -->
 <section class="section" id="sec-4">
@@ -796,6 +828,10 @@ footer strong{color:var(--deep)}
   </div>
 </section>
 
+</div><!-- /tab-grammar -->
+
+<div id="tab-practice" class="tab-panel">
+
 <!-- ═════════════════════════ 5 · DIALOGUE FILL-IN ═════════════════════════ -->
 <section class="section" id="sec-5">
   <div class="section-head"><div class="n">5</div><h2>💬 Dialogue · Julia at the cash desk</h2></div>
@@ -946,6 +982,8 @@ footer strong{color:var(--deep)}
   </div>
 </section>
 
+</div><!-- /tab-practice -->
+
 <footer>
   <strong>Julia goes to the Pet Shop</strong> · A1 · 45–60 min<br>
   Story · 16 vocab · sound-match · 3 shop-phrases · dialogue · workbook · speaking · vocab capsule<br>
@@ -1007,6 +1045,18 @@ function checkGaps(id){
     out.classList.toggle('done', ok === total);
   }
 }
+/* TABS */
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    var t = document.getElementById('tab-' + btn.dataset.tab);
+    if (t) t.classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+});
+
 function checkSpell(){
   var ok = 0, total = 0;
   document.querySelectorAll('#spellgrid .type-in').forEach(function(inp){
