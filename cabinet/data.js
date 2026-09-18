@@ -20,8 +20,8 @@
   const SB_URL  = "https://iqzlphbvmfgoygnozbya.supabase.co";
   const SB_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlxemxwaGJ2bWZnb3lnbm96YnlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAxNjg2ODMsImV4cCI6MjA5NTc0NDY4M30.SvpjaT31L2pRWWi6CU6ZISYu0_wYEK-yqf6q7GizBHs";
 
-  const DATA_BUILD_ID = "20260917-cabinet-cache-hardening";
-  const CACHE_KEY = "nge_data_cache_v17"; // v17: build-bound short cache
+  const DATA_BUILD_ID = "20260918-cabinet-data-contract-v18";
+  const CACHE_KEY = "nge_data_cache_v18"; // v18: normalized lesson identity
   const CACHE_TTL_MS = 15 * 1000;
 
   const SESSION_KEY = "nge_session_v2";
@@ -115,22 +115,19 @@
     return data;
   }
 
-  function _applyIvanSeptember20260917Correction(data) {
+  /*
+   * Temporary compatibility guard for Ivan's September package.
+   * It is deliberately non-destructive: Supabase rows always win, and a
+   * fallback row is added only when the server did not return that identity.
+   * This keeps the cabinet visible while the source data is audited.
+   */
+  function _ensureIvanSeptemberPackage(data) {
     if (!data || !Array.isArray(data.students)) return data;
     data.students.forEach(function (student) {
       if (!student || student.id !== "ivanov-ivan") return;
 
       const lessons = Array.isArray(student.lessons) ? student.lessons : [];
-      const historical = lessons.filter(function (lesson) {
-        return !lesson || !lesson.date || !lesson.date.startsWith("2026-09");
-      });
-
-      student.subscription_month = "2026-09";
-      student.subscription_span_start = "2026-09-17";
-      student.subscription_span_end = "2026-09-29";
-      student.lessons_in_package = 4;
-      student.lessons_used_this_month = 1;
-      student.lessons = historical.concat([
+      const expected = [
         {
           num: 1,
           date: "2026-09-17",
@@ -141,9 +138,75 @@
         { num: 2, date: "2026-09-22", status: "planned", topic: null, homework: null },
         { num: 3, date: "2026-09-24", status: "planned", topic: null, homework: null },
         { num: 4, date: "2026-09-29", status: "planned", topic: null, homework: null }
-      ]);
+      ];
+      const identities = new Set(lessons.map(_lessonIdentity));
+      expected.forEach(function (lesson) {
+        if (!identities.has(_lessonIdentity(lesson))) lessons.push(lesson);
+      });
+      if (!student.subscription_month) student.subscription_month = "2026-09";
+      if (!student.subscription_span_start) student.subscription_span_start = "2026-09-17";
+      if (!student.subscription_span_end) student.subscription_span_end = "2026-09-29";
+      if (!student.lessons_in_package) student.lessons_in_package = 4;
+      if (student.lessons_used_this_month == null) student.lessons_used_this_month = 1;
+      student.lessons = lessons;
     });
     return data;
+  }
+
+  function _lessonIdentity(lesson) {
+    if (!lesson || !lesson.date) return "";
+    const date = String(lesson.date);
+    const num = lesson.num == null || lesson.num === "" ? "" : String(lesson.num);
+    if (num) return date + "|" + num;
+    const topic = String(lesson.topic || "").trim().toLowerCase();
+    const url = lesson.url || (lesson.homework && lesson.homework.module_url) || "";
+    return date + "|topic:" + topic + "|url:" + String(url);
+  }
+
+  function _mergeLesson(a, b) {
+    const merged = Object.assign({}, a || {});
+    Object.keys(b || {}).forEach(function (key) {
+      const value = b[key];
+      if (value == null || value === "") return;
+      if (key === "homework" && merged.homework && value && typeof value === "object") {
+        const current = Object.assign({}, merged.homework);
+        Object.keys(value).forEach(function (homeworkKey) {
+          if (value[homeworkKey] != null && value[homeworkKey] !== "") current[homeworkKey] = value[homeworkKey];
+        });
+        const modules = (Array.isArray(current.modules) ? current.modules : [])
+          .concat(Array.isArray(value.modules) ? value.modules : []);
+        if (modules.length) {
+          const seen = new Set();
+          current.modules = modules.filter(function (module) {
+            const moduleKey = String(module && (module.url || module.title) || "");
+            if (seen.has(moduleKey)) return false;
+            seen.add(moduleKey);
+            return true;
+          });
+        }
+        merged.homework = current;
+        return;
+      }
+      if (key === "status") {
+        const rank = { completed: 5, missed: 4, rescheduled: 3, planned: 2, cancelled: 1 };
+        if ((rank[value] || 0) >= (rank[merged.status] || 0)) merged.status = value;
+        return;
+      }
+      if (merged[key] == null || merged[key] === "") merged[key] = value;
+    });
+    return merged;
+  }
+
+  function _dedupeLessons(lessons) {
+    const byIdentity = new Map();
+    (Array.isArray(lessons) ? lessons : []).forEach(function (lesson) {
+      if (!lesson || !lesson.date) return;
+      const identity = _lessonIdentity(lesson);
+      byIdentity.set(identity, byIdentity.has(identity) ? _mergeLesson(byIdentity.get(identity), lesson) : lesson);
+    });
+    return Array.from(byIdentity.values()).sort(function (a, b) {
+      return String(a.date).localeCompare(String(b.date)) || Number(a.num || 0) - Number(b.num || 0);
+    });
   }
 
   function _isActiveLesson(student, lesson) {
@@ -162,9 +225,7 @@
     data.students.forEach(function (student) {
       if (!student || !Array.isArray(student.lessons)) return;
 
-      student.lessons = student.lessons
-        .filter(function (lesson) { return lesson && lesson.date; })
-        .sort(function (a, b) { return String(a.date).localeCompare(String(b.date)); });
+      student.lessons = _dedupeLessons(student.lessons);
 
       const activeLessons = student.lessons.filter(function (lesson) {
         return _isActiveLesson(student, lesson);
@@ -199,7 +260,7 @@
 
   function _prepareData(data) {
     _ensurePayment(data);
-    _applyIvanSeptember20260917Correction(data);
+    _ensureIvanSeptemberPackage(data);
     _normalizeCabinetPackages(data);
     return data;
   }

@@ -350,6 +350,22 @@
       .replace(/"/g, "&quot;");
   }
 
+  function _materialLabel(material, fallback) {
+    material = material || {};
+    const explicit = material.title || material.label || material.name;
+    if (explicit) return String(explicit);
+    const rawUrl = material.url || "";
+    try {
+      const path = new URL(rawUrl, location.href).pathname;
+      const last = decodeURIComponent(path.split("/").filter(Boolean).pop() || "")
+        .replace(/\.(html?|pdf|docx?|xlsx?|png|jpe?g|webp)$/i, "")
+        .replace(/[-_]+/g, " ")
+        .trim();
+      if (last) return last.charAt(0).toUpperCase() + last.slice(1);
+    } catch (_) {}
+    return fallback || "Материал урока";
+  }
+
   /* Извлечь "Имя Отчество" из "Фамилия Имя Отчество" */
   function _parseImyaOtchestvo(fullName) {
     if (!fullName) return "";
@@ -1281,7 +1297,11 @@
   }
 
   function _lessonArchiveKey(lesson) {
-    return [lesson && lesson.date, lesson && lesson.status, lesson && lesson.topic].join("|");
+    if (!lesson) return "";
+    const date = lesson.date || "";
+    const num = lesson.num == null || lesson.num === "" ? "" : String(lesson.num);
+    if (num) return date + "|" + num;
+    return [date, lesson.topic || "", lesson.url || ""].join("|");
   }
 
   function _renderExternalPlatformsCard(student) {
@@ -1397,6 +1417,19 @@
         lessons: pastLessons
       });
     }
+    const currentLessonKeys = new Set(monthLessons.map(_lessonArchiveKey));
+    archivedPackages.forEach(pkg => {
+      const seen = new Set();
+      pkg.lessons = (Array.isArray(pkg.lessons) ? pkg.lessons : []).filter(l => {
+        const key = _lessonArchiveKey(l);
+        if (!key || currentLessonKeys.has(key) || seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+    });
+    for (let i = archivedPackages.length - 1; i >= 0; i--) {
+      if (!archivedPackages[i].lessons.length) archivedPackages.splice(i, 1);
+    }
     const archivedKeys = new Set();
     archivedPackages.forEach(pkg => {
       (pkg.lessons || []).forEach(l => {
@@ -1435,9 +1468,9 @@
         const hw = l.homework || {};
         const modules = Array.isArray(hw.modules) && hw.modules.length
           ? hw.modules
-          : (l.url ? [{ url: l.url, title: l.title || "Открыть" }] : []);
+          : (l.url ? [{ url: l.url, title: _materialLabel(l, "Материал урока") }] : []);
         const linkHtml = modules.length
-          ? modules.map(m => `<a class="cab-lesson-hw" href="${_esc(m.url)}" target="_blank" rel="noopener">${_esc(m.title || "Открыть")}</a>`).join(" ")
+          ? modules.map(m => `<a class="cab-lesson-hw" href="${_esc(m.url)}" target="_blank" rel="noopener">${_esc(_materialLabel(m, "Материал урока"))}</a>`).join(" ")
           : "";
         return `
           <li class="cab-lesson-row ${badge.cls}">
@@ -1521,7 +1554,7 @@
         + (e.isDone ? '✓' : '') + '</span>';
       const _hwMods = Array.isArray(hw.modules) && hw.modules.length
         ? hw.modules
-        : (hw.module_url ? [{ url: hw.module_url, title: hw.module_title || "Открыть в Лаборатории" }] : []);
+        : (hw.module_url ? [{ url: hw.module_url, title: _materialLabel({ url: hw.module_url, title: hw.module_title }, "Материал в Лаборатории") }] : []);
       const titleHtml = hw.module_title
         ? '<span class="cab-hw-title">' + _esc(hw.module_title) + '</span>'
         : (_hwMods.length > 1
@@ -1535,7 +1568,7 @@
           + _hwMods.map(m =>
               '<a class="cab-action-btn cab-action-btn--primary cab-hw-link"'
               + ' href="' + _esc(m.url) + '" target="_blank" rel="noreferrer">'
-              + '🚀 ' + _esc(m.title || "Открыть") + '</a>'
+              + '🚀 ' + _esc(_materialLabel(m, "Материал в Лаборатории")) + '</a>'
             ).join('')
           + (_hwMods.length > 1 ? '</div>' : '')
         : '';

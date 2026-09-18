@@ -18,6 +18,14 @@ for (const f of htmlFiles) {
 const index = read("cabinet/index.html");
 const login = read("cabinet/login.html");
 if (index !== login) errors.push("cabinet/index.html and cabinet/login.html diverged; keep them in sync or replace login.html with a deliberate alias");
+const dataJs = read("cabinet/data.js");
+const cabinetJs = read("cabinet/cabinet.js");
+if (!dataJs.includes("function _dedupeLessons")) errors.push("cabinet/data.js: lesson identity normalization is missing");
+if (dataJs.includes("historical.concat([")) errors.push("cabinet/data.js: destructive historical lesson overwrite detected");
+if (!dataJs.includes("function _ensureIvanSeptemberPackage")) errors.push("cabinet/data.js: Ivan compatibility guard is missing");
+if (cabinetJs.includes('m.title || "Открыть"') || cabinetJs.includes('l.title || "Открыть"')) {
+  errors.push("cabinet/cabinet.js: unnamed lesson link fallback detected");
+}
 const vaultIndex = path.join(cabinetDir, "vault", "index.json");
 if (!fs.existsSync(vaultIndex)) {
   errors.push("cabinet/vault/index.json missing");
