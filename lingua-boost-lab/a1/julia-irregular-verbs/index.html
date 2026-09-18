@@ -1223,6 +1223,204 @@ table.ref-table tr.hidden{display:none}
 
 </div><!-- /#tab-reading -->
 
+<!-- 📦 VOCAB CAPSULE · always visible · Julia's mandatory closing ritual -->
+<style>
+  #vocab-capsule{background:linear-gradient(135deg,#EAF3FB,#F4EEFC);padding:20px 0;margin-top:30px;border-top:3px solid var(--accent)}
+  #vocab-capsule .cap-inner{max-width:1240px;margin:0 auto;padding:0 clamp(16px,4vw,32px)}
+  #vocab-capsule h2{font-family:var(--display);color:var(--indigo);text-align:center;margin:0 0 6px}
+  #vocab-capsule .cap-sub{text-align:center;color:var(--muted);margin-bottom:18px;font-size:.95rem}
+  #vocab-capsule .cap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+  #vocab-capsule .cap-card{background:#fff;border:2px solid var(--card-border);border-radius:14px;padding:12px 14px;cursor:pointer;transition:.15s;position:relative}
+  #vocab-capsule .cap-card:hover{border-color:var(--accent);box-shadow:0 4px 14px rgba(139,126,209,.2);transform:translateY(-1px)}
+  #vocab-capsule .cap-card.played{background:#f5eefb;border-color:var(--accent)}
+  #vocab-capsule .cap-forms{display:flex;justify-content:space-between;align-items:baseline;gap:6px;font-family:var(--display);font-weight:800}
+  #vocab-capsule .cap-forms .v1{color:var(--accent2);font-size:1.05rem}
+  #vocab-capsule .cap-forms .v2{color:var(--accent);font-size:1.05rem}
+  #vocab-capsule .cap-forms .v3{color:var(--indigo);font-size:1.05rem}
+  #vocab-capsule .cap-forms .arr{color:var(--muted);font-family:var(--mono);font-size:.7rem;font-weight:600}
+  #vocab-capsule .cap-ru{font-family:var(--mono);font-size:.8rem;color:var(--accent);font-weight:800;margin-top:6px;letter-spacing:.03em}
+  #vocab-capsule .cap-ex{font-size:.82rem;color:var(--muted);line-height:1.4;margin-top:4px;font-style:italic}
+  #vocab-capsule .cap-play{position:absolute;top:8px;right:10px;font-size:.85rem;opacity:.5}
+  #vocab-capsule .cap-card.played .cap-play{opacity:1;color:var(--ok)}
+  #vocab-capsule .cap-section{margin-top:22px}
+  #vocab-capsule .cap-section h3{font-family:var(--display);color:var(--indigo);font-size:1.05rem;margin:0 0 10px}
+  #vocab-capsule .cap-mcq{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+  #vocab-capsule .cap-mcq-row{background:#fff;border:1.5px solid var(--card-border);border-radius:10px;padding:10px 12px}
+  #vocab-capsule .cap-mcq-q{font-weight:700;color:var(--ink);margin-bottom:6px}
+  #vocab-capsule .cap-mcq-opts{display:flex;flex-wrap:wrap;gap:5px}
+  #vocab-capsule .cap-mcq-btn{background:#fff;border:1.5px solid var(--card-border);border-radius:6px;padding:6px 10px;font-family:var(--display);font-size:.9rem;font-weight:700;cursor:pointer;color:var(--ink);transition:.12s}
+  #vocab-capsule .cap-mcq-btn:hover:not(:disabled){border-color:var(--accent);background:#fbf7ff}
+  #vocab-capsule .cap-mcq-btn.correct{background:var(--ok);color:#fff;border-color:var(--ok)}
+  #vocab-capsule .cap-mcq-btn.wrong{background:#dc3545;color:#fff;border-color:#dc3545;text-decoration:line-through}
+  #vocab-capsule .cap-spell{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+  #vocab-capsule .cap-spell-row{background:#fff;border:1.5px solid var(--card-border);border-radius:8px;padding:8px 12px;display:flex;align-items:center;gap:10px}
+  #vocab-capsule .cap-spell-cue{flex:1;font-size:.9rem;color:var(--ink);font-weight:700}
+  #vocab-capsule .cap-spell-in{border:1.5px solid var(--card-border);border-radius:6px;padding:6px 10px;font-family:var(--display);font-weight:700;font-size:.95rem;width:130px}
+  #vocab-capsule .cap-spell-in.correct{border-color:var(--ok);color:var(--ok);background:#e8f6ec}
+  #vocab-capsule .cap-spell-in.wrong{border-color:#dc3545;color:#dc3545;background:#fbeaea}
+  #vocab-capsule .cap-stamp{text-align:center;margin-top:22px;font-family:var(--mono);color:var(--indigo);font-weight:800;letter-spacing:.06em;font-size:.8rem}
+</style>
+<section id="vocab-capsule">
+  <div class="cap-inner">
+    <h2>📦 Vocab Capsule · irregular verbs</h2>
+    <div class="cap-sub">The 20 most useful irregular verbs · every card = 3 forms + audio + Russian + example · say each one out loud.</div>
+
+    <div class="cap-grid" id="cap-grid"></div>
+
+    <div class="cap-section">
+      <h3>🎯 Pick the correct Past Simple form</h3>
+      <div class="cap-mcq" id="cap-mcq"></div>
+    </div>
+
+    <div class="cap-section">
+      <h3>✍️ Type the Past Simple (RU cue)</h3>
+      <div class="cap-spell" id="cap-spell"></div>
+    </div>
+
+    <div class="cap-stamp">📦 Capsule sealed · Julia · Irregular Verbs · Lab</div>
+  </div>
+</section>
+
+<script>
+const CAPSULE = [
+  {v1:'be',    v2:'was/were', v3:'been',    ru:'быть',            ex:'Yesterday I was at home. Kids were happy.'},
+  {v1:'have',  v2:'had',      v3:'had',     ru:'иметь',           ex:'She had a cat when she was little.'},
+  {v1:'do',    v2:'did',      v3:'done',    ru:'делать',          ex:'What did you do yesterday?'},
+  {v1:'go',    v2:'went',     v3:'gone',    ru:'идти, ехать',     ex:'We went to Bodrum last summer.'},
+  {v1:'come',  v2:'came',     v3:'come',    ru:'приходить',       ex:'Katya came to my house at 5.'},
+  {v1:'get',   v2:'got',      v3:'got',     ru:'получать',        ex:'I got a nice present for my birthday.'},
+  {v1:'say',   v2:'said',     v3:'said',    ru:'сказать',         ex:'Mum said «good night» and turned off the light.'},
+  {v1:'know',  v2:'knew',     v3:'known',   ru:'знать',           ex:'I knew the answer, but I was shy.'},
+  {v1:'take',  v2:'took',     v3:'taken',   ru:'брать',           ex:'He took my pen without asking.'},
+  {v1:'make',  v2:'made',     v3:'made',    ru:'делать (создавать)', ex:'Grandma made a big honey cake.'},
+  {v1:'see',   v2:'saw',      v3:'seen',    ru:'видеть',          ex:'I saw a rainbow this morning.'},
+  {v1:'give',  v2:'gave',     v3:'given',   ru:'давать',          ex:'She gave me a hug.'},
+  {v1:'eat',   v2:'ate',      v3:'eaten',   ru:'есть',            ex:'We ate pizza on Friday evening.'},
+  {v1:'drink', v2:'drank',    v3:'drunk',   ru:'пить',            ex:'Muffin drank all the milk!'},
+  {v1:'run',   v2:'ran',      v3:'run',     ru:'бежать',          ex:'The dog ran across the park.'},
+  {v1:'swim',  v2:'swam',     v3:'swum',    ru:'плавать',         ex:'Julia swam in the pool for an hour.'},
+  {v1:'sing',  v2:'sang',     v3:'sung',    ru:'петь',            ex:'The birds sang all morning.'},
+  {v1:'write', v2:'wrote',    v3:'written', ru:'писать',          ex:'I wrote a letter to my grandma.'},
+  {v1:'read',  v2:'read',     v3:'read',    ru:'читать',          ex:'She read three books this summer.'},
+  {v1:'bring', v2:'brought',  v3:'brought', ru:'приносить',       ex:'Dad brought flowers home.'},
+];
+
+// Cards with click-to-hear
+const capGrid = document.getElementById('cap-grid');
+if(capGrid){
+  CAPSULE.forEach(v => {
+    const card = document.createElement('div');
+    card.className = 'cap-card';
+    card.innerHTML =
+      '<span class="cap-play">🔊</span>' +
+      '<div class="cap-forms"><span class="v1">'+v.v1+'</span><span class="arr">→</span><span class="v2">'+v.v2+'</span><span class="arr">→</span><span class="v3">'+v.v3+'</span></div>' +
+      '<div class="cap-ru">'+v.ru+'</div>' +
+      '<div class="cap-ex">'+v.ex+'</div>';
+    card.addEventListener('click', () => {
+      if(typeof say === 'function'){
+        say(v.v1+'. '+v.v2.replace('/',' or ')+'. '+v.v3+'.', 0.85);
+      } else {
+        try{
+          const u = new SpeechSynthesisUtterance(v.v1+'. '+v.v2.replace('/',' or ')+'. '+v.v3+'.');
+          u.lang='en-GB'; u.rate=0.85;
+          speechSynthesis.cancel(); speechSynthesis.speak(u);
+        }catch(e){}
+      }
+      card.classList.add('played');
+    });
+    capGrid.appendChild(card);
+  });
+}
+
+// MCQ · 15 recognition items
+const CAP_MCQ = [
+  {q:'go →',      opts:['goed','went','gone','goes'],           a:'went'},
+  {q:'eat →',     opts:['eated','ate','eaten','eats'],          a:'ate'},
+  {q:'make →',    opts:['maked','made','maden','makes'],         a:'made'},
+  {q:'see →',     opts:['seed','sawed','saw','seen'],           a:'saw'},
+  {q:'take →',    opts:['taked','tooken','took','takes'],       a:'took'},
+  {q:'bring →',   opts:['bringed','broughted','brought','brung'],a:'brought'},
+  {q:'drink →',   opts:['drinked','drank','drunk','drinken'],   a:'drank'},
+  {q:'swim →',    opts:['swimmed','swam','swum','swims'],       a:'swam'},
+  {q:'sing →',    opts:['sanged','sang','sung','singed'],       a:'sang'},
+  {q:'run →',     opts:['runned','ran','runed','runs'],         a:'ran'},
+  {q:'write →',   opts:['writed','wroten','wrote','writs'],     a:'wrote'},
+  {q:'know →',    opts:['knowed','knew','known','knews'],       a:'knew'},
+  {q:'give →',    opts:['gived','gave','given','giv'],          a:'gave'},
+  {q:'say →',     opts:['sayed','sayd','said','say'],           a:'said'},
+  {q:'buy →',     opts:['buyed','bought','buyt','buied'],       a:'bought'},
+];
+const capMcq = document.getElementById('cap-mcq');
+if(capMcq){
+  CAP_MCQ.forEach(item => {
+    const row = document.createElement('div');
+    row.className = 'cap-mcq-row';
+    const q = document.createElement('div');
+    q.className='cap-mcq-q'; q.textContent = item.q;
+    row.appendChild(q);
+    const opts = document.createElement('div');
+    opts.className='cap-mcq-opts';
+    // shuffle options
+    const shuffled = item.opts.slice().sort(()=>Math.random()-0.5);
+    shuffled.forEach(o => {
+      const b = document.createElement('button');
+      b.className='cap-mcq-btn'; b.textContent = o;
+      b.addEventListener('click', () => {
+        if(row.dataset.done) return;
+        opts.querySelectorAll('.cap-mcq-btn').forEach(btn => {
+          btn.disabled = true;
+          if(btn.textContent === item.a) btn.classList.add('correct');
+          else if(btn === b) btn.classList.add('wrong');
+        });
+        row.dataset.done = '1';
+      });
+      opts.appendChild(b);
+    });
+    row.appendChild(opts);
+    capMcq.appendChild(row);
+  });
+}
+
+// Spelling · 15 type-input items · RU cue → Past Simple form
+const CAP_SPELL = [
+  {ru:'быть (я/он был)',   a:'was'},
+  {ru:'быть (мы/они были)', a:'were'},
+  {ru:'иметь',           a:'had'},
+  {ru:'идти, ехать',     a:'went'},
+  {ru:'делать',          a:'did'},
+  {ru:'сказать',         a:'said'},
+  {ru:'видеть',          a:'saw'},
+  {ru:'брать',           a:'took'},
+  {ru:'делать (создавать)', a:'made'},
+  {ru:'знать',           a:'knew'},
+  {ru:'есть',            a:'ate'},
+  {ru:'пить',            a:'drank'},
+  {ru:'плавать',         a:'swam'},
+  {ru:'петь',            a:'sang'},
+  {ru:'писать',          a:'wrote'},
+];
+const capSpell = document.getElementById('cap-spell');
+if(capSpell){
+  CAP_SPELL.forEach(item => {
+    const row = document.createElement('div');
+    row.className='cap-spell-row';
+    const cue = document.createElement('div');
+    cue.className='cap-spell-cue'; cue.textContent = item.ru + ' →';
+    row.appendChild(cue);
+    const inp = document.createElement('input');
+    inp.className='cap-spell-in'; inp.type='text'; inp.autocomplete='off'; inp.placeholder='past simple';
+    inp.addEventListener('input', () => {
+      const v = inp.value.trim().toLowerCase();
+      inp.classList.remove('correct','wrong');
+      if(v === item.a) inp.classList.add('correct');
+      else if(v.length >= item.a.length) inp.classList.add('wrong');
+    });
+    row.appendChild(inp);
+    capSpell.appendChild(row);
+  });
+}
+</script>
+
 <footer>
   Julia · Irregular Verbs · LinguaBoost Lab · A2 · Past Simple<br>
   Palette: sky blue · violet · lavender · indigo
