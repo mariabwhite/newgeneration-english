@@ -115,44 +115,6 @@
     return data;
   }
 
-  /*
-   * Temporary compatibility guard for Ivan's September package.
-   * It is deliberately non-destructive: Supabase rows always win, and a
-   * fallback row is added only when the server did not return that identity.
-   * This keeps the cabinet visible while the source data is audited.
-   */
-  function _ensureIvanSeptemberPackage(data) {
-    if (!data || !Array.isArray(data.students)) return data;
-    data.students.forEach(function (student) {
-      if (!student || student.id !== "ivanov-ivan") return;
-
-      const lessons = Array.isArray(student.lessons) ? student.lessons : [];
-      const expected = [
-        {
-          num: 1,
-          date: "2026-09-17",
-          status: "completed",
-          topic: "Олимпиада",
-          homework: null
-        },
-        { num: 2, date: "2026-09-22", status: "planned", topic: null, homework: null },
-        { num: 3, date: "2026-09-24", status: "planned", topic: null, homework: null },
-        { num: 4, date: "2026-09-29", status: "planned", topic: null, homework: null }
-      ];
-      const identities = new Set(lessons.map(_lessonIdentity));
-      expected.forEach(function (lesson) {
-        if (!identities.has(_lessonIdentity(lesson))) lessons.push(lesson);
-      });
-      if (!student.subscription_month) student.subscription_month = "2026-09";
-      if (!student.subscription_span_start) student.subscription_span_start = "2026-09-17";
-      if (!student.subscription_span_end) student.subscription_span_end = "2026-09-29";
-      if (!student.lessons_in_package) student.lessons_in_package = 4;
-      if (student.lessons_used_this_month == null) student.lessons_used_this_month = 1;
-      student.lessons = lessons;
-    });
-    return data;
-  }
-
   function _lessonIdentity(lesson) {
     if (!lesson || !lesson.date) return "";
     const date = String(lesson.date);
@@ -260,7 +222,6 @@
 
   function _prepareData(data) {
     _ensurePayment(data);
-    _ensureIvanSeptemberPackage(data);
     _normalizeCabinetPackages(data);
     return data;
   }
