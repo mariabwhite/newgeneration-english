@@ -266,6 +266,19 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
 </section>
 
 <!-- ▸ TEACHER PANEL · регламент + скрипты ──────────────────── -->
+<script>
+  (function(){
+    var qs = new URLSearchParams(location.search);
+    var hash = (location.hash||'').toLowerCase();
+    var isTeacher = qs.get('teacher')==='on' || qs.get('teacher')==='1'
+                 || qs.get('role')==='teacher' || hash.includes('teacher');
+    var apply = function(){
+      if (isTeacher) document.body.classList.add('is-teacher');
+    };
+    if (document.body) apply();
+    else document.addEventListener('DOMContentLoaded', apply);
+  })();
+</script>
 <style>
   .teacher-panel{display:none;background:#FFF6E6;border:2px solid #E8542B;border-radius:14px;
     padding:20px 22px;margin:18px 0 24px;font-family:"Inter","Segoe UI",system-ui,sans-serif;color:#1F1F1F}
