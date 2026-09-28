@@ -171,7 +171,12 @@
     node.innerHTML = html;
   }
 
+  // Ученики, которые отказались от AI-наставника (по slug/id)
+  var AI_COACH_BLACKLIST = ['anya-isaeva'];
+
   async function runForStudent(student, container){
+    if (student && AI_COACH_BLACKLIST.indexOf(student.id) !== -1) return;
+    if (student && AI_COACH_BLACKLIST.indexOf(student.slug) !== -1) return;
     injectStyle();
     var box = document.createElement('div');
     box.className = 'cab-ai';
