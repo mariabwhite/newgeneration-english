@@ -273,6 +273,43 @@ footer .by{display:block;margin-top:6px;font-size:.7rem;opacity:.8}
 .closing h3{color:#FDFCFF;font-family:var(--serif);font-style:italic;font-weight:700;font-size:1.4rem;margin-bottom:10px}
 .closing p{font-family:var(--serif);font-style:italic;font-size:1.06rem;line-height:1.65;color:#EDE9FE;max-width:640px;margin:0 auto}
 .closing .stamp{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:#EDE9FE;margin-top:14px;display:inline-block;border:1px solid rgba(237,233,254,.6);padding:5px 14px;border-radius:4px}
+
+/* ==== EIGHT FAMILIES · flip cards ==== */
+.fam-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.fam{background:linear-gradient(135deg,#F8FBFF,#DBEAFE);border:1.5px solid var(--accent3);border-radius:14px;padding:14px}
+.fam h4{font-family:var(--display);font-weight:800;font-size:.95rem;color:var(--accent2);margin-bottom:3px;line-height:1.25}
+.fam-sub{font-family:var(--mono);font-size:.66rem;letter-spacing:.10em;color:var(--muted);text-transform:uppercase;margin-bottom:10px;font-weight:700}
+.flip{background:var(--card);border:1.5px solid var(--line);border-radius:8px;padding:8px 12px;margin-bottom:6px;cursor:pointer;transition:.18s;min-height:38px;display:flex;align-items:center}
+.flip:hover{border-color:var(--accent);background:var(--highlight)}
+.flip.opened{background:linear-gradient(135deg,var(--gold),#F59E0B);color:#1F2937;border-color:#F59E0B;box-shadow:0 4px 12px rgba(251,191,36,.35)}
+.flip .face-f{font-family:var(--display);font-weight:800;font-size:.95rem;color:var(--accent2);letter-spacing:.02em;transition:.18s}
+.flip.opened .face-f{color:#1F2937;font-family:var(--mono);font-size:.85rem;font-weight:700;letter-spacing:.04em}
+
+/* ==== SPELLING ARENA ==== */
+.spell-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:8px 16px}
+.spell-row{display:flex;justify-content:space-between;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:8px 12px;gap:10px}
+.spell-row .spell-q{font-size:.86rem;color:var(--text);flex:1}
+.spell-row .spell-q b{color:var(--accent2)}
+.spell-in{width:110px;padding:6px 10px;border:1.5px solid var(--line);border-radius:6px;font-family:var(--mono);font-size:.86rem;font-weight:700;color:var(--accent2);background:var(--card);text-align:center}
+.spell-in.right{border-color:var(--ok);background:rgba(91,140,90,.14);color:var(--ok)}
+.spell-in.wrong{border-color:var(--miss);background:rgba(177,69,69,.10);color:var(--miss)}
+.spell-score-bar{margin-top:14px;padding:12px 14px;background:var(--card-2);border-radius:8px;display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:.82rem;font-weight:700;color:var(--accent2)}
+#spell-score{font-family:var(--display);font-size:1.15rem;color:var(--ok)}
+#spell-check{padding:6px 16px;border:1.5px solid var(--accent);border-radius:6px;background:var(--accent);color:#fff;font-family:var(--mono);font-size:.72rem;font-weight:800;letter-spacing:.10em;text-transform:uppercase;cursor:pointer}
+#spell-check:hover{background:var(--accent2)}
+
+/* ==== VERB BINGO ==== */
+.bingo-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;max-width:640px;margin:0 auto}
+.bin-cell{background:var(--card);border:1.5px solid var(--line);border-radius:8px;padding:10px 6px;text-align:center;cursor:pointer;transition:.18s;min-height:64px;display:flex;flex-direction:column;justify-content:center;position:relative}
+.bin-cell:hover{border-color:var(--accent);background:var(--highlight);transform:scale(1.03)}
+.bin-cell .b{font-family:var(--display);font-weight:800;font-size:.9rem;color:var(--accent2)}
+.bin-cell.done{background:linear-gradient(135deg,var(--ok),#7fb069);color:#fff;border-color:var(--ok);cursor:default;transform:none}
+.bin-cell.done .b{color:#fff;text-decoration:line-through 1px}
+.bin-cell.done::after{content:attr(data-p);display:block;font-family:var(--mono);font-size:.76rem;font-weight:700;color:#fff;margin-top:4px;letter-spacing:.04em}
+.bin-cell.wrong{border-color:var(--miss);background:rgba(177,69,69,.10);animation:shake .35s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.bingo-meta{margin-top:14px;padding:10px 14px;background:var(--card-2);border-radius:8px;display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:.78rem;color:var(--accent2);font-weight:700}
+#bin-count{font-family:var(--display);font-size:1.05rem;color:var(--ok)}
 </style>
 </head>
 <body>
@@ -293,14 +330,17 @@ footer .by{display:block;margin-top:6px;font-size:.7rem;opacity:.8}
 
 <div class="lab-hero">
   <div class="hero-placeholder">
+    <img src="./assets/img/wake-morning.png" alt="A red-haired girl waking up in a starry blue bedroom with her cat" style="width:100%;max-width:820px;border-radius:14px;box-shadow:0 8px 30px rgba(15,23,42,.25);margin:0 auto 18px;display:block">
     <div class="hero-eyebrow">Sept 14 · Anya · Lesson 02 · a dream story</div>
     <div class="hero-title">The <em>Dream</em> · Land of Irregular Verbs</div>
-    <div class="hero-lead">A girl falls asleep. In her dream she walks into a strange land where verbs live in three houses, three doors, three forms. This lesson is a full <em>was/were</em> and <em>Past Simple</em> recap wrapped in a dream — and the first 20 irregular verbs you will never forget.</div>
+    <div class="hero-lead">A girl falls asleep. In her dream she walks into a strange land where verbs live in three houses, three doors, three forms. This lesson is a full <em>was/were</em> and <em>Past Simple</em> recap wrapped in a dream — <b>60 irregular verbs</b>, 8 pattern families, spelling arena, verb bingo, two reading passages and two listenings.</div>
     <div class="hero-badges">
       <span class="hero-badge">🌙 dream narrative</span>
       <span class="hero-badge">📘 was / were + Past Simple</span>
-      <span class="hero-badge">🔀 20 irregular verbs</span>
-      <span class="hero-badge">🎧 audio + reading</span>
+      <span class="hero-badge">🔀 60 irregular verbs · 8 families</span>
+      <span class="hero-badge">⌨️ spelling arena</span>
+      <span class="hero-badge">🎰 verb bingo</span>
+      <span class="hero-badge">🎧 audio ×2 + reading ×2</span>
     </div>
   </div>
 </div>
@@ -309,9 +349,9 @@ footer .by{display:block;margin-top:6px;font-size:.7rem;opacity:.8}
   <h2 class="lesson-title">The Dream · a story that teaches every past form</h2>
   <p class="lesson-lead">A story-driven lesson that carries you from was/were through regular Past Simple into the world of irregular verbs — via a silver book, three doors and a room of running verbs.</p>
   <div class="meta-grid">
-    <div><strong>Duration</strong>60-75 minutes · 13 sections</div>
-    <div><strong>Skills</strong>Grammar · Reading · Listening · Vocabulary · Speaking</div>
-    <div><strong>Grammar focus</strong>was / were (all forms) · Past Simple regular (+/-, Q, -ed pronunciation) · Past Simple irregular (20 verbs, 8 pattern groups)</div>
+    <div><strong>Duration</strong>90-120 minutes · 18 sections</div>
+    <div><strong>Skills</strong>Grammar · Reading (×2) · Listening (×2) · Spelling · Vocabulary · Speaking · Interactive games</div>
+    <div><strong>Grammar focus</strong>was / were (all forms) · Past Simple regular (+/-, Q, -ed pronunciation) · Past Simple irregular (60 verbs, 8 pattern families)</div>
     <div><strong>Story arc</strong>The girl falls asleep → a signboard → three tiny figures → the silver book → three doors → the room of WENT / DO-DID-DONE / RUN-RAN-RUN → she wakes up</div>
     <div><strong>Format</strong>theory boxes · MCQ · gap-fill · tap · sort · fix-the-mistake · doors game · listening · speaking</div>
     <div><strong>Previous lesson</strong>Sept 7 · Recap Test (all modules on one page)</div>
@@ -638,10 +678,10 @@ footer .by{display:block;margin-top:6px;font-size:.7rem;opacity:.8}
   </div>
 </section>
 
-<!-- 12 · VOCAB BANK · 20 irregular verbs -->
+<!-- 12 · VOCAB BANK · 60 irregular verbs -->
 <section class="section" id="sec-12">
-  <div class="section-hdr"><div class="num">12</div><h2>Vocabulary Bank · 20 irregular verbs</h2><span class="tag">📚 Bank · click to open</span></div>
-  <div class="section-sub">Your dictionary for this land. Click any card to open the three forms and an example.</div>
+  <div class="section-hdr"><div class="num">12</div><h2>Vocabulary Bank · 60 irregular verbs</h2><span class="tag">📚 Bank · click to open</span></div>
+  <div class="section-sub">Your dictionary for this land. 60 irregular verbs organised by families. Click any card to open the three forms and an example.</div>
 
   <div class="card paper">
     <div class="bank-grid">
@@ -665,6 +705,248 @@ footer .by{display:block;margin-top:6px;font-size:.7rem;opacity:.8}
       <div class="bank-card"><div class="bank-head"><span class="bank-word">break — broke — broken</span><span class="bank-pos">v</span></div><div class="bank-def">To make something come apart in pieces.</div><div class="bank-ex">The silence broke into a hundred tiny voices.</div></div>
       <div class="bank-card"><div class="bank-head"><span class="bank-word">sleep — slept — slept</span><span class="bank-pos">v</span></div><div class="bank-def">To rest with closed eyes at night.</div><div class="bank-ex">She slept and dreamt of a room full of running verbs.</div></div>
       <div class="bank-card"><div class="bank-head"><span class="bank-word">wake — woke — woken</span><span class="bank-pos">v</span></div><div class="bank-def">To stop sleeping.</div><div class="bank-ex">Julia woke in her bed wearing yesterday's sneakers.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">be — was/were — been</span><span class="bank-pos">v</span></div><div class="bank-def">The most important verb: to exist, to happen.</div><div class="bank-ex">She was tired and the lights were bright.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">become — became — become</span><span class="bank-pos">v</span></div><div class="bank-def">To start being something.</div><div class="bank-ex">The road became narrow between the crooked houses.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">begin — began — begun</span><span class="bank-pos">v</span></div><div class="bank-def">To start doing something.</div><div class="bank-ex">Julia began to read the silver book aloud.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">catch — caught — caught</span><span class="bank-pos">v</span></div><div class="bank-def">To take hold of something moving.</div><div class="bank-ex">She caught the falling star in her hand.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">choose — chose — chosen</span><span class="bank-pos">v</span></div><div class="bank-def">To pick one thing from many.</div><div class="bank-ex">She chose the blue door — the past one.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">come — came — come</span><span class="bank-pos">v</span></div><div class="bank-def">To move towards a place.</div><div class="bank-ex">A tiny figure came out of the shadow.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">cut — cut — cut</span><span class="bank-pos">v</span></div><div class="bank-def">To divide with a knife or scissors.</div><div class="bank-ex">He cut the loaf into six thick slices.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">drive — drove — driven</span><span class="bank-pos">v</span></div><div class="bank-def">To control a car / bus / train.</div><div class="bank-ex">The dream drove her deep into a starlit forest.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">eat — ate — eaten</span><span class="bank-pos">v</span></div><div class="bank-def">To take food into the mouth.</div><div class="bank-ex">She ate a small piece of moon-shaped bread.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">fall — fell — fallen</span><span class="bank-pos">v</span></div><div class="bank-def">To drop down; also for sleep.</div><div class="bank-ex">Julia fell asleep with the book open.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">feel — felt — felt</span><span class="bank-pos">v</span></div><div class="bank-def">To notice something with your senses or heart.</div><div class="bank-ex">She felt a soft breeze between the houses.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">find — found — found</span><span class="bank-pos">v</span></div><div class="bank-def">To discover something.</div><div class="bank-ex">She found a silver book on the road.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">fly — flew — flown</span><span class="bank-pos">v</span></div><div class="bank-def">To move through the air.</div><div class="bank-ex">A tiny owl flew over the crooked houses.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">forget — forgot — forgotten</span><span class="bank-pos">v</span></div><div class="bank-def">To not remember.</div><div class="bank-ex">She forgot the exact words of the sign.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">give — gave — given</span><span class="bank-pos">v</span></div><div class="bank-def">To hand something to someone.</div><div class="bank-ex">The tiny figure gave her a silver key.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">grow — grew — grown</span><span class="bank-pos">v</span></div><div class="bank-def">To become bigger.</div><div class="bank-ex">The book grew warm in her hands.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">hear — heard — heard</span><span class="bank-pos">v</span></div><div class="bank-def">To notice a sound.</div><div class="bank-ex">She heard a bell far away.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">hit — hit — hit</span><span class="bank-pos">v</span></div><div class="bank-def">To touch something with force.</div><div class="bank-ex">The wind hit the wooden sign again and again.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">hold — held — held</span><span class="bank-pos">v</span></div><div class="bank-def">To have in your hands.</div><div class="bank-ex">She held the silver key tightly.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">keep — kept — kept</span><span class="bank-pos">v</span></div><div class="bank-def">To hold on to something over time.</div><div class="bank-ex">She kept the little key in her pocket.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">know — knew — known</span><span class="bank-pos">v</span></div><div class="bank-def">To have information about something.</div><div class="bank-ex">She knew the base forms from school.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">leave — left — left</span><span class="bank-pos">v</span></div><div class="bank-def">To go away from a place.</div><div class="bank-ex">She left the crooked houses behind.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">lose — lost — lost</span><span class="bank-pos">v</span></div><div class="bank-def">To no longer have something.</div><div class="bank-ex">She almost lost the silver key in the grass.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">make — made — made</span><span class="bank-pos">v</span></div><div class="bank-def">To create or produce something.</div><div class="bank-ex">The little figures made a strange three-part song.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">mean — meant — meant</span><span class="bank-pos">v</span></div><div class="bank-def">To have a certain sense.</div><div class="bank-ex">«What does that mean?» she asked.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">meet — met — met</span><span class="bank-pos">v</span></div><div class="bank-def">To see and talk to someone.</div><div class="bank-ex">She met three tiny figures on the road.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">pay — paid — paid</span><span class="bank-pos">v</span></div><div class="bank-def">To give money for something.</div><div class="bank-ex">She paid the bookseller a single silver coin.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">put — put — put</span><span class="bank-pos">v</span></div><div class="bank-def">To place something somewhere.</div><div class="bank-ex">She put the key back into her pocket.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">read — read — read</span><span class="bank-pos">v</span></div><div class="bank-def">To look at words and understand them.</div><div class="bank-ex">She read the whole page in a single breath.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">ride — rode — ridden</span><span class="bank-pos">v</span></div><div class="bank-def">To sit on and control a bike / horse.</div><div class="bank-ex">A boy rode a small pony past the sign.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">ring — rang — rung</span><span class="bank-pos">v</span></div><div class="bank-def">To make a sound like a bell.</div><div class="bank-ex">Somewhere in the distance a bell rang.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">rise — rose — risen</span><span class="bank-pos">v</span></div><div class="bank-def">To go up.</div><div class="bank-ex">The moon rose over the crooked roofs.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">send — sent — sent</span><span class="bank-pos">v</span></div><div class="bank-def">To make something go from one place to another.</div><div class="bank-ex">The wind sent a warm breath down the road.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">show — showed — shown</span><span class="bank-pos">v</span></div><div class="bank-def">To let someone see something.</div><div class="bank-ex">The little figure showed her the way.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">sit — sat — sat</span><span class="bank-pos">v</span></div><div class="bank-def">To rest on a chair or the ground.</div><div class="bank-ex">She sat on the stone step and opened the book.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">swim — swam — swum</span><span class="bank-pos">v</span></div><div class="bank-def">To move through water.</div><div class="bank-ex">A small silver fish swam under the bridge.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">tell — told — told</span><span class="bank-pos">v</span></div><div class="bank-def">To give information to someone.</div><div class="bank-ex">The book told her the whole law of the land.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">think — thought — thought</span><span class="bank-pos">v</span></div><div class="bank-def">To use your mind, to have an idea.</div><div class="bank-ex">She thought about her own bedroom back home.</div></div>
+      <div class="bank-card"><div class="bank-head"><span class="bank-word">throw — threw — thrown</span><span class="bank-pos">v</span></div><div class="bank-def">To send something through the air with your hand.</div><div class="bank-ex">She threw a small stone into the fountain.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 14 · EIGHT FAMILIES · FLIP CARDS -->
+<section class="section" id="sec-14">
+  <div class="section-hdr"><div class="num">14</div><h2>Eight Families · flip cards</h2><span class="tag">🃏 24 verbs · click to flip</span></div>
+  <div class="section-sub">Irregular verbs are not random. They live in eight sound-families. Learn the family — you get all its verbs at once. Click any card to flip and reveal three forms.</div>
+
+  <img src="./assets/img/eight-families.png" alt="Eight family panels of irregular verbs on a magical night village" style="width:100%;max-width:900px;border-radius:14px;box-shadow:0 8px 30px rgba(15,23,42,.25);margin:0 auto 16px;display:block">
+
+  <div class="card paper">
+    <div class="fam-grid">
+      <div class="fam"><h4>1 · Same form all three</h4><div class="fam-sub">— keep the form —</div>
+        <div class="flip" data-back="cut · cut · cut"><div class="face-f">cut</div></div>
+        <div class="flip" data-back="put · put · put"><div class="face-f">put</div></div>
+        <div class="flip" data-back="hit · hit · hit"><div class="face-f">hit</div></div>
+      </div>
+      <div class="fam"><h4>2 · -ought family</h4><div class="fam-sub">— sounds like «AWT» —</div>
+        <div class="flip" data-back="buy · bought · bought"><div class="face-f">buy</div></div>
+        <div class="flip" data-back="bring · brought · brought"><div class="face-f">bring</div></div>
+        <div class="flip" data-back="think · thought · thought"><div class="face-f">think</div></div>
+      </div>
+      <div class="fam"><h4>3 · -ang / -ung family</h4><div class="fam-sub">— i → a → u —</div>
+        <div class="flip" data-back="sing · sang · sung"><div class="face-f">sing</div></div>
+        <div class="flip" data-back="drink · drank · drunk"><div class="face-f">drink</div></div>
+        <div class="flip" data-back="swim · swam · swum"><div class="face-f">swim</div></div>
+      </div>
+      <div class="fam"><h4>4 · -ook family</h4><div class="fam-sub">— irregular third form —</div>
+        <div class="flip" data-back="go · went · gone"><div class="face-f">go</div></div>
+        <div class="flip" data-back="eat · ate · eaten"><div class="face-f">eat</div></div>
+        <div class="flip" data-back="take · took · taken"><div class="face-f">take</div></div>
+      </div>
+      <div class="fam"><h4>5 · -ound family</h4><div class="fam-sub">— all three the same past —</div>
+        <div class="flip" data-back="have · had · had"><div class="face-f">have</div></div>
+        <div class="flip" data-back="make · made · made"><div class="face-f">make</div></div>
+        <div class="flip" data-back="find · found · found"><div class="face-f">find</div></div>
+      </div>
+      <div class="fam"><h4>6 · -ew / -own family</h4><div class="fam-sub">— vowel jumps —</div>
+        <div class="flip" data-back="know · knew · known"><div class="face-f">know</div></div>
+        <div class="flip" data-back="grow · grew · grown"><div class="face-f">grow</div></div>
+        <div class="flip" data-back="throw · threw · thrown"><div class="face-f">throw</div></div>
+      </div>
+      <div class="fam"><h4>7 · -ame family</h4><div class="fam-sub">— same past + participle —</div>
+        <div class="flip" data-back="come · came · come"><div class="face-f">come</div></div>
+        <div class="flip" data-back="become · became · become"><div class="face-f">become</div></div>
+        <div class="flip" data-back="run · ran · run"><div class="face-f">run</div></div>
+      </div>
+      <div class="fam"><h4>8 · -aw / -ought / -id family</h4><div class="fam-sub">— core «doing» verbs —</div>
+        <div class="flip" data-back="see · saw · seen"><div class="face-f">see</div></div>
+        <div class="flip" data-back="do · did · done"><div class="face-f">do</div></div>
+        <div class="flip" data-back="think · thought · thought"><div class="face-f">think</div></div>
+      </div>
+    </div>
+    <p class="section-sub" style="margin-top:14px;text-align:center"><b>Trick:</b> when you meet a new irregular verb — <em>ask which family it belongs to</em>. Nine times out of ten, one of these eight families claims it.</p>
+  </div>
+</section>
+
+<!-- 15 · SPELLING ARENA · TYPE THE PAST FORM -->
+<section class="section" id="sec-15">
+  <div class="section-hdr"><div class="num">15</div><h2>Spelling Arena · type the past form</h2><span class="tag">⌨️ 30 verbs · type · instant check</span></div>
+  <div class="section-sub">The fastest way to fix a verb — spell it under a little pressure. Type the past form. Green means clean.</div>
+
+  <div class="theory">
+    <h4>⚡ Spelling reminders</h4>
+    <ul style="margin:6px 0 6px 22px;line-height:1.7">
+      <li>Regular verbs: base + <code>-ed</code>. If verb ends in <code>-y</code> after a consonant → <code>y → i + ed</code> (study → studied).</li>
+      <li>Short verbs with one vowel + one consonant → <b>double the consonant</b>: stop → stopped, plan → planned, chat → chatted.</li>
+      <li>Verbs ending in <code>-e</code> → just add <code>-d</code>: like → liked, use → used, love → loved.</li>
+      <li>Irregular verbs — no rule. Recall the family. Type from memory.</li>
+    </ul>
+  </div>
+
+  <div class="card paper">
+    <div class="spell-grid">
+      <div class="spell-row"><div class="spell-q">1. <b>walk</b> (regular)</div><input class="spell-in" data-ans="walked" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">2. <b>watch</b> (regular)</div><input class="spell-in" data-ans="watched" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">3. <b>stop</b> (double)</div><input class="spell-in" data-ans="stopped" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">4. <b>plan</b> (double)</div><input class="spell-in" data-ans="planned" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">5. <b>study</b> (y→i)</div><input class="spell-in" data-ans="studied" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">6. <b>try</b> (y→i)</div><input class="spell-in" data-ans="tried" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">7. <b>like</b> (+d)</div><input class="spell-in" data-ans="liked" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">8. <b>live</b> (+d)</div><input class="spell-in" data-ans="lived" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">9. <b>go</b> (irregular)</div><input class="spell-in" data-ans="went" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">10. <b>see</b> (irregular)</div><input class="spell-in" data-ans="saw" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">11. <b>take</b> (irregular)</div><input class="spell-in" data-ans="took" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">12. <b>give</b> (irregular)</div><input class="spell-in" data-ans="gave" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">13. <b>write</b> (irregular)</div><input class="spell-in" data-ans="wrote" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">14. <b>read</b> (irregular)</div><input class="spell-in" data-ans="read" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">15. <b>buy</b> (-ought)</div><input class="spell-in" data-ans="bought" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">16. <b>bring</b> (-ought)</div><input class="spell-in" data-ans="brought" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">17. <b>think</b> (-ought)</div><input class="spell-in" data-ans="thought" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">18. <b>teach</b> (-aught)</div><input class="spell-in" data-ans="taught" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">19. <b>catch</b> (-aught)</div><input class="spell-in" data-ans="caught" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">20. <b>sing</b> (i→a)</div><input class="spell-in" data-ans="sang" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">21. <b>drink</b> (i→a)</div><input class="spell-in" data-ans="drank" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">22. <b>swim</b> (i→a)</div><input class="spell-in" data-ans="swam" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">23. <b>run</b> (a→ran)</div><input class="spell-in" data-ans="ran" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">24. <b>come</b> (came)</div><input class="spell-in" data-ans="came" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">25. <b>know</b> (-ew)</div><input class="spell-in" data-ans="knew" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">26. <b>grow</b> (-ew)</div><input class="spell-in" data-ans="grew" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">27. <b>throw</b> (-ew)</div><input class="spell-in" data-ans="threw" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">28. <b>fly</b> (-ew)</div><input class="spell-in" data-ans="flew" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">29. <b>put</b> (no change)</div><input class="spell-in" data-ans="put" placeholder="past"></div>
+      <div class="spell-row"><div class="spell-q">30. <b>cut</b> (no change)</div><input class="spell-in" data-ans="cut" placeholder="past"></div>
+    </div>
+    <div class="spell-score-bar">Score: <span id="spell-score">0</span> / 30 · <button id="spell-check">Check all</button></div>
+  </div>
+</section>
+
+<!-- 16 · CHAPTER II · READING 2 -->
+<section class="section" id="sec-16">
+  <div class="section-hdr"><div class="num">16</div><h2>Reading ×2 · Chapter II · The Past</h2><span class="tag">📖 200-word passage · 8 questions</span></div>
+  <div class="section-sub">The silver book opens to a new chapter. It speaks of the past — where every verb has three faces, and where memory shapes who we are.</div>
+
+  <img src="./assets/img/chapter-past.png" alt="An open magical book showing Chapter II · The Past with columns of irregular verbs" style="width:100%;max-width:720px;border-radius:14px;box-shadow:0 8px 30px rgba(15,23,42,.25);margin:0 auto 16px;display:block">
+
+  <div class="story">
+    <span class="stamp">Chapter II · The Past</span>
+    <p>The past tells the story of what has happened. We use past forms to speak about time gone by, and the memories that shape who we are. Every action in this land carries three faces: the beginning, the middle, and the ending.</p>
+    <p>Julia <em>saw</em> the words glow on the page. She <em>read</em> them slowly, one after another. <b>go — went — gone. see — saw — seen. write — wrote — written. take — took — taken.</b> She <em>knew</em> the base forms from school, but the second and third columns <em>were</em> new to her.</p>
+    <p>«Read them aloud,» whispered a voice. Julia <em>looked</em> around, but nobody <em>was</em> there. The book itself <em>was</em> speaking.</p>
+    <p>«Every ending is a new beginning,» the book <em>said</em>. «You cannot leave this land until you can speak the past.» So Julia <em>opened</em> her mouth and <em>began</em>: «I <em>went</em>. I <em>saw</em>. I <em>wrote</em>. I <em>took</em>. I <em>was</em>. I <em>knew</em>. I <em>found</em>. I <em>gave</em>.» With every verb, a small star <em>appeared</em> above her head. When she <em>spoke</em> the last one, all eight stars <em>joined</em> together into one bright constellation, and the crooked houses of the village <em>bowed</em> to her.</p>
+    <p>«Now you belong here,» the book <em>said</em>. «Or, more truly — now the past belongs to you.»</p>
+  </div>
+
+  <div class="card paper">
+    <h3>Comprehension · 8 questions</h3>
+    <div class="mcq-row" data-answer="The past"><div class="mcq-q"><span class="n">Q1</span>What does Chapter II talk about?</div><div class="mcq-opts"><button data-v="The future">the future</button><button data-v="The past">the past</button><button data-v="The present">the present</button></div><div class="mcq-note">→ «The past tells the story of what has happened.»</div></div>
+    <div class="mcq-row" data-answer="Three"><div class="mcq-q"><span class="n">Q2</span>How many «faces» does every action in this land carry?</div><div class="mcq-opts"><button data-v="Two">two</button><button data-v="Three">three</button><button data-v="Four">four</button></div><div class="mcq-note">→ «three faces: the beginning, the middle, and the ending.»</div></div>
+    <div class="mcq-row" data-answer="The second and third columns"><div class="mcq-q"><span class="n">Q3</span>What was new to Julia?</div><div class="mcq-opts"><button data-v="The base forms">the base forms</button><button data-v="The second and third columns">the second and third columns</button><button data-v="The alphabet">the alphabet</button></div><div class="mcq-note">→ «She knew the base forms from school, but the second and third columns were new.»</div></div>
+    <div class="mcq-row" data-answer="The book"><div class="mcq-q"><span class="n">Q4</span>Who spoke to Julia?</div><div class="mcq-opts"><button data-v="A tiny figure">a tiny figure</button><button data-v="The book">the book</button><button data-v="The wind">the wind</button></div><div class="mcq-note">→ «The book itself was speaking.»</div></div>
+    <div class="mcq-row" data-answer="8"><div class="mcq-q"><span class="n">Q5</span>How many verbs did Julia say aloud?</div><div class="mcq-opts"><button data-v="6">6</button><button data-v="8">8</button><button data-v="10">10</button></div><div class="mcq-note">→ went / saw / wrote / took / was / knew / found / gave = 8.</div></div>
+    <div class="mcq-row" data-answer="A small star"><div class="mcq-q"><span class="n">Q6</span>What appeared above her head with every verb?</div><div class="mcq-opts"><button data-v="A cloud">a cloud</button><button data-v="A small star">a small star</button><button data-v="A tiny bird">a tiny bird</button></div><div class="mcq-note">→ «a small star appeared above her head.»</div></div>
+    <div class="mcq-row" data-answer="A bright constellation"><div class="mcq-q"><span class="n">Q7</span>What did the eight stars form together?</div><div class="mcq-opts"><button data-v="A bright constellation">a bright constellation</button><button data-v="A silver crown">a silver crown</button><button data-v="A snowflake">a snowflake</button></div><div class="mcq-note">→ «all eight stars joined together into one bright constellation.»</div></div>
+    <div class="mcq-row" data-answer="Not Stated"><div class="mcq-q"><span class="n">Q8</span>«Julia felt very cold in the room.» — True / False / Not Stated?</div><div class="mcq-opts"><button data-v="True">True</button><button data-v="False">False</button><button data-v="Not Stated">Not Stated</button></div><div class="mcq-note">→ Not mentioned. Not Stated.</div></div>
+  </div>
+</section>
+
+<!-- 17 · VERB BINGO · RAPID RECALL -->
+<section class="section" id="sec-17">
+  <div class="section-hdr"><div class="num">17</div><h2>Verb Bingo · rapid recall</h2><span class="tag">🎰 25 verbs · type past · match to win a line</span></div>
+  <div class="section-sub">A 5×5 grid of base forms. Type the past form. Every correct answer flips the cell. Complete a row, column or diagonal — get a bingo. All 25 — full house!</div>
+
+  <div class="card paper">
+    <div class="bingo-grid" id="bingo">
+      <div class="bin-cell" data-b="go" data-p="went"><span class="b">go</span></div>
+      <div class="bin-cell" data-b="see" data-p="saw"><span class="b">see</span></div>
+      <div class="bin-cell" data-b="have" data-p="had"><span class="b">have</span></div>
+      <div class="bin-cell" data-b="take" data-p="took"><span class="b">take</span></div>
+      <div class="bin-cell" data-b="do" data-p="did"><span class="b">do</span></div>
+
+      <div class="bin-cell" data-b="be" data-p="was"><span class="b">be</span></div>
+      <div class="bin-cell" data-b="buy" data-p="bought"><span class="b">buy</span></div>
+      <div class="bin-cell" data-b="say" data-p="said"><span class="b">say</span></div>
+      <div class="bin-cell" data-b="run" data-p="ran"><span class="b">run</span></div>
+      <div class="bin-cell" data-b="come" data-p="came"><span class="b">come</span></div>
+
+      <div class="bin-cell" data-b="give" data-p="gave"><span class="b">give</span></div>
+      <div class="bin-cell" data-b="know" data-p="knew"><span class="b">know</span></div>
+      <div class="bin-cell" data-b="find" data-p="found"><span class="b">find</span></div>
+      <div class="bin-cell" data-b="think" data-p="thought"><span class="b">think</span></div>
+      <div class="bin-cell" data-b="write" data-p="wrote"><span class="b">write</span></div>
+
+      <div class="bin-cell" data-b="sing" data-p="sang"><span class="b">sing</span></div>
+      <div class="bin-cell" data-b="drink" data-p="drank"><span class="b">drink</span></div>
+      <div class="bin-cell" data-b="get" data-p="got"><span class="b">get</span></div>
+      <div class="bin-cell" data-b="make" data-p="made"><span class="b">make</span></div>
+      <div class="bin-cell" data-b="fly" data-p="flew"><span class="b">fly</span></div>
+
+      <div class="bin-cell" data-b="eat" data-p="ate"><span class="b">eat</span></div>
+      <div class="bin-cell" data-b="teach" data-p="taught"><span class="b">teach</span></div>
+      <div class="bin-cell" data-b="sleep" data-p="slept"><span class="b">sleep</span></div>
+      <div class="bin-cell" data-b="wake" data-p="woke"><span class="b">wake</span></div>
+      <div class="bin-cell" data-b="break" data-p="broke"><span class="b">break</span></div>
+    </div>
+    <div class="bingo-meta"><span>Filled: <b id="bin-count">0</b> / 25</span><span id="bin-status">Click any cell → type the past form.</span></div>
+  </div>
+</section>
+
+<!-- 18 · LISTENING 2 · FAMILY CHANTS -->
+<section class="section" id="sec-18">
+  <div class="section-hdr"><div class="num">18</div><h2>Listening ×2 · family chants · dictation</h2><span class="tag">🎧 audio · 10 dictation gaps</span></div>
+  <div class="section-sub">Hear five family chants, then fill the gaps. Play the audio once — write. Play again — check. This trains the ear to recognise families.</div>
+
+  <img src="./assets/img/base-past-participle.png" alt="An open enchanted book with three columns: base, past, participle" style="width:100%;max-width:720px;border-radius:14px;box-shadow:0 8px 30px rgba(15,23,42,.25);margin:0 auto 16px;display:block">
+
+  <div class="audio-row" style="display:flex;align-items:center;gap:14px;margin:12px 0;flex-wrap:wrap">
+    <span class="audio-label" style="font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2)">▶ Family chants</span>
+    <audio controls preload="metadata" style="flex:1;max-width:520px">
+      <source src="./assets/audio/family-chants.mp3" type="audio/mpeg">
+      Your browser does not support the audio tag.
+    </audio>
+    <span style="font-family:var(--mono);font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.10em">en-GB · Libby</span>
+  </div>
+
+  <div class="card paper">
+    <h3>Dictation · fill 10 past forms</h3>
+    <div class="diary" data-ex="18">
+      <p><b>Family 1 · -ought:</b> buy — <input class="gap-input" data-ans="bought" size="8"> · bring — <input class="gap-input" data-ans="brought" size="9"> · think — <input class="gap-input" data-ans="thought" size="9">.</p>
+      <p><b>Family 2 · -ew:</b> know — <input class="gap-input" data-ans="knew" size="6"> · grow — <input class="gap-input" data-ans="grew" size="6"> · fly — <input class="gap-input" data-ans="flew" size="6">.</p>
+      <p><b>Family 3 · i→a:</b> sing — <input class="gap-input" data-ans="sang" size="6"> · drink — <input class="gap-input" data-ans="drank" size="7"> · swim — <input class="gap-input" data-ans="swam" size="6">.</p>
+      <p><b>Family 4 · -ame:</b> come — <input class="gap-input" data-ans="came" size="6">.</p>
     </div>
   </div>
 </section>
@@ -691,9 +973,10 @@ footer .by{display:block;margin-top:6px;font-size:.7rem;opacity:.8}
   </div>
 
   <div class="card paper closing" style="margin-top:18px">
+    <img src="./assets/img/dream-panorama.png" alt="A wide panorama of the dream: floating houses on clouds under a starry sky, a girl asleep with her cat" style="width:100%;max-width:820px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.35);margin:0 auto 18px;display:block">
     <h3>Julia wakes up · but everything is different</h3>
     <p>Julia opened her eyes in her own bed. Sneakers on her feet, a T-shirt she didn't remember putting on. «Was it a dream?» she whispered. And then quietly, without opening the book, she said: <em>go — went — gone. see — saw — seen. write — wrote — written.</em> The land was gone. The verbs stayed.</p>
-    <span class="stamp">Anya · NG English Lab · Sept 14 · 2026</span>
+    <span class="stamp">Anya · NG English Lab · Sept 14 · 2026 · expanded Sept 28</span>
   </div>
 </section>
 
@@ -809,6 +1092,94 @@ document.querySelectorAll('.tap-row').forEach(row => {
     });
   });
 });
+
+/* FLIP CARDS (families) */
+document.querySelectorAll('.flip').forEach(card => {
+  card.addEventListener('click', () => {
+    if (card.classList.contains('opened')) {
+      card.classList.remove('opened');
+      card.querySelector('.face-f').textContent = card.dataset.origText || card.querySelector('.face-f').textContent;
+      return;
+    }
+    if (!card.dataset.origText) card.dataset.origText = card.querySelector('.face-f').textContent;
+    card.querySelector('.face-f').textContent = card.dataset.back;
+    card.classList.add('opened');
+  });
+});
+
+/* SPELLING ARENA · live check + button */
+document.querySelectorAll('.spell-in').forEach(inp => {
+  const ans = (inp.dataset.ans || '').trim().toLowerCase();
+  const chk = () => {
+    const v = (inp.value || '').trim().toLowerCase();
+    inp.classList.remove('right','wrong');
+    if (!v) return;
+    if (v === ans) inp.classList.add('right');
+    else if (v.length >= ans.length) inp.classList.add('wrong');
+  };
+  inp.addEventListener('input', chk);
+  inp.addEventListener('blur', () => {
+    const v = (inp.value || '').trim().toLowerCase();
+    inp.classList.remove('right','wrong');
+    if (!v) return;
+    inp.classList.add(v === ans ? 'right' : 'wrong');
+  });
+});
+const spellBtn = document.getElementById('spell-check');
+const spellScore = document.getElementById('spell-score');
+if (spellBtn) {
+  spellBtn.addEventListener('click', () => {
+    let ok = 0;
+    document.querySelectorAll('.spell-in').forEach(inp => {
+      const ans = (inp.dataset.ans || '').trim().toLowerCase();
+      const v = (inp.value || '').trim().toLowerCase();
+      inp.classList.remove('right','wrong');
+      if (v === ans) { inp.classList.add('right'); ok++; }
+      else if (v) inp.classList.add('wrong');
+    });
+    if (spellScore) spellScore.textContent = ok;
+  });
+}
+
+/* VERB BINGO · click cell → prompt → check */
+(() => {
+  const grid = document.getElementById('bingo');
+  const cnt = document.getElementById('bin-count');
+  const status = document.getElementById('bin-status');
+  if (!grid) return;
+  let filled = 0;
+  const cells = grid.querySelectorAll('.bin-cell');
+  const layoutIdx = idx => ({ r: Math.floor(idx/5), c: idx%5 });
+  const checkLines = () => {
+    const done = Array.from(cells).map(c => c.classList.contains('done'));
+    const lines = [];
+    for (let r=0;r<5;r++) lines.push([r*5,r*5+1,r*5+2,r*5+3,r*5+4]);
+    for (let c=0;c<5;c++) lines.push([c,c+5,c+10,c+15,c+20]);
+    lines.push([0,6,12,18,24]);
+    lines.push([4,8,12,16,20]);
+    for (const line of lines) if (line.every(i => done[i])) return true;
+    return false;
+  };
+  cells.forEach(cell => {
+    cell.addEventListener('click', () => {
+      if (cell.classList.contains('done')) return;
+      const base = cell.dataset.b, correct = cell.dataset.p.toLowerCase();
+      const guess = (prompt(`Past form of «${base}»?`) || '').trim().toLowerCase();
+      if (!guess) return;
+      if (guess === correct) {
+        cell.classList.add('done');
+        filled++;
+        if (cnt) cnt.textContent = filled;
+        if (filled === 25) { if (status) status.textContent = '🏆 FULL HOUSE — every verb landed!'; }
+        else if (checkLines()) { if (status) status.textContent = '🎉 BINGO! A full line — keep going for full house.'; }
+      } else {
+        cell.classList.add('wrong');
+        setTimeout(() => cell.classList.remove('wrong'), 400);
+        if (status) status.textContent = `Not «${guess}» — try again.`;
+      }
+    });
+  });
+})();
 </script>
 
 </body>
