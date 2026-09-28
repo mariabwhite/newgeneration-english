@@ -237,6 +237,73 @@ img{display:block;max-width:100%}
 .score.hit{background:rgba(244,196,48,.14);border-color:var(--gold)}
 
 footer{width:var(--demo-width);margin:32px auto 20px;padding:16px 22px;border-top:1px solid var(--line);font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;text-align:center}
+
+/* ==== TIMELINE SORT (sec-11) ==== */
+.tl-wrap{display:grid;grid-template-columns:1fr 1.4fr;gap:16px}
+@media(max-width:820px){.tl-wrap{grid-template-columns:1fr}}
+.tl-pool{display:flex;flex-direction:column;gap:6px;padding:12px;background:var(--paper);border:1.5px dashed var(--line-2);border-radius:10px}
+.tl-pill{background:var(--card);border:1.5px solid var(--line);border-radius:8px;padding:8px 12px;font-family:var(--serif);font-size:.86rem;text-align:left;cursor:pointer;transition:.18s;color:var(--text)}
+.tl-pill:hover{border-color:var(--accent);background:var(--highlight)}
+.tl-pill.selected{background:var(--gold);border-color:var(--gold-2);color:#1F2937}
+.tl-pill.correct{background:rgba(91,140,90,.20);border-color:var(--ok);color:var(--ok);cursor:default}
+.tl-pill.wrong{background:rgba(177,69,69,.15);border-color:var(--miss);animation:shake .35s}
+.tl-floors{display:flex;flex-direction:column;gap:10px}
+.tl-floor{border:2px solid var(--line-2);border-radius:12px;padding:12px 14px;cursor:pointer;transition:.18s;min-height:100px}
+.tl-floor.past{border-color:var(--gold);background:linear-gradient(135deg,rgba(244,196,48,.10),transparent)}
+.tl-floor.present{border-color:var(--accent);background:linear-gradient(135deg,rgba(199,53,90,.10),transparent)}
+.tl-floor.future{border-color:var(--coral);background:linear-gradient(135deg,rgba(255,138,101,.12),transparent)}
+.tl-floor:hover{transform:scale(1.01);box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.tl-floor h4{font-family:var(--display);font-weight:800;font-size:.86rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;color:var(--text)}
+.tl-drop{display:flex;flex-wrap:wrap;gap:6px;min-height:40px}
+.tl-drop .tl-pill{font-size:.78rem;padding:5px 10px;cursor:default}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+
+/* ==== TENSE CHAMELEON (sec-12) ==== */
+.chame-table{width:100%;border-collapse:collapse;font-size:.86rem}
+.chame-table th,.chame-table td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+.chame-table th{background:var(--card-2);font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.10em;text-transform:uppercase;color:var(--accent2)}
+.chame-table td:first-child{background:var(--paper);font-family:var(--display);color:var(--accent2);font-weight:800}
+.cha-in{width:100%;max-width:180px;padding:6px 10px;border:1.5px solid var(--line);border-radius:6px;font-family:var(--mono);font-size:.82rem;background:var(--card);color:var(--accent2)}
+.cha-in.right{border-color:var(--ok);background:rgba(91,140,90,.14);color:var(--ok)}
+.cha-in.wrong{border-color:var(--miss);background:rgba(177,69,69,.10);color:var(--miss)}
+
+/* ==== ERROR HUNT (sec-13) ==== */
+.err-grid{display:flex;flex-direction:column;gap:8px}
+.err-row{display:flex;align-items:center;gap:12px;background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:10px 14px;flex-wrap:wrap}
+.err-row .err-q{flex:1;font-size:.9rem;color:var(--text);min-width:280px}
+.err-row .err-q .n{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:var(--accent);color:#fff;border-radius:50%;font:800 .66rem/1 var(--mono);margin-right:10px}
+.err-row .err-q u{color:var(--miss);font-weight:700;text-decoration:underline wavy 1px}
+.err-in{padding:6px 10px;border:1.5px solid var(--line);border-radius:6px;font-family:var(--mono);font-size:.82rem;background:var(--card);color:var(--accent2);width:180px}
+.err-in.right{border-color:var(--ok);background:rgba(91,140,90,.14);color:var(--ok)}
+.err-in.wrong{border-color:var(--miss);background:rgba(177,69,69,.10);color:var(--miss)}
+
+/* ==== SIGNAL WORDS BINGO (sec-14) ==== */
+.sig-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:16px}
+@media(max-width:820px){.sig-wrap{grid-template-columns:1fr}}
+.sig-pool{display:flex;flex-wrap:wrap;gap:6px;padding:12px;background:var(--paper);border:1.5px dashed var(--line-2);border-radius:10px;align-content:flex-start}
+.sig-pill{background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:6px 12px;font-family:var(--mono);font-size:.74rem;font-weight:700;cursor:pointer;transition:.18s;color:var(--text)}
+.sig-pill:hover{border-color:var(--accent);background:var(--highlight)}
+.sig-pill.selected{background:var(--gold);border-color:var(--gold-2);color:#1F2937}
+.sig-pill.correct{background:rgba(91,140,90,.20);border-color:var(--ok);color:var(--ok);cursor:default}
+.sig-pill.wrong{background:rgba(177,69,69,.15);border-color:var(--miss);animation:shake .35s}
+.sig-tenses{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.sig-tense{border:2px solid var(--line-2);border-radius:10px;padding:8px 10px;cursor:pointer;min-height:70px;transition:.18s;background:var(--card)}
+.sig-tense:hover{border-color:var(--accent);background:var(--highlight)}
+.sig-tense h4{font-family:var(--mono);font-size:.66rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent2);margin-bottom:6px}
+.sig-drop{display:flex;flex-wrap:wrap;gap:4px}
+.sig-drop .sig-pill{font-size:.66rem;padding:3px 8px;cursor:default}
+
+/* ==== STORY CLOZE (sec-15) ==== */
+.story-cloze{background:linear-gradient(135deg,#4A1F30 0%,#C7355A 60%,#E85D75 100%);color:#FFFCF3;border-radius:14px;padding:20px 24px;font-family:var(--serif);font-size:1rem;line-height:1.9}
+.story-cloze p{margin-bottom:14px}
+.cl-in{padding:4px 10px;border:1.5px solid rgba(244,196,48,.5);border-radius:6px;font-family:var(--mono);font-size:.82rem;background:rgba(0,0,0,.28);color:#F4C430;font-weight:700;vertical-align:baseline}
+.cl-in::placeholder{color:rgba(244,196,48,.5);font-size:.7rem}
+.cl-in.right{border-color:var(--ok);background:rgba(91,140,90,.35);color:#DFF5DA}
+.cl-in.wrong{border-color:#FFB4B4;background:rgba(177,69,69,.35);color:#FFD8D8}
+.check-bar{display:flex;align-items:center;gap:14px;margin-top:12px}
+.check-bar button{padding:8px 18px;border:1.5px solid var(--accent);border-radius:6px;background:var(--accent);color:#fff;font-family:var(--mono);font-size:.72rem;font-weight:800;letter-spacing:.10em;text-transform:uppercase;cursor:pointer}
+.check-bar button:hover{background:var(--accent2)}
+.check-bar .r{font-family:var(--mono);font-size:.82rem;font-weight:800;color:var(--accent2)}
 </style>
 </head>
 <body>
@@ -384,6 +451,121 @@ footer{width:var(--demo-width);margin:32px auto 20px;padding:16px 22px;border-to
     <p style="font-family:var(--mono);font-size:.78rem;color:var(--muted);margin:8px 0 4px">Fill each gap with <em>going to</em> + verb.</p>
     <div class="diary" id="ex-10"></div>
     <div class="check-bar"><button onclick="checkGap('ex-10')">Check</button><span class="r" id="ex-10-r"></span></div>
+  </div>
+</section>
+
+<!-- ============== 11 · TIMELINE SORT ============== -->
+<section class="section" id="sec-11">
+  <div class="section-hdr"><div class="num">11</div><h2>Timeline Sort · drop each sentence on its floor</h2><span class="tag">🏗 Sort · 9 sentences · 3 floors</span></div>
+  <div class="section-sub">Anna hears voices from every floor of the tower. Read each sentence — click a pill, then click the correct floor. Past · Present · Future.</div>
+  <div class="card">
+    <div class="tl-wrap">
+      <div class="tl-pool" id="tl-pool">
+        <button class="tl-pill" data-w="pres">She usually drinks tea in the morning.</button>
+        <button class="tl-pill" data-w="pres-c">Look — the cat is sleeping on the book.</button>
+        <button class="tl-pill" data-w="past">Yesterday Anna opened the silver door.</button>
+        <button class="tl-pill" data-w="past-c">While she was reading, the wind blew the candle out.</button>
+        <button class="tl-pill" data-w="fut-will">I promise I will write to you tomorrow.</button>
+        <button class="tl-pill" data-w="fut-going">Look at those clouds — it is going to rain.</button>
+        <button class="tl-pill" data-w="pres">Water boils at one hundred degrees.</button>
+        <button class="tl-pill" data-w="past">The clock struck twelve and the lights went out.</button>
+        <button class="tl-pill" data-w="fut-will">I think it will snow this weekend.</button>
+      </div>
+      <div class="tl-floors">
+        <div class="tl-floor past" data-floor="past-any"><h4>🟡 Past floor</h4><div class="tl-drop"></div></div>
+        <div class="tl-floor present" data-floor="pres-any"><h4>🌸 Present floor</h4><div class="tl-drop"></div></div>
+        <div class="tl-floor future" data-floor="fut-any"><h4>🪸 Future floor</h4><div class="tl-drop"></div></div>
+      </div>
+    </div>
+    <script id="tl-answers" type="application/json">{"pres":"pres-any","pres-c":"pres-any","past":"past-any","past-c":"past-any","fut-will":"fut-any","fut-going":"fut-any"}</script>
+  </div>
+</section>
+
+<!-- ============== 12 · TENSE CHAMELEON ============== -->
+<section class="section" id="sec-12">
+  <div class="section-hdr"><div class="num">12</div><h2>Tense Chameleon · same sentence, three tenses</h2><span class="tag">✏️ Transform · 8 verbs</span></div>
+  <div class="section-sub">Take the base verb. Type it in <em>Past Simple</em>, then in <em>Present Continuous</em>, then in <em>Future will</em>. One verb → three tenses.</div>
+  <div class="card">
+    <table class="chame-table">
+      <thead><tr><th>Base</th><th>Past Simple (yesterday)</th><th>Present Continuous (now)</th><th>Future will (tomorrow)</th></tr></thead>
+      <tbody>
+        <tr><td><b>write</b></td><td><input class="cha-in" data-a="wrote"></td><td><input class="cha-in" data-a="am writing" placeholder="am / is / are + ...ing"></td><td><input class="cha-in" data-a="will write"></td></tr>
+        <tr><td><b>go</b></td><td><input class="cha-in" data-a="went"></td><td><input class="cha-in" data-a="am going"></td><td><input class="cha-in" data-a="will go"></td></tr>
+        <tr><td><b>read</b></td><td><input class="cha-in" data-a="read"></td><td><input class="cha-in" data-a="am reading"></td><td><input class="cha-in" data-a="will read"></td></tr>
+        <tr><td><b>take</b></td><td><input class="cha-in" data-a="took"></td><td><input class="cha-in" data-a="am taking"></td><td><input class="cha-in" data-a="will take"></td></tr>
+        <tr><td><b>see</b></td><td><input class="cha-in" data-a="saw"></td><td><input class="cha-in" data-a="am seeing"></td><td><input class="cha-in" data-a="will see"></td></tr>
+        <tr><td><b>run</b></td><td><input class="cha-in" data-a="ran"></td><td><input class="cha-in" data-a="am running"></td><td><input class="cha-in" data-a="will run"></td></tr>
+        <tr><td><b>make</b></td><td><input class="cha-in" data-a="made"></td><td><input class="cha-in" data-a="am making"></td><td><input class="cha-in" data-a="will make"></td></tr>
+        <tr><td><b>find</b></td><td><input class="cha-in" data-a="found"></td><td><input class="cha-in" data-a="am finding"></td><td><input class="cha-in" data-a="will find"></td></tr>
+      </tbody>
+    </table>
+    <div class="check-bar"><button onclick="checkChame()">Check all</button><span class="r" id="cha-r"></span></div>
+  </div>
+</section>
+
+<!-- ============== 13 · ERROR HUNT ============== -->
+<section class="section" id="sec-13">
+  <div class="section-hdr"><div class="num">13</div><h2>Error Hunt · fix the wrong tense</h2><span class="tag">🔍 6 sentences · type correction</span></div>
+  <div class="section-sub">Each sentence hides a verb in the wrong tense. Read the time marker · rewrite the underlined verb in the correct form.</div>
+  <div class="card">
+    <div class="err-grid">
+      <div class="err-row"><div class="err-q"><span class="n">1</span>Yesterday Anna <u>goes</u> to the market with her cat.</div><input class="err-in" data-a="went" placeholder="past simple"></div>
+      <div class="err-row"><div class="err-q"><span class="n">2</span>Look! It <u>rains</u> outside right now.</div><input class="err-in" data-a="is raining" placeholder="present continuous"></div>
+      <div class="err-row"><div class="err-q"><span class="n">3</span>Tomorrow I <u>see</u> my grandmother at three.</div><input class="err-in" data-a="will see" placeholder="future will"></div>
+      <div class="err-row"><div class="err-q"><span class="n">4</span>Every morning she <u>is drinking</u> coffee with honey.</div><input class="err-in" data-a="drinks" placeholder="present simple"></div>
+      <div class="err-row"><div class="err-q"><span class="n">5</span>Look at those dark clouds — it <u>will</u> rain any second.</div><input class="err-in" data-a="is going to" placeholder="going to"></div>
+      <div class="err-row"><div class="err-q"><span class="n">6</span>While Anna <u>read</u>, the candle burnt down.</div><input class="err-in" data-a="was reading" placeholder="past continuous"></div>
+    </div>
+    <div class="check-bar"><button onclick="checkErr()">Check errors</button><span class="r" id="err-r"></span></div>
+  </div>
+</section>
+
+<!-- ============== 14 · SIGNAL WORDS BINGO ============== -->
+<section class="section" id="sec-14">
+  <div class="section-hdr"><div class="num">14</div><h2>Signal Words Bingo · which tense does each marker call?</h2><span class="tag">🎴 15 markers · 6 tenses</span></div>
+  <div class="section-sub">Time markers are the sirens of the tower. Each one calls one tense. Click the marker, then click its tense.</div>
+  <div class="card">
+    <div class="sig-wrap">
+      <div class="sig-pool" id="sig-pool">
+        <button class="sig-pill" data-w="past-s">yesterday</button>
+        <button class="sig-pill" data-w="past-c">while</button>
+        <button class="sig-pill" data-w="pres-s">every day</button>
+        <button class="sig-pill" data-w="pres-c">right now</button>
+        <button class="sig-pill" data-w="fut-w">next week</button>
+        <button class="sig-pill" data-w="fut-g">look — it's about to</button>
+        <button class="sig-pill" data-w="past-s">in 2019</button>
+        <button class="sig-pill" data-w="past-c">as I was walking</button>
+        <button class="sig-pill" data-w="pres-s">usually</button>
+        <button class="sig-pill" data-w="pres-c">at the moment</button>
+        <button class="sig-pill" data-w="fut-w">I promise</button>
+        <button class="sig-pill" data-w="fut-g">already planned</button>
+        <button class="sig-pill" data-w="past-s">two days ago</button>
+        <button class="sig-pill" data-w="pres-s">on Mondays</button>
+        <button class="sig-pill" data-w="pres-c">this term</button>
+      </div>
+      <div class="sig-tenses">
+        <div class="sig-tense" data-t="past-s"><h4>Past Simple</h4><div class="sig-drop"></div></div>
+        <div class="sig-tense" data-t="past-c"><h4>Past Continuous</h4><div class="sig-drop"></div></div>
+        <div class="sig-tense" data-t="pres-s"><h4>Present Simple</h4><div class="sig-drop"></div></div>
+        <div class="sig-tense" data-t="pres-c"><h4>Present Continuous</h4><div class="sig-drop"></div></div>
+        <div class="sig-tense" data-t="fut-w"><h4>Future will</h4><div class="sig-drop"></div></div>
+        <div class="sig-tense" data-t="fut-g"><h4>Future going to</h4><div class="sig-drop"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== 15 · THE GOLDEN HOUR ============== -->
+<section class="section" id="sec-15">
+  <div class="section-hdr"><div class="num">15</div><h2>The Golden Hour · story cloze · all 6 tenses</h2><span class="tag">📖 Story · 10 gaps · mixed</span></div>
+  <div class="section-sub">A second dream. Anna returns to the tower at sunset. Ten verbs live in gaps — put each in the right tense.</div>
+  <div class="card">
+    <div class="story-cloze">
+      <p>Anna <input class="cl-in" data-a="was walking" size="12" placeholder="past cont"> across the tower's yard when the last golden clock <input class="cl-in" data-a="struck" size="8" placeholder="past simple"> six. The sky <input class="cl-in" data-a="was" size="6" placeholder="past be"> pink and heavy with clouds. She <input class="cl-in" data-a="knew" size="8" placeholder="past simple"> that another dream was starting.</p>
+      <p>«Every evening the tower <input class="cl-in" data-a="opens" size="8" placeholder="pres simple"> its highest room,» a small voice whispered. Anna <input class="cl-in" data-a="looked" size="8" placeholder="past simple"> up. A tiny owl <input class="cl-in" data-a="was flying" size="12" placeholder="past cont"> in circles above the roof.</p>
+      <p>«Tomorrow I <input class="cl-in" data-a="will bring" size="12" placeholder="future will"> you a key,» said the owl, «but only if it <input class="cl-in" data-a="is not raining" size="14" placeholder="pres cont neg"> at dawn.» Anna smiled. «Look at those clouds — it <input class="cl-in" data-a="is going to rain" size="16" placeholder="going to"> tonight for sure.»</p>
+    </div>
+    <div class="check-bar"><button onclick="checkStoryCloze()">Check story</button><span class="r" id="cl-r"></span></div>
   </div>
 </section>
 
@@ -712,6 +894,114 @@ function checkGap(id){
     if(alts.includes(v)){i.classList.add('right');ok++;} else i.classList.add('wrong');
   });
   document.getElementById(id+'-r').textContent=`${ok} / ${ins.length}`;
+}
+
+/* TIMELINE SORT (sec-11) */
+(() => {
+  const ansMap = JSON.parse(document.getElementById('tl-answers').textContent);
+  const pool = document.getElementById('tl-pool');
+  if (!pool) return;
+  let sel = null;
+  pool.querySelectorAll('.tl-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      if (pill.classList.contains('correct')) return;
+      if (sel === pill) { pill.classList.remove('selected'); sel = null; return; }
+      if (sel) sel.classList.remove('selected');
+      sel = pill; pill.classList.add('selected');
+    });
+  });
+  document.querySelectorAll('.tl-floor').forEach(floor => {
+    floor.addEventListener('click', () => {
+      if (!sel) return;
+      const want = ansMap[sel.dataset.w];
+      if (floor.dataset.floor === want) {
+        sel.classList.remove('selected');
+        sel.classList.add('correct');
+        floor.querySelector('.tl-drop').appendChild(sel);
+        sel = null;
+      } else {
+        sel.classList.add('wrong');
+        const bad = sel;
+        setTimeout(() => bad.classList.remove('wrong'), 400);
+      }
+    });
+  });
+})();
+
+/* TENSE CHAMELEON (sec-12) */
+function checkChame() {
+  const ins = document.querySelectorAll('.cha-in');
+  let ok = 0;
+  ins.forEach(inp => {
+    const v = (inp.value || '').trim().toLowerCase().replace(/\s+/g,' ');
+    const a = (inp.dataset.a || '').trim().toLowerCase();
+    inp.classList.remove('right','wrong');
+    if (v === a) { inp.classList.add('right'); ok++; }
+    else if (v) inp.classList.add('wrong');
+  });
+  const r = document.getElementById('cha-r');
+  if (r) r.textContent = `${ok} / ${ins.length}`;
+}
+
+/* ERROR HUNT (sec-13) */
+function checkErr() {
+  const ins = document.querySelectorAll('.err-in');
+  let ok = 0;
+  ins.forEach(inp => {
+    const v = (inp.value || '').trim().toLowerCase().replace(/\s+/g,' ');
+    const a = (inp.dataset.a || '').trim().toLowerCase();
+    inp.classList.remove('right','wrong');
+    if (v === a) { inp.classList.add('right'); ok++; }
+    else if (v) inp.classList.add('wrong');
+  });
+  const r = document.getElementById('err-r');
+  if (r) r.textContent = `${ok} / ${ins.length}`;
+}
+
+/* SIGNAL WORDS BINGO (sec-14) */
+(() => {
+  const pool = document.getElementById('sig-pool');
+  if (!pool) return;
+  let sel = null;
+  pool.querySelectorAll('.sig-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      if (pill.classList.contains('correct')) return;
+      if (sel === pill) { pill.classList.remove('selected'); sel = null; return; }
+      if (sel) sel.classList.remove('selected');
+      sel = pill; pill.classList.add('selected');
+    });
+  });
+  document.querySelectorAll('.sig-tense').forEach(tense => {
+    tense.addEventListener('click', () => {
+      if (!sel) return;
+      const want = sel.dataset.w;
+      if (tense.dataset.t === want) {
+        sel.classList.remove('selected');
+        sel.classList.add('correct');
+        tense.querySelector('.sig-drop').appendChild(sel);
+        sel = null;
+      } else {
+        sel.classList.add('wrong');
+        const bad = sel;
+        setTimeout(() => bad.classList.remove('wrong'), 400);
+      }
+    });
+  });
+})();
+
+/* STORY CLOZE (sec-15) */
+function checkStoryCloze() {
+  const ins = document.querySelectorAll('.cl-in');
+  let ok = 0;
+  ins.forEach(inp => {
+    const v = (inp.value || '').trim().toLowerCase().replace(/\s+/g,' ');
+    const a = (inp.dataset.a || '').trim().toLowerCase();
+    inp.classList.remove('right','wrong');
+    if (v === a) { inp.classList.add('right'); ok++; }
+    else if (v) inp.classList.add('wrong');
+  });
+  const r = document.getElementById('cl-r');
+  if (r) r.textContent = `${ok} / ${ins.length}`;
 }
 </script>
 </body>
