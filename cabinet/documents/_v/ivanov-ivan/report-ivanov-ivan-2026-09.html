@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Иван Иванов · итоги сентября 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --cream:#EFEEE9;
+    --cream-soft:#F4F3EE;
+    --orange:#E8542B;
+    --orange-soft:#F0A86A;
+    --gold:#F4C84B;
+    --ink:#1F1F1F;
+    --ink-2:#2C2C2C;
+    --muted:#8B8B8B;
+    --muted-2:#A8A6A0;
+    --rule:#D9D7D2;
+    --footer-bg:#F1F0EB;
+    --ok:#3F6B3A;
+    --ok-tint:#F0F7EE;
+    --focus-accent:#B94518;
+    --navy:#0E1B44;
+    --navy-tint:#EFF1F7;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#E8E4F0;color:var(--ink);
+    font-family:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;
+    font-size:15px;line-height:1.55;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .page{
+    width:210mm;min-height:297mm;margin:18px auto;background:var(--bg);
+    box-shadow:0 12px 40px rgba(0,0,0,.10);
+    padding:0 0 28px;
+  }
+  .hero{ background:var(--cream); padding:28px 44px 30px; position:relative; }
+  .hero::after{
+    content:"";position:absolute;left:0;right:0;bottom:0;height:4px;
+    background:linear-gradient(90deg,var(--orange) 0%, var(--orange) 55%, var(--gold) 100%);
+  }
+  .brandline{display:flex;align-items:center;gap:12px;margin-bottom:6px;}
+  .logo{
+    width:38px;height:38px;border-radius:9px 0 9px 9px;background:var(--orange);
+    color:white;font-weight:800;font-family:"Manrope",sans-serif;
+    font-size:22px;display:grid;place-items:center;line-height:1;
+    box-shadow:0 2px 4px rgba(232,84,43,.25);
+    position:relative;overflow:hidden;
+  }
+  .logo::after{
+    content:"";position:absolute;top:0;right:0;
+    width:11px;height:11px;background:#fff;
+    clip-path:polygon(100% 0, 0 0, 100% 100%);
+  }
+  .foot-brand .logo::after{width:9px;height:9px;}
+  .brand-name{font-weight:800;letter-spacing:.06em;font-size:14.5px;color:var(--ink);}
+  .brand-sub{font-size:11px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;font-weight:500;margin-top:2px;}
+  .kicker{margin-top:16px;font-size:11px;letter-spacing:.22em;color:var(--orange);text-transform:uppercase;font-weight:700;}
+  h1.name{
+    font-family:"Manrope","Inter",sans-serif;
+    font-weight:800;font-size:42px;line-height:1.05;margin:6px 0 4px;color:var(--ink);
+    letter-spacing:-.01em;
+  }
+  .subtitle{font-size:14px;color:var(--ink-2);margin:0;}
+  .meta{padding:22px 44px 6px; display:grid; grid-template-columns:repeat(3,1fr); gap:18px 22px;}
+  .meta dt{font-size:10.5px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;font-weight:600;margin-bottom:3px;}
+  .meta dd{margin:0;font-size:14.5px;font-weight:700;color:var(--ink);}
+  .meta-rule{margin:18px 44px 8px;border:0;height:1px;background:var(--rule);}
+  .body{padding:14px 44px 8px;}
+  .body p{margin:0 0 12px;}
+  .body p strong{font-weight:700;}
+  h2{
+    font-family:"Inter",sans-serif;
+    font-size:15.5px;font-weight:700;color:var(--ink);
+    margin:22px 0 10px;padding-left:12px;position:relative;
+  }
+  h2::before{content:"";position:absolute;left:0;top:3px;bottom:3px;width:4px;background:var(--orange);border-radius:2px;}
+  ul.bul{list-style:none;padding:0;margin:0 0 12px;}
+  ul.bul li{position:relative;padding:4px 0 4px 22px;margin:0;}
+  ul.bul li::before{content:"";position:absolute;left:4px;top:13px;width:7px;height:7px;border-radius:50%;background:var(--orange);}
+  ul.bul li b{color:var(--orange);font-weight:700;margin-right:6px;}
+  ul.bul li em{color:var(--ink-2);font-style:italic;font-weight:500;}
+  table.t{width:100%;border-collapse:collapse;margin:10px 0 14px;font-size:13.5px;}
+  table.t th,table.t td{text-align:left;vertical-align:top;padding:9px 10px;border-bottom:1px solid var(--rule);}
+  table.t th{background:var(--cream-soft);font-weight:700;font-size:11.5px;letter-spacing:.10em;text-transform:uppercase;color:var(--ink-2);}
+  table.t td.w{color:var(--orange);font-weight:700;white-space:nowrap;}
+  table.t td.day{color:var(--muted);font-weight:600;text-transform:lowercase;}
+  table.t td.st-done{color:var(--ok);font-weight:600;}
+  .focus-box{
+    background:var(--cream-soft);
+    border-left:4px solid var(--orange);
+    padding:14px 18px;
+    margin:10px 0 14px;
+    border-radius:0 8px 8px 0;
+  }
+  .focus-box strong{color:var(--orange);}
+  .rule-box{background:var(--navy-tint);border-left:4px solid var(--navy);padding:12px 18px;margin:10px 0 14px;border-radius:0 8px 8px 0;font-size:13.5px;}
+  .rule-box strong{color:var(--navy);}
+  h3{font-size:14px;font-weight:800;color:var(--focus-accent);margin:18px 0 8px;letter-spacing:.02em;}
+  table.t td.en{font-weight:700;color:var(--navy);}
+  code, .kbd{font-family:"JetBrains Mono","Courier New",monospace;font-size:12.5px;background:var(--cream-soft);padding:1px 6px;border-radius:4px;color:var(--navy);}
+  .toc{background:var(--navy-tint);border-radius:10px;padding:14px 18px;margin:10px 0 18px;font-size:13px;}
+  .toc strong{display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--navy);margin-bottom:6px;font-weight:800;}
+  .toc ol{margin:0;padding-left:22px;color:var(--ink-2);}
+  .toc ol li{padding:2px 0;}
+  .mnemo{background:#FFF4E4;border:1px dashed var(--gold);border-radius:10px;padding:10px 14px;margin:10px 0 14px;font-size:13.5px;color:var(--ink-2);}
+  .mnemo strong{color:var(--focus-accent);}
+  .ex{background:#FFF9F3;border-left:3px solid var(--gold);padding:8px 14px;margin:6px 0 12px;font-size:13.5px;border-radius:0 6px 6px 0;}
+  .ex em{color:var(--focus-accent);font-style:italic;}
+  .pill-row{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px;}
+  .pill{font-size:12px;font-weight:600;color:var(--ink-2);background:var(--cream-soft);border:1px solid var(--rule);padding:4px 10px;border-radius:999px;}
+  .pill.good{background:var(--ok-tint);border-color:#CFDFC6;color:var(--ok);}
+  .pill.warn{background:#FEF3E4;border-color:#F0D4A6;color:var(--focus-accent);}
+  .split2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0 16px;}
+  .split2 .col{background:var(--cream-soft);border:1px solid var(--rule);border-radius:10px;padding:12px 14px;}
+  .split2 .col h4{margin:0 0 8px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--focus-accent);font-weight:800;}
+  .split2 .col ul{list-style:none;padding:0;margin:0;}
+  .split2 .col li{position:relative;padding:3px 0 3px 16px;font-size:13px;line-height:1.5;color:var(--ink-2);}
+  .split2 .col li::before{content:"→";position:absolute;left:0;top:3px;color:var(--focus-accent);font-weight:800;font-size:12px;}
+  .section-divider{margin:32px 0 22px;padding:14px 0 10px;border-top:2px solid var(--orange);position:relative;}
+  .section-divider::before{content:"Konspekt · Reference C1";position:absolute;top:-10px;left:0;background:var(--bg);padding:0 12px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);font-weight:700;}
+  .foot{margin:26px 0 0;padding:18px 44px 22px;background:var(--footer-bg);border-top:1px solid var(--rule);}
+  .foot-brand{display:flex;align-items:center;gap:12px;font-weight:700;color:var(--ink);font-size:14.5px;}
+  .foot-brand .logo{width:30px;height:30px;font-size:18px;border-radius:7px 0 7px 7px;}
+  .foot-meta{margin-top:10px;font-size:12px;color:var(--muted);line-height:1.55;}
+  @page{size:A4;margin:0;}
+  @media print{
+    html,body{background:#fff;}
+    .page{box-shadow:none;margin:0;width:210mm;}
+    .hero,.foot,.focus-box,.rule-box{print-color-adjust:exact;-webkit-print-color-adjust:exact;}
+  }
+</style>
+</head>
+<body>
+
+<main class="page">
+
+  <header class="hero">
+    <div class="brandline">
+      <div class="logo">N</div>
+      <div>
+        <div class="brand-name">NEW GENERATION ENGLISH</div>
+        <div class="brand-sub">Maria · Personal Tutor</div>
+      </div>
+    </div>
+    <div class="kicker">Monthly Report · Parent</div>
+    <h1 class="name">Иван Иванов</h1>
+    <p class="subtitle">Отчёт о занятиях за сентябрь 2026</p>
+  </header>
+
+  <dl class="meta">
+    <div><dt>Период</dt><dd>сентябрь 2026</dd></div>
+    <div><dt>Уровень</dt><dd>B2 → C1</dd></div>
+    <div><dt>Формат</dt><dd>индивидуально · 60 мин</dd></div>
+    <div><dt>Расписание</dt><dd>среда</dd></div>
+    <div><dt>Кому</dt><dd>Подлесных Т. А.</dd></div>
+    <div><dt>Абонемент сентябрь</dt><dd>4 из 4 · закрыт</dd></div>
+  </dl>
+  <hr class="meta-rule">
+
+  <section class="body">
+    <p>Татьяна Анатольевна, добрый день!</p>
+
+    <p>За сентябрь мы с Иваном провели <strong>4 урока</strong>. Основная фокусировка — подготовка к ЕГЭ и олимпиаде.</p>
+
+    <h2>Календарь занятий — сентябрь (4 урока)</h2>
+    <table class="t">
+      <thead>
+        <tr><th>№</th><th>Дата</th><th>Тема</th><th>Статус</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="w">1</td>
+          <td class="w">17 сентября</td>
+          <td>Олимпиада по английскому — подготовка и разбор</td>
+          <td class="st-done">✓ проведено</td>
+        </tr>
+        <tr>
+          <td class="w">2</td>
+          <td class="w">22 сентября</td>
+          <td>🇷🇺 Russian History · ЕГЭ 2026 · Exam Simulator</td>
+          <td class="st-done">✓ проведено</td>
+        </tr>
+        <tr>
+          <td class="w">3</td>
+          <td class="w">23 сентября</td>
+          <td>Russian History · Exam Simulator (второй проход)</td>
+          <td class="st-done">✓ проведено</td>
+        </tr>
+        <tr>
+          <td class="w">4</td>
+          <td class="w">24 сентября</td>
+          <td>🗣 Разговорная практика · беседа</td>
+          <td class="st-done">✓ проведено</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Что прошли</h2>
+    <ul class="bul">
+      <li><b>Олимпиадная подготовка</b> — разбор заданий олимпиадного формата, работа с формальным регистром.</li>
+      <li><b>ЕГЭ · устная часть</b> — симулятор Russian History Exam: два прохода, работа над скоростью и содержанием ответов, разбор ошибок.</li>
+      <li><b>Разговорная практика</b> — свободная беседа, работа над естественностью речи и лексикой.</li>
+    </ul>
+
+    <h2>Октябрь · план · персональный C1-блок</h2>
+    <div class="focus-box">
+      <p style="margin:0"><strong>Персональный C1-блок для Ивана</strong> — stretch выше текущего B2, готовит к письменной части ЕГЭ и олимпиадным сочинениям. Урок и конспект-опора уже подготовлены и добавлены в кабинет.</p>
+    </div>
+
+    <ul class="bul">
+      <li><b>Adjective → Noun</b> — 4 суффиксные модели для формального регистра: long → length, strong → strength, wide → width, deep → depth, high → height, patient → patience, important → importance.</li>
+      <li><b>Measurements</b> — как правильно описывать габариты людей, вещей и зданий; метрические и имперские единицы; порядок «число + adjective».</li>
+      <li><b>Comparisons</b> — русская конструкция «на 10 см выше» → английская без предлога: <em>10 cm taller than me</em> (а не «by 10 cm»); степени разницы (much / slightly / a head / twice as … as).</li>
+      <li><b>Тонкие пары</b> — broad vs wide (broad shoulders / a wide corridor); deep vs thick (deep water / thick wall).</li>
+      <li><b>OSASCOMP</b> — порядок прилагательных перед существительным.</li>
+    </ul>
+
+    <div class="rule-box">
+      <strong>Материалы в кабинете:</strong><br>
+      · Интерактивный урок C1 · L1 — <em>Adjective → Noun · Measurements · Comparisons</em> (8 секций упражнений)<br>
+      · Конспект-опора — полный справочник со всеми правилами, таблицами и примерами (готово к печати в PDF)
+    </div>
+
+    <p style="margin-top:18px">Все материалы уроков доступны в личном кабинете Ивана. Ниже — полный конспект-опора.</p>
+
+    <div class="section-divider"></div>
+
+    <h1 style="font-family:'Manrope',sans-serif;font-weight:800;font-size:28px;line-height:1.15;margin:14px 0 4px;color:var(--ink);letter-spacing:-.01em;">Adjective → Noun · Measurements · Comparisons</h1>
+    <p style="font-size:14px;color:var(--ink-2);margin-bottom:16px;">Как переводить свойство в существительное, как измерять и как сравнивать людей, вещи и здания на английском.</p>
+
+    <div class="toc">
+      <strong>Оглавление</strong>
+      <ol>
+        <li>Adjective → Noun · четыре суффиксные модели</li>
+        <li>Dimensions — шесть базовых свойств объекта</li>
+        <li>Units — метрические и имперские единицы</li>
+        <li>Как говорить о людях (рост, комплекция, возраст)</li>
+        <li>Как говорить о вещах (порядок прилагательных · OSASCOMP)</li>
+        <li>Как говорить о зданиях</li>
+        <li>Сравнения (comparative · superlative · as … as · степень)</li>
+        <li>Broad vs Wide · Deep vs Thick — тонкие пары</li>
+      </ol>
+    </div>
+
+    <h2>1 · Adjective → Noun · четыре модели</h2>
+    <p>В английском есть системная пара <strong>прилагательное → абстрактное существительное</strong>. Модель определяется историей слова: одни через <code>-th</code> (германская линия) с переходом гласной, другие через <code>-ness</code>, <code>-ity</code>, <code>-ance / -ence</code>.</p>
+
+    <h3>1.1 · Через <code>-th</code> (внутренняя гласная меняется)</h3>
+    <table class="t">
+      <thead><tr><th style="width:26%">Adjective</th><th style="width:28%">Noun</th><th>Русский</th></tr></thead>
+      <tbody>
+        <tr><td class="en">long</td><td class="w">length</td><td>длина</td></tr>
+        <tr><td class="en">strong</td><td class="w">strength</td><td>сила</td></tr>
+        <tr><td class="en">wide</td><td class="w">width</td><td>ширина</td></tr>
+        <tr><td class="en">deep</td><td class="w">depth</td><td>глубина</td></tr>
+        <tr><td class="en">high</td><td class="w">height</td><td>высота (произносится /haɪt/, без -th!)</td></tr>
+        <tr><td class="en">broad</td><td class="w">breadth</td><td>ширина (книжн., ср. Shakespeare)</td></tr>
+        <tr><td class="en">warm</td><td class="w">warmth</td><td>тепло</td></tr>
+        <tr><td class="en">true</td><td class="w">truth</td><td>правда</td></tr>
+        <tr><td class="en">young</td><td class="w">youth</td><td>молодость</td></tr>
+        <tr><td class="en">dry</td><td class="w">drought</td><td>засуха (нерегулярно, произносится /draʊt/)</td></tr>
+      </tbody>
+    </table>
+
+    <h3>1.2 · Через <code>-ness</code></h3>
+    <table class="t">
+      <thead><tr><th style="width:30%">Adjective</th><th style="width:30%">Noun</th><th>Комментарий</th></tr></thead>
+      <tbody>
+        <tr><td class="en">happy</td><td class="w">happiness</td><td>y → i перед суффиксом</td></tr>
+        <tr><td class="en">kind</td><td class="w">kindness</td><td>&nbsp;</td></tr>
+        <tr><td class="en">dark</td><td class="w">darkness</td><td>&nbsp;</td></tr>
+        <tr><td class="en">soft</td><td class="w">softness</td><td>&nbsp;</td></tr>
+        <tr><td class="en">bitter</td><td class="w">bitterness</td><td>&nbsp;</td></tr>
+        <tr><td class="en">tall</td><td class="w">tallness</td><td>редко; для роста — <em>height</em></td></tr>
+      </tbody>
+    </table>
+
+    <h3>1.3 · Через <code>-ity</code> / <code>-ty</code></h3>
+    <table class="t">
+      <thead><tr><th style="width:30%">Adjective</th><th style="width:30%">Noun</th><th>Русский</th></tr></thead>
+      <tbody>
+        <tr><td class="en">stupid</td><td class="w">stupidity</td><td>глупость</td></tr>
+        <tr><td class="en">curious</td><td class="w">curiosity</td><td>любопытство</td></tr>
+        <tr><td class="en">pure</td><td class="w">purity</td><td>чистота</td></tr>
+        <tr><td class="en">safe</td><td class="w">safety</td><td>безопасность</td></tr>
+        <tr><td class="en">honest</td><td class="w">honesty</td><td>честность</td></tr>
+        <tr><td class="en">able</td><td class="w">ability</td><td>способность</td></tr>
+      </tbody>
+    </table>
+
+    <h3>1.4 · Через <code>-ance</code> / <code>-ence</code></h3>
+    <table class="t">
+      <thead><tr><th style="width:30%">Adjective</th><th style="width:30%">Noun</th><th>Русский</th></tr></thead>
+      <tbody>
+        <tr><td class="en">important</td><td class="w">importance</td><td>важность</td></tr>
+        <tr><td class="en">patient</td><td class="w">patience</td><td>терпение</td></tr>
+        <tr><td class="en">distant</td><td class="w">distance</td><td>расстояние</td></tr>
+        <tr><td class="en">silent</td><td class="w">silence</td><td>тишина</td></tr>
+        <tr><td class="en">different</td><td class="w">difference</td><td>разница</td></tr>
+      </tbody>
+    </table>
+
+    <div class="rule-box">
+      <strong>Правило C1:</strong> для формального регистра (эссе, отчёт, презентация) используй существительное вместо прилагательного: <em>«She is patient» → «Her patience is remarkable»</em>. Это делает речь плотнее и academic-звучнее.
+    </div>
+
+    <div class="mnemo">
+      <strong>Мнемоника:</strong> суффикс диктует модель. <code>-th</code> — базовые физические свойства (long, wide, deep, high, warm). <code>-ness</code> — качества характера (kind, happy). <code>-ity</code> — латинские корни (curious, honest). <code>-ance/-ence</code> — от глаголов и причастий (important, patient).
+    </div>
+
+    <h2>2 · Dimensions — шесть базовых свойств</h2>
+    <p>У любого физического объекта — шесть измеримых свойств. Каждое имеет свою пару <em>adjective + noun</em> и свой вопрос.</p>
+
+    <table class="t">
+      <thead><tr><th>Свойство</th><th>Adjective</th><th>Noun</th><th>Вопрос</th></tr></thead>
+      <tbody>
+        <tr><td>высота</td><td class="en">tall / high</td><td class="w">height</td><td>How tall/high is …?</td></tr>
+        <tr><td>длина</td><td class="en">long</td><td class="w">length</td><td>How long is …?</td></tr>
+        <tr><td>ширина</td><td class="en">wide / broad</td><td class="w">width / breadth</td><td>How wide is …?</td></tr>
+        <tr><td>глубина</td><td class="en">deep</td><td class="w">depth</td><td>How deep is …?</td></tr>
+        <tr><td>толщина</td><td class="en">thick</td><td class="w">thickness</td><td>How thick is …?</td></tr>
+        <tr><td>вес</td><td class="en">heavy</td><td class="w">weight</td><td>How heavy is …? / How much does it weigh?</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Три конструкции описания</h3>
+    <div class="ex">
+      <b>1 · Adjective structure</b> — цифра идёт <strong>перед</strong> прилагательным.<br>
+      <em>The river is 200 metres long.</em><br>
+      <em>The wall is 3 metres thick.</em><br>
+      <em>He is 1.85 metres tall.</em>
+    </div>
+    <div class="ex">
+      <b>2 · Noun structure</b> — через глагол have.<br>
+      <em>The river has a length of 200 metres.</em><br>
+      <em>The tower has a height of 340 metres.</em>
+    </div>
+    <div class="ex">
+      <b>3 · Formal noun structure</b> — с «the … of».<br>
+      <em>The length of the river is 200 metres.</em><br>
+      <em>The depth of the pool is 3 metres.</em>
+    </div>
+
+    <div class="focus-box">
+      Для <strong>tall vs high</strong>: про людей и деревья — только <em>tall</em>. Про горы, здания, стены, полки — можно и <em>tall</em>, и <em>high</em>, но <em>high</em> чаще про то, что находится над чем-то, а <em>tall</em> — про вертикальный габарит: <em>a tall building</em> (высокое) · <em>a high shelf</em> (полка высоко от пола).
+    </div>
+
+    <h2>3 · Units — метрические и имперские</h2>
+
+    <div class="split2">
+      <div class="col">
+        <h4>Метрические (весь мир, наука)</h4>
+        <ul>
+          <li>millimetre / centimetre / metre / kilometre — mm / cm / m / km</li>
+          <li>gram / kilogram / tonne — g / kg / t</li>
+          <li>millilitre / litre — ml / l</li>
+          <li>square metre, cubic metre — m², m³</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Имперские (US, часть UK)</h4>
+        <ul>
+          <li>inch (2.54 cm) — 12 inches = 1 foot</li>
+          <li>foot / feet (30.48 cm) — 3 feet = 1 yard</li>
+          <li>yard (0.914 m)</li>
+          <li>mile (1.609 km)</li>
+          <li>ounce / pound — oz / lb (16 oz = 1 lb)</li>
+          <li>stone (UK, вес человека) — 1 stone = 14 lb ≈ 6.35 kg</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rule-box">
+      <strong>Разговорный контекст:</strong> в UK и US рост говорят <em>в футах и дюймах</em>: <em>«I'm five foot ten»</em> = 5'10" ≈ 178 см. Вес человека в UK — <em>в stones</em>: <em>«I weigh eleven stone»</em>. В US вес — в pounds: <em>«I weigh 160 pounds»</em>.
+    </div>
+
+    <h2>4 · Как говорить о людях</h2>
+
+    <h3>4.1 · Рост</h3>
+    <div class="ex">
+      <em>How tall are you?</em> — сколько роста<br>
+      <em>I'm 1.78 metres.</em> / <em>I'm five foot ten.</em> / <em>She's about 170 centimetres.</em><br>
+      <em>He's tall / short / of average height / of medium height.</em>
+    </div>
+
+    <h3>4.2 · Комплекция (build)</h3>
+    <div class="pill-row">
+      <span class="pill good">slim / slender · стройный</span>
+      <span class="pill">thin · худой (нейтр., может звучать негативно)</span>
+      <span class="pill warn">skinny · тощий (негативно)</span>
+      <span class="pill good">well-built / athletic / muscular · атлетичный</span>
+      <span class="pill">stocky · коренастый</span>
+      <span class="pill warn">overweight / heavy / plump · с лишним весом (мягкие)</span>
+    </div>
+    <p class="ex"><em>He is of medium build.</em> — среднего телосложения.</p>
+
+    <h3>4.3 · Возраст</h3>
+    <div class="ex">
+      <em>She's in her thirties.</em> — ей за 30<br>
+      <em>He's a middle-aged man.</em> — средних лет<br>
+      <em>She's elderly.</em> — пожилая (вежливее чем <em>old</em>)<br>
+      <em>He's in his late forties / early fifties.</em> — под 50 / чуть за 50
+    </div>
+
+    <h2>5 · Как говорить о вещах</h2>
+    <table class="t">
+      <thead><tr><th>Вопрос</th><th>Смысл</th></tr></thead>
+      <tbody>
+        <tr><td class="en">What's it made of?</td><td>Из чего сделано (материал)</td></tr>
+        <tr><td class="en">What size is it?</td><td>Размер</td></tr>
+        <tr><td class="en">What shape is it?</td><td>Форма (round · square · rectangular · oval · triangular)</td></tr>
+        <tr><td class="en">What does it look like?</td><td>Как выглядит</td></tr>
+        <tr><td class="en">How much does it weigh?</td><td>Сколько весит</td></tr>
+        <tr><td class="en">What's it for?</td><td>Для чего</td></tr>
+      </tbody>
+    </table>
+
+    <h3>5.1 · Порядок прилагательных · OSASCOMP</h3>
+    <div class="rule-box">
+      <strong>OSASCOMP:</strong> <em>Opinion → Size → Age → Shape → Colour → Origin → Material → Purpose</em>.
+    </div>
+    <div class="ex">
+      <em>a <b>beautiful</b> <b>small</b> <b>old</b> <b>round</b> <b>wooden</b> picture frame</em><br>
+      (opinion · size · age · shape · material · noun)
+    </div>
+
+    <h2>6 · Как говорить о зданиях</h2>
+
+    <h3>6.1 · Габариты</h3>
+    <div class="ex">
+      <em>How tall is the tower?</em> — про высоту вертикальных сооружений<br>
+      <em>How high is the ceiling?</em> — про потолок (высота внутри)<br>
+      <em>The building is 12 storeys high.</em> — 12 этажей<br>
+      <em>It's a three-storey house.</em> — attributive: <strong>единственное число!</strong> (нельзя «three storeys house»)<br>
+      <em>The floor space is 200 square metres.</em> — площадь пола<br>
+      <em>The building dates back to the 18th century.</em> — возраст
+    </div>
+
+    <h3>6.2 · Типы зданий</h3>
+    <div class="pill-row">
+      <span class="pill">skyscraper · небоскрёб</span>
+      <span class="pill">high-rise · многоэтажка</span>
+      <span class="pill">low-rise · малоэтажная</span>
+      <span class="pill">detached house · отдельный дом</span>
+      <span class="pill">semi-detached · полудвойник</span>
+      <span class="pill">terraced house · таунхаус в ряду</span>
+      <span class="pill">bungalow · одноэтажный</span>
+      <span class="pill">cottage · коттедж</span>
+      <span class="pill">block of flats · многоквартирник</span>
+    </div>
+
+    <h3>6.3 · Как описать атмосферу</h3>
+    <div class="pill-row">
+      <span class="pill good">spacious · просторный</span>
+      <span class="pill good">cosy · уютный</span>
+      <span class="pill good">bright / airy · светлый / воздушный</span>
+      <span class="pill warn">cramped · тесный</span>
+      <span class="pill warn">stuffy · душный</span>
+      <span class="pill">draughty · сквозняк</span>
+    </div>
+
+    <h2>7 · Сравнения — «выше меня / ниже меня»</h2>
+
+    <div class="rule-box">
+      <strong>Структура:</strong> <code>Subject + be + comparative + than + object pronoun</code>
+    </div>
+
+    <div class="ex">
+      <em>He's taller than me.</em> (разговорно) · <em>He's taller than I am.</em> (формально)<br>
+      <em>She's shorter than her brother.</em><br>
+      <em>The tower is higher than the church.</em>
+    </div>
+
+    <h3>7.1 · Степень разницы</h3>
+    <div class="ex">
+      <em>He's <strong>much</strong> taller than me.</em> — намного<br>
+      <em>He's <strong>a bit / slightly</strong> taller than me.</em> — чуть-чуть<br>
+      <em>He's <strong>a head</strong> taller than me.</em> — на голову<br>
+      <em>He's <strong>10 cm</strong> taller than me.</em> — на 10 см<br>
+      <em>She's <strong>twice as tall as</strong> her son.</em> — в два раза
+    </div>
+
+    <div class="rule-box">
+      <strong>Русская конструкция «на сколько»</strong> — просто число перед comparative, <strong>без предлога</strong>:<br>
+      Он старше меня на 5 лет → <em>He's five years older than me.</em> (<span style="color:#c22">✗ by five years</span>)<br>
+      Он выше меня на 10 см → <em>He's 10 cm taller than me.</em>
+    </div>
+
+    <h3>7.2 · As … as (равенство и отрицание)</h3>
+    <div class="ex">
+      <em>He's as tall as his father.</em> — такого же роста<br>
+      <em>She's not as tall as her sister.</em> — не такая высокая<br>
+      <em>It's not nearly as heavy as it looks.</em> — далеко не такое тяжёлое
+    </div>
+
+    <h3>7.3 · Superlative</h3>
+    <div class="ex">
+      <em>He's the tallest in the class.</em><br>
+      <em>This is the highest building in the city.</em><br>
+      <em>The Amazon is one of the longest rivers in the world.</em>
+    </div>
+
+    <h2>8 · Broad vs Wide · Deep vs Thick — тонкие пары</h2>
+
+    <h3>8.1 · Broad vs Wide</h3>
+    <table class="t">
+      <thead><tr><th style="width:22%">&nbsp;</th><th style="width:39%">wide</th><th>broad</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Что описывает</td>
+          <td>физическое расстояние между двумя краями</td>
+          <td>пространство / масштаб; часто в переносном смысле</td>
+        </tr>
+        <tr>
+          <td>Регистр</td>
+          <td>нейтральный, разговорный</td>
+          <td>формальный / книжный</td>
+        </tr>
+        <tr>
+          <td>Существительное</td>
+          <td class="w">width</td>
+          <td class="w">breadth</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="split2">
+      <div class="col">
+        <h4>Wide · про габарит</h4>
+        <ul>
+          <li>The road is 4 metres wide.</li>
+          <li>She has wide eyes.</li>
+          <li>Open your mouth wide.</li>
+          <li>a wide gap / a wide corridor</li>
+          <li>a wide-open window</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Broad · про идею / плечи / улыбку</h4>
+        <ul>
+          <li>broad shoulders (✗ wide)</li>
+          <li>a broad smile — широкая улыбка</li>
+          <li>broad daylight — средь бела дня</li>
+          <li>a broad range of topics</li>
+          <li>broad agreement / consensus</li>
+          <li>in broad terms — в общих чертах</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rule-box">
+      <strong>Взаимозаменяемы:</strong> a wide/broad river · a wide/broad street.<br>
+      <strong>Не взаимозаменяемы:</strong> broad shoulders (✗ wide) · wide open (✗ broad open) · open wide (✗ open broad).
+    </div>
+
+    <div class="mnemo">
+      <strong>Мнемоника:</strong> <em>wide</em> — физика (метры, окно, дверь). <em>broad</em> — плечи, улыбка, тема, диапазон.
+    </div>
+
+    <h3>8.2 · Deep vs Thick</h3>
+    <div class="split2">
+      <div class="col">
+        <h4>Deep · вглубь / внутрь</h4>
+        <ul>
+          <li>deep water · deep hole · deep well</li>
+          <li>deep voice · deep sleep</li>
+          <li>deep feelings · deep meaning</li>
+          <li>The lake is 40 metres deep.</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h4>Thick · от плоскости к плоскости</h4>
+        <ul>
+          <li>thick wall · thick book · thick glass</li>
+          <li>thick soup · thick hair · thick fog</li>
+          <li>The ice is 2 cm thick.</li>
+          <li>a thick layer of dust</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rule-box">
+      <strong>Ошибки-ловушки:</strong> «стена глубокая» (✗) → <em>thick wall</em> ✓. «Океан толстый» (✗) → <em>deep ocean</em> ✓. «Глубокий свитер» (✗) → <em>thick sweater</em> ✓.
+    </div>
+
+    <h2>Финальная шпаргалка — Iron Rules</h2>
+    <ul class="bul">
+      <li><b>1</b> Число + adjective: <em>10 metres wide, 5 feet tall, 2 kg heavy</em> — число <strong>перед</strong> прилагательным.</li>
+      <li><b>2</b> Attributive noun singular: <em>a three-storey house</em>, <em>a two-hour lesson</em>, <em>a five-year-old boy</em>.</li>
+      <li><b>3</b> Разница между comparatives: <strong>без предлога</strong> — <em>He's 10 cm taller than me</em> (не «by 10 cm»).</li>
+      <li><b>4</b> Для формала: <em>She is patient → Her patience is remarkable</em> (замена adj на noun даёт academic-звучание).</li>
+      <li><b>5</b> Про потолок — <em>high</em>, про здание — <em>tall</em>, про полку — <em>high</em>.</li>
+      <li><b>6</b> Broad для плеч и улыбки, wide для окон и коридоров.</li>
+      <li><b>7</b> Deep — вниз/внутрь, thick — от края до края.</li>
+    </ul>
+
+  </section>
+
+  <footer class="foot">
+    <div class="foot-brand">
+      <div class="logo">N</div>
+      <div>Мария Витальевна Бурцева</div>
+    </div>
+    <div class="foot-meta">
+      New Generation English · Личный кабинет Ивана.<br>
+      Готово к печати: Ctrl/⌘ + P → «Сохранить как PDF».
+    </div>
+  </footer>
+
+</main>
+</body>
+</html>
