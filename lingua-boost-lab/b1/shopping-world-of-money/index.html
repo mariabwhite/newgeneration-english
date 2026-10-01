@@ -361,6 +361,14 @@ footer .foot-line{margin:4px 0}
 
     <div class="info"><strong>My rule:</strong> use at least 5 of the 15 phrases across your 6 answers. Full sentences, no yes/no.</div>
   </div>
+
+  <!-- ── Vocab trainer / отработка словаря ── -->
+  <div class="card" style="margin-top:20px;background:#FFF8EB;border:1px solid #E7D5A6">
+    <h3 style="margin-top:0;color:#6B3E1F">🎯 Словарный тренажёр · вставь пропущенную фразу  <span style="float:right;font-family:monospace;font-size:.75em;color:#8a5520">счёт: <span id="phrases-score">0</span>/15</span></h3>
+    <p class="section-sub" style="margin-top:0">15 предложений с пропуском. Под пропуском — русская подсказка. Печатаем английскую фразу, ответ проверяется на выходе из поля.</p>
+    <div id="phrases-drill" class="wfr2-grid"></div>
+    <div class="info" style="margin-top:14px"><strong>Если застрял:</strong> вернись к карточкам выше, прочти фразу вслух 3 раза, вернись и напиши.</div>
+  </div>
 </section>
 
 <!-- ============================================================
@@ -1074,32 +1082,71 @@ WARMUP.forEach((it, i) => {
 
 /* ============== SECTION 0B · 15 MODERN TEEN SHOPPING & MONEY PHRASES ============== */
 const PHRASES_0B = [
-  {word:'to make a purchase',    pos:'verb',        def:'to buy something (formal / neutral)',                                 ex:"I made a purchase yesterday that I already regret."},
-  {word:'impulse buy',           pos:'noun',        def:"something you buy suddenly, without planning",                        ex:'These sunglasses were a total impulse buy.'},
-  {word:'to save up for',        pos:'phr. verb',   def:'to gradually put money aside for a specific goal',                    ex:"I'm saving up for a new phone."},
-  {word:'to splash out on',      pos:'phr. verb',   def:'to spend a lot of money on something not really necessary',           ex:'She splashed out on a designer handbag for her birthday.'},
-  {word:'a bargain',             pos:'noun',        def:"something you buy at a very good price",                              ex:"These trainers were a real bargain — 60% off."},
-  {word:'a rip-off',             pos:'noun (info)', def:"something too expensive for what it is",                              ex:"Fifteen pounds for a cup of coffee? What a rip-off."},
-  {word:'to break the bank',     pos:'idiom',       def:"to cost more money than you have / can afford",                       ex:"A weekend in Paris won't exactly break the bank if we book early."},
-  {word:'pocket money',          pos:'noun',        def:"a small allowance parents give a child every week",                   ex:"My little brother spends all his pocket money on stickers."},
-  {word:'to be strapped for cash', pos:'idiom',     def:"to have very little money at the moment",                             ex:"Sorry, I can't join tonight — I'm a bit strapped for cash."},
-  {word:'to shop around',        pos:'phr. verb',   def:"to compare prices at several shops before you buy",                   ex:"Always shop around before you buy a laptop."},
-  {word:'to try (something) on', pos:'phr. verb',   def:'to put clothes on in a shop to see if they fit',                      ex:"May I try these jeans on?"},
-  {word:'sale / on sale',        pos:'noun',        def:"a period when prices are lower than usual",                           ex:"The winter sale starts on the 26th of December."},
-  {word:'discount / reduction',  pos:'noun',        def:"an amount of money taken off the normal price",                       ex:"Is there any discount for students?"},
-  {word:'contactless',           pos:'adj.',        def:"paying with a card or phone by tapping",                              ex:"Contactless, please — I'm in a hurry."},
-  {word:'to be worth every penny', pos:'idiom',     def:"to be so good that the price is justified",                           ex:"That leather jacket was expensive, but it's worth every penny."}
+  {word:'to make a purchase',      pos:'verb',        ipa:'/tə meɪk ə ˈpɜːtʃəs/',       ru:'совершить покупку',                       def:'to buy something (formal / neutral)',                             ex:"I made a purchase yesterday that I already regret."},
+  {word:'impulse buy',             pos:'noun',        ipa:'/ˈɪmpʌls baɪ/',              ru:'спонтанная покупка · «импульсивка»',      def:"something you buy suddenly, without planning",                    ex:'These sunglasses were a total impulse buy.'},
+  {word:'to save up for',          pos:'phr. verb',   ipa:'/tə seɪv ʌp fə(r)/',         ru:'копить на (что-то)',                      def:'to gradually put money aside for a specific goal',                ex:"I'm saving up for a new phone."},
+  {word:'to splash out on',        pos:'phr. verb',   ipa:'/tə splæʃ aʊt ɒn/',          ru:'раскошелиться на · шикануть',             def:'to spend a lot of money on something not really necessary',       ex:'She splashed out on a designer handbag for her birthday.'},
+  {word:'a bargain',               pos:'noun',        ipa:'/ə ˈbɑːɡɪn/',                ru:'выгодная покупка · «удачная сделка»',     def:"something you buy at a very good price",                          ex:"These trainers were a real bargain — 60% off."},
+  {word:'a rip-off',               pos:'noun (info)', ipa:'/ə ˈrɪp ɒf/',                ru:'обдираловка · грабёж (разг.)',            def:"something too expensive for what it is",                          ex:"Fifteen pounds for a cup of coffee? What a rip-off."},
+  {word:'to break the bank',       pos:'idiom',       ipa:'/tə breɪk ðə bæŋk/',         ru:'разориться · «пустить по миру»',          def:"to cost more money than you have / can afford",                   ex:"A weekend in Paris won't exactly break the bank if we book early."},
+  {word:'pocket money',            pos:'noun',        ipa:'/ˈpɒkɪt ˈmʌni/',             ru:'карманные деньги',                        def:"a small allowance parents give a child every week",               ex:"My little brother spends all his pocket money on stickers."},
+  {word:'to be strapped for cash', pos:'idiom',       ipa:'/tə bi stræpt fə kæʃ/',      ru:'сидеть без денег · быть на мели',         def:"to have very little money at the moment",                         ex:"Sorry, I can't join tonight — I'm a bit strapped for cash."},
+  {word:'to shop around',          pos:'phr. verb',   ipa:'/tə ʃɒp əˈraʊnd/',           ru:'сравнивать цены в разных магазинах',      def:"to compare prices at several shops before you buy",               ex:"Always shop around before you buy a laptop."},
+  {word:'to try (something) on',   pos:'phr. verb',   ipa:'/tə traɪ (ˈsʌmθɪŋ) ɒn/',     ru:'примерить (одежду)',                      def:'to put clothes on in a shop to see if they fit',                  ex:"May I try these jeans on?"},
+  {word:'sale / on sale',          pos:'noun',        ipa:'/seɪl / ɒn seɪl/',           ru:'распродажа · на распродаже',              def:"a period when prices are lower than usual",                       ex:"The winter sale starts on the 26th of December."},
+  {word:'discount / reduction',    pos:'noun',        ipa:'/ˈdɪskaʊnt / rɪˈdʌkʃn/',     ru:'скидка · уценка',                         def:"an amount of money taken off the normal price",                   ex:"Is there any discount for students?"},
+  {word:'contactless',             pos:'adj.',        ipa:'/ˈkɒntæktləs/',              ru:'бесконтактная (оплата)',                  def:"paying with a card or phone by tapping",                          ex:"Contactless, please — I'm in a hurry."},
+  {word:'to be worth every penny', pos:'idiom',       ipa:'/tə bi wɜːθ ˈevri ˈpeni/',   ru:'стоить каждой копейки · своих денег',     def:"to be so good that the price is justified",                       ex:"That leather jacket was expensive, but it's worth every penny."}
 ];
 const pgrid = document.getElementById('phrases-grid');
 PHRASES_0B.forEach(v => {
   const c = document.createElement('div');
   c.className = 'vocab-card flip-card';
   c.innerHTML = `
-    <div class="v-front"><div class="word">${v.word}</div><div class="pos">${v.pos}</div></div>
-    <div class="v-back"><div class="word">${v.word}</div><div class="def">${v.def}</div><div class="ex">${v.ex}</div></div>`;
+    <div class="v-front">
+      <div class="word">${v.word}</div>
+      <div class="ipa" style="font-family:ui-monospace,Consolas,monospace;font-size:.78em;color:#8a6a2e;margin-top:2px">${v.ipa}</div>
+      <div class="pos">${v.pos}</div>
+      <div class="ru" style="font-size:.9em;color:#5c3a14;margin-top:6px;font-weight:600">${v.ru}</div>
+    </div>
+    <div class="v-back">
+      <div class="word">${v.word}</div>
+      <div class="ipa" style="font-family:ui-monospace,Consolas,monospace;font-size:.78em;color:#8a6a2e;margin:2px 0 6px">${v.ipa}</div>
+      <div class="ru" style="font-weight:600;color:#5c3a14;margin-bottom:6px">${v.ru}</div>
+      <div class="def">${v.def}</div>
+      <div class="ex">${v.ex}</div>
+    </div>`;
   c.onclick = () => c.classList.toggle('flipped');
   pgrid.appendChild(c);
 });
+
+/* ========== SECTION 0B-DRILL · gap-fill with Russian hint (15 sentences) ========== */
+const PHRASES_DRILL = [
+  {ctx:"I ______ a small gift at the stationer's — just a notebook and two pens.",                              hint:'совершить покупку',                      answer:'made a purchase'},
+  {ctx:"These sunglasses were a total ______ — I saw them in the window and grabbed them.",                     hint:'спонтанная покупка · «импульсивка»',     answer:'impulse buy'},
+  {ctx:"I'm ______ a new iPhone — three months to go if I don't spend anything on snacks.",                     hint:'копить на (что-то)',                      answer:'saving up for'},
+  {ctx:"She ______ a designer handbag for her 16th birthday.",                                                  hint:'раскошелиться · шикануть на',             answer:'splashed out on'},
+  {ctx:"These trainers were a real ______ — 60% off in the Boxing Day sale.",                                   hint:'выгодная покупка · удачная сделка',       answer:'bargain'},
+  {ctx:"Fifteen pounds for one cup of hot chocolate? What a ______!",                                           hint:'обдираловка · грабёж (разг.)',            answer:'rip-off'},
+  {ctx:"A weekend in Edinburgh won't ______ if we book the train three weeks early.",                           hint:'разориться · «пустить по миру»',          answer:'break the bank'},
+  {ctx:"My little brother spends all his ______ on football cards and Haribo.",                                 hint:'карманные деньги',                        answer:'pocket money'},
+  {ctx:"Sorry, I can't go to the cinema tonight — I'm a bit ______ until Friday.",                              hint:'сидеть без денег · быть на мели',         answer:'strapped for cash'},
+  {ctx:"Dad always says: ______ before you buy any electronics — prices change every day.",                      hint:'сравнивать цены в разных магазинах',      answer:'shop around'},
+  {ctx:"Excuse me, may I ______ these jeans, please?",                                                           hint:'примерить (одежду)',                      answer:'try on'},
+  {ctx:"The winter ______ starts on the 26th of December in most British shops.",                                hint:'распродажа',                              answer:'sale'},
+  {ctx:"Is there any ______ for students with a valid ID card?",                                                  hint:'скидка · уценка',                         answer:'discount|reduction'},
+  {ctx:"______, please — my hands are full and I'm in a hurry.",                                                  hint:'бесконтактная (оплата)',                  answer:'contactless'},
+  {ctx:"That leather jacket cost a fortune, but honestly it's ______ — I've worn it for three winters.",         hint:'стоить каждой копейки · своих денег',     answer:'worth every penny'}
+];
+
+/* render using wbRenderTyping (hoisted) */
+if (typeof wbRenderTyping === 'function') {
+  wbRenderTyping('phrases-drill', PHRASES_DRILL, 'phrases-score', PHRASES_DRILL.length);
+} else {
+  document.addEventListener('DOMContentLoaded', () => {
+    wbRenderTyping('phrases-drill', PHRASES_DRILL, 'phrases-score', PHRASES_DRILL.length);
+  });
+}
 
 /* ============== SECTION V · FULL TOPICAL VOCABULARY (6 tabs) ============== */
 const TV_VOCAB = {
