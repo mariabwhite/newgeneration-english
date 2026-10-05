@@ -40,7 +40,7 @@ TEXT1 = [
 
 TEXT2 = [
     (N,  "Text two. The animal exhibition and Mrs. Pilsberry."),
-    (N,  "They walked into the big white pavilion. Inside, there were tables and cages with animals. Julia saw rabbits, two parrots and a small aquarium with goldfish. In the corner, there was a quiet lady with grey hair, a long green dress and a kind smile. On her table there were six fluffy grey kittens with big round eyes and tiny folded ears."),
+    (N,  "They walked into the big white pavilion. Inside, there were tables and cages with animals. Julia saw rabbits, two parrots, a small aquarium with goldfish, and even a wise brown owl sitting on a wooden perch. In the corner, there was a quiet lady with grey hair, a long green dress and a kind smile. On her table there were six fluffy grey kittens with big round eyes and tiny folded ears."),
     (MP, "These are Scottish Folds. I am a cat breeder. My name is Mrs. Pilsberry."),
     (N,  "John opened his mouth and whispered:"),
     (JO, "They look like little clouds."),
