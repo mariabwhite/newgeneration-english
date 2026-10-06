@@ -352,11 +352,29 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
       <button class="fc-card"><div class="fc-front"><span class="fc-play" data-mp3="assets/audio/c18.mp3">🔊</span><span class="fc-en">Nice to meet you.</span></div><div class="fc-back">Приятно познакомиться</div><span class="fc-hint">tap</span></button>
     </div>
     <style>
-      .fc-grid .fc-card .fc-front{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:14px 10px;text-align:center}
-      .fc-grid .fc-card .fc-en{font-weight:700;font-size:.95rem;color:var(--ink);line-height:1.3}
-      .fc-grid .fc-play{background:var(--sky-deep,#4a7fb8);color:#fff;border:none;border-radius:50%;width:34px;height:34px;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(74,127,184,.3);transition:.15s}
-      .fc-grid .fc-play:hover{background:#3a6799;transform:scale(1.08)}
-      .fc-grid .fc-play:active{transform:scale(.95)}
+      /* ─── POLISHED FLIP CARDS · 4 color-coded groups + 🔊 top-right ─── */
+      .fc-grid{grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+      .fc-grid .fc-card{position:relative;min-height:135px;padding:40px 16px 36px;border:none;border-radius:16px;background:#fff;box-shadow:0 4px 14px rgba(30,37,50,.08);overflow:hidden;transition:.22s cubic-bezier(.4,.0,.2,1)}
+      .fc-grid .fc-card::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:#4a7fb8;transition:.22s}
+      .fc-grid .fc-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(30,37,50,.14)}
+      .fc-grid .fc-card:hover::before{height:8px}
+      /* group 1-4: greet (sky), nationality (teal), work (purple), daily (amber) */
+      .fc-grid .fc-card:nth-child(1)::before,.fc-grid .fc-card:nth-child(2)::before,.fc-grid .fc-card:nth-child(3)::before,.fc-grid .fc-card:nth-child(4)::before{background:linear-gradient(90deg,#4a7fb8,#6ea8d5)}
+      .fc-grid .fc-card:nth-child(5)::before,.fc-grid .fc-card:nth-child(6)::before,.fc-grid .fc-card:nth-child(7)::before,.fc-grid .fc-card:nth-child(8)::before{background:linear-gradient(90deg,#2d9b8a,#5bc3b1)}
+      .fc-grid .fc-card:nth-child(9)::before,.fc-grid .fc-card:nth-child(10)::before,.fc-grid .fc-card:nth-child(11)::before,.fc-grid .fc-card:nth-child(12)::before,.fc-grid .fc-card:nth-child(13)::before{background:linear-gradient(90deg,#8056c0,#b088dd)}
+      .fc-grid .fc-card:nth-child(14)::before,.fc-grid .fc-card:nth-child(15)::before,.fc-grid .fc-card:nth-child(16)::before,.fc-grid .fc-card:nth-child(17)::before,.fc-grid .fc-card:nth-child(18)::before{background:linear-gradient(90deg,#d4953a,#f0b865)}
+
+      .fc-grid .fc-card .fc-front{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:0;text-align:center;transition:.3s}
+      .fc-grid .fc-card .fc-en{font-family:var(--display);font-weight:700;font-size:1.02rem;color:var(--ink);line-height:1.3;letter-spacing:-.005em}
+      .fc-grid .fc-card .fc-back{position:absolute;inset:5px 0 0 0;background:linear-gradient(135deg,#1a2b4a 0%,#2d4075 100%);color:#fff;display:none;flex-direction:column;align-items:center;justify-content:center;padding:14px;border-radius:0 0 16px 16px;font-family:var(--body);font-style:normal;font-weight:600;font-size:.98rem;letter-spacing:.01em}
+      .fc-grid .fc-card.flipped .fc-back{display:flex}
+      .fc-grid .fc-card.flipped::before{background:#ffd79a !important}
+      .fc-grid .fc-card .fc-hint{position:absolute;bottom:10px;left:0;right:0;text-align:center;font-family:var(--mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:#9fb0c4;font-weight:600}
+      .fc-grid .fc-card.flipped .fc-hint{color:rgba(255,255,255,.4)}
+
+      .fc-grid .fc-play{position:absolute;top:12px;right:12px;background:#1a2b4a;color:#fff;border:none;border-radius:50%;width:34px;height:34px;font-size:.95rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(26,43,74,.3);transition:.15s;z-index:3}
+      .fc-grid .fc-play:hover{background:#4a7fb8;transform:scale(1.1)}
+      .fc-grid .fc-play:active{transform:scale(.92)}
     </style>
     <script>
       (function(){
@@ -602,17 +620,204 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
       <label class="genre-row"><input type="checkbox"><span class="en">a stand-up special</span><span class="ru">— стендап-спецвыпуск</span><span class="play" data-audio="g-standup"><svg><use href="#ic-play"/></svg></span></label>
     </div>
 
-    <div class="speak" style="margin-top:16px;background:#eef7ff;border-left:4px solid var(--sky-deep);border-radius:10px;padding:14px 18px">
-      <div class="sp-eyebrow">Say it out loud</div>
-      <h3>Based on your ticks, say 3 sentences</h3>
-      <ol>
-        <li><code>I'm into ___, ___ and ___.</code></li>
-        <li><code>My all-time favourite ___ is ___.</code></li>
-        <li><code>I'm not really into ___ — not my thing.</code></li>
-      </ol>
+    <!-- ═══ LIVE INTERACTIVE PITCH BUILDER ═══ -->
+    <div class="pitch-card">
+      <div class="pitch-top">
+        <div class="pitch-eyebrow">🎬 Your TV pitch · live</div>
+        <h3 class="pitch-title">Build your 30-second profile</h3>
+        <p class="pitch-lead">Tick the posters and genres above. The three sentences below <b>update in real time</b> as you tick. Click <span class="pill">🔊 Hear it</span> to listen, then <span class="pill">🎙 Record me</span> to say it yourself and compare.</p>
+      </div>
+
+      <div class="pitch-profile">
+        <div class="pitch-profile-head">👤 Your genre profile <span class="pitch-count" id="pc-count">0 genres · 0 titles</span></div>
+        <div class="pitch-chips" id="pitch-chips"><em class="pitch-empty">Tick something above and your profile builds here…</em></div>
+      </div>
+
+      <div class="pitch-slot" data-template="I'm into {A}, {B} and {C}.">
+        <div class="pitch-num">1</div>
+        <div class="pitch-sentence"><span class="label">I'm into</span> <span class="dyn" data-slot="s1">___</span>.</div>
+        <div class="pitch-tools">
+          <button class="pitch-btn pitch-play" data-slot="s1">🔊 Hear it</button>
+          <button class="pitch-btn pitch-rec" data-slot="s1">🎙 Record me</button>
+          <audio class="pitch-audio" data-slot="s1" controls hidden></audio>
+        </div>
+      </div>
+
+      <div class="pitch-slot" data-template="My all-time favourite is {X}.">
+        <div class="pitch-num">2</div>
+        <div class="pitch-sentence"><span class="label">My all-time favourite is</span> <span class="dyn" data-slot="s2">___</span>.</div>
+        <div class="pitch-tools">
+          <button class="pitch-btn pitch-play" data-slot="s2">🔊 Hear it</button>
+          <button class="pitch-btn pitch-rec" data-slot="s2">🎙 Record me</button>
+          <audio class="pitch-audio" data-slot="s2" controls hidden></audio>
+        </div>
+      </div>
+
+      <div class="pitch-slot" data-template="I'm not really into {Y} — not my thing.">
+        <div class="pitch-num">3</div>
+        <div class="pitch-sentence"><span class="label">I'm not really into</span> <span class="dyn" data-slot="s3">___</span> <span class="label">— not my thing.</span></div>
+        <div class="pitch-tools">
+          <button class="pitch-btn pitch-play" data-slot="s3">🔊 Hear it</button>
+          <button class="pitch-btn pitch-rec" data-slot="s3">🎙 Record me</button>
+          <audio class="pitch-audio" data-slot="s3" controls hidden></audio>
+        </div>
+      </div>
+
+      <div class="pitch-foot">
+        🏁 <b>Challenge:</b> record all three in a row within 30 seconds without pausing. Then play back and listen to yourself.
+      </div>
     </div>
   </div>
 </section>
+<style>
+  .pitch-card{margin-top:20px;background:linear-gradient(135deg,#1d2d4e 0%,#2a3f6a 50%,#4a3a6a 100%);border-radius:18px;padding:24px 26px;color:#f5f9ff;box-shadow:0 14px 36px rgba(29,45,78,.22);position:relative;overflow:hidden}
+  .pitch-card::before{content:"";position:absolute;top:-80px;right:-80px;width:280px;height:280px;background:radial-gradient(circle,rgba(255,215,154,.14) 0%,transparent 70%);pointer-events:none}
+  .pitch-top{position:relative;z-index:2}
+  .pitch-eyebrow{font-family:var(--mono);font-size:.72rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#ffd79a}
+  .pitch-title{font-family:var(--display);font-size:1.5rem;font-weight:700;margin:6px 0 6px;color:#fff;line-height:1.15}
+  .pitch-lead{font-size:.92rem;line-height:1.55;margin:0 0 16px;color:#dcefff;max-width:580px}
+  .pitch-lead .pill{display:inline-block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.26);padding:1px 7px;border-radius:12px;font-size:.82rem;white-space:nowrap}
+  .pitch-profile{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px 14px;margin:0 0 14px}
+  .pitch-profile-head{display:flex;justify-content:space-between;align-items:center;font-size:.82rem;color:#dcefff;font-weight:700;margin-bottom:8px}
+  .pitch-count{font-family:var(--mono);font-size:.7rem;color:#ffd79a;font-weight:600;letter-spacing:.06em}
+  .pitch-chips{display:flex;flex-wrap:wrap;gap:6px;min-height:28px;align-items:center}
+  .pitch-chips .chip{padding:4px 11px;background:#4a7fb8;color:#fff;border-radius:50px;font-size:.82rem;font-weight:600;animation:chip-in .25s ease}
+  .pitch-chips .chip.title{background:#c0577c}
+  .pitch-chips .pitch-empty{color:#9fb6cf;font-size:.84rem;font-style:italic}
+  @keyframes chip-in{from{transform:scale(.5);opacity:0}to{transform:scale(1);opacity:1}}
+  .pitch-slot{display:grid;grid-template-columns:36px 1fr auto;gap:12px;align-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px 14px;margin:10px 0}
+  .pitch-num{width:30px;height:30px;border-radius:50%;background:#ffd79a;color:#1d2d4e;font-weight:800;display:grid;place-items:center;font-size:.95rem;grid-row:1 / span 2}
+  .pitch-sentence{font-family:var(--display);font-size:1.08rem;line-height:1.4;color:#fff}
+  .pitch-sentence .label{opacity:.86}
+  .pitch-sentence .dyn{display:inline-block;padding:1px 10px;background:#ffd79a;color:#1d2d4e;border-radius:6px;font-weight:800;min-width:60px;transition:.2s;font-family:var(--body)}
+  .pitch-sentence .dyn.empty{background:rgba(255,215,154,.2);color:#ffd79a}
+  .pitch-tools{display:flex;gap:6px;flex-wrap:wrap;grid-column:2 / span 2}
+  .pitch-btn{font-family:var(--mono);font-size:.7rem;font-weight:700;letter-spacing:.08em;background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.28);padding:7px 12px;border-radius:7px;cursor:pointer;transition:.15s}
+  .pitch-btn:hover{background:rgba(255,215,154,.22);border-color:#ffd79a;color:#ffd79a}
+  .pitch-btn.rec-on{background:#c0577c;border-color:#c0577c;color:#fff;animation:rec-pulse 1s infinite}
+  @keyframes rec-pulse{0%,100%{box-shadow:0 0 0 0 rgba(192,87,124,.6)}50%{box-shadow:0 0 0 7px rgba(192,87,124,0)}}
+  .pitch-audio{width:100%;max-width:260px;margin-top:4px;grid-column:2 / span 2}
+  .pitch-foot{margin-top:14px;padding:10px 14px;background:rgba(255,215,154,.08);border-left:3px solid #ffd79a;border-radius:0 8px 8px 0;font-size:.86rem;color:#ffe7bf}
+  @media (max-width:640px){
+    .pitch-slot{grid-template-columns:30px 1fr}
+    .pitch-tools{grid-column:1 / span 2}
+    .pitch-num{grid-row:auto}
+  }
+</style>
+<script>
+  (function(){
+    const posterNodes = document.querySelectorAll('.poster-card input[type=checkbox]');
+    const genreNodes  = document.querySelectorAll('.genre-row input[type=checkbox]');
+    const allGenres   = Array.from(document.querySelectorAll('.genre-row')).map(r => ({
+      en: r.querySelector('.en').textContent.trim(),
+      input: r.querySelector('input[type=checkbox]')
+    }));
+
+    function tickedGenres(){
+      return allGenres.filter(g => g.input.checked).map(g => g.en);
+    }
+    function untickedGenres(){
+      return allGenres.filter(g => !g.input.checked).map(g => g.en);
+    }
+    function tickedTitles(){
+      return Array.from(document.querySelectorAll('.poster-card')).filter(c=>c.querySelector('input').checked)
+        .map(c => c.querySelector('.poster-caption b').textContent.trim());
+    }
+
+    function join3(arr){
+      if (arr.length === 0) return '___';
+      if (arr.length === 1) return arr[0];
+      if (arr.length === 2) return arr[0] + ' and ' + arr[1];
+      return arr[0] + ', ' + arr[1] + ' and ' + arr[2];
+    }
+
+    function render(){
+      const genres   = tickedGenres();
+      const titles   = tickedTitles();
+      const unticked = untickedGenres();
+
+      const chips = document.getElementById('pitch-chips');
+      const count = document.getElementById('pc-count');
+      count.textContent = `${genres.length} genre${genres.length===1?'':'s'} · ${titles.length} title${titles.length===1?'':'s'}`;
+      if (genres.length + titles.length === 0){
+        chips.innerHTML = '<em class="pitch-empty">Tick something above and your profile builds here…</em>';
+      } else {
+        chips.innerHTML = titles.map(t => `<span class="chip title">🎬 ${t}</span>`).join('')
+                        + genres.map(g => `<span class="chip">${g}</span>`).join('');
+      }
+
+      // Slot 1: first 3 genres
+      const s1 = document.querySelector('.dyn[data-slot="s1"]');
+      s1.textContent = genres.length ? join3(genres.slice(0,3)) : '___';
+      s1.classList.toggle('empty', genres.length === 0);
+
+      // Slot 2: first ticked TITLE (or genre if none), formatted properly
+      const s2 = document.querySelector('.dyn[data-slot="s2"]');
+      let fav = titles[0] || genres[0] || '___';
+      // for a title, phrase: "Breaking Bad". for a genre: "a sitcom like Friends".
+      s2.textContent = fav;
+      s2.classList.toggle('empty', fav === '___');
+
+      // Slot 3: first unticked (not-interested) genre
+      const s3 = document.querySelector('.dyn[data-slot="s3"]');
+      const notInto = unticked[0] || '___';
+      s3.textContent = notInto;
+      s3.classList.toggle('empty', notInto === '___');
+    }
+
+    [...posterNodes, ...genreNodes].forEach(cb => cb.addEventListener('change', render));
+    render();
+
+    // 🔊 Hear it via SpeechSynthesis
+    document.querySelectorAll('.pitch-play').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const slot = btn.dataset.slot;
+        const dyn = document.querySelector('.dyn[data-slot="' + slot + '"]');
+        if (!dyn) return;
+        const sent = dyn.closest('.pitch-sentence');
+        const text = sent.textContent.replace(/\s+/g,' ').trim();
+        if (!('speechSynthesis' in window)) { alert('Audio not supported'); return; }
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'en-GB'; u.rate = 0.92;
+        speechSynthesis.cancel();
+        speechSynthesis.speak(u);
+      });
+    });
+
+    // 🎙 Record me via MediaRecorder
+    const recorders = {};
+    document.querySelectorAll('.pitch-rec').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const slot = btn.dataset.slot;
+        const audioEl = document.querySelector(`.pitch-audio[data-slot="${slot}"]`);
+        if (recorders[slot] && recorders[slot].state === 'recording') {
+          recorders[slot].stop();
+          btn.classList.remove('rec-on');
+          btn.textContent = '🎙 Record me';
+          return;
+        }
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({audio: true});
+          const chunks = [];
+          const rec = new MediaRecorder(stream);
+          rec.ondataavailable = e => chunks.push(e.data);
+          rec.onstop = () => {
+            const blob = new Blob(chunks, {type: 'audio/webm'});
+            audioEl.src = URL.createObjectURL(blob);
+            audioEl.hidden = false;
+            stream.getTracks().forEach(t => t.stop());
+          };
+          rec.start();
+          recorders[slot] = rec;
+          btn.classList.add('rec-on');
+          btn.textContent = '⏹ Stop & play';
+        } catch(e) {
+          alert('Mic permission needed');
+        }
+      });
+    });
+  })();
+</script>
 <style>
   .poster-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:14px}
   @media (max-width:900px){.poster-grid{grid-template-columns:repeat(3,1fr)}}
