@@ -54,6 +54,15 @@ main{width:min(1120px,calc(100% - 32px));margin:0 auto;padding:24px 0 48px}
 .topbar .spacer{flex:1}
 .topbar .to-catalog{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);border:1px solid var(--line-2);padding:6px 10px;border-radius:6px;text-decoration:none}
 
+/* ═══ Lesson-tabs (inline — повторяют стиль lab-tabs.js, т.к. он их не инжектит при inline-навигации) ═══ */
+.lesson-tabs{display:flex;gap:10px;justify-content:center;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:12px 16px;position:sticky;top:62px;z-index:99;}
+.ltab{padding:10px 20px;border-radius:50px;border:1.5px solid var(--line);background:var(--card);color:var(--muted);font-family:var(--mono);font-size:11.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:.18s;display:inline-flex;align-items:center;gap:8px;}
+.ltab:hover{border-color:var(--brand);color:var(--brand);transform:translateY(-1px);}
+.ltab.is-active{background:var(--brand);color:#fff;border-color:var(--brand);box-shadow:0 4px 14px rgba(185,69,24,.35);}
+.ltab .ltab-count{background:rgba(255,255,255,.22);padding:2px 8px;border-radius:50px;font-size:10px;min-width:20px;text-align:center;}
+.ltab.is-active .ltab-count{background:rgba(0,0,0,.22);color:inherit;}
+@media(max-width:680px){.lesson-tabs{padding:8px 8px;gap:6px;top:54px;} .ltab{padding:7px 12px;font-size:10px;letter-spacing:.08em;}}
+
 .hero{background:linear-gradient(135deg,#FBF7EC 0%,#F4EFE3 60%,#F4C84B22 100%);border:1px solid var(--line);border-radius:14px;padding:32px;margin:16px 0 24px;position:relative;overflow:hidden;}
 .hero::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--brand) 0%,var(--gold) 100%);}
 .hero .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.20em;text-transform:uppercase;color:var(--brand);font-weight:700;margin-bottom:8px}
@@ -232,7 +241,15 @@ main{width:min(1120px,calc(100% - 32px));margin:0 auto;padding:24px 0 48px}
   <a href="/lingua-boost-lab/" class="to-catalog">← Catalog</a>
 </div>
 
+<nav class="lesson-tabs" role="tablist" aria-label="Lesson / Toolkit / Homework">
+  <button class="ltab is-active" data-tab="lesson" type="button">📖 Lesson</button>
+  <button class="ltab" data-tab="toolkit" type="button">🧮 Toolkit</button>
+  <button class="ltab" data-tab="homework" type="button">📚 My homework <span class="ltab-count" id="ltab-hw-count">0</span></button>
+</nav>
+
 <main>
+
+<div id="lesson-view">
 
   <div class="hero">
     <div class="kicker">C1 · L1 · Personal for Ivan · Full Course</div>
@@ -1172,6 +1189,489 @@ main{width:min(1120px,calc(100% - 32px));margin:0 auto;padding:24px 0 48px}
     Rule of the lesson: <em>«Number goes before the adjective. No preposition for degree of difference. Nouns for formal register.»</em>
   </div>
 
+</div><!-- /#lesson-view -->
+
+<div id="toolkit-view" hidden>
+
+  <div class="hero" style="background:linear-gradient(135deg,#FBF7EC 0%,#EFF1F7 55%,#DDE4F4 100%)">
+    <div class="kicker" style="color:var(--ink)">🧮 TOOLKIT · COMPARISONS · MATH · ESSAYS</div>
+    <h1>Multipliers · Fold · Change · Math · Register · Chart Phrases</h1>
+    <p class="lead">Отдельный блок справочника и тренажёра: как по-английски «в 2 раза больше / меньше», «увеличиться на», -fold family, математические конструкции, тонкости <em>than I / than me</em>, фразы для описания графиков в ЕГЭ Task 38 и ОГЭ, шаблоны compare &amp; contrast эссе.</p>
+    <div class="stats">
+      <span><b>7</b> разделов</span>
+      <span><b>60+</b> фраз</span>
+      <span><b>8</b> drill-упражнений</span>
+      <span><b>ЕГЭ 38</b> шаблон</span>
+      <span><b>ОГЭ 35</b> шаблон</span>
+    </div>
+  </div>
+
+  <div class="toc">
+    <strong>Toolkit · 7 sections</strong>
+    <div class="toc-grid">
+      <a href="#tk-1"><b>I1</b> Multipliers · twice / half / X times</a>
+      <a href="#tk-2"><b>I2</b> -Fold family</a>
+      <a href="#tk-3"><b>I3</b> Change verbs + percent</a>
+      <a href="#tk-4"><b>I4</b> Math phrases</a>
+      <a href="#tk-5"><b>I5</b> Register · than I / than me</a>
+      <a href="#tk-6"><b>I6</b> Chart description phrases</a>
+      <a href="#tk-7"><b>I7</b> Essay templates ЕГЭ · ОГЭ</a>
+    </div>
+  </div>
+
+  <div class="unit-band" style="background:linear-gradient(90deg,#22305C 0%,#3A4A7A 100%)"><span class="letter">I</span><span class="name">Unit I · Toolkit · Multipliers · Math · Essays</span><span>7 sections</span></div>
+
+  <!-- ═══ I1 · Multipliers ═══ -->
+  <section class="section first-in-unit" id="tk-1">
+    <div class="num">I1 · Multipliers</div>
+    <h2>«В X раз больше / меньше» · 4 рабочие модели</h2>
+    <div class="subtitle">Главный камень преткновения учеников: калька <em>«in 2 times»</em>, <em>«on 2 times more»</em>. Правильно — 4 модели ниже.</div>
+
+    <div class="theory"><strong>Четыре модели (от самой частой к книжной):</strong>
+      <br>① <code>twice / three times / X times</code> + <code>as [adj] as</code> → <em>twice as big as, three times as expensive as</em>
+      <br>② <code>twice / X times</code> + <code>[adj]-er / more [adj]</code> → <em>twice bigger (informal), three times more expensive</em>
+      <br>③ <code>double / treble / quadruple</code> (verbs & adj-less) → <em>Prices doubled. Double the price.</em>
+      <br>④ <code>half as [adj] as</code> / <code>a third / a quarter the size of</code> → <em>half as deep, a quarter the price of</em>
+    </div>
+
+    <div class="rule-box"><strong>Red flags:</strong>
+      <br>❌ <em>in 2 times bigger</em> → ✅ <em>twice as big</em> / <em>twice bigger</em>
+      <br>❌ <em>on 2 times more</em> → ✅ <em>twice as much</em>
+      <br>❌ <em>more on 50%</em> → ✅ <em>50% more</em> / <em>higher by 50%</em>
+      <br>❌ <em>2 times less</em> (controversial, logically wrong) → ✅ <em>half as much</em> / <em>half the size</em>
+    </div>
+
+    <table class="tbl">
+      <thead><tr><th>RU</th><th>EN (best)</th><th>EN (alt)</th></tr></thead>
+      <tbody>
+        <tr><td>в 2 раза больше</td><td class="en">twice as big as</td><td>two times bigger than / double the size of</td></tr>
+        <tr><td>в 2 раза меньше</td><td class="en">half as big as</td><td>half the size of</td></tr>
+        <tr><td>в 2 раза дороже</td><td class="en">twice as expensive as</td><td>double the price of / twice the price</td></tr>
+        <tr><td>в 2 раза дешевле</td><td class="en">half as expensive as</td><td>half the price of</td></tr>
+        <tr><td>в 3 раза выше</td><td class="en">three times as tall as</td><td>three times taller than / three times the height of</td></tr>
+        <tr><td>в 3 раза быстрее</td><td class="en">three times as fast as</td><td>three times faster than</td></tr>
+        <tr><td>в 4 раза старше</td><td class="en">four times as old as</td><td>four times older than</td></tr>
+        <tr><td>в 10 раз мощнее</td><td class="en">ten times as powerful as</td><td>ten times more powerful than</td></tr>
+        <tr><td>вдвое длиннее</td><td class="en">twice as long as</td><td>double the length of</td></tr>
+        <tr><td>вдвое меньше еды</td><td class="en">half as much food</td><td>half the amount of food</td></tr>
+        <tr><td>треть длины</td><td class="en">a third of the length</td><td>one-third the length of</td></tr>
+        <tr><td>четверть веса</td><td class="en">a quarter of the weight</td><td>a quarter the weight of</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Drill · впиши правильный вариант</h3>
+    <div class="cloze" id="tk-1-cloze">
+      <p>1 · The new office is <input data-a="twice as big" placeholder="__"> as the old one. <span class="hint">(в 2 раза больше)</span></p>
+      <p>2 · This smartphone is <input data-a="three times as expensive" placeholder="__"> as mine. <span class="hint">(в 3 раза дороже)</span></p>
+      <p>3 · Her flat is <input data-a="half the size" placeholder="__"> of ours. <span class="hint">(в 2 раза меньше)</span></p>
+      <p>4 · The population <input data-a="doubled" placeholder="__"> between 1990 and 2020. <span class="hint">(удвоилось)</span></p>
+      <p>5 · He eats <input data-a="twice as much" placeholder="__"> as his brother. <span class="hint">(в 2 раза больше)</span></p>
+      <p>6 · The journey takes <input data-a="three times longer" placeholder="__"> than usual. <span class="hint">(в 3 раза дольше)</span></p>
+      <p>7 · Our rent is <input data-a="a quarter" placeholder="__"> of theirs. <span class="hint">(четверть)</span></p>
+      <p>8 · The temperature is <input data-a="twice as high" placeholder="__"> as yesterday. <span class="hint">(в 2 раза выше)</span></p>
+      <button class="btn-check" onclick="checkCloze('tk-1-cloze')">Check</button>
+    </div>
+  </section>
+
+  <!-- ═══ I2 · -Fold family ═══ -->
+  <section class="section" id="tk-2">
+    <div class="num">I2 · -Fold family</div>
+    <h2>Twofold · Threefold · N-fold · для академического письма</h2>
+    <div class="subtitle">Книжный / академический способ сказать «в N раз больше». Пишется слитно: twofold, threefold, fourfold, tenfold.</div>
+
+    <div class="theory"><strong>Как работает:</strong> <code>N-fold</code> = прилагательное или наречие.
+      <br>• as adj + noun: <em>a twofold increase, a fivefold rise, a tenfold drop</em>
+      <br>• as adverb: <em>Sales rose fourfold. Problems multiplied threefold.</em>
+      <br>• NB: <strong>onefold</strong> не используется. <strong>Hundredfold / thousandfold / manyfold</strong> — существуют (книжное).
+    </div>
+
+    <div class="rule-box"><strong>Fold vs double/triple/quadruple:</strong>
+      <br>• <em>double</em> (×2), <em>treble</em> / <em>triple</em> (×3), <em>quadruple</em> (×4), <em>quintuple</em> (×5) — глаголы и прилагательные, разговорно-нейтрально.
+      <br>• <em>twofold, threefold, fourfold</em> — тот же смысл, но формально/академично. Чаще как adj + N.
+      <br>• <em>N-fold</em> легко масштабировать: <em>a 20-fold increase</em>, но ❌ <em>a 20-tuple increase</em> не говорят.
+    </div>
+
+    <table class="tbl">
+      <thead><tr><th>Factor</th><th>Adj (formal)</th><th>Verb (neutral)</th></tr></thead>
+      <tbody>
+        <tr><td>× 2</td><td class="en">twofold</td><td>double</td></tr>
+        <tr><td>× 3</td><td class="en">threefold</td><td>triple / treble (UK)</td></tr>
+        <tr><td>× 4</td><td class="en">fourfold</td><td>quadruple</td></tr>
+        <tr><td>× 5</td><td class="en">fivefold</td><td>quintuple (rare)</td></tr>
+        <tr><td>× 10</td><td class="en">tenfold</td><td>— (use «ten times»)</td></tr>
+        <tr><td>× 100</td><td class="en">a hundredfold</td><td>— (use «a hundred times»)</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Examples · as used in ЕГЭ/IELTS writing</h3>
+    <div class="ex"><em>«The number of users saw a <b>fivefold</b> increase between 2015 and 2024.»</em></div>
+    <div class="ex"><em>«Air pollution levels <b>doubled</b> in the past decade.»</em></div>
+    <div class="ex"><em>«The company's revenue <b>tripled</b> after the merger.»</em></div>
+    <div class="ex"><em>«Research shows a <b>tenfold</b> drop in the use of plastic bags.»</em></div>
+    <div class="ex"><em>«A <b>threefold</b> rise in energy prices affected low-income households.»</em></div>
+
+    <h3>Drill · выбери правильное</h3>
+    <div class="mcq" id="tk-2-mcq">
+      <div class="q" data-a="a fourfold increase"><div class="prompt"><span class="n">1</span>«В 4 раза больше посетителей» (формально):</div><div class="opts"><button class="opt">a four times increase</button><button class="opt">a fourfold increase</button><button class="opt">four-fold more visitors</button></div></div>
+      <div class="q" data-a="doubled"><div class="prompt"><span class="n">2</span>Prices __ in a year (×2):</div><div class="opts"><button class="opt">twofold</button><button class="opt">doubled</button><button class="opt">two-folded</button></div></div>
+      <div class="q" data-a="tenfold"><div class="prompt"><span class="n">3</span>Pollution dropped __ after the law (×10):</div><div class="opts"><button class="opt">ten times</button><button class="opt">tenfold</button><button class="opt">in ten</button></div></div>
+      <div class="q" data-a="tripled"><div class="prompt"><span class="n">4</span>Revenue __ in Q4 (×3):</div><div class="opts"><button class="opt">threefolded</button><button class="opt">tripled</button><button class="opt">tripled by three</button></div></div>
+      <div class="q" data-a="a threefold rise"><div class="prompt"><span class="n">5</span>Выбери формально-книжный:</div><div class="opts"><button class="opt">a threefold rise</button><button class="opt">a three-time rise</button><button class="opt">a times-three rise</button></div></div>
+    </div>
+  </section>
+
+  <!-- ═══ I3 · Change verbs + % ═══ -->
+  <section class="section" id="tk-3">
+    <div class="num">I3 · Change verbs + %</div>
+    <h2>Увеличиться · уменьшиться · банк глаголов и шаблонов</h2>
+    <div class="subtitle">Для описания графиков и трендов (ЕГЭ Task 38, IELTS Task 1, ОГЭ 35) и для статистики в эссе.</div>
+
+    <div class="theory"><strong>Паттерны:</strong>
+      <br>• <code>increase BY X / X%</code> — <em>на сколько изменилось</em>: <em>Sales rose by 15%.</em>
+      <br>• <code>increase TO Y / Y%</code> — <em>до какого значения</em>: <em>Sales rose to 80% of the market.</em>
+      <br>• <code>from X to Y</code> — <em>от начального до конечного</em>: <em>fell from 50 to 30</em>
+      <br>• <code>a + ADJ + rise/increase/fall in X</code> — именная форма: <em>a sharp rise in prices</em>
+    </div>
+
+    <table class="tbl">
+      <thead><tr><th>UP ↑</th><th>DOWN ↓</th><th>FLAT →</th></tr></thead>
+      <tbody>
+        <tr><td class="en">rise · rose · risen</td><td class="en">fall · fell · fallen</td><td class="en">remain stable</td></tr>
+        <tr><td class="en">grow · grew · grown</td><td class="en">drop · dropped</td><td class="en">hold steady</td></tr>
+        <tr><td class="en">increase</td><td class="en">decrease</td><td class="en">plateau</td></tr>
+        <tr><td class="en">climb</td><td class="en">decline</td><td class="en">level off</td></tr>
+        <tr><td class="en">go up</td><td class="en">go down</td><td class="en">stay the same</td></tr>
+        <tr><td class="en">pick up</td><td class="en">dip</td><td class="en">stagnate (formal)</td></tr>
+        <tr><td class="en">surge (sharp)</td><td class="en">plunge (sharp)</td><td class="en">—</td></tr>
+        <tr><td class="en">soar (dramatic)</td><td class="en">plummet (dramatic)</td><td class="en">—</td></tr>
+        <tr><td class="en">skyrocket (very sharp)</td><td class="en">slump</td><td class="en">—</td></tr>
+        <tr><td class="en">jump (sudden)</td><td class="en">slide / slip</td><td class="en">—</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Adjectives for size &amp; speed of change</h3>
+    <div class="pill-row">
+      <span class="pill">dramatic</span><span class="pill">sharp</span><span class="pill">steep</span><span class="pill">significant</span><span class="pill">substantial</span><span class="pill">considerable</span><span class="pill">marked</span><span class="pill">steady</span><span class="pill">gradual</span><span class="pill">moderate</span><span class="pill">slight</span><span class="pill">marginal</span><span class="pill">negligible</span>
+    </div>
+    <div class="pill-row">
+      <span class="pill good">rapidly</span><span class="pill good">sharply</span><span class="pill good">dramatically</span><span class="pill good">steadily</span><span class="pill good">gradually</span><span class="pill good">slightly</span><span class="pill good">significantly</span>
+    </div>
+
+    <h3>Drill · chart cloze</h3>
+    <div class="cloze" id="tk-3-cloze">
+      <p>1 · Between 2015 and 2020, the price of oil <input data-a="rose" placeholder="__"> by 30%. <span class="hint">(выросла)</span></p>
+      <p>2 · The number of tourists <input data-a="plummeted" placeholder="__"> during the pandemic. <span class="hint">(резко упало)</span></p>
+      <p>3 · After 2022, sales <input data-a="remained stable" placeholder="__" style="min-width:160px"> at around 50 million. <span class="hint">(оставались стабильными)</span></p>
+      <p>4 · There was a <input data-a="sharp rise" placeholder="__" style="min-width:140px"> in energy prices. <span class="hint">(резкий рост)</span></p>
+      <p>5 · The population grew <input data-a="steadily" placeholder="__"> throughout the decade. <span class="hint">(неуклонно)</span></p>
+      <p>6 · Unemployment fell <input data-a="by 2%" placeholder="__"> last year. <span class="hint">(на 2%)</span></p>
+      <p>7 · The company's profit <input data-a="doubled" placeholder="__"> in Q3. <span class="hint">(удвоилась)</span></p>
+      <p>8 · There was a <input data-a="slight dip" placeholder="__" style="min-width:120px"> in sales in March. <span class="hint">(небольшое снижение)</span></p>
+      <button class="btn-check" onclick="checkCloze('tk-3-cloze')">Check</button>
+    </div>
+  </section>
+
+  <!-- ═══ I4 · Math phrases ═══ -->
+  <section class="section" id="tk-4">
+    <div class="num">I4 · Math phrases</div>
+    <h2>Математика по-английски · operations · powers · fractions</h2>
+    <div class="subtitle">Простые математические фразы для academic English, ЕГЭ-эссе и устной речи.</div>
+
+    <div class="theory"><strong>4 группы:</strong> ① operations (+ − × ÷) ② powers &amp; roots (², ³, √) ③ fractions &amp; decimals (½, 0.5) ④ equals &amp; percentages (= , %).</div>
+
+    <table class="tbl">
+      <thead><tr><th>Symbol</th><th>Short</th><th>Full phrase</th></tr></thead>
+      <tbody>
+        <tr><td class="w">+</td><td class="en">plus</td><td><em>Two plus three equals five.</em></td></tr>
+        <tr><td class="w">−</td><td class="en">minus</td><td><em>Ten minus four is six.</em> · <em>subtract four from ten</em></td></tr>
+        <tr><td class="w">×</td><td class="en">times / multiplied by</td><td><em>Six times seven is forty-two.</em> · <em>Six multiplied by seven equals forty-two.</em></td></tr>
+        <tr><td class="w">÷</td><td class="en">divided by</td><td><em>Twenty divided by four is five.</em> · <em>Twenty over four equals five.</em></td></tr>
+        <tr><td class="w">=</td><td class="en">equals / is</td><td><em>X equals Y.</em> · <em>X is equal to Y.</em></td></tr>
+        <tr><td class="w">²</td><td class="en">squared</td><td><em>Five squared is twenty-five.</em> · <em>Five to the power of two.</em></td></tr>
+        <tr><td class="w">³</td><td class="en">cubed</td><td><em>Three cubed is twenty-seven.</em> · <em>Three to the power of three.</em></td></tr>
+        <tr><td class="w">xⁿ</td><td class="en">to the power of n</td><td><em>Two to the power of ten is 1024.</em></td></tr>
+        <tr><td class="w">√</td><td class="en">square root of</td><td><em>The square root of nine is three.</em></td></tr>
+        <tr><td class="w">∛</td><td class="en">cube root of</td><td><em>The cube root of eight is two.</em></td></tr>
+        <tr><td class="w">√x</td><td class="en">to extract / take the root</td><td><em>If we extract the square root of 16, we get 4.</em> · <em>Take the cube root of 125 to find 5.</em></td></tr>
+        <tr><td class="w">x¹ᐟⁿ</td><td class="en">the nth root of</td><td><em>The fifth root of 32 is 2.</em> · <em>Extract the nth root of x.</em></td></tr>
+        <tr><td class="w">½</td><td class="en">one half</td><td><em>half of them · a half-hour</em></td></tr>
+        <tr><td class="w">⅓</td><td class="en">one third</td><td><em>a third of the students</em></td></tr>
+        <tr><td class="w">¾</td><td class="en">three quarters</td><td><em>three-quarters of the class</em></td></tr>
+        <tr><td class="w">⅞</td><td class="en">seven eighths</td><td><em>seven-eighths of a pie</em></td></tr>
+        <tr><td class="w">0.5</td><td class="en">point five / nought point five (UK)</td><td><em>zero point five</em></td></tr>
+        <tr><td class="w">%</td><td class="en">per cent (UK) / percent (US)</td><td><em>twenty percent of · a 20% rise</em></td></tr>
+        <tr><td class="w">≈</td><td class="en">approximately / roughly / about</td><td><em>approximately equal to</em></td></tr>
+        <tr><td class="w">∞</td><td class="en">infinity</td><td><em>approaches infinity</em></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Read-aloud drill · произнеси и переведи</h3>
+    <div class="speak-list">
+      <div class="speak-item" data-n="01"><b>2 + 2 = 4</b> — Two plus two equals four.</div>
+      <div class="speak-item" data-n="02"><b>12 × 5 = 60</b> — Twelve times five is sixty.</div>
+      <div class="speak-item" data-n="03"><b>100 ÷ 4 = 25</b> — One hundred divided by four equals twenty-five.</div>
+      <div class="speak-item" data-n="04"><b>√81 = 9</b> — The square root of eighty-one is nine.</div>
+      <div class="speak-item" data-n="05"><b>7² = 49</b> — Seven squared is forty-nine.</div>
+      <div class="speak-item" data-n="06"><b>2¹⁰ = 1024</b> — Two to the power of ten equals one thousand and twenty-four.</div>
+      <div class="speak-item" data-n="07"><b>¾ of 200 = 150</b> — Three quarters of two hundred is one hundred and fifty.</div>
+      <div class="speak-item" data-n="08"><b>25% of 80 = 20</b> — Twenty-five percent of eighty is twenty.</div>
+      <div class="speak-item" data-n="09"><b>0.5 + 0.25 = 0.75</b> — Zero point five plus zero point two five equals zero point seven five.</div>
+      <div class="speak-item" data-n="10"><b>π ≈ 3.14</b> — Pi is approximately equal to three point one four.</div>
+    </div>
+  </section>
+
+  <!-- ═══ I5 · Register nuances ═══ -->
+  <section class="section" id="tk-5">
+    <div class="num">I5 · Register</div>
+    <h2>Than I vs than me · as X as I am · formal / informal</h2>
+    <div class="subtitle">Классическая дилемма школьной грамматики: <em>«He is older than I»</em> или <em>«He is older than me»</em>? Ответ в двух колонках.</div>
+
+    <div class="theory"><strong>Короткий ответ:</strong> оба варианта допустимы в современном английском. Разница в регистре:
+      <br>• <em>than I / than I am</em> — formal, academic, в эссе и официальных письмах
+      <br>• <em>than me</em> — neutral / everyday, уместно в устной речи и личных письмах
+      <br>• В ЕГЭ эссе &rarr; выбирай <em>than I am</em> или перепиши через <em>as … as</em>
+    </div>
+
+    <table class="tbl">
+      <thead><tr><th>Informal (speech, friendly)</th><th>Formal (essay, exam)</th></tr></thead>
+      <tbody>
+        <tr><td class="en">He is older than me.</td><td class="en">He is older than I am.</td></tr>
+        <tr><td class="en">She is taller than him.</td><td class="en">She is taller than he is.</td></tr>
+        <tr><td class="en">We arrived earlier than them.</td><td class="en">We arrived earlier than they did.</td></tr>
+        <tr><td class="en">You know more than me.</td><td class="en">You know more than I do.</td></tr>
+        <tr><td class="en">She is as old as me.</td><td class="en">She is as old as I am.</td></tr>
+        <tr><td class="en">He is as tall as me.</td><td class="en">He is as tall as I am.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="rule-box"><strong>Правило «as … as» без калек:</strong>
+      <br>❌ <em>She is not so tall like her sister</em> → ✅ <em>She is not as tall as her sister.</em>
+      <br>❌ <em>as much tall as</em> → ✅ <em>as tall as</em>
+      <br>❌ <em>as same as</em> → ✅ <em>the same as</em>
+    </div>
+
+    <h3>🟨 Полный атлас <code>as … as</code> · 8 моделей</h3>
+    <div class="theory"><strong>Базовая формула:</strong> <code>as + ADJ/ADV + as</code> → равенство двух величин. 8 рабочих моделей ниже, от простой к продвинутой.</div>
+
+    <table class="tbl">
+      <thead><tr><th>Pattern</th><th>Example</th><th>RU</th></tr></thead>
+      <tbody>
+        <tr><td class="w">as + adj + as</td><td class="en">He is <b>as tall as</b> his father.</td><td>такой же высокий, как</td></tr>
+        <tr><td class="w">as + adv + as</td><td class="en">She works <b>as hard as</b> her brother.</td><td>работает так же усердно, как</td></tr>
+        <tr><td class="w">as + much/many + N + as</td><td class="en">I earn <b>as much money as</b> you do.</td><td>столько же, сколько</td></tr>
+        <tr><td class="w">as + many + CountN + as</td><td class="en">She has <b>as many books as</b> I do.</td><td>столько же, сколько</td></tr>
+        <tr><td class="w">not as + adj + as</td><td class="en">He is <b>not as tall as</b> I am.</td><td>не такой высокий, как</td></tr>
+        <tr><td class="w">not so + adj + as (older)</td><td class="en">She is <b>not so patient as</b> she used to be.</td><td>не так терпелива, как</td></tr>
+        <tr><td class="w">twice/three times as + adj + as</td><td class="en">The new flat is <b>twice as big as</b> the old one.</td><td>в 2 раза больше</td></tr>
+        <tr><td class="w">half as + adj + as</td><td class="en">He is <b>half as fast as</b> he was ten years ago.</td><td>вдвое медленнее</td></tr>
+      </tbody>
+    </table>
+
+    <h3>🟩 Idioms with <code>as … as</code> · 10 устойчивых</h3>
+    <table class="tbl">
+      <thead><tr><th>Idiom</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td class="en">as old as the hills</td><td>очень древний</td></tr>
+        <tr><td class="en">as cool as a cucumber</td><td>спокойный, невозмутимый</td></tr>
+        <tr><td class="en">as busy as a bee</td><td>очень занятой</td></tr>
+        <tr><td class="en">as blind as a bat</td><td>совершенно слепой</td></tr>
+        <tr><td class="en">as light as a feather</td><td>лёгкий как пёрышко</td></tr>
+        <tr><td class="en">as strong as an ox</td><td>сильный как бык</td></tr>
+        <tr><td class="en">as quiet as a mouse</td><td>тихий как мышка</td></tr>
+        <tr><td class="en">as proud as a peacock</td><td>гордый как павлин</td></tr>
+        <tr><td class="en">as stubborn as a mule</td><td>упрямый как осёл</td></tr>
+        <tr><td class="en">as clear as crystal / as mud (ironic)</td><td>кристально ясный / мутно (сарк.)</td></tr>
+      </tbody>
+    </table>
+
+    <h3>🟦 Big drill · впиши форму <code>as … as</code> или <code>not as … as</code></h3>
+    <div class="cloze" id="tk-5-as-cloze">
+      <p>1 · My new laptop is <input data-a="as fast as" placeholder="__" style="min-width:120px"> my old desktop. <span class="hint">(такой же быстрый)</span></p>
+      <p>2 · This book is <input data-a="not as interesting as" placeholder="__" style="min-width:160px"> the first one. <span class="hint">(не такой интересный)</span></p>
+      <p>3 · She earns <input data-a="as much as" placeholder="__" style="min-width:120px"> her manager. <span class="hint">(столько же)</span></p>
+      <p>4 · He is <input data-a="twice as old as" placeholder="__" style="min-width:140px"> his younger brother. <span class="hint">(в 2 раза старше)</span></p>
+      <p>5 · The exam was <input data-a="not as difficult as" placeholder="__" style="min-width:170px"> we had feared. <span class="hint">(не такой сложный)</span></p>
+      <p>6 · Today she is <input data-a="as busy as a bee" placeholder="__" style="min-width:160px">. <span class="hint">(очень занята — idiom)</span></p>
+      <p>7 · The new model is <input data-a="half as expensive as" placeholder="__" style="min-width:180px"> the previous one. <span class="hint">(вдвое дешевле)</span></p>
+      <p>8 · He works <input data-a="as hard as" placeholder="__" style="min-width:120px"> anyone in the office. <span class="hint">(так же усердно)</span></p>
+      <button class="btn-check" onclick="checkCloze('tk-5-as-cloze')">Check</button>
+    </div>
+
+    <h3>«The more… the more» · parallel comparison</h3>
+    <div class="ex"><em>«<b>The longer</b> you wait, <b>the harder</b> it gets.»</em></div>
+    <div class="ex"><em>«<b>The more</b> you read, <b>the better</b> you write.»</em></div>
+    <div class="ex"><em>«<b>The higher</b> the risk, <b>the greater</b> the reward.»</em></div>
+    <div class="ex"><em>«<b>The older</b> I get, <b>the more</b> I value silence.»</em></div>
+
+    <h3>Degree of difference · «на столько-то»</h3>
+    <div class="theory"><strong>Preferred:</strong> <code>number + comparative</code> → <em>10 cm taller</em>, <em>5 years older</em>, <em>twice as fast</em>.
+      <br><strong>Also OK, formal/written:</strong> <code>by + number</code> → <em>taller by 10 cm</em>, <em>older by 5 years</em>. Не используй в устной речи и в простых эссе.
+    </div>
+
+    <h3>Drill · informal или formal?</h3>
+    <div class="mcq" id="tk-5-mcq">
+      <div class="q" data-a="He is older than I am."><div class="prompt"><span class="n">1</span>Formal version:</div><div class="opts"><button class="opt">He is older than me.</button><button class="opt">He is older than I am.</button><button class="opt">He is more old than I.</button></div></div>
+      <div class="q" data-a="She is not as tall as her brother."><div class="prompt"><span class="n">2</span>Correct form:</div><div class="opts"><button class="opt">She is not so tall like her brother.</button><button class="opt">She is not as tall as her brother.</button><button class="opt">She is not tall as her brother.</button></div></div>
+      <div class="q" data-a="The more you practise, the faster you improve."><div class="prompt"><span class="n">3</span>Parallel comparison:</div><div class="opts"><button class="opt">The more you practise, the more fast you improve.</button><button class="opt">The more you practise, the faster you improve.</button><button class="opt">More you practise, faster you improve.</button></div></div>
+      <div class="q" data-a="He is 10 cm taller than I am."><div class="prompt"><span class="n">4</span>Degree of difference, formal:</div><div class="opts"><button class="opt">He is taller than me on 10 cm.</button><button class="opt">He is 10 cm taller than I am.</button><button class="opt">He is more taller 10 cm than me.</button></div></div>
+    </div>
+  </section>
+
+  <!-- ═══ I6 · Chart description phrases ═══ -->
+  <section class="section" id="tk-6">
+    <div class="num">I6 · Chart Phrases</div>
+    <h2>Describing Charts · ЕГЭ Task 38 · IELTS Task 1 · bank of phrases</h2>
+    <div class="subtitle">60+ рабочих фраз в 6 категориях. Выучи 2-3 из каждой — хватит на весь ЕГЭ.</div>
+
+    <h3>① Introduction · «что перед нами»</h3>
+    <ul style="list-style:none;padding:0;margin:6px 0 14px">
+      <li class="ex"><em>The pie chart / bar chart / line graph / table <b>shows / illustrates / presents / depicts</b>…</em></li>
+      <li class="ex"><em>The diagram <b>provides information about / gives data on</b>…</em></li>
+      <li class="ex"><em>According to the chart, …</em></li>
+      <li class="ex"><em>As can be seen from the diagram, …</em></li>
+      <li class="ex"><em>The data in the table <b>relates to / compares</b>…</em></li>
+    </ul>
+
+    <h3>② Overview · «главное впечатление»</h3>
+    <ul style="list-style:none;padding:0;margin:6px 0 14px">
+      <li class="ex"><em>Overall, the most striking feature is that …</em></li>
+      <li class="ex"><em>It is clear from the data that …</em></li>
+      <li class="ex"><em>The main trend is …</em></li>
+      <li class="ex"><em>At first glance, we can see that …</em></li>
+      <li class="ex"><em>Generally speaking, …</em></li>
+    </ul>
+
+    <h3>③ Specific data · «цифры»</h3>
+    <ul style="list-style:none;padding:0;margin:6px 0 14px">
+      <li class="ex"><em>X accounts for Y% / makes up Y% / represents Y%.</em></li>
+      <li class="ex"><em>The largest / smallest share belongs to …</em></li>
+      <li class="ex"><em>X is followed closely by Y, with Z%.</em></li>
+      <li class="ex"><em>The figure stood at X / reached X / peaked at X.</em></li>
+      <li class="ex"><em>The lowest point was recorded in …, at X.</em></li>
+    </ul>
+
+    <h3>④ Comparison · «сравнение»</h3>
+    <ul style="list-style:none;padding:0;margin:6px 0 14px">
+      <li class="ex"><em>X is <b>twice as popular as</b> Y.</em></li>
+      <li class="ex"><em>X is <b>three times higher than</b> Y.</em></li>
+      <li class="ex"><em>X <b>exceeds</b> Y <b>by</b> 15 percentage points.</em></li>
+      <li class="ex"><em>Y <b>lags behind</b> X by a wide margin.</em></li>
+      <li class="ex"><em>X and Y are <b>roughly equal / comparable / similar</b>.</em></li>
+      <li class="ex"><em>Compared to Y, X is …</em></li>
+      <li class="ex"><em>In contrast to / Unlike Y, X …</em></li>
+      <li class="ex"><em>The gap between X and Y <b>widens / narrows</b> over time.</em></li>
+    </ul>
+
+    <h3>⑤ Trends · «движение во времени»</h3>
+    <ul style="list-style:none;padding:0;margin:6px 0 14px">
+      <li class="ex"><em>There is <b>a steady increase</b> in …</em></li>
+      <li class="ex"><em>X <b>rose sharply</b> from Y to Z between 2020 and 2026.</em></li>
+      <li class="ex"><em>The number of X <b>peaked at</b> Y in 2024.</em></li>
+      <li class="ex"><em>Y <b>bottomed out at</b> Z before rebounding.</em></li>
+      <li class="ex"><em>After a sharp drop, X <b>levelled off</b>.</em></li>
+      <li class="ex"><em>X showed <b>a dramatic surge</b> / <b>a gradual decline</b>.</em></li>
+      <li class="ex"><em>From 2020 onwards, X <b>fluctuated</b> around Y.</em></li>
+    </ul>
+
+    <h3>⑥ Conclusion · «вывод»</h3>
+    <ul style="list-style:none;padding:0;margin:6px 0 14px">
+      <li class="ex"><em>To sum up / In conclusion, the data suggests …</em></li>
+      <li class="ex"><em>These figures <b>indicate / imply / suggest</b> that …</em></li>
+      <li class="ex"><em>In summary, the trends point to …</em></li>
+      <li class="ex"><em>All in all, the diagram clearly demonstrates …</em></li>
+      <li class="ex"><em>From the data presented, it can be concluded that …</em></li>
+    </ul>
+
+    <div class="mnemo"><strong>Как использовать на экзамене:</strong> выбери 1 фразу из ①, 1 из ②, 2-3 из ③/④, 2 из ⑤, 1 из ⑥. Склей — готовый 200-слов текст.</div>
+  </section>
+
+  <!-- ═══ I7 · Essay templates ═══ -->
+  <section class="section" id="tk-7">
+    <div class="num">I7 · Essay Templates</div>
+    <h2>Шаблоны · ЕГЭ Task 38 · ОГЭ 35 · compare &amp; contrast</h2>
+    <div class="subtitle">Готовые скелеты. Подставь данные таблицы/диаграммы — получишь полный ответ на 200-250 слов.</div>
+
+    <h3>🅰 ЕГЭ Task 38 · 200-250 слов · 5 параграфов</h3>
+    <div class="theory">Структура (из критериев ФИПИ): intro → 2-3 features → comparison → own opinion / possible reasons → conclusion. Каждый абзац — отдельный логический шаг.</div>
+
+    <div class="ex" style="padding:14px 18px;border-left-width:4px">
+      <strong>¶1 Introduction (2-3 предложения):</strong><br>
+      <em>The ___ chart depicts the data on <b>________</b> among ________ in <b>________</b>. The information is presented as percentages / absolute figures / years. The aim of this report is to <b>describe the main features and compare the two most striking categories</b>.</em>
+    </div>
+
+    <div class="ex" style="padding:14px 18px;border-left-width:4px">
+      <strong>¶2 Two or three features (3-4 предложения):</strong><br>
+      <em>The most popular / striking category is <b>________</b>, which accounts for ________. By contrast, the least popular is <b>________</b>, representing only ________. It is worth noting that <b>________</b> is followed closely by <b>________</b>, with ________.</em>
+    </div>
+
+    <div class="ex" style="padding:14px 18px;border-left-width:4px">
+      <strong>¶3 Comparison of two categories (3-4 предложения):</strong><br>
+      <em>Interestingly, <b>________</b> is twice as high as <b>________</b> / three times as popular as <b>________</b>. The gap between them is around ________ percent, which is a ________ difference. Compared to <b>________</b>, <b>________</b> shows a <b>________</b> trend.</em>
+    </div>
+
+    <div class="ex" style="padding:14px 18px;border-left-width:4px">
+      <strong>¶4 Possible reasons / own view (3-4 предложения):</strong><br>
+      <em>These figures may be explained by <b>________</b>. Personally, I believe that <b>________</b>, because <b>________</b>. In addition, cultural / economic / technological factors also play a role.</em>
+    </div>
+
+    <div class="ex" style="padding:14px 18px;border-left-width:4px">
+      <strong>¶5 Conclusion (2 предложения):</strong><br>
+      <em>In conclusion, the chart clearly demonstrates that <b>________</b>. These findings suggest that <b>________</b> remains the leading / most relevant option for ________.</em>
+    </div>
+
+    <h3>🅱 ОГЭ 35 · personal letter · 100-120 слов</h3>
+    <div class="theory">Compare &amp; contrast short version. Используется, если друг спрашивает «Who is taller / which is bigger / what do you prefer».</div>
+
+    <div class="ex" style="padding:14px 18px;border-left-width:4px">
+      <strong>Opening:</strong> <em>Thanks for your letter. You asked about <b>________</b>, so let me tell you.</em><br>
+      <strong>Main point 1:</strong> <em>In my family / city / class, <b>________</b> is <b>twice as</b> <em>________</em> <b>as</b> <b>________</b>.</em><br>
+      <strong>Main point 2:</strong> <em>However, <b>________</b> is <b>a bit shorter / smaller / slower</b>, which makes it <b>________</b>.</em><br>
+      <strong>Main point 3 (opinion):</strong> <em>Personally, I prefer <b>________</b> because <b>________</b>.</em><br>
+      <strong>Closing:</strong> <em>Write back and tell me which one you'd choose!</em>
+    </div>
+
+    <h3>🅲 Universal compare &amp; contrast connectors</h3>
+    <div class="pill-row">
+      <span class="pill">similarly</span><span class="pill">likewise</span><span class="pill">in the same way</span><span class="pill">both … and</span>
+      <span class="pill warn">however</span><span class="pill warn">on the other hand</span><span class="pill warn">by contrast</span><span class="pill warn">unlike</span><span class="pill warn">whereas</span><span class="pill warn">while</span>
+      <span class="pill good">moreover</span><span class="pill good">in addition</span><span class="pill good">furthermore</span><span class="pill good">what is more</span>
+    </div>
+
+    <h3>🅳 Mini vocab · 20 рабочих слов для сравнений в эссе</h3>
+    <table class="tbl">
+      <thead><tr><th>EN</th><th>RU</th></tr></thead>
+      <tbody>
+        <tr><td class="en">to outnumber</td><td>превосходить по количеству</td></tr>
+        <tr><td class="en">to outperform</td><td>превосходить по результатам</td></tr>
+        <tr><td class="en">to lag behind</td><td>отставать</td></tr>
+        <tr><td class="en">to catch up with</td><td>догонять</td></tr>
+        <tr><td class="en">to overtake</td><td>обгонять</td></tr>
+        <tr><td class="en">a gap</td><td>разрыв</td></tr>
+        <tr><td class="en">a disparity</td><td>несоответствие</td></tr>
+        <tr><td class="en">a margin</td><td>отрыв, перевес</td></tr>
+        <tr><td class="en">a share</td><td>доля</td></tr>
+        <tr><td class="en">a proportion</td><td>доля, пропорция</td></tr>
+        <tr><td class="en">respectively</td><td>соответственно</td></tr>
+        <tr><td class="en">approximately</td><td>приблизительно</td></tr>
+        <tr><td class="en">roughly</td><td>примерно</td></tr>
+        <tr><td class="en">slightly</td><td>незначительно</td></tr>
+        <tr><td class="en">considerably</td><td>значительно</td></tr>
+        <tr><td class="en">to witness a rise</td><td>наблюдать рост</td></tr>
+        <tr><td class="en">to see a decline</td><td>видеть снижение</td></tr>
+        <tr><td class="en">to peak</td><td>достичь пика</td></tr>
+        <tr><td class="en">to bottom out</td><td>достичь дна</td></tr>
+        <tr><td class="en">to plateau</td><td>выйти на плато</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="footer" style="margin-top:24px">
+    🧮 TOOLKIT · 7 sections · 60+ phrases · ЕГЭ Task 38 + ОГЭ 35 templates<br>
+    <em>«В 2 раза больше = twice as big as. Увеличиться на X% = increase by X%. Описание графика = 6 категорий, 60+ фраз.»</em>
+  </div>
+
+</div><!-- /#toolkit-view -->
+
 </main>
 
 <script>
@@ -1358,6 +1858,74 @@ function checkErr(id){
     inp.classList.add(val === ans ? 'ok' : 'no');
   });
 }
+</script>
+
+<!-- ═══ TOOLKIT TAB SWITCHER (local to this lesson) ═══ -->
+<script>
+(function(){
+  var tabs = document.querySelectorAll('.lesson-tabs .ltab');
+  var lessonView = document.getElementById('lesson-view');
+  var toolkitView = document.getElementById('toolkit-view');
+  var hwCount = document.getElementById('ltab-hw-count');
+  if (!tabs.length || !lessonView || !toolkitView) return;
+
+  function setActive(name){
+    tabs.forEach(function(t){ t.classList.toggle('is-active', t.dataset.tab === name); });
+  }
+  function showLesson(){
+    lessonView.hidden = false;
+    toolkitView.hidden = true;
+    setActive('lesson');
+  }
+  function showToolkit(){
+    lessonView.hidden = true;
+    toolkitView.hidden = false;
+    setActive('toolkit');
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  function snapshotTheme(){
+    try {
+      var rs = getComputedStyle(document.documentElement);
+      var bs = getComputedStyle(document.body);
+      function pick(){ for (var i=0;i<arguments.length;i++){ var v=rs.getPropertyValue(arguments[i]); if (v && v.trim()) return v.trim(); } return ''; }
+      var theme = {
+        '--bg': pick('--bg','--paper','--surface'),
+        '--card': pick('--card','--surface','--paper') || '#ffffff',
+        '--text': pick('--text','--ink','--fg') || '#1a3a5c',
+        '--muted': pick('--muted','--muted-2'),
+        '--line': pick('--line','--line-2','--border'),
+        '--accent': pick('--accent','--brand','--gold','--navy'),
+        '--accent-on': pick('--accent-on','--text-on-accent') || '#ffffff',
+        '--display': pick('--display','--font-display') || rs.fontFamily,
+        '--mono': pick('--mono','--font-mono'),
+        '__bodyBg': bs.backgroundColor
+      };
+      localStorage.setItem('lab-theme:' + location.pathname, JSON.stringify(theme));
+    } catch(e){}
+  }
+  function refreshCount(){
+    try {
+      var arr = JSON.parse(localStorage.getItem('lab-hw:' + location.pathname) || '[]');
+      if (hwCount) hwCount.textContent = arr.length;
+    } catch(e){}
+  }
+
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      var name = t.dataset.tab;
+      if (name === 'lesson') showLesson();
+      else if (name === 'toolkit') showToolkit();
+      else if (name === 'homework') {
+        snapshotTheme();
+        window.location.href = '/lingua-boost-lab/.homework/?lesson=' + encodeURIComponent(location.pathname);
+      }
+    });
+  });
+
+  snapshotTheme();
+  refreshCount();
+  setTimeout(snapshotTheme, 800);
+})();
 </script>
 
 <!-- ═══ Standard Lab stack (sync / homework / vocab-builder / tabs / ai-feedback / mobile) ═══ -->
