@@ -2689,6 +2689,19 @@ document.querySelectorAll('.vocab-card').forEach(function(c){
     var target = builder.dataset.answer || '';
     var slots = builder.querySelectorAll('.target-line .slot');
     var bankEl = builder.querySelector('.word-bank');
+    var status = builder.querySelector('.builder-status');
+    var checkBtn = builder.querySelector('[data-act="check"]');
+    var resetBtn = builder.querySelector('[data-act="reset"]');
+
+    // Hedge-upgrade variant — no slots / no word-bank, only «Show target» reveal
+    if (!slots.length && !bankEl) {
+      if (resetBtn) resetBtn.addEventListener('click', function(){
+        builder.classList.toggle('show-sample');
+      });
+      return;
+    }
+
+    // Full Build-a-Sentence variant — shuffle the word bank so the correct order is not pre-sorted
     if (bankEl) {
       var kids = Array.from(bankEl.children);
       for (var i = kids.length-1; i > 0; i--) {
@@ -2698,9 +2711,6 @@ document.querySelectorAll('.vocab-card').forEach(function(c){
       kids.forEach(function(k){ bankEl.appendChild(k); });
     }
     var bank = builder.querySelectorAll('.word-bank button');
-    var status = builder.querySelector('.builder-status');
-    var checkBtn = builder.querySelector('[data-act="check"]');
-    var resetBtn = builder.querySelector('[data-act="reset"]');
     var filled = [];
     bank.forEach(function(btn){
       btn.addEventListener('click', function(){
@@ -2725,27 +2735,24 @@ document.querySelectorAll('.vocab-card').forEach(function(c){
         filled.splice(i, 1);
       });
     });
-    checkBtn.addEventListener('click', function(){
+    if (checkBtn) checkBtn.addEventListener('click', function(){
       var built = Array.from(slots).map(function(s){ return s.classList.contains('filled') ? s.textContent : '___'; }).join(' ');
       var clean = built.replace(/\s+/g, ' ').trim();
       var expected = (target || '').replace(/\s+/g, ' ').trim();
       if (clean === expected) {
-        status.textContent = '✓ Correct';
-        status.className = 'builder-status ok';
+        if (status) { status.textContent = '✓ Correct'; status.className = 'builder-status ok'; }
         builder.classList.add('right');
       } else {
-        status.textContent = '✗ Not yet — check word order';
-        status.className = 'builder-status miss';
+        if (status) { status.textContent = '✗ Not yet — check word order'; status.className = 'builder-status miss'; }
         builder.classList.add('show-sample');
         builder.classList.add('wrong');
       }
     });
-    resetBtn.addEventListener('click', function(){
+    if (resetBtn) resetBtn.addEventListener('click', function(){
       slots.forEach(function(s){ s.textContent = '___'; s.classList.remove('filled'); });
       bank.forEach(function(b){ b.classList.remove('used'); });
       filled = [];
-      status.textContent = '';
-      status.className = 'builder-status';
+      if (status) { status.textContent = ''; status.className = 'builder-status'; }
       builder.classList.remove('show-sample');
     });
   });
