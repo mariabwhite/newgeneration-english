@@ -16,7 +16,7 @@ PHRASES = {
     # ─── S1 · Warm-up recall ──────────────────────────────────
     "sp-01": ("Good morning.", "s"),
     "sp-02": ("My name is Aleksandra. You can call me Sasha.", "s"),
-    "sp-03": ("I'm from Russia. I live in Herceg Novi now.", "s"),
+    "sp-03": ("I'm from Russia. I'm in Paris this week.", "s"),
     "sp-04": ("I work in marketing at a small company.", "s"),
     "sp-05": ("I drink coffee every morning.", "s"),
 
@@ -101,15 +101,48 @@ PHRASES = {
     "s5-3-07": ("No problem. Talk to you later!", "m"),
 
     # ─── S6 · Reading · WhatsApp to Mum ──────────────────────
-    "rd-full": ("Hi Mum! I'm fine. I live in Herceg Novi now — a small town in Montenegro. I don't have mobile data yet, so I write to you from a café near the sea. I drink a cappuccino every morning — one euro fifty, and the croissant is very good. This afternoon I have a call with my colleague from Moscow at six Moscow time — that's four pm here. I'm free after nine pm. Tomorrow I buy a SIM card at a small shop opposite the pharmacy. I'm happy. Miss you! Kisses, Sasha.", "s"),
+    "rd-full": ("Hi Mum! I'm fine. I'm in Paris this week — a short trip for a project. I don't have mobile data on my French SIM yet, so I write to you from a small café near the hotel. I drink a cappuccino every morning — one euro fifty, and the croissant is very good. This afternoon I have a call with my colleague from Moscow at six Moscow time — that's four pm here in Paris. I'm free after nine pm. Tomorrow I buy a SIM card at a small shop opposite the pharmacy. I'm happy. Miss you! Kisses, Sasha.", "s"),
+
+    # ─── Vocab Capsule · 30 phrases from WhatsApp vocab ──────
+    "v-15min":     ("In fifteen minutes.", "s"),
+    "v-after9":    ("After nine pm.", "s"),
+    "v-early":     ("Early in the morning.", "s"),
+    "v-tilllate":  ("Till late at night.", "s"),
+    "v-free36":    ("I'm free from three to six.", "s"),
+    "v-meet8":     ("I have a meeting at eight.", "s"),
+    "v-busy":      ("I'm busy right now.", "s"),
+    "v-15now":     ("I have fifteen minutes now.", "s"),
+    "v-whenfree":  ("What time are you free?", "s"),
+    "v-whentalk":  ("When can we talk?", "s"),
+    "v-callback":  ("Can I call you back?", "s"),
+    "v-callhome":  ("I'll call you when I get home.", "s"),
+    "v-giveacall": ("Give me a call.", "s"),
+    "v-notphone":  ("I can't call you by phone.", "s"),
+    "v-onlywifi":  ("Only on Wi-Fi.", "s"),
+    "v-wifizone":  ("I'll be in a Wi-Fi zone.", "s"),
+    "v-inparis":   ("I'm in Paris this week.", "s"),
+    "v-justarrived":("I just arrived here.", "s"),
+    "v-nodata":    ("I don't have mobile data yet.", "s"),
+    "v-getsim":    ("I'm going to get a SIM card.", "s"),
+    "v-nowifi":    ("There is no Wi-Fi here.", "s"),
+    "v-biztrip":   ("I'm on a business trip.", "s"),
+    "v-backmonday":("I'll be back on Monday.", "s"),
+    "v-justback":  ("I just got back.", "s"),
+    "v-friendrec": ("My friend recommended you.", "s"),
+    "v-reachout":  ("I was told to reach out to you.", "s"),
+    "v-ifpossible":("If possible.", "s"),
+    "v-great":     ("That would be great.", "s"),
+    "v-noproblem": ("No problem.", "s"),
+    "v-sorry":     ("Sorry about that.", "s"),
+    "v-appreciate":("I appreciate it.", "s"),
 
     # ─── S7 · Speaking role-play prompts ─────────────────────
-    "sp7-01": ("You're at a café in Herceg Novi. Order a cappuccino and ask for the Wi-Fi password. Target: Could I have…", "s"),
+    "sp7-01": ("You're at a café in Paris. Order a cappuccino and ask for the Wi-Fi password. Target: Could I have…", "s"),
     "sp7-02": ("Stop a stranger and ask the way to the pharmacy. Target: Excuse me, where is…", "s"),
     "sp7-03": ("Introduce yourself to a new neighbour: name, where you're from, what you do. Three sentences.", "s"),
     "sp7-04": ("In a shop: ask the price of a SIM card and say it's a bit expensive. Target: How much is it?", "s"),
     "sp7-05": ("Phone call: say you're busy right now and suggest a new time. Target: I'm busy… / Could I call you back…", "s"),
-    "sp7-06": ("Sixty-second monologue: My first week in Montenegro — use five phrases from Sections two to six.", "s"),
+    "sp7-06": ("Sixty-second monologue: My first week in Paris — use five phrases from Sections two to six.", "s"),
 }
 
 VOICES = {"s": VOICE_SASHA, "m": VOICE_M, "f": VOICE_F}
