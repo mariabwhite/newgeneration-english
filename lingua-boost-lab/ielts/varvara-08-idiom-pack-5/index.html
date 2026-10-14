@@ -77,10 +77,28 @@ body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1
 /* IMAGES */
 .hero-img{width:100%;border-radius:14px;box-shadow:0 8px 30px rgba(31,44,30,.14);margin:0 0 20px;display:block}
 .comic-img{width:100%;border-radius:14px;box-shadow:0 8px 30px rgba(31,44,30,.14);margin:14px 0 6px;display:block}
-.flip-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;margin:0 0 18px}
-.flip-gallery figure{margin:0}
-.flip-gallery img{width:100%;border-radius:12px;box-shadow:0 4px 16px rgba(31,44,30,.12);display:block}
-.flip-gallery figcaption{font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:6px}
+.flip-gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px;margin:0 0 18px}
+.flip-gallery figure{margin:0;perspective:1400px}
+.flip-card{position:relative;width:100%;aspect-ratio:1/1.15;cursor:pointer;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.4,0,.2,1)}
+.flip-card.is-flipped{transform:rotateY(180deg)}
+.flip-face{position:absolute;inset:0;overflow:hidden;border-radius:14px;box-shadow:0 6px 22px rgba(31,44,30,.18);backface-visibility:hidden;-webkit-backface-visibility:hidden;background:#fff}
+.flip-face img{position:absolute;top:0;height:100%;width:200%;max-width:none;object-fit:cover;display:block;pointer-events:none;user-select:none}
+.flip-face.front img{left:0}
+.flip-face.back{transform:rotateY(180deg)}
+.flip-face.back img{right:0;left:auto}
+.flip-face::after{content:attr(data-label);position:absolute;top:10px;left:10px;font-family:var(--mono);font-size:.6rem;font-weight:800;letter-spacing:.18em;color:#fff;background:rgba(14,27,68,.82);padding:5px 11px;border-radius:50px;z-index:2}
+.flip-hint{position:absolute;bottom:10px;right:10px;font-family:var(--mono);font-size:.58rem;font-weight:700;letter-spacing:.14em;color:#fff;background:rgba(14,27,68,.65);padding:4px 10px;border-radius:50px;z-index:2;pointer-events:none}
+.flip-task{position:absolute;left:12px;right:12px;bottom:12px;background:rgba(255,253,245,.97);border:2px solid var(--navy);border-radius:10px;padding:10px 12px;z-index:3;font-size:.84rem;line-height:1.45;box-shadow:0 4px 14px rgba(14,27,68,.22)}
+.flip-task .flip-ph{margin:0 0 4px;font-family:var(--display);font-style:italic;font-weight:700;color:var(--navy);font-size:.92rem}
+.flip-task .flip-ipa{font-family:var(--mono);font-size:.7rem;color:var(--muted);margin-left:5px;font-style:normal;font-weight:400}
+.flip-task .flip-ru{color:var(--copper);font-size:.78rem;font-style:italic;margin:0 0 6px}
+.flip-task .flip-sent{color:var(--ink);margin:0 0 7px}
+.flip-task .flip-sent input{font-family:var(--mono);font-size:.82rem;padding:3px 8px;border:1.5px solid var(--line-2);border-radius:5px;background:#fff;color:var(--navy);font-weight:700;min-width:110px}
+.flip-task .flip-sent input.ok{background:#D7EEC8;border-color:var(--lime-dark);color:var(--navy)}
+.flip-task .flip-sent input.no{background:#F7D7CD;border-color:#B04020;color:#78200F}
+.flip-task .flip-check{font-family:var(--mono);font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;background:var(--navy);color:#fff;border:none;padding:5px 12px;border-radius:50px;cursor:pointer}
+.flip-task .flip-check:hover{background:var(--copper)}
+.flip-gallery figcaption{font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:8px}
 .flip-gallery figcaption b{color:var(--navy);font-weight:800}
 
 /* IDIOM CARDS */
@@ -207,8 +225,34 @@ body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1
   <!-- 0 · FLIP-CARDS -->
   <h3 class="sub"><span class="ic">🃏</span>Flip-cards · literal vs figurative<span class="pill">visual intro</span></h3>
   <div class="flip-gallery">
-    <figure><img src="assets/img/t1-flip-bookworm.png" alt="Flip-card: literal panel shows a cartoon worm with glasses on a stack of books; figurative panel shows a curly-haired girl reading cosily in a window seat"><figcaption><b>a bookworm</b> · literal vs figurative</figcaption></figure>
-    <figure><img src="assets/img/t1-flip-plot-thickens.png" alt="Flip-card: literal panel shows someone stirring a pot full of story-plot graphs; figurative panel shows two detectives at a corkboard of clues"><figcaption><b>the plot thickens</b> · literal vs figurative</figcaption></figure>
+    <figure>
+      <div class="flip-card" onclick="flipClick(this,event)">
+        <div class="flip-face front" data-label="LITERAL"><img src="assets/img/t1-flip-bookworm.png" alt="Literal: a cartoon worm with glasses on a stack of books"><span class="flip-hint">tap to flip →</span></div>
+        <div class="flip-face back" data-label="FIGURATIVE"><img src="assets/img/t1-flip-bookworm.png" alt="Figurative: a curly-haired girl reading cosily in a window seat">
+          <div class="flip-task">
+            <p class="flip-ph">a bookworm<span class="flip-ipa">/ˈbʊk.wɜːm/</span></p>
+            <p class="flip-ru">книжный червь</p>
+            <p class="flip-sent">My niece reads a novel every week — she's a complete <input data-a="bookworm" placeholder="..." style="min-width:120px">.</p>
+            <button class="flip-check" onclick="checkFlip(this)">Check</button>
+          </div>
+        </div>
+      </div>
+      <figcaption><b>a bookworm</b> · literal vs figurative</figcaption>
+    </figure>
+    <figure>
+      <div class="flip-card" onclick="flipClick(this,event)">
+        <div class="flip-face front" data-label="LITERAL"><img src="assets/img/t1-flip-plot-thickens.png" alt="Literal: someone stirring a pot full of story-plot graphs"><span class="flip-hint">tap to flip →</span></div>
+        <div class="flip-face back" data-label="FIGURATIVE"><img src="assets/img/t1-flip-plot-thickens.png" alt="Figurative: two detectives at a corkboard of clues">
+          <div class="flip-task">
+            <p class="flip-ph">the plot thickens<span class="flip-ipa">/plɒt ˈθɪk.ənz/</span></p>
+            <p class="flip-ru">сюжет становится интереснее</p>
+            <p class="flip-sent">A second witness has just come forward — the plot <input data-a="thickens" placeholder="..." style="min-width:110px">.</p>
+            <button class="flip-check" onclick="checkFlip(this)">Check</button>
+          </div>
+        </div>
+      </div>
+      <figcaption><b>the plot thickens</b> · literal vs figurative</figcaption>
+    </figure>
   </div>
   <img class="comic-img" src="assets/img/t1-comic.png" alt="3-panel comic: friend invites her for a night out, she declines because she's hitting the books before finals, then shows off a cover-to-cover read" loading="lazy">
 
@@ -370,8 +414,34 @@ body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1
 
   <h3 class="sub"><span class="ic">🃏</span>Flip-cards · literal vs figurative<span class="pill">visual intro</span></h3>
   <div class="flip-gallery">
-    <figure><img src="assets/img/t2-flip-pull-the-plug.png" alt="Flip-card: literal panel shows a hand pulling a glowing plug from a wall socket; figurative panel shows a stern CEO closing a 'PROJECT ALPHA' folder in a boardroom"><figcaption><b>to pull the plug</b> · literal vs figurative</figcaption></figure>
-    <figure><img src="assets/img/t2-flip-crash-and-burn.png" alt="Flip-card: literal panel shows a small rocket crashing in flames in a desert; figurative panel shows an executive gesturing at a plunging revenue chart with a stunned audience"><figcaption><b>to crash and burn</b> · literal vs figurative</figcaption></figure>
+    <figure>
+      <div class="flip-card" onclick="flipClick(this,event)">
+        <div class="flip-face front" data-label="LITERAL"><img src="assets/img/t2-flip-pull-the-plug.png" alt="Literal: a hand pulling a glowing plug from a wall socket"><span class="flip-hint">tap to flip →</span></div>
+        <div class="flip-face back" data-label="FIGURATIVE"><img src="assets/img/t2-flip-pull-the-plug.png" alt="Figurative: a stern CEO closing a Project Alpha folder in a boardroom">
+          <div class="flip-task">
+            <p class="flip-ph">to pull the plug<span class="flip-ipa">/pʊl ðə plʌɡ/</span></p>
+            <p class="flip-ru">закрыть, свернуть проект</p>
+            <p class="flip-sent">After losing money for two years, the start-up <input data-a="pulled the plug" placeholder="..." style="min-width:150px"> on its streaming service.</p>
+            <button class="flip-check" onclick="checkFlip(this)">Check</button>
+          </div>
+        </div>
+      </div>
+      <figcaption><b>to pull the plug</b> · literal vs figurative</figcaption>
+    </figure>
+    <figure>
+      <div class="flip-card" onclick="flipClick(this,event)">
+        <div class="flip-face front" data-label="LITERAL"><img src="assets/img/t2-flip-crash-and-burn.png" alt="Literal: a small rocket crashing in flames in a desert"><span class="flip-hint">tap to flip →</span></div>
+        <div class="flip-face back" data-label="FIGURATIVE"><img src="assets/img/t2-flip-crash-and-burn.png" alt="Figurative: an executive gesturing at a plunging revenue chart with a stunned audience">
+          <div class="flip-task">
+            <p class="flip-ph">to crash and burn<span class="flip-ipa">/kræʃ ənd bɜːn/</span></p>
+            <p class="flip-ru">с треском провалиться</p>
+            <p class="flip-sent">The ambitious launch <input data-a="crashed and burned" placeholder="..." style="min-width:160px"> when the login servers collapsed.</p>
+            <button class="flip-check" onclick="checkFlip(this)">Check</button>
+          </div>
+        </div>
+      </div>
+      <figcaption><b>to crash and burn</b> · literal vs figurative</figcaption>
+    </figure>
   </div>
   <img class="comic-img" src="assets/img/t2-comic.png" alt="3-panel comic: couple admires a cutting-edge AI tutor, child suffers information overload from floating subject cards, then dad reaches for the plug ready to pull the plug if it fails" loading="lazy">
 
@@ -526,8 +596,34 @@ body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1
 
   <h3 class="sub"><span class="ic">🃏</span>Flip-cards · literal vs figurative<span class="pill">visual intro</span></h3>
   <div class="flip-gallery">
-    <figure><img src="assets/img/t3-flip-feast-for-the-eyes.png" alt="Flip-card: literal panel shows a banquet table where every plate holds a cartoon eyeball with lashes; figurative panel shows a woman gazing in awe at a wall of luminous paintings in a grand gallery"><figcaption><b>a feast for the eyes</b> · literal vs figurative</figcaption></figure>
-    <figure><img src="assets/img/t3-flip-paint-the-town-red.png" alt="Flip-card: literal panel shows a tiny figure covering a town in bright red paint with a huge roller; figurative panel shows friends laughing in a lively bar, cocktails raised, confetti in the air"><figcaption><b>to paint the town red</b> · literal vs figurative</figcaption></figure>
+    <figure>
+      <div class="flip-card" onclick="flipClick(this,event)">
+        <div class="flip-face front" data-label="LITERAL"><img src="assets/img/t3-flip-feast-for-the-eyes.png" alt="Literal: a banquet table where every plate holds a cartoon eyeball with lashes"><span class="flip-hint">tap to flip →</span></div>
+        <div class="flip-face back" data-label="FIGURATIVE"><img src="assets/img/t3-flip-feast-for-the-eyes.png" alt="Figurative: a woman gazing in awe at a wall of luminous paintings in a grand gallery">
+          <div class="flip-task">
+            <p class="flip-ph">a feast for the eyes<span class="flip-ipa">/fiːst/</span></p>
+            <p class="flip-ru">пир для глаз</p>
+            <p class="flip-sent">The Monet room was an absolute <input data-a="feast for the eyes" placeholder="..." style="min-width:160px">.</p>
+            <button class="flip-check" onclick="checkFlip(this)">Check</button>
+          </div>
+        </div>
+      </div>
+      <figcaption><b>a feast for the eyes</b> · literal vs figurative</figcaption>
+    </figure>
+    <figure>
+      <div class="flip-card" onclick="flipClick(this,event)">
+        <div class="flip-face front" data-label="LITERAL"><img src="assets/img/t3-flip-paint-the-town-red.png" alt="Literal: a tiny figure covering a town in bright red paint with a huge roller"><span class="flip-hint">tap to flip →</span></div>
+        <div class="flip-face back" data-label="FIGURATIVE"><img src="assets/img/t3-flip-paint-the-town-red.png" alt="Figurative: friends laughing in a lively bar, cocktails raised, confetti in the air">
+          <div class="flip-task">
+            <p class="flip-ph">to paint the town red<span class="flip-ipa">/peɪnt ðə taʊn red/</span></p>
+            <p class="flip-ru">зажечь, оторваться по полной</p>
+            <p class="flip-sent">After the exhibition opening, the whole crew went out to <input data-a="paint the town red" placeholder="..." style="min-width:170px">.</p>
+            <button class="flip-check" onclick="checkFlip(this)">Check</button>
+          </div>
+        </div>
+      </div>
+      <figcaption><b>to paint the town red</b> · literal vs figurative</figcaption>
+    </figure>
   </div>
   <img class="comic-img" src="assets/img/t3-comic.png" alt="3-panel comic: curly-haired traveller discovers a gallery off the beaten track, calls it a real feast for the eyes, then points at a small bronze that stole the show" loading="lazy">
 
@@ -682,8 +778,34 @@ body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1
 
   <h3 class="sub"><span class="ic">🃏</span>Flip-cards · literal vs figurative<span class="pill">visual intro</span></h3>
   <div class="flip-gallery">
-    <figure><img src="assets/img/t4-flip-backseat-driver.png" alt="Flip-card: literal panel shows a passenger leaning from the back seat of a vintage car, pointing at the steering wheel while the driver rolls her eyes; figurative panel shows a manager leaning over a colleague's desk, pointing at a screen while the colleague looks exasperated"><figcaption><b>a backseat driver</b> · literal vs figurative</figcaption></figure>
-    <figure><img src="assets/img/t4-flip-miss-the-boat.png" alt="Flip-card: literal panel shows a man on a wooden dock reaching helplessly as a steamboat departs across a misty lake; figurative panel shows a job seeker in a café staring at a laptop reading 'POSITION FILLED'"><figcaption><b>to miss the boat</b> · literal vs figurative</figcaption></figure>
+    <figure>
+      <div class="flip-card" onclick="flipClick(this,event)">
+        <div class="flip-face front" data-label="LITERAL"><img src="assets/img/t4-flip-backseat-driver.png" alt="Literal: a passenger leaning from the back seat of a vintage car, pointing at the steering wheel"><span class="flip-hint">tap to flip →</span></div>
+        <div class="flip-face back" data-label="FIGURATIVE"><img src="assets/img/t4-flip-backseat-driver.png" alt="Figurative: a manager leaning over a colleague's desk, pointing at a screen">
+          <div class="flip-task">
+            <p class="flip-ph">a backseat driver<span class="flip-ipa">/ˈbæk.siːt ˈdraɪ.və/</span></p>
+            <p class="flip-ru">тот, кто лезет с советами</p>
+            <p class="flip-sent">She's a terrible <input data-a="backseat driver" placeholder="..." style="min-width:150px"> — she comments on every turn I make.</p>
+            <button class="flip-check" onclick="checkFlip(this)">Check</button>
+          </div>
+        </div>
+      </div>
+      <figcaption><b>a backseat driver</b> · literal vs figurative</figcaption>
+    </figure>
+    <figure>
+      <div class="flip-card" onclick="flipClick(this,event)">
+        <div class="flip-face front" data-label="LITERAL"><img src="assets/img/t4-flip-miss-the-boat.png" alt="Literal: a man on a wooden dock reaching helplessly as a steamboat departs"><span class="flip-hint">tap to flip →</span></div>
+        <div class="flip-face back" data-label="FIGURATIVE"><img src="assets/img/t4-flip-miss-the-boat.png" alt="Figurative: a job seeker in a café staring at a laptop reading POSITION FILLED">
+          <div class="flip-task">
+            <p class="flip-ph">to miss the boat<span class="flip-ipa">/mɪs ðə bəʊt/</span></p>
+            <p class="flip-ru">упустить момент</p>
+            <p class="flip-sent">If you don't apply by Friday, you'll <input data-a="miss the boat" placeholder="..." style="min-width:140px"> completely.</p>
+            <button class="flip-check" onclick="checkFlip(this)">Check</button>
+          </div>
+        </div>
+      </div>
+      <figcaption><b>to miss the boat</b> · literal vs figurative</figcaption>
+    </figure>
   </div>
 
   <h3 class="sub"><span class="ic">🎴</span>Idiom cards<span class="pill">15 phrases</span></h3>
@@ -837,8 +959,34 @@ body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1
 
   <h3 class="sub"><span class="ic">🃏</span>Flip-cards · literal vs figurative<span class="pill">visual intro</span></h3>
   <div class="flip-gallery">
-    <figure><img src="assets/img/t5-flip-stones-throw-away.png" alt="Flip-card: literal panel shows a boy actually throwing a small pebble that lands at a nearby doorstep; figurative panel shows a woman at her door pointing with a smile at a bakery just across a cobblestone street"><figcaption><b>a stone's throw away</b> · literal vs figurative</figcaption></figure>
-    <figure><img src="assets/img/t5-flip-home-is-where-the-heart-is.png" alt="Flip-card: literal panel shows a tiny animated heart floating out of a chest and settling inside a cosy cottage; figurative panel shows a family laughing around a candlelit table in a plain apartment, suitcases nearby"><figcaption><b>home is where the heart is</b> · literal vs figurative</figcaption></figure>
+    <figure>
+      <div class="flip-card" onclick="flipClick(this,event)">
+        <div class="flip-face front" data-label="LITERAL"><img src="assets/img/t5-flip-stones-throw-away.png" alt="Literal: a boy throwing a small pebble that lands at a nearby doorstep"><span class="flip-hint">tap to flip →</span></div>
+        <div class="flip-face back" data-label="FIGURATIVE"><img src="assets/img/t5-flip-stones-throw-away.png" alt="Figurative: a woman at her door pointing at a bakery just across the street">
+          <div class="flip-task">
+            <p class="flip-ph">a stone's throw away<span class="flip-ipa">/stəʊnz θrəʊ/</span></p>
+            <p class="flip-ru">в двух шагах</p>
+            <p class="flip-sent">The bakery is just a <input data-a="stone's throw away" placeholder="..." style="min-width:170px"> from our flat.</p>
+            <button class="flip-check" onclick="checkFlip(this)">Check</button>
+          </div>
+        </div>
+      </div>
+      <figcaption><b>a stone's throw away</b> · literal vs figurative</figcaption>
+    </figure>
+    <figure>
+      <div class="flip-card" onclick="flipClick(this,event)">
+        <div class="flip-face front" data-label="LITERAL"><img src="assets/img/t5-flip-home-is-where-the-heart-is.png" alt="Literal: a tiny heart floating out of a chest and settling inside a cosy cottage"><span class="flip-hint">tap to flip →</span></div>
+        <div class="flip-face back" data-label="FIGURATIVE"><img src="assets/img/t5-flip-home-is-where-the-heart-is.png" alt="Figurative: a family laughing around a candlelit table in a plain apartment with suitcases nearby">
+          <div class="flip-task">
+            <p class="flip-ph">home is where the heart is<span class="flip-ipa">/həʊm/</span></p>
+            <p class="flip-ru">дом там, где сердце</p>
+            <p class="flip-sent">She always says <input data-a="home is where the heart is" placeholder="..." style="min-width:230px"> — any flat with her kids feels like home.</p>
+            <button class="flip-check" onclick="checkFlip(this)">Check</button>
+          </div>
+        </div>
+      </div>
+      <figcaption><b>home is where the heart is</b> · literal vs figurative</figcaption>
+    </figure>
   </div>
   <img class="comic-img" src="assets/img/t5-comic.png" alt="3-panel comic: friend asks How's Lisbon? the woman says they've put down roots and the bakery is a stone's throw away, then welcomes a visitor with Make yourself at home!" loading="lazy">
 
@@ -1001,6 +1149,23 @@ function checkCloze(id){
     if (!val) return;
     inp.classList.add(val === ans ? 'ok' : 'no');
   });
+}
+
+function flipClick(card, ev){
+  if (ev && ev.target && ev.target.closest('input,button,.flip-task')) return;
+  card.classList.toggle('is-flipped');
+}
+
+function checkFlip(btn){
+  var task = btn.closest('.flip-task');
+  if (!task) return;
+  var inp = task.querySelector('input');
+  if (!inp) return;
+  var ans = (inp.dataset.a||'').toLowerCase().trim();
+  var val = (inp.value||'').toLowerCase().trim();
+  inp.classList.remove('ok','no');
+  if (!val) return;
+  inp.classList.add(val === ans ? 'ok' : 'no');
 }
 </script>
 </body>
