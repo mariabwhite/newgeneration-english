@@ -1299,15 +1299,19 @@ function shuffle(a){const x=a.slice();for(let i=x.length-1;i>0;i--){const j=Math
 })();
 
 // Fallback: force open/close on audio-script + study-key summaries
-// (some global lab-sync.js listeners may stopPropagation on summary clicks)
+// Problem: global mouseup -> getSelection -> speak() was reading summary text aloud,
+// blocking the UI for ~3-5 seconds and preventing the native toggle.
 document.querySelectorAll('details.audio-script > summary, details.study-key > summary, details.hint > summary, details.optional > summary').forEach(sum=>{
+  // kill text selection + speechSynthesis the moment we touch the summary
+  sum.addEventListener('mousedown',e=>{
+    try{speechSynthesis.cancel();window.getSelection().removeAllRanges();}catch{}
+  },true);
   sum.addEventListener('click',e=>{
     e.stopImmediatePropagation();
+    e.preventDefault();
+    try{speechSynthesis.cancel();}catch{}
     const d=sum.parentElement;
-    if(d && d.tagName==='DETAILS'){
-      e.preventDefault();
-      d.open=!d.open;
-    }
+    if(d && d.tagName==='DETAILS') d.open=!d.open;
   },true);
 });
 
@@ -1433,7 +1437,9 @@ document.querySelectorAll(speakSelectors.join(',')).forEach(el=>{
     else if(text)speak(text.slice(0,500));
   });
 });
-document.addEventListener('mouseup',()=>{
+document.addEventListener('mouseup',e=>{
+  // Skip entirely when the user is clicking a summary / toggle / button
+  if(e.target.closest('summary, button, input, textarea, select, details.audio-script, details.study-key, details.hint, details.optional')) return;
   const sel=window.getSelection().toString().trim();
   if(sel&&sel.length<200&&sel.split(/\s+/).length<=8)speak(sel);
 });
