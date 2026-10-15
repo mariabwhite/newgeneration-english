@@ -35,7 +35,7 @@ CLIPS = [
      "Third, supply and demand. There are many teachers but few orthopaedic surgeons; "
      "so the surgeon earns ten times more, even though the teacher works longer hours and has more responsibility. "
      "The pay is not a measure of how important the job is. It is only a measure of how hard it is to replace you."),
-    ('interview-sample', 'en-GB-RyanNeural', '-3%', '0Hz',
+    ('interview-sample', 'en-GB-RyanNeural', '-3%', '+0Hz',
      "Welcome to our London office. Please take a seat. "
      "Could you start by telling us a little about yourself and what brought you to apply for this role? "
      "Thank you. Now, what would you say are your three main strengths — and one honest weakness? "
