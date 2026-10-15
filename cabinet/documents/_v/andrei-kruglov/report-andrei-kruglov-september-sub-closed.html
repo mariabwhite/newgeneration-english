@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Отчёт · Андрей Круглов · сентябрьский абонемент · закрыт 15 октября</title>
+<style>
+  :root{
+    --bg:#E9E7E2;
+    --paper:#FFFFFF;
+    --cream:#EFEEE9;
+    --cream-soft:#F4F3EE;
+    --orange:#E8542B;
+    --orange-soft:#F4A86A;
+    --gold:#F4C84B;
+    --gold-soft:#FFF3CE;
+    --green:#5BA872;
+    --green-soft:#E5F1E9;
+    --ink:#1F1F1F;
+    --ink-2:#2C2C2C;
+    --muted:#7B7B7B;
+    --rule:#D9D7D2;
+    --tag-bg:#FFF1E8;
+    --tag-border:#F0C7AE;
+    --tag-ink:#A5421F;
+    --table-head:#F7F4EE;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;
+    font-size:14.5px; line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  .page{
+    max-width:210mm; margin:18px auto;
+    background:var(--paper);
+    box-shadow:0 12px 40px rgba(0,0,0,.10);
+    padding:0 0 32px;
+  }
+  .hero{ background:var(--cream); padding:30px 44px 30px; position:relative; }
+  .hero::after{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:4px;
+    background:linear-gradient(90deg,var(--orange) 0%,var(--orange) 55%,var(--gold) 100%);
+  }
+  .brandline{display:flex; align-items:center; gap:12px; margin-bottom:10px;}
+  .logo{
+    width:38px;height:38px;border-radius:9px;background:var(--orange);
+    color:#fff;font-weight:800;font-size:22px;display:grid;place-items:center;line-height:1;
+    box-shadow:0 2px 4px rgba(232,84,43,.25);
+  }
+  .brand-name{font-weight:800;letter-spacing:.06em;font-size:14.5px;}
+  .brand-sub{font-size:11px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;font-weight:500;margin-top:2px;}
+  .kicker{margin-top:14px;font-size:11px;letter-spacing:.22em;color:var(--orange);text-transform:uppercase;font-weight:700;}
+  h1.title{font-size:32px;line-height:1.1;margin:6px 0 6px;color:var(--ink);letter-spacing:-.01em;font-weight:800;}
+  p.subtitle{margin:0;font-size:14px;color:var(--ink-2);max-width:62ch;}
+
+  .meta{
+    padding:18px 44px 4px;
+    display:grid; grid-template-columns:repeat(3,1fr); gap:14px 22px;
+  }
+  .meta dt{font-size:10.5px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;font-weight:600;margin-bottom:3px;}
+  .meta dd{margin:0;font-size:14px;font-weight:700;}
+  .meta-rule{margin:18px 44px 8px;border:0;height:1px;background:var(--rule);}
+
+  section.chapter{padding:20px 44px 4px; scroll-margin-top:14px;}
+  h2{
+    margin:8px 0 14px; padding-left:14px; position:relative;
+    font-size:20px; font-weight:800; letter-spacing:-.005em;
+  }
+  h2::before{content:""; position:absolute; left:0; top:6px; bottom:6px; width:4px; background:var(--orange); border-radius:2px;}
+  h2 .ch-num{color:var(--orange); margin-right:6px;}
+  h3{font-size:12.5px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;font-weight:700;margin:16px 0 8px;}
+  ul.bul{list-style:none;padding:0;margin:0 0 12px;}
+  ul.bul li{position:relative;padding:4px 0 4px 22px;}
+  ul.bul li::before{content:"";position:absolute;left:4px;top:13px;width:7px;height:7px;border-radius:50%;background:var(--orange);}
+  ul.bul li b, ul.bul li .lex{color:var(--orange);font-weight:700;margin-right:6px;}
+
+  .tag-row{display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 14px;}
+  .tag{
+    font-size:12px;font-weight:600;color:var(--tag-ink);
+    background:var(--tag-bg); border:1px solid var(--tag-border);
+    padding:4px 10px; border-radius:999px;
+  }
+  .tag.green{color:#2f6f43;background:var(--green-soft);border-color:#c1e0cc;}
+  .tag.gold{color:#7a5c00;background:var(--gold-soft);border-color:#e5c76b;}
+
+  table.t{
+    width:100%; border-collapse:collapse; margin:10px 0 14px;
+    font-size:13.5px; background:#fff; border:1px solid var(--rule); border-radius:10px; overflow:hidden;
+  }
+  table.t th, table.t td{padding:9px 11px; text-align:left; border-bottom:1px solid var(--rule); vertical-align:top;}
+  table.t th{background:var(--table-head); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:700;}
+  table.t tr:last-child td{border-bottom:0;}
+  table.t td.num{font-weight:800;color:var(--orange);width:34px;text-align:center;}
+  table.t td.date{color:var(--muted);white-space:nowrap;font-family:"JetBrains Mono",Consolas,monospace;font-size:12px;}
+  table.t td.tag-cell{text-align:right;white-space:nowrap;}
+  .status-pill{font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:999px;letter-spacing:.06em;}
+  .status-pill.done{background:var(--green-soft);color:#2f6f43;border:1px solid #c1e0cc;}
+  .status-pill.plan{background:var(--cream-soft);color:var(--muted);border:1px solid var(--rule);}
+  .status-pill.cancel{background:#f3eaea;color:#8a4848;border:1px solid #e0c6c6;}
+
+  .callout{
+    background:var(--cream-soft); border:1px solid var(--rule); border-left:4px solid var(--orange);
+    border-radius:10px; padding:14px 18px; margin:14px 0;
+  }
+  .callout.gold{border-left-color:var(--gold); background:var(--gold-soft);}
+  .callout.green{border-left-color:var(--green); background:var(--green-soft);}
+  .callout h4{margin:0 0 6px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);font-weight:800;}
+  .callout.gold h4{color:#7a5c00}
+  .callout.green h4{color:#2f6f43}
+
+  .lex-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 22px;margin:10px 0 14px;}
+  .lex-grid ul.bul li{padding:3px 0 3px 20px;font-size:13.5px}
+  .lex-grid ul.bul li code{font-family:"JetBrains Mono",Consolas,monospace;font-size:12.5px;background:var(--cream-soft);padding:1px 6px;border-radius:4px;color:var(--ink-2)}
+  .lex-grid h3{margin-top:4px}
+  @media (max-width:640px){.lex-grid{grid-template-columns:1fr}}
+
+  .phrases{margin:10px 0 14px;padding:14px 18px;background:var(--cream-soft);border:1px solid var(--rule);border-radius:10px;font-size:13.5px;line-height:1.7}
+  .phrases em{color:var(--ink);font-style:italic}
+  .phrases .sep{color:var(--orange);font-weight:700;padding:0 6px}
+
+  .signature{margin:20px 44px 0;padding-top:16px;border-top:1px solid var(--rule);color:var(--muted);font-size:12.5px;}
+
+  @media print {
+    body{background:#fff;}
+    .page{box-shadow:none;margin:0;}
+  }
+  @media (max-width:640px){
+    .meta{grid-template-columns:1fr 1fr;padding:18px 22px 4px}
+    .meta-rule{margin:18px 22px 8px}
+    .hero{padding:22px 22px}
+    section.chapter{padding:20px 22px 4px}
+    .signature{margin:20px 22px 0}
+  }
+</style>
+</head>
+<body>
+<article class="page">
+
+  <header class="hero">
+    <div class="brandline">
+      <div class="logo">N</div>
+      <div>
+        <div class="brand-name">NEW GENERATION ENGLISH</div>
+        <div class="brand-sub">Maria Burtseva · Parent Report</div>
+      </div>
+    </div>
+    <div class="kicker">Отчёт · сентябрьский абонемент · закрыт 15 октября</div>
+    <h1 class="title">Андрей Круглов · итог сентябрь-октябрь</h1>
+    <p class="subtitle">Сентябрьский абонемент закрыт сегодня. Ниже — какие темы прошли, какую лексику отработали на уроках, и как подошли к финальному мок-тесту TOEFL iBT.</p>
+  </header>
+
+  <dl class="meta">
+    <div><dt>Цель</dt><dd>подготовка к TOEFL</dd></div>
+    <div><dt>Период абонемента</dt><dd>09 сен – 15 окт 2026</dd></div>
+    <div><dt>Абонемент</dt><dd>закрыт</dd></div>
+    <div><dt>Задолженности</dt><dd>нет</dd></div>
+    <div><dt>Формат</dt><dd>онлайн · 60 мин</dd></div>
+    <div><dt>Следующий шаг</dt><dd>ждём дату TOEFL → пробные варианты</dd></div>
+  </dl>
+
+  <hr class="meta-rule">
+
+  <!-- 1. Что это за абонемент -->
+  <section class="chapter">
+    <h2><span class="ch-num">1</span>Что это за абонемент</h2>
+
+    <p>Это <b>сентябрьский абонемент</b>, по 2 занятия в неделю. Он начался 9 сентября и закрылся сегодня, 15 октября — задержка связана с переносами в середине сентября, которые возвращены в календарь дальше.</p>
+
+    <p>Содержательно абонемент был выстроен как <b>подготовка к TOEFL iBT 2026</b>: сначала работали на тематических блоках («летние системы», «научные системы»), потом перешли к <b>LSW-уроку</b> (Listening · Speaking · Writing + Flat → C1 paraphrase) и прошли его три раза подряд, чтобы Андрей вышел на автоматическое использование C1-конструкций. Абонемент закрыли <b>диагностическим мок-тестом</b> на потолке B2+.</p>
+  </section>
+
+  <!-- 2. Таблица 10 строк -->
+  <section class="chapter">
+    <h2><span class="ch-num">2</span>Календарь абонемента</h2>
+
+    <table class="t">
+      <thead><tr><th class="num">#</th><th>Дата</th><th>Тема</th><th class="tag-cell">Статус</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="num">1</td>
+          <td class="date">09 сен</td>
+          <td>Summer Systems · TOEFL iBT через летнюю тематику (climate / sun / tourism / migration) + «As It Seems» hedging</td>
+          <td class="tag-cell"><span class="status-pill done">пройдено</span></td>
+        </tr>
+        <tr>
+          <td class="num">2</td>
+          <td class="date">16 сен</td>
+          <td>TOEFL prep</td>
+          <td class="tag-cell"><span class="status-pill cancel">перенос</span></td>
+        </tr>
+        <tr>
+          <td class="num">3</td>
+          <td class="date">17 сен</td>
+          <td>TOEFL prep</td>
+          <td class="tag-cell"><span class="status-pill cancel">перенос</span></td>
+        </tr>
+        <tr>
+          <td class="num">4</td>
+          <td class="date">23 сен</td>
+          <td>Science Systems · TOEFL iBT (научные системы)</td>
+          <td class="tag-cell"><span class="status-pill done">пройдено</span></td>
+        </tr>
+        <tr>
+          <td class="num">5</td>
+          <td class="date">24 сен</td>
+          <td>Science Systems · TOEFL iBT · второй проход</td>
+          <td class="tag-cell"><span class="status-pill done">пройдено</span></td>
+        </tr>
+        <tr>
+          <td class="num">6</td>
+          <td class="date">01 окт</td>
+          <td>TOEFL LSW · Flat → C1 paraphrase + IELTS Speaking (Part 2 + Part 3) · 1-й проход</td>
+          <td class="tag-cell"><span class="status-pill done">пройдено</span></td>
+        </tr>
+        <tr>
+          <td class="num">7</td>
+          <td class="date">07 окт</td>
+          <td>TOEFL LSW · 2-й проход (новый угол)</td>
+          <td class="tag-cell"><span class="status-pill done">пройдено</span></td>
+        </tr>
+        <tr>
+          <td class="num">8</td>
+          <td class="date">08 окт</td>
+          <td>TOEFL LSW · 3-й проход (конструкции до автоматизма)</td>
+          <td class="tag-cell"><span class="status-pill done">пройдено</span></td>
+        </tr>
+        <tr>
+          <td class="num">9</td>
+          <td class="date">14 окт</td>
+          <td>Diagnostic Mock TOEFL iBT 2026 · B2+ ceiling · session 1 / 2 (прогон)</td>
+          <td class="tag-cell"><span class="status-pill done">пройдено</span></td>
+        </tr>
+        <tr>
+          <td class="num">10</td>
+          <td class="date">15 окт</td>
+          <td>Diagnostic Mock TOEFL iBT 2026 · session 2 / 2 (разбор + weak-section drill)</td>
+          <td class="tag-cell"><span class="status-pill done">пройдено</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="font-size:13px;color:var(--muted);margin-top:-6px">Переносы в середине сентября учтены и возвращены в календарь дальше.</p>
+  </section>
+
+  <!-- 3. Отработанная лексика (реальная из Lab) -->
+  <section class="chapter">
+    <h2><span class="ch-num">3</span>Отработанная лексика · по карточкам Lab</h2>
+
+    <p>Это <b>не просто перечень тем</b> — это конкретные слова и фразы, которые Андрей проходил по карточкам в наших Lab-уроках. Все три части ниже — реальные колоды из LSW-урока и диагностического мока.</p>
+
+    <h3 style="margin-top:18px">А · Transferable academic · 16 карточек</h3>
+    <p style="font-size:13px;color:var(--muted);margin-top:-4px">Слова и коллокации, которые подходят к любому эссе или устному ответу — не зависят от темы.</p>
+    <div class="lex-grid">
+      <div>
+        <ul class="bul">
+          <li><code>pivotal</code> — absolutely central, decisive</li>
+          <li><code>to underscore</code> — to emphasise formally</li>
+          <li><code>to give rise to</code> — to cause / produce</li>
+          <li><code>notwithstanding</code> — despite (high-C1)</li>
+          <li><code>to a certain extent</code> — hedge «partly»</li>
+          <li><code>arguably</code> — «it can be argued that»</li>
+          <li><code>compelling evidence</code> — very strong evidence</li>
+          <li><code>to strike a balance between</code> — collocation</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="bul">
+          <li><code>overriding concern</code> — the main worry</li>
+          <li><code>far-reaching implications</code> — wide consequences</li>
+          <li><code>to constitute</code> — formal «to be»</li>
+          <li><code>to warrant</code> — to justify / make necessary</li>
+          <li><code>discernible</code> — noticeable (formal)</li>
+          <li><code>to leverage</code> — to use to advantage (business)</li>
+          <li><code>stakeholder</code> — any party with an interest</li>
+          <li><code>trade-off</code> — accept a loss on one side to gain on another</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:18px">Б · Direct-air-capture · perovskite lexis · 20 карточек</h3>
+    <p style="font-size:13px;color:var(--muted);margin-top:-4px">Академический вокаб из темы диагностического мока TOEFL (climate · energy · solar).</p>
+    <div class="lex-grid">
+      <div>
+        <ul class="bul">
+          <li><code>exponential</code> — accelerating growth</li>
+          <li><code>tandem</code> — two-layer solar cell</li>
+          <li><code>degradation</code> — loss of performance over time</li>
+          <li><code>monetize</code> — turn into revenue stream</li>
+          <li><code>undermine</code> — weaken indirectly</li>
+          <li><code>deployment</code> — installation at scale</li>
+          <li><code>ramp</code> — scale production steeply</li>
+          <li><code>threshold</code> — critical crossover point</li>
+          <li><code>aspirational</code> — ambitious, not yet reached</li>
+          <li><code>viability</code> — ability to work commercially</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="bul">
+          <li><code>order of magnitude</code> — factor of ×10</li>
+          <li><code>Achilles heel</code> — single critical weakness</li>
+          <li><code>photovoltaic</code> — solar-electric</li>
+          <li><code>ambient</code> — surrounding (air / temperature)</li>
+          <li><code>daunting</code> — intimidating, difficult</li>
+          <li><code>rationale</code> — the reason behind an action</li>
+          <li><code>vertical integration</code> — control the whole chain</li>
+          <li><code>intermittency</code> — on-and-off nature of renewables</li>
+          <li><code>sorbent</code> — material that absorbs</li>
+          <li><code>enhanced oil recovery</code> — EOR technique</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:18px">В · Science-domain карточки · 16 штук (spiral revision)</h3>
+    <div class="lex-grid">
+      <div>
+        <ul class="bul">
+          <li><code>cognition</code> · <code>neuroplasticity</code></li>
+          <li><code>peer review</code> · <code>hypothesis</code></li>
+          <li><code>replication</code> · <code>statistical significance</code></li>
+          <li><code>confirmation bias</code> · <code>CRISPR</code></li>
+          <li><code>heritability</code> · <code>machine learning</code></li>
+        </ul>
+      </div>
+      <div>
+        <ul class="bul">
+          <li><code>neural network</code> · <code>quantum entanglement</code></li>
+          <li><code>exoplanet</code> · <code>radiocarbon dating</code></li>
+          <li><code>biocompatible</code> · <code>superconductor</code></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. 8 C1 speaking core phrases -->
+  <section class="chapter">
+    <h2><span class="ch-num">4</span>Восемь C1 speaking phrases · для устного ответа</h2>
+
+    <p>Эти восемь фраз Андрей проговаривал три урока подряд. Задача — чтобы они приходили в речь автоматически, без паузы на подбор формулировки.</p>
+
+    <div class="phrases">
+      <em>this technology has crossed a commercial threshold</em><span class="sep">·</span>
+      <em>deployment is ramping exponentially</em><span class="sep">·</span>
+      <em>the Achilles heel of the field is…</em><span class="sep">·</span>
+      <em>at scale, the economics may become viable</em><span class="sep">·</span>
+      <em>it would appear plausible that…</em><span class="sep">·</span>
+      <em>from a long-term perspective…</em><span class="sep">·</span>
+      <em>the rationale for this investment is…</em><span class="sep">·</span>
+      <em>it is crucial to strike a balance between innovation and grid reliability</em>
+    </div>
+  </section>
+
+  <!-- 5. C1 paraphrase конструкции -->
+  <section class="chapter">
+    <h2><span class="ch-num">5</span>C1 paraphrase · двенадцать конструкций</h2>
+
+    <p>Главное из LSW-урока: двенадцать способов перефразировать плоскую фразу так, чтобы она звучала на C1. Все перечисленные Андрей собрал на трёх проходах.</p>
+
+    <ul class="bul">
+      <li><b>It-cleft</b> — <code>It is X that…</code> (выделить WHO/WHAT)</li>
+      <li><b>Pseudo-cleft</b> / what-cleft — <code>What X does is…</code> (выделить ACTION)</li>
+      <li><b>Reason-why cleft</b> — <code>The reason why X was…</code> (выделить CAUSE)</li>
+      <li><b>All-that cleft</b> — <code>All X did was…</code> (приуменьшить действие)</li>
+      <li><b>Passive, agent hidden</b> — убираем «кто» из фокуса</li>
+      <li><b>Impersonal passive</b> — <code>It is believed that…</code> (формальный report)</li>
+      <li><b>Not only</b> + инверсия — <code>Not only does X, but also…</code></li>
+      <li><b>Rarely / Seldom</b> + инверсия — <code>Rarely do you see…</code></li>
+      <li><b>Nominalization</b> — verb → noun для плотности</li>
+      <li><b>Participle clause</b> / reduced relative — <code>the paper, published in 2020, …</code></li>
+      <li><b>Although / Despite</b> — concessives</li>
+      <li><b>Were it not for X</b> — inverted conditional</li>
+    </ul>
+  </section>
+
+  <!-- 6. Абонемент -->
+  <section class="chapter">
+    <h2><span class="ch-num">6</span>Абонемент</h2>
+
+    <div class="callout green">
+      <h4>Абонемент закрыт · задолженности нет</h4>
+      Сентябрьский абонемент закрыт сегодня, 15 октября. Следующий абонемент согласуем с Юлией Борисовной на этой неделе — исходя из того, появилась ли дата TOEFL.
+    </div>
+  </section>
+
+  <!-- 7. Что дальше -->
+  <section class="chapter">
+    <h2><span class="ch-num">7</span>Что дальше</h2>
+
+    <p>Ждём дату TOEFL. Детали следующего абонемента согласуем с Юлией Борисовной отдельно.</p>
+
+    <div class="callout">
+      <h4>Коротко про Андрея</h4>
+      Андрей ровный: три прохода одного и того же LSW-урока отработал без возражений, с C1-вниманием к деталям. Диагностический мок прошёл на потолке B2+.
+    </div>
+  </section>
+
+  <div class="signature">
+    Мария Бурцева · New Generation English · Отчёт от 15 октября 2026 · <i>для Юлии Борисовны (мамы Андрея Круглова)</i>
+  </div>
+
+</article>
+</body>
+</html>
