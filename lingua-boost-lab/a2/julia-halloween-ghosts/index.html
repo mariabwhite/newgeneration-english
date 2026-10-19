@@ -129,6 +129,28 @@ strong{color:var(--accent-2);font-weight:800}
 @keyframes stickerBobReverse{0%,100%{transform:translateY(0) rotate(3deg)}50%{transform:translateY(-6px) rotate(-4deg)}}
 @media(max-width:720px){.ex-sticker{font-size:2.2rem;top:-10px;right:-2px}.ex-sticker.small{font-size:1.6rem}.ex-sticker.png-char,.ex-sticker img,img.ex-sticker{width:76px}.ex-sticker.png-char.small,img.ex-sticker.small{width:58px}.ex-sticker.png-char.big,img.ex-sticker.big{width:92px}}
 
+/* ===== PARTY STARTER (big centered pumpkin + song launcher) ===== */
+.party-starter{width:var(--demo-width);max-width:1120px;margin:0 auto 22px;background:linear-gradient(135deg,var(--card),var(--card-2));border:2px solid var(--accent);border-radius:20px;padding:22px clamp(16px,3vw,30px);display:grid;grid-template-columns:170px 1fr;gap:20px;align-items:center;box-shadow:0 10px 30px rgba(255,145,56,.28),inset 0 1px 0 rgba(255,145,56,.3);position:relative;overflow:visible}
+@media(max-width:620px){.party-starter{grid-template-columns:1fr;text-align:center;gap:12px}}
+.party-pumpkin{width:160px;height:160px;cursor:pointer;background:none;border:none;padding:0;filter:drop-shadow(0 10px 24px rgba(255,145,56,.55));animation:partyPumpkinIdle 2.4s ease-in-out infinite;transition:transform .15s;margin:0 auto}
+.party-pumpkin img{width:100%;height:100%;object-fit:contain;display:block}
+.party-pumpkin:hover{transform:scale(1.1) rotate(-6deg)}
+.party-pumpkin.bouncing{animation:partyPumpkinJump .8s ease-out}
+.party-pumpkin.playing{animation:partyPumpkinDance .5s ease-in-out infinite}
+@keyframes partyPumpkinIdle{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-10px) rotate(5deg)}}
+@keyframes partyPumpkinJump{0%{transform:translateY(0) rotate(0)}20%{transform:translateY(-80px) rotate(-25deg) scale(1.2)}50%{transform:translateY(-20px) rotate(15deg) scale(1.1)}80%{transform:translateY(-5px) rotate(-5deg) scale(1.03)}100%{transform:translateY(0) rotate(0) scale(1)}}
+@keyframes partyPumpkinDance{0%,100%{transform:rotate(-8deg) scale(1.08)}50%{transform:rotate(8deg) scale(1.15)}}
+.party-copy{display:flex;flex-direction:column;gap:10px}
+.party-copy .party-title{font-family:var(--spooky);font-size:clamp(1.4rem,3.2vw,2rem);color:var(--accent-2);letter-spacing:.02em;text-shadow:0 2px 0 rgba(255,145,56,.3)}
+.party-copy .party-sub{font-size:.92rem;color:var(--muted);line-height:1.5}
+.party-btn{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--accent),var(--accent-pink));color:#1C0E2A;border:none;border-radius:50px;padding:14px 28px;font-family:var(--display);font-weight:900;font-size:1.1rem;letter-spacing:.02em;cursor:pointer;text-transform:none;align-self:flex-start;box-shadow:0 8px 20px rgba(255,145,56,.4);transition:.15s;max-width:100%}
+@media(max-width:620px){.party-btn{align-self:center}}
+.party-btn:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 12px 26px rgba(255,145,56,.55)}
+.party-btn.playing{background:linear-gradient(135deg,var(--accent-3),var(--accent-pink))}
+.party-audio-row{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 12px;margin-top:4px}
+.party-audio-row .lbl{font-family:var(--mono);font-size:.7rem;font-weight:800;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;flex-shrink:0}
+.party-audio-row audio{flex:1;max-width:100%;height:36px}
+
 /* ===== CAST STRIP (5 characters) ===== */
 .cast-strip{width:var(--demo-width);max-width:1120px;margin:-6px auto 20px;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
 @media(max-width:720px){.cast-strip{grid-template-columns:repeat(5,1fr);gap:5px}}
@@ -216,8 +238,11 @@ strong{color:var(--accent-2);font-weight:800}
 /* ===== MATCH (two-column) ===== */
 .match-wrap{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
 @media(max-width:620px){.match-wrap{grid-template-columns:1fr}}
-.match-card{background:var(--card-2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;font-weight:700;font-size:.9rem;cursor:pointer;transition:.15s;color:var(--text);text-align:center;display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px}
+.match-card{background:var(--card-2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;font-weight:700;font-size:.9rem;cursor:pointer;transition:.15s;color:var(--text);text-align:center;display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;overflow:hidden}
 .match-card .emoji{font-size:1.6rem}
+.match-card.pic{padding:4px}
+.match-card.pic img{width:100%;max-width:120px;height:84px;object-fit:cover;border-radius:6px;transition:.2s}
+.match-card.pic:hover img{transform:scale(1.04)}
 .match-card:hover{border-color:var(--accent);transform:translateY(-1px)}
 .match-card.sel{background:rgba(255,145,56,.22);border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-2)}
 .match-card.done{background:rgba(138,229,92,.18);border-color:var(--ok);color:var(--ok);pointer-events:none;opacity:.85}
@@ -345,8 +370,11 @@ strong{color:var(--accent-2);font-weight:800}
 .lt-item .lt-choice.wrong{background:rgba(255,122,122,.18);border-color:var(--miss);color:var(--miss);animation:shake .35s}
 
 /* ===== VOCAB CAPSULE ===== */
-.cap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:8px}
-.cap-card{background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:flex;flex-direction:column;gap:4px}
+.cap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:8px}
+.cap-card{background:var(--card-2);border:1px solid var(--line);border-radius:12px;padding:0;display:flex;flex-direction:column;gap:0;overflow:hidden;transition:.15s}
+.cap-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.3)}
+.cap-card .vocab-pic{display:block;width:100%;height:140px;object-fit:cover;border-bottom:1px solid var(--line)}
+.cap-card .cap-body{padding:10px 14px;display:flex;flex-direction:column;gap:4px}
 .cap-card .say-btn{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:2px solid var(--accent);border-radius:50px;padding:4px 12px;font-weight:800;color:var(--accent-2);align-self:flex-start;cursor:pointer;transition:.15s;font-size:.9rem}
 .cap-card .say-btn:hover{background:var(--accent);color:#1C0E2A}
 .cap-card .say-btn.playing{animation:pulse 0.5s;background:var(--accent-3);color:#1C0E2A;border-color:var(--accent-3)}
@@ -407,6 +435,22 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
     </div>
   </div>
 </section>
+
+<!-- ===== PARTY STARTER · big pumpkin · launches "This Is Halloween" + opener ===== -->
+<div class="party-starter">
+  <button class="party-pumpkin" id="party-pumpkin" title="Click me — start the Halloween party!">
+    <img src="img/char-pumpkin-pip.png" alt="Click the pumpkin to start the Halloween party">
+  </button>
+  <div class="party-copy">
+    <div class="party-title">🎵 Tap the pumpkin — start the Halloween party!</div>
+    <div class="party-sub">The big pumpkin will jump 🎃, you'll hear a short intro, and then <strong>"This Is Halloween"</strong> will play. Tap again to stop.</div>
+    <button class="party-btn" id="party-btn">▶ Start the party!</button>
+    <div class="party-audio-row">
+      <span class="lbl">🎵 Song</span>
+      <audio id="party-song" controls preload="metadata" src="audio/this-is-halloween.mp3"></audio>
+    </div>
+  </div>
+</div>
 
 <!-- ===== CAST STRIP · 5 heroes of tonight ===== -->
 <div class="cast-strip" id="cast-strip">
@@ -577,42 +621,42 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
     <p style="color:var(--muted);font-size:.86rem">Click a word, then click its picture.</p>
 
     <div class="match-wrap" id="halloween-match">
-      <!-- left: emojis, right: words -->
-      <div class="match-card" data-side="pic" data-w="pumpkin"><span class="emoji">🎃</span></div>
+      <!-- 12 real pictures on the left, 12 words on the right -->
+      <div class="match-card pic" data-side="pic" data-w="pumpkin"><img src="img/words/pumpkin.png" alt="pumpkin"></div>
       <div class="match-card" data-side="word" data-w="broomstick">broomstick</div>
 
-      <div class="match-card" data-side="pic" data-w="ghost"><span class="emoji">👻</span></div>
-      <div class="match-card" data-side="word" data-w="haunted-house">haunted house</div>
+      <div class="match-card pic" data-side="pic" data-w="ghost"><img src="img/words/ghost.png" alt="ghost"></div>
+      <div class="match-card" data-side="word" data-w="haunted-castle">haunted castle</div>
 
-      <div class="match-card" data-side="pic" data-w="witch"><span class="emoji">🧙‍♀️</span></div>
+      <div class="match-card pic" data-side="pic" data-w="witch"><img src="img/words/witch.png" alt="witch"></div>
       <div class="match-card" data-side="word" data-w="jack-o-lantern">jack-o'-lantern</div>
 
-      <div class="match-card" data-side="pic" data-w="jack-o-lantern"><span class="emoji">🏮</span></div>
+      <div class="match-card pic" data-side="pic" data-w="jack-o-lantern"><img src="img/words/jack-o-lantern.png" alt="jack-o-lantern"></div>
       <div class="match-card" data-side="word" data-w="pumpkin">pumpkin</div>
 
-      <div class="match-card" data-side="pic" data-w="candy-bag"><span class="emoji">🍬</span></div>
-      <div class="match-card" data-side="word" data-w="witch-hat">witch hat</div>
+      <div class="match-card pic" data-side="pic" data-w="candy"><img src="img/words/candy.png" alt="candy bag"></div>
+      <div class="match-card" data-side="word" data-w="costume">costume</div>
 
-      <div class="match-card" data-side="pic" data-w="witch-hat"><span class="emoji">🎩</span></div>
+      <div class="match-card pic" data-side="pic" data-w="costume"><img src="img/words/costume.png" alt="costumes on hangers"></div>
       <div class="match-card" data-side="word" data-w="bat">bat</div>
 
-      <div class="match-card" data-side="pic" data-w="skeleton"><span class="emoji">💀</span></div>
+      <div class="match-card pic" data-side="pic" data-w="skeleton"><img src="img/words/skeleton.png" alt="skeleton"></div>
       <div class="match-card" data-side="word" data-w="ghost">ghost</div>
 
-      <div class="match-card" data-side="pic" data-w="broomstick"><span class="emoji">🧹</span></div>
+      <div class="match-card pic" data-side="pic" data-w="broomstick"><img src="img/words/broomstick.png" alt="broomstick"></div>
       <div class="match-card" data-side="word" data-w="witch">witch</div>
 
-      <div class="match-card" data-side="pic" data-w="bat"><span class="emoji">🦇</span></div>
+      <div class="match-card pic" data-side="pic" data-w="bat"><img src="img/words/bat.png" alt="bat"></div>
       <div class="match-card" data-side="word" data-w="cauldron">cauldron</div>
 
-      <div class="match-card" data-side="pic" data-w="haunted-house"><span class="emoji">🏚️</span></div>
-      <div class="match-card" data-side="word" data-w="candy-bag">candy bag</div>
+      <div class="match-card pic" data-side="pic" data-w="haunted-castle"><img src="img/words/haunted-castle.png" alt="haunted castle"></div>
+      <div class="match-card" data-side="word" data-w="candy">candy bag</div>
 
-      <div class="match-card" data-side="pic" data-w="cemetery"><span class="emoji">⚰️</span></div>
+      <div class="match-card pic" data-side="pic" data-w="vampire"><img src="img/words/vampire.png" alt="vampire"></div>
       <div class="match-card" data-side="word" data-w="skeleton">skeleton</div>
 
-      <div class="match-card" data-side="pic" data-w="cauldron"><span class="emoji">🧪</span></div>
-      <div class="match-card" data-side="word" data-w="cemetery">cemetery</div>
+      <div class="match-card pic" data-side="pic" data-w="cauldron"><img src="img/words/cauldron.png" alt="cauldron"></div>
+      <div class="match-card" data-side="word" data-w="vampire">vampire</div>
     </div>
   </div>
 
@@ -1507,26 +1551,26 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
     <h3>🎃 Click a word to hear it + see the meaning</h3>
 
     <div class="cap-grid">
-      <div class="cap-card"><button class="say-btn" data-say="ghost"><span class="emoji">👻</span>ghost 🔊</button><span class="cap-ru">привидение</span><span class="cap-ex">The grandma ghost had kind eyes.</span></div>
-      <div class="cap-card"><button class="say-btn" data-say="witch"><span class="emoji">🧙‍♀️</span>witch 🔊</button><span class="cap-ru">ведьма</span><span class="cap-ex">Julia was a witch in a long black dress.</span></div>
-      <div class="cap-card"><button class="say-btn" data-say="vampire"><span class="emoji">🧛</span>vampire 🔊</button><span class="cap-ru">вампир</span><span class="cap-ex">John was a vampire with red eyes.</span></div>
-      <div class="cap-card"><button class="say-btn" data-say="mummy"><span class="emoji">🧻</span>mummy 🔊</button><span class="cap-ru">мумия</span><span class="cap-ex">Papa was a mummy with ten metres of paper.</span></div>
-      <div class="cap-card"><button class="say-btn" data-say="pumpkin"><span class="emoji">🎃</span>pumpkin 🔊</button><span class="cap-ru">тыква</span><span class="cap-ex">We cut a face in a big pumpkin.</span></div>
-      <div class="cap-card"><button class="say-btn" data-say="jack-o-lantern"><span class="emoji">🏮</span>jack-o'-lantern 🔊</button><span class="cap-ru">тыква-фонарь</span><span class="cap-ex">The jack-o'-lantern was on the window.</span></div>
-      <div class="cap-card"><button class="say-btn" data-say="haunted-castle"><span class="emoji">🏰</span>haunted castle 🔊</button><span class="cap-ru">замок с привидениями</span><span class="cap-ex">The old haunted castle was at the end of Garden Street.</span></div>
-      <div class="cap-card"><button class="say-btn" data-say="candy"><span class="emoji">🍬</span>candy 🔊</button><span class="cap-ru">конфеты, сладости</span><span class="cap-ex">Julia's bag was full of candy.</span></div>
-      <div class="cap-card"><button class="say-btn" data-say="trick-or-treat"><span class="emoji">🚪</span>trick or treat 🔊</button><span class="cap-ru">«Сладость или гадость!»</span><span class="cap-ex">Children say "Trick or treat!" at every door.</span></div>
-      <div class="cap-card"><button class="say-btn" data-say="costume"><span class="emoji">🎭</span>costume 🔊</button><span class="cap-ru">костюм</span><span class="cap-ex">What costume do you like?</span></div>
-      <div class="cap-card"><button class="say-btn" data-say="broomstick"><span class="emoji">🧹</span>broomstick 🔊</button><span class="cap-ru">метла</span><span class="cap-ex">A witch flies on a broomstick.</span></div>
-      <div class="cap-card"><button class="say-btn" data-say="bat"><span class="emoji">🦇</span>bat 🔊</button><span class="cap-ru">летучая мышь</span><span class="cap-ex">Bats fly in the dark night.</span></div>
-      <div class="cap-card"><button class="say-btn" data-say="skeleton"><span class="emoji">💀</span>skeleton 🔊</button><span class="cap-ru">скелет</span><span class="cap-ex">A skeleton has no skin, only bones.</span></div>
-      <div class="cap-card"><button class="say-btn" data-say="cauldron"><span class="emoji">🧪</span>cauldron 🔊</button><span class="cap-ru">котёл</span><span class="cap-ex">A witch cooks a potion in a cauldron.</span></div>
-      <div class="cap-card"><button class="say-btn" data-say="spooky"><span class="emoji">😱</span>spooky 🔊</button><span class="cap-ru">жуткий (но весело)</span><span class="cap-ex">We bought spooky Halloween costumes.</span></div>
-      <div class="cap-card"><button class="say-btn" data-say="scary"><span class="emoji">👹</span>scary 🔊</button><span class="cap-ru">страшный</span><span class="cap-ex">The ghosts were not scary at all.</span></div>
-      <div class="cap-card"><button class="say-btn" data-say="moon"><span class="emoji">🌕</span>moon 🔊</button><span class="cap-ru">луна</span><span class="cap-ex">The moon was big and orange.</span></div>
-      <div class="cap-card"><button class="say-btn" data-say="attic"><span class="emoji">🏠</span>attic 🔊</button><span class="cap-ru">чердак</span><span class="cap-ex">In the attic there was a dog ghost.</span></div>
-      <div class="cap-card"><button class="say-btn" data-say="midnight"><span class="emoji">🕛</span>midnight 🔊</button><span class="cap-ru">полночь</span><span class="cap-ex">At midnight the clock said "Bong, bong, bong".</span></div>
-      <div class="cap-card"><button class="say-btn" data-say="knock"><span class="emoji">✊</span>knock 🔊</button><span class="cap-ru">стучать (в дверь)</span><span class="cap-ex">John knocked three times.</span></div>
+      <div class="cap-card"><img class="vocab-pic" src="img/words/ghost.png" alt="ghost"><div class="cap-body"><button class="say-btn" data-say="ghost">ghost 🔊</button><span class="cap-ru">привидение</span><span class="cap-ex">The grandma ghost had kind eyes.</span></div></div>
+      <div class="cap-card"><img class="vocab-pic" src="img/words/witch.png" alt="witch"><div class="cap-body"><button class="say-btn" data-say="witch">witch 🔊</button><span class="cap-ru">ведьма</span><span class="cap-ex">Julia was a witch in a long black dress.</span></div></div>
+      <div class="cap-card"><img class="vocab-pic" src="img/words/vampire.png" alt="vampire"><div class="cap-body"><button class="say-btn" data-say="vampire">vampire 🔊</button><span class="cap-ru">вампир</span><span class="cap-ex">John was a vampire with red eyes.</span></div></div>
+      <div class="cap-card"><img class="vocab-pic" src="img/words/mummy.png" alt="mummy"><div class="cap-body"><button class="say-btn" data-say="mummy">mummy 🔊</button><span class="cap-ru">мумия</span><span class="cap-ex">Papa was a mummy with ten metres of paper.</span></div></div>
+      <div class="cap-card"><img class="vocab-pic" src="img/words/pumpkin.png" alt="pumpkin"><div class="cap-body"><button class="say-btn" data-say="pumpkin">pumpkin 🔊</button><span class="cap-ru">тыква</span><span class="cap-ex">We cut a face in a big pumpkin.</span></div></div>
+      <div class="cap-card"><img class="vocab-pic" src="img/words/jack-o-lantern.png" alt="jack-o-lantern"><div class="cap-body"><button class="say-btn" data-say="jack-o-lantern">jack-o'-lantern 🔊</button><span class="cap-ru">тыква-фонарь</span><span class="cap-ex">The jack-o'-lantern was on the window.</span></div></div>
+      <div class="cap-card"><img class="vocab-pic" src="img/words/haunted-castle.png" alt="haunted castle"><div class="cap-body"><button class="say-btn" data-say="haunted-castle">haunted castle 🔊</button><span class="cap-ru">замок с привидениями</span><span class="cap-ex">The old haunted castle was at the end of Garden Street.</span></div></div>
+      <div class="cap-card"><img class="vocab-pic" src="img/words/candy.png" alt="candy"><div class="cap-body"><button class="say-btn" data-say="candy">candy 🔊</button><span class="cap-ru">конфеты, сладости</span><span class="cap-ex">Julia's bag was full of candy.</span></div></div>
+      <div class="cap-card"><img class="vocab-pic" src="img/words/trick-or-treat.png" alt="trick or treat"><div class="cap-body"><button class="say-btn" data-say="trick-or-treat">trick or treat 🔊</button><span class="cap-ru">«Сладость или гадость!»</span><span class="cap-ex">Children say "Trick or treat!" at every door.</span></div></div>
+      <div class="cap-card"><img class="vocab-pic" src="img/words/costume.png" alt="costume"><div class="cap-body"><button class="say-btn" data-say="costume">costume 🔊</button><span class="cap-ru">костюм</span><span class="cap-ex">What costume do you like?</span></div></div>
+      <div class="cap-card"><img class="vocab-pic" src="img/words/broomstick.png" alt="broomstick"><div class="cap-body"><button class="say-btn" data-say="broomstick">broomstick 🔊</button><span class="cap-ru">метла</span><span class="cap-ex">A witch flies on a broomstick.</span></div></div>
+      <div class="cap-card"><img class="vocab-pic" src="img/words/bat.png" alt="bat"><div class="cap-body"><button class="say-btn" data-say="bat">bat 🔊</button><span class="cap-ru">летучая мышь</span><span class="cap-ex">Bats fly in the dark night.</span></div></div>
+      <div class="cap-card"><img class="vocab-pic" src="img/words/skeleton.png" alt="skeleton"><div class="cap-body"><button class="say-btn" data-say="skeleton">skeleton 🔊</button><span class="cap-ru">скелет</span><span class="cap-ex">A skeleton has no skin, only bones.</span></div></div>
+      <div class="cap-card"><img class="vocab-pic" src="img/words/cauldron.png" alt="cauldron"><div class="cap-body"><button class="say-btn" data-say="cauldron">cauldron 🔊</button><span class="cap-ru">котёл</span><span class="cap-ex">A witch cooks a potion in a cauldron.</span></div></div>
+      <div class="cap-card"><img class="vocab-pic" src="img/words/spooky.png" alt="spooky scene"><div class="cap-body"><button class="say-btn" data-say="spooky">spooky 🔊</button><span class="cap-ru">жуткий (но весело)</span><span class="cap-ex">We bought spooky Halloween costumes.</span></div></div>
+      <div class="cap-card"><img class="vocab-pic" src="img/words/scary.png" alt="scary"><div class="cap-body"><button class="say-btn" data-say="scary">scary 🔊</button><span class="cap-ru">страшный</span><span class="cap-ex">The ghosts were not scary at all.</span></div></div>
+      <div class="cap-card"><img class="vocab-pic" src="img/words/moon.png" alt="moon"><div class="cap-body"><button class="say-btn" data-say="moon">moon 🔊</button><span class="cap-ru">луна</span><span class="cap-ex">The moon was big and orange.</span></div></div>
+      <div class="cap-card"><img class="vocab-pic" src="img/words/attic.png" alt="attic"><div class="cap-body"><button class="say-btn" data-say="attic">attic 🔊</button><span class="cap-ru">чердак</span><span class="cap-ex">In the attic there was a dog ghost.</span></div></div>
+      <div class="cap-card"><img class="vocab-pic" src="img/words/midnight.png" alt="midnight clock"><div class="cap-body"><button class="say-btn" data-say="midnight">midnight 🔊</button><span class="cap-ru">полночь</span><span class="cap-ex">At midnight the clock said "Bong, bong, bong".</span></div></div>
+      <div class="cap-card"><img class="vocab-pic" src="img/words/knock.png" alt="knock on door"><div class="cap-body"><button class="say-btn" data-say="knock">knock 🔊</button><span class="cap-ru">стучать (в дверь)</span><span class="cap-ex">John knocked three times.</span></div></div>
     </div>
   </div>
 
@@ -1832,47 +1876,87 @@ document.addEventListener('click', e => {
   });
 })();
 
-/* =================== JUMPING MUSICAL PUMPKIN =================== */
-(function pumpkinInit(){
-  const btn = document.getElementById('pumpkin-float');
-  if (!btn) return;
-  const cackle = new Audio('audio/witch-cackle-fx.mp3');
-  const song   = new Audio('audio/this-is-halloween.mp3');
-  const opener = new Audio('audio/halloween-opener.mp3');
-  let clickCount = 0;
-  let singlePress;
-  btn.addEventListener('click', () => {
-    clickCount++;
-    btn.classList.remove('bouncing');
-    void btn.offsetWidth;
-    btn.classList.add('bouncing');
-    clearTimeout(singlePress);
-    singlePress = setTimeout(() => {
-      if (clickCount === 1) {
-        /* single-click: short cackle */
-        try { cackle.currentTime = 0; cackle.play().catch(()=>{}); } catch(e){}
-      } else {
-        /* double+ click: toggle the song */
-        if (song.paused) {
-          try { opener.currentTime = 0; opener.play().catch(()=>{}); } catch(e){}
-          setTimeout(() => {
-            try { song.currentTime = 0; song.play().catch(()=>{}); } catch(e){}
-            btn.classList.add('playing-song');
-            btn.querySelector('.label').textContent = '🎵 playing...';
-          }, 400);
-        } else {
-          song.pause(); song.currentTime = 0;
-          btn.classList.remove('playing-song');
-          btn.querySelector('.label').textContent = 'tap me 🎵';
-        }
+/* =================== PARTY STARTER + PUMPKIN FLOATING BUTTON =================== */
+(function partyInit(){
+  const partyPump = document.getElementById('party-pumpkin');
+  const partyBtn  = document.getElementById('party-btn');
+  const song      = document.getElementById('party-song'); /* real <audio> in the party-starter */
+  const opener    = new Audio('audio/halloween-opener.mp3');
+  const cackle    = new Audio('audio/witch-cackle-fx.mp3');
+  const floatBtn  = document.getElementById('pumpkin-float');
+
+  function startParty(){
+    if (!song) return;
+    partyPump.classList.remove('bouncing');
+    void partyPump.offsetWidth;
+    partyPump.classList.add('bouncing');
+    try { opener.currentTime = 0; opener.play().catch(()=>{}); } catch(e){}
+    setTimeout(() => {
+      try { song.currentTime = 0; song.play().catch(()=>{}); } catch(e){}
+      partyPump.classList.remove('bouncing');
+      partyPump.classList.add('playing');
+      partyBtn.classList.add('playing');
+      partyBtn.innerHTML = '⏸ Stop the party';
+      if (floatBtn) {
+        floatBtn.classList.add('playing-song');
+        floatBtn.querySelector('.label').textContent = '🎵 playing';
       }
-      clickCount = 0;
-    }, 280);
+    }, 450);
+  }
+  function stopParty(){
+    try { song.pause(); song.currentTime = 0; } catch(e){}
+    partyPump.classList.remove('playing','bouncing');
+    partyBtn.classList.remove('playing');
+    partyBtn.innerHTML = '▶ Start the party!';
+    if (floatBtn) {
+      floatBtn.classList.remove('playing-song');
+      floatBtn.querySelector('.label').textContent = 'tap me 🎵';
+    }
+  }
+  function toggle(){
+    if (song.paused) startParty(); else stopParty();
+  }
+  partyPump?.addEventListener('click', toggle);
+  partyBtn?.addEventListener('click', toggle);
+  song?.addEventListener('ended', stopParty);
+  song?.addEventListener('pause', () => {
+    if (song.currentTime === 0) return;
+    /* user hit pause in native controls — reflect in UI */
+    partyPump.classList.remove('playing');
+    partyBtn.classList.remove('playing');
+    partyBtn.innerHTML = '▶ Start the party!';
+    if (floatBtn) {
+      floatBtn.classList.remove('playing-song');
+      floatBtn.querySelector('.label').textContent = 'tap me 🎵';
+    }
   });
-  song.addEventListener('ended', () => {
-    btn.classList.remove('playing-song');
-    btn.querySelector('.label').textContent = 'tap me 🎵';
+  song?.addEventListener('play', () => {
+    partyPump.classList.add('playing');
+    partyBtn.classList.add('playing');
+    partyBtn.innerHTML = '⏸ Stop the party';
+    if (floatBtn) {
+      floatBtn.classList.add('playing-song');
+      floatBtn.querySelector('.label').textContent = '🎵 playing';
+    }
   });
+
+  /* floating pumpkin (bottom-right): single click = witch cackle, double click = toggle party */
+  if (floatBtn) {
+    let clicks = 0, timer;
+    floatBtn.addEventListener('click', () => {
+      clicks++;
+      floatBtn.classList.remove('bouncing'); void floatBtn.offsetWidth; floatBtn.classList.add('bouncing');
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        if (clicks === 1) {
+          try { cackle.currentTime = 0; cackle.play().catch(()=>{}); } catch(e){}
+        } else {
+          toggle();
+        }
+        clicks = 0;
+      }, 280);
+    });
+  }
 })();
 
 function normIn(s){ return (s||'').trim().toLowerCase().replace(/['’]/g,"").replace(/-/g," ").replace(/\s+/g,' '); }
