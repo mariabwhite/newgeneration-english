@@ -235,18 +235,25 @@ strong{color:var(--accent-2);font-weight:800}
 .mc-opt.correct{background:var(--ok);color:#1C0E2A;border-color:var(--ok)}
 .mc-opt.wrong{background:var(--miss);color:#fff;border-color:var(--miss);text-decoration:line-through}
 
-/* ===== MATCH (two-column) ===== */
-.match-wrap{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
-@media(max-width:620px){.match-wrap{grid-template-columns:1fr}}
-.match-card{background:var(--card-2);border:2px solid var(--line);border-radius:10px;padding:10px 14px;font-weight:700;font-size:.9rem;cursor:pointer;transition:.15s;color:var(--text);text-align:center;display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;overflow:hidden}
-.match-card .emoji{font-size:1.6rem}
-.match-card.pic{padding:4px}
-.match-card.pic img{width:100%;max-width:120px;height:84px;object-fit:cover;border-radius:6px;transition:.2s}
-.match-card.pic:hover img{transform:scale(1.04)}
-.match-card:hover{border-color:var(--accent);transform:translateY(-1px)}
-.match-card.sel{background:rgba(255,145,56,.22);border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-2)}
-.match-card.done{background:rgba(138,229,92,.18);border-color:var(--ok);color:var(--ok);pointer-events:none;opacity:.85}
-.match-card.bad{background:rgba(255,122,122,.18);border-color:var(--miss);animation:shake .35s}
+/* ===== MATCH (pictures grid on top + words row below) ===== */
+.match-wrap{margin-top:8px}
+.match-pics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+@media(max-width:620px){.match-pics{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:420px){.match-pics{grid-template-columns:repeat(2,1fr)}}
+.match-words{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:12px;background:var(--card-2);border:1.5px dashed var(--line-2);border-radius:12px}
+.match-pic{background:var(--card-2);border:2px solid var(--line);border-radius:12px;padding:4px;cursor:pointer;transition:.18s;overflow:hidden;position:relative}
+.match-pic img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:8px;transition:transform .2s}
+.match-pic:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 18px rgba(255,145,56,.3)}
+.match-pic:hover img{transform:scale(1.05)}
+.match-pic.sel{border-color:var(--accent-2);box-shadow:0 0 0 3px var(--accent),0 8px 18px rgba(255,145,56,.4)}
+.match-pic.done{opacity:.45;pointer-events:none;filter:grayscale(.3)}
+.match-pic.done::after{content:"✓";position:absolute;top:4px;right:4px;background:var(--ok);color:#1C0E2A;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:1rem;box-shadow:0 3px 8px rgba(0,0,0,.4)}
+.match-pic.bad{border-color:var(--miss);animation:shake .35s}
+.match-word{background:var(--card);border:2px solid var(--accent);color:var(--accent-2);padding:8px 16px;border-radius:50px;font-weight:800;font-size:.92rem;cursor:pointer;transition:.15s;user-select:none}
+.match-word:hover{background:var(--highlight);transform:translateY(-2px);box-shadow:0 6px 14px rgba(255,145,56,.3)}
+.match-word.sel{background:var(--accent);color:#1C0E2A;transform:scale(1.08);box-shadow:0 0 0 3px var(--accent-2)}
+.match-word.done{opacity:.4;background:rgba(138,229,92,.18);color:var(--ok);border-color:var(--ok);pointer-events:none;text-decoration:line-through}
+.match-word.bad{background:rgba(255,122,122,.2);border-color:var(--miss);animation:shake .35s}
 
 /* ===== GAP-FILL (bank + drops) ===== */
 .bank{background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
@@ -621,42 +628,36 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
     <p style="color:var(--muted);font-size:.86rem">Click a word, then click its picture.</p>
 
     <div class="match-wrap" id="halloween-match">
-      <!-- 12 real pictures on the left, 12 words on the right -->
-      <div class="match-card pic" data-side="pic" data-w="pumpkin"><img src="img/words/pumpkin.png" alt="pumpkin"></div>
-      <div class="match-card" data-side="word" data-w="broomstick">broomstick</div>
-
-      <div class="match-card pic" data-side="pic" data-w="ghost"><img src="img/words/ghost.png" alt="ghost"></div>
-      <div class="match-card" data-side="word" data-w="haunted-castle">haunted castle</div>
-
-      <div class="match-card pic" data-side="pic" data-w="witch"><img src="img/words/witch.png" alt="witch"></div>
-      <div class="match-card" data-side="word" data-w="jack-o-lantern">jack-o'-lantern</div>
-
-      <div class="match-card pic" data-side="pic" data-w="jack-o-lantern"><img src="img/words/jack-o-lantern.png" alt="jack-o-lantern"></div>
-      <div class="match-card" data-side="word" data-w="pumpkin">pumpkin</div>
-
-      <div class="match-card pic" data-side="pic" data-w="candy"><img src="img/words/candy.png" alt="candy bag"></div>
-      <div class="match-card" data-side="word" data-w="costume">costume</div>
-
-      <div class="match-card pic" data-side="pic" data-w="costume"><img src="img/words/costume.png" alt="costumes on hangers"></div>
-      <div class="match-card" data-side="word" data-w="bat">bat</div>
-
-      <div class="match-card pic" data-side="pic" data-w="skeleton"><img src="img/words/skeleton.png" alt="skeleton"></div>
-      <div class="match-card" data-side="word" data-w="ghost">ghost</div>
-
-      <div class="match-card pic" data-side="pic" data-w="broomstick"><img src="img/words/broomstick.png" alt="broomstick"></div>
-      <div class="match-card" data-side="word" data-w="witch">witch</div>
-
-      <div class="match-card pic" data-side="pic" data-w="bat"><img src="img/words/bat.png" alt="bat"></div>
-      <div class="match-card" data-side="word" data-w="cauldron">cauldron</div>
-
-      <div class="match-card pic" data-side="pic" data-w="haunted-castle"><img src="img/words/haunted-castle.png" alt="haunted castle"></div>
-      <div class="match-card" data-side="word" data-w="candy">candy bag</div>
-
-      <div class="match-card pic" data-side="pic" data-w="vampire"><img src="img/words/vampire.png" alt="vampire"></div>
-      <div class="match-card" data-side="word" data-w="skeleton">skeleton</div>
-
-      <div class="match-card pic" data-side="pic" data-w="cauldron"><img src="img/words/cauldron.png" alt="cauldron"></div>
-      <div class="match-card" data-side="word" data-w="vampire">vampire</div>
+      <!-- 12 real pictures (grid, 4-column) -->
+      <div class="match-pics">
+        <div class="match-pic" data-w="pumpkin"><img src="img/words/pumpkin.png" alt="pumpkin"></div>
+        <div class="match-pic" data-w="ghost"><img src="img/words/ghost.png" alt="ghost"></div>
+        <div class="match-pic" data-w="witch"><img src="img/words/witch.png" alt="witch"></div>
+        <div class="match-pic" data-w="jack-o-lantern"><img src="img/words/jack-o-lantern.png" alt="jack-o-lantern"></div>
+        <div class="match-pic" data-w="candy"><img src="img/words/candy.png" alt="candy bag"></div>
+        <div class="match-pic" data-w="costume"><img src="img/words/costume.png" alt="costumes on hangers"></div>
+        <div class="match-pic" data-w="skeleton"><img src="img/words/skeleton.png" alt="skeleton"></div>
+        <div class="match-pic" data-w="broomstick"><img src="img/words/broomstick.png" alt="broomstick"></div>
+        <div class="match-pic" data-w="bat"><img src="img/words/bat.png" alt="bat"></div>
+        <div class="match-pic" data-w="haunted-castle"><img src="img/words/haunted-castle.png" alt="haunted castle"></div>
+        <div class="match-pic" data-w="vampire"><img src="img/words/vampire.png" alt="vampire"></div>
+        <div class="match-pic" data-w="cauldron"><img src="img/words/cauldron.png" alt="cauldron"></div>
+      </div>
+      <!-- 12 word-pills (shuffled) -->
+      <div class="match-words" id="halloween-match-words">
+        <button class="match-word" data-w="broomstick">broomstick</button>
+        <button class="match-word" data-w="haunted-castle">haunted castle</button>
+        <button class="match-word" data-w="jack-o-lantern">jack-o'-lantern</button>
+        <button class="match-word" data-w="pumpkin">pumpkin</button>
+        <button class="match-word" data-w="costume">costume</button>
+        <button class="match-word" data-w="bat">bat</button>
+        <button class="match-word" data-w="ghost">ghost</button>
+        <button class="match-word" data-w="witch">witch</button>
+        <button class="match-word" data-w="cauldron">cauldron</button>
+        <button class="match-word" data-w="candy">candy bag</button>
+        <button class="match-word" data-w="skeleton">skeleton</button>
+        <button class="match-word" data-w="vampire">vampire</button>
+      </div>
     </div>
   </div>
 
@@ -1701,25 +1702,48 @@ document.querySelectorAll('.mc-item').forEach(item => {
   });
 });
 
-/* =================== 3 · MATCH =================== */
+/* =================== 3 · MATCH (pics ↔ words two-list game) =================== */
 (function matchInit(){
   document.querySelectorAll('.match-wrap').forEach(box => {
-    let sel = null;
-    box.addEventListener('click', e => {
-      const card = e.target.closest('.match-card');
-      if (!card || card.classList.contains('done')) return;
-      if (!sel) { sel = card; card.classList.add('sel'); return; }
-      if (sel === card) { card.classList.remove('sel'); sel = null; return; }
-      if (sel.dataset.w === card.dataset.w && sel.dataset.side !== card.dataset.side) {
-        sel.classList.remove('sel'); sel.classList.add('done'); card.classList.add('done'); sel = null;
+    let selPic = null, selWord = null;
+    function tryMatch(){
+      if (!selPic || !selWord) return;
+      if (selPic.dataset.w === selWord.dataset.w) {
+        selPic.classList.remove('sel'); selPic.classList.add('done');
+        selWord.classList.remove('sel'); selWord.classList.add('done');
       } else {
-        sel.classList.remove('sel'); sel.classList.add('bad'); card.classList.add('bad');
-        const a = sel, b = card;
-        setTimeout(() => { a.classList.remove('bad'); b.classList.remove('bad'); }, 400);
-        sel = null;
+        selPic.classList.add('bad'); selWord.classList.add('bad');
+        const a = selPic, b = selWord;
+        setTimeout(() => { a.classList.remove('bad','sel'); b.classList.remove('bad','sel'); }, 400);
       }
+      selPic = null; selWord = null;
+    }
+    box.addEventListener('click', e => {
+      const pic = e.target.closest('.match-pic');
+      const word = e.target.closest('.match-word');
+      if (pic && !pic.classList.contains('done')) {
+        if (selPic === pic) { pic.classList.remove('sel'); selPic = null; return; }
+        if (selPic) selPic.classList.remove('sel');
+        selPic = pic; pic.classList.add('sel');
+      } else if (word && !word.classList.contains('done')) {
+        if (selWord === word) { word.classList.remove('sel'); selWord = null; return; }
+        if (selWord) selWord.classList.remove('sel');
+        selWord = word; word.classList.add('sel');
+      }
+      tryMatch();
     });
   });
+  /* shuffle the words (not the pics — pics stay in a stable grid) */
+  const w = document.getElementById('halloween-match-words');
+  if (w) {
+    const r = (() => { let s = 13; return () => { s=(s*9301+49297)%233280; return s/233280; }; })();
+    const kids = Array.from(w.children);
+    for (let i = kids.length - 1; i > 0; i--) {
+      const j = Math.floor(r() * (i + 1));
+      [kids[i], kids[j]] = [kids[j], kids[i]];
+    }
+    kids.forEach(k => w.appendChild(k));
+  }
 })();
 
 /* =================== GAP-FILL (bank → drop-gap) =================== */
