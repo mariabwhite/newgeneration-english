@@ -118,14 +118,16 @@ img{display:block;max-width:100%}
 strong{color:var(--accent-2);font-weight:800}
 
 /* ex-sticker — emoji OR character PNG, per canon */
-.ex-sticker{position:absolute;top:-14px;right:-6px;font-size:3rem;z-index:5;pointer-events:none;filter:drop-shadow(0 6px 14px rgba(255,145,56,.5));animation:stickerBob 5s ease-in-out infinite;line-height:1}
-.ex-sticker.left{right:auto;left:-6px}
+.ex-sticker{position:absolute;top:-18px;right:-8px;font-size:3rem;z-index:5;pointer-events:none;filter:drop-shadow(0 6px 14px rgba(255,145,56,.5));animation:stickerBob 5s ease-in-out infinite;line-height:1}
+.ex-sticker.left{right:auto;left:-8px;animation:stickerBobReverse 5.5s ease-in-out infinite}
 .ex-sticker.small{font-size:2rem;top:-10px}
 .ex-sticker.ghost{color:var(--accent-3);filter:drop-shadow(0 6px 14px rgba(201,164,240,.5))}
-.ex-sticker.png-char{width:110px;height:auto;font-size:0;filter:drop-shadow(0 8px 16px rgba(255,145,56,.4)) drop-shadow(0 0 24px rgba(201,164,240,.25))}
-.ex-sticker.png-char.small{width:80px}
+.ex-sticker.png-char,.ex-sticker img,img.ex-sticker{width:120px;height:auto;font-size:0;filter:drop-shadow(0 10px 18px rgba(255,145,56,.45)) drop-shadow(0 0 24px rgba(201,164,240,.3))}
+.ex-sticker.png-char.small,img.ex-sticker.small{width:88px}
+.ex-sticker.png-char.big,img.ex-sticker.big{width:150px}
 @keyframes stickerBob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-5px) rotate(3deg)}}
-@media(max-width:720px){.ex-sticker{font-size:2.2rem;top:-10px;right:-2px}.ex-sticker.small{font-size:1.6rem}.ex-sticker.png-char{width:72px}.ex-sticker.png-char.small{width:54px}}
+@keyframes stickerBobReverse{0%,100%{transform:translateY(0) rotate(3deg)}50%{transform:translateY(-6px) rotate(-4deg)}}
+@media(max-width:720px){.ex-sticker{font-size:2.2rem;top:-10px;right:-2px}.ex-sticker.small{font-size:1.6rem}.ex-sticker.png-char,.ex-sticker img,img.ex-sticker{width:76px}.ex-sticker.png-char.small,img.ex-sticker.small{width:58px}.ex-sticker.png-char.big,img.ex-sticker.big{width:92px}}
 
 /* ===== CAST STRIP (5 characters) ===== */
 .cast-strip{width:var(--demo-width);max-width:1120px;margin:-6px auto 20px;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
@@ -147,9 +149,13 @@ strong{color:var(--accent-2);font-weight:800}
 .scene-row .who{font-family:var(--display);font-weight:800;color:var(--accent-pink);font-size:.78rem}
 .scene-row .text{flex:1;font-style:italic;color:var(--text);line-height:1.4;font-size:.92rem}
 
-/* ===== STORY SCENE IMAGE ===== */
-.scene-img{display:block;width:100%;max-width:720px;margin:14px auto;border-radius:14px;border:2px solid var(--line-2);box-shadow:0 10px 28px rgba(0,0,0,.5);cursor:pointer}
-.scene-img:hover{box-shadow:0 14px 34px rgba(255,145,56,.4);border-color:var(--accent)}
+/* ===== STORY SCENE IMAGE (full card width · stretch) ===== */
+.scene-img{display:block;width:100%;max-width:100%;margin:16px auto;border-radius:16px;border:2px solid var(--line-2);box-shadow:0 10px 28px rgba(0,0,0,.55);cursor:pointer;transition:transform .25s,box-shadow .25s,border-color .25s}
+.scene-img:hover{box-shadow:0 16px 42px rgba(255,145,56,.4);border-color:var(--accent);transform:scale(1.012)}
+/* click = fullscreen lightbox (opens overlay) */
+.scene-img.zoomed{position:fixed;inset:0;z-index:200;width:auto;height:auto;max-width:96vw;max-height:94vh;margin:auto;cursor:zoom-out;border-radius:12px}
+.scene-img-backdrop{position:fixed;inset:0;background:rgba(10,4,18,.9);z-index:199;cursor:zoom-out;backdrop-filter:blur(6px);display:none}
+.scene-img-backdrop.on{display:block}
 
 /* ===== JUMPING PUMPKIN BUTTON (sticky floating) ===== */
 .pumpkin-float{position:fixed;bottom:22px;right:22px;z-index:99;width:88px;height:88px;cursor:pointer;background:none;border:none;padding:0;filter:drop-shadow(0 8px 20px rgba(255,145,56,.6));animation:pumpkinIdle 2.6s ease-in-out infinite;transition:transform .15s}
@@ -285,6 +291,59 @@ strong{color:var(--accent-2);font-weight:800}
 .lyrics .gap-in.filled{background:rgba(138,229,92,.18);border-style:solid;border-color:var(--ok);color:var(--ok)}
 .lyrics .gap-in.wrong{background:rgba(255,122,122,.18);border-style:solid;border-color:var(--miss);color:var(--miss);animation:shake .35s}
 
+/* ===== CHARACTER BIOS (5 mini-cards) ===== */
+.bio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:8px}
+.bio-card{background:var(--card-2);border:2px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;position:relative;transition:.2s}
+.bio-card:hover{border-color:var(--accent);transform:translateY(-3px)}
+.bio-card img{width:92px;height:92px;object-fit:contain;filter:drop-shadow(0 6px 14px rgba(0,0,0,.4))}
+.bio-card .bio-name{font-family:var(--display);font-weight:800;color:var(--accent-2);font-size:1.1rem}
+.bio-card .bio-txt{font-family:var(--serif,'Manrope');font-size:.86rem;line-height:1.5;color:var(--text)}
+.bio-card .bio-play{background:var(--accent);color:#1C0E2A;border:none;border-radius:50px;padding:5px 14px;font-family:var(--mono);font-size:.72rem;font-weight:800;letter-spacing:.1em;cursor:pointer;text-transform:uppercase;display:inline-flex;align-items:center;gap:6px;transition:.15s}
+.bio-card .bio-play:hover{background:var(--accent-3)}
+.bio-card .bio-play.playing{background:var(--accent-pink)}
+
+/* ===== DIALOGUE (role-play with audio) ===== */
+.dlg-wrap{background:linear-gradient(180deg,var(--card),var(--card-2));border:1.5px solid var(--line-2);border-radius:14px;padding:14px 18px;margin:10px 0}
+.dlg-line{display:grid;grid-template-columns:36px 36px auto 1fr;gap:10px;align-items:center;padding:7px 0;border-bottom:1px dashed var(--line)}
+.dlg-line:last-child{border-bottom:none}
+.dlg-line img{width:36px;height:36px;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,.3))}
+.dlg-line .dlg-play{width:34px;height:34px;border-radius:50%;background:var(--accent);color:#1C0E2A;border:none;cursor:pointer;display:grid;place-items:center;font-size:.9rem;transition:.15s}
+.dlg-line .dlg-play:hover{background:var(--accent-pink);transform:scale(1.08)}
+.dlg-line .dlg-play.playing{background:var(--accent-3);animation:pulse .5s}
+.dlg-line .dlg-who{font-family:var(--display);font-weight:800;color:var(--accent-pink);font-size:.86rem;min-width:80px}
+.dlg-line .dlg-text{font-family:var(--serif,'Manrope');font-style:italic;font-size:.96rem;color:var(--text);line-height:1.4}
+
+/* ===== RIDDLE GAME (listen + MCQ) ===== */
+.rid-game{display:grid;gap:12px;margin-top:8px}
+.rid-item{background:var(--card-2);border:1.5px solid var(--line);border-radius:12px;padding:14px 16px}
+.rid-item .rid-top{display:flex;align-items:center;gap:12px;margin-bottom:10px;flex-wrap:wrap}
+.rid-item .rid-n{font-family:var(--display);font-weight:900;color:var(--accent);font-size:1.2rem;width:28px}
+.rid-item .rid-play{width:44px;height:44px;border-radius:50%;background:var(--accent-3);color:#1C0E2A;border:none;cursor:pointer;display:grid;place-items:center;font-size:1.1rem;flex-shrink:0;transition:.15s;box-shadow:0 4px 10px rgba(201,164,240,.4)}
+.rid-item .rid-play:hover{background:var(--accent);transform:scale(1.08)}
+.rid-item .rid-play.playing{background:var(--accent-pink);animation:pulse .5s}
+.rid-item .rid-title{font-family:var(--mono);font-weight:800;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.rid-item .rid-opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.rid-item .rid-opt{background:var(--card);border:2px solid var(--line-2);border-radius:10px;padding:14px 10px;cursor:pointer;transition:.15s;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--text);font-weight:700;font-size:.88rem}
+.rid-item .rid-opt img{width:48px;height:48px;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,.3))}
+.rid-item .rid-opt:hover{border-color:var(--accent);transform:translateY(-2px)}
+.rid-item .rid-opt.correct{background:rgba(138,229,92,.18);border-color:var(--ok);color:var(--ok)}
+.rid-item .rid-opt.wrong{background:rgba(255,122,122,.18);border-color:var(--miss);color:var(--miss);animation:shake .35s}
+
+/* ===== LISTEN & TICK ===== */
+.lt-wrap{display:grid;gap:14px;margin-top:8px}
+.lt-item{background:var(--card-2);border:1.5px solid var(--line);border-radius:12px;padding:14px 16px}
+.lt-item .lt-top{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.lt-item .lt-n{font-family:var(--display);font-weight:900;color:var(--accent);font-size:1.2rem;width:28px}
+.lt-item .lt-play{width:40px;height:40px;border-radius:50%;background:var(--accent);color:#1C0E2A;border:none;cursor:pointer;display:grid;place-items:center;font-size:1rem;flex-shrink:0}
+.lt-item .lt-play:hover{background:var(--accent-pink);transform:scale(1.08)}
+.lt-item .lt-prompt{font-family:var(--mono);font-weight:800;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.lt-item .lt-choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.lt-item .lt-choice{background:var(--card);border:2px solid var(--line-2);border-radius:12px;padding:12px;cursor:pointer;transition:.15s;text-align:center;font-size:.86rem;font-weight:700;color:var(--text);display:flex;flex-direction:column;align-items:center;gap:6px}
+.lt-item .lt-choice:hover{border-color:var(--accent)}
+.lt-item .lt-choice img{width:72px;height:72px;object-fit:contain;filter:drop-shadow(0 4px 10px rgba(0,0,0,.3))}
+.lt-item .lt-choice.correct{background:rgba(138,229,92,.2);border-color:var(--ok);color:var(--ok)}
+.lt-item .lt-choice.wrong{background:rgba(255,122,122,.18);border-color:var(--miss);color:var(--miss);animation:shake .35s}
+
 /* ===== VOCAB CAPSULE ===== */
 .cap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:8px}
 .cap-card{background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;display:flex;flex-direction:column;gap:4px}
@@ -340,9 +399,10 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
     <h1 class="hero-title">Julia, Emma<em>and the Ghosts of the Old Castle</em></h1>
     <p class="hero-lead">It's Halloween night in Rostov. Julia is a witch, John is a vampire, Papa is a mummy, Mama is a black cat, and Julia's best friend <strong>Emma</strong> is a friendly ghost. The five of them go trick-or-treating. The last stop is an old <strong>castle</strong> at the end of the street — and <strong>four real ghosts</strong> are waiting inside...</p>
     <div class="hero-tags">
-      <span class="hero-tag">🎃 11 Sections</span>
+      <span class="hero-tag">🎃 15 Sections</span>
       <span class="hero-tag">👻 Real Ghosts</span>
       <span class="hero-tag">🎵 This Is Halloween</span>
+      <span class="hero-tag">🎧 Riddles · Dialogue</span>
       <span class="hero-tag">📦 Vocab Capsule</span>
     </div>
   </div>
@@ -375,6 +435,7 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
 
   <div class="card">
     <img class="ex-sticker png-char" src="img/char-witch-hazel.png" alt="">
+    <img class="ex-sticker png-char left small" src="img/sticker-pumpkin-classic.png" alt="">
     <h3><span class="ex-num">1.1</span> Spell the mystery word</h3>
     <p class="riddle-poem">
       In masks and gowns we haunt the street,<br>
@@ -431,7 +492,8 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
   </div>
 
   <div class="card">
-    <img class="ex-sticker png-char small" src="img/char-ghost-boo.png" alt="">
+    <img class="ex-sticker png-char" src="img/char-ghost-boo.png" alt="">
+    <img class="ex-sticker png-char left small" src="img/sticker-cat-witch.png" alt="">
     <h3><span class="ex-num">2.1</span> Choose the correct option</h3>
 
     <div class="theory">
@@ -510,6 +572,7 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
 
   <div class="card">
     <img class="ex-sticker png-char" src="img/char-vampire-vlad.png" alt="">
+    <img class="ex-sticker png-char left small" src="img/sticker-cat-arched.png" alt="">
     <h3><span class="ex-num">3.1</span> Match the word with the picture</h3>
     <p style="color:var(--muted);font-size:.86rem">Click a word, then click its picture.</p>
 
@@ -554,7 +617,8 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
   </div>
 
   <div class="card">
-    <span class="ex-sticker">🎃</span>
+    <img class="ex-sticker png-char" src="img/sticker-pumpkin-candle.png" alt="">
+    <img class="ex-sticker png-char left small" src="img/char-monster-furry.png" alt="">
     <h3><span class="ex-num">3.2</span> Complete the sentences</h3>
 
     <div class="theory">
@@ -597,6 +661,7 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
 
   <div class="card">
     <img class="ex-sticker png-char" src="img/char-spider-cat-spidey.png" alt="">
+    <img class="ex-sticker png-char left small" src="img/sticker-pumpkin-sleepy.png" alt="">
     <h3><span class="ex-num">4.1</span> Read the text</h3>
 
     <div class="reading-body">
@@ -611,7 +676,8 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
   </div>
 
   <div class="card">
-    <span class="ex-sticker">🧙</span>
+    <img class="ex-sticker png-char" src="img/char-witch-hazel.png" alt="">
+    <img class="ex-sticker png-char left small" src="img/sticker-cat-on-pumpkin.png" alt="">
     <h3><span class="ex-num">4.2</span> True or False?</h3>
 
     <div class="tf-list">
@@ -620,6 +686,65 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
       <div class="tf-item" data-answer="T"><div class="tf-q"><span class="num">3</span><span>The Celts put on masks to hide from bad ghosts.</span></div><div class="tf-btns"><button class="tf-btn" data-v="T">True</button><button class="tf-btn" data-v="F">False</button></div></div>
       <div class="tf-item" data-answer="T"><div class="tf-q"><span class="num">4</span><span>A jack-o'-lantern is a pumpkin with a candle inside.</span></div><div class="tf-btns"><button class="tf-btn" data-v="T">True</button><button class="tf-btn" data-v="F">False</button></div></div>
       <div class="tf-item" data-answer="F"><div class="tf-q"><span class="num">5</span><span>Today, Halloween is a very sad holiday.</span></div><div class="tf-btns"><button class="tf-btn" data-v="T">True</button><button class="tf-btn" data-v="F">False</button></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 4b · CHARACTER BIOS (5 monsters introduce themselves) ===== -->
+<section class="section" id="sec-04b">
+  <div class="section-hdr">
+    <div class="num">⚡</div>
+    <h2>Monsters' Zoo · <em>5 Halloween characters say "hi"</em></h2>
+    <span class="tag">🎧 Listen + read</span>
+  </div>
+  <div class="section-sub">Each character has one short voice message. Click the button, listen, then read the words.</div>
+
+  <div class="card">
+    <img class="ex-sticker png-char" src="img/char-monster-furry.png" alt="">
+    <img class="ex-sticker png-char left small" src="img/sticker-pumpkin-sleepy.png" alt="">
+    <h3><span class="ex-num">4b.1</span> Meet 5 Halloween monsters</h3>
+
+    <div class="theory">
+      <h4>🏷 Mini-theory · how to listen</h4>
+      <div class="rule">Click <strong>🔊 play</strong>, close your eyes, listen to the character. Then open your eyes and read the words. Try to repeat each line after the voice!</div>
+    </div>
+
+    <div class="bio-grid">
+      <div class="bio-card">
+        <img src="img/char-vampire-vlad.png" alt="Vampire Vlad">
+        <div class="bio-name">Vlad the Vampire 🧛</div>
+        <button class="bio-play" data-say="bio-vampire">🔊 play</button>
+        <p class="bio-txt">Hello! I am a vampire. My name is Vlad. I don't like the sun. I sleep in the day and I fly at night. I love bats. I don't eat garlic!</p>
+      </div>
+      <div class="bio-card">
+        <img src="img/char-witch-hazel.png" alt="Witch Hazel">
+        <div class="bio-name">Hazel the Witch 🧙‍♀️</div>
+        <button class="bio-play" data-say="bio-witch">🔊 play</button>
+        <p class="bio-txt">Hi! I am a witch. My name is Hazel. I have a tall black hat and a long broomstick. I live in a dark forest. I cook magic potions in my big cauldron.</p>
+      </div>
+      <div class="bio-card">
+        <img src="img/char-mummy-mo.png" alt="Mummy Mo">
+        <div class="bio-name">Mo the Mummy 🧻</div>
+        <button class="bio-play" data-say="bio-mummy">🔊 play</button>
+        <p class="bio-txt">Good night. I am a mummy. My name is Mo. I am very, very old — three thousand years old! I am from Egypt. I like to walk slowly and say… help.</p>
+      </div>
+      <div class="bio-card">
+        <img src="img/sticker-cat-arched.png" alt="Skeleton">
+        <div class="bio-name">The Skeleton 💀</div>
+        <button class="bio-play" data-say="bio-skeleton">🔊 play</button>
+        <p class="bio-txt">Boo! I am a skeleton. I have no skin, no muscles, no blood — only bones! I live in old graveyards. I can dance all night long. I love Halloween!</p>
+      </div>
+      <div class="bio-card">
+        <img src="img/char-zombie-zed.png" alt="Zombie Zed">
+        <div class="bio-name">Zed the Zombie 🧟</div>
+        <button class="bio-play" data-say="bio-zombie">🔊 play</button>
+        <p class="bio-txt">Hi, friends. I am a zombie. My name is Zed. I walk slowly. I love brains… just kidding! I love pizza. I live in the old shopping mall. See you tonight!</p>
+      </div>
+    </div>
+
+    <div class="theory" style="margin-top:14px">
+      <h4>💬 Talk · quick questions after listening</h4>
+      <div class="rule">1. Which monster is the oldest? · 2. Which monster can fly? · 3. Which monster loves pizza? · 4. Which monster has no skin? · 5. Which monster is YOUR favourite — and why?</div>
     </div>
   </div>
 </section>
@@ -634,7 +759,8 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
   <div class="section-sub">6 Halloween traditions. Tick the ones Julia's family will do tonight. Then listen and complete the sentences.</div>
 
   <div class="card">
-    <span class="ex-sticker small">🍎</span>
+    <img class="ex-sticker png-char" src="img/char-zombie-zed.png" alt="">
+    <img class="ex-sticker png-char left small" src="img/sticker-pumpkin-scared.png" alt="">
     <h3><span class="ex-num">5.1</span> Tick the traditions you like</h3>
 
     <div class="tick-grid" id="tick-grid-5">
@@ -649,7 +775,8 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
   </div>
 
   <div class="card">
-    <span class="ex-sticker ghost">🎧</span>
+    <img class="ex-sticker png-char" src="img/char-ghost-boo.png" alt="">
+    <img class="ex-sticker png-char left small" src="img/sticker-pumpkin-candle.png" alt="">
     <h3><span class="ex-num">5.2</span> Listen and fill in the words</h3>
 
     <div class="audio-row">
@@ -694,7 +821,8 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
   <div class="section-sub">Halloween is a sweet holiday! Americans buy about <strong>600 million</strong> kilograms of candy for it. Let's cook something easy.</div>
 
   <div class="card">
-    <span class="ex-sticker small">🍫</span>
+    <img class="ex-sticker png-char" src="img/sticker-cat-witch.png" alt="">
+    <img class="ex-sticker png-char left small" src="img/sticker-pumpkin-classic.png" alt="">
     <h3><span class="ex-num">6.1</span> Little glossary</h3>
 
     <div class="theory">
@@ -711,7 +839,8 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
   </div>
 
   <div class="card">
-    <span class="ex-sticker">🍎</span>
+    <img class="ex-sticker png-char" src="img/char-pumpkin-pip.png" alt="">
+    <img class="ex-sticker png-char left small" src="img/sticker-cat-arched.png" alt="">
     <h3><span class="ex-num">6.2</span> Complete the recipe</h3>
 
     <div class="bank" id="bank-62">
@@ -743,6 +872,228 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
   </div>
 </section>
 
+<!-- ===== 6b · DIALOGUE · Julia and Emma at the first house ===== -->
+<section class="section" id="sec-06b">
+  <div class="section-hdr">
+    <div class="num">💬</div>
+    <h2>Dialogue · <em>Julia and Emma at the first house</em></h2>
+    <span class="tag">🎧 Role-play</span>
+  </div>
+  <div class="section-sub">Julia and Emma stand on a porch. Listen to each line, then read it. Try to play Julia OR Emma — read your lines out loud!</div>
+
+  <div class="card">
+    <img class="ex-sticker png-char" src="img/char-witch-hazel.png" alt="">
+    <img class="ex-sticker png-char left small" src="img/char-ghost-boo.png" alt="">
+    <h3><span class="ex-num">6b.1</span> Listen · read · play!</h3>
+
+    <div class="theory">
+      <h4>🏷 Mini-theory · role-play</h4>
+      <div class="rule">A <strong>role-play</strong> is a game: you ARE Julia or Emma. Play line by line. First listen (click 🔊). Then read your line out loud. Then do the other role!</div>
+    </div>
+
+    <div class="dlg-wrap">
+      <div class="dlg-line">
+        <img src="img/char-witch-hazel.png" alt="Julia">
+        <button class="dlg-play" data-say="dlg-julia-1">🔊</button>
+        <span class="dlg-who">Julia:</span>
+        <span class="dlg-text">"Look at this house, Emma! There are three jack-o'-lanterns on the porch!"</span>
+      </div>
+      <div class="dlg-line">
+        <img src="img/char-ghost-boo.png" alt="Emma">
+        <button class="dlg-play" data-say="dlg-emma-1">🔊</button>
+        <span class="dlg-who">Emma:</span>
+        <span class="dlg-text">"Wow! They are beautiful. Shall we knock on the door?"</span>
+      </div>
+      <div class="dlg-line">
+        <img src="img/char-witch-hazel.png" alt="Julia">
+        <button class="dlg-play" data-say="dlg-julia-2">🔊</button>
+        <span class="dlg-who">Julia:</span>
+        <span class="dlg-text">"Yes! Ready? One, two, three. Trick or treat!"</span>
+      </div>
+      <div class="dlg-line">
+        <img src="img/char-ghost-boo.png" alt="Emma">
+        <button class="dlg-play" data-say="dlg-emma-2">🔊</button>
+        <span class="dlg-who">Emma:</span>
+        <span class="dlg-text">"The grandma is giving us candy! Thank you, grandma!"</span>
+      </div>
+      <div class="dlg-line">
+        <img src="img/char-witch-hazel.png" alt="Julia">
+        <button class="dlg-play" data-say="dlg-julia-3">🔊</button>
+        <span class="dlg-who">Julia:</span>
+        <span class="dlg-text">"My bag is almost full. Let's try one more house, Emma!"</span>
+      </div>
+      <div class="dlg-line">
+        <img src="img/char-ghost-boo.png" alt="Emma">
+        <button class="dlg-play" data-say="dlg-emma-3">🔊</button>
+        <span class="dlg-who">Emma:</span>
+        <span class="dlg-text">"OK! Oh look — there is a big old castle at the end of the street…"</span>
+      </div>
+    </div>
+
+    <div class="theory" style="margin-top:14px">
+      <h4>🧠 Comprehension · 3 quick questions</h4>
+      <div class="rule">1. How many jack-o'-lanterns are on the porch? · 2. Who says "Trick or treat!"? · 3. What do Julia and Emma see at the end of the street?</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 6c · "WHAT AM I?" RIDDLE GAME ===== -->
+<section class="section" id="sec-06c">
+  <div class="section-hdr">
+    <div class="num">🎲</div>
+    <h2>Riddle Game · <em>"What am I?"</em></h2>
+    <span class="tag">🎧 Listen + choose</span>
+  </div>
+  <div class="section-sub">Listen to the riddle (click 🔊). Then choose the right picture. 5 riddles — can you get all 5 right?</div>
+
+  <div class="card">
+    <img class="ex-sticker png-char" src="img/char-pumpkin-pip.png" alt="">
+    <img class="ex-sticker png-char left small" src="img/sticker-cat-arched.png" alt="">
+    <h3><span class="ex-num">6c.1</span> Who am I?</h3>
+
+    <div class="theory">
+      <h4>🏷 Mini-theory · what to listen for</h4>
+      <div class="rule">Listen for <strong>key words</strong>: colour, size, place where it lives, what it eats, what it can do. Then look at the 4 pictures and click the right one.</div>
+    </div>
+
+    <div class="rid-game">
+      <div class="rid-item" data-answer="witch">
+        <div class="rid-top">
+          <span class="rid-n">1</span>
+          <button class="rid-play" data-say="rid-1">🔊</button>
+          <span class="rid-title">Riddle 1 · listen then pick</span>
+        </div>
+        <div class="rid-opts">
+          <button class="rid-opt" data-v="ghost"><img src="img/char-ghost-boo.png">ghost</button>
+          <button class="rid-opt" data-v="witch"><img src="img/char-witch-hazel.png">witch</button>
+          <button class="rid-opt" data-v="vampire"><img src="img/char-vampire-vlad.png">vampire</button>
+          <button class="rid-opt" data-v="zombie"><img src="img/char-zombie-zed.png">zombie</button>
+        </div>
+      </div>
+      <div class="rid-item" data-answer="ghost">
+        <div class="rid-top">
+          <span class="rid-n">2</span>
+          <button class="rid-play" data-say="rid-2">🔊</button>
+          <span class="rid-title">Riddle 2 · listen then pick</span>
+        </div>
+        <div class="rid-opts">
+          <button class="rid-opt" data-v="mummy"><img src="img/char-mummy-mo.png">mummy</button>
+          <button class="rid-opt" data-v="ghost"><img src="img/char-ghost-boo.png">ghost</button>
+          <button class="rid-opt" data-v="cat"><img src="img/char-cat-kitty.png">black cat</button>
+          <button class="rid-opt" data-v="monster"><img src="img/char-monster-furry.png">monster</button>
+        </div>
+      </div>
+      <div class="rid-item" data-answer="pumpkin">
+        <div class="rid-top">
+          <span class="rid-n">3</span>
+          <button class="rid-play" data-say="rid-3">🔊</button>
+          <span class="rid-title">Riddle 3 · listen then pick</span>
+        </div>
+        <div class="rid-opts">
+          <button class="rid-opt" data-v="pumpkin"><img src="img/char-pumpkin-pip.png">pumpkin</button>
+          <button class="rid-opt" data-v="witch"><img src="img/char-witch-hazel.png">witch</button>
+          <button class="rid-opt" data-v="ghost"><img src="img/char-ghost-boo.png">ghost</button>
+          <button class="rid-opt" data-v="spider"><img src="img/char-spider-cat-spidey.png">spider</button>
+        </div>
+      </div>
+      <div class="rid-item" data-answer="skeleton">
+        <div class="rid-top">
+          <span class="rid-n">4</span>
+          <button class="rid-play" data-say="rid-4">🔊</button>
+          <span class="rid-title">Riddle 4 · listen then pick</span>
+        </div>
+        <div class="rid-opts">
+          <button class="rid-opt" data-v="vampire"><img src="img/char-vampire-vlad.png">vampire</button>
+          <button class="rid-opt" data-v="mummy"><img src="img/char-mummy-mo.png">mummy</button>
+          <button class="rid-opt" data-v="skeleton"><img src="img/sticker-cat-arched.png">skeleton</button>
+          <button class="rid-opt" data-v="zombie"><img src="img/char-zombie-zed.png">zombie</button>
+        </div>
+      </div>
+      <div class="rid-item" data-answer="bat">
+        <div class="rid-top">
+          <span class="rid-n">5</span>
+          <button class="rid-play" data-say="rid-5">🔊</button>
+          <span class="rid-title">Riddle 5 · listen then pick</span>
+        </div>
+        <div class="rid-opts">
+          <button class="rid-opt" data-v="cat"><img src="img/char-cat-kitty.png">black cat</button>
+          <button class="rid-opt" data-v="bat"><img src="img/sticker-pumpkin-scared.png">bat</button>
+          <button class="rid-opt" data-v="ghost"><img src="img/char-ghost-boo.png">ghost</button>
+          <button class="rid-opt" data-v="spider"><img src="img/char-spider-cat-spidey.png">spider</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 6d · LISTEN & TICK ===== -->
+<section class="section" id="sec-06d">
+  <div class="section-hdr">
+    <div class="num">🎯</div>
+    <h2>Listen &amp; Tick · <em>which picture matches?</em></h2>
+    <span class="tag">🎧 Short listening</span>
+  </div>
+  <div class="section-sub">Listen to Julia's sentence. Choose the picture that matches what she says.</div>
+
+  <div class="card">
+    <img class="ex-sticker png-char" src="img/char-witch-hazel.png" alt="">
+    <img class="ex-sticker png-char left small" src="img/sticker-cat-on-pumpkin.png" alt="">
+    <h3><span class="ex-num">6d.1</span> Listen · tick the right picture</h3>
+
+    <div class="theory">
+      <h4>🏷 Mini-theory · listen carefully</h4>
+      <div class="rule">Each sentence has 1 or 2 key words — a <strong>who</strong> (witch, ghost, cat, bats) and a <strong>where</strong> (on a pumpkin, over the castle, on the roof, out of the attic).</div>
+    </div>
+
+    <div class="lt-wrap">
+      <div class="lt-item" data-answer="A">
+        <div class="lt-top">
+          <span class="lt-n">1</span>
+          <button class="lt-play" data-say="tick-1">🔊 play</button>
+          <span class="lt-prompt">Which picture matches?</span>
+        </div>
+        <div class="lt-choices">
+          <button class="lt-choice" data-v="A"><img src="img/sticker-cat-on-pumpkin.png">A · a witch sitting on a pumpkin</button>
+          <button class="lt-choice" data-v="B"><img src="img/char-witch-hazel.png">B · a witch flying with her broom</button>
+        </div>
+      </div>
+      <div class="lt-item" data-answer="A">
+        <div class="lt-top">
+          <span class="lt-n">2</span>
+          <button class="lt-play" data-say="tick-2">🔊 play</button>
+          <span class="lt-prompt">Which picture matches?</span>
+        </div>
+        <div class="lt-choices">
+          <button class="lt-choice" data-v="A"><img src="img/char-ghost-boo.png">A · a ghost flying over the castle</button>
+          <button class="lt-choice" data-v="B"><img src="img/char-zombie-zed.png">B · a zombie near the castle</button>
+        </div>
+      </div>
+      <div class="lt-item" data-answer="B">
+        <div class="lt-top">
+          <span class="lt-n">3</span>
+          <button class="lt-play" data-say="tick-3">🔊 play</button>
+          <span class="lt-prompt">Which picture matches?</span>
+        </div>
+        <div class="lt-choices">
+          <button class="lt-choice" data-v="A"><img src="img/char-spider-cat-spidey.png">A · a spider on the roof</button>
+          <button class="lt-choice" data-v="B"><img src="img/sticker-cat-witch.png">B · a black cat on the roof under the moon</button>
+        </div>
+      </div>
+      <div class="lt-item" data-answer="A">
+        <div class="lt-top">
+          <span class="lt-n">4</span>
+          <button class="lt-play" data-say="tick-4">🔊 play</button>
+          <span class="lt-prompt">Which picture matches?</span>
+        </div>
+        <div class="lt-choices">
+          <button class="lt-choice" data-v="A"><img src="img/sticker-pumpkin-scared.png">A · three bats flying out of the attic</button>
+          <button class="lt-choice" data-v="B"><img src="img/sticker-pumpkin-sleepy.png">B · one pumpkin on the window</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===== 7 · GHOST STORY (JULIA'S FAMILY) ===== -->
 <section class="section" id="sec-07">
   <div class="section-hdr">
@@ -753,7 +1104,8 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
   <div class="section-sub">The main story of the lesson. First listen with your eyes closed. Then read the text. Then do the exercises.</div>
 
   <div class="card">
-    <span class="ex-sticker ghost">👻</span>
+    <img class="ex-sticker png-char" src="img/char-ghost-boo.png" alt="">
+    <img class="ex-sticker png-char left small" src="img/char-cat-kitty.png" alt="">
     <h3><span class="ex-num">7.A</span> Part A · Before you read</h3>
 
     <div class="audio-row">
@@ -776,7 +1128,8 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
   </div>
 
   <div class="card">
-    <img class="ex-sticker png-char" src="img/char-ghost-boo.png" alt="">
+    <img class="ex-sticker png-char big" src="img/char-ghost-boo.png" alt="">
+    <img class="ex-sticker png-char left" src="img/char-mummy-mo.png" alt="">
     <h3><span class="ex-num">7.B</span> Part B · Listen and read the story</h3>
 
     <img class="scene-img" src="img/scene-03-castle-gate.png" alt="The family looks at the old castle under the orange moon">
@@ -842,6 +1195,9 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
       <p>Julia, John and Emma <strong>played</strong> with the ghost boy. Papa <strong>danced</strong> a funny mummy-dance with the wizard. Mama <strong>talked</strong> to the grandma ghost about old recipes.</p>
       <p>At <em>midnight</em>, the big castle clock <strong>said</strong> "Bong, bong, bong".</p>
       <p class="dlg">"It's time," <strong>said</strong> the grandma ghost quietly. "Thank you for a magic night. Come back next Halloween!"</p>
+      <img class="scene-img" src="img/scene-10-running-home.png" alt="The five friends run home with full candy bags, ghosts wave from castle windows">
+      <p style="text-align:center;color:var(--muted);font-style:italic;font-size:.84rem;margin-top:-6px">🏠 Running home with candy bags · the 4 ghosts wave goodbye from the castle windows</p>
+
       <p>Julia, Emma and John <strong>ran</strong> home. Their bags <strong>were</strong> full of candy. Their hearts <strong>were</strong> full of magic. It <strong>was</strong> the best Halloween <em>ever</em>. 🎃👻</p>
 
       <div class="scene-row" style="margin-top:14px">
@@ -854,7 +1210,8 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
   </div>
 
   <div class="card">
-    <span class="ex-sticker small ghost">✨</span>
+    <img class="ex-sticker png-char" src="img/char-spider-cat-spidey.png" alt="">
+    <img class="ex-sticker png-char left small" src="img/sticker-pumpkin-sleepy.png" alt="">
     <h3><span class="ex-num">7.C</span> True · False · Not Stated</h3>
 
     <div class="theory">
@@ -877,7 +1234,8 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
   </div>
 
   <div class="card">
-    <span class="ex-sticker">⚡</span>
+    <img class="ex-sticker png-char" src="img/char-witch-hazel.png" alt="">
+    <img class="ex-sticker png-char left small" src="img/char-pumpkin-pip.png" alt="">
     <h3><span class="ex-num">7.D</span> Grammar · <em>Past Simple</em></h3>
 
     <div class="theory">
@@ -939,7 +1297,8 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
   <div class="section-sub">The most famous Halloween song, from the movie <em>The Nightmare Before Christmas</em>. Listen and put the missing words in.</div>
 
   <div class="card">
-    <span class="ex-sticker">🎵</span>
+    <img class="ex-sticker png-char" src="img/char-pumpkin-pip.png" alt="">
+    <img class="ex-sticker png-char left small" src="img/char-vampire-vlad.png" alt="">
     <h3><span class="ex-num">8.1</span> Listen to the song</h3>
 
     <div class="audio-row">
@@ -1035,7 +1394,8 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
   <div class="section-sub">Two short games to wake up your brain before the final vocab list.</div>
 
   <div class="card">
-    <span class="ex-sticker small">🕷️</span>
+    <img class="ex-sticker png-char" src="img/char-spider-cat-spidey.png" alt="">
+    <img class="ex-sticker png-char left small" src="img/sticker-cat-on-pumpkin.png" alt="">
     <h3><span class="ex-num">9.1</span> Find the odd word out</h3>
 
     <div class="theory">
@@ -1095,7 +1455,8 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
   </div>
 
   <div class="card">
-    <span class="ex-sticker ghost">🤡</span>
+    <img class="ex-sticker png-char" src="img/char-zombie-zed.png" alt="">
+    <img class="ex-sticker png-char left small" src="img/sticker-pumpkin-scared.png" alt="">
     <h3><span class="ex-num">9.2</span> Halloween jokes · match the question with the answer</h3>
 
     <div class="theory">
@@ -1141,7 +1502,8 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
   <div class="section-sub">All the words from today. Click each word — say it after the voice — then do the little spelling drill.</div>
 
   <div class="card">
-    <span class="ex-sticker">👻</span>
+    <img class="ex-sticker png-char" src="img/char-ghost-boo.png" alt="">
+    <img class="ex-sticker png-char left small" src="img/sticker-cat-witch.png" alt="">
     <h3>🎃 Click a word to hear it + see the meaning</h3>
 
     <div class="cap-grid">
@@ -1169,7 +1531,8 @@ footer .by{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-tr
   </div>
 
   <div class="card">
-    <span class="ex-sticker small ghost">✍️</span>
+    <img class="ex-sticker png-char" src="img/char-witch-hazel.png" alt="">
+    <img class="ex-sticker png-char left small" src="img/char-mummy-mo.png" alt="">
     <h3>✍️ Spell the Halloween word · one letter at a time</h3>
 
     <div class="type-grid">
@@ -1384,6 +1747,34 @@ document.querySelectorAll('.odd-row').forEach(row => {
   });
 });
 
+/* =================== 6c · RIDDLE MCQ · 6d · LISTEN & TICK =================== */
+['.rid-item','.lt-item'].forEach(sel => {
+  document.querySelectorAll(sel).forEach(row => {
+    const correct = row.dataset.answer;
+    const optSel = sel === '.rid-item' ? '.rid-opt' : '.lt-choice';
+    row.querySelectorAll(optSel).forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (row.classList.contains('locked')) return;
+        if (btn.dataset.v === correct) { btn.classList.add('correct'); row.classList.add('locked'); }
+        else { btn.classList.add('wrong'); setTimeout(() => btn.classList.remove('wrong'), 500); }
+      });
+    });
+  });
+});
+
+/* shuffle riddle + listen&tick options too */
+(function shuffleRiddleOpts(){
+  const r = (() => { let s = 7; return () => { s=(s*9301+49297)%233280; return s/233280; }; })();
+  document.querySelectorAll('.rid-opts, .lt-choices').forEach(parent => {
+    const kids = Array.from(parent.children);
+    for (let i = kids.length - 1; i > 0; i--) {
+      const j = Math.floor(r() * (i + 1));
+      [kids[i], kids[j]] = [kids[j], kids[i]];
+    }
+    kids.forEach(k => parent.appendChild(k));
+  });
+})();
+
 /* =================== 9.2 · JOKES MATCH =================== */
 (function jokeMatch(){
   const wrap = document.querySelector('.jokes-wrap');
@@ -1420,6 +1811,26 @@ document.addEventListener('click', e => {
   el.classList.remove('playing'); void el.offsetWidth; el.classList.add('playing');
   setTimeout(() => el.classList.remove('playing'), 600);
 });
+
+/* =================== SCENE IMAGE LIGHTBOX =================== */
+(function sceneLightbox(){
+  const backdrop = document.createElement('div');
+  backdrop.className = 'scene-img-backdrop';
+  document.body.appendChild(backdrop);
+  document.querySelectorAll('.scene-img').forEach(img => {
+    img.addEventListener('click', () => {
+      if (img.classList.contains('zoomed')) {
+        img.classList.remove('zoomed'); backdrop.classList.remove('on');
+      } else {
+        img.classList.add('zoomed'); backdrop.classList.add('on');
+      }
+    });
+  });
+  backdrop.addEventListener('click', () => {
+    document.querySelectorAll('.scene-img.zoomed').forEach(i => i.classList.remove('zoomed'));
+    backdrop.classList.remove('on');
+  });
+})();
 
 /* =================== JUMPING MUSICAL PUMPKIN =================== */
 (function pumpkinInit(){
