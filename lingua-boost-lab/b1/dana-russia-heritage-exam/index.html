@@ -659,11 +659,11 @@ button[data-say]:hover{background:var(--accent3)}
       <div class="divider-eyebrow">Interlude · Great Russian Voices</div>
       <h2 class="divider-title">Five voices that shaped the century</h2>
       <div class="divider-list">
-        <div class="divider-fact"><strong>Pyotr Tchaikovsky · 1878</strong> · «Where there are no roses, there are no thorns — I'd rather bleed than feel nothing»</div>
-        <div class="divider-fact"><strong>Leo Tolstoy · 1877</strong> · «All happy families are alike; each unhappy family is unhappy in its own way»</div>
-        <div class="divider-fact"><strong>Fyodor Dostoevsky · 1880</strong> · «Not just to stay alive — but to find something to live for»</div>
-        <div class="divider-fact"><strong>Isaac Levitan · 1898</strong> · «The painter who cannot make you smell wet leaves has only painted half the picture»</div>
-        <div class="divider-fact"><strong>Anna Akhmatova · 1912</strong> · «I taught myself to live simply and wisely»</div>
+        <div class="divider-fact"><strong>Alexander Pushkin · 1837</strong> · Killed in a duel at 37 defending his wife's honour.</div>
+        <div class="divider-fact"><strong>Mikhail Lomonosov · 1755</strong> · A fisherman's son who walked to Moscow and founded its first university.</div>
+        <div class="divider-fact"><strong>Dmitri Mendeleev · 1869</strong> · Woke from a dream and sketched the periodic table of elements.</div>
+        <div class="divider-fact"><strong>Anton Chekhov · 1890</strong> · Rode 10 000 km by cart to Sakhalin to count every prisoner by hand.</div>
+        <div class="divider-fact"><strong>Yuri Gagarin · 1961</strong> · First human in space — 108 minutes aboard Vostok-1 and «Поехали!»</div>
       </div>
     </div>
   </div>
@@ -913,11 +913,11 @@ button[data-say]:hover{background:var(--accent3)}
       <div class="divider-eyebrow">Interlude · Iconic Places of Russia</div>
       <h2 class="divider-title">Five facts to keep in your pocket</h2>
       <div class="divider-list">
-        <div class="divider-fact"><strong>Lake Baikal</strong> · 1 642 m deep · 25 million years old · holds around 20 % of all unfrozen fresh water on the planet</div>
-        <div class="divider-fact"><strong>Trans-Siberian Railway</strong> · 9 288 km · 8 time zones · Moscow → Vladivostok · the longest continuous railway on Earth</div>
-        <div class="divider-fact"><strong>The State Hermitage</strong> · 3 million works of art · 400+ rooms in the Winter Palace · a colony of 70 cats guards the basement since Empress Elizabeth</div>
-        <div class="divider-fact"><strong>The Moscow Kremlin</strong> · 5 centuries at the seat of Russian power · 20 towers · Ivan the Great Bell Tower still the tallest building of medieval Moscow</div>
-        <div class="divider-fact"><strong>Kul Sharif Mosque, Kazan</strong> · rebuilt in 2005 · 78-metre minarets · the symbol of Tatar heritage inside the Kazan Kremlin, UNESCO World Heritage since 2000</div>
+        <div class="divider-fact"><strong>St Basil's Cathedral · 1561</strong> · 9 chapels under 10 onion domes — Ivan the Terrible's trophy for taking Kazan.</div>
+        <div class="divider-fact"><strong>Peterhof · 1723</strong> · Peter the Great's answer to Versailles — 147 fountains, zero pumps, all gravity-fed.</div>
+        <div class="divider-fact"><strong>Mount Elbrus · 5 642 m</strong> · Europe's highest peak and one of the Seven Summits — twin volcanic cones in the Caucasus.</div>
+        <div class="divider-fact"><strong>Kizhi Pogost · 1714</strong> · Wooden Transfiguration Church on Lake Onega — 22 domes, not a single iron nail.</div>
+        <div class="divider-fact"><strong>Amber Room · Catherine Palace</strong> · 6 tonnes of amber, gifted by Prussia 1716, looted by Nazis 1941, fully rebuilt by 2003.</div>
       </div>
     </div>
   </div>
@@ -1267,28 +1267,42 @@ button[data-say]:hover{background:var(--accent3)}
   Russian Culture · Exam Simulator · ЕГЭ 2026 ФИПИ order · NG English Lab · 2026
 </footer>
 
+<!-- mp3 manifest for data-say phrases (edge-tts en-GB Sonia) -->
+<script src="assets/audio/_manifest.js"></script>
 <script>
-const synth = window.speechSynthesis;
-let voice = null;
-function pickVoice(){
-  const vs = synth.getVoices();
-  voice = vs.find(v => v.lang === 'en-GB' && /female|kate|sonia/i.test(v.name))
-       || vs.find(v => v.lang === 'en-GB')
-       || vs.find(v => v.lang.startsWith('en-US') && /female/i.test(v.name))
-       || vs.find(v => v.lang.startsWith('en')) || vs[0];
-}
-if(synth){ pickVoice(); synth.onvoiceschanged = pickVoice; }
-function say(text, rate=0.95){
-  if(!synth) return;
-  synth.cancel();
-  const u = new SpeechSynthesisUtterance(text);
-  u.voice = voice; u.rate = rate; u.pitch = 1.05;
-  synth.speak(u);
+/* mp3-only audio engine (per protocol_tts_mp3_only / feedback_no_web_speech_fallback) */
+const AUDIO_DIR = 'assets/audio/';
+const AUDIO_MANIFEST = window.AUDIO_MANIFEST || {};
+const audioCache = {};
+let currentAudio = null;
+function stopAll(){ Object.values(audioCache).forEach(a => { try { a.pause(); a.currentTime = 0; } catch(e){} }); currentAudio = null; }
+function say(text, rate=1.0){
+  if(!text) return;
+  const file = AUDIO_MANIFEST[text];
+  if(!file){ console.warn('[audio] no mp3 for:', text); return; }
+  if(!audioCache[file]) audioCache[file] = new Audio(AUDIO_DIR + file);
+  const a = audioCache[file];
+  stopAll();
+  a.currentTime = 0; a.playbackRate = rate; currentAudio = a;
+  a.play().catch(err => console.warn('[audio] play failed:', file, err));
 }
 document.addEventListener('click', e => {
   const t = e.target.closest('[data-say]');
   if(t){ say(t.dataset.say); }
 });
+
+/* Shuffle MCQ options on init so answer order is random each session */
+(function shuffleChoiceGroups(){
+  const groups = document.querySelectorAll('.choice-row');
+  groups.forEach(g => {
+    const kids = Array.from(g.children);
+    for (let i = kids.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      if (i !== j) g.insertBefore(kids[j], kids[i].nextSibling);
+      [kids[i], kids[j]] = [kids[j], kids[i]];
+    }
+  });
+})();
 
 /* Progress dots · 18 blocks */
 const dotsEl = document.getElementById('dots');
