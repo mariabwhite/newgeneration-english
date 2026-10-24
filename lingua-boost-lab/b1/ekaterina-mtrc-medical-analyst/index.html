@@ -265,6 +265,213 @@ button[data-say]:hover{background:var(--accent)}
 <!-- PROGRESS DOTS -->
 <div class="progress"><div class="dots" id="dots" aria-hidden="true"></div></div>
 
+<!-- STANDARD HR INTERVIEW QUESTIONS · the full list to drill before anything else -->
+<style id="hr-standard-styling">
+#sec-hr-standard .hr-list{display:grid;grid-template-columns:1fr;gap:10px;margin-top:12px}
+#sec-hr-standard .hr-item{background:var(--card,#fff);border:1px solid var(--line,rgba(26,34,56,.14));border-radius:12px;padding:14px 16px;box-shadow:0 2px 8px rgba(26,34,56,.05);transition:.15s}
+#sec-hr-standard .hr-item:hover{border-color:var(--brand,#b7904b);box-shadow:0 4px 14px rgba(26,34,56,.08)}
+#sec-hr-standard .hr-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:8px}
+#sec-hr-standard .hr-n{flex-shrink:0;background:var(--accent,#1e3a5f);color:#fff;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono,monospace);font-weight:800;font-size:.78rem}
+#sec-hr-standard .hr-q{font-family:var(--display,'Manrope');font-weight:700;color:var(--accent-2,#0e2340);font-size:1rem;line-height:1.35;flex:1}
+#sec-hr-standard .hr-say{background:var(--brand,#b7904b);color:#fff;border:none;border-radius:6px;padding:5px 9px;font-family:var(--mono,monospace);font-size:.68rem;font-weight:800;cursor:pointer;letter-spacing:.08em;align-self:flex-start}
+#sec-hr-standard .hr-say:hover{background:var(--brand-2,#926d2f)}
+#sec-hr-standard .hr-ru{font-family:var(--body,'Manrope');font-size:.88rem;color:var(--muted,#4a5468);font-style:italic;margin:0 0 6px 42px}
+#sec-hr-standard details.hr-reveal{margin:6px 0 0 42px}
+#sec-hr-standard details.hr-reveal summary{cursor:pointer;background:var(--surface-2,#dcd3bc);color:var(--accent-2,#0e2340);font-family:var(--mono,monospace);font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:6px 11px;border-radius:6px;list-style:none;display:inline-block;transition:.15s}
+#sec-hr-standard details.hr-reveal summary::-webkit-details-marker{display:none}
+#sec-hr-standard details.hr-reveal summary::before{content:"▸ ";margin-right:4px;transition:transform .15s;display:inline-block}
+#sec-hr-standard details.hr-reveal[open] summary::before{transform:rotate(90deg)}
+#sec-hr-standard details.hr-reveal summary:hover{background:var(--brand,#b7904b);color:#fff}
+#sec-hr-standard .hr-key{font-family:var(--body,'Manrope');font-size:.86rem;color:var(--text,#1f2328);background:rgba(183,144,75,.08);border-left:3px solid var(--brand,#b7904b);padding:9px 13px;border-radius:0 6px 6px 0;margin-top:8px;line-height:1.5}
+#sec-hr-standard .hr-key b{color:var(--accent-2,#0e2340);font-weight:800}
+#sec-hr-standard .hr-score{display:flex;align-items:center;gap:6px;margin:8px 0 0 42px;flex-wrap:wrap}
+#sec-hr-standard .hr-score-lbl{font-family:var(--mono,monospace);font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted,#4a5468);margin-right:4px}
+#sec-hr-standard .hr-score button{background:var(--card,#fff);border:1.5px solid var(--line,rgba(26,34,56,.2));color:var(--muted,#4a5468);width:30px;height:30px;border-radius:50%;cursor:pointer;font-family:var(--display,'Manrope');font-weight:800;font-size:.82rem;transition:.15s}
+#sec-hr-standard .hr-score button:hover{border-color:var(--accent,#1e3a5f);color:var(--accent,#1e3a5f)}
+#sec-hr-standard .hr-score button.on{background:var(--brand,#b7904b);border-color:var(--brand,#b7904b);color:#fff}
+#sec-hr-standard .hr-item.answered{border-color:var(--brand,#b7904b);background:rgba(183,144,75,.04)}
+#sec-hr-standard .hr-intro{background:var(--surface-2,#dcd3bc);border-left:4px solid var(--accent,#1e3a5f);padding:12px 16px;border-radius:0 10px 10px 0;margin:0 0 14px;font-size:.95rem;color:var(--text,#1f2328);line-height:1.55}
+#sec-hr-standard .hr-intro b{color:var(--accent-2,#0e2340)}
+</style>
+<section class="section" id="sec-hr-standard">
+  <div class="section-hdr"><h2 style="font-size:1.2rem;font-weight:800">🎯 Standard HR interview questions · drill these first</h2></div>
+  <div class="card">
+    <div class="hr-intro"><b>Проработай 15 стандартных вопросов до того, как учить лексику MTRC.</b> Это универсальный набор любого HR screen — <em>career-switch flavour</em>. На каждый ответ 60–90 секунд. Нажимай 🔊 чтобы услышать произношение. В голубой/бежевой строке — ключевые ходы для ответа.</div>
+
+    <div class="hr-list">
+
+      <div class="hr-item">
+        <div class="hr-head">
+          <div class="hr-n">1</div>
+          <div class="hr-q">Tell me about yourself. · Walk me through your CV.</div>
+          <button type="button" class="hr-say" data-say="Tell me about yourself. Walk me through your CV.">🔊 play</button>
+        </div>
+        <div class="hr-ru">Расскажите о себе · пройдитесь по резюме.</div>
+        <details class="hr-reveal"><summary>Reveal scaffold &middot; answer first out loud</summary><div class="hr-key"><b>Open:</b> «I'm a practising doctor with X years in [specialty], and I'm now moving into reimbursement consulting because…» → 90-sec elevator finishing with WHY MTRC. <em>Не пересказывай резюме построчно — выстрой арку clinical → analyst.</em></div></details><div class="hr-score"><span class="hr-score-lbl">Self-score:</span><button type="button" data-v="1">1</button><button type="button" data-v="2">2</button><button type="button" data-v="3">3</button><button type="button" data-v="4">4</button><button type="button" data-v="5">5</button></div>
+      </div>
+
+      <div class="hr-item">
+        <div class="hr-head">
+          <div class="hr-n">2</div>
+          <div class="hr-q">Why are you changing careers? · Why leave medicine?</div>
+          <button type="button" class="hr-say" data-say="Why are you changing careers? Why are you leaving medicine?">🔊 play</button>
+        </div>
+        <div class="hr-ru">Почему вы меняете карьеру? Почему уходите из медицины?</div>
+        <details class="hr-reveal"><summary>Reveal scaffold &middot; answer first out loud</summary><div class="hr-key"><b>Avoid:</b> «медицина разочаровала / устала / мало платят». <b>Say:</b> «Clinical practice gave me X [evidence-based decisions under uncertainty / direct patient contact / rapid learning]; analyst work lets me apply X at scale and shape policy, not just one case at a time.»</div></details><div class="hr-score"><span class="hr-score-lbl">Self-score:</span><button type="button" data-v="1">1</button><button type="button" data-v="2">2</button><button type="button" data-v="3">3</button><button type="button" data-v="4">4</button><button type="button" data-v="5">5</button></div>
+      </div>
+
+      <div class="hr-item">
+        <div class="hr-head">
+          <div class="hr-n">3</div>
+          <div class="hr-q">What were your main responsibilities in your current role?</div>
+          <button type="button" class="hr-say" data-say="What were your main responsibilities in your current role?">🔊 play</button>
+        </div>
+        <div class="hr-ru">Какие у вас были основные обязанности на текущем месте?</div>
+        <details class="hr-reveal"><summary>Reveal scaffold &middot; answer first out loud</summary><div class="hr-key"><b>Structure:</b> (1) clinical responsibilities (patient care, triage, diagnosis), (2) non-clinical tasks that TRANSFER to analyst (audits, literature reviews, teaching residents, protocol updates), (3) one concrete number (patients seen / cases supervised / reports written). <em>Last 2 выделяют тебя как кандидата на analyst.</em></div></details><div class="hr-score"><span class="hr-score-lbl">Self-score:</span><button type="button" data-v="1">1</button><button type="button" data-v="2">2</button><button type="button" data-v="3">3</button><button type="button" data-v="4">4</button><button type="button" data-v="5">5</button></div>
+      </div>
+
+      <div class="hr-item">
+        <div class="hr-head">
+          <div class="hr-n">4</div>
+          <div class="hr-q">What do you expect from your next role / new workplace?</div>
+          <button type="button" class="hr-say" data-say="What do you expect from your next role and new workplace?">🔊 play</button>
+        </div>
+        <div class="hr-ru">Чего вы ждёте от нового места работы?</div>
+        <details class="hr-reveal"><summary>Reveal scaffold &middot; answer first out loud</summary><div class="hr-key"><b>Hit 3:</b> (1) opportunity to learn — «a strong onboarding and mentorship for someone without consulting background», (2) impact — «work that reaches policy and payer decisions, not just individual cases», (3) team — «cross-functional environment with clinicians, economists, and ex-industry people».</div></details><div class="hr-score"><span class="hr-score-lbl">Self-score:</span><button type="button" data-v="1">1</button><button type="button" data-v="2">2</button><button type="button" data-v="3">3</button><button type="button" data-v="4">4</button><button type="button" data-v="5">5</button></div>
+      </div>
+
+      <div class="hr-item">
+        <div class="hr-head">
+          <div class="hr-n">5</div>
+          <div class="hr-q">Why MTRC specifically? · Why this company?</div>
+          <button type="button" class="hr-say" data-say="Why MTRC specifically? Why this company?">🔊 play</button>
+        </div>
+        <div class="hr-ru">Почему именно MTRC? Почему эта компания?</div>
+        <details class="hr-reveal"><summary>Reveal scaffold &middot; answer first out loud</summary><div class="hr-key"><b>Must prepare before interview:</b> read 1 recent MTRC blog post / LinkedIn update → name it. <b>Say:</b> «MTRC's work on [specific case / therapy area] is exactly the intersection I want — rigorous clinical reading + economic evaluation + direct payer dialogue.»</div></details><div class="hr-score"><span class="hr-score-lbl">Self-score:</span><button type="button" data-v="1">1</button><button type="button" data-v="2">2</button><button type="button" data-v="3">3</button><button type="button" data-v="4">4</button><button type="button" data-v="5">5</button></div>
+      </div>
+
+      <div class="hr-item">
+        <div class="hr-head">
+          <div class="hr-n">6</div>
+          <div class="hr-q">What are your strengths?</div>
+          <button type="button" class="hr-say" data-say="What are your main strengths?">🔊 play</button>
+        </div>
+        <div class="hr-ru">Какие ваши сильные стороны?</div>
+        <details class="hr-reveal"><summary>Reveal scaffold &middot; answer first out loud</summary><div class="hr-key"><b>Pick 2–3, back each with 1 example:</b> structured thinking under uncertainty (triage), fast learning (new guidelines in 48h), clinical insight (I can read a trial critically). <em>Avoid clichés «hard-working / perfectionist».</em></div></details><div class="hr-score"><span class="hr-score-lbl">Self-score:</span><button type="button" data-v="1">1</button><button type="button" data-v="2">2</button><button type="button" data-v="3">3</button><button type="button" data-v="4">4</button><button type="button" data-v="5">5</button></div>
+      </div>
+
+      <div class="hr-item">
+        <div class="hr-head">
+          <div class="hr-n">7</div>
+          <div class="hr-q">What are your weaknesses?</div>
+          <button type="button" class="hr-say" data-say="What are your weaknesses?">🔊 play</button>
+        </div>
+        <div class="hr-ru">Какие у вас слабые стороны?</div>
+        <details class="hr-reveal"><summary>Reveal scaffold &middot; answer first out loud</summary><div class="hr-key"><b>Honest + solvable:</b> «I don't have consulting-side Excel modelling at the level you need — I'm closing that gap with [specific course / self-study / weekly practice]». <em>НЕ говори «я перфекционистка» — звучит скриптово.</em></div></details><div class="hr-score"><span class="hr-score-lbl">Self-score:</span><button type="button" data-v="1">1</button><button type="button" data-v="2">2</button><button type="button" data-v="3">3</button><button type="button" data-v="4">4</button><button type="button" data-v="5">5</button></div>
+      </div>
+
+      <div class="hr-item">
+        <div class="hr-head">
+          <div class="hr-n">8</div>
+          <div class="hr-q">Describe a difficult situation you handled recently.</div>
+          <button type="button" class="hr-say" data-say="Describe a difficult situation you handled recently.">🔊 play</button>
+        </div>
+        <div class="hr-ru">Опишите сложную ситуацию, с которой вы справились.</div>
+        <details class="hr-reveal"><summary>Reveal scaffold &middot; answer first out loud</summary><div class="hr-key"><b>Use STAR:</b> Situation (1 line) → Task (your responsibility) → Action (what YOU did in «I», not «we») → Result (one measurable outcome). <em>Pick a clinical case that mapped to data-prioritisation or stakeholder management.</em></div></details><div class="hr-score"><span class="hr-score-lbl">Self-score:</span><button type="button" data-v="1">1</button><button type="button" data-v="2">2</button><button type="button" data-v="3">3</button><button type="button" data-v="4">4</button><button type="button" data-v="5">5</button></div>
+      </div>
+
+      <div class="hr-item">
+        <div class="hr-head">
+          <div class="hr-n">9</div>
+          <div class="hr-q">Tell me about a time you failed. What did you learn?</div>
+          <button type="button" class="hr-say" data-say="Tell me about a time you failed. What did you learn?">🔊 play</button>
+        </div>
+        <div class="hr-ru">Расскажите о неудаче и что вы вынесли.</div>
+        <details class="hr-reveal"><summary>Reveal scaffold &middot; answer first out loud</summary><div class="hr-key"><b>Real + specific:</b> missed deadline / wrong initial assessment / miscommunication. <em>Finish with the behavioural change</em> you made since — not «я теперь перепроверяю».</div></details><div class="hr-score"><span class="hr-score-lbl">Self-score:</span><button type="button" data-v="1">1</button><button type="button" data-v="2">2</button><button type="button" data-v="3">3</button><button type="button" data-v="4">4</button><button type="button" data-v="5">5</button></div>
+      </div>
+
+      <div class="hr-item">
+        <div class="hr-head">
+          <div class="hr-n">10</div>
+          <div class="hr-q">Where do you see yourself in 2–5 years?</div>
+          <button type="button" class="hr-say" data-say="Where do you see yourself in two to five years?">🔊 play</button>
+        </div>
+        <div class="hr-ru">Где вы себя видите через 2–5 лет?</div>
+        <details class="hr-reveal"><summary>Reveal scaffold &middot; answer first out loud</summary><div class="hr-key"><b>Say:</b> «In 2 years — fluent in HTA submissions across 2–3 European markets. In 5 — leading a therapy-area workstream, mentoring the next ex-clinician analyst.» <em>Привязать к их типичной карьерной лестнице.</em></div></details><div class="hr-score"><span class="hr-score-lbl">Self-score:</span><button type="button" data-v="1">1</button><button type="button" data-v="2">2</button><button type="button" data-v="3">3</button><button type="button" data-v="4">4</button><button type="button" data-v="5">5</button></div>
+      </div>
+
+      <div class="hr-item">
+        <div class="hr-head">
+          <div class="hr-n">11</div>
+          <div class="hr-q">Why should we hire you over a candidate with 5 years of consulting experience?</div>
+          <button type="button" class="hr-say" data-say="Why should we hire you over a candidate with five years of consulting experience?">🔊 play</button>
+        </div>
+        <div class="hr-ru">Почему мы должны взять вас, а не кандидата с 5 годами консалтинга?</div>
+        <details class="hr-reveal"><summary>Reveal scaffold &middot; answer first out loud</summary><div class="hr-key"><b>Say:</b> «A consulting hire gives you process. A clinical hire gives you credibility with payers and KOL interviews. I close the first gap in 6 months; a consulting hire can't close the clinical gap in 6 years.»</div></details><div class="hr-score"><span class="hr-score-lbl">Self-score:</span><button type="button" data-v="1">1</button><button type="button" data-v="2">2</button><button type="button" data-v="3">3</button><button type="button" data-v="4">4</button><button type="button" data-v="5">5</button></div>
+      </div>
+
+      <div class="hr-item">
+        <div class="hr-head">
+          <div class="hr-n">12</div>
+          <div class="hr-q">What is your salary expectation?</div>
+          <button type="button" class="hr-say" data-say="What is your salary expectation?">🔊 play</button>
+        </div>
+        <div class="hr-ru">Какие у вас ожидания по зарплате?</div>
+        <details class="hr-reveal"><summary>Reveal scaffold &middot; answer first out loud</summary><div class="hr-key"><b>Deflect first:</b> «I'd love to understand the full package first — base, bonus, benefits, remote setup — and then we can talk a number». <em>If forced:</em> give a RANGE based on Glassdoor UK junior-analyst benchmarks, not a single figure.</div></details><div class="hr-score"><span class="hr-score-lbl">Self-score:</span><button type="button" data-v="1">1</button><button type="button" data-v="2">2</button><button type="button" data-v="3">3</button><button type="button" data-v="4">4</button><button type="button" data-v="5">5</button></div>
+      </div>
+
+      <div class="hr-item">
+        <div class="hr-head">
+          <div class="hr-n">13</div>
+          <div class="hr-q">When could you start? · What's your notice period?</div>
+          <button type="button" class="hr-say" data-say="When could you start? What is your notice period?">🔊 play</button>
+        </div>
+        <div class="hr-ru">Когда вы готовы начать? Какой у вас notice period?</div>
+        <details class="hr-reveal"><summary>Reveal scaffold &middot; answer first out loud</summary><div class="hr-key"><b>Be concrete:</b> «My current contract requires N weeks notice. Earliest realistic start: [date]. I'd use the gap for [onboarding reading / short reimbursement course].»</div></details><div class="hr-score"><span class="hr-score-lbl">Self-score:</span><button type="button" data-v="1">1</button><button type="button" data-v="2">2</button><button type="button" data-v="3">3</button><button type="button" data-v="4">4</button><button type="button" data-v="5">5</button></div>
+      </div>
+
+      <div class="hr-item">
+        <div class="hr-head">
+          <div class="hr-n">14</div>
+          <div class="hr-q">How do you handle pressure and tight deadlines?</div>
+          <button type="button" class="hr-say" data-say="How do you handle pressure and tight deadlines?">🔊 play</button>
+        </div>
+        <div class="hr-ru">Как справляетесь с давлением и жёсткими дедлайнами?</div>
+        <details class="hr-reveal"><summary>Reveal scaffold &middot; answer first out loud</summary><div class="hr-key"><b>Use clinical as live example:</b> night-shift triage. <b>Formula:</b> «Pressure is manageable when the process is clear, so I always start by naming the steps and the single most time-critical one.» <em>End with one real example.</em></div></details><div class="hr-score"><span class="hr-score-lbl">Self-score:</span><button type="button" data-v="1">1</button><button type="button" data-v="2">2</button><button type="button" data-v="3">3</button><button type="button" data-v="4">4</button><button type="button" data-v="5">5</button></div>
+      </div>
+
+      <div class="hr-item">
+        <div class="hr-head">
+          <div class="hr-n">15</div>
+          <div class="hr-q">Do you have any questions for us?</div>
+          <button type="button" class="hr-say" data-say="Do you have any questions for us?">🔊 play</button>
+        </div>
+        <div class="hr-ru">Есть ли у вас вопросы к нам?</div>
+        <details class="hr-reveal"><summary>Reveal scaffold &middot; answer first out loud</summary><div class="hr-key"><b>ALWAYS have 3 ready:</b> (1) «What does ramp-up look like for someone without consulting background?» (2) «What % of your analysts come from clinical backgrounds?» (3) «What's the single hardest thing new analysts here struggle with in their first 6 months?» <em>Never say «no».</em></div></details><div class="hr-score"><span class="hr-score-lbl">Self-score:</span><button type="button" data-v="1">1</button><button type="button" data-v="2">2</button><button type="button" data-v="3">3</button><button type="button" data-v="4">4</button><button type="button" data-v="5">5</button></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<script>
+document.querySelectorAll('#sec-hr-standard .hr-say').forEach(b=>b.addEventListener('click',()=>{
+  const txt=b.dataset.say;
+  if(!window.speechSynthesis)return;
+  const u=new SpeechSynthesisUtterance(txt);
+  const vs=speechSynthesis.getVoices();
+  const v=vs.find(x=>x.lang.startsWith('en-GB'))||vs.find(x=>x.lang.startsWith('en-US'))||vs.find(x=>x.lang.startsWith('en'));
+  if(v)u.voice=v; u.rate=0.92; u.pitch=1;
+  speechSynthesis.cancel(); speechSynthesis.speak(u);
+}));
+document.querySelectorAll('#sec-hr-standard .hr-score').forEach(row=>{
+  row.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+    row.querySelectorAll('button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    const item=b.closest('.hr-item'); if(item)item.classList.add('answered');
+  }));
+});
+</script>
+
 <!-- KEY VOCABULARY · tap to hear -->
 <section class="section" id="sec-vocab">
   <div class="section-hdr"><h2 style="font-size:1.2rem;font-weight:800">💼 Key vocabulary · tap to hear</h2></div>
@@ -348,7 +555,7 @@ button[data-say]:hover{background:var(--accent)}
 </section>
 
 <style id="lesson-section-img">
-.lesson-img{display:block;width:100%;max-width:900px;height:auto;margin:12px auto 16px;border-radius:14px;border:1px solid var(--line,rgba(91,139,182,.2));box-shadow:0 6px 22px rgba(26,34,56,.14)}
+.lesson-img{display:block;width:100%;max-width:100%;height:auto;margin:12px 0 16px;border-radius:14px;border:1px solid var(--line,rgba(91,139,182,.2));box-shadow:0 6px 22px rgba(26,34,56,.14)}
 </style>
 
 <!-- BLOCK 1 · WARM-UP -->
