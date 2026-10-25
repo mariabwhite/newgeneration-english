@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Денис Шалманов · Articles · справка-конспект</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF; --cream:#EFEEE9; --cream-soft:#F4F3EE;
+    --orange:#E8542B; --orange-soft:#F0A86A; --gold:#F4C84B;
+    --ink:#1F1F1F; --ink-2:#2C2C2C; --muted:#8B8B8B; --muted-2:#A8A6A0;
+    --rule:#D9D7D2; --footer-bg:#F1F0EB;
+    --ok:#3F6B3A; --miss:#B04A3A;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#E9E7E2;color:var(--ink);
+    font-family:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;
+    font-size:14.5px;line-height:1.55;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{width:210mm;min-height:297mm;margin:18px auto;background:var(--bg);
+    box-shadow:0 12px 40px rgba(0,0,0,.10);padding:0 0 28px;position:relative}
+  .page + .page{page-break-before:always}
+
+  /* Hero */
+  .hero{background:var(--cream);padding:28px 44px 30px;position:relative}
+  .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;
+    background:linear-gradient(90deg,var(--orange) 0%,var(--orange) 55%,var(--gold) 100%)}
+  .brandline{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  .logo{width:38px;height:38px;border-radius:9px 0 9px 9px;background:var(--orange);
+    color:white;font-weight:800;font-family:"Manrope",sans-serif;
+    font-size:22px;display:grid;place-items:center;line-height:1;
+    box-shadow:0 2px 4px rgba(232,84,43,.25);position:relative;overflow:hidden}
+  .logo::after{content:"";position:absolute;top:0;right:0;
+    width:11px;height:11px;background:#fff;
+    clip-path:polygon(100% 0, 0 0, 100% 100%)}
+  .brand-name{font-weight:800;letter-spacing:.06em;font-size:14.5px;color:var(--ink)}
+  .brand-sub{font-size:11px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;font-weight:500;margin-top:2px}
+  .kicker{margin-top:16px;font-size:11px;letter-spacing:.22em;color:var(--orange);text-transform:uppercase;font-weight:700}
+  h1.name{font-family:"Manrope","Inter",sans-serif;font-weight:800;font-size:38px;line-height:1.05;
+    margin:6px 0 4px;color:var(--ink);letter-spacing:-.01em}
+  .subtitle{font-size:14px;color:var(--ink-2);margin:0}
+
+  /* Meta row */
+  .meta{padding:22px 44px 6px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px 22px}
+  .meta dt{font-size:10.5px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;font-weight:600;margin-bottom:3px}
+  .meta dd{margin:0;font-size:13.5px;font-weight:700;color:var(--ink)}
+  .meta-rule{margin:16px 44px 8px;border:0;height:1px;background:var(--rule)}
+
+  /* Body */
+  .body{padding:12px 44px 8px}
+  .body p{margin:0 0 10px}
+  h2{font-family:"Inter",sans-serif;font-size:15.5px;font-weight:700;color:var(--ink);
+    margin:20px 0 10px;padding-left:12px;position:relative}
+  h2::before{content:"";position:absolute;left:0;top:3px;bottom:3px;width:4px;background:var(--orange);border-radius:2px}
+  h3{font-family:"Inter",sans-serif;font-size:12.5px;letter-spacing:.14em;color:var(--muted);
+    text-transform:uppercase;font-weight:700;margin:14px 0 6px}
+
+  /* Rule block · Point · Rule · Example · Exception */
+  .rule{margin:10px 0 14px;padding:12px 14px;background:var(--cream-soft);border-left:3px solid var(--orange);border-radius:0 6px 6px 0;break-inside:avoid}
+  .rule-head{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px}
+  .rule-n{flex-shrink:0;width:24px;height:24px;border-radius:50%;background:var(--orange);color:#fff;
+    display:grid;place-items:center;font-weight:800;font-size:12px;font-family:"Manrope",sans-serif}
+  .rule-point{font-weight:700;color:var(--ink);font-size:14px;line-height:1.35;flex:1}
+  .rule-point em{font-style:italic;color:var(--orange);font-weight:700}
+  .rule-body{display:grid;grid-template-columns:72px 1fr;gap:6px 10px;font-size:13px;line-height:1.5;margin-left:34px}
+  .rule-body dt{font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;padding-top:2px}
+  .rule-body dt.lbl-rule{color:var(--orange)}
+  .rule-body dt.lbl-ex{color:var(--ok)}
+  .rule-body dt.lbl-exc{color:var(--miss)}
+  .rule-body dd{margin:0;color:var(--ink-2)}
+  .rule-body dd em{font-style:italic;color:var(--muted);background:#fff;padding:1px 6px;border-radius:4px}
+  .rule-body dd b{font-weight:700;color:var(--miss)}
+  code{font-family:"JetBrains Mono","Consolas",monospace;font-size:.9em;background:#fff;color:var(--orange);
+    padding:1px 5px;border-radius:3px;font-weight:700;border:1px solid var(--rule)}
+
+  /* TOC */
+  .toc{padding:12px 44px 8px}
+  .toc-h{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:8px}
+  .toc-list{display:grid;grid-template-columns:1fr 1fr;gap:3px 18px;font-size:13px}
+  .toc-list a{color:var(--ink);text-decoration:none;padding:3px 0}
+  .toc-list a:hover{color:var(--orange)}
+  .toc-list .n{color:var(--orange);font-weight:800;margin-right:6px;font-family:"Manrope",sans-serif}
+
+  /* Drill */
+  .drill-wrap{padding:14px 44px 4px}
+  .drill-row{display:grid;grid-template-columns:24px 1fr auto;gap:10px;align-items:center;
+    padding:7px 10px;margin:4px 0;background:var(--cream-soft);border:1px solid var(--rule);border-radius:5px;font-size:13px}
+  .drill-row .dn{font-weight:800;color:var(--orange);font-size:12px;font-family:"Manrope",sans-serif}
+  .drill-row .dq{color:var(--ink-2)}
+  .drill-row .dq .gap{display:inline-block;min-width:50px;border-bottom:2px dashed var(--orange);padding:0 5px;color:var(--orange);font-weight:800}
+  .drill-row select{padding:5px 8px;border:1px solid var(--rule);border-radius:4px;background:#fff;
+    font-family:"Inter",sans-serif;font-size:13px;color:var(--ink);cursor:pointer;min-width:80px}
+  .drill-row.ok{border-color:var(--ok);background:rgba(63,107,58,.07)}
+  .drill-row.miss{border-color:var(--miss);background:rgba(176,74,58,.07)}
+  .drill-actions{display:flex;gap:10px;margin-top:10px;align-items:center;flex-wrap:wrap}
+  .drill-actions button{background:var(--orange);color:#fff;border:none;border-radius:5px;padding:7px 14px;
+    font:700 11px/1 "Inter",sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+  .drill-actions .reset{background:#fff;color:var(--orange);border:1px solid var(--orange)}
+  .drill-score{font-weight:800;color:var(--orange);margin-left:auto;font-size:13px;font-family:"Manrope",sans-serif}
+
+  /* Footer */
+  .foot{margin:26px 0 0;padding:18px 44px 22px;background:var(--footer-bg);border-top:1px solid var(--rule)}
+  .foot-brand{display:flex;align-items:center;gap:12px;font-weight:700;color:var(--ink);font-size:14px}
+  .foot-brand .logo{width:30px;height:30px;font-size:18px;border-radius:7px 0 7px 7px}
+  .foot-meta{margin-top:10px;font-size:11.5px;color:var(--muted);line-height:1.55}
+
+  /* Screen-only controls */
+  .ctrl-bar{position:fixed;top:12px;right:12px;z-index:50;display:flex;gap:8px}
+  .ctrl-bar button{background:var(--orange);color:#fff;border:none;border-radius:6px;padding:8px 14px;
+    font:700 11px/1 "Inter",sans-serif;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+  .ctrl-bar button:hover{background:#c13d14}
+
+  @page{size:A4;margin:0}
+  @media print{
+    html,body{background:#fff}
+    .page{box-shadow:none;margin:0;width:210mm;min-height:297mm}
+    .ctrl-bar{display:none}
+    .hero,.foot,.rule{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<div class="ctrl-bar">
+  <button type="button" onclick="window.print()">🖨 Печать / PDF</button>
+</div>
+
+<!-- =========== PAGE 1 =========== -->
+<main class="page">
+
+  <header class="hero">
+    <div class="brandline">
+      <div class="logo">N</div>
+      <div>
+        <div class="brand-name">NEW GENERATION ENGLISH</div>
+        <div class="brand-sub">Maria · Personal Tutor</div>
+      </div>
+    </div>
+    <div class="kicker">Справка-конспект · грамматика</div>
+    <h1 class="name">Articles · артикли</h1>
+    <p class="subtitle">A1 → A2 · полный свод правил на одной странице · для Дениса Шалманова</p>
+  </header>
+
+  <dl class="meta">
+    <div><dt>Ученик</dt><dd>Денис Шалманов</dd></div>
+    <div><dt>Уровень</dt><dd>A1 · база → A2</dd></div>
+    <div><dt>Дата</dt><dd>25 октября 2026</dd></div>
+    <div><dt>Тема</dt><dd>Articles · <code>a</code> · <code>an</code> · <code>the</code> · <code>—</code></dd></div>
+    <div><dt>Объём</dt><dd>20 правил + drill × 12</dd></div>
+    <div><dt>Формат</dt><dd>справка · для печати / PDF</dd></div>
+  </dl>
+  <hr class="meta-rule">
+
+  <section class="body">
+    <p>Денис, здесь — <b>весь свод правил по артиклям</b> в одном документе. Три блока: неопределённый <code>a / an</code>, определённый <code>the</code>, нулевой артикль (<code>—</code>, без артикля). У каждого пункта: <b>правило · пример · исключение</b>. В конце — быстрый drill на 12 предложений для проверки.</p>
+
+    <nav class="toc">
+      <div class="toc-h">Содержание</div>
+      <div class="toc-list">
+        <a href="#block-a"><span class="n">A</span>Неопределённый · <code>a / an</code> · п. 1–3</a>
+        <a href="#block-the"><span class="n">B</span>Определённый · <code>the</code> · п. 4–13</a>
+        <a href="#block-zero"><span class="n">C</span>Нулевой · <code>—</code> · п. 14–20</a>
+        <a href="#drill"><span class="n">D</span>Drill · 12 предложений</a>
+      </div>
+    </nav>
+
+    <h2 id="block-a">A. Неопределённый артикль · a / an · 3 правила</h2>
+
+    <div class="rule">
+      <div class="rule-head"><div class="rule-n">1</div><div class="rule-point">Выбор <em>a</em> или <em>an</em> — по звуку, не по букве</div></div>
+      <dl class="rule-body">
+        <dt class="lbl-rule">Правило</dt><dd><code>a</code> перед согласным звуком · <code>an</code> перед гласным.</dd>
+        <dt class="lbl-ex">Пример</dt><dd><em>a book · a university /ˈjuː-/ · an hour (h не читается) · an MBA («эм-би-эй»)</em></dd>
+        <dt class="lbl-exc">Исключ.</dt><dd><b>Y-подобные:</b> <em>a European, a user, a UFO</em>. <b>Молчащее h:</b> <em>an honour, an honest, an heir</em>.</dd>
+      </dl>
+    </div>
+
+    <div class="rule">
+      <div class="rule-head"><div class="rule-n">2</div><div class="rule-point">С <em>исчисляемым существительным в ед. ч.</em> — первое упоминание или в общем смысле</div></div>
+      <dl class="rule-body">
+        <dt class="lbl-rule">Правило</dt><dd>Называете вещь впервые или в общем — ставим <code>a / an</code>.</dd>
+        <dt class="lbl-ex">Пример</dt><dd><em>I bought a book. · She lives in a small flat. · Can I ask a question?</em></dd>
+        <dt class="lbl-exc">Исключ.</dt><dd>С <b>неисчисляемыми</b> (water, bread, money, time) и <b>мн. ч.</b> <code>a/an</code> <b>не ставим</b>: <em>I need water · I like books</em>.</dd>
+      </dl>
+    </div>
+
+    <div class="rule">
+      <div class="rule-head"><div class="rule-n">3</div><div class="rule-point">С <em>профессиями, национальностями, религиями</em> — обязательно артикль</div></div>
+      <dl class="rule-body">
+        <dt class="lbl-rule">Правило</dt><dd><em>He is a doctor. She is an engineer. He is a Russian.</em> В русском артикля нет — по-английски без него нельзя.</dd>
+        <dt class="lbl-ex">Пример</dt><dd><em>My brother is an architect. · She wants to be a vet.</em></dd>
+        <dt class="lbl-exc">Исключ.</dt><dd>Перед словом уже стоит <code>the/my/this</code> → <code>a</code> <b>убираем</b>: <em>the doctor · my doctor</em>.</dd>
+      </dl>
+    </div>
+
+    <h2 id="block-the">B. Определённый артикль · the · 10 правил</h2>
+
+    <div class="rule">
+      <div class="rule-head"><div class="rule-n">4</div><div class="rule-point">Второе упоминание · известная / конкретная вещь</div></div>
+      <dl class="rule-body">
+        <dt class="lbl-rule">Правило</dt><dd>Первое упоминание — <code>a/an</code>, второе — <code>the</code> (уже знаем, о чём речь).</dd>
+        <dt class="lbl-ex">Пример</dt><dd><em>I bought a book. The book is interesting. · I saw a cat in the garden.</em></dd>
+        <dt class="lbl-exc">Исключ.</dt><dd>Если вторая вещь — другая, остаётся <code>a</code>: <em>I bought a book. Then I bought <b>another</b> book.</em></dd>
+      </dl>
+    </div>
+
+    <div class="rule">
+      <div class="rule-head"><div class="rule-n">5</div><div class="rule-point">С <em>превосходной степенью</em> прилагательных</div></div>
+      <dl class="rule-body">
+        <dt class="lbl-rule">Правило</dt><dd><code>the</code> + superlative: <em>the best · the tallest · the most interesting</em>.</dd>
+        <dt class="lbl-ex">Пример</dt><dd><em>It's the best film I've ever seen. · He is the tallest in the class.</em></dd>
+        <dt class="lbl-exc">Исключ.</dt><dd>Когда <code>most</code> = «очень» (не превосходная) — <b>без</b> <code>the</code>: <em>It's most interesting</em> = «это очень интересно».</dd>
+      </dl>
+    </div>
+
+    <div class="rule">
+      <div class="rule-head"><div class="rule-n">6</div><div class="rule-point">С <em>порядковыми числительными</em>: the first, the second, the last</div></div>
+      <dl class="rule-body">
+        <dt class="lbl-rule">Правило</dt><dd><code>the</code> + 1st / 2nd / 3rd / last / next.</dd>
+        <dt class="lbl-ex">Пример</dt><dd><em>The first lesson starts at nine. · The last question was tricky.</em></dd>
+        <dt class="lbl-exc">Исключ.</dt><dd>Выражения <em>at first · first thing in the morning</em> — <b>без</b> артикля.</dd>
+      </dl>
+    </div>
+
+  </section>
+
+  <footer class="foot">
+    <div class="foot-brand"><div class="logo">N</div><span>NEW GENERATION ENGLISH · Articles</span></div>
+    <div class="foot-meta">
+      Справка подготовлена для Дениса Шалманова · октябрь 2026 · Мария Бурцева, личный репетитор.<br>
+      Распечатать / сохранить в PDF: кнопка <code>🖨 Печать</code> в правом верхнем углу или Ctrl + P.
+    </div>
+  </footer>
+</main>
+
+<!-- =========== PAGE 2 =========== -->
+<main class="page">
+
+  <section class="body">
+    <h2 style="margin-top:28px">B. Определённый артикль · the · продолжение</h2>
+
+    <div class="rule">
+      <div class="rule-head"><div class="rule-n">7</div><div class="rule-point">С <em>уникальными объектами</em>: единственное в своём роде</div></div>
+      <dl class="rule-body">
+        <dt class="lbl-rule">Правило</dt><dd><code>the sun · the moon · the sky · the world · the Earth · the Internet · the universe</code>.</dd>
+        <dt class="lbl-ex">Пример</dt><dd><em>The sun is shining. · We live on the Earth. · I found it on the Internet.</em></dd>
+        <dt class="lbl-exc">Исключ.</dt><dd>Планеты как астр. названия — <b>без</b> <code>the</code>: <em>Mars, Venus, Jupiter</em>.</dd>
+      </dl>
+    </div>
+
+    <div class="rule">
+      <div class="rule-head"><div class="rule-n">8</div><div class="rule-point">С <em>реками, морями, океанами, горными цепями, пустынями, архипелагами</em></div></div>
+      <dl class="rule-body">
+        <dt class="lbl-rule">Правило</dt><dd><code>the</code> + the Volga, the Nile, the Pacific, the Alps, the Sahara, the Maldives.</dd>
+        <dt class="lbl-ex">Пример</dt><dd><em>We swam in the Black Sea. · We hiked in the Caucasus. · The Nile is in Egypt.</em></dd>
+        <dt class="lbl-exc">Исключ.</dt><dd><b>Единичные озёра и горы — без <code>the</code></b>: <em>Lake Baikal · Mount Everest · Mont Blanc</em>.</dd>
+      </dl>
+    </div>
+
+    <div class="rule">
+      <div class="rule-head"><div class="rule-n">9</div><div class="rule-point">Страны во <em>мн. ч.</em> или с <em>Republic / Kingdom / Union</em></div></div>
+      <dl class="rule-body">
+        <dt class="lbl-rule">Правило</dt><dd><code>the</code> + the USA, the UK, the Netherlands, the Philippines, the UAE, the Russian Federation.</dd>
+        <dt class="lbl-ex">Пример</dt><dd><em>She lives in the USA. · He's from the UK.</em></dd>
+        <dt class="lbl-exc">Исключ.</dt><dd><b>Большинство стран — без <code>the</code></b>: <em>Russia · France · Japan · Germany · China · Italy</em>.</dd>
+      </dl>
+    </div>
+
+    <div class="rule">
+      <div class="rule-head"><div class="rule-n">10</div><div class="rule-point">С <em>музыкальными инструментами</em>: play the piano</div></div>
+      <dl class="rule-body">
+        <dt class="lbl-rule">Правило</dt><dd><code>play the</code> + guitar / piano / violin / drums / saxophone.</dd>
+        <dt class="lbl-ex">Пример</dt><dd><em>She plays the guitar. · My son plays the drums. · I'm learning the piano.</em></dd>
+        <dt class="lbl-exc">Исключ.</dt><dd>С <b>видами спорта и играми</b> — <b>без</b> артикля: <em>play tennis · play football · play chess</em>.</dd>
+      </dl>
+    </div>
+
+    <div class="rule">
+      <div class="rule-head"><div class="rule-n">11</div><div class="rule-point">С <em>отелями, кинотеатрами, театрами, музеями, газетами, кораблями</em></div></div>
+      <dl class="rule-body">
+        <dt class="lbl-rule">Правило</dt><dd><code>the</code> + the Hilton, the Odeon, the Bolshoi, the Louvre, the Guardian, the Titanic.</dd>
+        <dt class="lbl-ex">Пример</dt><dd><em>We stayed at the Marriott. · The Guardian wrote about it.</em></dd>
+        <dt class="lbl-exc">Исключ.</dt><dd>Магазины/рестораны с именем владельца — <b>без</b> <code>the</code>: <em>McDonald's · Harrods · Starbucks</em>.</dd>
+      </dl>
+    </div>
+
+    <div class="rule">
+      <div class="rule-head"><div class="rule-n">12</div><div class="rule-point">С <em>фамилиями во мн. ч.</em> — «эта семья»</div></div>
+      <dl class="rule-body">
+        <dt class="lbl-rule">Правило</dt><dd><code>the Smiths · the Petrovs · the Burtsevs</code> = «семья Смитов / Петровых».</dd>
+        <dt class="lbl-ex">Пример</dt><dd><em>The Smiths are our neighbours. · We visited the Petrovs on Sunday.</em></dd>
+        <dt class="lbl-exc">Исключ.</dt><dd>Одно имя — <b>без</b> артикля: <em>John Smith is my friend.</em></dd>
+      </dl>
+    </div>
+
+    <div class="rule">
+      <div class="rule-head"><div class="rule-n">13</div><div class="rule-point">С <em>указанием места</em>: in the kitchen, at the station</div></div>
+      <dl class="rule-body">
+        <dt class="lbl-rule">Правило</dt><dd>Говорящий и слушающий знают, о каком именно месте речь → ставим <code>the</code>.</dd>
+        <dt class="lbl-ex">Пример</dt><dd><em>He's in the kitchen (нашей). · Meet me at the station.</em></dd>
+        <dt class="lbl-exc">Исключ.</dt><dd><b>Типовые места в целом — без артикля</b>: <em>at home · at work · in bed · at school</em> (как учащийся).</dd>
+      </dl>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="foot-brand"><div class="logo">N</div><span>NEW GENERATION ENGLISH · Articles · стр. 2</span></div>
+    <div class="foot-meta">Мария Бурцева · личный репетитор · <a href="https://newgeneration-english.ru" style="color:var(--orange)">newgeneration-english.ru</a></div>
+  </footer>
+</main>
+
+<!-- =========== PAGE 3 =========== -->
+<main class="page">
+
+  <section class="body">
+    <h2 id="block-zero" style="margin-top:28px">C. Нулевой артикль · «—» · 7 правил</h2>
+
+    <div class="rule">
+      <div class="rule-head"><div class="rule-n">14</div><div class="rule-point">Мн. ч. + неисчисляемые — в общем смысле без артикля</div></div>
+      <dl class="rule-body">
+        <dt class="lbl-rule">Правило</dt><dd>Говорим о категории в целом — артикль <b>не ставим</b>. Самое частое правило в разговоре.</dd>
+        <dt class="lbl-ex">Пример</dt><dd><em>Books are expensive. · Water is wet. · Children love sweets. · I like music.</em></dd>
+        <dt class="lbl-exc">Исключ.</dt><dd>Конкретизируем → <code>the</code>: <em>The books on this shelf · The music we heard last night.</em></dd>
+      </dl>
+    </div>
+
+    <div class="rule">
+      <div class="rule-head"><div class="rule-n">15</div><div class="rule-point">Собственные имена (люди, города, страны-одиночки)</div></div>
+      <dl class="rule-body">
+        <dt class="lbl-rule">Правило</dt><dd>Без артикля: <em>John · Moscow · Russia · France · Mount Everest · Lake Baikal</em>.</dd>
+        <dt class="lbl-ex">Пример</dt><dd><em>Moscow is big. · John lives in Paris. · Russia is a large country.</em></dd>
+        <dt class="lbl-exc">Исключ.</dt><dd>Страны с Republic/Kingdom или во мн. ч. → <code>the</code> (п. 9). Фамилии во мн. ч. → <code>the</code> (п. 12).</dd>
+      </dl>
+    </div>
+
+    <div class="rule">
+      <div class="rule-head"><div class="rule-n">16</div><div class="rule-point">Приёмы пищи, дни, месяцы, годы</div></div>
+      <dl class="rule-body">
+        <dt class="lbl-rule">Правило</dt><dd><em>for breakfast · at lunch · on Monday · in January · in 2026</em> — без артикля.</dd>
+        <dt class="lbl-ex">Пример</dt><dd><em>What did you have for breakfast? · See you on Friday. · He was born in July.</em></dd>
+        <dt class="lbl-exc">Исключ.</dt><dd>Конкретный приём пищи → <code>the</code>: <em>The dinner we had yesterday was great.</em></dd>
+      </dl>
+    </div>
+
+    <div class="rule">
+      <div class="rule-head"><div class="rule-n">17</div><div class="rule-point">Языки — без артикля</div></div>
+      <dl class="rule-body">
+        <dt class="lbl-rule">Правило</dt><dd><em>I speak English / Russian / French.</em></dd>
+        <dt class="lbl-ex">Пример</dt><dd><em>She teaches Spanish. · I'm learning German. · Do you speak Russian?</em></dd>
+        <dt class="lbl-exc">Исключ.</dt><dd>Со словом <code>language</code> → <code>the</code>: <em>I love the English language.</em></dd>
+      </dl>
+    </div>
+
+    <div class="rule">
+      <div class="rule-head"><div class="rule-n">18</div><div class="rule-point">Спорт и игры — без артикля</div></div>
+      <dl class="rule-body">
+        <dt class="lbl-rule">Правило</dt><dd><em>play tennis · play football · play chess · do yoga</em>.</dd>
+        <dt class="lbl-ex">Пример</dt><dd><em>He plays tennis every Sunday. · My daughter does yoga.</em></dd>
+        <dt class="lbl-exc">Исключ.</dt><dd>Конкретный матч → <code>the</code>: <em>Did you watch the game last night?</em></dd>
+      </dl>
+    </div>
+
+    <div class="rule">
+      <div class="rule-head"><div class="rule-n">19</div><div class="rule-point">«Идти по назначению»: go to bed / go home / go to school</div></div>
+      <dl class="rule-body">
+        <dt class="lbl-rule">Правило</dt><dd>Идёте учиться / работать / спать / лечиться — без артикля: <em>go to school · go to work · go to bed · go to hospital (UK)</em>. <code>go home</code> без предлога.</dd>
+        <dt class="lbl-ex">Пример</dt><dd><em>She goes to school at 8. · I'm going to bed. · He went home early.</em></dd>
+        <dt class="lbl-exc">Исключ.</dt><dd>Не по назначению (как посетитель) → <code>the</code>: <em>I went to the school to pick up my son.</em></dd>
+      </dl>
+    </div>
+
+    <div class="rule">
+      <div class="rule-head"><div class="rule-n">20</div><div class="rule-point">Транспорт в выражении <em>by …</em> — без артикля</div></div>
+      <dl class="rule-body">
+        <dt class="lbl-rule">Правило</dt><dd><code>by car · by train · by plane · by bus · by bike · on foot</code>.</dd>
+        <dt class="lbl-ex">Пример</dt><dd><em>I came by car. · They travel by train. · He got there on foot.</em></dd>
+        <dt class="lbl-exc">Исключ.</dt><dd>Конкретный транспорт → <code>the</code>: <em>in the car · on the train · The red car is mine.</em></dd>
+      </dl>
+    </div>
+
+    <h2 id="drill">D. Drill · 12 предложений</h2>
+    <p style="font-size:13px;color:var(--muted-2);margin:0 0 8px">Выбери <code>a</code> · <code>an</code> · <code>the</code> · <code>—</code> (без артикля). После всех ответов — Check.</p>
+
+    <div class="drill-wrap" style="padding:0">
+
+      <div class="drill-row" data-answer="a">
+        <div class="dn">1</div><div class="dq">I saw <span class="gap">?</span> cat in the garden.</div>
+        <select><option value=""></option><option>a</option><option>an</option><option>the</option><option>—</option></select>
+      </div>
+      <div class="drill-row" data-answer="an">
+        <div class="dn">2</div><div class="dq">She waited for <span class="gap">?</span> hour.</div>
+        <select><option value=""></option><option>a</option><option>an</option><option>the</option><option>—</option></select>
+      </div>
+      <div class="drill-row" data-answer="a">
+        <div class="dn">3</div><div class="dq">He wants to be <span class="gap">?</span> doctor.</div>
+        <select><option value=""></option><option>a</option><option>an</option><option>the</option><option>—</option></select>
+      </div>
+      <div class="drill-row" data-answer="the">
+        <div class="dn">4</div><div class="dq">I bought a book. <span class="gap">?</span> book is interesting.</div>
+        <select><option value=""></option><option>a</option><option>an</option><option>the</option><option>—</option></select>
+      </div>
+      <div class="drill-row" data-answer="the">
+        <div class="dn">5</div><div class="dq">It's <span class="gap">?</span> best film of the year.</div>
+        <select><option value=""></option><option>a</option><option>an</option><option>the</option><option>—</option></select>
+      </div>
+      <div class="drill-row" data-answer="the">
+        <div class="dn">6</div><div class="dq"><span class="gap">?</span> sun rises in the east.</div>
+        <select><option value=""></option><option>a</option><option>an</option><option>the</option><option>—</option></select>
+      </div>
+      <div class="drill-row" data-answer="the">
+        <div class="dn">7</div><div class="dq">We swam in <span class="gap">?</span> Black Sea last summer.</div>
+        <select><option value=""></option><option>a</option><option>an</option><option>the</option><option>—</option></select>
+      </div>
+      <div class="drill-row" data-answer="—">
+        <div class="dn">8</div><div class="dq">She lives in <span class="gap">?</span> Russia.</div>
+        <select><option value=""></option><option>a</option><option>an</option><option>the</option><option>—</option></select>
+      </div>
+      <div class="drill-row" data-answer="the">
+        <div class="dn">9</div><div class="dq">My son plays <span class="gap">?</span> guitar beautifully.</div>
+        <select><option value=""></option><option>a</option><option>an</option><option>the</option><option>—</option></select>
+      </div>
+      <div class="drill-row" data-answer="—">
+        <div class="dn">10</div><div class="dq">I had <span class="gap">?</span> breakfast at eight.</div>
+        <select><option value=""></option><option>a</option><option>an</option><option>the</option><option>—</option></select>
+      </div>
+      <div class="drill-row" data-answer="—">
+        <div class="dn">11</div><div class="dq">Do you speak <span class="gap">?</span> English?</div>
+        <select><option value=""></option><option>a</option><option>an</option><option>the</option><option>—</option></select>
+      </div>
+      <div class="drill-row" data-answer="—">
+        <div class="dn">12</div><div class="dq">He goes to <span class="gap">?</span> bed at eleven.</div>
+        <select><option value=""></option><option>a</option><option>an</option><option>the</option><option>—</option></select>
+      </div>
+
+      <div class="drill-actions">
+        <button type="button" id="checkDrill">✓ Check</button>
+        <button type="button" class="reset" id="resetDrill">Reset</button>
+        <div class="drill-score" id="drillScore">— / 12</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="foot-brand"><div class="logo">N</div><span>NEW GENERATION ENGLISH · Articles · стр. 3</span></div>
+    <div class="foot-meta">
+      Денис, если какое-то правило или исключение «не ложится» — скажи, разберём отдельно на следующем уроке.<br>
+      Мария Бурцева · октябрь 2026 · <a href="https://newgeneration-english.ru" style="color:var(--orange)">newgeneration-english.ru</a>
+    </div>
+  </footer>
+</main>
+
+<script>
+document.getElementById('checkDrill').addEventListener('click',()=>{
+  let ok=0,total=0;
+  document.querySelectorAll('.drill-row').forEach(row=>{
+    const want=row.dataset.answer;
+    const sel=row.querySelector('select');
+    const got=sel.value.trim();
+    row.classList.remove('ok','miss');
+    if(!got)return;
+    total++;
+    if(got===want){row.classList.add('ok');ok++}
+    else row.classList.add('miss');
+  });
+  document.getElementById('drillScore').textContent = ok+' / 12 правильных · ' + total + ' отвечено';
+});
+document.getElementById('resetDrill').addEventListener('click',()=>{
+  document.querySelectorAll('.drill-row').forEach(row=>{
+    row.classList.remove('ok','miss');
+    row.querySelector('select').value='';
+  });
+  document.getElementById('drillScore').textContent='— / 12';
+});
+</script>
+
+</body>
+</html>
