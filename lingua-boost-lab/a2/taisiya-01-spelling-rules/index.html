@@ -34,15 +34,20 @@
 body{font-family:var(--body);background:var(--bg);color:var(--text);line-height:1.55;font-size:16px;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1180px;margin:0 auto;padding:20px clamp(14px,3vw,28px)}
 
-header.hero{background:linear-gradient(135deg,#F5EBFC 0%,#E6D7F7 100%);color:#2E1A4F;border-radius:20px;padding:clamp(22px,4vw,36px);box-shadow:0 6px 22px rgba(142,94,201,.22);margin-bottom:20px;position:relative;overflow:hidden;border:1px solid #E6D7F7;min-height:200px}
-.hero::before{content:"";position:absolute;top:-40px;right:-40px;width:260px;height:260px;background:radial-gradient(circle,rgba(181,137,232,.35),transparent 70%);border-radius:50%;pointer-events:none}
-.hero::after{content:"🪄";position:absolute;bottom:-20px;right:30px;font-size:9rem;opacity:.14;transform:rotate(-14deg);pointer-events:none}
+/* HERO · канон bella-needs-help · bg = overlay + image center right/cover + fallback */
+header.hero{position:relative;border-radius:20px;overflow:hidden;box-shadow:0 6px 22px rgba(142,94,201,.22);margin-bottom:20px;border:1px solid #E6D7F7;min-height:clamp(240px,26vw,320px);padding:clamp(22px,4vw,36px);color:#2E1A4F;background:linear-gradient(90deg,rgba(245,235,252,.96) 0%,rgba(230,215,247,.86) 32%,rgba(230,215,247,0) 58%),url('img/hero-spelling-codex.webp') center right/cover no-repeat,#F5EBFC;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.hero > *{position:relative;z-index:1;max-width:min(58%,620px)}
+@media(max-width:720px){header.hero{padding:22px;background:linear-gradient(180deg,rgba(245,235,252,.94) 0%,rgba(230,215,247,.86) 50%,rgba(230,215,247,.55) 100%),url('img/hero-spelling-codex.webp') center bottom/cover no-repeat,#F5EBFC;min-height:clamp(300px,52vw,380px)}.hero > *{max-width:100%}}
 .eyebrow{font-size:.74rem;font-weight:900;letter-spacing:.24em;text-transform:uppercase;color:#8E5EC9;margin-bottom:6px}
-h1{font-family:var(--display);font-size:clamp(1.6rem,3.3vw,2.4rem);font-weight:800;margin:0 0 10px;letter-spacing:-.02em;line-height:1.08}
-.hero-lead{font-size:.98rem;opacity:.94;max-width:780px;margin-bottom:14px;position:relative;z-index:1}
-.hero-stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;position:relative;z-index:1}
-.hero-stat{background:rgba(255,255,255,.75);border:1px solid #E6D7F7;border-radius:10px;padding:8px 14px;font-size:.82rem}
+h1{font-family:var(--display);font-size:clamp(1.6rem,3.3vw,2.4rem);font-weight:800;margin:0 0 10px;letter-spacing:-.02em;line-height:1.08;text-shadow:0 1px 4px rgba(255,255,255,.6)}
+.hero-lead{font-size:.98rem;opacity:.95;margin-bottom:14px;text-shadow:0 1px 3px rgba(255,255,255,.5)}
+.hero-stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.hero-stat{background:rgba(255,255,255,.82);border:1px solid #E6D7F7;border-radius:10px;padding:8px 14px;font-size:.82rem;backdrop-filter:blur(4px)}
 .hero-stat b{font-family:var(--display);font-weight:800;color:var(--accent2);font-size:1.05rem;margin-right:4px}
+
+/* --- section scenes · канон bella section-hero · натуральный aspect, без обрезки --- */
+.scene{position:relative;margin:14px 0;border-radius:14px;overflow:hidden;box-shadow:0 4px 14px rgba(107,63,160,.14);background:#F5EBFC;line-height:0;border:1px solid var(--line)}
+.scene img{display:block;width:100%;height:auto}
 
 .toc{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-bottom:22px;box-shadow:0 2px 8px rgba(142,94,201,.06)}
 .toc h3{font-family:var(--display);font-weight:800;font-size:.92rem;color:var(--accent2);margin:0 0 8px;letter-spacing:.02em}
@@ -254,6 +259,7 @@ footer.foot b{color:var(--accent2);font-family:var(--display)}
   <h2><span class="num">01</span> Открытый vs закрытый слог · magic e</h2>
   <div class="sub">короткий звук в закрытом · долгий звук в открытом · «e» делает слог открытым</div>
 </section>
+<figure class="scene"><img src="img/scene-magic-e-houses.webp" alt="Magic e · two houses" loading="lazy"></figure>
 
 <div class="theory">
   <p class="lead"><strong>Закрытый слог</strong> — согласная после гласной <b>«закрывает»</b> её → звук короткий: <code>hat</code> /hæt/, <code>bit</code> /bɪt/, <code>hop</code> /hɒp/, <code>cut</code> /kʌt/.</p>
@@ -337,6 +343,7 @@ footer.foot b{color:var(--accent2);font-family:var(--display)}
   <h2><span class="num">02</span> Удвоение согласной перед -ing / -ed / -er / -est</h2>
   <div class="sub">когда согласная удваивается, а когда нет</div>
 </section>
+<figure class="scene"><img src="img/scene-doubling-twins.webp" alt="Удвоение · близнецы-буквы бегут" loading="lazy"></figure>
 
 <div class="theory">
   <p class="lead">Если короткое слово (один слог) заканчивается на <strong>гласная + одна согласная</strong> → при добавлении суффикса с гласной (<code>-ing/-ed/-er/-est</code>) <strong>удваиваем</strong> эту согласную, чтобы слог остался закрытым.</p>
@@ -421,6 +428,7 @@ footer.foot b{color:var(--accent2);font-family:var(--display)}
   <h2><span class="num">03</span> Silent-e drop</h2>
   <div class="sub">немая e исчезает перед суффиксом с гласной</div>
 </section>
+<figure class="scene"><img src="img/scene-silent-e-drop.webp" alt="Silent-e drop · гласные играют музыку" loading="lazy"></figure>
 
 <div class="theory">
   <p class="lead">Если слово кончается на <strong>немую <code>e</code></strong>, а суффикс начинается с <strong>гласной</strong> (<code>-ing/-ed/-er/-est/-able</code>) → <strong>убираем e</strong>:</p>
@@ -479,6 +487,7 @@ footer.foot b{color:var(--accent2);font-family:var(--display)}
   <h2><span class="num">04</span> Y → i</h2>
   <div class="sub">y после согласной меняется на i · y после гласной остаётся</div>
 </section>
+<figure class="scene"><img src="img/scene-y-to-i.webp" alt="Y → i · зеркало превращает y в i" loading="lazy"></figure>
 
 <div class="theory">
   <p class="lead">Если слово кончается на <strong>согласную + y</strong> → перед <code>-ed/-es/-er/-est</code> меняем y на i: study → stud<b>i</b>ed, baby → bab<b>i</b>es, happy → happ<b>i</b>er.</p>
@@ -558,6 +567,7 @@ footer.foot b{color:var(--accent2);font-family:var(--display)}
   <h2><span class="num">05</span> c / g · «мягкие» перед e, i, y</h2>
   <div class="sub">cat vs cent · go vs gym</div>
 </section>
+<figure class="scene"><img src="img/scene-c-g-soft.webp" alt="Giant G monster · c/g soft" loading="lazy"></figure>
 
 <div class="theory">
   <p class="lead"><strong>Буква c</strong> читается:</p>
@@ -761,6 +771,7 @@ footer.foot b{color:var(--accent2);font-family:var(--display)}
   <h2><span class="num">09</span> Vowel teams · двойные гласные</h2>
   <div class="sub">«When two vowels go walking, the first does the talking»</div>
 </section>
+<figure class="scene"><img src="img/scene-vowel-teams.webp" alt="Vowel teams · гласные идут парами" loading="lazy"></figure>
 
 <div class="theory">
   <p class="lead">Две гласные подряд часто дают один <strong>долгий звук</strong> — первая говорит, вторая молчит:</p>
@@ -831,6 +842,7 @@ footer.foot b{color:var(--accent2);font-family:var(--display)}
   <h2><span class="num">10</span> Silent letters · немые буквы</h2>
   <div class="sub">буква есть, звука нет</div>
 </section>
+<figure class="scene"><img src="img/scene-silent-letters.webp" alt="Silent letters · рыцарь с k, w, b" loading="lazy"></figure>
 
 <div class="theory">
   <p class="lead">В английском много букв, которые <strong>пишутся, но не звучат</strong>. Запомни главные группы:</p>
@@ -872,6 +884,7 @@ footer.foot b{color:var(--accent2);font-family:var(--display)}
   <h2><span class="num">11</span> -tion / -sion / -cious</h2>
   <div class="sub">как читаются суффиксы с «шипящими»</div>
 </section>
+<figure class="scene"><img src="img/scene-tion-celebration.webp" alt="-tion · celebration/decoration · школьный праздник" loading="lazy"></figure>
 
 <div class="theory">
   <p class="lead">Суффиксы с <code>ti</code>, <code>si</code>, <code>ci</code> перед гласной читаются с «ш» или «ж»:</p>
@@ -908,6 +921,7 @@ footer.foot b{color:var(--accent2);font-family:var(--display)}
   <h2><span class="num">12</span> Reading · audio-first · 3 части</h2>
   <div class="sub">A. слушай → отвечай · B. читай + T/F/NS · C. вставь пропуски</div>
 </section>
+<figure class="scene"><img src="img/scene-reading-headphones.webp" alt="Reading · девочка в наушниках" loading="lazy"></figure>
 
 <div class="theory">
   <p class="lead"><strong>Часть A — Pre-reading.</strong> Нажми ▶ Play story, прослушай один раз (без текста!), и ответь на 5 вопросов. Потом переходи к Части B.</p>
