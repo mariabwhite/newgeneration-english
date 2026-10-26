@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Отчёт · Александра Любаева · сентябрь-октябрь 2026</title>
+<style>
+  :root{
+    --bg:#E9E7E2;
+    --paper:#FFFFFF;
+    --cream:#EFEEE9;
+    --cream-soft:#F4F3EE;
+    --orange:#E8542B;
+    --orange-soft:#F4A86A;
+    --gold:#F4C84B;
+    --gold-soft:#FFF3CE;
+    --green:#5BA872;
+    --green-soft:#E5F1E9;
+    --red-soft:#F7E6E0;
+    --red-ink:#A6421F;
+    --ink:#1F1F1F;
+    --ink-2:#2C2C2C;
+    --muted:#7B7B7B;
+    --rule:#D9D7D2;
+    --tag-bg:#FFF1E8;
+    --tag-border:#F0C7AE;
+    --tag-ink:#A5421F;
+    --table-head:#F7F4EE;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;
+    font-size:14.5px; line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  .page{
+    max-width:210mm; margin:18px auto;
+    background:var(--paper);
+    box-shadow:0 12px 40px rgba(0,0,0,.10);
+    padding:0 0 32px;
+  }
+  .hero{ background:var(--cream); padding:30px 44px 30px; position:relative; }
+  .hero::after{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:4px;
+    background:linear-gradient(90deg,var(--orange) 0%,var(--orange) 55%,var(--gold) 100%);
+  }
+  .brandline{display:flex; align-items:center; gap:12px; margin-bottom:10px;}
+  .logo{
+    width:38px;height:38px;border-radius:9px;background:var(--orange);
+    color:#fff;font-weight:800;font-size:22px;display:grid;place-items:center;line-height:1;
+    box-shadow:0 2px 4px rgba(232,84,43,.25);
+  }
+  .brand-name{font-weight:800;letter-spacing:.06em;font-size:14.5px;}
+  .brand-sub{font-size:11px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;font-weight:500;margin-top:2px;}
+  .kicker{margin-top:14px;font-size:11px;letter-spacing:.22em;color:var(--orange);text-transform:uppercase;font-weight:700;}
+  h1.title{font-size:32px;line-height:1.1;margin:6px 0 6px;color:var(--ink);letter-spacing:-.01em;font-weight:800;}
+  p.subtitle{margin:0;font-size:14px;color:var(--ink-2);max-width:62ch;}
+
+  .meta{ padding:18px 44px 4px; display:grid; grid-template-columns:repeat(3,1fr); gap:14px 22px; }
+  .meta dt{font-size:10.5px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;font-weight:600;margin-bottom:3px;}
+  .meta dd{margin:0;font-size:14px;font-weight:700;}
+  .meta-rule{margin:18px 44px 8px;border:0;height:1px;background:var(--rule);}
+
+  section.chapter{padding:20px 44px 4px; scroll-margin-top:14px;}
+  h2{ margin:8px 0 14px; padding-left:14px; position:relative; font-size:20px; font-weight:800; letter-spacing:-.005em; }
+  h2::before{content:""; position:absolute; left:0; top:6px; bottom:6px; width:4px; background:var(--orange); border-radius:2px;}
+  h2 .ch-num{color:var(--orange); margin-right:6px;}
+  h3{font-size:12.5px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;font-weight:700;margin:16px 0 8px;}
+
+  ul.bul{list-style:none;padding:0;margin:0 0 12px;}
+  ul.bul li{position:relative;padding:4px 0 4px 22px;}
+  ul.bul li::before{content:"";position:absolute;left:4px;top:13px;width:7px;height:7px;border-radius:50%;background:var(--orange);}
+  ul.bul li b, ul.bul li .lex{color:var(--orange);font-weight:700;margin-right:6px;}
+
+  table.t{ width:100%; border-collapse:collapse; margin:10px 0 14px; font-size:13.5px; background:#fff; border:1px solid var(--rule); border-radius:10px; overflow:hidden; }
+  table.t th, table.t td{padding:9px 11px; text-align:left; border-bottom:1px solid var(--rule); vertical-align:top;}
+  table.t th{background:var(--table-head); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:700;}
+  table.t tr:last-child td{border-bottom:0;}
+  table.t td.num{font-weight:800;color:var(--orange);width:34px;text-align:center;}
+  table.t td.date{color:var(--muted);white-space:nowrap;font-family:"JetBrains Mono",Consolas,monospace;font-size:12px;}
+  table.t td.tag-cell{text-align:right;white-space:nowrap;}
+  .status-pill{font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:999px;letter-spacing:.06em;}
+  .status-pill.done{background:var(--green-soft);color:#2f6f43;border:1px solid #c1e0cc;}
+  .status-pill.miss{background:var(--red-soft);color:var(--red-ink);border:1px solid #e5c5b7;}
+
+  .callout{ background:var(--cream-soft); border:1px solid var(--rule); border-left:4px solid var(--orange); border-radius:10px; padding:14px 18px; margin:14px 0; }
+  .callout.gold{border-left-color:var(--gold); background:var(--gold-soft);}
+  .callout.green{border-left-color:var(--green); background:var(--green-soft);}
+  .callout h4{margin:0 0 6px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);font-weight:800;}
+  .callout.gold h4{color:#7a5c00}
+  .callout.green h4{color:#2f6f43}
+
+  .lex-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 22px;margin:10px 0 14px;}
+  .lex-grid ul.bul li{padding:3px 0 3px 20px;font-size:13.5px}
+  .lex-grid ul.bul li code{font-family:"JetBrains Mono",Consolas,monospace;font-size:12.5px;background:var(--cream-soft);padding:1px 6px;border-radius:4px;color:var(--ink-2)}
+  .lex-grid h3{margin-top:4px}
+  @media (max-width:640px){.lex-grid{grid-template-columns:1fr}}
+
+  .phrases{margin:10px 0 14px;padding:14px 18px;background:var(--cream-soft);border:1px solid var(--rule);border-radius:10px;font-size:13.5px;line-height:1.7}
+  .phrases em{color:var(--ink);font-style:italic}
+  .phrases .sep{color:var(--orange);font-weight:700;padding:0 6px}
+
+  .signature{margin:20px 44px 0;padding-top:16px;border-top:1px solid var(--rule);color:var(--muted);font-size:12.5px;}
+
+  @media print { body{background:#fff;} .page{box-shadow:none;margin:0;} }
+  @media (max-width:640px){
+    .meta{grid-template-columns:1fr 1fr;padding:18px 22px 4px}
+    .meta-rule{margin:18px 22px 8px}
+    .hero{padding:22px 22px}
+    section.chapter{padding:20px 22px 4px}
+    .signature{margin:20px 22px 0}
+  }
+</style>
+</head>
+<body>
+<article class="page">
+
+  <header class="hero">
+    <div class="brandline">
+      <div class="logo">N</div>
+      <div>
+        <div class="brand-name">NEW GENERATION ENGLISH</div>
+        <div class="brand-sub">Maria Burtseva · Parent Report</div>
+      </div>
+    </div>
+    <div class="kicker">Отчёт · сентябрь-октябрь 2026 · закрыт 22 октября</div>
+    <h1 class="title">Александра Любаева · итог сентябрь-октябрь</h1>
+    <p class="subtitle">Два абонемента подряд в серии <b>Travelling · A1-A2</b>. Ниже — что прошли, какую лексику отработали, календарь занятий и план на ноябрь.</p>
+  </header>
+
+  <dl class="meta">
+    <div><dt>Цель</dt><dd>разговорный A1→A2 · Travelling</dd></div>
+    <div><dt>Период</dt><dd>07 сен – 22 окт 2026</dd></div>
+    <div><dt>Абонементы</dt><dd>2 (сент + окт) · закрыты</dd></div>
+    <div><dt>Проведено</dt><dd>13 уроков · 1 сгоревший</dd></div>
+    <div><dt>Формат</dt><dd>онлайн · 60 мин · пн/чт/пт</dd></div>
+    <div><dt>Следующий шаг</dt><dd>ноябрьский абонемент · продолжение L3 Paris → L4</dd></div>
+  </dl>
+
+  <hr class="meta-rule">
+
+  <!-- 1. Что это были за абонементы -->
+  <section class="chapter">
+    <h2><span class="ch-num">1</span>Про эти два абонемента</h2>
+
+    <p>Это <b>сентябрьский абонемент + октябрьский абонемент</b>, пн/чт/пт в 14:00–15:00. Серия <b>Travelling</b> — базовый курс путешествий A1-A2 на 3-х тематических уроках: Hello there (L1), First Day in Rome (L2), The Call · Paris (L3).</p>
+
+    <p>Содержательно работали так: сначала <b>L1 Hello there</b> — приветствия, meeting people while you travel (сентябрь, 4 занятия + mini-trainers). Потом перешли на <b>L2 First Day in Rome</b> — café + directions + postcard (октябрь, 4 занятия). Закрыли октябрь блоком <b>L3 The Call · Paris</b> — scheduling + Present Simple + 100 новых слов (октябрь, 4 занятия, одно из которых — сгоревший четверг 22.10).</p>
+  </section>
+
+  <!-- 2. Календарь -->
+  <section class="chapter">
+    <h2><span class="ch-num">2</span>Календарь занятий</h2>
+
+    <h3>Сентябрьский абонемент · 4 пройденных</h3>
+    <table class="t">
+      <thead><tr><th class="num">#</th><th>Дата</th><th>Тема</th><th class="tag-cell">Статус</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td class="date">07 сен</td><td>L1 Travelling · Hello there · meeting people while you travel</td><td class="tag-cell"><span class="status-pill done">пройдено</span></td></tr>
+        <tr><td class="num">2</td><td class="date">10 сен</td><td>Mini-Trainer · Feelings &amp; Plans · Trips</td><td class="tag-cell"><span class="status-pill done">пройдено</span></td></tr>
+        <tr><td class="num">3</td><td class="date">11 сен</td><td>L1 Hello there · повторение + mini-trainer (Switzerland, «I agree»)</td><td class="tag-cell"><span class="status-pill done">пройдено</span></td></tr>
+        <tr><td class="num">4</td><td class="date">14 сен</td><td>L1 Hello there · продолжение · Greetings &amp; Small Talk mini-trainer</td><td class="tag-cell"><span class="status-pill done">пройдено</span></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Октябрьский абонемент · 9 пройденных + 1 сгоревший</h3>
+    <table class="t">
+      <thead><tr><th class="num">#</th><th>Дата</th><th>Тема</th><th class="tag-cell">Статус</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td class="date">18 сен</td><td>L1 Hello there · продолжение (пт 15:00)</td><td class="tag-cell"><span class="status-pill done">пройдено</span></td></tr>
+        <tr><td class="num">2</td><td class="date">24 сен</td><td>L2 First Day in Rome · café · directions · postcard</td><td class="tag-cell"><span class="status-pill done">пройдено</span></td></tr>
+        <tr><td class="num">3</td><td class="date">02 окт</td><td>L2 First Day in Rome · повторение</td><td class="tag-cell"><span class="status-pill done">пройдено</span></td></tr>
+        <tr><td class="num">4</td><td class="date">06 окт</td><td>🇮🇹 L2 First Day in Rome · A2 adult travel</td><td class="tag-cell"><span class="status-pill done">пройдено</span></td></tr>
+        <tr><td class="num">5</td><td class="date">08 окт</td><td>L2 First Day in Rome · A2</td><td class="tag-cell"><span class="status-pill done">пройдено</span></td></tr>
+        <tr><td class="num">6</td><td class="date">12 окт</td><td>🇫🇷 L3 The Call · Paris · scheduling + Present Simple + 100 новых слов</td><td class="tag-cell"><span class="status-pill done">пройдено</span></td></tr>
+        <tr><td class="num">7</td><td class="date">15 окт</td><td>L3 The Call · Paris · повторение L1+L2 + vocab + Present Simple</td><td class="tag-cell"><span class="status-pill done">пройдено</span></td></tr>
+        <tr><td class="num">8</td><td class="date">16 окт</td><td>L3 The Call · Paris · продолжение</td><td class="tag-cell"><span class="status-pill done">пройдено</span></td></tr>
+        <tr><td class="num">9</td><td class="date">19 окт</td><td>L3 The Call · Paris · продолжение</td><td class="tag-cell"><span class="status-pill done">пройдено</span></td></tr>
+        <tr><td class="num">10</td><td class="date">22 окт</td><td>🔥 Сгоревший урок · пропуск четверга</td><td class="tag-cell"><span class="status-pill miss">пропуск</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 3. Что прошли содержательно -->
+  <section class="chapter">
+    <h2><span class="ch-num">3</span>Что прошли содержательно</h2>
+
+    <h3>L1 Hello there · приветствия и первое знакомство</h3>
+    <ul class="bul">
+      <li><b>Grammar:</b> to be (am/is/are), questions с «where are you from?», basic word order</li>
+      <li><b>Topics:</b> страны и национальности, meeting people in a hotel/airport, small talk</li>
+      <li><b>Skills:</b> представить себя, спросить «откуда вы», отреагировать «nice to meet you» / «I agree»</li>
+    </ul>
+
+    <h3>L2 First Day in Rome · café + directions + postcard</h3>
+    <ul class="bul">
+      <li><b>Grammar:</b> can/can't (разрешение + возможность), prepositions of place (next to, opposite, between)</li>
+      <li><b>Topics:</b> заказ в кафе, спросить дорогу, написать открытку домой</li>
+      <li><b>Skills:</b> «Can I have…», «Where is…», «turn left/right», структура короткого письма из путешествия</li>
+    </ul>
+
+    <h3>L3 The Call · Paris · scheduling + Present Simple</h3>
+    <ul class="bul">
+      <li><b>Grammar:</b> <b>Present Simple</b> (I/you/we/they vs he/she/it + s), вопросы с do/does, time expressions (every day, usually, often)</li>
+      <li><b>Topics:</b> разговор по телефону, планирование встречи в Париже, расписание дня</li>
+      <li><b>Vocab:</b> ~100 новых слов (schedule, meet, flight, hotel, café, museum, Metro, call back, be free, be busy и т.д.)</li>
+      <li><b>Skills:</b> договориться по телефону о времени и месте, рассказать про свой обычный день</li>
+    </ul>
+  </section>
+
+  <!-- 4. Ключевая лексика -->
+  <section class="chapter">
+    <h2><span class="ch-num">4</span>Ключевая лексика двух абонементов</h2>
+
+    <div class="lex-grid">
+      <div>
+        <h3>Travel basics</h3>
+        <ul class="bul">
+          <li><code>Where are you from?</code></li>
+          <li><code>Nice to meet you</code></li>
+          <li><code>I'm from…</code></li>
+          <li><code>Have a nice trip</code></li>
+          <li><code>Can I have…?</code></li>
+          <li><code>How much is…?</code></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Directions &amp; places</h3>
+        <ul class="bul">
+          <li><code>Turn left / right</code></li>
+          <li><code>Go straight</code></li>
+          <li><code>next to / opposite / between</code></li>
+          <li><code>café, museum, hotel, Metro, station</code></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Scheduling (L3 Paris)</h3>
+        <ul class="bul">
+          <li><code>Are you free on Friday?</code></li>
+          <li><code>Let's meet at 6</code></li>
+          <li><code>I'm busy that day</code></li>
+          <li><code>Call me back</code></li>
+          <li><code>What time works for you?</code></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Present Simple patterns</h3>
+        <ul class="bul">
+          <li><code>I usually… / She often…</code></li>
+          <li><code>Do you…? / Does he…?</code></li>
+          <li><code>every day / on Mondays</code></li>
+          <li><code>I don't / She doesn't</code></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. План на ноябрь -->
+  <section class="chapter">
+    <h2><span class="ch-num">5</span>Что дальше · ноябрьский абонемент</h2>
+
+    <p>Ноябрьский абонемент на <b>10 занятий</b> уже открыт в кабинете. Первые 3 занятия (29.10, 30.10, 02.11) идут на <b>L3 The Call · Paris</b> — закрепление того, что начали в октябре, с проверкой Present Simple. С 4-го урока уходим на <b>L4 Travelling</b> — тема и календарь согласуем по ходу.</p>
+
+    <div class="callout gold">
+      <h4>Напоминание про сгоревший урок 22.10</h4>
+      <p>Четверг 22 октября — пропуск без переноса. Урок списан, в ноябрьский абонемент не переходит. Если нужна была уважительная причина (болезнь, форс-мажор) — скажите, пересмотрим.</p>
+    </div>
+
+    <div class="callout green">
+      <h4>Что просить от Александры к первому ноябрьскому уроку</h4>
+      <ul class="bul" style="margin:0">
+        <li>Повторить Present Simple: 5 предложений про себя (I usually… / I don't…) + 5 вопросов (Do you…? / What time…?)</li>
+        <li>Открыть L3 The Call Paris в кабинете и пройти homework-блок до конца</li>
+        <li>Записать 10 новых слов из темы Scheduling в словарь</li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="signature">
+    New Generation English · Maria Burtseva · 22 октября 2026 · <a href="https://newgeneration-english.ru/cabinet/aleksandra-lyubaeva" style="color:var(--orange);text-decoration:none;font-weight:700">кабинет Александры</a>
+  </div>
+
+</article>
+</body>
+</html>

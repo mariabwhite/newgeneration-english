@@ -419,6 +419,7 @@
       </div>
 
       <div class="cab-grid">
+        ${_renderLessonsCard(student, { interactive: true })}
         <article class="cab-card">
           <h3>Профиль</h3>
           <div class="cab-card-row"><span class="cab-row-label">Имя</span><span class="cab-row-value">${_esc(student.name)}</span></div>
@@ -440,7 +441,6 @@
         ${_renderMaterialsCard(student, { studentView: true })}
         ${_renderContractsCard(student, { studentView: true })}
 
-        ${_renderLessonsCard(student, { interactive: true })}
       </div>
 
     `;
@@ -1390,7 +1390,7 @@
     }).join("");
 
     const currentTable = `
-      <article class="cab-card cab-card--wide">
+      <article class="cab-card cab-card--wide" id="cab-current-lessons">
         <h3>Уроки · ${_esc(_activePackageLabel(active, hasSummerPlan))}</h3>
         <ul class="cab-lessons-list">
           <li class="cab-lesson-row cab-lesson-header" aria-hidden="true">
@@ -1947,6 +1947,7 @@
       </div>
 
       <div class="cab-grid">
+        ${_renderLessonsCard(student, { interactive: false })}
         <article class="cab-card">
           <h3>Ученик</h3>
           <div class="cab-card-row"><span class="cab-row-label">Имя</span><span class="cab-row-value">${_esc(student.name)}</span></div>
@@ -1979,7 +1980,6 @@
 
         ${_renderContractsCard(student)}
 
-        ${_renderLessonsCard(student, { interactive: false })}
       </div>
 
       <p class="cab-mvp-note">
@@ -1989,7 +1989,14 @@
 
     // Wire up the dynamic buttons
     container.querySelectorAll('[data-action="open-report"]').forEach(btn => {
-      btn.addEventListener("click", () => openPrintableReport(btn.dataset.student, btn.dataset.report));
+      btn.addEventListener("click", () => {
+        const extUrl = btn.dataset.url;
+        if (extUrl) {
+          window.open(extUrl, "_blank", "noopener,noreferrer");
+          return;
+        }
+        openPrintableReport(btn.dataset.student, btn.dataset.report);
+      });
     });
     // ---------- Copy-to-clipboard (SBP phone) ----------
     container.querySelectorAll('[data-action="copy-pay"]').forEach(btn => {
@@ -2094,15 +2101,23 @@
       `;
     }
 
-    const rows = studentReports.map(r => `
+    const rows = studentReports.map(r => {
+      // 2026-10-25: если в content_markdown есть pointer на готовый HTML/PDF-отчёт
+      // в cabinet/documents/_v/<slug>/<file>.(html|pdf) — открываем его напрямую,
+      // не прогоняя через дефолтный шаблон openPrintableReport().
+      const m = /cabinet\/documents\/_v\/[^\s)]+?\.(?:html|pdf)/i.exec(r.content || "");
+      const extUrl = m ? "./" + m[0].replace(/^cabinet\//, "") : "";
+      const dataUrl = extUrl ? ` data-url="${_esc(extUrl)}"` : "";
+      return `
       <div class="cab-report-row">
         <div>
           <div class="cab-report-title">${_esc(r.title || r.type)}</div>
           <div class="cab-report-meta">${_esc(r.month_label || r.month || "")} · ${_esc(r.type || "")}</div>
         </div>
-        <button class="cab-action-btn cab-action-btn--primary" type="button" data-action="open-report" data-student="${_esc(student.id)}" data-report="${_esc(r.id)}">📄 Скачать отчёт</button>
+        <button class="cab-action-btn cab-action-btn--primary" type="button" data-action="open-report" data-student="${_esc(student.id)}" data-report="${_esc(r.id)}"${dataUrl}>📄 Открыть отчёт</button>
       </div>
-    `).join("");
+    `;
+    }).join("");
 
     return `
       <article class="cab-card">
