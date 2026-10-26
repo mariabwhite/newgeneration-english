@@ -354,6 +354,140 @@ button[data-say]:hover{background:var(--accent)}
 <!-- PROGRESS DOTS -->
 <div class="progress"><div class="dots" id="dots" aria-hidden="true"></div></div>
 
+<!-- CONTEXT PRIMER · know the firm and the role before drilling questions -->
+<style id="ctx-primer-styling">
+#sec-context .ctx-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:4px 0 14px}
+#sec-context .ctx-item{background:var(--card-2);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:12px 14px}
+#sec-context .ctx-item.ctx-company{border-left-color:var(--accent3)}
+#sec-context .ctx-item.ctx-day{border-left-color:var(--accent)}
+#sec-context .ctx-item.ctx-deliverables{border-left-color:#5C7C5A}
+#sec-context .ctx-item.ctx-edge{border-left-color:var(--maple)}
+#sec-context .ctx-label{font-family:var(--mono);font-size:.66rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent3);margin-bottom:6px;line-height:1.3}
+#sec-context .ctx-item.ctx-deliverables .ctx-label{color:#3F5B3E}
+#sec-context .ctx-item.ctx-edge .ctx-label{color:#8B6B3F}
+#sec-context .ctx-item p,#sec-context .ctx-item li{font-size:.88rem;color:var(--ink);line-height:1.5;margin:0}
+#sec-context .ctx-item ul,#sec-context .ctx-item ol{margin:6px 0 0 18px;padding:0;display:flex;flex-direction:column;gap:4px}
+#sec-context .ctx-item strong{color:var(--accent3)}
+#sec-context .ctx-item em{color:var(--accent3);font-style:italic;font-weight:600}
+#sec-context .ctx-narrative{background:linear-gradient(135deg,#FBF6EC,#F4F8FC);border:2px solid var(--maple);border-radius:12px;padding:16px 20px;margin:10px 0 0;box-shadow:0 6px 22px rgba(198,168,119,.18)}
+#sec-context .ctx-narrative-label{font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#8B6B3F;margin-bottom:10px}
+#sec-context .ctx-narrative blockquote{margin:0 0 10px;padding:12px 16px;background:#fff;border-left:4px solid var(--maple);border-radius:0 8px 8px 0;font-family:var(--display);font-size:1.02rem;color:var(--ink);line-height:1.55;font-style:italic}
+#sec-context .ctx-narrative-why{font-size:.86rem;color:var(--muted);line-height:1.55;margin:0}
+#sec-context .ctx-narrative-why strong{color:#8B6B3F;font-style:normal}
+#sec-context .ctx-narrative .play-line{background:var(--maple);color:#fff;border:none;border-radius:50%;width:30px;height:30px;font-size:.82rem;cursor:pointer;display:inline-grid;place-items:center;vertical-align:middle;margin-right:8px;flex-shrink:0}
+#sec-context .ctx-narrative .play-line:hover{background:#8B6B3F}
+
+/* Verified-facts block */
+#sec-context .ctx-facts{background:linear-gradient(135deg,#F4F8FC,#FFF);border:1px solid var(--accent2);border-left:4px solid var(--accent3);border-radius:0 10px 10px 0;padding:14px 18px;margin:14px 0 0}
+#sec-context .ctx-facts-head{display:flex;align-items:baseline;gap:10px;margin:0 0 10px;padding:0 0 6px;border-bottom:1px dashed var(--line)}
+#sec-context .ctx-facts-head .ctx-facts-label{font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent3)}
+#sec-context .ctx-facts-head .ctx-facts-sub{font-family:var(--display);font-size:.92rem;color:var(--muted);font-style:italic}
+#sec-context .ctx-facts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px 14px;list-style:none;padding:0;margin:0}
+#sec-context .ctx-facts-grid li{display:flex;gap:8px;font-size:.86rem;color:var(--ink);line-height:1.45;padding:4px 0}
+#sec-context .ctx-facts-grid li::before{content:"▪";color:var(--maple);font-weight:800;flex-shrink:0}
+#sec-context .ctx-facts-grid li strong{color:var(--accent3);font-weight:700}
+#sec-context .ctx-source{font-family:var(--mono);font-size:.68rem;color:var(--muted);margin:10px 0 0;letter-spacing:.04em}
+#sec-context .ctx-source a{color:var(--accent);text-decoration:none;border-bottom:1px dotted var(--accent)}
+#sec-context .ctx-source a:hover{color:var(--accent3);border-bottom-style:solid}
+
+/* Scripted "Why MTRC?" answer */
+#sec-context .ctx-why{background:linear-gradient(135deg,#F3F7F2,#FFF);border:1px solid #B8CDB7;border-left:4px solid #5C7C5A;border-radius:0 10px 10px 0;padding:14px 18px;margin:12px 0 0}
+#sec-context .ctx-why-head{display:flex;align-items:baseline;gap:10px;margin:0 0 10px;padding:0 0 6px;border-bottom:1px dashed var(--line)}
+#sec-context .ctx-why-head .ctx-why-label{font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#3F5B3E}
+#sec-context .ctx-why-head .ctx-why-sub{font-family:var(--display);font-size:.92rem;color:var(--muted);font-style:italic}
+#sec-context .ctx-why-prompt{background:#fff;border:1px solid var(--line);border-left:3px solid var(--maple);border-radius:0 8px 8px 0;padding:8px 14px;margin:0 0 10px;font-size:.9rem;color:var(--ink)}
+#sec-context .ctx-why-prompt .them-tag{font-family:var(--mono);font-size:.66rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--maple);margin-right:8px}
+#sec-context .ctx-why-answer{background:#fff;border:1px solid #B8CDB7;border-radius:8px;padding:12px 16px;font-size:.92rem;line-height:1.6;color:var(--ink)}
+#sec-context .ctx-why-answer strong{color:#3F5B3E}
+#sec-context .ctx-why-answer .num{display:inline-block;background:#5C7C5A;color:#fff;font-family:var(--mono);font-weight:800;font-size:.7rem;padding:1px 7px;border-radius:50px;margin-right:5px;vertical-align:middle}
+#sec-context .ctx-why-tip{font-size:.82rem;color:var(--muted);font-style:italic;margin:8px 0 0;line-height:1.5}
+#sec-context .ctx-why .play-line{background:#5C7C5A;color:#fff;border:none;border-radius:50%;width:28px;height:28px;font-size:.78rem;cursor:pointer;display:inline-grid;place-items:center;vertical-align:middle;margin-right:8px}
+#sec-context .ctx-why .play-line:hover{background:#3F5B3E}
+</style>
+<section class="section" id="sec-context">
+  <div class="section-hdr" style="margin-bottom:10px"><h2 style="font-size:1.2rem;font-weight:800">📍 Before you drill · context about MTRC and the role</h2></div>
+  <div class="card">
+    <p style="font-size:.9rem;color:var(--muted);margin:0 0 10px;line-height:1.6">Прежде чем долбить вопросы — пойми, во что идёшь. HR Thursday почувствует разницу между «я прочитала job description» и «я понимаю, чем занят analyst за столом».</p>
+
+    <div class="ctx-grid">
+      <div class="ctx-item ctx-company">
+        <div class="ctx-label">🏢 The firm · MTRC</div>
+        <p><strong>MTRC · Med Tech Reimbursement Consulting</strong> — boutique European market access consultancy. Основана в <strong>Стокгольме в 2017</strong>, HQ в <strong>Leeds (UK)</strong>, доп. офисы в Spain и Bulgaria. <strong>~30 in-house</strong> expert-ов (consultants, analysts, physicians, health economists, evidence-synthesis specialists). Специализация — <em>medical devices, IVDs и digital health</em>, не primarily pharma. Fully remote, distributed team across 14 европейских рынков.</p>
+      </div>
+
+      <div class="ctx-item ctx-day">
+        <div class="ctx-label">⌨ Day-to-day · что analyst реально делает</div>
+        <p style="margin-bottom:4px">День = <strong>читать + считать + писать</strong>:</p>
+        <ul>
+          <li>Systematic literature search (PubMed, Cochrane, HTA reports)</li>
+          <li>Таблица <em>study / N / endpoint / effect size / bias</em></li>
+          <li>Economic model в Excel (ICER = Δcost / ΔQALY)</li>
+          <li>Slide-deck или value dossier для payer-а</li>
+          <li>Созвоны с клиентом (manufacturer) и иногда с payer-ом</li>
+        </ul>
+      </div>
+
+      <div class="ctx-item ctx-deliverables">
+        <div class="ctx-label">📄 Three deliverables you'll produce</div>
+        <ol>
+          <li><strong>One-page evidence summary</strong> — что показывают данные, с указанной confidence</li>
+          <li><strong>Budget impact / cost-effectiveness model</strong> — сколько интервенция стоит плательщику</li>
+          <li><strong>Submission dossier</strong> — пакет для HTA-органа или payer-а</li>
+        </ol>
+      </div>
+
+      <div class="ctx-item ctx-edge">
+        <div class="ctx-label">💠 Why they're hiring a doctor · твой clinical edge</div>
+        <p>Analyst без клинического бэкграунда часто пишет submissions, которые <em>technically correct</em>, но клиницист сразу видит, что автор не понимает real-world practice. Ты читаешь trial exclusion criteria и понимаешь: «эта молекула не покроет 40% реальных пациентов». Ты понимаешь, почему GP будет саботировать новый workflow — это <strong>gold</strong> для dossier-а, который должен убедить payer-а.</p>
+      </div>
+    </div>
+
+    <div class="ctx-facts">
+      <div class="ctx-facts-head">
+        <span class="ctx-facts-label">📊 Verified facts — memorise 2-3</span>
+        <span class="ctx-facts-sub">to drop in the HR screen · не выдумывай, факты с их сайта</span>
+      </div>
+      <ul class="ctx-facts-grid">
+        <li><span><strong>Founded 2017</strong> в Стокгольме · HQ сейчас в Leeds (UK)</span></li>
+        <li><span>Доп. офисы: <strong>Spain</strong> (Market Access) · <strong>Bulgaria</strong> (Billing &amp; Contracting)</span></li>
+        <li><span><strong>~30 in-house</strong> experts · fully remote distributed team</span></li>
+        <li><span><strong>810+ projects</strong> с 2017 для 200+ companies</span></li>
+        <li><span>Клиенты: <strong>56% of top 30</strong> med tech firms + множество SME (80/20 split)</span></li>
+        <li><span>Specialty: <strong>medical devices, IVDs, digital health</strong> — не primarily pharma</span></li>
+        <li><span>Core <strong>14 markets</strong>: UK, DE, FR, IT, ES, Nordic region (SE, NO, DK, FI), BE, NL, AT, IE, CH</span></li>
+        <li><span>Flagship product: <strong>MTRC Reimbursement Intelligence Database</strong> — off-the-shelf reports по 11 странам</span></li>
+        <li><span>Value Dossier formats: <strong>Basic 15-25pp</strong> · <strong>Core 50-70pp</strong> (+ appendices)</span></li>
+        <li><span>HTA submissions — сильны в <strong>Nordic region</strong> и <strong>England</strong></span></li>
+        <li><span>Твоя роль: <strong>Reimbursement Group</strong> · full-time · <strong>remote</strong> · training от senior Analysts/Consultants/leadership</span></li>
+        <li><span>Публикуют research (напр. MedTech Europe report на innovative payment schemes 2018)</span></li>
+      </ul>
+      <p class="ctx-source">Источник: <a href="https://mtrconsult.com/about-us" target="_blank" rel="noopener">mtrconsult.com/about-us</a> · <a href="https://mtrconsult.com/our-services" target="_blank" rel="noopener">/our-services</a> · <a href="https://uk.linkedin.com/company/mtrc-ab" target="_blank" rel="noopener">LinkedIn /company/mtrc-ab</a></p>
+    </div>
+
+    <div class="ctx-why">
+      <div class="ctx-why-head">
+        <span class="ctx-why-label">🎯 Scripted answer — «Why MTRC specifically?»</span>
+        <span class="ctx-why-sub">90 сек · 3 конкретные причины на их же фактах</span>
+      </div>
+      <div class="ctx-why-prompt"><span class="them-tag">HR</span><button class="play-line" data-say="Why MTRC specifically? Why this company?">▶</button>«Why MTRC specifically? Why this company?»</div>
+      <div class="ctx-why-answer">
+        <button class="play-line" data-say="Three concrete reasons. First, MTRC is a boutique — around thirty in-house experts rather than a mega-consultancy — which means I would be learning directly from senior analysts and consultants from day one, not getting lost in a thousand-person firm. Second, your coverage is specifically European, including the Nordic region and England where you do HTA submissions. That matches where I want to build real expertise — I'd like to understand how G-BA versus NICE versus TLV actually compare on the same evidence. And third, you specialise in medical devices, IVDs and digital health rather than primarily pharma — which is where I think the field is going, and where my clinical reading of device adoption in practice is directly useful.">▶</button>
+        <strong>Three concrete reasons.</strong><br>
+        <span class="num">1</span><em>Boutique size.</em> «MTRC is a boutique — around 30 in-house experts rather than a mega-consultancy — which means I'd be learning directly from senior analysts and consultants from day one.»<br>
+        <span class="num">2</span><em>European coverage, HTA depth.</em> «Your coverage is specifically European, including the Nordic region and England where you do HTA submissions. That matches where I want to build real expertise — understanding how G-BA versus NICE versus TLV compare on the same evidence.»<br>
+        <span class="num">3</span><em>Device / IVD / digital health specialty.</em> «You specialise in medical devices, IVDs and digital health rather than primarily pharma — which is where I think the field is going, and where my clinical reading of real-world device adoption is directly useful.»
+      </div>
+      <p class="ctx-why-tip">💡 Эти 3 причины <strong>реально отличают</strong> MTRC от conкурентов (IQVIA, Charles River, PAREXEL — крупнее, pharma-heavy, менее European-focused). HR почувствует: кандидат делал домашку. Нажми ▶ на ответе — услышишь целиком, запиши себя, сверь с paper.</p>
+    </div>
+
+    <div class="ctx-narrative">
+      <div class="ctx-narrative-label">★ The key narrative · one formula, say it out loud 3× before Thursday</div>
+      <blockquote><button class="play-line" data-say="I'm not leaving medicine — I'm moving to the side of medicine that decides whether good evidence reaches patients. My clinical reading of trials is the asset.">▶</button>"I'm not leaving medicine — I'm moving to the side of medicine that decides whether good evidence reaches patients. My clinical reading of trials is the asset."</blockquote>
+      <p class="ctx-narrative-why">Эта <strong>одна</strong> формула закрывает главную тревогу HR («почему уходишь из клиники?») и одновременно продаёт твой главный актив. Не «я устала от смен», не «хочу work-life balance» — <em>«я иду на ту сторону медицины, которая решает, доходит ли evidence до пациентов»</em>. Это язык взрослого кандидата.</p>
+    </div>
+  </div>
+</section>
+
 <!-- STANDARD HR INTERVIEW QUESTIONS · the full list to drill before anything else -->
 <style id="hr-standard-styling">
 #sec-hr-standard .hr-list{display:grid;grid-template-columns:1fr;gap:10px;margin-top:12px}
