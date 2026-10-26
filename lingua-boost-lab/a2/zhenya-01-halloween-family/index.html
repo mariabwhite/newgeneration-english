@@ -256,6 +256,47 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
 .homework ol li b{color:var(--accent-2)}
 .homework p{margin:8px 0 0;color:var(--ink-2);font-size:.9rem;line-height:1.55}
 
+/* VOCAB APP · level pills + category panels ────── */
+.cat-head{display:flex;align-items:center;gap:10px;margin:18px 0 8px;font-family:var(--display);font-weight:700;font-size:1.05rem;color:var(--accent-3);letter-spacing:.005em}
+.cat-head .cat-ico{font-size:1.3rem;line-height:1}
+.cat-head .cat-count{font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-left:auto}
+.lvl-pill{display:inline-flex;align-items:center;gap:3px;font-family:var(--mono);font-size:.58rem;font-weight:800;letter-spacing:.1em;padding:2px 8px;border-radius:100px;border:1px solid currentColor;line-height:1.3;text-transform:uppercase}
+.lvl-pill.a2{color:#FFA347;background:rgba(255,163,71,.1)}
+.lvl-pill.b1{color:#5BC46A;background:rgba(91,196,106,.1)}
+.lvl-pill.b2{color:#B392F0;background:rgba(179,146,240,.1)}
+.lvl-pill::before{content:"★";font-size:.72em;margin-right:2px}
+.app-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:8px 0 4px}
+@media(max-width:1080px){.app-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:720px){.app-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.app-grid{grid-template-columns:1fr 1fr}}
+.app-card{position:relative;background:var(--card-2);border:1.5px solid var(--line-2);border-radius:12px;padding:12px 14px 12px;min-height:132px;display:flex;flex-direction:column;gap:4px;box-shadow:0 3px 10px rgba(0,0,0,.25);transition:.18s;cursor:pointer}
+.app-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 20px rgba(255,122,31,.22)}
+.app-card .top{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.app-card .word{font-family:var(--display);font-weight:700;font-size:1.05rem;color:var(--accent-3);line-height:1.2;margin:3px 0 0}
+.app-card .ru{font-family:var(--body);font-weight:500;color:var(--muted);font-size:.78rem;line-height:1.3;margin:0}
+.app-card .ex{font-family:var(--body);font-size:.82rem;color:var(--ink-2);line-height:1.42;font-style:italic;margin:6px 0 0;padding-top:6px;border-top:1px dashed var(--line);min-height:36px}
+.app-card .play{position:absolute;top:10px;right:10px;width:30px;height:30px;z-index:3}
+.app-card .play svg{width:12px;height:12px}
+.app-card.custom{border-color:var(--sky);border-style:dashed;background:linear-gradient(180deg,var(--card-2) 0%,#2E1B40 100%)}
+.app-card.custom::before{content:"✎ твоё";position:absolute;top:-8px;left:12px;background:var(--paper);font-family:var(--mono);font-size:.58rem;color:var(--sky);font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:100px;border:1px solid var(--sky)}
+.app-card .flip-hint{position:absolute;bottom:6px;right:12px;font-family:var(--mono);font-size:.56rem;color:var(--faint);letter-spacing:.08em;text-transform:uppercase;pointer-events:none}
+.app-card .q-back{position:absolute;inset:0;padding:16px 14px 14px;display:none;flex-direction:column;justify-content:center;gap:6px;background:linear-gradient(135deg,#452660 0%,#572b7a 100%);border-radius:11px;color:var(--ink);z-index:2}
+.app-card .q-back .q-eyebrow{font-family:var(--mono);font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-3)}
+.app-card .q-back .q-text{font-family:var(--display);font-size:.98rem;line-height:1.35;color:var(--ink);font-weight:600;margin:4px 0 0}
+.app-card .q-back .q-hint{font-family:var(--body);font-size:.76rem;color:var(--accent-3);font-style:italic;margin-top:6px}
+.app-card.flipped .q-back{display:flex}
+.app-card.flipped .top,.app-card.flipped .word,.app-card.flipped .ru,.app-card.flipped .ex,.app-card.flipped .flip-hint{opacity:0}
+
+/* REVISION BLOCK · Afanasyeva U4 ────────────────── */
+.rev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin:10px 0}
+.rev-item{background:var(--card-2);border:1px solid var(--line-2);border-left:3px solid var(--sky);border-radius:10px;padding:12px 14px;font-family:var(--body);font-size:.92rem;color:var(--ink-2);line-height:1.42}
+.rev-item b{color:var(--accent-3);font-family:var(--display);font-weight:700}
+.rev-item .ru{font-family:var(--body);color:var(--muted);font-size:.78rem;display:block;margin-top:3px}
+.q-list{list-style:none;padding:0;margin:10px 0;counter-reset:qnum}
+.q-list li{counter-increment:qnum;padding:10px 14px 10px 44px;background:var(--card-2);border:1px solid var(--line-2);border-radius:10px;margin:6px 0;position:relative;font-family:var(--body);font-size:.95rem;color:var(--ink);line-height:1.42}
+.q-list li::before{content:counter(qnum);position:absolute;left:12px;top:10px;width:22px;height:22px;background:var(--sky);color:#FFF;font-family:var(--mono);font-weight:800;font-size:.72rem;border-radius:50%;display:grid;place-items:center}
+.q-list li .ru{display:block;font-family:var(--body);color:var(--muted);font-size:.78rem;margin-top:3px;font-style:italic}
+
 /* READING ─────────────────────────────────────── */
 .read-text{background:var(--card-2);border:1px solid var(--line-2);border-left:4px solid var(--accent-3);border-radius:12px;padding:16px 20px;margin:10px 0;line-height:1.7;font-family:var(--display);font-size:1rem;color:var(--ink-2)}
 .read-text b{color:var(--accent-3);font-weight:600}
@@ -802,6 +843,179 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
   </div>
 </section>
 
+<!-- 10 · YOUR APP VOCAB · 4 themes ──────────────────────────── -->
+<section class="section" id="s10-app-vocab">
+  <div class="section-head"><div class="n">10</div><h2>📱 Твой словарик из приложения · 4 темы</h2></div>
+  <div class="section-sub">10 min · 28 words · tap 🔊 to hear · tap card to flip to a question</div>
+
+  <div class="card">
+    <div class="theory">
+      <div class="th-eyebrow">Mini-theory · 30 sec</div>
+      <h3>Эти слова ты уже добавила себе в приложение</h3>
+      <p>Четыре темы — <strong>Family · Daily life · School · Hobbies</strong>. На лицевой стороне: уровень (<span class="lvl-pill a2">A2</span> <span class="lvl-pill b1">B1</span> <span class="lvl-pill b2">B2</span>), перевод и пример. <strong>Нажми на карточку</strong> — она перевернётся и покажет маленький вопрос с этим словом. Ответь на него вслух! Нажми 🔊, чтобы услышать слово. Твои собственные слова (<span class="lvl-pill" style="color:var(--sky);background:rgba(139,92,246,.12);border-color:var(--sky)">✎ ТВОЁ</span>) помечены штриховой рамкой.</p>
+    </div>
+
+    <!-- ─ FAMILY ──────────────────────────────────── -->
+    <div class="cat-head"><span class="cat-ico">👨‍👩‍👧</span>Family<span class="cat-count">8 words</span></div>
+    <div class="app-grid">
+      <div class="app-card"><div class="top"><span class="lvl-pill a2">A2</span></div><p class="word">parent</p><p class="ru">родитель</p><p class="ex">Dracula is Wendy's <b>parent</b>.</p><span class="flip-hint">tap</span><span class="play" data-say="parent"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Your turn · say it out loud</div><p class="q-text">Who is the kindest <b>parent</b> you know?</p><div class="q-hint">💡 start with: "My … is …"</div></div></div>
+      <div class="app-card"><div class="top"><span class="lvl-pill a2">A2</span></div><p class="word">cousin</p><p class="ru">двоюр. брат/сестра</p><p class="ex">Troll is Wendy's <b>cousin</b>.</p><span class="flip-hint">tap</span><span class="play" data-say="cousin"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Your turn</div><p class="q-text">Have you got a <b>cousin</b>? What's his or her name?</p><div class="q-hint">💡 "Yes, I've got… / No, I haven't."</div></div></div>
+      <div class="app-card"><div class="top"><span class="lvl-pill a2">A2</span></div><p class="word">grandparent</p><p class="ru">бабушка / дедушка</p><p class="ex">Grandma Mummy is Freddy's favourite <b>grandparent</b>.</p><span class="flip-hint">tap</span><span class="play" data-say="grandparent"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Your turn</div><p class="q-text">Do your <b>grandparents</b> live near you?</p><div class="q-hint">💡 "Yes, they live… / No, they live far…"</div></div></div>
+      <div class="app-card"><div class="top"><span class="lvl-pill a2">A2</span></div><p class="word">in-law</p><p class="ru">родственник со стороны мужа/жены</p><p class="ex">Dracula's father-<b>in-law</b> lives in a castle too.</p><span class="flip-hint">tap</span><span class="play" data-say="in-law"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Guess!</div><p class="q-text">Is a mother-<b>in-law</b> the mother of your mum, or the mother of your mum's husband?</p><div class="q-hint">💡 (husband's mother!)</div></div></div>
+      <div class="app-card"><div class="top"><span class="lvl-pill b1">B1</span></div><p class="word">in-laws</p><p class="ru">родня супруга/-и</p><p class="ex">Morticia visits her <b>in-laws</b> every Halloween.</p><span class="flip-hint">tap</span><span class="play" data-say="in-laws"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Your turn</div><p class="q-text">How often do your mum and dad visit their <b>in-laws</b>?</p><div class="q-hint">💡 "Once a week / month / year…"</div></div></div>
+      <div class="app-card"><div class="top"><span class="lvl-pill b2">B2</span></div><p class="word">blended family</p><p class="ru">смешанная семья</p><p class="ex">The Boos are a <b>blended family</b> — Wendy has a stepsister.</p><span class="flip-hint">tap</span><span class="play" data-say="blended family"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Think!</div><p class="q-text">Can a <b>blended family</b> be very happy? Why?</p><div class="q-hint">💡 "Yes, because…"</div></div></div>
+      <div class="app-card custom"><div class="top"><span class="lvl-pill a2">A2</span></div><p class="word">happy</p><p class="ru">счастливый</p><p class="ex">Peony is a <b>happy</b> baby ghost.</p><span class="flip-hint">tap</span><span class="play" data-say="happy"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Your turn</div><p class="q-text">What makes you <b>happy</b> on a Sunday morning?</p><div class="q-hint">💡 "I'm happy when…"</div></div></div>
+      <div class="app-card custom"><div class="top"><span class="lvl-pill a2">A2</span></div><p class="word">afraid</p><p class="ru">испуганный</p><p class="ex">Freddy is <b>afraid</b> of garlic.</p><span class="flip-hint">tap</span><span class="play" data-say="afraid"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Your turn</div><p class="q-text">Are you <b>afraid</b> of spiders? Why or why not?</p><div class="q-hint">💡 "Yes, because… / No, I like them!"</div></div></div>
+    </div>
+
+    <!-- ─ DAILY LIFE ──────────────────────────────── -->
+    <div class="cat-head"><span class="cat-ico">☕</span>Daily life<span class="cat-count">8 words</span></div>
+    <div class="app-grid">
+      <div class="app-card"><div class="top"><span class="lvl-pill a2">A2</span></div><p class="word">routine</p><p class="ru">распорядок дня</p><p class="ex">My morning <b>routine</b> starts at 7 am.</p><span class="flip-hint">tap</span><span class="play" data-say="routine"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Your turn</div><p class="q-text">What's the first thing in your morning <b>routine</b>?</p><div class="q-hint">💡 "First I … Then I …"</div></div></div>
+      <div class="app-card"><div class="top"><span class="lvl-pill a2">A2</span></div><p class="word">chore</p><p class="ru">домашняя обязанность</p><p class="ex">Making my bed is my daily <b>chore</b>.</p><span class="flip-hint">tap</span><span class="play" data-say="chore"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Your turn</div><p class="q-text">What <b>chore</b> do you NOT like doing?</p><div class="q-hint">💡 "I don't like …"</div></div></div>
+      <div class="app-card"><div class="top"><span class="lvl-pill a2">A2</span></div><p class="word">errand</p><p class="ru">поручение, задание</p><p class="ex">Mum sent me on an <b>errand</b> to the shop.</p><span class="flip-hint">tap</span><span class="play" data-say="errand"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Your turn</div><p class="q-text">Can you go on an <b>errand</b> for mum alone?</p><div class="q-hint">💡 "Yes, I can… / Only with…"</div></div></div>
+      <div class="app-card"><div class="top"><span class="lvl-pill a2">A2</span></div><p class="word">nap</p><p class="ru">короткий дневной сон</p><p class="ex">Grandpa takes a <b>nap</b> after lunch.</p><span class="flip-hint">tap</span><span class="play" data-say="nap"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Your turn</div><p class="q-text">Do you take a <b>nap</b> after school?</p><div class="q-hint">💡 "Yes, for 20 minutes… / No, I…"</div></div></div>
+      <div class="app-card"><div class="top"><span class="lvl-pill b1">B1</span></div><p class="word">juggle</p><p class="ru">совмещать несколько дел</p><p class="ex">I <b>juggle</b> school, music and sport.</p><span class="flip-hint">tap</span><span class="play" data-say="juggle"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Your turn</div><p class="q-text">Can you <b>juggle</b> school AND a hobby easily?</p><div class="q-hint">💡 "Yes, because I plan… / No, it's hard."</div></div></div>
+      <div class="app-card"><div class="top"><span class="lvl-pill b2">B2</span></div><p class="word">multitask</p><p class="ru">несколько дел одновременно</p><p class="ex">She can <b>multitask</b> — read and listen to music.</p><span class="flip-hint">tap</span><span class="play" data-say="multitask"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Guess!</div><p class="q-text">Can girls <b>multitask</b> better than boys?</p><div class="q-hint">💡 "I think…" (just a joke 🙂)</div></div></div>
+      <div class="app-card custom"><div class="top"><span class="lvl-pill a2">A2</span></div><p class="word">remote</p><p class="ru">удалённый; пульт</p><p class="ex">My cousin lives in a <b>remote</b> village.</p><span class="flip-hint">tap</span><span class="play" data-say="remote"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Your turn</div><p class="q-text">Have you ever been to a <b>remote</b> place? Where?</p><div class="q-hint">💡 "Yes, once I was in… / No, never."</div></div></div>
+      <div class="app-card custom"><div class="top"><span class="lvl-pill a2">A2</span></div><p class="word">borrow</p><p class="ru">одалживать (брать)</p><p class="ex">Can I <b>borrow</b> your pen, please?</p><span class="flip-hint">tap</span><span class="play" data-say="borrow"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Your turn</div><p class="q-text">What is the last thing you <b>borrowed</b> from a friend?</p><div class="q-hint">💡 "A book / a pen / a game…"</div></div></div>
+    </div>
+
+    <!-- ─ SCHOOL ──────────────────────────────────── -->
+    <div class="cat-head"><span class="cat-ico">📚</span>School<span class="cat-count">6 words</span></div>
+    <div class="app-grid">
+      <div class="app-card"><div class="top"><span class="lvl-pill a2">A2</span></div><p class="word">homework</p><p class="ru">домашка</p><p class="ex">I do my English <b>homework</b> every evening.</p><span class="flip-hint">tap</span><span class="play" data-say="homework"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Your turn</div><p class="q-text">How much <b>homework</b> do you do every day?</p><div class="q-hint">💡 "About … hours."</div></div></div>
+      <div class="app-card"><div class="top"><span class="lvl-pill a2">A2</span></div><p class="word">deadline</p><p class="ru">крайний срок</p><p class="ex">The project <b>deadline</b> is Friday.</p><span class="flip-hint">tap</span><span class="play" data-say="deadline"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Your turn</div><p class="q-text">Do you like a strict <b>deadline</b>? Why?</p><div class="q-hint">💡 "Yes, it helps me… / No, I feel…"</div></div></div>
+      <div class="app-card"><div class="top"><span class="lvl-pill a2">A2</span></div><p class="word">grade</p><p class="ru">оценка; класс</p><p class="ex">I got a good <b>grade</b> in Maths.</p><span class="flip-hint">tap</span><span class="play" data-say="grade"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Your turn</div><p class="q-text">What's your best <b>grade</b> this term?</p><div class="q-hint">💡 "I got a 5 in…"</div></div></div>
+      <div class="app-card"><div class="top"><span class="lvl-pill a2">A2</span></div><p class="word">lesson</p><p class="ru">урок</p><p class="ex">Our English <b>lesson</b> starts at 3 pm.</p><span class="flip-hint">tap</span><span class="play" data-say="lesson"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Your turn</div><p class="q-text">What's your favourite <b>lesson</b> at school?</p><div class="q-hint">💡 "My favourite lesson is…"</div></div></div>
+      <div class="app-card"><div class="top"><span class="lvl-pill b1">B1</span></div><p class="word">curriculum</p><p class="ru">учебная программа</p><p class="ex">The <b>curriculum</b> includes two foreign languages.</p><span class="flip-hint">tap</span><span class="play" data-say="curriculum"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Your turn</div><p class="q-text">Does your <b>curriculum</b> have one or two foreign languages?</p><div class="q-hint">💡 "Only English / English and…"</div></div></div>
+      <div class="app-card"><div class="top"><span class="lvl-pill b2">B2</span></div><p class="word">peer pressure</p><p class="ru">давление сверстников</p><p class="ex"><b>Peer pressure</b> can make teens try new things.</p><span class="flip-hint">tap</span><span class="play" data-say="peer pressure"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Think!</div><p class="q-text">Is <b>peer pressure</b> always a BAD thing?</p><div class="q-hint">💡 Can it be good? When?</div></div></div>
+    </div>
+
+    <!-- ─ HOBBIES ─────────────────────────────────── -->
+    <div class="cat-head"><span class="cat-ico">🎨</span>Hobbies<span class="cat-count">6 words</span></div>
+    <div class="app-grid">
+      <div class="app-card"><div class="top"><span class="lvl-pill a2">A2</span></div><p class="word">collect</p><p class="ru">собирать (коллекцию)</p><p class="ex">I <b>collect</b> postcards from every country.</p><span class="flip-hint">tap</span><span class="play" data-say="collect"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Your turn</div><p class="q-text">What do you <b>collect</b> at home? Stickers? Books?</p><div class="q-hint">💡 "I collect… / I don't collect."</div></div></div>
+      <div class="app-card"><div class="top"><span class="lvl-pill a2">A2</span></div><p class="word">draw</p><p class="ru">рисовать</p><p class="ex">Wendy <b>draws</b> ghost portraits.</p><span class="flip-hint">tap</span><span class="play" data-say="draw"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Challenge!</div><p class="q-text">Can you <b>draw</b> a cat in 30 seconds?</p><div class="q-hint">💡 Try it on paper, then show me! 😺</div></div></div>
+      <div class="app-card"><div class="top"><span class="lvl-pill a2">A2</span></div><p class="word">dance</p><p class="ru">танцевать</p><p class="ex">Aunt Luna loves to <b>dance</b> in the moonlight.</p><span class="flip-hint">tap</span><span class="play" data-say="dance"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Your turn</div><p class="q-text">Do you <b>dance</b> when nobody is watching?</p><div class="q-hint">💡 "Yes, I love… / No, never."</div></div></div>
+      <div class="app-card"><div class="top"><span class="lvl-pill a2">A2</span></div><p class="word">build</p><p class="ru">строить</p><p class="ex">Freddy <b>builds</b> pumpkin houses.</p><span class="flip-hint">tap</span><span class="play" data-say="build"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Your turn</div><p class="q-text">What can you <b>build</b> with LEGO in one hour?</p><div class="q-hint">💡 "A castle / a car / a spaceship…"</div></div></div>
+      <div class="app-card"><div class="top"><span class="lvl-pill b1">B1</span></div><p class="word">pursue</p><p class="ru">добиваться (мечты)</p><p class="ex">She <b>pursues</b> her dream of being a vet.</p><span class="flip-hint">tap</span><span class="play" data-say="pursue"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Dream big!</div><p class="q-text">What dream will you <b>pursue</b> after school?</p><div class="q-hint">💡 "I want to be a…"</div></div></div>
+      <div class="app-card"><div class="top"><span class="lvl-pill b2">B2</span></div><p class="word">thrill-seeker</p><p class="ru">любитель острых ощущений</p><p class="ex">A <b>thrill-seeker</b> loves roller coasters.</p><span class="flip-hint">tap</span><span class="play" data-say="thrill-seeker"><svg><use href="#ic-play"/></svg></span><div class="q-back"><div class="q-eyebrow">Guess!</div><p class="q-text">Is a <b>thrill-seeker</b> brave or crazy? Both?</p><div class="q-hint">💡 "I think they are…"</div></div></div>
+    </div>
+
+    <!-- ─ MINI MATCH · 10 of the new words ────────── -->
+    <div class="sub-label">Mini-match · соедини слово с переводом (10 пар)</div>
+    <div class="match" data-match="s10-match">
+      <div class="match-col">
+        <button class="match-item" data-pair="v1" data-side="l">chore</button>
+        <button class="match-item" data-pair="v2" data-side="l">nap</button>
+        <button class="match-item" data-pair="v3" data-side="l">deadline</button>
+        <button class="match-item" data-pair="v4" data-side="l">in-laws</button>
+        <button class="match-item" data-pair="v5" data-side="l">borrow</button>
+        <button class="match-item" data-pair="v6" data-side="l">curriculum</button>
+        <button class="match-item" data-pair="v7" data-side="l">peer pressure</button>
+        <button class="match-item" data-pair="v8" data-side="l">thrill-seeker</button>
+        <button class="match-item" data-pair="v9" data-side="l">juggle</button>
+        <button class="match-item" data-pair="v10" data-side="l">errand</button>
+      </div>
+      <div class="match-col">
+        <button class="match-item" data-pair="v3" data-side="r">крайний срок</button>
+        <button class="match-item" data-pair="v8" data-side="r">любитель острых ощущений</button>
+        <button class="match-item" data-pair="v1" data-side="r">домашняя обязанность</button>
+        <button class="match-item" data-pair="v10" data-side="r">поручение</button>
+        <button class="match-item" data-pair="v7" data-side="r">давление сверстников</button>
+        <button class="match-item" data-pair="v5" data-side="r">одалживать</button>
+        <button class="match-item" data-pair="v2" data-side="r">короткий сон</button>
+        <button class="match-item" data-pair="v9" data-side="r">совмещать дела</button>
+        <button class="match-item" data-pair="v4" data-side="r">родня супруга</button>
+        <button class="match-item" data-pair="v6" data-side="r">учебная программа</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11 · REVISION · Vereshchagina/Afanasyeva · Family Matters ─ -->
+<section class="section" id="s11-revision">
+  <div class="section-head"><div class="n">11</div><h2>🔁 Повторение · Family Matters (учебник)</h2></div>
+  <div class="section-sub">7 min · we read this in class today · now say it from memory</div>
+
+  <div class="card">
+    <div class="theory">
+      <div class="th-eyebrow">Today in class · 20 sec</div>
+      <h3>Что мы разбирали в учебнике Афанасьевой · Unit 4</h3>
+      <p>Сегодня на уроке мы раскачали блок <strong>Family Matters</strong>: расширенная семья, слова со <em>step-</em> и <em>-in-law</em>, короткие глаголы про свадьбу (meet → fall in love → get married). Этот блок — чтобы ты повторила их <strong>сама вслух</strong> дома. Три шага: слова → предложения → твои ответы.</p>
+    </div>
+
+    <!-- ─ Step-семья и in-laws ─────────────────────── -->
+    <div class="sub-label">1 · Расширенная семья · step- и -in-law</div>
+    <div class="rev-grid">
+      <div class="rev-item"><b>step-mother</b> <span class="ru">мачеха (жена папы, не биол. мама)</span></div>
+      <div class="rev-item"><b>step-father</b> <span class="ru">отчим (муж мамы, не биол. папа)</span></div>
+      <div class="rev-item"><b>step-sister</b> <span class="ru">сводная сестра</span></div>
+      <div class="rev-item"><b>step-brother</b> <span class="ru">сводный брат</span></div>
+      <div class="rev-item"><b>mother-in-law</b> <span class="ru">свекровь / тёща</span></div>
+      <div class="rev-item"><b>father-in-law</b> <span class="ru">свёкр / тесть</span></div>
+      <div class="rev-item"><b>son-in-law</b> <span class="ru">зять</span></div>
+      <div class="rev-item"><b>daughter-in-law</b> <span class="ru">невестка</span></div>
+    </div>
+
+    <!-- ─ Marriage mini-verbs ──────────────────────── -->
+    <div class="sub-label">2 · Пять шагов от «встретились» до «поженились»</div>
+    <div class="dialogue" style="background:linear-gradient(90deg,#2A1838 0%,#3B1F58 50%,#2A1838 100%)">
+      <div class="d-line them"><div class="who">1 · meet</div><span class="play" data-say="meet"><svg><use href="#ic-play"/></svg></span><p>Dracula and Morticia <b>meet</b> at a Halloween ball 500 years ago.</p></div>
+      <div class="d-line them"><div class="who">2 · fall in love</div><span class="play" data-say="fall in love"><svg><use href="#ic-play"/></svg></span><p>They <b>fall in love</b> under the full moon.</p></div>
+      <div class="d-line them"><div class="who">3 · propose</div><span class="play" data-say="propose"><svg><use href="#ic-play"/></svg></span><p>Dracula <b>proposes</b> to Morticia with a bat-shaped ring 🦇💍</p></div>
+      <div class="d-line them"><div class="who">4 · get married</div><span class="play" data-say="get married"><svg><use href="#ic-play"/></svg></span><p>They <b>get married</b> in a dark castle wedding.</p></div>
+      <div class="d-line them"><div class="who">5 · newlyweds</div><span class="play" data-say="newlyweds"><svg><use href="#ic-play"/></svg></span><p>Morticia is the <b>bride</b>, Dracula is the <b>groom</b> — they are <b>newlyweds</b>!</p></div>
+    </div>
+
+    <!-- ─ Cultural note from Victorian family text ─── -->
+    <div class="theory" style="border-left-color:var(--sky);margin-top:16px">
+      <div class="th-eyebrow">🏛 Cultural note from the book · Victorian family</div>
+      <h3>200 years ago in England…</h3>
+      <p>В Викторианской Англии (во времена королевы Victoria, 1837–1901) семья была очень <strong>strict</strong>. Papa went to work, mama stayed at home. Children had to be «<b>seen but not heard</b>» — их было видно, но слышно НЕЛЬЗЯ! Представь: за столом ты не можешь ничего сказать, только слушать взрослых. Hard, right? 😅</p>
+    </div>
+
+    <!-- ─ Your turn · 8 easy A2 questions ──────────── -->
+    <div class="sub-label">3 · Твоя очередь · ответь вслух на 8 вопросов</div>
+    <ol class="q-list">
+      <li>How many people are there in your family?<span class="ru">Сколько человек в твоей семье?</span></li>
+      <li>Who is the oldest person in your family?<span class="ru">Кто самый старший?</span></li>
+      <li>Have you got any step-brothers or step-sisters?<span class="ru">Есть ли сводные братья/сёстры?</span></li>
+      <li>Do your parents celebrate their wedding day every year?<span class="ru">Отмечают ли родители день свадьбы?</span></li>
+      <li>Have you ever been to a wedding? Whose was it?<span class="ru">Была ли ты на свадьбе? У кого?</span></li>
+      <li>Do you look more like your mum or your dad?<span class="ru">На кого ты похожа больше — на маму или папу?</span></li>
+      <li>Who is your favourite relative — not mum or dad?<span class="ru">Любимый родственник кроме мамы и папы?</span></li>
+      <li>What do you do as a family on weekends?<span class="ru">Что вы делаете всей семьёй в выходные?</span></li>
+    </ol>
+
+    <!-- ─ Mini-match · step/in-law vocab ───────────── -->
+    <div class="sub-label">4 · Соедини английское слово с переводом</div>
+    <div class="match" data-match="s11-match">
+      <div class="match-col">
+        <button class="match-item" data-pair="r1" data-side="l">step-mother</button>
+        <button class="match-item" data-pair="r2" data-side="l">father-in-law</button>
+        <button class="match-item" data-pair="r3" data-side="l">step-brother</button>
+        <button class="match-item" data-pair="r4" data-side="l">daughter-in-law</button>
+        <button class="match-item" data-pair="r5" data-side="l">bride</button>
+        <button class="match-item" data-pair="r6" data-side="l">groom</button>
+        <button class="match-item" data-pair="r7" data-side="l">wedding</button>
+        <button class="match-item" data-pair="r8" data-side="l">propose</button>
+      </div>
+      <div class="match-col">
+        <button class="match-item" data-pair="r5" data-side="r">невеста</button>
+        <button class="match-item" data-pair="r2" data-side="r">свёкр / тесть</button>
+        <button class="match-item" data-pair="r1" data-side="r">мачеха</button>
+        <button class="match-item" data-pair="r7" data-side="r">свадьба</button>
+        <button class="match-item" data-pair="r3" data-side="r">сводный брат</button>
+        <button class="match-item" data-pair="r8" data-side="r">сделать предложение</button>
+        <button class="match-item" data-pair="r4" data-side="r">невестка</button>
+        <button class="match-item" data-pair="r6" data-side="r">жених</button>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- HOMEWORK ───────────────────────────────────────────────── -->
 <section class="section" id="homework">
   <div class="homework">
@@ -843,12 +1057,36 @@ document.addEventListener('click',e=>{
 });
 
 // ── FLASHCARDS · flip on click (but not on play button) ─────
-document.querySelectorAll('.fc-card').forEach(card=>{
+document.querySelectorAll('.fc-card, .app-card').forEach(card=>{
   card.addEventListener('click',e=>{
     if(e.target.closest('.play')) return;
     card.classList.toggle('flipped');
   });
 });
+
+// ── SPEECH SYNTHESIS · [data-say] fallback (no mp3 needed) ──
+document.addEventListener('click',e=>{
+  const btn=e.target.closest('.play[data-say]');
+  if(!btn) return;
+  e.stopPropagation();
+  const text=btn.dataset.say;
+  if(!text || !window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='en-US'; u.rate=0.88; u.pitch=1.0;
+  const voices=window.speechSynthesis.getVoices();
+  const enVoice=voices.find(v=>/en[-_]?(US|GB)/i.test(v.lang));
+  if(enVoice) u.voice=enVoice;
+  if(currentBtn){ currentBtn.classList.remove('playing'); currentBtn=null; }
+  btn.classList.add('playing'); currentBtn=btn;
+  u.onend=()=>{ btn.classList.remove('playing'); if(currentBtn===btn) currentBtn=null; };
+  window.speechSynthesis.speak(u);
+});
+// Warm up voices list on load (Chrome quirk)
+if(window.speechSynthesis){
+  window.speechSynthesis.onvoiceschanged=()=>window.speechSynthesis.getVoices();
+  window.speechSynthesis.getVoices();
+}
 
 // ── DRILL MCQ · live select check ────────────────
 document.querySelectorAll('.drill-q select').forEach(sel=>{
