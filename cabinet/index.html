@@ -6,7 +6,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<script>(function(){var B='20260918-cabinet-data-contract-v18';if(location.search.indexOf('bust=')>-1)return;fetch('/cabinet/build.txt?_='+Date.now(),{cache:'no-store'}).then(function(r){return r.text()}).then(function(t){if(t.trim()!==B){location.href=location.pathname+'?bust='+Date.now()}}).catch(function(){})})();</script>
+<script>(function(){var B='20261026-cabinet-pinlink';if(location.search.indexOf('bust=')>-1)return;fetch('/cabinet/build.txt?_='+Date.now(),{cache:'no-store'}).then(function(r){return r.text()}).then(function(t){if(t.trim()!==B){var h=location.hash||'';location.href=location.pathname+'?bust='+Date.now()+h}}).catch(function(){})})();</script>
 <meta name="description" content="Вход в кабинет — New Generation English">
 <link rel="icon" type="image/svg+xml" href="data:," id="nofavicon">
 <title>Вход · NG English</title>
@@ -227,6 +227,32 @@
       });
     }
   }
+
+  // ----------- Deep-link PIN: /cabinet/#pin=2847 (или ?pin=2847) -----------
+  // Шерабельные ссылки для родителей — PIN запекается в URL, клиенту не надо
+  // набирать его вручную (iOS-автозамена ломает ввод, а пин 4 цифры = легко
+  // ошибиться). Если PIN найден — вставляется в поле, вычищается из адресной
+  // строки (чтобы не остался в истории/screenshot), форма сабмитится сама.
+  (function autoPinFromUrl() {
+    try {
+      var m = String(location.hash || "").match(/pin=(\d{3,8})/i);
+      if (!m) m = String(location.search || "").match(/[?&]pin=(\d{3,8})/i);
+      if (!m) return;
+      var pin = m[1];
+      var codeEl = document.getElementById("loginCode");
+      if (!codeEl) return;
+      codeEl.value = pin;
+      try { history.replaceState(null, "", location.pathname); } catch (_) {}
+      function trySubmit(retriesLeft) {
+        if (typeof NGECabinet !== "undefined" && NGECabinet.tryLogin) {
+          handleLoginSubmit();
+          return;
+        }
+        if (retriesLeft > 0) setTimeout(function () { trySubmit(retriesLeft - 1); }, 300);
+      }
+      setTimeout(function () { trySubmit(8); }, 100);
+    } catch (_) {}
+  })();
 
   rolePicker.querySelectorAll(".cab-role-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
