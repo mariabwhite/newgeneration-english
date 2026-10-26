@@ -70,19 +70,32 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
 
 /* HERO ─────────────────────────────────────────── */
 .hero{margin:0 0 28px}
-.hero-card{position:relative;border-radius:24px;overflow:hidden;box-shadow:var(--shadow-lg);line-height:0;background:linear-gradient(160deg,#1D0C2C 0%,#2E1748 55%,#4A1F5D 100%)}
-.hero-art{padding:38px 32px 30px;position:relative;line-height:1.4}
-.hero-art svg{position:absolute;right:14px;bottom:0;height:92%;max-height:260px;width:auto;opacity:.95;pointer-events:none}
+.hero-card{position:relative;border-radius:24px;overflow:hidden;box-shadow:var(--shadow-lg);line-height:0;background:#1D0C2C}
+.hero-card img.hero-bg{width:100%;height:auto;display:block}
+.hero-body{position:absolute;left:0;top:0;bottom:0;z-index:2;width:min(58%,620px);padding:clamp(24px,4vw,42px) clamp(22px,3vw,38px);display:flex;flex-direction:column;justify-content:center;gap:6px;line-height:1.45;color:#F5EEDC;
+  background:linear-gradient(90deg,rgba(26,14,36,.94) 0%,rgba(26,14,36,.82) 42%,rgba(26,14,36,.42) 78%,rgba(26,14,36,0) 100%)}
 .hero-eyebrow{font-family:var(--mono);font-size:.72rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-2)}
-.hero-title{font-family:var(--spooky),var(--display);font-size:clamp(2.3rem,5vw,3.6rem);font-weight:400;margin:10px 0 6px;line-height:1.04;color:var(--accent-3);text-shadow:0 2px 24px rgba(255,122,31,.4);letter-spacing:.01em}
-.hero-title em{font-style:italic;color:var(--ink);font-weight:500;display:block;font-size:.44em;margin-top:10px;letter-spacing:.02em;font-family:var(--display);text-shadow:none}
-.hero-lead{font-size:clamp(.94rem,1.2vw,1.02rem);line-height:1.55;max-width:62%;margin:14px 0 0;color:var(--ink-2)}
+.hero-title{font-family:var(--spooky),var(--display);font-size:clamp(2.3rem,5vw,3.6rem);font-weight:400;margin:10px 0 6px;line-height:1.04;color:var(--accent-3);text-shadow:0 2px 24px rgba(255,122,31,.5),0 0 40px rgba(0,0,0,.6);letter-spacing:.01em}
+.hero-title em{font-style:italic;color:var(--ink);font-weight:500;display:block;font-size:.44em;margin-top:10px;letter-spacing:.02em;font-family:var(--display);text-shadow:0 1px 8px rgba(0,0,0,.9)}
+.hero-lead{font-size:clamp(.94rem,1.2vw,1.02rem);line-height:1.55;max-width:520px;margin:14px 0 0;color:var(--ink-2);text-shadow:0 1px 6px rgba(0,0,0,.9)}
 .hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.hero-tag{font-family:var(--mono);font-size:.66rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,163,71,.14);border:1px solid rgba(255,163,71,.45);padding:6px 12px;border-radius:6px;color:var(--accent-3)}
-@media(max-width:720px){
-  .hero-art svg{position:relative;height:140px;display:block;margin:14px auto 0;right:auto}
-  .hero-lead{max-width:100%}
+.hero-tag{font-family:var(--mono);font-size:.66rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,163,71,.22);border:1px solid rgba(255,163,71,.55);padding:6px 12px;border-radius:6px;color:var(--accent-3);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+@media(max-width:820px){
+  .hero-body{position:relative;width:100%;padding:22px 20px;background:linear-gradient(180deg,rgba(26,14,36,.75) 0%,rgba(26,14,36,.95) 100%)}
 }
+
+/* SCENE IMAGE ─────────────────────────────────── */
+.scene-hero{position:relative;border-radius:14px;overflow:hidden;margin:10px 0 14px;box-shadow:var(--shadow);line-height:0;border:1px solid var(--line-2);cursor:zoom-in;background:var(--card-2)}
+.scene-hero img{width:100%;height:auto;display:block;transition:.2s}
+.scene-hero:hover img{opacity:.96}
+.scene-hero::after{content:"⌕";position:absolute;top:10px;right:10px;background:rgba(26,14,36,.75);color:#F5EEDC;font-size:.9rem;padding:4px 9px;border-radius:6px;pointer-events:none;font-family:var(--mono);font-weight:700;z-index:3;letter-spacing:.05em}
+.scene-caption{font-family:var(--mono);font-size:.66rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:-6px 0 14px;text-align:center}
+
+/* LIGHTBOX ────────────────────────────────────── */
+.lb-overlay{position:fixed;inset:0;background:rgba(10,5,20,.95);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px;cursor:zoom-out;backdrop-filter:blur(6px)}
+.lb-overlay.open{display:flex}
+.lb-overlay img{max-width:min(96vw,1400px);max-height:92vh;height:auto;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.8)}
+.lb-close{position:absolute;top:16px;right:20px;background:rgba(255,163,71,.2);border:1px solid rgba(255,163,71,.5);color:var(--accent-3);font-family:var(--mono);font-weight:800;font-size:.72rem;letter-spacing:.12em;padding:7px 12px;border-radius:6px;cursor:pointer;text-transform:uppercase}
 
 /* FLOATING STICKERS (per katya-10 canon) */
 .sticker{position:absolute;z-index:3;pointer-events:none;filter:drop-shadow(0 0 14px rgba(255,122,31,.55)) drop-shadow(0 0 6px rgba(255,214,110,.4))}
@@ -263,30 +276,20 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
 <!-- HERO ─────────────────────────────────────────────────────── -->
 <section class="hero section">
   <div class="hero-card">
+    <img class="hero-bg" src="assets/img/hero-boo-family-castle.webp" alt="Dracula, Morticia the witch, Wendy the ghost, Freddy the zombie, Grandma Mummy and Grandpa Skeleton standing in front of a haunted castle under the full moon">
     <!-- floating stickers (bat + pumpkin) -->
     <svg class="sticker bat" viewBox="0 0 64 48" aria-hidden="true"><path fill="#1B0A2A" stroke="#FFA347" stroke-width="1.6" d="M32 10c3-6 10-10 16-6-2 4-2 10 2 12-4 1-6 4-6 8 4-2 8-2 12 2-4 4-10 8-18 8-2 0-4-1-6-2-2 1-4 2-6 2-8 0-14-4-18-8 4-4 8-4 12-2 0-4-2-7-6-8 4-2 4-8 2-12 6-4 13 0 16 6z"/><circle cx="27" cy="18" r="1.6" fill="#FFA347"/><circle cx="37" cy="18" r="1.6" fill="#FFA347"/></svg>
     <svg class="sticker pumpkin" viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="36" rx="26" ry="22" fill="#FF7A1F" stroke="#C25010" stroke-width="2"/><ellipse cx="20" cy="36" rx="8" ry="22" fill="none" stroke="#C25010" stroke-width="2" opacity=".4"/><ellipse cx="44" cy="36" rx="8" ry="22" fill="none" stroke="#C25010" stroke-width="2" opacity=".4"/><path d="M32 14l-2-8 4 4 2-6-1 10z" fill="#5B9A3C" stroke="#2E5120" stroke-width="1.5"/><polygon points="22,30 28,28 25,34" fill="#FFF4A0"/><polygon points="42,30 36,28 39,34" fill="#FFF4A0"/><path d="M22 44 Q32 52 42 44 Q37 48 32 46 Q27 48 22 44 Z" fill="#FFF4A0"/></svg>
-    <div class="hero-art">
+    <div class="hero-body">
       <div class="hero-eyebrow">Lesson 01 · Halloween special · A1-A2</div>
       <h1 class="hero-title">Meet the Monster Family<em>Family vocab · have got · 's possessive · reading · listening · speaking · writing</em></h1>
-      <p class="hero-lead">Welcome to Pumpkin Hill. Here lives the Boo family: Dracula the dad, Morticia the witch mum, their daughter Wendy the ghost (she's 13 — like you!), their little brother Freddy the zombie, Grandma Mummy and Grandpa Skeleton. Today you'll meet all of them, learn their names, and sing <em>This Is Halloween</em> with them.</p>
+      <p class="hero-lead">Welcome to Pumpkin Hill. The Boo family: Dracula the dad, Morticia the witch mum, their daughter Wendy the ghost (she's 13 — like you!), their little brother Freddy the zombie, Grandma Mummy and Grandpa Skeleton. Today you'll meet all of them and sing <em>This Is Halloween</em>.</p>
       <div class="hero-meta">
         <span class="hero-tag">A1-A2 · kid</span>
         <span class="hero-tag">60-70 min</span>
         <span class="hero-tag">audio on every phrase</span>
         <span class="hero-tag">song + reading + speaking</span>
       </div>
-      <!-- Decorative moonlit castle SVG anchored right-bottom -->
-      <svg viewBox="0 0 300 200" aria-hidden="true">
-        <defs><radialGradient id="moon" cx=".5" cy=".5"><stop offset="0" stop-color="#FFF4C7"/><stop offset=".7" stop-color="#FFC247"/><stop offset="1" stop-color="#FF7A1F" stop-opacity="0"/></radialGradient></defs>
-        <circle cx="230" cy="50" r="42" fill="url(#moon)"/>
-        <path d="M0 200 L0 150 L25 150 L25 120 L45 120 L45 100 L55 90 L65 100 L65 120 L85 120 L85 100 L95 90 L105 100 L105 120 L125 120 L125 95 L140 80 L155 95 L155 120 L175 120 L175 150 L300 150 L300 200 Z" fill="#1A0A26" stroke="#4A1F5D" stroke-width="1.5"/>
-        <rect x="130" y="130" width="20" height="20" fill="#FFC247" opacity=".85"/>
-        <rect x="70" y="135" width="12" height="12" fill="#FFA347" opacity=".7"/>
-        <rect x="30" y="160" width="8" height="12" fill="#FFC247" opacity=".65"/>
-        <path d="M190 160 Q195 155 200 160 Q205 155 210 160 L210 170 L190 170 Z" fill="#4A1F5D"/>
-        <path d="M240 165 Q245 160 250 165 Q255 160 260 165 L260 175 L240 175 Z" fill="#4A1F5D"/>
-      </svg>
     </div>
   </div>
 </section>
@@ -336,6 +339,11 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
       </ul>
     </div>
 
+    <figure class="scene-hero">
+      <img src="assets/img/vocab-4-panel.webp" alt="Four portraits of the Boo family: Morticia the witch with a black cat, Dracula the vampire at the castle, Grandma Mummy sewing, and Freddy the zombie with Nibbles the bat" loading="lazy">
+    </figure>
+    <div class="scene-caption">· the Boo family · four portraits ·</div>
+
     <div class="sub-label">Flashcards · tap any card to flip · 🔊 to hear</div>
     <div class="fc-grid">
       <button class="fc-card" data-audio="fam-01"><span class="fc-emoji">🧙‍♀️</span><div class="fc-front">mother / mum<span class="ru">мама</span></div><div class="fc-back">Morticia is Wendy's mother. She is a witch.</div><span class="fc-hint">tap</span><span class="play" data-audio="fam-01"><svg><use href="#ic-play"/></svg></span></button>
@@ -369,6 +377,127 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
         <button class="match-item" data-pair="m5" data-side="r">двоюрод. брат</button>
       </div>
     </div>
+
+    <!-- ─ PART B · Extended Family + Family Tree ────────────── -->
+    <div class="theory" style="margin-top:28px">
+      <div class="th-eyebrow">Part B · 2 min</div>
+      <h3>10 more family words you need · parents, children, husband, wife …</h3>
+      <p>These are the words you'll meet in <strong>every</strong> English book, test, and story about families. They are easy — most of them are only one word.</p>
+      <ul>
+        <li><code>parents</code> — mum + dad together · <code>children</code> — kids</li>
+        <li><code>grandparents</code> — grandma + grandpa together</li>
+        <li><code>husband · wife</code> — муж/жена</li>
+        <li><code>son · daughter</code> — сын/дочка</li>
+        <li><code>twins</code> — brothers or sisters born on the same day</li>
+        <li><code>baby</code> — a newborn child · <code>family tree</code> — a picture of your whole family</li>
+      </ul>
+    </div>
+
+    <div class="sub-label">Flashcards · Part B · tap to flip · 🔊 to hear</div>
+    <div class="fc-grid">
+      <button class="fc-card" data-audio="ext-01"><span class="fc-emoji">🧛🧙‍♀️</span><div class="fc-front">parents<span class="ru">родители</span></div><div class="fc-back">Dracula and Morticia are Wendy's parents.</div><span class="fc-hint">tap</span><span class="play" data-audio="ext-01"><svg><use href="#ic-play"/></svg></span></button>
+      <button class="fc-card" data-audio="ext-02"><span class="fc-emoji">👴👵</span><div class="fc-front">grandparents<span class="ru">бабушка и дедушка</span></div><div class="fc-back">Vlad and Elvira are Wendy's grandparents. They live in Romania.</div><span class="fc-hint">tap</span><span class="play" data-audio="ext-02"><svg><use href="#ic-play"/></svg></span></button>
+      <button class="fc-card" data-audio="ext-03"><span class="fc-emoji">🤵</span><div class="fc-front">husband<span class="ru">муж</span></div><div class="fc-back">Dracula is Morticia's husband. They got married 500 years ago.</div><span class="fc-hint">tap</span><span class="play" data-audio="ext-03"><svg><use href="#ic-play"/></svg></span></button>
+      <button class="fc-card" data-audio="ext-04"><span class="fc-emoji">👰</span><div class="fc-front">wife<span class="ru">жена</span></div><div class="fc-back">Morticia is Dracula's wife. She wears black at every party.</div><span class="fc-hint">tap</span><span class="play" data-audio="ext-04"><svg><use href="#ic-play"/></svg></span></button>
+      <button class="fc-card" data-audio="ext-05"><span class="fc-emoji">👦</span><div class="fc-front">son<span class="ru">сын</span></div><div class="fc-back">Freddy is Dracula's son. He is ten years old.</div><span class="fc-hint">tap</span><span class="play" data-audio="ext-05"><svg><use href="#ic-play"/></svg></span></button>
+      <button class="fc-card" data-audio="ext-06"><span class="fc-emoji">👧</span><div class="fc-front">daughter<span class="ru">дочь</span></div><div class="fc-back">Wendy is Morticia's daughter. She is thirteen.</div><span class="fc-hint">tap</span><span class="play" data-audio="ext-06"><svg><use href="#ic-play"/></svg></span></button>
+      <button class="fc-card" data-audio="ext-07"><span class="fc-emoji">👯‍♂️</span><div class="fc-front">twins<span class="ru">близнецы</span></div><div class="fc-back">Rick and Ricky are twin skeleton cousins. They look exactly the same.</div><span class="fc-hint">tap</span><span class="play" data-audio="ext-07"><svg><use href="#ic-play"/></svg></span></button>
+      <button class="fc-card" data-audio="ext-08"><span class="fc-emoji">👶</span><div class="fc-front">baby<span class="ru">малыш</span></div><div class="fc-back">Peony is a baby ghost. She is the new sister in the family.</div><span class="fc-hint">tap</span><span class="play" data-audio="ext-08"><svg><use href="#ic-play"/></svg></span></button>
+      <button class="fc-card" data-audio="ext-09"><span class="fc-emoji">🧒👧👦</span><div class="fc-front">children<span class="ru">дети</span></div><div class="fc-back">Dracula and Morticia have got three children now.</div><span class="fc-hint">tap</span><span class="play" data-audio="ext-09"><svg><use href="#ic-play"/></svg></span></button>
+      <button class="fc-card" data-audio="ext-10"><span class="fc-emoji">🌳</span><div class="fc-front">family tree<span class="ru">семейное древо</span></div><div class="fc-back">Here is the Boo family tree — four generations of monsters.</div><span class="fc-hint">tap</span><span class="play" data-audio="ext-10"><svg><use href="#ic-play"/></svg></span></button>
+    </div>
+
+    <!-- Family Tree SVG · 3 generations of Boo monsters -->
+    <div class="sub-label">The Boo Family Tree</div>
+    <div style="background:var(--card-2);border:1.5px solid var(--line-2);border-radius:14px;padding:18px;overflow:auto">
+      <svg viewBox="0 0 760 430" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:760px;height:auto;display:block;margin:0 auto;font-family:var(--body)">
+        <!-- lines / connectors -->
+        <g stroke="#FFA347" stroke-width="2" fill="none" opacity=".7">
+          <!-- grandparents -> Dracula -->
+          <path d="M160 95 L160 125 L360 125 L360 160"/>
+          <!-- Dracula + Morticia -> children -->
+          <path d="M360 230 L360 265 L600 265 L600 300"/>
+          <path d="M360 230 L360 265 L420 265 L420 300"/>
+          <path d="M360 230 L360 265 L240 265 L240 300"/>
+          <!-- Luna + Wolfy -> twins -->
+          <path d="M620 95 L620 125 L720 125 L720 265 L720 300"/>
+          <path d="M620 95 L620 125 L720 125 L720 265 L690 300"/>
+        </g>
+        <!-- labels -->
+        <!-- Generation 1: grandparents (Vlad + Elvira) -->
+        <g>
+          <rect x="80" y="40" width="160" height="56" rx="10" fill="#3C224F" stroke="#FFC247" stroke-width="1.5"/>
+          <text x="160" y="62" text-anchor="middle" fill="#FFC247" font-size="13" font-weight="700">👴 Vlad + 👵 Elvira</text>
+          <text x="160" y="80" text-anchor="middle" fill="#DCCCB4" font-size="10.5">grandparents · from Romania</text>
+        </g>
+        <!-- Generation 2: Dracula + Morticia (center) AND Luna + Wolfy (right) -->
+        <g>
+          <rect x="280" y="160" width="170" height="68" rx="10" fill="#4A1F5D" stroke="#FFA347" stroke-width="1.5"/>
+          <text x="365" y="182" text-anchor="middle" fill="#FFA347" font-size="13" font-weight="700">🧛 Dracula + 🧙‍♀️ Morticia</text>
+          <text x="365" y="200" text-anchor="middle" fill="#DCCCB4" font-size="10.5">husband + wife · parents</text>
+          <text x="365" y="217" text-anchor="middle" fill="#9A8AA6" font-size="9.5">married 500 years ago</text>
+        </g>
+        <g>
+          <rect x="540" y="40" width="160" height="56" rx="10" fill="#3C224F" stroke="#FFC247" stroke-width="1.5"/>
+          <text x="620" y="62" text-anchor="middle" fill="#FFC247" font-size="13" font-weight="700">🧚 Luna + 🐺 Wolfy</text>
+          <text x="620" y="80" text-anchor="middle" fill="#DCCCB4" font-size="10.5">aunt + uncle</text>
+        </g>
+        <!-- Generation 3: children + cousins -->
+        <g>
+          <rect x="170" y="300" width="140" height="56" rx="10" fill="#4A1F5D" stroke="#FFA347" stroke-width="1.5"/>
+          <text x="240" y="322" text-anchor="middle" fill="#FFA347" font-size="13" font-weight="700">👻 Wendy</text>
+          <text x="240" y="340" text-anchor="middle" fill="#DCCCB4" font-size="10.5">daughter · 13</text>
+        </g>
+        <g>
+          <rect x="350" y="300" width="140" height="56" rx="10" fill="#4A1F5D" stroke="#FFA347" stroke-width="1.5"/>
+          <text x="420" y="322" text-anchor="middle" fill="#FFA347" font-size="13" font-weight="700">🧟 Freddy</text>
+          <text x="420" y="340" text-anchor="middle" fill="#DCCCB4" font-size="10.5">son · 10</text>
+        </g>
+        <g>
+          <rect x="530" y="300" width="140" height="56" rx="10" fill="#4A1F5D" stroke="#FFA347" stroke-width="1.5"/>
+          <text x="600" y="322" text-anchor="middle" fill="#FFA347" font-size="13" font-weight="700">👶 Peony</text>
+          <text x="600" y="340" text-anchor="middle" fill="#DCCCB4" font-size="10.5">baby daughter</text>
+        </g>
+        <g>
+          <rect x="680" y="300" width="70" height="56" rx="10" fill="#3C224F" stroke="#FFC247" stroke-width="1.5"/>
+          <text x="715" y="320" text-anchor="middle" fill="#FFC247" font-size="12" font-weight="700">💀 Rick</text>
+          <text x="715" y="337" text-anchor="middle" fill="#FFC247" font-size="12" font-weight="700">💀 Ricky</text>
+          <text x="715" y="350" text-anchor="middle" fill="#DCCCB4" font-size="9">twin cousins</text>
+        </g>
+        <!-- gen labels (left side) -->
+        <text x="10" y="68" fill="#9A8AA6" font-size="10" font-family="monospace" letter-spacing="2">GEN 1</text>
+        <text x="10" y="195" fill="#9A8AA6" font-size="10" font-family="monospace" letter-spacing="2">GEN 2</text>
+        <text x="10" y="328" fill="#9A8AA6" font-size="10" font-family="monospace" letter-spacing="2">GEN 3</text>
+      </svg>
+    </div>
+
+    <figure class="scene-hero" style="margin-top:14px">
+      <img src="assets/img/scene-luna-wolfy-twins-peony.webp" alt="Baby ghost Peony held by a ghost mother, Aunt Luna the purple fairy in a hat, Uncle Wolfy the werewolf in a vest, and two twin skeleton boys standing in a castle hall" loading="lazy">
+    </figure>
+    <div class="scene-caption">· Luna, Wolfy, the twin cousins Rick &amp; Ricky, and baby Peony ·</div>
+
+    <div class="sub-label">Mini-reading · listen & read</div>
+    <div class="read-audio-bar">
+      <span class="play big" data-audio="ext-tree-full"><svg><use href="#ic-play"/></svg></span>
+      <span class="label">▶ The Boo Family Tree · ≈40 sec</span>
+    </div>
+    <div class="read-text">
+      <p>The Boo family is big. <b>Dracula</b> and <b>Morticia</b> are <em>husband</em> and <em>wife</em>. They are Wendy's <em>parents</em>. Dracula's mum and dad live in Romania. They are <b>Vlad</b> and <b>Elvira</b> — Wendy's <em>grandparents</em>.</p>
+      <p>Morticia has got a <em>sister</em> called <b>Luna</b>. Luna is Wendy's <em>aunt</em>. Luna is married to Uncle Wolfy. Together they have got <em>twin</em> boys — <b>Rick</b> and <b>Ricky</b>. They are Wendy's <em>cousins</em>.</p>
+      <p>Last Halloween the family had a new <em>baby</em> — a little ghost called <b>Peony</b>. Now Dracula and Morticia have got three <em>children</em>: Wendy, Freddy and baby Peony. One big spooky family tree!</p>
+    </div>
+
+    <div class="sub-label">Drill · fill the family word (gap-fill)</div>
+    <div class="drill-q"><div class="q-text">Dracula and Morticia are Wendy's <input type="text" class="type-in" data-a="parents" placeholder="___" style="width:140px">.</div></div>
+    <div class="drill-q"><div class="q-text">Vlad and Elvira are Wendy's <input type="text" class="type-in" data-a="grandparents" placeholder="___" style="width:160px">.</div></div>
+    <div class="drill-q"><div class="q-text">Morticia is Dracula's <input type="text" class="type-in" data-a="wife" placeholder="___" style="width:120px">.</div></div>
+    <div class="drill-q"><div class="q-text">Dracula is Morticia's <input type="text" class="type-in" data-a="husband" placeholder="___" style="width:140px">.</div></div>
+    <div class="drill-q"><div class="q-text">Wendy is Morticia's <input type="text" class="type-in" data-a="daughter" placeholder="___" style="width:140px">.</div></div>
+    <div class="drill-q"><div class="q-text">Freddy is Dracula's <input type="text" class="type-in" data-a="son" placeholder="___" style="width:120px">.</div></div>
+    <div class="drill-q"><div class="q-text">Rick and Ricky are <input type="text" class="type-in" data-a="twins" placeholder="___" style="width:120px"> — they look the same.</div></div>
+    <div class="drill-q"><div class="q-text">Peony is a tiny <input type="text" class="type-in" data-a="baby" placeholder="___" style="width:100px"> ghost.</div></div>
+    <div class="drill-q"><div class="q-text">The Boos have got three <input type="text" class="type-in" data-a="children" placeholder="___" style="width:140px"> now.</div></div>
+    <div class="drill-q"><div class="q-text">Here is the Boo family <input type="text" class="type-in" data-a="tree" placeholder="___" style="width:100px"> — three generations of monsters.</div></div>
   </div>
 </section>
 
@@ -464,6 +593,11 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
       </ul>
     </div>
 
+    <figure class="scene-hero">
+      <img src="assets/img/scene-family-couch.webp" alt="The whole Boo family sitting together on a purple velvet couch by a fireplace: Dracula and Morticia behind, Wendy the ghost beside Freddy the zombie holding Nibbles, Grandma Mummy and Grandpa Skeleton on the right" loading="lazy">
+    </figure>
+    <div class="scene-caption">· the Boo family at home ·</div>
+
     <div class="sub-label">Part A · press ▶ and listen · do not read yet</div>
     <div class="read-audio-bar">
       <span class="play big" data-audio="rd-full"><svg><use href="#ic-play"/></svg></span>
@@ -474,6 +608,12 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
     <div class="read-text">
       <p>On top of <b>Pumpkin Hill</b>, in a big dark castle, lives <b>the Boo family</b>. The father is <b>Dracula</b>. He is a vampire. He sleeps all day and works all night. The mother is <b>Morticia</b>. She is a witch and she has a big black cat.</p>
       <p>Dracula and Morticia have got two children. Their daughter is <b>Wendy</b>. She is <em>thirteen</em>, like a human girl, but she is a friendly ghost. Wendy's little brother is <b>Freddy</b>. He is <em>ten</em> and he is a slow, hungry zombie. He loves pizza.</p>
+    </div>
+    <figure class="scene-hero" style="max-width:480px;margin:14px auto 10px">
+      <img src="assets/img/scene-freddy-pizza-bat.webp" alt="Freddy the zombie boy in an orange hoodie smiling and holding a big slice of cheesy pizza in his bedroom, with Nibbles the bat flying beside him and a bowl of fruit on the table" loading="lazy">
+    </figure>
+    <div class="scene-caption">· Freddy and Nibbles · "He loves pizza." ·</div>
+    <div class="read-text">
       <p>Grandma <b>Mummy</b> and Grandpa <b>Skeleton</b> live in the tower upstairs. Grandma is three thousand years old and she tells very long stories. Grandpa has no teeth, so he loves soup.</p>
       <p>The family pet is a small bat. His name is <b>Nibbles</b>. He sleeps in Freddy's bedroom and he eats fruit. Every Halloween the Boo family throws a big party. They are a spooky but very happy family.</p>
     </div>
@@ -509,6 +649,11 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
       <h3>Wendy shows her family photo</h3>
       <p>Wendy brings a photo album to school. Her friend <strong>Lily</strong> asks about every person. Listen and fill the gaps. Use the family words from Section 2.</p>
     </div>
+
+    <figure class="scene-hero">
+      <img src="assets/img/scene-wendy-school.webp" alt="Wendy the ghost girl with white glowing hair arrives at the castle school with a purple backpack, autumn leaves and pumpkins around the entrance" loading="lazy">
+    </figure>
+    <div class="scene-caption">· Wendy arrives at school with her photo album ·</div>
 
     <div class="sub-label">Dialogue · listen line by line (▶)</div>
     <div class="dialogue">
@@ -677,6 +822,7 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
 
 </div>
 
+<div class="lb-overlay" id="lb"><button class="lb-close">Close</button><img alt=""></div>
 <audio id="global-audio"></audio>
 
 <script>
@@ -882,6 +1028,20 @@ document.querySelectorAll('.match-col').forEach(col=>{
   // Final sweep: append in current random order
   [...col.children].sort(()=>Math.random()-0.5).forEach(c=>col.appendChild(c));
 });
+
+// ── LIGHTBOX for scene images ─────────────────────
+(function(){
+  const lb=document.getElementById('lb'); if(!lb) return;
+  const lbImg=lb.querySelector('img');
+  document.querySelectorAll('.scene-hero').forEach(fig=>{
+    fig.addEventListener('click',()=>{
+      const im=fig.querySelector('img'); if(!im) return;
+      lbImg.src=im.src; lbImg.alt=im.alt||''; lb.classList.add('open');
+    });
+  });
+  lb.addEventListener('click',()=>lb.classList.remove('open'));
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') lb.classList.remove('open'); });
+})();
 </script>
 
 </body>
