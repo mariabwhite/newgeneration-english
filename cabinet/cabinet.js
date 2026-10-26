@@ -419,7 +419,6 @@
       </div>
 
       <div class="cab-grid">
-        ${_renderLessonsCard(student, { interactive: true })}
         <article class="cab-card">
           <h3>Профиль</h3>
           <div class="cab-card-row"><span class="cab-row-label">Имя</span><span class="cab-row-value">${_esc(student.name)}</span></div>
@@ -441,6 +440,7 @@
         ${_renderMaterialsCard(student, { studentView: true })}
         ${_renderContractsCard(student, { studentView: true })}
 
+        ${_renderLessonsCard(student, { interactive: true })}
       </div>
 
     `;
@@ -1947,7 +1947,6 @@
       </div>
 
       <div class="cab-grid">
-        ${_renderLessonsCard(student, { interactive: false })}
         <article class="cab-card">
           <h3>Ученик</h3>
           <div class="cab-card-row"><span class="cab-row-label">Имя</span><span class="cab-row-value">${_esc(student.name)}</span></div>
@@ -1980,6 +1979,7 @@
 
         ${_renderContractsCard(student)}
 
+        ${_renderLessonsCard(student, { interactive: false })}
       </div>
 
       <p class="cab-mvp-note">
