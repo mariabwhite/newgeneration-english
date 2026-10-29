@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Отчёт · Андрей Круглов · октябрьский абонемент · закрыт 29 октября 2026</title>
+<style>
+  :root{
+    --bg:#E9E7E2;
+    --paper:#FFFFFF;
+    --cream:#EFEEE9;
+    --cream-soft:#F4F3EE;
+    --orange:#E8542B;
+    --orange-soft:#F4A86A;
+    --gold:#F4C84B;
+    --gold-soft:#FFF3CE;
+    --green:#5BA872;
+    --green-soft:#E5F1E9;
+    --ink:#1F1F1F;
+    --ink-2:#2C2C2C;
+    --muted:#7B7B7B;
+    --rule:#D9D7D2;
+    --tag-bg:#FFF1E8;
+    --tag-border:#F0C7AE;
+    --tag-ink:#A5421F;
+    --table-head:#F7F4EE;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;
+    font-size:14.5px; line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  .page{
+    max-width:210mm; margin:18px auto;
+    background:var(--paper);
+    box-shadow:0 12px 40px rgba(0,0,0,.10);
+    padding:0 0 32px;
+  }
+  .hero{ background:var(--cream); padding:30px 44px 30px; position:relative; }
+  .hero::after{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:4px;
+    background:linear-gradient(90deg,var(--orange) 0%,var(--orange) 55%,var(--gold) 100%);
+  }
+  .brandline{display:flex; align-items:center; gap:12px; margin-bottom:10px;}
+  .logo{
+    width:38px;height:38px;border-radius:9px;background:var(--orange);
+    color:#fff;font-weight:800;font-size:22px;display:grid;place-items:center;line-height:1;
+    box-shadow:0 2px 4px rgba(232,84,43,.25);
+  }
+  .brand-name{font-weight:800;letter-spacing:.06em;font-size:14.5px;}
+  .brand-sub{font-size:11px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;font-weight:500;margin-top:2px;}
+  .kicker{margin-top:14px;font-size:11px;letter-spacing:.22em;color:var(--orange);text-transform:uppercase;font-weight:700;}
+  h1.title{font-size:32px;line-height:1.1;margin:6px 0 6px;color:var(--ink);letter-spacing:-.01em;font-weight:800;}
+  p.subtitle{margin:0;font-size:14px;color:var(--ink-2);max-width:62ch;}
+
+  .meta{
+    padding:18px 44px 4px;
+    display:grid; grid-template-columns:repeat(3,1fr); gap:14px 22px;
+  }
+  .meta dt{font-size:10.5px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;font-weight:600;margin-bottom:3px;}
+  .meta dd{margin:0;font-size:14px;font-weight:700;}
+  .meta-rule{margin:18px 44px 8px;border:0;height:1px;background:var(--rule);}
+
+  section.chapter{padding:20px 44px 4px; scroll-margin-top:14px;}
+  h2{
+    margin:8px 0 14px; padding-left:14px; position:relative;
+    font-size:20px; font-weight:800; letter-spacing:-.005em;
+  }
+  h2::before{content:""; position:absolute; left:0; top:6px; bottom:6px; width:4px; background:var(--orange); border-radius:2px;}
+  h2 .ch-num{color:var(--orange); margin-right:6px;}
+  h3{font-size:12.5px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;font-weight:700;margin:16px 0 8px;}
+  ul.bul{list-style:none;padding:0;margin:0 0 12px;}
+  ul.bul li{position:relative;padding:4px 0 4px 22px;}
+  ul.bul li::before{content:"";position:absolute;left:4px;top:13px;width:7px;height:7px;border-radius:50%;background:var(--orange);}
+  ul.bul li b, ul.bul li .lex{color:var(--orange);font-weight:700;margin-right:6px;}
+
+  .tag-row{display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 14px;}
+  .tag{
+    font-size:12px;font-weight:600;color:var(--tag-ink);
+    background:var(--tag-bg); border:1px solid var(--tag-border);
+    padding:4px 10px; border-radius:999px;
+  }
+  .tag.green{color:#2f6f43;background:var(--green-soft);border-color:#c1e0cc;}
+  .tag.gold{color:#7a5c00;background:var(--gold-soft);border-color:#e5c76b;}
+
+  table.t{
+    width:100%; border-collapse:collapse; margin:10px 0 14px;
+    font-size:13.5px; background:#fff; border:1px solid var(--rule); border-radius:10px; overflow:hidden;
+  }
+  table.t th, table.t td{padding:9px 11px; text-align:left; border-bottom:1px solid var(--rule); vertical-align:top;}
+  table.t th{background:var(--table-head); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:700;}
+  table.t tr:last-child td{border-bottom:0;}
+  table.t td.num{font-weight:800;color:var(--orange);width:34px;text-align:center;}
+  table.t td.date{color:var(--muted);white-space:nowrap;font-family:"JetBrains Mono",Consolas,monospace;font-size:12px;}
+  table.t td.tag-cell{text-align:right;white-space:nowrap;}
+  .status-pill{font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:999px;letter-spacing:.06em;}
+  .status-pill.done{background:var(--green-soft);color:#2f6f43;border:1px solid #c1e0cc;}
+  .status-pill.plan{background:var(--cream-soft);color:var(--muted);border:1px solid var(--rule);}
+  .status-pill.cancel{background:#f3eaea;color:#8a4848;border:1px solid #e0c6c6;}
+
+  .callout{
+    background:var(--cream-soft); border:1px solid var(--rule); border-left:4px solid var(--orange);
+    border-radius:10px; padding:14px 18px; margin:14px 0;
+  }
+  .callout.gold{border-left-color:var(--gold); background:var(--gold-soft);}
+  .callout.green{border-left-color:var(--green); background:var(--green-soft);}
+  .callout h4{margin:0 0 6px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);font-weight:800;}
+  .callout.gold h4{color:#7a5c00}
+  .callout.green h4{color:#2f6f43}
+
+  .lex-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 22px;margin:10px 0 14px;}
+  .lex-grid ul.bul li{padding:3px 0 3px 20px;font-size:13.5px}
+  .lex-grid ul.bul li code{font-family:"JetBrains Mono",Consolas,monospace;font-size:12.5px;background:var(--cream-soft);padding:1px 6px;border-radius:4px;color:var(--ink-2)}
+  .lex-grid h3{margin-top:4px}
+  @media (max-width:640px){.lex-grid{grid-template-columns:1fr}}
+
+  .phrases{margin:10px 0 14px;padding:14px 18px;background:var(--cream-soft);border:1px solid var(--rule);border-radius:10px;font-size:13.5px;line-height:1.7}
+  .phrases em{color:var(--ink);font-style:italic}
+  .phrases .sep{color:var(--orange);font-weight:700;padding:0 6px}
+
+  .signature{margin:20px 44px 0;padding-top:16px;border-top:1px solid var(--rule);color:var(--muted);font-size:12.5px;}
+
+  @media print {
+    body{background:#fff;}
+    .page{box-shadow:none;margin:0;}
+  }
+  @media (max-width:640px){
+    .meta{grid-template-columns:1fr 1fr;padding:18px 22px 4px}
+    .meta-rule{margin:18px 22px 8px}
+    .hero{padding:22px 22px}
+    section.chapter{padding:20px 22px 4px}
+    .signature{margin:20px 22px 0}
+  }
+</style>
+</head>
+<body>
+<article class="page">
+
+  <header class="hero">
+    <div class="brandline">
+      <div class="logo">N</div>
+      <div>
+        <div class="brand-name">NEW GENERATION ENGLISH</div>
+        <div class="brand-sub">Maria Burtseva · Parent Report</div>
+      </div>
+    </div>
+    <div class="kicker">Отчёт · октябрьский абонемент · закрыт 29 октября</div>
+    <h1 class="title">Андрей Круглов · итог октября 2026</h1>
+    <p class="subtitle">Октябрьский абонемент закрыт сегодня. Содержательно это был блок <b>Legal English</b> &mdash; смежная C1-тема, которую мы взяли сразу после финальной диагностики TOEFL, чтобы держать активный лексический запас и формальный register на уровне.</p>
+  </header>
+
+  <dl class="meta">
+    <div><dt>Цель</dt><dd>подготовка к TOEFL · держим C1 уровень</dd></div>
+    <div><dt>Период абонемента</dt><dd>16 окт – 29 окт 2026</dd></div>
+    <div><dt>Абонемент</dt><dd>закрыт · 4 из 4</dd></div>
+    <div><dt>Фокус месяца</dt><dd>Legal English + Mock review</dd></div>
+    <div><dt>Формат</dt><dd>онлайн · 60 мин</dd></div>
+    <div><dt>Следующий шаг</dt><dd>новый абонемент / продолжение Legal + следующий mock</dd></div>
+  </dl>
+
+  <hr class="meta-rule">
+
+  <!-- 1. Что это за абонемент -->
+  <section class="chapter">
+    <h2><span class="ch-num">1</span>Что это за абонемент</h2>
+
+    <p>Это <b>октябрьский абонемент</b>, 4 занятия. Он начался 16 октября (сразу после закрытия сентябрьского блока с финальной диагностикой TOEFL) и закрылся сегодня, 29 октября.</p>
+
+    <p>Содержательно абонемент был выстроен как <b>Legal English</b>: сначала мы доработали оставшийся mock-разбор и прошли <b>Vocab C1 · 74 слова</b> (повторение академической лексики на новом материале), затем перешли к <b>кейсу «Marta vs Golden Crust»</b> &mdash; классическому teaching-кейсу (англо-американская судебная терминология · US + UK vocab · 3 audio · maps + target constructions). На последнем уроке Андрей взял финальный Lab-модуль <b>Business &amp; Legal English</b> &mdash; большой C1-дрилл по lawsuits · contracts · corporate disputes · M&amp;A · torts · settlements · trademarks с обывательскими провокациями на каждую группу слов.</p>
+
+    <p>Смысл октября &mdash; <b>держим уровень</b>. После сентябрьской финальной диагностики TOEFL (B2+ ceiling) мы не стояли на месте и не делали «паузу до даты экзамена»: взяли смежную C1-тему, где активный лексический запас и формальный register остаются в работе каждый урок.</p>
+  </section>
+
+  <!-- 2. Таблица 4 строки -->
+  <section class="chapter">
+    <h2><span class="ch-num">2</span>Календарь абонемента</h2>
+
+    <table class="t">
+      <thead><tr><th class="num">#</th><th>Дата</th><th>Тема</th><th class="tag-cell">Статус</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="num">1</td>
+          <td class="date">21 окт</td>
+          <td>Diagnostic Mock · session 2/2 (разбор ответов) + Vocab C1 · 74 слова (повторение)</td>
+          <td class="tag-cell"><span class="status-pill done">пройдено</span></td>
+        </tr>
+        <tr>
+          <td class="num">2</td>
+          <td class="date">22 окт</td>
+          <td>Legal English teaching · <b>Marta vs Golden Crust</b> (US + UK legal vocab, 3 audio, maps, target constructions) + Vocab C1 · 74 слова + Mock grey</td>
+          <td class="tag-cell"><span class="status-pill done">пройдено</span></td>
+        </tr>
+        <tr>
+          <td class="num">3</td>
+          <td class="date">28 окт</td>
+          <td>Legal English teaching · <b>Marta vs Golden Crust</b> (разбор кейса, продолжение) + Mock session 2/2 + Vocab C1 + Mock grey</td>
+          <td class="tag-cell"><span class="status-pill done">пройдено</span></td>
+        </tr>
+        <tr>
+          <td class="num">4</td>
+          <td class="date">29 окт</td>
+          <td>Legal English teaching · Marta vs Golden Crust (финал кейса) + <b>Business &amp; Legal English</b> &mdash; большой C1-дрилл (lawsuits · contracts · corporate disputes · M&amp;A · torts) + Vocab C1 + Mock grey</td>
+          <td class="tag-cell"><span class="status-pill done">пройдено</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 3. Отработанная лексика -->
+  <section class="chapter">
+    <h2><span class="ch-num">3</span>Отработанная лексика · Legal English</h2>
+
+    <p>Это <b>не просто темы</b> &mdash; конкретные слова, с которыми Андрей работал по карточкам и упражнениям Lab. Два блока ниже &mdash; реальные колоды из Business &amp; Legal English урока.</p>
+
+    <h3 style="margin-top:18px">А · Legal verbs &amp; nominalisations · 16 карточек</h3>
+    <p style="font-size:13px;color:var(--muted);margin-top:-4px">Глагольный каркас судебного процесса &mdash; от подачи иска до апелляции.</p>
+    <div class="lex-grid">
+      <div>
+        <ul class="bul">
+          <li><code>to sue</code> &mdash; подать в суд (civil)</li>
+          <li><code>to prosecute</code> &mdash; преследовать (criminal)</li>
+          <li><code>to allege</code> &mdash; утверждать без доказательств</li>
+          <li><code>to breach</code> &mdash; нарушить (договор)</li>
+          <li><code>to settle</code> &mdash; досудебное урегулирование</li>
+          <li><code>to indict</code> &mdash; предъявить обвинение</li>
+          <li><code>to uphold</code> &mdash; поддержать (решение)</li>
+          <li><code>to overturn</code> &mdash; отменить (решение)</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="bul">
+          <li><code>to dismiss</code> &mdash; отклонить (дело)</li>
+          <li><code>to remand</code> &mdash; вернуть в нижестоящий суд</li>
+          <li><code>to enjoin</code> &mdash; запретить судебным порядком</li>
+          <li><code>to compel</code> &mdash; принудить (к действию)</li>
+          <li><code>to waive</code> &mdash; отказаться (от права)</li>
+          <li><code>to mitigate damages</code> &mdash; снизить ущерб</li>
+          <li><code>to file a motion</code> &mdash; подать ходатайство</li>
+          <li><code>to serve notice</code> &mdash; вручить уведомление</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:18px">Б · Business &amp; corporate-legal collocations · 16 карточек</h3>
+    <p style="font-size:13px;color:var(--muted);margin-top:-4px">Коллокации, которые встречаются в любом контракте: от NDA до force majeure.</p>
+    <div class="lex-grid">
+      <div>
+        <ul class="bul">
+          <li><code>non-disclosure agreement</code> &mdash; NDA</li>
+          <li><code>due diligence</code> &mdash; предпродажная проверка</li>
+          <li><code>intellectual property</code> &mdash; IP</li>
+          <li><code>hostile takeover</code> &mdash; враждебное поглощение</li>
+          <li><code>fiduciary duty</code> &mdash; фидуциарная обязанность</li>
+          <li><code>material adverse change</code> &mdash; MAC clause</li>
+          <li><code>limitation of liability</code> &mdash; ограничение ответственности</li>
+          <li><code>force majeure</code> &mdash; форс-мажор</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="bul">
+          <li><code>indemnification clause</code> &mdash; возмещение</li>
+          <li><code>non-compete</code> &mdash; обязательство о неконкуренции</li>
+          <li><code>arbitration clause</code> &mdash; арбитражная оговорка</li>
+          <li><code>governing law</code> &mdash; применимое право</li>
+          <li><code>severability</code> &mdash; делимость условий</li>
+          <li><code>assignment of rights</code> &mdash; уступка прав</li>
+          <li><code>representations and warranties</code> &mdash; заверения и гарантии</li>
+          <li><code>piercing the corporate veil</code> &mdash; снятие корпоративной защиты</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:18px">В · Marta vs Golden Crust case · ключевые термины</h3>
+    <p style="font-size:13px;color:var(--muted);margin-top:-4px">Процессуальная терминология судебного кейса &mdash; разложена по этапам (US civil procedure).</p>
+    <div class="lex-grid">
+      <div>
+        <ul class="bul">
+          <li><code>complaint</code> &mdash; первичный иск истца</li>
+          <li><code>service</code> &mdash; вручение иска ответчику</li>
+          <li><code>answer</code> &mdash; письменный ответ ответчика</li>
+          <li><code>motion</code> &mdash; процессуальное ходатайство</li>
+          <li><code>hearing</code> &mdash; процессуальное слушание</li>
+          <li><code>discovery</code> &mdash; обмен доказательствами</li>
+        </ul>
+      </div>
+      <div>
+        <ul class="bul">
+          <li><code>deposition</code> &mdash; допрос свидетеля под присягой</li>
+          <li><code>trial</code> &mdash; судебное разбирательство</li>
+          <li><code>verdict</code> &mdash; вердикт присяжных</li>
+          <li><code>judgment</code> &mdash; письменное решение суда</li>
+          <li><code>sentencing</code> &mdash; назначение наказания</li>
+          <li><code>appeal</code> &mdash; апелляция</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Устные формулы -->
+  <section class="chapter">
+    <h2><span class="ch-num">4</span>Legal hedges · для устного ответа</h2>
+
+    <p>Шесть формул, которые Андрей проговаривал на провокациях Business &amp; Legal дрилла. Задача &mdash; чтобы они приходили в речь автоматически, без паузы на подбор формулировки.</p>
+
+    <div class="phrases">
+      <em>subject to the facts</em><span class="sep">·</span>
+      <em>on balance</em><span class="sep">·</span>
+      <em>as a matter of principle</em><span class="sep">·</span>
+      <em>by way of background</em><span class="sep">·</span>
+      <em>in the ordinary course</em><span class="sep">·</span>
+      <em>insofar as X, Y</em>
+    </div>
+  </section>
+
+  <!-- 5. C1 structures (continued from Sep) -->
+  <section class="chapter">
+    <h2><span class="ch-num">5</span>C1 конструкции &middot; продолжение сентября</h2>
+
+    <p>Три перефраз-шаблона, которые мы подняли из сентябрьского LSW-урока и прогнали на юридическом материале &mdash; теперь они работают не только на TOEFL-темах, но и в legal register.</p>
+
+    <ul class="bul">
+      <li><b>It-cleft</b> &mdash; <code>It is due diligence that protects acquirers.</code> (выделить WHO/WHAT)</li>
+      <li><b>Not only &hellip; but also</b> + инверсия &mdash; <code>Not only does the clause cap damages, but it also waives jury trial.</code></li>
+      <li><b>Participle clause / reduced relative</b> &mdash; <code>The complaint, filed last March, named three defendants.</code> (компактно, академично)</li>
+      <li><b>Nominalisation</b> &mdash; <code>The decision to settle calmed the market.</code> (verb → noun, стекает плотность)</li>
+      <li><b>Impersonal passive</b> &mdash; <code>It is assumed that the deal will close by December.</code> (формальный report)</li>
+      <li><b>Inverted conditional</b> &mdash; <code>Were the governing law New York, enforcement would be easier.</code></li>
+    </ul>
+  </section>
+
+  <!-- 6. Абонемент -->
+  <section class="chapter">
+    <h2><span class="ch-num">6</span>Абонемент</h2>
+
+    <div class="callout green">
+      <h4>Абонемент закрыт · 4 из 4</h4>
+      Октябрьский абонемент закрыт сегодня, 29 октября. Все четыре урока проведены, без переносов.
+    </div>
+  </section>
+
+  <!-- 7. Что дальше -->
+  <section class="chapter">
+    <h2><span class="ch-num">7</span>Что дальше</h2>
+
+    <p>Следующий абонемент согласуем с Юлией Борисовной отдельно. В ноябре логично либо продолжить Legal English (кейсов и материала хватит ещё на несколько уроков), либо вернуться на TOEFL mock-формат &mdash; как только появится определённость с датой экзамена.</p>
+
+    <div class="callout">
+      <h4>Коротко про Андрея</h4>
+      Андрей держит C1-уровень ровно. Legal-блок зашёл спокойно &mdash; он уверенно переключился со science/TOEFL контекста на юридический, не теряя формального register. На провокациях Business &amp; Legal дрилла &mdash; говорит содержательно, с привлечением вокаба из карточек.
+    </div>
+  </section>
+
+  <p class="signature">Отчёт подготовила Мария Витальевна Бурцева · New Generation English · личный кабинет <b>newgeneration-english.ru/cabinet/</b> · PIN Андрея выдан отдельно.</p>
+
+</article>
+</body>
+</html>
