@@ -3404,21 +3404,26 @@ document.querySelectorAll('.drop-gap').forEach(g => {
 
 
 
+
+<style>
+  /* kill Jack intro modal — hogsmeade's own script doesn't wire up here */
+  .jack-overlay,.jack-intro,[id*="jack-overlay"],[id*="jack-intro"],[class*="jack-overlay"],[class*="jack-intro"],[class*="JackOverlay"]{display:none !important;visibility:hidden !important;pointer-events:none !important}
+  body.jack-locked,body.modal-locked,body.overflow-hidden{overflow:auto !important}
+</style>
 <script>
-  // Jack modal fallback: ensure skip/close buttons always work
+  // kill Jack intro completely on load
+  (function kill(){
+    document.body?.classList.remove('jack-locked','modal-locked','overflow-hidden');
+    if(document.body) document.body.style.overflow='';
+    document.querySelectorAll('.jack-overlay,.jack-intro,[id*="jack-overlay"],[id*="jack-intro"],[class*="jack-overlay"],[class*="jack-intro"]').forEach(el=>el.remove());
+  })();
   document.addEventListener('DOMContentLoaded', ()=>{
-    setTimeout(()=>{
-      document.querySelectorAll('[class*="jack"] button, [class*="jack"] [role="button"]').forEach(btn=>{
-        const txt=(btn.textContent||'').toUpperCase();
-        if(txt.includes('SKIP')||txt.includes('ПРОПУСТИТЬ')||txt.includes('ЗАКРЫТЬ')||txt.includes('CLOSE')){
-          btn.addEventListener('click',()=>{
-            document.querySelectorAll('[class*="jack-overlay"],[id*="jack-overlay"],[class*="jack-intro"],[id*="jack-intro"]').forEach(el=>el.style.display='none');
-            document.body.classList.remove('jack-locked','modal-locked','overflow-hidden');
-            document.body.style.overflow='';
-          },{capture:true});
-        }
-      });
-    }, 600);
+    document.body.classList.remove('jack-locked','modal-locked','overflow-hidden');
+    document.body.style.overflow='';
+    document.querySelectorAll('.jack-overlay,.jack-intro,[id*="jack-overlay"],[id*="jack-intro"],[class*="jack-overlay"],[class*="jack-intro"]').forEach(el=>el.remove());
+    // repeat 3 times to catch late inject
+    setTimeout(()=>document.querySelectorAll('.jack-overlay,.jack-intro,[id*="jack-overlay"],[id*="jack-intro"],[class*="jack-overlay"],[class*="jack-intro"]').forEach(el=>el.remove()), 200);
+    setTimeout(()=>document.querySelectorAll('.jack-overlay,.jack-intro,[id*="jack-overlay"],[id*="jack-intro"],[class*="jack-overlay"],[class*="jack-intro"]').forEach(el=>el.remove()), 1000);
   });
 </script>
 </body>
