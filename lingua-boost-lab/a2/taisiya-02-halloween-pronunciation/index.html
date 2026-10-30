@@ -3426,5 +3426,457 @@ document.querySelectorAll('.drop-gap').forEach(g => {
     setTimeout(()=>document.querySelectorAll('.jack-overlay,.jack-intro,[id*="jack-overlay"],[id*="jack-intro"],[class*="jack-overlay"],[class*="jack-intro"]').forEach(el=>el.remove()), 1000);
   });
 </script>
+
+
+<!-- ═ Part 2 inline scripts from hogsmeade-plus (mechanics) ═ -->
+<script>if(['127.0.0.1','localhost'].includes(location.hostname)){try{localStorage.setItem('nge-vault-cache',JSON.stringify([{url:location.pathname}]))}catch(e){}}</script>
+
+<script type="application/json" class="ord-data">[
+        {"id":"s1","text":"Pour three cups of moonlit water."},
+        {"id":"s2","text":"Drop in five dried bat wings."},
+        {"id":"s3","text":"Add one black feather from a graveyard crow."},
+        {"id":"s4","text":"Sprinkle in a pinch of crushed spider's eggs."},
+        {"id":"s5","text":"Stir anti-clockwise seven times."},
+        {"id":"s6","text":"Whisper the name of someone you miss and seal the lid."},
+        {"id":"s7","text":"Boil for thirteen minutes until it glows green."}
+      ]</script>
+
+<script type="application/json" class="ord-data">[
+        {"id":"e1","text":"Ichabod Crane arrives in Sleepy Hollow as the new schoolteacher."},
+        {"id":"e2","text":"Ichabod falls in love with Katrina Van Tassel."},
+        {"id":"e3","text":"Brom Bones becomes Ichabod's jealous rival."},
+        {"id":"e4","text":"Ichabod rides home at midnight after a party at the Van Tassels'."},
+        {"id":"e5","text":"The Headless Horseman appears from under an old oak tree."},
+        {"id":"e6","text":"The Horseman hurls a burning pumpkin near the bridge."},
+        {"id":"e7","text":"In the morning, the villagers find only Ichabod's hat and a smashed pumpkin."}
+      ]</script>
+
+<script type="application/json" class="ord-data">[
+        {"id":"a","text":"Katya pushes open the door of Zonko's."},
+        {"id":"b","text":"A rubber snake jumps out of a jar and makes Masha scream."},
+        {"id":"c","text":"Katya asks the price of the Nose-Biting Teacup."},
+        {"id":"d","text":"Zonko offers her a smaller one on the second shelf."},
+        {"id":"e","text":"Katya says 'I'll take one' and pays in a mix of coins."},
+        {"id":"f","text":"They leave the shop still laughing."}
+      ]</script>
+
+<script type="application/json" class="ord-data">[
+        {"id":"a","text":"Good afternoon — what can I get you?"},
+        {"id":"b","text":"Could I have a mug of butterbeer, please?"},
+        {"id":"c","text":"And I'd like a hot chocolate with marshmallows."},
+        {"id":"d","text":"What do you recommend to eat?"},
+        {"id":"e","text":"We'll have two pumpkin pasties, please."},
+        {"id":"f","text":"That's everything, thanks very much."}
+      ]</script>
+
+<script>
+/* ===== TTS ===== */
+const synth = window.speechSynthesis;
+let voice = null;
+function pickVoice(){
+  if(!synth) return;
+  const voices = synth.getVoices();
+  voice = voices.find(v => v.lang === 'en-GB' && /female|Kate|Amy|Emma|Serena|Susan/i.test(v.name)) ||
+          voices.find(v => v.lang === 'en-GB') ||
+          voices.find(v => v.lang.startsWith('en-US') && /female|Samantha|Victoria/i.test(v.name)) ||
+          voices.find(v => v.lang.startsWith('en')) || voices[0];
+}
+if(synth){ pickVoice(); synth.onvoiceschanged = pickVoice; }
+function say(text, rate = 0.9){
+  if(!synth) return;
+  synth.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  if(voice) u.voice = voice;
+  u.rate = rate; u.pitch = 1.02; u.lang = voice ? voice.lang : 'en-GB';
+  synth.speak(u);
+}
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-say]');
+  if(t){ say(t.dataset.say); }
+});
+
+/* ===== TF ===== */
+document.querySelectorAll('.tf-item2').forEach(item => {
+  const answer = item.dataset.a;
+  item.querySelectorAll('.tf-btn2').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const v = btn.dataset.v;
+      if(v === answer){ btn.classList.add('correct'); item.querySelectorAll('.tf-btn2').forEach(b => b.disabled = true); }
+      else { btn.classList.add('wrong'); setTimeout(() => btn.classList.remove('wrong'), 500); }
+    });
+  });
+});
+
+/* ===== MCQ ===== */
+document.querySelectorAll('.mc-item').forEach(item => {
+  const answer = item.dataset.a;
+  const gap = item.querySelector('.gap-mini');
+  item.querySelectorAll('.mc-opt').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const v = btn.dataset.v;
+      if(v === answer){
+        btn.classList.add('correct');
+        if(gap){ gap.classList.add('filled'); gap.textContent = v; }
+        item.querySelectorAll('.mc-opt').forEach(b => b.disabled = true);
+      } else { btn.classList.add('wrong'); setTimeout(() => btn.classList.remove('wrong'), 500); }
+    });
+  });
+});
+
+/* ===== ORDERING ===== */
+document.querySelectorAll('.ord-wrap').forEach(wrap => {
+  const bank = wrap.querySelector('.ord-bank');
+  const slots = wrap.querySelector('.ord-slots');
+  const dataScript = wrap.querySelector('script.ord-data');
+  if(!dataScript) return;
+  const items = JSON.parse(dataScript.textContent);
+  const correctOrder = wrap.dataset.answer.split(',');
+  const shuffled = [...items].sort(() => Math.random() - 0.5);
+  shuffled.forEach(it => {
+    const pill = document.createElement('div');
+    pill.className = 'ord-pill'; pill.dataset.id = it.id; pill.textContent = it.text;
+    pill.addEventListener('click', () => {
+      const emptySlot = [...slots.querySelectorAll('.ord-slot')].find(s => !s.dataset.id);
+      if(!emptySlot) return;
+      emptySlot.dataset.id = it.id;
+      emptySlot.textContent = it.text;
+      emptySlot.classList.add('filled');
+      pill.classList.add('used');
+      emptySlot.addEventListener('click', () => {
+        pill.classList.remove('used');
+        emptySlot.textContent = '';
+        emptySlot.classList.remove('filled','correct','wrong');
+        delete emptySlot.dataset.id;
+      }, {once:true});
+    });
+    bank.appendChild(pill);
+  });
+  wrap.querySelector('.ord-check').addEventListener('click', () => {
+    slots.querySelectorAll('.ord-slot').forEach((slot, i) => {
+      if(slot.dataset.id === correctOrder[i]){ slot.classList.add('correct'); slot.classList.remove('wrong'); }
+      else { slot.classList.add('wrong'); slot.classList.remove('correct'); }
+    });
+  });
+  wrap.querySelector('.ord-reset').addEventListener('click', () => {
+    slots.querySelectorAll('.ord-slot').forEach(s => { s.textContent = ''; s.classList.remove('filled','correct','wrong'); delete s.dataset.id; });
+    bank.querySelectorAll('.ord-pill').forEach(p => p.classList.remove('used'));
+  });
+});
+
+/* ===== GAP-FILL ===== */
+let selectedBankWord = null;
+document.querySelectorAll('.bank-word').forEach(w => {
+  w.addEventListener('click', () => {
+    if(w.classList.contains('used')) return;
+    document.querySelectorAll('.bank-word.selected').forEach(x => x.classList.remove('selected'));
+    if(selectedBankWord === w){ selectedBankWord = null; return; }
+    w.classList.add('selected'); selectedBankWord = w;
+  });
+});
+document.querySelectorAll('.drop-gap').forEach(g => {
+  g.addEventListener('click', () => {
+    if(g.classList.contains('filled')) return;
+    if(!selectedBankWord) return;
+    const w = selectedBankWord.dataset.w;
+    if(g.dataset.a === w){
+      g.textContent = w; g.classList.add('filled');
+      selectedBankWord.classList.add('used'); selectedBankWord.classList.remove('selected');
+      selectedBankWord = null;
+    } else {
+      g.classList.add('wrong'); setTimeout(() => g.classList.remove('wrong'), 500);
+    }
+  });
+});
+
+/* ===== ANSWER RANDOMIZATION on load ===== */
+(function(){
+  function shuffleKids(parent, childSelector){
+    const kids = Array.from(childSelector ? parent.querySelectorAll(childSelector) : parent.children);
+    kids.sort(() => Math.random() - 0.5);
+    kids.forEach(k => parent.appendChild(k));
+  }
+  document.querySelectorAll('.mc-list .mc-opts').forEach(opts => shuffleKids(opts));
+  document.querySelectorAll('.bank').forEach(bank => shuffleKids(bank, '.bank-word'));
+  document.querySelectorAll('.tf-btns2').forEach(btns => shuffleKids(btns));
+  // Shuffle question ORDER within any .tf-list or .mc-list marked data-shuffle="true"
+  document.querySelectorAll('.tf-list[data-shuffle="true"]').forEach(list => shuffleKids(list, '.tf-item2'));
+  document.querySelectorAll('.mc-list[data-shuffle="true"]').forEach(list => shuffleKids(list, '.mc-item'));
+})();
+
+/* ═════ JACK WELCOME + 🎃 TRACK ═════ */
+(function(){
+  const overlay = document.getElementById('jack-overlay');
+  const intro = document.getElementById('jack-intro-audio');
+  const floatBtn = document.getElementById('jack-float');
+  const playBtn = document.getElementById('jack-play-btn');
+  const skipBtn = document.getElementById('jack-skip-btn');
+  const funnies = ['jack-fun-1','jack-fun-2','jack-fun-3','jack-fun-4']
+    .map(id => document.getElementById(id)).filter(Boolean);
+
+  function showFloat(){
+    if(floatBtn) floatBtn.classList.add('visible');
+  }
+  function hideOverlay(){
+    if(!overlay) { showFloat(); return; }
+    overlay.classList.add('hidden');
+    setTimeout(() => { overlay.style.display = 'none'; showFloat(); }, 500);
+  }
+
+  if(playBtn){
+    playBtn.addEventListener('click', () => {
+      if(window.__startHallowSong) window.__startHallowSong();  // "This is Halloween" стартует одновременно с Джеком
+      if(!intro){ hideOverlay(); return; }
+      try { intro.currentTime = 0; intro.play(); } catch(e){}
+      playBtn.disabled = true;
+      playBtn.textContent = '🎃 Джек говорит…';
+      intro.addEventListener('ended', hideOverlay, { once: true });
+      setTimeout(hideOverlay, 15000);
+    });
+  }
+  if(skipBtn){
+    skipBtn.addEventListener('click', () => {
+      try { if(intro) { intro.pause(); intro.currentTime = 0; } } catch(e){}
+      hideOverlay();
+    });
+  }
+
+  if(floatBtn && funnies.length){
+    let lastIdx = -1;
+    floatBtn.addEventListener('click', () => {
+      funnies.forEach(a => { try { a.pause(); a.currentTime = 0; } catch(e){} });
+      let i;
+      do { i = Math.floor(Math.random() * funnies.length); } while(funnies.length > 1 && i === lastIdx);
+      lastIdx = i;
+      try { funnies[i].play(); } catch(e){}
+      floatBtn.classList.add('bob');
+      setTimeout(() => floatBtn.classList.remove('bob'), 1400);
+    });
+  }
+
+  /* ═════ LIGHTBOX: click any .scene-img / .qc-img / .ex-sticker / .jack-big → fullscreen ═════ */
+  const lbStage = document.getElementById('lightbox-stage');
+  const lbImg = document.getElementById('lightbox-img');
+  const lbCap = document.getElementById('lightbox-cap');
+  const lbClose = document.getElementById('lightbox-close');
+  function openLightbox(src, cap){
+    if(!lbStage) return;
+    lbImg.src = src;
+    lbCap.textContent = cap || '';
+    lbCap.style.display = cap ? 'block' : 'none';
+    lbStage.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(){
+    if(!lbStage) return;
+    lbStage.classList.remove('open');
+    lbImg.src = '';
+    document.body.style.overflow = '';
+  }
+  // mark images zoomable + wire click
+  document.querySelectorAll('.scene-img, .qc-img, .ex-sticker, .jack-big, .vocab-grid img, .quest-folklore img').forEach(img => {
+    img.classList.add('lightbox-trigger');
+    img.addEventListener('click', (e) => {
+      e.preventDefault(); e.stopPropagation();
+      const cap = img.closest('[data-cap]')?.dataset.cap
+        || img.nextElementSibling?.classList?.contains('scene-cap') ? img.nextElementSibling.textContent : ''
+        || img.alt || '';
+      openLightbox(img.src, cap);
+    });
+  });
+  if(lbStage){
+    lbStage.addEventListener('click', (e) => { if(e.target === lbStage) closeLightbox(); });
+    if(lbClose) lbClose.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeLightbox(); });
+  }
+
+  /* ═════ IMAGE-PROMPT COPY BUTTONS ═════ */
+  document.querySelectorAll('.qp-copy').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const targetId = btn.dataset.copy;
+      const el = document.getElementById(targetId);
+      if(!el) return;
+      const text = el.textContent.trim();
+      try {
+        await navigator.clipboard.writeText(text);
+        const original = btn.textContent;
+        btn.textContent = '✓ copied';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 1500);
+      } catch(e) {
+        const range = document.createRange();
+        range.selectNode(el);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+    });
+  });
+
+  /* ═════ PICK-A-CHARACTER MATCH-TASK + CHARACTER STAGE (fly-in + voice + dissolve) ═════ */
+  (function(){
+    const slots = document.querySelectorAll('.char-slot');
+    const chips = document.querySelectorAll('.char-chip');
+    const stage = document.getElementById('char-stage');
+    const stageImg = document.getElementById('char-stage-img');
+    const stageLine = document.getElementById('char-stage-line');
+    const stageName = document.getElementById('char-stage-name');
+    let selectedSlot = null;
+    let stageTimer = null;
+
+    const LINES = {
+      hazel:  { line: "Come in, dearie… come in. The cauldron is just waiting for you. Hee hee hee.", name: "Hazel the Witch" },
+      kitty:  { line: "Mrrrow! Hello, I'm Kitty. I like socks, and I like naps. Scratch my ear?", name: "Kitty the Witch Kitten" },
+      pip:    { line: "Ha ha ha! I am Pip the Pumpkin Elf! My hat is bigger than my head!", name: "Pip the Pumpkin Elf" },
+      boo:    { line: "Boooo… I'm Boo. Would you like to hold my pumpkin? It's heavy for me.", name: "Boo the Ghost" },
+      zed:    { line: "Uhhh… hi… I'm Zed. I lost my… what was I saying? Oh yes. Brains.", name: "Zed the Zombie" },
+      vlad:   { line: "Good evening. I am Vlad. I promise I don't bite… very hard.", name: "Vlad the Vampire" },
+      mo:     { line: "Mmmfff… hello. I am Mo. My scarf keeps my neck warm. Which I don't really have.", name: "Mo the Mummy" },
+      furry:  { line: "Hi hi hi! I'm Furry! I look scary but I just want a big big hug!", name: "Furry the Monster" },
+      spidey: { line: "Pssst… over here. I'm Spidey. Half cat, half spider, all witch hat.", name: "Spidey the Spider-Cat" },
+    };
+
+    function closeStage(){
+      if(!stage) return;
+      stage.classList.remove('flyin');
+      stage.classList.add('dissolve');
+      // Stop any voice
+      document.querySelectorAll('audio[id^="vo-"]').forEach(a => { try { a.pause(); a.currentTime = 0; } catch(e){} });
+      setTimeout(() => {
+        stage.classList.remove('show','dissolve');
+        stage.setAttribute('aria-hidden', 'true');
+      }, 1100);
+    }
+
+    function showStage(charId){
+      const data = LINES[charId];
+      if(!stage || !data) return;
+      if(stageTimer) clearTimeout(stageTimer);
+      stage.classList.remove('dissolve','flyin','show');
+      void stage.offsetWidth; // force reflow so re-click retriggers animation
+      // find source image
+      const chip = document.querySelector(`.char-chip[data-char="${charId}"] img`);
+      stageImg.src = chip ? chip.src : '';
+      stageImg.alt = data.name;
+      stageLine.textContent = '“' + data.line + '”';
+      stageName.textContent = data.name;
+      stage.classList.add('show','flyin');
+      stage.setAttribute('aria-hidden', 'false');
+
+      // Play voice
+      document.querySelectorAll('audio[id^="vo-"]').forEach(a => { try { a.pause(); a.currentTime = 0; } catch(e){} });
+      const a = document.getElementById('vo-' + charId);
+      if(a){
+        try { a.volume = 1.0; a.currentTime = 0; a.play().catch(err => console.warn('voice play failed', charId, err)); } catch(e){ console.warn(e); }
+        // Dissolve when voice ends OR 10s safety
+        a.addEventListener('ended', () => { setTimeout(closeStage, 500); }, { once: true });
+        stageTimer = setTimeout(closeStage, 10000);
+      } else {
+        stageTimer = setTimeout(closeStage, 5000);
+      }
+    }
+
+    if(stage){
+      // click anywhere on stage (except image) dismisses
+      stage.addEventListener('click', (e) => { closeStage(); });
+    }
+
+    slots.forEach(s => {
+      s.addEventListener('click', () => {
+        if(s.classList.contains('filled')) return;
+        slots.forEach(x => x.classList.remove('selected'));
+        s.classList.add('selected');
+        selectedSlot = s;
+      });
+    });
+
+    chips.forEach(c => {
+      c.addEventListener('click', (e) => {
+        e.preventDefault();
+        const char = c.dataset.char;
+        showStage(char);  // fly-in + voice + dissolve
+        if(!selectedSlot){ return; }
+        const ans = selectedSlot.dataset.answer;
+        if(ans === char){
+          selectedSlot.classList.remove('selected');
+          selectedSlot.classList.add('filled');
+          c.classList.add('correct');
+          selectedSlot = null;
+        } else {
+          c.classList.add('wrong');
+          setTimeout(() => c.classList.remove('wrong'), 400);
+        }
+      });
+    });
+  })();
+
+  /* ═════ FLIP CARDS (J3 superstitions game) ═════ */
+  document.querySelectorAll('.flip-card').forEach(card => {
+    const toggle = () => card.classList.toggle('flipped');
+    card.addEventListener('click', toggle);
+    card.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); }
+    });
+  });
+
+  /* ═════ VOCAB-MINING & VOCAB-GRID click-to-hear ═════ */
+  document.querySelectorAll('.vm-item, .hw-vocab-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const text = item.dataset.say;
+      if(text && typeof say === 'function') say(text, 0.85);
+    });
+  });
+
+  /* ═════ TAB SWITCHER (Halloween | Хогсмид) ═════ */
+  const tabs = document.querySelectorAll('.hw-tab');
+  const panes = document.querySelectorAll('.hw-pane');
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.pane;
+      tabs.forEach(b => {
+        const isActive = b.dataset.pane === target;
+        b.classList.toggle('active', isActive);
+        b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+      panes.forEach(p => {
+        if(p.dataset.pane === target){ p.removeAttribute('hidden'); }
+        else { p.setAttribute('hidden', ''); }
+      });
+      // scroll to top of newly-shown pane
+      const scrollTarget = document.querySelector('.hw-tabs');
+      if(scrollTarget){ scrollTarget.scrollIntoView({behavior:'smooth', block:'start'}); }
+    });
+  });
+
+  const trackBtn = document.getElementById('hallow-track-btn');
+  const song = document.getElementById('hallow-song');
+  window.__hallowSong = song;
+  let trackOn = false;
+  function setTrackButtonOn(on){
+    if(!trackBtn) return;
+    if(on){
+      trackBtn.innerHTML = '<span class="hallow-pulse">🎃</span>&nbsp;Трек ВКЛ';
+      trackBtn.classList.add('active');
+      trackOn = true;
+    } else {
+      trackBtn.innerHTML = '🎃 Трек';
+      trackBtn.classList.remove('active');
+      trackOn = false;
+    }
+  }
+  window.__startHallowSong = async function(){
+    if(!song) return;
+    try {
+      if(song.paused) { song.currentTime = 0; song.volume = 0.6; await song.play(); }
+      setTrackButtonOn(true);
+    } catch(e){ console.warn('song play failed', e); }
+  };
+  if(trackBtn && song){
+    trackBtn.addEventListener('click', () => {
+      if(!trackOn){ window.__startHallowSong(); }
+      else { try { song.pause(); } catch(e){} setTrackButtonOn(false); }
+    });
+  }
+})();
+</script>
 </body>
 </html>
