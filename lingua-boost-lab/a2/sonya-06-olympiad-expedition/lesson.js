@@ -37,6 +37,24 @@ const checkedCopy={...state.checked};for(const g of allGroups)if(checkedCopy[g.i
 function exportWork(){const lines=['SONYA · OLYMPIAD EXPEDITION','Exported '+new Date().toLocaleString(),'Practice results; official weighted scoring remains in source PDFs.',''];for(const g of allGroups){lines.push(g.title);g.answers.forEach((a,i)=>lines.push((g.labels?.[i]||'Item '+(i+1))+': '+(document.getElementById(fieldId(g,i)).value||'[not answered]')));if(state.checked[g.id])lines.push('Practice check: '+state.checked[g.id].ok+'/'+g.answers.length+(state.checked[g.id].keysShown?' (keys viewed)':''));lines.push('');}lines.push('WORKBOOK & NOTES');for(const el of document.querySelectorAll('textarea,input[type=checkbox]')){const label=el.closest('label')?.textContent.trim()||el.getAttribute('aria-label')||el.id;lines.push(label+': '+(el.type==='checkbox'?(el.checked?'yes':'no'):el.value||'[empty]'),'');}const blob=new Blob(['\ufeff'+lines.join('\n')],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Sonya-Olympiad-answers-'+new Date().toISOString().slice(0,10)+'.txt';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
 $('#export').onclick=exportWork;$('#export-bottom').onclick=exportWork;
 let timer=null,remaining=30;function timerDisplay(){$('#timer-out').textContent=String(Math.floor(remaining/60)).padStart(2,'0')+':'+String(remaining%60).padStart(2,'0');}function resetTimer(){clearInterval(timer);timer=null;remaining=Number($('#speak-time').value);timerDisplay();}$('#speak-time').onchange=resetTimer;$('#timer-reset').onclick=resetTimer;$('#timer-start').onclick=()=>{if(timer){clearInterval(timer);timer=null;return;}if(remaining<=0)remaining=Number($('#speak-time').value);timer=setInterval(()=>{remaining--;timerDisplay();if(remaining<=0){clearInterval(timer);timer=null;$('#timer-out').textContent='Time to reflect';}},1000);};
+// Bridge the lesson's custom worksheets to the shared summary and reset controls.
+window.labLessonAdapter={
+ collect(section){
+  let total=0,correct=0;const misses=[];
+  for(const g of allGroups){
+   if(!section.querySelector('[data-group="'+g.id+'"]'))continue;
+   g.answers.forEach((answer,i)=>{
+    const el=document.getElementById(fieldId(g,i)),value=el.value;
+    total++;
+    if(value.trim()&&answer.split('|').some(a=>normalize(a)===normalize(value))){correct++;return;}
+    const q=g.title+' · '+(g.labels?.[i]||'Item '+(i+1));
+    misses.push(value.trim()?{q,yours:value,correct:answer.split('|').join(' / ')}:{q,skip:true,correct:answer.split('|').join(' / ')});
+   });
+  }
+  return {total,correct,misses};
+ },
+ reset(){localStorage.removeItem(STORAGE);localStorage.removeItem('lp:'+location.pathname);}
+};
 window.OLYMPIAD_APP={groups:allGroups,checkGroup,showPage,exportWork,getState:()=>state};
 // Override shared lab-pilot Russian tooltip for this lesson only
 const forceEnBtn=()=>{const b=document.getElementById('lab-reset-btn');if(b&&b.title!=='Reset progress of this lesson')b.title='Reset progress of this lesson';};

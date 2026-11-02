@@ -432,6 +432,7 @@
     btn.onmouseleave = function(){ btn.style.opacity = '.85'; btn.style.transform = 'translateY(0)'; };
     btn.onclick = function(){
       if (confirm('Сбросить прогресс этого урока?\n\n(все ответы, заполненные пропуски, транскрипты и помеченные карточки очистятся)')) {
+        window.labLessonAdapter?.reset?.();
         try { localStorage.removeItem(KEY); } catch(e){}
         /* Wipe cloud row too — иначе через 500мс restoreCloud вернёт всё обратно */
         var roomId = getRoomId();
@@ -458,7 +459,7 @@
     save:    save,
     saveNow: saveNow,
     restore: function(){ var s = restoreLocal(); restoreCloud(s); },
-    reset: function(){ try { localStorage.removeItem(KEY); } catch(e){} location.reload(); },
+    reset: function(){ window.labLessonAdapter?.reset?.(); try { localStorage.removeItem(KEY); } catch(e){} location.reload(); },
     key:     KEY,
     version: 3,
     cloudDisabled: function(){ return cloudDisabled; }

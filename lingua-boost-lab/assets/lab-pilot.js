@@ -95,6 +95,7 @@
     function shortQ(s, n){ s = s||''; return s.length > n ? s.slice(0, n-1) + '…' : s; }
 
     function collect(section){
+      if (window.labLessonAdapter?.collect) return window.labLessonAdapter.collect(section);
       let total = 0, correct = 0;
       const misses = [];
 
