@@ -47,9 +47,14 @@ a{color:inherit;text-decoration:none}
 .btn-sm:hover{border-color:var(--accent);color:var(--accent-2)}
 
 .hero{max-width:1240px;margin:32px auto 12px;padding:0 clamp(16px,3vw,28px);position:relative;z-index:2}
-.hero-card{position:relative;border:1px solid var(--line-2);border-radius:24px;overflow:hidden;
-  background:linear-gradient(135deg,#FFC9B8 0%,#FFB9A3 25%,#F49CB5 55%,#E88CA5 85%,#D97899 100%);
-  box-shadow:0 10px 40px rgba(217,120,153,.28);padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px);min-height:360px;color:#3F2A2A}
+.hero-card{position:relative;border:1px solid var(--line-2);border-radius:24px;overflow:hidden;color:#3F2A2A;
+  background:
+    linear-gradient(90deg,rgba(255,196,180,.97) 0%,rgba(255,185,163,.88) 34%,rgba(255,185,163,0) 62%),
+    url("./assets/img/hero-antiquity.png") center right/cover no-repeat,
+    linear-gradient(135deg,#FFC9B8 0%,#FFB9A3 25%,#F49CB5 55%,#E88CA5 85%,#D97899 100%);
+  box-shadow:0 10px 40px rgba(217,120,153,.28);padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px);min-height:clamp(280px,30vw,360px)}
+.hero-card > *{position:relative;z-index:1;max-width:min(62%,680px)}
+@media(max-width:720px){.hero-card{background:linear-gradient(180deg,rgba(255,196,180,.95) 0%,rgba(255,185,163,.88) 55%,rgba(255,185,163,.72) 100%),url("./assets/img/hero-antiquity.png") center/cover no-repeat,#FFC9B8}.hero-card > *{max-width:100%}}
 .hero-card::after{content:"";position:absolute;right:-80px;top:-80px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(255,220,200,.55) 0%,transparent 70%);pointer-events:none}
 .hero-card::before{content:"";position:absolute;left:-40px;bottom:-40px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.4) 0%,transparent 65%);pointer-events:none}
 .eyebrow{font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#8B2A4D;
@@ -80,7 +85,6 @@ h1.hero-title .grad{color:#8B2A4D;background:none;-webkit-text-fill-color:#8B2A4
 
 .card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 24px;box-shadow:0 6px 24px rgba(139,42,77,.1);margin-bottom:16px}
 .card>img.hero-img{display:block;width:100%;height:auto;object-fit:cover;border-radius:12px;margin:0 0 14px;box-shadow:0 6px 20px rgba(139,42,77,.18);border:1px solid var(--line-2);aspect-ratio:16/9}
-.hero-card>img.hero-img{display:block;width:calc(100% + 2 * clamp(22px,4vw,52px));height:auto;object-fit:cover;border-radius:0;margin:calc(-1 * clamp(28px,4.5vw,52px)) calc(-1 * clamp(22px,4vw,52px)) 22px;box-shadow:none;border:0;aspect-ratio:16/5;position:relative;z-index:2}
 .card h3{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--accent-2);margin:18px 0 10px;letter-spacing:.01em}
 .card h3:first-child{margin-top:0}
 .card p{margin-bottom:11px;color:var(--text)}
@@ -241,7 +245,6 @@ footer a{color:var(--accent-2);text-decoration:underline}
 
 <section class="hero">
   <div class="hero-card">
-    <img class="hero-img" src="./assets/img/hero-antiquity.png" alt="Antiquity · hero">
     <div class="eyebrow">Lesson 11 · IELTS Variety Pack · ноябрь 2026</div>
     <h1 class="hero-title">Six fresh fragments · <span class="grad">three Reading · three Listening · pure range across domains</span></h1>
     <p class="hero-lead">Это не ещё один «музейный» урок и не параллель к L4. Это <strong>сборник из разных Sept-Nov 2026 отчётов</strong>: <em>whale culture</em>, <em>biophilic design</em>, <em>mother-tongue education</em> для Reading; <em>furniture rental call</em>, <em>career counseling</em>, <em>sleep psychology lecture</em> для Listening. Каждый фрагмент привязан к источнику (bandladder / ielts9.io / simplyielts). Разные домены, разные форматы вопросов, разные голоса. Таймер — на твой выбор, не экзаменная симуляция.</p>
@@ -516,241 +519,60 @@ footer a{color:var(--accent-2);text-decoration:underline}
 <!-- =================== B · LISTENING =================== -->
 <section class="section" id="sec-listening">
   <div class="section-hdr"><div class="section-num">B</div><h2>Listening · 4 tracks · 30 questions</h2></div>
-  <p class="section-sub">★ Festival map (S2 pattern · 7 Qs) · ★★ Riverside Industrial Village (real IELTS-up 7.2 · 10 Qs) · ★★★ Area map labelling (real IELTS-up 9.2 · 5 Qs) · L1 Furniture rental call (S1 · form) · L2 Career counseling (S3 · MCQ+short) · L3 Sleep psychology (S4 · completion).</p>
+  <p class="section-sub">S2 map · 2 реальных Cambridge-style теста с IELTS-up (аудио + план + задания на источнике) · L1 S1 form · L2 S3 MCQ · L3 S4 completion.</p>
 
-  <!-- === L0 Festival map labelling === -->
+  <!-- === L0 · REAL Cambridge-style S2 map · Riverside Industrial Village (IELTS-up 7.2) === -->
   <div class="card" id="l-00">
-    <img class="hero-img" src="./assets/img/s2-camden-museum.png" alt="Listening S2 illustration">
-    <span class="type-badge"><span class="num">★</span> Listening · S2 pattern · Map labelling</span>
-    <span class="topic-tag">Music festival site plan · match facility → letter</span>
-    <span class="source-tag">source: simplyielts Sept 2026 · «music festival with map labelling» reported pattern</span>
-    <div class="strategy"><strong>Strategy:</strong> в map-labelling steward ведёт ТЕБЯ по карте — слушай предлоги места (next to, opposite, between, in the top-left corner). Слушай «traps»: <em>not where you might expect</em>, <em>a note of warning</em>, <em>tucked away</em> — после таких фраз обычно идёт неинтуитивный ответ.</div>
-
-    <div class="external-links" style="margin:12px 0">
-      <span class="elinks-label">🎪 Настоящие festival/outdoor-event map tasks (аудио + полноценная карта):</span>
-      <a href="https://www.ieltsxpress.com/rock-festival-site-ielts-listening-map/" target="_blank" rel="noopener"><span class="emoji">🎸</span> IELTSxpress · Rock Festival Site map</a>
-      <a href="https://ielts-up.com/listening/ielts-listening-sample-7.2.html" target="_blank" rel="noopener"><span class="emoji">🏭</span> IELTS-up 7.2 · Riverside Industrial Village</a>
-      <a href="https://ielts-up.com/listening/ielts-listening-sample-9.2.html" target="_blank" rel="noopener"><span class="emoji">🗺️</span> IELTS-up 9.2 · Local area map</a>
-      <a href="https://www.ieltsworldly.com/ielts-cambridge-book-15-listening-practice-test-02-with-answers/" target="_blank" rel="noopener"><span class="emoji">📘</span> Cambridge 15 Test 2 · Festival information</a>
-    </div>
-
-    <div class="audio-row">
-      <span class="audio-label">Track L11-S2map · ~1:50</span>
-      <audio controls preload="none" src="./assets/audio/l11-s2-festival-map.mp3"></audio>
-      <span class="audio-note">en-GB · festival steward monologue · моя стилизация, карта ниже — схематичная SVG</span>
-    </div>
-
-    <div class="map-wrap">
-      <div class="festival-map">
-        <svg viewBox="0 0 500 400" role="img" aria-label="Riverside Music Festival site plan">
-          <!-- site boundary -->
-          <rect x="30" y="30" width="440" height="340" rx="12" fill="#FFF4EE" stroke="#E26E85" stroke-width="2" stroke-dasharray="6 4"/>
-
-          <!-- central path -->
-          <path d="M250,375 L250,180" stroke="#E88B5E" stroke-width="4" stroke-linecap="round" opacity="0.55" stroke-dasharray="8 6"/>
-
-          <!-- oak tree landmark -->
-          <circle cx="250" cy="175" r="22" fill="#8AB58A" opacity="0.75"/>
-          <circle cx="250" cy="175" r="22" fill="none" stroke="#4D7A4D" stroke-width="1.5"/>
-          <text x="250" y="179" text-anchor="middle" font-family="Manrope, sans-serif" font-size="11" font-weight="700" fill="#1E3A1E">🌳</text>
-          <text x="250" y="138" text-anchor="middle" font-family="Manrope, sans-serif" font-size="10" font-weight="700" fill="#4D7A4D">oak tree</text>
-
-          <!-- entrance marker (bottom center) -->
-          <rect x="220" y="370" width="60" height="18" fill="#E26E85" rx="3"/>
-          <text x="250" y="383" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="700" fill="#fff">ENTRANCE</text>
-
-          <!-- Position A · box office · bottom-right near entrance -->
-          <circle cx="330" cy="340" r="20" fill="#FFF" stroke="#D04D6A" stroke-width="2.5"/>
-          <text x="330" y="345" text-anchor="middle" font-family="Unbounded, sans-serif" font-size="18" font-weight="900" fill="#D04D6A">A</text>
-
-          <!-- Position B · main stage · top-left -->
-          <rect x="80" y="55" width="90" height="46" rx="5" fill="#FFF" stroke="#D04D6A" stroke-width="2.5"/>
-          <circle cx="125" cy="75" r="14" fill="#FFE8DC" stroke="#D04D6A" stroke-width="2"/>
-          <text x="125" y="80" text-anchor="middle" font-family="Unbounded, sans-serif" font-size="14" font-weight="900" fill="#D04D6A">B</text>
-          <text x="125" y="96" text-anchor="middle" font-family="Manrope, sans-serif" font-size="9" font-weight="700" fill="#8B2A4D">[stage]</text>
-
-          <!-- Position C · second stage · top-right -->
-          <rect x="340" y="55" width="90" height="46" rx="5" fill="#FFF" stroke="#D04D6A" stroke-width="2.5"/>
-          <circle cx="385" cy="75" r="14" fill="#FFE8DC" stroke="#D04D6A" stroke-width="2"/>
-          <text x="385" y="80" text-anchor="middle" font-family="Unbounded, sans-serif" font-size="14" font-weight="900" fill="#D04D6A">C</text>
-          <text x="385" y="96" text-anchor="middle" font-family="Manrope, sans-serif" font-size="9" font-weight="700" fill="#8B2A4D">[stage]</text>
-
-          <!-- Position D · food court · center near oak -->
-          <circle cx="310" cy="200" r="18" fill="#FFF" stroke="#D04D6A" stroke-width="2.5"/>
-          <text x="310" y="206" text-anchor="middle" font-family="Unbounded, sans-serif" font-size="16" font-weight="900" fill="#D04D6A">D</text>
-
-          <!-- Position E · toilets · left-middle -->
-          <circle cx="100" cy="225" r="18" fill="#FFF" stroke="#D04D6A" stroke-width="2.5"/>
-          <text x="100" y="231" text-anchor="middle" font-family="Unbounded, sans-serif" font-size="16" font-weight="900" fill="#D04D6A">E</text>
-
-          <!-- Position F · first aid · right side -->
-          <circle cx="400" cy="235" r="18" fill="#FFF" stroke="#D04D6A" stroke-width="2.5"/>
-          <text x="400" y="241" text-anchor="middle" font-family="Unbounded, sans-serif" font-size="16" font-weight="900" fill="#D04D6A">F</text>
-
-          <!-- Position G · campsite entrance · bottom-left -->
-          <circle cx="100" cy="340" r="18" fill="#FFF" stroke="#D04D6A" stroke-width="2.5"/>
-          <text x="100" y="346" text-anchor="middle" font-family="Unbounded, sans-serif" font-size="16" font-weight="900" fill="#D04D6A">G</text>
-
-          <!-- compass -->
-          <g transform="translate(455,55)">
-            <circle r="18" fill="#FFF" stroke="#B59B96" stroke-width="1"/>
-            <text y="-4" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" fill="#8A6B65">N</text>
-            <text y="12" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" font-weight="700" fill="#8A6B65">S</text>
-          </g>
-        </svg>
-        <div class="legend">Riverside Music Festival · site plan · letters A–G mark positions</div>
-      </div>
-
-      <div class="map-match">
-        <h3 style="margin-top:0">Match each facility to a letter A–G · 7 Qs</h3>
-        <div class="match-row" data-ans="A">
-          <div class="match-q"><span class="num">M1.</span> Box office (wristband collection)</div>
-          <div class="match-opts"><button data-v="A">A</button><button data-v="B">B</button><button data-v="C">C</button><button data-v="D">D</button><button data-v="E">E</button><button data-v="F">F</button><button data-v="G">G</button></div>
-        </div>
-        <div class="match-row" data-ans="B">
-          <div class="match-q"><span class="num">M2.</span> Main stage (headline acts)</div>
-          <div class="match-opts"><button data-v="A">A</button><button data-v="B">B</button><button data-v="C">C</button><button data-v="D">D</button><button data-v="E">E</button><button data-v="F">F</button><button data-v="G">G</button></div>
-        </div>
-        <div class="match-row" data-ans="C">
-          <div class="match-q"><span class="num">M3.</span> Second stage (acoustic / local bands)</div>
-          <div class="match-opts"><button data-v="A">A</button><button data-v="B">B</button><button data-v="C">C</button><button data-v="D">D</button><button data-v="E">E</button><button data-v="F">F</button><button data-v="G">G</button></div>
-        </div>
-        <div class="match-row" data-ans="D">
-          <div class="match-q"><span class="num">M4.</span> Food court (20 food trucks)</div>
-          <div class="match-opts"><button data-v="A">A</button><button data-v="B">B</button><button data-v="C">C</button><button data-v="D">D</button><button data-v="E">E</button><button data-v="F">F</button><button data-v="G">G</button></div>
-        </div>
-        <div class="match-row" data-ans="E">
-          <div class="match-q"><span class="num">M5.</span> Main toilets block</div>
-          <div class="match-opts"><button data-v="A">A</button><button data-v="B">B</button><button data-v="C">C</button><button data-v="D">D</button><button data-v="E">E</button><button data-v="F">F</button><button data-v="G">G</button></div>
-        </div>
-        <div class="match-row" data-ans="F">
-          <div class="match-q"><span class="num">M6.</span> First aid station</div>
-          <div class="match-opts"><button data-v="A">A</button><button data-v="B">B</button><button data-v="C">C</button><button data-v="D">D</button><button data-v="E">E</button><button data-v="F">F</button><button data-v="G">G</button></div>
-        </div>
-        <div class="match-row" data-ans="G">
-          <div class="match-q"><span class="num">M7.</span> Campsite entrance (wristband required)</div>
-          <div class="match-opts"><button data-v="A">A</button><button data-v="B">B</button><button data-v="C">C</button><button data-v="D">D</button><button data-v="E">E</button><button data-v="F">F</button><button data-v="G">G</button></div>
-        </div>
-
-        <div style="margin-top:14px"><span class="score-badge" data-max="7"><span class="lbl">S2 map</span> <span class="val">0</span> / <span class="max">7</span></span></div>
-      </div>
-    </div>
-
-    <details class="key-box"><summary>Show key + map-labelling tip</summary>
-      <div class="keys">
-        <div><b>M1</b> A · <b>M2</b> B · <b>M3</b> C · <b>M4</b> D · <b>M5</b> E · <b>M6</b> F · <b>M7</b> G</div>
-        <div style="margin-top:8px;color:var(--muted);font-family:var(--body)"><em>Tip:</em> steward часто ставит trap-фразу «<b>not where you might expect</b>» перед неинтуитивным ответом. В этом треке — toilets НЕ рядом с food court, они «tucked away on the left-hand side» = position E. Если в реальном экзамене слышишь «but» / «actually» / «surprisingly» — удваивай внимание на следующих 5 словах.</div>
-      </div>
-    </details>
-  </div>
-
-  <!-- === L0b · REAL Cambridge-style · Riverside Industrial Village (IELTS-up 7.2 S2) === -->
-  <div class="card" id="l-00b">
-    <span class="type-badge"><span class="num">★★</span> Listening · S2 pattern · Form + feature matching</span>
+    <span class="type-badge"><span class="num">★</span> Listening S2 · Map labelling · REAL IELTS-up test</span>
     <span class="topic-tag">Riverside Industrial Village · tour guide monologue</span>
-    <span class="source-tag">source: real IELTS-up Sample 7.2 · Section 2 (audio + plan)</span>
-    <div class="strategy"><strong>Strategy:</strong> real-exam S2. Сначала форма (Q11-13) — слушай числа и фразы «established by…». Потом гид проводит по карте (Q14-20) — pre-read названия построек, слушай предлоги места и порядок обхода.</div>
+    <span class="source-tag">source: ielts-up.com · Sample 7.2 · Section 2 (full test on external site)</span>
+    <div class="strategy"><strong>Strategy:</strong> real-exam S2. Включи аудио, слушай гида — он проводит по карте. Pre-read план на сайте источника, матчи постройки → буквы. На источнике — audio + plan + 10 Qs + answer key.</div>
 
     <div class="audio-row">
-      <span class="audio-label">Track IELTS-up 7.2 · S2 · ~5:50</span>
+      <span class="audio-label">Track IELTS-up 7.2 · S2 · ~5:50 · real exam audio</span>
       <audio controls preload="none" src="./assets/audio/ielts-up-7-2-section2.mp3"></audio>
-      <span class="audio-note">en-GB · tour guide monologue · real exam audio</span>
+      <span class="audio-note">en-GB · tour guide monologue</span>
     </div>
 
-    <div class="map-wrap">
+    <div class="map-wrap" style="grid-template-columns:1fr">
       <div class="festival-map">
-        <img src="./assets/images/map-ielts-up-7-2.png" alt="Riverside Industrial Village — river bend with trees (west side)">
-        <div class="legend">Riverside Industrial Village · site plan fragment (river + treeline — tour landmarks)</div>
-      </div>
-
-      <div class="form-fill" id="s2-72-fill">
-        <div class="fform-title">Part 1 · Riverside Village — info form (Q11-13)</div>
-        <div class="frow"><div class="fkey">11. Materials once brought by river</div><input data-a="coal, firewood" placeholder="two items"></div>
-        <div class="frow"><div class="fkey">12. Village established by</div><input data-a="local craftsmen" placeholder="who?"></div>
-        <div class="frow"><div class="fkey">13. Number of workers employed at peak (approx.)</div><input data-a="160" placeholder="number"></div>
-        <div class="check-row">
-          <button onclick="checkFormFill('s2-72-fill')">Check Q11-13</button>
-          <span class="check-result" id="s2-72-fill-result">— / —</span>
-          <span class="score-badge" data-max="3"><span class="lbl">7.2 form</span> <span class="val">0</span> / <span class="max">3</span></span>
-        </div>
-
-        <div class="fform-title" style="margin-top:14px">Part 2 · Guided tour — label the plan (Q14-20)</div>
-        <div class="frow"><div class="fkey">14. Road the entrance is on</div><input data-a="woodside" placeholder="___ Road"></div>
-        <div class="frow"><div class="fkey">15. First building visitors enter</div><input data-a="ticket office" placeholder="building"></div>
-        <div class="frow"><div class="fkey">16. Building next to the ticket office</div><input data-a="gift shop" placeholder="building"></div>
-        <div class="frow"><div class="fkey">17. Where tools are still made by hand</div><input data-a="workshop" placeholder="building"></div>
-        <div class="frow"><div class="fkey">18. Where finished products are displayed</div><input data-a="showroom" placeholder="building"></div>
-        <div class="frow"><div class="fkey">19. Place for refreshments</div><input data-a="cafe" placeholder="building"></div>
-        <div class="frow"><div class="fkey">20. Where workers used to live</div><input data-a="cottages" placeholder="building"></div>
-        <div class="check-row">
-          <button onclick="checkFormFill('s2-72-fill')">Check all Q11-20</button>
-          <span class="score-badge" data-max="10"><span class="lbl">7.2 total</span> <span class="val">0</span> / <span class="max">10</span></span>
-        </div>
+        <img src="./assets/images/map-ielts-up-7-2.png" alt="Riverside Industrial Village — map fragment (river + treeline)">
+        <div class="legend">Riverside Industrial Village · map fragment (full plan + Qs on source site)</div>
       </div>
     </div>
 
-    <details class="key-box"><summary>Show key + trap tip</summary>
-      <div class="keys">
-        <div><b>11</b> coal, firewood · <b>12</b> local craftsmen · <b>13</b> 160</div>
-        <div><b>14</b> Woodside · <b>15</b> ticket office · <b>16</b> gift shop · <b>17</b> workshop · <b>18</b> showroom · <b>19</b> cafe · <b>20</b> cottages</div>
-        <div style="margin-top:8px;color:var(--muted);font-family:var(--body)"><em>Trap:</em> тур начинается не с главного входа — гид говорит «as you came in from <b>Woodside</b> Road». Это ответ Q14, легко пропустить. Для Q19 слышно «if you need a cup of tea…» — не ждите слова «cafe», слушайте перифраз.</div>
-      </div>
-    </details>
+    <div class="external-links" style="margin:14px 0 0">
+      <span class="elinks-label">👉 Полная задача на источнике (plan + Q11-20 + answer key):</span>
+      <a href="https://ielts-up.com/listening/ielts-listening-sample-7.2.html" target="_blank" rel="noopener" style="font-weight:800"><span class="emoji">🔗</span> Open IELTS-up Sample 7.2 Section 2</a>
+    </div>
   </div>
 
-  <!-- === L0c · REAL Cambridge-style · Area improvements map (IELTS-up 9.2 S2) === -->
-  <div class="card" id="l-00c">
-    <span class="type-badge"><span class="num">★★★</span> Listening · S2 pattern · Map labelling A-E</span>
+  <!-- === L0b · REAL Cambridge-style S2 map · Local area (IELTS-up 9.2) === -->
+  <div class="card" id="l-00b">
+    <span class="type-badge"><span class="num">★★</span> Listening S2 · Map labelling A-E · REAL IELTS-up test</span>
     <span class="topic-tag">Local area improvements · points of interest + streets</span>
-    <span class="source-tag">source: real IELTS-up Sample 9.2 · Section 2 (audio + street plan)</span>
-    <div class="strategy"><strong>Strategy:</strong> street-plan S2. Compass в правом верхнем углу (N/S/E/W). Pre-read 5 мест и запомни форму (ellipse / pentagon). Слушай street names («on Queen Street», «opposite the Underground») и порядок (north → south).</div>
+    <span class="source-tag">source: ielts-up.com · Sample 9.2 · Section 2 (full test on external site)</span>
+    <div class="strategy"><strong>Strategy:</strong> street-plan S2. Включи аудио, слушай council spokesperson. Pre-read карту на сайте источника, матчи 5 мест → буквы A-E. На источнике — audio + street plan + 5 Qs + answer key.</div>
 
     <div class="audio-row">
-      <span class="audio-label">Track IELTS-up 9.2 · S2 · ~5:30</span>
+      <span class="audio-label">Track IELTS-up 9.2 · S2 · ~5:30 · real exam audio</span>
       <audio controls preload="none" src="./assets/audio/ielts-up-9-2-section2.mp3"></audio>
-      <span class="audio-note">en-GB · council spokesperson · real exam audio</span>
+      <span class="audio-note">en-GB · council spokesperson</span>
     </div>
 
-    <div class="map-wrap">
+    <div class="map-wrap" style="grid-template-columns:1fr">
       <div class="festival-map">
-        <img src="./assets/images/map-ielts-up-9-2.png" alt="Local area street map with 5 marked positions A-E on streets near the Underground station">
-        <div class="legend">Local area · 5 shapes A-E on Saint George / Cornwell / Queen / South King / Timber Roads</div>
-      </div>
-
-      <div class="map-match">
-        <h3 style="margin-top:0">Match each place to a letter A–E · 5 Qs</h3>
-        <div class="match-row" data-ans="B">
-          <div class="match-q"><span class="num">11.</span> Science Museum</div>
-          <div class="match-opts"><button data-v="A">A</button><button data-v="B">B</button><button data-v="C">C</button><button data-v="D">D</button><button data-v="E">E</button></div>
-        </div>
-        <div class="match-row" data-ans="A">
-          <div class="match-q"><span class="num">12.</span> National History Museum</div>
-          <div class="match-opts"><button data-v="A">A</button><button data-v="B">B</button><button data-v="C">C</button><button data-v="D">D</button><button data-v="E">E</button></div>
-        </div>
-        <div class="match-row" data-ans="E">
-          <div class="match-q"><span class="num">13.</span> Car Park</div>
-          <div class="match-opts"><button data-v="A">A</button><button data-v="B">B</button><button data-v="C">C</button><button data-v="D">D</button><button data-v="E">E</button></div>
-        </div>
-        <div class="match-row" data-ans="C">
-          <div class="match-q"><span class="num">14.</span> Shopping Mall</div>
-          <div class="match-opts"><button data-v="A">A</button><button data-v="B">B</button><button data-v="C">C</button><button data-v="D">D</button><button data-v="E">E</button></div>
-        </div>
-        <div class="match-row" data-ans="D">
-          <div class="match-q"><span class="num">15.</span> Primary School</div>
-          <div class="match-opts"><button data-v="A">A</button><button data-v="B">B</button><button data-v="C">C</button><button data-v="D">D</button><button data-v="E">E</button></div>
-        </div>
-
-        <div style="margin-top:14px"><span class="score-badge" data-max="5"><span class="lbl">9.2 map</span> <span class="val">0</span> / <span class="max">5</span></span></div>
+        <img src="./assets/images/map-ielts-up-9-2.png" alt="Local area street map with 5 marked positions A-E">
+        <div class="legend">Local area street plan · 5 shapes A-E (full task + Qs on source site)</div>
       </div>
     </div>
 
-    <details class="key-box"><summary>Show key + trap tip</summary>
-      <div class="keys">
-        <div><b>11</b> B · <b>12</b> A · <b>13</b> E · <b>14</b> C · <b>15</b> D</div>
-        <div style="margin-top:8px;color:var(--muted);font-family:var(--body)"><em>Trap:</em> две ellipse A/B и два pentagon C/D легко перепутать, если не слушать порядок цветов и фразу «just north of Cornwell Road». E (green ellipse) stand-alone на Queen Street — обычно даётся первой подсказкой.</div>
-      </div>
-    </details>
+    <div class="external-links" style="margin:14px 0 0">
+      <span class="elinks-label">👉 Полная задача на источнике (plan + Q11-15 + answer key):</span>
+      <a href="https://ielts-up.com/listening/ielts-listening-sample-9.2.html" target="_blank" rel="noopener" style="font-weight:800"><span class="emoji">🔗</span> Open IELTS-up Sample 9.2 Section 2</a>
+    </div>
   </div>
+
 
   <!-- === L1 Furniture rental === -->
   <div class="card" id="l-01">
