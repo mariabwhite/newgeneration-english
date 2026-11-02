@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>Julia's Bubble Wishes · A2 → B1 · will · going to · if…</title>
+<meta name="description" content="A2→B1 lesson for Julia: one afternoon with soap bubbles. 5 chapters — the old bubble bottle, first wish on the balcony, Barsik the bubble hunter, Emma and the giant bubble in the park, sunset wishes. Grammar: will (predictions + wishes), going to (plans), first conditional, might/could, phrasal verbs. Audio-first reading, vocab capsule 20 words.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/lab-pilot.css?v=8">
+<script src="../../assets/lab-pilot.js?v=6" defer></script>
+<script src="../../assets/lab-sync.js?v=24" defer></script>
+<style>
+/* ===== Soap-bubble iridescent palette · pink-violet-lavender ===== */
+:root{
+  --bg:#F7EEFA;              /* soft lavender background */
+  --surface:#FFFFFF;
+  --card:#FFFFFF;
+  --card-2:#FAF2FC;
+  --accent:#9B6BC5;          /* main violet */
+  --accent-2:#C689E0;        /* lighter violet-pink */
+  --accent-3:#E6A6D9;        /* bubble pink */
+  --accent-rainbow-pink:#F2A6C8;
+  --accent-rainbow-mint:#CFB8E8;
+  --accent-rainbow-sun:#FFD4F0;
+  --deep:#4A2B6B;            /* deep purple for titles */
+  --text:#2E1F42;            /* deep plum ink */
+  --ink:#2E1F42;
+  --muted:#8574A0;
+  --faint:rgba(133,116,160,.4);
+  --ok:#78C196;
+  --miss:#E88FB3;
+  --line:rgba(155,107,197,.22);
+  --line-2:rgba(155,107,197,.14);
+  --highlight:rgba(155,107,197,.08);
+  --radius:14px;
+  --radius-l:20px;
+  --shadow:0 4px 18px rgba(74,43,107,.08);
+  --display:'Unbounded','Manrope',sans-serif;
+  --body:'Manrope',system-ui,sans-serif;
+  --mono:'JetBrains Mono',Consolas,monospace;
+  --demo-width:min(100% - 24px,1120px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:
+    radial-gradient(ellipse at 10% 10%, rgba(230,166,217,.14), transparent 55%),
+    radial-gradient(ellipse at 90% 30%, rgba(155,107,197,.10), transparent 55%),
+    radial-gradient(ellipse at 50% 80%, rgba(255,212,240,.14), transparent 60%),
+    var(--bg);
+  color:var(--text);font-family:var(--body);line-height:1.65;min-height:100vh;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;font-size:17px;
+}
+a{color:var(--accent);text-decoration:none}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+img{display:block;max-width:100%}
+
+/* ===== TOPBAR ===== */
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:14px;padding:10px clamp(14px,3vw,28px);background:color-mix(in srgb,var(--surface) 92%,transparent);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+.brand-mark{width:38px;height:38px;border-radius:9px;border-top-right-radius:0;background:var(--accent);color:#fff;font-family:var(--display);font-weight:900;font-size:1.15rem;display:grid;place-items:center;position:relative;overflow:hidden}
+.brand-mark::after{content:"";position:absolute;right:0;top:0;width:14px;height:14px;background:var(--bg);clip-path:polygon(100% 0, 0 0, 100% 100%)}
+.brand-copy{display:grid;gap:1px}
+.brand-name{font-family:var(--display);font-weight:800;font-size:.92rem;letter-spacing:-.01em;line-height:1}
+.brand-sub{font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.spacer{flex:1}
+.pill{padding:5px 11px;border-radius:50px;font:800 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line-2);color:var(--text);background:var(--highlight)}
+.pill.accent{background:rgba(155,107,197,.22);color:var(--accent);border-color:var(--accent)}
+
+/* ===== HERO (dreamy bubble gradient) ===== */
+.hero{width:var(--demo-width);max-width:1120px;margin:22px auto 18px}
+.hero-card{
+  border:1px solid rgba(255,255,255,.3);border-radius:var(--radius-l);
+  padding:clamp(28px,4vw,46px);
+  background:
+    linear-gradient(135deg, rgba(242,166,200,.95) 0%, rgba(198,137,224,.9) 35%, rgba(155,107,197,.9) 70%, rgba(74,43,107,.85) 100%),
+    linear-gradient(135deg,#C689E0,#4A2B6B);
+  position:relative;overflow:hidden;
+  box-shadow:0 10px 30px rgba(74,43,107,.3);
+  min-height:360px;
+  text-align:center;color:#fff;
+}
+.hero-card::before,.hero-card::after,.hero-card .b1,.hero-card .b2,.hero-card .b3{
+  content:"";position:absolute;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), rgba(255,255,255,.25) 40%, rgba(255,255,255,0) 65%);
+  box-shadow:inset 0 0 20px rgba(255,255,255,.6),0 10px 30px rgba(0,0,0,.1);
+  pointer-events:none;
+}
+.hero-card::before{width:140px;height:140px;top:10%;right:8%;animation:float1 7s ease-in-out infinite}
+.hero-card::after{width:100px;height:100px;bottom:15%;left:10%;animation:float2 9s ease-in-out infinite}
+.hero-card .b1{width:60px;height:60px;top:60%;right:18%;animation:float3 6s ease-in-out infinite}
+.hero-card .b2{width:40px;height:40px;top:25%;left:30%;animation:float1 5s ease-in-out infinite reverse}
+.hero-card .b3{width:80px;height:80px;top:45%;left:55%;animation:float2 8s ease-in-out infinite reverse;opacity:.6}
+@keyframes float1{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+@keyframes float2{0%,100%{transform:translateY(0)}50%{transform:translateY(-24px)}}
+@keyframes float3{0%,100%{transform:translate(0,0)}50%{transform:translate(10px,-18px)}}
+.eyebrow{font-family:var(--mono);font-size:.72rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.9);display:inline-flex;align-items:center;gap:10px;margin-bottom:14px;justify-content:center;position:relative;z-index:2}
+.eyebrow::before{content:"";width:28px;height:1px;background:rgba(255,255,255,.6)}
+.hero-title{font-family:var(--display);font-weight:900;font-size:clamp(2rem,6vw,3.3rem);line-height:1.05;color:#fff;margin:0 auto 10px;letter-spacing:-.02em;text-align:center;text-shadow:0 2px 10px rgba(0,0,0,.2);position:relative;z-index:2}
+.hero-title em{font-style:italic;color:rgba(255,255,255,.92);display:block;font-size:.42em;font-weight:500;margin-top:8px;letter-spacing:.01em;font-family:var(--body)}
+.hero-lead{font-family:var(--body);font-size:clamp(.98rem,1.4vw,1.1rem);line-height:1.55;color:rgba(255,255,255,.95);max-width:720px;margin:0 auto 18px;text-align:center;position:relative;z-index:2}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;position:relative;z-index:2}
+.hero-tag{background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.4);color:#fff;padding:6px 12px;border-radius:50px;font:800 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}
+.hero-tag.new{background:rgba(255,255,255,.95);color:var(--deep);border-color:#fff}
+
+/* ===== SECTION ===== */
+.section{width:var(--demo-width);max-width:1120px;margin:0 auto 28px}
+.section-hdr{display:flex;align-items:center;gap:14px;margin-bottom:12px;flex-wrap:wrap}
+.section-hdr .num{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--accent-2),var(--accent),var(--deep));color:#fff;font-weight:900;font-size:1rem;display:grid;place-items:center;flex-shrink:0;font-family:var(--display);box-shadow:0 4px 14px rgba(155,107,197,.3)}
+.section-hdr h2{font-family:var(--display);font-size:clamp(1.1rem,2.4vw,1.4rem);font-weight:800;color:var(--deep);letter-spacing:-.01em}
+.section-hdr h2 em{color:var(--accent);font-style:normal;font-weight:700}
+.section-hdr .tag{margin-left:auto;font-family:var(--mono);font-size:.66rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);background:var(--highlight);padding:5px 12px;border-radius:5px;border:1px solid var(--line)}
+.section-hdr .tag.new{background:rgba(242,166,200,.22);color:var(--accent-rainbow-pink);border-color:var(--accent-rainbow-pink)}
+.section-sub{font-size:.86rem;color:var(--muted);margin-bottom:10px;margin-left:60px;font-style:italic}
+@media(max-width:620px){.section-sub{margin-left:0}}
+
+.card{background:var(--card);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow);border:1px solid var(--line);margin-bottom:12px;position:relative;overflow:visible}
+.card h3{font-family:var(--display);font-size:1.02rem;font-weight:800;margin-bottom:10px;color:var(--deep);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card h3 .ex-num{font-family:var(--mono);font-weight:900;color:var(--accent);font-size:.85rem;background:var(--highlight);padding:3px 9px;border-radius:4px;letter-spacing:.04em;border:1px solid var(--line)}
+.card p{margin-bottom:8px}
+strong{color:var(--deep);font-weight:800}
+
+/* ===== EX-STICKER (emoji floating · bubble theme) ===== */
+.ex-sticker{position:absolute;top:-18px;right:-8px;font-size:3rem;z-index:5;pointer-events:none;filter:drop-shadow(0 6px 14px rgba(155,107,197,.3));animation:stickerBob 5s ease-in-out infinite;line-height:1}
+.ex-sticker.left{right:auto;left:-8px;animation:stickerBobReverse 5.5s ease-in-out infinite}
+.ex-sticker.small{font-size:2rem;top:-10px}
+@keyframes stickerBob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-5px) rotate(3deg)}}
+@keyframes stickerBobReverse{0%,100%{transform:translateY(0) rotate(3deg)}50%{transform:translateY(-6px) rotate(-4deg)}}
+@media(max-width:720px){.ex-sticker{font-size:2.2rem;top:-10px;right:-2px}.ex-sticker.small{font-size:1.6rem}}
+
+/* ===== CAST STRIP (chip-style, Julia canon) ===== */
+.cast-strip{width:var(--demo-width);max-width:1120px;margin:-6px auto 20px;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+@media(max-width:720px){.cast-strip{grid-template-columns:repeat(5,1fr);gap:5px}}
+.cast-card{background:var(--card);border:1.5px solid var(--line-2);border-radius:14px;padding:10px 8px;text-align:center;cursor:pointer;transition:.2s;position:relative;overflow:visible}
+.cast-card:hover{transform:translateY(-4px);border-color:var(--accent);box-shadow:0 10px 22px rgba(155,107,197,.2)}
+.cast-card.playing{animation:pulse .55s}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.cast-card .name{font-family:var(--display);font-weight:800;font-size:.9rem;color:var(--accent);letter-spacing:.01em}
+.cast-card .role{font-family:var(--mono);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:1px}
+@media(max-width:720px){.cast-card{padding:6px 4px}.cast-card .name{font-size:.76rem}.cast-card .role{font-size:.52rem}}
+
+/* ===== SCENE AUDIO BAR (mini voice drops) ===== */
+.scene-row{display:flex;align-items:center;gap:10px;background:linear-gradient(90deg,rgba(242,166,200,.14),rgba(198,137,224,.1));border:1.5px dashed var(--accent-3);border-radius:10px;padding:8px 12px;margin:10px 0;font-size:.9rem}
+.scene-row .play{width:34px;height:34px;border-radius:50%;background:var(--accent-3);color:#fff;border:none;cursor:pointer;display:grid;place-items:center;font-size:.9rem;flex-shrink:0;transition:.15s}
+.scene-row .play:hover{background:var(--accent);transform:scale(1.08)}
+.scene-row .who{font-family:var(--display);font-weight:800;color:var(--accent-rainbow-pink);font-size:.78rem}
+.scene-row .text{flex:1;font-style:italic;color:var(--text);line-height:1.4;font-size:.92rem}
+
+/* ===== BUBBLE WISH CARD (iridescent pink-violet soap bubble) ===== */
+.wish-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:14px 0}
+.wish{position:relative;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.95),rgba(242,166,200,.35) 50%,rgba(198,137,224,.4) 75%,rgba(155,107,197,.3) 100%);border:2px solid rgba(198,137,224,.4);border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;padding:30px 20px;text-align:center;transition:transform .25s;cursor:pointer;overflow:hidden;min-height:170px;display:flex;flex-direction:column;justify-content:center;box-shadow:inset 0 0 25px rgba(198,137,224,.2),0 6px 16px rgba(74,43,107,.15)}
+.wish:hover{transform:scale(1.04) translateY(-3px);box-shadow:inset 0 0 25px rgba(198,137,224,.3),0 10px 24px rgba(74,43,107,.2)}
+.wish .who{font-family:var(--mono);font-size:.68rem;font-weight:800;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
+.wish .wish-text{font-family:var(--display);font-weight:700;font-size:1rem;color:var(--deep);line-height:1.35}
+.wish .wish-text em{color:var(--accent);font-style:normal;font-weight:900}
+.wish::after{content:"";position:absolute;top:14%;left:20%;width:28%;height:12%;background:rgba(255,255,255,.6);border-radius:50%;transform:rotate(-25deg);pointer-events:none}
+
+/* ===== READING BODY ===== */
+.reading-body{font-size:1rem;line-height:1.75;color:var(--text)}
+.reading-body h4{font-family:var(--display);font-weight:800;color:var(--accent);font-size:1.02rem;margin:16px 0 6px;letter-spacing:-.005em}
+.reading-body p{margin-bottom:9px}
+.reading-body audio{width:100%;margin:4px 0 14px;height:36px}
+.reading-body .audio-label{font-family:var(--mono);font-size:.7rem;font-weight:800;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:2px}
+.read-highlight{background:rgba(198,137,224,.14);padding:1px 4px;border-radius:3px;color:var(--accent);font-weight:700}
+
+/* ===== THEORY BOX ===== */
+.theory{background:linear-gradient(135deg,rgba(198,137,224,.08),rgba(242,166,200,.08));border:1.5px solid var(--line-2);border-left:5px solid var(--accent-2);border-radius:0 12px 12px 0;padding:14px 18px;margin:12px 0}
+.theory h4{font-family:var(--mono);font-size:.7rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:6px}
+.theory .rule{font-size:.95rem;line-height:1.55}
+.theory code{font-family:var(--mono);background:rgba(198,137,224,.14);padding:1px 7px;border-radius:4px;color:var(--accent);font-weight:700;font-size:.9rem}
+.theory table{width:100%;margin-top:8px;border-collapse:collapse;font-size:.88rem}
+.theory table th,.theory table td{padding:6px 10px;border:1px solid var(--line-2);text-align:left}
+.theory table th{background:var(--highlight);font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+
+/* ===== MC-LIST ===== */
+.mc-list{display:grid;gap:10px;margin-top:8px}
+.mc-item{background:var(--card-2);border:1px solid var(--line-2);border-radius:10px;padding:10px 12px}
+.mc-q{display:flex;align-items:flex-start;gap:8px;margin-bottom:8px;font-size:.95rem;line-height:1.45}
+.mc-q .num{font-family:var(--mono);font-weight:900;color:var(--accent);background:var(--highlight);padding:2px 8px;border-radius:4px;font-size:.8rem;flex-shrink:0;border:1px solid var(--line)}
+.gap-mini{display:inline-block;min-width:36px;padding:1px 10px;background:rgba(198,137,224,.14);border-bottom:2px dashed var(--accent-3);color:var(--accent);font-weight:800;text-align:center}
+.mc-opts{display:flex;flex-wrap:wrap;gap:6px}
+.mc-opt{padding:6px 12px;background:var(--card);border:1.5px solid var(--line);border-radius:50px;font-size:.86rem;color:var(--text);cursor:pointer;transition:.15s;font-weight:600}
+.mc-opt:hover{border-color:var(--accent);background:var(--highlight)}
+.mc-opt.selected{background:var(--accent-3);color:#fff;border-color:var(--accent-3);font-weight:800}
+.mc-opt.correct{background:var(--ok);color:#fff;border-color:var(--ok);font-weight:800}
+.mc-opt.wrong{background:var(--miss);color:#fff;border-color:var(--miss);opacity:.75}
+
+/* ===== BANK + DROP-GAP ===== */
+.bank{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 10px;padding:10px;background:var(--card-2);border:1.5px dashed var(--accent-3);border-radius:10px}
+.bank-word{padding:5px 11px;background:var(--card);border:1.5px solid var(--line);border-radius:50px;font-size:.84rem;color:var(--text);cursor:pointer;transition:.15s;font-weight:700;font-family:var(--mono)}
+.bank-word:hover{border-color:var(--accent);background:var(--highlight)}
+.bank-word.used{opacity:.3;pointer-events:none;text-decoration:line-through}
+.drag-text{font-size:.95rem;line-height:1.65}
+.drag-text .line-q{display:flex;align-items:flex-start;gap:8px;padding:6px 0;border-bottom:1px dashed rgba(155,107,197,.1)}
+.drag-text .line-q:last-child{border-bottom:none}
+.drag-text .line-q .num{font-family:var(--mono);font-weight:900;color:var(--accent);background:var(--highlight);padding:2px 8px;border-radius:4px;font-size:.78rem;flex-shrink:0;border:1px solid var(--line)}
+.drop-gap{display:inline-block;min-width:84px;padding:2px 10px;background:rgba(198,137,224,.14);border-bottom:2px dashed var(--accent-3);color:var(--accent);font-weight:800;text-align:center;font-family:var(--mono);font-size:.9em;cursor:pointer}
+.drop-gap.filled{background:rgba(120,193,150,.2);border-bottom-color:var(--ok);color:var(--deep)}
+.drop-gap.wrong{background:rgba(212,143,165,.2);border-bottom-color:var(--miss)}
+
+/* ===== INPUT ROW ===== */
+.input-list{display:grid;gap:8px}
+.input-row{display:grid;grid-template-columns:30px 1fr 100px;gap:8px;align-items:center;background:var(--card-2);border:1px solid var(--line-2);border-radius:8px;padding:6px 10px;font-size:.9rem}
+@media(max-width:620px){.input-row{grid-template-columns:28px 1fr;gap:5px}.input-row input{grid-column:1/-1}}
+.input-row .num{font-family:var(--mono);font-weight:900;color:var(--accent);font-size:.78rem;background:var(--highlight);padding:2px 6px;border-radius:4px;border:1px solid var(--line);text-align:center}
+.input-row .prompt{line-height:1.4}
+.input-row .prompt b{color:var(--accent);font-weight:800}
+.input-row input{width:100%;padding:6px 10px;background:var(--card);border:1.5px solid var(--line);border-radius:8px;color:var(--text);font-family:var(--mono);font-size:.9rem;text-align:center;font-weight:700;text-transform:lowercase}
+.input-row input:focus{outline:none;border-color:var(--accent)}
+.input-row input.correct{border-color:var(--ok);background:rgba(120,193,150,.14);color:var(--ok)}
+.input-row input.wrong{border-color:var(--miss);background:rgba(212,143,165,.14);color:var(--miss)}
+
+/* ===== CHECK BUTTON ===== */
+.check-row{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.btn-check{padding:9px 20px;background:linear-gradient(135deg,var(--accent),var(--deep));color:#fff;border:none;border-radius:50px;font-family:var(--display);font-weight:900;font-size:.9rem;cursor:pointer;transition:.15s;letter-spacing:.02em}
+.btn-check:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(155,107,197,.35)}
+.btn-reset{padding:9px 18px;background:transparent;color:var(--muted);border:1.5px solid var(--line-2);border-radius:50px;font-family:var(--mono);font-weight:700;font-size:.78rem;cursor:pointer;letter-spacing:.08em;text-transform:uppercase}
+.btn-reset:hover{color:var(--text);border-color:var(--accent-3)}
+.score-pill{padding:9px 16px;background:var(--card);border:1.5px solid var(--line);border-radius:50px;font-family:var(--mono);font-weight:800;font-size:.84rem;color:var(--accent);letter-spacing:.08em}
+.score-pill.ok{color:var(--ok);border-color:var(--ok)}
+.score-pill.part{color:var(--accent-rainbow-pink)}
+
+/* ===== VOCAB CAPSULE ===== */
+.capsule-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:10px}
+.capsule-item{background:var(--card-2);border:1.5px solid var(--line-2);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px;position:relative}
+.capsule-item .word{font-family:var(--display);font-size:1.08rem;font-weight:900;color:var(--accent);display:flex;align-items:center;gap:8px}
+.capsule-item .play-mini{width:26px;height:26px;border-radius:50%;background:var(--accent-3);color:#fff;border:none;cursor:pointer;display:grid;place-items:center;font-size:.7rem;flex-shrink:0}
+.capsule-item .play-mini:hover{background:var(--accent);transform:scale(1.1)}
+.capsule-item .ru{font-size:.84rem;color:var(--muted);font-style:italic}
+.capsule-item .ex{font-size:.86rem;line-height:1.4;color:var(--text);border-left:3px solid var(--accent);padding-left:8px}
+.capsule-item input{padding:5px 10px;background:var(--card);border:1.5px solid var(--line);border-radius:6px;color:var(--text);font-family:var(--mono);font-size:.84rem;text-align:center;font-weight:700;margin-top:4px}
+.capsule-item input:focus{outline:none;border-color:var(--accent)}
+.capsule-item input.correct{border-color:var(--ok);background:rgba(120,193,150,.14);color:var(--ok)}
+.capsule-item input.wrong{border-color:var(--miss);background:rgba(212,143,165,.14);color:var(--miss)}
+
+/* ===== RIDDLE ===== */
+.riddle-slots{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:14px 0}
+.riddle-slot{width:40px;height:48px;border:2px dashed var(--accent-3);border-radius:8px;display:grid;place-items:center;font-family:var(--display);font-weight:900;font-size:1.3rem;color:var(--accent);background:var(--card-2);transition:.2s}
+.riddle-slot.filled{border-style:solid}
+.riddle-letters{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:10px}
+.riddle-letter{padding:8px 14px;background:var(--card-2);border:1.5px solid var(--line-2);border-radius:8px;font-family:var(--display);font-weight:800;color:var(--deep);cursor:pointer;transition:.15s;font-size:1rem;min-width:40px}
+.riddle-letter:hover:not(:disabled){background:var(--accent);color:#fff;border-color:var(--accent);transform:translateY(-2px)}
+.riddle-letter:disabled{cursor:default}
+
+/* ===== FOOTER CARD ===== */
+.wrap-up{width:var(--demo-width);max-width:1120px;margin:30px auto 50px;background:linear-gradient(135deg,var(--accent-rainbow-pink) 0%,var(--accent-3) 35%,var(--accent-2) 70%,var(--accent) 100%);border:1.5px solid var(--accent);border-radius:20px;padding:30px;text-align:center;color:#fff;position:relative;overflow:hidden}
+.wrap-up::before{content:"";position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), rgba(255,255,255,.2) 60%);box-shadow:inset 0 0 20px rgba(255,255,255,.5)}
+.wrap-up::after{content:"";position:absolute;bottom:-20px;left:-20px;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), rgba(255,255,255,.2) 60%);box-shadow:inset 0 0 20px rgba(255,255,255,.5)}
+.wrap-up h2{font-family:var(--display);font-size:1.5rem;color:#fff;margin-bottom:10px;position:relative;z-index:2;text-shadow:0 2px 8px rgba(0,0,0,.15)}
+.wrap-up p{color:#fff;max-width:620px;margin:0 auto 6px;line-height:1.55;position:relative;z-index:2}
+.wrap-up .sig{font-family:var(--display);color:#fff;font-size:1.15rem;margin-top:14px;font-weight:800;position:relative;z-index:2;text-shadow:0 2px 8px rgba(0,0,0,.15)}
+
+/* ===== STICKY SCROLL-TOP BUTTON ===== */
+.scroll-top{position:fixed;bottom:22px;right:22px;z-index:99;width:48px;height:48px;cursor:pointer;background:var(--accent);border:none;padding:0;border-radius:50%;color:#fff;font-size:1.3rem;font-weight:900;line-height:48px;text-align:center;box-shadow:0 6px 16px rgba(74,43,107,.25);transition:transform .15s,box-shadow .2s}
+.scroll-top:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(74,43,107,.35);background:var(--deep)}
+@media(max-width:720px){.scroll-top{width:42px;height:42px;line-height:42px;bottom:14px;right:14px;font-size:1.1rem}}
+</style>
+</head>
+<body>
+
+<!-- ===== TOPBAR ===== -->
+<header class="topbar">
+  <a href="/" class="brand"><span class="brand-mark">NG</span><span class="brand-copy"><span class="brand-name">NG English Lab</span><span class="brand-sub">A2 → B1 · Julia · Bubble Wishes</span></span></a>
+  <span class="spacer"></span>
+  <span class="pill accent">A2 → B1</span>
+  <span class="pill">60 min</span>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-card">
+    <span class="b1"></span><span class="b2"></span><span class="b3"></span>
+    <div class="eyebrow">Julia · One afternoon · 5 chapters</div>
+    <h1 class="hero-title">Bubble Wishes<em>a hundred bubbles, a hundred wishes · will · going to · if…</em></h1>
+    <p class="hero-lead">After school Julia and John find an old bubble bottle. Mum helps them mix a magic batch. One by one, each bubble carries a wish for the future.</p>
+    <div class="hero-tags">
+      <span class="hero-tag new">Future · will</span>
+      <span class="hero-tag">going to</span>
+      <span class="hero-tag new">First conditional (if…)</span>
+      <span class="hero-tag">might / could</span>
+      <span class="hero-tag new">Phrasal verbs</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CAST STRIP ===== -->
+<section class="cast-strip">
+  <button class="cast-card" data-say="cast-julia"><div class="name">Julia</div><div class="role">main · 9</div></button>
+  <button class="cast-card" data-say="cast-mum"><div class="name">Mum</div><div class="role">recipe-master</div></button>
+  <button class="cast-card" data-say="cast-john"><div class="name">John</div><div class="role">little bro · 6</div></button>
+  <button class="cast-card" data-say="cast-emma"><div class="name">Emma</div><div class="role">best friend</div></button>
+  <button class="cast-card" data-say="cast-barsik"><div class="name">Barsik</div><div class="role">bubble hunter</div></button>
+</section>
+
+<!-- ===== 1 · WARM-UP RIDDLE ===== -->
+<section class="section" id="sec-01">
+  <div class="section-hdr">
+    <div class="num">1</div>
+    <h2>Warm-up · <em>guess the magic word</em></h2>
+    <span class="tag">🧩 Riddle</span>
+  </div>
+  <div class="section-sub">Read the little rhyme. The last word is round and shiny — tap the letters to spell it.</div>
+
+  <div class="scene-row">
+    <button class="play" data-say="scene-start">▶</button>
+    <span class="who">Julia:</span>
+    <span class="text">After school. The kitchen window is open. Sunlight on the floor. And in the drawer — something I had forgotten about since last summer.</span>
+  </div>
+
+  <div class="card">
+    <span class="ex-sticker">🫧</span>
+    <span class="ex-sticker left small">✨</span>
+    <h3><span class="ex-num">1.1</span> Spell the magic word</h3>
+    <p class="riddle-poem" style="font-family:var(--display);font-size:1.1rem;font-weight:600;line-height:1.5;color:var(--deep);text-align:center;margin:10px 0">
+      Round and shiny, light as air,<br>
+      Floats a moment — then it's bare.<br>
+      Soap and water, trouble double —<br>
+      Blow and catch a …
+    </p>
+
+    <div class="riddle-slots" id="rid-slots">
+      <div class="riddle-slot" data-letter="B"></div>
+      <div class="riddle-slot" data-letter="U"></div>
+      <div class="riddle-slot" data-letter="B"></div>
+      <div class="riddle-slot" data-letter="B"></div>
+      <div class="riddle-slot" data-letter="L"></div>
+      <div class="riddle-slot" data-letter="E"></div>
+    </div>
+
+    <div class="riddle-letters" id="rid-pool">
+      <button class="riddle-letter" data-l="L">L</button>
+      <button class="riddle-letter" data-l="B">B</button>
+      <button class="riddle-letter" data-l="E">E</button>
+      <button class="riddle-letter" data-l="U">U</button>
+      <button class="riddle-letter" data-l="B">B</button>
+      <button class="riddle-letter" data-l="B">B</button>
+    </div>
+
+    <p style="margin-top:12px;color:var(--muted);font-size:.9rem;font-style:italic">💬 Tell me: have you ever blown bubbles? Do you remember how big the biggest one was?</p>
+  </div>
+</section>
+
+<!-- ===== 2 · CHAPTER 1 · THE OLD BUBBLE BOTTLE ===== -->
+<section class="section" id="sec-02">
+  <div class="section-hdr">
+    <div class="num">2</div>
+    <h2>Chapter 1 · <em>The old bubble bottle</em></h2>
+    <span class="tag">recipe · imperatives</span>
+  </div>
+  <div class="section-sub">Julia finds a dusty bottle in the kitchen drawer. Mum knows a secret recipe. Listen first — read after.</div>
+
+  <div class="reading-body">
+    <div class="audio-label">Chapter 1 · audio-first</div>
+    <audio controls preload="metadata" src="audio/story-ch1-bottle.mp3"></audio>
+    <p>Julia opened the kitchen drawer and smiled. There it was — the old <span class="read-highlight">bubble bottle</span> from last summer in Bodrum. Only one tiny drop left inside.</p>
+    <p>"<strong>Mum</strong>, can we make more? Please, please!" shouted John from the sofa, suddenly very awake.</p>
+    <p>Mum laughed. "Of course. I know the perfect <span class="read-highlight">recipe</span>. Bring me a bowl."</p>
+    <p>She wrote on a piece of paper:</p>
+  </div>
+
+  <div class="card">
+    <span class="ex-sticker">🥣</span>
+    <span class="ex-sticker left small">🧪</span>
+    <h3><span class="ex-num">2.1</span> Mum's secret bubble recipe</h3>
+    <div class="theory">
+      <h4>How to make giant bubbles — do these steps</h4>
+      <div class="rule">
+        1. <strong>Take</strong> a big bowl.<br>
+        2. <strong>Pour</strong> 1 cup of water into the bowl.<br>
+        3. <strong>Add</strong> 2 spoons of <code>dish soap</code>.<br>
+        4. <strong>Mix</strong> gently with a spoon — don't shake!<br>
+        5. <strong>Add</strong> 1 small spoon of <code>glycerin</code> (the magic ingredient).<br>
+        6. <strong>Wait</strong> ten minutes. Then take your <code>wand</code> and <strong>blow</strong>!
+      </div>
+    </div>
+    <p style="color:var(--muted);font-size:.86rem;font-style:italic;margin-top:8px">👉 These are <strong>imperatives</strong> — you tell someone WHAT TO DO: Take · Pour · Add · Mix · Wait · Blow.</p>
+  </div>
+
+  <div class="card">
+    <span class="ex-sticker">🧼</span>
+    <span class="ex-sticker left small">💧</span>
+    <h3><span class="ex-num">2.2</span> Match the step with the right verb</h3>
+    <div class="bank" id="bank-recipe">
+      <button class="bank-word" data-w="take">take</button>
+      <button class="bank-word" data-w="pour">pour</button>
+      <button class="bank-word" data-w="add">add</button>
+      <button class="bank-word" data-w="mix">mix</button>
+      <button class="bank-word" data-w="wait">wait</button>
+      <button class="bank-word" data-w="blow">blow</button>
+    </div>
+    <div class="drag-text" data-group="recipe">
+      <div class="line-q"><span class="num">1</span><span><span class="drop-gap" data-ans="take">?</span> a bowl.</span></div>
+      <div class="line-q"><span class="num">2</span><span><span class="drop-gap" data-ans="pour">?</span> water into the bowl.</span></div>
+      <div class="line-q"><span class="num">3</span><span><span class="drop-gap" data-ans="add">?</span> dish soap and glycerin.</span></div>
+      <div class="line-q"><span class="num">4</span><span><span class="drop-gap" data-ans="mix">?</span> gently with a spoon.</span></div>
+      <div class="line-q"><span class="num">5</span><span><span class="drop-gap" data-ans="wait">?</span> ten minutes.</span></div>
+      <div class="line-q"><span class="num">6</span><span><span class="drop-gap" data-ans="blow">?</span> with the wand!</span></div>
+    </div>
+    <div class="check-row">
+      <button class="btn-check" data-check="sec-02-recipe">Check</button>
+      <button class="btn-reset" data-reset="sec-02-recipe">clear</button>
+      <span class="score-pill" data-score-for="sec-02-recipe">— / 6</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 3 · CHAPTER 2 · FIRST BUBBLE · WILL ===== -->
+<section class="section" id="sec-03">
+  <div class="section-hdr">
+    <div class="num">3</div>
+    <h2>Chapter 2 · <em>First bubble on the balcony</em></h2>
+    <span class="tag new">Future · WILL</span>
+  </div>
+  <div class="section-sub">The mixture is ready. Julia takes the first bubble out on the balcony. One bubble = one wish for the future.</div>
+
+  <div class="reading-body">
+    <div class="audio-label">Chapter 2 · audio-first</div>
+    <audio controls preload="metadata" src="audio/story-ch2-balcony.mp3"></audio>
+    <p>Ten minutes later, Julia stood on the balcony with the <span class="read-highlight">wand</span>. The afternoon sun was warm. She breathed in deeply and <strong>blew</strong>.</p>
+    <p>A perfect, shiny bubble floated out of the ring — a <span class="read-highlight">rainbow</span> on its skin.</p>
+    <p>"I <strong>will</strong> travel to London one day," Julia whispered. "That's my wish."</p>
+    <p>The bubble floated higher, higher, higher… and then — <em>pop</em>. "There," she smiled. "The wish is in the sky now. It <strong>will</strong> come true."</p>
+  </div>
+
+  <div class="card">
+    <span class="ex-sticker">🔮</span>
+    <span class="ex-sticker left small">⭐</span>
+    <h3><span class="ex-num">3.1</span> Mini-theory · WILL for wishes and predictions</h3>
+    <div class="theory">
+      <h4>Formula</h4>
+      <table>
+        <tr><th>Subject</th><th>will</th><th>V (bare)</th></tr>
+        <tr><td>I / you / he / she / we / they</td><td><code>will</code> (short: <code>'ll</code>)</td><td>travel · see · meet · be happy</td></tr>
+      </table>
+      <div class="rule" style="margin-top:8px">Use <code>will</code> for:<br>· a <strong>wish / dream</strong> about the future — <em>I will travel to London one day.</em><br>· a <strong>prediction</strong> — <em>I think it will rain tomorrow.</em><br>· a <strong>promise</strong> — <em>I will always love Barsik.</em><br><br>Negative: <code>won't</code> (= will not). Question: <code>Will you…?</code> Short: <em>Yes, I will. / No, I won't.</em></div>
+    </div>
+  </div>
+
+  <div class="card" style="background:linear-gradient(135deg,var(--card),rgba(198,137,224,.05))">
+    <h3><span class="ex-num">3.2</span> 🫧 Julia's first bubble wishes · tap any bubble, imagine</h3>
+    <div class="wish-list">
+      <div class="wish"><div class="who">Julia · wish 1</div><div class="wish-text">I <em>will</em> travel to London one day.</div></div>
+      <div class="wish"><div class="who">Julia · wish 2</div><div class="wish-text">I <em>will</em> have a very big dog with floppy ears.</div></div>
+      <div class="wish"><div class="who">Julia · wish 3</div><div class="wish-text">I <em>will</em> paint a picture Mum will love.</div></div>
+      <div class="wish"><div class="who">Julia · wish 4</div><div class="wish-text">I <em>will</em> see snow in Red Square at Christmas.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="ex-sticker">✍</span>
+    <span class="ex-sticker left small">🎯</span>
+    <h3><span class="ex-num">3.3</span> Pick the right form of WILL</h3>
+    <div class="mc-list">
+      <div class="mc-item" data-answer="will-be"><div class="mc-q"><span class="num">1</span><span>Tomorrow <span class="gap-mini">?</span> a sunny day — I feel it!</span></div><div class="mc-opts"><button class="mc-opt" data-v="is">is</button><button class="mc-opt" data-v="will-be">will be</button><button class="mc-opt" data-v="is being">is being</button></div></div>
+      <div class="mc-item" data-answer="will-help"><div class="mc-q"><span class="num">2</span><span>Mum, the dishes are too heavy — I <span class="gap-mini">?</span> you!</span></div><div class="mc-opts"><button class="mc-opt" data-v="will-help">will help</button><button class="mc-opt" data-v="help">help</button><button class="mc-opt" data-v="am helping">am helping</button></div></div>
+      <div class="mc-item" data-answer="wont-rain"><div class="mc-q"><span class="num">3</span><span>I think it <span class="gap-mini">?</span> on my birthday — the sun always shines!</span></div><div class="mc-opts"><button class="mc-opt" data-v="wont-rain">won't rain</button><button class="mc-opt" data-v="don't rain">don't rain</button><button class="mc-opt" data-v="isn't rain">isn't rain</button></div></div>
+      <div class="mc-item" data-answer="will-you-come"><div class="mc-q"><span class="num">4</span><span><span class="gap-mini">?</span> to my birthday party, Emma?</span></div><div class="mc-opts"><button class="mc-opt" data-v="you-will-come">You will come</button><button class="mc-opt" data-v="will-you-come">Will you come</button><button class="mc-opt" data-v="do-you-come">Do you come</button></div></div>
+      <div class="mc-item" data-answer="will-fly"><div class="mc-q"><span class="num">5</span><span>Maybe one day a human <span class="gap-mini">?</span> to Mars.</span></div><div class="mc-opts"><button class="mc-opt" data-v="flies">flies</button><button class="mc-opt" data-v="will-fly">will fly</button><button class="mc-opt" data-v="is flying">is flying</button></div></div>
+      <div class="mc-item" data-answer="yes-i-will"><div class="mc-q"><span class="num">6</span><span>— Will you remember me when you are 100? — <span class="gap-mini">?</span></span></div><div class="mc-opts"><button class="mc-opt" data-v="yes-i-will">Yes, I will.</button><button class="mc-opt" data-v="yes-i-am">Yes, I am.</button><button class="mc-opt" data-v="yes-i-do">Yes, I do.</button></div></div>
+    </div>
+    <div class="check-row"><button class="btn-check" data-check="sec-03-will">Check</button><span class="score-pill" data-score-for="sec-03-will">— / 6</span></div>
+  </div>
+
+  <div class="card">
+    <span class="ex-sticker">💭</span>
+    <span class="ex-sticker left small">📝</span>
+    <h3><span class="ex-num">3.4</span> Build a sentence with WILL · word order</h3>
+    <p style="color:var(--muted);font-size:.86rem">Type the full sentence. Mind the capital letter and the full stop.</p>
+    <div class="input-list">
+      <div class="input-row"><span class="num">1</span><div class="prompt">travel / will / to / London / I</div><input type="text" data-ans="I will travel to London." placeholder="I will…" style="text-transform:none;text-align:left"></div>
+      <div class="input-row"><span class="num">2</span><div class="prompt">a / be / Mum / artist / famous / will</div><input type="text" data-ans="Mum will be a famous artist." placeholder="Mum will…" style="text-transform:none;text-align:left"></div>
+      <div class="input-row"><span class="num">3</span><div class="prompt">come / my / Barsik / wish / won't / true</div><input type="text" data-ans="Barsik won't come true my wish." placeholder="Barsik won't…" style="text-transform:none;text-align:left"></div>
+    </div>
+    <div class="check-row"><button class="btn-check" data-check="sec-03-build">Check</button><button class="btn-reset" data-reset="sec-03-build">clear</button><span class="score-pill" data-score-for="sec-03-build">— / 3</span></div>
+  </div>
+</section>
+
+<!-- ===== 4 · CHAPTER 3 · BARSIK THE BUBBLE HUNTER (Past Continuous) ===== -->
+<section class="section" id="sec-04">
+  <div class="section-hdr">
+    <div class="num">4</div>
+    <h2>Chapter 3 · <em>Barsik the bubble hunter</em></h2>
+    <span class="tag">Past Continuous · flashback</span>
+  </div>
+  <div class="section-sub">Suddenly from inside — a grey missile. Barsik heard the pop and came hunting. Chaos ensues.</div>
+
+  <div class="reading-body">
+    <div class="audio-label">Chapter 3 · audio-first</div>
+    <audio controls preload="metadata" src="audio/story-ch3-barsik.mp3"></audio>
+    <p>Julia <strong>was blowing</strong> her tenth bubble when Barsik suddenly <strong>jumped</strong> onto the balcony table. He <strong>was running</strong> after a shiny pink bubble.</p>
+    <p>POP! The bubble <strong>burst</strong> on his nose. He stopped. He looked at his wet paw. He <strong>sneezed</strong>. Julia <strong>was laughing</strong> so hard she <strong>dropped</strong> the wand.</p>
+    <p>"BARSIK! That was my wish!" she said. "Now I <strong>will</strong> have to blow another one."</p>
+    <p>Barsik <strong>wasn't listening</strong>. He <strong>was already waiting</strong> for the next bubble, his tail <strong>moving</strong> left and right like a conductor's baton.</p>
+  </div>
+
+  <div class="card">
+    <span class="ex-sticker">🐱</span>
+    <span class="ex-sticker left small">💥</span>
+    <h3><span class="ex-num">4.1</span> Mini-theory · Past Continuous + Past Simple together</h3>
+    <div class="theory">
+      <div class="rule">
+        · <strong>Past Continuous</strong> (<code>was/were + V-ing</code>) = a long action in the past<br>
+        · <strong>Past Simple</strong> (<code>V2</code>) = a short action that cut it off<br>
+        <em>I <strong>was blowing</strong> the bubble when Barsik <strong>jumped</strong> on the table.</em>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="ex-sticker">⚡</span>
+    <span class="ex-sticker left small">🫧</span>
+    <h3><span class="ex-num">4.2</span> Pick Past Simple or Past Continuous</h3>
+    <div class="mc-list">
+      <div class="mc-item" data-answer="was-blowing"><div class="mc-q"><span class="num">1</span><span>Julia <span class="gap-mini">?</span> a bubble when Barsik jumped on the table.</span></div><div class="mc-opts"><button class="mc-opt" data-v="blew">blew</button><button class="mc-opt" data-v="was-blowing">was blowing</button><button class="mc-opt" data-v="blows">blows</button></div></div>
+      <div class="mc-item" data-answer="jumped"><div class="mc-q"><span class="num">2</span><span>Suddenly Barsik <span class="gap-mini">?</span> onto the table.</span></div><div class="mc-opts"><button class="mc-opt" data-v="was-jumping">was jumping</button><button class="mc-opt" data-v="jumped">jumped</button><button class="mc-opt" data-v="jumps">jumps</button></div></div>
+      <div class="mc-item" data-answer="was-running"><div class="mc-q"><span class="num">3</span><span>He <span class="gap-mini">?</span> after a pink bubble when it burst on his nose.</span></div><div class="mc-opts"><button class="mc-opt" data-v="ran">ran</button><button class="mc-opt" data-v="was-running">was running</button><button class="mc-opt" data-v="runs">runs</button></div></div>
+      <div class="mc-item" data-answer="burst"><div class="mc-q"><span class="num">4</span><span>The bubble <span class="gap-mini">?</span> loudly — POP!</span></div><div class="mc-opts"><button class="mc-opt" data-v="was-bursting">was bursting</button><button class="mc-opt" data-v="burst">burst</button><button class="mc-opt" data-v="bursts">bursts</button></div></div>
+      <div class="mc-item" data-answer="dropped"><div class="mc-q"><span class="num">5</span><span>Julia laughed so hard she <span class="gap-mini">?</span> the wand on the floor.</span></div><div class="mc-opts"><button class="mc-opt" data-v="dropped">dropped</button><button class="mc-opt" data-v="was-dropping">was dropping</button><button class="mc-opt" data-v="drops">drops</button></div></div>
+      <div class="mc-item" data-answer="wasnt-listening"><div class="mc-q"><span class="num">6</span><span>Barsik <span class="gap-mini">?</span> — he was already waiting for the next bubble.</span></div><div class="mc-opts"><button class="mc-opt" data-v="wasnt-listening">wasn't listening</button><button class="mc-opt" data-v="didnt-listen">didn't listen</button><button class="mc-opt" data-v="isnt-listening">isn't listening</button></div></div>
+    </div>
+    <div class="check-row"><button class="btn-check" data-check="sec-04-past">Check</button><span class="score-pill" data-score-for="sec-04-past">— / 6</span></div>
+  </div>
+
+  <div class="card">
+    <span class="ex-sticker">🔁</span>
+    <span class="ex-sticker left small">🧠</span>
+    <h3><span class="ex-num">4.3</span> Phrasal verbs · from today's story</h3>
+    <p style="color:var(--muted);font-size:.86rem">Verb + preposition = a NEW meaning. Four of these appear in the story.</p>
+    <div class="theory">
+      <table>
+        <tr><th>pop up</th><td>суддённо появиться</td><td><em>A bubble popped up out of nowhere.</em></td></tr>
+        <tr><th>blow up</th><td>раздуть (пузырь, шарик)</td><td><em>Blow up the balloon until it's huge.</em></td></tr>
+        <tr><th>come true</th><td>сбыться (о мечте / желании)</td><td><em>Will my wish come true?</em></td></tr>
+        <tr><th>look after</th><td>присматривать</td><td><em>Can you look after Barsik tonight?</em></td></tr>
+      </table>
+    </div>
+    <div class="mc-list">
+      <div class="mc-item" data-answer="pops-up"><div class="mc-q"><span class="num">1</span><span>A shiny bubble suddenly <span class="gap-mini">?</span> from the wand.</span></div><div class="mc-opts"><button class="mc-opt" data-v="pops-up">pops up</button><button class="mc-opt" data-v="comes-true">comes true</button><button class="mc-opt" data-v="looks-after">looks after</button></div></div>
+      <div class="mc-item" data-answer="blow-up"><div class="mc-q"><span class="num">2</span><span>John, can you <span class="gap-mini">?</span> these balloons for Mum's birthday?</span></div><div class="mc-opts"><button class="mc-opt" data-v="blow-up">blow up</button><button class="mc-opt" data-v="look-after">look after</button><button class="mc-opt" data-v="pop-up">pop up</button></div></div>
+      <div class="mc-item" data-answer="come-true"><div class="mc-q"><span class="num">3</span><span>Julia hopes her London wish will <span class="gap-mini">?</span>.</span></div><div class="mc-opts"><button class="mc-opt" data-v="come-true">come true</button><button class="mc-opt" data-v="blow-up">blow up</button><button class="mc-opt" data-v="pop-up">pop up</button></div></div>
+      <div class="mc-item" data-answer="look-after"><div class="mc-q"><span class="num">4</span><span>While we're at the park, can you <span class="gap-mini">?</span> Barsik, please?</span></div><div class="mc-opts"><button class="mc-opt" data-v="look-after">look after</button><button class="mc-opt" data-v="come-true">come true</button><button class="mc-opt" data-v="pop-up">pop up</button></div></div>
+    </div>
+    <div class="check-row"><button class="btn-check" data-check="sec-04-phrasal">Check</button><span class="score-pill" data-score-for="sec-04-phrasal">— / 4</span></div>
+  </div>
+</section>
+
+<!-- ===== 5 · CHAPTER 4 · GIANT BUBBLE WITH EMMA · GOING TO + IF ===== -->
+<section class="section" id="sec-05">
+  <div class="section-hdr">
+    <div class="num">5</div>
+    <h2>Chapter 4 · <em>Giant bubble in the park</em></h2>
+    <span class="tag new">going to · if…</span>
+  </div>
+  <div class="section-sub">Emma arrives with a giant wire ring. They have a plan. And a condition.</div>
+
+  <div class="reading-body">
+    <div class="audio-label">Chapter 4 · audio-first</div>
+    <audio controls preload="metadata" src="audio/story-ch4-giant.mp3"></audio>
+    <p>Ten minutes later, Emma rang the doorbell. In her hands was a huge wire <span class="read-highlight">ring</span>, big as a plate.</p>
+    <p>"Look what I <strong>brought</strong>! Mum helped me make it. We <strong>are going to</strong> blow a bubble bigger than John!"</p>
+    <p>They poured the mixture into a big bowl and took everything to the city park. The grass was warm. A soft wind was blowing.</p>
+    <p>"If I <strong>blow</strong> very slowly, the bubble <strong>will be</strong> giant," Emma said.</p>
+    <p>"And if it <strong>bursts</strong>, we <strong>will</strong> just mix some more!" Julia laughed.</p>
+    <p>They <strong>were going to</strong> make a Guinness-record bubble, but Barsik — well, you already know Barsik.</p>
+  </div>
+
+  <div class="card">
+    <span class="ex-sticker">🗓</span>
+    <span class="ex-sticker left small">📋</span>
+    <h3><span class="ex-num">5.1</span> Mini-theory · will vs going to</h3>
+    <div class="theory">
+      <table>
+        <tr><th>WILL</th><td>a wish, a prediction, a decision at this very moment</td><td><em>I <strong>will</strong> help you! (right now I decide)</em></td></tr>
+        <tr><th>GOING TO</th><td>a plan you ALREADY MADE before</td><td><em>We <strong>are going to</strong> make a giant bubble. (we planned it yesterday)</em></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="ex-sticker">⚖</span>
+    <span class="ex-sticker left small">🫧</span>
+    <h3><span class="ex-num">5.2</span> Will or going to? Think carefully.</h3>
+    <div class="mc-list">
+      <div class="mc-item" data-answer="are-going-to"><div class="mc-q"><span class="num">1</span><span>We already decided — tomorrow we <span class="gap-mini">?</span> blow bubbles in the park.</span></div><div class="mc-opts"><button class="mc-opt" data-v="will">will</button><button class="mc-opt" data-v="are-going-to">are going to</button></div></div>
+      <div class="mc-item" data-answer="will"><div class="mc-q"><span class="num">2</span><span>I think our team <span class="gap-mini">?</span> win the race! (just a prediction)</span></div><div class="mc-opts"><button class="mc-opt" data-v="will">will</button><button class="mc-opt" data-v="is-going-to">is going to</button></div></div>
+      <div class="mc-item" data-answer="is-going-to"><div class="mc-q"><span class="num">3</span><span>Look at that huge black cloud! It <span class="gap-mini">?</span> rain any minute. (we see it coming)</span></div><div class="mc-opts"><button class="mc-opt" data-v="will">will</button><button class="mc-opt" data-v="is-going-to">is going to</button></div></div>
+      <div class="mc-item" data-answer="will"><div class="mc-q"><span class="num">4</span><span>— The bowl is full of water! — Don't worry, I <span class="gap-mini">?</span> get a cloth. (decision this second)</span></div><div class="mc-opts"><button class="mc-opt" data-v="will">will</button><button class="mc-opt" data-v="am-going-to">am going to</button></div></div>
+      <div class="mc-item" data-answer="are-going-to"><div class="mc-q"><span class="num">5</span><span>Emma and I <span class="gap-mini">?</span> open a bubble shop one day. (we talked about it a lot)</span></div><div class="mc-opts"><button class="mc-opt" data-v="will">will</button><button class="mc-opt" data-v="are-going-to">are going to</button></div></div>
+    </div>
+    <div class="check-row"><button class="btn-check" data-check="sec-05-will-vs">Check</button><span class="score-pill" data-score-for="sec-05-will-vs">— / 5</span></div>
+  </div>
+
+  <div class="card">
+    <span class="ex-sticker">🧩</span>
+    <span class="ex-sticker left small">🌧</span>
+    <h3><span class="ex-num">5.3</span> Mini-theory · First conditional (If…, will…)</h3>
+    <div class="theory">
+      <div class="rule"><strong>If</strong> + Present Simple, <strong>will</strong> + V (bare).<br>
+      <em>If I blow slowly, the bubble <strong>will be</strong> giant.</em><br>
+      <em>If it bursts, we <strong>will</strong> make another one.</em><br>
+      ⚠️ Never <code>If I will blow…</code> — only Present after <code>if</code>!</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="ex-sticker">🔮</span>
+    <span class="ex-sticker left small">💧</span>
+    <h3><span class="ex-num">5.4</span> Complete the if-sentence</h3>
+    <div class="mc-list">
+      <div class="mc-item" data-answer="will-pop"><div class="mc-q"><span class="num">1</span><span>If Barsik touches the bubble, it <span class="gap-mini">?</span>.</span></div><div class="mc-opts"><button class="mc-opt" data-v="pops">pops</button><button class="mc-opt" data-v="will-pop">will pop</button><button class="mc-opt" data-v="was-popping">was popping</button></div></div>
+      <div class="mc-item" data-answer="blows"><div class="mc-q"><span class="num">2</span><span>If Julia <span class="gap-mini">?</span> too fast, the bubble will burst.</span></div><div class="mc-opts"><button class="mc-opt" data-v="will-blow">will blow</button><button class="mc-opt" data-v="blows">blows</button><button class="mc-opt" data-v="is-blowing">is blowing</button></div></div>
+      <div class="mc-item" data-answer="will-make"><div class="mc-q"><span class="num">3</span><span>If it rains tomorrow, we <span class="gap-mini">?</span> bubbles inside, in the bathtub.</span></div><div class="mc-opts"><button class="mc-opt" data-v="make">make</button><button class="mc-opt" data-v="will-make">will make</button><button class="mc-opt" data-v="made">made</button></div></div>
+      <div class="mc-item" data-answer="is"><div class="mc-q"><span class="num">4</span><span>If John <span class="gap-mini">?</span> careful, the giant bubble will land on his head!</span></div><div class="mc-opts"><button class="mc-opt" data-v="will-be">will be</button><button class="mc-opt" data-v="is">isn't</button><button class="mc-opt" data-v="is">is</button></div></div>
+      <div class="mc-item" data-answer="will-come"><div class="mc-q"><span class="num">5</span><span>If you believe hard enough, your wish <span class="gap-mini">?</span> true.</span></div><div class="mc-opts"><button class="mc-opt" data-v="comes">comes</button><button class="mc-opt" data-v="will-come">will come</button><button class="mc-opt" data-v="came">came</button></div></div>
+    </div>
+    <div class="check-row"><button class="btn-check" data-check="sec-05-if">Check</button><span class="score-pill" data-score-for="sec-05-if">— / 5</span></div>
+  </div>
+</section>
+
+<!-- ===== 6 · CHAPTER 5 · SUNSET WISHES · MIGHT / COULD ===== -->
+<section class="section" id="sec-06">
+  <div class="section-hdr">
+    <div class="num">6</div>
+    <h2>Chapter 5 · <em>Sunset wishes</em></h2>
+    <span class="tag">might · could · maybe</span>
+  </div>
+  <div class="section-sub">The sun paints everything orange. The last big bubble floats across the park. Three friends, three quiet wishes.</div>
+
+  <div class="reading-body">
+    <div class="audio-label">Chapter 5 · audio-first</div>
+    <audio controls preload="metadata" src="audio/story-ch5-sunset.mp3"></audio>
+    <p>The sun was turning orange. Julia, John and Emma sat on the warm grass. The last bubble of the day floated slowly above the trees — bigger than any before.</p>
+    <p>"Maybe one day I <strong>might</strong> be a scientist," said John quietly, "and I will invent a bubble that never pops."</p>
+    <p>"Maybe one day I <strong>could</strong> have my own art studio with a huge window," said Julia.</p>
+    <p>"Maybe one day we <strong>might</strong> open a bubble shop together," said Emma, "and only sell wishes."</p>
+    <p>Barsik was already asleep in Julia's lap, dreaming his own bubble dreams.</p>
+    <p>Julia smiled. "Maybe one day… but today was a very good day too."</p>
+  </div>
+
+  <div class="card">
+    <span class="ex-sticker">🌅</span>
+    <span class="ex-sticker left small">💭</span>
+    <h3><span class="ex-num">6.1</span> Mini-theory · might / could — soft possibility</h3>
+    <div class="theory">
+      <table>
+        <tr><th>might</th><td>maybe · 50/50 chance</td><td><em>I might become a scientist.</em></td></tr>
+        <tr><th>could</th><td>possibility · gentler than can</td><td><em>I could open an art studio.</em></td></tr>
+      </table>
+      <div class="rule" style="margin-top:8px">After might / could — <strong>bare V</strong> (no <code>to</code>, no <code>-s</code>).</div>
+    </div>
+  </div>
+
+  <div class="card" style="background:linear-gradient(135deg,var(--card),rgba(242,166,200,.05))">
+    <h3><span class="ex-num">6.2</span> 🌟 Everyone's sunset wishes · bubble garden</h3>
+    <div class="wish-list">
+      <div class="wish" style="background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.95),rgba(242,166,200,.2) 60%,rgba(242,166,200,.35) 85%);border-color:rgba(242,166,200,.4)"><div class="who">John · age 6</div><div class="wish-text">I <em>might</em> be a scientist and invent a bubble that <em>never</em> pops.</div></div>
+      <div class="wish" style="background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.95),rgba(207,184,232,.2) 60%,rgba(207,184,232,.35) 85%);border-color:rgba(207,184,232,.4)"><div class="who">Julia · age 9</div><div class="wish-text">I <em>could</em> have my own art studio with a huge window.</div></div>
+      <div class="wish" style="background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.95),rgba(255,174,224,.25) 60%,rgba(255,174,224,.4) 85%);border-color:rgba(255,174,224,.45)"><div class="who">Emma · age 9</div><div class="wish-text">We <em>might</em> open a bubble shop together one day.</div></div>
+      <div class="wish"><div class="who">Barsik · age 7</div><div class="wish-text">(dreams of a fish that <em>will</em> never run out)</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <span class="ex-sticker">🌸</span>
+    <span class="ex-sticker left small">✨</span>
+    <h3><span class="ex-num">6.3</span> Pick might or could</h3>
+    <div class="mc-list">
+      <div class="mc-item" data-answer="might"><div class="mc-q"><span class="num">1</span><span>Take an umbrella — it <span class="gap-mini">?</span> rain tonight.</span></div><div class="mc-opts"><button class="mc-opt" data-v="must">must</button><button class="mc-opt" data-v="might">might</button><button class="mc-opt" data-v="should">should</button></div></div>
+      <div class="mc-item" data-answer="could"><div class="mc-q"><span class="num">2</span><span>Emma <span class="gap-mini">?</span> come to the park tomorrow — her plan is still open.</span></div><div class="mc-opts"><button class="mc-opt" data-v="could">could</button><button class="mc-opt" data-v="must">must</button><button class="mc-opt" data-v="can't">can't</button></div></div>
+      <div class="mc-item" data-answer="might"><div class="mc-q"><span class="num">3</span><span>I'm not sure — I <span class="gap-mini">?</span> go to the party on Friday.</span></div><div class="mc-opts"><button class="mc-opt" data-v="might">might</button><button class="mc-opt" data-v="can">can</button><button class="mc-opt" data-v="should">should</button></div></div>
+      <div class="mc-item" data-answer="could"><div class="mc-q"><span class="num">4</span><span>Mum, <span class="gap-mini">?</span> you pass me the big spoon, please? (polite)</span></div><div class="mc-opts"><button class="mc-opt" data-v="could">could</button><button class="mc-opt" data-v="must">must</button><button class="mc-opt" data-v="should">should</button></div></div>
+    </div>
+    <div class="check-row"><button class="btn-check" data-check="sec-06-might">Check</button><span class="score-pill" data-score-for="sec-06-might">— / 4</span></div>
+  </div>
+</section>
+
+<!-- ===== 7 · MINI-WORKBOOK · MIXED FUTURE QUEST ===== -->
+<section class="section" id="sec-07">
+  <div class="section-hdr">
+    <div class="num">7</div>
+    <h2>Workbook · <em>Mixed future quest</em></h2>
+    <span class="tag">boss level · 10 Qs</span>
+  </div>
+  <div class="section-sub">One line — one grammar choice. Think WHICH future we need: will · going to · if… · might/could.</div>
+
+  <div class="card">
+    <span class="ex-sticker">🏆</span>
+    <span class="ex-sticker left small">⭐</span>
+    <h3><span class="ex-num">7.1</span> Pick the right form</h3>
+    <div class="mc-list">
+      <div class="mc-item" data-answer="am-going-to"><div class="mc-q"><span class="num">1</span><span>I already told Emma — tomorrow I <span class="gap-mini">?</span> buy more dish soap.</span></div><div class="mc-opts"><button class="mc-opt" data-v="will">will</button><button class="mc-opt" data-v="am-going-to">am going to</button><button class="mc-opt" data-v="might">might</button></div></div>
+      <div class="mc-item" data-answer="will-pop"><div class="mc-q"><span class="num">2</span><span>If you blow too fast, the bubble <span class="gap-mini">?</span>.</span></div><div class="mc-opts"><button class="mc-opt" data-v="is-going-to-pop">is going to pop</button><button class="mc-opt" data-v="will-pop">will pop</button><button class="mc-opt" data-v="pops">pops</button></div></div>
+      <div class="mc-item" data-answer="might"><div class="mc-q"><span class="num">3</span><span>Maybe one day I <span class="gap-mini">?</span> be an inventor.</span></div><div class="mc-opts"><button class="mc-opt" data-v="might">might</button><button class="mc-opt" data-v="will-can">will can</button><button class="mc-opt" data-v="am-going-to">am going to</button></div></div>
+      <div class="mc-item" data-answer="will"><div class="mc-q"><span class="num">4</span><span>— My wand is lost! — Don't worry, I <span class="gap-mini">?</span> help you find it. (decision now)</span></div><div class="mc-opts"><button class="mc-opt" data-v="will">will</button><button class="mc-opt" data-v="am-going-to">am going to</button><button class="mc-opt" data-v="might">might</button></div></div>
+      <div class="mc-item" data-answer="is-going-to"><div class="mc-q"><span class="num">5</span><span>Look at those grey clouds — it <span class="gap-mini">?</span> rain. (we see it coming)</span></div><div class="mc-opts"><button class="mc-opt" data-v="will">will</button><button class="mc-opt" data-v="is-going-to">is going to</button><button class="mc-opt" data-v="might">might</button></div></div>
+      <div class="mc-item" data-answer="wait"><div class="mc-q"><span class="num">6</span><span>If I <span class="gap-mini">?</span> ten minutes, the mixture will be ready.</span></div><div class="mc-opts"><button class="mc-opt" data-v="will-wait">will wait</button><button class="mc-opt" data-v="wait">wait</button><button class="mc-opt" data-v="am-waiting">am waiting</button></div></div>
+      <div class="mc-item" data-answer="could"><div class="mc-q"><span class="num">7</span><span>We <span class="gap-mini">?</span> make a bubble bigger than John — the ring is huge.</span></div><div class="mc-opts"><button class="mc-opt" data-v="must">must</button><button class="mc-opt" data-v="could">could</button><button class="mc-opt" data-v="shouldn't">shouldn't</button></div></div>
+      <div class="mc-item" data-answer="will-come-true"><div class="mc-q"><span class="num">8</span><span>I hope my London wish <span class="gap-mini">?</span>.</span></div><div class="mc-opts"><button class="mc-opt" data-v="will-come-true">will come true</button><button class="mc-opt" data-v="is-coming-true">is coming true</button><button class="mc-opt" data-v="came-true">came true</button></div></div>
+      <div class="mc-item" data-answer="wont"><div class="mc-q"><span class="num">9</span><span>Barsik <span class="gap-mini">?</span> catch the bubble — it's too high.</span></div><div class="mc-opts"><button class="mc-opt" data-v="wont">won't</button><button class="mc-opt" data-v="isn't">isn't</button><button class="mc-opt" data-v="doesn't">doesn't</button></div></div>
+      <div class="mc-item" data-answer="are-going-to"><div class="mc-q"><span class="num">10</span><span>Emma and I <span class="gap-mini">?</span> open a bubble shop one day — we have the recipe!</span></div><div class="mc-opts"><button class="mc-opt" data-v="might">might</button><button class="mc-opt" data-v="are-going-to">are going to</button><button class="mc-opt" data-v="will">will</button></div></div>
+    </div>
+    <div class="check-row"><button class="btn-check" data-check="sec-07-boss">Check my score</button><span class="score-pill" data-score-for="sec-07-boss">— / 10</span></div>
+  </div>
+</section>
+
+<!-- ===== 8 · VOCAB CAPSULE ===== -->
+<section class="section" id="sec-08">
+  <div class="section-hdr">
+    <div class="num">8</div>
+    <h2>Vocab Capsule · <em>20 words from today's lesson</em></h2>
+    <span class="tag">spelling drill</span>
+  </div>
+  <div class="section-sub">Tap ▶ to hear. Read the Russian. Read the example. Type the spelling.</div>
+
+  <div class="card">
+    <h3><span class="ex-num">8.1</span> Bubbles &amp; wishes vocabulary</h3>
+    <div class="capsule-grid">
+      <div class="capsule-item">
+        <div class="word"><button class="play-mini" data-say="vocab-bubble">▶</button>bubble</div>
+        <div class="ru">(мыльный) пузырь</div>
+        <div class="ex">A perfect shiny bubble floated into the sky.</div>
+        <input type="text" data-ans="bubble" placeholder="type it…">
+      </div>
+      <div class="capsule-item">
+        <div class="word"><button class="play-mini" data-say="vocab-soap">▶</button>soap</div>
+        <div class="ru">мыло</div>
+        <div class="ex">We use dish soap for the bubble mixture.</div>
+        <input type="text" data-ans="soap" placeholder="type it…">
+      </div>
+      <div class="capsule-item">
+        <div class="word"><button class="play-mini" data-say="vocab-blow">▶</button>to blow</div>
+        <div class="ru">дуть</div>
+        <div class="ex">Blow gently and the bubble will be big.</div>
+        <input type="text" data-ans="blow" placeholder="type it…">
+      </div>
+      <div class="capsule-item">
+        <div class="word"><button class="play-mini" data-say="vocab-pop">▶</button>to pop</div>
+        <div class="ru">лопнуть</div>
+        <div class="ex">The bubble popped on Barsik's nose.</div>
+        <input type="text" data-ans="pop" placeholder="type it…">
+      </div>
+      <div class="capsule-item">
+        <div class="word"><button class="play-mini" data-say="vocab-burst">▶</button>to burst</div>
+        <div class="ru">лопаться (громче, вдруг)</div>
+        <div class="ex">The bubble burst with a loud POP!</div>
+        <input type="text" data-ans="burst" placeholder="type it…">
+      </div>
+      <div class="capsule-item">
+        <div class="word"><button class="play-mini" data-say="vocab-wand">▶</button>wand</div>
+        <div class="ru">палочка (для пузырей)</div>
+        <div class="ex">The wand has a tiny ring at the end.</div>
+        <input type="text" data-ans="wand" placeholder="type it…">
+      </div>
+      <div class="capsule-item">
+        <div class="word"><button class="play-mini" data-say="vocab-ring">▶</button>ring</div>
+        <div class="ru">кольцо</div>
+        <div class="ex">Emma's wire ring is as big as a plate.</div>
+        <input type="text" data-ans="ring" placeholder="type it…">
+      </div>
+      <div class="capsule-item">
+        <div class="word"><button class="play-mini" data-say="vocab-recipe">▶</button>recipe</div>
+        <div class="ru">рецепт</div>
+        <div class="ex">Mum knows the perfect bubble recipe.</div>
+        <input type="text" data-ans="recipe" placeholder="type it…">
+      </div>
+      <div class="capsule-item">
+        <div class="word"><button class="play-mini" data-say="vocab-mixture">▶</button>mixture</div>
+        <div class="ru">смесь</div>
+        <div class="ex">Pour the mixture into a big bowl.</div>
+        <input type="text" data-ans="mixture" placeholder="type it…">
+      </div>
+      <div class="capsule-item">
+        <div class="word"><button class="play-mini" data-say="vocab-ingredient">▶</button>ingredient</div>
+        <div class="ru">ингредиент</div>
+        <div class="ex">Glycerin is the magic ingredient.</div>
+        <input type="text" data-ans="ingredient" placeholder="type it…">
+      </div>
+      <div class="capsule-item">
+        <div class="word"><button class="play-mini" data-say="vocab-rainbow">▶</button>rainbow</div>
+        <div class="ru">радуга</div>
+        <div class="ex">A rainbow shimmered on the bubble.</div>
+        <input type="text" data-ans="rainbow" placeholder="type it…">
+      </div>
+      <div class="capsule-item">
+        <div class="word"><button class="play-mini" data-say="vocab-shiny">▶</button>shiny</div>
+        <div class="ru">блестящий</div>
+        <div class="ex">The bubble was round and shiny.</div>
+        <input type="text" data-ans="shiny" placeholder="type it…">
+      </div>
+      <div class="capsule-item">
+        <div class="word"><button class="play-mini" data-say="vocab-float">▶</button>to float</div>
+        <div class="ru">парить, плыть по воздуху</div>
+        <div class="ex">The bubble floated higher and higher.</div>
+        <input type="text" data-ans="float" placeholder="type it…">
+      </div>
+      <div class="capsule-item">
+        <div class="word"><button class="play-mini" data-say="vocab-wet">▶</button>wet</div>
+        <div class="ru">мокрый</div>
+        <div class="ex">Barsik's paw was wet after the pop.</div>
+        <input type="text" data-ans="wet" placeholder="type it…">
+      </div>
+      <div class="capsule-item">
+        <div class="word"><button class="play-mini" data-say="vocab-wish">▶</button>wish</div>
+        <div class="ru">желание / загадать желание</div>
+        <div class="ex">Every bubble carries a wish for the future.</div>
+        <input type="text" data-ans="wish" placeholder="type it…">
+      </div>
+      <div class="capsule-item">
+        <div class="word"><button class="play-mini" data-say="vocab-hope">▶</button>to hope</div>
+        <div class="ru">надеяться / надежда</div>
+        <div class="ex">I hope the wish will come true.</div>
+        <input type="text" data-ans="hope" placeholder="type it…">
+      </div>
+      <div class="capsule-item">
+        <div class="word"><button class="play-mini" data-say="vocab-dream">▶</button>dream</div>
+        <div class="ru">мечта / сон</div>
+        <div class="ex">Barsik dreams of a fish that never ends.</div>
+        <input type="text" data-ans="dream" placeholder="type it…">
+      </div>
+      <div class="capsule-item">
+        <div class="word"><button class="play-mini" data-say="vocab-promise">▶</button>promise</div>
+        <div class="ru">обещание / обещать</div>
+        <div class="ex">I promise I will look after Barsik.</div>
+        <input type="text" data-ans="promise" placeholder="type it…">
+      </div>
+      <div class="capsule-item">
+        <div class="word"><button class="play-mini" data-say="vocab-one-day">▶</button>one day</div>
+        <div class="ru">однажды (в будущем)</div>
+        <div class="ex">One day I will travel to London.</div>
+        <input type="text" data-ans="one day" placeholder="type it…">
+      </div>
+      <div class="capsule-item">
+        <div class="word"><button class="play-mini" data-say="vocab-come-true">▶</button>come true</div>
+        <div class="ru">сбыться</div>
+        <div class="ex">May all your wishes come true.</div>
+        <input type="text" data-ans="come true" placeholder="type it…">
+      </div>
+    </div>
+    <div class="check-row">
+      <button class="btn-check" data-check="sec-08-capsule">Check my spelling</button>
+      <button class="btn-reset" data-reset="sec-08-capsule">clear</button>
+      <span class="score-pill" data-score-for="sec-08-capsule">— / 20</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WRAP-UP ===== -->
+<section class="wrap-up">
+  <h2>🫧 The sky is full of wishes</h2>
+  <p>Today Julia and John found an old bubble bottle, met the magic recipe, blew their first wish into the sky, laughed at Barsik, built a giant bubble with Emma, and watched the sun go down with three quiet wishes.</p>
+  <p style="opacity:.85;font-size:.9rem">Next lesson — we open the Birthday Café and plan Mum's party. Keep practising <strong>will</strong> and <strong>going to</strong>!</p>
+  <div class="sig">— See you next class, Julia</div>
+</section>
+
+<!-- ===== STICKY SCROLL-TOP BUTTON ===== -->
+<button class="scroll-top" id="scroll-top" aria-label="Back to top">↑</button>
+
+<!-- ===== INLINE CHECKER ===== -->
+<script>
+(function(){
+  // MCQ click
+  document.querySelectorAll('.mc-item').forEach(item=>{
+    item.querySelectorAll('.mc-opt').forEach(opt=>{
+      opt.addEventListener('click',()=>{
+        item.querySelectorAll('.mc-opt').forEach(o=>o.classList.remove('selected'));
+        opt.classList.add('selected');
+      });
+    });
+  });
+  function norm(s){return (s||'').trim().toLowerCase().replace(/\s+/g,' ').replace(/[.!?]+$/,'').replace(/'/g,"'");}
+  // shuffle MCQ options
+  document.querySelectorAll('.mc-opts').forEach(group=>{
+    const opts=Array.from(group.children);
+    for(let i=opts.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));group.appendChild(opts[j]);opts.splice(j,1);}
+  });
+  // CHECK
+  document.querySelectorAll('.btn-check').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const groupId=btn.dataset.check;const sec=btn.closest('.card');let correct=0,total=0;
+      sec.querySelectorAll('.mc-item').forEach(item=>{
+        total++;const ans=item.dataset.answer;
+        item.querySelectorAll('.mc-opt').forEach(o=>o.classList.remove('correct','wrong'));
+        const picked=item.querySelector('.mc-opt.selected');
+        if(picked){if(picked.dataset.v===ans){picked.classList.add('correct');correct++;}else{picked.classList.add('wrong');item.querySelectorAll('.mc-opt').forEach(o=>{if(o.dataset.v===ans)o.classList.add('correct');});}}
+        else{item.querySelectorAll('.mc-opt').forEach(o=>{if(o.dataset.v===ans)o.classList.add('correct');});}
+      });
+      sec.querySelectorAll('input[data-ans]').forEach(inp=>{
+        total++;const want=norm(inp.dataset.ans);const got=norm(inp.value);
+        inp.classList.remove('correct','wrong');
+        if(got&&got===want){inp.classList.add('correct');correct++;}else{inp.classList.add('wrong');}
+      });
+      sec.querySelectorAll('.drop-gap').forEach(gap=>{
+        total++;const want=norm(gap.dataset.ans);const got=norm(gap.textContent);
+        gap.classList.remove('filled','wrong');
+        if(got&&got===want){gap.classList.add('filled');correct++;}else{gap.classList.add('wrong');}
+      });
+      const pill=document.querySelector('.score-pill[data-score-for="'+groupId+'"]');
+      if(pill){pill.textContent=correct+' / '+total;pill.classList.remove('ok','part');if(correct===total)pill.classList.add('ok');else if(correct>=total/2)pill.classList.add('part');}
+    });
+  });
+  // RESET
+  document.querySelectorAll('.btn-reset').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const sec=btn.closest('.card');
+      sec.querySelectorAll('input').forEach(i=>{i.value='';i.classList.remove('correct','wrong');});
+      sec.querySelectorAll('.drop-gap').forEach(g=>{g.textContent='?';g.classList.remove('filled','wrong');});
+      sec.querySelectorAll('.bank-word').forEach(b=>b.classList.remove('used'));
+      const pill=sec.querySelector('.score-pill');if(pill){pill.textContent='— / —';pill.classList.remove('ok','part');}
+    });
+  });
+  // Bank → gap
+  document.querySelectorAll('.drag-text').forEach(group=>{
+    const bank=document.querySelector('.bank#bank-'+group.dataset.group);if(!bank)return;let picked=null;
+    bank.querySelectorAll('.bank-word').forEach(w=>{
+      w.addEventListener('click',()=>{
+        if(w.classList.contains('used'))return;
+        bank.querySelectorAll('.bank-word').forEach(x=>x.style.outline='');
+        w.style.outline='2px solid var(--accent)';picked=w;
+      });
+    });
+    group.querySelectorAll('.drop-gap').forEach(gap=>{
+      gap.addEventListener('click',()=>{
+        if(picked){
+          const old=gap.dataset.filledWith;
+          if(old){bank.querySelectorAll('.bank-word').forEach(x=>{if(x.dataset.w===old)x.classList.remove('used');});}
+          gap.textContent=picked.textContent;gap.dataset.filledWith=picked.dataset.w;
+          gap.classList.remove('wrong');gap.classList.add('filled');
+          picked.classList.add('used');picked.style.outline='';picked=null;
+        } else if(gap.dataset.filledWith){
+          const old=gap.dataset.filledWith;
+          bank.querySelectorAll('.bank-word').forEach(x=>{if(x.dataset.w===old)x.classList.remove('used');});
+          gap.textContent='?';gap.classList.remove('filled','wrong');delete gap.dataset.filledWith;
+        }
+      });
+    });
+  });
+  // Riddle
+  const slots=document.getElementById('rid-slots');const pool=document.getElementById('rid-pool');
+  if(slots&&pool){
+    const pBtns=Array.from(pool.children);
+    for(let i=pBtns.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));pool.appendChild(pBtns[j]);pBtns.splice(j,1);}
+    pool.querySelectorAll('.riddle-letter').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        if(btn.disabled)return;
+        const empty=slots.querySelector('.riddle-slot:not(.filled)');if(!empty)return;
+        empty.textContent=btn.dataset.l;empty.classList.add('filled');
+        if(empty.dataset.letter===btn.dataset.l){empty.style.borderColor='var(--ok)';empty.style.color='var(--ok)';}
+        else{empty.style.borderColor='var(--miss)';empty.style.color='var(--miss)';}
+        btn.disabled=true;btn.style.opacity='.3';
+      });
+    });
+  }
+  // Scroll-top
+  const topBtn=document.getElementById('scroll-top');
+  if(topBtn){topBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));}
+  // Cast / scene-row ▶
+  document.querySelectorAll('[data-say]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const key=btn.dataset.say;const a=new Audio('audio/'+key+'.mp3');a.volume=0.9;
+      btn.classList.add('playing');
+      a.addEventListener('ended',()=>btn.classList.remove('playing'));
+      a.play().catch(()=>btn.classList.remove('playing'));
+    });
+  });
+})();
+</script>
+</body>
+</html>
