@@ -304,6 +304,50 @@ footer a{color:var(--brand-2);text-decoration:underline}
 </section>
 
 <!-- ============================================================ -->
+<!-- BANNER TABS · Lesson vs Workbook -->
+<!-- ============================================================ -->
+<style id="legal-tab-styles">
+.banner-tabs{max-width:1240px;margin:16px auto 24px;padding:0 clamp(16px,3vw,28px);display:flex;gap:10px;flex-wrap:wrap}
+.banner-tabs .tab-btn{background:var(--surface);border:2px solid var(--line-2);border-radius:14px;padding:14px 22px;font-family:var(--display);font-weight:800;font-size:1rem;color:var(--muted);cursor:pointer;transition:.18s;display:inline-flex;align-items:center;gap:10px;flex:1 1 auto;min-width:240px;justify-content:center;letter-spacing:-.005em}
+.banner-tabs .tab-btn:hover{border-color:var(--brand);color:var(--accent-2);transform:translateY(-1px)}
+.banner-tabs .tab-btn.active{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;border-color:var(--accent-2);box-shadow:0 8px 20px rgba(30,58,95,.28)}
+.banner-tabs .tab-btn .tb-sub{font-family:var(--mono);font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.72}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+.wb-section{max-width:1240px;margin:0 auto 32px;padding:0 clamp(16px,3vw,28px)}
+.wb-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;box-shadow:0 6px 24px rgba(30,58,95,.08);margin-bottom:18px}
+.wb-card h3{font-family:var(--display);font-size:1.15rem;font-weight:800;color:var(--accent-2);margin:0 0 6px;letter-spacing:-.01em}
+.wb-card .wb-sub{font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);font-weight:700;margin-bottom:12px}
+.wb-section-hero{background:linear-gradient(135deg,var(--accent-2),var(--accent));color:#fff;padding:24px 28px;border-radius:16px;margin-bottom:18px;box-shadow:0 8px 24px rgba(30,58,95,.22)}
+.wb-section-hero h2{font-family:var(--display);font-weight:800;font-size:1.5rem;margin:0 0 6px;color:#fff;letter-spacing:-.015em}
+.wb-section-hero p{font-size:.94rem;margin:0;opacity:.92;line-height:1.5}
+.wb-q{background:var(--surface);border-left:3px solid var(--brand);border-radius:0 10px 10px 0;padding:10px 14px;margin:8px 0;font-size:.95rem;line-height:1.55}
+.wb-q .wb-num{color:var(--brand);font-weight:800;font-family:var(--mono);font-size:.8rem;letter-spacing:.08em;margin-right:8px}
+.wb-q input[type="text"]{border:1.5px solid var(--line-2);border-radius:6px;padding:4px 10px;font-family:var(--body);font-size:.92rem;background:#fff;color:var(--text);min-width:140px;outline:none;transition:.15s}
+.wb-q input[type="text"]:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(30,58,95,.12)}
+.wb-q .wb-btn{background:transparent;border:1px solid var(--muted);color:var(--muted);border-radius:6px;padding:3px 10px;font-family:var(--mono);font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;margin-left:6px}
+.wb-q .wb-btn:hover{border-color:var(--accent);color:var(--accent)}
+.wb-q .wb-ans{display:none;font-family:var(--mono);font-size:.78rem;color:var(--ok);margin-left:6px;font-weight:700;background:#e8f5e9;padding:2px 8px;border-radius:5px}
+.wb-q .wb-ans.show{display:inline-block}
+.wb-mcq{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.wb-mcq button{background:#fff;border:1.5px solid var(--line-2);padding:6px 14px;border-radius:8px;font-family:var(--body);font-weight:600;font-size:.86rem;cursor:pointer;color:var(--text);transition:.15s}
+.wb-mcq button:hover{border-color:var(--accent)}
+.wb-mcq button.wb-right{background:#e8f5e9;border-color:var(--ok);color:var(--ok)}
+.wb-mcq button.wb-wrong{background:#ffebee;border-color:var(--miss);color:var(--miss)}
+.wb-ta{width:100%;min-height:120px;padding:12px;border:1.5px solid var(--line-2);border-radius:10px;font-family:var(--body);font-size:.92rem;line-height:1.55;color:var(--text);background:#fff;resize:vertical;outline:none;box-sizing:border-box}
+.wb-ta:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(30,58,95,.12)}
+.wb-theory{background:rgba(183,144,75,.1);border-left:3px solid var(--brand);padding:10px 14px;border-radius:0 8px 8px 0;font-size:.88rem;line-height:1.5;color:var(--muted);margin:10px 0}
+.wb-theory strong{color:var(--accent-2)}
+</style>
+
+<div class="banner-tabs">
+  <button class="tab-btn active" data-tab="lesson" onclick="switchLegalTab('lesson',this)">🎓 Урок · guided walkthrough<span class="tb-sub">· 130 min</span></button>
+  <button class="tab-btn" data-tab="workbook" onclick="switchLegalTab('workbook',this)">📝 Рабочая тетрадь · B2+ drills<span class="tb-sub">· all 20 blocks</span></button>
+</div>
+
+<div id="tab-lesson" class="tab-pane active">
+
+<!-- ============================================================ -->
 <!-- 01 · LEGAL ENGLISH FOR DAILY USE · practical pack             -->
 <!-- Split into 11 sub-sections s01a..s01k so each gets its own    -->
 <!-- Submit via lab-pilot.css. Numbering of §02+ is untouched.     -->
@@ -3547,6 +3591,514 @@ function recalcAll(){
   updateBlockBadge('s09', ['.pickverb']);
 }
 setTimeout(recalcAll, 300);
+</script>
+
+</div><!-- /#tab-lesson -->
+
+<!-- ============================================================ -->
+<!-- TAB 2 · WORKBOOK · B2+ drills covering all 20 blocks -->
+<!-- ============================================================ -->
+<div id="tab-workbook" class="tab-pane">
+
+<section class="wb-section">
+  <div class="wb-section-hero">
+    <h2>📝 Рабочая тетрадь · Legal English · B2+</h2>
+    <p>Отработка всех 20 блоков урока «Marta's Bakery vs Golden Crust». Шесть тематических блоков: Vocab mastery · Proceedings &amp; logic · Dialogues &amp; readings · Audio recall · Transform &amp; translate · Productive output. Каждое задание — короткий drill с проверкой.</p>
+  </div>
+</section>
+
+<!-- ===== WB-1 · VOCAB MASTERY ===== -->
+<section class="wb-section">
+  <div class="wb-section-hero" style="background:linear-gradient(135deg,var(--brand-2),var(--brand))">
+    <h2>🎯 Block 1 · Vocab mastery</h2>
+    <p>Covers lesson §01a-01g · §02 · §06 · §13. Four drills · 65 items.</p>
+  </div>
+
+  <div class="wb-card">
+    <h3>WB 1A · Six ways to say «подать в суд» · 10 gap-fills</h3>
+    <div class="wb-sub">Pick the right verb: sue · prosecute · file a lawsuit · press charges · take legal action · pursue a claim</div>
+    <div class="wb-q"><span class="wb-num">1.</span> The state will ___ the executives for tax fraud. <input type="text" data-a="prosecute" placeholder="verb"><button class="wb-btn">reveal</button><span class="wb-ans">prosecute</span></div>
+    <div class="wb-q"><span class="wb-num">2.</span> Marta decided to ___ Golden Crust in federal court. <input type="text" data-a="sue" placeholder="verb"><button class="wb-btn">reveal</button><span class="wb-ans">sue</span></div>
+    <div class="wb-q"><span class="wb-num">3.</span> If you want it official, you need to ___ a lawsuit by Friday. <input type="text" data-a="file" placeholder="verb"><button class="wb-btn">reveal</button><span class="wb-ans">file</span></div>
+    <div class="wb-q"><span class="wb-num">4.</span> She didn't want to ___ charges — too much publicity. <input type="text" data-a="press" placeholder="verb"><button class="wb-btn">reveal</button><span class="wb-ans">press</span></div>
+    <div class="wb-q"><span class="wb-num">5.</span> We reserve the right to ___ legal action if your firm does not respond. <input type="text" data-a="take" placeholder="verb"><button class="wb-btn">reveal</button><span class="wb-ans">take</span></div>
+    <div class="wb-q"><span class="wb-num">6.</span> The insurance company will ___ a claim against the contractor. <input type="text" data-a="pursue" placeholder="verb"><button class="wb-btn">reveal</button><span class="wb-ans">pursue</span></div>
+    <div class="wb-q"><span class="wb-num">7.</span> Would you really ___ your own cousin over a parking space? <input type="text" data-a="sue" placeholder="verb"><button class="wb-btn">reveal</button><span class="wb-ans">sue</span></div>
+    <div class="wb-q"><span class="wb-num">8.</span> The DA refused to ___ because the evidence was weak. <input type="text" data-a="prosecute" placeholder="verb"><button class="wb-btn">reveal</button><span class="wb-ans">prosecute</span></div>
+    <div class="wb-q"><span class="wb-num">9.</span> She filed a complaint and is ready to ___ the matter to trial. <input type="text" data-a="pursue" placeholder="verb"><button class="wb-btn">reveal</button><span class="wb-ans">pursue</span></div>
+    <div class="wb-q"><span class="wb-num">10.</span> Golden Crust said: «Fine, ___ us if you must.» <input type="text" data-a="sue" placeholder="verb"><button class="wb-btn">reveal</button><span class="wb-ans">sue</span></div>
+  </div>
+
+  <div class="wb-card">
+    <h3>WB 1B · US vs UK · match the court actor · 12 items</h3>
+    <div class="wb-sub">Write the UK equivalent of each US term (type the full word in lowercase)</div>
+    <div class="wb-q"><span class="wb-num">1.</span> 🇺🇸 attorney → 🇬🇧 <input type="text" data-a="solicitor" placeholder="___"><button class="wb-btn">reveal</button><span class="wb-ans">solicitor / barrister</span></div>
+    <div class="wb-q"><span class="wb-num">2.</span> 🇺🇸 plaintiff → 🇬🇧 <input type="text" data-a="claimant" placeholder="___"><button class="wb-btn">reveal</button><span class="wb-ans">claimant</span></div>
+    <div class="wb-q"><span class="wb-num">3.</span> 🇺🇸 defendant → 🇬🇧 <input type="text" data-a="defendant" placeholder="___"><button class="wb-btn">reveal</button><span class="wb-ans">defendant (same)</span></div>
+    <div class="wb-q"><span class="wb-num">4.</span> 🇺🇸 district attorney → 🇬🇧 <input type="text" data-a="crown prosecutor" placeholder="___ ___"><button class="wb-btn">reveal</button><span class="wb-ans">Crown prosecutor</span></div>
+    <div class="wb-q"><span class="wb-num">5.</span> 🇺🇸 lawsuit → 🇬🇧 <input type="text" data-a="claim" placeholder="___"><button class="wb-btn">reveal</button><span class="wb-ans">claim / proceedings</span></div>
+    <div class="wb-q"><span class="wb-num">6.</span> 🇺🇸 to file a complaint → 🇬🇧 to ___ a claim <input type="text" data-a="issue" placeholder="___"><button class="wb-btn">reveal</button><span class="wb-ans">issue</span></div>
+    <div class="wb-q"><span class="wb-num">7.</span> 🇺🇸 appellate court → 🇬🇧 ___ of Appeal <input type="text" data-a="court" placeholder="___"><button class="wb-btn">reveal</button><span class="wb-ans">Court</span></div>
+    <div class="wb-q"><span class="wb-num">8.</span> 🇺🇸 Supreme Court → 🇬🇧 Supreme ___ (post-2009) <input type="text" data-a="court" placeholder="___"><button class="wb-btn">reveal</button><span class="wb-ans">Court</span></div>
+    <div class="wb-q"><span class="wb-num">9.</span> 🇺🇸 motion → 🇬🇧 ___ (same word) <input type="text" data-a="application" placeholder="___"><button class="wb-btn">reveal</button><span class="wb-ans">application</span></div>
+    <div class="wb-q"><span class="wb-num">10.</span> 🇺🇸 trial court (state) → 🇬🇧 ___ Court / Magistrates' Court <input type="text" data-a="county" placeholder="___"><button class="wb-btn">reveal</button><span class="wb-ans">County</span></div>
+    <div class="wb-q"><span class="wb-num">11.</span> 🇺🇸 district court (federal first level) → 🇬🇧 ___ Court (serious civil) <input type="text" data-a="high" placeholder="___"><button class="wb-btn">reveal</button><span class="wb-ans">High</span></div>
+    <div class="wb-q"><span class="wb-num">12.</span> 🇺🇸 misdemeanor → 🇬🇧 ___ offence (hearable in Magistrates' Court) <input type="text" data-a="summary" placeholder="___"><button class="wb-btn">reveal</button><span class="wb-ans">summary</span></div>
+  </div>
+
+  <div class="wb-card">
+    <h3>WB 1C · 15 court phrasal verbs · gap-fills</h3>
+    <div class="wb-sub">bring up · stand up · sum up · throw out · hand down · file for · lay out · back off · press on · settle out · dig up · draw up · hold off · put down · come forward</div>
+    <div class="wb-q"><span class="wb-num">1.</span> The judge ___ ___ the case on procedural grounds. <input type="text" data-a="threw out" placeholder="2 words"><button class="wb-btn">reveal</button><span class="wb-ans">threw out</span></div>
+    <div class="wb-q"><span class="wb-num">2.</span> Please ___ when the judge enters the courtroom. <input type="text" data-a="stand up" placeholder="2 words"><button class="wb-btn">reveal</button><span class="wb-ans">stand up</span></div>
+    <div class="wb-q"><span class="wb-num">3.</span> Marta decided to ___ a trademark infringement claim. <input type="text" data-a="file for" placeholder="2 words"><button class="wb-btn">reveal</button><span class="wb-ans">file for</span></div>
+    <div class="wb-q"><span class="wb-num">4.</span> The appellate court ___ ___ its ruling in May. <input type="text" data-a="handed down" placeholder="2 words"><button class="wb-btn">reveal</button><span class="wb-ans">handed down</span></div>
+    <div class="wb-q"><span class="wb-num">5.</span> Counsel will ___ ___ the facts before closing argument. <input type="text" data-a="sum up" placeholder="2 words"><button class="wb-btn">reveal</button><span class="wb-ans">sum up</span></div>
+    <div class="wb-q"><span class="wb-num">6.</span> Investigators ___ ___ three key e-mails during discovery. <input type="text" data-a="dug up" placeholder="2 words"><button class="wb-btn">reveal</button><span class="wb-ans">dug up</span></div>
+    <div class="wb-q"><span class="wb-num">7.</span> Golden Crust refused to ___ ___ and threatened to appeal. <input type="text" data-a="back off" placeholder="2 words"><button class="wb-btn">reveal</button><span class="wb-ans">back off</span></div>
+    <div class="wb-q"><span class="wb-num">8.</span> Both sides ___ ___ of court on day two of mediation. <input type="text" data-a="settled out" placeholder="2 words"><button class="wb-btn">reveal</button><span class="wb-ans">settled out</span></div>
+    <div class="wb-q"><span class="wb-num">9.</span> Defence counsel ___ ___ the timeline clearly on the whiteboard. <input type="text" data-a="laid out" placeholder="2 words"><button class="wb-btn">reveal</button><span class="wb-ans">laid out</span></div>
+    <div class="wb-q"><span class="wb-num">10.</span> The witness ___ ___ to testify only after a subpoena. <input type="text" data-a="came forward" placeholder="2 words"><button class="wb-btn">reveal</button><span class="wb-ans">came forward</span></div>
+    <div class="wb-q"><span class="wb-num">11.</span> We will ___ ___ filing until the mediator responds. <input type="text" data-a="hold off" placeholder="2 words"><button class="wb-btn">reveal</button><span class="wb-ans">hold off</span></div>
+    <div class="wb-q"><span class="wb-num">12.</span> Their attorney ___ ___ a 40-page settlement agreement. <input type="text" data-a="drew up" placeholder="2 words"><button class="wb-btn">reveal</button><span class="wb-ans">drew up</span></div>
+    <div class="wb-q"><span class="wb-num">13.</span> Despite the delay, Marta decided to ___ ___ with the case. <input type="text" data-a="press on" placeholder="2 words"><button class="wb-btn">reveal</button><span class="wb-ans">press on</span></div>
+    <div class="wb-q"><span class="wb-num">14.</span> The judge ___ ___ a sharp warning to both sides. <input type="text" data-a="put down" placeholder="2 words"><button class="wb-btn">reveal</button><span class="wb-ans">put down</span></div>
+    <div class="wb-q"><span class="wb-num">15.</span> She asked the court to ___ ___ the issue of damages again. <input type="text" data-a="bring up" placeholder="2 words"><button class="wb-btn">reveal</button><span class="wb-ans">bring up</span></div>
+  </div>
+
+  <div class="wb-card">
+    <h3>WB 1D · 12 courtroom positions · label the plan</h3>
+    <div class="wb-sub">Who sits / stands where? Pick the word from: bench · jury box · witness stand · counsel table · gallery · bailiff · court reporter · clerk · bar · docket · podium · dock (UK)</div>
+    <div class="wb-q"><span class="wb-num">1.</span> The judge sits at the ___. <input type="text" data-a="bench" placeholder="position"><button class="wb-btn">reveal</button><span class="wb-ans">bench</span></div>
+    <div class="wb-q"><span class="wb-num">2.</span> Twelve jurors sit in the ___ ___. <input type="text" data-a="jury box" placeholder="2 words"><button class="wb-btn">reveal</button><span class="wb-ans">jury box</span></div>
+    <div class="wb-q"><span class="wb-num">3.</span> The witness answers questions from the ___ ___. <input type="text" data-a="witness stand" placeholder="2 words"><button class="wb-btn">reveal</button><span class="wb-ans">witness stand</span></div>
+    <div class="wb-q"><span class="wb-num">4.</span> Both legal teams sit at the ___ ___. <input type="text" data-a="counsel table" placeholder="2 words"><button class="wb-btn">reveal</button><span class="wb-ans">counsel table</span></div>
+    <div class="wb-q"><span class="wb-num">5.</span> The public watches from the ___. <input type="text" data-a="gallery" placeholder="position"><button class="wb-btn">reveal</button><span class="wb-ans">gallery</span></div>
+    <div class="wb-q"><span class="wb-num">6.</span> The ___ keeps order in the courtroom (US). <input type="text" data-a="bailiff" placeholder="position"><button class="wb-btn">reveal</button><span class="wb-ans">bailiff</span></div>
+    <div class="wb-q"><span class="wb-num">7.</span> Every word is typed by the ___ ___. <input type="text" data-a="court reporter" placeholder="2 words"><button class="wb-btn">reveal</button><span class="wb-ans">court reporter</span></div>
+    <div class="wb-q"><span class="wb-num">8.</span> Documents are filed with the ___. <input type="text" data-a="clerk" placeholder="position"><button class="wb-btn">reveal</button><span class="wb-ans">clerk</span></div>
+    <div class="wb-q"><span class="wb-num">9.</span> Lawyers approach the ___ to make objections quietly. <input type="text" data-a="bench" placeholder="position"><button class="wb-btn">reveal</button><span class="wb-ans">bench</span></div>
+    <div class="wb-q"><span class="wb-num">10.</span> In UK courts, the defendant stands in the ___. <input type="text" data-a="dock" placeholder="position"><button class="wb-btn">reveal</button><span class="wb-ans">dock</span></div>
+    <div class="wb-q"><span class="wb-num">11.</span> Attorneys address the jury from behind the ___. <input type="text" data-a="podium" placeholder="position"><button class="wb-btn">reveal</button><span class="wb-ans">podium</span></div>
+    <div class="wb-q"><span class="wb-num">12.</span> The ___ separates the public area from the legal area. <input type="text" data-a="bar" placeholder="position"><button class="wb-btn">reveal</button><span class="wb-ans">bar</span></div>
+  </div>
+</section>
+
+<!-- ===== WB-2 · PROCEEDINGS & LOGIC ===== -->
+<section class="wb-section">
+  <div class="wb-section-hero" style="background:linear-gradient(135deg,#4e1642,#7a2a5f)">
+    <h2>📐 Block 2 · Proceedings &amp; logic</h2>
+    <p>Covers lesson §01h · §01k. Order the 12 stages, classify situations.</p>
+  </div>
+
+  <div class="wb-card">
+    <h3>WB 2A · 12 stages of a lawsuit · put them in order</h3>
+    <div class="wb-sub">Number each stage 1-12 (1 = earliest, 12 = latest)</div>
+    <div class="wb-q"><span class="wb-num">A.</span> Trial begins → number: <input type="text" data-a="8" placeholder="№"><button class="wb-btn">reveal</button><span class="wb-ans">8</span></div>
+    <div class="wb-q"><span class="wb-num">B.</span> Complaint is filed → <input type="text" data-a="2" placeholder="№"><button class="wb-btn">reveal</button><span class="wb-ans">2</span></div>
+    <div class="wb-q"><span class="wb-num">C.</span> Discovery begins (depositions, subpoenas) → <input type="text" data-a="4" placeholder="№"><button class="wb-btn">reveal</button><span class="wb-ans">4</span></div>
+    <div class="wb-q"><span class="wb-num">D.</span> Verdict / ruling → <input type="text" data-a="9" placeholder="№"><button class="wb-btn">reveal</button><span class="wb-ans">9</span></div>
+    <div class="wb-q"><span class="wb-num">E.</span> Pre-filing consultation with counsel → <input type="text" data-a="1" placeholder="№"><button class="wb-btn">reveal</button><span class="wb-ans">1</span></div>
+    <div class="wb-q"><span class="wb-num">F.</span> Appeal filed → <input type="text" data-a="11" placeholder="№"><button class="wb-btn">reveal</button><span class="wb-ans">11</span></div>
+    <div class="wb-q"><span class="wb-num">G.</span> Defendant answers the complaint → <input type="text" data-a="3" placeholder="№"><button class="wb-btn">reveal</button><span class="wb-ans">3</span></div>
+    <div class="wb-q"><span class="wb-num">H.</span> Pre-trial motions (motion to dismiss, summary judgment) → <input type="text" data-a="5" placeholder="№"><button class="wb-btn">reveal</button><span class="wb-ans">5</span></div>
+    <div class="wb-q"><span class="wb-num">I.</span> Settlement conference / mediation → <input type="text" data-a="6" placeholder="№"><button class="wb-btn">reveal</button><span class="wb-ans">6</span></div>
+    <div class="wb-q"><span class="wb-num">J.</span> Jury selection (voir dire) → <input type="text" data-a="7" placeholder="№"><button class="wb-btn">reveal</button><span class="wb-ans">7</span></div>
+    <div class="wb-q"><span class="wb-num">K.</span> Judgment entered + damages awarded → <input type="text" data-a="10" placeholder="№"><button class="wb-btn">reveal</button><span class="wb-ans">10</span></div>
+    <div class="wb-q"><span class="wb-num">L.</span> Final enforcement / collection → <input type="text" data-a="12" placeholder="№"><button class="wb-btn">reveal</button><span class="wb-ans">12</span></div>
+  </div>
+
+  <div class="wb-card">
+    <h3>WB 2B · Settle or litigate? · 10 situations</h3>
+    <div class="wb-sub">For each situation, type <b>S</b> (better to settle) or <b>L</b> (better to litigate)</div>
+    <div class="wb-q"><span class="wb-num">1.</span> Two small businesses over a $12k invoice; both want to continue trading. <input type="text" data-a="S" placeholder="S/L" style="min-width:60px"><button class="wb-btn">reveal</button><span class="wb-ans">S</span></div>
+    <div class="wb-q"><span class="wb-num">2.</span> Clear precedent at stake, industry-wide impact. <input type="text" data-a="L" placeholder="S/L" style="min-width:60px"><button class="wb-btn">reveal</button><span class="wb-ans">L</span></div>
+    <div class="wb-q"><span class="wb-num">3.</span> One side needs the dispute resolved before an IPO in 60 days. <input type="text" data-a="S" placeholder="S/L" style="min-width:60px"><button class="wb-btn">reveal</button><span class="wb-ans">S</span></div>
+    <div class="wb-q"><span class="wb-num">4.</span> Serious reputational issue and the other side is bluffing. <input type="text" data-a="L" placeholder="S/L" style="min-width:60px"><button class="wb-btn">reveal</button><span class="wb-ans">L</span></div>
+    <div class="wb-q"><span class="wb-num">5.</span> Client is emotionally exhausted and just wants it over. <input type="text" data-a="S" placeholder="S/L" style="min-width:60px"><button class="wb-btn">reveal</button><span class="wb-ans">S</span></div>
+    <div class="wb-q"><span class="wb-num">6.</span> You need a public ruling so competitors stop the same behaviour. <input type="text" data-a="L" placeholder="S/L" style="min-width:60px"><button class="wb-btn">reveal</button><span class="wb-ans">L</span></div>
+    <div class="wb-q"><span class="wb-num">7.</span> Discovery costs would exceed the expected judgment. <input type="text" data-a="S" placeholder="S/L" style="min-width:60px"><button class="wb-btn">reveal</button><span class="wb-ans">S</span></div>
+    <div class="wb-q"><span class="wb-num">8.</span> A class of 3,000 consumers is affected; damages unclear. <input type="text" data-a="L" placeholder="S/L" style="min-width:60px"><button class="wb-btn">reveal</button><span class="wb-ans">L</span></div>
+    <div class="wb-q"><span class="wb-num">9.</span> Parties are a married couple co-parenting a small child. <input type="text" data-a="S" placeholder="S/L" style="min-width:60px"><button class="wb-btn">reveal</button><span class="wb-ans">S</span></div>
+    <div class="wb-q"><span class="wb-num">10.</span> Criminal element — DA already investigating. <input type="text" data-a="L" placeholder="S/L" style="min-width:60px"><button class="wb-btn">reveal</button><span class="wb-ans">L</span></div>
+  </div>
+</section>
+
+<!-- ===== WB-3 · DIALOGUES & READINGS ===== -->
+<section class="wb-section">
+  <div class="wb-section-hero" style="background:linear-gradient(135deg,#3f6b3a,#4a7c3a)">
+    <h2>💬 Block 3 · Dialogues &amp; readings</h2>
+    <p>Covers lesson §01i · §03 · §07 · §12. MCQ comprehension + dialog fills.</p>
+  </div>
+
+  <div class="wb-card">
+    <h3>WB 3A · Reading A «The dispute begins» · 6 MCQ</h3>
+    <div class="wb-sub">Based on §03 of the lesson. Click the right answer.</div>
+    <div class="wb-q"><div>1. Marta first noticed the problem when...</div>
+      <div class="wb-mcq">
+        <button data-ok="0">a customer tagged Golden Crust in her shop</button>
+        <button data-ok="1">she walked past Golden Crust's window display</button>
+        <button data-ok="0">her supplier called</button>
+        <button data-ok="0">a competitor sued her</button>
+      </div></div>
+    <div class="wb-q"><div>2. The twist pattern she protected is called...</div>
+      <div class="wb-mcq">
+        <button data-ok="0">«Golden Twist»</button>
+        <button data-ok="0">«Marta's Fold»</button>
+        <button data-ok="1">«Nowak's Twist»</button>
+        <button data-ok="0">«European Braid»</button>
+      </div></div>
+    <div class="wb-q"><div>3. The initial legal cause of action is...</div>
+      <div class="wb-mcq">
+        <button data-ok="0">copyright infringement</button>
+        <button data-ok="1">trade-dress infringement</button>
+        <button data-ok="0">libel</button>
+        <button data-ok="0">unfair competition only</button>
+      </div></div>
+    <div class="wb-q"><div>4. Hoang &amp; Pires asked Marta for...</div>
+      <div class="wb-mcq">
+        <button data-ok="0">a retainer of $25,000</button>
+        <button data-ok="1">a modest retainer</button>
+        <button data-ok="0">a settlement offer draft</button>
+        <button data-ok="0">no payment up-front</button>
+      </div></div>
+    <div class="wb-q"><div>5. The statute of limitations for her claim is...</div>
+      <div class="wb-mcq">
+        <button data-ok="0">1 year</button>
+        <button data-ok="0">2 years</button>
+        <button data-ok="1">4 years from first discovery</button>
+        <button data-ok="0">6 years from first sale</button>
+      </div></div>
+    <div class="wb-q"><div>6. The first serious step before suing was to...</div>
+      <div class="wb-mcq">
+        <button data-ok="0">file a complaint</button>
+        <button data-ok="1">send a cease-and-desist letter</button>
+        <button data-ok="0">request mediation</button>
+        <button data-ok="0">post about it publicly</button>
+      </div></div>
+  </div>
+
+  <div class="wb-card">
+    <h3>WB 3B · Reading B «The settlement conference» · 6 MCQ</h3>
+    <div class="wb-sub">Based on §07.</div>
+    <div class="wb-q"><div>1. A settlement conference is typically...</div>
+      <div class="wb-mcq">
+        <button data-ok="0">public and recorded</button>
+        <button data-ok="1">private and off the record</button>
+        <button data-ok="0">televised on court channels</button>
+        <button data-ok="0">open to any journalist</button>
+      </div></div>
+    <div class="wb-q"><div>2. The neutral party at mediation is called...</div>
+      <div class="wb-mcq">
+        <button data-ok="0">arbitrator</button>
+        <button data-ok="0">judge</button>
+        <button data-ok="1">mediator</button>
+        <button data-ok="0">clerk</button>
+      </div></div>
+    <div class="wb-q"><div>3. Mediation is...</div>
+      <div class="wb-mcq">
+        <button data-ok="1">non-binding</button>
+        <button data-ok="0">binding like arbitration</button>
+        <button data-ok="0">binding only in federal court</button>
+        <button data-ok="0">binding only if both sign a judgment</button>
+      </div></div>
+    <div class="wb-q"><div>4. Golden Crust's main counter-argument was...</div>
+      <div class="wb-mcq">
+        <button data-ok="0">that Marta's trademark was invalid</button>
+        <button data-ok="1">that the twist was a traditional, non-protectable design</button>
+        <button data-ok="0">that Marta had agreed to co-branding</button>
+        <button data-ok="0">that the statute had already run</button>
+      </div></div>
+    <div class="wb-q"><div>5. The settlement finally included...</div>
+      <div class="wb-mcq">
+        <button data-ok="0">only a cash payment</button>
+        <button data-ok="0">only an apology letter</button>
+        <button data-ok="1">a licensing arrangement</button>
+        <button data-ok="0">dismissal with no terms</button>
+      </div></div>
+    <div class="wb-q"><div>6. Marta's priority at mediation was...</div>
+      <div class="wb-mcq">
+        <button data-ok="1">behaviour change, not a verdict</button>
+        <button data-ok="0">maximum damages</button>
+        <button data-ok="0">a public apology</button>
+        <button data-ok="0">immediate injunction</button>
+      </div></div>
+  </div>
+
+  <div class="wb-card">
+    <h3>WB 3C · Dialog gap-fill · settlement conversation</h3>
+    <div class="wb-sub">Fill the missing word in each line of the courtroom-corridor dialog.</div>
+    <div class="wb-q"><span class="wb-num">1.</span> Counsel: «Your Honour, we move to ___ the case under Rule 12(b)(6).» <input type="text" data-a="dismiss" placeholder="verb"><button class="wb-btn">reveal</button><span class="wb-ans">dismiss</span></div>
+    <div class="wb-q"><span class="wb-num">2.</span> Judge: «The motion is ___; we proceed to discovery.» <input type="text" data-a="denied" placeholder="verb"><button class="wb-btn">reveal</button><span class="wb-ans">denied</span></div>
+    <div class="wb-q"><span class="wb-num">3.</span> Opposing counsel: «We'd like to ___ before the hearing next month.» <input type="text" data-a="depose" placeholder="verb"><button class="wb-btn">reveal</button><span class="wb-ans">depose</span></div>
+    <div class="wb-q"><span class="wb-num">4.</span> Marta: «I don't want to drop the suit, but I'm open to ___.» <input type="text" data-a="mediation" placeholder="noun"><button class="wb-btn">reveal</button><span class="wb-ans">mediation</span></div>
+    <div class="wb-q"><span class="wb-num">5.</span> Mediator: «Both sides, please state your best ___ offer in writing.» <input type="text" data-a="settlement" placeholder="adj/noun"><button class="wb-btn">reveal</button><span class="wb-ans">settlement</span></div>
+    <div class="wb-q"><span class="wb-num">6.</span> Counsel: «A licence would ___ the infringement risk going forward.» <input type="text" data-a="eliminate" placeholder="verb"><button class="wb-btn">reveal</button><span class="wb-ans">eliminate</span></div>
+    <div class="wb-q"><span class="wb-num">7.</span> Opposing counsel: «We accept the terms and will ___ the complaint.» <input type="text" data-a="withdraw" placeholder="verb"><button class="wb-btn">reveal</button><span class="wb-ans">withdraw</span></div>
+    <div class="wb-q"><span class="wb-num">8.</span> Judge: «Please submit the signed agreement to the ___ by Friday.» <input type="text" data-a="clerk" placeholder="position"><button class="wb-btn">reveal</button><span class="wb-ans">clerk</span></div>
+  </div>
+</section>
+
+<!-- ===== WB-4 · AUDIO RECALL ===== -->
+<section class="wb-section">
+  <div class="wb-section-hero" style="background:linear-gradient(135deg,#6b4a1e,#b7904b)">
+    <h2>🎙 Block 4 · Audio recall</h2>
+    <p>Covers lesson §04 · §08 · §11. Three short audios, true/false and MCQ.</p>
+  </div>
+
+  <div class="wb-card">
+    <h3>WB 4A · Voicemail from legal counsel · 5 T/F (§04)</h3>
+    <div class="wb-q"><div>1. The voicemail is from Marta's own counsel. T / F <input type="text" data-a="T" placeholder="T/F" style="min-width:60px"><button class="wb-btn">reveal</button><span class="wb-ans">T</span></div></div>
+    <div class="wb-q"><div>2. Counsel recommends filing immediately without further steps. T / F <input type="text" data-a="F" placeholder="T/F" style="min-width:60px"><button class="wb-btn">reveal</button><span class="wb-ans">F</span></div></div>
+    <div class="wb-q"><div>3. A retainer is mentioned. T / F <input type="text" data-a="T" placeholder="T/F" style="min-width:60px"><button class="wb-btn">reveal</button><span class="wb-ans">T</span></div></div>
+    <div class="wb-q"><div>4. The statute of limitations is 2 years. T / F <input type="text" data-a="F" placeholder="T/F" style="min-width:60px"><button class="wb-btn">reveal</button><span class="wb-ans">F (4 years)</span></div></div>
+    <div class="wb-q"><div>5. Counsel asks Marta to call back by Monday. T / F <input type="text" data-a="T" placeholder="T/F" style="min-width:60px"><button class="wb-btn">reveal</button><span class="wb-ans">T</span></div></div>
+  </div>
+
+  <div class="wb-card">
+    <h3>WB 4B · Courtroom clip · 5 MCQ (§08)</h3>
+    <div class="wb-q"><div>1. Who is speaking first?</div>
+      <div class="wb-mcq">
+        <button data-ok="0">the judge</button>
+        <button data-ok="1">the bailiff</button>
+        <button data-ok="0">the plaintiff's counsel</button>
+        <button data-ok="0">the court reporter</button>
+      </div></div>
+    <div class="wb-q"><div>2. What phrase opens the session?</div>
+      <div class="wb-mcq">
+        <button data-ok="0">«Order in the court»</button>
+        <button data-ok="1">«All rise»</button>
+        <button data-ok="0">«Calling the docket»</button>
+        <button data-ok="0">«Please be seated»</button>
+      </div></div>
+    <div class="wb-q"><div>3. What type of hearing is this?</div>
+      <div class="wb-mcq">
+        <button data-ok="1">pre-trial motions</button>
+        <button data-ok="0">closing argument</button>
+        <button data-ok="0">sentencing</button>
+        <button data-ok="0">jury selection</button>
+      </div></div>
+    <div class="wb-q"><div>4. The judge's first ruling is about...</div>
+      <div class="wb-mcq">
+        <button data-ok="0">admissibility of a tweet</button>
+        <button data-ok="1">denial of the motion to dismiss</button>
+        <button data-ok="0">continuance request</button>
+        <button data-ok="0">change of venue</button>
+      </div></div>
+    <div class="wb-q"><div>5. Next step after this clip:</div>
+      <div class="wb-mcq">
+        <button data-ok="0">verdict reading</button>
+        <button data-ok="1">discovery schedule</button>
+        <button data-ok="0">closing statements</button>
+        <button data-ok="0">appeal</button>
+      </div></div>
+  </div>
+
+  <div class="wb-card">
+    <h3>WB 4C · News report · 5 MCQ (§11)</h3>
+    <div class="wb-q"><div>1. The news outlet reports on which case?</div>
+      <div class="wb-mcq">
+        <button data-ok="0">Pacific Mobile class action</button>
+        <button data-ok="1">Marta's Bakery vs Golden Crust</button>
+        <button data-ok="0">City of Oakland tort</button>
+        <button data-ok="0">Nowak Trademark Trial</button>
+      </div></div>
+    <div class="wb-q"><div>2. The headline angle is...</div>
+      <div class="wb-mcq">
+        <button data-ok="0">verdict against Marta</button>
+        <button data-ok="1">settlement with licensing terms</button>
+        <button data-ok="0">bankruptcy of Golden Crust</button>
+        <button data-ok="0">criminal fraud charges</button>
+      </div></div>
+    <div class="wb-q"><div>3. The settlement includes a public...</div>
+      <div class="wb-mcq">
+        <button data-ok="1">licensing arrangement</button>
+        <button data-ok="0">injunction only</button>
+        <button data-ok="0">apology only</button>
+        <button data-ok="0">recall of all baked goods</button>
+      </div></div>
+    <div class="wb-q"><div>4. Reactions from industry are...</div>
+      <div class="wb-mcq">
+        <button data-ok="0">unanimous criticism</button>
+        <button data-ok="1">mixed but trending positive for small bakeries</button>
+        <button data-ok="0">silent</button>
+        <button data-ok="0">overwhelmingly against trademark rights</button>
+      </div></div>
+    <div class="wb-q"><div>5. The reporter interviews...</div>
+      <div class="wb-mcq">
+        <button data-ok="0">Marta only</button>
+        <button data-ok="0">Golden Crust CEO only</button>
+        <button data-ok="1">Marta's counsel + an IP academic</button>
+        <button data-ok="0">no one</button>
+      </div></div>
+  </div>
+</section>
+
+<!-- ===== WB-5 · TRANSFORM & TRANSLATE ===== -->
+<section class="wb-section">
+  <div class="wb-section-hero" style="background:linear-gradient(135deg,#1e3a5f,#4a5468)">
+    <h2>✍️ Block 5 · Transform &amp; translate</h2>
+    <p>Covers lesson §14 · §15 · §16. Rephrase into formal legal register + RU↔EN.</p>
+  </div>
+
+  <div class="wb-card">
+    <h3>WB 5A · Rewrite into formal legal register · 12 transformations</h3>
+    <div class="wb-sub">Take each plain sentence and rewrite it using the legal register from §14.</div>
+    <div class="wb-q"><span class="wb-num">1.</span> Plain: Marta sued because they copied her bread pattern.<br>Formal: <input type="text" data-a="The Plaintiff initiated proceedings on grounds of trade-dress infringement." placeholder="The Plaintiff…" style="min-width:420px"><button class="wb-btn">reveal</button><span class="wb-ans">The Plaintiff initiated proceedings on grounds of trade-dress infringement.</span></div>
+    <div class="wb-q"><span class="wb-num">2.</span> Plain: The judge said no to Golden Crust's request.<br>Formal: <input type="text" data-a="The Court denied the Defendant's motion." placeholder="The Court denied…" style="min-width:420px"><button class="wb-btn">reveal</button><span class="wb-ans">The Court denied the Defendant's motion.</span></div>
+    <div class="wb-q"><span class="wb-num">3.</span> Plain: They talked and reached a deal.<br>Formal: <input type="text" data-a="The parties reached a settlement following mediation." placeholder="The parties…" style="min-width:420px"><button class="wb-btn">reveal</button><span class="wb-ans">The parties reached a settlement following mediation.</span></div>
+    <div class="wb-q"><span class="wb-num">4.</span> Plain: Marta is allowed to sue because she's directly affected.<br>Formal: <input type="text" data-a="Marta has standing to bring this claim." placeholder="Marta has standing…" style="min-width:420px"><button class="wb-btn">reveal</button><span class="wb-ans">Marta has standing to bring this claim.</span></div>
+    <div class="wb-q"><span class="wb-num">5.</span> Plain: They have four years to sue.<br>Formal: <input type="text" data-a="The statute of limitations is four years from first discovery." placeholder="The statute…" style="min-width:420px"><button class="wb-btn">reveal</button><span class="wb-ans">The statute of limitations is four years from first discovery.</span></div>
+    <div class="wb-q"><span class="wb-num">6.</span> Plain: Their lawyer wrote a scary letter.<br>Formal: <input type="text" data-a="Counsel issued a cease-and-desist letter." placeholder="Counsel issued…" style="min-width:420px"><button class="wb-btn">reveal</button><span class="wb-ans">Counsel issued a cease-and-desist letter.</span></div>
+    <div class="wb-q"><span class="wb-num">7.</span> Plain: Both sides agreed and signed a licensing deal.<br>Formal: <input type="text" data-a="The parties entered into a licensing agreement." placeholder="The parties…" style="min-width:420px"><button class="wb-btn">reveal</button><span class="wb-ans">The parties entered into a licensing agreement.</span></div>
+    <div class="wb-q"><span class="wb-num">8.</span> Plain: Golden Crust sued her back.<br>Formal: <input type="text" data-a="The Defendant countersued for tortious interference." placeholder="The Defendant…" style="min-width:420px"><button class="wb-btn">reveal</button><span class="wb-ans">The Defendant countersued for tortious interference.</span></div>
+    <div class="wb-q"><span class="wb-num">9.</span> Plain: They had to give lots of documents.<br>Formal: <input type="text" data-a="Extensive discovery was ordered." placeholder="Extensive discovery…" style="min-width:420px"><button class="wb-btn">reveal</button><span class="wb-ans">Extensive discovery was ordered.</span></div>
+    <div class="wb-q"><span class="wb-num">10.</span> Plain: A witness had to come in because of a legal paper.<br>Formal: <input type="text" data-a="The witness was compelled by subpoena." placeholder="The witness…" style="min-width:420px"><button class="wb-btn">reveal</button><span class="wb-ans">The witness was compelled by subpoena.</span></div>
+    <div class="wb-q"><span class="wb-num">11.</span> Plain: The court agreed with Marta's main point.<br>Formal: <input type="text" data-a="The Court upheld the Plaintiff's trade-dress count." placeholder="The Court upheld…" style="min-width:420px"><button class="wb-btn">reveal</button><span class="wb-ans">The Court upheld the Plaintiff's trade-dress count.</span></div>
+    <div class="wb-q"><span class="wb-num">12.</span> Plain: Golden Crust tried to get the ruling cancelled.<br>Formal: <input type="text" data-a="The Defendant sought to overturn the ruling on appeal." placeholder="The Defendant…" style="min-width:420px"><button class="wb-btn">reveal</button><span class="wb-ans">The Defendant sought to overturn the ruling on appeal.</span></div>
+  </div>
+
+  <div class="wb-card">
+    <h3>WB 5B · «Say it using X» · 10 forced vocab</h3>
+    <div class="wb-sub">Rewrite the sentence using the word in brackets.</div>
+    <div class="wb-q"><span class="wb-num">1.</span> She has the right to sue. (<b>standing</b>) → <input type="text" data-a="She has standing to sue." placeholder="…standing…" style="min-width:360px"><button class="wb-btn">reveal</button><span class="wb-ans">She has standing to sue.</span></div>
+    <div class="wb-q"><span class="wb-num">2.</span> The case ended without a verdict. (<b>settlement</b>) → <input type="text" data-a="The case ended in a settlement." placeholder="…settlement…" style="min-width:360px"><button class="wb-btn">reveal</button><span class="wb-ans">The case ended in a settlement.</span></div>
+    <div class="wb-q"><span class="wb-num">3.</span> They collected evidence. (<b>discovery</b>) → <input type="text" data-a="They went through discovery." placeholder="…discovery…" style="min-width:360px"><button class="wb-btn">reveal</button><span class="wb-ans">They went through discovery.</span></div>
+    <div class="wb-q"><span class="wb-num">4.</span> The witness was formally questioned before trial. (<b>deposition</b>) → <input type="text" data-a="The witness gave a deposition." placeholder="…deposition…" style="min-width:360px"><button class="wb-btn">reveal</button><span class="wb-ans">The witness gave a deposition.</span></div>
+    <div class="wb-q"><span class="wb-num">5.</span> Golden Crust broke the agreement. (<b>breach</b>) → <input type="text" data-a="Golden Crust breached the agreement." placeholder="…breach…" style="min-width:360px"><button class="wb-btn">reveal</button><span class="wb-ans">Golden Crust breached the agreement.</span></div>
+    <div class="wb-q"><span class="wb-num">6.</span> We say they did it — but we haven't proved it. (<b>allege</b>) → <input type="text" data-a="We allege they did it." placeholder="…allege…" style="min-width:360px"><button class="wb-btn">reveal</button><span class="wb-ans">We allege they did it.</span></div>
+    <div class="wb-q"><span class="wb-num">7.</span> There are five legal reasons to sue. (<b>causes of action</b>) → <input type="text" data-a="There are five causes of action." placeholder="…causes of action…" style="min-width:360px"><button class="wb-btn">reveal</button><span class="wb-ans">There are five causes of action.</span></div>
+    <div class="wb-q"><span class="wb-num">8.</span> The appeal failed; the judgment stayed. (<b>uphold</b>) → <input type="text" data-a="The court upheld the judgment." placeholder="…uphold…" style="min-width:360px"><button class="wb-btn">reveal</button><span class="wb-ans">The court upheld the judgment.</span></div>
+    <div class="wb-q"><span class="wb-num">9.</span> He chose private arbitration, not court. (<b>arbitration</b>) → <input type="text" data-a="He opted for arbitration instead of litigation." placeholder="…arbitration…" style="min-width:360px"><button class="wb-btn">reveal</button><span class="wb-ans">He opted for arbitration instead of litigation.</span></div>
+    <div class="wb-q"><span class="wb-num">10.</span> The paper telling you to stop was sent by email. (<b>cease-and-desist</b>) → <input type="text" data-a="A cease-and-desist letter was sent by email." placeholder="…cease-and-desist…" style="min-width:360px"><button class="wb-btn">reveal</button><span class="wb-ans">A cease-and-desist letter was sent by email.</span></div>
+  </div>
+
+  <div class="wb-card">
+    <h3>WB 5C · Translate RU → EN · 15 sentences</h3>
+    <div class="wb-sub">B2+ legal register. Paraphrase close enough — not word-for-word.</div>
+    <div class="wb-q"><span class="wb-num">1.</span> Марта подала иск против Golden Crust. → <input type="text" data-a="Marta filed a lawsuit against Golden Crust." placeholder="…" style="min-width:360px"><button class="wb-btn">reveal</button><span class="wb-ans">Marta filed a lawsuit against Golden Crust.</span></div>
+    <div class="wb-q"><span class="wb-num">2.</span> Срок исковой давности — 4 года. → <input type="text" data-a="The statute of limitations is 4 years." placeholder="…" style="min-width:360px"><button class="wb-btn">reveal</button><span class="wb-ans">The statute of limitations is 4 years.</span></div>
+    <div class="wb-q"><span class="wb-num">3.</span> Истец имеет право на иск. → <input type="text" data-a="The Plaintiff has standing." placeholder="…" style="min-width:360px"><button class="wb-btn">reveal</button><span class="wb-ans">The Plaintiff has standing.</span></div>
+    <div class="wb-q"><span class="wb-num">4.</span> Стороны достигли мирового соглашения. → <input type="text" data-a="The parties reached a settlement." placeholder="…" style="min-width:360px"><button class="wb-btn">reveal</button><span class="wb-ans">The parties reached a settlement.</span></div>
+    <div class="wb-q"><span class="wb-num">5.</span> Защита подала ходатайство об отказе в иске. → <input type="text" data-a="The Defence filed a motion to dismiss." placeholder="…" style="min-width:360px"><button class="wb-btn">reveal</button><span class="wb-ans">The Defence filed a motion to dismiss.</span></div>
+    <div class="wb-q"><span class="wb-num">6.</span> Судья отклонил ходатайство. → <input type="text" data-a="The judge denied the motion." placeholder="…" style="min-width:360px"><button class="wb-btn">reveal</button><span class="wb-ans">The judge denied the motion.</span></div>
+    <div class="wb-q"><span class="wb-num">7.</span> Golden Crust подали встречный иск. → <input type="text" data-a="Golden Crust countersued." placeholder="…" style="min-width:360px"><button class="wb-btn">reveal</button><span class="wb-ans">Golden Crust countersued.</span></div>
+    <div class="wb-q"><span class="wb-num">8.</span> Свидетеля вызвали повесткой. → <input type="text" data-a="The witness was subpoenaed." placeholder="…" style="min-width:360px"><button class="wb-btn">reveal</button><span class="wb-ans">The witness was subpoenaed.</span></div>
+    <div class="wb-q"><span class="wb-num">9.</span> Досудебный допрос длился семь часов. → <input type="text" data-a="The deposition lasted seven hours." placeholder="…" style="min-width:360px"><button class="wb-btn">reveal</button><span class="wb-ans">The deposition lasted seven hours.</span></div>
+    <div class="wb-q"><span class="wb-num">10.</span> Суд поддержал решение по товарному знаку. → <input type="text" data-a="The court upheld the trademark ruling." placeholder="…" style="min-width:360px"><button class="wb-btn">reveal</button><span class="wb-ans">The court upheld the trademark ruling.</span></div>
+    <div class="wb-q"><span class="wb-num">11.</span> Golden Crust подали апелляцию. → <input type="text" data-a="Golden Crust filed an appeal." placeholder="…" style="min-width:360px"><button class="wb-btn">reveal</button><span class="wb-ans">Golden Crust filed an appeal.</span></div>
+    <div class="wb-q"><span class="wb-num">12.</span> Коллективный иск был подан в Окленде. → <input type="text" data-a="A class action was filed in Oakland." placeholder="…" style="min-width:360px"><button class="wb-btn">reveal</button><span class="wb-ans">A class action was filed in Oakland.</span></div>
+    <div class="wb-q"><span class="wb-num">13.</span> Срок выхода из класса — 15 февраля. → <input type="text" data-a="The opt-out deadline is February 15." placeholder="…" style="min-width:360px"><button class="wb-btn">reveal</button><span class="wb-ans">The opt-out deadline is February 15.</span></div>
+    <div class="wb-q"><span class="wb-num">14.</span> Иск отклонён на процессуальных основаниях. → <input type="text" data-a="The claim was dismissed on procedural grounds." placeholder="…" style="min-width:360px"><button class="wb-btn">reveal</button><span class="wb-ans">The claim was dismissed on procedural grounds.</span></div>
+    <div class="wb-q"><span class="wb-num">15.</span> Решение вынесено единогласно. → <input type="text" data-a="The verdict was handed down unanimously." placeholder="…" style="min-width:360px"><button class="wb-btn">reveal</button><span class="wb-ans">The verdict was handed down unanimously.</span></div>
+  </div>
+
+  <div class="wb-card">
+    <h3>WB 5D · Translate EN → RU · 10 sentences</h3>
+    <div class="wb-q"><span class="wb-num">1.</span> The judge upheld the ruling on appeal. → <input type="text" data-a="Судья оставил решение в силе при апелляции." placeholder="…" style="min-width:380px"><button class="wb-btn">reveal</button><span class="wb-ans">Судья оставил решение в силе при апелляции.</span></div>
+    <div class="wb-q"><span class="wb-num">2.</span> Marta's counsel drafted the complaint overnight. → <input type="text" data-a="Адвокат Марты составил исковое заявление за ночь." placeholder="…" style="min-width:380px"><button class="wb-btn">reveal</button><span class="wb-ans">Адвокат Марты составил исковое заявление за ночь.</span></div>
+    <div class="wb-q"><span class="wb-num">3.</span> The complaint lists five causes of action. → <input type="text" data-a="В иске перечислены пять оснований." placeholder="…" style="min-width:380px"><button class="wb-btn">reveal</button><span class="wb-ans">В иске перечислены пять оснований.</span></div>
+    <div class="wb-q"><span class="wb-num">4.</span> Mediation is non-binding and runs through a neutral. → <input type="text" data-a="Медиация необязательна и ведётся через нейтрального посредника." placeholder="…" style="min-width:380px"><button class="wb-btn">reveal</button><span class="wb-ans">Медиация необязательна и ведётся через нейтрального посредника.</span></div>
+    <div class="wb-q"><span class="wb-num">5.</span> The firm asked for a modest retainer. → <input type="text" data-a="Фирма запросила небольшую предоплату гонорара." placeholder="…" style="min-width:380px"><button class="wb-btn">reveal</button><span class="wb-ans">Фирма запросила небольшую предоплату гонорара.</span></div>
+    <div class="wb-q"><span class="wb-num">6.</span> The settlement included a licensing arrangement. → <input type="text" data-a="Мировое соглашение включало лицензионное соглашение." placeholder="…" style="min-width:380px"><button class="wb-btn">reveal</button><span class="wb-ans">Мировое соглашение включало лицензионное соглашение.</span></div>
+    <div class="wb-q"><span class="wb-num">7.</span> A cease-and-desist letter was sent first. → <input type="text" data-a="Сначала было направлено требование прекратить." placeholder="…" style="min-width:380px"><button class="wb-btn">reveal</button><span class="wb-ans">Сначала было направлено требование прекратить.</span></div>
+    <div class="wb-q"><span class="wb-num">8.</span> Both sides settled on day two of mediation. → <input type="text" data-a="Стороны договорились на второй день медиации." placeholder="…" style="min-width:380px"><button class="wb-btn">reveal</button><span class="wb-ans">Стороны договорились на второй день медиации.</span></div>
+    <div class="wb-q"><span class="wb-num">9.</span> The case ended in a confidential settlement. → <input type="text" data-a="Дело закончилось конфиденциальным мировым соглашением." placeholder="…" style="min-width:380px"><button class="wb-btn">reveal</button><span class="wb-ans">Дело закончилось конфиденциальным мировым соглашением.</span></div>
+    <div class="wb-q"><span class="wb-num">10.</span> Unclaimed funds go to digital-literacy non-profits (cy pres). → <input type="text" data-a="Невостребованные средства идут на цифровую грамотность (целевое перераспределение)." placeholder="…" style="min-width:380px"><button class="wb-btn">reveal</button><span class="wb-ans">Невостребованные средства идут на цифровую грамотность.</span></div>
+  </div>
+</section>
+
+<!-- ===== WB-6 · PRODUCTIVE OUTPUT ===== -->
+<section class="wb-section">
+  <div class="wb-section-hero" style="background:linear-gradient(135deg,#a63a2e,#c04d3e)">
+    <h2>📝 Block 6 · Productive output</h2>
+    <p>Covers lesson §17 (Writing) · §18 (Speaking) · §19 (Homework). Mini cease-and-desist + retell prompts.</p>
+  </div>
+
+  <div class="wb-card">
+    <h3>WB 6A · Mini cease-and-desist · 3 scenarios</h3>
+    <div class="wb-sub">Write 60-100 words per letter. Include: addressee · facts · demand · deadline · consequences.</div>
+    <div class="wb-q"><div><b>Scenario 1 · Trademark copy.</b> A small café in your city is using a logo that is a near-copy of your registered mark. Write a cease-and-desist (demand removal + 14-day deadline).</div>
+      <textarea class="wb-ta" placeholder="Dear Mr/Ms …, It has come to our attention that…"></textarea></div>
+    <div class="wb-q"><div><b>Scenario 2 · Breach of contract.</b> Your supplier delivered 3 weeks late, in breach of clause 4.2. You want them either to deliver + pay penalty, or terminate the contract. 10-day deadline.</div>
+      <textarea class="wb-ta" placeholder="Dear Mr/Ms …, Reference is made to our contract dated…"></textarea></div>
+    <div class="wb-q"><div><b>Scenario 3 · Misuse of confidential information.</b> A former employee shared internal pricing with a competitor. Demand: destroy copies + written confirmation within 7 days.</div>
+      <textarea class="wb-ta" placeholder="Dear Mr/Ms …, We have received credible information that…"></textarea></div>
+  </div>
+
+  <div class="wb-card">
+    <h3>WB 6B · Speaking prompts · 10 questions · 60-90 sec each</h3>
+    <div class="wb-sub">Record yourself (phone) or just say aloud. Use at least 3 legal register words per answer.</div>
+    <ol style="font-size:.95rem;line-height:1.7;margin:0;padding-left:22px;color:var(--text)">
+      <li>Retell the Marta vs Golden Crust story in 90 seconds. Use «trade dress», «cease-and-desist», «settlement».</li>
+      <li>In your opinion, should Marta have countersued? Why / why not?</li>
+      <li>Compare settlement and litigation. Which would you choose in a small business dispute?</li>
+      <li>Explain «standing» to a non-lawyer in one minute.</li>
+      <li>Describe the 12 stages of a lawsuit in order. Use linkers: first, next, then, after that, finally.</li>
+      <li>What is the difference between mediation and arbitration?</li>
+      <li>Have you ever had to write or receive a formal demand letter? Describe the situation.</li>
+      <li>Would a class action work in your country? Explain the challenges.</li>
+      <li>Argue for or against «cy pres» distribution (unclaimed class funds going to charity).</li>
+      <li>Give a 60-second «press release» summary of the final settlement (as if for the local paper).</li>
+    </ol>
+  </div>
+
+  <div class="wb-card">
+    <h3>WB 6C · Can-do self-check · 10 items (§20)</h3>
+    <div class="wb-sub">Read each statement. Rate yourself 1 (struggling) → 5 (confident). No tracking — just honest.</div>
+    <ol style="font-size:.95rem;line-height:1.8;margin:0;padding-left:22px;color:var(--text)">
+      <li>I can use six different verbs to say «подать в суд» and choose the right one by register.</li>
+      <li>I can match US and UK court actors (plaintiff↔claimant, attorney↔solicitor).</li>
+      <li>I can describe a courtroom layout in English.</li>
+      <li>I can put the 12 stages of a lawsuit in order.</li>
+      <li>I can read and write a short cease-and-desist letter.</li>
+      <li>I can tell when settlement is wiser than litigation.</li>
+      <li>I can summarise a long legal reading in 90 seconds.</li>
+      <li>I can understand a 60-second courtroom audio clip at normal speed.</li>
+      <li>I can use at least 15 of the 32 core legal vocab items in free speech.</li>
+      <li>I can translate a legal sentence RU↔EN with natural register.</li>
+    </ol>
+  </div>
+</section>
+
+</div><!-- /#tab-workbook -->
+
+<!-- Tab switch JS -->
+<script>
+function switchLegalTab(key, btn){
+  document.querySelectorAll('.banner-tabs .tab-btn').forEach(x=>x.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  var pane = document.getElementById('tab-'+key);
+  if(pane) pane.classList.add('active');
+  window.scrollTo({top: document.querySelector('.banner-tabs').offsetTop - 20, behavior:'smooth'});
+}
+// Wire reveal buttons + autograde inputs in workbook
+document.addEventListener('DOMContentLoaded', function(){
+  document.querySelectorAll('#tab-workbook .wb-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      var ans = this.parentElement.querySelector('.wb-ans');
+      if(ans) ans.classList.add('show');
+    });
+  });
+  document.querySelectorAll('#tab-workbook .wb-q input[type="text"]').forEach(function(inp){
+    inp.addEventListener('blur', function(){
+      var want = (this.dataset.a||'').trim().toLowerCase();
+      var got = (this.value||'').trim().toLowerCase();
+      if(!want || !got) return;
+      this.classList.remove('wb-right','wb-wrong');
+      if(got === want) this.classList.add('wb-right');
+      else this.classList.add('wb-wrong');
+    });
+  });
+  document.querySelectorAll('#tab-workbook .wb-mcq button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var row = this.parentElement;
+      row.querySelectorAll('button').forEach(function(x){x.classList.remove('wb-right','wb-wrong');});
+      this.classList.add(this.dataset.ok === '1' ? 'wb-right' : 'wb-wrong');
+    });
+  });
+});
 </script>
 
 <!-- LAB_VOCAB — hover translations for lab-vocab-builder.js -->
