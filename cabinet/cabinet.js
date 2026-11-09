@@ -1304,6 +1304,31 @@
     return [date, lesson.topic || "", lesson.url || ""].join("|");
   }
 
+  // Архив по месяцам: группируем уроки pkg'а по YYYY-MM и сортируем desc.
+  function _groupLessonsByMonth(lessons) {
+    const byYm = new Map();
+    (Array.isArray(lessons) ? lessons : []).forEach(l => {
+      if (!l || !l.date) return;
+      const ym = String(l.date).slice(0, 7);
+      if (!byYm.has(ym)) byYm.set(ym, []);
+      byYm.get(ym).push(l);
+    });
+    const groups = [];
+    byYm.forEach((arr, ym) => {
+      arr.sort((a, b) => String(a.date).localeCompare(String(b.date)));
+      groups.push({ ym, label: _monthLabelFromISO(ym), lessons: arr });
+    });
+    groups.sort((a, b) => b.ym.localeCompare(a.ym));
+    return groups;
+  }
+
+  function _pluralLessons(n) {
+    const mod10 = n % 10, mod100 = n % 100;
+    if (mod10 === 1 && mod100 !== 11) return "урок";
+    if (mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)) return "урока";
+    return "уроков";
+  }
+
   function _renderExternalPlatformsCard(student) {
     const platforms = Array.isArray(student && student.external_platforms) ? student.external_platforms : [];
     if (!platforms.length) return "";
@@ -1454,14 +1479,16 @@
       });
     }
 
-    const _renderArchiveRows = (lessons) => {
+    const _renderArchiveRows = (lessons, opts) => {
+      const renumber = !!(opts && opts.renumber);
       const sorted = lessons.slice().sort((a, b) => a.date.localeCompare(b.date));
-      return sorted.map(l => {
+      return sorted.map((l, idx) => {
         const badge = _lessonStatusBadge(l, todayISO);
         const dateStr = _formatLessonDate(l.date);
         const dow = _dowFromISO(l.date);
         const timeStr = _lessonTimeValue(l);
-        const num = l.num ? `<span class="cab-lesson-num">${_esc(l.num)}</span>` : "";
+        const numVal = renumber ? (idx + 1) : l.num;
+        const num = numVal ? `<span class="cab-lesson-num">${_esc(numVal)}</span>` : "";
         const topicText = l.topic && l.topic.trim()
           ? `<span class="cab-lesson-topic">${_esc(l.topic)}</span>`
           : `<span class="cab-lesson-topic cab-lesson-topic--empty">—</span>`;
@@ -1502,11 +1529,22 @@
     if (!archivedPackages.length) return currentTable + futurePlanTable;
 
     const archiveTables = archivedPackages.map(pkg => {
-      const rows = _renderArchiveRows(pkg.lessons || []);
+      const groups = _groupLessonsByMonth(pkg.lessons || []);
+      let body;
+      if (groups.length <= 1) {
+        body = `<ul class="cab-lessons-list" style="margin-top:10px">${_renderArchiveRows(pkg.lessons || [], { renumber: true })}</ul>`;
+      } else {
+        body = groups.map(g => `
+          <div class="cab-archive-month" style="margin-top:14px">
+            <h4 style="font-family:var(--display,'Unbounded',sans-serif);font-weight:700;font-size:14px;margin:4px 0 8px;opacity:.72;text-transform:capitalize">${_esc(g.label)} · ${g.lessons.length} ${_pluralLessons(g.lessons.length)}</h4>
+            <ul class="cab-lessons-list">${_renderArchiveRows(g.lessons, { renumber: true })}</ul>
+          </div>
+        `).join("");
+      }
       return `
         <details class="cab-card cab-card--wide cab-card--past" style="margin-top:12px">
           <summary style="cursor:pointer;font-family:var(--display,'Unbounded',sans-serif);font-weight:800;font-size:16px;padding:6px 0;opacity:.75">📦 ${_esc(pkg.label || "Прошлый абонемент")}</summary>
-          <ul class="cab-lessons-list" style="margin-top:10px">${rows}</ul>
+          ${body}
         </details>
       `;
     }).join("");
