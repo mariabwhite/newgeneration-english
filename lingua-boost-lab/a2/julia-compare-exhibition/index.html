@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>Julia · Compare the Exhibition · A2→B1 · G+.9</title>
+<meta name="description" content="A2→B1 grammar trainer for Julia: comparatives &amp; superlatives — rules, spelling exceptions, irregulars, patterns (than / the + -est / as…as / less…than / the more the better / bigger and bigger). 5 exercises + 6 original MCQs + vocab capsule.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFF8EC;
+  --surface:#FFFFFF;
+  --card:#FFFFFF;
+  --card-2:#FFF4DD;
+  --accent:#E09A3B;
+  --accent-2:#F4C04B;
+  --accent-3:#C8DF9A;
+  --deep:#7A4B1F;
+  --text:#3B2810;
+  --muted:#8A7557;
+  --line:rgba(224,154,59,.22);
+  --line-2:rgba(224,154,59,.14);
+  --highlight:rgba(244,192,75,.14);
+  --ok:#5AA060;
+  --miss:#D86A6A;
+  --radius:14px;
+  --radius-l:20px;
+  --shadow:0 4px 18px rgba(122,75,31,.08);
+  --display:'Unbounded','Manrope',sans-serif;
+  --body:'Manrope',system-ui,sans-serif;
+  --mono:'JetBrains Mono',Consolas,monospace;
+  --demo-width:min(100% - 24px,1020px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:
+    radial-gradient(ellipse at 15% 10%, rgba(244,192,75,.12), transparent 55%),
+    radial-gradient(ellipse at 85% 20%, rgba(200,223,154,.14), transparent 55%),
+    var(--bg);
+  color:var(--text);font-family:var(--body);line-height:1.6;min-height:100vh;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;font-size:16.5px;
+}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:14px;padding:10px clamp(14px,3vw,24px);background:color-mix(in srgb,var(--surface) 92%,transparent);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+.brand-mark{width:36px;height:36px;border-radius:9px;border-top-right-radius:0;background:var(--accent);color:#fff;font-family:var(--display);font-weight:900;font-size:1.05rem;display:grid;place-items:center;position:relative;overflow:hidden}
+.brand-mark::after{content:"";position:absolute;right:0;top:0;width:12px;height:12px;background:var(--bg);clip-path:polygon(100% 0, 0 0, 100% 100%)}
+.brand-copy{display:grid;gap:1px}
+.brand-name{font-family:var(--display);font-weight:800;font-size:.9rem;letter-spacing:-.01em;line-height:1}
+.brand-sub{font-family:var(--mono);font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.spacer{flex:1}
+.pill{padding:5px 11px;border-radius:50px;font:800 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line-2);color:var(--text);background:var(--highlight)}
+.pill.accent{background:rgba(224,154,59,.18);color:var(--accent);border-color:var(--accent)}
+
+.hero{width:var(--demo-width);margin:22px auto 18px}
+.hero-card{
+  border:1px solid rgba(255,255,255,.3);border-radius:var(--radius-l);
+  padding:clamp(24px,4vw,40px);
+  background:
+    linear-gradient(180deg, rgba(122,75,31,.4) 0%, rgba(122,75,31,.1) 40%, rgba(122,75,31,.7) 100%),
+    linear-gradient(135deg,#F4C04B,#E09A3B 50%,#7A4B1F);
+  position:relative;overflow:hidden;
+  box-shadow:0 10px 30px rgba(122,75,31,.25);
+  text-align:center;color:#fff;
+}
+.eyebrow{font-family:var(--mono);font-size:.72rem;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.9);display:inline-flex;align-items:center;gap:10px;margin-bottom:14px;justify-content:center;position:relative;z-index:2}
+.eyebrow::before,.eyebrow::after{content:"";width:28px;height:1px;background:rgba(255,255,255,.6)}
+.hero-title{font-family:var(--display);font-weight:900;font-size:clamp(1.8rem,5vw,2.8rem);line-height:1.05;color:#fff;margin:0 auto 10px;letter-spacing:-.02em;text-shadow:0 2px 10px rgba(0,0,0,.2);position:relative;z-index:2}
+.hero-title em{font-style:italic;color:rgba(255,255,255,.92);display:block;font-size:.4em;font-weight:500;margin-top:8px;letter-spacing:.01em;font-family:var(--body)}
+.hero-lead{font-family:var(--body);font-size:clamp(.95rem,1.4vw,1.05rem);line-height:1.55;color:rgba(255,255,255,.95);max-width:720px;margin:0 auto 16px;position:relative;z-index:2}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;position:relative;z-index:2}
+.hero-tag{background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.4);color:#fff;padding:6px 12px;border-radius:50px;font:800 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}
+.hero-tag.new{background:rgba(255,255,255,.95);color:var(--deep);border-color:#fff}
+.hero-emoji{position:absolute;font-size:3rem;opacity:.5;pointer-events:none;filter:drop-shadow(0 4px 10px rgba(0,0,0,.2))}
+.hero-emoji.e1{top:14%;right:8%}
+.hero-emoji.e2{bottom:18%;left:7%}
+.hero-emoji.e3{top:50%;right:14%;font-size:2rem}
+
+.section{width:var(--demo-width);margin:0 auto 24px}
+.section-hdr{display:flex;align-items:center;gap:14px;margin-bottom:12px;flex-wrap:wrap}
+.section-hdr .num{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--accent-2),var(--accent),var(--deep));color:#fff;font-weight:900;font-size:.95rem;display:grid;place-items:center;flex-shrink:0;font-family:var(--display);box-shadow:0 4px 12px rgba(224,154,59,.3)}
+.section-hdr h2{font-family:var(--display);font-size:clamp(1.05rem,2.3vw,1.3rem);font-weight:800;color:var(--deep);letter-spacing:-.01em}
+.section-hdr h2 em{color:var(--accent);font-style:normal;font-weight:700}
+.section-hdr .tag{margin-left:auto;font-family:var(--mono);font-size:.64rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);background:var(--highlight);padding:5px 12px;border-radius:5px;border:1px solid var(--line)}
+.section-sub{font-size:.9rem;color:var(--muted);margin:-4px 0 12px 56px;font-style:italic}
+@media(max-width:620px){.section-sub{margin-left:0}}
+
+/* ===== THEORY ===== */
+.theory{background:linear-gradient(135deg,rgba(244,192,75,.1),rgba(200,223,154,.1));border:1.5px solid var(--line-2);border-left:5px solid var(--accent-2);border-radius:0 12px 12px 0;padding:18px 22px;margin:0 0 14px}
+.theory h4{font-family:var(--mono);font-size:.74rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.theory h5{font-family:var(--display);font-size:1rem;font-weight:800;color:var(--deep);margin:14px 0 6px}
+.theory .rule{font-size:.95rem;line-height:1.65;margin-bottom:10px}
+.theory p{margin-bottom:8px;line-height:1.65}
+.theory code{font-family:var(--mono);background:rgba(244,192,75,.22);padding:1px 7px;border-radius:4px;color:var(--deep);font-weight:700;font-size:.88rem}
+.theory .wrong{color:var(--miss);font-weight:700;text-decoration:line-through;text-decoration-color:var(--miss)}
+.theory .right{color:var(--ok);font-weight:800}
+.theory table{width:100%;margin-top:10px;border-collapse:collapse;font-size:.88rem;background:#fff;border-radius:10px;overflow:hidden}
+.theory table th,.theory table td{padding:9px 12px;border:1px solid var(--line-2);text-align:left;vertical-align:top}
+.theory table th{background:rgba(244,192,75,.22);font-family:var(--display);color:var(--deep);font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;font-weight:800}
+.theory table td:first-child{font-family:var(--mono);font-weight:800;color:var(--accent)}
+.theory .star{color:var(--miss);font-weight:900}
+.theory .ok-mark{color:var(--ok);font-weight:900}
+.theory ul{margin:6px 0 10px 22px}
+.theory li{margin-bottom:5px;line-height:1.6}
+.theory .mini-eg{display:block;font-family:var(--body);font-style:italic;color:var(--muted);margin:3px 0 0 8px;font-size:.88rem}
+
+.callout{background:#fff;border:1.5px dashed var(--accent);border-radius:12px;padding:14px 18px;margin:12px 0;font-size:.92rem;line-height:1.6}
+.callout b{font-family:var(--display);color:var(--deep)}
+.callout.warn{border-color:var(--miss);background:rgba(216,106,106,.05)}
+.callout.warn b{color:var(--miss)}
+.callout.tip{border-color:var(--ok);background:rgba(90,160,96,.06)}
+.callout.tip b{color:var(--ok)}
+
+/* ===== CARD + MCQ ===== */
+.card{background:var(--card);border-radius:var(--radius);padding:20px 22px;box-shadow:var(--shadow);border:1px solid var(--line);margin-bottom:12px;position:relative}
+.card h3{font-family:var(--display);font-size:1rem;font-weight:800;margin-bottom:12px;color:var(--deep);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.card h3 .ex-num{font-family:var(--mono);font-weight:900;color:var(--accent);font-size:.82rem;background:var(--highlight);padding:3px 9px;border-radius:4px;letter-spacing:.04em;border:1px solid var(--line)}
+
+.mc-item{padding:12px 0;border-bottom:1px dashed var(--line-2)}
+.mc-item:last-child{border-bottom:none}
+.mc-q{font-size:1rem;color:var(--text);margin-bottom:10px;line-height:1.5}
+.mc-q .q-num{display:inline-block;background:var(--accent);color:#fff;width:24px;height:24px;border-radius:50%;text-align:center;font-family:var(--display);font-weight:900;font-size:.8rem;line-height:24px;margin-right:8px;vertical-align:1px}
+.mc-q .gap{display:inline-block;min-width:60px;padding:0 10px;border-bottom:2px solid var(--accent);color:var(--muted);text-align:center;font-weight:700}
+.mc-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:4px}
+@media(max-width:560px){.mc-opts{grid-template-columns:1fr}}
+.mc-opt{background:var(--card-2);border:1.5px solid var(--line);border-radius:10px;padding:10px 14px;font-family:var(--body);font-weight:600;font-size:.95rem;color:var(--text);cursor:pointer;transition:.15s;text-align:left}
+.mc-opt:hover{background:rgba(244,192,75,.14);border-color:var(--accent)}
+.mc-opt.selected{background:rgba(224,154,59,.18);border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.mc-opt.correct{background:rgba(90,160,96,.14);border-color:var(--ok);color:var(--ok)}
+.mc-opt.wrong{background:rgba(216,106,106,.1);border-color:var(--miss);color:var(--miss)}
+
+/* ===== FORM-DRILL TABLE ===== */
+.form-table{width:100%;border-collapse:collapse;margin:4px 0 2px;font-size:.92rem}
+.form-table th{background:rgba(244,192,75,.2);font-family:var(--display);color:var(--deep);padding:8px 10px;text-align:left;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--line-2)}
+.form-table td{padding:7px 10px;border:1px solid var(--line-2);vertical-align:middle;font-family:var(--body)}
+.form-table td:first-child{font-family:var(--mono);font-weight:800;color:var(--accent);width:28%}
+.form-table input{width:100%;padding:6px 8px;border:1.5px solid var(--line);border-radius:7px;font:600 .92rem var(--body);background:var(--card-2);color:var(--text)}
+.form-table input:focus{outline:none;border-color:var(--accent);background:#fff}
+.form-table input.correct{background:rgba(90,160,96,.14);border-color:var(--ok);color:var(--ok);font-weight:700}
+.form-table input.wrong{background:rgba(216,106,106,.1);border-color:var(--miss);color:var(--miss);font-weight:700}
+
+/* ===== CLOZE / GAP-FILL PASSAGE ===== */
+.passage{font-size:1.02rem;line-height:1.85;color:var(--text);padding:14px 16px;background:var(--card-2);border-radius:10px;border:1px dashed var(--line);margin-bottom:8px}
+.passage input.gap-inp{display:inline-block;width:150px;padding:3px 8px;margin:0 2px;border:0;border-bottom:2px solid var(--accent);background:transparent;font:700 1rem var(--mono);color:var(--deep);text-align:center}
+.passage input.gap-inp:focus{outline:none;border-color:var(--deep);background:#fff}
+.passage input.gap-inp.correct{color:var(--ok);border-bottom-color:var(--ok)}
+.passage input.gap-inp.wrong{color:var(--miss);border-bottom-color:var(--miss)}
+
+/* ===== ERROR CORRECTION ===== */
+.err-item{padding:10px 0;border-bottom:1px dashed var(--line-2)}
+.err-item:last-child{border-bottom:none}
+.err-sent{font-size:.98rem;line-height:1.6;color:var(--text);margin-bottom:6px}
+.err-sent .marked{background:rgba(216,106,106,.14);color:var(--miss);font-weight:800;padding:1px 6px;border-radius:4px;text-decoration:line-through;text-decoration-color:var(--miss)}
+.err-sent .num{display:inline-block;background:var(--accent);color:#fff;width:22px;height:22px;border-radius:50%;text-align:center;font-family:var(--display);font-weight:900;font-size:.76rem;line-height:22px;margin-right:7px;vertical-align:1px}
+.err-item .ctl{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.err-item .ctl label{font-family:var(--mono);font-size:.7rem;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.err-item input.fix{padding:6px 10px;border:1.5px solid var(--line);border-radius:7px;font:700 .92rem var(--body);background:var(--card-2);color:var(--text);min-width:180px}
+.err-item input.fix:focus{outline:none;border-color:var(--accent);background:#fff}
+.err-item input.fix.correct{background:rgba(90,160,96,.14);border-color:var(--ok);color:var(--ok)}
+.err-item input.fix.wrong{background:rgba(216,106,106,.1);border-color:var(--miss);color:var(--miss)}
+
+/* ===== TRANSLATION ===== */
+.tr-item{padding:11px 0;border-bottom:1px dashed var(--line-2)}
+.tr-item:last-child{border-bottom:none}
+.tr-ru{font-size:.94rem;color:var(--muted);margin-bottom:6px;font-style:italic}
+.tr-ru .num{display:inline-block;background:var(--accent);color:#fff;width:22px;height:22px;border-radius:50%;text-align:center;font-family:var(--display);font-weight:900;font-size:.76rem;line-height:22px;margin-right:7px;vertical-align:1px;font-style:normal}
+.tr-item input.tr-inp{width:100%;padding:8px 12px;border:1.5px solid var(--line);border-radius:7px;font:600 .96rem var(--body);background:var(--card-2);color:var(--text)}
+.tr-item input.tr-inp:focus{outline:none;border-color:var(--accent);background:#fff}
+.tr-item input.tr-inp.correct{background:rgba(90,160,96,.14);border-color:var(--ok);color:var(--ok);font-weight:700}
+.tr-item input.tr-inp.wrong{background:rgba(216,106,106,.1);border-color:var(--miss);color:var(--miss);font-weight:700}
+.tr-item .hint{font-size:.78rem;color:var(--muted);margin-top:3px;font-style:italic}
+.tr-item .reveal-key{display:none;margin-top:5px;padding:4px 10px;background:rgba(90,160,96,.1);border-radius:6px;font-family:var(--mono);font-size:.82rem;color:var(--ok);font-weight:700}
+.tr-item.show-key .reveal-key{display:inline-block}
+
+/* ===== MECH CONTROLS ===== */
+.mech-row{display:flex;align-items:center;gap:10px;margin-top:14px;flex-wrap:wrap}
+.btn-check{background:linear-gradient(135deg,var(--accent),var(--deep));color:#fff;padding:10px 18px;border-radius:10px;font-family:var(--display);font-weight:800;font-size:.9rem;letter-spacing:.02em;box-shadow:0 4px 10px rgba(122,75,31,.2)}
+.btn-check:hover{transform:translateY(-1px);box-shadow:0 6px 14px rgba(122,75,31,.3)}
+.btn-reset{background:var(--card-2);border:1.5px solid var(--line);color:var(--muted);padding:9px 14px;border-radius:10px;font-family:var(--mono);font-weight:700;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase}
+.btn-reset:hover{color:var(--text);border-color:var(--accent)}
+.btn-show{background:var(--card-2);border:1.5px solid var(--line);color:var(--muted);padding:9px 14px;border-radius:10px;font-family:var(--mono);font-weight:700;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase}
+.btn-show:hover{color:var(--ok);border-color:var(--ok)}
+.score-pill{font-family:var(--mono);font-weight:900;font-size:.9rem;color:var(--muted);background:var(--card-2);padding:7px 14px;border-radius:50px;border:1.5px solid var(--line);letter-spacing:.06em;margin-left:auto}
+.score-pill.ok{color:#fff;background:var(--ok);border-color:var(--ok)}
+.score-pill.part{color:#fff;background:var(--accent);border-color:var(--accent)}
+
+/* ===== VOCAB CAPSULE ===== */
+.capsule-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-top:4px}
+.vcard{background:var(--card-2);border:2px solid var(--line);border-radius:12px;padding:12px 10px;cursor:pointer;transition:.18s;position:relative;min-height:100px}
+.vcard:hover{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 6px 14px rgba(224,154,59,.18)}
+.vcard .w{font-family:var(--display);font-weight:800;font-size:1rem;color:var(--deep);line-height:1.2}
+.vcard .pos{font-size:.62rem;font-weight:800;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
+.vcard .back{margin-top:7px;padding-top:7px;border-top:1px dashed var(--line);display:none}
+.vcard.revealed .back{display:block}
+.vcard .ru{font-family:var(--display);font-weight:700;font-size:.9rem;color:var(--accent)}
+.vcard .ex{font-size:.74rem;font-style:italic;color:var(--muted);line-height:1.35;margin-top:3px}
+.vcard .say{position:absolute;top:6px;right:6px;background:var(--accent);color:#fff;border-radius:50%;width:24px;height:24px;font-size:.68rem;line-height:1}
+.vcard .say:hover{background:var(--deep)}
+
+/* ===== WRAP ===== */
+.wrap-up{width:var(--demo-width);margin:28px auto 44px;padding:22px 24px;text-align:center;border-radius:var(--radius-l);background:linear-gradient(135deg,rgba(244,192,75,.14),rgba(200,223,154,.14));border:1px dashed var(--accent)}
+.wrap-up .big{font-family:var(--display);font-size:1.4rem;font-weight:800;color:var(--deep);margin-bottom:6px}
+.wrap-up .small{font-size:.9rem;color:var(--muted);line-height:1.5}
+
+.footer{text-align:center;padding:14px;font-family:var(--mono);font-size:.68rem;color:var(--muted);letter-spacing:.14em;text-transform:uppercase}
+
+/* ===== SCROLL-TOP ===== */
+.scroll-top{position:fixed;bottom:22px;right:22px;width:46px;height:46px;background:var(--accent);color:#fff;border-radius:50%;font-size:1.2rem;font-weight:900;box-shadow:0 6px 16px rgba(122,75,31,.25);opacity:0;pointer-events:none;transition:.2s;z-index:40}
+.scroll-top.show{opacity:1;pointer-events:auto}
+.scroll-top:hover{transform:translateY(-3px);background:var(--deep)}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a href="../../" class="brand">
+    <span class="brand-mark">NG</span>
+    <span class="brand-copy">
+      <span class="brand-name">New Generation</span>
+      <span class="brand-sub">LinguaBoost Lab · A2 → B1</span>
+    </span>
+  </a>
+  <span class="spacer"></span>
+  <span class="pill">Julia · 9</span>
+  <span class="pill accent">G+ · 9</span>
+</header>
+
+<section class="hero">
+  <div class="hero-card">
+    <span class="hero-emoji e1">🦒</span>
+    <span class="hero-emoji e2">🦚</span>
+    <span class="hero-emoji e3">🎠</span>
+    <div class="eyebrow">Comparatives · Superlatives · B1</div>
+    <h1 class="hero-title">Compare the Exhibition
+      <em>rules · spelling exceptions · irregulars · patterns</em>
+    </h1>
+    <p class="hero-lead">Full B1 trainer. Three families (<b>-er / more / irregular</b>), four spelling rules (<b>-e drop · double consonant · -y → -i</b>), and five patterns (<b>than · the + -est · as…as · less…than · the more the better</b>). Five exercises + the original 6 MCQs + vocab.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">A2 → B1</span>
+      <span class="hero-tag">5 blocks + 6 MCQ</span>
+      <span class="hero-tag new">New: patterns</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 1 · THEORY — three families ===== -->
+<section class="section">
+  <div class="section-hdr">
+    <span class="num">1</span>
+    <h2>Three <em>families</em> — the big picture</h2>
+    <span class="tag">Theory · 1</span>
+  </div>
+  <div class="section-sub">Every adjective belongs to one of three families. Pick the family first → then use its ending.</div>
+
+  <div class="theory">
+    <h4>★ The three families</h4>
+    <table>
+      <thead><tr><th>Family</th><th>Comparative (than)</th><th>Superlative (the …)</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>1 · short<br><span style="color:var(--muted);font-weight:500;font-family:var(--body);font-size:.82rem">1 syllable + a few 2-syllable (happy, busy, narrow)</span></td>
+          <td><code>big → bigger</code><br><code>tall → taller</code><br><code>happy → happier</code></td>
+          <td><code>the biggest</code><br><code>the tallest</code><br><code>the happiest</code></td>
+        </tr>
+        <tr>
+          <td>2 · long<br><span style="color:var(--muted);font-weight:500;font-family:var(--body);font-size:.82rem">2+ syllables (beautiful, interesting, difficult, expensive)</span></td>
+          <td><code>more beautiful</code><br><code>more interesting</code></td>
+          <td><code>the most beautiful</code><br><code>the most interesting</code></td>
+        </tr>
+        <tr>
+          <td>3 · irregular<br><span style="color:var(--muted);font-weight:500;font-family:var(--body);font-size:.82rem">6 words you memorise</span></td>
+          <td><code>good → better</code><br><code>bad → worse</code><br><code>far → farther / further</code><br><code>little → less</code><br><code>much / many → more</code><br><code>old → older / elder*</code></td>
+          <td><code>the best</code><br><code>the worst</code><br><code>the farthest / furthest</code><br><code>the least</code><br><code>the most</code><br><code>the oldest / eldest*</code></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="rule" style="margin-top:12px"><span class="star">✗ No such forms:</span> <span class="wrong">more big</span> · <span class="wrong">gooder</span> · <span class="wrong">beautifuler</span> · <span class="wrong">interestinger</span> · <span class="wrong">the goodest</span> · <span class="wrong">the most beautifulest</span>.</p>
+    <p class="rule"><span class="ok-mark">✓ Right:</span> <span class="right">bigger · better · more beautiful · the best · the most interesting</span>.</p>
+    <p class="mini-eg">* <code>elder / eldest</code> only for people in the family (my elder sister). For things / age in general → <code>older / oldest</code>.</p>
+  </div>
+</section>
+
+<!-- ===== 2 · THEORY — spelling rules for short ===== -->
+<section class="section">
+  <div class="section-hdr">
+    <span class="num">2</span>
+    <h2>Spelling <em>exceptions</em> for short adjectives</h2>
+    <span class="tag">Theory · 2</span>
+  </div>
+  <div class="section-sub">When you add <code>-er</code> / <code>-est</code>, the spelling sometimes changes. Four short rules cover 99% of cases.</div>
+
+  <div class="theory">
+    <h5>2.1 · Ends in silent <code>-e</code> → add just <code>-r / -st</code></h5>
+    <p class="rule">If the word ends in <code>-e</code>, don't double it. Just <code>-r</code> or <code>-st</code>.</p>
+    <table>
+      <thead><tr><th>Base</th><th>Comparative</th><th>Superlative</th></tr></thead>
+      <tbody>
+        <tr><td>nice</td><td><code>nicer</code></td><td><code>the nicest</code></td></tr>
+        <tr><td>large</td><td><code>larger</code></td><td><code>the largest</code></td></tr>
+        <tr><td>safe</td><td><code>safer</code></td><td><code>the safest</code></td></tr>
+      </tbody>
+    </table>
+    <p class="rule" style="margin-top:8px"><span class="star">✗</span> <span class="wrong">niceer · largeer</span> &nbsp; <span class="ok-mark">✓</span> <span class="right">nicer · larger</span></p>
+  </div>
+
+  <div class="theory">
+    <h5>2.2 · CVC → double the final consonant</h5>
+    <p class="rule"><b>CVC</b> = consonant + vowel + consonant (one of each, at the end). Double the last consonant, then add <code>-er / -est</code>.</p>
+    <table>
+      <thead><tr><th>Base (CVC)</th><th>Comparative</th><th>Superlative</th></tr></thead>
+      <tbody>
+        <tr><td>b<b>ig</b> (b-i-g)</td><td><code>bigger</code></td><td><code>the biggest</code></td></tr>
+        <tr><td>h<b>ot</b> (h-o-t)</td><td><code>hotter</code></td><td><code>the hottest</code></td></tr>
+        <tr><td>th<b>in</b> (th-i-n)</td><td><code>thinner</code></td><td><code>the thinnest</code></td></tr>
+        <tr><td>f<b>at</b> (f-a-t)</td><td><code>fatter</code></td><td><code>the fattest</code></td></tr>
+      </tbody>
+    </table>
+    <div class="callout warn"><b>Watch out ↳</b> if there are <b>two vowels</b> or <b>two consonants</b> at the end, do <b>NOT</b> double.<br>
+      <code>clean</code> (two vowels <i>e-a</i>) → <span class="right">cleaner</span>, <span class="wrong">cleanner</span>.<br>
+      <code>cold</code> (two consonants <i>l-d</i>) → <span class="right">colder</span>, <span class="wrong">coldder</span>.<br>
+      <code>cheap</code> → <span class="right">cheaper</span>, <span class="wrong">cheapper</span>.
+    </div>
+    <div class="callout warn"><b>-w and -x are special:</b> we never double them.<br>
+      <code>new</code> → <span class="right">newer</span>, <span class="wrong">newwer</span>. &nbsp; <code>low</code> → <span class="right">lower</span>, <span class="wrong">lowwer</span>.
+    </div>
+  </div>
+
+  <div class="theory">
+    <h5>2.3 · Ends in <code>-y</code> after a consonant → change <code>-y</code> to <code>-i</code></h5>
+    <p class="rule">If the word ends in <code>-y</code> and before the <code>-y</code> is a consonant → replace <code>-y</code> with <code>-i</code>, then add <code>-er / -est</code>. This covers many 2-syllable adjectives.</p>
+    <table>
+      <thead><tr><th>Base</th><th>Comparative</th><th>Superlative</th></tr></thead>
+      <tbody>
+        <tr><td>happy</td><td><code>happier</code></td><td><code>the happiest</code></td></tr>
+        <tr><td>busy</td><td><code>busier</code></td><td><code>the busiest</code></td></tr>
+        <tr><td>easy</td><td><code>easier</code></td><td><code>the easiest</code></td></tr>
+        <tr><td>pretty</td><td><code>prettier</code></td><td><code>the prettiest</code></td></tr>
+        <tr><td>lazy</td><td><code>lazier</code></td><td><code>the laziest</code></td></tr>
+        <tr><td>heavy</td><td><code>heavier</code></td><td><code>the heaviest</code></td></tr>
+      </tbody>
+    </table>
+    <p class="rule" style="margin-top:8px"><span class="star">✗</span> <span class="wrong">happyer · more happy · the happyest</span> &nbsp; <span class="ok-mark">✓</span> <span class="right">happier · the happiest</span></p>
+  </div>
+
+  <div class="theory">
+    <h5>2.4 · Two-syllable borderline — some can go <b>either</b> way</h5>
+    <p class="rule">A few 2-syllable adjectives work with <b>both</b> patterns (short <i>and</i> long): <code>clever · narrow · simple · quiet · gentle · polite</code>.</p>
+    <table>
+      <thead><tr><th>Base</th><th>Shorter form</th><th>Longer form</th></tr></thead>
+      <tbody>
+        <tr><td>clever</td><td><code>cleverer</code></td><td><code>more clever</code></td></tr>
+        <tr><td>quiet</td><td><code>quieter</code></td><td><code>more quiet</code></td></tr>
+        <tr><td>simple</td><td><code>simpler</code></td><td><code>more simple</code></td></tr>
+      </tbody>
+    </table>
+    <div class="callout tip"><b>At B1 safe rule ↳</b> for these borderline words, <b>use the shorter form</b> (cleverer, quieter, simpler). Both are correct, but shorter is more common in speech.</div>
+  </div>
+</section>
+
+<!-- ===== 3 · THEORY — long + patterns ===== -->
+<section class="section">
+  <div class="section-hdr">
+    <span class="num">3</span>
+    <h2>Long adjectives &amp; <em>five patterns</em></h2>
+    <span class="tag">Theory · 3</span>
+  </div>
+  <div class="section-sub">Long adjectives always take <code>more / most</code>. On top of that there are 5 sentence patterns you need to know by B1.</div>
+
+  <div class="theory">
+    <h5>3.1 · Long = <code>more / most</code></h5>
+    <p class="rule"><b>2 or more syllables</b> (and NOT ending in <code>-y</code> after consonant) → always <code>more</code> / <code>most</code>. Never add <code>-er</code>.</p>
+    <table>
+      <thead><tr><th>Base</th><th>Comparative</th><th>Superlative</th></tr></thead>
+      <tbody>
+        <tr><td>beautiful</td><td><code>more beautiful</code></td><td><code>the most beautiful</code></td></tr>
+        <tr><td>interesting</td><td><code>more interesting</code></td><td><code>the most interesting</code></td></tr>
+        <tr><td>difficult</td><td><code>more difficult</code></td><td><code>the most difficult</code></td></tr>
+        <tr><td>expensive</td><td><code>more expensive</code></td><td><code>the most expensive</code></td></tr>
+        <tr><td>important</td><td><code>more important</code></td><td><code>the most important</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="theory">
+    <h5>3.2 · Pattern 1 · Comparative + <code>than</code></h5>
+    <p class="rule">We compare <b>two things</b>. Word order: <code>A is &nbsp;[comp]&nbsp; than B.</code></p>
+    <p class="mini-eg">The elephant is <b>bigger than</b> the lion.<br>Mum's pancakes are <b>better than</b> the shop ones.<br>The peacock is <b>more beautiful than</b> the pigeon.</p>
+  </div>
+
+  <div class="theory">
+    <h5>3.3 · Pattern 2 · <code>the</code> + superlative <code>+ in / of</code></h5>
+    <p class="rule">Superlative = one out of a <b>group</b>. Always with <code>the</code>. Group goes after: <code>in</code> (place) or <code>of</code> (people / things).</p>
+    <p class="mini-eg">The giraffe is <b>the tallest animal in</b> the zoo.<br>Barsik is <b>the best cat in</b> the whole world.<br>She is <b>the youngest of</b> three sisters.</p>
+    <div class="callout warn"><b>Don't drop <code>the</code>:</b> <span class="wrong">Giraffe is tallest animal</span> → <span class="right">The giraffe is the tallest animal</span>.</div>
+  </div>
+
+  <div class="theory">
+    <h5>3.4 · Pattern 3 · <code>as … as</code> (equal) and <code>not as … as</code> (less)</h5>
+    <p class="rule">Same quality — <code>as + base + as</code>. Less — <code>not as + base + as</code> (= less than).</p>
+    <p class="mini-eg">John is <b>as fast as</b> his sister. &nbsp;<i>(same speed)</i><br>The pigeon is <b>not as beautiful as</b> the peacock. &nbsp;<i>(less beautiful)</i><br>Today is <b>not as hot as</b> yesterday. &nbsp;<i>(less hot)</i></p>
+    <div class="callout tip"><b>Mini-trick ↳</b> <code>not as X as</code> and <code>less X than</code> mean the same thing.<br>
+      <i>The pigeon is <b>not as beautiful as</b> the peacock = The pigeon is <b>less beautiful than</b> the peacock.</i></div>
+  </div>
+
+  <div class="theory">
+    <h5>3.5 · Pattern 4 · Double comparative — <code>and</code></h5>
+    <p class="rule">Something changes step by step — <code>comp + and + comp</code>. For long adjectives: <code>more and more + base</code>.</p>
+    <p class="mini-eg">The carousel went <b>faster and faster</b>.<br>Barsik is getting <b>bigger and bigger</b> every month.<br>The exhibition becomes <b>more and more popular</b> every year.</p>
+  </div>
+
+  <div class="theory">
+    <h5>3.6 · Pattern 5 · <code>the + comp, the + comp</code> (the more … the better)</h5>
+    <p class="rule">One thing grows → another thing grows (or shrinks).</p>
+    <p class="mini-eg"><b>The more</b> you practise, <b>the better</b> you speak.<br><b>The hotter</b> the day, <b>the slower</b> Barsik walks.<br><b>The older</b> John gets, <b>the more interesting</b> his questions become.</p>
+  </div>
+</section>
+
+<!-- ===== 4 · EXERCISE 1 — form drill ===== -->
+<section class="section">
+  <div class="section-hdr">
+    <span class="num">4</span>
+    <h2>Exercise 1 · <em>Form drill</em></h2>
+    <span class="tag">14 items</span>
+  </div>
+  <div class="section-sub">Fill in the comparative and superlative. Watch spelling: <code>-e drop · CVC · -y → -i</code>.</div>
+
+  <div class="card" id="drill-card">
+    <table class="form-table">
+      <thead><tr><th>Base</th><th>Comparative</th><th>Superlative</th></tr></thead>
+      <tbody>
+        <tr><td>tall</td>
+          <td><input type="text" class="drill-inp" data-ans="taller" placeholder="…er"></td>
+          <td><input type="text" class="drill-inp" data-ans="the tallest" placeholder="the …est"></td>
+        </tr>
+        <tr><td>big</td>
+          <td><input type="text" class="drill-inp" data-ans="bigger"></td>
+          <td><input type="text" class="drill-inp" data-ans="the biggest"></td>
+        </tr>
+        <tr><td>nice</td>
+          <td><input type="text" class="drill-inp" data-ans="nicer"></td>
+          <td><input type="text" class="drill-inp" data-ans="the nicest"></td>
+        </tr>
+        <tr><td>happy</td>
+          <td><input type="text" class="drill-inp" data-ans="happier"></td>
+          <td><input type="text" class="drill-inp" data-ans="the happiest"></td>
+        </tr>
+        <tr><td>hot</td>
+          <td><input type="text" class="drill-inp" data-ans="hotter"></td>
+          <td><input type="text" class="drill-inp" data-ans="the hottest"></td>
+        </tr>
+        <tr><td>cheap</td>
+          <td><input type="text" class="drill-inp" data-ans="cheaper"></td>
+          <td><input type="text" class="drill-inp" data-ans="the cheapest"></td>
+        </tr>
+        <tr><td>beautiful</td>
+          <td><input type="text" class="drill-inp" data-ans="more beautiful" placeholder="more …"></td>
+          <td><input type="text" class="drill-inp" data-ans="the most beautiful" placeholder="the most …"></td>
+        </tr>
+        <tr><td>interesting</td>
+          <td><input type="text" class="drill-inp" data-ans="more interesting"></td>
+          <td><input type="text" class="drill-inp" data-ans="the most interesting"></td>
+        </tr>
+        <tr><td>expensive</td>
+          <td><input type="text" class="drill-inp" data-ans="more expensive"></td>
+          <td><input type="text" class="drill-inp" data-ans="the most expensive"></td>
+        </tr>
+        <tr><td>good</td>
+          <td><input type="text" class="drill-inp" data-ans="better"></td>
+          <td><input type="text" class="drill-inp" data-ans="the best"></td>
+        </tr>
+        <tr><td>bad</td>
+          <td><input type="text" class="drill-inp" data-ans="worse"></td>
+          <td><input type="text" class="drill-inp" data-ans="the worst"></td>
+        </tr>
+        <tr><td>far</td>
+          <td><input type="text" class="drill-inp" data-ans="farther|further"></td>
+          <td><input type="text" class="drill-inp" data-ans="the farthest|the furthest"></td>
+        </tr>
+        <tr><td>little (amount)</td>
+          <td><input type="text" class="drill-inp" data-ans="less"></td>
+          <td><input type="text" class="drill-inp" data-ans="the least"></td>
+        </tr>
+        <tr><td>many / much</td>
+          <td><input type="text" class="drill-inp" data-ans="more"></td>
+          <td><input type="text" class="drill-inp" data-ans="the most"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="mech-row">
+      <button class="btn-check" data-check="drill">✓ Check</button>
+      <button class="btn-reset" data-reset="drill">Reset</button>
+      <span class="score-pill" data-score-for="drill">— / 28</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 5 · EXERCISE 2 — original 6 MCQ ===== -->
+<section class="section">
+  <div class="section-hdr">
+    <span class="num">5</span>
+    <h2>Exercise 2 · <em>6 MCQ</em> · Compare the animals from the Exhibition</h2>
+    <span class="tag">6 MCQ</span>
+  </div>
+  <div class="section-sub">One correct option out of three. Click to pick, then press Check.</div>
+
+  <div class="card" id="mcq-card">
+    <div class="mc-item" data-answer="bigger">
+      <div class="mc-q"><span class="q-num">1</span>The elephant is <span class="gap">?</span> than the lion.</div>
+      <div class="mc-opts">
+        <button class="mc-opt" data-v="bigger">bigger</button>
+        <button class="mc-opt" data-v="the biggest">the biggest</button>
+        <button class="mc-opt" data-v="more big">more big</button>
+      </div>
+    </div>
+    <div class="mc-item" data-answer="the tallest">
+      <div class="mc-q"><span class="q-num">2</span>The giraffe is <span class="gap">?</span> animal in the zoo.</div>
+      <div class="mc-opts">
+        <button class="mc-opt" data-v="more tall">more tall</button>
+        <button class="mc-opt" data-v="taller">taller</button>
+        <button class="mc-opt" data-v="the tallest">the tallest</button>
+      </div>
+    </div>
+    <div class="mc-item" data-answer="more beautiful">
+      <div class="mc-q"><span class="q-num">3</span>The peacock is <span class="gap">?</span> than the pigeon.</div>
+      <div class="mc-opts">
+        <button class="mc-opt" data-v="most beautiful">most beautiful</button>
+        <button class="mc-opt" data-v="beautifuler">beautifuler</button>
+        <button class="mc-opt" data-v="more beautiful">more beautiful</button>
+      </div>
+    </div>
+    <div class="mc-item" data-answer="the most interesting">
+      <div class="mc-q"><span class="q-num">4</span>For John the carousel was <span class="gap">?</span> thing at the fair.</div>
+      <div class="mc-opts">
+        <button class="mc-opt" data-v="interestinger">interestinger</button>
+        <button class="mc-opt" data-v="the most interesting">the most interesting</button>
+        <button class="mc-opt" data-v="more interesting">more interesting</button>
+      </div>
+    </div>
+    <div class="mc-item" data-answer="better">
+      <div class="mc-q"><span class="q-num">5</span>Mum's pancakes are <span class="gap">?</span> than the shop ones.</div>
+      <div class="mc-opts">
+        <button class="mc-opt" data-v="more good">more good</button>
+        <button class="mc-opt" data-v="better">better</button>
+        <button class="mc-opt" data-v="gooder">gooder</button>
+      </div>
+    </div>
+    <div class="mc-item" data-answer="the best">
+      <div class="mc-q"><span class="q-num">6</span>Barsik thinks HE is <span class="gap">?</span> cat in the whole world.</div>
+      <div class="mc-opts">
+        <button class="mc-opt" data-v="better">better</button>
+        <button class="mc-opt" data-v="the goodest">the goodest</button>
+        <button class="mc-opt" data-v="the best">the best</button>
+      </div>
+    </div>
+    <div class="mech-row">
+      <button class="btn-check" data-check="mcq-card">✓ Check</button>
+      <button class="btn-reset" data-reset="mcq-card">Reset</button>
+      <span class="score-pill" data-score-for="mcq-card">— / 6</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 6 · EXERCISE 3 — gap-fill passage ===== -->
+<section class="section">
+  <div class="section-hdr">
+    <span class="num">6</span>
+    <h2>Exercise 3 · <em>Gap-fill</em> · Julia's day at the Exhibition</h2>
+    <span class="tag">8 gaps</span>
+  </div>
+  <div class="section-sub">Read the short story. Put the adjective in brackets into the correct form (comp / sup / as…as / more and more).</div>
+
+  <div class="card" id="cloze-card">
+    <div class="passage">
+      Last Saturday Julia, John and Emma went to the summer Exhibition in the big park.<br><br>
+      At the gate, John said: "Look, the elephant is
+      <input type="text" class="gap-inp" data-ans="bigger" size="8"> &nbsp;<i>(big)</i>&nbsp; than the lion!"<br>
+      Julia laughed: "Yes, but the giraffe is
+      <input type="text" class="gap-inp" data-ans="the tallest" size="12"> &nbsp;<i>(tall)</i>&nbsp; animal here."<br><br>
+      Then they saw a peacock. Emma whispered: "It's
+      <input type="text" class="gap-inp" data-ans="more beautiful" size="14"> &nbsp;<i>(beautiful)</i>&nbsp; than any bird I know."<br>
+      John wasn't interested. For him the carousel was
+      <input type="text" class="gap-inp" data-ans="the most interesting" size="18"> &nbsp;<i>(interesting)</i>&nbsp; thing at the whole fair.<br><br>
+      At lunch Mum came with pancakes. "Mum, your pancakes are
+      <input type="text" class="gap-inp" data-ans="better" size="8"> &nbsp;<i>(good)</i>&nbsp; than the shop ones!" said Emma.<br>
+      John added: "And they are
+      <input type="text" class="gap-inp" data-ans="not as expensive|less expensive" size="18"> &nbsp;<i>(not / expensive)</i>&nbsp; as the shop ones."<br><br>
+      On the way home the sky got
+      <input type="text" class="gap-inp" data-ans="darker and darker" size="18"> &nbsp;<i>(dark · and · dark)</i>.<br>
+      When they opened the door, Barsik was on the sofa. He looked at them and purred — he really thinks he is
+      <input type="text" class="gap-inp" data-ans="the best" size="10"> &nbsp;<i>(good)</i>&nbsp; cat in the whole world.
+    </div>
+
+    <div class="mech-row">
+      <button class="btn-check" data-check="cloze">✓ Check</button>
+      <button class="btn-reset" data-reset="cloze">Reset</button>
+      <span class="score-pill" data-score-for="cloze">— / 8</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 7 · EXERCISE 4 — error correction ===== -->
+<section class="section">
+  <div class="section-hdr">
+    <span class="num">7</span>
+    <h2>Exercise 4 · <em>Find the mistake</em> · fix it</h2>
+    <span class="tag">6 errors</span>
+  </div>
+  <div class="section-sub">Each sentence has <b>one wrong form</b> (crossed out). Type the correct form in the box.</div>
+
+  <div class="card" id="err-card">
+
+    <div class="err-item">
+      <div class="err-sent"><span class="num">1</span>Scottish Folds are <span class="marked">more expensiver</span> than ordinary cats.</div>
+      <div class="ctl"><label>Fix →</label><input type="text" class="fix" data-ans="more expensive"></div>
+    </div>
+
+    <div class="err-item">
+      <div class="err-sent"><span class="num">2</span>Julia is <span class="marked">more happy</span> on Sundays than on Mondays.</div>
+      <div class="ctl"><label>Fix →</label><input type="text" class="fix" data-ans="happier"></div>
+    </div>
+
+    <div class="err-item">
+      <div class="err-sent"><span class="num">3</span>This is <span class="marked">the baddest</span> carousel at the fair!</div>
+      <div class="ctl"><label>Fix →</label><input type="text" class="fix" data-ans="the worst"></div>
+    </div>
+
+    <div class="err-item">
+      <div class="err-sent"><span class="num">4</span>Barsik is <span class="marked">gooder</span> than any other cat Julia knows.</div>
+      <div class="ctl"><label>Fix →</label><input type="text" class="fix" data-ans="better"></div>
+    </div>
+
+    <div class="err-item">
+      <div class="err-sent"><span class="num">5</span>Emma is <span class="marked">tallest</span> girl in her class. <i>(the …)</i></div>
+      <div class="ctl"><label>Fix →</label><input type="text" class="fix" data-ans="the tallest"></div>
+    </div>
+
+    <div class="err-item">
+      <div class="err-sent"><span class="num">6</span>Today is <span class="marked">hoter</span> than yesterday.</div>
+      <div class="ctl"><label>Fix →</label><input type="text" class="fix" data-ans="hotter"></div>
+    </div>
+
+    <div class="mech-row">
+      <button class="btn-check" data-check="err">✓ Check</button>
+      <button class="btn-reset" data-reset="err">Reset</button>
+      <span class="score-pill" data-score-for="err">— / 6</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 8 · EXERCISE 5 — translation ===== -->
+<section class="section">
+  <div class="section-hdr">
+    <span class="num">8</span>
+    <h2>Exercise 5 · <em>Translate</em> RU → EN</h2>
+    <span class="tag">6 items</span>
+  </div>
+  <div class="section-sub">Write the English sentence. Use <code>than</code>, <code>the…est</code>, <code>as…as</code>, <code>more and more</code>, <code>the more … the …</code>.</div>
+
+  <div class="card" id="tr-card">
+
+    <div class="tr-item">
+      <div class="tr-ru"><span class="num">1</span>Слон больше, чем лев.</div>
+      <input type="text" class="tr-inp" data-ans="the elephant is bigger than the lion" placeholder="The elephant is …">
+      <div class="hint">👉 short adj + <code>than</code></div>
+      <div class="reveal-key">The elephant is bigger than the lion.</div>
+    </div>
+
+    <div class="tr-item">
+      <div class="tr-ru"><span class="num">2</span>Жираф — самое высокое животное в зоопарке.</div>
+      <input type="text" class="tr-inp" data-ans="the giraffe is the tallest animal in the zoo" placeholder="The giraffe is …">
+      <div class="hint">👉 <code>the + sup + in …</code></div>
+      <div class="reveal-key">The giraffe is the tallest animal in the zoo.</div>
+    </div>
+
+    <div class="tr-item">
+      <div class="tr-ru"><span class="num">3</span>Голубь не такой красивый, как павлин.</div>
+      <input type="text" class="tr-inp" data-ans="the pigeon is not as beautiful as the peacock|the pigeon isn't as beautiful as the peacock" placeholder="The pigeon is …">
+      <div class="hint">👉 <code>not as … as</code></div>
+      <div class="reveal-key">The pigeon is not as beautiful as the peacock.</div>
+    </div>
+
+    <div class="tr-item">
+      <div class="tr-ru"><span class="num">4</span>Мамины блины лучше, чем магазинные.</div>
+      <input type="text" class="tr-inp" data-ans="mum's pancakes are better than the shop ones|mum's pancakes are better than shop ones" placeholder="Mum's pancakes …">
+      <div class="hint">👉 irregular: <code>good → better</code></div>
+      <div class="reveal-key">Mum's pancakes are better than the shop ones.</div>
+    </div>
+
+    <div class="tr-item">
+      <div class="tr-ru"><span class="num">5</span>Карусель крутилась всё быстрее и быстрее.</div>
+      <input type="text" class="tr-inp" data-ans="the carousel went faster and faster|the carousel was going faster and faster" placeholder="The carousel went …">
+      <div class="hint">👉 double comparative <code>comp + and + comp</code></div>
+      <div class="reveal-key">The carousel went faster and faster.</div>
+    </div>
+
+    <div class="tr-item">
+      <div class="tr-ru"><span class="num">6</span>Чем больше ты тренируешься, тем лучше ты говоришь.</div>
+      <input type="text" class="tr-inp" data-ans="the more you practise, the better you speak|the more you practice, the better you speak" placeholder="The more you …">
+      <div class="hint">👉 <code>the + comp, the + comp</code></div>
+      <div class="reveal-key">The more you practise, the better you speak.</div>
+    </div>
+
+    <div class="mech-row">
+      <button class="btn-check" data-check="tr">✓ Check</button>
+      <button class="btn-reset" data-reset="tr">Reset</button>
+      <button class="btn-show" data-show="tr">👁 Show keys</button>
+      <span class="score-pill" data-score-for="tr">— / 6</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 9 · VOCAB CAPSULE ===== -->
+<section class="section">
+  <div class="section-hdr">
+    <span class="num">9</span>
+    <h2>📦 Vocab <em>Capsule</em></h2>
+    <span class="tag">14 words</span>
+  </div>
+  <div class="section-sub">Click to hear (en-US). Click again — Russian + example reveal below.</div>
+
+  <div class="capsule-grid" id="vocab-grid">
+    <div class="vcard" data-say="exhibition"><button class="say">🔊</button><div class="w">exhibition</div><div class="pos">noun</div><div class="back"><div class="ru">выставка</div><div class="ex">We went to the summer exhibition in the park.</div></div></div>
+    <div class="vcard" data-say="carousel"><button class="say">🔊</button><div class="w">carousel</div><div class="pos">noun</div><div class="back"><div class="ru">карусель</div><div class="ex">The carousel was the most interesting thing at the fair.</div></div></div>
+    <div class="vcard" data-say="peacock"><button class="say">🔊</button><div class="w">peacock</div><div class="pos">noun</div><div class="back"><div class="ru">павлин</div><div class="ex">The peacock is more beautiful than the pigeon.</div></div></div>
+    <div class="vcard" data-say="pigeon"><button class="say">🔊</button><div class="w">pigeon</div><div class="pos">noun</div><div class="back"><div class="ru">голубь</div><div class="ex">A grey pigeon sat on the fence.</div></div></div>
+    <div class="vcard" data-say="giraffe"><button class="say">🔊</button><div class="w">giraffe</div><div class="pos">noun</div><div class="back"><div class="ru">жираф</div><div class="ex">The giraffe is the tallest animal in the zoo.</div></div></div>
+    <div class="vcard" data-say="pancake"><button class="say">🔊</button><div class="w">pancake</div><div class="pos">noun</div><div class="back"><div class="ru">блин</div><div class="ex">Mum's pancakes are better than the shop ones.</div></div></div>
+    <div class="vcard" data-say="fair"><button class="say">🔊</button><div class="w">fair</div><div class="pos">noun</div><div class="back"><div class="ru">ярмарка</div><div class="ex">Every summer we go to the fair with Emma and John.</div></div></div>
+    <div class="vcard" data-say="than"><button class="say">🔊</button><div class="w">than</div><div class="pos">word</div><div class="back"><div class="ru">чем (сравнение)</div><div class="ex">The elephant is bigger than the lion.</div></div></div>
+    <div class="vcard" data-say="expensive"><button class="say">🔊</button><div class="w">expensive</div><div class="pos">adj</div><div class="back"><div class="ru">дорогой</div><div class="ex">A Scottish Fold kitten is more expensive than an ordinary cat.</div></div></div>
+    <div class="vcard" data-say="important"><button class="say">🔊</button><div class="w">important</div><div class="pos">adj</div><div class="back"><div class="ru">важный</div><div class="ex">Family is the most important thing for Julia.</div></div></div>
+    <div class="vcard" data-say="interesting"><button class="say">🔊</button><div class="w">interesting</div><div class="pos">adj</div><div class="back"><div class="ru">интересный</div><div class="ex">That book is more interesting than this one.</div></div></div>
+    <div class="vcard" data-say="heavy"><button class="say">🔊</button><div class="w">heavy</div><div class="pos">adj</div><div class="back"><div class="ru">тяжёлый</div><div class="ex">My school bag is heavier than John's.</div></div></div>
+    <div class="vcard" data-say="world"><button class="say">🔊</button><div class="w">whole world</div><div class="pos">noun</div><div class="back"><div class="ru">целый мир</div><div class="ex">Barsik is the best cat in the whole world.</div></div></div>
+    <div class="vcard" data-say="practise"><button class="say">🔊</button><div class="w">practise</div><div class="pos">verb</div><div class="back"><div class="ru">тренироваться</div><div class="ex">The more you practise, the better you speak.</div></div></div>
+  </div>
+</section>
+
+<!-- ===== WRAP ===== -->
+<div class="wrap-up">
+  <div class="big">🏆 Well done, Julia!</div>
+  <div class="small">3 families · 4 spelling rules · 6 irregulars · 5 patterns. <br>See you next class, Julia 🦒</div>
+</div>
+
+<div class="footer">© New Generation · LinguaBoost Lab · A2 → B1 · G+ 9</div>
+
+<button class="scroll-top" id="scroll-top" aria-label="Back to top">↑</button>
+
+<script>
+(function(){
+  function norm(s){return (s||'').trim().toLowerCase().replace(/\s+/g,' ').replace(/[.!?]+$/,'').replace(/'/g,"'").replace(/'/g,"'");}
+  function match(user,answer){
+    const got=norm(user);
+    const parts=(answer||'').split('|').map(a=>norm(a));
+    return parts.indexOf(got)!==-1;
+  }
+
+  // shuffle MCQ options
+  document.querySelectorAll('.mc-opts').forEach(group=>{
+    const opts=Array.from(group.children);
+    for(let i=opts.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      group.appendChild(opts[j]);
+      opts.splice(j,1);
+    }
+  });
+
+  // MCQ click
+  document.querySelectorAll('.mc-item').forEach(item=>{
+    item.querySelectorAll('.mc-opt').forEach(opt=>{
+      opt.addEventListener('click',()=>{
+        item.querySelectorAll('.mc-opt').forEach(o=>o.classList.remove('selected'));
+        opt.classList.add('selected');
+      });
+    });
+  });
+
+  // ===== CHECK =====
+  document.querySelectorAll('.btn-check').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const sec=btn.closest('.card');
+      let correct=0,total=0;
+
+      // MCQ
+      sec.querySelectorAll('.mc-item').forEach(item=>{
+        total++;
+        const ans=item.dataset.answer;
+        item.querySelectorAll('.mc-opt').forEach(o=>o.classList.remove('correct','wrong'));
+        const picked=item.querySelector('.mc-opt.selected');
+        if(picked){
+          if(picked.dataset.v===ans){picked.classList.add('correct');correct++;}
+          else{
+            picked.classList.add('wrong');
+            item.querySelectorAll('.mc-opt').forEach(o=>{if(o.dataset.v===ans)o.classList.add('correct');});
+          }
+        }else{
+          item.querySelectorAll('.mc-opt').forEach(o=>{if(o.dataset.v===ans)o.classList.add('correct');});
+        }
+      });
+
+      // Drill inputs
+      sec.querySelectorAll('.drill-inp').forEach(inp=>{
+        total++;
+        inp.classList.remove('correct','wrong');
+        if(match(inp.value,inp.dataset.ans)){inp.classList.add('correct');correct++;}
+        else{inp.classList.add('wrong');}
+      });
+
+      // Gap inputs
+      sec.querySelectorAll('.gap-inp').forEach(inp=>{
+        total++;
+        inp.classList.remove('correct','wrong');
+        if(match(inp.value,inp.dataset.ans)){inp.classList.add('correct');correct++;}
+        else{inp.classList.add('wrong');}
+      });
+
+      // Error-fix inputs
+      sec.querySelectorAll('input.fix').forEach(inp=>{
+        total++;
+        inp.classList.remove('correct','wrong');
+        if(match(inp.value,inp.dataset.ans)){inp.classList.add('correct');correct++;}
+        else{inp.classList.add('wrong');}
+      });
+
+      // Translation inputs — looser match (contains answer OR exact)
+      sec.querySelectorAll('input.tr-inp').forEach(inp=>{
+        total++;
+        inp.classList.remove('correct','wrong');
+        if(match(inp.value,inp.dataset.ans)){inp.classList.add('correct');correct++;}
+        else{inp.classList.add('wrong');}
+      });
+
+      const pill=sec.querySelector('.score-pill');
+      if(pill){
+        pill.textContent=correct+' / '+total;
+        pill.classList.remove('ok','part');
+        if(correct===total)pill.classList.add('ok');
+        else if(correct>=Math.ceil(total/2))pill.classList.add('part');
+      }
+    });
+  });
+
+  // ===== RESET =====
+  document.querySelectorAll('.btn-reset').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const sec=btn.closest('.card');
+      sec.querySelectorAll('.mc-opt').forEach(o=>o.classList.remove('selected','correct','wrong'));
+      sec.querySelectorAll('input').forEach(i=>{i.value='';i.classList.remove('correct','wrong');});
+      sec.querySelectorAll('.tr-item').forEach(t=>t.classList.remove('show-key'));
+      const pill=sec.querySelector('.score-pill');
+      if(pill){
+        const txt=pill.textContent;const total=txt.split('/')[1]?txt.split('/')[1].trim():'—';
+        pill.textContent='— / '+total;pill.classList.remove('ok','part');
+      }
+    });
+  });
+
+  // ===== SHOW KEYS (translation) =====
+  document.querySelectorAll('.btn-show').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const sec=btn.closest('.card');
+      sec.querySelectorAll('.tr-item').forEach(t=>t.classList.toggle('show-key'));
+    });
+  });
+
+  // ===== VOCAB reveal + TTS =====
+  function speak(text){
+    if(!('speechSynthesis' in window))return;
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang='en-US';u.rate=.92;u.pitch=1;
+    const voices=speechSynthesis.getVoices();
+    const en=voices.find(v=>v.lang.startsWith('en-US'))||voices.find(v=>v.lang.startsWith('en'));
+    if(en)u.voice=en;
+    speechSynthesis.speak(u);
+  }
+  document.querySelectorAll('.vcard').forEach(card=>{
+    card.addEventListener('click',(e)=>{
+      card.classList.toggle('revealed');
+      if(!e.target.classList.contains('say')){
+        const w=card.dataset.say||card.querySelector('.w').textContent;
+        speak(w);
+      }
+    });
+    const sayBtn=card.querySelector('.say');
+    if(sayBtn){
+      sayBtn.addEventListener('click',(e)=>{
+        e.stopPropagation();
+        const w=card.dataset.say||card.querySelector('.w').textContent;
+        speak(w);
+      });
+    }
+  });
+
+  // Scroll-top
+  const st=document.getElementById('scroll-top');
+  window.addEventListener('scroll',()=>{
+    if(window.scrollY>400)st.classList.add('show');else st.classList.remove('show');
+  });
+  st.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+})();
+</script>
+</body>
+</html>
