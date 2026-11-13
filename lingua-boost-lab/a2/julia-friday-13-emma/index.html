@@ -718,6 +718,122 @@ audio{display:block;width:100%;margin:10px 0}
     </div>
   </section>
 
+  <!-- ─────────────────────────────────────────────────────────── -->
+  <!-- F+3 · FLIP-CARDS · 13 иллюстраций · click → question → type  -->
+  <!-- ─────────────────────────────────────────────────────────── -->
+  <style id="julia-flip-css">
+    .flip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin:14px 0}
+    .flip-card{aspect-ratio:1/1;perspective:1000px;cursor:pointer;position:relative}
+    .flip-inner{position:relative;width:100%;height:100%;transition:transform 0.55s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d}
+    .flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+    .flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:12px;overflow:hidden;box-shadow:0 4px 14px rgba(90,42,31,.14);border:1.5px solid rgba(255,200,69,.45)}
+    .flip-card:hover{transform:translateY(-1px)}
+    .flip-card:hover .flip-front,.flip-card:hover .flip-back{box-shadow:0 6px 18px rgba(90,42,31,.22)}
+    .flip-front{background:#FFF}
+    .flip-front img{width:100%;height:100%;object-fit:cover;display:block}
+    .flip-front .flip-num{position:absolute;top:6px;left:6px;background:#FFC845;color:#5A2A1F;font:900 .7rem/1 "JetBrains Mono",monospace;padding:3px 7px;border-radius:50px;letter-spacing:.1em;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+    .flip-front .flip-hint{display:none}
+    .flip-back{background:linear-gradient(135deg,#FFF4E6 0%,#F0E8F5 100%);transform:rotateY(180deg);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:12px 8px;text-align:center;gap:6px}
+    .flip-back .flip-q{font-family:"Nunito",sans-serif;font-size:.84rem;font-weight:800;color:#3A2A2A;line-height:1.25}
+    .flip-back .flip-q em{color:#8B2A4D;font-style:italic;font-weight:600;display:block;font-size:.7rem;margin-top:3px;line-height:1.2}
+    .flip-back input.gap{width:92px;padding:5px 8px;border-radius:7px;border:1.5px solid #FFC845;background:#FFF;text-align:center;font:700 .88rem "JetBrains Mono",monospace;color:#5A2A1F;outline:none}
+    .flip-back input.gap:focus{border-color:#E8542B;box-shadow:0 0 0 2px rgba(232,84,43,.2)}
+    .flip-back input.gap.ok{border-color:#2D8A3F;background:#EFFBEA;color:#2D5C21}
+    .flip-back input.gap.bad{border-color:#D14A4A;background:#FFEDEA;color:#7A1E12}
+    .flip-back .btn-reveal{font:700 .62rem "JetBrains Mono",monospace;background:#E8542B;color:#FFF;border:none;padding:4px 9px;border-radius:5px;cursor:pointer;letter-spacing:.08em;text-transform:uppercase}
+    .flip-back .flip-flip{position:absolute;top:4px;right:5px;font:700 .68rem "JetBrains Mono",monospace;background:rgba(255,255,255,.78);color:#5A2A1F;border:none;padding:2px 7px;border-radius:50px;cursor:pointer;letter-spacing:.06em;box-shadow:0 1px 4px rgba(0,0,0,.08)}
+  </style>
+
+  <section class="section" id="sec-fplus-3">
+    <div class="num">F+3 · 🎴 13 карточек-перевороток · click the picture → type the answer</div>
+    <h2>13 flip-cards · ситуации Julia &amp; Emma</h2>
+    <div class="subtitle">Клик по картинке → карточка переворачивается → ответь на вопрос (do/does/is/am/are/What/Where/When/Why/Who/How). «↩» справа сверху — обратно к картинке.</div>
+
+    <div class="flip-grid">
+      <div class="flip-card" data-no="01"><div class="flip-inner">
+        <div class="flip-front"><img src="images/flip/flip-01-planning.png" alt="Julia and Emma at a desk planning the day"><div class="flip-num">01</div><div class="flip-hint">click to flip</div></div>
+        <div class="flip-back"><button class="flip-flip">↩</button><div class="flip-q">___ Julia and Emma best friends? <em>(Yes, they are planning together.)</em></div><input class="gap" data-a="Are"><button class="btn-reveal" onclick="revealOne(this)">reveal</button></div>
+      </div></div>
+
+      <div class="flip-card" data-no="02"><div class="flip-inner">
+        <div class="flip-front"><img src="images/flip/flip-02-cafe-cat-clover.png" alt="Girls at café with black cat and a clover on the table"><div class="flip-num">02</div><div class="flip-hint">click to flip</div></div>
+        <div class="flip-back"><button class="flip-flip">↩</button><div class="flip-q">___ is on the table — a clover and salt? <em>(What / Where …)</em></div><input class="gap" data-a="What"><button class="btn-reveal" onclick="revealOne(this)">reveal</button></div>
+      </div></div>
+
+      <div class="flip-card" data-no="03"><div class="flip-inner">
+        <div class="flip-front"><img src="images/flip/flip-03-number-13.png" alt="Julia staring at a huge wooden number 13"><div class="flip-num">03</div><div class="flip-hint">click to flip</div></div>
+        <div class="flip-back"><button class="flip-flip">↩</button><div class="flip-q">___ is the date today? <em>(Friday the 13th.)</em></div><input class="gap" data-a="What"><button class="btn-reveal" onclick="revealOne(this)">reveal</button></div>
+      </div></div>
+
+      <div class="flip-card" data-no="04"><div class="flip-inner">
+        <div class="flip-front"><img src="images/flip/flip-04-petting-cat.png" alt="Julia and Emma petting a black cat in the schoolyard"><div class="flip-num">04</div><div class="flip-hint">click to flip</div></div>
+        <div class="flip-back"><button class="flip-flip">↩</button><div class="flip-q">___ runs after the cat and gives it milk? <em>(Emma.)</em></div><input class="gap" data-a="Who"><button class="btn-reveal" onclick="revealOne(this)">reveal</button></div>
+      </div></div>
+
+      <div class="flip-card" data-no="05"><div class="flip-inner">
+        <div class="flip-front"><img src="images/flip/flip-05-broken-mirror.png" alt="Julia terrified, Emma near the broken mirror"><div class="flip-num">05</div><div class="flip-hint">click to flip</div></div>
+        <div class="flip-back"><button class="flip-flip">↩</button><div class="flip-q">___ broke the mirror? <em>(Nobody — it was like that.)</em></div><input class="gap" data-a="Who"><button class="btn-reveal" onclick="revealOne(this)">reveal</button></div>
+      </div></div>
+
+      <div class="flip-card" data-no="06"><div class="flip-inner">
+        <div class="flip-front"><img src="images/flip/flip-06-grandma-charm.png" alt="Grandma showing a lucky charm to the girls on the sofa"><div class="flip-num">06</div><div class="flip-hint">click to flip</div></div>
+        <div class="flip-back"><button class="flip-flip">↩</button><div class="flip-q">___ is grandma holding in her hand? <em>(A lucky charm.)</em></div><input class="gap" data-a="What"><button class="btn-reveal" onclick="revealOne(this)">reveal</button></div>
+      </div></div>
+
+      <div class="flip-card" data-no="07"><div class="flip-inner">
+        <div class="flip-front"><img src="images/flip/flip-07-spilled-salt.png" alt="Julia scared at the spilled salt, Emma with a towel"><div class="flip-num">07</div><div class="flip-hint">click to flip</div></div>
+        <div class="flip-back"><button class="flip-flip">↩</button><div class="flip-q">___ Julia worried about the spilled salt? <em>(Yes, she is.)</em></div><input class="gap" data-a="Is"><button class="btn-reveal" onclick="revealOne(this)">reveal</button></div>
+      </div></div>
+
+      <div class="flip-card" data-no="08"><div class="flip-inner">
+        <div class="flip-front"><img src="images/flip/flip-08-gift-clover.png" alt="Emma giving Julia a tiny box with a clover necklace"><div class="flip-num">08</div><div class="flip-hint">click to flip</div></div>
+        <div class="flip-back"><button class="flip-flip">↩</button><div class="flip-q">___ is Emma giving to Julia? <em>(A lucky charm necklace.)</em></div><input class="gap" data-a="What"><button class="btn-reveal" onclick="revealOne(this)">reveal</button></div>
+      </div></div>
+
+      <div class="flip-card" data-no="09"><div class="flip-inner">
+        <div class="flip-front"><img src="images/flip/flip-09-grandma-knitting.png" alt="Grandma knitting, with a teacup and the girls listening"><div class="flip-num">09</div><div class="flip-hint">click to flip</div></div>
+        <div class="flip-back"><button class="flip-flip">↩</button><div class="flip-q">___ grandma like to drink tea? <em>(Yes, she does.)</em></div><input class="gap" data-a="Does"><button class="btn-reveal" onclick="revealOne(this)">reveal</button></div>
+      </div></div>
+
+      <div class="flip-card" data-no="10"><div class="flip-inner">
+        <div class="flip-front"><img src="images/flip/flip-10-weekly-planner.png" alt="Girls pointing at a rainbow weekly planner"><div class="flip-num">10</div><div class="flip-hint">click to flip</div></div>
+        <div class="flip-back"><button class="flip-flip">↩</button><div class="flip-q">___ day of the week comes after Thursday? <em>(Friday.)</em></div><input class="gap" data-a="What"><button class="btn-reveal" onclick="revealOne(this)">reveal</button></div>
+      </div></div>
+
+      <div class="flip-card" data-no="11"><div class="flip-inner">
+        <div class="flip-front"><img src="images/flip/flip-11-birthday.png" alt="Julia at a birthday table with a cake and gifts"><div class="flip-num">11</div><div class="flip-hint">click to flip</div></div>
+        <div class="flip-back"><button class="flip-flip">↩</button><div class="flip-q">___ is Julia's birthday? <em>(In November.)</em></div><input class="gap" data-a="When"><button class="btn-reveal" onclick="revealOne(this)">reveal</button></div>
+      </div></div>
+
+      <div class="flip-card" data-no="12"><div class="flip-inner">
+        <div class="flip-front"><img src="images/flip/flip-12-suitcases-grandma.png" alt="Julia and Emma on their suitcases, grandma at the door"><div class="flip-num">12</div><div class="flip-hint">click to flip</div></div>
+        <div class="flip-back"><button class="flip-flip">↩</button><div class="flip-q">___ are the girls going on the trip? <em>(To grandma's.)</em></div><input class="gap" data-a="Where"><button class="btn-reveal" onclick="revealOne(this)">reveal</button></div>
+      </div></div>
+
+      <div class="flip-card" data-no="13"><div class="flip-inner">
+        <div class="flip-front"><img src="images/flip/flip-13-ladder.png" alt="Emma about to walk under a ladder, Julia warning her"><div class="flip-num">13</div><div class="flip-hint">click to flip</div></div>
+        <div class="flip-back"><button class="flip-flip">↩</button><div class="flip-q">___ Emma walking under the ladder? <em>(Yes, she is — bad luck!)</em></div><input class="gap" data-a="Is"><button class="btn-reveal" onclick="revealOne(this)">reveal</button></div>
+      </div></div>
+    </div>
+
+    <div class="speaking-card" style="background:linear-gradient(135deg,#FFFCF0 0%,#F0E8F5 100%);margin-top:12px;padding:10px 14px">
+      <p class="hint" style="margin:0"><b>How to use.</b> Click a picture · the card flips · type the first word of the question (<em>Is / Are / Do / Does / What / Where / When / Who / How</em>) · press <b>reveal</b> if stuck. Click <b>↩</b> top-right to flip back.</p>
+    </div>
+  </section>
+
+  <script id="julia-flip-js">
+  (function(){
+    document.querySelectorAll('#sec-fplus-3 .flip-card').forEach(card => {
+      card.addEventListener('click', e => {
+        // ignore clicks on input / reveal-button
+        const t = e.target;
+        if (t.tagName === 'INPUT' || (t.tagName === 'BUTTON' && t.classList.contains('btn-reveal'))) return;
+        card.classList.toggle('flipped');
+      });
+    });
+  })();
+  </script>
+
   <!-- ═══════════ UNIT G · WRITING + CAPSULE ═══════════ -->
   <div class="unit-band"><span class="letter">G</span><span class="name">Unit G · Writing + Vocab Capsule</span><span>2 sections</span></div>
 
