@@ -1414,9 +1414,14 @@
       `;
     }).join("");
 
+    const _doneCount = monthLessons.filter(l => l.status === "completed").length;
+    const _totalCount = monthLessons.filter(l => l.status !== "cancelled").length;
+    const _counterHtml = _totalCount
+      ? ` · <span class="cab-lessons-counter"><b>${_doneCount}</b>/${_totalCount}</span>`
+      : "";
     const currentTable = `
       <article class="cab-card cab-card--wide" id="cab-current-lessons">
-        <h3>Уроки · ${_esc(_activePackageLabel(active, hasSummerPlan))}</h3>
+        <h3>Уроки · ${_esc(_activePackageLabel(active, hasSummerPlan))}${_counterHtml}</h3>
         <ul class="cab-lessons-list">
           <li class="cab-lesson-row cab-lesson-header" aria-hidden="true">
             <span class="cab-lesson-num" style="visibility:hidden">·</span>
@@ -1678,9 +1683,9 @@
 
   function _renderAbonementCard(student, opts) {
     opts = opts || {};
-    const studentView = !!opts.studentView; // в кабинете ребёнка — скрываем весь абонемент (для не-adult)
-    // В детском кабинете абонемент вообще не показываем — только у родителя
-    if (studentView && !student.is_adult) return "";
+    const studentView = !!opts.studentView; // в кабинете ребёнка — скрываем деньги (не весь блок)
+    // Суммы (price, pkg, payment_status) у детей не показываем, но количество уроков — да.
+    // Ранее весь блок скрывался; теперь показываем прогресс/осталось/расписание.
     const active = _studentActivePackage(student);
     const total = active.total;
     const used = active.used || 0;
