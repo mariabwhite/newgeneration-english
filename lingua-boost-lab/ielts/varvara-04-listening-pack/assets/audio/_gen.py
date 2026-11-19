@@ -39,6 +39,47 @@ MONO_TRACKS = [
      "And finally, Small Wonders at the Courtauld Institute. "
      "This is designed with families in mind: activity trails, dressing-up corner, and craft tables in every room."),
 
+    ("l-06-fishbourne-dig.mp3", "en-GB-SoniaNeural",
+     "Welcome to Fishbourne Roman Palace, and thank you for signing up to volunteer this season. "
+     "Before we head out to the trenches, three quick practical notes. "
+     "First, our daily schedule. Work on site starts at seven thirty sharp. "
+     "The main gate locks automatically at seven forty-five, so please arrive early; "
+     "we cannot buzz anyone in once the safety briefing has begun. "
+     "Second, what to bring and what we provide. "
+     "You must bring your own sturdy boots, a wide-brimmed sunhat, and a packed lunch. "
+     "We provide gloves, trowels and drinking water free of charge — "
+     "no need to carry any of those yourselves. "
+     "Third, and this is non-negotiable: your signed insurance form. "
+     "Without it we are not permitted to allow you anywhere near the trench, no exceptions. "
+     "A few last details. Lunch break is at twelve noon and the working day ends at four. "
+     "However, the conservation lab stays open for one more hour after that — until five — "
+     "and anyone who wants to help wash and label finds is very welcome to stay on. "
+     "Finally, if you lose the group during a tour or hear the weather alert siren, "
+     "the muster point is the old oak tree beside the ticket office. "
+     "Not the car park, not the gift shop — the old oak tree. Any questions before we head out?"),
+
+    ("l-07-hypocaust-lecture.mp3", "en-GB-RyanNeural",
+     "Today I'd like to introduce you to one of the most ingenious domestic technologies "
+     "the Romans ever developed — the hypocaust, or underfloor heating system. "
+     "If you look at the cross-section on your handout, you'll see six numbered components. "
+     "Let's work through them from the bottom up. "
+     "Number one, at the lower left, is the furnace itself, which the Romans called the praefurnium. "
+     "It was tended by a slave standing outside the house, feeding wood into the fire. "
+     "Number two is the large empty space directly beneath the floor — the hypocaust chamber. "
+     "This is where the hot gases from the furnace were allowed to circulate freely. "
+     "The floor was held up above that chamber by short stacks of square tiles, "
+     "and these supporting columns were known as pilae — that's number three on the diagram. "
+     "Resting on top of the pilae sits the raised floor itself, labelled number four, "
+     "typically finished with a decorative mosaic in the main rooms. "
+     "Now, the clever part. Hot air didn't just warm the floor; it also rose up through the walls, "
+     "using special hollow wall-tiles called tubuli. That system of wall-tiles is number five. "
+     "And finally, having passed through the floor and the walls, the smoke and spent gases escaped "
+     "through a chimney vent at the roofline — number six on the diagram. "
+     "The great advantage of this design is that no smoke whatsoever ever enters the living space; "
+     "only the warmth radiates up through the floor and the walls. "
+     "A well-maintained Roman hypocaust could keep a dining room at a steady twenty-two degrees Celsius "
+     "even on a January day — quite a feat with no boiler, no radiators, and no electricity."),
+
     ("l-05-caravanserai-lecture.mp3", "en-GB-LibbyNeural",
      "Right, so today I want to talk about recent satellite archaeology along the Silk Road, "
      "and specifically the identification of previously unknown caravanserai. "
