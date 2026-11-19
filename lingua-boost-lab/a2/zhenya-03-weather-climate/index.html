@@ -62,7 +62,7 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
 
 .hero{margin:0 0 28px}
 .hero-card{position:relative;border-radius:24px;overflow:hidden;box-shadow:var(--shadow-lg);background:#0E1F2E;min-height:340px}
-.hero-card::before{content:"";position:absolute;inset:0;z-index:0;background:url('./assets/img/hero-summer-park.png') center/cover no-repeat;opacity:.85}
+.hero-card::before{content:"";position:absolute;inset:0;z-index:0;background:url('./assets/img/winter-autumn-split.png') center/cover no-repeat;opacity:.9}
 .hero-card::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(14,31,46,.88) 0%,rgba(14,31,46,.68) 42%,rgba(14,31,46,.22) 78%,rgba(14,31,46,0) 100%)}
 .hero-body{position:relative;z-index:2;padding:clamp(28px,4vw,46px);display:flex;flex-direction:column;gap:6px;color:#F7FAFC;max-width:min(62%,700px)}
 @media(max-width:820px){.hero-body{max-width:100%;background:linear-gradient(180deg,rgba(14,31,46,.75) 0%,rgba(14,31,46,.95) 100%);padding:22px 20px}.hero-card::after{display:none}}
@@ -254,6 +254,24 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
 .fipi-box h4{font-family:var(--display);font-weight:700;font-size:1.1rem;color:#4a3a28;margin:0 0 8px}
 .fipi-box p{margin:6px 0;line-height:1.55;color:#4a3a28;font-size:.95rem}
 .fipi-box p b{color:var(--accent)}
+
+/* FUTURE FLIP CARDS · personal Qs */
+.ff-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin:10px 0}
+.ff-card{position:relative;background:var(--card);border:1.5px solid var(--line-2);border-radius:14px;min-height:320px;cursor:pointer;perspective:800px;overflow:hidden;box-shadow:0 4px 14px rgba(40,80,120,.1);transition:.18s}
+.ff-card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(30,93,127,.2);border-color:var(--accent)}
+.ff-card .ff-front,.ff-card .ff-back{position:absolute;inset:0;backface-visibility:hidden;display:flex;flex-direction:column;transition:transform .5s;padding:0}
+.ff-card .ff-front{transform:rotateY(0)}
+.ff-card .ff-back{transform:rotateY(180deg);background:linear-gradient(145deg,#F2F7FB 0%,#CFE1EC 100%);padding:16px 18px;justify-content:center}
+.ff-card.flipped .ff-front{transform:rotateY(-180deg)}
+.ff-card.flipped .ff-back{transform:rotateY(0)}
+.ff-card .ff-img{width:100%;height:160px;object-fit:cover;display:block}
+.ff-card .ff-q{padding:12px 14px;font-family:var(--display);font-weight:700;color:var(--accent);font-size:1rem;line-height:1.3;flex:1}
+.ff-card .ff-tense{display:inline-block;align-self:flex-start;margin:0 14px 10px;padding:3px 10px;background:var(--sky);color:#FFF;font-family:var(--mono);font-size:.62rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;border-radius:100px}
+.ff-card .ff-hint{position:absolute;bottom:8px;right:12px;font-family:var(--mono);font-size:.58rem;color:var(--faint);letter-spacing:.1em;text-transform:uppercase}
+.ff-card .ff-back .ff-eyebrow{font-family:var(--mono);font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-2);margin-bottom:6px}
+.ff-card .ff-back .ff-frame{font-family:var(--body);font-size:.92rem;color:var(--ink);line-height:1.45;font-style:italic;margin:4px 0 8px}
+.ff-card .ff-back .ff-frame b{color:var(--accent-2);font-weight:700;font-style:normal}
+.ff-card .ff-back .ff-form{font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.1em;color:var(--sky-deep);text-transform:uppercase;margin-top:6px;padding-top:6px;border-top:1px dashed var(--line-2)}
 </style>
 </head>
 <body>
@@ -539,6 +557,170 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
     <div class="check-row">
       <span class="score-pill" id="futures-score">0 / 16</span>
       <button class="btn-check" onclick="checkSection('s4-futures','futures-score')">Check futures</button>
+    </div>
+  </div>
+</section>
+
+<!-- 4b · FUTURE FLIP CARDS · personal questions -->
+<section class="section" id="s4b-flip" data-track="section">
+  <div class="section-head"><div class="n">4b</div><h2>Flip Cards · 10 personal future questions</h2></div>
+  <div class="section-sub">10 min · click the card · answer OUT LOUD · flip to check which future form fits</div>
+
+  <div class="card">
+    <div class="theory">
+      <div class="th-eyebrow">All 4 future forms applied to <em>your own</em> life</div>
+      <h3>Rule · match the form to the situation</h3>
+      <ul>
+        <li>Plan already made · evidence I can see → <code>be going to</code></li>
+        <li>Arrangement with another person → <code>Present Continuous</code></li>
+        <li>Timetable, schedule → <code>Present Simple</code></li>
+        <li>Spontaneous promise · prediction → <code>will</code></li>
+      </ul>
+      <p>Say <strong>a full sentence</strong>, then flip the card to see a sample answer and the target form.</p>
+    </div>
+
+    <div class="ff-grid">
+
+      <div class="ff-card" onclick="this.classList.toggle('flipped')">
+        <div class="ff-front">
+          <img class="ff-img" src="./assets/img/hero-summer-park.png" alt="A smiling teenage girl with a backpack walking through a sunny park">
+          <div class="ff-q">🌳 What <em>are you going to do</em> next summer?</div>
+          <div class="ff-tense">be going to · plan</div>
+          <div class="ff-hint">flip</div>
+        </div>
+        <div class="ff-back">
+          <div class="ff-eyebrow">Sample answer · adapt to your own plan</div>
+          <div class="ff-frame">"I <b>am going to visit</b> my grandmother in Yaroslavl and I <b>am going to read</b> at least five books."</div>
+          <div class="ff-form">Form · am / is / are + going to + base verb</div>
+        </div>
+      </div>
+
+      <div class="ff-card" onclick="this.classList.toggle('flipped')">
+        <div class="ff-front">
+          <img class="ff-img" src="./assets/img/img-12.png" alt="Weather and rain scene">
+          <div class="ff-q">☔ What <em>will you wear</em> tomorrow if it rains?</div>
+          <div class="ff-tense">will · prediction</div>
+          <div class="ff-hint">flip</div>
+        </div>
+        <div class="ff-back">
+          <div class="ff-eyebrow">Sample answer</div>
+          <div class="ff-frame">"If it rains, I <b>will wear</b> my waterproof jacket and my boots. I <b>will take</b> an umbrella too."</div>
+          <div class="ff-form">Form · will + base verb (no -s, no to)</div>
+        </div>
+      </div>
+
+      <div class="ff-card" onclick="this.classList.toggle('flipped')">
+        <div class="ff-front">
+          <img class="ff-img" src="./assets/img/img-13.png" alt="People meeting in a park">
+          <div class="ff-q">👋 Who <em>are you meeting</em> this weekend?</div>
+          <div class="ff-tense">Present Continuous · arrangement</div>
+          <div class="ff-hint">flip</div>
+        </div>
+        <div class="ff-back">
+          <div class="ff-eyebrow">Sample answer</div>
+          <div class="ff-frame">"I <b>am meeting</b> my best friend Dasha at the cinema on Saturday at five o'clock."</div>
+          <div class="ff-form">Form · am / is / are + verb-ing · with a specific time or day</div>
+        </div>
+      </div>
+
+      <div class="ff-card" onclick="this.classList.toggle('flipped')">
+        <div class="ff-front">
+          <img class="ff-img" src="./assets/img/img-14.png" alt="Clock and lesson schedule scene">
+          <div class="ff-q">⏰ What time <em>does your next English lesson start</em>?</div>
+          <div class="ff-tense">Present Simple · timetable</div>
+          <div class="ff-hint">flip</div>
+        </div>
+        <div class="ff-back">
+          <div class="ff-eyebrow">Sample answer</div>
+          <div class="ff-frame">"My next English lesson <b>starts</b> on Monday at three o'clock. It <b>finishes</b> at half past four."</div>
+          <div class="ff-form">Form · base verb + -s (he / she / it) · for timetables</div>
+        </div>
+      </div>
+
+      <div class="ff-card" onclick="this.classList.toggle('flipped')">
+        <div class="ff-front">
+          <img class="ff-img" src="./assets/img/img-15.png" alt="Moscow across four seasons collage">
+          <div class="ff-q">🌦️ What <em>will the weather be like</em> in Moscow next week, do you think?</div>
+          <div class="ff-tense">will · prediction</div>
+          <div class="ff-hint">flip</div>
+        </div>
+        <div class="ff-back">
+          <div class="ff-eyebrow">Sample answer</div>
+          <div class="ff-frame">"I think it <b>will be</b> cold and probably snowy. The temperature <b>will drop</b> to about minus ten by Friday."</div>
+          <div class="ff-form">Form · will + base verb · opinion about the future</div>
+        </div>
+      </div>
+
+      <div class="ff-card" onclick="this.classList.toggle('flipped')">
+        <div class="ff-front">
+          <img class="ff-img" src="./assets/img/img-16.png" alt="New Year celebration scene">
+          <div class="ff-q">🎄 Where <em>are you spending</em> New Year this year?</div>
+          <div class="ff-tense">Present Continuous · arrangement</div>
+          <div class="ff-hint">flip</div>
+        </div>
+        <div class="ff-back">
+          <div class="ff-eyebrow">Sample answer</div>
+          <div class="ff-frame">"I <b>am spending</b> New Year at home with my family. We <b>are cooking</b> olivier salad and watching the TV address."</div>
+          <div class="ff-form">Form · am / is / are + verb-ing · already arranged</div>
+        </div>
+      </div>
+
+      <div class="ff-card" onclick="this.classList.toggle('flipped')">
+        <div class="ff-front">
+          <img class="ff-img" src="./assets/img/img-17.png" alt="Rainy Saturday scene with notebook and plans">
+          <div class="ff-q">🌧️ What <em>are you going to do</em> if the weather is bad on Saturday?</div>
+          <div class="ff-tense">be going to · plan</div>
+          <div class="ff-hint">flip</div>
+        </div>
+        <div class="ff-back">
+          <div class="ff-eyebrow">Sample answer</div>
+          <div class="ff-frame">"If it is cold and rainy, I <b>am going to stay</b> at home, bake cookies and finish my book."</div>
+          <div class="ff-form">Form · am / is / are + going to + base verb</div>
+        </div>
+      </div>
+
+      <div class="ff-card" onclick="this.classList.toggle('flipped')">
+        <div class="ff-front">
+          <img class="ff-img" src="./assets/img/img-18.png" alt="Winter holiday schedule scene">
+          <div class="ff-q">📅 When <em>does your winter holiday start</em> this year?</div>
+          <div class="ff-tense">Present Simple · timetable</div>
+          <div class="ff-hint">flip</div>
+        </div>
+        <div class="ff-back">
+          <div class="ff-eyebrow">Sample answer</div>
+          <div class="ff-frame">"My winter holiday <b>starts</b> on the 29th of December and <b>finishes</b> on the 8th of January."</div>
+          <div class="ff-form">Form · base verb + -s · for fixed schedules</div>
+        </div>
+      </div>
+
+      <div class="ff-card" onclick="this.classList.toggle('flipped')">
+        <div class="ff-front">
+          <img class="ff-img" src="./assets/img/img-19.png" alt="Birthday present and friend scene">
+          <div class="ff-q">🎁 What <em>will you give</em> your best friend for a birthday?</div>
+          <div class="ff-tense">will · decision now</div>
+          <div class="ff-hint">flip</div>
+        </div>
+        <div class="ff-back">
+          <div class="ff-eyebrow">Sample answer</div>
+          <div class="ff-frame">"I think I <b>will give</b> her a book about horses and I <b>will bake</b> her a chocolate cake."</div>
+          <div class="ff-form">Form · will + base verb · spontaneous decision or opinion</div>
+        </div>
+      </div>
+
+      <div class="ff-card" onclick="this.classList.toggle('flipped')">
+        <div class="ff-front">
+          <img class="ff-img" src="./assets/img/img-20.png" alt="Traveller with suitcase and city skyline">
+          <div class="ff-q">🏙️ Which city on our list <em>are you visiting</em> first — London, Sochi, or Sydney? Tickets already booked!</div>
+          <div class="ff-tense">Present Continuous · arrangement</div>
+          <div class="ff-hint">flip</div>
+        </div>
+        <div class="ff-back">
+          <div class="ff-eyebrow">Sample answer</div>
+          <div class="ff-frame">"I <b>am visiting</b> Sochi in July. My parents <b>are driving</b> us there and we <b>are staying</b> for two weeks."</div>
+          <div class="ff-form">Form · am / is / are + verb-ing · tickets already booked = arrangement</div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -942,8 +1124,6 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
       <button class="btn-check" onclick="checkSection('s11b-seasons-fipi','temp-score')">Check temperatures</button>
     </div>
 
-    <img class="scene-img" src="./assets/img/winter-autumn-split.png" alt="Split scene: a skier in snowy mountains on the left, teenagers walking in a golden autumn park on the right">
-    <div class="scene-caption">Two seasons, one day in different parts of Russia</div>
 
     <img class="scene-img" src="./assets/img/img-19.png" alt="FIPI exam preparation scene — students reading climate texts">
     <div class="scene-caption">ОГЭ format · True / False / Not Stated</div>
