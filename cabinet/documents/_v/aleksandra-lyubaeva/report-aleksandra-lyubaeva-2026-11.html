@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Отчёт · Александра Любаева · ноябрь 2026</title>
+<style>
+  :root{
+    --bg:#E9E7E2;
+    --paper:#FFFFFF;
+    --cream:#EFEEE9;
+    --cream-soft:#F4F3EE;
+    --orange:#E8542B;
+    --orange-soft:#F4A86A;
+    --gold:#F4C84B;
+    --gold-soft:#FFF3CE;
+    --green:#5BA872;
+    --green-soft:#E5F1E9;
+    --red-soft:#F7E6E0;
+    --red-ink:#A6421F;
+    --ink:#1F1F1F;
+    --ink-2:#2C2C2C;
+    --muted:#7B7B7B;
+    --rule:#D9D7D2;
+    --tag-bg:#FFF1E8;
+    --tag-border:#F0C7AE;
+    --tag-ink:#A5421F;
+    --table-head:#F7F4EE;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Inter","Segoe UI",system-ui,-apple-system,sans-serif;
+    font-size:14.5px; line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  }
+  .page{
+    max-width:210mm; margin:18px auto;
+    background:var(--paper);
+    box-shadow:0 12px 40px rgba(0,0,0,.10);
+    padding:0 0 32px;
+  }
+  .hero{ background:var(--cream); padding:30px 44px 30px; position:relative; }
+  .hero::after{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:4px;
+    background:linear-gradient(90deg,var(--orange) 0%,var(--orange) 55%,var(--gold) 100%);
+  }
+  .brandline{display:flex; align-items:center; gap:12px; margin-bottom:10px;}
+  .logo{
+    width:38px;height:38px;border-radius:9px;background:var(--orange);
+    color:#fff;font-weight:800;font-size:22px;display:grid;place-items:center;line-height:1;
+    box-shadow:0 2px 4px rgba(232,84,43,.25);
+  }
+  .brand-name{font-weight:800;letter-spacing:.06em;font-size:14.5px;}
+  .brand-sub{font-size:11px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;font-weight:500;margin-top:2px;}
+  .kicker{margin-top:14px;font-size:11px;letter-spacing:.22em;color:var(--orange);text-transform:uppercase;font-weight:700;}
+  h1.title{font-size:32px;line-height:1.1;margin:6px 0 6px;color:var(--ink);letter-spacing:-.01em;font-weight:800;}
+  p.subtitle{margin:0;font-size:14px;color:var(--ink-2);max-width:62ch;}
+
+  .meta{ padding:18px 44px 4px; display:grid; grid-template-columns:repeat(3,1fr); gap:14px 22px; }
+  .meta dt{font-size:10.5px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;font-weight:600;margin-bottom:3px;}
+  .meta dd{margin:0;font-size:14px;font-weight:700;}
+  .meta-rule{margin:18px 44px 8px;border:0;height:1px;background:var(--rule);}
+
+  section.chapter{padding:20px 44px 4px; scroll-margin-top:14px;}
+  h2{ margin:8px 0 14px; padding-left:14px; position:relative; font-size:20px; font-weight:800; letter-spacing:-.005em; }
+  h2::before{content:""; position:absolute; left:0; top:6px; bottom:6px; width:4px; background:var(--orange); border-radius:2px;}
+  h2 .ch-num{color:var(--orange); margin-right:6px;}
+  h3{font-size:12.5px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;font-weight:700;margin:16px 0 8px;}
+
+  ul.bul{list-style:none;padding:0;margin:0 0 12px;}
+  ul.bul li{position:relative;padding:4px 0 4px 22px;}
+  ul.bul li::before{content:"";position:absolute;left:4px;top:13px;width:7px;height:7px;border-radius:50%;background:var(--orange);}
+  ul.bul li b, ul.bul li .lex{color:var(--orange);font-weight:700;margin-right:6px;}
+
+  table.t{ width:100%; border-collapse:collapse; margin:10px 0 14px; font-size:13.5px; background:#fff; border:1px solid var(--rule); border-radius:10px; overflow:hidden; }
+  table.t th, table.t td{padding:9px 11px; text-align:left; border-bottom:1px solid var(--rule); vertical-align:top;}
+  table.t th{background:var(--table-head); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); font-weight:700;}
+  table.t tr:last-child td{border-bottom:0;}
+  table.t td.num{font-weight:800;color:var(--orange);width:34px;text-align:center;}
+  table.t td.date{color:var(--muted);white-space:nowrap;font-family:"JetBrains Mono",Consolas,monospace;font-size:12px;}
+  table.t td.tag-cell{text-align:right;white-space:nowrap;}
+  .status-pill{font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:999px;letter-spacing:.06em;}
+  .status-pill.done{background:var(--green-soft);color:#2f6f43;border:1px solid #c1e0cc;}
+  .status-pill.plan{background:#E6EEF7;color:#2E4F7A;border:1px solid #BCD0E6;}
+  .status-pill.miss{background:var(--red-soft);color:var(--red-ink);border:1px solid #e5c5b7;}
+
+  .callout{ background:var(--cream-soft); border:1px solid var(--rule); border-left:4px solid var(--orange); border-radius:10px; padding:14px 18px; margin:14px 0; }
+  .callout.gold{border-left-color:var(--gold); background:var(--gold-soft);}
+  .callout.green{border-left-color:var(--green); background:var(--green-soft);}
+  .callout h4{margin:0 0 6px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);font-weight:800;}
+  .callout.gold h4{color:#7a5c00}
+  .callout.green h4{color:#2f6f43}
+
+  .lex-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 22px;margin:10px 0 14px;}
+  .lex-grid ul.bul li{padding:3px 0 3px 20px;font-size:13.5px}
+  .lex-grid ul.bul li code{font-family:"JetBrains Mono",Consolas,monospace;font-size:12.5px;background:var(--cream-soft);padding:1px 6px;border-radius:4px;color:var(--ink-2)}
+  .lex-grid h3{margin-top:4px}
+  @media (max-width:640px){.lex-grid{grid-template-columns:1fr}}
+
+  /* Конспект фраз · таблицы и блоки */
+  h2 .l-tag{color:var(--orange); margin-right:8px; font-size:14px; letter-spacing:.14em; text-transform:uppercase; vertical-align:2px;}
+  h4{font-size:15.5px;font-weight:800;color:var(--ink);margin:14px 0 6px;}
+  .intro-p{padding:0 0 10px;color:var(--ink-2);font-size:13.5px;line-height:1.55}
+  .intro-p em{color:var(--muted)}
+  table.phrases{width:100%;border-collapse:collapse;margin:8px 0 14px;font-size:13.5px;background:#fff;border:1px solid var(--rule);border-radius:10px;overflow:hidden;}
+  table.phrases th,table.phrases td{padding:8px 11px;text-align:left;border-bottom:1px solid var(--rule);vertical-align:top;}
+  table.phrases th{background:var(--table-head);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700;}
+  table.phrases tr:last-child td{border-bottom:0;}
+  table.phrases td.en{font-family:"JetBrains Mono",Consolas,monospace;font-size:12.5px;color:var(--ink);font-weight:600;width:48%;}
+  table.phrases td.ru{color:var(--ink-2);font-size:13px;width:34%;}
+  table.phrases td.note{color:var(--muted);font-size:12px;font-style:italic;}
+  .grammar-box{background:#DCF1FA;border:1px solid #4FB6E0;border-left:4px solid #4FB6E0;border-radius:10px;padding:12px 18px;margin:12px 0;}
+  .grammar-box h4{margin:0 0 6px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#0A5A80;font-weight:800;}
+  .grammar-box p{margin:4px 0;font-size:13.5px;line-height:1.55;}
+  .grammar-box code{font-family:"JetBrains Mono",Consolas,monospace;font-size:12.5px;background:#fff;color:var(--ink);padding:1px 6px;border-radius:4px;border:1px solid var(--rule);}
+  .grammar-box ul{margin:6px 0 2px;padding-left:20px;font-size:13px;line-height:1.7;}
+  .grammar-box table{width:100%;border-collapse:collapse;margin:6px 0 4px;font-size:12.5px;}
+  .grammar-box table th,.grammar-box table td{padding:5px 8px;text-align:left;border:1px solid #BFE4F2;}
+  .grammar-box table th{background:#C0E5F2;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#0A5A80;}
+  .grammar-box table td code{background:#fff;}
+  .trap{background:var(--red-soft);border:1px solid #e5c5b7;border-left:4px solid #C7542B;border-radius:10px;padding:10px 16px;margin:10px 0;font-size:13px;}
+  .trap h4{margin:0 0 4px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#A6421F;font-weight:800;}
+  .trap ul{margin:4px 0 0;padding-left:18px;line-height:1.65;}
+  .trap code{font-family:"JetBrains Mono",Consolas,monospace;font-size:12px;background:#fff;color:var(--ink);padding:1px 5px;border-radius:3px;}
+  .trap s{color:#A6421F;}
+  .note-box{background:var(--gold-soft);border:1px solid #eac86a;border-left:4px solid var(--gold);border-radius:10px;padding:10px 16px;margin:10px 0;font-size:13px;}
+  .note-box h4{margin:0 0 4px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#7a5c00;font-weight:800;}
+  .note-box code{font-family:"JetBrains Mono",Consolas,monospace;font-size:12px;background:#fff;color:var(--ink);padding:1px 5px;border-radius:3px;}
+  @media (max-width:640px){table.phrases td.en,table.phrases td.ru{width:auto}}
+  @media print{section.chapter{page-break-inside:avoid;} h2{page-break-after:avoid;} table.phrases{page-break-inside:auto;}}
+
+  .signature{margin:20px 44px 0;padding-top:16px;border-top:1px solid var(--rule);color:var(--muted);font-size:12.5px;}
+
+  @media print { body{background:#fff;} .page{box-shadow:none;margin:0;} }
+  @media (max-width:640px){
+    .meta{grid-template-columns:1fr 1fr;padding:18px 22px 4px}
+    .meta-rule{margin:18px 22px 8px}
+    .hero{padding:22px 22px}
+    section.chapter{padding:20px 22px 4px}
+    .signature{margin:20px 22px 0}
+  }
+</style>
+</head>
+<body>
+<article class="page">
+
+  <header class="hero">
+    <div class="brandline">
+      <div class="logo">N</div>
+      <div>
+        <div class="brand-name">NEW GENERATION ENGLISH</div>
+        <div class="brand-sub">Maria Burtseva · Parent Report</div>
+      </div>
+    </div>
+    <div class="kicker">Отчёт · ноябрь 2026 · к 21 ноября</div>
+    <h1 class="title">Александра Любаева · итог ноября</h1>
+    <p class="subtitle">Ноябрьский абонемент продолжает серию <b>Travelling · A1-A2</b>: закрепление L3 <i>The Call · Paris</i> и старт L4 <i>Hôtel Léonie</i>. Ниже — календарь, что прошли, вся новая лексика и грамматика.</p>
+  </header>
+
+  <dl class="meta">
+    <div><dt>Цель</dt><dd>разговорный A1→A2 · Travelling</dd></div>
+    <div><dt>Период</dt><dd>29 окт – 30 ноя 2026</dd></div>
+    <div><dt>Абонемент</dt><dd>10 уроков · 9 использовано</dd></div>
+    <div><dt>Проведено</dt><dd>8 уроков · 1 запланирован</dd></div>
+    <div><dt>Формат</dt><dd>онлайн · 60 мин · пн/чт/пт</dd></div>
+    <div><dt>Следующий шаг</dt><dd>декабрьский абонемент · L4 Paris + L5</dd></div>
+  </dl>
+
+  <hr class="meta-rule">
+
+  <!-- 1. Что это был за абонемент -->
+  <section class="chapter">
+    <h2><span class="ch-num">1</span>Про ноябрьский абонемент</h2>
+
+    <p>Ноябрьский абонемент на <b>10 занятий</b>, пн/чт/пт 14:00–15:00 (первая неделя — слот 15:00). Продолжение сентябрьско-октябрьской серии <b>Travelling</b>: вторая половина курса L3 <i>The Call · Paris</i> и запуск нового L4 <i>Hôtel Léonie · Paris</i>.</p>
+
+    <p>Содержательно работали в трёх слоях: <b>L3 продолжение</b> — то, что не докрутили в октябре (телефонный разговор, SIM / Wi-Fi / мобильные данные, business trip, polite softeners); <b>добавка грамматики к L3</b> — вопросы общие и специальные + WH-drill (11 упражнений: pick-the-WH, build-the-question, задай вопрос к выделенному слову, перевод с русского); <b>новый урок L4</b> — заселение в отель, кафе с Marco, большая тема Present Simple vs Present Continuous.</p>
+  </section>
+
+  <!-- 2. Календарь -->
+  <section class="chapter">
+    <h2><span class="ch-num">2</span>Календарь занятий</h2>
+
+    <table class="t">
+      <thead><tr><th class="num">#</th><th>Дата</th><th>Тема</th><th class="tag-cell">Статус</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td class="date">29 окт</td><td>L3 The Call · Paris (повторение L1+L2 + Present Simple)</td><td class="tag-cell"><span class="status-pill done">пройдено</span></td></tr>
+        <tr><td class="num">2</td><td class="date">02 ноя</td><td>L3 The Call · Paris · продолжение</td><td class="tag-cell"><span class="status-pill done">пройдено</span></td></tr>
+        <tr><td class="num">3</td><td class="date">03 ноя</td><td>L3 + ❓ Questions general &amp; special + WH-drill (10 gap + 8 build + 4 traps)</td><td class="tag-cell"><span class="status-pill done">пройдено</span></td></tr>
+        <tr><td class="num">4</td><td class="date">05 ноя</td><td>🇫🇷 <b>L4 · Hôtel Léonie · Paris</b> · check-in + meeting Marco + Present Simple vs Present Continuous</td><td class="tag-cell"><span class="status-pill done">пройдено</span></td></tr>
+        <tr><td class="num">5</td><td class="date">09 ноя</td><td>L4 PS vs PC + ❓ L3 Questions WH-drill · повторение</td><td class="tag-cell"><span class="status-pill done">пройдено</span></td></tr>
+        <tr><td class="num">6</td><td class="date">10 ноя</td><td>L4 PS vs PC + ❓ L3 Questions · продолжение</td><td class="tag-cell"><span class="status-pill done">пройдено</span></td></tr>
+        <tr><td class="num">7</td><td class="date">13 ноя</td><td>L3 Marco · Wi-Fi · SIM-card + ❓ Workbook (10 drills · is/do/does + WH-words + scrambles)</td><td class="tag-cell"><span class="status-pill done">пройдено</span></td></tr>
+        <tr><td class="num">8</td><td class="date">15 ноя</td><td>L3 Workbook · повторение is/do/does · WH · scrambles (суббота-добор)</td><td class="tag-cell"><span class="status-pill done">пройдено</span></td></tr>
+        <tr><td class="num">9</td><td class="date">19 ноя</td><td>L3 секции · SIM &amp; mobile data + Business trip + Softeners + WH-drill</td><td class="tag-cell"><span class="status-pill done">пройдено</span></td></tr>
+        <tr><td class="num">10</td><td class="date">20 ноя</td><td>L3 продолжение</td><td class="tag-cell"><span class="status-pill plan">запланировано</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 3. Что прошли содержательно -->
+  <section class="chapter">
+    <h2><span class="ch-num">3</span>Что прошли содержательно</h2>
+
+    <h3>L3 The Call · Paris — вторая половина урока</h3>
+    <ul class="bul">
+      <li><b>Timing &amp; scheduling:</b> time distance (<code>in two hours</code>), exact clock (<code>at six Moscow time</code>), edges of the day (<code>early in the morning</code> · <code>after nine pm</code> · <code>till late at night</code>)</li>
+      <li><b>Busy / free:</b> open window (<code>I'm free from three to six</code>) vs closed (<code>I have a meeting at eight</code> · <code>I'm busy right now</code>); вопросы <code>What time are you free?</code> / <code>When can we talk?</code></li>
+      <li><b>Phone-call phrases:</b> <code>Can I call you back?</code>, <code>Give me a call</code>, <code>I'll call you when I get home</code>, <code>Only on Wi-Fi</code>, <code>I'll be in a Wi-Fi zone</code></li>
+      <li><b>Short-trip life:</b> <code>I'm in Paris this week</code>, <code>I just arrived here</code>, <code>I don't have mobile data yet</code>, <code>I'm going to get a SIM card</code>, <code>There is no Wi-Fi here</code></li>
+      <li><b>Business trip &amp; referrals:</b> <code>I'm on a business trip</code>, <code>I'll be back on Monday</code>, <code>I just got back</code>, <code>My friend recommended you</code>, <code>I was told to reach out to you</code></li>
+      <li><b>Polite softeners:</b> <code>If possible</code>, <code>That would be great</code>, <code>No problem</code>, <code>Sorry about that</code>, <code>I appreciate it</code></li>
+      <li><b>Грамматика:</b> <code>be going to</code> для ближайших планов + формула <code>am/is/are + going to + verb</code></li>
+    </ul>
+
+    <h3>L3 Questions · общие и специальные (расширение)</h3>
+    <ul class="bul">
+      <li><b>Formula:</b> <code>WH-word + helper + subject + main verb?</code> — <i>What do you want to drink?</i></li>
+      <li><b>Шесть WH-слов:</b> <code>What</code>, <code>Where</code>, <code>When</code>, <code>Why</code>, <code>Who</code>, <code>How</code> (+ производные: What time, How long, How much)</li>
+      <li><b>Yes/no openers:</b> <code>Do/Does/Did/Is/Are/Was/Were/Can/Will</code> на первое место</li>
+      <li><b>4 типовые ловушки:</b> ❌ <i>Where you are?</i> → ✅ <i>Where are you?</i> &nbsp;·&nbsp; ❌ <i>What time is?</i> → ✅ <i>What time is it?</i> &nbsp;·&nbsp; ❌ <i>You have Wi-Fi?</i> → ✅ <i>Do you have Wi-Fi?</i> &nbsp;·&nbsp; ❌ <i>Who do you call?</i> → ✅ <i>Who calls you?</i> (когда Who = subject)</li>
+      <li><b>Workbook · 10 drills:</b> pick-the-WH gap-fill (10), build-the-question (4 general + 4 special), задай вопрос к выделенному слову (10), перевод с русского (10)</li>
+    </ul>
+
+    <h3>L4 Hôtel Léonie · Paris — новый урок</h3>
+    <ul class="bul">
+      <li><b>Scene A · Reception:</b> check-in диалог + 12 слов (reservation, passport, breakfast included, dining room, ground floor, key card, lift, Wi-Fi, password, stay); базовые фразы <code>Do you have a reservation?</code>, <code>May I see your passport, please?</code>, <code>Are you paying by card or in cash?</code>, <code>Is breakfast included?</code>, <code>Enjoy your stay!</code></li>
+      <li><b>Scene B · Café с Marco:</b> 10 фраз для right-now и this-week small-talk (<code>How is your week going?</code>, <code>Sorry I'm late — I'm finishing a call</code>, <code>I'm just reading the menu</code>, <code>A bit of both</code>, <code>What are you planning for tomorrow?</code>, <code>I'm thinking about the Louvre</code>)</li>
+      <li><b>Grammar · Present Simple refresh:</b> рутины / постоянные факты / расписания; signal words <code>every day · usually · often · on Mondays · twice a week</code></li>
+      <li><b>Grammar · Present Continuous (новое):</b> форма <code>am/is/are + V-ing</code>; signal words <code>right now · at the moment · currently · this week · today · still</code>; ловушки в -ing (take → taking, stop → stopping, lie → lying)</li>
+      <li><b>Stative verbs — не берут PC:</b> <code>know, like, love, hate, want, need, understand, believe, remember, own, have (= own)</code>. <i>I know Paris</i>, а не <i>I'm knowing Paris</i>.</li>
+      <li><b>PS vs PC · decision tree:</b> «around now / changing?» → PC. «always / in general?» → PS.</li>
+      <li><b>Отработка:</b> Drill PS-1 (6 items) + Drill PC-1 (6 items) + Drill PC-2 make-the-question (5 items) + MCQ PS/PC (8 items) + Builder (5 items) + Reading «Paris, Day 1» с T/F/NS (6 statements)</li>
+    </ul>
+  </section>
+
+  <!-- 4. Ключевая лексика -->
+  <section class="chapter">
+    <h2><span class="ch-num">4</span>Ключевая лексика ноября</h2>
+
+    <div class="lex-grid">
+      <div>
+        <h3>Timing / scheduling (L3)</h3>
+        <ul class="bul">
+          <li><code>in two hours · in fifteen minutes</code></li>
+          <li><code>at six Moscow time</code></li>
+          <li><code>after nine pm</code></li>
+          <li><code>early in the morning · till late at night</code></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Busy / free (L3)</h3>
+        <ul class="bul">
+          <li><code>I'm free from three to six</code></li>
+          <li><code>I have a meeting at eight</code></li>
+          <li><code>I'm busy right now</code></li>
+          <li><code>What time are you free? / When can we talk?</code></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Phone-call phrases (L3)</h3>
+        <ul class="bul">
+          <li><code>Can I call you back?</code></li>
+          <li><code>Give me a call</code></li>
+          <li><code>Only on Wi-Fi</code></li>
+          <li><code>I'll be in a Wi-Fi zone</code></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Short trip &amp; SIM (L3)</h3>
+        <ul class="bul">
+          <li><code>I'm in Paris this week</code></li>
+          <li><code>I just arrived here</code></li>
+          <li><code>I don't have mobile data yet</code></li>
+          <li><code>I'm going to get a SIM card</code></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Business trip &amp; referrals (L3)</h3>
+        <ul class="bul">
+          <li><code>I'm on a business trip</code></li>
+          <li><code>I'll be back on Monday · I just got back</code></li>
+          <li><code>My friend recommended you</code></li>
+          <li><code>I was told to reach out to you</code></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Polite softeners (L3)</h3>
+        <ul class="bul">
+          <li><code>If possible</code></li>
+          <li><code>That would be great</code></li>
+          <li><code>No problem · Sorry about that</code></li>
+          <li><code>I appreciate it</code></li>
+        </ul>
+      </div>
+      <div>
+        <h3>WH-words &amp; questions (L3)</h3>
+        <ul class="bul">
+          <li><code>What · Where · When · Why · Who · How</code></li>
+          <li><code>Do you…? / Does he…?</code></li>
+          <li><code>Is he…? / Are you…? / Can we…?</code></li>
+          <li><code>WH + helper + subject + verb?</code></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Hotel essentials (L4)</h3>
+        <ul class="bul">
+          <li><code>reservation · passport · key card</code></li>
+          <li><code>breakfast included · dining room · ground floor</code></li>
+          <li><code>Wi-Fi · password · lift</code></li>
+          <li><code>Enjoy your stay!</code></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Right-now / this-week small-talk (L4)</h3>
+        <ul class="bul">
+          <li><code>How is your week going?</code></li>
+          <li><code>I'm finishing a call · I'm just reading the menu</code></li>
+          <li><code>A bit of both · I'm thinking about…</code></li>
+          <li><code>What are you planning for tomorrow?</code></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Present Continuous (L4)</h3>
+        <ul class="bul">
+          <li><code>am/is/are + V-ing</code></li>
+          <li><code>right now · at the moment · this week · today</code></li>
+          <li><code>take → taking · stop → stopping · lie → lying</code></li>
+          <li><b>stative:</b> <code>know, like, want, need, have</code> — только PS</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. План -->
+  <section class="chapter">
+    <h2><span class="ch-num">5</span>Что дальше · декабрьский абонемент</h2>
+
+    <p>В ноябре основное время ушло на отработку L3 и старт L4 — переход на Present Continuous сделан, на закрепление нужно ещё 2-3 занятия. План декабря:</p>
+
+    <ul class="bul">
+      <li><b>Урок 1-3:</b> L4 Hôtel Léonie · повторение PS vs PC + Reading «Paris, Day 1» + Speaking role-plays (reception · café · phone call home)</li>
+      <li><b>Урок 4-6:</b> L5 Travelling — тема согласуем (возможные: Metro &amp; transport / Restaurant orders / Shopping) по готовности Александры к новому блоку</li>
+      <li><b>Урок 7-10:</b> спиральное повторение L1-L4 + мини-trainers по слабым местам из homework-наблюдений</li>
+    </ul>
+
+    <div class="callout green">
+      <h4>Что просить от Александры к первому декабрьскому уроку</h4>
+      <ul class="bul" style="margin:0">
+        <li>Повторить <b>Vocab Capsule</b> в L3 Paris: 30 фраз по шести темам (Timing / Free-Busy / Phone / Short trip / Business / Softeners)</li>
+        <li>Пройти <b>L4 homework</b>: flashcard-set из 12 hotel-слов + 10 café-фраз; 5 своих предложений с Present Continuous про текущую неделю; 5 с Present Simple про обычный рабочий день</li>
+        <li>Открыть <b>Workbook L1-L3</b> в L3 Paris и прогнать 10 drills (is/do/does + WH-words + scrambles) ещё один раз на скорость</li>
+      </ul>
+    </div>
+
+    <div class="callout gold">
+      <h4>Отдельный материал · конспект всех фраз L1-L4</h4>
+      <p>К отчёту приложен конспект <a href="vocab-aleksandra-lyubaeva-L1-L4.html" style="color:var(--orange);font-weight:700;text-decoration:none">vocab-aleksandra-lyubaeva-L1-L4.html</a> — ВСЕ фразы, пройденные с сентября по ноябрь, по темам и урокам. Можно распечатать или держать в закладках для повторения.</p>
+    </div>
+  </section>
+
+  <div class="signature">
+    New Generation English · Maria Burtseva · 21 ноября 2026 · <a href="https://newgeneration-english.ru/cabinet/aleksandra-lyubaeva" style="color:var(--orange);text-decoration:none;font-weight:700">кабинет Александры</a>
+  </div>
+
+</article>
+</body>
+</html>
