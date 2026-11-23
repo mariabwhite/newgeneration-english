@@ -60,15 +60,6 @@ body{font-family:var(--body);background:var(--bg);background-attachment:fixed;co
 .section{margin:0 0 36px}
 footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;color:var(--muted);font-size:.78rem;font-family:var(--mono);letter-spacing:.06em}
 
-/* TOP-LEVEL TABS · Урок / Тетрадка */
-.tabs-nav{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:0 0 24px;padding:14px 16px;background:linear-gradient(135deg,#FFFCEF 0%,#FAECC5 100%);border:1.5px solid var(--gold);border-radius:18px;box-shadow:0 6px 18px rgba(230,184,74,.2)}
-.tab-btn{background:#FFF;border:2px solid var(--line-2);border-radius:14px;padding:12px 28px;font-family:var(--display);font-weight:700;font-size:1.02rem;color:var(--muted);cursor:pointer;transition:.18s;display:inline-flex;align-items:center;gap:10px;letter-spacing:.02em}
-.tab-btn:hover{border-color:var(--accent);color:var(--ink);transform:translateY(-1px)}
-.tab-btn.active{background:linear-gradient(135deg,var(--accent) 0%,var(--accent-3) 100%);color:#FFFCEF;border-color:transparent;box-shadow:0 8px 22px rgba(30,93,127,.35)}
-.tab-btn .t-emo{font-size:1.2rem}
-.tab-panel{display:none}
-.tab-panel.active{display:block}
-
 .hero{margin:0 0 28px}
 .hero-card{position:relative;border-radius:24px;overflow:hidden;box-shadow:var(--shadow-lg);background:#0E1F2E;min-height:340px}
 .hero-card::before{content:"";position:absolute;inset:0;z-index:0;background:url('./assets/img/winter-autumn-split.png') center/cover no-repeat;opacity:.9}
@@ -383,7 +374,7 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
 .wb-tab:hover{background:rgba(255,252,239,.6);color:var(--accent)}
 .wb-tab.active{background:#FFFCEF;color:var(--accent);box-shadow:0 2px 8px rgba(30,93,127,.18)}
 .wb-tab .wb-tab-emo{display:block;font-size:1.25rem;margin-bottom:2px}
-.wb-panel{display:block;background:#FFFCEF;border:1px solid rgba(230,184,74,.4);border-radius:12px;padding:16px 18px;margin-bottom:16px}
+.wb-panel{display:none;background:#FFFCEF;border:1px solid rgba(230,184,74,.4);border-radius:12px;padding:16px 18px}
 .wb-panel.active{display:block}
 .wb-panel h4{font-family:var(--display);font-weight:700;font-size:1.08rem;color:var(--accent);margin:0 0 10px}
 .wb-panel h4 .tag{font-family:var(--mono);font-size:.64rem;font-weight:800;letter-spacing:.14em;background:var(--gold);color:#4a3a28;padding:3px 8px;border-radius:100px;margin-left:8px;text-transform:uppercase;vertical-align:middle}
@@ -419,14 +410,6 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="ic-play" viewBox="0 0 12 12"><path d="M3 1.5v9l7-4.5-7-4.5z"/></symbol></svg>
 
 <div class="wrap">
-
-<!-- ========== TOP-LEVEL TABS · Урок + Тетрадка ========== -->
-<nav class="tabs-nav">
-  <button class="tab-btn active" data-tab="urok"><span class="t-emo">📖</span>Урок</button>
-  <button class="tab-btn" data-tab="tetrad"><span class="t-emo">📝</span>Рабочая тетрадь</button>
-</nav>
-
-<div id="tab-urok" class="tab-panel active">
 
 <!-- HERO -->
 <section class="hero section">
@@ -2159,16 +2142,18 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
   </div>
 </section>
 
-</div><!-- /tab-urok -->
-
-<div id="tab-tetrad" class="tab-panel">
-
 <!-- WORKBOOK · РАБОЧАЯ ТЕТРАДЬ · cumulative L1 → L9 -->
 <section class="section" id="s14-workbook" data-track="section">
   <div class="wb-wrap">
     <div class="wb-head">
-      <h3>📒 Рабочая тетрадь · всё, что ты знаешь с L1</h3>
-      <p>L1 Halloween · L2 Family · L3 Present Perfect preview · L4-L6 Perfect Cont · L7 4 Presents recap · L8+L9 Weather</p>
+      <h3>📒 Рабочая тетрадь Евгении Левиной</h3>
+      <p>Что ты УЖЕ прошла: L1 Halloween Monster Family (have got · 's possessive · 10 core family + Boo-family vocab) · L2 My Family (Present Simple · Present Continuous · Present Perfect preview · 20 family words) · L3-L5 расширение семьи и Present Perfect (41 слово на семью + character) · L6-L8 Present Perfect Continuous + 4 futures + weather базовое · L9 сегодня (Past Simple · Past Continuous · used to · PP Continuous · weather phenomena · ecology · clothing)</p>
+    </div>
+
+    <!-- SUB-TABS · 2 подвкладки строго под баннером -->
+    <div class="wb-tabs">
+      <button class="wb-tab active" data-tab="urok"><span class="wb-tab-emo">📖</span>Урок · L9 сегодня</button>
+      <button class="wb-tab" data-tab="tetrad"><span class="wb-tab-emo">📝</span>Тетрадка · L1-L9 повторение</button>
     </div>
 
     <!-- =============== PANEL · УРОК · L9 today =============== -->
@@ -2566,8 +2551,6 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
   </div>
 </section>
 
-</div><!-- /tab-tetrad -->
-
 </div><!-- /wrap -->
 
 <footer>
@@ -2684,13 +2667,15 @@ document.querySelectorAll('.tfns .row .btns button').forEach(function(b){
   ta.addEventListener('input', upd); upd();
 })();
 
-// TOP-LEVEL TABS · Урок / Рабочая тетрадь
-document.querySelectorAll('.tab-btn').forEach(function(b){
-  b.addEventListener('click', function(){
-    var key = b.dataset.tab;
-    document.querySelectorAll('.tab-btn').forEach(function(x){ x.classList.toggle('active', x.dataset.tab === key); });
-    document.querySelectorAll('.tab-panel').forEach(function(p){ p.classList.toggle('active', p.id === 'tab-' + key); });
-    window.scrollTo({top:0, behavior:'smooth'});
+// WORKBOOK · РАБОЧАЯ ТЕТРАДЬ · sub-tab switcher
+document.querySelectorAll('.wb-tab').forEach(function(t){
+  t.addEventListener('click', function(){
+    var wrap = t.closest('.wb-wrap'); if (!wrap) return;
+    wrap.querySelectorAll('.wb-tab').forEach(function(x){ x.classList.remove('active'); });
+    wrap.querySelectorAll('.wb-panel').forEach(function(x){ x.classList.remove('active'); });
+    t.classList.add('active');
+    var tgt = wrap.querySelector('.wb-panel[data-panel="'+t.dataset.tab+'"]');
+    if (tgt) tgt.classList.add('active');
   });
 });
 function checkWBPanel(panelAttr, scoreId){
