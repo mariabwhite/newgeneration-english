@@ -404,12 +404,167 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
 .region-card dd{margin:0 0 2px;color:var(--ink-2)}
 .region-card .play{align-self:flex-end;margin-top:4px}
 
-/* Evgeniya workbook · 2026-11-23 */
-.ew-route{background:#eaf3f7;border-color:#739aaf}.ew-route ol{padding-left:24px}.ew-route-task select{width:100%;min-height:46px;font:1rem var(--body);background:white;color:#0e1f2e;border:1px solid #9ab2c0;border-radius:8px;padding:10px}.ew-scene{margin:16px 0;padding:16px;border:1px solid #d7e2e8;border-radius:12px}.ew-scene h4,.ew-dict-item h4{font-size:1.05rem;margin:0 0 10px}.ew-extra summary{color:#365a70}.ew-reference{background:#fafbf7}.ew-dictation{background:#eef5fb}.ew-dict-item{padding:16px 0;border-top:1px solid #cfdee8}.ew-audio-buttons{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}.ew-audio-buttons .play{width:auto;height:auto;min-height:44px;display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:10px;font:600 1rem var(--body)}.ew-audio-buttons svg{width:18px;height:18px}.ew-feedback{font-size:1rem;line-height:1.5;margin:10px 0;color:#315568}.ew-local-score{font-weight:700;font-size:1rem}.ew-check-local{margin-top:16px}.ew-audio-status{font-size:1rem;color:#a53f34}.ew-reference details{margin:12px 0}
+/* ═══ Evgeniya workbook · redesigned to lesson canon · 2026-11-23 ═══
+   Uses lesson design tokens (--accent teal / --card / --theory / --radius-l)
+   so workbook matches the lesson tab visually.
+   ─────────────────────────────────────────────────────────────── */
 
-.ew-oral-card{border-top:1px solid #ded6be;margin-top:20px;padding-top:16px}.ew-oral-card h4{font-size:1.1rem;margin:0 0 12px}.ew-oral-card ol{padding-left:24px}.ew-oral-card li{margin-bottom:14px}.ew-oral-done{display:flex;gap:10px;align-items:center;font-size:1rem}.ew-oral-done input[type=checkbox]{width:22px;min-height:22px;flex:0 0 22px}.ew-oral .play{vertical-align:middle}
+/* Top-level tab switcher (Урок | Рабочая тетрадь) */
+.ew-main-tabs{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 28px;padding:6px;background:var(--card-2);border:1px solid var(--line);border-radius:14px;box-shadow:inset 0 2px 6px rgba(40,80,120,.06)}
+.ew-main-tabs button{flex:1;min-height:52px;padding:12px 22px;border:1px solid transparent;border-radius:10px;background:transparent;color:var(--accent);font:700 1rem var(--body);cursor:pointer;transition:all .18s ease;letter-spacing:.01em}
+.ew-main-tabs button:hover{background:var(--card);color:var(--accent)}
+.ew-main-tabs button.active{background:var(--accent);color:#FFFCEF;border-color:var(--accent);box-shadow:0 6px 18px rgba(30,93,127,.3)}
+.ew-main-tabs button:focus-visible,.wb-tab:focus-visible{outline:3px solid var(--sky);outline-offset:3px}
+[hidden]{display:none!important}
 
-.ew-main-tabs{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 24px}.ew-main-tabs button{flex:1;min-height:52px;padding:12px 20px;border:1px solid var(--gold);border-radius:12px;background:#fffcef;color:#172e40;font:700 1rem var(--body);cursor:pointer}.ew-main-tabs button.active{background:#183b50;color:#fffcef;border-color:#183b50}.ew-main-tabs button:focus-visible,.wb-tab:focus-visible{outline:3px solid #5084b0;outline-offset:3px}[hidden]{display:none!important}.ew-block{background:#fffef9;border:1px solid #dfd8bd;border-radius:14px;padding:20px;margin:20px 0}.ew-block h3{font-size:1.2rem;margin:0 0 12px}.ew-block p,.ew-history,.ew-block li{font-size:1rem;line-height:1.7;color:#283e4b}.ew-history{margin:16px 0}.ew-history summary,.ew-block summary{cursor:pointer;font-weight:700;padding:10px 0;font-size:1rem}.ew-block .wb-grm-tile{display:flex;flex-direction:column;gap:10px;padding:14px}.ew-block .wb-grm-q{font-size:1rem;line-height:1.5}.ew-block input{width:100%;box-sizing:border-box;min-height:44px;font-size:1rem}.ew-vocab{width:100%;border-collapse:collapse;font-size:1rem}.ew-vocab th,.ew-vocab td{padding:10px;text-align:left;border-bottom:1px solid #e5dfce}.ew-block .cities-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:14px}.ew-block .city-card,.ew-block .region-card{font-size:1rem}.ew-writing{display:block;width:100%;min-height:130px;margin:12px 0;box-sizing:border-box;padding:14px;font:1rem var(--body)}.ew-answer{font-size:.95rem;color:#245b41;margin:4px 0}.ew-block input.ok{border:2px solid #278653;background:#effbef}.ew-block input.bad{border:2px solid #b3463c;background:#fff1ed}.wb-head p{font-size:.9rem;letter-spacing:.02em}.wb-tabs button{font-size:1rem}.check-row{flex-wrap:wrap;gap:12px}.ew-block details[open]{margin-bottom:16px}@media(max-width:600px){.wb-wrap{padding:14px 10px}.ew-block{padding:14px 10px}.wb-grm-grid{grid-template-columns:1fr}.ew-main-tabs button{flex-basis:100%}}
+/* Workbook container */
+.wb-wrap{padding:0}
+
+/* Workbook hero card (like julia-shopping-day) */
+.wb-head{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 55%,var(--accent-3) 100%);color:#FFFCEF;padding:clamp(28px,4vw,42px);border-radius:var(--radius-l);box-shadow:var(--shadow-lg);margin:0 0 24px}
+.wb-head::before{content:"";position:absolute;top:-30px;right:-20px;font-size:180px;line-height:1;opacity:.12;color:#FFFCEF;pointer-events:none;content:"📝"}
+.wb-head h2{position:relative;font-family:var(--display);font-size:clamp(1.8rem,3.4vw,2.4rem);font-weight:700;margin:0 0 8px;color:#FFFCEF;letter-spacing:-.01em}
+.wb-head p{position:relative;font-size:clamp(.94rem,1.2vw,1.02rem);color:#EAF2F8;margin:4px 0 14px;letter-spacing:.02em;line-height:1.5}
+.wb-head .wb-head-tags{position:relative;display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.wb-head .wb-head-tags span{font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:rgba(255,252,239,.2);border:1px solid rgba(255,252,239,.42);padding:6px 11px;border-radius:6px;color:#FFFCEF;backdrop-filter:blur(4px)}
+
+/* History (programme summary) collapsible */
+.ew-history{background:var(--card-2);border:1px solid var(--line);border-left:4px solid var(--accent-3);border-radius:var(--radius-m);padding:14px 20px;margin:0 0 22px;font-size:.94rem}
+.ew-history summary{cursor:pointer;font-weight:700;color:var(--accent);font-family:var(--display);font-size:1rem;letter-spacing:.005em}
+.ew-history ul{margin:10px 0 2px;padding-left:20px;color:var(--ink-2);line-height:1.65}
+.ew-history li{margin:4px 0}
+
+/* Inner panel tabs (Повторение | Новые темы L9) */
+.wb-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px;border-bottom:2px solid var(--line)}
+.wb-tab{background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);font:700 .96rem var(--body);padding:12px 18px;cursor:pointer;transition:all .15s ease;margin-bottom:-2px}
+.wb-tab:hover{color:var(--accent)}
+.wb-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.wb-panel{display:none}
+.wb-panel.active{display:block}
+.wb-panel > h3:first-child{font-family:var(--display);font-size:1.3rem;color:var(--accent);margin:4px 0 16px;font-weight:700}
+
+/* Workbook content blocks — look like .card from the lesson */
+.ew-block{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-l);padding:clamp(18px,3vw,26px);margin:0 0 22px;box-shadow:var(--shadow)}
+.ew-block h3{font-family:var(--display);font-size:1.18rem;font-weight:700;color:var(--accent);margin:0 0 10px;letter-spacing:-.005em}
+.ew-block > p{font-size:.95rem;line-height:1.65;color:var(--ink-2);margin:4px 0 12px}
+.ew-block li{line-height:1.65;color:var(--ink-2)}
+
+/* Route block — the "short path" at top of each panel */
+.ew-route{background:var(--card-2);border:1px solid var(--line);border-left:4px solid var(--sky);border-radius:var(--radius-m);padding:16px 22px}
+.ew-route h3{color:var(--sky-deep);font-family:var(--display)}
+.ew-route p b{color:var(--sky-deep)}
+.ew-route ol{padding-left:22px;line-height:1.75;font-size:.94rem;color:var(--ink-2)}
+.ew-route ol li{margin:4px 0}
+.ew-route ol li b{color:var(--accent)}
+
+/* Task block (scene / editor / dictation) */
+.ew-route-task{border-left:4px solid var(--accent)}
+.ew-route-task h3{color:var(--accent)}
+
+/* Scene card (inside .ew-route-task) */
+.ew-scene{background:var(--card-2);border:1px solid var(--line);border-radius:var(--radius-m);padding:14px 18px;margin:12px 0}
+.ew-scene h4{font-family:var(--display);font-size:1rem;font-weight:700;color:var(--accent-2);margin:0 0 10px;letter-spacing:-.003em}
+
+/* Grammar tile (question + input/select) */
+.wb-grm-tile{display:flex;flex-direction:column;gap:10px;padding:12px 14px;background:var(--card);border:1px solid var(--line);border-radius:10px;transition:border-color .15s ease}
+.wb-grm-tile:hover{border-color:var(--line-2)}
+.wb-grm-q{font-size:.96rem;line-height:1.55;color:var(--ink)}
+.wb-grm-q em{color:var(--muted);font-style:italic}
+
+/* Inputs & selects — match lesson's input style */
+.ew-block input[type="text"],
+.ew-route-task select{
+  width:100%;box-sizing:border-box;min-height:44px;
+  font:.96rem var(--body);
+  background:#FFF;color:var(--ink);
+  border:1.5px solid var(--line-2);border-radius:8px;
+  padding:10px 12px;
+  transition:border-color .15s ease,box-shadow .15s ease;
+}
+.ew-block input[type="text"]:focus,
+.ew-route-task select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(30,93,127,.18)}
+.ew-block input.ok{border-color:var(--ok);background:rgba(91,165,95,.08);color:var(--sky-deep)}
+.ew-block input.bad{border-color:var(--bad);background:rgba(193,74,62,.08);color:var(--bad)}
+
+/* Grid for exercise tiles */
+.wb-grm-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:10px;margin:8px 0 2px}
+
+/* Reference blocks (grammar rules) */
+.ew-reference{background:#FFFCEF;border:1px solid #F0E6C6;border-left:4px solid var(--gold);border-radius:var(--radius-m);padding:16px 22px}
+.ew-reference h3{color:var(--accent-3);font-family:var(--display)}
+.ew-reference > p{color:var(--ink-2);font-size:.94rem;line-height:1.65}
+.ew-extra{margin-top:12px;background:rgba(255,252,239,.5);border:1px dashed var(--line-2);border-radius:8px;padding:10px 14px}
+.ew-extra summary{cursor:pointer;color:var(--accent);font-weight:700;font-family:var(--display);font-size:.94rem}
+.ew-extra[open]{padding-bottom:14px}
+
+/* Dictation block */
+.ew-dictation{background:#F0F6F9;border-left:4px solid var(--accent-2);padding:18px 22px}
+.ew-dictation h3{color:var(--accent-2)}
+.ew-dict-item{padding:14px 0;border-top:1px solid var(--line);margin-top:10px}
+.ew-dict-item:first-of-type{border-top:0;padding-top:4px;margin-top:0}
+.ew-dict-item h4{font-family:var(--display);font-size:.98rem;font-weight:700;color:var(--accent);margin:0 0 10px}
+
+/* Audio-row buttons (big play + slow) */
+.ew-audio-buttons{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 12px}
+.ew-audio-buttons .play{width:auto;height:auto;min-height:40px;display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:8px;font:700 .88rem var(--body);background:#FFF;border:1.5px solid var(--sky);color:var(--sky-deep);transition:all .15s}
+.ew-audio-buttons .play:hover{background:var(--sky);color:#FFF;transform:none}
+.ew-audio-buttons .play svg{width:14px;height:14px;fill:currentColor}
+.ew-audio-buttons .play[data-rate="0.72"]{border-color:var(--accent-3);color:var(--accent-3)}
+.ew-audio-buttons .play[data-rate="0.72"]:hover{background:var(--accent-3);color:#FFF}
+
+/* Oral / speaking card */
+.ew-oral-card{margin-top:22px;padding-top:18px;border-top:2px dashed var(--line)}
+.ew-oral-card h4{font-family:var(--display);font-size:1.05rem;color:var(--accent-2);margin:0 0 12px}
+.ew-oral-card ol{padding-left:24px;line-height:1.7}
+.ew-oral-card li{margin-bottom:12px;color:var(--ink-2)}
+.ew-oral-done{display:flex;gap:10px;align-items:center;margin-top:10px;font-size:.92rem;color:var(--ink-2)}
+.ew-oral-done input[type=checkbox]{width:20px;min-height:20px;flex:0 0 20px;accent-color:var(--accent)}
+
+/* Check button — matches lesson CTAs */
+.btn-check,.ew-check-local{margin-top:14px;padding:10px 20px;background:var(--accent);color:#FFF;border:0;border-radius:10px;font:700 .94rem var(--body);cursor:pointer;transition:all .15s ease;box-shadow:0 4px 14px rgba(30,93,127,.25)}
+.btn-check:hover,.ew-check-local:hover{background:var(--accent-2);transform:translateY(-1px);box-shadow:0 6px 18px rgba(30,93,127,.3)}
+
+/* Score + status badges */
+.ew-local-score{display:inline-block;margin-top:10px;padding:6px 14px;background:var(--card-2);border:1px solid var(--line);border-radius:999px;font:700 .88rem var(--mono);color:var(--accent);letter-spacing:.04em}
+.ew-local-score:empty{display:none}
+.ew-audio-status{font-size:.88rem;color:var(--bad);font-family:var(--mono);letter-spacing:.04em}
+.ew-feedback{font-size:.94rem;line-height:1.55;margin:10px 0;color:var(--ink-2);padding:8px 12px;background:var(--card-2);border-left:3px solid var(--accent-2);border-radius:6px}
+.ew-answer{font-size:.9rem;color:var(--sky-deep);margin:4px 0;font-family:var(--mono);letter-spacing:.02em}
+
+/* Vocab table */
+.ew-vocab{width:100%;border-collapse:collapse;font-size:.94rem;margin:8px 0}
+.ew-vocab th{padding:10px 12px;text-align:left;font-family:var(--mono);font-size:.74rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:var(--card-2);border-bottom:2px solid var(--line-2)}
+.ew-vocab td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);color:var(--ink-2)}
+.ew-vocab tr:hover td{background:var(--card-2)}
+
+/* Writing area */
+.ew-writing{display:block;width:100%;min-height:130px;margin:12px 0;box-sizing:border-box;padding:14px;font:.96rem var(--body);background:var(--card);border:1.5px solid var(--line-2);border-radius:10px;color:var(--ink);resize:vertical}
+.ew-writing:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(30,93,127,.15)}
+
+/* Cities grid inside workbook */
+.ew-block .cities-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:14px;margin:12px 0}
+
+/* Summary / details in workbook */
+.ew-block summary{cursor:pointer;font-weight:700;color:var(--accent);padding:6px 0;font-family:var(--display);font-size:.98rem}
+.ew-block details[open]{margin-bottom:14px}
+.ew-block details[open] > summary{color:var(--accent-2);margin-bottom:8px}
+
+/* Check row (shared btn container) */
+.check-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:14px}
+
+/* Mobile */
+@media(max-width:600px){
+  .wb-head{padding:22px 18px}
+  .wb-head::before{font-size:120px;top:-18px;right:-10px}
+  .ew-block{padding:16px 14px}
+  .ew-scene{padding:12px 14px}
+  .wb-grm-grid{grid-template-columns:1fr}
+  .ew-main-tabs button{flex-basis:100%}
+  .wb-tabs{gap:0}
+  .wb-tab{flex:1;text-align:center;padding:10px 8px;font-size:.88rem}
+  .ew-audio-buttons{flex-direction:column}
+  .ew-audio-buttons .play{width:100%;justify-content:center}
+}
 </style>
 </head>
 <body>
@@ -2153,295 +2308,532 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
 </section>
 
 <!-- WORKBOOK · РАБОЧАЯ ТЕТРАДЬ · cumulative L1 → L9 -->
-</div><div id="ew-workbook-page" role="tabpanel" aria-labelledby="ew-main-workbook" hidden><section class="section" id="s14-workbook" lang="ru"><div class="wb-wrap"><div class="wb-head"><h2>Рабочая тетрадь Евгении Левиной</h2><p>Грамматика · словарь · упражнения · L1–L9</p></div><details class="ew-history"><summary>Программа по фактическим занятиям · L1–L9</summary><ul>
-<li>L1–L2 · 26 и 29 октября: Halloween Monster Family, have got / has got, принадлежность, семья.</li>
-<li>L3 · 2 ноября: My Family, Present Simple / Continuous, знакомство с Present Perfect.</li>
-<li>L4–L6 · 5, 9 и 12 ноября: Present Perfect / Present Perfect Continuous, My Family.</li>
-<li>L7 · 16 ноября: четыре настоящих времени, повторение PP / PPC и семьи.</li>
-<li>L8 · 19 ноября: Weather, Climate &amp; Cities, настоящие времена и формы будущего.</li>
-<li>L9 · 23 ноября: новые Past Simple / Past Continuous / used to; закрепление PPC и будущего на погоде; явления, экология, одежда.</li>
-</ul></details><div class="wb-tabs" role="tablist" aria-label="Разделы рабочей тетради"><button type="button" class="wb-tab active" id="ew-tab-tetrad" data-tab="tetrad" role="tab" aria-selected="true" aria-controls="ew-tetrad">Повторение · L1–L8</button><button type="button" class="wb-tab" id="ew-tab-urok" data-tab="urok" role="tab" aria-selected="false" aria-controls="ew-urok">Новые темы и закрепление · L9 · 23.11.2026</button></div><div class="wb-panel active" data-panel="tetrad" role="tabpanel" id="ew-tetrad" aria-labelledby="ew-tab-tetrad"><h3>Повторение · грамматика и слова L1–L8</h3><section class="ew-block ew-route"><h3>Короткий маршрут · 25–35 минут</h3><p><b>Один подход — одна цель.</b> Выбери повторение или L9. Не нужно выполнять весь банк заданий за один раз.</p><ol><li><b>Вспомни · 3 минуты:</b> назови 5 слов без словаря и составь с ними 2 предложения.</li><li><b>Выбери и объясни · 5 минут:</b> ситуации ниже. При затруднении загляни в нужное правило.</li><li><b>Отредактируй · 5 минут:</b> найди причину ошибки, затем перепиши сообщение.</li><li><b>Диктант · 7 минут:</b> слушай → пиши → переслушивай → проверяй.</li><li><b>Скажи сама · 5–10 минут:</b> выбери один устный блок, ответь без опоры, затем улучши ответ.</li></ol><p>Правила, словарь и дополнительные упражнения — ниже. Счётчик в конце учитывает весь банк; ориентир для одного занятия — пройти маршрут, а не заполнить всё.</p></section><section class="ew-block ew-route-task"><h3>2 · Выбери форму по смыслу</h3><p>Прочитай ситуацию. Выбери ответ, затем назови слово или деталь, которая помогла решить. После проверки появится объяснение.</p><article class="ew-scene"><h4>Семейный видеозвонок</h4><label class="wb-grm-tile"><span class="wb-grm-q">Usually my dad cooks dinner, but look at him now: he ___ a cake.</span><select data-a="is making" data-note="Look … now: видим действие в момент разговора, поэтому is + making." aria-label="Usually my dad cooks dinner, but look at him now: he ___ a cake." data-lp-key="levina-wb-e40c385482ca-1"><option value="">Выбери и объясни почему</option><option>makes</option><option>is making</option><option>has made</option></select></label></article><article class="ew-scene"><h4>Новость в семейном чате</h4><label class="wb-grm-tile"><span class="wb-grm-q">Mum: “Is dinner ready?” Dad: “Yes! I ___ it, so we can eat now.”</span><select data-a="have already cooked" data-note="Ужин уже приготовлен, результат важен сейчас: have + V3." aria-label="Mum: “Is dinner ready?” Dad: “Yes! I ___ it, so we can eat now.”" data-lp-key="levina-wb-0bbe6b6c5c57-1"><option value="">Выбери и объясни почему</option><option>cook every day</option><option>am cooking</option><option>have already cooked</option></select></label></article><article class="ew-scene"><h4>Интервью с двоюродной сестрой</h4><label class="wb-grm-tile"><span class="wb-grm-q">“How long ___ English?” — “Since September. I still have lessons every week.”</span><select data-a="have you been learning" data-note="How long + since и продолжающийся процесс: Present Perfect Continuous." aria-label="“How long ___ English?” — “Since September. I still have lessons every week.”" data-lp-key="levina-wb-93c382923e8a-1"><option value="">Выбери и объясни почему</option><option>do you learn</option><option>are you learning</option><option>have you been learning</option></select></label></article><article class="ew-scene"><h4>Законченная работа или процесс?</h4><label class="wb-grm-tile"><span class="wb-grm-q">“How many pages ___?” — “Three. Now I can take a break.”</span><select data-a="have you written" data-note="How many pages — количество и результат. Нужен Present Perfect, не PPC." aria-label="“How many pages ___?” — “Three. Now I can take a break.”" data-lp-key="levina-wb-200edc41790e-1"><option value="">Выбери и объясни почему</option><option>have you written</option><option>have you been writing</option><option>are you writing</option></select></label></article><article class="ew-scene"><h4>Кто хозяин?</h4><label class="wb-grm-tile"><span class="wb-grm-q">У двух сестёр одна комната. Выбери подпись: This is my ___.</span><select data-a="sisters&#x27; room" data-note="Несколько сестёр: sisters, затем апостроф. У одной сестры было бы sister’s." aria-label="У двух сестёр одна комната. Выбери подпись: This is my ___." data-lp-key="levina-wb-3c7e7a63984e-1"><option value="">Выбери и объясни почему</option><option>sister room</option><option>sister&#x27;s room</option><option>sisters&#x27; room</option></select></label></article><article class="ew-scene"><h4>Вкус супа</h4><label class="wb-grm-tile"><span class="wb-grm-q">You take a spoonful to check the salt: “I ___ the soup.”</span><select data-a="am tasting" data-note="Здесь taste — действие «пробую», поэтому Continuous возможен. The soup tastes good — состояние." aria-label="You take a spoonful to check the salt: “I ___ the soup.”" data-lp-key="levina-wb-fd3ee338d509-1"><option value="">Выбери и объясни почему</option><option>taste</option><option>am tasting</option><option>have tasted</option></select></label></article><button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Проверить этот блок</button><p class="ew-local-score" role="status" aria-live="polite"></p></section><section class="ew-block ew-route-task"><h3>3 · Редактор сообщений</h3><p>В каждом сообщении одна целевая ошибка. Перепиши предложение целиком, исправив её. Объясни исправление вслух.</p><div class="wb-grm-grid"><label class="wb-grm-tile"><span class="wb-grm-q">She have got two brothers.</span><input type="text" data-a="She has got two brothers." data-note="После she — has got." placeholder="Впиши ответ" autocomplete="off" aria-label="She have got two brothers." data-lp-key="levina-wb-8ead00c780cd-1"></label><label class="wb-grm-tile"><span class="wb-grm-q">My sister go to school every day.</span><input type="text" data-a="My sister goes to school every day." data-note="Каждый день: Present Simple, после she — goes." placeholder="Впиши ответ" autocomplete="off" aria-label="My sister go to school every day." data-lp-key="levina-wb-2939db3d9027-1"></label><label class="wb-grm-tile"><span class="wb-grm-q">Listen! The baby cries.</span><input type="text" data-a="Listen! The baby is crying." data-note="Listen! показывает действие сейчас: is crying." placeholder="Впиши ответ" autocomplete="off" aria-label="Listen! The baby cries." data-lp-key="levina-wb-ccd59289d057-1"></label><label class="wb-grm-tile"><span class="wb-grm-q">I have been learning English since two months.</span><input type="text" data-a="I have been learning English for two months." data-note="Two months — длительность, нужен for." placeholder="Впиши ответ" autocomplete="off" aria-label="I have been learning English since two months." data-lp-key="levina-wb-acea2e28022b-1"></label><label class="wb-grm-tile"><span class="wb-grm-q">I am knowing the answer.</span><input type="text" data-a="I know the answer." data-note="Know в значении знания — глагол состояния." placeholder="Впиши ответ" autocomplete="off" aria-label="I am knowing the answer." data-lp-key="levina-wb-d20c3d7c627d-1"></label></div><button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Проверить этот блок</button><p class="ew-local-score" role="status" aria-live="polite"></p></section><section class="ew-block ew-dictation ew-route-task"><h3>4 · Диктант · от короткой фразы к предложению</h3><p>1. Послушай целиком, не записывая. 2. Послушай ещё раз и запиши. 3. Переслушай и проверь окончания, вспомогательные глаголы и апострофы. Потом нажми «Проверить этот блок». Повторять запись можно без ограничения.</p><p class="ew-audio-status" role="status" aria-live="polite"></p><article class="ew-dict-item"><h4>Фраза 1</h4><div class="ew-audio-buttons"><button type="button" class="play" data-rate="0.95" data-say="My cousin has got a pet." aria-label="Фраза 1, Послушать"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Послушать</span></button><button type="button" class="play" data-rate="0.72" data-say="My cousin has got a pet." aria-label="Фраза 1, Медленнее"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Медленнее</span></button></div><label class="wb-grm-tile"><span class="wb-grm-q">Запиши фразу 1 целиком</span><input type="text" data-a="My cousin has got a pet." data-note="Сверь смысл, порядок слов, вспомогательный глагол и окончание. Прослушай ещё раз перед исправлением." placeholder="Впиши ответ" autocomplete="off" aria-label="Запиши фразу 1 целиком" data-lp-key="levina-wb-a4b9fa10c90e-1"></label></article><article class="ew-dict-item"><h4>Фраза 2</h4><div class="ew-audio-buttons"><button type="button" class="play" data-rate="0.95" data-say="These are the children&#x27;s toys." aria-label="Фраза 2, Послушать"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Послушать</span></button><button type="button" class="play" data-rate="0.72" data-say="These are the children&#x27;s toys." aria-label="Фраза 2, Медленнее"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Медленнее</span></button></div><label class="wb-grm-tile"><span class="wb-grm-q">Запиши фразу 2 целиком</span><input type="text" data-a="These are the children&#x27;s toys." data-note="Сверь смысл, порядок слов, вспомогательный глагол и окончание. Прослушай ещё раз перед исправлением." placeholder="Впиши ответ" autocomplete="off" aria-label="Запиши фразу 2 целиком" data-lp-key="levina-wb-65f005706444-1"></label></article><article class="ew-dict-item"><h4>Фраза 3</h4><div class="ew-audio-buttons"><button type="button" class="play" data-rate="0.95" data-say="My dad usually cooks dinner." aria-label="Фраза 3, Послушать"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Послушать</span></button><button type="button" class="play" data-rate="0.72" data-say="My dad usually cooks dinner." aria-label="Фраза 3, Медленнее"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Медленнее</span></button></div><label class="wb-grm-tile"><span class="wb-grm-q">Запиши фразу 3 целиком</span><input type="text" data-a="My dad usually cooks dinner." data-note="Сверь смысл, порядок слов, вспомогательный глагол и окончание. Прослушай ещё раз перед исправлением." placeholder="Впиши ответ" autocomplete="off" aria-label="Запиши фразу 3 целиком" data-lp-key="levina-wb-4adb0ec23591-1"></label></article><article class="ew-dict-item"><h4>Фраза 4</h4><div class="ew-audio-buttons"><button type="button" class="play" data-rate="0.95" data-say="The twins are playing in the garden." aria-label="Фраза 4, Послушать"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Послушать</span></button><button type="button" class="play" data-rate="0.72" data-say="The twins are playing in the garden." aria-label="Фраза 4, Медленнее"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Медленнее</span></button></div><label class="wb-grm-tile"><span class="wb-grm-q">Запиши фразу 4 целиком</span><input type="text" data-a="The twins are playing in the garden." data-note="Сверь смысл, порядок слов, вспомогательный глагол и окончание. Прослушай ещё раз перед исправлением." placeholder="Впиши ответ" autocomplete="off" aria-label="Запиши фразу 4 целиком" data-lp-key="levina-wb-9e3bc0543d7e-1"></label></article><article class="ew-dict-item"><h4>Фраза 5</h4><div class="ew-audio-buttons"><button type="button" class="play" data-rate="0.95" data-say="I have already visited my grandparents." aria-label="Фраза 5, Послушать"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Послушать</span></button><button type="button" class="play" data-rate="0.72" data-say="I have already visited my grandparents." aria-label="Фраза 5, Медленнее"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Медленнее</span></button></div><label class="wb-grm-tile"><span class="wb-grm-q">Запиши фразу 5 целиком</span><input type="text" data-a="I have already visited my grandparents." data-note="Сверь смысл, порядок слов, вспомогательный глагол и окончание. Прослушай ещё раз перед исправлением." placeholder="Впиши ответ" autocomplete="off" aria-label="Запиши фразу 5 целиком" data-lp-key="levina-wb-e713bc413cd2-1"></label></article><article class="ew-dict-item"><h4>Фраза 6</h4><div class="ew-audio-buttons"><button type="button" class="play" data-rate="0.95" data-say="She has been learning English for two months." aria-label="Фраза 6, Послушать"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Послушать</span></button><button type="button" class="play" data-rate="0.72" data-say="She has been learning English for two months." aria-label="Фраза 6, Медленнее"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Медленнее</span></button></div><label class="wb-grm-tile"><span class="wb-grm-q">Запиши фразу 6 целиком</span><input type="text" data-a="She has been learning English for two months." data-note="Сверь смысл, порядок слов, вспомогательный глагол и окончание. Прослушай ещё раз перед исправлением." placeholder="Впиши ответ" autocomplete="off" aria-label="Запиши фразу 6 целиком" data-lp-key="levina-wb-e8005900ce3e-1"></label></article><button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Проверить этот блок</button><p class="ew-local-score" role="status" aria-live="polite"></p><details><summary>Как работаешь после проверки</summary><p>Выбери две ошибки, объясни их, затем произнеси правильные предложения по памяти. Не переписывай ключ механически.</p></details></section><section class="ew-block ew-reference"><h3>have got / has got</h3><p>Принадлежность: I/you/we/they have got; he/she/it has got. Отрицание: haven’t/hasn’t got. Вопрос: Have/Has + подлежащее + got?</p><details class="ew-extra"><summary>Дополнительная тренировка формы</summary><div class="wb-grm-grid"><label class="wb-grm-tile"><span class="wb-grm-q">1. I ___ a sister. (have got)</span><input type="text" data-a="have got" placeholder="Впиши ответ" autocomplete="off" aria-label="I ___ a sister. (have got)" data-lp-key="levina-wb-840e1d574195-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">2. She ___ two cousins. (have got)</span><input type="text" data-a="has got" placeholder="Впиши ответ" autocomplete="off" aria-label="She ___ two cousins. (have got)" data-lp-key="levina-wb-b82aae8f3f6c-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">3. He ___ any brothers. (not / have got)</span><input type="text" data-a="has not got|hasn&#x27;t got" placeholder="Впиши ответ" autocomplete="off" aria-label="He ___ any brothers. (not / have got)" data-lp-key="levina-wb-7bcb69d51f40-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">4. ___ you got a pet?</span><input type="text" data-a="Have" placeholder="Впиши ответ" autocomplete="off" aria-label="___ you got a pet?" data-lp-key="levina-wb-e372f0c743d5-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">5. ___ Wendy got a cat?</span><input type="text" data-a="Has" placeholder="Впиши ответ" autocomplete="off" aria-label="___ Wendy got a cat?" data-lp-key="levina-wb-76b6f93fe1b2-1"></label></div></details></section>
-<section class="ew-block ew-reference"><h3>Притяжательный падеж · ’s / s’</h3><p>Один обладатель: Wendy’s cat. Неправильное множественное число: children’s toys. Множественное на -s: sisters’ room. Апостроф показывает принадлежность.</p><details class="ew-extra"><summary>Дополнительная тренировка формы</summary><div class="wb-grm-grid"><label class="wb-grm-tile"><span class="wb-grm-q">1. Wendy → ___ cat</span><input type="text" data-a="Wendy&#x27;s" placeholder="Впиши ответ" autocomplete="off" aria-label="Wendy → ___ cat" data-lp-key="levina-wb-25b61ad8aada-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">2. children → the ___ toys</span><input type="text" data-a="children&#x27;s" placeholder="Впиши ответ" autocomplete="off" aria-label="children → the ___ toys" data-lp-key="levina-wb-35be3d8df7e2-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">3. two sisters → the ___ room</span><input type="text" data-a="sisters&#x27;" placeholder="Впиши ответ" autocomplete="off" aria-label="two sisters → the ___ room" data-lp-key="levina-wb-b23278ce4272-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">4. my father → my ___ coat</span><input type="text" data-a="father&#x27;s" placeholder="Впиши ответ" autocomplete="off" aria-label="my father → my ___ coat" data-lp-key="levina-wb-7454ebf853c2-1"></label></div></details></section>
-<section class="ew-block ew-reference"><h3>Present Simple</h3><p>Привычки и факты: I work; she works. После he/she/it — -s/-es; согласная + y → -ies. Вопрос: do/does + V. Отрицание: don’t/doesn’t + V. Маркеры: usually, every day.</p><details class="ew-extra"><summary>Дополнительная тренировка формы</summary><div class="wb-grm-grid"><label class="wb-grm-tile"><span class="wb-grm-q">1. She ___ in Moscow. (live)</span><input type="text" data-a="lives" placeholder="Впиши ответ" autocomplete="off" aria-label="She ___ in Moscow. (live)" data-lp-key="levina-wb-1c4bfe7c3eab-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">2. The sun ___ in the east. (rise)</span><input type="text" data-a="rises" placeholder="Впиши ответ" autocomplete="off" aria-label="The sun ___ in the east. (rise)" data-lp-key="levina-wb-965c0aed2efc-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">3. The baby ___ every evening. (cry)</span><input type="text" data-a="cries" placeholder="Впиши ответ" autocomplete="off" aria-label="The baby ___ every evening. (cry)" data-lp-key="levina-wb-5d33fb66348d-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">4. He ___ his homework every day. (do)</span><input type="text" data-a="does" placeholder="Впиши ответ" autocomplete="off" aria-label="He ___ his homework every day. (do)" data-lp-key="levina-wb-cab52339c7cc-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">5. My brother ___ to school. (go)</span><input type="text" data-a="goes" placeholder="Впиши ответ" autocomplete="off" aria-label="My brother ___ to school. (go)" data-lp-key="levina-wb-213075a81347-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">6. She ___ coffee. (not / like)</span><input type="text" data-a="does not like|doesn&#x27;t like" placeholder="Впиши ответ" autocomplete="off" aria-label="She ___ coffee. (not / like)" data-lp-key="levina-wb-491d4a464033-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">7. ___ your parents work here?</span><input type="text" data-a="Do" placeholder="Впиши ответ" autocomplete="off" aria-label="___ your parents work here?" data-lp-key="levina-wb-56b23e2dd0c1-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">8. ___ your sister speak English?</span><input type="text" data-a="Does" placeholder="Впиши ответ" autocomplete="off" aria-label="___ your sister speak English?" data-lp-key="levina-wb-eedf7a4109b1-1"></label></div></details></section>
-<section class="ew-block ew-reference"><h3>Present Continuous · PS vs PC</h3><p>Действие сейчас: am/is/are + V-ing. Вопрос: Am/Is/Are + подлежащее + V-ing? Обычно → Present Simple; now, Look!, Listen! → Present Continuous.</p><details class="ew-extra"><summary>Дополнительная тренировка формы</summary><div class="wb-grm-grid"><label class="wb-grm-tile"><span class="wb-grm-q">1. Look! The twins ___. (play)</span><input type="text" data-a="are playing" placeholder="Впиши ответ" autocomplete="off" aria-label="Look! The twins ___. (play)" data-lp-key="levina-wb-bd46ba71a4de-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">2. Listen! The baby ___. (cry)</span><input type="text" data-a="is crying" placeholder="Впиши ответ" autocomplete="off" aria-label="Listen! The baby ___. (cry)" data-lp-key="levina-wb-fca598d11b76-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">3. I ___ now. (read)</span><input type="text" data-a="am reading" placeholder="Впиши ответ" autocomplete="off" aria-label="I ___ now. (read)" data-lp-key="levina-wb-9a0e4cd0ed00-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">4. She ___ today. (not / work)</span><input type="text" data-a="is not working|isn&#x27;t working" placeholder="Впиши ответ" autocomplete="off" aria-label="She ___ today. (not / work)" data-lp-key="levina-wb-2fe7dd1517a3-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">5. ___ they watching TV now?</span><input type="text" data-a="Are" placeholder="Впиши ответ" autocomplete="off" aria-label="___ they watching TV now?" data-lp-key="levina-wb-fdc7ca75556c-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">6. Mum usually ___ dinner at six. (cook)</span><input type="text" data-a="cooks" placeholder="Впиши ответ" autocomplete="off" aria-label="Mum usually ___ dinner at six. (cook)" data-lp-key="levina-wb-9e81f7395985-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">7. Mum ___ dinner right now. (cook)</span><input type="text" data-a="is cooking" placeholder="Впиши ответ" autocomplete="off" aria-label="Mum ___ dinner right now. (cook)" data-lp-key="levina-wb-2362e39828b2-1"></label></div></details></section>
-<section class="ew-block ew-reference"><h3>Present Perfect</h3><p>Опыт, результат сейчас, незавершённый период: have/has + V3. Вопрос: Have/Has + подлежащее + V3? ever/never — опыт; just/already — результат; yet — вопросы и отрицания. Been to = побывал и вернулся. Точная завершённая дата требует Past Simple.</p><details class="ew-extra"><summary>Дополнительная тренировка формы</summary><div class="wb-grm-grid"><label class="wb-grm-tile"><span class="wb-grm-q">1. She ___ London twice. (visit)</span><input type="text" data-a="has visited" placeholder="Впиши ответ" autocomplete="off" aria-label="She ___ London twice. (visit)" data-lp-key="levina-wb-5e845642e2bb-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">2. I ___ to Scotland. (never / be)</span><input type="text" data-a="have never been" placeholder="Впиши ответ" autocomplete="off" aria-label="I ___ to Scotland. (never / be)" data-lp-key="levina-wb-d4a3780030f1-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">3. ___ you ever been to London?</span><input type="text" data-a="Have" placeholder="Впиши ответ" autocomplete="off" aria-label="___ you ever been to London?" data-lp-key="levina-wb-922fa189b807-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">4. He has ___ finished his homework. (только что)</span><input type="text" data-a="just" placeholder="Впиши ответ" autocomplete="off" aria-label="He has ___ finished his homework. (только что)" data-lp-key="levina-wb-29e5c50def0e-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">5. Have they arrived ___? (уже)</span><input type="text" data-a="yet" placeholder="Впиши ответ" autocomplete="off" aria-label="Have they arrived ___? (уже)" data-lp-key="levina-wb-c44e0632a3d1-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">6. She ___ her homework yet. (not / finish)</span><input type="text" data-a="has not finished|hasn&#x27;t finished" placeholder="Впиши ответ" autocomplete="off" aria-label="She ___ her homework yet. (not / finish)" data-lp-key="levina-wb-dd3277684092-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">7. They ___ three books this month. (read)</span><input type="text" data-a="have read" placeholder="Впиши ответ" autocomplete="off" aria-label="They ___ three books this month. (read)" data-lp-key="levina-wb-2d491899d7f7-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">8. We have ___ eaten. (уже)</span><input type="text" data-a="already" placeholder="Впиши ответ" autocomplete="off" aria-label="We have ___ eaten. (уже)" data-lp-key="levina-wb-d4e2c037b1b3-1"></label></div></details></section>
-<section class="ew-block ew-reference"><h3>for / since · Present Perfect Continuous</h3><p>for + длительность: for two hours. since + начальная точка: since Monday. PPC: have/has been + V-ing — длительный процесс до настоящего момента. PP подчёркивает результат/количество; PPC — процесс/длительность. How long have you been learning English?</p><details class="ew-extra"><summary>Дополнительная тренировка формы</summary><div class="wb-grm-grid"><label class="wb-grm-tile"><span class="wb-grm-q">1. I have lived here ___ 2020.</span><input type="text" data-a="since" placeholder="Впиши ответ" autocomplete="off" aria-label="I have lived here ___ 2020." data-lp-key="levina-wb-a6c3ae33ac68-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">2. We have waited ___ two hours.</span><input type="text" data-a="for" placeholder="Впиши ответ" autocomplete="off" aria-label="We have waited ___ two hours." data-lp-key="levina-wb-b0dccb3b0380-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">3. She ___ English for two months. (learn, PPC)</span><input type="text" data-a="has been learning" placeholder="Впиши ответ" autocomplete="off" aria-label="She ___ English for two months. (learn, PPC)" data-lp-key="levina-wb-b8f2165715fe-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">4. I ___ this book since Monday. (read, PPC)</span><input type="text" data-a="have been reading" placeholder="Впиши ответ" autocomplete="off" aria-label="I ___ this book since Monday. (read, PPC)" data-lp-key="levina-wb-8cc4aeeb2c7a-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">5. How long ___ you been studying?</span><input type="text" data-a="have" placeholder="Впиши ответ" autocomplete="off" aria-label="How long ___ you been studying?" data-lp-key="levina-wb-7f2d226f2a55-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">6. She ___ three pages. (write, результат)</span><input type="text" data-a="has written" placeholder="Впиши ответ" autocomplete="off" aria-label="She ___ three pages. (write, результат)" data-lp-key="levina-wb-8eeaa621e262-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">7. She ___ for an hour. (write, процесс)</span><input type="text" data-a="has been writing" placeholder="Впиши ответ" autocomplete="off" aria-label="She ___ for an hour. (write, процесс)" data-lp-key="levina-wb-4806fbc3872d-1"></label></div></details></section>
-<section class="ew-block ew-reference"><h3>Глаголы состояния · четыре настоящих времени</h3><p>love, hate, know, believe, see, taste, smell в значении состояния обычно не используются в Continuous. I know her. The soup tastes good. При действии значение меняется: I am tasting the soup — пробую суп. PS: обычно; PC: сейчас; PP: результат; PPC: длительный процесс.</p><details class="ew-extra"><summary>Дополнительная тренировка формы</summary><div class="wb-grm-grid"><label class="wb-grm-tile"><span class="wb-grm-q">1. I ___ the answer. (know)</span><input type="text" data-a="know" placeholder="Впиши ответ" autocomplete="off" aria-label="I ___ the answer. (know)" data-lp-key="levina-wb-07eebab5e6b5-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">2. She ___ chocolate. (love)</span><input type="text" data-a="loves" placeholder="Впиши ответ" autocomplete="off" aria-label="She ___ chocolate. (love)" data-lp-key="levina-wb-2134070993ce-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">3. We ___ you. (believe)</span><input type="text" data-a="believe" placeholder="Впиши ответ" autocomplete="off" aria-label="We ___ you. (believe)" data-lp-key="levina-wb-612aaf4b8144-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">4. The soup ___ good. (taste)</span><input type="text" data-a="tastes" placeholder="Впиши ответ" autocomplete="off" aria-label="The soup ___ good. (taste)" data-lp-key="levina-wb-a2ae26c80595-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">5. These flowers ___ wonderful. (smell)</span><input type="text" data-a="smell" placeholder="Впиши ответ" autocomplete="off" aria-label="These flowers ___ wonderful. (smell)" data-lp-key="levina-wb-00ea5854a42f-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">6. I ___ the soup now to check the salt. (taste)</span><input type="text" data-a="am tasting" placeholder="Впиши ответ" autocomplete="off" aria-label="I ___ the soup now to check the salt. (taste)" data-lp-key="levina-wb-2ba2daf5bff0-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">7. I ___ a bird outside. (see)</span><input type="text" data-a="see" placeholder="Впиши ответ" autocomplete="off" aria-label="I ___ a bird outside. (see)" data-lp-key="levina-wb-33ccbdf1fd6d-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">8. He ___ cold weather. (hate)</span><input type="text" data-a="hates" placeholder="Впиши ответ" autocomplete="off" aria-label="He ___ cold weather. (hate)" data-lp-key="levina-wb-b2aa2658b7a8-1"></label></div></details></section>
-<section class="ew-block ew-reference"><h3>Halloween</h3><details><summary>Словарь · английский и перевод</summary><table class="ew-vocab"><thead><tr><th>English</th><th>Русский</th></tr></thead><tbody><tr><th scope="row">witch</th><td>ведьма</td></tr><tr><th scope="row">ghost</th><td>привидение</td></tr><tr><th scope="row">vampire</th><td>вампир</td></tr><tr><th scope="row">zombie</th><td>зомби</td></tr><tr><th scope="row">mummy</th><td>мумия</td></tr><tr><th scope="row">skeleton</th><td>скелет</td></tr><tr><th scope="row">bat</th><td>летучая мышь</td></tr><tr><th scope="row">pumpkin</th><td>тыква</td></tr><tr><th scope="row">haunted</th><td>населённый привидениями</td></tr><tr><th scope="row">costume</th><td>костюм</td></tr></tbody></table></details><details class="ew-extra"><summary>Дополнительная тренировка формы</summary><div class="wb-grm-grid"><label class="wb-grm-tile"><span class="wb-grm-q">1. ведьма → English</span><input type="text" data-a="witch" placeholder="Впиши ответ" autocomplete="off" aria-label="ведьма → English" data-lp-key="levina-wb-9ee43cb0a396-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">2. привидение → English</span><input type="text" data-a="ghost" placeholder="Впиши ответ" autocomplete="off" aria-label="привидение → English" data-lp-key="levina-wb-a905a003953c-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">3. вампир → English</span><input type="text" data-a="vampire" placeholder="Впиши ответ" autocomplete="off" aria-label="вампир → English" data-lp-key="levina-wb-36a2a7ab1d16-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">4. зомби → English</span><input type="text" data-a="zombie" placeholder="Впиши ответ" autocomplete="off" aria-label="зомби → English" data-lp-key="levina-wb-3b77e99c7ed5-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">5. мумия → English</span><input type="text" data-a="mummy" placeholder="Впиши ответ" autocomplete="off" aria-label="мумия → English" data-lp-key="levina-wb-b7fea8b1f3d5-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">6. скелет → English</span><input type="text" data-a="skeleton" placeholder="Впиши ответ" autocomplete="off" aria-label="скелет → English" data-lp-key="levina-wb-94c1eeccd317-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">7. летучая мышь → English</span><input type="text" data-a="bat" placeholder="Впиши ответ" autocomplete="off" aria-label="летучая мышь → English" data-lp-key="levina-wb-aa7ca2092f12-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">8. тыква → English</span><input type="text" data-a="pumpkin" placeholder="Впиши ответ" autocomplete="off" aria-label="тыква → English" data-lp-key="levina-wb-0005b4329d70-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">9. населённый привидениями → English</span><input type="text" data-a="haunted" placeholder="Впиши ответ" autocomplete="off" aria-label="населённый привидениями → English" data-lp-key="levina-wb-e3a5dabdf243-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">10. костюм → English</span><input type="text" data-a="costume" placeholder="Впиши ответ" autocomplete="off" aria-label="костюм → English" data-lp-key="levina-wb-642fe74e9bda-1"></label></div></details></section>
-<section class="ew-block ew-reference"><h3>Семья · ближний круг</h3><details><summary>Словарь · английский и перевод</summary><table class="ew-vocab"><thead><tr><th>English</th><th>Русский</th></tr></thead><tbody><tr><th scope="row">mum / mother</th><td>мама</td></tr><tr><th scope="row">dad / father</th><td>папа</td></tr><tr><th scope="row">sister</th><td>сестра</td></tr><tr><th scope="row">brother</th><td>брат</td></tr><tr><th scope="row">grandma</th><td>бабушка</td></tr><tr><th scope="row">grandpa</th><td>дедушка</td></tr><tr><th scope="row">aunt</th><td>тётя</td></tr><tr><th scope="row">uncle</th><td>дядя</td></tr><tr><th scope="row">cousin</th><td>двоюродный брат / двоюродная сестра</td></tr><tr><th scope="row">pet</th><td>домашнее животное</td></tr></tbody></table></details><details class="ew-extra"><summary>Дополнительная тренировка формы</summary><div class="wb-grm-grid"><label class="wb-grm-tile"><span class="wb-grm-q">1. мама → English</span><input type="text" data-a="mum|mother" placeholder="Впиши ответ" autocomplete="off" aria-label="мама → English" data-lp-key="levina-wb-330b0540732a-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">2. папа → English</span><input type="text" data-a="dad|father" placeholder="Впиши ответ" autocomplete="off" aria-label="папа → English" data-lp-key="levina-wb-f20504b93a6a-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">3. сестра → English</span><input type="text" data-a="sister" placeholder="Впиши ответ" autocomplete="off" aria-label="сестра → English" data-lp-key="levina-wb-5250657a67dc-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">4. брат → English</span><input type="text" data-a="brother" placeholder="Впиши ответ" autocomplete="off" aria-label="брат → English" data-lp-key="levina-wb-eb817f680db3-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">5. бабушка → English</span><input type="text" data-a="grandma" placeholder="Впиши ответ" autocomplete="off" aria-label="бабушка → English" data-lp-key="levina-wb-6267c19a0def-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">6. дедушка → English</span><input type="text" data-a="grandpa" placeholder="Впиши ответ" autocomplete="off" aria-label="дедушка → English" data-lp-key="levina-wb-4c5e518ccc53-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">7. тётя → English</span><input type="text" data-a="aunt" placeholder="Впиши ответ" autocomplete="off" aria-label="тётя → English" data-lp-key="levina-wb-694cf1cc8a16-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">8. дядя → English</span><input type="text" data-a="uncle" placeholder="Впиши ответ" autocomplete="off" aria-label="дядя → English" data-lp-key="levina-wb-88179aeb9426-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">9. двоюродный брат → English</span><input type="text" data-a="cousin" placeholder="Впиши ответ" autocomplete="off" aria-label="двоюродный брат → English" data-lp-key="levina-wb-f4580afb689a-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">10. домашнее животное → English</span><input type="text" data-a="pet" placeholder="Впиши ответ" autocomplete="off" aria-label="домашнее животное → English" data-lp-key="levina-wb-19459bc94bb1-1"></label></div></details></section>
-<section class="ew-block ew-reference"><h3>Семья · расширение</h3><details><summary>Словарь · английский и перевод</summary><table class="ew-vocab"><thead><tr><th>English</th><th>Русский</th></tr></thead><tbody><tr><th scope="row">parents</th><td>родители</td></tr><tr><th scope="row">grandparents</th><td>бабушка и дедушка</td></tr><tr><th scope="row">husband</th><td>муж</td></tr><tr><th scope="row">wife</th><td>жена</td></tr><tr><th scope="row">son</th><td>сын</td></tr><tr><th scope="row">daughter</th><td>дочь</td></tr><tr><th scope="row">twins</th><td>близнецы</td></tr><tr><th scope="row">baby</th><td>младенец</td></tr><tr><th scope="row">children</th><td>дети</td></tr><tr><th scope="row">siblings</th><td>братья и сёстры</td></tr></tbody></table></details><details class="ew-extra"><summary>Дополнительная тренировка формы</summary><div class="wb-grm-grid"><label class="wb-grm-tile"><span class="wb-grm-q">1. родители → English</span><input type="text" data-a="parents" placeholder="Впиши ответ" autocomplete="off" aria-label="родители → English" data-lp-key="levina-wb-3f5ee410cafd-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">2. бабушка и дедушка → English</span><input type="text" data-a="grandparents" placeholder="Впиши ответ" autocomplete="off" aria-label="бабушка и дедушка → English" data-lp-key="levina-wb-da1eeee4e739-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">3. муж → English</span><input type="text" data-a="husband" placeholder="Впиши ответ" autocomplete="off" aria-label="муж → English" data-lp-key="levina-wb-d30daab476d2-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">4. жена → English</span><input type="text" data-a="wife" placeholder="Впиши ответ" autocomplete="off" aria-label="жена → English" data-lp-key="levina-wb-2057c718ef01-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">5. сын → English</span><input type="text" data-a="son" placeholder="Впиши ответ" autocomplete="off" aria-label="сын → English" data-lp-key="levina-wb-845805303a28-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">6. дочь → English</span><input type="text" data-a="daughter" placeholder="Впиши ответ" autocomplete="off" aria-label="дочь → English" data-lp-key="levina-wb-37d16f99b192-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">7. близнецы → English</span><input type="text" data-a="twins" placeholder="Впиши ответ" autocomplete="off" aria-label="близнецы → English" data-lp-key="levina-wb-e40cce468a1d-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">8. младенец → English</span><input type="text" data-a="baby" placeholder="Впиши ответ" autocomplete="off" aria-label="младенец → English" data-lp-key="levina-wb-a1beddc1c491-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">9. дети → English</span><input type="text" data-a="children" placeholder="Впиши ответ" autocomplete="off" aria-label="дети → English" data-lp-key="levina-wb-863c5400399e-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">10. братья и сёстры → English</span><input type="text" data-a="siblings" placeholder="Впиши ответ" autocomplete="off" aria-label="братья и сёстры → English" data-lp-key="levina-wb-4c332eedf5dd-1"></label></div></details></section>
-<section class="ew-block ew-reference"><h3>Современная семья</h3><details><summary>Словарь · английский и перевод</summary><table class="ew-vocab"><thead><tr><th>English</th><th>Русский</th></tr></thead><tbody><tr><th scope="row">parent</th><td>родитель</td></tr><tr><th scope="row">grandparent</th><td>бабушка или дедушка</td></tr><tr><th scope="row">grandchildren</th><td>внуки</td></tr><tr><th scope="row">in-laws</th><td>родственники со стороны мужа или жены</td></tr><tr><th scope="row">father-in-law</th><td>свёкор / тесть</td></tr><tr><th scope="row">mother-in-law</th><td>свекровь / тёща</td></tr><tr><th scope="row">stepmother</th><td>мачеха</td></tr><tr><th scope="row">stepfather</th><td>отчим</td></tr><tr><th scope="row">stepsister</th><td>сводная сестра</td></tr><tr><th scope="row">stepbrother</th><td>сводный брат</td></tr><tr><th scope="row">blended family</th><td>смешанная семья</td></tr><tr><th scope="row">only child</th><td>единственный ребёнок</td></tr><tr><th scope="row">relative / relatives</th><td>родственник / родственники</td></tr><tr><th scope="row">family</th><td>семья</td></tr><tr><th scope="row">families</th><td>семьи</td></tr></tbody></table></details><details class="ew-extra"><summary>Дополнительная тренировка формы</summary><div class="wb-grm-grid"><label class="wb-grm-tile"><span class="wb-grm-q">1. родитель → English</span><input type="text" data-a="parent" placeholder="Впиши ответ" autocomplete="off" aria-label="родитель → English" data-lp-key="levina-wb-f1d9614fd40a-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">2. бабушка или дедушка → English</span><input type="text" data-a="grandparent" placeholder="Впиши ответ" autocomplete="off" aria-label="бабушка или дедушка → English" data-lp-key="levina-wb-0879e8dcd17c-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">3. внуки → English</span><input type="text" data-a="grandchildren" placeholder="Впиши ответ" autocomplete="off" aria-label="внуки → English" data-lp-key="levina-wb-589418b36f06-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">4. родственники со стороны мужа или жены → English</span><input type="text" data-a="in-laws" placeholder="Впиши ответ" autocomplete="off" aria-label="родственники со стороны мужа или жены → English" data-lp-key="levina-wb-c35a43a4c551-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">5. свёкор → English</span><input type="text" data-a="father-in-law" placeholder="Впиши ответ" autocomplete="off" aria-label="свёкор → English" data-lp-key="levina-wb-f4ea0ba738d6-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">6. свекровь → English</span><input type="text" data-a="mother-in-law" placeholder="Впиши ответ" autocomplete="off" aria-label="свекровь → English" data-lp-key="levina-wb-953cd53dda86-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">7. мачеха → English</span><input type="text" data-a="stepmother" placeholder="Впиши ответ" autocomplete="off" aria-label="мачеха → English" data-lp-key="levina-wb-8519331f8e2b-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">8. отчим → English</span><input type="text" data-a="stepfather" placeholder="Впиши ответ" autocomplete="off" aria-label="отчим → English" data-lp-key="levina-wb-a867101a97f2-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">9. сводная сестра → English</span><input type="text" data-a="stepsister" placeholder="Впиши ответ" autocomplete="off" aria-label="сводная сестра → English" data-lp-key="levina-wb-f6c329a05a3c-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">10. сводный брат → English</span><input type="text" data-a="stepbrother" placeholder="Впиши ответ" autocomplete="off" aria-label="сводный брат → English" data-lp-key="levina-wb-4cffe1fc9120-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">11. смешанная семья → English</span><input type="text" data-a="blended family" placeholder="Впиши ответ" autocomplete="off" aria-label="смешанная семья → English" data-lp-key="levina-wb-94e4376f08e1-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">12. единственный ребёнок → English</span><input type="text" data-a="only child" placeholder="Впиши ответ" autocomplete="off" aria-label="единственный ребёнок → English" data-lp-key="levina-wb-e0ae49eb9885-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">13. родственник / родственники → English</span><input type="text" data-a="relative|relatives" placeholder="Впиши ответ" autocomplete="off" aria-label="родственник / родственники → English" data-lp-key="levina-wb-a27cb70e1947-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">14. семья → English</span><input type="text" data-a="family" placeholder="Впиши ответ" autocomplete="off" aria-label="семья → English" data-lp-key="levina-wb-d9b07c5b0321-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">15. семьи → English</span><input type="text" data-a="families" placeholder="Впиши ответ" autocomplete="off" aria-label="семьи → English" data-lp-key="levina-wb-00edd9b55c71-1"></label></div></details></section>
-<section class="ew-block ew-reference"><h3>Характер и чувства</h3><details><summary>Словарь · английский и перевод</summary><table class="ew-vocab"><thead><tr><th>English</th><th>Русский</th></tr></thead><tbody><tr><th scope="row">happy</th><td>счастливый</td></tr><tr><th scope="row">afraid</th><td>испуганный</td></tr><tr><th scope="row">kind</th><td>добрый</td></tr><tr><th scope="row">strict</th><td>строгий</td></tr></tbody></table></details><details class="ew-extra"><summary>Дополнительная тренировка формы</summary><div class="wb-grm-grid"><label class="wb-grm-tile"><span class="wb-grm-q">1. счастливый → English</span><input type="text" data-a="happy" placeholder="Впиши ответ" autocomplete="off" aria-label="счастливый → English" data-lp-key="levina-wb-37e52311903c-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">2. испуганный → English</span><input type="text" data-a="afraid" placeholder="Впиши ответ" autocomplete="off" aria-label="испуганный → English" data-lp-key="levina-wb-892c3201adc5-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">3. добрый → English</span><input type="text" data-a="kind" placeholder="Впиши ответ" autocomplete="off" aria-label="добрый → English" data-lp-key="levina-wb-f0e54613bf4f-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">4. строгий → English</span><input type="text" data-a="strict" placeholder="Впиши ответ" autocomplete="off" aria-label="строгий → English" data-lp-key="levina-wb-9821b58d2299-1"></label></div></details></section>
-<section class="ew-block ew-reference"><h3>Глаголы состояния</h3><details><summary>Словарь · английский и перевод</summary><table class="ew-vocab"><thead><tr><th>English</th><th>Русский</th></tr></thead><tbody><tr><th scope="row">love</th><td>любить</td></tr><tr><th scope="row">hate</th><td>ненавидеть</td></tr><tr><th scope="row">know</th><td>знать</td></tr><tr><th scope="row">believe</th><td>верить</td></tr><tr><th scope="row">taste</th><td>иметь вкус</td></tr><tr><th scope="row">smell</th><td>пахнуть</td></tr><tr><th scope="row">see</th><td>видеть</td></tr></tbody></table></details><details class="ew-extra"><summary>Дополнительная тренировка формы</summary><div class="wb-grm-grid"><label class="wb-grm-tile"><span class="wb-grm-q">1. любить → English</span><input type="text" data-a="love" placeholder="Впиши ответ" autocomplete="off" aria-label="любить → English" data-lp-key="levina-wb-e9b9983d5d0e-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">2. ненавидеть → English</span><input type="text" data-a="hate" placeholder="Впиши ответ" autocomplete="off" aria-label="ненавидеть → English" data-lp-key="levina-wb-683225a895a9-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">3. знать → English</span><input type="text" data-a="know" placeholder="Впиши ответ" autocomplete="off" aria-label="знать → English" data-lp-key="levina-wb-d83c0cd3ad63-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">4. верить → English</span><input type="text" data-a="believe" placeholder="Впиши ответ" autocomplete="off" aria-label="верить → English" data-lp-key="levina-wb-c6edf16e6b03-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">5. иметь вкус → English</span><input type="text" data-a="taste" placeholder="Впиши ответ" autocomplete="off" aria-label="иметь вкус → English" data-lp-key="levina-wb-8534d1122c3f-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">6. пахнуть → English</span><input type="text" data-a="smell" placeholder="Впиши ответ" autocomplete="off" aria-label="пахнуть → English" data-lp-key="levina-wb-3f8bb32744fa-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">7. видеть → English</span><input type="text" data-a="see" placeholder="Впиши ответ" autocomplete="off" aria-label="видеть → English" data-lp-key="levina-wb-befe16c7afcb-1"></label></div></details></section>
-<section class="ew-block ew-reference"><h3>Слова-маркеры</h3><details><summary>Словарь · английский и перевод</summary><table class="ew-vocab"><thead><tr><th>English</th><th>Русский</th></tr></thead><tbody><tr><th scope="row">ever</th><td>когда-либо</td></tr><tr><th scope="row">never</th><td>никогда</td></tr><tr><th scope="row">since</th><td>с какого-то момента</td></tr><tr><th scope="row">for</th><td>в течение</td></tr><tr><th scope="row">yet</th><td>ещё (отрицания) / уже (вопросы)</td></tr><tr><th scope="row">already</th><td>уже</td></tr><tr><th scope="row">just</th><td>только что</td></tr><tr><th scope="row">how long</th><td>как долго</td></tr></tbody></table></details><details class="ew-extra"><summary>Дополнительная тренировка формы</summary><div class="wb-grm-grid"><label class="wb-grm-tile"><span class="wb-grm-q">1. когда-либо → English</span><input type="text" data-a="ever" placeholder="Впиши ответ" autocomplete="off" aria-label="когда-либо → English" data-lp-key="levina-wb-06c03d83fba7-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">2. никогда → English</span><input type="text" data-a="never" placeholder="Впиши ответ" autocomplete="off" aria-label="никогда → English" data-lp-key="levina-wb-ddee98f052a3-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">3. с какого-то момента → English</span><input type="text" data-a="since" placeholder="Впиши ответ" autocomplete="off" aria-label="с какого-то момента → English" data-lp-key="levina-wb-cd8529bf4ffa-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">4. в течение → English</span><input type="text" data-a="for" placeholder="Впиши ответ" autocomplete="off" aria-label="в течение → English" data-lp-key="levina-wb-8548072eea5c-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">5. ещё → English</span><input type="text" data-a="yet" placeholder="Впиши ответ" autocomplete="off" aria-label="ещё → English" data-lp-key="levina-wb-c55cac9d89c5-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">6. уже → English</span><input type="text" data-a="already" placeholder="Впиши ответ" autocomplete="off" aria-label="уже → English" data-lp-key="levina-wb-0430fe1f9bde-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">7. только что → English</span><input type="text" data-a="just" placeholder="Впиши ответ" autocomplete="off" aria-label="только что → English" data-lp-key="levina-wb-0b1d3b5b372f-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">8. как долго → English</span><input type="text" data-a="how long" placeholder="Впиши ответ" autocomplete="off" aria-label="как долго → English" data-lp-key="levina-wb-75c18ef72036-1"></label></div></details></section>
-<section class="ew-block ew-reference"><h3>Погода · основа</h3><details><summary>Словарь · английский и перевод</summary><table class="ew-vocab"><thead><tr><th>English</th><th>Русский</th></tr></thead><tbody><tr><th scope="row">sunny</th><td>солнечный</td></tr><tr><th scope="row">cloudy</th><td>облачный</td></tr><tr><th scope="row">rainy</th><td>дождливый</td></tr><tr><th scope="row">snowy</th><td>снежный</td></tr><tr><th scope="row">windy</th><td>ветреный</td></tr><tr><th scope="row">foggy</th><td>туманный</td></tr><tr><th scope="row">frosty</th><td>морозный</td></tr><tr><th scope="row">stormy</th><td>штормовой</td></tr><tr><th scope="row">hot</th><td>жаркий</td></tr><tr><th scope="row">cold</th><td>холодный</td></tr><tr><th scope="row">warm</th><td>тёплый</td></tr><tr><th scope="row">mild</th><td>мягкий</td></tr><tr><th scope="row">changeable</th><td>переменчивый</td></tr><tr><th scope="row">pleasant</th><td>приятный</td></tr><tr><th scope="row">dull</th><td>пасмурный</td></tr></tbody></table></details><details class="ew-extra"><summary>Дополнительная тренировка формы</summary><div class="wb-grm-grid"><label class="wb-grm-tile"><span class="wb-grm-q">1. солнечный → English</span><input type="text" data-a="sunny" placeholder="Впиши ответ" autocomplete="off" aria-label="солнечный → English" data-lp-key="levina-wb-dc98e2175d34-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">2. облачный → English</span><input type="text" data-a="cloudy" placeholder="Впиши ответ" autocomplete="off" aria-label="облачный → English" data-lp-key="levina-wb-8b77e86a1e1d-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">3. дождливый → English</span><input type="text" data-a="rainy" placeholder="Впиши ответ" autocomplete="off" aria-label="дождливый → English" data-lp-key="levina-wb-87feb5e915cf-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">4. снежный → English</span><input type="text" data-a="snowy" placeholder="Впиши ответ" autocomplete="off" aria-label="снежный → English" data-lp-key="levina-wb-044c91f539e1-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">5. ветреный → English</span><input type="text" data-a="windy" placeholder="Впиши ответ" autocomplete="off" aria-label="ветреный → English" data-lp-key="levina-wb-5cddf4593f66-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">6. туманный → English</span><input type="text" data-a="foggy" placeholder="Впиши ответ" autocomplete="off" aria-label="туманный → English" data-lp-key="levina-wb-39c0924b9628-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">7. морозный → English</span><input type="text" data-a="frosty" placeholder="Впиши ответ" autocomplete="off" aria-label="морозный → English" data-lp-key="levina-wb-210e470dbdb7-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">8. штормовой → English</span><input type="text" data-a="stormy" placeholder="Впиши ответ" autocomplete="off" aria-label="штормовой → English" data-lp-key="levina-wb-a34a55a45dc3-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">9. жаркий → English</span><input type="text" data-a="hot" placeholder="Впиши ответ" autocomplete="off" aria-label="жаркий → English" data-lp-key="levina-wb-26d871bd42ed-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">10. холодный → English</span><input type="text" data-a="cold" placeholder="Впиши ответ" autocomplete="off" aria-label="холодный → English" data-lp-key="levina-wb-1202be995c8e-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">11. тёплый → English</span><input type="text" data-a="warm" placeholder="Впиши ответ" autocomplete="off" aria-label="тёплый → English" data-lp-key="levina-wb-b0d36083d210-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">12. мягкий → English</span><input type="text" data-a="mild" placeholder="Впиши ответ" autocomplete="off" aria-label="мягкий → English" data-lp-key="levina-wb-d403978897cf-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">13. переменчивый → English</span><input type="text" data-a="changeable" placeholder="Впиши ответ" autocomplete="off" aria-label="переменчивый → English" data-lp-key="levina-wb-a79d2883797c-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">14. приятный → English</span><input type="text" data-a="pleasant" placeholder="Впиши ответ" autocomplete="off" aria-label="приятный → English" data-lp-key="levina-wb-8531ae94d471-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">15. пасмурный → English</span><input type="text" data-a="dull" placeholder="Впиши ответ" autocomplete="off" aria-label="пасмурный → English" data-lp-key="levina-wb-3e75b8e94f08-1"></label></div></details></section><section class="ew-block ew-oral"><h3>Устная практика · говори полными предложениями</h3><p>Сначала ответь без подсказки. Затем открой опору и повтори. После каждого блока проверь себя по пунктам; устные ответы не входят в автоматический счётчик.</p><article class="ew-oral-card"><h4>1. Моя семья · have got и принадлежность</h4><p>60–90 секунд. Назови не менее шести родственников, скажи, кто кому кем приходится, опиши двух человек. Используй have got / has got и три формы принадлежности: Wendy’s, children’s, sisters’.</p><ol><li><button type="button" class="play" data-say="Who is in your family? Have you got any siblings?" aria-label="Послушать вопрос"><svg aria-hidden="true"><use href="#ic-play"/></svg></button> Who is in your family? Have you got any siblings?</li><li><button type="button" class="play" data-say="What has your mum or dad got? Describe their appearance." aria-label="Послушать вопрос"><svg aria-hidden="true"><use href="#ic-play"/></svg></button> What has your mum or dad got? Describe their appearance.</li><li><button type="button" class="play" data-say="Whose pet is it? Whose room is it? Whose toys are these?" aria-label="Послушать вопрос"><svg aria-hidden="true"><use href="#ic-play"/></svg></button> Whose pet is it? Whose room is it? Whose toys are these?</li></ol><details><summary>Опора для ответа</summary><p lang="en">I have got … My cousin has got … This is my mother&#x27;s … These are the children&#x27;s … This is my sisters&#x27; …</p></details><p><b>Проверь себя:</b> Назвала шесть родственников; использовала have/has got; показала разницу между одним и несколькими обладателями.</p><label class="ew-oral-done"><input type="checkbox"> Я ответила вслух и проверила себя</label></article><article class="ew-oral-card"><h4>2. Обычно и прямо сейчас · Present Simple / Continuous</h4><p>Сравни обычный вечер своей семьи и то, что каждый делает сейчас. Скажи шесть предложений: три с usually/every day, три с now. Затем задай собеседнику два вопроса.</p><ol><li><button type="button" class="play" data-say="What does your family usually do in the evening?" aria-label="Послушать вопрос"><svg aria-hidden="true"><use href="#ic-play"/></svg></button> What does your family usually do in the evening?</li><li><button type="button" class="play" data-say="What are your parents doing now?" aria-label="Послушать вопрос"><svg aria-hidden="true"><use href="#ic-play"/></svg></button> What are your parents doing now?</li><li><button type="button" class="play" data-say="Does your cousin study English? Is your cousin studying now?" aria-label="Послушать вопрос"><svg aria-hidden="true"><use href="#ic-play"/></svg></button> Does your cousin study English? Is your cousin studying now?</li></ol><details><summary>Опора для ответа</summary><p lang="en">My dad usually …, but now he is … My siblings usually …, but today they are … Does …? Is …?</p></details><p><b>Проверь себя:</b> Три привычки + три действия сейчас; -s/-es после he/she/it; do/does и am/is/are в вопросах.</p><label class="ew-oral-done"><input type="checkbox"> Я ответила вслух и проверила себя</label></article><article class="ew-oral-card"><h4>3. Опыт, результат и процесс · Present Perfect / PPC</h4><p>Ответь на вопросы полными предложениями. Дай два примера опыта, два результата и два длительных процесса. Используй ever/never, already/yet и for/since.</p><ol><li><button type="button" class="play" data-say="Have you ever been to another city with your family?" aria-label="Послушать вопрос"><svg aria-hidden="true"><use href="#ic-play"/></svg></button> Have you ever been to another city with your family?</li><li><button type="button" class="play" data-say="What have you already done today? What haven’t you done yet?" aria-label="Послушать вопрос"><svg aria-hidden="true"><use href="#ic-play"/></svg></button> What have you already done today? What haven’t you done yet?</li><li><button type="button" class="play" data-say="How long have you been learning English? What have you been doing since morning?" aria-label="Послушать вопрос"><svg aria-hidden="true"><use href="#ic-play"/></svg></button> How long have you been learning English? What have you been doing since morning?</li></ol><details><summary>Опора для ответа</summary><p lang="en">I have been to … I have never … I have already … I haven’t … yet. I have been learning … for … / since …</p></details><p><b>Проверь себя:</b> PP для опыта/результата; PPC для процесса; for + длительность, since + начало.</p><label class="ew-oral-done"><input type="checkbox"> Я ответила вслух и проверила себя</label></article><article class="ew-oral-card"><h4>4. Семейное интервью · четыре настоящих времени</h4><p>Ролевая беседа: один человек — интервьюер, другой — участник семейного проекта. Задай четыре вопроса в четырёх настоящих временах. В ответах используй не менее восьми слов из словаря семьи и характера.</p><ol><li><button type="button" class="play" data-say="Who do you live with, and what is your family like?" aria-label="Послушать вопрос"><svg aria-hidden="true"><use href="#ic-play"/></svg></button> Who do you live with, and what is your family like?</li><li><button type="button" class="play" data-say="What is your family doing this week?" aria-label="Послушать вопрос"><svg aria-hidden="true"><use href="#ic-play"/></svg></button> What is your family doing this week?</li><li><button type="button" class="play" data-say="What have you done together this month? How long have you been planning your next family day?" aria-label="Послушать вопрос"><svg aria-hidden="true"><use href="#ic-play"/></svg></button> What have you done together this month? How long have you been planning your next family day?</li></ol><details><summary>Опора для ответа</summary><p lang="en">I live with … My … is kind/strict. This week we are … We have already … We have been planning … since … I know … / I believe …</p></details><p><b>Проверь себя:</b> Все четыре настоящих времени; восемь слов по семье; глаголы состояния без лишнего Continuous.</p><label class="ew-oral-done"><input type="checkbox"> Я ответила вслух и проверила себя</label></article></section><div class="check-row"><span class="score-pill" role="status" aria-live="polite" id="wb-tetrad-score">0 / 143</span><button type="button" class="btn-check" onclick="checkWBPanel('tetrad','wb-tetrad-score')">Проверить ответы</button><button type="button" class="btn-check" onclick="showEWAnswers('tetrad')">Показать ключи</button></div></div><div class="wb-panel" data-panel="urok" role="tabpanel" id="ew-urok" aria-labelledby="ew-tab-urok"><h3>L9 · новое и закрепление · 23 ноября 2026</h3><section class="ew-block ew-route"><h3>Короткий маршрут · 25–35 минут</h3><p><b>Один подход — одна цель.</b> Выбери повторение или L9. Не нужно выполнять весь банк заданий за один раз.</p><ol><li><b>Вспомни · 3 минуты:</b> назови 5 слов без словаря и составь с ними 2 предложения.</li><li><b>Выбери и объясни · 5 минут:</b> ситуации ниже. При затруднении загляни в нужное правило.</li><li><b>Отредактируй · 5 минут:</b> найди причину ошибки, затем перепиши сообщение.</li><li><b>Диктант · 7 минут:</b> слушай → пиши → переслушивай → проверяй.</li><li><b>Скажи сама · 5–10 минут:</b> выбери один устный блок, ответь без опоры, затем улучши ответ.</li></ol><p>Правила, словарь и дополнительные упражнения — ниже. Счётчик в конце учитывает весь банк; ориентир для одного занятия — пройти маршрут, а не заполнить всё.</p></section><section class="ew-block ew-route-task"><h3>2 · Выбери форму по смыслу</h3><p>Прочитай ситуацию. Выбери ответ, затем назови слово или деталь, которая помогла решить. После проверки появится объяснение.</p><article class="ew-scene"><h4>История из двух кадров</h4><label class="wb-grm-tile"><span class="wb-grm-q">I ___ home when the rain started. The walk was already in progress.</span><select data-a="was walking" data-note="Фон в прошлом, уже шедший процесс: was walking. Короткое событие: the rain started." aria-label="I ___ home when the rain started. The walk was already in progress." data-lp-key="levina-wb-adeb85f7891d-1"><option value="">Выбери и объясни почему</option><option>walked</option><option>was walking</option><option>have walked</option></select></label></article><article class="ew-scene"><h4>Что произошло потом?</h4><label class="wb-grm-tile"><span class="wb-grm-q">The phone rang while I was packing. I stopped packing and ___ it.</span><select data-a="answered" data-note="Последовательное завершённое событие после звонка: Past Simple." aria-label="The phone rang while I was packing. I stopped packing and ___ it." data-lp-key="levina-wb-57ef6f3d1742-1"><option value="">Выбери и объясни почему</option><option>was answering</option><option>answered</option><option>have answered</option></select></label></article><article class="ew-scene"><h4>Раньше, но больше нет</h4><label class="wb-grm-tile"><span class="wb-grm-q">The river does not freeze in November now, but it ___ in November when Grandma was young.</span><select data-a="used to freeze" data-note="Речь о прежней повторявшейся ситуации, которая изменилась: used to + V." aria-label="The river does not freeze in November now, but it ___ in November when Grandma was young." data-lp-key="levina-wb-7321d89815cf-1"><option value="">Выбери и объясни почему</option><option>is freezing</option><option>has frozen</option><option>used to freeze</option></select></label></article><article class="ew-scene"><h4>Посмотри на небо</h4><label class="wb-grm-tile"><span class="wb-grm-q">“Look at those black clouds! It ___.”</span><select data-a="is going to rain" data-note="Прогноз по видимым признакам прямо сейчас: be going to." aria-label="“Look at those black clouds! It ___.”" data-lp-key="levina-wb-8f54893e445c-1"><option value="">Выбери и объясни почему</option><option>rains</option><option>is going to rain</option><option>has rained</option></select></label></article><article class="ew-scene"><h4>Договорённость и расписание</h4><label class="wb-grm-tile"><span class="wb-grm-q">“We have booked the tickets. We ___ at the station at ten.”</span><select data-a="are meeting" data-note="Есть договорённость с конкретным временем: Present Continuous для будущего." aria-label="“We have booked the tickets. We ___ at the station at ten.”" data-lp-key="levina-wb-c19ffb16266e-1"><option value="">Выбери и объясни почему</option><option>meet every day</option><option>are meeting</option><option>have met</option></select></label></article><article class="ew-scene"><h4>Погода последних часов</h4><label class="wb-grm-tile"><span class="wb-grm-q">The rain started at eight and it is still raining. It ___ since eight.</span><select data-a="has been raining" data-note="Процесс от восьми часов до настоящего момента: has been raining + since." aria-label="The rain started at eight and it is still raining. It ___ since eight." data-lp-key="levina-wb-7a5d7baf296a-1"><option value="">Выбери и объясни почему</option><option>rained</option><option>is going to rain</option><option>has been raining</option></select></label></article><button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Проверить этот блок</button><p class="ew-local-score" role="status" aria-live="polite"></p></section><section class="ew-block ew-route-task"><h3>3 · Редактор сообщений</h3><p>В каждом сообщении одна целевая ошибка. Перепиши предложение целиком, исправив её. Объясни исправление вслух.</p><div class="wb-grm-grid"><label class="wb-grm-tile"><span class="wb-grm-q">Yesterday it has rained all day.</span><input type="text" data-a="Yesterday it rained all day." data-note="Yesterday — завершённое прошлое: Past Simple." placeholder="Впиши ответ" autocomplete="off" aria-label="Yesterday it has rained all day." data-lp-key="levina-wb-bdcefca7b0e6-1"></label><label class="wb-grm-tile"><span class="wb-grm-q">While I was walk home, the storm suddenly started.</span><input type="text" data-a="While I was walking home, the storm suddenly started." data-note="В этой ситуации прогулка — длительный фон для начала бури." placeholder="Впиши ответ" autocomplete="off" aria-label="While I was walk home, the storm suddenly started." data-lp-key="levina-wb-8f58aba68063-1"></label><label class="wb-grm-tile"><span class="wb-grm-q">She did not used to wear wellies.</span><input type="text" data-a="She did not use to wear wellies.|She didn’t use to wear wellies." data-note="После did not — use to, без -d." placeholder="Впиши ответ" autocomplete="off" aria-label="She did not used to wear wellies." data-lp-key="levina-wb-6a02284fa717-1"></label><label class="wb-grm-tile"><span class="wb-grm-q">The train leave at six tomorrow.</span><input type="text" data-a="The train leaves at six tomorrow." data-note="Расписание: Present Simple; the train = it → leaves." placeholder="Впиши ответ" autocomplete="off" aria-label="The train leave at six tomorrow." data-lp-key="levina-wb-e725d83b053d-1"></label><label class="wb-grm-tile"><span class="wb-grm-q">It has been rain for three hours.</span><input type="text" data-a="It has been raining for three hours." data-note="PPC: has been + raining." placeholder="Впиши ответ" autocomplete="off" aria-label="It has been rain for three hours." data-lp-key="levina-wb-bef7068ec10b-1"></label></div><button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Проверить этот блок</button><p class="ew-local-score" role="status" aria-live="polite"></p></section><section class="ew-block ew-dictation ew-route-task"><h3>4 · Диктант · от короткой фразы к предложению</h3><p>1. Послушай целиком, не записывая. 2. Послушай ещё раз и запиши. 3. Переслушай и проверь окончания, вспомогательные глаголы и апострофы. Потом нажми «Проверить этот блок». Повторять запись можно без ограничения.</p><p class="ew-audio-status" role="status" aria-live="polite"></p><article class="ew-dict-item"><h4>Фраза 1</h4><div class="ew-audio-buttons"><button type="button" class="play" data-rate="0.95" data-say="Yesterday it rained all day." aria-label="Фраза 1, Послушать"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Послушать</span></button><button type="button" class="play" data-rate="0.72" data-say="Yesterday it rained all day." aria-label="Фраза 1, Медленнее"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Медленнее</span></button></div><label class="wb-grm-tile"><span class="wb-grm-q">Запиши фразу 1 целиком</span><input type="text" data-a="Yesterday it rained all day." data-note="Сверь смысл, порядок слов, вспомогательный глагол и окончание. Прослушай ещё раз перед исправлением." placeholder="Впиши ответ" autocomplete="off" aria-label="Запиши фразу 1 целиком" data-lp-key="levina-wb-488db390c447-1"></label></article><article class="ew-dict-item"><h4>Фраза 2</h4><div class="ew-audio-buttons"><button type="button" class="play" data-rate="0.95" data-say="I was walking home when the storm started." aria-label="Фраза 2, Послушать"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Послушать</span></button><button type="button" class="play" data-rate="0.72" data-say="I was walking home when the storm started." aria-label="Фраза 2, Медленнее"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Медленнее</span></button></div><label class="wb-grm-tile"><span class="wb-grm-q">Запиши фразу 2 целиком</span><input type="text" data-a="I was walking home when the storm started." data-note="Сверь смысл, порядок слов, вспомогательный глагол и окончание. Прослушай ещё раз перед исправлением." placeholder="Впиши ответ" autocomplete="off" aria-label="Запиши фразу 2 целиком" data-lp-key="levina-wb-ddd9f1947afd-1"></label></article><article class="ew-dict-item"><h4>Фраза 3</h4><div class="ew-audio-buttons"><button type="button" class="play" data-rate="0.95" data-say="My grandma used to wear a woolly jumper." aria-label="Фраза 3, Послушать"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Послушать</span></button><button type="button" class="play" data-rate="0.72" data-say="My grandma used to wear a woolly jumper." aria-label="Фраза 3, Медленнее"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Медленнее</span></button></div><label class="wb-grm-tile"><span class="wb-grm-q">Запиши фразу 3 целиком</span><input type="text" data-a="My grandma used to wear a woolly jumper." data-note="Сверь смысл, порядок слов, вспомогательный глагол и окончание. Прослушай ещё раз перед исправлением." placeholder="Впиши ответ" autocomplete="off" aria-label="Запиши фразу 3 целиком" data-lp-key="levina-wb-b8e4b2538d23-1"></label></article><article class="ew-dict-item"><h4>Фраза 4</h4><div class="ew-audio-buttons"><button type="button" class="play" data-rate="0.95" data-say="It has been raining since this morning." aria-label="Фраза 4, Послушать"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Послушать</span></button><button type="button" class="play" data-rate="0.72" data-say="It has been raining since this morning." aria-label="Фраза 4, Медленнее"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Медленнее</span></button></div><label class="wb-grm-tile"><span class="wb-grm-q">Запиши фразу 4 целиком</span><input type="text" data-a="It has been raining since this morning." data-note="Сверь смысл, порядок слов, вспомогательный глагол и окончание. Прослушай ещё раз перед исправлением." placeholder="Впиши ответ" autocomplete="off" aria-label="Запиши фразу 4 целиком" data-lp-key="levina-wb-0f5c4c02ce03-1"></label></article><article class="ew-dict-item"><h4>Фраза 5</h4><div class="ew-audio-buttons"><button type="button" class="play" data-rate="0.95" data-say="Look at those clouds. It is going to rain." aria-label="Фраза 5, Послушать"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Послушать</span></button><button type="button" class="play" data-rate="0.72" data-say="Look at those clouds. It is going to rain." aria-label="Фраза 5, Медленнее"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Медленнее</span></button></div><label class="wb-grm-tile"><span class="wb-grm-q">Запиши фразу 5 целиком</span><input type="text" data-a="Look at those clouds. It is going to rain." data-note="Сверь смысл, порядок слов, вспомогательный глагол и окончание. Прослушай ещё раз перед исправлением." placeholder="Впиши ответ" autocomplete="off" aria-label="Запиши фразу 5 целиком" data-lp-key="levina-wb-0b5fcb173396-1"></label></article><article class="ew-dict-item"><h4>Фраза 6</h4><div class="ew-audio-buttons"><button type="button" class="play" data-rate="0.95" data-say="I am meeting my cousin at six tomorrow." aria-label="Фраза 6, Послушать"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Послушать</span></button><button type="button" class="play" data-rate="0.72" data-say="I am meeting my cousin at six tomorrow." aria-label="Фраза 6, Медленнее"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Медленнее</span></button></div><label class="wb-grm-tile"><span class="wb-grm-q">Запиши фразу 6 целиком</span><input type="text" data-a="I am meeting my cousin at six tomorrow." data-note="Сверь смысл, порядок слов, вспомогательный глагол и окончание. Прослушай ещё раз перед исправлением." placeholder="Впиши ответ" autocomplete="off" aria-label="Запиши фразу 6 целиком" data-lp-key="levina-wb-fb9f3c07c3d4-1"></label></article><button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Проверить этот блок</button><p class="ew-local-score" role="status" aria-live="polite"></p><details><summary>Как работаешь после проверки</summary><p>Выбери две ошибки, объясни их, затем произнеси правильные предложения по памяти. Не переписывай ключ механически.</p></details></section><section class="ew-block ew-reference"><h3>Past Simple · НОВОЕ L9</h3><p>Завершённое прошлое: V2 / V-ed. Отрицание: didn’t + V; вопрос: Did + подлежащее + V? be → was/were; вопрос и отрицание без did. Маркеры: yesterday, last August, in 2020.</p><details class="ew-extra"><summary>Дополнительная тренировка формы</summary><div class="wb-grm-grid"><label class="wb-grm-tile"><span class="wb-grm-q">1. Last August we ___ our holiday in Sochi. (spend)</span><input type="text" data-a="spent" placeholder="Впиши ответ" autocomplete="off" aria-label="Last August we ___ our holiday in Sochi. (spend)" data-lp-key="levina-wb-8638e9b501af-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">2. Yesterday it ___ all day. (rain)</span><input type="text" data-a="rained" placeholder="Впиши ответ" autocomplete="off" aria-label="Yesterday it ___ all day. (rain)" data-lp-key="levina-wb-60790e5d0d26-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">3. She ___ the forecast yesterday. (not / watch)</span><input type="text" data-a="did not watch|didn&#x27;t watch" placeholder="Впиши ответ" autocomplete="off" aria-label="She ___ the forecast yesterday. (not / watch)" data-lp-key="levina-wb-bdcc86d4ad33-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">4. ___ you visit your aunt yesterday?</span><input type="text" data-a="Did" placeholder="Впиши ответ" autocomplete="off" aria-label="___ you visit your aunt yesterday?" data-lp-key="levina-wb-0ba3b36e55f9-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">5. At seven yesterday it ___ dark. (be)</span><input type="text" data-a="was" placeholder="Впиши ответ" autocomplete="off" aria-label="At seven yesterday it ___ dark. (be)" data-lp-key="levina-wb-f4bb980c05d7-1"></label></div></details></section>
-<section class="ew-block ew-reference"><h3>Past Continuous · Past Simple + Continuous · НОВОЕ L9</h3><p>Процесс в момент прошлого: was/were + V-ing. Длительный фон + короткое событие: While I was walking, the wind started. Вопрос: Was/Were + подлежащее + V-ing?</p><details class="ew-extra"><summary>Дополнительная тренировка формы</summary><div class="wb-grm-grid"><label class="wb-grm-tile"><span class="wb-grm-q">1. At five yesterday the children ___. (play)</span><input type="text" data-a="were playing" placeholder="Впиши ответ" autocomplete="off" aria-label="At five yesterday the children ___. (play)" data-lp-key="levina-wb-a62e8b348937-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">2. What ___ you doing at five?</span><input type="text" data-a="were" placeholder="Впиши ответ" autocomplete="off" aria-label="What ___ you doing at five?" data-lp-key="levina-wb-74d74bfd09f1-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">3. While I ___ to school, the wind started. (walk)</span><input type="text" data-a="was walking" placeholder="Впиши ответ" autocomplete="off" aria-label="While I ___ to school, the wind started. (walk)" data-lp-key="levina-wb-2986df59d5c4-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">4. When the storm began, the children ___ a snowman. (build)</span><input type="text" data-a="were building" placeholder="Впиши ответ" autocomplete="off" aria-label="When the storm began, the children ___ a snowman. (build)" data-lp-key="levina-wb-ef55c754d015-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">5. She was watching TV when the phone ___. (ring)</span><input type="text" data-a="rang" placeholder="Впиши ответ" autocomplete="off" aria-label="She was watching TV when the phone ___. (ring)" data-lp-key="levina-wb-f8fe892068ce-1"></label></div></details></section>
-<section class="ew-block ew-reference"><h3>used to · НОВОЕ L9</h3><p>Прежняя привычка или состояние, которых больше нет: used to + V. Отрицание: didn’t use to + V. Вопрос: Did + подлежащее + use to + V? Не путай с be used to — это другая конструкция.</p><details class="ew-extra"><summary>Дополнительная тренировка формы</summary><div class="wb-grm-grid"><label class="wb-grm-tile"><span class="wb-grm-q">1. Moscow ___ more snow. (раньше было больше снега)</span><input type="text" data-a="used to have" placeholder="Впиши ответ" autocomplete="off" aria-label="Moscow ___ more snow. (раньше было больше снега)" data-lp-key="levina-wb-6f9c97ba2c27-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">2. The river ___ in November. (раньше замерзала)</span><input type="text" data-a="used to freeze" placeholder="Впиши ответ" autocomplete="off" aria-label="The river ___ in November. (раньше замерзала)" data-lp-key="levina-wb-7606ecdacae6-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">3. People ___ fridges 100 years ago. (not / use to have)</span><input type="text" data-a="did not use to have|didn&#x27;t use to have" placeholder="Впиши ответ" autocomplete="off" aria-label="People ___ fridges 100 years ago. (not / use to have)" data-lp-key="levina-wb-4b35320e22fc-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">4. Did winters ___ colder? (use to be)</span><input type="text" data-a="use to be" placeholder="Впиши ответ" autocomplete="off" aria-label="Did winters ___ colder? (use to be)" data-lp-key="levina-wb-c223976f4271-1"></label></div></details></section>
-<section class="ew-block ew-reference"><h3>PPC на погоде · L9 закрепление</h3><p>It has been raining for three hours — дождь идёт уже три часа. The wind has been blowing since morning. Процесс начался раньше и продолжается сейчас либо только закончился с видимым результатом.</p><details class="ew-extra"><summary>Дополнительная тренировка формы</summary><div class="wb-grm-grid"><label class="wb-grm-tile"><span class="wb-grm-q">1. It ___ for three hours. (rain)</span><input type="text" data-a="has been raining" placeholder="Впиши ответ" autocomplete="off" aria-label="It ___ for three hours. (rain)" data-lp-key="levina-wb-2097b781ce4c-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">2. The wind ___ since morning. (blow)</span><input type="text" data-a="has been blowing" placeholder="Впиши ответ" autocomplete="off" aria-label="The wind ___ since morning. (blow)" data-lp-key="levina-wb-686c880078d2-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">3. We ___ the forecast for ten minutes. (watch)</span><input type="text" data-a="have been watching" placeholder="Впиши ответ" autocomplete="off" aria-label="We ___ the forecast for ten minutes. (watch)" data-lp-key="levina-wb-896ce92d2cd6-1"></label></div></details></section>
-<section class="ew-block ew-reference"><h3>Четыре способа говорить о будущем · L9 закрепление</h3><p>will + V: прогноз/решение сейчас. be going to + V: намерение или прогноз по видимым признакам. Present Continuous: договорённость с конкретным временем. Present Simple: расписание. Эти формы есть в погодном материале L8; здесь закрепляем.</p><details class="ew-extra"><summary>Дополнительная тренировка формы</summary><div class="wb-grm-grid"><label class="wb-grm-tile"><span class="wb-grm-q">1. I think it ___ sunny tomorrow. (will / be)</span><input type="text" data-a="will be" placeholder="Впиши ответ" autocomplete="off" aria-label="I think it ___ sunny tomorrow. (will / be)" data-lp-key="levina-wb-11f6e2fb346f-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">2. Look at those black clouds! It ___. (going to / rain)</span><input type="text" data-a="is going to rain" placeholder="Впиши ответ" autocomplete="off" aria-label="Look at those black clouds! It ___. (going to / rain)" data-lp-key="levina-wb-385e05623f91-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">3. I ___ Katie at ten on Saturday. We have arranged it. (meet)</span><input type="text" data-a="am meeting" placeholder="Впиши ответ" autocomplete="off" aria-label="I ___ Katie at ten on Saturday. We have arranged it. (meet)" data-lp-key="levina-wb-c20ce4673fa7-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">4. The train ___ at 06:45 tomorrow. (leave, расписание)</span><input type="text" data-a="leaves" placeholder="Впиши ответ" autocomplete="off" aria-label="The train ___ at 06:45 tomorrow. (leave, расписание)" data-lp-key="levina-wb-29ad05763242-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">5. I have decided: I ___ an anorak. (going to / buy)</span><input type="text" data-a="am going to buy" placeholder="Впиши ответ" autocomplete="off" aria-label="I have decided: I ___ an anorak. (going to / buy)" data-lp-key="levina-wb-b726e118fb7b-1"></label></div></details></section>
-<section class="ew-block ew-reference"><h3>L9 · погодные явления</h3><details><summary>Словарь · английский и перевод</summary><table class="ew-vocab"><thead><tr><th>English</th><th>Русский</th></tr></thead><tbody><tr><th scope="row">lightning</th><td>молния</td></tr><tr><th scope="row">thunder</th><td>гром</td></tr><tr><th scope="row">rainbow</th><td>радуга</td></tr><tr><th scope="row">shower</th><td>кратковременный дождь</td></tr><tr><th scope="row">breeze</th><td>бриз</td></tr><tr><th scope="row">hail</th><td>град</td></tr><tr><th scope="row">drizzle</th><td>морось</td></tr><tr><th scope="row">sleet</th><td>снег с дождём</td></tr><tr><th scope="row">mist</th><td>дымка</td></tr></tbody></table></details><details class="ew-extra"><summary>Дополнительная тренировка формы</summary><div class="wb-grm-grid"><label class="wb-grm-tile"><span class="wb-grm-q">1. молния → English</span><input type="text" data-a="lightning" placeholder="Впиши ответ" autocomplete="off" aria-label="молния → English" data-lp-key="levina-wb-79930289fcb1-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">2. гром → English</span><input type="text" data-a="thunder" placeholder="Впиши ответ" autocomplete="off" aria-label="гром → English" data-lp-key="levina-wb-10e5d48a5029-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">3. радуга → English</span><input type="text" data-a="rainbow" placeholder="Впиши ответ" autocomplete="off" aria-label="радуга → English" data-lp-key="levina-wb-1d6fa443cf79-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">4. кратковременный дождь → English</span><input type="text" data-a="shower" placeholder="Впиши ответ" autocomplete="off" aria-label="кратковременный дождь → English" data-lp-key="levina-wb-8a2217f03065-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">5. бриз → English</span><input type="text" data-a="breeze" placeholder="Впиши ответ" autocomplete="off" aria-label="бриз → English" data-lp-key="levina-wb-1f912c57c99e-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">6. град → English</span><input type="text" data-a="hail" placeholder="Впиши ответ" autocomplete="off" aria-label="град → English" data-lp-key="levina-wb-5be693705d22-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">7. морось → English</span><input type="text" data-a="drizzle" placeholder="Впиши ответ" autocomplete="off" aria-label="морось → English" data-lp-key="levina-wb-4765688e0da4-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">8. снег с дождём → English</span><input type="text" data-a="sleet" placeholder="Впиши ответ" autocomplete="off" aria-label="снег с дождём → English" data-lp-key="levina-wb-7854e6a2bdd3-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">9. дымка → English</span><input type="text" data-a="mist" placeholder="Впиши ответ" autocomplete="off" aria-label="дымка → English" data-lp-key="levina-wb-dab1b99d1c53-1"></label></div></details></section>
-<section class="ew-block ew-reference"><h3>L9 · экология и климат</h3><details><summary>Словарь · английский и перевод</summary><table class="ew-vocab"><thead><tr><th>English</th><th>Русский</th></tr></thead><tbody><tr><th scope="row">factory</th><td>завод</td></tr><tr><th scope="row">harm</th><td>вредить</td></tr><tr><th scope="row">protect</th><td>защищать</td></tr><tr><th scope="row">greenhouse effect</th><td>парниковый эффект</td></tr><tr><th scope="row">pollution</th><td>загрязнение</td></tr><tr><th scope="row">drought</th><td>засуха</td></tr><tr><th scope="row">heatwave</th><td>волна жары</td></tr><tr><th scope="row">flood</th><td>наводнение</td></tr><tr><th scope="row">climate</th><td>климат</td></tr></tbody></table></details><details class="ew-extra"><summary>Дополнительная тренировка формы</summary><div class="wb-grm-grid"><label class="wb-grm-tile"><span class="wb-grm-q">1. завод → English</span><input type="text" data-a="factory" placeholder="Впиши ответ" autocomplete="off" aria-label="завод → English" data-lp-key="levina-wb-f15f3323ad4d-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">2. вредить → English</span><input type="text" data-a="harm" placeholder="Впиши ответ" autocomplete="off" aria-label="вредить → English" data-lp-key="levina-wb-2aabe20d19b6-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">3. защищать → English</span><input type="text" data-a="protect" placeholder="Впиши ответ" autocomplete="off" aria-label="защищать → English" data-lp-key="levina-wb-077bc0bfada3-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">4. парниковый эффект → English</span><input type="text" data-a="greenhouse effect" placeholder="Впиши ответ" autocomplete="off" aria-label="парниковый эффект → English" data-lp-key="levina-wb-952d0a554584-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">5. загрязнение → English</span><input type="text" data-a="pollution" placeholder="Впиши ответ" autocomplete="off" aria-label="загрязнение → English" data-lp-key="levina-wb-196f324904c1-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">6. засуха → English</span><input type="text" data-a="drought" placeholder="Впиши ответ" autocomplete="off" aria-label="засуха → English" data-lp-key="levina-wb-03c2aed4b943-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">7. волна жары → English</span><input type="text" data-a="heatwave" placeholder="Впиши ответ" autocomplete="off" aria-label="волна жары → English" data-lp-key="levina-wb-0aaef9694ae3-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">8. наводнение → English</span><input type="text" data-a="flood" placeholder="Впиши ответ" autocomplete="off" aria-label="наводнение → English" data-lp-key="levina-wb-c6409269bad0-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">9. климат → English</span><input type="text" data-a="climate" placeholder="Впиши ответ" autocomplete="off" aria-label="климат → English" data-lp-key="levina-wb-68172886705f-1"></label></div></details></section>
-<section class="ew-block ew-reference"><h3>L9 · одежда</h3><details><summary>Словарь · английский и перевод</summary><table class="ew-vocab"><thead><tr><th>English</th><th>Русский</th></tr></thead><tbody><tr><th scope="row">anorak</th><td>куртка с капюшоном</td></tr><tr><th scope="row">wellies</th><td>резиновые сапоги</td></tr><tr><th scope="row">raincoat</th><td>дождевик</td></tr><tr><th scope="row">scarf</th><td>шарф</td></tr><tr><th scope="row">mittens</th><td>варежки</td></tr><tr><th scope="row">gloves</th><td>перчатки</td></tr><tr><th scope="row">woolly jumper</th><td>шерстяной свитер</td></tr><tr><th scope="row">sunglasses</th><td>солнцезащитные очки</td></tr></tbody></table></details><details class="ew-extra"><summary>Дополнительная тренировка формы</summary><div class="wb-grm-grid"><label class="wb-grm-tile"><span class="wb-grm-q">1. куртка с капюшоном → English</span><input type="text" data-a="anorak" placeholder="Впиши ответ" autocomplete="off" aria-label="куртка с капюшоном → English" data-lp-key="levina-wb-81436358b5e5-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">2. резиновые сапоги → English</span><input type="text" data-a="wellies" placeholder="Впиши ответ" autocomplete="off" aria-label="резиновые сапоги → English" data-lp-key="levina-wb-96b1eb792b5f-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">3. дождевик → English</span><input type="text" data-a="raincoat" placeholder="Впиши ответ" autocomplete="off" aria-label="дождевик → English" data-lp-key="levina-wb-67e5e54f3213-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">4. шарф → English</span><input type="text" data-a="scarf" placeholder="Впиши ответ" autocomplete="off" aria-label="шарф → English" data-lp-key="levina-wb-cb8fdc6f25b9-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">5. варежки → English</span><input type="text" data-a="mittens" placeholder="Впиши ответ" autocomplete="off" aria-label="варежки → English" data-lp-key="levina-wb-afecf6cd14ef-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">6. перчатки → English</span><input type="text" data-a="gloves" placeholder="Впиши ответ" autocomplete="off" aria-label="перчатки → English" data-lp-key="levina-wb-f09cf4867efd-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">7. шерстяной свитер → English</span><input type="text" data-a="woolly jumper" placeholder="Впиши ответ" autocomplete="off" aria-label="шерстяной свитер → English" data-lp-key="levina-wb-307b457bd930-1"></label>
-<label class="wb-grm-tile"><span class="wb-grm-q">8. солнцезащитные очки → English</span><input type="text" data-a="sunglasses" placeholder="Впиши ответ" autocomplete="off" aria-label="солнцезащитные очки → English" data-lp-key="levina-wb-42ec34f88f1f-1"></label></div></details></section>
-<section class="ew-block ew-reference"><h3>Города, регионы и пословицы · L9</h3><p>Сравни два города и два региона по температуре, осадкам и сезонам. Карточки всех городов и регионов — ниже. Напиши по четыре предложения, используя настоящее, прошедшее и будущее.</p><details><summary>Шесть городов</summary><div class="cities-grid"><div class="city-card">
-        <div class="city-name"><span class="flag">🇷🇺</span>Moscow</div>
-        <div class="city-sub">Continental · changeable</div>
-        <dl>
-          <dt>Summer</dt><dd>Hot, often plus twenty-five to thirty, sometimes thunderstorms</dd>
-          <dt>Winter</dt><dd>Cold and snowy, about minus ten; sometimes minus twenty-five</dd>
-          <dt>Best for a visit</dt><dd>Late May to early September</dd>
-        </dl>
-        <span class="play" data-say="In Moscow the climate is continental. Summers are hot and winters are cold and snowy. In January the temperature is usually about minus ten degrees."><svg><use href="#ic-play"/></svg></span>
-      </div><div class="city-card">
-        <div class="city-name"><span class="flag">🇷🇺</span>St Petersburg</div>
-        <div class="city-sub">Wet · cool · often cloudy</div>
-        <dl>
-          <dt>Summer</dt><dd>Cool, plus twenty on average, white nights in June</dd>
-          <dt>Winter</dt><dd>Grey, wet, about minus five, lots of dull days</dd>
-          <dt>Best for a visit</dt><dd>June (white nights) and late August</dd>
-        </dl>
-        <span class="play" data-say="In St Petersburg the climate is wet and often cloudy. Summers are cool and winters are grey and wet. In July the temperature is usually about plus twenty degrees."><svg><use href="#ic-play"/></svg></span>
-      </div><div class="city-card">
-        <div class="city-name"><span class="flag">🇷🇺</span>Sochi</div>
-        <div class="city-sub">Subtropical · mild · warm all year</div>
-        <dl>
-          <dt>Summer</dt><dd>Hot and humid, plus twenty-eight, sea is warm</dd>
-          <dt>Winter</dt><dd>Mild, above zero even in January, rarely snows</dd>
-          <dt>Best for a visit</dt><dd>June–September for the sea, March for flowers</dd>
-        </dl>
-        <span class="play" data-say="In Sochi the climate is subtropical and mild. Summers are hot and winters are warm — above zero even in January."><svg><use href="#ic-play"/></svg></span>
-      </div><div class="city-card">
-        <div class="city-name"><span class="flag">🇬🇧</span>London</div>
-        <div class="city-sub">Mild · changeable · wet</div>
-        <dl>
-          <dt>Summer</dt><dd>Warm and often sunny, plus twenty-two, occasional showers</dd>
-          <dt>Winter</dt><dd>Mild — plus five to plus ten — rarely snows</dd>
-          <dt>Best for a visit</dt><dd>May, June, and September</dd>
-        </dl>
-        <span class="play" data-say="In London the climate is mild and changeable. Summers are warm and sunny, and winters are mild — it rarely snows in the city."><svg><use href="#ic-play"/></svg></span>
-      </div><div class="city-card">
-        <div class="city-name"><span class="flag">🏴󠁧󠁢󠁳󠁣󠁴󠁿</span>Edinburgh</div>
-        <div class="city-sub">Wet · cool · very windy</div>
-        <dl>
-          <dt>Summer</dt><dd>Cool, plus sixteen, frequent light rain</dd>
-          <dt>Winter</dt><dd>Cold and windy, about plus three, sometimes snow</dd>
-          <dt>Best for a visit</dt><dd>August (Edinburgh Festival)</dd>
-        </dl>
-        <span class="play" data-say="In Edinburgh the climate is wet and cool. Summers are only about sixteen degrees and winters are cold and very windy."><svg><use href="#ic-play"/></svg></span>
-      </div><div class="city-card">
-        <div class="city-name"><span class="flag">🇦🇺</span>Sydney</div>
-        <div class="city-sub">Mild · sunny · opposite seasons!</div>
-        <dl>
-          <dt>Summer (Dec–Feb)</dt><dd>Hot, plus twenty-eight, perfect beach weather</dd>
-          <dt>Winter (Jun–Aug)</dt><dd>Mild, about plus seventeen, sunny most days</dd>
-          <dt>Best for a visit</dt><dd>October–April, when Russia has winter</dd>
-        </dl>
-        <span class="play" data-say="In Sydney the climate is mild and sunny. Remember — when it is winter in Moscow, it is summer in Sydney, because Sydney is in the Southern Hemisphere."><svg><use href="#ic-play"/></svg></span>
-      </div></div></details><details><summary>Шесть регионов</summary><div class="cities-grid"><div class="region-card">
-        <div class="reg-name"><span class="emo">🏠</span>Your place · Moscow region</div>
-        <div class="reg-sub">Temperate · continental · four real seasons</div>
-        <dl>
-          <dt>Winter</dt><dd>−10 °C average, snow from November to March, rivers freeze</dd>
-          <dt>Summer</dt><dd>+22 °C average, hot peaks of +30 °C, afternoon thunderstorms</dd>
-          <dt>Problem</dt><dd>Heatwaves in July are getting more common every decade</dd>
-        </dl>
-        <span class="play" data-say="In the Moscow region the climate is temperate and continental. There are four very different seasons. Winters are cold and snowy, summers are warm and sometimes hot."><svg><use href="#ic-play"/></svg></span>
-      </div><div class="region-card">
-        <div class="reg-name"><span class="emo">🇬🇧</span>London / Southern England</div>
-        <div class="reg-sub">Mild · wet · changeable · no real extremes</div>
-        <dl>
-          <dt>Winter</dt><dd>+5 °C average, rarely below zero, snow lasts half a day</dd>
-          <dt>Summer</dt><dd>+22 °C average, long twilights, showers every few days</dd>
-          <dt>Problem</dt><dd>Grey skies for weeks; locals talk about the weather constantly</dd>
-        </dl>
-        <span class="play" data-say="In Southern England the climate is mild and wet. Winters are not really cold and summers are not really hot — the weather is almost always changeable."><svg><use href="#ic-play"/></svg></span>
-      </div><div class="region-card">
-        <div class="reg-name"><span class="emo">🌴</span>Florida · USA south-east</div>
-        <div class="reg-sub">Subtropical · humid · hot all year</div>
-        <dl>
-          <dt>Winter</dt><dd>+20 °C, plenty of sunshine, almost never freezes</dd>
-          <dt>Summer</dt><dd>+32 °C, humid, afternoon storms almost every day</dd>
-          <dt>Problem</dt><dd>Hurricanes from June to November — strong wind and heavy rain</dd>
-        </dl>
-        <span class="play" data-say="In Florida the climate is subtropical and humid. Winters are warm and sunny, and summers are hot and stormy. Hurricanes can be dangerous."><svg><use href="#ic-play"/></svg></span>
-      </div><div class="region-card">
-        <div class="reg-name"><span class="emo">🧊</span>The North Pole · Arctic</div>
-        <div class="reg-sub">Polar · severe · frozen ocean</div>
-        <dl>
-          <dt>Winter</dt><dd>−30 °C average, polar night (sun does not rise)</dd>
-          <dt>Summer</dt><dd>0 °C, polar day (sun does not set), ice begins to melt</dd>
-          <dt>Problem</dt><dd>Ice is shrinking fast because of the greenhouse effect</dd>
-        </dl>
-        <span class="play" data-say="At the North Pole the climate is polar and severe. In winter the temperature is often minus thirty degrees and the sun does not rise for weeks."><svg><use href="#ic-play"/></svg></span>
-      </div><div class="region-card">
-        <div class="reg-name"><span class="emo">🍇</span>The Crimea · Black Sea coast</div>
-        <div class="reg-sub">Subtropical / Mediterranean · dry summers</div>
-        <dl>
-          <dt>Winter</dt><dd>+5 °C, mild, snow is rare on the coast</dd>
-          <dt>Summer</dt><dd>+28 °C, dry and sunny, perfect beach weather</dd>
-          <dt>Problem</dt><dd>Water shortages in late summer</dd>
-        </dl>
-        <span class="play" data-say="In the Crimea on the Black Sea coast the climate is mild and almost Mediterranean. Summers are hot and dry, and winters are cool but rarely freezing."><svg><use href="#ic-play"/></svg></span>
-      </div><div class="region-card">
-        <div class="reg-name"><span class="emo">🌵</span>South America · Amazon &amp; Patagonia</div>
-        <div class="reg-sub">Tropical north · cool windy south · opposite seasons</div>
-        <dl>
-          <dt>North (Amazon)</dt><dd>+28 °C all year, very wet, rainforest climate</dd>
-          <dt>South (Patagonia)</dt><dd>+10 °C summer, strong wind all year</dd>
-          <dt>Remember</dt><dd>January is summer, July is winter — the hemispheres are flipped</dd>
-        </dl>
-        <span class="play" data-say="South America has two very different climates. The Amazon in the north is hot and wet all year. Patagonia in the south is cool and windy, and the seasons are opposite to ours."><svg><use href="#ic-play"/></svg></span>
-      </div></div></details><label>Моё сравнение<textarea class="ew-writing" aria-label="Моё сравнение городов и регионов" placeholder="In … the climate is … Last winter … Tomorrow …"></textarea></label><h4>Пословицы из урока</h4><ul><li>"Rainbow at night, sailor's delight.<br>Rainbow at morning, sailor take warning."</li><li>"Red sky at night, sailor's delight.<br>Red sky at morning, sailor take warning."</li><li>"If bees stay at home,<br>rain will soon come.<br>If they fly away,<br>fine will be the day."</li><li>"When the days begin to lengthen,<br>then the cold begins to strengthen."</li><li>"Evening red and morning grey,<br>are the signs of a bonny day."</li></ul><label>Выбери две пословицы и объясни их смысл<textarea class="ew-writing" aria-label="Объяснение пословиц"></textarea></label></section><section class="ew-block ew-oral"><h3>Устная практика · говори полными предложениями</h3><p>Сначала ответь без подсказки. Затем открой опору и повтори. После каждого блока проверь себя по пунктам; устные ответы не входят в автоматический счётчик.</p><article class="ew-oral-card"><h4>5. Рассказ о непогоде · Past Simple / Continuous</h4><p>Расскажи о реальном или вымышленном ненастном дне. Начни с времени и места. Дай фон, короткое событие, реакцию и результат. Используй минимум четыре слова: thunder, lightning, shower, hail, drizzle, sleet, mist, breeze.</p><ol><li><button type="button" class="play" data-say="Where were you, and what was the weather like?" aria-label="Послушать вопрос"><svg aria-hidden="true"><use href="#ic-play"/></svg></button> Where were you, and what was the weather like?</li><li><button type="button" class="play" data-say="What were you doing when the weather changed?" aria-label="Послушать вопрос"><svg aria-hidden="true"><use href="#ic-play"/></svg></button> What were you doing when the weather changed?</li><li><button type="button" class="play" data-say="What happened next? What did you do?" aria-label="Послушать вопрос"><svg aria-hidden="true"><use href="#ic-play"/></svg></button> What happened next? What did you do?</li></ol><details><summary>Опора для ответа</summary><p lang="en">Yesterday I was … It was … While I was walking, … started. I was … when … I went … and …</p></details><p><b>Проверь себя:</b> Фон — was/were + -ing; событие — V2; четыре погодных слова; связный рассказ 60–90 секунд.</p><label class="ew-oral-done"><input type="checkbox"> Я ответила вслух и проверила себя</label></article><article class="ew-oral-card"><h4>6. Раньше и сейчас · used to + экология</h4><p>Сравни прошлое и настоящее в своём городе. Если не знаешь фактов, представь вымышленный город. Скажи два предложения с used to, одно с didn’t use to и задай вопрос с Did … use to …? Используй слова об экологии.</p><ol><li><button type="button" class="play" data-say="What did the winters use to be like?" aria-label="Послушать вопрос"><svg aria-hidden="true"><use href="#ic-play"/></svg></button> What did the winters use to be like?</li><li><button type="button" class="play" data-say="Did the river use to freeze earlier? What has changed?" aria-label="Послушать вопрос"><svg aria-hidden="true"><use href="#ic-play"/></svg></button> Did the river use to freeze earlier? What has changed?</li><li><button type="button" class="play" data-say="How can people protect the city from pollution, floods or heatwaves?" aria-label="Послушать вопрос"><svg aria-hidden="true"><use href="#ic-play"/></svg></button> How can people protect the city from pollution, floods or heatwaves?</li></ol><details><summary>Опора для ответа</summary><p lang="en">The winters used to be … There used to be … People didn’t use to … Did … use to …? Factories … We can protect …</p></details><p><b>Проверь себя:</b> used to + V; didn’t use to + V; вопрос с Did; climate, pollution, protect и ещё два экологических слова.</p><label class="ew-oral-done"><input type="checkbox"> Я ответила вслух и проверила себя</label></article><article class="ew-oral-card"><h4>7. Прогноз и планы · четыре будущих формы</h4><p>Ролевая беседа «Прогноз и поездка». Сначала дай прогноз, затем покажи прогноз по видимым признакам, расскажи о договорённости и назови время отправления. Выбери одежду под погоду: используй минимум четыре слова из блока Clothing.</p><ol><li><button type="button" class="play" data-say="What do you think the weather will be like tomorrow?" aria-label="Послушать вопрос"><svg aria-hidden="true"><use href="#ic-play"/></svg></button> What do you think the weather will be like tomorrow?</li><li><button type="button" class="play" data-say="Look at those clouds. What is going to happen?" aria-label="Послушать вопрос"><svg aria-hidden="true"><use href="#ic-play"/></svg></button> Look at those clouds. What is going to happen?</li><li><button type="button" class="play" data-say="Who are you meeting, and when does your train leave? What will you wear?" aria-label="Послушать вопрос"><svg aria-hidden="true"><use href="#ic-play"/></svg></button> Who are you meeting, and when does your train leave? What will you wear?</li></ol><details><summary>Опора для ответа</summary><p lang="en">I think it will … Look! It is going to … I am meeting … at … The train leaves at … I’ll take my raincoat, wellies, …</p></details><p><b>Проверь себя:</b> will, going to, Present Continuous для договорённости и Present Simple для расписания; четыре предмета одежды.</p><label class="ew-oral-done"><input type="checkbox"> Я ответила вслух и проверила себя</label></article><article class="ew-oral-card"><h4>8. Погодный ведущий · PPC, города, регионы и пословицы</h4><p>Сделай мини-выпуск прогноза на 90 секунд. Выбери два города и два региона из карточек. Сравни их климат, опиши погоду последних часов с PPC, дай прогноз и закончи одной пословицей с объяснением смысла.</p><ol><li><button type="button" class="play" data-say="How is the climate in the two places different?" aria-label="Послушать вопрос"><svg aria-hidden="true"><use href="#ic-play"/></svg></button> How is the climate in the two places different?</li><li><button type="button" class="play" data-say="How long has it been raining or snowing there?" aria-label="Послушать вопрос"><svg aria-hidden="true"><use href="#ic-play"/></svg></button> How long has it been raining or snowing there?</li><li><button type="button" class="play" data-say="Which region would you choose for a holiday, and why? What does your chosen proverb mean?" aria-label="Послушать вопрос"><svg aria-hidden="true"><use href="#ic-play"/></svg></button> Which region would you choose for a holiday, and why? What does your chosen proverb mean?</li></ol><details><summary>Опора для ответа</summary><p lang="en">In … the climate is …, while in … it is … It has been raining for … / since … Tomorrow it will … I would choose … because … The proverb means …</p></details><p><b>Проверь себя:</b> Два города + два региона; has been + -ing с for/since; прогноз; одна пословица и её объяснение.</p><label class="ew-oral-done"><input type="checkbox"> Я ответила вслух и проверила себя</label></article></section><div class="check-row"><span class="score-pill" role="status" aria-live="polite" id="wb-urok-score">0 / 65</span><button type="button" class="btn-check" onclick="checkWBPanel('urok','wb-urok-score')">Проверить ответы</button><button type="button" class="btn-check" onclick="showEWAnswers('urok')">Показать ключи</button></div></div></div></section></div></div><!-- /wrap -->
+</div><div id="ew-workbook-page" role="tabpanel" aria-labelledby="ew-main-workbook" hidden>
+<section class="section" id="s14-workbook" lang="en">
+<div class="wb-wrap">
+
+<div class="wb-head">
+  <h2>📝 Workbook · Grammar &amp; Vocabulary Lab</h2>
+  <p>Zhenya Levina · revision of L1–L8 (family, four present tenses, Present Perfect Continuous) + L9 deep dive on weather, climate, cities and used to.</p>
+  <div class="wb-head-tags">
+    <span>Have got</span>
+    <span>Possessive ʼs / sʼ</span>
+    <span>Present Simple / Continuous</span>
+    <span>Present Perfect / PPC</span>
+    <span>used to</span>
+    <span>4 future forms</span>
+    <span>Weather vocab · 24</span>
+    <span>Climate &amp; ecology</span>
+    <span>Clothes for weather</span>
+    <span>6 cities</span>
+    <span>5 proverbs</span>
+  </div>
+</div>
+
+<details class="ew-history"><summary>Programme recap · L1–L9</summary>
+<ul>
+<li>L1–L2 · 26 &amp; 29 Oct: Halloween Monster Family, have got / has got, possession, family vocab.</li>
+<li>L3 · 2 Nov: My Family, Present Simple / Continuous, first look at Present Perfect.</li>
+<li>L4–L6 · 5, 9 &amp; 12 Nov: Present Perfect / Present Perfect Continuous, My Family.</li>
+<li>L7 · 16 Nov: four present tenses, revision of PP / PPC and family.</li>
+<li>L8 · 19 Nov: Weather, Climate &amp; Cities · four present tenses + four future forms on weather.</li>
+<li>L9 · 23 Nov: deeper weather · used to for climate change · Present Perfect Continuous · weather phenomena · ecology · clothes · 6 cities and regions.</li>
+</ul>
+</details>
+
+<div class="wb-tabs" role="tablist" aria-label="Workbook sections">
+  <button type="button" class="wb-tab active" id="ew-tab-tetrad" data-tab="tetrad" role="tab" aria-selected="true" aria-controls="ew-tetrad">Revision · L1–L8</button>
+  <button type="button" class="wb-tab" id="ew-tab-urok" data-tab="urok" role="tab" aria-selected="false" aria-controls="ew-urok">New &amp; deep dive · L9 · 23 Nov 2026</button>
+</div>
+
+<!-- ═══════════════════ TETRAD · REVISION L1–L8 ═══════════════════ -->
+<div class="wb-panel active" data-panel="tetrad" role="tabpanel" id="ew-tetrad" aria-labelledby="ew-tab-tetrad">
+<h3>Revision · L1–L8 · grammar &amp; vocabulary</h3>
+
+<section class="ew-block ew-route">
+  <h3>Short route · 25–35 minutes</h3>
+  <p><b>One session — one goal.</b> Pick either the revision route or L9. Do not try to finish the whole bank in one sitting.</p>
+  <ol>
+    <li><b>Recall · 3 min:</b> say 5 words without a dictionary and build 2 sentences with them.</li>
+    <li><b>Choose &amp; explain · 5 min:</b> the scenes below. If you hesitate, peek at the rule.</li>
+    <li><b>Editor · 5 min:</b> find the mistake and rewrite the sentence.</li>
+    <li><b>Dictation · 7 min:</b> listen → write → listen again → check.</li>
+    <li><b>Speak out loud · 5–10 min:</b> pick one oral prompt, answer without the prop, then improve.</li>
+  </ol>
+</section>
+
+<section class="ew-block ew-route-task">
+  <h3>1 · Choose the right form</h3>
+  <p>Read the situation. Pick the answer, then name the word or detail that helped you decide.</p>
+  <article class="ew-scene"><h4>Family video call</h4>
+    <label class="wb-grm-tile"><span class="wb-grm-q">Usually my dad cooks dinner, but look at him now: he ___ a cake.</span>
+    <select data-a="is making"><option value="">— pick —</option><option>makes</option><option>is making</option><option>has made</option></select></label></article>
+  <article class="ew-scene"><h4>Message in the family chat</h4>
+    <label class="wb-grm-tile"><span class="wb-grm-q">Mum: "Is dinner ready?" Dad: "Yes! I ___ it, so we can eat now."</span>
+    <select data-a="have already cooked"><option value="">— pick —</option><option>cook every day</option><option>am cooking</option><option>have already cooked</option></select></label></article>
+  <article class="ew-scene"><h4>Interview with a cousin</h4>
+    <label class="wb-grm-tile"><span class="wb-grm-q">"How long ___ English?" — "Since September. I still have lessons every week."</span>
+    <select data-a="have you been learning"><option value="">— pick —</option><option>do you learn</option><option>are you learning</option><option>have you been learning</option></select></label></article>
+  <article class="ew-scene"><h4>Finished work or process?</h4>
+    <label class="wb-grm-tile"><span class="wb-grm-q">"How many pages ___?" — "Three. Now I can take a break."</span>
+    <select data-a="have you written"><option value="">— pick —</option><option>have you written</option><option>have you been writing</option><option>are you writing</option></select></label></article>
+  <article class="ew-scene"><h4>Whose room?</h4>
+    <label class="wb-grm-tile"><span class="wb-grm-q">Two sisters share one room. Pick the label: This is my ___.</span>
+    <select data-a="sisters&#x27; room"><option value="">— pick —</option><option>sister room</option><option>sister&#x27;s room</option><option>sisters&#x27; room</option></select></label></article>
+  <article class="ew-scene"><h4>Tasting the soup</h4>
+    <label class="wb-grm-tile"><span class="wb-grm-q">You take a spoonful to check the salt: "I ___ the soup."</span>
+    <select data-a="am tasting"><option value="">— pick —</option><option>taste</option><option>am tasting</option><option>have tasted</option></select></label></article>
+  <button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Check this block</button>
+  <p class="ew-local-score" role="status" aria-live="polite"></p>
+</section>
+
+<section class="ew-block ew-route-task">
+  <h3>2 · Message editor</h3>
+  <p>Each message has one target mistake. Rewrite the sentence correctly. Explain the fix aloud.</p>
+  <div class="wb-grm-grid">
+    <label class="wb-grm-tile"><span class="wb-grm-q">She have got two brothers.</span><input type="text" data-a="She has got two brothers." placeholder="Rewrite" autocomplete="off"></label>
+    <label class="wb-grm-tile"><span class="wb-grm-q">My sister go to school every day.</span><input type="text" data-a="My sister goes to school every day." placeholder="Rewrite" autocomplete="off"></label>
+    <label class="wb-grm-tile"><span class="wb-grm-q">Listen! The baby cries.</span><input type="text" data-a="Listen! The baby is crying." placeholder="Rewrite" autocomplete="off"></label>
+    <label class="wb-grm-tile"><span class="wb-grm-q">I have been learning English since two months.</span><input type="text" data-a="I have been learning English for two months." placeholder="Rewrite" autocomplete="off"></label>
+    <label class="wb-grm-tile"><span class="wb-grm-q">I am knowing the answer.</span><input type="text" data-a="I know the answer." placeholder="Rewrite" autocomplete="off"></label>
+  </div>
+  <button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Check this block</button>
+  <p class="ew-local-score" role="status" aria-live="polite"></p>
+</section>
+
+<section class="ew-block ew-dictation ew-route-task">
+  <h3>3 · Dictation · six family phrases</h3>
+  <p>1. Listen once without writing. 2. Listen again and write it down. 3. Listen once more and check the endings, auxiliaries and apostrophes. Replay as many times as you need.</p>
+  <article class="ew-dict-item"><h4>Phrase 1</h4><div class="ew-audio-buttons"><button type="button" class="play" data-rate="0.95" data-say="My cousin has got a pet."><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Listen</span></button><button type="button" class="play" data-rate="0.72" data-say="My cousin has got a pet."><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Slower</span></button></div><label class="wb-grm-tile"><span class="wb-grm-q">Write phrase 1 in full</span><input type="text" data-a="My cousin has got a pet." placeholder="Write the whole sentence" autocomplete="off"></label></article>
+  <article class="ew-dict-item"><h4>Phrase 2</h4><div class="ew-audio-buttons"><button type="button" class="play" data-rate="0.95" data-say="These are the children&#x27;s toys."><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Listen</span></button><button type="button" class="play" data-rate="0.72" data-say="These are the children&#x27;s toys."><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Slower</span></button></div><label class="wb-grm-tile"><span class="wb-grm-q">Write phrase 2 in full</span><input type="text" data-a="These are the children&#x27;s toys." placeholder="Write the whole sentence" autocomplete="off"></label></article>
+  <article class="ew-dict-item"><h4>Phrase 3</h4><div class="ew-audio-buttons"><button type="button" class="play" data-rate="0.95" data-say="My dad usually cooks dinner."><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Listen</span></button><button type="button" class="play" data-rate="0.72" data-say="My dad usually cooks dinner."><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Slower</span></button></div><label class="wb-grm-tile"><span class="wb-grm-q">Write phrase 3 in full</span><input type="text" data-a="My dad usually cooks dinner." placeholder="Write the whole sentence" autocomplete="off"></label></article>
+  <article class="ew-dict-item"><h4>Phrase 4</h4><div class="ew-audio-buttons"><button type="button" class="play" data-rate="0.95" data-say="The twins are playing in the garden."><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Listen</span></button><button type="button" class="play" data-rate="0.72" data-say="The twins are playing in the garden."><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Slower</span></button></div><label class="wb-grm-tile"><span class="wb-grm-q">Write phrase 4 in full</span><input type="text" data-a="The twins are playing in the garden." placeholder="Write the whole sentence" autocomplete="off"></label></article>
+  <article class="ew-dict-item"><h4>Phrase 5</h4><div class="ew-audio-buttons"><button type="button" class="play" data-rate="0.95" data-say="I have already visited my grandparents."><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Listen</span></button><button type="button" class="play" data-rate="0.72" data-say="I have already visited my grandparents."><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Slower</span></button></div><label class="wb-grm-tile"><span class="wb-grm-q">Write phrase 5 in full</span><input type="text" data-a="I have already visited my grandparents." placeholder="Write the whole sentence" autocomplete="off"></label></article>
+  <article class="ew-dict-item"><h4>Phrase 6</h4><div class="ew-audio-buttons"><button type="button" class="play" data-rate="0.95" data-say="She has been learning English for two months."><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Listen</span></button><button type="button" class="play" data-rate="0.72" data-say="She has been learning English for two months."><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Slower</span></button></div><label class="wb-grm-tile"><span class="wb-grm-q">Write phrase 6 in full</span><input type="text" data-a="She has been learning English for two months." placeholder="Write the whole sentence" autocomplete="off"></label></article>
+  <button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Check this block</button>
+  <p class="ew-local-score" role="status" aria-live="polite"></p>
+</section>
+
+<section class="ew-block ew-reference"><h3>have got / has got · quick rule + 5 drill</h3>
+  <p>Possession: I/you/we/they <b>have got</b>; he/she/it <b>has got</b>. Negative: haven't/hasn't got. Question: Have/Has + subject + got?</p>
+  <div class="wb-grm-grid">
+    <label class="wb-grm-tile"><span class="wb-grm-q">1. I ___ a sister. (have got)</span><input type="text" data-a="have got" placeholder="…" autocomplete="off"></label>
+    <label class="wb-grm-tile"><span class="wb-grm-q">2. She ___ two cousins. (have got)</span><input type="text" data-a="has got" placeholder="…" autocomplete="off"></label>
+    <label class="wb-grm-tile"><span class="wb-grm-q">3. He ___ any brothers. (not / have got)</span><input type="text" data-a="has not got|hasn&#x27;t got" placeholder="…" autocomplete="off"></label>
+    <label class="wb-grm-tile"><span class="wb-grm-q">4. ___ you got a pet?</span><input type="text" data-a="Have" placeholder="…" autocomplete="off"></label>
+    <label class="wb-grm-tile"><span class="wb-grm-q">5. ___ Wendy got a cat?</span><input type="text" data-a="Has" placeholder="…" autocomplete="off"></label>
+  </div>
+  <button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Check this block</button>
+  <p class="ew-local-score" role="status" aria-live="polite"></p>
+</section>
+
+<section class="ew-block ew-reference"><h3>Possessive case · ʼs / sʼ</h3>
+  <p>One owner: Wendyʼs cat. Irregular plural: childrenʼs toys. Regular plural already ending in -s: sistersʼ room (apostrophe after the -s).</p>
+  <div class="wb-grm-grid">
+    <label class="wb-grm-tile"><span class="wb-grm-q">1. Wendy → ___ cat</span><input type="text" data-a="Wendy&#x27;s" placeholder="…" autocomplete="off"></label>
+    <label class="wb-grm-tile"><span class="wb-grm-q">2. children → the ___ toys</span><input type="text" data-a="children&#x27;s" placeholder="…" autocomplete="off"></label>
+    <label class="wb-grm-tile"><span class="wb-grm-q">3. two sisters → the ___ room</span><input type="text" data-a="sisters&#x27;" placeholder="…" autocomplete="off"></label>
+    <label class="wb-grm-tile"><span class="wb-grm-q">4. my father → my ___ coat</span><input type="text" data-a="father&#x27;s" placeholder="…" autocomplete="off"></label>
+  </div>
+  <button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Check this block</button>
+  <p class="ew-local-score" role="status" aria-live="polite"></p>
+</section>
+
+<section class="ew-block ew-reference"><h3>Present Simple vs Present Continuous</h3>
+  <p>Present Simple = habit, fact. Markers: usually, every day. Present Continuous = action now. Markers: now, Look!, Listen!</p>
+  <div class="wb-grm-grid">
+    <label class="wb-grm-tile"><span class="wb-grm-q">1. Look! The twins ___. (play)</span><input type="text" data-a="are playing" placeholder="…" autocomplete="off"></label>
+    <label class="wb-grm-tile"><span class="wb-grm-q">2. Listen! The baby ___. (cry)</span><input type="text" data-a="is crying" placeholder="…" autocomplete="off"></label>
+    <label class="wb-grm-tile"><span class="wb-grm-q">3. I ___ now. (read)</span><input type="text" data-a="am reading" placeholder="…" autocomplete="off"></label>
+    <label class="wb-grm-tile"><span class="wb-grm-q">4. She ___ today. (not / work)</span><input type="text" data-a="is not working|isn&#x27;t working" placeholder="…" autocomplete="off"></label>
+    <label class="wb-grm-tile"><span class="wb-grm-q">5. Mum usually ___ dinner at six. (cook)</span><input type="text" data-a="cooks" placeholder="…" autocomplete="off"></label>
+    <label class="wb-grm-tile"><span class="wb-grm-q">6. ___ your parents work here?</span><input type="text" data-a="Do" placeholder="…" autocomplete="off"></label>
+    <label class="wb-grm-tile"><span class="wb-grm-q">7. ___ your sister speak English?</span><input type="text" data-a="Does" placeholder="…" autocomplete="off"></label>
+  </div>
+  <button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Check this block</button>
+  <p class="ew-local-score" role="status" aria-live="polite"></p>
+</section>
+
+<section class="ew-block ew-reference"><h3>Present Perfect · have / has + V3</h3>
+  <p>Experience, result or action in an unfinished period. Markers: already, just, yet, ever, never, for, since, lately, so far, this week.</p>
+  <div class="wb-grm-grid">
+    <label class="wb-grm-tile"><span class="wb-grm-q">1. I ___ (visit) Paris twice.</span><input type="text" data-a="have visited|&#x27;ve visited" placeholder="…" autocomplete="off"></label>
+    <label class="wb-grm-tile"><span class="wb-grm-q">2. She ___ (just / call).</span><input type="text" data-a="has just called|&#x27;s just called" placeholder="…" autocomplete="off"></label>
+    <label class="wb-grm-tile"><span class="wb-grm-q">3. We ___ (not / finish) yet.</span><input type="text" data-a="have not finished|haven&#x27;t finished" placeholder="…" autocomplete="off"></label>
+    <label class="wb-grm-tile"><span class="wb-grm-q">4. ___ you ever ___ (eat) sushi?</span><input type="text" data-a="Have / eaten" placeholder="Have / eaten" autocomplete="off"></label>
+    <label class="wb-grm-tile"><span class="wb-grm-q">5. He ___ (live) here since 2019.</span><input type="text" data-a="has lived|&#x27;s lived" placeholder="…" autocomplete="off"></label>
+  </div>
+  <button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Check this block</button>
+  <p class="ew-local-score" role="status" aria-live="polite"></p>
+</section>
+
+<section class="ew-block ew-reference"><h3>Present Perfect Continuous · have / has been + V-ing</h3>
+  <p>Process from a past point up to now. Markers: for + period, since + start, all morning, how long?</p>
+  <div class="wb-grm-grid">
+    <label class="wb-grm-tile"><span class="wb-grm-q">1. I ___ (study) for three hours.</span><input type="text" data-a="have been studying|&#x27;ve been studying" placeholder="…" autocomplete="off"></label>
+    <label class="wb-grm-tile"><span class="wb-grm-q">2. She ___ (wait) since ten.</span><input type="text" data-a="has been waiting|&#x27;s been waiting" placeholder="…" autocomplete="off"></label>
+    <label class="wb-grm-tile"><span class="wb-grm-q">3. They ___ (play) all afternoon.</span><input type="text" data-a="have been playing|&#x27;ve been playing" placeholder="…" autocomplete="off"></label>
+    <label class="wb-grm-tile"><span class="wb-grm-q">4. How long ___ you ___ (read) that book?</span><input type="text" data-a="have / been reading" placeholder="have / been reading" autocomplete="off"></label>
+  </div>
+  <button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Check this block</button>
+  <p class="ew-local-score" role="status" aria-live="polite"></p>
+</section>
+
+<section class="ew-block ew-reference"><h3>Family · 30 words · define each person</h3><p>Read the definition and type the family word in English.</p>
+<div class="wb-grm-grid">
+<label class="wb-grm-tile"><span class="wb-grm-q">Your mother or your father.</span><input type="text" data-a="parent" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Mother AND father together.</span><input type="text" data-a="parents" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Your mother's or father's mother.</span><input type="text" data-a="grandmother|grandma" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Your mother's or father's father.</span><input type="text" data-a="grandfather|grandpa" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Your grandmother and grandfather together.</span><input type="text" data-a="grandparents" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">The child of your aunt or uncle.</span><input type="text" data-a="cousin" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Your mother's or father's sister.</span><input type="text" data-a="aunt" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Your mother's or father's brother.</span><input type="text" data-a="uncle" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Your brother's or sister's daughter and son (two words).</span><input type="text" data-a="niece and nephew" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Your husband's or wife's family.</span><input type="text" data-a="in-laws" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Two families joined after a second marriage (two words).</span><input type="text" data-a="blended family" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">A child with no brothers or sisters (two words).</span><input type="text" data-a="only child" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Your brothers and sisters together.</span><input type="text" data-a="siblings" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Two children born on the same day.</span><input type="text" data-a="twins" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">A couple who have just got married.</span><input type="text" data-a="newlyweds" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">The man at a wedding.</span><input type="text" data-a="groom" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">The woman at a wedding.</span><input type="text" data-a="bride" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">To see someone for the first time (verb).</span><input type="text" data-a="meet" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">To start loving someone (three words).</span><input type="text" data-a="fall in love" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">To ask someone to marry you (verb).</span><input type="text" data-a="propose" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">To become husband and wife (two words).</span><input type="text" data-a="get married" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">The same actions you do every day.</span><input type="text" data-a="routine" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Boring home jobs like cleaning, washing-up (plural).</span><input type="text" data-a="chores" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Small trips to shops, bank, post office (plural).</span><input type="text" data-a="errands" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">A short sleep during the day.</span><input type="text" data-a="nap" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">To do several difficult things at the same time.</span><input type="text" data-a="juggle" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">To do many things at the same time (one word).</span><input type="text" data-a="multitask" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">To take something from a friend and give it back later.</span><input type="text" data-a="borrow" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">When friends of your age push you to do things (two words).</span><input type="text" data-a="peer pressure" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">A person who loves danger (hyphenated).</span><input type="text" data-a="thrill-seeker" placeholder="…" autocomplete="off"></label>
+</div>
+<button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Check this block</button>
+<p class="ew-local-score" role="status" aria-live="polite"></p>
+</section>
+
+<section class="ew-block ew-reference"><h3>Irregular past participle (V3) · 20 key verbs for Present Perfect</h3>
+<p>Type the V3 — the form Present Perfect and PPC need after have / has (+ been).</p>
+<div class="wb-grm-grid">
+<label class="wb-grm-tile"><span class="wb-grm-q">be → V3</span><input type="text" data-a="been" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">go → V3 (a trip — there and back)</span><input type="text" data-a="been" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">go → V3 (a person who left and hasn't come back)</span><input type="text" data-a="gone" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">do → V3</span><input type="text" data-a="done" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">see → V3</span><input type="text" data-a="seen" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">eat → V3</span><input type="text" data-a="eaten" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">drink → V3</span><input type="text" data-a="drunk" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">write → V3</span><input type="text" data-a="written" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">read → V3</span><input type="text" data-a="read" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">break → V3</span><input type="text" data-a="broken" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">take → V3</span><input type="text" data-a="taken" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">give → V3</span><input type="text" data-a="given" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">come → V3</span><input type="text" data-a="come" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">buy → V3</span><input type="text" data-a="bought" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">bring → V3</span><input type="text" data-a="brought" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">think → V3</span><input type="text" data-a="thought" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">know → V3</span><input type="text" data-a="known" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">forget → V3</span><input type="text" data-a="forgotten" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">lose → V3</span><input type="text" data-a="lost" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">win → V3</span><input type="text" data-a="won" placeholder="…" autocomplete="off"></label>
+</div>
+<button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Check this block</button>
+<p class="ew-local-score" role="status" aria-live="polite"></p>
+</section>
+
+<section class="ew-block ew-reference"><h3>Present Perfect signals · one word in each gap</h3>
+<p>Pick the right marker: <b>already · yet · just · ever · never · for · since · lately · so far · this week</b>.</p>
+<div class="wb-grm-grid">
+<label class="wb-grm-tile"><span class="wb-grm-q">I have ___ finished my homework — look! (a moment ago)</span><input type="text" data-a="just" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">We have ___ visited the museum twice.</span><input type="text" data-a="already" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Have you eaten lunch ___? (end of a question)</span><input type="text" data-a="yet" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Have you ___ been to London? (any time in your life)</span><input type="text" data-a="ever" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">I have ___ seen snow. (not once)</span><input type="text" data-a="never" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">I have lived here ___ three years. (a period)</span><input type="text" data-a="for" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">I have known her ___ 2019. (a starting point)</span><input type="text" data-a="since" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">I have written three emails ___. (two words, this period)</span><input type="text" data-a="this week" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">I have visited two cities ___. (two words, up to now)</span><input type="text" data-a="so far" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Have you read anything good ___? (recently)</span><input type="text" data-a="lately" placeholder="…" autocomplete="off"></label>
+</div>
+<button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Check this block</button>
+<p class="ew-local-score" role="status" aria-live="polite"></p>
+</section>
+
+<section class="ew-block ew-reference"><h3>State verbs · pick Simple or Perfect, not Continuous</h3>
+<p>These verbs don't take <em>am ___ing</em> or <em>have been ___ing</em>.</p>
+<div class="wb-grm-grid">
+<label class="wb-grm-tile"><span class="wb-grm-q">I ___ the answer right now. (know — pick the form)</span><input type="text" data-a="know" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">She ___ this song is beautiful. (believe)</span><input type="text" data-a="believes" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">I ___ ice cream. (love)</span><input type="text" data-a="love" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">I ___ her for 10 years. (know — Present Perfect)</span><input type="text" data-a="have known|&#x27;ve known" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">He ___ you are right. (think = opinion)</span><input type="text" data-a="thinks" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">We ___ a big flat. (have = own)</span><input type="text" data-a="have" placeholder="…" autocomplete="off"></label>
+</div>
+<details><summary>Rule · 15 top state verbs</summary><p><b>know · believe · understand · think (= opinion) · love · like · want · need · remember · have (= own) · hear · see · seem · prefer · agree</b> — use Present Simple or Present Perfect, not Continuous.</p></details>
+<button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Check this block</button>
+<p class="ew-local-score" role="status" aria-live="polite"></p>
+</section>
+
+<section class="ew-block ew-oral"><h3>Oral practice · speak in full sentences</h3>
+<article class="ew-oral-card"><h4>1. My family · have got &amp; possession</h4>
+<p>60–90 seconds. Name at least six relatives, say who they are to you, describe two of them. Use <em>have got / has got</em> and three possessive forms: <em>Wendyʼs, childrenʼs, sistersʼ</em>.</p>
+<label class="ew-oral-done"><input type="checkbox"> I've spoken aloud and checked myself</label></article>
+<article class="ew-oral-card"><h4>2. Usually and right now · Present Simple / Continuous</h4>
+<p>Compare your family's usual evening with what each person is doing now. Six sentences: three with usually/every day, three with now. Then ask two questions.</p>
+<label class="ew-oral-done"><input type="checkbox"> I've spoken aloud and checked myself</label></article>
+<article class="ew-oral-card"><h4>3. Experience, result, process · Present Perfect / PPC</h4>
+<p>Give two experiences, two results, two long processes. Use ever/never, already/yet, for/since.</p>
+<label class="ew-oral-done"><input type="checkbox"> I've spoken aloud and checked myself</label></article>
+</section>
+
+<div class="check-row">
+  <span class="score-pill" role="status" aria-live="polite" id="wb-tetrad-score">0 / 110</span>
+  <button type="button" class="btn-check" onclick="checkWBPanel('tetrad','wb-tetrad-score')">Check all answers</button>
+  <button type="button" class="btn-check" onclick="showEWAnswers('tetrad')">Show keys</button>
+</div>
+</div>
+
+<!-- ═══════════════════ UROK · L9 DEEP DIVE ═══════════════════ -->
+<div class="wb-panel" data-panel="urok" role="tabpanel" id="ew-urok" aria-labelledby="ew-tab-urok">
+<h3>New &amp; deep dive · L9 · 23 November 2026</h3>
+
+<section class="ew-block ew-route">
+  <h3>Short route · 25–35 minutes</h3>
+  <p>Weather vocab · 4 future forms · used to · PPC · exclamations · proverbs · cities.</p>
+  <ol>
+    <li><b>Warm up · 3 min:</b> name 5 weather words and build 2 full sentences.</li>
+    <li><b>Choose &amp; explain · 5 min:</b> the scenes below.</li>
+    <li><b>Editor · 5 min:</b> fix the weather messages.</li>
+    <li><b>Practice drills:</b> adjectives, climate, clothes, futures, exclamations, temperature, proverbs, cities.</li>
+    <li><b>Speak out loud · 5–10 min:</b> one oral prompt.</li>
+  </ol>
+</section>
+
+<section class="ew-block ew-route-task">
+<h3>1 · Choose the right form · weather &amp; future</h3>
+<p>Pick the best form for each situation.</p>
+<article class="ew-scene"><h4>Look at those clouds</h4>
+<label class="wb-grm-tile"><span class="wb-grm-q">"Look at those black clouds! It ___."</span>
+<select data-a="is going to rain"><option value="">— pick —</option><option>rains</option><option>is going to rain</option><option>has rained</option></select></label></article>
+<article class="ew-scene"><h4>A fixed arrangement</h4>
+<label class="wb-grm-tile"><span class="wb-grm-q">"We've booked the tickets. We ___ at the station at ten."</span>
+<select data-a="are meeting"><option value="">— pick —</option><option>meet every day</option><option>are meeting</option><option>have met</option></select></label></article>
+<article class="ew-scene"><h4>Then and now</h4>
+<label class="wb-grm-tile"><span class="wb-grm-q">The river doesn't freeze in November now, but it ___ in November when Grandma was young.</span>
+<select data-a="used to freeze"><option value="">— pick —</option><option>is freezing</option><option>has frozen</option><option>used to freeze</option></select></label></article>
+<article class="ew-scene"><h4>Last few hours</h4>
+<label class="wb-grm-tile"><span class="wb-grm-q">The rain started at eight and it's still raining. It ___ since eight.</span>
+<select data-a="has been raining"><option value="">— pick —</option><option>rains</option><option>is going to rain</option><option>has been raining</option></select></label></article>
+<article class="ew-scene"><h4>Schedule</h4>
+<label class="wb-grm-tile"><span class="wb-grm-q">The train ___ at 10:35 every day.</span>
+<select data-a="leaves"><option value="">— pick —</option><option>leaves</option><option>is leaving</option><option>has left</option></select></label></article>
+<article class="ew-scene"><h4>Spontaneous offer</h4>
+<label class="wb-grm-tile"><span class="wb-grm-q">"I don't know what to cook." — "I ___ a salad, then!"</span>
+<select data-a="will make"><option value="">— pick —</option><option>am making</option><option>will make</option><option>have made</option></select></label></article>
+<button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Check this block</button>
+<p class="ew-local-score" role="status" aria-live="polite"></p>
+</section>
+
+<section class="ew-block ew-route-task">
+<h3>2 · Weather message editor</h3>
+<p>Each sentence has one mistake. Rewrite correctly.</p>
+<div class="wb-grm-grid">
+<label class="wb-grm-tile"><span class="wb-grm-q">She did not used to wear wellies.</span><input type="text" data-a="She did not use to wear wellies.|She didn&#x27;t use to wear wellies." placeholder="Rewrite" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">The train leave at six tomorrow.</span><input type="text" data-a="The train leaves at six tomorrow." placeholder="Rewrite" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">It has been rain for three hours.</span><input type="text" data-a="It has been raining for three hours." placeholder="Rewrite" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">We going to spend our holiday in Sochi.</span><input type="text" data-a="We are going to spend our holiday in Sochi.|We&#x27;re going to spend our holiday in Sochi." placeholder="Rewrite" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Look! It going to rain.</span><input type="text" data-a="Look! It is going to rain.|Look! It&#x27;s going to rain." placeholder="Rewrite" autocomplete="off"></label>
+</div>
+<button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Check this block</button>
+<p class="ew-local-score" role="status" aria-live="polite"></p>
+</section>
+
+<section class="ew-block ew-dictation ew-route-task">
+<h3>3 · Dictation · six weather phrases</h3>
+<p>Listen → write → check. Repeat as many times as you need.</p>
+<article class="ew-dict-item"><h4>Phrase 1</h4><div class="ew-audio-buttons"><button type="button" class="play" data-rate="0.95" data-say="What a lovely sunny day!"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Listen</span></button><button type="button" class="play" data-rate="0.72" data-say="What a lovely sunny day!"><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Slower</span></button></div><label class="wb-grm-tile"><span class="wb-grm-q">Write phrase 1 in full</span><input type="text" data-a="What a lovely sunny day!" placeholder="Write the whole sentence" autocomplete="off"></label></article>
+<article class="ew-dict-item"><h4>Phrase 2</h4><div class="ew-audio-buttons"><button type="button" class="play" data-rate="0.95" data-say="The temperature is minus five degrees."><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Listen</span></button><button type="button" class="play" data-rate="0.72" data-say="The temperature is minus five degrees."><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Slower</span></button></div><label class="wb-grm-tile"><span class="wb-grm-q">Write phrase 2 in full</span><input type="text" data-a="The temperature is minus five degrees." placeholder="Write the whole sentence" autocomplete="off"></label></article>
+<article class="ew-dict-item"><h4>Phrase 3</h4><div class="ew-audio-buttons"><button type="button" class="play" data-rate="0.95" data-say="My grandma used to wear a woolly jumper."><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Listen</span></button><button type="button" class="play" data-rate="0.72" data-say="My grandma used to wear a woolly jumper."><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Slower</span></button></div><label class="wb-grm-tile"><span class="wb-grm-q">Write phrase 3 in full</span><input type="text" data-a="My grandma used to wear a woolly jumper." placeholder="Write the whole sentence" autocomplete="off"></label></article>
+<article class="ew-dict-item"><h4>Phrase 4</h4><div class="ew-audio-buttons"><button type="button" class="play" data-rate="0.95" data-say="It has been raining since this morning."><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Listen</span></button><button type="button" class="play" data-rate="0.72" data-say="It has been raining since this morning."><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Slower</span></button></div><label class="wb-grm-tile"><span class="wb-grm-q">Write phrase 4 in full</span><input type="text" data-a="It has been raining since this morning." placeholder="Write the whole sentence" autocomplete="off"></label></article>
+<article class="ew-dict-item"><h4>Phrase 5</h4><div class="ew-audio-buttons"><button type="button" class="play" data-rate="0.95" data-say="Look at those clouds. It is going to rain."><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Listen</span></button><button type="button" class="play" data-rate="0.72" data-say="Look at those clouds. It is going to rain."><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Slower</span></button></div><label class="wb-grm-tile"><span class="wb-grm-q">Write phrase 5 in full</span><input type="text" data-a="Look at those clouds. It is going to rain." placeholder="Write the whole sentence" autocomplete="off"></label></article>
+<article class="ew-dict-item"><h4>Phrase 6</h4><div class="ew-audio-buttons"><button type="button" class="play" data-rate="0.95" data-say="I am meeting my cousin at six tomorrow."><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Listen</span></button><button type="button" class="play" data-rate="0.72" data-say="I am meeting my cousin at six tomorrow."><svg aria-hidden="true"><use href="#ic-play"/></svg><span>Slower</span></button></div><label class="wb-grm-tile"><span class="wb-grm-q">Write phrase 6 in full</span><input type="text" data-a="I am meeting my cousin at six tomorrow." placeholder="Write the whole sentence" autocomplete="off"></label></article>
+<button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Check this block</button>
+<p class="ew-local-score" role="status" aria-live="polite"></p>
+</section>
+
+<section class="ew-block ew-reference"><h3>Weather adjectives · 24 words</h3>
+<p>Describe the weather from the hint.</p>
+<div class="wb-grm-grid">
+<label class="wb-grm-tile"><span class="wb-grm-q">Below zero, you can see your breath. It is ___.</span><input type="text" data-a="cold" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Snow is falling. It is ___.</span><input type="text" data-a="snowy" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Rain is falling. It is ___.</span><input type="text" data-a="rainy" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">The sun is shining. It is ___.</span><input type="text" data-a="sunny" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Not cold, not hot — pleasant. It is ___.</span><input type="text" data-a="mild" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">No rain, no humidity. It is ___.</span><input type="text" data-a="dry" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Pleasantly cool. It is ___.</span><input type="text" data-a="cool" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Above 25 °C. It is ___.</span><input type="text" data-a="hot" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">You hear thunder and see lightning. It is ___.</span><input type="text" data-a="stormy" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Minus 10 and ice everywhere. It is ___.</span><input type="text" data-a="frosty" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Clear and clean air, no clouds. It is ___.</span><input type="text" data-a="bright" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Grey sky, no sunshine. It is ___.</span><input type="text" data-a="dull" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Very bad weather. It is ___.</span><input type="text" data-a="nasty" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Positive word for "beautiful weather". It is a ___ day!</span><input type="text" data-a="lovely" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">British word for "nice sunny weather". It is a ___ day.</span><input type="text" data-a="fine" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">A lot of water falling in a short time. A sudden ___.</span><input type="text" data-a="shower" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Very light rain, tiny bits of water. It is ___ outside (noun).</span><input type="text" data-a="drizzle" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Ice balls falling from the sky. It is a ___ storm.</span><input type="text" data-a="hail" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Mix of rain and snow.</span><input type="text" data-a="sleet" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">You cannot see the road, grey air. It is ___.</span><input type="text" data-a="foggy" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Light pleasant wind. A soft ___.</span><input type="text" data-a="breeze" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">A short loud sound from the sky in a storm.</span><input type="text" data-a="thunder" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">The bright light in the sky before thunder.</span><input type="text" data-a="lightning" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Seven colours in the sky after the rain.</span><input type="text" data-a="rainbow" placeholder="…" autocomplete="off"></label>
+</div>
+<button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Check this block</button>
+<p class="ew-local-score" role="status" aria-live="polite"></p>
+</section>
+
+<section class="ew-block ew-reference"><h3>Climate &amp; ecology · 10 words</h3>
+<div class="wb-grm-grid">
+<label class="wb-grm-tile"><span class="wb-grm-q">The weather pattern of a region over many years.</span><input type="text" data-a="climate" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Degrees of heat or cold (noun).</span><input type="text" data-a="temperature" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Dirty air or water caused by humans.</span><input type="text" data-a="pollution" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">A lot of water covering land after heavy rain.</span><input type="text" data-a="flood" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">A period of very hot days.</span><input type="text" data-a="heatwave" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Warming caused by gases in the atmosphere (two words).</span><input type="text" data-a="greenhouse effect" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Long-term shift in Earth's weather (two words).</span><input type="text" data-a="climate change" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Water becomes ice (verb).</span><input type="text" data-a="freeze" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Ice becomes water (verb).</span><input type="text" data-a="melt" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">To keep safe, defend (verb).</span><input type="text" data-a="protect" placeholder="…" autocomplete="off"></label>
+</div>
+<button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Check this block</button>
+<p class="ew-local-score" role="status" aria-live="polite"></p>
+</section>
+
+<section class="ew-block ew-reference"><h3>Clothes for weather · 10 items</h3>
+<div class="wb-grm-grid">
+<label class="wb-grm-tile"><span class="wb-grm-q">Warm wool sweater for a cold winter (two words).</span><input type="text" data-a="woolly jumper" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Coat that stops rain (one word).</span><input type="text" data-a="raincoat" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Tall rubber boots for mud and rain.</span><input type="text" data-a="wellies" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Short warm hooded jacket for cold wind.</span><input type="text" data-a="anorak" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Hat that protects your head from the sun.</span><input type="text" data-a="sunhat" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Glasses that block bright sunshine.</span><input type="text" data-a="sunglasses" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Thin jacket for a mild day (three words).</span><input type="text" data-a="a light jacket" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Jacket that stops the wind (two words).</span><input type="text" data-a="windproof jacket" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Long cloth around the neck for warmth.</span><input type="text" data-a="scarf" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Covering for your hands in winter (plural).</span><input type="text" data-a="gloves" placeholder="…" autocomplete="off"></label>
+</div>
+<button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Check this block</button>
+<p class="ew-local-score" role="status" aria-live="polite"></p>
+</section>
+
+<section class="ew-block ew-reference"><h3>4 Future Forms · which one fits?</h3>
+<p>Pick <b>will</b> / <b>going to</b> / <b>Present Continuous</b> (arrangement) / <b>Present Simple</b> (schedule).</p>
+<div class="wb-grm-grid">
+<label class="wb-grm-tile"><span class="wb-grm-q">I don't know what to cook — I ___ (make) a salad, I think. (spontaneous)</span><input type="text" data-a="will make|&#x27;ll make" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Look at those black clouds! It ___ (rain). (prediction from evidence)</span><input type="text" data-a="is going to rain" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">I ___ (meet) my cousin at six tomorrow. (fixed arrangement)</span><input type="text" data-a="am meeting|&#x27;m meeting" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">The train ___ (leave) at 10:35. (timetable)</span><input type="text" data-a="leaves" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">We ___ (spend) our holiday in Sochi next summer. (arrangement)</span><input type="text" data-a="are spending|&#x27;re spending" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">I ___ (help) you with your homework, don't worry. (offer)</span><input type="text" data-a="will help|&#x27;ll help" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">She has bought a new camera. She ___ (learn) photography. (plan)</span><input type="text" data-a="is going to learn" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">The film ___ (start) at 7 p.m. (schedule)</span><input type="text" data-a="starts" placeholder="…" autocomplete="off"></label>
+</div>
+<button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Check this block</button>
+<p class="ew-local-score" role="status" aria-live="polite"></p>
+</section>
+
+<section class="ew-block ew-reference"><h3>Weather exclamations · "What a ___ day!" / "Isn't it ___?"</h3>
+<div class="wb-grm-grid">
+<label class="wb-grm-tile"><span class="wb-grm-q">(+ 24 °C, sunshine) What a ___ day!</span><input type="text" data-a="lovely|beautiful|warm|sunny" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">(− 15 °C, biting wind) What a ___ morning!</span><input type="text" data-a="cold|frosty|nasty" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">(Strong gusts) What a ___ night!</span><input type="text" data-a="windy|stormy" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">(Grey sky, no sun) What a ___ afternoon!</span><input type="text" data-a="dull|grey|nasty" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">(Perfect blue sky) Isn't it a ___ day?</span><input type="text" data-a="fine|bright|beautiful|lovely" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">(Pleasant breeze, + 22 °C) What a ___ evening!</span><input type="text" data-a="warm|lovely|beautiful" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">(Rain for 5 days) What ___ weather!</span><input type="text" data-a="terrible|nasty|awful|dreadful" placeholder="…" autocomplete="off"></label>
+</div>
+<button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Check this block</button>
+<p class="ew-local-score" role="status" aria-live="polite"></p>
+</section>
+
+<section class="ew-block ew-reference"><h3>Temperature · "plus / minus / above / below zero"</h3>
+<div class="wb-grm-grid">
+<label class="wb-grm-tile"><span class="wb-grm-q">− 5 °C → "The temperature is ___ five." (word)</span><input type="text" data-a="minus" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">+ 20 °C → "It is ___ twenty." (word)</span><input type="text" data-a="plus" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">0 °C and higher → "Temperatures are ___ zero."</span><input type="text" data-a="above" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">0 °C and lower → "Temperatures are ___ zero."</span><input type="text" data-a="below" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Plural of "degree" after a number.</span><input type="text" data-a="degrees" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Short word for "0" in weather reports.</span><input type="text" data-a="zero" placeholder="…" autocomplete="off"></label>
+</div>
+<button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Check this block</button>
+<p class="ew-local-score" role="status" aria-live="polite"></p>
+</section>
+
+<section class="ew-block ew-reference"><h3>Weather proverbs · finish the second half</h3>
+<div class="wb-grm-grid">
+<label class="wb-grm-tile"><span class="wb-grm-q">Red sky at night, sailor's ___.</span><input type="text" data-a="delight" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Red sky at morning, sailor take ___.</span><input type="text" data-a="warning" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Rainbow at morning, sailor take ___.</span><input type="text" data-a="warning" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Evening red and morning grey, are the signs of a ___ day.</span><input type="text" data-a="bonny" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">When the days begin to lengthen, then the cold begins to ___.</span><input type="text" data-a="strengthen" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">If bees stay at home, ___ will soon come.</span><input type="text" data-a="rain" placeholder="…" autocomplete="off"></label>
+</div>
+<button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Check this block</button>
+<p class="ew-local-score" role="status" aria-live="polite"></p>
+</section>
+
+<section class="ew-block ew-reference"><h3>Cities &amp; their climates · match hint to city</h3>
+<div class="wb-grm-grid">
+<label class="wb-grm-tile"><span class="wb-grm-q">Russian capital, very cold snowy winters, warm summers.</span><input type="text" data-a="Moscow" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Russian city on the Baltic, long grey winters, famous white nights.</span><input type="text" data-a="St Petersburg|Saint Petersburg" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Russian subtropical city on the Black Sea, mild winters, hot summers.</span><input type="text" data-a="Sochi" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Capital of the UK, mild wet weather, famous for drizzle.</span><input type="text" data-a="London" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Capital of Scotland, cool windy summers, rainy all year.</span><input type="text" data-a="Edinburgh" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">Largest city of Australia, warm sunny winters, hot summers in January.</span><input type="text" data-a="Sydney" placeholder="…" autocomplete="off"></label>
+</div>
+<button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Check this block</button>
+<p class="ew-local-score" role="status" aria-live="polite"></p>
+</section>
+
+<section class="ew-block ew-reference"><h3>used to · for what has changed</h3>
+<p>used to + V — a past state or habit that has stopped. All persons same. Negative: didn't use to. Question: Did ___ use to?</p>
+<div class="wb-grm-grid">
+<label class="wb-grm-tile"><span class="wb-grm-q">1. Winters in Moscow ___ colder. (be)</span><input type="text" data-a="used to be" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">2. Rivers ___ every November. (freeze)</span><input type="text" data-a="used to freeze" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">3. My grandma ___ a woolly jumper every day. (wear)</span><input type="text" data-a="used to wear" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">4. People ___ about heatwaves. (not / worry)</span><input type="text" data-a="didn&#x27;t use to worry|did not use to worry" placeholder="…" autocomplete="off"></label>
+<label class="wb-grm-tile"><span class="wb-grm-q">5. ___ it ___ snow in October? (use)</span><input type="text" data-a="Did / use to" placeholder="Did / use to" autocomplete="off"></label>
+</div>
+<button type="button" class="btn-check ew-check-local" onclick="checkEWBlock(this)">Check this block</button>
+<p class="ew-local-score" role="status" aria-live="polite"></p>
+</section>
+
+<section class="ew-block ew-oral"><h3>Oral practice · weather &amp; climate</h3>
+<article class="ew-oral-card"><h4>1. Weather forecast presenter · 4 future forms</h4>
+<p>60–90 seconds. Give tomorrow's forecast. Use will, going to, Present Continuous (arrangement) and Present Simple (schedule) at least once each. Mention temperature and two weather words.</p>
+<label class="ew-oral-done"><input type="checkbox"> I've spoken aloud and checked myself</label></article>
+<article class="ew-oral-card"><h4>2. Then and now · used to + ecology</h4>
+<p>Compare the past and the present in your city. Say two sentences with used to, one with didn't use to, and ask one question with Did ___ use to? Use words like climate, pollution, freeze.</p>
+<label class="ew-oral-done"><input type="checkbox"> I've spoken aloud and checked myself</label></article>
+<article class="ew-oral-card"><h4>3. Weather talk · PPC + cities + proverbs</h4>
+<p>90 seconds. Pick two cities from the list. Compare their climate. Describe the last hours with PPC (It has been raining since…). Give a forecast and finish with one proverb.</p>
+<label class="ew-oral-done"><input type="checkbox"> I've spoken aloud and checked myself</label></article>
+</section>
+
+<div class="check-row">
+  <span class="score-pill" role="status" aria-live="polite" id="wb-urok-score">0 / 90</span>
+  <button type="button" class="btn-check" onclick="checkWBPanel('urok','wb-urok-score')">Check all answers</button>
+  <button type="button" class="btn-check" onclick="showEWAnswers('urok')">Show keys</button>
+</div>
+</div>
+
+</div>
+</section>
+</div></div><!-- /wrap -->
 
 <footer>
   LinguaBoost Lab · Evgeniya L3 · Weather, Climate &amp; Cities · <b>mega edition</b> · Afanasyeva-6 Units 1+2 · Afanasyeva-5 Lesson 10 · <a href="https://newgeneration-english.ru/" style="color:inherit">newgeneration-english.ru</a>
