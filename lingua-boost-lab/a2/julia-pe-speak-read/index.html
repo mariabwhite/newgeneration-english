@@ -314,8 +314,21 @@ strong{color:var(--deep);font-weight:800}
   <span class="spacer"></span>
   <span class="pill accent">A2 → B1</span>
   <span class="pill">75 min</span>
-  <a href="../julia-november-workbook/" class="pill" style="text-decoration:none;cursor:pointer;background:#9B6BC5;color:#fff;border:none">📒 Nov Workbook</a>
 </header>
+
+<!-- ===== SUB-TAB STRIP (Lesson ↔ Workbook) ===== -->
+<nav id="jtabs" style="position:sticky;top:0;z-index:95;display:flex;gap:8px;justify-content:center;padding:10px 12px;background:rgba(247,238,250,.94);backdrop-filter:blur(10px);border-bottom:1px solid rgba(155,107,197,.22)">
+  <button class="jtab cur" data-pane="lesson" type="button" style="padding:9px 18px;border-radius:50px;border:1.5px solid #9B6BC5;background:#9B6BC5;color:#fff;font:800 11px/1 'JetBrains Mono',Consolas,monospace;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">🏃 Lesson · Sports Week</button>
+  <button class="jtab" data-pane="workbook" type="button" style="padding:9px 18px;border-radius:50px;border:1.5px solid rgba(155,107,197,.4);background:#fff;color:#7A4FA8;font:800 11px/1 'JetBrains Mono',Consolas,monospace;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">📒 Workbook · РТ · 15 заданий</button>
+</nav>
+
+<!-- ===== PANE · WORKBOOK (iframe) ===== -->
+<div id="pane-workbook" style="display:none">
+  <iframe id="wb-frame" data-src="../julia-november-workbook/index.html" style="width:100%;height:calc(100vh - 110px);border:0;background:#F7EEFA;display:block" title="November Workbook"></iframe>
+</div>
+
+<!-- ===== PANE · LESSON (original content) ===== -->
+<div id="pane-lesson">
 
 <section class="hero">
   <div class="hero-card">
@@ -1698,5 +1711,33 @@ strong{color:var(--deep);font-weight:800}
   });
 })();
 </script>
+
+</div><!-- /#pane-lesson -->
+
+<script>
+(function(){
+  var tabs = document.querySelectorAll('#jtabs .jtab');
+  var paneL = document.getElementById('pane-lesson');
+  var paneW = document.getElementById('pane-workbook');
+  var frame = document.getElementById('wb-frame');
+  var loaded = false;
+  function activate(name){
+    tabs.forEach(function(t){
+      var on = t.dataset.pane === name;
+      t.classList.toggle('cur', on);
+      t.style.background = on ? '#9B6BC5' : '#fff';
+      t.style.color = on ? '#fff' : '#7A4FA8';
+      t.style.borderColor = on ? '#9B6BC5' : 'rgba(155,107,197,.4)';
+    });
+    paneL.style.display = (name === 'lesson') ? '' : 'none';
+    paneW.style.display = (name === 'workbook') ? '' : 'none';
+    if(name === 'workbook' && !loaded){ frame.src = frame.dataset.src; loaded = true; }
+    try { window.scrollTo({top:0,behavior:'instant'}); } catch(e){ window.scrollTo(0,0); }
+  }
+  tabs.forEach(function(t){ t.addEventListener('click', function(){ activate(t.dataset.pane); }); });
+  if ((location.hash||'').toLowerCase() === '#workbook') activate('workbook');
+})();
+</script>
+
 </body>
 </html>
