@@ -272,6 +272,137 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
 .ff-card .ff-back .ff-frame{font-family:var(--body);font-size:.92rem;color:var(--ink);line-height:1.45;font-style:italic;margin:4px 0 8px}
 .ff-card .ff-back .ff-frame b{color:var(--accent-2);font-weight:700;font-style:normal}
 .ff-card .ff-back .ff-form{font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.1em;color:var(--sky-deep);text-transform:uppercase;margin-top:6px;padding-top:6px;border-top:1px dashed var(--line-2)}
+
+/* EXCLAMATION CARDS · "What a ___ day!" */
+.ex-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:10px 0}
+.ex-card{position:relative;background:linear-gradient(145deg,var(--card) 0%,#F6FAFC 100%);border:1.5px solid var(--line-2);border-radius:14px;padding:16px 16px 44px;min-height:120px;cursor:pointer;transition:.18s;box-shadow:0 3px 10px rgba(40,80,120,.08);overflow:hidden}
+.ex-card:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:0 10px 24px rgba(30,93,127,.18)}
+.ex-card .ex-emo{font-size:1.9rem;line-height:1;margin-bottom:6px;display:block}
+.ex-card .ex-text{font-family:var(--display);font-weight:700;color:var(--accent);font-size:1.02rem;line-height:1.3;margin:2px 0 6px}
+.ex-card .ex-ru{font-family:var(--mono);font-size:.68rem;color:var(--muted);letter-spacing:.06em}
+.ex-card .play{position:absolute;bottom:8px;right:8px}
+.ex-card.positive{border-left:4px solid var(--sky)}
+.ex-card.negative{border-left:4px solid var(--bad)}
+
+/* BUCKET SORT · Fine vs Nasty */
+.bucket-game{background:linear-gradient(180deg,#F2F7FB 0%,#CFE1EC 100%);border:1.5px solid var(--line-2);border-radius:16px;padding:16px 18px;margin:12px 0}
+.bucket-head{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:12px}
+.bucket-side{padding:12px;border-radius:10px;font-family:var(--display);font-weight:700;font-size:1.04rem;text-align:center;letter-spacing:.01em}
+.bucket-side.fine{background:linear-gradient(135deg,#E4EEDF 0%,#C8DEB8 100%);color:#2E5B32;border:1.5px solid var(--ok)}
+.bucket-side.nasty{background:linear-gradient(135deg,#F7DAD6 0%,#F0B4AD 100%);color:#7B2A24;border:1.5px solid var(--bad)}
+.chip-pool{display:flex;flex-wrap:wrap;gap:8px;padding:12px;background:var(--card);border-radius:12px;min-height:60px;border:1px dashed var(--line-2)}
+.sort-chip{padding:9px 14px;background:var(--card-2);border:1.5px solid var(--line-2);border-radius:100px;font-family:var(--mono);font-size:.84rem;font-weight:700;color:var(--ink);cursor:pointer;transition:.18s;letter-spacing:.02em;position:relative}
+.sort-chip:hover{border-color:var(--accent);transform:translateY(-1px)}
+.sort-chip[data-state="fine"]{background:linear-gradient(135deg,#E4EEDF 0%,#C8DEB8 100%);color:#2E5B32;border-color:var(--ok)}
+.sort-chip[data-state="fine"]::before{content:"☀️ ";margin-right:2px}
+.sort-chip[data-state="nasty"]{background:linear-gradient(135deg,#F7DAD6 0%,#F0B4AD 100%);color:#7B2A24;border-color:var(--bad)}
+.sort-chip[data-state="nasty"]::before{content:"⛈️ ";margin-right:2px}
+.sort-chip.correct{box-shadow:0 0 0 3px rgba(79,146,84,.35)}
+.sort-chip.wrong{box-shadow:0 0 0 3px rgba(193,74,62,.35);animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.bucket-hint{font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.08em;text-align:center;margin:8px 0;text-transform:uppercase}
+
+/* TEMPERATURE PATTERNS · 5 ways */
+.temp-patterns{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin:10px 0}
+.temp-pat{background:var(--card-2);border:1.5px solid var(--line-2);border-left:4px solid var(--accent-3);border-radius:12px;padding:12px 14px}
+.temp-pat .tp-label{font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.14em;color:var(--accent-3);text-transform:uppercase;margin-bottom:6px}
+.temp-pat .tp-example{font-family:var(--display);font-weight:700;color:var(--accent);font-size:1.1rem;line-height:1.35;margin:4px 0}
+.temp-pat .tp-note{font-family:var(--body);font-size:.84rem;color:var(--ink-2);line-height:1.45;margin-top:4px}
+.temp-pat .tp-note code{background:#DAEAF2;color:var(--accent);padding:1px 6px;border-radius:4px;font-family:var(--mono);font-size:.78rem}
+.thermo-strip{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0 4px;align-items:stretch}
+.thermo-chip{min-width:62px;background:var(--card);border:1.5px solid var(--line-2);border-radius:10px;padding:8px 10px;text-align:center;font-family:var(--mono);font-size:.84rem;font-weight:800;color:var(--ink)}
+.thermo-chip.hot{border-color:var(--accent-3);color:var(--accent-3)}
+.thermo-chip.cold{border-color:var(--accent);color:var(--accent)}
+.thermo-chip.frost{border-color:var(--bad);color:var(--bad)}
+
+/* TIMELINE · used to */
+.timeline-game{background:linear-gradient(180deg,#EAF2F8 0%,#DDE9F0 100%);border:1.5px solid var(--line-2);border-radius:14px;padding:16px 18px;margin:10px 0}
+.timeline-head{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin-bottom:12px}
+.tl-side{padding:10px 14px;border-radius:10px;font-family:var(--display);font-weight:700;font-size:1rem;text-align:center;line-height:1.2}
+.tl-side.then{background:linear-gradient(135deg,#FEF8E7 0%,#FAECC5 100%);color:#8a6a1e;border:1.5px solid var(--gold)}
+.tl-side.now{background:linear-gradient(135deg,#E4EEDF 0%,#C8DEB8 100%);color:#2E5B32;border:1.5px solid var(--ok)}
+.tl-arrow{font-size:1.4rem;color:var(--accent)}
+.tl-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px 0;border-bottom:1px dashed var(--line-2);align-items:center}
+.tl-row:last-child{border-bottom:none}
+.tl-then,.tl-now{font-family:var(--body);font-size:.92rem;color:var(--ink);line-height:1.45}
+.tl-then b,.tl-now b{color:var(--accent-2)}
+
+/* PROVERB CARDS */
+.prov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:10px 0}
+.prov-card{position:relative;background:linear-gradient(145deg,#1E5D7F 0%,#3A7FA3 100%);color:#FFFCEF;border-radius:14px;padding:18px 20px 44px;min-height:160px;cursor:pointer;overflow:hidden;box-shadow:0 6px 18px rgba(30,93,127,.25);transition:.18s}
+.prov-card:hover{transform:translateY(-3px);box-shadow:0 12px 26px rgba(30,93,127,.35)}
+.prov-card::before{content:"☁";position:absolute;right:-16px;top:-18px;font-size:5rem;opacity:.12}
+.prov-card .prov-emo{font-size:1.7rem;line-height:1;margin-bottom:6px;display:block}
+.prov-card .prov-text{font-family:var(--display);font-weight:600;font-size:1.02rem;line-height:1.4;font-style:italic;margin:4px 0}
+.prov-card .prov-mean{font-family:var(--body);font-size:.84rem;color:#DBE9F2;line-height:1.5;margin-top:8px;opacity:0;max-height:0;overflow:hidden;transition:.3s}
+.prov-card .prov-mean b{color:#E6B84A}
+.prov-card.open .prov-mean{opacity:1;max-height:200px;margin-top:8px}
+.prov-card .prov-hint{position:absolute;bottom:10px;left:16px;font-family:var(--mono);font-size:.62rem;color:#E6B84A;letter-spacing:.14em;text-transform:uppercase}
+.prov-card .play{position:absolute;bottom:8px;right:10px;background:rgba(255,252,239,.18);border-color:#E6B84A;color:#FFFCEF}
+.prov-card .play:hover{background:#E6B84A;color:var(--accent)}
+
+/* IDEAL DAY · 8 activity chips */
+.ideal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:10px 0}
+.ideal-card{position:relative;background:var(--card);border:1.5px solid var(--line-2);border-left:4px solid var(--sky);border-radius:14px;padding:14px 16px 38px;cursor:pointer;transition:.18s;box-shadow:0 3px 10px rgba(40,80,120,.08);min-height:130px}
+.ideal-card:hover{transform:translateY(-2px);border-color:var(--sky);box-shadow:0 8px 20px rgba(91,165,95,.2)}
+.ideal-card .id-emo{font-size:1.8rem;line-height:1;display:block;margin-bottom:4px}
+.ideal-card .id-title{font-family:var(--display);font-weight:700;color:var(--accent);font-size:1rem;margin-bottom:4px}
+.ideal-card .id-answer{display:none;font-family:var(--body);font-size:.86rem;color:var(--ink-2);line-height:1.5;margin-top:6px;padding-top:8px;border-top:1px dashed var(--line-2)}
+.ideal-card .id-answer b{color:var(--accent-2)}
+.ideal-card.open .id-answer{display:block}
+.ideal-card .id-hint{position:absolute;bottom:8px;left:16px;font-family:var(--mono);font-size:.6rem;color:var(--faint);letter-spacing:.12em;text-transform:uppercase}
+.ideal-card .play{position:absolute;bottom:6px;right:8px}
+
+/* CLOTHES MATCHER */
+.clothes-game{background:linear-gradient(180deg,#F2F7FB 0%,#DAEAF2 100%);border:1.5px solid var(--line-2);border-radius:14px;padding:14px 16px;margin:10px 0}
+.clothes-row{display:grid;grid-template-columns:auto 1fr auto;gap:12px;padding:10px;background:var(--card);border:1px solid var(--line-2);border-radius:10px;margin:6px 0;align-items:center}
+.clothes-row .cl-weather{font-family:var(--display);font-weight:700;color:var(--accent);font-size:.98rem;display:flex;gap:6px;align-items:center}
+.clothes-row .cl-weather .emo{font-size:1.3rem}
+.clothes-row select{font-family:var(--mono);font-size:.88rem;background:#FFF;border:1.5px solid var(--line-2);border-radius:8px;padding:6px 10px;color:var(--ink);cursor:pointer;min-width:180px}
+.clothes-row select.ok{background:#E4EEDF;border-color:var(--ok);color:#2E5B32}
+.clothes-row select.bad{background:#F7DAD6;border-color:var(--bad);color:#7B2A24}
+.clothes-row .cl-hint{font-family:var(--mono);font-size:.68rem;color:var(--muted);letter-spacing:.06em}
+
+/* WORKBOOK · РАБОЧАЯ ТЕТРАДЬ · tabbed section */
+.wb-wrap{background:linear-gradient(145deg,#FFFCEF 0%,#FAECC5 100%);border:2px solid var(--gold);border-radius:18px;padding:18px 20px;margin:12px 0;box-shadow:0 10px 28px rgba(230,184,74,.25);position:relative;overflow:hidden}
+.wb-wrap::before{content:"📒";position:absolute;right:-10px;top:-16px;font-size:6rem;opacity:.1;transform:rotate(15deg)}
+.wb-head{margin:0 0 12px}
+.wb-head h3{font-family:var(--display);font-weight:700;font-size:1.3rem;margin:0 0 4px;color:#4a3a28}
+.wb-head p{margin:0;color:#8a6a1e;font-family:var(--mono);font-size:.76rem;letter-spacing:.08em;text-transform:uppercase}
+.wb-tabs{display:flex;gap:4px;flex-wrap:wrap;padding:6px;background:rgba(255,255,255,.4);border-radius:12px;margin:0 0 14px}
+.wb-tab{flex:1;min-width:120px;padding:10px 14px;background:transparent;border:none;border-radius:8px;font-family:var(--mono);font-size:.78rem;font-weight:800;letter-spacing:.08em;color:#8a6a1e;cursor:pointer;transition:.15s;text-transform:uppercase;line-height:1.3;text-align:center}
+.wb-tab:hover{background:rgba(255,252,239,.6);color:var(--accent)}
+.wb-tab.active{background:#FFFCEF;color:var(--accent);box-shadow:0 2px 8px rgba(30,93,127,.18)}
+.wb-tab .wb-tab-emo{display:block;font-size:1.25rem;margin-bottom:2px}
+.wb-panel{display:none;background:#FFFCEF;border:1px solid rgba(230,184,74,.4);border-radius:12px;padding:16px 18px}
+.wb-panel.active{display:block}
+.wb-panel h4{font-family:var(--display);font-weight:700;font-size:1.08rem;color:var(--accent);margin:0 0 10px}
+.wb-panel h4 .tag{font-family:var(--mono);font-size:.64rem;font-weight:800;letter-spacing:.14em;background:var(--gold);color:#4a3a28;padding:3px 8px;border-radius:100px;margin-left:8px;text-transform:uppercase;vertical-align:middle}
+.wb-grid-grammar{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin:8px 0}
+.wb-grm-tile{background:var(--card-2);border:1px dashed var(--line-2);border-left:3px solid var(--accent);border-radius:10px;padding:10px 12px}
+.wb-grm-tile .wb-grm-tag{font-family:var(--mono);font-size:.62rem;font-weight:800;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;margin-bottom:4px;display:block}
+.wb-grm-tile .wb-grm-q{font-family:var(--body);font-size:.9rem;color:var(--ink);line-height:1.45;margin:4px 0 6px}
+.wb-grm-tile select,.wb-grm-tile input{font-family:var(--mono);font-size:.84rem;background:#FFF;border:1.5px solid var(--line-2);border-radius:6px;padding:4px 7px;color:var(--ink);cursor:pointer;outline:none;width:100%;max-width:220px}
+.wb-grm-tile select.ok,.wb-grm-tile input.ok{background:#E4EEDF;border-color:var(--ok);color:#2E5B32}
+.wb-grm-tile select.bad,.wb-grm-tile input.bad{background:#F7DAD6;border-color:var(--bad);color:#7B2A24}
+.wb-vocab-cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;margin:8px 0}
+.wb-vocab-col{background:var(--card-2);border:1px solid var(--line-2);border-left:3px solid var(--sky);border-radius:10px;padding:10px 12px}
+.wb-vocab-col h5{font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;margin:0 0 8px}
+.wb-vocab-row{display:grid;grid-template-columns:1fr 150px;gap:8px;align-items:center;padding:4px 0}
+.wb-vocab-row .wb-v-q{font-family:var(--body);font-size:.88rem;color:var(--ink);line-height:1.3}
+.wb-vocab-row input{font-family:var(--mono);font-size:.82rem;background:#FFF;border:1.5px solid var(--line-2);border-radius:6px;padding:4px 7px;color:var(--ink);outline:none}
+.wb-vocab-row input.ok{background:#E4EEDF;border-color:var(--ok);color:#2E5B32}
+.wb-vocab-row input.bad{background:#F7DAD6;border-color:var(--bad);color:#7B2A24}
+
+/* REGION CARDS — reuse city-card but add special classes */
+.region-card{background:linear-gradient(145deg,var(--card) 0%,var(--card-2) 100%);border:1.5px solid var(--line-2);border-left:5px solid var(--accent-3);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:6px;box-shadow:0 4px 14px rgba(40,80,120,.1)}
+.region-card .reg-name{font-family:var(--display);font-weight:700;color:var(--accent);font-size:1.18rem;display:flex;align-items:center;gap:8px;line-height:1.2}
+.region-card .reg-name .emo{font-size:1.5rem}
+.region-card .reg-sub{font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.region-card dl{margin:4px 0 0;font-size:.88rem;line-height:1.5}
+.region-card dt{font-family:var(--mono);font-size:.66rem;font-weight:800;letter-spacing:.1em;color:var(--accent-3);text-transform:uppercase;margin-top:6px}
+.region-card dd{margin:0 0 2px;color:var(--ink-2)}
+.region-card .play{align-self:flex-end;margin-top:4px}
 </style>
 </head>
 <body>
@@ -287,16 +418,16 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
     <span class="hero-sticker b">🏙️</span>
     <div class="hero-body">
       <div class="hero-eyebrow">Lesson 03 · Weather, Climate &amp; Cities · A2</div>
-      <h1 class="hero-title">Weather, Climate &amp; Cities<em>Afanasyeva-6 Units 1+2 · all present + future tenses · six world cities compared</em></h1>
-      <p class="hero-lead">You already own <strong>Present Simple</strong>, <strong>Present Continuous</strong> and <strong>Present Perfect</strong>. Today we <strong>consolidate</strong> all three on weather, add <strong>four future forms</strong> (<code>will</code>, <code>be going to</code>, <code>Present Continuous</code>, <code>Present Simple</code>), master <strong>42 weather and climate words</strong> grouped into five families, and compare the climates of <strong>Moscow · St&nbsp;Petersburg · Sochi · London · Edinburgh · Sydney</strong>. Four full speaking blocks plus a 60-second boss challenge.</p>
+      <h1 class="hero-title">Weather, Climate &amp; Cities<em>Afanasyeva-6 Units 1+2 · Afanasyeva-5 Lesson 10 · 5 tense families · 6 cities + 6 regions · greenhouse effect</em></h1>
+      <p class="hero-lead">You already own <strong>Present Simple</strong>, <strong>Present Continuous</strong> and <strong>Present Perfect</strong>. Today we <strong>consolidate</strong> all three on weather, add <strong>four future forms</strong>, master the <strong>past pair</strong> (<em>Past Simple + Past Continuous</em>), <strong>used to</strong> for climate change, <strong>Present Perfect Continuous</strong>, <strong>57 weather and climate words</strong> in five families, <strong>5 temperature patterns</strong>, a <strong>Fine ↔ Nasty</strong> bucket game, five <strong>weather proverbs</strong>, the climates of <strong>six cities + six regions</strong>, a <strong>greenhouse-effect</strong> reading with four real climate-crazy cases, an <strong>ideal-day</strong> matcher, a <strong>clothes-per-weather</strong> drill and a 60-second boss challenge.</p>
       <div class="hero-meta">
         <span class="hero-tag">A2</span>
-        <span class="hero-tag">90-110 min</span>
-        <span class="hero-tag">42 words</span>
-        <span class="hero-tag">6 cities</span>
-        <span class="hero-tag">7 tenses</span>
+        <span class="hero-tag">25 sections</span>
+        <span class="hero-tag">57 words</span>
+        <span class="hero-tag">6 cities + 6 regions</span>
+        <span class="hero-tag">10 tenses</span>
         <span class="hero-tag">3 audio tracks</span>
-        <span class="hero-tag">Afanasyeva-6 U1+U2</span>
+        <span class="hero-tag">Afanasyeva-6 U1+U2 + Afanasyeva-5 L10</span>
       </div>
     </div>
   </div>
@@ -336,6 +467,43 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
   </div>
 </section>
 
+<!-- 1b · EXCLAMATIONS · "What a ___ day!" -->
+<section class="section" id="s1b-excl" data-track="section">
+  <div class="section-head"><div class="n">1b</div><h2>React like a native · "What a ___ day!"</h2></div>
+  <div class="section-sub">5 min · 10 ready-made weather reactions · tap to hear · say OUT LOUD</div>
+
+  <div class="card">
+    <div class="theory">
+      <div class="th-eyebrow">Afanasyeva-6 · Unit 1 · everyday dialogue openers</div>
+      <h3>Two patterns do all the work</h3>
+      <p><strong>Pattern 1 · one-word reaction</strong> → <code>What a nasty day!</code> · <code>What a beautiful morning!</code></p>
+      <p><strong>Pattern 2 · stretched reaction</strong> → <code>What terrible weather we're having!</code> · <code>Isn't it a lovely afternoon?</code></p>
+      <p><em>Real people never answer only "fine, thanks" — they react to the weather first.</em></p>
+    </div>
+
+    <div class="ex-grid">
+      <div class="ex-card positive"><span class="ex-emo">☀️</span><div class="ex-text">What a <b>lovely</b> day!</div><div class="ex-ru">какой чудесный день</div><span class="play" data-say="What a lovely day!"><svg><use href="#ic-play"/></svg></span></div>
+      <div class="ex-card positive"><span class="ex-emo">🌤️</span><div class="ex-text">What a <b>bright</b> morning!</div><div class="ex-ru">какое ясное утро</div><span class="play" data-say="What a bright morning!"><svg><use href="#ic-play"/></svg></span></div>
+      <div class="ex-card positive"><span class="ex-emo">🌸</span><div class="ex-text">What <b>beautiful</b> weather!</div><div class="ex-ru">какая прекрасная погода</div><span class="play" data-say="What beautiful weather!"><svg><use href="#ic-play"/></svg></span></div>
+      <div class="ex-card positive"><span class="ex-emo">😊</span><div class="ex-text">Isn't it a <b>fine</b> day?</div><div class="ex-ru">правда, чудесный день</div><span class="play" data-say="Isn't it a fine day?"><svg><use href="#ic-play"/></svg></span></div>
+      <div class="ex-card positive"><span class="ex-emo">🌞</span><div class="ex-text">What a <b>warm</b> evening!</div><div class="ex-ru">какой тёплый вечер</div><span class="play" data-say="What a warm evening!"><svg><use href="#ic-play"/></svg></span></div>
+      <div class="ex-card negative"><span class="ex-emo">⛈️</span><div class="ex-text">What a <b>nasty</b> day!</div><div class="ex-ru">какой противный день</div><span class="play" data-say="What a nasty day!"><svg><use href="#ic-play"/></svg></span></div>
+      <div class="ex-card negative"><span class="ex-emo">🌧️</span><div class="ex-text">What <b>terrible</b> weather!</div><div class="ex-ru">какая ужасная погода</div><span class="play" data-say="What terrible weather!"><svg><use href="#ic-play"/></svg></span></div>
+      <div class="ex-card negative"><span class="ex-emo">🥶</span><div class="ex-text">What a <b>cold</b> morning!</div><div class="ex-ru">какое холодное утро</div><span class="play" data-say="What a cold morning!"><svg><use href="#ic-play"/></svg></span></div>
+      <div class="ex-card negative"><span class="ex-emo">🌫️</span><div class="ex-text">What a <b>dull</b> afternoon!</div><div class="ex-ru">какой хмурый день</div><span class="play" data-say="What a dull afternoon!"><svg><use href="#ic-play"/></svg></span></div>
+      <div class="ex-card negative"><span class="ex-emo">💨</span><div class="ex-text">What a <b>windy</b> night!</div><div class="ex-ru">какая ветреная ночь</div><span class="play" data-say="What a windy night!"><svg><use href="#ic-play"/></svg></span></div>
+    </div>
+
+    <div class="sub-label">Role-play · Katie opens with the weather · you react</div>
+    <div class="dialogue">
+      <div class="d-line them"><span class="who">Katie</span><span class="play" data-say="Hi Zhenya, isn't it a beautiful morning today?"><svg><use href="#ic-play"/></svg></span><p>Hi Zhenya, isn't it a <b>beautiful</b> morning today?</p></div>
+      <div class="d-line you"><span class="who">Zhenya</span><span class="play" data-say="Oh yes, what a lovely sunny day!"><svg><use href="#ic-play"/></svg></span><p>Oh yes, <b>what a lovely sunny day!</b> (your turn)</p></div>
+      <div class="d-line them"><span class="who">Katie</span><span class="play" data-say="What terrible weather we're having! It has rained since Monday."><svg><use href="#ic-play"/></svg></span><p>What <b>terrible weather</b> we're having! It has rained since Monday.</p></div>
+      <div class="d-line you"><span class="who">Zhenya</span><span class="play" data-say="I know, what a nasty week!"><svg><use href="#ic-play"/></svg></span><p>I know, <b>what a nasty week!</b> (your turn)</p></div>
+    </div>
+  </div>
+</section>
+
 <!-- 2 · VOCAB -->
 <section class="section" id="s2-vocab" data-track="section">
   <div class="section-head"><div class="n">2</div><h2>Vocab · 42 weather &amp; climate words in 5 groups</h2></div>
@@ -362,6 +530,7 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
       <div class="fc-card" onclick="this.classList.toggle('flipped')"><span class="fc-emoji">🌑</span><div class="fc-front">dull<span class="ru">пасмурный, хмурый</span></div><div class="fc-back">November is grey and dull — no colours anywhere.</div><span class="play" data-say="dull"><svg><use href="#ic-play"/></svg></span><span class="fc-hint">flip</span></div>
       <div class="fc-card" onclick="this.classList.toggle('flipped')"><span class="fc-emoji">🌞</span><div class="fc-front">bright<span class="ru">ясный, яркий</span></div><div class="fc-back">The afternoon was bright and clear after the morning rain.</div><span class="play" data-say="bright"><svg><use href="#ic-play"/></svg></span><span class="fc-hint">flip</span></div>
       <div class="fc-card" onclick="this.classList.toggle('flipped')"><span class="fc-emoji">🔭</span><div class="fc-front">clear<span class="ru">ясный, безоблачный</span></div><div class="fc-back">The night is clear — you can see every star in the sky.</div><span class="play" data-say="clear"><svg><use href="#ic-play"/></svg></span><span class="fc-hint">flip</span></div>
+      <div class="fc-card" onclick="this.classList.toggle('flipped')"><span class="fc-emoji">🌻</span><div class="fc-front">pleasant<span class="ru">приятный</span></div><div class="fc-back">We had a pleasant walk in the park — plus eighteen and no wind.</div><span class="play" data-say="pleasant"><svg><use href="#ic-play"/></svg></span><span class="fc-hint">flip</span></div>
     </div>
 
     <div class="vocab-group-title"><span class="ico">🗺️</span>B · Climate of a place · adjectives<span class="count">10 words</span></div>
@@ -394,9 +563,10 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
       <div class="fc-card" onclick="this.classList.toggle('flipped')"><span class="fc-emoji">⚡</span><div class="fc-front">lightning<span class="ru">молния</span></div><div class="fc-back">A flash of lightning lit up the whole sky.</div><span class="play" data-say="lightning"><svg><use href="#ic-play"/></svg></span><span class="fc-hint">flip</span></div>
       <div class="fc-card" onclick="this.classList.toggle('flipped')"><span class="fc-emoji">🥁</span><div class="fc-front">thunder<span class="ru">гром</span></div><div class="fc-back">The sound of thunder scared the dog.</div><span class="play" data-say="thunder"><svg><use href="#ic-play"/></svg></span><span class="fc-hint">flip</span></div>
       <div class="fc-card" onclick="this.classList.toggle('flipped')"><span class="fc-emoji">🌈</span><div class="fc-front">rainbow<span class="ru">радуга</span></div><div class="fc-back">After the shower a beautiful rainbow appeared over the hills.</div><span class="play" data-say="rainbow"><svg><use href="#ic-play"/></svg></span><span class="fc-hint">flip</span></div>
+      <div class="fc-card" onclick="this.classList.toggle('flipped')"><span class="fc-emoji">📊</span><div class="fc-front">barometer<span class="ru">барометр</span></div><div class="fc-back">My grandfather's barometer is falling — a storm is on the way.</div><span class="play" data-say="barometer"><svg><use href="#ic-play"/></svg></span><span class="fc-hint">flip</span></div>
     </div>
 
-    <div class="vocab-group-title"><span class="ico">🎯</span>D · Weather verbs<span class="count">6 words</span></div>
+    <div class="vocab-group-title"><span class="ico">🎯</span>D · Weather verbs<span class="count">8 words</span></div>
     <div class="fc-grid">
       <div class="fc-card" onclick="this.classList.toggle('flipped')"><span class="fc-emoji">🌧️</span><div class="fc-front">to rain<span class="ru">идти (о дожде)</span></div><div class="fc-back">It is raining heavily — take your umbrella.</div><span class="play" data-say="to rain"><svg><use href="#ic-play"/></svg></span><span class="fc-hint">flip</span></div>
       <div class="fc-card" onclick="this.classList.toggle('flipped')"><span class="fc-emoji">❄️</span><div class="fc-front">to snow<span class="ru">идти (о снеге)</span></div><div class="fc-back">It has snowed every day this week.</div><span class="play" data-say="to snow"><svg><use href="#ic-play"/></svg></span><span class="fc-hint">flip</span></div>
@@ -404,6 +574,8 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
       <div class="fc-card" onclick="this.classList.toggle('flipped')"><span class="fc-emoji">🌞</span><div class="fc-front">to shine<span class="ru">светить (о солнце)</span></div><div class="fc-back">The sun shines all day in Sochi in July.</div><span class="play" data-say="to shine"><svg><use href="#ic-play"/></svg></span><span class="fc-hint">flip</span></div>
       <div class="fc-card" onclick="this.classList.toggle('flipped')"><span class="fc-emoji">🧊</span><div class="fc-front">to freeze<span class="ru">замерзать</span></div><div class="fc-back">The river freezes every winter.</div><span class="play" data-say="to freeze"><svg><use href="#ic-play"/></svg></span><span class="fc-hint">flip</span></div>
       <div class="fc-card" onclick="this.classList.toggle('flipped')"><span class="fc-emoji">📉</span><div class="fc-front">to drop<span class="ru">падать (о температуре)</span></div><div class="fc-back">The temperature will drop to minus ten tonight.</div><span class="play" data-say="to drop"><svg><use href="#ic-play"/></svg></span><span class="fc-hint">flip</span></div>
+      <div class="fc-card" onclick="this.classList.toggle('flipped')"><span class="fc-emoji">😮‍💨</span><div class="fc-front">to breathe<span class="ru">дышать</span></div><div class="fc-back">It is hard to breathe when the air is full of smoke.</div><span class="play" data-say="to breathe"><svg><use href="#ic-play"/></svg></span><span class="fc-hint">flip</span></div>
+      <div class="fc-card" onclick="this.classList.toggle('flipped')"><span class="fc-emoji">📺</span><div class="fc-front">to forecast<span class="ru">предсказывать погоду</span></div><div class="fc-back">The BBC forecasts rain in the south for the whole weekend.</div><span class="play" data-say="to forecast"><svg><use href="#ic-play"/></svg></span><span class="fc-hint">flip</span></div>
     </div>
 
     <img class="scene-img" src="./assets/img/img-18.png" alt="Thermometer and weather scene for temperatures">
@@ -415,6 +587,146 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
       <div class="fc-card" onclick="this.classList.toggle('flipped')"><span class="fc-emoji">0️⃣</span><div class="fc-front">zero<span class="ru">ноль</span></div><div class="fc-back">The temperature fell to zero overnight.</div><span class="play" data-say="zero"><svg><use href="#ic-play"/></svg></span><span class="fc-hint">flip</span></div>
       <div class="fc-card" onclick="this.classList.toggle('flipped')"><span class="fc-emoji">➕</span><div class="fc-front">above zero<span class="ru">выше нуля</span></div><div class="fc-back">Today is five degrees above zero — a mild winter day.</div><span class="play" data-say="above zero"><svg><use href="#ic-play"/></svg></span><span class="fc-hint">flip</span></div>
       <div class="fc-card" onclick="this.classList.toggle('flipped')"><span class="fc-emoji">➖</span><div class="fc-front">below zero<span class="ru">ниже нуля</span></div><div class="fc-back">It is twelve degrees below zero in Yakutsk this morning.</div><span class="play" data-say="below zero"><svg><use href="#ic-play"/></svg></span><span class="fc-hint">flip</span></div>
+    </div>
+
+    <div class="vocab-group-title"><span class="ico">🌍</span>F · Climate change &amp; ecology<span class="count">5 words</span></div>
+    <div class="fc-grid">
+      <div class="fc-card" onclick="this.classList.toggle('flipped')"><span class="fc-emoji">🏭</span><div class="fc-front">factory<span class="ru">завод, фабрика</span></div><div class="fc-back">Big factories release smoke that pollutes the air.</div><span class="play" data-say="factory"><svg><use href="#ic-play"/></svg></span><span class="fc-hint">flip</span></div>
+      <div class="fc-card" onclick="this.classList.toggle('flipped')"><span class="fc-emoji">💥</span><div class="fc-front">harm<span class="ru">вред</span></div><div class="fc-back">Smoke from cars does great harm to the forests near the city.</div><span class="play" data-say="harm"><svg><use href="#ic-play"/></svg></span><span class="fc-hint">flip</span></div>
+      <div class="fc-card" onclick="this.classList.toggle('flipped')"><span class="fc-emoji">🛡️</span><div class="fc-front">to protect<span class="ru">защищать</span></div><div class="fc-back">We must protect the forests and the clean rivers for the next generation.</div><span class="play" data-say="to protect"><svg><use href="#ic-play"/></svg></span><span class="fc-hint">flip</span></div>
+      <div class="fc-card" onclick="this.classList.toggle('flipped')"><span class="fc-emoji">🌡️</span><div class="fc-front">greenhouse effect<span class="ru">парниковый эффект</span></div><div class="fc-back">The greenhouse effect makes the whole planet warmer, year after year.</div><span class="play" data-say="greenhouse effect"><svg><use href="#ic-play"/></svg></span><span class="fc-hint">flip</span></div>
+      <div class="fc-card" onclick="this.classList.toggle('flipped')"><span class="fc-emoji">☠️</span><div class="fc-front">pollution<span class="ru">загрязнение</span></div><div class="fc-back">Air pollution in big cities can make it hard to breathe.</div><span class="play" data-say="pollution"><svg><use href="#ic-play"/></svg></span><span class="fc-hint">flip</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2b · FINE vs NASTY BUCKET SORT -->
+<section class="section" id="s2b-finenasty" data-track="section">
+  <div class="section-head"><div class="n">2b</div><h2>Game · Fine ↔ Nasty · sort 18 weather words</h2></div>
+  <div class="section-sub">6 min · tap each chip once to send it to ☀️ Fine · tap twice for ⛈️ Nasty · tap three times to clear</div>
+
+  <div class="card">
+    <div class="theory">
+      <div class="th-eyebrow">Afanasyeva-6 · Unit 2 · "Put the following words in two groups"</div>
+      <h3>One tap = Fine · two taps = Nasty · three taps = reset</h3>
+      <p>Every English person uses weather words on a two-point scale: <code>fine</code> (I like it) vs <code>nasty</code> (I don't). Mastering this split is the first step to small-talk about weather.</p>
+    </div>
+
+    <div class="bucket-game" id="fn-bucket">
+      <div class="bucket-head">
+        <div class="bucket-side fine">☀️ FINE weather</div>
+        <div class="bucket-side nasty">⛈️ NASTY weather</div>
+      </div>
+      <div class="bucket-hint">Tap each chip · aim for all 18 correct</div>
+      <div class="chip-pool">
+        <button class="sort-chip" data-correct="fine">sunny</button>
+        <button class="sort-chip" data-correct="nasty">rainy</button>
+        <button class="sort-chip" data-correct="nasty">misty</button>
+        <button class="sort-chip" data-correct="nasty">snowy</button>
+        <button class="sort-chip" data-correct="nasty">foggy</button>
+        <button class="sort-chip" data-correct="fine">bright</button>
+        <button class="sort-chip" data-correct="fine">clear</button>
+        <button class="sort-chip" data-correct="nasty">wet</button>
+        <button class="sort-chip" data-correct="nasty">cold</button>
+        <button class="sort-chip" data-correct="nasty">dull</button>
+        <button class="sort-chip" data-correct="fine">calm</button>
+        <button class="sort-chip" data-correct="nasty">stormy</button>
+        <button class="sort-chip" data-correct="nasty">windy</button>
+        <button class="sort-chip" data-correct="fine">warm</button>
+        <button class="sort-chip" data-correct="fine">pleasant</button>
+        <button class="sort-chip" data-correct="nasty">changeable</button>
+        <button class="sort-chip" data-correct="fine">cool</button>
+        <button class="sort-chip" data-correct="fine">mild</button>
+      </div>
+      <div class="check-row">
+        <span class="score-pill" id="fn-score">0 / 18</span>
+        <button class="btn-check" onclick="checkBucket('fn-bucket','fn-score')">Check my sorting</button>
+      </div>
+    </div>
+
+    <div class="theory" style="margin-top:12px">
+      <div class="th-eyebrow">Teacher note · 3 tricky ones</div>
+      <p><strong>mild</strong> → almost always <em>fine</em> (a mild winter is soft and warm). <strong>cool</strong> → fine for summer, nasty for winter (default: fine). <strong>changeable</strong> → nasty because you can't plan.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2c · 5 TEMPERATURE PATTERNS -->
+<section class="section" id="s2c-temp" data-track="section">
+  <div class="section-head"><div class="n">2c</div><h2>Five ways to say a temperature in English</h2></div>
+  <div class="section-sub">8 min · 5 patterns · 10-question build-the-sentence drill</div>
+
+  <div class="card">
+    <div class="theory">
+      <div class="th-eyebrow">Afanasyeva-6 · Unit 1 · "It is ten degrees above zero"</div>
+      <h3>One number → five English sentences</h3>
+      <p>Russian uses one pattern: <em>"сейчас минус десять"</em>. English uses <strong>five</strong>, and good speakers switch between them. Learn all five — pick the one that sounds best in the moment.</p>
+    </div>
+
+    <div class="thermo-strip">
+      <div class="thermo-chip hot">+28°</div>
+      <div class="thermo-chip hot">+18°</div>
+      <div class="thermo-chip">+5°</div>
+      <div class="thermo-chip cold">0°</div>
+      <div class="thermo-chip cold">−5°</div>
+      <div class="thermo-chip frost">−10°</div>
+      <div class="thermo-chip frost">−20°</div>
+    </div>
+
+    <div class="temp-patterns">
+      <div class="temp-pat">
+        <div class="tp-label">Pattern 1 · ABOVE ZERO</div>
+        <div class="tp-example">It is <b>ten degrees above zero</b>.</div>
+        <div class="tp-note">Use when the number is <code>+1</code> to <code>+40</code>. Say <code>above zero</code> with any positive number.</div>
+      </div>
+      <div class="temp-pat">
+        <div class="tp-label">Pattern 2 · BELOW ZERO</div>
+        <div class="tp-example">It is <b>ten degrees below zero</b>.</div>
+        <div class="tp-note">Use when the number is <code>−1</code> to <code>−40</code>. Neutral, works everywhere.</div>
+      </div>
+      <div class="temp-pat">
+        <div class="tp-label">Pattern 3 · MINUS N</div>
+        <div class="tp-example">It is <b>minus ten</b> this morning.</div>
+        <div class="tp-note">Shortest. Common on the radio and in weather apps. <code>plus ten</code> works too for positive numbers.</div>
+      </div>
+      <div class="temp-pat">
+        <div class="tp-label">Pattern 4 · ZERO (DEGREES)</div>
+        <div class="tp-example">It is <b>zero degrees</b> outside.</div>
+        <div class="tp-note">Exactly for 0°C. Water freezes at zero degrees.</div>
+      </div>
+      <div class="temp-pat">
+        <div class="tp-label">Pattern 5 · DEGREES OF FROST</div>
+        <div class="tp-example">It is <b>ten degrees of frost</b>.</div>
+        <div class="tp-note">British, older-school. Only for sub-zero temperatures. <em>Ten degrees of frost</em> = <em>minus ten</em>.</div>
+      </div>
+    </div>
+
+    <div class="sub-label">Drill · build the sentence (10 questions)</div>
+
+    <div class="drill-q"><span class="q-text">1. <b>+15°C · pattern "above zero".</b> It is ___ degrees above zero.</span>
+      <input class="type-in" data-a="fifteen|15" placeholder="number word"></div>
+    <div class="drill-q"><span class="q-text">2. <b>−8°C · pattern "below zero".</b> It is eight degrees ___ zero.</span>
+      <input class="type-in" data-a="below" placeholder="word"></div>
+    <div class="drill-q"><span class="q-text">3. <b>−12°C · pattern "minus N".</b> It is ___ twelve this morning.</span>
+      <input class="type-in" data-a="minus" placeholder="word"></div>
+    <div class="drill-q"><span class="q-text">4. <b>0°C · pattern "zero".</b> It is zero ___ outside.</span>
+      <input class="type-in" data-a="degrees" placeholder="word"></div>
+    <div class="drill-q"><span class="q-text">5. <b>−5°C · pattern "of frost".</b> It is five degrees of ___.</span>
+      <input class="type-in" data-a="frost" placeholder="noun"></div>
+    <div class="drill-q"><span class="q-text">6. <b>+22°C in Sochi · say two ways.</b> It is twenty-two degrees ___.</span>
+      <select data-a="above zero"><option value="">— pick —</option><option>above zero</option><option>below zero</option><option>of frost</option></select></div>
+    <div class="drill-q"><span class="q-text">7. <b>−20°C in Yakutsk.</b> Choose the <em>British folk</em> pattern.</span>
+      <select data-a="twenty degrees of frost"><option value="">— pick —</option><option>twenty above zero</option><option>twenty degrees of frost</option><option>plus twenty</option></select></div>
+    <div class="drill-q"><span class="q-text">8. <b>0°C at night.</b> The water froze. The temperature dropped to ___.</span>
+      <input class="type-in" data-a="zero|0" placeholder="number word"></div>
+    <div class="drill-q"><span class="q-text">9. <b>−3°C on the thermometer.</b> Choose the shortest everyday reading.</span>
+      <select data-a="minus three"><option value="">— pick —</option><option>minus three</option><option>three degrees of frost</option><option>three below zero</option></select></div>
+    <div class="drill-q"><span class="q-text">10. <b>+30°C in Moscow in July.</b> Fill in: It is plus ___ in Moscow today.</span>
+      <input class="type-in" data-a="thirty|30" placeholder="number word"></div>
+
+    <div class="check-row">
+      <span class="score-pill" id="temp5-score">0 / 10</span>
+      <button class="btn-check" onclick="checkSection('s2c-temp','temp5-score')">Check temperatures</button>
     </div>
   </div>
 </section>
@@ -725,6 +1037,157 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
   </div>
 </section>
 
+<!-- 4c · GRAMMAR C · PAST SIMPLE + PAST CONTINUOUS -->
+<section class="section" id="s4c-past" data-track="section">
+  <div class="section-head"><div class="n">4c</div><h2>Grammar C · Past Simple + Past Continuous on weather</h2></div>
+  <div class="section-sub">12 min · theory · 12 narrative drill questions · narrator pair</div>
+
+  <div class="card">
+    <div class="theory">
+      <div class="th-eyebrow">New grammar · the narrative pair · Afanasyeva-6 Unit 1</div>
+      <h3>Two pasts work as a team — one finishes, one still runs</h3>
+      <p><strong>Past Simple</strong> — a <em>finished</em> action. The whole weather event. Signals: <code>yesterday</code>, <code>last week</code>, <code>in 1972</code>, <code>at 5 o'clock</code>. · <em>Yesterday it <b>snowed</b> all day.</em></p>
+      <p><strong>Past Continuous</strong> — action <em>in progress at a moment</em>. Weather as the background to a scene. Signals: <code>at 5 p.m.</code>, <code>when I woke up</code>, <code>while…</code>, <code>all morning</code>. · <em>At 5 p.m. yesterday it <b>was snowing</b> heavily.</em></p>
+      <p><strong>The classic pair</strong> — short event cuts through long event. · <em>While I <b>was walking</b> home, it <b>started</b> to rain.</em></p>
+    </div>
+
+    <div class="timeline-game">
+      <div class="timeline-head">
+        <div class="tl-side then">⏳ long action (Past Continuous)</div>
+        <div class="tl-arrow">⚡</div>
+        <div class="tl-side now">🎯 short action cuts in (Past Simple)</div>
+      </div>
+      <div class="tl-row"><div class="tl-then"><b>I was walking</b> home when…</div><div class="tl-now">…a thunderstorm <b>started</b>.</div></div>
+      <div class="tl-row"><div class="tl-then"><b>The sun was shining</b> brightly when…</div><div class="tl-now">…dark clouds suddenly <b>appeared</b>.</div></div>
+      <div class="tl-row"><div class="tl-then"><b>We were having</b> a picnic when…</div><div class="tl-now">…rain <b>ruined</b> everything.</div></div>
+    </div>
+
+    <div class="sub-label">Drill · choose Past Simple or Past Continuous (12 questions)</div>
+
+    <div class="drill-q"><span class="q-text">1. At 5 p.m. yesterday it ___ heavily all over Moscow.</span>
+      <select data-a="was snowing"><option value="">— pick —</option><option>snowed</option><option>was snowing</option><option>has snowed</option></select></div>
+    <div class="drill-q"><span class="q-text">2. When I woke up, the sun ___ brightly.</span>
+      <select data-a="was shining"><option value="">— pick —</option><option>shone</option><option>was shining</option><option>shines</option></select></div>
+    <div class="drill-q"><span class="q-text">3. A strong wind ___ when she left the house at seven.</span>
+      <select data-a="was blowing"><option value="">— pick —</option><option>blew</option><option>was blowing</option><option>has blown</option></select></div>
+    <div class="drill-q"><span class="q-text">4. Last August it ___ almost every day in Edinburgh.</span>
+      <select data-a="rained"><option value="">— pick —</option><option>rained</option><option>was raining</option><option>has rained</option></select></div>
+    <div class="drill-q"><span class="q-text">5. While we ___ on the beach in Sochi, a thunderstorm started.</span>
+      <select data-a="were playing"><option value="">— pick —</option><option>played</option><option>were playing</option><option>have played</option></select></div>
+    <div class="drill-q"><span class="q-text">6. In July 2010 it ___ so hot in Moscow that the forests near the city burned for three weeks.</span>
+      <select data-a="was"><option value="">— pick —</option><option>was</option><option>was being</option><option>has been</option></select></div>
+    <div class="drill-q"><span class="q-text">7. As I ___ through the park, a rainbow appeared over the lake.</span>
+      <select data-a="was walking"><option value="">— pick —</option><option>walked</option><option>was walking</option><option>have walked</option></select></div>
+    <div class="drill-q"><span class="q-text">8. The temperature ___ to minus twenty-eight on 7 January 1987 — a Moscow record.</span>
+      <select data-a="dropped"><option value="">— pick —</option><option>dropped</option><option>was dropping</option><option>has dropped</option></select></div>
+    <div class="drill-q"><span class="q-text">9. In Venice in 2003, snow ___ on the gondolas for the first time in fifty years.</span>
+      <select data-a="fell"><option value="">— pick —</option><option>fell</option><option>was falling</option><option>has fallen</option></select></div>
+    <div class="drill-q"><span class="q-text">10. While the kids ___ a snowman, their mum was making hot chocolate.</span>
+      <select data-a="were building"><option value="">— pick —</option><option>built</option><option>were building</option><option>have built</option></select></div>
+    <div class="drill-q"><span class="q-text">11. — What ___ you ___ at 10 a.m. yesterday? — I ___ my dog in the park.</span>
+      <select data-a="were doing · was walking"><option value="">— pick —</option><option>did do · walked</option><option>were doing · was walking</option><option>have done · have walked</option></select></div>
+    <div class="drill-q"><span class="q-text">12. The sky ___ completely clear and we ___ every star.</span>
+      <select data-a="was · saw"><option value="">— pick —</option><option>was · saw</option><option>was being · were seeing</option><option>has been · have seen</option></select></div>
+
+    <div class="check-row">
+      <span class="score-pill" id="past-score">0 / 12</span>
+      <button class="btn-check" onclick="checkSection('s4c-past','past-score')">Check past tenses</button>
+    </div>
+  </div>
+</section>
+
+<!-- 4d · GRAMMAR D · USED TO · climate change -->
+<section class="section" id="s4d-usedto" data-track="section">
+  <div class="section-head"><div class="n">4d</div><h2>Grammar D · <em>used to</em> for climate change</h2></div>
+  <div class="section-sub">10 min · theory · timeline game · 8-question THEN vs NOW drill</div>
+
+  <div class="card">
+    <div class="theory">
+      <div class="th-eyebrow">New grammar · the perfect tool for "it used to be different"</div>
+      <h3>One form for everything that <em>was true then, isn't true now</em></h3>
+      <p><strong>used to + base verb</strong> — a past state or habit that has <em>stopped</em>. · <em>Winters in Moscow <b>used to be</b> colder.</em> (They aren't any more.)</p>
+      <p><strong>Form</strong> — <code>used to</code> is the same for all persons. Negative: <code>didn't use to</code>. Question: <code>Did it use to…?</code></p>
+      <p><strong>Key signal word</strong> — the implied contrast with <em>now</em> or <em>any more</em>.</p>
+    </div>
+
+    <div class="timeline-game">
+      <div class="timeline-head">
+        <div class="tl-side then">📜 1960 · THEN</div>
+        <div class="tl-arrow">→</div>
+        <div class="tl-side now">🌡️ 2026 · NOW</div>
+      </div>
+      <div class="tl-row"><div class="tl-then">Moscow <b>used to have</b> very cold winters — minus 20 was normal.</div><div class="tl-now">Now winters are milder — minus 5 is more common.</div></div>
+      <div class="tl-row"><div class="tl-then">Rivers <b>used to freeze</b> solid every November.</div><div class="tl-now">Now they often don't freeze until January.</div></div>
+      <div class="tl-row"><div class="tl-then">Summers <b>used to be</b> short and mild.</div><div class="tl-now">Now heatwaves of plus 35 happen every few years.</div></div>
+      <div class="tl-row"><div class="tl-then">Snow <b>used to fall</b> in October.</div><div class="tl-now">Now the first snow often waits until December.</div></div>
+    </div>
+
+    <div class="sub-label">Drill · fill in <em>used to</em> or Present Simple (8 questions)</div>
+
+    <div class="drill-q"><span class="q-text">1. When my grandmother was a girl, winters ___ much colder in Moscow.</span>
+      <select data-a="used to be"><option value="">— pick —</option><option>used to be</option><option>are</option><option>were being</option></select></div>
+    <div class="drill-q"><span class="q-text">2. Nowadays we ___ heatwaves of plus thirty-five every few summers.</span>
+      <select data-a="have"><option value="">— pick —</option><option>have</option><option>used to have</option><option>had</option></select></div>
+    <div class="drill-q"><span class="q-text">3. The Moscow river ___ in November, but now it waits until January.</span>
+      <select data-a="used to freeze"><option value="">— pick —</option><option>used to freeze</option><option>freezes</option><option>was freezing</option></select></div>
+    <div class="drill-q"><span class="q-text">4. In the 1960s snow ___ to fall in October. Now it often waits.</span>
+      <select data-a="used"><option value="">— pick —</option><option>used</option><option>uses</option><option>is using</option></select></div>
+    <div class="drill-q"><span class="q-text">5. ___ it ___ to snow more in Russia fifty years ago?</span>
+      <select data-a="Did use"><option value="">— pick —</option><option>Did use</option><option>Was used</option><option>Does use</option></select></div>
+    <div class="drill-q"><span class="q-text">6. London ___ a famous thick fog ("pea-souper") in the 19th century — it is rare now.</span>
+      <select data-a="used to have"><option value="">— pick —</option><option>used to have</option><option>has</option><option>is having</option></select></div>
+    <div class="drill-q"><span class="q-text">7. People ___ to think the climate was always the same. Now scientists know it changes.</span>
+      <select data-a="used"><option value="">— pick —</option><option>used</option><option>uses</option><option>are using</option></select></div>
+    <div class="drill-q"><span class="q-text">8. Edinburgh ___ a lot of rainy days; in that it has not changed at all.</span>
+      <select data-a="has"><option value="">— pick —</option><option>has</option><option>used to have</option><option>is having</option></select></div>
+
+    <div class="check-row">
+      <span class="score-pill" id="usedto-score">0 / 8</span>
+      <button class="btn-check" onclick="checkSection('s4d-usedto','usedto-score')">Check "used to"</button>
+    </div>
+  </div>
+</section>
+
+<!-- 4e · GRAMMAR E · PRESENT PERFECT CONTINUOUS -->
+<section class="section" id="s4e-perfectcont" data-track="section">
+  <div class="section-head"><div class="n">4e</div><h2>Grammar E · Present Perfect Continuous on weather</h2></div>
+  <div class="section-sub">8 min · theory · 8-question drill · how long has it been raining?</div>
+
+  <div class="card">
+    <div class="theory">
+      <div class="th-eyebrow">Grammar level-up · one step above Present Perfect</div>
+      <h3>The weather that is <em>still going on</em></h3>
+      <p><strong>Present Perfect Continuous</strong> → <code>have / has + been + V-ing</code>. Use when a weather action <em>started in the past and is still happening now</em>.</p>
+      <p>Compare: · <em>It <b>has rained</b> every day this week.</em> (Perfect = fact: 7 rainy days.) · <em>It <b>has been raining</b> since morning.</em> (Continuous = still raining right now.)</p>
+      <p><strong>Key signals</strong> · <code>since</code> + start point (<em>since morning, since 2020</em>) · <code>for</code> + duration (<em>for three hours, for days</em>) · <code>all day</code>, <code>all week</code>.</p>
+    </div>
+
+    <div class="sub-label">Drill · choose the right form (8 questions)</div>
+
+    <div class="drill-q"><span class="q-text">1. Look out of the window — it ___ since nine o'clock.</span>
+      <select data-a="has been raining"><option value="">— pick —</option><option>rains</option><option>has rained</option><option>has been raining</option></select></div>
+    <div class="drill-q"><span class="q-text">2. The wind ___ for three days now — I'm tired of it.</span>
+      <select data-a="has been blowing"><option value="">— pick —</option><option>blows</option><option>has been blowing</option><option>is blowing</option></select></div>
+    <div class="drill-q"><span class="q-text">3. It ___ five times this month. That's a lot of snow.</span>
+      <select data-a="has snowed"><option value="">— pick —</option><option>snowed</option><option>has snowed</option><option>has been snowing</option></select></div>
+    <div class="drill-q"><span class="q-text">4. The temperature ___ since Monday — it's now plus twelve lower than on Sunday.</span>
+      <select data-a="has been dropping"><option value="">— pick —</option><option>dropped</option><option>has dropped</option><option>has been dropping</option></select></div>
+    <div class="drill-q"><span class="q-text">5. How long ___ the sun ___ today? — Since about eleven o'clock.</span>
+      <select data-a="has been shining"><option value="">— pick —</option><option>did shine</option><option>has shone</option><option>has been shining</option></select></div>
+    <div class="drill-q"><span class="q-text">6. It ___ already twice this evening — that's enough rain for one day.</span>
+      <select data-a="has rained"><option value="">— pick —</option><option>rains</option><option>has rained</option><option>has been raining</option></select></div>
+    <div class="drill-q"><span class="q-text">7. We ___ snow ___ Christmas. The streets are all white now.</span>
+      <select data-a="have had · since"><option value="">— pick —</option><option>have had · since</option><option>had · for</option><option>have been having · for</option></select></div>
+    <div class="drill-q"><span class="q-text">8. My father ___ the barometer ___ a week — a storm is coming.</span>
+      <select data-a="has been watching · for"><option value="">— pick —</option><option>watched · since</option><option>has been watching · for</option><option>has watched · since</option></select></div>
+
+    <div class="check-row">
+      <span class="score-pill" id="ppc-score">0 / 8</span>
+      <button class="btn-check" onclick="checkSection('s4e-perfectcont','ppc-score')">Check Present Perfect Continuous</button>
+    </div>
+  </div>
+</section>
+
 <!-- 5 · READING -->
 <section class="section" id="s5-reading" data-track="section">
   <div class="section-head"><div class="n">5</div><h2>Reading · A letter from Katie in Scotland</h2></div>
@@ -773,6 +1236,69 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
     <div class="check-row">
       <span class="score-pill" id="read-score">0 / 11</span>
       <button class="btn-check" onclick="checkReading()">Check reading</button>
+    </div>
+  </div>
+</section>
+
+<!-- 5b · READING B · CLIMATE CHANGE / GREENHOUSE EFFECT -->
+<section class="section" id="s5b-climate" data-track="section">
+  <div class="section-head"><div class="n">5b</div><h2>Reading B · Our climate is going crazy · 4 real cases</h2></div>
+  <div class="section-sub">12 min · read 4 short stories · learn the greenhouse-effect vocab · 8 T/F/NS + 5 cloze</div>
+
+  <div class="card">
+    <img class="scene-img" src="./assets/img/img-09.png" alt="Dramatic stormy weather with dark clouds and a gondola in Venice drifting through snow — climate-change visual">
+    <div class="scene-caption">Snow on gondolas · Venice 2003 · one of four "climate gone crazy" cases</div>
+
+    <div class="theory">
+      <div class="th-eyebrow">Afanasyeva-6 · Unit 2 · "Climatic changes" · Afanasyeva-5 · Lesson 10 "Earth in Danger"</div>
+      <h3>Three words you need before you start</h3>
+      <p><strong>greenhouse effect</strong> — the way heat is trapped inside the Earth's atmosphere by gases from cars and factories. The Earth gets a little warmer every year.</p>
+      <p><strong>heatwave</strong> — many days in a row with very high temperatures; <strong>drought</strong> — a long period without rain; <strong>flood</strong> — too much water on the land.</p>
+      <p><strong>Rule</strong> — <em>weather</em> changes day by day; <em>climate</em> changes over decades. When people say "the climate is going crazy", they mean strange weather events that shouldn't happen are happening more and more often.</p>
+    </div>
+
+    <div class="read-text">
+      <b>CLIMATE GONE CRAZY — FOUR STORIES FROM EUROPE</b>
+      <p><b>Case 1 · Moscow, summer 2010.</b> For almost two months the air in Moscow <em>was burning</em>. The temperature stayed above plus thirty-five every day. Forests around the city were on fire; thick smoke covered the streets, and people found it hard to breathe. Many old people had to leave Moscow. Scientists say this heatwave used to be impossible — now it happens every ten or fifteen years.</p>
+      <p><b>Case 2 · Venice, Italy, December 2003.</b> For the first time in fifty years, snow fell on the famous gondolas of Venice. Tourists took photos — it looked like a fairy tale. But local people were worried: Venice is a warm city, snow should not fall there. The sea water was unusually cold, and many old buildings suffered from the ice.</p>
+      <p><b>Case 3 · France, summer 1983.</b> A long drought killed millions of hectares of forest. The rivers almost dried up and farmers lost their crops. Even in Paris the grass in the parks turned yellow. France had never seen such a dry summer before.</p>
+      <p><b>Case 4 · Europe-wide storms, 1990 and 2003.</b> Terrible storms damaged thousands of homes in 1990; in 2003 the same thing happened again. Scientists link these storms to the warming of the Atlantic Ocean. "The climate is not what it <em>used to be</em>," one weather forecaster said.</p>
+      <p><em>What can we do? Protect the forests, use less energy, pollute the air less. The planet is in our hands.</em></p>
+    </div>
+
+    <div class="sub-label">Comprehension · True / False / Not Stated · 8 questions</div>
+    <div class="tfns" id="tfns-climate">
+      <div class="row" data-a="T"><div class="txt">1. The Moscow heatwave in 2010 lasted almost two months.</div><div class="btns"><button data-v="T">True</button><button data-v="F">False</button><button data-v="NS">Not stated</button></div></div>
+      <div class="row" data-a="T"><div class="txt">2. During the Moscow heatwave, the air was full of smoke from forest fires.</div><div class="btns"><button data-v="T">True</button><button data-v="F">False</button><button data-v="NS">Not stated</button></div></div>
+      <div class="row" data-a="NS"><div class="txt">3. Hundreds of children were hospitalised during the Moscow heatwave.</div><div class="btns"><button data-v="T">True</button><button data-v="F">False</button><button data-v="NS">Not stated</button></div></div>
+      <div class="row" data-a="T"><div class="txt">4. The snow in Venice in 2003 was the first in fifty years.</div><div class="btns"><button data-v="T">True</button><button data-v="F">False</button><button data-v="NS">Not stated</button></div></div>
+      <div class="row" data-a="F"><div class="txt">5. The local people in Venice loved the snow and were very happy about it.</div><div class="btns"><button data-v="T">True</button><button data-v="F">False</button><button data-v="NS">Not stated</button></div></div>
+      <div class="row" data-a="T"><div class="txt">6. The 1983 drought in France destroyed huge areas of forest.</div><div class="btns"><button data-v="T">True</button><button data-v="F">False</button><button data-v="NS">Not stated</button></div></div>
+      <div class="row" data-a="NS"><div class="txt">7. The French government paid farmers for lost crops in 1983.</div><div class="btns"><button data-v="T">True</button><button data-v="F">False</button><button data-v="NS">Not stated</button></div></div>
+      <div class="row" data-a="T"><div class="txt">8. Scientists connect the big 2003 European storms to the warmer Atlantic Ocean.</div><div class="btns"><button data-v="T">True</button><button data-v="F">False</button><button data-v="NS">Not stated</button></div></div>
+    </div>
+
+    <div class="sub-label">Cloze · fill the greenhouse-effect gap</div>
+    <div class="drill-q"><span class="q-text">1. Factories and cars release gases that trap heat — this is called the ___ effect.</span>
+      <input class="type-in" data-a="greenhouse" placeholder="noun"></div>
+    <div class="drill-q"><span class="q-text">2. A long period without rain is called a ___.</span>
+      <input class="type-in" data-a="drought" placeholder="noun"></div>
+    <div class="drill-q"><span class="q-text">3. Many days in a row with very high temperatures = a ___.</span>
+      <input class="type-in" data-a="heatwave" placeholder="noun"></div>
+    <div class="drill-q"><span class="q-text">4. Too much water on the land after very heavy rain is a ___.</span>
+      <input class="type-in" data-a="flood" placeholder="noun"></div>
+    <div class="drill-q"><span class="q-text">5. "We must ___ the forests and use less energy." (verb)</span>
+      <input class="type-in" data-a="protect" placeholder="verb"></div>
+
+    <div class="check-row">
+      <span class="score-pill" id="climate-score">0 / 13</span>
+      <button class="btn-check" onclick="checkSection('s5b-climate','climate-score')">Check climate reading</button>
+    </div>
+
+    <div class="fipi-box" style="margin-top:12px">
+      <div class="fipi-eyebrow">OGE-style speaking · 1-minute monologue</div>
+      <h4>Pick <em>one</em> of the four cases and tell it back in 60 seconds</h4>
+      <p>Use <code>used to</code>, <code>Past Simple</code>, <code>Past Continuous</code> and at least two new words (<em>greenhouse effect, heatwave, drought, flood, pollute, protect</em>).</p>
     </div>
   </div>
 </section>
@@ -859,6 +1385,76 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
     <div class="check-row">
       <span class="score-pill" id="dialog-score">0 / 5</span>
       <button class="btn-check" onclick="checkSection('s7-dialogue','dialog-score')">Check dialogue</button>
+    </div>
+  </div>
+</section>
+
+<!-- 7b · WEATHER PROVERBS -->
+<section class="section" id="s7b-proverbs" data-track="section">
+  <div class="section-head"><div class="n">7b</div><h2>Weather proverbs · how sailors read the sky</h2></div>
+  <div class="section-sub">6 min · tap each card to reveal the meaning · match 5 proverbs to 5 meanings</div>
+
+  <div class="card">
+    <div class="theory">
+      <div class="th-eyebrow">Afanasyeva-6 · Unit 1 · "Rainbow at night sailor's delight"</div>
+      <h3>Before weather apps, there were rhymes</h3>
+      <p>English sailors and farmers have been reading the sky for 500 years. The rhymes they invented are still true — and still used today in English small-talk. <em>Tap a card to reveal what it really means.</em></p>
+    </div>
+
+    <div class="prov-grid">
+      <div class="prov-card">
+        <span class="prov-emo">🌈</span>
+        <div class="prov-text">"Rainbow at night, sailor's delight.<br>Rainbow at morning, sailor take warning."</div>
+        <div class="prov-mean"><b>Meaning:</b> an evening rainbow = good weather is coming; a morning rainbow = a storm is on the way. English weather moves from west to east, and evening rainbows show the rain is behind you.</div>
+        <span class="prov-hint">tap to reveal</span>
+        <span class="play" data-say="Rainbow at night, sailor's delight. Rainbow at morning, sailor take warning."><svg><use href="#ic-play"/></svg></span>
+      </div>
+      <div class="prov-card">
+        <span class="prov-emo">🟥</span>
+        <div class="prov-text">"Red sky at night, sailor's delight.<br>Red sky at morning, sailor take warning."</div>
+        <div class="prov-mean"><b>Meaning:</b> same logic — a red evening sky means dry air is to the west and good weather is coming; a red morning sky means the dry air has passed and rain is on its way. BBC meteorologists still quote this rhyme.</div>
+        <span class="prov-hint">tap to reveal</span>
+        <span class="play" data-say="Red sky at night, sailor's delight. Red sky at morning, sailor take warning."><svg><use href="#ic-play"/></svg></span>
+      </div>
+      <div class="prov-card">
+        <span class="prov-emo">🐝</span>
+        <div class="prov-text">"If bees stay at home,<br>rain will soon come.<br>If they fly away,<br>fine will be the day."</div>
+        <div class="prov-mean"><b>Meaning:</b> bees really do sense changes in air pressure. If you see bees hiding in the hive, expect rain within hours. If they are flying freely, the weather will stay dry. Farmers rely on this.</div>
+        <span class="prov-hint">tap to reveal</span>
+        <span class="play" data-say="If bees stay at home, rain will soon come. If they fly away, fine will be the day."><svg><use href="#ic-play"/></svg></span>
+      </div>
+      <div class="prov-card">
+        <span class="prov-emo">🌳</span>
+        <div class="prov-text">"When the days begin to lengthen,<br>then the cold begins to strengthen."</div>
+        <div class="prov-mean"><b>Meaning:</b> the coldest weeks of the year come <em>after</em> the shortest day (21 December). January and February are usually colder than December, even though the days are already longer. True in Moscow too.</div>
+        <span class="prov-hint">tap to reveal</span>
+        <span class="play" data-say="When the days begin to lengthen, then the cold begins to strengthen."><svg><use href="#ic-play"/></svg></span>
+      </div>
+      <div class="prov-card">
+        <span class="prov-emo">🟨</span>
+        <div class="prov-text">"Evening red and morning grey,<br>are the signs of a bonny day."</div>
+        <div class="prov-mean"><b>Meaning:</b> <em>bonny</em> = beautiful (Scottish English). A red evening plus a grey morning that lifts = a lovely dry day. Katie from our reading might say this.</div>
+        <span class="prov-hint">tap to reveal</span>
+        <span class="play" data-say="Evening red and morning grey, are the signs of a bonny day."><svg><use href="#ic-play"/></svg></span>
+      </div>
+    </div>
+
+    <div class="sub-label">Match · each proverb to the weather it predicts (5 questions)</div>
+
+    <div class="drill-q"><span class="q-text">1. <em>"Rainbow at morning, sailor take warning."</em> → the weather will be…</span>
+      <select data-a="rainy / stormy"><option value="">— pick —</option><option>sunny / clear</option><option>rainy / stormy</option><option>mild / warm</option></select></div>
+    <div class="drill-q"><span class="q-text">2. <em>"Red sky at night, sailor's delight."</em> → tomorrow will probably be…</span>
+      <select data-a="fine and dry"><option value="">— pick —</option><option>fine and dry</option><option>wet and cold</option><option>stormy and windy</option></select></div>
+    <div class="drill-q"><span class="q-text">3. <em>"If bees stay at home, rain will soon come."</em> → bees in the hive = …</span>
+      <select data-a="rain coming"><option value="">— pick —</option><option>rain coming</option><option>fog coming</option><option>snow coming</option></select></div>
+    <div class="drill-q"><span class="q-text">4. The coldest weeks of the Russian winter come in…</span>
+      <select data-a="January and February"><option value="">— pick —</option><option>November and December</option><option>January and February</option><option>March and April</option></select></div>
+    <div class="drill-q"><span class="q-text">5. In the Scottish proverb, <em>bonny</em> means…</span>
+      <select data-a="beautiful"><option value="">— pick —</option><option>cold</option><option>stormy</option><option>beautiful</option></select></div>
+
+    <div class="check-row">
+      <span class="score-pill" id="prov-score">0 / 5</span>
+      <button class="btn-check" onclick="checkSection('s7b-proverbs','prov-score')">Check proverbs</button>
     </div>
   </div>
 </section>
@@ -962,6 +1558,102 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
   </div>
 </section>
 
+<!-- 8b · 6 REGIONS · zoom out from cities to whole climates -->
+<section class="section" id="s8b-regions" data-track="section">
+  <div class="section-head"><div class="n">8b</div><h2>Zoom out · six regions on the planet</h2></div>
+  <div class="section-sub">8 min · six region cards · think "whole area", not "one city" · 6 quick questions</div>
+
+  <div class="card">
+    <div class="theory">
+      <div class="th-eyebrow">Afanasyeva-6 · Unit 2 · "typical winter/summer weather in: your place, London, Florida, the North Pole, the Crimea, South America"</div>
+      <h3>From city → to region</h3>
+      <p>In section 8 you compared <em>cities</em>. Now zoom out and talk about <em>regions</em> — big pieces of the planet with their own climate pattern. Pattern: <code>In [region] the climate is [adjective]. In [season] the typical temperature is [number] degrees.</code></p>
+    </div>
+
+    <div class="city-grid">
+      <div class="region-card">
+        <div class="reg-name"><span class="emo">🏠</span>Your place · Moscow region</div>
+        <div class="reg-sub">Temperate · continental · four real seasons</div>
+        <dl>
+          <dt>Winter</dt><dd>−10 °C average, snow from November to March, rivers freeze</dd>
+          <dt>Summer</dt><dd>+22 °C average, hot peaks of +30 °C, afternoon thunderstorms</dd>
+          <dt>Problem</dt><dd>Heatwaves in July are getting more common every decade</dd>
+        </dl>
+        <span class="play" data-say="In the Moscow region the climate is temperate and continental. There are four very different seasons. Winters are cold and snowy, summers are warm and sometimes hot."><svg><use href="#ic-play"/></svg></span>
+      </div>
+      <div class="region-card">
+        <div class="reg-name"><span class="emo">🇬🇧</span>London / Southern England</div>
+        <div class="reg-sub">Mild · wet · changeable · no real extremes</div>
+        <dl>
+          <dt>Winter</dt><dd>+5 °C average, rarely below zero, snow lasts half a day</dd>
+          <dt>Summer</dt><dd>+22 °C average, long twilights, showers every few days</dd>
+          <dt>Problem</dt><dd>Grey skies for weeks; locals talk about the weather constantly</dd>
+        </dl>
+        <span class="play" data-say="In Southern England the climate is mild and wet. Winters are not really cold and summers are not really hot — the weather is almost always changeable."><svg><use href="#ic-play"/></svg></span>
+      </div>
+      <div class="region-card">
+        <div class="reg-name"><span class="emo">🌴</span>Florida · USA south-east</div>
+        <div class="reg-sub">Subtropical · humid · hot all year</div>
+        <dl>
+          <dt>Winter</dt><dd>+20 °C, plenty of sunshine, almost never freezes</dd>
+          <dt>Summer</dt><dd>+32 °C, humid, afternoon storms almost every day</dd>
+          <dt>Problem</dt><dd>Hurricanes from June to November — strong wind and heavy rain</dd>
+        </dl>
+        <span class="play" data-say="In Florida the climate is subtropical and humid. Winters are warm and sunny, and summers are hot and stormy. Hurricanes can be dangerous."><svg><use href="#ic-play"/></svg></span>
+      </div>
+      <div class="region-card">
+        <div class="reg-name"><span class="emo">🧊</span>The North Pole · Arctic</div>
+        <div class="reg-sub">Polar · severe · frozen ocean</div>
+        <dl>
+          <dt>Winter</dt><dd>−30 °C average, polar night (sun does not rise)</dd>
+          <dt>Summer</dt><dd>0 °C, polar day (sun does not set), ice begins to melt</dd>
+          <dt>Problem</dt><dd>Ice is shrinking fast because of the greenhouse effect</dd>
+        </dl>
+        <span class="play" data-say="At the North Pole the climate is polar and severe. In winter the temperature is often minus thirty degrees and the sun does not rise for weeks."><svg><use href="#ic-play"/></svg></span>
+      </div>
+      <div class="region-card">
+        <div class="reg-name"><span class="emo">🍇</span>The Crimea · Black Sea coast</div>
+        <div class="reg-sub">Subtropical / Mediterranean · dry summers</div>
+        <dl>
+          <dt>Winter</dt><dd>+5 °C, mild, snow is rare on the coast</dd>
+          <dt>Summer</dt><dd>+28 °C, dry and sunny, perfect beach weather</dd>
+          <dt>Problem</dt><dd>Water shortages in late summer</dd>
+        </dl>
+        <span class="play" data-say="In the Crimea on the Black Sea coast the climate is mild and almost Mediterranean. Summers are hot and dry, and winters are cool but rarely freezing."><svg><use href="#ic-play"/></svg></span>
+      </div>
+      <div class="region-card">
+        <div class="reg-name"><span class="emo">🌵</span>South America · Amazon &amp; Patagonia</div>
+        <div class="reg-sub">Tropical north · cool windy south · opposite seasons</div>
+        <dl>
+          <dt>North (Amazon)</dt><dd>+28 °C all year, very wet, rainforest climate</dd>
+          <dt>South (Patagonia)</dt><dd>+10 °C summer, strong wind all year</dd>
+          <dt>Remember</dt><dd>January is summer, July is winter — the hemispheres are flipped</dd>
+        </dl>
+        <span class="play" data-say="South America has two very different climates. The Amazon in the north is hot and wet all year. Patagonia in the south is cool and windy, and the seasons are opposite to ours."><svg><use href="#ic-play"/></svg></span>
+      </div>
+    </div>
+
+    <div class="sub-label">Comprehension · 6 quick region questions</div>
+    <div class="drill-q"><span class="q-text">1. Which region has polar night (no sunrise for weeks) in winter?</span>
+      <select data-a="The North Pole"><option value="">— pick —</option><option>Florida</option><option>The North Pole</option><option>The Crimea</option><option>Moscow</option></select></div>
+    <div class="drill-q"><span class="q-text">2. Which region has hurricanes from June to November?</span>
+      <select data-a="Florida"><option value="">— pick —</option><option>Florida</option><option>London</option><option>The Crimea</option><option>Patagonia</option></select></div>
+    <div class="drill-q"><span class="q-text">3. In which region is January summer?</span>
+      <select data-a="South America"><option value="">— pick —</option><option>Moscow</option><option>London</option><option>South America</option><option>Florida</option></select></div>
+    <div class="drill-q"><span class="q-text">4. Which region has a Mediterranean-style summer (hot &amp; dry) and a mild winter?</span>
+      <select data-a="The Crimea"><option value="">— pick —</option><option>The Crimea</option><option>London</option><option>Moscow</option><option>The North Pole</option></select></div>
+    <div class="drill-q"><span class="q-text">5. In which region do locals "talk about the weather constantly" because it changes so often?</span>
+      <select data-a="London"><option value="">— pick —</option><option>Florida</option><option>London</option><option>Moscow</option><option>The Crimea</option></select></div>
+    <div class="drill-q"><span class="q-text">6. Which region's climate problem is "heatwaves in July are getting more common every decade"?</span>
+      <select data-a="Moscow"><option value="">— pick —</option><option>Moscow</option><option>London</option><option>Florida</option><option>The North Pole</option></select></div>
+
+    <div class="check-row">
+      <span class="score-pill" id="region-score">0 / 6</span>
+      <button class="btn-check" onclick="checkSection('s8b-regions','region-score')">Check regions</button>
+    </div>
+  </div>
+</section>
+
 <!-- 9 · SPEAKING B · MOSCOW -->
 <section class="section" id="s9-speaking" data-track="section">
   <div class="section-head"><div class="n">9</div><h2>Speaking B · Climate of Moscow · four seasons</h2></div>
@@ -988,6 +1680,85 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
   </div>
 </section>
 
+<!-- 9b · IDEAL DAY FOR 8 ACTIVITIES -->
+<section class="section" id="s9b-ideal" data-track="section">
+  <div class="section-head"><div class="n">9b</div><h2>Game · Describe the ideal day for 8 activities</h2></div>
+  <div class="section-sub">8 min · tap each activity · say YOUR ideal weather for it · then reveal a sample answer</div>
+
+  <div class="card">
+    <div class="theory">
+      <div class="th-eyebrow">Afanasyeva-6 · Unit 2 · "Describe an ideal day for…"</div>
+      <h3>Match activity ↔ weather</h3>
+      <p>For each activity, decide: hot or cold? sunny or windy? wet or dry? Pattern: <code>An ideal day for [activity] is [adjective] and [adjective], about [number] degrees. I would hate it if it [verb].</code></p>
+    </div>
+
+    <div class="ideal-grid">
+      <div class="ideal-card">
+        <span class="id-emo">🧺</span>
+        <div class="id-title">Picnicking in a park</div>
+        <div class="id-answer"><b>Sample:</b> An ideal picnic day is warm and sunny, about <b>plus twenty-two</b>. There is a light breeze and no rain clouds. I would hate it if it suddenly started to rain.</div>
+        <span class="id-hint">tap to reveal</span>
+        <span class="play" data-say="An ideal picnic day is warm and sunny, about plus twenty-two degrees."><svg><use href="#ic-play"/></svg></span>
+      </div>
+      <div class="ideal-card">
+        <span class="id-emo">🏛️</span>
+        <div class="id-title">An excursion / city sight-seeing</div>
+        <div class="id-answer"><b>Sample:</b> An ideal sight-seeing day is <b>mild and dry</b>, about plus fifteen. Not too hot — because you walk a lot. Clouds are fine; what you need is comfortable temperature.</div>
+        <span class="id-hint">tap to reveal</span>
+        <span class="play" data-say="An ideal sight-seeing day is mild and dry, about plus fifteen degrees."><svg><use href="#ic-play"/></svg></span>
+      </div>
+      <div class="ideal-card">
+        <span class="id-emo">🖼️</span>
+        <div class="id-title">A visit to a museum</div>
+        <div class="id-answer"><b>Sample:</b> Museums are the perfect plan for a <b>cold or rainy</b> day. You don't want sunshine outside while you are inside — it feels like you're missing a better plan.</div>
+        <span class="id-hint">tap to reveal</span>
+        <span class="play" data-say="Museums are the perfect plan for a cold or rainy day."><svg><use href="#ic-play"/></svg></span>
+      </div>
+      <div class="ideal-card">
+        <span class="id-emo">🎄</span>
+        <div class="id-title">Seeing the New Year in</div>
+        <div class="id-answer"><b>Sample:</b> A perfect New Year night is <b>frosty and snowy</b>, about minus seven. Light snow falling makes the fireworks look magical. Zero wind.</div>
+        <span class="id-hint">tap to reveal</span>
+        <span class="play" data-say="A perfect New Year night is frosty and snowy, about minus seven degrees."><svg><use href="#ic-play"/></svg></span>
+      </div>
+      <div class="ideal-card">
+        <span class="id-emo">⛸️</span>
+        <div class="id-title">Skiing or ice-skating</div>
+        <div class="id-answer"><b>Sample:</b> An ideal ski day is <b>cold and sunny</b>, about minus five or minus ten. Fresh snow from last night and no wind. Below minus fifteen the face starts to freeze.</div>
+        <span class="id-hint">tap to reveal</span>
+        <span class="play" data-say="An ideal ski day is cold and sunny, about minus five or minus ten degrees."><svg><use href="#ic-play"/></svg></span>
+      </div>
+      <div class="ideal-card">
+        <span class="id-emo">🏀</span>
+        <div class="id-title">Playing outdoors with friends</div>
+        <div class="id-answer"><b>Sample:</b> A perfect outdoor-play day is <b>warm, dry and not too windy</b>, about plus eighteen. Any season works if the weather is friendly.</div>
+        <span class="id-hint">tap to reveal</span>
+        <span class="play" data-say="A perfect outdoor-play day is warm, dry and not too windy, about plus eighteen degrees."><svg><use href="#ic-play"/></svg></span>
+      </div>
+      <div class="ideal-card">
+        <span class="id-emo">📚</span>
+        <div class="id-title">Preparing for exams at home</div>
+        <div class="id-answer"><b>Sample:</b> For exam preparation I actually like <b>a rainy, dull day</b>. Grey weather helps me stay inside and focus. Sunshine is a distraction.</div>
+        <span class="id-hint">tap to reveal</span>
+        <span class="play" data-say="For exam preparation I actually like a rainy, dull day. Grey weather helps me focus."><svg><use href="#ic-play"/></svg></span>
+      </div>
+      <div class="ideal-card">
+        <span class="id-emo">⛵</span>
+        <div class="id-title">A sea voyage / boat trip</div>
+        <div class="id-answer"><b>Sample:</b> An ideal sea voyage is <b>clear, calm and warm</b> — plus twenty-four, blue sky, almost no wind. Stormy weather at sea is dangerous and really unpleasant.</div>
+        <span class="id-hint">tap to reveal</span>
+        <span class="play" data-say="An ideal sea voyage is clear, calm and warm — plus twenty-four degrees and almost no wind."><svg><use href="#ic-play"/></svg></span>
+      </div>
+    </div>
+
+    <div class="speak">
+      <div class="sp-eyebrow">Speaking · pick 3 activities · 30 seconds each</div>
+      <h3>Which 3 ideal days do YOU want this week?</h3>
+      <p>Say three full sentences out loud. Use <code>would like</code> and at least two adjectives per answer.</p>
+    </div>
+  </div>
+</section>
+
 <!-- 10 · SPEAKING C · TRIP PLANNING -->
 <section class="section" id="s10-trip" data-track="section">
   <div class="section-head"><div class="n">10</div><h2>Speaking C · Plan a trip · use future tenses</h2></div>
@@ -1010,6 +1781,126 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
         <div class="p-item"><span class="play" data-say="What will you do if it rains the whole trip?"><svg><use href="#ic-play"/></svg></span>What <b>will you do</b> if it rains the whole trip?</div>
         <div class="p-item"><span class="play" data-say="Which city would you never visit in winter and why?"><svg><use href="#ic-play"/></svg></span>Which city would you <b>never visit</b> in winter, and why?</div>
         <div class="p-item"><span class="play" data-say="Promise yourself one thing you will do on this trip."><svg><use href="#ic-play"/></svg></span>Promise yourself one thing you <b>will do</b> on this trip.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10b · CLOTHES-PER-WEATHER MATCHER -->
+<section class="section" id="s10b-clothes" data-track="section">
+  <div class="section-head"><div class="n">10b</div><h2>Game · Dress for the weather · match 8 outfits</h2></div>
+  <div class="section-sub">6 min · pick the right item for each weather situation · learn 8 British clothing words</div>
+
+  <div class="card">
+    <div class="theory">
+      <div class="th-eyebrow">Afanasyeva-6 · Unit 2 · "describe the clothes you prefer to wear in different weather"</div>
+      <h3>Eight British-English clothing words you'll actually hear</h3>
+      <p>In Britain weather is unpredictable — so clothes words are very precise. Learn these 8 and you'll never be lost in a British conversation about what to wear.</p>
+      <ul>
+        <li><code>anorak</code> — thick warm jacket with a hood, for very cold weather</li>
+        <li><code>raincoat / mackintosh / mac</code> — long waterproof coat for rain</li>
+        <li><code>wellies (wellington boots)</code> — rubber boots for puddles and mud</li>
+        <li><code>scarf</code> — around the neck for winter warmth</li>
+        <li><code>gloves · mittens</code> — for freezing hands</li>
+        <li><code>sunhat / cap</code> — to protect from the sun</li>
+        <li><code>sunglasses</code> — bright sun or sun on snow</li>
+        <li><code>a woolly jumper</code> — a warm thick sweater</li>
+      </ul>
+    </div>
+
+    <div class="clothes-game">
+      <div class="clothes-row">
+        <div class="cl-weather"><span class="emo">🥶</span>−25 °C in Yakutsk, strong wind</div>
+        <select data-a="an anorak, gloves and a warm scarf">
+          <option value="">— pick outfit —</option>
+          <option>a sunhat and sunglasses</option>
+          <option>an anorak, gloves and a warm scarf</option>
+          <option>wellies and a raincoat</option>
+          <option>a T-shirt and shorts</option>
+        </select>
+        <span class="cl-hint">severe cold</span>
+      </div>
+      <div class="clothes-row">
+        <div class="cl-weather"><span class="emo">🌧️</span>+10 °C, heavy rain all day</div>
+        <select data-a="wellies and a raincoat">
+          <option value="">— pick outfit —</option>
+          <option>a sunhat and sunglasses</option>
+          <option>wellies and a raincoat</option>
+          <option>an anorak and mittens</option>
+          <option>a swim suit</option>
+        </select>
+        <span class="cl-hint">wet</span>
+      </div>
+      <div class="clothes-row">
+        <div class="cl-weather"><span class="emo">☀️</span>+32 °C in Florida, sunny beach</div>
+        <select data-a="a sunhat, sunglasses and shorts">
+          <option value="">— pick outfit —</option>
+          <option>wellies and a raincoat</option>
+          <option>an anorak and a woolly jumper</option>
+          <option>a sunhat, sunglasses and shorts</option>
+          <option>gloves and a scarf</option>
+        </select>
+        <span class="cl-hint">very hot &amp; sunny</span>
+      </div>
+      <div class="clothes-row">
+        <div class="cl-weather"><span class="emo">⛄</span>−5 °C, bright winter day, snow sparkles</div>
+        <select data-a="an anorak, a warm scarf and sunglasses">
+          <option value="">— pick outfit —</option>
+          <option>wellies and a raincoat</option>
+          <option>a T-shirt and shorts</option>
+          <option>an anorak, a warm scarf and sunglasses</option>
+          <option>a sunhat and flip-flops</option>
+        </select>
+        <span class="cl-hint">snow + bright sun</span>
+      </div>
+      <div class="clothes-row">
+        <div class="cl-weather"><span class="emo">🌫️</span>+8 °C, foggy autumn morning, light drizzle</div>
+        <select data-a="a woolly jumper, a raincoat and wellies">
+          <option value="">— pick outfit —</option>
+          <option>a sunhat and sunglasses</option>
+          <option>a T-shirt only</option>
+          <option>a woolly jumper, a raincoat and wellies</option>
+          <option>a swim suit and flip-flops</option>
+        </select>
+        <span class="cl-hint">cool + wet</span>
+      </div>
+      <div class="clothes-row">
+        <div class="cl-weather"><span class="emo">💨</span>+12 °C, very windy, dry</div>
+        <select data-a="an anorak or a windproof jacket">
+          <option value="">— pick outfit —</option>
+          <option>a sunhat (would blow away)</option>
+          <option>wellies and a raincoat</option>
+          <option>an anorak or a windproof jacket</option>
+          <option>flip-flops and sunglasses</option>
+        </select>
+        <span class="cl-hint">windy, not raining</span>
+      </div>
+      <div class="clothes-row">
+        <div class="cl-weather"><span class="emo">🌞</span>+22 °C, pleasant warm spring day</div>
+        <select data-a="a light jacket and jeans">
+          <option value="">— pick outfit —</option>
+          <option>an anorak and mittens</option>
+          <option>a light jacket and jeans</option>
+          <option>wellies and a scarf</option>
+          <option>a woolly jumper and winter boots</option>
+        </select>
+        <span class="cl-hint">pleasant, mild</span>
+      </div>
+      <div class="clothes-row">
+        <div class="cl-weather"><span class="emo">🧊</span>0 °C, slushy wet snow turning to ice</div>
+        <select data-a="winter boots, gloves and a warm coat">
+          <option value="">— pick outfit —</option>
+          <option>flip-flops and shorts</option>
+          <option>winter boots, gloves and a warm coat</option>
+          <option>a sunhat and sunglasses</option>
+          <option>wellies alone (feet would freeze)</option>
+        </select>
+        <span class="cl-hint">freezing wet</span>
+      </div>
+
+      <div class="check-row">
+        <span class="score-pill" id="clothes-score">0 / 8</span>
+        <button class="btn-check" onclick="checkClothes()">Check my outfits</button>
       </div>
     </div>
   </div>
@@ -1225,7 +2116,450 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
       <div class="rev-item"><b>mild</b> — Sochi has a <em>mild</em> climate, so lemons and tea grow there. <span class="ru">мягкий</span></div>
       <div class="rev-item"><b>continental</b> — Russia's <em>continental</em> climate means hot summers and cold winters. <span class="ru">континентальный</span></div>
     </div>
-    <p class="source-note"><b>Source:</b> Афанасьева О.В., Михеева И.В. · «Английский язык. VI класс» · 2012 · Unit 1 "Weather" (pp. 4–17) · Unit 2 "Climate" (pp. 18–34). Texts, dialogues and city cards adapted to current context; all audio generated via edge-tts en-GB.</p>
+    <p class="source-note"><b>Source:</b> Афанасьева О.В., Михеева И.В. · «Английский язык. VI класс» · 2012 · Unit 1 "Weather" (pp. 4–17) · Unit 2 "Climate" (pp. 18–34) + Afanasyeva V класс 2011 · Lesson 10 "The Earth Is in Danger" (pp. 140–150). Texts, dialogues, city &amp; region cards adapted to current context; pre-recorded audio generated via edge-tts en-GB; all in-page clips use browser speech synthesis (en-GB).</p>
+  </div>
+</section>
+
+<!-- 14 · WORKBOOK · РАБОЧАЯ ТЕТРАДЬ · cumulative L1 → L9 -->
+<section class="section" id="s14-workbook" data-track="section">
+  <div class="section-head"><div class="n">14</div><h2>📒 Рабочая тетрадь · всё, что ты знаешь с L1</h2></div>
+  <div class="section-sub">cumulative workbook · 4 tabs · grammar · vocab · reading · listening · L1 Halloween Family → L9 today</div>
+
+  <div class="wb-wrap">
+    <div class="wb-head">
+      <h3>Workbook · повторение и закрепление</h3>
+      <p>L1 Halloween · L2 Family · L3 Present Perfect preview · L4-L6 Perfect Cont · L7 4 Presents recap · L8+L9 Weather</p>
+    </div>
+
+    <div class="wb-tabs">
+      <button class="wb-tab active" data-tab="g"><span class="wb-tab-emo">📖</span>Grammar · 40 drills</button>
+      <button class="wb-tab" data-tab="v"><span class="wb-tab-emo">📝</span>Vocab · 79 слов</button>
+      <button class="wb-tab" data-tab="r"><span class="wb-tab-emo">📚</span>Reading RT</button>
+      <button class="wb-tab" data-tab="l"><span class="wb-tab-emo">🎧</span>Listening RT</button>
+    </div>
+
+    <!-- =============== TAB G · GRAMMAR =============== -->
+    <div class="wb-panel active" data-panel="g">
+      <h4>Grammar cumulative · 40 micro-drills, every tense you've met<span class="tag">L1 → L9</span></h4>
+
+      <div class="wb-grid-grammar">
+
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">have got · L1-L2</span>
+          <div class="wb-grm-q">1. I ___ two brothers and one sister.</div>
+          <select data-a="have got"><option value="">— pick —</option><option>have got</option><option>has got</option><option>am got</option></select>
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">have got · L1-L2</span>
+          <div class="wb-grm-q">2. My cat ___ five white spots on her back.</div>
+          <select data-a="has got"><option value="">— pick —</option><option>have got</option><option>has got</option><option>is got</option></select>
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">possessive 's · L1-L2</span>
+          <div class="wb-grm-q">3. This is my ___ car. (father)</div>
+          <input type="text" data-a="father's" placeholder="father's">
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">possessive 's · L1-L2</span>
+          <div class="wb-grm-q">4. Where are the ___ toys? (children)</div>
+          <input type="text" data-a="children's" placeholder="children's">
+        </div>
+
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">Present Simple · L3, L7</span>
+          <div class="wb-grm-q">5. Katie usually ___ in a small flat in Edinburgh.</div>
+          <select data-a="lives"><option value="">— pick —</option><option>lives</option><option>is living</option><option>has lived</option></select>
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">Present Simple · L3, L7</span>
+          <div class="wb-grm-q">6. The sun ___ at six in summer in Moscow.</div>
+          <select data-a="rises"><option value="">— pick —</option><option>rises</option><option>is rising</option><option>has risen</option></select>
+        </div>
+
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">Present Continuous · L3, L7</span>
+          <div class="wb-grm-q">7. Look! It ___ heavily right now.</div>
+          <select data-a="is snowing"><option value="">— pick —</option><option>snows</option><option>is snowing</option><option>has snowed</option></select>
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">Present Continuous · L3, L7</span>
+          <div class="wb-grm-q">8. At the moment my mother ___ dinner in the kitchen.</div>
+          <select data-a="is cooking"><option value="">— pick —</option><option>cooks</option><option>is cooking</option><option>has cooked</option></select>
+        </div>
+
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">PS vs PC · L3, L7</span>
+          <div class="wb-grm-q">9. My father ___ in a bank, but today he ___ from home.</div>
+          <select data-a="works · is working"><option value="">— pick —</option><option>works · is working</option><option>is working · works</option><option>has worked · works</option></select>
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">PS vs PC · L3, L7</span>
+          <div class="wb-grm-q">10. Winters in Russia ___ cold, but this one ___ unusually mild.</div>
+          <select data-a="are · is being"><option value="">— pick —</option><option>are · is being</option><option>are being · is</option><option>have been · is</option></select>
+        </div>
+
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">Present Perfect · L3-L7</span>
+          <div class="wb-grm-q">11. ___ you ever ___ a rainbow?</div>
+          <select data-a="Have seen"><option value="">— pick —</option><option>Do see</option><option>Have seen</option><option>Are seeing</option></select>
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">Present Perfect · L3-L7</span>
+          <div class="wb-grm-q">12. Katie ___ to London three times this year.</div>
+          <select data-a="has been"><option value="">— pick —</option><option>was</option><option>has been</option><option>is</option></select>
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">Present Perfect · L3-L7</span>
+          <div class="wb-grm-q">13. I ___ my grandma ___ last summer. I miss her.</div>
+          <select data-a="have not seen · since"><option value="">— pick —</option><option>didn't see · since</option><option>have not seen · since</option><option>haven't been seeing · for</option></select>
+        </div>
+
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">PP Continuous · L4-L7, L9</span>
+          <div class="wb-grm-q">14. It ___ for three hours — I'm tired of the rain.</div>
+          <select data-a="has been raining"><option value="">— pick —</option><option>rains</option><option>has rained</option><option>has been raining</option></select>
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">PP vs PPC · L4-L7</span>
+          <div class="wb-grm-q">15. Sonya ___ the same book three times, and she ___ the fourth one since Monday.</div>
+          <select data-a="has read · has been reading"><option value="">— pick —</option><option>read · reads</option><option>has read · has been reading</option><option>has been reading · has read</option></select>
+        </div>
+
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">Past Simple · L9</span>
+          <div class="wb-grm-q">16. Last August we ___ our holiday in Sochi.</div>
+          <select data-a="spent"><option value="">— pick —</option><option>spend</option><option>spent</option><option>have spent</option></select>
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">Past Continuous · L9</span>
+          <div class="wb-grm-q">17. At 7 p.m. yesterday it ___ already very dark outside.</div>
+          <select data-a="was"><option value="">— pick —</option><option>was</option><option>was being</option><option>has been</option></select>
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">Past S + Past C · L9</span>
+          <div class="wb-grm-q">18. While I ___ to school, a strong wind ___ to blow.</div>
+          <select data-a="was walking · started"><option value="">— pick —</option><option>walked · started</option><option>was walking · started</option><option>walked · was starting</option></select>
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">Past S + Past C · L9</span>
+          <div class="wb-grm-q">19. When the storm began, the children ___ a snowman in the park.</div>
+          <select data-a="were building"><option value="">— pick —</option><option>built</option><option>were building</option><option>have built</option></select>
+        </div>
+
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">used to · L9</span>
+          <div class="wb-grm-q">20. When my mum was a girl, Moscow ___ much more snow in October.</div>
+          <select data-a="used to have"><option value="">— pick —</option><option>used to have</option><option>had</option><option>is having</option></select>
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">used to · L9</span>
+          <div class="wb-grm-q">21. The Moscow river ___ in November — now it waits until January.</div>
+          <select data-a="used to freeze"><option value="">— pick —</option><option>froze</option><option>used to freeze</option><option>was freezing</option></select>
+        </div>
+
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">will · L8</span>
+          <div class="wb-grm-q">22. I think it ___ sunny tomorrow.</div>
+          <select data-a="will be"><option value="">— pick —</option><option>is</option><option>will be</option><option>is being</option></select>
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">be going to · L8</span>
+          <div class="wb-grm-q">23. Look at those black clouds — it ___ in a minute.</div>
+          <select data-a="is going to rain"><option value="">— pick —</option><option>rains</option><option>will rain</option><option>is going to rain</option></select>
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">Pres Cont as future · L8</span>
+          <div class="wb-grm-q">24. I ___ Katie at the airport on Saturday at 10 a.m.</div>
+          <select data-a="am meeting"><option value="">— pick —</option><option>meet</option><option>will meet</option><option>am meeting</option></select>
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">Pres Simple as timetable · L8</span>
+          <div class="wb-grm-q">25. The plane to London ___ at 06:45 tomorrow.</div>
+          <select data-a="takes off"><option value="">— pick —</option><option>takes off</option><option>will take off</option><option>is taking off</option></select>
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">4 futures mix · L8</span>
+          <div class="wb-grm-q">26. The temperature ___ to minus twenty by Friday, the forecast says.</div>
+          <select data-a="will drop"><option value="">— pick —</option><option>drops</option><option>will drop</option><option>is dropping</option></select>
+        </div>
+
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">State verbs · L7</span>
+          <div class="wb-grm-q">27. Right now I ___ Lion King for the third time.</div>
+          <select data-a="am watching"><option value="">— pick —</option><option>watch</option><option>am watching</option><option>have watched</option></select>
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">State verbs · L7</span>
+          <div class="wb-grm-q">28. I ___ you very much — no one else matters so much. (Hint: NOT continuous.)</div>
+          <select data-a="love"><option value="">— pick —</option><option>love</option><option>am loving</option><option>have been loving</option></select>
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">State verbs · L7</span>
+          <div class="wb-grm-q">29. This soup ___ good! (taste verb)</div>
+          <select data-a="tastes"><option value="">— pick —</option><option>tastes</option><option>is tasting</option><option>has been tasting</option></select>
+        </div>
+
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">he/she/it endings · L7</span>
+          <div class="wb-grm-q">30. He ___ a letter every Sunday to his grandpa. (write)</div>
+          <input type="text" data-a="writes" placeholder="writes">
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">he/she/it endings · L7</span>
+          <div class="wb-grm-q">31. Katie ___ her homework before dinner. (do)</div>
+          <input type="text" data-a="does" placeholder="does">
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">he/she/it endings · L7</span>
+          <div class="wb-grm-q">32. The baby ___ when she's hungry. (cry)</div>
+          <input type="text" data-a="cries" placeholder="cries">
+        </div>
+
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">Signal words · L7</span>
+          <div class="wb-grm-q">33. "Every winter" signals which tense?</div>
+          <select data-a="Present Simple"><option value="">— pick —</option><option>Present Simple</option><option>Present Continuous</option><option>Present Perfect</option></select>
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">Signal words · L7</span>
+          <div class="wb-grm-q">34. "Since 2020" signals which tense?</div>
+          <select data-a="Present Perfect"><option value="">— pick —</option><option>Present Simple</option><option>Present Perfect</option><option>Past Simple</option></select>
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">Signal words · L7</span>
+          <div class="wb-grm-q">35. "Look!" / "Listen!" signals which tense?</div>
+          <select data-a="Present Continuous"><option value="">— pick —</option><option>Present Simple</option><option>Present Continuous</option><option>Present Perfect</option></select>
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">Signal words · L7</span>
+          <div class="wb-grm-q">36. "Yesterday at 5 p.m." signals which tense?</div>
+          <select data-a="Past Continuous"><option value="">— pick —</option><option>Past Simple</option><option>Past Continuous</option><option>Present Perfect</option></select>
+        </div>
+
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">Mix · tenses ladder · L1→L9</span>
+          <div class="wb-grm-q">37. My grandma ___ ten grandchildren — she loves them all.</div>
+          <select data-a="has got"><option value="">— pick —</option><option>has got</option><option>is having</option><option>had</option></select>
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">Mix · tenses ladder</span>
+          <div class="wb-grm-q">38. Tomás ___ his brothers in Dublin last July.</div>
+          <select data-a="visited"><option value="">— pick —</option><option>visits</option><option>visited</option><option>has visited</option></select>
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">Mix · tenses ladder</span>
+          <div class="wb-grm-q">39. The climate ___ a lot since my grandma was a child.</div>
+          <select data-a="has changed"><option value="">— pick —</option><option>changes</option><option>changed</option><option>has changed</option></select>
+        </div>
+        <div class="wb-grm-tile">
+          <span class="wb-grm-tag">Mix · tenses ladder</span>
+          <div class="wb-grm-q">40. Next Saturday I ___ my cousin at the station — her train arrives at 10.</div>
+          <select data-a="am meeting"><option value="">— pick —</option><option>meet</option><option>will meet</option><option>am meeting</option></select>
+        </div>
+
+      </div>
+
+      <div class="check-row">
+        <span class="score-pill" id="wb-g-score">0 / 40</span>
+        <button class="btn-check" onclick="checkWBPanel('g','wb-g-score')">Check grammar RT</button>
+      </div>
+    </div>
+
+    <!-- =============== TAB V · VOCAB =============== -->
+    <div class="wb-panel" data-panel="v">
+      <h4>Vocab cumulative · 79 words · translate both ways<span class="tag">Family + Weather + Clothing</span></h4>
+
+      <div class="wb-vocab-cols">
+
+        <div class="wb-vocab-col">
+          <h5>👨‍👩‍👧‍👦 Family · EN → RU · type 1 word</h5>
+          <div class="wb-vocab-row"><div class="wb-v-q">1. mother</div><input data-a="мать|мама" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">2. sister</div><input data-a="сестра" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">3. aunt</div><input data-a="тётя|тетя" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">4. cousin</div><input data-a="двоюродный брат|двоюродная сестра|двоюродный|двоюродная|кузен|кузина" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">5. parents</div><input data-a="родители" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">6. husband</div><input data-a="муж" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">7. twins</div><input data-a="близнецы|двойняшки" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">8. niece</div><input data-a="племянница" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">9. siblings</div><input data-a="братья и сёстры|братья и сестры|сиблинги" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">10. family tree</div><input data-a="семейное дерево|генеалогическое дерево|родословная" placeholder="…"></div>
+        </div>
+
+        <div class="wb-vocab-col">
+          <h5>👨‍👩‍👧‍👦 Family · RU → EN · type 1 word</h5>
+          <div class="wb-vocab-row"><div class="wb-v-q">1. отец / папа</div><input data-a="father|dad" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">2. брат</div><input data-a="brother" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">3. дядя</div><input data-a="uncle" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">4. бабушка</div><input data-a="grandma|grandmother|granny" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">5. дедушка</div><input data-a="grandpa|grandfather|granddad" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">6. жена</div><input data-a="wife" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">7. сын</div><input data-a="son" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">8. дочь</div><input data-a="daughter" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">9. племянник</div><input data-a="nephew" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">10. дети</div><input data-a="children|kids" placeholder="…"></div>
+        </div>
+
+        <div class="wb-vocab-col">
+          <h5>🌦 Weather · EN → RU · type 1 word</h5>
+          <div class="wb-vocab-row"><div class="wb-v-q">1. sunny</div><input data-a="солнечный" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">2. cloudy</div><input data-a="облачный" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">3. foggy</div><input data-a="туманный" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">4. frosty</div><input data-a="морозный" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">5. dull</div><input data-a="пасмурный|хмурый|мрачный" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">6. changeable</div><input data-a="переменчивый" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">7. severe</div><input data-a="суровый" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">8. mild</div><input data-a="мягкий" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">9. lightning</div><input data-a="молния" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">10. thunder</div><input data-a="гром" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">11. rainbow</div><input data-a="радуга" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">12. barometer</div><input data-a="барометр" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">13. shower</div><input data-a="кратковременный дождь|ливень" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">14. pleasant</div><input data-a="приятный" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">15. to forecast</div><input data-a="предсказывать|предсказывать погоду|прогнозировать" placeholder="…"></div>
+        </div>
+
+        <div class="wb-vocab-col">
+          <h5>🌦 Weather · RU → EN · type 1 word</h5>
+          <div class="wb-vocab-row"><div class="wb-v-q">1. ветер</div><input data-a="wind" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">2. снег</div><input data-a="snow" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">3. дождь</div><input data-a="rain" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">4. туман</div><input data-a="fog" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">5. мороз, иней</div><input data-a="frost" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">6. облако</div><input data-a="cloud" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">7. буря, гроза</div><input data-a="storm" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">8. ниже нуля</div><input data-a="below zero" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">9. выше нуля</div><input data-a="above zero" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">10. градус</div><input data-a="degree" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">11. дышать</div><input data-a="breathe|to breathe" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">12. замерзать</div><input data-a="freeze|to freeze" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">13. падать (о темп-ре)</div><input data-a="drop|to drop" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">14. светить (о солнце)</div><input data-a="shine|to shine" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">15. дуть (о ветре)</div><input data-a="blow|to blow" placeholder="…"></div>
+        </div>
+
+        <div class="wb-vocab-col">
+          <h5>🌍 Ecology · EN → RU</h5>
+          <div class="wb-vocab-row"><div class="wb-v-q">1. factory</div><input data-a="завод|фабрика" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">2. harm</div><input data-a="вред" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">3. to protect</div><input data-a="защищать" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">4. greenhouse effect</div><input data-a="парниковый эффект" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">5. pollution</div><input data-a="загрязнение" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">6. drought</div><input data-a="засуха" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">7. heatwave</div><input data-a="волна жары|жара" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">8. flood</div><input data-a="наводнение|потоп" placeholder="…"></div>
+        </div>
+
+        <div class="wb-vocab-col">
+          <h5>🧥 Clothing · EN → RU (British)</h5>
+          <div class="wb-vocab-row"><div class="wb-v-q">1. anorak</div><input data-a="тёплая куртка с капюшоном|куртка с капюшоном|анорак" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">2. wellies</div><input data-a="резиновые сапоги|сапоги" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">3. raincoat / mac</div><input data-a="дождевик|плащ" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">4. scarf</div><input data-a="шарф" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">5. mittens</div><input data-a="варежки" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">6. gloves</div><input data-a="перчатки" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">7. a woolly jumper</div><input data-a="тёплый свитер|шерстяной свитер|свитер" placeholder="…"></div>
+          <div class="wb-vocab-row"><div class="wb-v-q">8. sunglasses</div><input data-a="очки от солнца|солнцезащитные очки|солнечные очки" placeholder="…"></div>
+        </div>
+
+      </div>
+
+      <div class="check-row">
+        <span class="score-pill" id="wb-v-score">0 / 66</span>
+        <button class="btn-check" onclick="checkWBPanel('v','wb-v-score')">Check vocab RT</button>
+      </div>
+    </div>
+
+    <!-- =============== TAB R · READING =============== -->
+    <div class="wb-panel" data-panel="r">
+      <h4>Reading RT · a letter from your cousin · family + weather + clothes<span class="tag">cumulative</span></h4>
+
+      <div class="read-audio-bar">
+        <span class="label">Olya's voice · 1:10</span>
+        <button class="play big" data-say="Hi Zhenya, it's your cousin Olya. Can you believe it? Our first week in Edinburgh is already over. My dad's new job is going great. My little brother Misha started school on Monday. Our teacher is called Mrs Brown — she is very kind but very strict about homework. The weather here is really changeable. Yesterday morning it was sunny and pleasant — about plus ten — and then the wind started blowing from the sea and it rained for three hours. I wore my new wellies to school and I was glad because the streets were full of puddles. My mum has bought me a warm anorak with a hood because winters here can be windy but almost never really frosty. I have never seen snow in November here! When my grandma was a girl, she used to see snow in Moscow in October every year. The climate has changed a lot. Write to me and tell me about the weather in Moscow. Love, Olya."><svg><use href="#ic-play"/></svg></button>
+        <span style="font-family:var(--mono);font-size:.74rem;color:var(--muted)">tap to hear the text (browser voice)</span>
+      </div>
+
+      <div class="read-text">
+        <b>From Olya, your cousin in Edinburgh</b>
+        <p>Hi Zhenya, it's your cousin Olya. Can you believe it? Our first week in Edinburgh is already over. My dad's new job is going great. My little brother Misha started school on Monday. Our teacher is called Mrs Brown — she is very kind but very strict about homework.</p>
+        <p>The weather here is really <em>changeable</em>. Yesterday morning it was sunny and <em>pleasant</em> — about plus ten — and then the wind started blowing from the sea and it rained for three hours. I wore my new <em>wellies</em> to school and I was glad because the streets were full of puddles.</p>
+        <p>My mum has bought me a warm <em>anorak</em> with a hood because winters here can be windy but almost never really <em>frosty</em>. I have never seen snow in November here! When my grandma was a girl, she <em>used to see</em> snow in Moscow in October every year. The climate has changed a lot.</p>
+        <p>Write to me and tell me about the weather in Moscow. Love, <b>Olya</b>.</p>
+      </div>
+
+      <div class="sub-label">True / False / Not Stated · 8 questions</div>
+      <div class="tfns">
+        <div class="row" data-a="T"><div class="txt">1. Olya has moved to Edinburgh with her family.</div><div class="btns"><button data-v="T">True</button><button data-v="F">False</button><button data-v="NS">Not stated</button></div></div>
+        <div class="row" data-a="T"><div class="txt">2. Olya's little brother is called Misha.</div><div class="btns"><button data-v="T">True</button><button data-v="F">False</button><button data-v="NS">Not stated</button></div></div>
+        <div class="row" data-a="NS"><div class="txt">3. Olya's family lives near a big park.</div><div class="btns"><button data-v="T">True</button><button data-v="F">False</button><button data-v="NS">Not stated</button></div></div>
+        <div class="row" data-a="T"><div class="txt">4. Mrs Brown is strict about homework.</div><div class="btns"><button data-v="T">True</button><button data-v="F">False</button><button data-v="NS">Not stated</button></div></div>
+        <div class="row" data-a="F"><div class="txt">5. The weather in Edinburgh is calm and always the same.</div><div class="btns"><button data-v="T">True</button><button data-v="F">False</button><button data-v="NS">Not stated</button></div></div>
+        <div class="row" data-a="T"><div class="txt">6. Olya wore wellies because the streets were wet.</div><div class="btns"><button data-v="T">True</button><button data-v="F">False</button><button data-v="NS">Not stated</button></div></div>
+        <div class="row" data-a="T"><div class="txt">7. Edinburgh winters are rarely really frosty.</div><div class="btns"><button data-v="T">True</button><button data-v="F">False</button><button data-v="NS">Not stated</button></div></div>
+        <div class="row" data-a="T"><div class="txt">8. Olya's grandma used to see snow in Moscow in October.</div><div class="btns"><button data-v="T">True</button><button data-v="F">False</button><button data-v="NS">Not stated</button></div></div>
+      </div>
+
+      <div class="sub-label">Cloze · fill in from the letter · 6 gaps</div>
+      <div class="wb-grid-grammar">
+        <div class="wb-grm-tile"><span class="wb-grm-tag">Reading cloze 1</span><div class="wb-grm-q">The weather in Edinburgh is really ___.</div><input data-a="changeable" placeholder="adjective"></div>
+        <div class="wb-grm-tile"><span class="wb-grm-tag">Reading cloze 2</span><div class="wb-grm-q">Yesterday morning it was sunny and ___, about +10.</div><input data-a="pleasant" placeholder="adjective"></div>
+        <div class="wb-grm-tile"><span class="wb-grm-tag">Reading cloze 3</span><div class="wb-grm-q">I wore my new ___ to school because streets were full of puddles.</div><input data-a="wellies" placeholder="noun pl."></div>
+        <div class="wb-grm-tile"><span class="wb-grm-tag">Reading cloze 4</span><div class="wb-grm-q">Mum has bought me a warm ___ with a hood.</div><input data-a="anorak" placeholder="noun"></div>
+        <div class="wb-grm-tile"><span class="wb-grm-tag">Reading cloze 5</span><div class="wb-grm-q">When grandma was a girl, she ___ to see snow in October every year.</div><input data-a="used" placeholder="verb"></div>
+        <div class="wb-grm-tile"><span class="wb-grm-tag">Reading cloze 6</span><div class="wb-grm-q">I have ___ seen snow in Edinburgh in November!</div><input data-a="never" placeholder="adverb"></div>
+      </div>
+
+      <div class="check-row">
+        <span class="score-pill" id="wb-r-score">0 / 14</span>
+        <button class="btn-check" onclick="checkWBPanel('r','wb-r-score')">Check reading RT</button>
+      </div>
+    </div>
+
+    <!-- =============== TAB L · LISTENING =============== -->
+    <div class="wb-panel" data-panel="l">
+      <h4>Listening RT · mum tells Zhenya what to wear for Monday<span class="tag">family + weather + clothing</span></h4>
+
+      <div class="theory">
+        <div class="th-eyebrow">Strategy · before you listen</div>
+        <h3>Read the 8 gaps first</h3>
+        <p>Every gap is either a <em>clothing word</em> (anorak · wellies · scarf · gloves · mittens · woolly jumper · sunglasses) or a <em>weather number</em> (minus five · plus twelve · zero · 2 p.m.) — guess the type before you hear.</p>
+      </div>
+
+      <div class="dialogue">
+        <div class="d-line them"><span class="who">Mum</span><span class="play" data-say="Zhenya, listen carefully. On Monday morning the temperature will be minus five degrees — quite frosty. So I have put your warm woolly jumper on the chair."><svg><use href="#ic-play"/></svg></span><p>Zhenya, listen carefully. On <b>Monday morning</b> the temperature will be <b>minus five</b> degrees — quite frosty. So I have put your warm woolly jumper on the chair.</p></div>
+        <div class="d-line you"><span class="who">Zhenya</span><span class="play" data-say="OK mum, and the anorak?"><svg><use href="#ic-play"/></svg></span><p>OK mum, and the anorak?</p></div>
+        <div class="d-line them"><span class="who">Mum</span><span class="play" data-say="Yes, your dark blue anorak. Scarf and mittens are in the pocket. No gloves because mittens are warmer at this temperature."><svg><use href="#ic-play"/></svg></span><p>Yes, your dark blue anorak. Scarf and <b>mittens</b> are in the pocket. No gloves because mittens are warmer at this temperature.</p></div>
+        <div class="d-line them"><span class="who">Mum</span><span class="play" data-say="By two p.m. the sun will come out and it will be about plus one. So you can take off the anorak at school but keep the jumper on."><svg><use href="#ic-play"/></svg></span><p>By <b>2 p.m.</b> the sun will come out and it will be about <b>plus one</b>. So you can take off the anorak at school but keep the jumper on.</p></div>
+        <div class="d-line them"><span class="who">Mum</span><span class="play" data-say="On Tuesday the forecast is very different — plus eight and heavy rain all day. So take your raincoat and wellies for Tuesday, not the anorak."><svg><use href="#ic-play"/></svg></span><p>On <b>Tuesday</b> the forecast is very different — <b>plus eight</b> and heavy <b>rain</b> all day. So take your <b>raincoat</b> and <b>wellies</b> for Tuesday, not the anorak.</p></div>
+        <div class="d-line you"><span class="who">Zhenya</span><span class="play" data-say="Mum, grandma called — she said Moscow used to be colder when she was a girl."><svg><use href="#ic-play"/></svg></span><p>Mum, grandma called — she said Moscow used to be colder when she was a girl.</p></div>
+        <div class="d-line them"><span class="who">Mum</span><span class="play" data-say="Yes, the climate is changing. Thirty years ago on Monday morning it would have been minus twenty, not minus five."><svg><use href="#ic-play"/></svg></span><p>Yes, the climate is changing. Thirty years ago on Monday morning it would have been <b>minus twenty</b>, not minus five.</p></div>
+      </div>
+
+      <div class="sub-label">Gap-fill · listen and write · 8 questions</div>
+      <div class="wb-grid-grammar">
+        <div class="wb-grm-tile"><span class="wb-grm-tag">gap 1</span><div class="wb-grm-q">1. On Monday morning the temperature will be ___ degrees.</div><input data-a="minus five|-5|minus 5" placeholder="number"></div>
+        <div class="wb-grm-tile"><span class="wb-grm-tag">gap 2</span><div class="wb-grm-q">2. Mum has put the warm ___ on the chair.</div><input data-a="woolly jumper|jumper" placeholder="noun"></div>
+        <div class="wb-grm-tile"><span class="wb-grm-tag">gap 3</span><div class="wb-grm-q">3. Scarf and ___ are in the pocket of the anorak.</div><input data-a="mittens" placeholder="noun pl."></div>
+        <div class="wb-grm-tile"><span class="wb-grm-tag">gap 4</span><div class="wb-grm-q">4. By ___ p.m. the sun will come out.</div><input data-a="two|2" placeholder="number"></div>
+        <div class="wb-grm-tile"><span class="wb-grm-tag">gap 5</span><div class="wb-grm-q">5. In the afternoon it will be about plus ___.</div><input data-a="one|1" placeholder="number"></div>
+        <div class="wb-grm-tile"><span class="wb-grm-tag">gap 6</span><div class="wb-grm-q">6. On Tuesday the forecast is plus ___ and heavy rain.</div><input data-a="eight|8" placeholder="number"></div>
+        <div class="wb-grm-tile"><span class="wb-grm-tag">gap 7</span><div class="wb-grm-q">7. For Tuesday mum tells Zhenya to take her raincoat and ___.</div><input data-a="wellies" placeholder="noun pl."></div>
+        <div class="wb-grm-tile"><span class="wb-grm-tag">gap 8</span><div class="wb-grm-q">8. Thirty years ago on Monday morning it would have been minus ___, not minus five.</div><input data-a="twenty|20" placeholder="number"></div>
+      </div>
+
+      <div class="sub-label">True / False / Not Stated · 4 cumulative questions</div>
+      <div class="tfns">
+        <div class="row" data-a="T"><div class="txt">1. Mum says mittens are warmer than gloves at this temperature.</div><div class="btns"><button data-v="T">True</button><button data-v="F">False</button><button data-v="NS">Not stated</button></div></div>
+        <div class="row" data-a="T"><div class="txt">2. Grandma said Moscow used to be colder when she was a girl.</div><div class="btns"><button data-v="T">True</button><button data-v="F">False</button><button data-v="NS">Not stated</button></div></div>
+        <div class="row" data-a="NS"><div class="txt">3. Zhenya's grandma lives in St Petersburg now.</div><div class="btns"><button data-v="T">True</button><button data-v="F">False</button><button data-v="NS">Not stated</button></div></div>
+        <div class="row" data-a="F"><div class="txt">4. On Tuesday mum tells Zhenya to wear the anorak.</div><div class="btns"><button data-v="T">True</button><button data-v="F">False</button><button data-v="NS">Not stated</button></div></div>
+      </div>
+
+      <div class="check-row">
+        <span class="score-pill" id="wb-l-score">0 / 12</span>
+        <button class="btn-check" onclick="checkWBPanel('l','wb-l-score')">Check listening RT</button>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1235,22 +2569,26 @@ footer{max-width:1080px;margin:52px auto 24px;padding:0 16px;text-align:center;c
   <div class="scene-caption">Four tasks before next lesson</div>
 
   <div class="homework">
-    <div class="hw-eyebrow">Homework · ~25 min</div>
-    <h3>Four tasks for the next lesson</h3>
+    <div class="hw-eyebrow">Homework · ~35 min · the lesson has grown · pick 5 of 8</div>
+    <h3>Eight tasks — do any five that your teacher ticks</h3>
     <ol>
-      <li><b>Vocab</b> — re-flip all 42 flashcards (Section 2). Write 10 new example sentences using any 10 words from groups C (phenomena) and D (verbs). Target: 10 fresh sentences in your notebook.</li>
-      <li><b>Grammar A</b> — redo the 12 present-tense drills (Section 3) with 100% correct. Any wrong? Re-read the theory box and try again.</li>
-      <li><b>Grammar B</b> — redo the 16 future-form drills (Section 4). Then write 4 of your own: one with <em>will</em>, one with <em>going to</em>, one with Present Continuous, one with Present Simple.</li>
-      <li><b>Writing</b> — copy your diary entry (Section 12) into a message and send it. Make sure you used <em>all three</em> present tenses <strong>and</strong> at least one future form.</li>
+      <li><b>Vocab</b> — re-flip all 51 flashcards (Section 2). Write 12 new sentences using any 12 words: four from group C (phenomena), four from group D (verbs), four from the new group F (ecology).</li>
+      <li><b>Fine ↔ Nasty</b> — replay Section 2b until all 18 chips are correct in one go.</li>
+      <li><b>5 temperature patterns</b> — rewrite 5 weather forecasts: write today's temperature in all five English patterns (<em>above zero · below zero · minus · zero degrees · degrees of frost</em>).</li>
+      <li><b>Grammar A+B</b> — redo the 12 present-tense + 16 future drills (Sections 3, 4) with 100% correct. Any wrong? Re-read the theory box.</li>
+      <li><b>Grammar C+D+E</b> — redo Past Simple/Continuous, <em>used to</em>, and Present Perfect Continuous drills (Sections 4c, 4d, 4e). Then write 3 of your own climate-change sentences using <em>used to</em>.</li>
+      <li><b>Climate reading</b> — re-read the 4 climate-crazy cases (Section 5b), then tell one case in your own words — 60 seconds, record as a voice memo.</li>
+      <li><b>Proverbs</b> — learn 2 of the 5 proverbs (Section 7b) by heart. Which one do you believe?</li>
+      <li><b>Writing</b> — copy your diary entry (Section 12) into a message and send it. Mix <em>all three</em> present tenses, Past Continuous, and one future form.</li>
     </ol>
-    <p>Bonus · record yourself doing the 60-second boss (Section 11) and send the voice memo.</p>
+    <p><b>Boss bonus</b> · record yourself doing the 60-second climate monologue (Section 11) and send the voice memo.</p>
   </div>
 </section>
 
 </div>
 
 <footer>
-  LinguaBoost Lab · Zhenya L3 · Weather, Climate &amp; Cities · Afanasyeva-6 Units 1+2 · <a href="https://newgeneration-english.ru/" style="color:inherit">newgeneration-english.ru</a>
+  LinguaBoost Lab · Zhenya L3 · Weather, Climate &amp; Cities · <b>mega edition</b> · Afanasyeva-6 Units 1+2 · Afanasyeva-5 Lesson 10 · <a href="https://newgeneration-english.ru/" style="color:inherit">newgeneration-english.ru</a>
 </footer>
 
 <script>
@@ -1362,6 +2700,100 @@ document.querySelectorAll('.tfns .row .btns button').forEach(function(b){
   }
   ta.addEventListener('input', upd); upd();
 })();
+
+// WORKBOOK · РАБОЧАЯ ТЕТРАДЬ · tab switcher
+document.querySelectorAll('.wb-tab').forEach(function(t){
+  t.addEventListener('click', function(){
+    var wrap = t.closest('.wb-wrap'); if (!wrap) return;
+    wrap.querySelectorAll('.wb-tab').forEach(function(x){ x.classList.remove('active'); });
+    wrap.querySelectorAll('.wb-panel').forEach(function(x){ x.classList.remove('active'); });
+    t.classList.add('active');
+    var tgt = wrap.querySelector('.wb-panel[data-panel="'+t.dataset.tab+'"]');
+    if (tgt) tgt.classList.add('active');
+  });
+});
+function checkWBPanel(panelAttr, scoreId){
+  var panel = document.querySelector('.wb-panel[data-panel="'+panelAttr+'"]');
+  if (!panel) return;
+  var ok = 0, total = 0;
+  panel.querySelectorAll('select[data-a], input[data-a]').forEach(function(el){
+    total++;
+    el.classList.remove('ok','bad');
+    if (!el.value.trim()) return;
+    if (el.tagName === 'SELECT'){
+      if (el.value === el.dataset.a){ el.classList.add('ok'); ok++; }
+      else el.classList.add('bad');
+    } else {
+      if (matchAns(el.value, el.dataset.a)){ el.classList.add('ok'); ok++; }
+      else el.classList.add('bad');
+    }
+  });
+  panel.querySelectorAll('.tfns .row').forEach(function(r){
+    total++;
+    var exp = r.dataset.a;
+    var sel = r.querySelector('button.sel');
+    r.querySelectorAll('.btns button').forEach(function(b){ b.classList.remove('ok','bad'); });
+    if (sel && sel.dataset.v === exp){ sel.classList.add('ok'); ok++; }
+    else if (sel) sel.classList.add('bad');
+  });
+  var sp = document.getElementById(scoreId);
+  if (sp){ sp.textContent = ok + ' / ' + total; sp.classList.toggle('done', ok === total && total > 0); }
+}
+
+// CLOTHES MATCHER · each select has data-a
+function checkClothes(){
+  var sec = document.getElementById('s10b-clothes'); if (!sec) return;
+  var ok = 0, total = 0;
+  sec.querySelectorAll('.clothes-row select').forEach(function(sel){
+    total++;
+    var exp = sel.dataset.a || '';
+    sel.classList.remove('ok','bad');
+    if (!sel.value) return;
+    if (sel.value === exp){ sel.classList.add('ok'); ok++; }
+    else sel.classList.add('bad');
+  });
+  var sp = document.getElementById('clothes-score');
+  if (sp){ sp.textContent = ok + ' / ' + total; sp.classList.toggle('done', ok === total && total > 0); }
+}
+
+// BUCKET-SORT · Fine vs Nasty · click chip to cycle fine → nasty → neutral
+document.querySelectorAll('.sort-chip').forEach(function(c){
+  c.addEventListener('click', function(){
+    var states = ['', 'fine', 'nasty'];
+    var cur = c.dataset.state || '';
+    var next = states[(states.indexOf(cur)+1) % 3];
+    c.dataset.state = next;
+    c.classList.remove('correct','wrong');
+  });
+});
+function checkBucket(bucketId, scoreId){
+  var box = document.getElementById(bucketId); if (!box) return;
+  var ok = 0, total = 0;
+  box.querySelectorAll('.sort-chip').forEach(function(c){
+    total++;
+    c.classList.remove('correct','wrong');
+    if (!c.dataset.state){ /* unsorted = wrong */ c.classList.add('wrong'); return; }
+    if (c.dataset.state === c.dataset.correct){ ok++; c.classList.add('correct'); }
+    else c.classList.add('wrong');
+  });
+  var sp = document.getElementById(scoreId);
+  if (sp){ sp.textContent = ok + ' / ' + total; sp.classList.toggle('done', ok === total && total > 0); }
+}
+
+// PROVERB CARDS · click to reveal meaning
+document.querySelectorAll('.prov-card').forEach(function(p){
+  p.addEventListener('click', function(ev){
+    if (ev.target.closest('.play')) return;
+    p.classList.toggle('open');
+  });
+});
+// IDEAL-DAY CARDS · click to reveal sample
+document.querySelectorAll('.ideal-card').forEach(function(p){
+  p.addEventListener('click', function(ev){
+    if (ev.target.closest('.play')) return;
+    p.classList.toggle('open');
+  });
+});
 
 // Boss 60-second timer
 var bossTimer = null;
