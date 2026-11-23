@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>Julia · November Workbook · a review of 3 lessons</title>
+<meta name="description" content="A compact review workbook for Julia covering November's three lessons — Bubble Wishes (10 futures), PE Week (sports + speaking), Friday the 13th (luck idioms). Vocab checklist, grammar cheat sheet, mini-drills.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/lab-pilot.css?v=8">
+<script src="../../assets/lab-pilot.js?v=6" defer></script>
+<style>
+:root{
+  --bg:#F7EEFA;
+  --surface:#FFFFFF;
+  --card:#FFFFFF;
+  --card-2:#FAF2FC;
+  --accent:#9B6BC5;
+  --accent-2:#C689E0;
+  --accent-3:#E6A6D9;
+  --deep:#4A2B6B;
+  --text:#2E1F42;
+  --ink:#2E1F42;
+  --muted:#8574A0;
+  --faint:rgba(133,116,160,.4);
+  --ok:#78C196;
+  --miss:#E88FB3;
+  --line:rgba(155,107,197,.22);
+  --line-2:rgba(155,107,197,.14);
+  --highlight:rgba(155,107,197,.08);
+  --radius:14px;
+  --radius-l:20px;
+  --shadow:0 4px 18px rgba(74,43,107,.08);
+  --display:'Unbounded','Manrope',sans-serif;
+  --body:'Manrope',system-ui,sans-serif;
+  --mono:'JetBrains Mono',Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.6;min-height:100vh;font-size:16px;padding:0 0 60px}
+
+.wb-hdr{padding:24px 16px 20px;text-align:center;background:linear-gradient(135deg,#F4E3FA,#FDF4FF);border-bottom:1px solid var(--line)}
+.wb-hdr .brand{font-family:var(--display);font-weight:700;color:var(--muted);font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.wb-hdr h1{font-family:var(--display);font-weight:800;color:var(--deep);font-size:30px;margin:6px 0 4px;line-height:1.2}
+.wb-hdr h1 em{color:var(--accent);font-style:italic;font-weight:700}
+.wb-hdr .sub{color:var(--muted);font-size:14px;margin-top:6px}
+.wb-hdr .tabs{margin-top:16px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+.wb-hdr .tabs a{padding:8px 14px;border-radius:20px;border:1px solid var(--line);background:#fff;color:var(--deep);font-family:var(--display);font-weight:600;font-size:13px;text-decoration:none;transition:all .15s}
+.wb-hdr .tabs a:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.wb-hdr .tabs a.cur{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+.wb{max-width:980px;margin:0 auto;padding:28px 16px 40px}
+.wb-section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-l);padding:22px 20px;margin-bottom:22px;box-shadow:var(--shadow)}
+.wb-section > h2{font-family:var(--display);color:var(--deep);font-weight:800;font-size:22px;margin-bottom:6px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.wb-section > h2 .num-pill{background:var(--accent);color:#fff;font-family:var(--display);font-weight:800;font-size:13px;padding:4px 10px;border-radius:10px;letter-spacing:.04em}
+.wb-section > h2 .date-pill{background:var(--card-2);color:var(--muted);font-family:var(--mono);font-size:12px;padding:3px 8px;border-radius:8px;font-weight:600}
+.wb-section > .sub{color:var(--muted);font-size:13px;font-style:italic;margin-bottom:14px}
+
+.what-list{list-style:none;padding:0;margin:14px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.what-list li{padding:10px 12px;background:var(--card-2);border-left:3px solid var(--accent);border-radius:8px;font-size:14px;line-height:1.5}
+.what-list li strong{display:block;color:var(--deep);font-family:var(--display);font-weight:700;margin-bottom:2px;font-size:13px;letter-spacing:.02em}
+
+.vocab-grid{list-style:none;padding:0;margin:14px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:6px}
+.vocab-grid li{padding:7px 10px;background:var(--highlight);border-radius:7px;font-size:13px;display:flex;align-items:center;gap:6px}
+.vocab-grid li::before{content:"□";font-family:var(--mono);font-size:16px;color:var(--muted);line-height:1}
+.vocab-grid h4{font-family:var(--display);color:var(--deep);font-weight:700;font-size:14px;margin:14px 0 6px;text-transform:uppercase;letter-spacing:.05em;grid-column:1/-1}
+
+.grammar-table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
+.grammar-table th{background:var(--card-2);color:var(--deep);font-family:var(--display);font-weight:700;font-size:12px;letter-spacing:.04em;text-align:left;padding:10px 12px;border-bottom:2px solid var(--accent)}
+.grammar-table td{padding:10px 12px;border-bottom:1px solid var(--line-2);vertical-align:top}
+.grammar-table tr:hover td{background:var(--highlight)}
+.grammar-table td code{font-family:var(--mono);background:var(--card-2);padding:2px 6px;border-radius:4px;font-size:12px;color:var(--accent)}
+.grammar-table td em{color:var(--muted);font-style:italic}
+
+.idiom-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-top:12px}
+.idiom-card{padding:12px;background:linear-gradient(135deg,#FDF4FF,#F4E3FA);border-radius:10px;border:1px solid var(--line)}
+.idiom-card .w{font-family:var(--display);color:var(--deep);font-weight:700;font-size:14px;margin-bottom:3px}
+.idiom-card .m{color:var(--muted);font-size:12px;font-style:italic;margin-bottom:4px}
+.idiom-card .e{font-size:13px;color:var(--ink);line-height:1.4}
+
+.drill{margin-top:14px;padding:14px;background:var(--card-2);border-radius:10px}
+.drill h4{font-family:var(--display);color:var(--deep);font-weight:700;font-size:14px;margin-bottom:8px;letter-spacing:.03em}
+.drill ol{list-style:decimal;padding-left:22px;color:var(--ink);font-size:14px;line-height:1.9}
+.drill ol li{padding:3px 0}
+.drill .gap{display:inline-block;min-width:80px;border-bottom:1.5px dashed var(--accent);padding:0 6px;color:var(--accent);font-family:var(--mono);text-align:center}
+.drill .ans{color:var(--ok);font-family:var(--mono);font-weight:700;margin-left:8px;opacity:0;transition:opacity .2s;font-size:12px}
+.drill.show .ans{opacity:1}
+.drill .btn-ans{display:inline-block;margin-top:10px;padding:6px 12px;border-radius:8px;background:var(--accent);color:#fff;font-family:var(--display);font-weight:700;font-size:12px;cursor:pointer;border:none;letter-spacing:.04em}
+.drill .btn-ans:hover{background:var(--deep)}
+
+.print-note{text-align:center;color:var(--muted);font-size:12px;margin-top:20px;font-style:italic}
+
+@media print {
+  body{background:#fff}
+  .wb-hdr{page-break-after:avoid}
+  .wb-section{break-inside:avoid;box-shadow:none;border:1px solid #ccc}
+  .drill .ans{opacity:1 !important}
+}
+</style>
+</head>
+<body>
+
+<div class="wb-hdr">
+  <div class="brand">NG English Lab · Julia · A2 → B1</div>
+  <h1>November Workbook <em>— three lessons, one recap</em></h1>
+  <div class="sub">Everything we covered 02.11 · 09.11 · 16.11 — review, vocab check, grammar cheat sheet, mini-drills.</div>
+  <div class="tabs">
+    <a href="../julia-bubble-wishes/">🫧 Bubble Wishes · 02.11</a>
+    <a href="../julia-pe-speak-read/">🏃 PE Week · 09.11</a>
+    <a href="../julia-friday-13-emma/">🎃 Friday 13th · 13.11</a>
+    <a href="#" class="cur">📒 Workbook</a>
+  </div>
+</div>
+
+<div class="wb">
+
+<!-- ===== 1 · LESSON 1 ===== -->
+<section class="wb-section">
+  <h2><span class="num-pill">1</span> 🫧 Bubble Wishes <span class="date-pill">02.11.2026</span></h2>
+  <div class="sub">One afternoon, five chapters, ten ways to talk about the future.</div>
+  <ul class="what-list">
+    <li><strong>Pre-warm-up</strong> Clothes vocab (jumper · jeans · scarf · cap · coat · gloves · pyjamas · slippers) + British coins (penny · pence · pound).</li>
+    <li><strong>Chapter 1 · The old bubble bottle</strong> Mum's magic recipe. Phrasal verbs: <em>pop up · blow up · come true · look after</em>.</li>
+    <li><strong>Chapter 2 · First bubble on the balcony</strong> <em>WILL</em> for wishes & predictions. Word order with <em>will</em>.</li>
+    <li><strong>Chapter 3 · Barsik the bubble hunter</strong> Past Continuous + Past Simple together. Phrasal verbs from the story.</li>
+    <li><strong>Chapter 4 · Giant bubble in the park</strong> <em>will</em> vs <em>going to</em>. First conditional: <em>If … will …</em>.</li>
+    <li><strong>Future Toolkit</strong> Present Continuous (arrangements) · Present Simple (schedules) · <em>Shall I / Shall we?</em> · <em>be about to</em> · <em>will be V-ing</em> · <em>will have + V3</em> · time words (when, as soon as, until, before, after) · soft forms (I'd like to / I hope).</li>
+    <li><strong>Chapter 5 · Sunset wishes</strong> <em>might / could</em> for soft possibility.</li>
+    <li><strong>Mixed Future Quest · boss level</strong> 10 Qs, every future form in one mixed quiz.</li>
+    <li><strong>Vocab Capsule</strong> 20 core words from the bubble story.</li>
+  </ul>
+</section>
+
+<!-- ===== 2 · LESSON 2 ===== -->
+<section class="wb-section">
+  <h2><span class="num-pill">2</span> 🏃 PE Week · Speak + Read <span class="date-pill">09.11.2026</span></h2>
+  <div class="sub">A full week on the running track with Emma. Speaking workout + a 6-chapter story.</div>
+  <ul class="what-list">
+    <li><strong>Warm-up</strong> Spell the loud PE word.</li>
+    <li><strong>Picture Talk</strong> Three sports-day snapshots — one-minute talks on each.</li>
+    <li><strong>Speaking · Part 1</strong> 10 questions: about me &amp; sports.</li>
+    <li><strong>Speaking · Part 2</strong> Describe each photo for 90 seconds.</li>
+    <li><strong>Speaking · Part 3</strong> Plan the sports day with Emma (role play).</li>
+    <li><strong>Speaking · Part 4</strong> Mini-discussion: "Should every kid do a sport?"</li>
+    <li><strong>Reading · Part A</strong> Listen-first: 5 pre-reading guesses on the audio story.</li>
+    <li><strong>Reading · Part B</strong> Julia's Sports Week — 6-chapter story (Mon chart on fridge → Wed hardest practice → Thu dad's stopwatch story → Fri pancakes for luck → the race in 20 seconds → telling Barsik and Turbo).</li>
+    <li><strong>Reading · Part C</strong> Think &amp; answer in 1–2 sentences (between-the-lines Qs).</li>
+    <li><strong>Reading · Part D</strong> Fill 15 gaps — retell "Monday" version.</li>
+    <li><strong>Grammar Toolkit</strong> Review of ALL 10 future forms: pick the right future · Future Continuous vs Future Perfect · arrangements/schedules/shall · Future Mega Quiz (12 Qs mixed) · type-in drill (8 items) · speak each of the 10 futures (one prompt per form).</li>
+    <li><strong>Vocab Capsule</strong> 66 sports words in 5 categorised blocks (base PE · equipment · action verbs · body &amp; feelings · results &amp; emotions).</li>
+  </ul>
+</section>
+
+<!-- ===== 3 · LESSON 3 ===== -->
+<section class="wb-section">
+  <h2><span class="num-pill">3</span> 🎃🏃🫧 Consolidation · three labs in one <span class="date-pill">16.11.2026</span></h2>
+  <div class="sub">All three of November's threads braided together in one session: Sports Week + Friday the 13th + Bubble Wishes.</div>
+  <ul class="what-list">
+    <li><strong>Sports Week</strong> Speaking + Reading warm-up, revisiting the PE vocab and 6-chapter story.</li>
+    <li><strong>Friday the 13th · Julia &amp; Emma</strong> What is a superstition · match superstition with meaning · audio-first reading of <em>Julia, Emma &amp; the Unlucky Day Challenge</em> · T/F/NS · fill-gap retell · <strong>12 English luck idioms</strong> (break a leg · fingers crossed · knock on wood · beginner's luck · lady luck · luck of the draw · lucky break · better luck next time · out of luck · push your luck · try your luck · as luck would have it).</li>
+    <li><strong>Question grammar</strong> Which helper verb starts the question (do / does / is / are / will / was / were). Which Wh-word (what · where · when · why · how · who).</li>
+    <li><strong>13 flip-cards</strong> Situations with Julia &amp; Emma — speaking spiral.</li>
+    <li><strong>Diary writing</strong> Julia's diary entry for Friday the 13th.</li>
+    <li><strong>Bubble Wishes recap</strong> <em>will / going to / if …</em> — all futures back in play.</li>
+    <li><strong>Vocab Capsule</strong> Core of the 3-lesson period in one list.</li>
+  </ul>
+</section>
+
+<!-- ===== 4 · 10 FUTURES CHEAT SHEET ===== -->
+<section class="wb-section">
+  <h2><span class="num-pill">4</span> ⏳ The 10 Future Forms · cheat sheet</h2>
+  <div class="sub">Pin this on the fridge. Every future we studied this month in one table.</div>
+  <table class="grammar-table">
+    <thead><tr><th>#</th><th>Form</th><th>When to use it</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><code>will</code></td><td>wish · prediction · promise · decision made now</td><td><em>I will travel to London one day.</em></td></tr>
+      <tr><td>2</td><td><code>going to</code></td><td>decided plan · strong visible prediction</td><td><em>We're going to blow a giant bubble.</em></td></tr>
+      <tr><td>3</td><td><code>Present Continuous</code></td><td>fixed arrangement (time + person)</td><td><em>I'm meeting Emma at the track at 10.</em></td></tr>
+      <tr><td>4</td><td><code>Present Simple</code></td><td>schedule · timetable</td><td><em>The race starts at 10:30 on Sunday.</em></td></tr>
+      <tr><td>5</td><td><code>If … will …</code></td><td>first conditional (real future)</td><td><em>If I win, I will blow a bubble.</em></td></tr>
+      <tr><td>6</td><td><code>might / could</code></td><td>soft possibility (maybe)</td><td><em>I might be third. Or fourth.</em></td></tr>
+      <tr><td>7</td><td><code>Shall I / we …?</code></td><td>polite suggestion / offer</td><td><em>Shall we do it again next week?</em></td></tr>
+      <tr><td>8</td><td><code>be about to</code></td><td>something will happen in a second</td><td><em>The sun was about to pop out.</em></td></tr>
+      <tr><td>9</td><td><code>will be + V-ing</code></td><td>Future Continuous — ongoing at a future time</td><td><em>At 10 next Sunday Coach will be bringing new stopwatches.</em></td></tr>
+      <tr><td>10</td><td><code>will have + V3</code></td><td>Future Perfect — finished by a future time</td><td><em>By next Sunday you will have beaten this time.</em></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ===== 5 · 12 LUCK IDIOMS ===== -->
+<section class="wb-section">
+  <h2><span class="num-pill">5</span> 🍀 The 12 Luck Idioms</h2>
+  <div class="sub">All twelve, with a one-line meaning and an example.</div>
+  <div class="idiom-grid">
+    <div class="idiom-card"><div class="w">break a leg</div><div class="m">good luck (said to a performer / athlete)</div><div class="e">Break a leg at the race, Julia!</div></div>
+    <div class="idiom-card"><div class="w">fingers crossed</div><div class="m">hoping for luck</div><div class="e">I've got my fingers crossed for you.</div></div>
+    <div class="idiom-card"><div class="w">knock on wood</div><div class="m">hope nothing goes wrong</div><div class="e">Nothing broke — knock on wood.</div></div>
+    <div class="idiom-card"><div class="w">beginner's luck</div><div class="m">luck when you try something for the first time</div><div class="e">She hasn't practised much — just beginner's luck.</div></div>
+    <div class="idiom-card"><div class="w">lady luck</div><div class="m">the personified goddess of luck</div><div class="e">Lady luck was on our side today.</div></div>
+    <div class="idiom-card"><div class="w">luck of the draw</div><div class="m">pure chance — no skill involved</div><div class="e">Lane three or lane four — luck of the draw.</div></div>
+    <div class="idiom-card"><div class="w">lucky break</div><div class="m">unexpected good opportunity</div><div class="e">The silver medal was a real lucky break.</div></div>
+    <div class="idiom-card"><div class="w">better luck next time</div><div class="m">polite / kind consolation</div><div class="e">You didn't win — better luck next time!</div></div>
+    <div class="idiom-card"><div class="w">out of luck</div><div class="m">no luck at all</div><div class="e">Silver isn't bad — I'm not out of luck.</div></div>
+    <div class="idiom-card"><div class="w">push your luck</div><div class="m">try too hard / ask for too much</div><div class="e">One race is enough — don't push your luck.</div></div>
+    <div class="idiom-card"><div class="w">try your luck</div><div class="m">give something a chance</div><div class="e">Do you want to try your luck on the longer track?</div></div>
+    <div class="idiom-card"><div class="w">as luck would have it</div><div class="m">by happy chance</div><div class="e">As luck would have it, the wind was behind me.</div></div>
+  </div>
+</section>
+
+<!-- ===== 6 · VOCAB CHECKLIST ===== -->
+<section class="wb-section">
+  <h2><span class="num-pill">6</span> 📋 Vocab Checklist · tick what you know</h2>
+  <div class="sub">All the words we saw this month, grouped by lesson. Tick the box in print or read aloud with Mum.</div>
+
+  <ul class="vocab-grid">
+    <h4>🫧 From Bubble Wishes</h4>
+    <li>bubble</li><li>soap</li><li>blow</li><li>pop</li><li>burst</li><li>wand</li><li>ring</li><li>recipe</li><li>mixture</li><li>ingredient</li><li>rainbow</li><li>shiny</li><li>float</li><li>wet</li><li>wish</li><li>hope</li><li>dream</li><li>promise</li><li>one day</li><li>come true</li>
+    <h4>🧥 Clothes &amp; coins</h4>
+    <li>jumper</li><li>jeans</li><li>scarf</li><li>cap</li><li>coat</li><li>gloves</li><li>pyjamas</li><li>slippers</li><li>penny</li><li>pence</li><li>pound</li>
+    <h4>🏃 PE Week · base</h4>
+    <li>track</li><li>race</li><li>runner</li><li>sprint</li><li>finish line</li><li>warm-up</li><li>whistle</li><li>lane</li><li>coach</li><li>stopwatch</li><li>medal</li><li>trainers</li><li>sneakers</li><li>cheer</li><li>pass</li><li>catch</li><li>score</li><li>points</li><li>team</li><li>winner</li>
+    <h4>🏀 PE · equipment</h4>
+    <li>ball</li><li>net</li><li>racket</li><li>goal</li><li>bat</li><li>helmet</li><li>knee pads</li><li>skateboard</li><li>bike</li><li>jump rope</li>
+    <h4>💪 PE · action verbs</h4>
+    <li>to jump</li><li>to throw</li><li>to kick</li><li>to swim</li><li>to dive</li><li>to climb</li><li>to stretch</li><li>to lift</li><li>to push</li><li>to pull</li>
+    <h4>🎃 Friday 13 · core</h4>
+    <li>superstition</li><li>luck</li><li>unlucky</li><li>ghost</li><li>spider</li><li>mirror</li><li>ladder</li><li>black cat</li><li>horseshoe</li><li>four-leaf clover</li><li>charm</li><li>fortune</li>
+  </ul>
+</section>
+
+<!-- ===== 7 · MINI-DRILLS ===== -->
+<section class="wb-section">
+  <h2><span class="num-pill">7</span> ✏️ Mini-drills · 3 quick exercises</h2>
+  <div class="sub">Do with a pencil. Tap <strong>Show answers</strong> at the bottom of each drill when you're done.</div>
+
+  <div class="drill" id="drill-1">
+    <h4>A · Pick the right future form (10 Qs)</h4>
+    <ol>
+      <li>Julia already decided — she <span class="gap">______</span> blow a bubble at the finish line. <span class="ans">is going to</span></li>
+      <li>I <span class="gap">______</span> Emma at the park at ten — we've agreed. <span class="ans">am meeting</span></li>
+      <li>The race <span class="gap">______</span> at 10:30 on Sunday. (timetable) <span class="ans">starts</span></li>
+      <li>Watch out! The sun <span class="gap">______</span> pop out from behind the cloud. <span class="ans">is about to</span></li>
+      <li>If Julia <span class="gap">______</span> the race, she will blow a bubble. <span class="ans">wins</span></li>
+      <li>I'm not sure — I <span class="gap">______</span> be third. <span class="ans">might</span></li>
+      <li>Your shoelace is loose. — Oh, I <span class="gap">______</span> help you. <span class="ans">will</span></li>
+      <li>"<span class="gap">______</span> we do it again next Sunday?" Emma asked. <span class="ans">Shall</span></li>
+      <li>By next Sunday you <span class="gap">______</span> this time by two seconds. <span class="ans">will have beaten</span></li>
+      <li>At 10 next Sunday Coach <span class="gap">______</span> new stopwatches onto the track. <span class="ans">will be bringing</span></li>
+    </ol>
+    <button class="btn-ans" onclick="document.getElementById('drill-1').classList.toggle('show')">Show / hide answers</button>
+  </div>
+
+  <div class="drill" id="drill-2">
+    <h4>B · Pick the right luck idiom (8 Qs)</h4>
+    <ol>
+      <li>Right before the whistle, Emma said: "<span class="gap">______</span>!" <span class="ans">Break a leg</span></li>
+      <li>Emma held up her hand: "I've got my <span class="gap">______</span> for you." <span class="ans">fingers crossed</span></li>
+      <li>"I hope nothing goes wrong today — <span class="gap">______</span>," she said, tapping the bench. <span class="ans">knock on wood</span></li>
+      <li>Julia hadn't run for a month, but she came second. "That's <span class="gap">______</span>!" <span class="ans">beginner's luck</span></li>
+      <li>"<span class="gap">______</span>, the wind was right behind us," Julia smiled. <span class="ans">As luck would have it</span></li>
+      <li>John won first, then turned to the last kid: "<span class="gap">______</span>!" <span class="ans">Better luck next time</span></li>
+      <li>"I didn't win gold, but I'm not <span class="gap">______</span>." <span class="ans">out of luck</span></li>
+      <li>"One race is enough — don't <span class="gap">______</span>," Mum said. <span class="ans">push your luck</span></li>
+    </ol>
+    <button class="btn-ans" onclick="document.getElementById('drill-2').classList.toggle('show')">Show / hide answers</button>
+  </div>
+
+  <div class="drill" id="drill-3">
+    <h4>C · Match the sport word to its category (10 Qs)</h4>
+    <ol>
+      <li><span class="gap">______</span> you wear on your feet to run. <span class="ans">trainers / sneakers</span></li>
+      <li>The person who times the race with a stopwatch. <span class="gap">______</span> <span class="ans">coach</span></li>
+      <li>The line where the race ends. <span class="gap">______</span> <span class="ans">finish line</span></li>
+      <li>The thin strip on the track where you run. <span class="gap">______</span> <span class="ans">lane</span></li>
+      <li>You hang this around your neck after you win. <span class="gap">______</span> <span class="ans">medal</span></li>
+      <li>You blow this to start the race. <span class="gap">______</span> <span class="ans">whistle</span></li>
+      <li>Exercises before the race to warm the muscles. <span class="gap">______</span> <span class="ans">warm-up</span></li>
+      <li>To run very fast for a short distance. <span class="gap">______</span> <span class="ans">sprint</span></li>
+      <li>A person who runs in a race. <span class="gap">______</span> <span class="ans">runner</span></li>
+      <li>The surface the race happens on. <span class="gap">______</span> <span class="ans">track</span></li>
+    </ol>
+    <button class="btn-ans" onclick="document.getElementById('drill-3').classList.toggle('show')">Show / hide answers</button>
+  </div>
+</section>
+
+<p class="print-note">Printable · tap <strong>Ctrl + P</strong> / <strong>⌘ P</strong> to make a paper copy for the fridge.</p>
+
+</div>
+
+</body>
+</html>
