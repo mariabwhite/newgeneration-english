@@ -25,7 +25,7 @@ OUT = HERE / "audio"
 OUT.mkdir(exist_ok=True)
 
 V_NARR = "en-GB-SoniaNeural"
-V_OLIVIA = "en-GB-OliviaNeural"
+V_OLIVIA = "en-GB-LibbyNeural"
 V_RYAN = "en-GB-RyanNeural"
 V_THOMAS = "en-GB-ThomasNeural"
 
