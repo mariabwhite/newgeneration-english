@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NG Placement Test · A0 → C1 · бумажная версия</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@700;800&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF; --cream:#EFEEE9; --cream-soft:#F4F3EE;
+    --orange:#E8542B; --gold:#F4C84B;
+    --ink:#1F1F1F; --ink-2:#2C2C2C; --muted:#8B8B8B;
+    --rule:#D9D7D2; --footer-bg:#F1F0EB;
+    --ok:#3F6B3A; --miss:#B23A2A; --amber:#B65231;
+    --navy:#1E2A4A;
+    --lvl-a0:#8b5a2b; --lvl-a1:#c17a1f; --lvl-a2:#c84a2e;
+    --lvl-b1:#0e7268; --lvl-b2:#4848a0; --lvl-c1:#5a2d7c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#E9E7E2;color:var(--ink);
+    font-family:"Inter","Segoe UI",system-ui,sans-serif;
+    font-size:14px;line-height:1.55;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{width:210mm;min-height:297mm;margin:18px auto;background:var(--bg);
+    box-shadow:0 12px 40px rgba(0,0,0,.10);padding:0 0 28px}
+
+  /* HERO */
+  .hero{background:var(--cream);padding:28px 36px 30px;position:relative;overflow:hidden}
+  .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;
+    background:linear-gradient(90deg,var(--orange) 0%, var(--orange) 55%, var(--gold) 100%)}
+  .hero-img{width:100%;height:auto;max-height:200px;object-fit:cover;object-position:center;border-radius:8px;margin-top:14px;border:1px solid var(--rule)}
+  .brandline{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  .logo{width:38px;height:38px;border-radius:9px 0 9px 9px;background:var(--orange);
+    color:white;font-weight:800;font-family:"Manrope",sans-serif;
+    font-size:22px;display:grid;place-items:center;line-height:1;
+    box-shadow:0 2px 4px rgba(232,84,43,.25);position:relative;overflow:hidden}
+  .logo::after{content:"";position:absolute;top:0;right:0;width:11px;height:11px;
+    background:#fff;clip-path:polygon(100% 0, 0 0, 100% 100%)}
+  .brand-name{font-weight:800;letter-spacing:.06em;font-size:14.5px;color:var(--ink)}
+  .brand-sub{font-size:11px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;font-weight:500;margin-top:2px}
+  .kicker{margin-top:16px;font-size:11px;letter-spacing:.22em;color:var(--orange);text-transform:uppercase;font-weight:700}
+  h1.name{font-family:"Manrope","Inter",sans-serif;font-weight:800;font-size:38px;
+    line-height:1.05;margin:6px 0 4px;color:var(--ink);letter-spacing:-.01em}
+  .subtitle{font-size:14px;color:var(--ink-2);margin:0}
+
+  /* META */
+  .meta{padding:22px 36px 6px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px 20px}
+  .meta dt{font-size:10.5px;letter-spacing:.22em;color:var(--muted);text-transform:uppercase;font-weight:600;margin-bottom:3px}
+  .meta dd{margin:0;font-size:14.5px;font-weight:700;color:var(--ink)}
+  .meta-rule{margin:18px 36px 8px;border:0;height:1px;background:var(--rule)}
+
+  /* BODY */
+  .body{padding:14px 36px 8px}
+  .body p{margin:0 0 12px}
+  h2{font-family:"Inter",sans-serif;font-size:15.5px;font-weight:700;color:var(--ink);
+    margin:22px 0 10px;padding-left:12px;position:relative}
+  h2::before{content:"";position:absolute;left:0;top:3px;bottom:3px;width:4px;background:var(--orange);border-radius:2px}
+  h3.sub{font-family:"Inter",sans-serif;font-size:13px;font-weight:700;color:var(--navy);
+    margin:16px 0 8px;text-transform:uppercase;letter-spacing:.08em}
+
+  /* INSTRUCTIONS */
+  .focus-box{background:var(--cream-soft);border-left:4px solid var(--orange);
+    padding:14px 18px;margin:10px 0 14px;border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.6;display:grid;grid-template-columns:1fr 130px;gap:18px;align-items:center}
+  .focus-box strong{color:var(--orange)}
+  .focus-box ul{margin:4px 0 0 18px;padding:0}
+  .focus-box li{margin:4px 0}
+  .focus-box .focus-img{width:100%;height:auto;border-radius:6px;border:1px solid var(--rule)}
+
+  /* LEVEL PILL */
+  .lvl{font-family:"Inter",sans-serif;font-size:10.5px;font-weight:800;letter-spacing:.1em;
+    padding:3px 9px;border-radius:5px;color:#fff;text-transform:uppercase;display:inline-block;margin-right:8px;vertical-align:middle;line-height:1.3}
+  .lvl.a0{background:var(--lvl-a0)}
+  .lvl.a1{background:var(--lvl-a1)}
+  .lvl.a2{background:var(--lvl-a2)}
+  .lvl.b1{background:var(--lvl-b1)}
+  .lvl.b2{background:var(--lvl-b2)}
+  .lvl.c1{background:var(--lvl-c1)}
+
+  /* LEVEL HEADS */
+  .level-head{margin:16px 0 6px;font-family:"Inter",sans-serif;font-size:13.5px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:8px;break-after:avoid;page-break-after:avoid}
+  .level-hint{font-size:11.5px;color:var(--muted);font-weight:500;letter-spacing:.02em}
+
+  /* PART HEAD */
+  .part-head{margin:22px 0 10px;border-bottom:2px solid var(--orange);padding-bottom:8px;break-inside:avoid;page-break-inside:avoid;break-after:avoid;page-break-after:avoid}
+  .part-head .pnum{font-family:"Inter",sans-serif;font-size:10.5px;font-weight:800;letter-spacing:.2em;color:var(--orange);text-transform:uppercase}
+  .part-head .ptit{font-family:"Manrope","Inter",sans-serif;font-size:22px;font-weight:800;color:var(--ink);margin:3px 0 2px;line-height:1.1}
+  .part-head .psub{font-size:12px;color:var(--muted);letter-spacing:.04em}
+
+  /* QUESTION */
+  .q{padding:9px 14px;margin:5px 0;border-left:3px solid var(--rule);background:#FAF8F3;break-inside:avoid;page-break-inside:avoid;border-radius:0 6px 6px 0}
+  .q-num{font-family:"Inter",sans-serif;font-size:10.5px;color:var(--muted);font-weight:700;letter-spacing:.06em;margin-bottom:3px}
+  .q-num .tag{color:var(--navy);margin-left:6px;font-weight:600;font-style:italic;letter-spacing:0}
+  .q-stem{font-size:13.5px;line-height:1.5;margin-bottom:5px;font-weight:500;color:var(--ink)}
+  .q-stem code{background:#fff;border:1px dashed var(--rule);padding:0 8px;font-family:"Consolas",monospace;color:var(--orange);border-radius:3px;font-weight:700;font-size:12.5px}
+  .q-opts{display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;margin-top:4px}
+  .q-opt{font-size:12.5px;padding:3px 0;color:var(--ink-2)}
+  .q-opt .letter{font-family:"Consolas",monospace;color:var(--muted);font-weight:700;margin-right:6px;font-size:11.5px}
+  .q-circle{display:inline-block;width:10px;height:10px;border:1.5px solid var(--muted);border-radius:50%;vertical-align:middle;margin-right:5px;background:#fff}
+
+  /* CLOZE */
+  .cloze-block{background:#FAF8F3;border-left:3px solid var(--orange);border-radius:0 6px 6px 0;padding:14px 18px;margin:10px 0 8px;break-inside:avoid;page-break-inside:avoid}
+  .cloze-block h4{font-family:"Inter",sans-serif;font-size:12px;font-weight:800;color:var(--orange);margin:0 0 10px;text-transform:uppercase;letter-spacing:.08em}
+  .cloze-text{font-family:"Lora",Georgia,serif;font-size:13.5px;line-height:1.95;color:var(--ink-2)}
+  .cloze-gap{display:inline-block;min-width:120px;padding:1px 10px;border:1.5px dashed var(--orange);background:#fff;border-radius:4px;margin:0 3px;vertical-align:baseline;font-family:"Consolas",monospace;font-size:10px;color:var(--muted);text-align:center}
+  .cloze-gap b{font-family:"Consolas",monospace;color:var(--orange);font-weight:700;font-size:10px;letter-spacing:.06em}
+  .cloze-opts{font-family:"Inter",sans-serif;font-size:11.5px;color:var(--navy);margin-top:6px;padding:5px 10px;background:#fff;border:1px solid var(--rule);border-radius:4px}
+  .cloze-opts .co-num{font-family:"Consolas",monospace;color:var(--orange);font-weight:700;margin-right:4px}
+  .cloze-opts .co-opt{margin-right:10px}
+  .cloze-opts .co-opt .letter{color:var(--muted);font-weight:700;margin-right:3px}
+
+  /* READING */
+  .reading-block{background:#FDFBF4;border:1px solid var(--rule);border-left:3px solid var(--orange);border-radius:0 6px 6px 0;padding:14px 18px;margin:10px 0 6px;break-inside:avoid;page-break-inside:avoid}
+  .reading-block h4{font-family:"Inter",sans-serif;font-size:12px;font-weight:800;color:var(--orange);margin:0 0 10px;text-transform:uppercase;letter-spacing:.08em}
+  .reading-text{font-family:"Lora",Georgia,serif;font-size:13px;line-height:1.75;color:var(--ink-2);margin:0}
+  .reading-img{display:block;width:100%;height:auto;max-height:160px;object-fit:cover;object-position:center;border-radius:6px;margin:0 0 10px;border:1px solid var(--rule)}
+  .section-img{display:block;width:100%;height:auto;max-height:140px;object-fit:cover;object-position:center;border-radius:6px;margin:8px 0 12px;border:1px solid var(--rule)}
+
+  /* ANSWER KEY */
+  .answer-key-page{break-before:page;page-break-before:page;padding:14px 36px 28px}
+  .ak-head{background:linear-gradient(135deg,var(--cream),var(--cream-soft));border-left:4px solid var(--gold);padding:16px 20px;border-radius:0 8px 8px 0;margin-bottom:16px}
+  .ak-head h2{margin:0;padding-left:0;font-size:20px;font-family:"Manrope",sans-serif;color:var(--ink)}
+  .ak-head h2::before{display:none}
+  .ak-head p{margin:4px 0 0;font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+  .ak-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:10px}
+  .ak-col h3{font-family:"Inter",sans-serif;font-size:12px;font-weight:800;color:var(--navy);letter-spacing:.08em;margin:0 0 8px;text-transform:uppercase;border-bottom:2px solid var(--orange);padding-bottom:4px}
+  .ak-row{font-family:"Consolas",monospace;font-size:12px;padding:3px 0;color:var(--ink-2);display:flex;justify-content:space-between;gap:8px;border-bottom:1px dotted #E0DED6}
+  .ak-row b{color:var(--orange);font-weight:800;min-width:48px}
+  .ak-row em{color:var(--muted);font-style:italic;font-family:"Inter",sans-serif;font-size:11px;font-weight:500}
+
+  /* SCORING TABLE */
+  .scoring{background:var(--cream-soft);border:1px solid var(--rule);border-radius:8px;padding:16px 20px;margin:16px 0}
+  .scoring h3{font-family:"Inter",sans-serif;font-size:12px;font-weight:800;color:var(--navy);letter-spacing:.08em;text-transform:uppercase;margin:0 0 10px}
+  .scoring table{width:100%;border-collapse:collapse;font-size:12.5px}
+  .scoring th,.scoring td{text-align:left;padding:6px 10px;border-bottom:1px solid var(--rule)}
+  .scoring th{background:#fff;font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+  .scoring td.band{font-weight:800;color:var(--orange);font-family:"Consolas",monospace}
+  .scoring td.cefr{font-weight:800;color:var(--navy)}
+
+  /* FOOTER */
+  .foot{margin:26px 0 0;padding:18px 36px 22px;background:var(--footer-bg);border-top:1px solid var(--rule)}
+  .foot-brand{display:flex;align-items:center;gap:12px;font-weight:700;color:var(--ink);font-size:14.5px}
+  .foot-brand .logo{width:28px;height:28px;font-size:17px;border-radius:7px 0 7px 7px}
+  .foot-meta{margin-top:10px;font-size:11.5px;color:var(--muted);line-height:1.55}
+  .foot-meta a{color:var(--orange);text-decoration:none}
+
+  @page{size:A4;margin:0}
+  @media print{
+    html,body{background:#fff}
+    .page{box-shadow:none;margin:0;width:210mm}
+    h2,.level-head,.part-head{page-break-after:avoid;break-after:avoid}
+    .q,.cloze-block,.reading-block,.ak-grid,.scoring{page-break-inside:avoid;break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+  <!-- HEADER -->
+  <header class="hero">
+    <div class="brandline">
+      <div class="logo">N</div>
+      <div>
+        <div class="brand-name">NEW GENERATION ENGLISH</div>
+        <div class="brand-sub">Maria · Personal Tutor</div>
+      </div>
+    </div>
+    <div class="kicker">Placement Test · CEFR A0 → C1</div>
+    <h1 class="name">English Placement Test</h1>
+    <p class="subtitle">60 заданий · 3 секции · 6 уровней · бумажная версия для печати</p>
+    <img class="hero-img" src="./assets/hero-test-sheet.png" alt="Answer sheet with pencil and stickies">
+  </header>
+
+  <dl class="meta">
+    <div><dt>Длительность</dt><dd>25–35 минут</dd></div>
+    <div><dt>Структура</dt><dd>Grammar · Cloze · Reading</dd></div>
+    <div><dt>Уровни</dt><dd>A0 · A1 · A2 · B1 · B2 · C1</dd></div>
+    <div><dt>Формат</dt><dd>MCQ + cloze gap-fill + comprehension</dd></div>
+    <div><dt>Проверка</dt><dd>ключи ответов на последней странице</dd></div>
+    <div><dt>CEFR-калибровка</dt><dd>по канону Oxford QPT / Cambridge Linguaskill</dd></div>
+  </dl>
+  <hr class="meta-rule">
+
+  <section class="body">
+
+    <div class="focus-box">
+      <div>
+        <strong>Как проходить</strong>
+        <ul>
+          <li>Отвечай быстро, своим чутьём. Не угадывай — если совсем не понимаешь, оставь пустым.</li>
+          <li>Внутри каждой секции задания идут от A0 (лёгкие) к C1 (сложные). Нормально, если в конце уровня отвечаешь хуже — так тест и работает.</li>
+          <li>После всех секций открой последнюю страницу, посчитай верные ответы и свери с таблицей уровней.</li>
+        </ul>
+      </div>
+      <img class="focus-img" src="./assets/books-symbols.png" alt="Books with subject symbols">
+    </div>
+
+    <!-- =============== PART A =============== -->
+    <div class="part-head">
+      <div class="pnum">Part A · 30 items</div>
+      <div class="ptit">Grammar</div>
+      <div class="psub">Multiple choice · 5 items per CEFR level · ~10 мин</div>
+    </div>
+    <img class="section-img" src="./assets/part-a-grammar-charts.png" alt="Charts on desk">
+
+
+    <!-- A0 -->
+    <div class="level-head"><span class="lvl a0">A0</span><span class="level-hint">Beginner · to be, articles, basic prepositions</span></div>
+    <div class="q"><div class="q-num">A-A0-1 <span class="tag">· to be + possessive</span></div><div class="q-stem">My <code>___</code> Anna.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>name is</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>name am</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>name are</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>is name</div></div></div>
+    <div class="q"><div class="q-num">A-A0-2 <span class="tag">· to be</span></div><div class="q-stem">She <code>___</code> ten years old.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>is</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>am</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>are</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>be</div></div></div>
+    <div class="q"><div class="q-num">A-A0-3 <span class="tag">· to be</span></div><div class="q-stem">Hello, I <code>___</code> a student.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>am</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>is</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>are</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>do</div></div></div>
+    <div class="q"><div class="q-num">A-A0-4 <span class="tag">· plurals</span></div><div class="q-stem">We have two <code>___</code> .</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>dog</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>dogs</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>doges</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>dog's</div></div></div>
+    <div class="q"><div class="q-num">A-A0-5 <span class="tag">· prepositions of place</span></div><div class="q-stem">The pen is <code>___</code> the table.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>in</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>on</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>at</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>under</div></div></div>
+
+    <!-- A1 -->
+    <div class="level-head"><span class="lvl a1">A1</span><span class="level-hint">Elementary · present simple, there is/are, questions</span></div>
+    <div class="q"><div class="q-num">A-A1-1 <span class="tag">· present simple 3rd person</span></div><div class="q-stem">Tom <code>___</code> to school every day.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>go</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>goes</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>going</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>is going</div></div></div>
+    <div class="q"><div class="q-num">A-A1-2 <span class="tag">· present simple negative</span></div><div class="q-stem">I <code>___</code> any brothers.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>don't have</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>doesn't have</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>not have</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>am not have</div></div></div>
+    <div class="q"><div class="q-num">A-A1-3 <span class="tag">· question formation</span></div><div class="q-stem">Where <code>___</code> you live?</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>do</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>does</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>are</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>is</div></div></div>
+    <div class="q"><div class="q-num">A-A1-4 <span class="tag">· present continuous</span></div><div class="q-stem">Look! A cat <code>___</code> up the tree.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>climbs</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>is climbing</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>climb</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>climbed</div></div></div>
+    <div class="q"><div class="q-num">A-A1-5 <span class="tag">· there is / there are</span></div><div class="q-stem">There <code>___</code> some milk in the fridge.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>is</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>are</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>be</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>have</div></div></div>
+
+    <!-- A2 -->
+    <div class="level-head"><span class="lvl a2">A2</span><span class="level-hint">Pre-Int · past simple, going to, comparatives, used to</span></div>
+    <div class="q"><div class="q-num">A-A2-1 <span class="tag">· past simple</span></div><div class="q-stem">She <code>___</code> her keys yesterday.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>lose</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>lost</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>loses</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>has lost</div></div></div>
+    <div class="q"><div class="q-num">A-A2-2 <span class="tag">· future going to</span></div><div class="q-stem">Tomorrow I <code>___</code> visit my grandmother.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>am going to</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>going to</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>will to</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>go to</div></div></div>
+    <div class="q"><div class="q-num">A-A2-3 <span class="tag">· comparatives</span></div><div class="q-stem">This book is <code>___</code> than that one.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>interesting</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>more interesting</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>most interesting</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>interestinger</div></div></div>
+    <div class="q"><div class="q-num">A-A2-4 <span class="tag">· countable / uncountable</span></div><div class="q-stem">There isn't <code>___</code> milk left.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>many</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>much</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>few</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>a lot</div></div></div>
+    <div class="q"><div class="q-num">A-A2-5 <span class="tag">· used to</span></div><div class="q-stem">When I was a child, I <code>___</code> play in the park every day.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>use to</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>used to</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>was used to</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>am used to</div></div></div>
+
+    <!-- B1 -->
+    <div class="level-head"><span class="lvl b1">B1</span><span class="level-hint">Intermediate · perfect, conditionals, passive, reported</span></div>
+    <div class="q"><div class="q-num">A-B1-1 <span class="tag">· present perfect + since</span></div><div class="q-stem">I <code>___</code> in London since 2015.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>live</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>lived</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>have lived</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>am living</div></div></div>
+    <div class="q"><div class="q-num">A-B1-2 <span class="tag">· first conditional</span></div><div class="q-stem">If it rains tomorrow, we <code>___</code> the picnic.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>will cancel</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>cancel</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>would cancel</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>cancelled</div></div></div>
+    <div class="q"><div class="q-num">A-B1-3 <span class="tag">· passive simple</span></div><div class="q-stem">The window <code>___</code> by someone during the night.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>broke</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>was broken</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>has broken</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>is breaking</div></div></div>
+    <div class="q"><div class="q-num">A-B1-4 <span class="tag">· relative clauses · whose</span></div><div class="q-stem">That's the man <code>___</code> car was stolen.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>who</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>which</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>that</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>whose</div></div></div>
+    <div class="q"><div class="q-num">A-B1-5 <span class="tag">· reported speech</span></div><div class="q-stem">She said she <code>___</code> tired.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>is</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>was</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>has been</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>will be</div></div></div>
+
+    <!-- B2 -->
+    <div class="level-head"><span class="lvl b2">B2</span><span class="level-hint">Upper-Int · past perfect, 3rd cond, wish, modal perfects</span></div>
+    <div class="q"><div class="q-num">A-B2-1 <span class="tag">· past perfect</span></div><div class="q-stem">By the time we arrived, the film <code>___</code> already.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>started</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>had started</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>has started</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>was starting</div></div></div>
+    <div class="q"><div class="q-num">A-B2-2 <span class="tag">· third conditional</span></div><div class="q-stem">If I <code>___</code> harder, I would have passed.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>studied</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>had studied</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>would study</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>was studying</div></div></div>
+    <div class="q"><div class="q-num">A-B2-3 <span class="tag">· wish + modal</span></div><div class="q-stem">I wish I <code>___</code> speak Chinese fluently.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>can</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>could</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>will</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>would can</div></div></div>
+    <div class="q"><div class="q-num">A-B2-4 <span class="tag">· modal perfect (deduction)</span></div><div class="q-stem">She's not at home — she <code>___</code> to the shops.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>must go</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>must gone</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>must have gone</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>must be going</div></div></div>
+    <div class="q"><div class="q-num">A-B2-5 <span class="tag">· gerund after verb</span></div><div class="q-stem">He denied <code>___</code> the window.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>to break</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>breaking</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>break</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>to have broken</div></div></div>
+
+    <!-- C1 -->
+    <div class="level-head"><span class="lvl c1">C1</span><span class="level-hint">Advanced · inversions, cleft, subjunctive, idioms</span></div>
+    <div class="q"><div class="q-num">A-C1-1 <span class="tag">· inversion (Not only)</span></div><div class="q-stem">Not only <code>___</code> the exam, but she also won a scholarship.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>she passed</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>did she pass</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>passed she</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>she did pass</div></div></div>
+    <div class="q"><div class="q-num">A-C1-2 <span class="tag">· inverted third conditional</span></div><div class="q-stem">Had I known about the delay, I <code>___</code> earlier.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>would leave</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>would have left</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>had left</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>will leave</div></div></div>
+    <div class="q"><div class="q-num">A-C1-3 <span class="tag">· cleft sentence (It was...)</span></div><div class="q-stem">It <code>___</code> the weather that forced them to cancel.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>was</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>had</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>did</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>has</div></div></div>
+    <div class="q"><div class="q-num">A-C1-4 <span class="tag">· subjunctive</span></div><div class="q-stem">The committee demanded that the policy <code>___</code> reviewed.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>is</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>was</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>be</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>will be</div></div></div>
+    <div class="q"><div class="q-num">A-C1-5 <span class="tag">· idiom · put one's finger on</span></div><div class="q-stem">I can't quite put my <code>___</code> on what's bothering me.</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>hand</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>finger</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>thumb</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>foot</div></div></div>
+
+    <!-- =============== PART B · CLOZE =============== -->
+    <div class="part-head" style="margin-top:28px">
+      <div class="pnum">Part B · 18 items</div>
+      <div class="ptit">Use of English · Cloze</div>
+      <div class="psub">6 коротких текстов · 3 пропуска каждый · ~7 мин</div>
+    </div>
+    <img class="section-img" src="./assets/part-b-cloze-filmstrip.png" alt="Filmstrip of narrative scenes">
+
+    <div class="cloze-block"><h4><span class="lvl a0">A0</span>Max's family</h4>
+      <div class="cloze-text">Hi! My name <span class="cloze-gap"><b>B-A0-1</b></span> Max. I <span class="cloze-gap"><b>B-A0-2</b></span> ten years old. I have one brother. He <span class="cloze-gap"><b>B-A0-3</b></span> eight.</div>
+      <div class="cloze-opts"><span class="co-num">B-A0-1:</span><span class="co-opt"><span class="letter">A</span>is</span><span class="co-opt"><span class="letter">B</span>am</span><span class="co-opt"><span class="letter">C</span>are</span><span class="co-opt"><span class="letter">D</span>be</span></div>
+      <div class="cloze-opts"><span class="co-num">B-A0-2:</span><span class="co-opt"><span class="letter">A</span>is</span><span class="co-opt"><span class="letter">B</span>am</span><span class="co-opt"><span class="letter">C</span>are</span><span class="co-opt"><span class="letter">D</span>have</span></div>
+      <div class="cloze-opts"><span class="co-num">B-A0-3:</span><span class="co-opt"><span class="letter">A</span>is</span><span class="co-opt"><span class="letter">B</span>am</span><span class="co-opt"><span class="letter">C</span>are</span><span class="co-opt"><span class="letter">D</span>have</span></div>
+    </div>
+
+    <div class="cloze-block"><h4><span class="lvl a1">A1</span>Sarah's morning</h4>
+      <div class="cloze-text">Every morning Sarah <span class="cloze-gap"><b>B-A1-1</b></span> up at seven o'clock. She <span class="cloze-gap"><b>B-A1-2</b></span> breakfast with her family, and then she <span class="cloze-gap"><b>B-A1-3</b></span> to work by bus.</div>
+      <div class="cloze-opts"><span class="co-num">B-A1-1:</span><span class="co-opt"><span class="letter">A</span>get</span><span class="co-opt"><span class="letter">B</span>gets</span><span class="co-opt"><span class="letter">C</span>is getting</span><span class="co-opt"><span class="letter">D</span>got</span></div>
+      <div class="cloze-opts"><span class="co-num">B-A1-2:</span><span class="co-opt"><span class="letter">A</span>have</span><span class="co-opt"><span class="letter">B</span>has</span><span class="co-opt"><span class="letter">C</span>is having</span><span class="co-opt"><span class="letter">D</span>had</span></div>
+      <div class="cloze-opts"><span class="co-num">B-A1-3:</span><span class="co-opt"><span class="letter">A</span>go</span><span class="co-opt"><span class="letter">B</span>goes</span><span class="co-opt"><span class="letter">C</span>is going</span><span class="co-opt"><span class="letter">D</span>went</span></div>
+    </div>
+
+    <div class="cloze-block"><h4><span class="lvl a2">A2</span>A childhood memory</h4>
+      <div class="cloze-text">When Maria <span class="cloze-gap"><b>B-A2-1</b></span> a child, she <span class="cloze-gap"><b>B-A2-2</b></span> to play in the park every weekend. She and her brother always <span class="cloze-gap"><b>B-A2-3</b></span> a lot of fun.</div>
+      <div class="cloze-opts"><span class="co-num">B-A2-1:</span><span class="co-opt"><span class="letter">A</span>is</span><span class="co-opt"><span class="letter">B</span>was</span><span class="co-opt"><span class="letter">C</span>were</span><span class="co-opt"><span class="letter">D</span>had been</span></div>
+      <div class="cloze-opts"><span class="co-num">B-A2-2:</span><span class="co-opt"><span class="letter">A</span>uses</span><span class="co-opt"><span class="letter">B</span>used</span><span class="co-opt"><span class="letter">C</span>was used</span><span class="co-opt"><span class="letter">D</span>would use</span></div>
+      <div class="cloze-opts"><span class="co-num">B-A2-3:</span><span class="co-opt"><span class="letter">A</span>have</span><span class="co-opt"><span class="letter">B</span>had</span><span class="co-opt"><span class="letter">C</span>were having</span><span class="co-opt"><span class="letter">D</span>have had</span></div>
+    </div>
+
+    <div class="cloze-block"><h4><span class="lvl b1">B1</span>Tom in London</h4>
+      <div class="cloze-text">Tom <span class="cloze-gap"><b>B-B1-1</b></span> in London since 2015. Before that, he <span class="cloze-gap"><b>B-B1-2</b></span> in Manchester for ten years. If he <span class="cloze-gap"><b>B-B1-3</b></span> to leave London now, he would miss the energy of the city.</div>
+      <div class="cloze-opts"><span class="co-num">B-B1-1:</span><span class="co-opt"><span class="letter">A</span>lives</span><span class="co-opt"><span class="letter">B</span>lived</span><span class="co-opt"><span class="letter">C</span>has lived</span><span class="co-opt"><span class="letter">D</span>is living</span></div>
+      <div class="cloze-opts"><span class="co-num">B-B1-2:</span><span class="co-opt"><span class="letter">A</span>lives</span><span class="co-opt"><span class="letter">B</span>has lived</span><span class="co-opt"><span class="letter">C</span>had lived</span><span class="co-opt"><span class="letter">D</span>was living</span></div>
+      <div class="cloze-opts"><span class="co-num">B-B1-3:</span><span class="co-opt"><span class="letter">A</span>has</span><span class="co-opt"><span class="letter">B</span>had</span><span class="co-opt"><span class="letter">C</span>would have</span><span class="co-opt"><span class="letter">D</span>will have</span></div>
+    </div>
+
+    <div class="cloze-block"><h4><span class="lvl b2">B2</span>A meeting missed</h4>
+      <div class="cloze-text">By the time I arrived at the office, the meeting <span class="cloze-gap"><b>B-B2-1</b></span> already <span class="cloze-gap"><b>B-B2-2</b></span>. I wish I <span class="cloze-gap"><b>B-B2-3</b></span> earlier, but my train was delayed.</div>
+      <div class="cloze-opts"><span class="co-num">B-B2-1:</span><span class="co-opt"><span class="letter">A</span>has</span><span class="co-opt"><span class="letter">B</span>had</span><span class="co-opt"><span class="letter">C</span>was</span><span class="co-opt"><span class="letter">D</span>were</span></div>
+      <div class="cloze-opts"><span class="co-num">B-B2-2:</span><span class="co-opt"><span class="letter">A</span>start</span><span class="co-opt"><span class="letter">B</span>started</span><span class="co-opt"><span class="letter">C</span>starting</span><span class="co-opt"><span class="letter">D</span>begin</span></div>
+      <div class="cloze-opts"><span class="co-num">B-B2-3:</span><span class="co-opt"><span class="letter">A</span>left</span><span class="co-opt"><span class="letter">B</span>had left</span><span class="co-opt"><span class="letter">C</span>would leave</span><span class="co-opt"><span class="letter">D</span>would have left</span></div>
+    </div>
+
+    <div class="cloze-block"><h4><span class="lvl c1">C1</span>A controversial proposal</h4>
+      <div class="cloze-text">Not only <span class="cloze-gap"><b>B-C1-1</b></span> the committee reject the proposal outright, but they also demanded that further research <span class="cloze-gap"><b>B-C1-2</b></span> carried out. Little <span class="cloze-gap"><b>B-C1-3</b></span> realised just how controversial the issue would become.</div>
+      <div class="cloze-opts"><span class="co-num">B-C1-1:</span><span class="co-opt"><span class="letter">A</span>did</span><span class="co-opt"><span class="letter">B</span>has</span><span class="co-opt"><span class="letter">C</span>was</span><span class="co-opt"><span class="letter">D</span>do</span></div>
+      <div class="cloze-opts"><span class="co-num">B-C1-2:</span><span class="co-opt"><span class="letter">A</span>is</span><span class="co-opt"><span class="letter">B</span>was</span><span class="co-opt"><span class="letter">C</span>be</span><span class="co-opt"><span class="letter">D</span>will be</span></div>
+      <div class="cloze-opts"><span class="co-num">B-C1-3:</span><span class="co-opt"><span class="letter">A</span>did they</span><span class="co-opt"><span class="letter">B</span>they did</span><span class="co-opt"><span class="letter">C</span>have they</span><span class="co-opt"><span class="letter">D</span>they had</span></div>
+    </div>
+
+    <!-- =============== PART C · READING =============== -->
+    <div class="part-head" style="margin-top:28px">
+      <div class="pnum">Part C · 12 items</div>
+      <div class="ptit">Reading comprehension</div>
+      <div class="psub">6 коротких текстов · 2 вопроса каждый · ~8 мин</div>
+    </div>
+    <img class="section-img" src="./assets/part-c-reading-cozy.png" alt="Cozy reading nook">
+
+    <div class="reading-block"><h4><span class="lvl a0">A0</span>Meet Anna</h4>
+      <img class="reading-img" src="./assets/a0-notebook-mic.png" alt="Cozy winter desk">
+      <p class="reading-text">Meet Anna. She is 10 years old. She lives in Moscow with her mum, dad and little brother Max. Max is 5. Anna has a cat called Luna. Luna is black and white. Anna loves her family.</p>
+    </div>
+    <div class="q"><div class="q-num">C-A0-1</div><div class="q-stem">How old is Anna?</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>5</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>10</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>15</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>Max is 5</div></div></div>
+    <div class="q"><div class="q-num">C-A0-2</div><div class="q-stem">What is Anna's cat like?</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>big and grey</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>black and white</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>old and small</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>white and fluffy</div></div></div>
+
+    <div class="reading-block"><h4><span class="lvl a1">A1</span>Sam's daily routine</h4>
+      <img class="reading-img" src="./assets/eco-climate-grid.png" alt="Renewable energy — wind turbine, solar panel">
+      <p class="reading-text">Sam lives in a small town near the sea. Every morning he runs along the beach with his dog Rex. After that, he has breakfast and then takes the bus to his office in the city. He works as an engineer. In the evenings, Sam likes to read or watch films. On Saturdays, he visits his parents.</p>
+    </div>
+    <div class="q"><div class="q-num">C-A1-1</div><div class="q-stem">Where does Sam run every morning?</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>in the city</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>in the park</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>along the beach</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>near the office</div></div></div>
+    <div class="q"><div class="q-num">C-A1-2</div><div class="q-stem">How does Sam get to work?</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>by car</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>by bus</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>by train</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>on foot</div></div></div>
+
+    <div class="reading-block"><h4><span class="lvl a2">A2</span>Maria's village</h4>
+      <img class="reading-img" src="./assets/part-c-reading-cozy.png" alt="Cozy reading nook — memories">
+      <p class="reading-text">When Maria was a child, she lived in a tiny village in the mountains. There was no internet and the nearest shop was ten kilometres away. Life was slow but happy. Every summer, her grandmother came to visit from the city. Together they picked berries in the forest and made jam. Those are Maria's best memories. Maria moved to the city when she was eighteen to study at university. Now she works at a bank and visits her village only once a year.</p>
+    </div>
+    <div class="q"><div class="q-num">C-A2-1</div><div class="q-stem">Where did Maria's grandmother live?</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>in the village</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>in the mountains</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>in the city</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>at university</div></div></div>
+    <div class="q"><div class="q-num">C-A2-2</div><div class="q-stem">Why did Maria leave the village?</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>to find work</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>to study at university</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>to visit her grandmother</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>because the shop closed</div></div></div>
+
+    <div class="reading-block"><h4><span class="lvl b1">B1</span>The city that is sinking</h4>
+      <img class="reading-img" src="./assets/b1-coast-village.png" alt="Coastal village with river delta and wind turbines">
+      <p class="reading-text">The city of Venice is slowly sinking into the sea. Built on 118 small islands, it has been fighting rising water for centuries. Every winter, parts of the city flood when storms push the sea into the lagoon. In 2003, Italian engineers started building a huge system of underwater gates called MOSE. The gates can rise to block the sea when storms come. They cost billions of euros and took almost twenty years to finish. Despite the gates, Venice is still in danger. Climate change is making storms stronger, and the city is losing its population: young people are leaving because housing is too expensive.</p>
+    </div>
+    <div class="q"><div class="q-num">C-B1-1</div><div class="q-stem">What is MOSE?</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>an island near Venice</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>an underwater system of gates</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>a type of storm</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>a historic building</div></div></div>
+    <div class="q"><div class="q-num">C-B1-2</div><div class="q-stem">Why are young people leaving Venice?</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>because of floods</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>because housing is too expensive</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>because the city is sinking</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>because of climate change</div></div></div>
+
+    <div class="reading-block"><h4><span class="lvl b2">B2</span>The four-day working week</h4>
+      <img class="reading-img" src="./assets/b2-tv-wall.png" alt="Person watching phone in front of a wall of TVs">
+      <p class="reading-text">Although four-day working weeks were once considered a fringe idea, growing evidence suggests they can benefit both employees and companies. A landmark trial in Iceland from 2015 to 2019 involved more than 2,500 workers — about 1% of the country's workforce. Participants reduced their hours with no loss of pay. The results, published by the research company Autonomy, were striking: productivity either remained the same or improved in most workplaces, while employees reported feeling less stressed and more engaged. Not everyone is convinced, however. Critics argue that the benefits may not scale beyond sectors with knowledge-based work, and that face-to-face industries such as healthcare or hospitality would struggle. Still, the trial has influenced policy debates from the UK to Japan.</p>
+    </div>
+    <div class="q"><div class="q-num">C-B2-1</div><div class="q-stem">What did the Iceland trial demonstrate?</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>workers refused to reduce hours</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>productivity stayed the same or improved</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>only hospitality workers benefited</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>workers lost 20% of their pay</div></div></div>
+    <div class="q"><div class="q-num">C-B2-2</div><div class="q-stem">What is the main criticism of the four-day week?</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>it is too expensive for governments</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>it may not work in all industries</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>employees become lazy</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>it damages international trade</div></div></div>
+
+    <div class="reading-block"><h4><span class="lvl c1">C1</span>The fifteen-minute city</h4>
+      <img class="reading-img" src="./assets/c1-art-gallery.png" alt="Woman sketching in art gallery">
+      <p class="reading-text">Few ideas have reshaped modern urbanism as rapidly as the fifteen-minute city. Coined by Franco-Colombian scholar Carlos Moreno, the concept argues that residents should be able to access all essential services — work, school, healthcare, leisure, groceries — within a short walk or cycle from home. Paris adopted it as official policy in 2020, and dozens of other cities followed suit. Yet the idea has sparked an unexpected backlash. Conspiracy theorists, particularly in the UK and US, have reframed the fifteen-minute city as a dystopian scheme designed to confine citizens to small zones and track their movements. Protests have erupted in Oxford, where a traffic-filtering trial was mischaracterised as a prototype 'climate lockdown'. Urban planners have struggled to counter such narratives, which spread rapidly on social media.</p>
+    </div>
+    <div class="q"><div class="q-num">C-C1-1</div><div class="q-stem">What is the core principle of the fifteen-minute city?</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>residents must move home every 15 years</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>all essential services should be within a short walk or cycle</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>cars must be banned from all cities</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>people must work 15-minute shifts</div></div></div>
+    <div class="q"><div class="q-num">C-C1-2</div><div class="q-stem">How did conspiracy theorists interpret the Oxford trial?</div><div class="q-opts"><div class="q-opt"><span class="q-circle"></span><span class="letter">A.</span>as a visionary urban plan</div><div class="q-opt"><span class="q-circle"></span><span class="letter">B.</span>as a cover for surveillance and confinement</div><div class="q-opt"><span class="q-circle"></span><span class="letter">C.</span>as a scientific failure</div><div class="q-opt"><span class="q-circle"></span><span class="letter">D.</span>as a tool to fight climate change</div></div></div>
+
+  </section>
+
+  <!-- =============== ANSWER KEY =============== -->
+  <section class="answer-key-page">
+    <div class="ak-head">
+      <h2>🗝 Ключи ответов · Answer Key</h2>
+      <p>Part A · Grammar · 30 · Part B · Cloze · 18 · Part C · Reading · 12</p>
+    </div>
+
+    <div class="ak-grid">
+      <div class="ak-col">
+        <h3>Part A · Grammar</h3>
+        <div class="ak-row"><b>A-A0-1</b><span>A · name is</span></div>
+        <div class="ak-row"><b>A-A0-2</b><span>A · is</span></div>
+        <div class="ak-row"><b>A-A0-3</b><span>A · am</span></div>
+        <div class="ak-row"><b>A-A0-4</b><span>B · dogs</span></div>
+        <div class="ak-row"><b>A-A0-5</b><span>B · on</span></div>
+        <div class="ak-row"><b>A-A1-1</b><span>B · goes</span></div>
+        <div class="ak-row"><b>A-A1-2</b><span>A · don't have</span></div>
+        <div class="ak-row"><b>A-A1-3</b><span>A · do</span></div>
+        <div class="ak-row"><b>A-A1-4</b><span>B · is climbing</span></div>
+        <div class="ak-row"><b>A-A1-5</b><span>A · is</span></div>
+        <div class="ak-row"><b>A-A2-1</b><span>B · lost</span></div>
+        <div class="ak-row"><b>A-A2-2</b><span>A · am going to</span></div>
+        <div class="ak-row"><b>A-A2-3</b><span>B · more interesting</span></div>
+        <div class="ak-row"><b>A-A2-4</b><span>B · much</span></div>
+        <div class="ak-row"><b>A-A2-5</b><span>B · used to</span></div>
+        <div class="ak-row"><b>A-B1-1</b><span>C · have lived</span></div>
+        <div class="ak-row"><b>A-B1-2</b><span>A · will cancel</span></div>
+        <div class="ak-row"><b>A-B1-3</b><span>B · was broken</span></div>
+        <div class="ak-row"><b>A-B1-4</b><span>D · whose</span></div>
+        <div class="ak-row"><b>A-B1-5</b><span>B · was</span></div>
+        <div class="ak-row"><b>A-B2-1</b><span>B · had started</span></div>
+        <div class="ak-row"><b>A-B2-2</b><span>B · had studied</span></div>
+        <div class="ak-row"><b>A-B2-3</b><span>B · could</span></div>
+        <div class="ak-row"><b>A-B2-4</b><span>C · must have gone</span></div>
+        <div class="ak-row"><b>A-B2-5</b><span>B · breaking</span></div>
+        <div class="ak-row"><b>A-C1-1</b><span>B · did she pass</span></div>
+        <div class="ak-row"><b>A-C1-2</b><span>B · would have left</span></div>
+        <div class="ak-row"><b>A-C1-3</b><span>A · was</span></div>
+        <div class="ak-row"><b>A-C1-4</b><span>C · be</span></div>
+        <div class="ak-row"><b>A-C1-5</b><span>B · finger</span></div>
+      </div>
+
+      <div class="ak-col">
+        <h3>Part B · Cloze</h3>
+        <div class="ak-row"><b>B-A0-1</b><span>A · is</span></div>
+        <div class="ak-row"><b>B-A0-2</b><span>B · am</span></div>
+        <div class="ak-row"><b>B-A0-3</b><span>A · is</span></div>
+        <div class="ak-row"><b>B-A1-1</b><span>B · gets</span></div>
+        <div class="ak-row"><b>B-A1-2</b><span>B · has</span></div>
+        <div class="ak-row"><b>B-A1-3</b><span>B · goes</span></div>
+        <div class="ak-row"><b>B-A2-1</b><span>B · was</span></div>
+        <div class="ak-row"><b>B-A2-2</b><span>B · used</span></div>
+        <div class="ak-row"><b>B-A2-3</b><span>B · had</span></div>
+        <div class="ak-row"><b>B-B1-1</b><span>C · has lived</span></div>
+        <div class="ak-row"><b>B-B1-2</b><span>C · had lived</span></div>
+        <div class="ak-row"><b>B-B1-3</b><span>B · had</span></div>
+        <div class="ak-row"><b>B-B2-1</b><span>B · had</span></div>
+        <div class="ak-row"><b>B-B2-2</b><span>B · started</span></div>
+        <div class="ak-row"><b>B-B2-3</b><span>B · had left</span></div>
+        <div class="ak-row"><b>B-C1-1</b><span>A · did</span></div>
+        <div class="ak-row"><b>B-C1-2</b><span>C · be</span></div>
+        <div class="ak-row"><b>B-C1-3</b><span>A · did they</span></div>
+
+        <h3 style="margin-top:14px">Part C · Reading</h3>
+        <div class="ak-row"><b>C-A0-1</b><span>B · 10</span></div>
+        <div class="ak-row"><b>C-A0-2</b><span>B · black and white</span></div>
+        <div class="ak-row"><b>C-A1-1</b><span>C · along the beach</span></div>
+        <div class="ak-row"><b>C-A1-2</b><span>B · by bus</span></div>
+        <div class="ak-row"><b>C-A2-1</b><span>C · in the city</span></div>
+        <div class="ak-row"><b>C-A2-2</b><span>B · to study</span></div>
+        <div class="ak-row"><b>C-B1-1</b><span>B · underwater gates</span></div>
+        <div class="ak-row"><b>C-B1-2</b><span>B · housing too expensive</span></div>
+        <div class="ak-row"><b>C-B2-1</b><span>B · productivity stayed/improved</span></div>
+        <div class="ak-row"><b>C-B2-2</b><span>B · may not scale</span></div>
+        <div class="ak-row"><b>C-C1-1</b><span>B · services within walk/cycle</span></div>
+        <div class="ak-row"><b>C-C1-2</b><span>B · surveillance / confinement</span></div>
+      </div>
+
+      <div class="ak-col">
+        <div class="scoring">
+          <h3>Шкала CEFR</h3>
+          <table>
+            <thead><tr><th>Верных ответов</th><th>Уровень</th></tr></thead>
+            <tbody>
+              <tr><td class="band">0–10 / 60</td><td class="cefr">Pre-A0</td></tr>
+              <tr><td class="band">11–18 / 60</td><td class="cefr">A0 Starter</td></tr>
+              <tr><td class="band">19–26 / 60</td><td class="cefr">A1 Elementary</td></tr>
+              <tr><td class="band">27–36 / 60</td><td class="cefr">A2 Pre-Int</td></tr>
+              <tr><td class="band">37–45 / 60</td><td class="cefr">B1 Intermediate</td></tr>
+              <tr><td class="band">46–53 / 60</td><td class="cefr">B2 Upper-Int</td></tr>
+              <tr><td class="band">54–60 / 60</td><td class="cefr">C1 Advanced</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:14px;font-size:12px;line-height:1.6;color:var(--ink-2);background:var(--cream-soft);padding:12px 16px;border-radius:8px;border:1px solid var(--rule)">
+          <b style="color:var(--navy)">Как считать:</b><br>
+          Посчитай отдельно верные в A/B/C, суммируй. Процент по уровням (A0/A1/.../C1) покажет сильные и слабые места — где меньше 60%, там и зона роста. Если по всей линии проваливаешься раньше B1 — нужен B1 prep. Если ровно до B2 — готов к C1 bridge.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="foot">
+    <div class="foot-brand">
+      <div class="logo">N</div>
+      <div>New Generation English · Maria Burtseva</div>
+    </div>
+    <div class="foot-meta">
+      newgeneration-english.ru · Placement Test v2 · 60 items · 3 skills · 6 levels<br>
+      Калибровано на канон Oxford Quick Placement Test / Cambridge Linguaskill / CEFR Companion Volume 2020.<br>
+      Для максимально достоверного результата: EF SET · <a href="https://www.efset.org/">efset.org</a> (бесплатно, 50 мин, адаптивный, Cronbach α = 0.95).
+    </div>
+  </footer>
+
+</main>
+</body>
+</html>
