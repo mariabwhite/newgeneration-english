@@ -75,19 +75,25 @@ html,body{margin:0;padding:0}
 body{font-family:var(--body);background:var(--bg);color:var(--ink);line-height:1.6;font-size:16.5px;-webkit-font-smoothing:antialiased}
 .wrap{max-width:1040px;margin:0 auto;padding:28px clamp(16px,3vw,28px) 80px}
 
-/* HERO */
+/* HERO — image as background, text overlaid (bella canon) */
 header.hero{
-  background:linear-gradient(135deg,#3A0F08 0%, #7A1F0C 48%, #E8542B 100%);
-  color:#FFF7E8; border-radius:24px; padding:44px 40px;
+  background:
+    linear-gradient(135deg,rgba(58,15,8,.78) 0%, rgba(122,31,12,.68) 48%, rgba(232,84,43,.54) 100%),
+    url("images/hero-december-ielts.png") center/cover no-repeat,
+    #3A0F08;
+  color:#FFF7E8; border-radius:24px; padding:56px 44px 48px;
   box-shadow:var(--shadow-deep);
   position:relative; overflow:hidden;
+  min-height:300px;
 }
 .hero::after{
   content:""; position:absolute; right:-80px; top:-80px; width:280px; height:280px;
   background:radial-gradient(circle,rgba(244,200,75,.35),transparent 65%); filter:blur(20px);
+  pointer-events:none;
 }
 .hero::before{
   content:"🎙"; position:absolute; right:30px; bottom:-30px; font-size:180px; opacity:.09; line-height:1;
+  pointer-events:none;
 }
 .hero .kicker{
   font:600 11.5px/1 var(--mono); letter-spacing:.22em; text-transform:uppercase;
@@ -291,6 +297,15 @@ section h4{font:700 14.5px/1.3 var(--body); margin:14px 0 6px; color:var(--ink-2
 .match-row select.ok{border-color:var(--green); background:var(--green-soft)}
 .match-row select.bad{border-color:var(--orange-2); background:var(--orange-soft)}
 
+/* MATCH-GRID STACK — one column, term above full-width select (for long paraphrases) */
+.match-grid-stack{grid-template-columns:1fr !important; gap:10px}
+.match-grid-stack .match-row{flex-direction:column; align-items:stretch; gap:8px; padding:12px 14px}
+.match-grid-stack .match-row .term{flex:none; color:var(--green); font-weight:700; font-size:14.5px}
+.match-grid-stack .match-row select{width:100%; max-width:100%; font-size:13.5px; padding:8px 10px}
+
+/* keep every lab-section within its rounded box (prevents Submit button bleed) */
+section.lab-section{overflow:hidden}
+
 /* SOURCES STRIP */
 .sources{
   background:linear-gradient(180deg,#FFF6DC 0%,#FBEBBF 100%);
@@ -331,6 +346,21 @@ section h4{font:700 14.5px/1.3 var(--body); margin:14px 0 6px; color:var(--ink-2
 .cue ul li{margin:3px 0; font-size:14.5px; color:var(--ink-2)}
 .cue .cue-body{font-size:15px}
 .cue small{display:block; margin-top:8px; color:var(--mute); font-size:12.5px}
+
+/* BANNERS — hero image embedded; per-section illustration */
+header.hero .hero-img-in{
+  margin:-44px -40px 26px; overflow:hidden; line-height:0;
+  position:relative; z-index:1;
+}
+header.hero .hero-img-in img{width:100%; height:auto; display:block}
+.sec-banner{
+  margin:-4px 0 22px; border-radius:14px; overflow:hidden;
+  box-shadow:var(--shadow); line-height:0; background:#F4EEE1;
+}
+.sec-banner img{width:100%; height:auto; display:block}
+@media(max-width:820px){
+  header.hero .hero-img-in{margin:-32px -24px 20px}
+}
 
 /* REVEAL — hide model answers behind a toggle */
 details.reveal{
@@ -378,6 +408,28 @@ details.reveal > :not(summary){animation:reveal-in .18s ease-out}
   padding:6px 9px; border-radius:6px; flex-shrink:0;
 }
 .p3-q .qline .qtxt{font:700 16px/1.35 var(--display); color:var(--ink); margin:0}
+
+/* PHRASE BANK — modern idioms & collocations the student can borrow */
+.phrase-bank{
+  background:linear-gradient(90deg,#FFF8EC 0%,#FBF0C9 100%);
+  border-left:3px solid var(--gold);
+  border-radius:0 10px 10px 0;
+  padding:9px 13px 10px;
+  margin:10px 0 2px;
+  font-size:13.5px; line-height:1.9;
+}
+.phrase-bank b{
+  color:var(--orange-2); font:700 10px/1 var(--mono); letter-spacing:.14em; text-transform:uppercase;
+  margin-right:4px; display:inline-block; vertical-align:middle;
+}
+.phrase-bank .ph{
+  display:inline-block; background:#FFFCF6; border:1px solid var(--gold);
+  border-radius:50px; padding:3px 10px 4px; margin:3px 3px 3px 0;
+  font:500 12.5px var(--body); color:var(--ink);
+  transition:background .1s;
+}
+.phrase-bank .ph:hover{background:var(--gold-soft)}
+.phrase-bank .ph em{font-style:italic; color:var(--orange-2); font-weight:600}
 
 /* FRAMEWORK CHIPS */
 .fw{display:flex; gap:6px; flex-wrap:wrap; margin:6px 0 10px}
@@ -554,15 +606,16 @@ ul.bul li{margin:4px 0}
 
 <!-- =============== THEME 1 — ACTIVITIES & MOOD =============== -->
 <section class="lab-section" id="t1">
+  <figure class="sec-banner"><img src="images/theme-01-activities-mood.png" alt="Two students collaborating with notes and a book in a bright library."></figure>
   <h2><span class="num">1</span>Activities &amp; mood <em>— what makes people happy</em></h2>
   <p class="lead">This cluster gets paired with the cue card "Describe an activity that makes you happy" or "Describe a free day off". In Part 3 the examiner almost always zooms out to: what kinds of activities influence people's mood in general, and what role employers / schools / cities play.</p>
 
   <h3>Part 1 warm-up</h3>
   <div class="p1-grid">
-    <div class="p1-q"><span class="n">P1·1</span><div>What do you usually do to relax? <em>Answer 2–3 sentences — one concrete habit + why.</em></div></div>
-    <div class="p1-q"><span class="n">P1·2</span><div>Do you prefer indoor or outdoor activities? <em>Pick one, give a small reason, then add a tiny contrast.</em></div></div>
-    <div class="p1-q"><span class="n">P1·3</span><div>Are there any activities you'd like to try in the future?</div></div>
-    <div class="p1-q"><span class="n">P1·4</span><div>Do you think it's important to have hobbies?</div></div>
+    <div class="p1-q"><span class="n">P1·1</span><div>What do you usually do to relax? <em>Answer 2–3 sentences — one concrete habit + why.</em><div class="phrase-bank"><b>Try</b> <span class="ph">to unwind</span><span class="ph">to switch off completely</span><span class="ph">my go-to way to decompress</span><span class="ph">to zone out for a bit</span><span class="ph">a small daily ritual</span></div></div></div>
+    <div class="p1-q"><span class="n">P1·2</span><div>Do you prefer indoor or outdoor activities? <em>Pick one, give a small reason, then add a tiny contrast.</em><div class="phrase-bank"><b>Try</b> <span class="ph">the outdoorsy type</span><span class="ph">a bit of a homebody</span><span class="ph">to recharge in nature</span><span class="ph">weather-dependent, honestly</span><span class="ph">it depends on the mood</span></div></div></div>
+    <div class="p1-q"><span class="n">P1·3</span><div>Are there any activities you'd like to try in the future?<div class="phrase-bank"><b>Try</b> <span class="ph">it's on my bucket list</span><span class="ph">I've been meaning to try</span><span class="ph">something I've had my eye on</span><span class="ph">to finally take the plunge</span><span class="ph">I keep putting it off</span></div></div></div>
+    <div class="p1-q"><span class="n">P1·4</span><div>Do you think it's important to have hobbies?<div class="phrase-bank"><b>Try</b> <span class="ph">a non-negotiable for me</span><span class="ph">something that keeps you grounded</span><span class="ph">a sense of purpose outside work</span><span class="ph">a side passion</span><span class="ph">proper mental breathing room</span></div></div></div>
   </div>
 
   <div class="cue">
@@ -577,7 +630,7 @@ ul.bul li{margin:4px 0}
         <li>and explain why it makes you happy.</li>
       </ul>
       <small>Reported Sep–Dec 2026 cycle (IELTS Liz 2026 predictions; IELTS Worldly aggregator).</small>
-    </div>
+    </div><div class="phrase-bank"><b>Try</b> <span class="ph">nothing hits quite like</span><span class="ph">properly in my element</span><span class="ph">the time just flies</span><span class="ph">it puts me in the zone</span><span class="ph">a genuine pick-me-up</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">nothing hits quite like</span><span class="ph">properly in my element</span><span class="ph">the time just flies</span><span class="ph">it puts me in the zone</span><span class="ph">a genuine pick-me-up</span></div>
   </div>
 
   <div class="model">
@@ -593,7 +646,7 @@ ul.bul li{margin:4px 0}
     <div class="qline"><span class="qnum">Q 1.1</span><p class="qtxt">Do you think the activities people do really influence their mood, or is mood mostly something internal?</p></div>
     <div class="fw">
       <span class="chip">Opinion</span><span class="chip">Reason × 2</span><span class="chip">Hedged counter</span><span class="chip">Return to claim</span>
-    </div>
+    </div><div class="phrase-bank"><b>Try</b> <span class="ph">behaviour drives feeling</span><span class="ph">hugely influential, probably more than we realise</span><span class="ph">mood follows the action</span><span class="ph">activities set the baseline</span><span class="ph">at the risk of sounding reductive</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">behaviour drives feeling</span><span class="ph">hugely influential, probably more than we realise</span><span class="ph">mood follows the action</span><span class="ph">activities set the baseline</span><span class="ph">at the risk of sounding reductive</span></div>
     <div class="model">
       <span class="label">Band 9 model</span>
       <p>I'd argue that activities are hugely influential — probably more than most of us realise. There's a reason therapists prescribe behavioural activation before anything else: just getting a low-mood person out for a walk tends to lift their spirits in a way that rumination simply can't. So the behaviour comes first, and the mood follows.</p>
@@ -603,7 +656,7 @@ ul.bul li{margin:4px 0}
 
   <div class="p3-q">
     <div class="qline"><span class="qnum">Q 1.2</span><p class="qtxt">What kinds of activities do you think are the most effective at improving a person's mood?</p></div>
-    <div class="fw"><span class="chip">Category 1 + example</span><span class="chip">Category 2 + example</span><span class="chip">Qualifier</span></div>
+    <div class="fw"><span class="chip">Category 1 + example</span><span class="chip">Category 2 + example</span><span class="chip">Qualifier</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">I'd single out two categories</span><span class="ph">the one qualifier is dosage</span><span class="ph">where real recharge lives</span><span class="ph">a genuine flow state</span><span class="ph">low-stakes creative work</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">I'd single out two categories</span><span class="ph">the one qualifier is dosage</span><span class="ph">where real recharge lives</span><span class="ph">a genuine flow state</span><span class="ph">low-stakes creative work</span></div>
     <div class="model">
       <span class="label">Band 9 model</span>
       <p>I'd single out two categories. The first is <strong>physical activity with a social element</strong> — team sport, group hiking, dance classes — because it combines three mood-boosters at once: endorphins, sunlight, and a sense of belonging. You can't really <strong>blow off steam</strong> and feel lonely at the same time.</p>
@@ -614,7 +667,7 @@ ul.bul li{margin:4px 0}
 
   <div class="p3-q">
     <div class="qline"><span class="qnum">Q 1.3</span><p class="qtxt">Do you think employers should take responsibility for the mood and well-being of their staff?</p></div>
-    <div class="fw"><span class="chip">Clear stance</span><span class="chip">Business case</span><span class="chip">Caveat</span></div>
+    <div class="fw"><span class="chip">Clear stance</span><span class="chip">Business case</span><span class="chip">Caveat</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">in the firm's commercial interest</span><span class="ph">paying lip service to wellness</span><span class="ph">decoration vs. genuine substance</span><span class="ph">a reasonable workload is step one</span><span class="ph">a real duty of care</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">in the firm's commercial interest</span><span class="ph">paying lip service to wellness</span><span class="ph">decoration vs. genuine substance</span><span class="ph">a reasonable workload is step one</span><span class="ph">a real duty of care</span></div>
     <div class="model">
       <span class="label">Band 9 model</span>
       <p>To a significant extent, yes — though not for the sentimental reason most people assume. Staff who are chronically burnt out don't just suffer personally; they take more sick days, make more errors, and drive customers away. So it's actually in the employer's commercial interest to invest in well-being, not just their ethical one.</p>
@@ -625,15 +678,16 @@ ul.bul li{margin:4px 0}
 
 <!-- =============== THEME 2 — MENTAL HEALTH =============== -->
 <section class="lab-section" id="t2">
+  <figure class="sec-banner"><img src="images/theme-02-mental-health.png" alt="A quiet still life of a green leather diary, laptop, thermos and plant on a warm desk."></figure>
   <h2><span class="num">2</span>Mental health <em>— the topic the examiner wants to hear nuance on</em></h2>
   <p class="lead">Mental health is the single hottest Part 3 cluster of the 2026 cycle (Cathoven, IELTS Liz). The trick is to avoid the two pitfalls: sounding like a public-service announcement, and sounding dismissive. Nuance + concrete examples = high-6 to 7+.</p>
 
   <h3>Part 1 warm-up</h3>
   <div class="p1-grid">
-    <div class="p1-q"><span class="n">P1·1</span><div>Do you think people in your country talk about their mental health openly?</div></div>
-    <div class="p1-q"><span class="n">P1·2</span><div>How do you usually handle stress?</div></div>
-    <div class="p1-q"><span class="n">P1·3</span><div>Do you think spending time in nature helps you feel better?</div></div>
-    <div class="p1-q"><span class="n">P1·4</span><div>Have you learned any techniques to stay calm?</div></div>
+    <div class="p1-q"><span class="n">P1·1</span><div>Do you think people in your country talk about their mental health openly?<div class="phrase-bank"><b>Try</b> <span class="ph">the stigma is slowly lifting</span><span class="ph">to open up about</span><span class="ph">a generational shift</span><span class="ph">still a bit of a taboo</span><span class="ph">the conversation has moved on</span></div></div></div>
+    <div class="p1-q"><span class="n">P1·2</span><div>How do you usually handle stress?<div class="phrase-bank"><b>Try</b> <span class="ph">to hit the reset button</span><span class="ph">my go-to coping strategy</span><span class="ph">to step back and reset</span><span class="ph">to unload with a friend</span><span class="ph">a bit of breathing room</span></div></div></div>
+    <div class="p1-q"><span class="n">P1·3</span><div>Do you think spending time in nature helps you feel better?<div class="phrase-bank"><b>Try</b> <span class="ph">a proper mental reset</span><span class="ph">clears my head instantly</span><span class="ph">puts things in perspective</span><span class="ph">deeply restorative</span><span class="ph">a grounding effect</span></div></div></div>
+    <div class="p1-q"><span class="n">P1·4</span><div>Have you learned any techniques to stay calm?<div class="phrase-bank"><b>Try</b> <span class="ph">box breathing</span><span class="ph">a quick body-scan</span><span class="ph">journaling in the morning</span><span class="ph">to compartmentalise</span><span class="ph">a bit of mindfulness practice</span></div></div></div>
   </div>
 
   <div class="cue">
@@ -648,14 +702,14 @@ ul.bul li{margin:4px 0}
         <li>and explain how it affected their life.</li>
       </ul>
       <small>Reported Sep–Dec 2026 cycle (IELTS Worldly aggregator; IELTS Actual Tests Q3).</small>
-    </div>
+    </div><div class="phrase-bank"><b>Try</b> <span class="ph">a full lifestyle overhaul</span><span class="ph">to turn their life around</span><span class="ph">a proper wake-up call</span><span class="ph">an accountability partner</span><span class="ph">sustainable, not crash-diet</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">a full lifestyle overhaul</span><span class="ph">to turn their life around</span><span class="ph">a proper wake-up call</span><span class="ph">an accountability partner</span><span class="ph">sustainable, not crash-diet</span></div>
   </div>
 
   <h3>Part 3 · discussion</h3>
 
   <div class="p3-q">
     <div class="qline"><span class="qnum">Q 2.1</span><p class="qtxt">In what ways do you think social media affects our mental health?</p></div>
-    <div class="fw"><span class="chip">Double-edged frame</span><span class="chip">Negative mechanism</span><span class="chip">Positive counter</span><span class="chip">Verdict</span></div>
+    <div class="fw"><span class="chip">Double-edged frame</span><span class="chip">Negative mechanism</span><span class="chip">Positive counter</span><span class="chip">Verdict</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">a textbook double-edged sword</span><span class="ph">the doomscrolling trap</span><span class="ph">the comparison trap</span><span class="ph">a highlight reel, not reality</span><span class="ph">net-negative for passive scrolling</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">a textbook double-edged sword</span><span class="ph">the doomscrolling trap</span><span class="ph">the comparison trap</span><span class="ph">a highlight reel, not reality</span><span class="ph">net-negative for passive scrolling</span></div>
     <div class="model">
       <span class="label">Band 9 model · OREO structure</span>
       <p>Social media is a textbook <strong>double-edged sword</strong>. On the darker side, the whole business model runs on engagement, which in practice means exploiting envy and outrage — you spend half an hour comparing your real life to a thousand curated highlight reels, and you end up feeling flatter than when you started. Among adolescents the link to anxiety is now reasonably well evidenced.</p>
@@ -666,7 +720,7 @@ ul.bul li{margin:4px 0}
 
   <div class="p3-q">
     <div class="qline"><span class="qnum">Q 2.2</span><p class="qtxt">Why do you think mental health is being discussed more openly now than it was in the past?</p></div>
-    <div class="fw"><span class="chip">Cause 1 — generational</span><span class="chip">Cause 2 — celebrity</span><span class="chip">Cause 3 — pandemic</span></div>
+    <div class="fw"><span class="chip">Cause 1 — generational</span><span class="chip">Cause 2 — celebrity</span><span class="chip">Cause 3 — pandemic</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">a real generational shift</span><span class="ph">to normalise the conversation</span><span class="ph">celebrity disclosure matters</span><span class="ph">the pandemic stripped the stigma</span><span class="ph">you can't un-see it</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">a real generational shift</span><span class="ph">to normalise the conversation</span><span class="ph">celebrity disclosure matters</span><span class="ph">the pandemic stripped the stigma</span><span class="ph">you can't un-see it</span></div>
     <div class="model">
       <span class="label">Band 9 model</span>
       <p>Three big shifts, I think. First, there's a genuine generational change: millennials and Gen Z were raised in a culture where talking about feelings isn't coded as weakness, which has quietly moved the whole conversation. Second, celebrity disclosure has had an outsized effect — when Simone Biles or the Duke of Sussex talk about depression, it legitimises the topic for people who would never listen to a doctor.</p>
@@ -676,7 +730,7 @@ ul.bul li{margin:4px 0}
 
   <div class="p3-q">
     <div class="qline"><span class="qnum">Q 2.3</span><p class="qtxt">Do you think mental health is taken as seriously as physical health today?</p></div>
-    <div class="fw"><span class="chip">Partial agreement</span><span class="chip">Evidence of progress</span><span class="chip">Evidence of gap</span></div>
+    <div class="fw"><span class="chip">Partial agreement</span><span class="chip">Evidence of progress</span><span class="chip">Evidence of gap</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">talked-about, yes; resourced, no</span><span class="ph">the treatment gap is huge</span><span class="ph">an 18-month waiting list</span><span class="ph">rhetoric vs. resourcing</span><span class="ph">lip service with better PR</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">talked-about, yes; resourced, no</span><span class="ph">the treatment gap is huge</span><span class="ph">an 18-month waiting list</span><span class="ph">rhetoric vs. resourcing</span><span class="ph">lip service with better PR</span></div>
     <div class="model">
       <span class="label">Band 9 model</span>
       <p>Talked-about, yes. Actually resourced like physical health? Not even close. If you break your leg in the UK you'll see someone within hours; if you're having a panic attack and you're not acutely suicidal, you might wait eighteen months for cognitive behavioural therapy on the NHS, and in Russia the mainstream healthcare system barely engages with it at all. So the public conversation has moved much faster than the budgets.</p>
@@ -687,15 +741,16 @@ ul.bul li{margin:4px 0}
 
 <!-- =============== THEME 3 — ENVIRONMENT =============== -->
 <section class="lab-section" id="t3">
+  <figure class="sec-banner"><img src="images/theme-03-environment.png" alt="A lecturer points at a projected coral reef in front of a classroom of attentive students."></figure>
   <h2><span class="num">3</span>Environment <em>— the evergreen that keeps mutating</em></h2>
   <p class="lead">Environment has been in rotation for a decade, but Sep–Dec 2026 reports show a sharper angle: responsibility (individuals vs. governments vs. corporations), plastic waste specifically, and why people <em>know</em> about climate change but don't change behaviour.</p>
 
   <h3>Part 1 warm-up</h3>
   <div class="p1-grid">
-    <div class="p1-q"><span class="n">P1·1</span><div>Do you recycle at home? What exactly?</div></div>
-    <div class="p1-q"><span class="n">P1·2</span><div>Is your city polluted? In what way?</div></div>
-    <div class="p1-q"><span class="n">P1·3</span><div>Do you think children should be taught about the environment at school?</div></div>
-    <div class="p1-q"><span class="n">P1·4</span><div>Have you changed any habits recently because of the environment?</div></div>
+    <div class="p1-q"><span class="n">P1·1</span><div>Do you recycle at home? What exactly?<div class="phrase-bank"><b>Try</b> <span class="ph">to sort rubbish by type</span><span class="ph">deposit-return schemes</span><span class="ph">to cut out single-use</span><span class="ph">to upcycle rather than bin</span><span class="ph">a zero-waste mindset</span></div></div></div>
+    <div class="p1-q"><span class="n">P1·2</span><div>Is your city polluted? In what way?<div class="phrase-bank"><b>Try</b> <span class="ph">air quality dips in winter</span><span class="ph">proper smog on bad days</span><span class="ph">noise pollution is relentless</span><span class="ph">hazy skyline</span><span class="ph">traffic-heavy corridors</span></div></div></div>
+    <div class="p1-q"><span class="n">P1·3</span><div>Do you think children should be taught about the environment at school?<div class="phrase-bank"><b>Try</b> <span class="ph">climate literacy from day one</span><span class="ph">hands-on projects, not lectures</span><span class="ph">to future-proof the curriculum</span><span class="ph">eco-prefects or clubs</span><span class="ph">builds habits early</span></div></div></div>
+    <div class="p1-q"><span class="n">P1·4</span><div>Have you changed any habits recently because of the environment?<div class="phrase-bank"><b>Try</b> <span class="ph">a plant-based shift</span><span class="ph">cutting down on flying</span><span class="ph">sensible swap-outs</span><span class="ph">small wins that stack up</span><span class="ph">a more mindful consumer</span></div></div></div>
   </div>
 
   <div class="cue">
@@ -710,14 +765,14 @@ ul.bul li{margin:4px 0}
         <li>and explain why you think your country needs it.</li>
       </ul>
       <small>Reported Sep–Dec 2026 cycle (IELTS Actual Tests Q3; IELTS Worldly).</small>
-    </div>
+    </div><div class="phrase-bank"><b>Try</b> <span class="ph">enforceable penalties, not fines on paper</span><span class="ph">polluter-pays, baked in</span><span class="ph">a hard emission cap</span><span class="ph">a meaningful carbon tax</span><span class="ph">a green mandate with teeth</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">enforceable penalties, not fines on paper</span><span class="ph">polluter-pays, baked in</span><span class="ph">a hard emission cap</span><span class="ph">a meaningful carbon tax</span><span class="ph">a green mandate with teeth</span></div>
   </div>
 
   <h3>Part 3 · discussion</h3>
 
   <div class="p3-q">
     <div class="qline"><span class="qnum">Q 3.1</span><p class="qtxt">Should individuals or governments take the main responsibility for protecting the environment?</p></div>
-    <div class="fw"><span class="chip">Scale argument</span><span class="chip">Individual action limit</span><span class="chip">Synthesis</span></div>
+    <div class="fw"><span class="chip">Scale argument</span><span class="chip">Individual action limit</span><span class="chip">Synthesis</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">it's a false dichotomy</span><span class="ph">systemic levers matter more</span><span class="ph">a political mandate from below</span><span class="ph">a drop in the ocean individually</span><span class="ph">you need both arms of the pincer</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">it's a false dichotomy</span><span class="ph">systemic levers matter more</span><span class="ph">a political mandate from below</span><span class="ph">a drop in the ocean individually</span><span class="ph">you need both arms of the pincer</span></div>
     <div class="model">
       <span class="label">Band 9 model</span>
       <p>Governments, overwhelmingly — and the reason comes down to scale. An individual who refuses plastic straws and cycles to work is doing something commendable, but it won't shift the needle while thirty oil majors generate two-thirds of global emissions. Only regulators can force those companies to internalise the cost of what they currently dump into the atmosphere for free.</p>
@@ -727,7 +782,7 @@ ul.bul li{margin:4px 0}
 
   <div class="p3-q">
     <div class="qline"><span class="qnum">Q 3.2</span><p class="qtxt">Why do you think many people ignore environmental problems, even when they understand the risks?</p></div>
-    <div class="fw"><span class="chip">Psychology — distance</span><span class="chip">Economics — cost</span><span class="chip">Behavioural — inertia</span></div>
+    <div class="fw"><span class="chip">Psychology — distance</span><span class="chip">Economics — cost</span><span class="chip">Behavioural — inertia</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">psychological distance</span><span class="ph">climate fatigue is real</span><span class="ph">cognitive dissonance</span><span class="ph">out of sight, out of mind</span><span class="ph">an abstract, slow-motion threat</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">psychological distance</span><span class="ph">climate fatigue is real</span><span class="ph">cognitive dissonance</span><span class="ph">out of sight, out of mind</span><span class="ph">an abstract, slow-motion threat</span></div>
     <div class="model">
       <span class="label">Band 9 model</span>
       <p>Three reasons, I'd argue. Psychologically, climate change still feels like a <strong>distant, slow-motion disaster</strong> — glaciers in the Arctic, droughts somewhere else — which makes it almost impossible for the brain to treat with the urgency it deserves. We evolved to react to leopards, not to parts-per-million concentrations.</p>
@@ -737,7 +792,7 @@ ul.bul li{margin:4px 0}
 
   <div class="p3-q">
     <div class="qline"><span class="qnum">Q 3.3</span><p class="qtxt">What responsibility do companies have to protect the environment?</p></div>
-    <div class="fw"><span class="chip">Baseline — transparency</span><span class="chip">Then — true cost</span><span class="chip">Beyond — redesign</span></div>
+    <div class="fw"><span class="chip">Baseline — transparency</span><span class="chip">Then — true cost</span><span class="chip">Beyond — redesign</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">beyond the greenwashing</span><span class="ph">Scope 3 is the honest number</span><span class="ph">a genuinely circular model</span><span class="ph">credible net-zero by X</span><span class="ph">transparent, audited reporting</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">beyond the greenwashing</span><span class="ph">Scope 3 is the honest number</span><span class="ph">a genuinely circular model</span><span class="ph">credible net-zero by X</span><span class="ph">transparent, audited reporting</span></div>
     <div class="model">
       <span class="label">Band 9 model</span>
       <p>Their baseline responsibility is simply to be honest about their footprint. Too many firms publish glossy sustainability reports while quietly lobbying against the exact regulations that would force those claims to be verified, and the gap between the branding and the balance sheet is where <strong>greenwashing</strong> lives.</p>
@@ -745,19 +800,213 @@ ul.bul li{margin:4px 0}
       <p>And at the frontier, the most ambitious firms redesign their product so the question of pollution doesn't arise — rental models instead of ownership, biodegradable packaging, circular supply chains. That's where real leadership lives, not in the marketing department.</p>
     </div>
   </div>
+
+  <h3 style="margin-top:28px">Environment vocabulary clinic <em>— 30 items, four clusters</em></h3>
+  <p style="color:var(--mute); font-size:14.5px; margin:4px 0 14px">The 30 collocations examiners expect to hear once Environment comes up — equally useful in Speaking Part 3 above and in any Writing Task 2 environment prompt. Click any word to hear it.</p>
+
+  <div class="env-cluster">
+    <h3><span class="hex">Cluster A</span> Climate &amp; the crisis</h3>
+    <div class="env-grid" id="env-climate"></div>
+  </div>
+
+  <div class="env-cluster">
+    <h3><span class="hex">Cluster B</span> Pollution &amp; waste</h3>
+    <div class="env-grid" id="env-pollution"></div>
+  </div>
+
+  <div class="env-cluster">
+    <h3><span class="hex">Cluster C</span> Energy &amp; resources</h3>
+    <div class="env-grid" id="env-energy"></div>
+  </div>
+
+  <div class="env-cluster">
+    <h3><span class="hex">Cluster D</span> Action &amp; solutions</h3>
+    <div class="env-grid" id="env-action"></div>
+  </div>
+
+  <h3 style="margin-top:28px">Practice · pick the right word <em>— options shuffled, correct is never first</em></h3>
+  <div class="drill-block">
+    <div class="mcq-row">
+      <div class="stem">1 · Methane is a far more potent <b>__________</b> than CO₂ in the short term.</div>
+      <select data-answer="greenhouse gas">
+        <option value="">Choose…</option>
+        <option value="carbon tax">carbon tax</option>
+        <option value="tipping point">tipping point</option>
+        <option value="greenhouse gas">greenhouse gas</option>
+        <option value="single-use plastic">single-use plastic</option>
+      </select>
+    </div>
+    <div class="mcq-row">
+      <div class="stem">2 · The EU has pledged to achieve full <b>__________</b> by 2050.</div>
+      <select data-answer="carbon neutrality">
+        <option value="">Choose…</option>
+        <option value="carbon offsetting">carbon offsetting</option>
+        <option value="biomass">biomass</option>
+        <option value="carbon neutrality">carbon neutrality</option>
+        <option value="recycling">recycling</option>
+      </select>
+    </div>
+    <div class="mcq-row">
+      <div class="stem">3 · Short-haul flights leave a disproportionate <b>__________</b>.</div>
+      <select data-answer="carbon footprint">
+        <option value="">Choose…</option>
+        <option value="grassroots movement">grassroots movement</option>
+        <option value="tipping point">tipping point</option>
+        <option value="plant-based diet">plant-based diet</option>
+        <option value="carbon footprint">carbon footprint</option>
+      </select>
+    </div>
+    <div class="mcq-row">
+      <div class="stem">4 · Scientists warn that 1.5 °C may be a <b>__________</b> for Arctic permafrost.</div>
+      <select data-answer="tipping point">
+        <option value="">Choose…</option>
+        <option value="carbon tax">carbon tax</option>
+        <option value="circular economy">circular economy</option>
+        <option value="national grid">national grid</option>
+        <option value="tipping point">tipping point</option>
+      </select>
+    </div>
+    <div class="mcq-row">
+      <div class="stem">5 · The EU has banned the sale of most <b>__________</b> such as straws and shopping bags.</div>
+      <select data-answer="single-use plastics">
+        <option value="">Choose…</option>
+        <option value="biodegradable items">biodegradable items</option>
+        <option value="energy-efficient items">energy-efficient items</option>
+        <option value="single-use plastics">single-use plastics</option>
+        <option value="plant-based items">plant-based items</option>
+      </select>
+    </div>
+    <div class="mcq-row">
+      <div class="stem">6 · Fertiliser runoff can <b>__________</b> drinking water for decades.</div>
+      <select data-answer="contaminate">
+        <option value="">Choose…</option>
+        <option value="divest">divest</option>
+        <option value="offset">offset</option>
+        <option value="recycle">recycle</option>
+        <option value="contaminate">contaminate</option>
+      </select>
+    </div>
+    <div class="mcq-row">
+      <div class="stem">7 · Over 40% of Germany's electricity now comes from <b>__________</b>.</div>
+      <select data-answer="renewable energy">
+        <option value="">Choose…</option>
+        <option value="fossil fuels">fossil fuels</option>
+        <option value="biomass">biomass</option>
+        <option value="renewable energy">renewable energy</option>
+        <option value="nuclear waste">nuclear waste</option>
+      </select>
+    </div>
+    <div class="mcq-row">
+      <div class="stem">8 · The UK has committed to <b>__________</b> petrol cars by 2035.</div>
+      <select data-answer="phasing out">
+        <option value="">Choose…</option>
+        <option value="scaling up">scaling up</option>
+        <option value="rolling back">rolling back</option>
+        <option value="phasing out">phasing out</option>
+        <option value="locking in">locking in</option>
+      </select>
+    </div>
+    <div class="mcq-row">
+      <div class="stem">9 · Firms love to talk about sustainability but quietly <b>__________</b> against the regulations that would prove it.</div>
+      <select data-answer="lobby">
+        <option value="">Choose…</option>
+        <option value="recycle">recycle</option>
+        <option value="donate">donate</option>
+        <option value="volunteer">volunteer</option>
+        <option value="lobby">lobby</option>
+      </select>
+    </div>
+    <div class="mcq-row">
+      <div class="stem">10 · A <b>__________</b> keeps materials in use for as long as possible instead of throwing them away.</div>
+      <select data-answer="circular economy">
+        <option value="">Choose…</option>
+        <option value="linear economy">linear economy</option>
+        <option value="carbon tax">carbon tax</option>
+        <option value="grassroots movement">grassroots movement</option>
+        <option value="circular economy">circular economy</option>
+      </select>
+    </div>
+  </div>
+
+  <h3 style="margin-top:22px">Matching · environment term → paraphrase</h3>
+  <div class="drill-block">
+    <div class="match-grid match-grid-stack">
+      <div class="match-row">
+        <span class="term">1 · carbon footprint</span>
+        <select data-answer="C">
+          <option value="">→ paraphrase</option>
+          <option value="A">a tax placed on polluting industries</option>
+          <option value="B">a sudden climate disaster</option>
+          <option value="C">the total greenhouse gas impact of a person or activity</option>
+          <option value="D">packaging that breaks down naturally</option>
+        </select>
+      </div>
+      <div class="match-row">
+        <span class="term">2 · to phase out</span>
+        <select data-answer="B">
+          <option value="">→ paraphrase</option>
+          <option value="A">to release suddenly into the atmosphere</option>
+          <option value="B">to gradually stop using something</option>
+          <option value="C">to replace with a cheaper alternative</option>
+          <option value="D">to keep in use indefinitely</option>
+        </select>
+      </div>
+      <div class="match-row">
+        <span class="term">3 · greenwashing</span>
+        <select data-answer="D">
+          <option value="">→ paraphrase</option>
+          <option value="A">cleaning polluted water with plants</option>
+          <option value="B">a protest about recycling rules</option>
+          <option value="C">painting buildings in environmental colours</option>
+          <option value="D">marketing a company as greener than it really is</option>
+        </select>
+      </div>
+      <div class="match-row">
+        <span class="term">4 · the polluter-pays principle</span>
+        <select data-answer="A">
+          <option value="">→ paraphrase</option>
+          <option value="A">the party causing pollution should carry its financial cost</option>
+          <option value="B">consumers should pay more for polluting products</option>
+          <option value="C">governments must subsidise clean industries</option>
+          <option value="D">exporters pay a tariff on dirty goods</option>
+        </select>
+      </div>
+      <div class="match-row">
+        <span class="term">5 · a grassroots movement</span>
+        <select data-answer="B">
+          <option value="">→ paraphrase</option>
+          <option value="A">a legally binding international treaty</option>
+          <option value="B">a campaign started by ordinary citizens, not officials</option>
+          <option value="C">a political party running on environmental issues</option>
+          <option value="D">a scientific research consortium</option>
+        </select>
+      </div>
+      <div class="match-row">
+        <span class="term">6 · to reach net zero</span>
+        <select data-answer="D">
+          <option value="">→ paraphrase</option>
+          <option value="A">to shut down all industry temporarily</option>
+          <option value="B">to use only solar power</option>
+          <option value="C">to count emissions in a new way</option>
+          <option value="D">to balance emissions produced with emissions removed</option>
+        </select>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- =============== THEME 4 — MASS CULTURE (LEAST FAVOURITE PRODUCTS) =============== -->
 <section class="lab-section" id="t4">
+  <figure class="sec-banner"><img src="images/theme-04-mass-culture.png" alt="A woman in a green sweater working on a laptop by a bright window — modern media consumption."></figure>
   <h2><span class="num">4</span>Mass culture <em>— what we like to complain about</em></h2>
   <p class="lead">This is the theme Maria flagged as unusual — not "what's your favourite film", but "what are the <em>least favourite</em> products of mass culture". This frames the whole cluster as a critique: dumbing down, stereotyping, commercial pressure, formulaic storytelling. For a candidate going into art history this is an ideal cluster — you have genuine expertise to lean on.</p>
 
   <h3>Part 1 warm-up</h3>
   <div class="p1-grid">
-    <div class="p1-q"><span class="n">P1·1</span><div>How often do you watch films or TV series?</div></div>
-    <div class="p1-q"><span class="n">P1·2</span><div>Is there a kind of film or TV show you really dislike?</div></div>
-    <div class="p1-q"><span class="n">P1·3</span><div>Do you think advertising affects what people watch?</div></div>
-    <div class="p1-q"><span class="n">P1·4</span><div>Have you ever stopped watching something because it annoyed you?</div></div>
+    <div class="p1-q"><span class="n">P1·1</span><div>How often do you watch films or TV series?<div class="phrase-bank"><b>Try</b> <span class="ph">to binge-watch at weekends</span><span class="ph">a pretty casual viewer</span><span class="ph">on as background noise</span><span class="ph">down a rabbit hole</span><span class="ph">my watching habits have shifted</span></div></div></div>
+    <div class="p1-q"><span class="n">P1·2</span><div>Is there a kind of film or TV show you really dislike?<div class="phrase-bank"><b>Try</b> <span class="ph">really not my cup of tea</span><span class="ph">painfully formulaic</span><span class="ph">endlessly predictable</span><span class="ph">over-hyped and under-written</span><span class="ph">I just can't stand</span></div></div></div>
+    <div class="p1-q"><span class="n">P1·3</span><div>Do you think advertising affects what people watch?<div class="phrase-bank"><b>Try</b> <span class="ph">algorithmic nudges</span><span class="ph">native advertising baked in</span><span class="ph">shameless product placement</span><span class="ph">the hype cycle does the work</span><span class="ph">pure FOMO marketing</span></div></div></div>
+    <div class="p1-q"><span class="n">P1·4</span><div>Have you ever stopped watching something because it annoyed you?<div class="phrase-bank"><b>Try</b> <span class="ph">to tap out mid-season</span><span class="ph">to lose all interest</span><span class="ph">became a chore to watch</span><span class="ph">a real patience-tester</span><span class="ph">dropped it without finishing</span></div></div></div>
   </div>
 
   <div class="cue">
@@ -772,14 +1021,14 @@ ul.bul li{margin:4px 0}
         <li>and explain why you didn't like it.</li>
       </ul>
       <small>Reported Sep–Dec 2026 cycle (IELTS Actual Tests; variants on IELTS Worldly as "least favourite movie").</small>
-    </div>
+    </div><div class="phrase-bank"><b>Try</b> <span class="ph">let me down completely</span><span class="ph">style over substance</span><span class="ph">surface-level writing</span><span class="ph">an overhyped disappointment</span><span class="ph">I bailed before the credits</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">let me down completely</span><span class="ph">style over substance</span><span class="ph">surface-level writing</span><span class="ph">an overhyped disappointment</span><span class="ph">I bailed before the credits</span></div>
   </div>
 
   <h3>Part 3 · discussion</h3>
 
   <div class="p3-q">
     <div class="qline"><span class="qnum">Q 4.1</span><p class="qtxt">What do you think are the worst things about modern mass culture — the films, the music, the TV we all consume?</p></div>
-    <div class="fw"><span class="chip">Pick a target</span><span class="chip">Mechanism — why it goes wrong</span><span class="chip">Honest caveat</span></div>
+    <div class="fw"><span class="chip">Pick a target</span><span class="chip">Mechanism — why it goes wrong</span><span class="chip">Honest caveat</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">the dumbing-down incentive</span><span class="ph">lowest-common-denominator writing</span><span class="ph">algorithm-slop at scale</span><span class="ph">formulaic, risk-averse storytelling</span><span class="ph">the middle has been hollowed out</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">the dumbing-down incentive</span><span class="ph">lowest-common-denominator writing</span><span class="ph">algorithm-slop at scale</span><span class="ph">formulaic, risk-averse storytelling</span><span class="ph">the middle has been hollowed out</span></div>
     <div class="model">
       <span class="label">Band 9 model</span>
       <p>The single worst feature, I'd say, is the <strong>dumbing-down</strong> incentive baked into the economics. A streaming platform makes its money by keeping as many subscribers as possible mildly engaged, not by producing anything genuinely challenging. So the algorithms reward content that is loud, fast, and emotionally legible to a fifteen-year-old in Jakarta and a sixty-year-old in Ohio alike — which inevitably flattens out nuance.</p>
@@ -789,7 +1038,7 @@ ul.bul li{margin:4px 0}
 
   <div class="p3-q">
     <div class="qline"><span class="qnum">Q 4.2</span><p class="qtxt">Do you think streaming platforms have made things better or worse for viewers?</p></div>
-    <div class="fw"><span class="chip">Positive first</span><span class="chip">Pivot — the cost</span><span class="chip">Verdict</span></div>
+    <div class="fw"><span class="chip">Positive first</span><span class="chip">Pivot — the cost</span><span class="chip">Verdict</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">a real democratic gain</span><span class="ph">choice paralysis is new</span><span class="ph">viewing has fragmented</span><span class="ph">the ritual is basically gone</span><span class="ph">second-screen culture is the default</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">a real democratic gain</span><span class="ph">choice paralysis is new</span><span class="ph">viewing has fragmented</span><span class="ph">the ritual is basically gone</span><span class="ph">second-screen culture is the default</span></div>
     <div class="model">
       <span class="label">Band 9 model</span>
       <p>In access terms, unambiguously better. I can watch Iranian cinema, Korean thrillers, and 1960s Italian documentaries from my sofa in Moscow for less than the price of a single cinema ticket a generation ago. That's an enormous democratic gain.</p>
@@ -800,7 +1049,7 @@ ul.bul li{margin:4px 0}
 
   <div class="p3-q">
     <div class="qline"><span class="qnum">Q 4.3</span><p class="qtxt">Should governments do anything to influence what people watch?</p></div>
-    <div class="fw"><span class="chip">Reject censorship</span><span class="chip">Positive levers — subsidy, quotas</span><span class="chip">Caveat</span></div>
+    <div class="fw"><span class="chip">Reject censorship</span><span class="chip">Positive levers — subsidy, quotas</span><span class="chip">Caveat</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">an arm's-length body</span><span class="ph">cultural quotas, not censorship</span><span class="ph">robust public broadcasting</span><span class="ph">soft power through subsidy</span><span class="ph">cosiness with ministers is the risk</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">an arm's-length body</span><span class="ph">cultural quotas, not censorship</span><span class="ph">robust public broadcasting</span><span class="ph">soft power through subsidy</span><span class="ph">cosiness with ministers is the risk</span></div>
     <div class="model">
       <span class="label">Band 9 model</span>
       <p>Not through censorship — that path leads nowhere healthy, and the historical track record is grim. But governments absolutely have a role on the <strong>supply side</strong>: funding public broadcasters that don't need to chase advertisers, subsidising national cinema so it isn't drowned out by Hollywood, and running quotas on how much domestically produced work streaming services must carry. France and South Korea have done this reasonably well, and their cultural output is noticeably more varied for it.</p>
@@ -811,15 +1060,16 @@ ul.bul li{margin:4px 0}
 
 <!-- =============== THEME 5 — EXAMINING OTHER NATIONS THROUGH CULTURE =============== -->
 <section class="lab-section" id="t5">
+  <figure class="sec-banner"><img src="images/theme-05-foreign-culture.png" alt="A vintage film reel unspooling across a green cloth with scattered sepia travel photographs."></figure>
   <h2><span class="num">5</span>Other nations through mass culture <em>— the art-history trap</em></h2>
   <p class="lead">This is the richest theme for Aleksandra — your whole discipline is built on the question of whether cultural artefacts let us read a society honestly. The IELTS version is softer but asks the same thing: can films, books, music, TV give us a reliable window into a country we've never been to?</p>
 
   <h3>Part 1 warm-up</h3>
   <div class="p1-grid">
-    <div class="p1-q"><span class="n">P1·1</span><div>Do you watch films from other countries?</div></div>
-    <div class="p1-q"><span class="n">P1·2</span><div>Do you prefer subtitles or dubbing?</div></div>
-    <div class="p1-q"><span class="n">P1·3</span><div>Have you ever learned something surprising about another country from a film?</div></div>
-    <div class="p1-q"><span class="n">P1·4</span><div>Is there a country whose culture you find especially interesting?</div></div>
+    <div class="p1-q"><span class="n">P1·1</span><div>Do you watch films from other countries?<div class="phrase-bank"><b>Try</b> <span class="ph">a fan of foreign cinema</span><span class="ph">subtitled by default</span><span class="ph">drawn to art-house stuff</span><span class="ph">love the local flavour</span><span class="ph">a different sensibility</span></div></div></div>
+    <div class="p1-q"><span class="n">P1·2</span><div>Do you prefer subtitles or dubbing?<div class="phrase-bank"><b>Try</b> <span class="ph">a subs purist, basically</span><span class="ph">dubbing butchers the tone</span><span class="ph">lip-sync is usually off</span><span class="ph">to lose the nuance</span><span class="ph">subs are far more immersive</span></div></div></div>
+    <div class="p1-q"><span class="n">P1·3</span><div>Have you ever learned something surprising about another country from a film?<div class="phrase-bank"><b>Try</b> <span class="ph">a real wake-up to</span><span class="ph">overturned my assumption</span><span class="ph">a genuine window into</span><span class="ph">a totally different lens</span><span class="ph">massively broadened my view</span></div></div></div>
+    <div class="p1-q"><span class="n">P1·4</span><div>Is there a country whose culture you find especially interesting?<div class="phrase-bank"><b>Try</b> <span class="ph">quietly drawn to</span><span class="ph">a bit of a cultural crush</span><span class="ph">their soft power is enormous</span><span class="ph">under-the-radar scene</span><span class="ph">a cultural export machine</span></div></div></div>
   </div>
 
   <div class="cue">
@@ -834,14 +1084,14 @@ ul.bul li{margin:4px 0}
         <li>and explain whether you think it gave you an accurate picture.</li>
       </ul>
       <small>Variant on Sep–Dec 2026 cue card "Describe a film / book you enjoyed" + the standing Part 3 cluster from IELTS Practice Online &amp; IELTS Liz on foreign culture.</small>
-    </div>
+    </div><div class="phrase-bank"><b>Try</b> <span class="ph">a real cultural touchstone</span><span class="ph">the texture of daily life</span><span class="ph">authored from inside the culture</span><span class="ph">a different emotional vocabulary</span><span class="ph">nothing like the tourist version</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">a real cultural touchstone</span><span class="ph">the texture of daily life</span><span class="ph">authored from inside the culture</span><span class="ph">a different emotional vocabulary</span><span class="ph">nothing like the tourist version</span></div>
   </div>
 
   <h3>Part 3 · discussion</h3>
 
   <div class="p3-q">
     <div class="qline"><span class="qnum">Q 5.1</span><p class="qtxt">Do you think we can genuinely learn about other cultures through films and television, or do they distort more than they reveal?</p></div>
-    <div class="fw"><span class="chip">Both sides frame</span><span class="chip">What they do well</span><span class="chip">Where they mislead</span><span class="chip">Verdict</span></div>
+    <div class="fw"><span class="chip">Both sides frame</span><span class="chip">What they do well</span><span class="chip">Where they mislead</span><span class="chip">Verdict</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">paint in broad strokes</span><span class="ph">the outsider gaze vs. the insider lens</span><span class="ph">cultural intimacy at its best</span><span class="ph">endlessly exoticised</span><span class="ph">with a healthy pinch of salt</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">paint in broad strokes</span><span class="ph">the outsider gaze vs. the insider lens</span><span class="ph">cultural intimacy at its best</span><span class="ph">endlessly exoticised</span><span class="ph">with a healthy pinch of salt</span></div>
     <div class="model">
       <span class="label">Band 9 model</span>
       <p>Both, honestly — and separating the two is the whole skill. At their best, films give you something no travel guide can: the texture of daily life. Watching Pedro Almodóvar you absorb more about Madrid's relationship with memory, sexuality and the Franco era than you'd ever get from a Lonely Planet chapter. In that sense cinema really is <strong>a window into</strong> a culture.</p>
@@ -852,7 +1102,7 @@ ul.bul li{margin:4px 0}
 
   <div class="p3-q">
     <div class="qline"><span class="qnum">Q 5.2</span><p class="qtxt">Is it easier today to learn about other countries than it was twenty or thirty years ago?</p></div>
-    <div class="fw"><span class="chip">Yes — infrastructure</span><span class="chip">But — filter bubble</span><span class="chip">Verdict</span></div>
+    <div class="fw"><span class="chip">Yes — infrastructure</span><span class="chip">But — filter bubble</span><span class="chip">Verdict</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">access is incomparable</span><span class="ph">the filter-bubble problem</span><span class="ph">drowning in exposure, starving for context</span><span class="ph">under-represented regions remain invisible</span><span class="ph">curation beats quantity</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">access is incomparable</span><span class="ph">the filter-bubble problem</span><span class="ph">drowning in exposure, starving for context</span><span class="ph">under-represented regions remain invisible</span><span class="ph">curation beats quantity</span></div>
     <div class="model">
       <span class="label">Band 9 model</span>
       <p>Technically far easier — the raw access is incomparable. Thirty years ago a Russian art student had to physically travel to a British Council library to see an English art magazine. Today the same student can watch a Louvre lecture at breakfast and chat with a Mexican curator at lunch.</p>
@@ -863,7 +1113,7 @@ ul.bul li{margin:4px 0}
 
   <div class="p3-q">
     <div class="qline"><span class="qnum">Q 5.3</span><p class="qtxt">Does globalisation make the world's cultures more similar, or does it actually make them more visible to each other?</p></div>
-    <div class="fw"><span class="chip">Both at once</span><span class="chip">Surface vs. deep</span><span class="chip">Art-history angle</span></div>
+    <div class="fw"><span class="chip">Both at once</span><span class="chip">Surface vs. deep</span><span class="chip">Art-history angle</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">surface vs. depth</span><span class="ph">hybrid aesthetics are everywhere</span><span class="ph">a sharper local assertion</span><span class="ph">cultural remix, not erasure</span><span class="ph">visibility produces difference, not just sameness</span></div><div class="phrase-bank"><b>Try</b> <span class="ph">surface vs. depth</span><span class="ph">hybrid aesthetics are everywhere</span><span class="ph">a sharper local assertion</span><span class="ph">cultural remix, not erasure</span><span class="ph">visibility produces difference, not just sameness</span></div>
     <div class="model">
       <span class="label">Band 9 model</span>
       <p>Both, at different depths. On the surface — the airports, the coffee chains, the fashion silhouettes — globalisation has unquestionably flattened a lot of difference, and complaining about it has become its own small genre.</p>
@@ -875,6 +1125,7 @@ ul.bul li{margin:4px 0}
 
 <!-- =============== 6 · WRITING TASK 1 — CHARTS & DIAGRAMS =============== -->
 <section class="lab-section" id="sec-wt1">
+  <figure class="sec-banner"><img src="images/sec-wt1-charts.png" alt="A hand filling in a hand-drawn grid of coloured squares — Writing Task 1 chart planning."></figure>
   <h2><span class="num">6</span>Writing Task 1 <em>— three fresh environment-data tasks</em></h2>
   <p class="lead">Task 1 is the 150-word, 20-minute description of a visual. Three visual types matter most in the current cycle — <strong>line graph</strong> (change over time), <strong>bar chart</strong> (comparison), and <strong>process diagram</strong> (how something is made or works). All three below use environment data, so you can reuse the vocabulary from Section 8.</p>
 
@@ -1119,6 +1370,7 @@ ul.bul li{margin:4px 0}
 
 <!-- =============== 7 · WRITING TASK 2 — ALL 5 ESSAY TYPES =============== -->
 <section class="lab-section" id="sec-wt2">
+  <figure class="sec-banner"><img src="images/sec-wt2-essays.png" alt="A student writes in a notebook beside a laptop showing a balance scale — essay practice."></figure>
   <h2><span class="num">7</span>Writing Task 2 <em>— all five essay types, with December-cycle prompts</em></h2>
   <p class="lead">Task 2 is 40 minutes, 250+ words, and two thirds of the Writing band. Every prompt you will ever see falls into one of five types, and each type has its own fixed structure. Below is one real-style December-cycle prompt per type, with the structural scaffold and a Band 7+ opening paragraph you can imitate.</p>
 
@@ -1274,40 +1526,15 @@ ul.bul li{margin:4px 0}
   </div>
 </section>
 
-<!-- =============== 8 · ENVIRONMENT VOCABULARY CLINIC =============== -->
-<section class="lab-section" id="sec-env">
-  <h2><span class="num">8</span>Environment vocabulary clinic <em>— 30 items, four clusters</em></h2>
-  <p class="lead">These are the words the examiner expects to hear when the topic turns to climate, pollution and sustainability — and they recur across Speaking Part 3, Writing Task 1 chart descriptions and the full Writing Task 2 environment prompt family. Click any word to hear it pronounced.</p>
-
-  <div class="env-cluster">
-    <h3><span class="hex">Cluster A</span> Climate &amp; the crisis</h3>
-    <div class="env-grid" id="env-climate"></div>
-  </div>
-
-  <div class="env-cluster">
-    <h3><span class="hex">Cluster B</span> Pollution &amp; waste</h3>
-    <div class="env-grid" id="env-pollution"></div>
-  </div>
-
-  <div class="env-cluster">
-    <h3><span class="hex">Cluster C</span> Energy &amp; resources</h3>
-    <div class="env-grid" id="env-energy"></div>
-  </div>
-
-  <div class="env-cluster">
-    <h3><span class="hex">Cluster D</span> Action &amp; solutions</h3>
-    <div class="env-grid" id="env-action"></div>
-  </div>
-</section>
-
-<!-- =============== 9 · MIXED IELTS DRILLS =============== -->
+<!-- =============== 8 · MIXED IELTS DRILLS =============== -->
 <section class="lab-section" id="sec-drill">
-  <h2><span class="num">9</span>Mixed IELTS drills <em>— real exam mechanics, on the lesson's vocabulary</em></h2>
+  <figure class="sec-banner"><img src="images/sec-drill-mechanics.png" alt="A close-up of an IELTS answer sheet, a yellow pencil and three coloured sticky notes."></figure>
+  <h2><span class="num">8</span>Mixed IELTS drills <em>— real exam mechanics, on the lesson's vocabulary</em></h2>
   <p class="lead">Three exercise types from genuine IELTS mechanics: a <strong>shuffled multiple-choice</strong> collocation drill (Writing Task 2 lexis), a <strong>True / False / Not Given</strong> reading mini (short environment passage) and a <strong>matching</strong> phrase-to-paraphrase set.</p>
 
-  <!-- 9.1 shuffled MCQ on collocations -->
+  <!-- 8.1 shuffled MCQ on collocations -->
   <div class="drill-block">
-    <h3>9.1 · Shuffled MCQ · Essay collocations</h3>
+    <h3>8.1 · Shuffled MCQ · Essay collocations</h3>
     <p style="margin:0 0 8px;font-size:14px;color:var(--mute)">Pick the word that completes each sentence. Options are shuffled — correct is not first.</p>
 
     <div class="mcq-row">
@@ -1372,9 +1599,9 @@ ul.bul li{margin:4px 0}
     </div>
   </div>
 
-  <!-- 9.2 T/F/NG mini-reading -->
+  <!-- 8.2 T/F/NG mini-reading -->
   <div class="drill-block">
-    <h3>9.2 · True / False / Not Given · Mini-reading on plastic pollution</h3>
+    <h3>8.2 · True / False / Not Given · Mini-reading on plastic pollution</h3>
     <div class="passage">
       <p><b>Read the passage, then classify each statement.</b></p>
       <p>Plastic has been described as the defining material of the twentieth century, and today more than 400 million tonnes of it are produced every year. Only a small fraction, however, is recycled. Independent studies suggest that approximately 9% of all plastic ever manufactured has been processed into new products, while the remainder has been incinerated, dumped in landfill or discarded directly into the natural environment. A growing body of research now links microplastic particles — fragments smaller than five millimetres — to disruption in both marine food chains and human hormone systems, although the long-term health consequences remain under investigation. Several governments have responded by banning single-use items such as plastic straws and shopping bags; the European Union went further in 2024 by requiring that all plastic bottles be made from at least 25% recycled content by 2030.</p>
@@ -1436,9 +1663,9 @@ ul.bul li{margin:4px 0}
     </div>
   </div>
 
-  <!-- 9.3 Matching — expressions to paraphrases -->
+  <!-- 8.3 Matching — expressions to paraphrases -->
   <div class="drill-block">
-    <h3>9.3 · Matching · Idiom → paraphrase</h3>
+    <h3>8.3 · Matching · Idiom → paraphrase</h3>
     <p style="margin:0 0 8px;font-size:14px;color:var(--mute)">Each idiom from this lesson has one correct paraphrase. Match them up.</p>
     <div class="match-grid">
       <div class="match-row">
@@ -1504,6 +1731,9 @@ ul.bul li{margin:4px 0}
     </div>
   </div>
 </section>
+
+<!-- =============== HOMEWORK VOCAB BAR (auto-built from LAB_VOCAB) =============== -->
+<section class="lab-section" id="auto-vocab"></section>
 
 <!-- =============== VOCAB CAPSULE =============== -->
 <section class="vocab-capsule lab-section" id="sec-capsule">
