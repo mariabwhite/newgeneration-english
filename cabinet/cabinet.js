@@ -1257,6 +1257,7 @@
   function _lessonStatusBadge(lesson, todayISO) {
     const d = lesson.date;
     const s = lesson.status;
+    if (s === "missed" && /болел[аи]?/i.test(lesson.topic || "")) return { cls: "is-pending", label: "болела" };
     if (s === "missed") return { cls: "is-missed", label: "пропуск" };
     if (s === "cancelled") return { cls: "is-cancelled", label: "отменён" };
     if (s === "rescheduled") return { cls: "is-rescheduled", label: "перенесён" };
