@@ -454,15 +454,17 @@
           ${parent}
         </article>
 
-        ${_renderAbonementCard(student, { studentView: true })}
+        ${_renderAbonementCard(student, isAdultMerged ? {} : { studentView: true })}
 
-        ${_renderPaymentsCard(student, { studentView: true })}
+        ${_renderPaymentsCard(student, isAdultMerged ? {} : { studentView: true })}
+
+        ${isAdultMerged ? _renderSecurityNoticeCard() : ""}
 
         ${_renderHomeworkCard(student)}
 
         ${_renderExternalPlatformsCard(student)}
 
-        ${_renderMaterialsCard(student, { studentView: true })}
+        ${_renderMaterialsCard(student, isAdultMerged ? {} : { studentView: true })}
         ${contractsCard}
 
         ${adultExtras}
