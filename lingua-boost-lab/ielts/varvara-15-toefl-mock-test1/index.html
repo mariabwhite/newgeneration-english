@@ -124,6 +124,7 @@ h1.hero-title .grad{color:var(--accent-2)}
   font-family:"Playfair Display",Georgia,serif;font-size:1.02rem;line-height:2.1;color:var(--text)}
 .gapfill input{display:inline-block;width:4.5em;min-width:70px;padding:3px 7px;border:1px solid var(--line-2);border-radius:5px;
   font-family:var(--mono);font-size:.88rem;background:#fff;color:var(--text);font-weight:700;text-align:center;vertical-align:baseline}
+.gapfill input.drill-input{width:11em;min-width:160px;text-align:left;padding:4px 10px;font-size:.92rem}
 .gapfill input.correct{background:rgba(107,157,63,.22);border-color:var(--ok);color:var(--ok)}
 .gapfill input.wrong{background:rgba(192,74,58,.16);border-color:var(--miss);color:var(--miss)}
 .gapfill .stem-chunk{display:inline;font-family:inherit;color:#5a5a3a;font-weight:600;font-size:.94em}
@@ -914,10 +915,20 @@ Maria Chen, Transportation Coordinator</div>
 
 <section class="section canon-l-section" id="s15e" data-section="s15e" data-section-id="s15e">
 <!-- ========== S15e Art/History/MA collocations · flip cards ========== -->
-<div class="section-hdr"><span class="section-num">S15e</span><h2>Band 8–9 collocations × 10 · art-history / archaeology MA angle</h2></div>
-<p class="section-sub">Precise academic pairings that lift any answer touching on heritage, museums, or your MA domain from Band 7 to Band 8+. Click to reveal meaning + model phrase.</p>
+<div class="section-hdr"><span class="section-num">S15e</span><h2>Everyday B2–C1 collocations × 15 · conversational, modern</h2></div>
+<p class="section-sub">High-frequency phrasal verbs and collocations that natives actually use every day. Not fancy, not academic — these give your answers Band 7+ fluency without sounding memorised. Click to reveal meaning + example.</p>
 <div class="card">
   <div class="flip-grid" id="colloc-grid"></div>
+</div>
+</section>
+
+<section class="section canon-l-section" id="s15f" data-section="s15f" data-section-id="s15f">
+<!-- ========== S15f Collocations · practice drill ========== -->
+<div class="section-hdr"><span class="section-num">S15f</span><h2>Collocations · отработка × 12 gap-fill</h2></div>
+<p class="section-sub">Type the missing phrasal verb / collocation from S15e into each gap. Click <strong>Check</strong> at the bottom — green = correct, red = correct answer appears next to your attempt.</p>
+<div class="card">
+  <div class="gapfill" id="colloc-drill" style="line-height:2.3;font-family:var(--body);font-size:1rem"></div>
+  <button class="btn-check" onclick="checkCollocDrill()">Check · reveal answers</button>
 </div>
 </section>
 
@@ -1253,18 +1264,23 @@ idioms.forEach(it => {
   idiomGrid.appendChild(c);
 });
 
-/* ============ MA / art-history collocations ============ */
+/* ============ Everyday B2-C1 collocations · modern, conversational, high-frequency ============ */
 const collocs = [
-  { front: 'painstakingly restored', ru: 'кропотливо отреставрирован', back: 'restored with extreme care and patience over a long time', ex: 'The fresco cycle has been <strong>painstakingly restored</strong> over the past decade by a team of Vatican conservators.' },
-  { front: 'architectural marvel', ru: 'архитектурное чудо', back: 'a building of exceptional design that inspires wonder', ex: 'Hagia Sophia remains <strong>an architectural marvel</strong> that no Byzantine dome has ever surpassed.' },
-  { front: 'intangible cultural heritage', ru: 'нематериальное культурное наследие', back: 'traditions, crafts, oral history (UNESCO term)', ex: 'UNESCO lists Russian bell-ringing as <strong>intangible cultural heritage</strong>.' },
-  { front: 'aesthetic merit', ru: 'эстетическая ценность', back: 'quality that makes a work worth looking at in its own right', ex: 'The pot has clear archaeological value but little <strong>aesthetic merit</strong>, which is why it is stored, not displayed.' },
-  { front: 'historical significance', ru: 'историческая значимость', back: 'importance within a chain of past events', ex: 'The site\'s <strong>historical significance</strong> lies less in its grandeur than in its continuous occupation.' },
-  { front: 'intricate craftsmanship', ru: 'искусная работа', back: 'highly detailed and skilful manual work', ex: 'The silver reliquary shows <strong>intricate craftsmanship</strong> typical of 14th-century Novgorod workshops.' },
-  { front: 'a treasure trove of', ru: 'кладезь', back: 'a rich collection or source of valuable things', ex: 'The Dresden archive is <strong>a treasure trove of</strong> provenance documents for looted Renaissance panels.' },
-  { front: 'attribution controversy', ru: 'спор об атрибуции', back: 'ongoing scholarly disagreement about who made a work', ex: 'The Salvator Mundi <strong>attribution controversy</strong> hasn\'t subsided since the 2017 auction.' },
-  { front: 'provenance dispute', ru: 'спор о происхождении', back: 'legal/scholarly argument about an artwork\'s ownership history', ex: 'A <strong>provenance dispute</strong> can block a loan for years and, in some cases, force repatriation.' },
-  { front: 'iconographic programme', ru: 'иконографическая программа', back: 'the coherent system of symbols chosen for a cycle of images', ex: 'The chapel\'s <strong>iconographic programme</strong> moves from Fall to Redemption in a single visual arc.' },
+  { front: 'make up your mind', ru: 'определиться / решить', back: 'finally decide between options', ex: 'Just <strong>make up your mind</strong> — we need to book the tickets today.' },
+  { front: 'take advantage of', ru: 'воспользоваться', back: 'use an opportunity (positive, not negative)', ex: 'I always <strong>take advantage of</strong> the free museum day on the first Sunday.' },
+  { front: 'keep in touch', ru: 'оставаться на связи', back: 'stay in regular contact', ex: 'We said goodbye at the airport and promised to <strong>keep in touch</strong>.' },
+  { front: 'pay attention to', ru: 'обращать внимание', back: 'focus on / notice carefully', ex: 'You need to <strong>pay attention to</strong> the examiner\'s follow-up questions.' },
+  { front: 'catch up with', ru: 'встретиться поболтать / догнать', back: 'meet to talk after some time apart · OR reach the same level', ex: 'I\'m going to <strong>catch up with</strong> an old classmate this weekend.' },
+  { front: 'figure out', ru: 'разобраться / понять', back: 'understand or solve something', ex: 'It took me a while to <strong>figure out</strong> how the new app works.' },
+  { front: 'come up with', ru: 'придумать', back: 'produce an idea, plan or solution', ex: 'We need to <strong>come up with</strong> a title for the essay by Friday.' },
+  { front: 'get the hang of', ru: 'наловчиться', back: 'learn how to do something after practice', ex: 'Driving in London is tricky at first, but you <strong>get the hang of it</strong>.' },
+  { front: 'look forward to', ru: 'с нетерпением ждать', back: 'anticipate something good (followed by -ing or noun)', ex: 'I\'m really <strong>looking forward to</strong> starting my MA next year.' },
+  { front: 'put off', ru: 'откладывать', back: 'postpone something you don\'t want to do', ex: 'I keep <strong>putting off</strong> my dentist appointment.' },
+  { front: 'run into', ru: 'случайно встретить', back: 'meet someone unexpectedly', ex: 'I <strong>ran into</strong> my old boss at the coffee shop yesterday.' },
+  { front: 'deal with', ru: 'справляться / разбираться с', back: 'handle a situation or problem', ex: 'She had to <strong>deal with</strong> a difficult client all morning.' },
+  { front: 'rely on', ru: 'полагаться на', back: 'depend on someone or something you trust', ex: 'You can\'t <strong>rely on</strong> public transport in bad weather.' },
+  { front: 'pick up', ru: 'подхватить / забрать / перенять', back: 'learn casually · collect · acquire (habit, language)', ex: 'I <strong>picked up</strong> some Italian while I was living in Rome.' },
+  { front: 'go through', ru: 'пережить / просмотреть', back: 'experience something difficult · OR examine step by step', ex: 'She\'s <strong>going through</strong> a stressful time with her thesis.' },
 ];
 const collocGrid = document.getElementById('colloc-grid');
 collocs.forEach(it => {
@@ -1278,6 +1294,50 @@ collocs.forEach(it => {
   c.addEventListener('click', () => c.classList.toggle('flipped'));
   collocGrid.appendChild(c);
 });
+
+/* ============ Collocations · gap-fill practice drill ============ */
+const drill = [
+  { before: "I can't ", after: " what the professor actually meant — the lecture was too fast.", ans: "figure out", hints: ["figure out"] },
+  { before: "We need to ", after: " a new title for the essay by Friday.", ans: "come up with", hints: ["come up with"] },
+  { before: "I'm really ", after: " starting my MA in London next September.", ans: "looking forward to", hints: ["looking forward to"] },
+  { before: "Please ", after: " the examiner's follow-up questions — that's where candidates lose marks.", ans: "pay attention to", hints: ["pay attention to"] },
+  { before: "I ", after: " my old classmate at the coffee shop this morning.", ans: "ran into", hints: ["ran into", "bumped into"] },
+  { before: "She had to ", after: " a really difficult client all day.", ans: "deal with", hints: ["deal with"] },
+  { before: "You should ", after: " the free museum day on the first Sunday of the month.", ans: "take advantage of", hints: ["take advantage of"] },
+  { before: "I keep ", after: " my dentist appointment — I really need to book it.", ans: "putting off", hints: ["putting off"] },
+  { before: "Driving on the left is tricky at first, but you ", after: " it after a week.", ans: "get the hang of", hints: ["get the hang of"] },
+  { before: "We said goodbye at the airport and promised to ", after: ".", ans: "keep in touch", hints: ["keep in touch"] },
+  { before: "I ", after: " some Italian while I was living in Rome last summer.", ans: "picked up", hints: ["picked up"] },
+  { before: "Just ", after: " — we have to book the tickets before midnight.", ans: "make up your mind", hints: ["make up your mind", "make up our minds"] },
+];
+
+const drillBox = document.getElementById('colloc-drill');
+drill.forEach((d, i) => {
+  const wrap = document.createElement('div');
+  wrap.style.margin = '10px 0';
+  wrap.innerHTML = `
+    <span style="font-family:var(--mono);font-size:.78rem;color:var(--faint);margin-right:8px">${i+1}.</span>
+    <span class="stem-chunk">${d.before}</span><input class="drill-input" data-answer="${d.ans.replace(/"/g,'&quot;')}" data-hints='${JSON.stringify(d.hints).replace(/'/g,'&#39;')}' size="18" placeholder="…" autocomplete="off"><span class="stem-chunk">${d.after}</span>
+  `;
+  drillBox.appendChild(wrap);
+});
+
+function checkCollocDrill(){
+  document.querySelectorAll('#colloc-drill .drill-input').forEach(inp => {
+    const want = (inp.dataset.answer || '').toLowerCase().trim();
+    let hints = [];
+    try { hints = JSON.parse(inp.dataset.hints || '[]').map(h => h.toLowerCase().trim()); } catch(e){ hints = [want]; }
+    const got = (inp.value || '').toLowerCase().trim();
+    inp.classList.remove('correct','wrong');
+    if (hints.includes(got) || got === want) {
+      inp.classList.add('correct');
+    } else {
+      inp.classList.add('wrong');
+      if (got) inp.value = inp.value + ' → ' + inp.dataset.answer;
+      else inp.value = '→ ' + inp.dataset.answer;
+    }
+  });
+}
 
 /* ============ Banding ============ */
 function computeBands(){
