@@ -913,6 +913,16 @@ Maria Chen, Transportation Coordinator</div>
 </div>
 </section>
 
+<section class="section canon-l-section" id="s15d2" data-section="s15d2" data-section-id="s15d2">
+<!-- ========== S15d2 Idioms · practice drill ========== -->
+<div class="section-hdr"><span class="section-num">S15d2</span><h2>Idioms · отработка × 12 gap-fill</h2></div>
+<p class="section-sub">Type the missing idiom from S15d into each gap. Sentences are IELTS-style Part 3 / Writing T2 — exactly where Band 8–9 examiners expect to see these. Check gives instant feedback.</p>
+<div class="card">
+  <div class="gapfill" id="idiom-drill" style="line-height:2.3;font-family:var(--body);font-size:1rem"></div>
+  <button class="btn-check" onclick="checkIdiomDrill()">Check · reveal answers</button>
+</div>
+</section>
+
 <section class="section canon-l-section" id="s15e" data-section="s15e" data-section-id="s15e">
 <!-- ========== S15e Art/History/MA collocations · flip cards ========== -->
 <div class="section-hdr"><span class="section-num">S15e</span><h2>Everyday B2–C1 collocations × 15 · conversational, modern</h2></div>
@@ -1321,6 +1331,48 @@ drill.forEach((d, i) => {
   `;
   drillBox.appendChild(wrap);
 });
+
+/* ============ Idioms · gap-fill practice drill ============ */
+const idiomDrill = [
+  { before: "The discovery of ancient DNA has really ", after: " early human migration patterns.", ans: "shed light on", hints: ["shed light on","shed new light on"] },
+  { before: "Not many theories from the 19th century ", after: ", but Darwin's did.", ans: "have stood the test of time", hints: ["have stood the test of time","stand the test of time","stood the test of time"] },
+  { before: "The invention of the smartphone was ", after: " for how we communicate.", ans: "a watershed moment", hints: ["a watershed moment","watershed moment"] },
+  { before: "What museums display is only ", after: " — most collections are stored in vaults.", ans: "the tip of the iceberg", hints: ["the tip of the iceberg","tip of the iceberg"] },
+  { before: "New evidence often ", after: " years after an archaeological dig has officially closed.", ans: "comes to light", hints: ["comes to light","came to light","comes to light"] },
+  { before: "Her argument about late-career Rembrandt is real ", after: " and will shape next year's exhibition.", ans: "food for thought", hints: ["food for thought"] },
+  { before: "The schedule isn't ", after: " yet — we can still shift the opening date.", ans: "set in stone", hints: ["set in stone"] },
+  { before: "Social media is ", after: " for young artists: huge reach but huge pressure.", ans: "a double-edged sword", hints: ["a double-edged sword","double-edged sword"] },
+  { before: "I finally ", after: " and signed up for the IELTS even though I was nervous.", ans: "bit the bullet", hints: ["bit the bullet"] },
+  { before: "The restoration lab uses ", after: " laser technology to clean fragile pigments.", ans: "cutting-edge", hints: ["cutting-edge"] },
+  { before: "These medieval graffiti ", after: " a daily life we would otherwise never see.", ans: "bear witness to", hints: ["bear witness to"] },
+  { before: "The new café is just ", after: " from the entrance to the gallery.", ans: "a stone's throw away", hints: ["a stone's throw away","a stone's throw"] },
+];
+const idiomDrillBox = document.getElementById('idiom-drill');
+idiomDrill.forEach((d, i) => {
+  const wrap = document.createElement('div');
+  wrap.style.margin = '10px 0';
+  wrap.innerHTML = `
+    <span style="font-family:var(--mono);font-size:.78rem;color:var(--faint);margin-right:8px">${i+1}.</span>
+    <span class="stem-chunk">${d.before}</span><input class="drill-input" data-answer="${d.ans.replace(/"/g,'&quot;')}" data-hints='${JSON.stringify(d.hints).replace(/'/g,'&#39;')}' size="22" placeholder="…" autocomplete="off"><span class="stem-chunk">${d.after}</span>
+  `;
+  idiomDrillBox.appendChild(wrap);
+});
+function checkIdiomDrill(){
+  document.querySelectorAll('#idiom-drill .drill-input').forEach(inp => {
+    const want = (inp.dataset.answer || '').toLowerCase().trim();
+    let hints = [];
+    try { hints = JSON.parse(inp.dataset.hints || '[]').map(h => h.toLowerCase().trim()); } catch(e){ hints = [want]; }
+    const got = (inp.value || '').toLowerCase().trim();
+    inp.classList.remove('correct','wrong');
+    if (hints.includes(got) || got === want) {
+      inp.classList.add('correct');
+    } else {
+      inp.classList.add('wrong');
+      if (got) inp.value = inp.value + ' → ' + inp.dataset.answer;
+      else inp.value = '→ ' + inp.dataset.answer;
+    }
+  });
+}
 
 function checkCollocDrill(){
   document.querySelectorAll('#colloc-drill .drill-input').forEach(inp => {
