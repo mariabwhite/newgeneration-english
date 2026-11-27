@@ -412,6 +412,31 @@
     }
     const goal = student.goal ? `<div class="cab-card-row"><span class="cab-row-label">Цель</span><span class="cab-row-value">${_esc(student.goal)}</span></div>` : "";
     const parent = student.parent_name ? `<div class="cab-card-row"><span class="cab-row-label">Родитель</span><span class="cab-row-value">${_esc(student.parent_name)}</span></div>` : "";
+
+    // Adult-merged view: взрослый без родителя получает reports + vault-contracts + pay-card
+    // (merge из renderParent — чтобы Круглов/Сулес/Сова/Любаева/Ростислав видели всё в одном кабинете).
+    const isAdultMerged = !!(student && student.is_adult && !student.parent_name);
+    const payment = (window.NGE_DATA && window.NGE_DATA.payment) || {};
+    const reports = (window.NGE_DATA && window.NGE_DATA.reports) || [];
+    const contractsCard = isAdultMerged
+      ? _renderContractsCard(student, {})
+      : _renderContractsCard(student, { studentView: true });
+    const adultExtras = isAdultMerged ? `
+        ${_renderReportsCard(student, reports, payment)}
+
+        <article class="cab-card cab-pay-card">
+          <h3>💳 Оплата</h3>
+          ${student.price_per_lesson ? `<div class="cab-card-row"><span class="cab-row-label">Цена занятия</span><span class="cab-row-value">${_esc(student.price_per_lesson)} ₽</span></div>` : ""}
+          ${student.payment_status ? `<div class="cab-card-row"><span class="cab-row-label">Статус</span><span class="cab-row-value ${_isPaidStatus(student.payment_status) ? "cab-row-value--paid" : ""}">${_esc(student.payment_status)}</span></div>` : ""}
+          <div class="cab-pay-btns">
+            ${payment.tinkoffQuickPay ? `<a class="cab-pay-btn cab-pay-btn--tbank" href="${_esc(payment.tinkoffQuickPay)}" target="_blank" rel="noopener external"><span class="cab-pay-btn-icon">💳</span><span class="cab-pay-btn-txt"><b>Оплатить в Т-Банке</b><span>один клик · карта или СБП</span></span><span class="cab-pay-btn-arrow">→</span></a>` : ""}
+            ${payment.sbpPhone ? `<button class="cab-pay-btn cab-pay-btn--sbp" type="button" data-action="copy-pay" data-copy="${_esc(payment.sbpPhone)}" data-copy-label="номер СБП"><span class="cab-pay-btn-icon">📱</span><span class="cab-pay-btn-txt"><b>СБП: ${_esc(payment.sbpPhone)}</b><span>клик — скопировать, вставить в приложение банка</span></span><span class="cab-pay-btn-arrow">📋</span></button>` : ""}
+          </div>
+          ${payment.telegram ? `<div style="margin-top:12px;text-align:center;"><a href="${_esc(payment.telegram)}" target="_blank" rel="noreferrer" style="font-size:.82rem;color:var(--cab-muted, #888);text-decoration:underline;">Уже оплатил(а)? Написать Марии</a></div>` : ""}
+          <div id="cab-copy-toast" style="display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2d5d4a;color:#fff;padding:10px 20px;border-radius:24px;font-size:.9rem;font-weight:600;z-index:9999;box-shadow:0 6px 22px rgba(0,0,0,.35);"></div>
+        </article>
+    ` : "";
+
     container.innerHTML = `
       <div class="cab-hero">
         <h1>${_esc(_greetingForStudent(student))}</h1>
@@ -438,7 +463,9 @@
         ${_renderExternalPlatformsCard(student)}
 
         ${_renderMaterialsCard(student, { studentView: true })}
-        ${_renderContractsCard(student, { studentView: true })}
+        ${contractsCard}
+
+        ${adultExtras}
 
         ${_renderLessonsCard(student, { interactive: true })}
       </div>
@@ -446,6 +473,45 @@
     `;
 
     _wireHomeworkCheckboxes(container, student);
+
+    // Adult-merged: wire up open-report + copy-pay (аналогично renderParent)
+    if (isAdultMerged) {
+      container.querySelectorAll('[data-action="open-report"]').forEach(btn => {
+        btn.addEventListener("click", () => {
+          const extUrl = btn.dataset.url;
+          if (extUrl) {
+            window.open(extUrl, "_blank", "noopener,noreferrer");
+            return;
+          }
+          openPrintableReport(btn.dataset.student, btn.dataset.report);
+        });
+      });
+      container.querySelectorAll('[data-action="copy-pay"]').forEach(btn => {
+        btn.addEventListener("click", async () => {
+          const text = btn.getAttribute("data-copy") || "";
+          const label = btn.getAttribute("data-copy-label") || "текст";
+          let ok = false;
+          try {
+            if (navigator.clipboard && window.isSecureContext) {
+              await navigator.clipboard.writeText(text); ok = true;
+            } else {
+              const ta = document.createElement("textarea");
+              ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+              document.body.appendChild(ta); ta.select();
+              ok = document.execCommand("copy");
+              document.body.removeChild(ta);
+            }
+          } catch (e) { ok = false; }
+          const t = document.getElementById("cab-copy-toast");
+          if (t) {
+            t.textContent = ok ? ("✅ Скопировано: " + label) : ("Скопируйте вручную: " + text);
+            t.style.display = "block";
+            clearTimeout(window.__cabCopyToastT);
+            window.__cabCopyToastT = setTimeout(() => { t.style.display = "none"; }, 2400);
+          }
+        });
+      });
+    }
   }
 
   /* ---------- render: teacher (schedule grid + table) ---------- */
