@@ -10,14 +10,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/lingua-boost-lab/assets/lab-pills-canon.css?v=3">
+<link rel="stylesheet" href="../../assets/lab-pilot.css?v=8">
 <style>
 :root{
-  --bg:#ecebe0; --bg-2:#d8d4b8; --surface:#ffffff; --card:#f3f0dd; --surface-2:#c2bd96;
-  --text:#262a18; --muted:#4e5236; --faint:#8a8f6a;
-  --accent:#6b7a3d; --accent-2:#4a5724; --accent-on:#ffffff;
-  --brand:#b5985c; --brand-2:#8f7640;
-  --line:rgba(107,122,61,.20); --line-2:rgba(107,122,61,.40);
-  --ok:#5b7a3d; --miss:#a3402c;
+  --bg:#fef6f1; --bg-2:#fde4d4; --surface:#ffffff; --card:#fff3ec; --surface-2:#f8c9b2;
+  --text:#2a1810; --muted:#6b3d2b; --faint:#b8866b;
+  --accent:#ff6b4a; --accent-2:#c8422a; --accent-on:#ffffff;
+  --brand:#ff8b67; --brand-2:#e85a3a;
+  --line:rgba(255,107,74,.22); --line-2:rgba(255,107,74,.42);
+  --ok:#4a9b5d; --miss:#c8422a;
   --display:"Unbounded","Manrope",system-ui,sans-serif;
   --body:"Manrope",system-ui,sans-serif;
   --mono:"JetBrains Mono",Consolas,monospace;
@@ -25,8 +27,8 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:var(--body);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.65;
-  background-image:radial-gradient(ellipse at 80% 0%,rgba(107,122,61,.07),transparent 55%),
-                   radial-gradient(ellipse at 10% 90%,rgba(181,152,92,.07),transparent 55%);overflow-x:hidden}
+  background-image:radial-gradient(ellipse at 80% 0%,rgba(255,107,74,.09),transparent 55%),
+                   radial-gradient(ellipse at 10% 90%,rgba(255,139,103,.10),transparent 55%);overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 .topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:14px;padding:12px clamp(16px,3vw,28px);
   background:color-mix(in srgb,var(--bg) 92%,transparent);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
@@ -39,25 +41,26 @@ a{color:inherit;text-decoration:none}
 .brand-sub{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-top:2px}
 .spacer{flex:1}
 .pill{padding:5px 11px;border-radius:50px;font:700 9.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;
-  border:1px solid var(--line-2);color:var(--accent-2);background:rgba(107,122,61,.10);white-space:nowrap}
-.pill.brand{background:rgba(181,152,92,.14);border-color:var(--brand);color:var(--brand-2)}
+  border:1px solid var(--line-2);color:var(--accent-2);background:rgba(255,107,74,.12);white-space:nowrap}
+.pill.brand{background:rgba(255,139,103,.16);border-color:var(--brand);color:var(--brand-2)}
 
 .hero{max-width:1240px;margin:32px auto 12px;padding:0 clamp(16px,3vw,28px);position:relative;z-index:2}
 .hero-card{position:relative;border:1px solid var(--line-2);border-radius:24px;overflow:hidden;
-  background:linear-gradient(135deg,#fffdf0 0%,#f3f0dd 60%,#d8d4b8 100%);
-  box-shadow:0 10px 36px rgba(107,122,61,.10);padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px);min-height:360px}
+  background-image:linear-gradient(95deg,rgba(255,246,241,.96) 0%,rgba(255,240,230,.86) 32%,rgba(255,220,195,.50) 60%,rgba(255,180,155,.18) 92%),url('./assets/img/hero.jpg?v=1');
+  background-size:cover;background-position:right center;background-repeat:no-repeat;
+  box-shadow:0 10px 36px rgba(255,107,74,.15);padding:clamp(28px,4.5vw,52px) clamp(22px,4vw,52px);min-height:420px}
 .eyebrow{font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-2);
   display:inline-flex;align-items:center;gap:10px;margin-bottom:18px;
-  background:rgba(107,122,61,.14);border:1px solid var(--accent);padding:7px 14px;border-radius:50px}
+  background:rgba(255,107,74,.16);border:1px solid var(--accent);padding:7px 14px;border-radius:50px}
 h1.hero-title{font-family:var(--display);font-weight:900;letter-spacing:-.04em;line-height:.96;
   font-size:clamp(1.9rem,4.8vw,3.4rem);max-width:900px;margin-bottom:20px;color:var(--text)}
 h1.hero-title .grad{color:var(--accent-2)}
 .hero-lead{font-size:clamp(1rem,1.3vw,1.1rem);color:var(--text);max-width:860px;line-height:1.6;margin-bottom:24px;
   background:rgba(255,255,255,.78);border:1px solid var(--line-2);border-radius:14px;padding:16px 20px;
-  box-shadow:0 4px 18px rgba(107,122,61,.08)}
+  box-shadow:0 4px 18px rgba(255,107,74,.10)}
 .hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:14px;max-width:1000px}
 .stat{background:rgba(255,255,255,.86);border:1px solid var(--line-2);border-radius:14px;padding:14px 16px;
-  box-shadow:0 4px 14px rgba(107,122,61,.08)}
+  box-shadow:0 4px 14px rgba(255,107,74,.10)}
 .stat-k{font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-2);margin-bottom:6px}
 .stat-v{font-family:var(--display);font-weight:800;font-size:1rem;color:var(--text);letter-spacing:-.01em}
 
@@ -67,15 +70,16 @@ h1.hero-title .grad{color:var(--accent-2)}
   background:var(--accent);color:#fff;padding:5px 11px;border-radius:50px}
 .section-hdr h2{font-family:var(--display);font-weight:800;font-size:clamp(1.2rem,2.1vw,1.6rem);color:var(--text);letter-spacing:-.02em;line-height:1.15}
 .section-sub{font-size:.92rem;color:var(--muted);margin:0 0 14px 0;font-style:italic}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 24px;box-shadow:0 4px 18px rgba(107,122,61,.06)}
+.section-img{display:block;width:100%;height:auto;border-radius:16px;border:1px solid var(--line-2);box-shadow:0 6px 22px rgba(255,107,74,.12);margin:4px 0 16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:22px 24px;box-shadow:0 4px 18px rgba(255,107,74,.08)}
 .card h3{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--accent-2);margin:18px 0 10px;letter-spacing:.01em}
 .card h3:first-child{margin-top:0}
 .card p{margin-bottom:11px;color:var(--text)}
-.card .info{background:rgba(107,122,61,.06);border-left:3px solid var(--accent);padding:12px 16px;border-radius:8px;font-size:.92rem;color:var(--muted);margin:12px 0}
+.card .info{background:rgba(255,107,74,.08);border-left:3px solid var(--accent);padding:12px 16px;border-radius:8px;font-size:.92rem;color:var(--muted);margin:12px 0}
 .card .info strong{color:var(--accent-2)}
 
 .task-tag{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;
-  background:rgba(181,152,92,.16);color:var(--brand-2);border:1px solid var(--brand);border-radius:50px;padding:4px 10px;margin-bottom:8px}
+  background:rgba(255,139,103,.18);color:var(--brand-2);border:1px solid var(--brand);border-radius:50px;padding:4px 10px;margin-bottom:8px}
 
 .passage{background:var(--bg-2);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin:12px 0;
   font-family:"Playfair Display",Georgia,serif;font-size:1rem;line-height:1.75;color:var(--text)}
@@ -85,8 +89,8 @@ h1.hero-title .grad{color:var(--accent-2)}
 .passage .marker{display:inline-block;background:var(--accent);color:#fff;font-family:var(--mono);font-size:.78rem;font-weight:800;
   padding:1px 7px;border-radius:4px;margin:0 3px;vertical-align:middle}
 
-.notice{background:#ffffff;border:1.5px solid #d8c89a;border-radius:10px;padding:16px 20px;margin:14px 0;box-shadow:0 4px 14px rgba(160,125,62,.08);font-family:Georgia,serif;color:#2a2620}
-.notice .notice-h{font-family:var(--display);font-weight:800;font-size:1.05rem;color:#8a6a32;margin-bottom:8px;letter-spacing:-.01em}
+.notice{background:#ffffff;border:1.5px solid #f5bba0;border-radius:10px;padding:16px 20px;margin:14px 0;box-shadow:0 4px 14px rgba(255,107,74,.10);font-family:Georgia,serif;color:#2a1810}
+.notice .notice-h{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--accent-2);margin-bottom:8px;letter-spacing:-.01em}
 .notice .notice-sub{font-weight:700;color:var(--text);margin-bottom:10px}
 .notice p{margin:0 0 8px 0;color:#3a3530;font-size:.95rem;line-height:1.6}
 .notice p:last-child{margin-bottom:0}
@@ -111,7 +115,7 @@ h1.hero-title .grad{color:var(--accent-2)}
 .mcq-opts button.correct{background:rgba(107,157,63,.22);border-color:var(--ok);color:var(--ok);font-weight:700}
 .mcq-opts button.wrong{background:rgba(192,74,58,.16);border-color:var(--miss);color:var(--miss);text-decoration:line-through}
 .mcq-note{display:none;margin-top:10px;font-size:.84rem;color:var(--muted);
-  background:rgba(181,152,92,.10);border-left:3px solid var(--brand);padding:10px 14px;border-radius:0 8px 8px 0;line-height:1.55}
+  background:rgba(255,139,103,.12);border-left:3px solid var(--brand);padding:10px 14px;border-radius:0 8px 8px 0;line-height:1.55}
 .mcq-row.revealed .mcq-note{display:block}
 
 .gapfill{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:12px 0;
@@ -134,7 +138,7 @@ h1.hero-title .grad{color:var(--accent-2)}
 .bas-build{min-height:40px;padding:10px 14px;background:#fff;border:2px dashed var(--line-2);border-radius:8px;
   font-family:"Playfair Display",Georgia,serif;font-size:1rem;color:var(--text);line-height:1.5;margin:8px 0}
 .bas-build .prefix,.bas-build .suffix{font-weight:700;color:var(--muted)}
-.bas-build .answer-chunk{display:inline-block;background:rgba(107,122,61,.1);padding:1px 7px;margin:0 3px;border-radius:4px;cursor:pointer}
+.bas-build .answer-chunk{display:inline-block;background:rgba(255,107,74,.12);padding:1px 7px;margin:0 3px;border-radius:4px;cursor:pointer}
 .bas-build .answer-chunk:hover{background:rgba(192,74,58,.16)}
 .bas-feedback{display:none;margin-top:10px;padding:10px 14px;border-radius:8px;font-size:.88rem;line-height:1.55}
 .bas-feedback.ok{background:rgba(107,157,63,.14);border-left:3px solid var(--ok);color:#3a4d20;display:block}
@@ -142,7 +146,7 @@ h1.hero-title .grad{color:var(--accent-2)}
 
 .lr-item{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:12px 0}
 .lr-scene{font-family:var(--mono);font-size:.76rem;color:var(--faint);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
-.lr-sentence{display:none;font-size:1.05rem;font-weight:700;color:var(--accent-2);margin:10px 0;padding:10px 14px;background:rgba(107,122,61,.08);border-left:3px solid var(--accent);border-radius:0 8px 8px 0}
+.lr-sentence{display:none;font-size:1.05rem;font-weight:700;color:var(--accent-2);margin:10px 0;padding:10px 14px;background:rgba(255,107,74,.10);border-left:3px solid var(--accent);border-radius:0 8px 8px 0}
 .lr-item.revealed .lr-sentence{display:block}
 .lr-audio{display:block;margin:10px 0;width:100%}
 .lr-time{font-family:var(--mono);font-size:.82rem;color:var(--brand-2);font-weight:700}
@@ -164,12 +168,12 @@ h1.hero-title .grad{color:var(--accent-2)}
 .btn-check.secondary:hover{background:var(--card)}
 .btn-reveal{background:transparent;color:var(--brand-2);border:1px dashed var(--brand);padding:8px 16px;border-radius:50px;
   font-family:var(--mono);font-size:.76rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;margin-top:8px}
-.btn-reveal:hover{background:rgba(181,152,92,.1);color:var(--brand-2)}
+.btn-reveal:hover{background:rgba(255,139,103,.12);color:var(--brand-2)}
 
 .transcript-box{display:none;margin-top:10px;padding:12px 16px;background:#fff;border:1px dashed var(--line-2);border-radius:8px;
   font-family:Georgia,serif;font-size:.92rem;line-height:1.65;color:var(--text);white-space:pre-line}
 .transcript-box.visible{display:block}
-.sample{display:none;margin-top:10px;padding:14px 18px;background:rgba(107,122,61,.06);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;
+.sample{display:none;margin-top:10px;padding:14px 18px;background:rgba(255,107,74,.08);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;
   font-size:.92rem;line-height:1.65;color:var(--text)}
 .sample.visible{display:block}
 .sample h4{font-family:var(--display);font-weight:800;color:var(--accent-2);margin-bottom:6px;font-size:.95rem}
@@ -215,12 +219,12 @@ footer.bottom{max-width:1240px;margin:40px auto 32px;padding:0 clamp(16px,3vw,28
 
 <section class="hero">
   <div class="hero-card">
-    <div class="eyebrow">⟡ Lesson 15 · Full Mock · Test 1 fresh</div>
-    <h1 class="hero-title">TOEFL iBT 2026 · <span class="grad">Full Mock</span> · toeflmocktests.com Test 1 · fresh November variant</h1>
-    <p class="hero-lead">
+    <div class="eyebrow" style="position:relative;z-index:2">⟡ Lesson 15 · Full Mock · Test 1 fresh</div>
+    <h1 class="hero-title" style="position:relative;z-index:2">TOEFL iBT 2026 · <span class="grad">Full Mock</span> · toeflmocktests.com Test 1 · fresh November variant</h1>
+    <p class="hero-lead" style="position:relative;z-index:2">
       <strong>Four sections. All 2026-format tasks.</strong> Reading mixes two Complete-the-Words passages, four Daily-Life short texts (email · text chain · notice · email) and two Academic Passages (Module 1 · sleep stages; Module 2 · how vaccination trains the immune system). Listening covers five Choose-a-Response items, one Conversation, one Announcement and one Academic Talk on the Zeigarnik Effect. Writing gives ten Build-a-Sentence drills plus a 100–150-word Email and a 100-word Academic Discussion post. Speaking runs seven Listen-and-Repeat sentences in a university library scene followed by four 45-second Interview questions on teamwork.
     </p>
-    <div class="hero-stats">
+    <div class="hero-stats" style="position:relative;z-index:2">
       <div class="stat"><div class="stat-k">Section 1 · Reading</div><div class="stat-v">2 CTW · 4 Daily · 2 Academic</div></div>
       <div class="stat"><div class="stat-k">Section 2 · Listening</div><div class="stat-v">5 CR · 1 Conv · 1 Ann · 1 Talk</div></div>
       <div class="stat"><div class="stat-k">Section 3 · Writing</div><div class="stat-v">10 BaS · Email · Discussion</div></div>
@@ -243,6 +247,7 @@ footer.bottom{max-width:1240px;margin:40px auto 32px;padding:0 clamp(16px,3vw,28
 <!-- ========== S02 Reading · Complete the Words ========== -->
 <div class="section-hdr"><span class="section-num">S02</span><h2>Reading · Complete the Words × 2</h2></div>
 <p class="section-sub">Each passage has ten word-fragments. Type the missing ending (one short syllable or suffix). Autocheck inside each gap on blur.</p>
+<img class="section-img" src="./assets/img/img-s02.jpg?v=1" alt="Student at desk with memory cards and a study diagram — warming up for Complete-the-Words drills" loading="lazy">
 
 <div class="card">
   <p class="task-tag">CTW · passage 1 · Coral reefs</p>
@@ -496,6 +501,7 @@ Maria Chen, Transportation Coordinator</div>
 <!-- ========== S06 Reading · Academic Passage 2 ========== -->
 <div class="section-hdr"><span class="section-num">S06</span><h2>Reading · Academic Passage 2 · How Vaccination Trains Immune Defenses</h2></div>
 <p class="section-sub">Module 2 passage. 5 questions: factual, negative factual, inference, rhetorical purpose, select sentence.</p>
+<img class="section-img" src="./assets/img/img-s06.jpg?v=1" alt="Hand sketching bar charts and a production flow diagram — scientific reasoning for the vaccination passage" loading="lazy">
 <div class="card">
   <div class="passage">
     <h4>How Vaccination Trains Immune Defenses</h4>
@@ -557,7 +563,8 @@ Maria Chen, Transportation Coordinator</div>
 
 <!-- ========== S07 Listening · Choose a Response ========== -->
 <div class="section-hdr"><span class="section-num">S07</span><h2>Listening · Choose a Response × 5</h2></div>
-<p class="section-sub">You hear a single spoken line; pick the best reply. Audio clips hidden — read the transcript silently first, then answer. In real ETS you hear it ONCE.</p>
+<p class="section-sub">You hear a single spoken line; pick the best reply. In real ETS you hear it ONCE — play once, then answer.</p>
+<img class="section-img" src="./assets/img/img-s07.jpg?v=1" alt="Student in headphones with a microphone and reading tablet — Listening section setup" loading="lazy">
 
 <div class="card">
   <p class="task-tag">CR 1 · deadline extension</p>
@@ -636,7 +643,8 @@ Maria Chen, Transportation Coordinator</div>
 
 <!-- ========== S08 Listening · Conversation ========== -->
 <div class="section-hdr"><span class="section-num">S08</span><h2>Listening · Conversation · Trip planning</h2></div>
-<p class="section-sub">A couple discusses a weekend trip and a rental car. Read the transcript (hidden until reveal), then answer.</p>
+<p class="section-sub">A couple discusses a weekend trip and a rental car. Listen once, then answer. Transcript hidden until reveal.</p>
+<img class="section-img" src="./assets/img/img-s08.jpg?v=1" alt="Two people in conversation — Listening conversation task" loading="lazy">
 <div class="card">
   <p class="task-tag">Conversation · 2 questions</p>
   <audio controls src="./assets/audio/conv1.mp3" preload="none" style="width:100%;margin:6px 0 10px"></audio>
@@ -673,6 +681,7 @@ Maria Chen, Transportation Coordinator</div>
 
 <!-- ========== S09 Listening · Announcement ========== -->
 <div class="section-hdr"><span class="section-num">S09</span><h2>Listening · Announcement · Residence Hall hot water</h2></div>
+<img class="section-img" src="./assets/img/img-s09.jpg?v=1" alt="Microphone and notebook on a quiet desk — campus announcement delivery" loading="lazy">
 <div class="card">
   <p class="task-tag">Announcement · 2 questions</p>
   <audio controls src="./assets/audio/ann1.mp3" preload="none" style="width:100%;margin:6px 0 10px"></audio>
@@ -703,6 +712,7 @@ Maria Chen, Transportation Coordinator</div>
 <!-- ========== S10 Listening · Academic Talk ========== -->
 <div class="section-hdr"><span class="section-num">S10</span><h2>Listening · Academic Talk · The Zeigarnik Effect</h2></div>
 <p class="section-sub">A psychology lecture on why unfinished tasks stay in memory. Four questions.</p>
+<img class="section-img" src="./assets/img/img-s10.jpg?v=1" alt="Projector showing a scene while a student watches from a studio — psychology lecture vibe" loading="lazy">
 <div class="card">
   <p class="task-tag">Academic Talk · psychology class · ~2 min</p>
   <audio controls src="./assets/audio/talk1.mp3" preload="none" style="width:100%;margin:6px 0 10px"></audio>
@@ -757,6 +767,7 @@ Maria Chen, Transportation Coordinator</div>
 
 <!-- ========== S12 Writing · Email ========== -->
 <div class="section-hdr"><span class="section-num">S12</span><h2>Writing · Email · 7 min · 100–150 words</h2></div>
+<img class="section-img" src="./assets/img/img-s12.jpg?v=1" alt="Writing at a lit desk at dusk with phone and notebook — composing the course-portal email" loading="lazy">
 <div class="card">
   <p class="task-tag">Scenario</p>
   <p><strong>You are taking an online course in 20th-century history.</strong> Over the past week, you have tried several times to upload your final essay through the class portal, but every attempt ends with the same error message. The essay is due tomorrow morning, and Professor Mitchell has said it counts for 30% of your course grade.</p>
@@ -783,6 +794,7 @@ Maria Chen, Transportation Coordinator</div>
 
 <!-- ========== S13 Writing · Academic Discussion ========== -->
 <div class="section-hdr"><span class="section-num">S13</span><h2>Writing · Academic Discussion · 10 min · 100+ words</h2></div>
+<img class="section-img" src="./assets/img/img-s13.jpg?v=1" alt="City planners and residents studying a street-redesign map — public-policy classroom scene" loading="lazy">
 <div class="card">
   <p class="task-tag">Professor Alvarez · public policy</p>
   <div class="notice" style="background:#f3f0dd;border-color:var(--line-2)">
@@ -808,7 +820,8 @@ Maria Chen, Transportation Coordinator</div>
 
 <!-- ========== S14 Speaking · Listen and Repeat ========== -->
 <div class="section-hdr"><span class="section-num">S14</span><h2>Speaking · Listen and Repeat × 7 · University Library</h2></div>
-<p class="section-sub">Scene: University Library. Listen once, then repeat the sentence as naturally as possible. Response time 8s (short) / 10s (medium) / 12s (long). Click 🔓 to see the target — only AFTER you&#39;ve said it.</p>
+<p class="section-sub">Scene: University Library. Listen once, then repeat the sentence as naturally as possible. Response time 8s (short) / 10s (medium) / 12s (long). Reveal target only AFTER you've spoken.</p>
+<img class="section-img" src="./assets/img/img-s14.jpg?v=1" alt="Reader at a sunlit window with a book — quiet library reading mood for Listen & Repeat" loading="lazy">
 <div class="card" id="lr-container"></div>
 
 <!-- ========== S15 Speaking · Interview ========== -->
@@ -1045,6 +1058,19 @@ function computeBands(){
   document.getElementById('b-tot').textContent = avg + ' (R+L)';
 }
 </script>
+
+<!-- Canon Lab scripts -->
+<script src="../../assets/lab-persist.js?v=4" defer></script>
+<script src="../../assets/lab-send-pill.js?v=4" defer></script>
+<script src="../../assets/lab-total.js" defer></script>
+<script src="../../assets/lab-pilot.js?v=6" defer></script>
+<script src="../../assets/lab-sync.js?v=24" defer></script>
+<link rel="stylesheet" href="/lingua-boost-lab/assets/mobile-compact.css?v=1">
+<script src="/lingua-boost-lab/assets/mobile-compact.js?v=1" defer></script>
+<script src="../../assets/lab-tabs.js?v=12" defer></script>
+<script src="../../assets/lab-homework.js?v=50" defer></script>
+<script src="../../assets/lab-vocab-builder.js?v=54" defer></script>
+<script src="../../assets/lab-clean-bottom-dock.js?v=1" defer></script>
 
 </body>
 </html>
