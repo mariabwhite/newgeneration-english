@@ -1,0 +1,1874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Katya · Directions &amp; routes trainer — understand a village map, give &amp; follow directions, listen &amp; fill, IELTS-style map labelling. A2→B1, 60-90 min.">
+<title>Katya · Directions &amp; Routes · A2→B1 · NG Lab</title>
+<script>if(['127.0.0.1','localhost'].includes(location.hostname)){try{localStorage.setItem('nge-vault-cache',JSON.stringify([{url:location.pathname}]))}catch(e){}}</script>
+<script src="/lingua-boost-lab/assets/premium-lesson-guard.js?v=20260731"></script>
+<link rel="stylesheet" href="../../assets/lab-pilot.css?v=8">
+<link rel="stylesheet" href="/lingua-boost-lab/assets/lab-pills-canon.css?v=3">
+<link rel="stylesheet" href="/lingua-boost-lab/assets/mobile-compact.css?v=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700;800;900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Caveat:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* ====== CHILD-FRIENDLY LIGHT THEME ====== */
+  /* mapping to original variable names — same tokens used everywhere, new feel */
+  --bg:#FDFBF6;                 /* warm white page */
+  --surface:#F3F8FC;            /* sticky-top panel */
+  --card:#FFFFFF;               /* main cards */
+  --card-2:#F0F7FC;             /* pale blue tint */
+  --card-3:#FFF2E2;             /* pale orange tint */
+
+  --red:#F58A3D;                /* primary accent — soft orange */
+  --red-soft:#FFB173;            /* lighter orange */
+  --red-deep:#D96F1E;            /* darker orange for hovers */
+  --red-wash:rgba(245,138,61,.12);
+  --red-glow:rgba(245,138,61,.28);
+
+  --bone:#2A3B4F;               /* dark-navy = main body text (was off-white) */
+  --paper:#ECF3F9;              /* soft paper tint */
+  --muted:#7E90A3;              /* mid-grey */
+  --muted-2:#B6C3D1;
+
+  --line:rgba(79,163,209,.22);
+  --line-red:rgba(245,138,61,.36);
+
+  --ok:#4FA66B;                 /* friendly green */
+  --warn:#D99A2B;               /* warm amber */
+  --cool:#4FA3D1;               /* sky blue */
+
+  --radius-s:12px; --radius:16px; --radius-l:22px;
+  --shadow-s:0 2px 10px rgba(79,163,209,.14);
+  --shadow:0 10px 28px rgba(79,163,209,.16);
+  --shadow-red:0 8px 26px rgba(245,138,61,.22);
+
+  --display:'Unbounded','Manrope',sans-serif;
+  --serif:'Cormorant Garamond','Georgia',serif;
+  --hand:'Caveat',cursive;
+  --body:'Manrope',system-ui,sans-serif;
+  --mono:'JetBrains Mono',Consolas,monospace;
+  --demo-width:min(100% - 32px,1120px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:
+    radial-gradient(ellipse at 15% 0%, rgba(79,163,209,.14), transparent 55%),
+    radial-gradient(ellipse at 85% 10%, rgba(245,138,61,.10), transparent 55%),
+    radial-gradient(ellipse at 50% 95%, rgba(79,163,209,.08), transparent 60%),
+    var(--bg);
+  color:var(--bone);font-family:var(--body);line-height:1.65;min-height:100vh;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+a{color:var(--red-deep);text-decoration:none}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+img{display:block;max-width:100%}
+
+/* ===== TOPBAR ===== */
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:14px;padding:11px clamp(14px,3vw,28px);background:color-mix(in srgb,var(--surface) 92%,transparent);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--bone)}
+.brand-mark{width:38px;height:38px;border-radius:10px;border-top-right-radius:0;background:var(--red);color:var(--bg);font-family:var(--display);font-weight:900;font-size:1.15rem;display:grid;place-items:center;position:relative;overflow:hidden}
+.brand-mark::after{content:"";position:absolute;right:0;top:0;width:14px;height:14px;background:var(--bg);clip-path:polygon(100% 0, 0 0, 100% 100%)}
+.brand-copy{display:grid;gap:1px}
+.brand-name{font-family:var(--display);font-weight:800;font-size:.92rem;letter-spacing:-.01em;line-height:1}
+.brand-sub{font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.spacer{flex:1}
+.pill{padding:5px 11px;border-radius:50px;font:800 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line);color:var(--bone);background:#FFF}
+.pill.red{background:var(--red-wash);color:var(--red-deep);border-color:var(--line-red)}
+
+/* ===== HERO ===== */
+.hero{width:var(--demo-width);max-width:1120px;margin:28px auto 20px}
+.hero-card{border:1px solid var(--line);border-radius:var(--radius-l);padding:clamp(28px,4vw,46px);background:linear-gradient(120deg,rgba(255,255,255,.88) 0%,rgba(243,248,252,.72) 40%,rgba(243,248,252,.25) 70%,rgba(255,242,226,.08) 100%),url('assets/img/hero-greenton-village.webp') right center/cover no-repeat,linear-gradient(180deg,var(--card),var(--surface));position:relative;overflow:hidden;box-shadow:var(--shadow);min-height:440px}
+@media(max-width:720px){.hero-card{background:linear-gradient(180deg,rgba(255,255,255,.88) 0%,rgba(243,248,252,.92) 100%),url('assets/img/hero-greenton-village.webp') center/cover no-repeat,var(--card);min-height:500px}}
+.hero-card::before{content:"GO";position:absolute;top:50%;right:4%;transform:translateY(-50%) rotate(-6deg);font-family:var(--display);font-weight:900;font-size:clamp(12rem,24vw,18rem);color:var(--red);opacity:.14;letter-spacing:-.06em;line-height:.8;pointer-events:none}
+.hero-inner{position:relative;z-index:2;max-width:760px}
+.hero-chip{display:inline-flex;align-items:center;gap:8px;background:var(--red-wash);border:1px solid var(--line-red);color:var(--red-deep);padding:7px 14px;border-radius:50px;font:800 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px}
+.hero-chip::before{content:"🧭"}
+.hero-title{font-family:var(--display);font-weight:900;font-size:clamp(2rem,4.8vw,3.2rem);line-height:1.04;color:var(--bone);margin-bottom:14px;letter-spacing:-.02em}
+.hero-title b{color:var(--red);font-weight:900}
+.hero-title em{font-style:normal;color:var(--red-deep);display:block;font-size:.58em;font-weight:600;margin-top:10px;font-family:var(--serif);font-style:italic}
+.hero-lead{font-family:var(--serif);font-size:clamp(1rem,1.4vw,1.14rem);line-height:1.6;color:var(--bone);max-width:660px;margin-bottom:18px;font-style:italic;opacity:.92}
+.hero-tags{display:flex;flex-wrap:wrap;gap:8px}
+.hero-tag{background:rgba(255,255,255,.80);border:1px solid var(--line);color:var(--bone);padding:6px 12px;border-radius:50px;font:700 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase}
+.hero-tag.red{background:var(--red-wash);color:var(--red-deep);border-color:var(--line-red)}
+
+/* ===== META ===== */
+.meta{width:var(--demo-width);max-width:1120px;margin:0 auto 22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+.meta-chip{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--red);border-radius:0 10px 10px 0;padding:10px 14px}
+.meta-chip strong{display:block;font-family:var(--mono);font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--red-deep);margin-bottom:3px}
+.meta-chip .val{font-size:.88rem;font-weight:600;color:var(--bone);line-height:1.4}
+
+/* ===== TOC ===== */
+.toc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin:0 auto 24px;max-width:1120px;width:var(--demo-width)}
+.toc h4{font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--red-deep);margin-bottom:10px}
+.toc ol{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:4px 16px}
+.toc li{font-size:.85rem;line-height:1.5;color:var(--bone)}
+.toc li a{color:var(--bone);display:flex;gap:8px;padding:3px 0}
+.toc li a:hover{color:var(--red-deep)}
+.toc li .n{font-family:var(--mono);font-weight:900;color:var(--red);font-size:.74rem;flex-shrink:0;width:30px}
+
+/* ===== SECTION ===== */
+.section{width:var(--demo-width);max-width:1120px;margin:0 auto 30px}
+.section-hdr{display:flex;align-items:center;gap:14px;margin-bottom:12px;flex-wrap:wrap}
+.section-hdr .num{width:50px;height:50px;border-radius:14px;background:var(--red);color:var(--bg);font-weight:900;font-size:1.05rem;display:grid;place-items:center;flex-shrink:0;font-family:var(--display);box-shadow:var(--shadow-red)}
+.section-hdr h2{font-family:var(--display);font-size:1.32rem;font-weight:800;color:var(--bone);letter-spacing:-.01em;line-height:1.18}
+.section-hdr h2 em{color:var(--red-deep);font-style:normal;font-weight:700;font-size:.78em}
+.section-hdr .mic-tag{margin-left:auto;font-family:var(--mono);font-size:.64rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--red-deep);background:var(--red-wash);padding:6px 12px;border-radius:8px;border:1px solid var(--line-red)}
+
+.conv{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 22px;border:1px solid var(--line);margin-bottom:12px;position:relative}
+.conv .hand-note{position:absolute;top:-16px;right:18px;font-family:var(--hand);font-size:1.3rem;color:var(--red-deep);transform:rotate(-4deg);background:var(--bg);padding:0 10px;line-height:1}
+
+/* ===== SCENE / GOAL / OUR / REACT ===== */
+.scene,.goal,.our,.react{display:block;margin:10px 0;padding:11px 15px;border-radius:10px;font-size:.93rem;line-height:1.55}
+.scene{background:rgba(121,184,209,.07);border-left:3px solid var(--cool);font-family:var(--serif);font-style:italic;color:var(--bone)}
+.scene::before{content:"📍 SCENE · ";font-family:var(--mono);font-style:normal;font-weight:800;color:var(--cool);font-size:.68rem;letter-spacing:.12em}
+.goal{background:rgba(232,176,74,.07);border-left:3px solid var(--warn);color:var(--bone)}
+.goal::before{content:"🎯 GOAL · ";font-family:var(--mono);font-weight:800;color:var(--warn);font-size:.68rem;letter-spacing:.12em}
+.our{background:#F6FAFD;border-left:3px solid var(--cool);padding:12px 15px}
+.our::before{content:"📘 THEORY";display:block;font-family:var(--mono);font-weight:800;color:var(--muted);font-size:.64rem;letter-spacing:.14em;margin-bottom:6px}
+.react{background:rgba(136,201,161,.06);border-left:3px solid var(--ok);color:var(--bone)}
+.react::before{content:"💬 TEACHER PUSHBACK · ";display:block;font-family:var(--mono);font-weight:800;color:var(--ok);font-size:.64rem;letter-spacing:.12em;margin-bottom:5px}
+.react ul{list-style:none;padding:0;margin:0}
+.react li{padding:3px 0 3px 18px;position:relative;font-size:.9rem}
+.react li::before{content:"→";position:absolute;left:0;color:var(--ok);font-weight:800}
+
+/* ===== VOCAB SHEET ===== */
+.vocab-sheet{margin:8px 0}
+.vocab-sheet h4{font-family:var(--mono);font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--red-deep);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.vocab-sheet h4 .count{background:var(--red);color:var(--bg);padding:2px 8px;border-radius:50px;font-size:.6rem;letter-spacing:.08em;margin-left:auto}
+.vocab-sheet .words{display:flex;flex-wrap:wrap;gap:5px}
+.vocab-sheet .w{background:#FFF;border:1px solid var(--line);padding:4px 10px;border-radius:50px;font-size:.8rem;font-weight:600;color:var(--bone);transition:.12s;cursor:pointer;box-shadow:0 1px 3px rgba(79,163,209,.08)}
+.vocab-sheet .w:hover{background:var(--red-wash);border-color:var(--line-red);color:var(--red-deep)}
+
+/* ===== GRAMMAR HINT ===== */
+.ghint{margin-top:8px;padding:10px 14px;background:var(--red-wash);border:1px dashed var(--line-red);border-radius:10px;font-size:.84rem;color:var(--bone);line-height:1.6}
+.ghint b{color:var(--red-deep);font-weight:800}
+.ghint code{font-family:var(--mono);background:#FFF;padding:1px 8px;border-radius:5px;color:var(--red-deep);font-size:.82rem;font-weight:700;margin:0 1px;border:1px solid var(--line-red)}
+.ghint .row{display:block;margin:2px 0}
+
+/* ===== PREPOSITION CARDS (along / across / past / through / onto / into) ===== */
+.prep-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:10px}
+.prep-card{background:var(--card-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;position:relative;overflow:hidden}
+.prep-card .pc-word{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--red);letter-spacing:-.01em;margin-bottom:4px}
+.prep-card .pc-pic{width:100%;height:60px;display:grid;place-items:center;margin:4px 0 6px;background:#F8FBFD;border-radius:8px;border:1px dashed var(--line)}
+.prep-card .pc-pic svg{width:90%;height:50px}
+.prep-card .pc-mean{font-size:.82rem;color:var(--bone);margin-bottom:5px;line-height:1.5}
+.prep-card .pc-ex{font-family:var(--serif);font-style:italic;font-size:.86rem;color:var(--bone);opacity:.9;line-height:1.5;padding-top:6px;border-top:1px dashed var(--line)}
+.prep-card .pc-ex b{color:var(--red-deep);font-style:normal;font-weight:700}
+
+/* ===== MAP (Greenton placeholder) ===== */
+.mapwrap{background:var(--card-2);border:1px solid var(--line-red);border-radius:16px;padding:14px 14px 10px;margin:10px 0}
+.mapwrap .mapfr{position:relative;width:100%;background:#F5EDE1;border-radius:12px;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);min-height:200px}
+.mapwrap .mapfr img{width:100%;height:auto;max-height:720px;object-fit:contain;display:block}
+.mapwrap .mapfr .placeholder{position:absolute;inset:0;display:grid;place-items:center;background:
+  repeating-linear-gradient(45deg,#E5D4B8 0 18px,#EBE3D4 18px 36px);
+  color:#6B4F23;font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;text-align:center;padding:20px;min-height:280px}
+.mapwrap .mapfr .placeholder b{display:block;font-family:var(--display);font-size:1.1rem;margin-bottom:8px;color:#8B5A20}
+/* IELTS test-booklet style maps — white background, not sepia */
+.ielts-panel .mapwrap{background:#FFF;border-color:var(--line)}
+.ielts-panel .mapwrap .mapfr{background:#FFF}
+.mapwrap .maplegend{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:4px 14px;margin-top:10px;font-size:.78rem;color:var(--bone)}
+.mapwrap .maplegend span{display:flex;gap:6px;align-items:center}
+.mapwrap .maplegend .k{font-family:var(--mono);font-weight:800;color:var(--red-deep);background:var(--red-wash);padding:1px 7px;border-radius:50px;min-width:28px;text-align:center}
+
+/* ===== EXERCISE BLOCKS (fill / mcq / order / tf) ===== */
+.ex{background:var(--card-2);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:12px 0;position:relative}
+.ex .ex-lead{font-family:var(--serif);font-size:1rem;color:var(--bone);margin-bottom:12px;line-height:1.55}
+.ex .ex-lead b{color:var(--red-deep);font-weight:700}
+.ex .ex-sub{font-size:.82rem;color:var(--muted);margin-bottom:10px;font-style:italic}
+.ex .book-ref{display:inline-block;margin-left:8px;padding:2px 9px;border-radius:50px;background:rgba(232,176,74,.12);color:var(--warn);font:800 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;vertical-align:2px}
+.ex-row{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:flex-start;padding:7px 0;border-bottom:1px dashed var(--line)}
+.ex-row:last-child{border-bottom:none}
+.ex-row .idx{font-family:var(--mono);font-weight:800;color:var(--red-deep);font-size:.78rem;padding-top:7px}
+.ex-row .q{font-size:.92rem;line-height:1.7;color:var(--bone)}
+.ex-row .q input[type=text]{background:var(--card-3);border:1px solid var(--line);border-bottom:2px solid var(--red-soft);color:var(--bone);font:600 .92rem var(--mono);padding:4px 8px;border-radius:6px;min-width:80px;max-width:180px;text-align:center}
+.ex-row .q input[type=text]:focus{outline:none;border-color:var(--red);background:var(--card)}
+.ex-row .q select{background:var(--card-3);border:1px solid var(--line);border-bottom:2px solid var(--red-soft);color:var(--bone);font:600 .88rem var(--mono);padding:4px 8px;border-radius:6px}
+.ex-row .q select:focus{outline:none;border-color:var(--red)}
+.ex-row .q.ok input,.ex-row .q.ok select{border-color:var(--ok);background:rgba(136,201,161,.08)}
+.ex-row .q.bad input,.ex-row .q.bad select{border-color:var(--red);background:rgba(245,138,61,.14)}
+.ex-row .reveal{display:none;font-family:var(--mono);font-size:.78rem;color:var(--ok);margin-top:4px;padding:3px 10px;background:rgba(136,201,161,.1);border-radius:50px;border:1px solid rgba(136,201,161,.25)}
+.ex-row .reveal.show{display:inline-block}
+.ex-row .reveal.wrong{color:var(--red-deep);background:rgba(245,138,61,.12);border-color:var(--line-red)}
+.ex-check{margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.ex-check .btn{background:var(--red);color:var(--bg);font:800 .8rem var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:9px 20px;border-radius:10px;transition:.15s}
+.ex-check .btn:hover{background:var(--red-deep);transform:translateY(-1px)}
+.ex-check .btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.ex-check .btn.ghost:hover{color:var(--bone);border-color:var(--bone)}
+.ex-check .score{font-family:var(--mono);font-size:.82rem;color:var(--ok);font-weight:800}
+.ex-check .score.bad{color:var(--red-deep)}
+
+/* ===== ORDER / JUMBLED ===== */
+.jumble{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px}
+.jumble .tok{background:var(--card-3);border:1px solid var(--line);padding:5px 10px;border-radius:50px;font:700 .82rem var(--mono);color:var(--bone);letter-spacing:.02em}
+.jumble .tok .n{color:var(--muted);font-weight:800;margin-right:5px;font-size:.72rem}
+.jumble-input{width:100%;background:var(--card-3);border:1px solid var(--line);border-bottom:2px solid var(--red-soft);color:var(--bone);font:600 .95rem var(--body);padding:8px 12px;border-radius:8px;margin-top:4px}
+.jumble-input:focus{outline:none;border-color:var(--red)}
+
+/* ===== LISTENING PLAYER ===== */
+.player{background:linear-gradient(135deg,var(--red-wash),#FFF);border:1px solid var(--line-red);border-radius:12px;padding:12px 16px;margin:10px 0;box-shadow:var(--shadow-s)}
+.player h5{font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--red-deep);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.player h5::before{content:"🎧"}
+.player audio{width:100%;height:36px}
+.player .trk{font-family:var(--serif);font-style:italic;font-size:.88rem;color:var(--bone);opacity:.9;margin-top:6px}
+
+/* ===== BANK (word bank for cloze) ===== */
+.bank{display:flex;flex-wrap:wrap;gap:6px;padding:9px 12px;margin:6px 0 10px;background:#F6FAFD;border:1px dashed var(--cool);border-radius:10px}
+.bank-ttl{display:block;font-family:var(--mono);font-size:.62rem;font-weight:800;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin-bottom:4px;width:100%}
+.bank .b{background:var(--card-3);border:1px solid var(--line);padding:4px 11px;border-radius:50px;font:700 .82rem var(--mono);color:var(--bone)}
+
+/* ===== IELTS SPECIAL ===== */
+.ielts-tag{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--cool),#3C8AB3);border:1px solid var(--cool);color:#FFF;padding:4px 12px;border-radius:50px;font:800 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;box-shadow:0 4px 10px rgba(79,163,209,.22)}
+.ielts-tag::before{content:"◆"}
+.ielts-strip{background:linear-gradient(135deg,rgba(121,184,209,.1),rgba(121,184,209,.03));border:1px solid rgba(121,184,209,.3);border-left:4px solid var(--cool);border-radius:0 12px 12px 0;padding:12px 16px;margin:10px 0;font-size:.9rem;color:var(--bone);line-height:1.55}
+.ielts-strip b{color:var(--cool);font-weight:800}
+.ielts-strip::before{content:"◆ IELTS BAND 5-6 · LISTENING SECTION 2 · MAP LABELLING";display:block;font-family:var(--mono);font-size:.62rem;font-weight:800;letter-spacing:.12em;color:var(--cool);margin-bottom:6px;text-transform:uppercase}
+
+/* ===== ROLEPLAY ===== */
+.roleplay{background:linear-gradient(180deg,var(--card-2),var(--card-3));border:1px solid var(--line-red);border-radius:14px;padding:16px 20px;margin:12px 0;position:relative}
+.roleplay::before{content:"📱 ROLE-PLAY";position:absolute;top:-10px;left:16px;background:var(--bg);color:var(--red-deep);font:800 10px/1 var(--mono);letter-spacing:.14em;padding:3px 10px;border-radius:50px;border:1px solid var(--line-red)}
+.roleplay .msg{display:grid;grid-template-columns:90px 1fr;gap:10px;margin:6px 0}
+.roleplay .msg .who{font-family:var(--display);font-weight:700;color:var(--red-deep);font-size:.82rem;text-align:right;padding-top:5px}
+.roleplay .msg .what{background:var(--card);padding:9px 13px;border-radius:12px 12px 12px 4px;font-family:var(--serif);font-size:.98rem;line-height:1.5}
+.roleplay .msg.you .what{background:var(--red-wash);border-radius:12px 12px 4px 12px}
+.roleplay .msg.you .who{color:var(--red)}
+
+/* ===== SPEAKING ASK ===== */
+.ask-list{display:grid;gap:9px;margin-top:10px}
+.ask{background:var(--card-2);border:1px solid var(--line);border-left:4px solid var(--red);border-radius:0 12px 12px 0;padding:12px 16px;transition:.15s;display:flex;gap:12px;align-items:flex-start}
+.ask:hover{background:var(--card-3);border-left-width:6px;padding-left:14px}
+.ask .mic{width:30px;height:30px;border-radius:50%;background:var(--red);color:var(--bg);display:grid;place-items:center;flex-shrink:0;font-size:.85rem}
+.ask .txt{flex:1;font-size:.95rem;line-height:1.55;color:var(--bone)}
+.ask .txt .n{font-family:var(--mono);font-weight:900;color:var(--red-deep);font-size:.72rem;margin-right:6px;letter-spacing:.04em}
+.ask .txt b{color:var(--red-deep);font-weight:800}
+.ask .txt code{font-family:var(--mono);background:rgba(245,138,61,.14);padding:1px 6px;border-radius:4px;color:var(--red-deep);font-size:.82rem;font-weight:700}
+
+/* ===== VOCAB CAPSULE ===== */
+.caps{background:linear-gradient(135deg,var(--card-2),var(--card-3));border:2px solid var(--line-red);border-radius:18px;padding:22px 24px;margin:20px auto;max-width:1120px;width:var(--demo-width);position:relative;box-shadow:var(--shadow-s)}
+.caps::before{content:"📦";position:absolute;top:-24px;left:22px;font-size:2rem;background:var(--bg);padding:0 10px;filter:drop-shadow(0 4px 12px rgba(245,138,61,.35))}
+.caps h2{font-family:var(--display);font-size:1.2rem;color:var(--bone);margin-bottom:6px;font-weight:800}
+.caps p.lead{font-family:var(--serif);font-style:italic;color:var(--bone);opacity:.85;margin-bottom:12px}
+.caps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin-top:10px}
+.caps-item{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--red);padding:9px 12px;border-radius:0 10px 10px 0;cursor:pointer;transition:.15s;box-shadow:0 2px 6px rgba(79,163,209,.08)}
+.caps-item:hover{background:var(--card-3);border-left-width:5px;padding-left:10px}
+.caps-item .w{font-family:var(--display);font-weight:800;color:var(--red-deep);font-size:.98rem;display:flex;align-items:center;gap:8px}
+.caps-item .w .spk{font-size:.9rem;opacity:.6}
+.caps-item .ex{font-family:var(--serif);font-style:italic;font-size:.85rem;color:var(--bone);opacity:.9;margin-top:3px;line-height:1.5}
+.caps-item .ex b{color:var(--red);font-style:normal;font-weight:700}
+
+/* ===== FINAL MONO (speaking monologue card) ===== */
+.mono{background:linear-gradient(135deg,var(--card-3),#FFF);border:2px solid var(--line-red);border-radius:18px;padding:22px 24px;margin:14px 0;position:relative;box-shadow:var(--shadow-s)}
+.mono::before{content:"🎤";position:absolute;top:-22px;left:22px;font-size:1.9rem;background:var(--bg);padding:0 10px;filter:drop-shadow(0 4px 12px rgba(245,138,61,.35))}
+.mono h4{font-family:var(--display);font-size:1.1rem;font-weight:800;color:var(--bone);margin-bottom:6px}
+.mono .time{display:inline-block;font-family:var(--mono);font-weight:800;color:#FFF;background:var(--red);padding:3px 10px;border-radius:50px;font-size:.72rem;letter-spacing:.12em;margin-left:8px;vertical-align:3px}
+.mono .lead{font-family:var(--serif);font-style:italic;margin:6px 0 10px;color:var(--bone);opacity:.88;line-height:1.55}
+.mono ul{list-style:none;padding:0;margin:8px 0}
+.mono li{padding:6px 0 6px 30px;position:relative;line-height:1.55;font-size:.92rem;border-bottom:1px dashed var(--line)}
+.mono li:last-child{border-bottom:none}
+.mono li::before{content:"";position:absolute;left:6px;top:13px;width:14px;height:14px;border-radius:50%;background:var(--red);box-shadow:0 0 0 3px var(--red-wash)}
+.mono li b{color:var(--red-deep);font-weight:800}
+
+/* ===== BOOK-ECHO (duplicate exercise from student book) ===== */
+.book-echo{background:#FFFAF0;color:#2B2520;border-radius:14px;padding:16px 20px;margin:10px 0;border:1px solid #E8D9BF;box-shadow:0 6px 18px rgba(79,163,209,.12),inset 0 0 0 1px #FFF}
+.book-echo .be-hdr{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid #8B5A20}
+.book-echo .be-num{background:var(--red);color:#FFF;font-family:var(--display);font-weight:900;font-size:.9rem;width:28px;height:28px;border-radius:50%;display:grid;place-items:center}
+.book-echo .be-ttl{font-family:var(--display);font-weight:800;font-size:1rem;color:#2B2520}
+.book-echo .be-src{margin-left:auto;font:800 9.5px/1 var(--mono);letter-spacing:.14em;color:#8B5A20;text-transform:uppercase}
+.book-echo .be-body{font-family:var(--serif);font-size:1rem;line-height:1.75;color:#2B2520}
+.book-echo ol{padding-left:22px;margin:0}
+.book-echo li{padding:4px 0}
+
+/* ===== PROGRESS BAR ===== */
+.progbar{position:sticky;top:60px;z-index:40;height:4px;background:var(--line);margin:0 0 10px;border-radius:50px;overflow:hidden}
+.progbar .fill{height:100%;background:linear-gradient(90deg,var(--red),var(--red-soft));width:0;transition:width .3s ease}
+
+/* ===== FOOTER ===== */
+footer{text-align:center;padding:30px 20px 60px;color:var(--muted);font-size:.78rem;font-family:var(--mono);letter-spacing:.06em;line-height:1.7}
+footer b{color:var(--red-deep)}
+
+/* ===== OPENER MICRO-SECTIONS (0a hook, 0b L/R, 0c compass, 0d self-check) ===== */
+.section.opener{margin-bottom:22px}
+.section.opener .section-hdr .num{background:var(--cool);box-shadow:0 8px 22px rgba(79,163,209,.26);font-size:.9rem}
+.section.opener .conv{padding:18px 20px}
+
+/* Hook: audio clue + 3 picture choices */
+.hook{display:grid;grid-template-columns:1fr;gap:12px}
+.hook-player{background:linear-gradient(135deg,rgba(79,163,209,.14),#FFF);border:1px solid var(--cool);border-radius:14px;padding:14px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.hook-player .play-btn{width:48px;height:48px;font-size:1.1rem;background:var(--cool);box-shadow:0 4px 12px rgba(79,163,209,.3)}
+.hook-player .play-btn:hover{background:#3C8AB3}
+.hook-player .label{flex:1;min-width:200px;font-family:var(--serif);font-style:italic;color:var(--bone);font-size:1rem;line-height:1.5}
+.hook-choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.hook-choice{background:#FFF;border:2px solid var(--line);border-radius:14px;padding:14px;cursor:pointer;transition:.15s;text-align:center;position:relative;display:flex;flex-direction:column;gap:8px}
+.hook-choice:hover{border-color:var(--red-soft);transform:translateY(-2px);box-shadow:0 6px 16px rgba(245,138,61,.14)}
+.hook-choice.correct{border-color:var(--ok);background:rgba(79,166,107,.08);box-shadow:0 0 0 3px rgba(79,166,107,.18)}
+.hook-choice.wrong{border-color:var(--red);background:rgba(245,138,61,.08);opacity:.7}
+.hook-choice .emoji{font-size:2.4rem;line-height:1}
+.hook-choice .label{font-family:var(--display);font-weight:800;font-size:1rem;color:var(--bone)}
+.hook-choice .verdict{display:none;font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:50px;margin:0 auto}
+.hook-choice.correct .verdict{display:inline-block;background:var(--ok);color:#FFF}
+.hook-choice.wrong .verdict{display:inline-block;background:var(--red-wash);color:var(--red-deep)}
+.hook-reveal{display:none;padding:10px 14px;background:var(--red-wash);border:1px dashed var(--line-red);border-radius:10px;font-family:var(--serif);font-size:.95rem;line-height:1.55;color:var(--bone);margin-top:4px}
+.hook-reveal.show{display:block}
+
+/* L/R body check */
+.lr-body{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+@media(max-width:560px){.lr-body{grid-template-columns:1fr}}
+.lr-side{background:#FFF;border:2px solid var(--line);border-radius:14px;padding:14px;text-align:center}
+.lr-side.left{border-color:var(--cool);background:linear-gradient(180deg,rgba(79,163,209,.08),#FFF)}
+.lr-side.right{border-color:var(--red-soft);background:linear-gradient(180deg,rgba(245,138,61,.08),#FFF)}
+.lr-side .big{font-family:var(--display);font-weight:900;font-size:2.2rem;letter-spacing:-.02em;margin-bottom:4px}
+.lr-side.left .big{color:var(--cool)}
+.lr-side.right .big{color:var(--red-deep)}
+.lr-side .hand{font-size:2.6rem;margin-bottom:6px}
+.lr-side .tr{display:block;font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin-top:4px}
+.lr-drill{background:#FFF;border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-top:8px}
+.lr-drill h5{font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--red-deep);margin-bottom:10px}
+.lr-drill .row{display:grid;grid-template-columns:36px 36px 1fr auto;gap:10px;align-items:center;padding:6px 0;border-bottom:1px dashed var(--line)}
+.lr-drill .row:last-child{border-bottom:none}
+.lr-drill .row .idx{font-family:var(--mono);font-weight:800;color:var(--muted);font-size:.78rem}
+.lr-drill .row .q{font-family:var(--mono);font-size:.76rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.lr-drill .row .ans{display:flex;gap:4px}
+.lr-drill .row .ans button{width:34px;height:34px;border-radius:50%;background:var(--card-2);border:1px solid var(--line);color:var(--bone);font-weight:800;font-family:var(--display);font-size:.78rem;cursor:pointer;transition:.12s}
+.lr-drill .row .ans button:hover{background:var(--card-3);border-color:var(--red-soft)}
+.lr-drill .row .ans button.chosen-l{background:var(--cool);color:#FFF;border-color:var(--cool)}
+.lr-drill .row .ans button.chosen-r{background:var(--red);color:#FFF;border-color:var(--red)}
+.lr-drill .row.ok{background:rgba(79,166,107,.06)}
+.lr-drill .row.bad{background:rgba(245,138,61,.06)}
+
+/* Compass — proper SVG rosette */
+.compass-wrap{display:grid;grid-template-columns:320px 1fr;gap:20px;align-items:start;margin:12px 0}
+@media(max-width:680px){.compass-wrap{grid-template-columns:1fr}}
+.compass-svg{width:100%;max-width:320px;height:auto;display:block;margin:0 auto;filter:drop-shadow(0 10px 20px rgba(79,163,209,.16))}
+.compass-svg .tick{stroke:var(--muted-2);stroke-width:1}
+.compass-svg .tick.major{stroke:var(--cool);stroke-width:1.5}
+.compass-svg .ring{fill:none;stroke:var(--cool);stroke-width:2}
+.compass-svg .ring.inner{stroke:var(--muted-2);stroke-width:1}
+.compass-svg .rose-main{fill:var(--card-2)}
+.compass-svg .rose-main-dark{fill:var(--cool)}
+.compass-svg .rose-n{fill:var(--red)}
+.compass-svg .rose-n-dark{fill:var(--red-deep)}
+.compass-svg .rose-diag{fill:#DDE8F0}
+.compass-svg .rose-diag-dark{fill:#B6C3D1}
+.compass-svg .label{font-family:var(--display);font-weight:900;font-size:22px;fill:var(--bone)}
+.compass-svg .label.n{fill:var(--red)}
+.compass-svg .label-small{font-family:var(--mono);font-weight:800;font-size:11px;fill:var(--muted)}
+.compass-svg .hit{fill:transparent;cursor:pointer;transition:.15s}
+.compass-svg .hit:hover{fill:rgba(245,138,61,.18)}
+.compass-svg .hit.playing{fill:rgba(245,138,61,.32)}
+.compass-svg .center-pin{fill:var(--red)}
+.compass-svg .center-ring{fill:#FFF;stroke:var(--red);stroke-width:2}
+.compass-key{background:#F6FAFD;border:1px solid var(--cool);border-radius:14px;padding:14px 16px;font-size:.9rem;line-height:1.75}
+.compass-key b{color:var(--cool);font-weight:800}
+.compass-key .hint{display:block;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-family:var(--mono);font-size:.74rem;color:var(--muted);letter-spacing:.06em}
+
+/* Self-check vocab chips */
+.selfcheck{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.sc-chip{background:#FFF;border:2px solid var(--line);padding:6px 12px;border-radius:50px;font-size:.84rem;font-weight:600;color:var(--bone);cursor:pointer;transition:.12s;user-select:none}
+.sc-chip:hover{border-color:var(--red-soft)}
+.sc-chip.known{background:var(--ok);color:#FFF;border-color:var(--ok)}
+.sc-chip.known::before{content:"✓ ";font-weight:800}
+.sc-report{margin-top:8px;font-family:var(--mono);font-size:.78rem;color:var(--muted);letter-spacing:.06em}
+.sc-report b{color:var(--red-deep);font-weight:800;font-size:.9rem}
+
+/* ===== DIRECTION CARD (mini-map + phrase + play) ===== */
+.dir-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:12px 0}
+.dir-card{background:#FFF;border:1px solid var(--line);border-radius:14px;padding:12px;box-shadow:0 3px 10px rgba(79,163,209,.10);display:flex;flex-direction:column;gap:8px;transition:.15s;cursor:pointer}
+.dir-card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(245,138,61,.18);border-color:var(--line-red)}
+.dir-card .dc-img{width:100%;aspect-ratio:4/3;background:#F6FAFD;border:1px dashed var(--line);border-radius:10px;overflow:hidden;position:relative;display:grid;place-items:center}
+.dir-card .dc-img img{width:100%;height:100%;object-fit:contain;display:block}
+.dir-card .dc-img .ph{font:800 .62rem var(--mono);letter-spacing:.14em;color:var(--muted);text-align:center;padding:10px;text-transform:uppercase}
+.dir-card .dc-foot{display:flex;align-items:center;gap:10px}
+.dir-card .dc-phrase{flex:1;font-family:var(--serif);font-size:.95rem;color:var(--bone);line-height:1.4;font-style:italic}
+.dir-card .dc-phrase b{color:var(--red-deep);font-style:normal;font-weight:700}
+
+/* ===== PLAY BUTTON (reusable, inline 🔊) ===== */
+.play-btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;background:var(--red);color:#FFF;width:36px;height:36px;border-radius:50%;flex-shrink:0;font-size:.85rem;box-shadow:0 2px 8px rgba(245,138,61,.3);transition:.15s;border:none;cursor:pointer}
+.play-btn:hover{background:var(--red-deep);transform:scale(1.08)}
+.play-btn.sm{width:28px;height:28px;font-size:.72rem}
+.play-btn.ghost{background:transparent;color:var(--red);border:1px solid var(--line-red);box-shadow:none}
+.play-btn.ghost:hover{background:var(--red-wash);color:var(--red-deep)}
+.play-btn.playing{background:var(--cool);box-shadow:0 0 0 4px rgba(79,163,209,.22)}
+
+/* ===== INLINE SOUND ROW (role-play, signpost list) ===== */
+.sound-row{display:flex;gap:10px;align-items:center;padding:4px 0}
+.sound-row .play-btn{flex-shrink:0}
+.sound-row .txt{flex:1;line-height:1.55}
+
+/* ===== IELTS 5-TASK TABS ===== */
+.ielts-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 10px;padding:6px;background:var(--card-2);border-radius:14px;border:1px solid var(--line)}
+.ielts-tab{flex:1 1 auto;min-width:130px;padding:9px 12px;border-radius:9px;font:800 .76rem var(--mono);letter-spacing:.06em;color:var(--muted);background:transparent;border:none;cursor:pointer;transition:.15s;text-align:left;line-height:1.3}
+.ielts-tab:hover{color:var(--red-deep);background:#FFF}
+.ielts-tab.active{background:var(--red);color:#FFF;box-shadow:0 3px 10px rgba(245,138,61,.3)}
+.ielts-tab .tn{display:block;font-size:.62rem;opacity:.75;margin-bottom:2px;letter-spacing:.12em}
+.ielts-tab.active .tn{opacity:.95}
+.ielts-panel{display:none}
+.ielts-panel.active{display:block;animation:fadein .3s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ===== MOBILE ===== */
+@media(max-width:720px){
+  .roleplay .msg{grid-template-columns:70px 1fr}
+  .caps-grid{grid-template-columns:1fr}
+  .prep-cards{grid-template-columns:repeat(2,1fr)}
+  .dir-grid{grid-template-columns:repeat(2,1fr)}
+  .ielts-tab{min-width:0;font-size:.68rem;padding:7px 8px}
+}
+</style>
+</head>
+<body>
+
+<!-- ==================================================== -->
+<!-- TOPBAR                                               -->
+<!-- ==================================================== -->
+<header class="topbar">
+  <a class="brand" href="/lingua-boost-lab/">
+    <div class="brand-mark">NG</div>
+    <div class="brand-copy">
+      <div class="brand-name">New Generation · Lab</div>
+      <div class="brand-sub">A2 → B1 · Lesson 12</div>
+    </div>
+  </a>
+  <div class="spacer"></div>
+  <span class="pill red">Directions · Routes</span>
+  <span class="pill">60-90 min</span>
+</header>
+
+<div class="progbar"><div class="fill" id="progfill"></div></div>
+
+<!-- ==================================================== -->
+<!-- HERO                                                 -->
+<!-- ==================================================== -->
+<section class="hero">
+  <div class="hero-card">
+    <div class="hero-inner">
+      <span class="hero-chip">Directions &amp; Routes · 10 blocks · trainer</span>
+      <h1 class="hero-title">
+        Which way <b>to Greenton</b>?
+        <em>Turn the words into a map — then turn the map into a story.</em>
+      </h1>
+      <p class="hero-lead">You've landed in a quiet English village. The farmer points at a dusty lane, the pub lady draws a tiny map on a napkin, a tourist stops you with «Excuse me, how do I get to…?» — and later, in an IELTS test, a guide walks you through a brand-new campus. By the end of this trainer, directions will feel as natural as breathing.</p>
+      <div class="hero-tags">
+        <span class="hero-tag red">10 drills · speak · write · listen</span>
+        <span class="hero-tag">prepositions of movement</span>
+        <span class="hero-tag">imperatives</span>
+        <span class="hero-tag">IELTS map labelling</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================== -->
+<!-- META                                                 -->
+<!-- ==================================================== -->
+<div class="meta">
+  <div class="meta-chip"><strong>Level</strong><div class="val">A2 → B1</div></div>
+  <div class="meta-chip"><strong>Time</strong><div class="val">60-90 min (solo or with teacher)</div></div>
+  <div class="meta-chip"><strong>Focus</strong><div class="val">directions · prepositions of movement</div></div>
+  <div class="meta-chip"><strong>Audio</strong><div class="val">3 clips (dialogue · gap-fill · IELTS)</div></div>
+  <div class="meta-chip"><strong>Output</strong><div class="val">speak + write + draw route on map</div></div>
+</div>
+
+<!-- ==================================================== -->
+<!-- TOC                                                  -->
+<!-- ==================================================== -->
+<nav class="toc">
+  <h4>🧭 Route for today</h4>
+  <ol>
+    <li><a href="#s0a"><span class="n">0a</span>🎁 Hook · surprise hunt · listen once</a></li>
+    <li><a href="#s0b"><span class="n">0b</span>✋ Left vs right · body check + drill</a></li>
+    <li><a href="#s0c"><span class="n">0c</span>🧭 Compass points · N/S/E/W + diagonals</a></li>
+    <li><a href="#s0d"><span class="n">0d</span>✨ What can you already say? · self-check</a></li>
+    <li><a href="#s1"><span class="n">01</span>Direction words · 14-item bank</a></li>
+    <li><a href="#s2"><span class="n">02</span>Along · across · past · through · onto · into</a></li>
+    <li><a href="#s2b"><span class="n">02b</span>🔊 Hear every direction · 13 mini-maps</a></li>
+    <li><a href="#s3"><span class="n">03</span>Greenton village map · locate 13 places</a></li>
+    <li><a href="#s4"><span class="n">04</span>Put words in order (6 directions) · book echo</a></li>
+    <li><a href="#s5"><span class="n">05</span>Listening 1.30 · fill the gaps · book echo</a></li>
+    <li><a href="#s6"><span class="n">06</span>Mini-drill · pick the right preposition (10 Qs)</a></li>
+    <li><a href="#s7"><span class="n">07</span>Role-play · Ask &amp; Give · pub to the church</a></li>
+    <li><a href="#s8"><span class="n">08</span>IELTS · Section 2 · <b>5 map-labelling tasks</b></a></li>
+    <li><a href="#s9"><span class="n">09</span>Speaking · describe your route from home to school</a></li>
+    <li><a href="#s10"><span class="n">10</span>📦 Vocab capsule · 14 cards + spelling</a></li>
+  </ol>
+</nav>
+
+<!-- ==================================================== -->
+<!-- 0A · CITY HUNT — 12 places + 3 audio clues           -->
+<!-- ==================================================== -->
+<section class="section opener" id="s0a">
+  <div class="section-hdr">
+    <div class="num">0a</div>
+    <h2>🏙️ Find the place in town · <em>12 urban places · 3 voice-note clues</em></h2>
+    <span class="mic-tag">⏱ 5 min</span>
+  </div>
+  <div class="conv">
+    <div class="scene">You're a new student in town. Three classmates have each sent you a voice note about a different place in the city centre. Listen to each one and match it to the right place from the grid.</div>
+    <div class="goal">3 / 3. Each clue uses real British direction collocations — <b>«take the second exit»</b>, <b>«opposite the pharmacy»</b>, <b>«just past the bus stop»</b>.</div>
+
+    <!-- 12 city places (reference grid, not interactive) -->
+    <div style="background:#F6FAFD;border:1px dashed var(--cool);border-radius:14px;padding:12px 14px;margin:10px 0">
+      <div style="font-family:var(--mono);font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--cool);margin-bottom:8px">City-centre places · you'll choose from these ↓</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:6px;font-size:.84rem">
+        <div style="padding:6px 10px;background:#FFF;border-radius:8px;border:1px solid var(--line)">💊 pharmacy</div>
+        <div style="padding:6px 10px;background:#FFF;border-radius:8px;border:1px solid var(--line)">🏧 cash machine (ATM)</div>
+        <div style="padding:6px 10px;background:#FFF;border-radius:8px;border:1px solid var(--line)">📮 post office</div>
+        <div style="padding:6px 10px;background:#FFF;border-radius:8px;border:1px solid var(--line)">🚌 bus stop</div>
+        <div style="padding:6px 10px;background:#FFF;border-radius:8px;border:1px solid var(--line)">📰 newsagent</div>
+        <div style="padding:6px 10px;background:#FFF;border-radius:8px;border:1px solid var(--line)">🧺 dry cleaner's</div>
+        <div style="padding:6px 10px;background:#FFF;border-radius:8px;border:1px solid var(--line)">💇 hairdresser's</div>
+        <div style="padding:6px 10px;background:#FFF;border-radius:8px;border:1px solid var(--line)">🦷 dentist's</div>
+        <div style="padding:6px 10px;background:#FFF;border-radius:8px;border:1px solid var(--line)">💐 florist</div>
+        <div style="padding:6px 10px;background:#FFF;border-radius:8px;border:1px solid var(--line)">🥐 bakery</div>
+        <div style="padding:6px 10px;background:#FFF;border-radius:8px;border:1px solid var(--line)">🍦 ice cream shop</div>
+        <div style="padding:6px 10px;background:#FFF;border-radius:8px;border:1px solid var(--line)">📚 bookshop</div>
+      </div>
+    </div>
+
+    <!-- 3 clue rows: play + dropdown -->
+    <div class="ex" id="ex-hunt">
+      <div class="ex-lead">Tap play for each voice note. Pick the place it describes.</div>
+      <div class="ex-row"><div class="idx">1</div><div class="q">
+        <button class="play-btn sm" data-mp3="hunt/hunt-clue-1.mp3" aria-label="play clue 1">🔊</button>
+        &nbsp; Clue 1 · classmate A → where is she sending you?
+        <select data-a="post office" style="margin-left:6px"><option></option></select>
+        <span class="reveal"></span>
+      </div></div>
+      <div class="ex-row"><div class="idx">2</div><div class="q">
+        <button class="play-btn sm" data-mp3="hunt/hunt-clue-2.mp3" aria-label="play clue 2">🔊</button>
+        &nbsp; Clue 2 · classmate B →
+        <select data-a="bakery" style="margin-left:6px"><option></option></select>
+        <span class="reveal"></span>
+      </div></div>
+      <div class="ex-row"><div class="idx">3</div><div class="q">
+        <button class="play-btn sm" data-mp3="hunt/hunt-clue-3.mp3" aria-label="play clue 3">🔊</button>
+        &nbsp; Clue 3 · classmate C →
+        <select data-a="cash machine (atm)" style="margin-left:6px"><option></option></select>
+        <span class="reveal"></span>
+      </div></div>
+      <div class="ex-check">
+        <button class="btn" onclick="checkFill('ex-hunt')">Check</button>
+        <button class="btn ghost" onclick="revealFill('ex-hunt')">Show answers</button>
+        <span class="score" id="sc-ex-hunt"></span>
+      </div>
+    </div>
+
+    <div class="ghint" style="margin-top:10px">
+      <span class="row"><b>Why we started here</b> — directions in real life are <b>spoken once, often fast</b>. In IELTS Section 2 — same. In Google Maps voice — same. We train your <b>ear</b> before your eye today.</span>
+      <span class="row"><b>Catch these collocations</b> — <code>take the second exit</code> · <code>cross the pedestrian crossing</code> · <code>just before / just past</code> · <code>between X and Y</code> · <code>on the corner</code></span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================== -->
+<!-- 0B · LEFT vs RIGHT body check                        -->
+<!-- ==================================================== -->
+<section class="section opener" id="s0b">
+  <div class="section-hdr">
+    <div class="num">0b</div>
+    <h2>✋ Left or right? · <em>body-check + audio drill</em></h2>
+    <span class="mic-tag">⏱ 2 min</span>
+  </div>
+  <div class="conv">
+    <div class="scene">Each voice note is a real direction phrase with a left or right hidden inside. Catch the word — not the whole sentence. These are the exact collocations you'll meet in IELTS Section 2 and in any real British street.</div>
+    <div class="goal">Score 6 / 6. Replay anything you missed.</div>
+
+    <div class="lr-body">
+      <div class="lr-side left">
+        <div class="hand">←</div>
+        <div class="big">LEFT</div>
+        <span class="tr">turn left · on your left · the left-hand side · keep to the left</span>
+      </div>
+      <div class="lr-side right">
+        <div class="hand">→</div>
+        <div class="big">RIGHT</div>
+        <span class="tr">turn right · on your right · take the second right · at the traffic lights</span>
+      </div>
+    </div>
+
+    <div class="lr-drill" id="lr-drill">
+      <h5>🔊 Listen — tap L or R for each full direction sentence</h5>
+      <div class="row" data-a="L"><div class="idx">1</div><button class="play-btn sm" data-mp3="lr/lr-1.mp3">🔊</button><div class="q">Turn ___ at the corner</div><div class="ans"><button data-v="L">L</button><button data-v="R">R</button></div></div>
+      <div class="row" data-a="R"><div class="idx">2</div><button class="play-btn sm" data-mp3="lr/lr-2.mp3">🔊</button><div class="q">Take the second ___</div><div class="ans"><button data-v="L">L</button><button data-v="R">R</button></div></div>
+      <div class="row" data-a="L"><div class="idx">3</div><button class="play-btn sm" data-mp3="lr/lr-3.mp3">🔊</button><div class="q">Walk along the ___-hand side of the park</div><div class="ans"><button data-v="L">L</button><button data-v="R">R</button></div></div>
+      <div class="row" data-a="R"><div class="idx">4</div><button class="play-btn sm" data-mp3="lr/lr-4.mp3">🔊</button><div class="q">The café is on your ___</div><div class="ans"><button data-v="L">L</button><button data-v="R">R</button></div></div>
+      <div class="row" data-a="L"><div class="idx">5</div><button class="play-btn sm" data-mp3="lr/lr-5.mp3">🔊</button><div class="q">Keep to the ___</div><div class="ans"><button data-v="L">L</button><button data-v="R">R</button></div></div>
+      <div class="row" data-a="R"><div class="idx">6</div><button class="play-btn sm" data-mp3="lr/lr-6.mp3">🔊</button><div class="q">Turn ___ at the traffic lights</div><div class="ans"><button data-v="L">L</button><button data-v="R">R</button></div></div>
+      <div class="ex-check" style="margin-top:10px"><span class="score" id="sc-lr">tap a button after each clip</span></div>
+    </div>
+
+    <div class="ghint" style="margin-top:10px">
+      <span class="row"><b>Pro trick</b> — when someone says «on your left», they mean <b>your</b> left, not theirs. If they're facing you, their left is your right. Always re-anchor to <b>yourself</b>.</span>
+      <span class="row"><b>Common traps</b> — <code>take the first/second/third ___</code> · <code>keep to the ___</code> · <code>on your ___-hand side</code> · <code>on the ___ at the lights</code></span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================== -->
+<!-- 0C · COMPASS BASICS                                  -->
+<!-- ==================================================== -->
+<section class="section opener" id="s0c">
+  <div class="section-hdr">
+    <div class="num">0c</div>
+    <h2>🧭 Compass points · <em>N · S · E · W (and the four diagonals)</em></h2>
+    <span class="mic-tag">⏱ 3 min</span>
+  </div>
+  <div class="conv">
+    <div class="scene">Every English map has a little arrow pointing to the top — that's <b>North</b>. From North you build everything else. Google Maps uses it. GPS uses it. Even Minecraft uses it.</div>
+    <div class="goal">Tap each point on the compass to hear the word. Then do the quick match drill.</div>
+
+    <div class="compass-wrap">
+      <svg class="compass-svg" viewBox="0 0 320 320" aria-label="Compass rose with 8 points — tap any letter to hear it">
+        <!-- outer ring + tick marks -->
+        <circle class="ring" cx="160" cy="160" r="140"/>
+        <circle class="ring inner" cx="160" cy="160" r="105"/>
+        <g id="ticks"></g>
+
+        <!-- 4 major points (cardinal) · 8-point star rose, N is red -->
+        <!-- E (right) -->
+        <polygon class="rose-main" points="160,160 275,160 165,150"/>
+        <polygon class="rose-main-dark" points="160,160 275,160 165,170"/>
+        <!-- W (left) -->
+        <polygon class="rose-main" points="160,160 45,160 155,150"/>
+        <polygon class="rose-main-dark" points="160,160 45,160 155,170"/>
+        <!-- S (bottom) -->
+        <polygon class="rose-main" points="160,160 160,275 150,165"/>
+        <polygon class="rose-main-dark" points="160,160 160,275 170,165"/>
+        <!-- N (top) — RED -->
+        <polygon class="rose-n" points="160,160 160,45 150,155"/>
+        <polygon class="rose-n-dark" points="160,160 160,45 170,155"/>
+
+        <!-- 4 diagonals (shorter) -->
+        <polygon class="rose-diag" points="160,160 240,80 165,155"/>
+        <polygon class="rose-diag-dark" points="160,160 240,80 155,165"/>
+        <polygon class="rose-diag" points="160,160 240,240 165,165"/>
+        <polygon class="rose-diag-dark" points="160,160 240,240 155,155"/>
+        <polygon class="rose-diag" points="160,160 80,240 155,165"/>
+        <polygon class="rose-diag-dark" points="160,160 80,240 165,155"/>
+        <polygon class="rose-diag" points="160,160 80,80 155,155"/>
+        <polygon class="rose-diag-dark" points="160,160 80,80 165,165"/>
+
+        <!-- centre pin -->
+        <circle class="center-ring" cx="160" cy="160" r="14"/>
+        <circle class="center-pin" cx="160" cy="160" r="7"/>
+
+        <!-- compass-letter labels outside the ring -->
+        <text class="label n" x="160" y="26" text-anchor="middle">N</text>
+        <text class="label" x="160" y="306" text-anchor="middle">S</text>
+        <text class="label" x="298" y="168" text-anchor="middle">E</text>
+        <text class="label" x="22" y="168" text-anchor="middle">W</text>
+        <text class="label-small" x="252" y="60" text-anchor="middle">NE</text>
+        <text class="label-small" x="252" y="268" text-anchor="middle">SE</text>
+        <text class="label-small" x="68" y="268" text-anchor="middle">SW</text>
+        <text class="label-small" x="68" y="60" text-anchor="middle">NW</text>
+
+        <!-- CLICKABLE HIT AREAS — on top, invisible until hover/click -->
+        <circle class="hit" cx="160" cy="45" r="30" data-mp3="compass/n.mp3" tabindex="0"><title>North</title></circle>
+        <circle class="hit" cx="160" cy="275" r="30" data-mp3="compass/s.mp3" tabindex="0"><title>South</title></circle>
+        <circle class="hit" cx="275" cy="160" r="30" data-mp3="compass/e.mp3" tabindex="0"><title>East</title></circle>
+        <circle class="hit" cx="45" cy="160" r="30" data-mp3="compass/w.mp3" tabindex="0"><title>West</title></circle>
+        <circle class="hit" cx="240" cy="80" r="22" data-mp3="compass/ne.mp3" tabindex="0"><title>North-east</title></circle>
+        <circle class="hit" cx="240" cy="240" r="22" data-mp3="compass/se.mp3" tabindex="0"><title>South-east</title></circle>
+        <circle class="hit" cx="80" cy="240" r="22" data-mp3="compass/sw.mp3" tabindex="0"><title>South-west</title></circle>
+        <circle class="hit" cx="80" cy="80" r="22" data-mp3="compass/nw.mp3" tabindex="0"><title>North-west</title></circle>
+      </svg>
+
+      <div class="compass-key">
+        <b>Tap any letter</b> on the compass — it plays the word in a British voice.<br><br>
+        <b>N</b> — North · top of the map<br>
+        <b>S</b> — South · bottom<br>
+        <b>E</b> — East · right<br>
+        <b>W</b> — West · left<br>
+        <b>NE · NW · SE · SW</b> — the four diagonals<br>
+        <span class="hint"><b>Memory hook</b> — <code style="background:var(--red-wash);padding:1px 6px;border-radius:4px;color:var(--red-deep)">N</code>ever <code style="background:var(--red-wash);padding:1px 6px;border-radius:4px;color:var(--red-deep)">E</code>at <code style="background:var(--red-wash);padding:1px 6px;border-radius:4px;color:var(--red-deep)">S</code>oggy <code style="background:var(--red-wash);padding:1px 6px;border-radius:4px;color:var(--red-deep)">W</code>affles · clockwise from top</span>
+      </div>
+    </div>
+
+    <div class="ex" id="ex-compass">
+      <div class="ex-lead">🎧 Match drill · listen to each compass clip above (tap the letter on the compass), then pick the right direction below.</div>
+      <div class="ex-row"><div class="idx">1</div><div class="q">«Head <select data-a="north"><option></option></select>» means go to the <b>top</b> of the map.<span class="reveal"></span></div></div>
+      <div class="ex-row"><div class="idx">2</div><div class="q">If the river is on the <select data-a="east"><option></option></select> side, it's on your <b>right</b> on the map.<span class="reveal"></span></div></div>
+      <div class="ex-row"><div class="idx">3</div><div class="q">The town is <select data-a="south-west"><option></option></select> of the forest — <b>bottom-left</b>.<span class="reveal"></span></div></div>
+      <div class="ex-row"><div class="idx">4</div><div class="q">Walk <select data-a="south"><option></option></select> for 2 km means head <b>down</b> on the map.<span class="reveal"></span></div></div>
+      <div class="ex-row"><div class="idx">5</div><div class="q">The café is to the <select data-a="north-east"><option></option></select> of the station — <b>top-right</b>.<span class="reveal"></span></div></div>
+      <div class="ex-check">
+        <button class="btn" onclick="checkFill('ex-compass')">Check</button>
+        <button class="btn ghost" onclick="revealFill('ex-compass')">Show answers</button>
+        <span class="score" id="sc-ex-compass"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================== -->
+<!-- 0D · WHAT CAN YOU ALREADY SAY? (vocab self-check)   -->
+<!-- ==================================================== -->
+<section class="section opener" id="s0d">
+  <div class="section-hdr">
+    <div class="num">0d</div>
+    <h2>✨ What can you already say? · <em>tap the words you know</em></h2>
+    <span class="mic-tag">⏱ 2 min</span>
+  </div>
+  <div class="conv">
+    <div class="scene">Not a test — a confidence check. Tap every word you already understand. The number at the end shows how much of today's vocab you already own.</div>
+
+    <div class="selfcheck" id="selfcheck">
+      <span class="sc-chip" data-say="go">go</span>
+      <span class="sc-chip" data-say="walk">walk</span>
+      <span class="sc-chip" data-say="turn">turn</span>
+      <span class="sc-chip" data-say="take">take</span>
+      <span class="sc-chip" data-say="follow">follow</span>
+      <span class="sc-chip" data-say="cross">cross</span>
+      <span class="sc-chip" data-say="along">along</span>
+      <span class="sc-chip" data-say="across">across</span>
+      <span class="sc-chip" data-say="past">past</span>
+      <span class="sc-chip" data-say="through">through</span>
+      <span class="sc-chip" data-say="into">into</span>
+      <span class="sc-chip" data-say="onto">onto</span>
+      <span class="sc-chip" data-say="towards">towards</span>
+      <span class="sc-chip" data-say="straight">straight</span>
+      <span class="sc-chip" data-say="footpath">footpath</span>
+      <span class="sc-chip" data-say="gate">gate</span>
+      <span class="sc-chip" data-say="corner">corner</span>
+      <span class="sc-chip" data-say="opposite">opposite</span>
+      <span class="sc-chip" data-say="next to">next to</span>
+      <span class="sc-chip" data-say="end of the road">the end of the road</span>
+    </div>
+
+    <div class="sc-report" id="sc-report">You already know <b>0 / 20</b> words. Tap a word to mark it known. Each chip also plays its audio.</div>
+
+    <div class="ghint" style="margin-top:10px">
+      <span class="row"><b>Why this works</b> — your brain learns best when it <i>notices the gap</i>. By the end of the lesson, come back here and re-count. You'll see the number jump.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================== -->
+<!-- 01 · DIRECTION VOCAB                                 -->
+<!-- ==================================================== -->
+<section class="section" id="s1">
+  <div class="section-hdr">
+    <div class="num">01</div>
+    <h2>Direction vocab · <em>14 words you'll use in every exercise</em></h2>
+    <span class="mic-tag">⏱ 5 min</span>
+  </div>
+  <div class="conv">
+    <div class="scene">Before we walk, we need shoes. Before we give directions, we need these 14 words. Tap any word to hear it.</div>
+    <div class="goal">Say each word out loud with the audio. Mark the 3 that feel least familiar — we'll return to them in the capsule at the end.</div>
+    <div class="our">
+      <div class="vocab-sheet"><h4>Verbs of motion<span class="count">6</span></h4>
+        <div class="words">
+          <span class="w" data-say="go">go</span>
+          <span class="w" data-say="walk">walk</span>
+          <span class="w" data-say="turn">turn</span>
+          <span class="w" data-say="take">take</span>
+          <span class="w" data-say="follow">follow</span>
+          <span class="w" data-say="cross">cross</span>
+        </div>
+      </div>
+      <div class="vocab-sheet"><h4>Prepositions of movement<span class="count">8</span></h4>
+        <div class="words">
+          <span class="w" data-say="along">along</span>
+          <span class="w" data-say="across">across</span>
+          <span class="w" data-say="past">past</span>
+          <span class="w" data-say="through">through</span>
+          <span class="w" data-say="into">into</span>
+          <span class="w" data-say="onto">onto</span>
+          <span class="w" data-say="towards">towards</span>
+          <span class="w" data-say="up to">up to</span>
+        </div>
+      </div>
+      <div class="vocab-sheet"><h4>Place markers<span class="count">10</span></h4>
+        <div class="words">
+          <span class="w" data-say="lane">lane</span>
+          <span class="w" data-say="road">road</span>
+          <span class="w" data-say="path">path</span>
+          <span class="w" data-say="footpath">footpath</span>
+          <span class="w" data-say="gate">gate</span>
+          <span class="w" data-say="field">field</span>
+          <span class="w" data-say="bridge">bridge</span>
+          <span class="w" data-say="pond">pond</span>
+          <span class="w" data-say="corner">corner</span>
+          <span class="w" data-say="end of the road">the end of the road</span>
+        </div>
+      </div>
+      <div class="ghint">
+        <span class="row"><b>Imperative forms</b> — directions almost always start with a bare verb: <code>Go…</code> <code>Turn…</code> <code>Take…</code> <code>Walk…</code> <code>Follow…</code> <code>Cross…</code> No subject, no «you».</span>
+        <span class="row"><b>First / second / third</b> + <b>right / left</b> &nbsp;·&nbsp; <code>Take the first right.</code> <code>Take the second left after the bridge.</code></span>
+        <span class="row"><b>on your left / right</b> &nbsp;·&nbsp; <code>The gate is on your left.</code> <code>You'll see the pond on your right.</code></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================== -->
+<!-- 02 · PREPOSITION CARDS                               -->
+<!-- ==================================================== -->
+<section class="section" id="s2">
+  <div class="section-hdr">
+    <div class="num">02</div>
+    <h2>Six tiny words that change everything · <em>along · across · past · through · onto · into</em></h2>
+    <span class="mic-tag">⏱ 7 min</span>
+  </div>
+  <div class="conv">
+    <div class="scene">These six prepositions decide what the map looks like. Swap one, and you end up in a completely different field.</div>
+    <div class="goal">After this block you should be able to <b>mime</b> each preposition with your hand. If you can mime it, you can say it.</div>
+
+    <div class="prep-cards">
+      <div class="prep-card">
+        <div class="pc-word">along</div>
+        <div class="pc-pic">
+          <svg viewBox="0 0 120 40"><path d="M5 20 H115" stroke="#FFB173" stroke-width="3" stroke-dasharray="4 3"/><circle cx="20" cy="20" r="5" fill="#F58A3D"/><text x="100" y="24" fill="#2A3B4F" font-family="JetBrains Mono" font-size="9" font-weight="800">→ end</text></svg>
+        </div>
+        <div class="pc-mean">movement <b>following the line</b> of a road, river, path</div>
+        <div class="pc-ex"><b>Go along</b> this lane. / <b>Walk along</b> the river.</div>
+      </div>
+      <div class="prep-card">
+        <div class="pc-word">across</div>
+        <div class="pc-pic">
+          <svg viewBox="0 0 120 40"><rect x="5" y="14" width="110" height="12" fill="#EAF2F9" stroke="#FFB173"/><path d="M15 20 L105 20" stroke="#F58A3D" stroke-width="3" stroke-dasharray="4 3"/><text x="50" y="12" fill="#9ECBED" font-family="JetBrains Mono" font-size="8">field</text></svg>
+        </div>
+        <div class="pc-mean"><b>from one side to the other</b> of a wide flat place (field, square, bridge)</div>
+        <div class="pc-ex"><b>Go across</b> the field. / Walk <b>across</b> the bridge.</div>
+      </div>
+      <div class="prep-card">
+        <div class="pc-word">past</div>
+        <div class="pc-pic">
+          <svg viewBox="0 0 120 40"><circle cx="60" cy="20" r="10" fill="#79B8D1" stroke="#F5EDE1"/><path d="M5 20 Q 60 5 115 20" stroke="#F58A3D" stroke-width="3" fill="none" stroke-dasharray="4 3"/></svg>
+        </div>
+        <div class="pc-mean"><b>going by</b> something without stopping — you leave it behind</div>
+        <div class="pc-ex"><b>Go past</b> the pond. / Walk <b>past</b> the pub, then turn left.</div>
+      </div>
+      <div class="prep-card">
+        <div class="pc-word">through</div>
+        <div class="pc-pic">
+          <svg viewBox="0 0 120 40"><rect x="48" y="4" width="24" height="32" fill="#EAF2F9" stroke="#FFB173" stroke-width="2"/><path d="M5 20 L115 20" stroke="#F58A3D" stroke-width="3" stroke-dasharray="4 3"/><text x="52" y="2" fill="#9ECBED" font-family="JetBrains Mono" font-size="7">gate</text></svg>
+        </div>
+        <div class="pc-mean"><b>in one side and out the other</b> — a gate, a door, a tunnel, a forest</div>
+        <div class="pc-ex"><b>Go through</b> the gate. / Walk <b>through</b> the park.</div>
+      </div>
+      <div class="prep-card">
+        <div class="pc-word">onto</div>
+        <div class="pc-pic">
+          <svg viewBox="0 0 120 40"><path d="M5 30 L60 30" stroke="#79B8D1" stroke-width="3"/><path d="M60 30 L60 10 L115 10" stroke="#F58A3D" stroke-width="3" fill="none" stroke-dasharray="4 3"/><text x="88" y="22" fill="#2A3B4F" font-family="JetBrains Mono" font-size="8">new road</text></svg>
+        </div>
+        <div class="pc-mean"><b>moving onto a new surface</b> — stepping or turning so you're <i>on</i> it</div>
+        <div class="pc-ex">Turn right <b>onto</b> the lane. / Step <b>onto</b> the bridge.</div>
+      </div>
+      <div class="prep-card">
+        <div class="pc-word">into</div>
+        <div class="pc-pic">
+          <svg viewBox="0 0 120 40"><rect x="40" y="6" width="50" height="28" fill="#EAF2F9" stroke="#FFB173" stroke-width="2"/><path d="M5 20 L75 20" stroke="#F58A3D" stroke-width="3" stroke-dasharray="4 3"/><circle cx="75" cy="20" r="3" fill="#F58A3D"/><text x="56" y="4" fill="#9ECBED" font-family="JetBrains Mono" font-size="7">building</text></svg>
+        </div>
+        <div class="pc-mean"><b>moving inside</b> a space (room, shop, building) — you end up inside</div>
+        <div class="pc-ex">Turn right <b>into</b> the lane. / Go <b>into</b> the café.</div>
+      </div>
+    </div>
+
+    <div class="ghint" style="margin-top:12px">
+      <span class="row"><b>onto vs into</b> — <code>onto</code> = on a surface (road, bridge, stage). <code>into</code> = inside a space (room, shop, lane with walls).</span>
+      <span class="row"><b>past vs through</b> — <code>past</code> you don't touch it, you just walk by. <code>through</code> you enter and come out the other side.</span>
+      <span class="row"><b>across vs along</b> — <code>across</code> crosses a wide flat thing from side to side. <code>along</code> follows a line from one end to the other.</span>
+    </div>
+
+    <!-- QUICK MIME DRILL -->
+    <div class="ex">
+      <div class="ex-lead">Drill · <b>mime + say</b>. Your hand is a tiny person. Mime each movement, then say the sentence.</div>
+      <div class="ex-sub">No answer-checking here — this is pure warm-up. 60 seconds.</div>
+      <ol style="padding-left:22px;line-height:1.9;font-family:var(--serif);font-size:1rem">
+        <li>Go <b>along</b> the river.</li>
+        <li>Go <b>past</b> the church.</li>
+        <li>Go <b>through</b> the gate.</li>
+        <li>Go <b>across</b> the field.</li>
+        <li>Turn left <b>onto</b> the main road.</li>
+        <li>Walk <b>into</b> the bakery.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================== -->
+<!-- 02B · DIRECTION CARDS HUB — 13 mini-maps with audio  -->
+<!-- ==================================================== -->
+<section class="section" id="s2b">
+  <div class="section-hdr">
+    <div class="num">02<small style="font-size:.6em;opacity:.6">b</small></div>
+    <h2>🔊 Hear &amp; see every direction · <em>13 mini-maps · tap any card to listen</em></h2>
+    <span class="mic-tag">⏱ 6 min</span>
+  </div>
+  <div class="conv">
+    <div class="scene">Every direction phrase you'll meet today, one card = one voice clip + one mini-map. Tap a card — a native British speaker will say the phrase. Say it back.</div>
+    <div class="goal">Tap each of the 13 cards at least once. Repeat the three that feel hardest out loud.</div>
+
+    <div class="dir-grid">
+      <div class="dir-card" data-mp3="dir/dir-go-along.mp3">
+        <div class="dc-img"><img src="assets/img/arrow-go-along.webp" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="ph" style="display:none">→ along a line</div></div>
+        <div class="dc-foot"><button class="play-btn" aria-label="play">▶</button><div class="dc-phrase">Go <b>along</b> this lane.</div></div>
+      </div>
+      <div class="dir-card" data-mp3="dir/dir-go-across.mp3">
+        <div class="dc-img"><img src="assets/img/arrow-go-across.webp" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="ph" style="display:none">→ side to side</div></div>
+        <div class="dc-foot"><button class="play-btn" aria-label="play">▶</button><div class="dc-phrase">Go <b>across</b> the field.</div></div>
+      </div>
+      <div class="dir-card" data-mp3="dir/dir-go-past.mp3">
+        <div class="dc-img"><img src="assets/img/arrow-go-past.webp" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="ph" style="display:none">→ by, not into</div></div>
+        <div class="dc-foot"><button class="play-btn" aria-label="play">▶</button><div class="dc-phrase">Go <b>past</b> the pond.</div></div>
+      </div>
+      <div class="dir-card" data-mp3="dir/dir-go-through.mp3">
+        <div class="dc-img"><img src="assets/img/arrow-go-through.webp" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="ph" style="display:none">→ in &amp; out</div></div>
+        <div class="dc-foot"><button class="play-btn" aria-label="play">▶</button><div class="dc-phrase">Go <b>through</b> the gate.</div></div>
+      </div>
+      <div class="dir-card" data-mp3="dir/dir-go-into.mp3">
+        <div class="dc-img"><img src="assets/img/arrow-go-into.webp" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="ph" style="display:none">→ enter inside</div></div>
+        <div class="dc-foot"><button class="play-btn" aria-label="play">▶</button><div class="dc-phrase">Go <b>into</b> the bakery.</div></div>
+      </div>
+      <div class="dir-card" data-mp3="dir/dir-turn-right-onto.mp3">
+        <div class="dc-img"><img src="assets/img/arrow-turn-right-onto.webp" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="ph" style="display:none">→ Г-turn to new road</div></div>
+        <div class="dc-foot"><button class="play-btn" aria-label="play">▶</button><div class="dc-phrase">Turn right <b>onto</b> the lane.</div></div>
+      </div>
+      <div class="dir-card" data-mp3="dir/dir-go-straight-on.mp3">
+        <div class="dc-img"><img src="assets/img/arrow-go-straight-on.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="ph" style="display:none">→ no turning</div></div>
+        <div class="dc-foot"><button class="play-btn" aria-label="play">▶</button><div class="dc-phrase">Go <b>straight on</b>.</div></div>
+      </div>
+      <div class="dir-card" data-mp3="dir/dir-take-first-right.mp3">
+        <div class="dc-img"><img src="assets/img/arrow-take-first-right.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="ph" style="display:none">→ first turn right</div></div>
+        <div class="dc-foot"><button class="play-btn" aria-label="play">▶</button><div class="dc-phrase"><b>Take the first right.</b></div></div>
+      </div>
+      <div class="dir-card" data-mp3="dir/dir-turn-left-corner.mp3">
+        <div class="dc-img"><img src="assets/img/arrow-turn-left-corner.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="ph" style="display:none">→ bend left</div></div>
+        <div class="dc-foot"><button class="play-btn" aria-label="play">▶</button><div class="dc-phrase"><b>Turn left</b> at the corner.</div></div>
+      </div>
+      <div class="dir-card" data-mp3="dir/dir-follow-footpath.mp3">
+        <div class="dc-img"><img src="assets/img/arrow-follow-footpath.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="ph" style="display:none">→ curvy path</div></div>
+        <div class="dc-foot"><button class="play-btn" aria-label="play">▶</button><div class="dc-phrase">Just <b>follow</b> the footpath.</div></div>
+      </div>
+      <div class="dir-card" data-mp3="dir/dir-walk-to-end.mp3">
+        <div class="dc-img"><img src="assets/img/arrow-walk-to-end.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="ph" style="display:none">→ to dead end</div></div>
+        <div class="dc-foot"><button class="play-btn" aria-label="play">▶</button><div class="dc-phrase">Walk to the <b>end of the road</b>.</div></div>
+      </div>
+      <div class="dir-card" data-mp3="dir/dir-on-your-left.mp3">
+        <div class="dc-img"><img src="assets/img/arrow-on-your-left.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="ph" style="display:none">→ ★ on left</div></div>
+        <div class="dc-foot"><button class="play-btn" aria-label="play">▶</button><div class="dc-phrase">It's <b>on your left</b>.</div></div>
+      </div>
+      <div class="dir-card" data-mp3="dir/dir-cross-road.mp3">
+        <div class="dc-img"><img src="assets/img/arrow-cross-road.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"><div class="ph" style="display:none">→ zebra crossing</div></div>
+        <div class="dc-foot"><button class="play-btn" aria-label="play">▶</button><div class="dc-phrase"><b>Cross</b> the road at the lights.</div></div>
+      </div>
+    </div>
+
+    <div class="ghint" style="margin-top:14px">
+      <span class="row"><b>Pro tip</b> — listen to the same clip 3 times, each time mimicking the exact melody (voice goes up or down). British intonation on <code>on your left</code> drops at the end. On <code>take the first right</code> it stays level.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================== -->
+<!-- 03 · GREENTON MAP                                    -->
+<!-- ==================================================== -->
+<section class="section" id="s3">
+  <div class="section-hdr">
+    <div class="num">03</div>
+    <h2>Greenton · a village on the map · <em>locate 13 places</em></h2>
+    <span class="mic-tag">⏱ 8 min</span>
+  </div>
+  <div class="conv">
+    <div class="scene">This is <b>Greenton</b>. You just got off the bus at point <b>B</b>. Everything else — houses, a church, a pond, a tractor, a field — has a number.</div>
+    <div class="goal">(1) Look at the map. (2) Match each number to its place in the legend. (3) Say out loud where each place is relative to another: «The pond is near the small blue cottage.»</div>
+
+    <div class="mapwrap">
+      <div class="mapfr">
+        <img src="assets/img/greenton-map.webp" alt="Greenton village map with numbered locations" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+        <div class="placeholder" style="display:none">
+          <div>
+            <b>GREENTON MAP · goes here</b>
+            A top-down cartoon village: trees top-left, church top-right,<br>
+            small houses, a winding stream, a pond, a tractor,<br>
+            fences, footpaths. 13 labelled points (B · 13 – 25).<br>
+            <span style="opacity:.6">Katya &amp; Maria will drop the finished image here.</span>
+          </div>
+        </div>
+      </div>
+      <div class="maplegend">
+        <span><span class="k">B</span>bus stop (start here)</span>
+        <span><span class="k">13</span>wood / trees</span>
+        <span><span class="k">14</span>barn</span>
+        <span><span class="k">15</span>small blue cottage</span>
+        <span><span class="k">16</span>orange farmhouse</span>
+        <span><span class="k">17</span>field (left)</span>
+        <span><span class="k">18</span>field (middle)</span>
+        <span><span class="k">19</span>stream / small river</span>
+        <span><span class="k">20</span>pond</span>
+        <span><span class="k">21</span>church &amp; village centre</span>
+        <span><span class="k">22</span>yellow house</span>
+        <span><span class="k">23</span>gate</span>
+        <span><span class="k">24</span>footpath across the field</span>
+        <span><span class="k">25</span>tractor on the lane</span>
+      </div>
+    </div>
+
+    <div class="ghint" style="margin-top:12px">
+      <span class="row"><b>How to describe where a place is</b> — <code>in the top-left corner</code> · <code>on the right-hand side</code> · <code>next to</code> · <code>opposite</code> · <code>between X and Y</code> · <code>just past</code></span>
+    </div>
+
+    <div class="ask-list">
+      <div class="ask"><div class="mic">📍</div><div class="txt"><span class="n">3.1</span>Say where the <b>church</b> (21) is. Use <b>in the top-right corner</b>.</div></div>
+      <div class="ask"><div class="mic">📍</div><div class="txt"><span class="n">3.2</span>Where is the <b>pond</b> (20)? Use <b>between</b> or <b>next to</b>.</div></div>
+      <div class="ask"><div class="mic">📍</div><div class="txt"><span class="n">3.3</span>Where is the <b>tractor</b> (25)? Use <b>on the lane</b> + <b>past</b>.</div></div>
+      <div class="ask"><div class="mic">📍</div><div class="txt"><span class="n">3.4</span>What's the <b>first thing</b> you see when you leave bus stop B? Give it in one sentence.</div></div>
+    </div>
+
+    <!-- 🔊 3 WALK NARRATIONS — audio first, then pick where the walker ended up -->
+    <h4 style="font-family:var(--mono);color:var(--red-deep);font-size:.72rem;letter-spacing:.14em;margin:18px 0 6px">3B · 🎧 Follow the walk · listen and pick the final place</h4>
+    <div class="ex" id="ex-greenton-walk">
+      <div class="ex-lead">Each voice note starts at bus stop <b>B</b> and ends at ONE of the 13 numbered places. Listen, follow the route on the map, then pick where the speaker ends up.</div>
+      <div class="ex-row"><div class="idx">1</div><div class="q">
+        <button class="play-btn sm" data-mp3="greenton/greenton-walk-1.mp3" aria-label="play walk 1">🔊</button>
+        &nbsp; Walk 1 — where did she end up?
+        <select data-a="21 church" style="margin-left:6px"><option></option></select>
+        <span class="reveal"></span>
+      </div></div>
+      <div class="ex-row"><div class="idx">2</div><div class="q">
+        <button class="play-btn sm" data-mp3="greenton/greenton-walk-2.mp3" aria-label="play walk 2">🔊</button>
+        &nbsp; Walk 2 — where is he standing?
+        <select data-a="15 small blue cottage" style="margin-left:6px"><option></option></select>
+        <span class="reveal"></span>
+      </div></div>
+      <div class="ex-row"><div class="idx">3</div><div class="q">
+        <button class="play-btn sm" data-mp3="greenton/greenton-walk-3.mp3" aria-label="play walk 3">🔊</button>
+        &nbsp; Walk 3 — where did she stop?
+        <select data-a="20 pond" style="margin-left:6px"><option></option></select>
+        <span class="reveal"></span>
+      </div></div>
+      <div class="ex-check">
+        <button class="btn" onclick="checkFill('ex-greenton-walk')">Check</button>
+        <button class="btn ghost" onclick="revealFill('ex-greenton-walk')">Show answers</button>
+        <span class="score" id="sc-ex-greenton-walk"></span>
+      </div>
+    </div>
+
+    <div class="ghint" style="margin-top:10px">
+      <span class="row"><b>🧭 Tip</b> — put your finger on <b>B</b> and <b>trace the route</b> as you listen. First time around, don't try to pick the answer — just FOLLOW the speaker's path. Pick on the second listen.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================== -->
+<!-- 04 · PUT WORDS IN ORDER — book echo                  -->
+<!-- ==================================================== -->
+<section class="section" id="s4">
+  <div class="section-hdr">
+    <div class="num">04</div>
+    <h2>Put the words in order · <em>make real directions</em>
+    </h2>
+    <span class="mic-tag">⏱ 8 min</span>
+  </div>
+  <div class="conv">
+    <div class="scene">The exact exercise from your workbook — this time with the tokens enlarged and tappable. Type the full sentence in the box below each row. Punctuation and capital letter at the start count.</div>
+    <div class="goal">Score at least 5 / 6 on the first try.</div>
+
+    <div class="book-echo">
+      <div class="be-hdr"><div class="be-num">2</div><div class="be-ttl">Put the words in order to make directions.</div><div class="be-src">Workbook · p.? · ex.2</div></div>
+      <div class="be-body">
+        <ol>
+          <li>go / on / straight</li>
+          <li>the / to / of / lane / walk / end / the</li>
+          <li>into / turn / lane / the / right</li>
+          <li>along / road / this / go</li>
+          <li>first / the / take / right</li>
+          <li>your / go / gate / the / on / left / through</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="ex" id="ex-order">
+      <div class="ex-lead">Now type each sentence in order. <b>Tokens are shown as chips</b>, so you don't have to retype each word — just arrange them.</div>
+      <div class="ex-sub">Tip: start with the capital letter, finish with a full stop.</div>
+
+      <div class="ex-row"><div class="idx">1</div><div class="q">
+        <div class="jumble"><span class="tok"><span class="n">1</span>go</span><span class="tok"><span class="n">2</span>on</span><span class="tok"><span class="n">3</span>straight</span></div>
+        <input type="text" class="jumble-input" data-a="go straight on." placeholder="type the sentence…">
+        <span class="reveal"></span>
+      </div></div>
+
+      <div class="ex-row"><div class="idx">2</div><div class="q">
+        <div class="jumble"><span class="tok"><span class="n">1</span>the</span><span class="tok"><span class="n">2</span>to</span><span class="tok"><span class="n">3</span>of</span><span class="tok"><span class="n">4</span>lane</span><span class="tok"><span class="n">5</span>walk</span><span class="tok"><span class="n">6</span>end</span><span class="tok"><span class="n">7</span>the</span></div>
+        <input type="text" class="jumble-input" data-a="walk to the end of the lane." placeholder="type the sentence…">
+        <span class="reveal"></span>
+      </div></div>
+
+      <div class="ex-row"><div class="idx">3</div><div class="q">
+        <div class="jumble"><span class="tok"><span class="n">1</span>into</span><span class="tok"><span class="n">2</span>turn</span><span class="tok"><span class="n">3</span>lane</span><span class="tok"><span class="n">4</span>the</span><span class="tok"><span class="n">5</span>right</span></div>
+        <input type="text" class="jumble-input" data-a="turn right into the lane." placeholder="type the sentence…">
+        <span class="reveal"></span>
+      </div></div>
+
+      <div class="ex-row"><div class="idx">4</div><div class="q">
+        <div class="jumble"><span class="tok"><span class="n">1</span>along</span><span class="tok"><span class="n">2</span>road</span><span class="tok"><span class="n">3</span>this</span><span class="tok"><span class="n">4</span>go</span></div>
+        <input type="text" class="jumble-input" data-a="go along this road." placeholder="type the sentence…">
+        <span class="reveal"></span>
+      </div></div>
+
+      <div class="ex-row"><div class="idx">5</div><div class="q">
+        <div class="jumble"><span class="tok"><span class="n">1</span>first</span><span class="tok"><span class="n">2</span>the</span><span class="tok"><span class="n">3</span>take</span><span class="tok"><span class="n">4</span>right</span></div>
+        <input type="text" class="jumble-input" data-a="take the first right." placeholder="type the sentence…">
+        <span class="reveal"></span>
+      </div></div>
+
+      <div class="ex-row"><div class="idx">6</div><div class="q">
+        <div class="jumble"><span class="tok"><span class="n">1</span>your</span><span class="tok"><span class="n">2</span>go</span><span class="tok"><span class="n">3</span>gate</span><span class="tok"><span class="n">4</span>the</span><span class="tok"><span class="n">5</span>on</span><span class="tok"><span class="n">6</span>left</span><span class="tok"><span class="n">7</span>through</span></div>
+        <input type="text" class="jumble-input" data-a="go through the gate on your left." placeholder="type the sentence…">
+        <span class="reveal"></span>
+      </div></div>
+
+      <div class="ex-check">
+        <button class="btn" onclick="checkOrder('ex-order')">Check</button>
+        <button class="btn ghost" onclick="revealOrder('ex-order')">Show answers</button>
+        <span class="score" id="sc-ex-order"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================== -->
+<!-- 05 · LISTENING 1.30 — gap fill book echo             -->
+<!-- ==================================================== -->
+<section class="section" id="s5">
+  <div class="section-hdr">
+    <div class="num">05</div>
+    <h2>Listening 1.30 · <em>complete the directions with the words below</em></h2>
+    <span class="mic-tag">⏱ 10 min</span>
+  </div>
+  <div class="conv">
+    <div class="scene">Press play. A local woman is explaining the way to a visitor. You'll hear it twice. Fill the gaps with ONE word from the bank. Each word is used once — except «on», which appears once and is the trap.</div>
+    <div class="goal">Score 7 / 9 or higher. If a word confuses you — write the first thing you think, check, rewind, repeat.</div>
+
+    <div class="player">
+      <h5>Track 1.30 · directions to the carriage stop</h5>
+      <audio controls preload="metadata">
+        <source src="assets/audio/1-30-directions.mp3" type="audio/mpeg">
+        Your browser can't play audio.
+      </audio>
+      <div class="trk">⏳ If the player is empty, the file will appear once edge-tts finishes. Scroll on — you can also just read the gap-fill below.</div>
+    </div>
+
+    <div class="book-echo">
+      <div class="be-hdr"><div class="be-num">5</div><div class="be-ttl">🎧 1.30 Listen again. Complete the directions with the words below.</div><div class="be-src">Workbook · p.? · ex.5</div></div>
+      <div class="be-body">
+        <div class="bank" style="background:#F3E8D5;border-color:#8B5A20">
+          <span class="bank-ttl" style="color:#8B5A20">WORD BANK (one used twice)</span>
+          <span class="b" style="background:#FFF4DF;color:#2B2520;border-color:#C7A66B">across</span>
+          <span class="b" style="background:#FFF4DF;color:#2B2520;border-color:#C7A66B">along</span>
+          <span class="b" style="background:#FFF4DF;color:#2B2520;border-color:#C7A66B">end</span>
+          <span class="b" style="background:#FFF4DF;color:#2B2520;border-color:#C7A66B">follow</span>
+          <span class="b" style="background:#FFF4DF;color:#2B2520;border-color:#C7A66B">on</span>
+          <span class="b" style="background:#FFF4DF;color:#2B2520;border-color:#C7A66B">onto</span>
+          <span class="b" style="background:#FFF4DF;color:#2B2520;border-color:#C7A66B">past</span>
+          <span class="b" style="background:#FFF4DF;color:#2B2520;border-color:#C7A66B">right</span>
+          <span class="b" style="background:#FFF4DF;color:#2B2520;border-color:#C7A66B">straight</span>
+          <span class="b" style="background:#FFF4DF;color:#2B2520;border-color:#C7A66B">through</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ex" id="ex-130">
+      <div class="ex-lead">Clean, enlarged version — one input per gap. After you check, tap 🔊 to hear the full sentence.</div>
+      <div class="ex-row"><div class="idx">1</div><div class="q">Go <input type="text" data-a="along" size="7"> this lane. <button class="play-btn sm ghost" data-mp3="dir/dir-go-along.mp3" aria-label="play">🔊</button><span class="reveal"></span></div></div>
+      <div class="ex-row"><div class="idx">2</div><div class="q">Go <input type="text" data-a="past" size="7"> the pond. <button class="play-btn sm ghost" data-mp3="dir/dir-go-past.mp3" aria-label="play">🔊</button><span class="reveal"></span></div></div>
+      <div class="ex-row"><div class="idx">3</div><div class="q">Go <input type="text" data-a="through" size="7"> the gate <input type="text" data-a="on" size="5"> your left. <button class="play-btn sm ghost" data-mp3="ex2/ex2-6.mp3" aria-label="play">🔊</button><span class="reveal"></span></div></div>
+      <div class="ex-row"><div class="idx">4</div><div class="q">Go <input type="text" data-a="across" size="8"> the field — just <input type="text" data-a="follow" size="8"> the footpath. <button class="play-btn sm ghost" data-mp3="dir/dir-follow-footpath.mp3" aria-label="play">🔊</button><span class="reveal"></span></div></div>
+      <div class="ex-row"><div class="idx">5</div><div class="q">Turn right <input type="text" data-a="onto" size="7"> the lane. <button class="play-btn sm ghost" data-mp3="dir/dir-turn-right-onto.mp3" aria-label="play">🔊</button><span class="reveal"></span></div></div>
+      <div class="ex-row"><div class="idx">6</div><div class="q">Then go <input type="text" data-a="straight" size="9"> on. <button class="play-btn sm ghost" data-mp3="dir/dir-go-straight-on.mp3" aria-label="play">🔊</button><span class="reveal"></span></div></div>
+      <div class="ex-row"><div class="idx">7</div><div class="q">Take the first <input type="text" data-a="right" size="7">. <button class="play-btn sm ghost" data-mp3="dir/dir-take-first-right.mp3" aria-label="play">🔊</button><span class="reveal"></span></div></div>
+      <div class="ex-row"><div class="idx">8</div><div class="q">Walk to the <input type="text" data-a="end" size="6"> of the road. <button class="play-btn sm ghost" data-mp3="dir/dir-walk-to-end.mp3" aria-label="play">🔊</button><span class="reveal"></span></div></div>
+      <div class="ex-check">
+        <button class="btn" onclick="checkFill('ex-130')">Check</button>
+        <button class="btn ghost" onclick="revealFill('ex-130')">Show answers</button>
+        <span class="score" id="sc-ex-130"></span>
+      </div>
+    </div>
+
+    <div class="ghint">
+      <span class="row"><b>⚠ your workbook trap</b> — question 3 is <b>through</b>, not «throw». <b>throw</b> = to send an object with your hand (throw a ball). <b>through</b> = from one side to the other (through a gate). Same sound, totally different spelling.</span>
+      <span class="row"><b>⚠ question 4 trap</b> — «across the field» means you go <b>from one side to the other</b>. The crossed-out word in your workbook was probably «along» — «along the field» would mean walking on the <i>edge</i>.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================== -->
+<!-- 06 · PREPOSITION MCQ DRILL                           -->
+<!-- ==================================================== -->
+<section class="section" id="s6">
+  <div class="section-hdr">
+    <div class="num">06</div>
+    <h2>Pick the right preposition · <em>mini-drill · 10 Qs</em></h2>
+    <span class="mic-tag">⏱ 6 min</span>
+  </div>
+  <div class="conv">
+    <div class="scene">Short sentences, three options each. Pay attention to what kind of thing you're moving through: a line, a surface, or a space inside.</div>
+    <div class="goal">8 / 10 or more.</div>
+
+    <div class="ex" id="ex-mcq">
+      <div class="ex-row"><div class="idx">1</div><div class="q">Walk <select data-a="across"><option></option></select> the bridge and you'll see the shop.<span class="reveal"></span></div></div>
+      <div class="ex-row"><div class="idx">2</div><div class="q">We went <select data-a="along"><option></option></select> the river for about twenty minutes.<span class="reveal"></span></div></div>
+      <div class="ex-row"><div class="idx">3</div><div class="q">Go <select data-a="past"><option></option></select> the café — don't stop. Keep going.<span class="reveal"></span></div></div>
+      <div class="ex-row"><div class="idx">4</div><div class="q">Walk <select data-a="through"><option></option></select> the park — it's much faster.<span class="reveal"></span></div></div>
+      <div class="ex-row"><div class="idx">5</div><div class="q">Turn right <select data-a="onto"><option></option></select> the main road.<span class="reveal"></span></div></div>
+      <div class="ex-row"><div class="idx">6</div><div class="q">He stepped <select data-a="into"><option></option></select> the small bakery and ordered a croissant.<span class="reveal"></span></div></div>
+      <div class="ex-row"><div class="idx">7</div><div class="q">Go <select data-a="straight"><option></option></select> on until the traffic lights.<span class="reveal"></span></div></div>
+      <div class="ex-row"><div class="idx">8</div><div class="q">The hotel is <select data-a="on"><option></option></select> your right, next to the pharmacy.<span class="reveal"></span></div></div>
+      <div class="ex-row"><div class="idx">9</div><div class="q">Take the <select data-a="second"><option></option></select> left after the church.<span class="reveal"></span></div></div>
+      <div class="ex-row"><div class="idx">10</div><div class="q">Just <select data-a="follow"><option></option></select> this path — it goes right to the lake.<span class="reveal"></span></div></div>
+      <div class="ex-check">
+        <button class="btn" onclick="checkFill('ex-mcq')">Check</button>
+        <button class="btn ghost" onclick="revealFill('ex-mcq')">Show answers</button>
+        <span class="score" id="sc-ex-mcq"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================== -->
+<!-- 07 · ROLE-PLAY · PUB TO CHURCH                       -->
+<!-- ==================================================== -->
+<section class="section" id="s7">
+  <div class="section-hdr">
+    <div class="num">07</div>
+    <h2>Role-play · <em>a tourist stops you in the lane</em></h2>
+    <span class="mic-tag">⏱ 8 min</span>
+  </div>
+  <div class="conv">
+    <div class="scene">You're walking back from the pub (number 16 on the map). A tourist with a backpack stops you: «Excuse me — how do I get to the church?» Tell him. Use the map.</div>
+    <img src="assets/img/scene-roleplay-tourist.webp" alt="A girl showing a tourist the way in the village lane" style="width:100%;max-width:960px;display:block;margin:12px auto;border-radius:14px;box-shadow:0 10px 28px rgba(79,163,209,.14);border:1px solid var(--line)" onerror="this.style.display='none'">
+    <div class="goal">Give at least <b>three</b> different direction verbs (e.g. go, turn, walk, cross, follow) and <b>two</b> different prepositions (along · past · through · across · onto · into).</div>
+
+    <div class="our">
+      <div class="ghint">
+        <span class="row"><b>Asking for directions · polite openers</b> &nbsp;<code>Excuse me, could you tell me the way to ___?</code> &nbsp;<code>How do I get to ___?</code> &nbsp;<code>Is it far from here?</code> &nbsp;<code>Which way to ___?</code></span>
+        <span class="row"><b>Giving directions · frame</b> &nbsp;<code>Go straight on + (for about) 100 metres.</code> &nbsp;<code>Then turn right at the ___.</code> &nbsp;<code>Walk past the ___.</code> &nbsp;<code>It's on your ___.</code> &nbsp;<code>You can't miss it.</code></span>
+      </div>
+    </div>
+
+    <div class="roleplay">
+      <div class="msg"><div class="who">Tourist</div><div class="what">Excuse me — I'm looking for the church. Is it far?</div></div>
+      <div class="msg you"><div class="who">You</div><div class="what">_____ <small style="color:var(--muted)">(polite opener · «no, it's only a few minutes»)</small> <button class="play-btn sm ghost" data-mp3="roleplay/rp-1.mp3" aria-label="play model answer">🔊</button></div></div>
+      <div class="msg"><div class="who">Tourist</div><div class="what">Great! How do I get there?</div></div>
+      <div class="msg you"><div class="who">You</div><div class="what">_____ <small style="color:var(--muted)">(step 1 · along the lane towards the pond)</small> <button class="play-btn sm ghost" data-mp3="roleplay/rp-2.mp3" aria-label="play model answer">🔊</button></div></div>
+      <div class="msg you"><div class="who">You</div><div class="what">_____ <small style="color:var(--muted)">(step 2 · past the pond + across the small bridge)</small> <button class="play-btn sm ghost" data-mp3="roleplay/rp-3.mp3" aria-label="play model answer">🔊</button></div></div>
+      <div class="msg you"><div class="who">You</div><div class="what">_____ <small style="color:var(--muted)">(step 3 · through the gate on your right)</small> <button class="play-btn sm ghost" data-mp3="roleplay/rp-4.mp3" aria-label="play model answer">🔊</button></div></div>
+      <div class="msg you"><div class="who">You</div><div class="what">_____ <small style="color:var(--muted)">(step 4 · the church is on your left, you can't miss it)</small> <button class="play-btn sm ghost" data-mp3="roleplay/rp-5.mp3" aria-label="play model answer">🔊</button></div></div>
+      <div class="msg"><div class="who">Tourist</div><div class="what">Perfect, thank you so much!</div></div>
+    </div>
+    <div class="ghint" style="margin-top:8px">
+      <span class="row"><b>🔊 Hint</b> — try first on your own. Then tap 🔊 to hear a model answer for each step and copy the intonation.</span>
+    </div>
+
+    <!-- SOLVED ROUTE REVEAL (collapsed by default) -->
+    <details style="margin-top:12px;background:#F6FAFD;border:1px solid var(--cool);border-radius:12px;padding:10px 14px">
+      <summary style="cursor:pointer;font-family:var(--mono);font-size:.76rem;font-weight:800;color:var(--cool);letter-spacing:.12em;text-transform:uppercase">🗺️ Show me the route on the map →</summary>
+      <img src="assets/img/route-pub-to-church.webp" alt="Solved route from the pub to the church traced on the Greenton map" style="width:100%;max-width:800px;display:block;margin:12px auto 0;border-radius:10px;box-shadow:0 8px 20px rgba(79,163,209,.14);border:1px solid var(--line)" onerror="this.style.display='none'">
+      <p style="margin-top:8px;font-family:var(--serif);font-style:italic;color:var(--bone);font-size:.9rem;line-height:1.5;text-align:center">Compare: did YOUR directions take the tourist on the same path?</p>
+    </details>
+
+    <div class="ask-list">
+      <div class="ask"><div class="mic">🎤</div><div class="txt"><span class="n">7.1</span>Now swap roles. YOU are the tourist, your teacher is the local. Ask: «How do I get from the <b>pond</b> (20) to the <b>yellow house</b> (22)?»</div></div>
+      <div class="ask"><div class="mic">🎤</div><div class="txt"><span class="n">7.2</span>Give directions from the <b>barn</b> (14) to the <b>bus stop</b> (B). Use at least <b>four sentences</b>.</div></div>
+      <div class="ask"><div class="mic">🎤</div><div class="txt"><span class="n">7.3</span>Finally, give the <b>shortest route</b> from <b>B</b> to <b>21</b>. One sentence, maximum. Challenge yourself.</div></div>
+    </div>
+    <div class="react"><ul><li>«Can you give the same directions without using <i>and</i>? Break them into short sentences.»</li><li>«Replace <i>go</i> with <i>walk</i> in one line — does it still work?»</li><li>«Did you remember to say <i>on your left</i> or <i>on your right</i>? Add it to any step.»</li></ul></div>
+  </div>
+</section>
+
+<!-- ==================================================== -->
+<!-- 08 · IELTS MAP LABELLING · 5 TASKS                   -->
+<!-- ==================================================== -->
+<section class="section" id="s8">
+  <div class="section-hdr">
+    <div class="num">08</div>
+    <h2>IELTS · Section 2 · <em>5 map-labelling tasks · tour-guide format</em></h2>
+    <span class="mic-tag">⏱ 25-35 min</span>
+  </div>
+  <div class="conv">
+    <div class="scene">In the real IELTS Listening test, Section 2 is often a <b>tour guide walking visitors around a new place</b>. You get a simple map with 5–7 lettered points and a list of names. Your job is to match each name to a letter — <b>while</b> you listen. You hear the recording once only.</div>
+    <div class="goal">Below are <b>5 original practice tasks</b> in the standard IELTS format. Work through them in order — they get slightly harder. Target: 5 / 7 on Task 1, build up to 6 / 7 by Task 5.</div>
+
+    <span class="ielts-tag">◆ IELTS listening · Section 2 · map labelling · 5 tasks</span>
+
+    <!-- ========== IELTS SIGNPOST PRIMER (now with 🔊) ========== -->
+    <div class="ielts-strip" style="margin-top:14px">
+      <b>IELTS mini-lesson · direction signals</b> — tap each phrase to hear a native speaker say it. These are the words the tour guide uses to tell you WHERE on the map something is:<br>
+      <div style="margin-top:8px">
+        <div class="sound-row"><button class="play-btn sm" data-mp3="ielts/sig-straight-ahead.mp3" aria-label="play">🔊</button><div class="txt"><b>«straight ahead of you…»</b> → directly opposite the entrance</div></div>
+        <div class="sound-row"><button class="play-btn sm" data-mp3="ielts/sig-just-past.mp3" aria-label="play">🔊</button><div class="txt"><b>«just past the café…»</b> → immediately after that landmark on the same path</div></div>
+        <div class="sound-row"><button class="play-btn sm" data-mp3="ielts/sig-opposite.mp3" aria-label="play">🔊</button><div class="txt"><b>«opposite the entrance»</b> → on the other side of the path / square</div></div>
+        <div class="sound-row"><button class="play-btn sm" data-mp3="ielts/sig-far-corner.mp3" aria-label="play">🔊</button><div class="txt"><b>«in the far corner»</b> → at the furthest point on the map</div></div>
+        <div class="sound-row"><button class="play-btn sm" data-mp3="ielts/sig-next-to.mp3" aria-label="play">🔊</button><div class="txt"><b>«next to the big tree»</b> / <b>«right beside…»</b> → immediately touching</div></div>
+        <div class="sound-row"><button class="play-btn sm" data-mp3="ielts/sig-short-walk.mp3" aria-label="play">🔊</button><div class="txt"><b>«a short walk down the path»</b> → along the same path for a bit</div></div>
+      </div>
+      <div style="margin-top:8px"><b>Trap:</b> guides often correct themselves — «Actually, let me correct that — the picnic area is <i>here</i>, not there.» Always wait for the final mention.</div>
+    </div>
+
+    <!-- ========== 5-TASK TABS ========== -->
+    <div class="ielts-tabs" role="tablist">
+      <button class="ielts-tab active" data-panel="ielts-p1"><span class="tn">Task 1 · 7 Qs</span>Riverside Park</button>
+      <button class="ielts-tab" data-panel="ielts-p2"><span class="tn">Task 2 · 7 Qs</span>Westhaven Garden</button>
+      <button class="ielts-tab" data-panel="ielts-p3"><span class="tn">Task 3 · 7 Qs</span>Summerfield Market</button>
+      <button class="ielts-tab" data-panel="ielts-p4"><span class="tn">Task 4 · 7 Qs</span>Oak Hill Library</button>
+      <button class="ielts-tab" data-panel="ielts-p5"><span class="tn">Task 5 · 7 Qs</span>Blackwater Zoo</button>
+    </div>
+
+    <!-- ================== TASK 1 · RIVERSIDE PARK ================== -->
+    <div class="ielts-panel active" id="ielts-p1">
+      <div class="player">
+        <h5>Task 1 · Riverside Park · tour-guide intro (~60 s)</h5>
+        <audio controls preload="metadata">
+          <source src="assets/audio/ielts-riverside-park.mp3" type="audio/mpeg">
+          Your browser can't play audio.
+        </audio>
+        <div class="trk">A guide welcomes a group to a brand-new park. Listen once. Signposts: <b>«straight ahead of you…»</b>, <b>«opposite…»</b>, <b>«a short walk further up…»</b>, <b>«in the far corner»</b>.</div>
+      </div>
+      <div class="mapwrap">
+        <div class="mapfr">
+          <img src="assets/img/ielts-1-riverside-park.webp" alt="Riverside Park map A-G" onerror="this.src='assets/img/ielts-riverside-park.png';this.onerror=()=>{this.style.display='none';this.nextElementSibling.style.display='grid'}">
+          <div class="placeholder" style="display:none"><div><b>IELTS MAP · Riverside Park</b>Entrance bottom · lake left · river top · wooden bridge · 7 lettered points A-G<br><span style="opacity:.6">file: assets/img/ielts-1-riverside-park.webp</span></div></div>
+        </div>
+      </div>
+      <div class="ex" id="ex-ielts-1">
+        <div class="ex-lead">Match each facility to a letter <b>A–G</b> on the map. Each letter is used once.</div>
+        <div class="bank"><span class="bank-ttl">Letters on the map</span><span class="b">A</span><span class="b">B</span><span class="b">C</span><span class="b">D</span><span class="b">E</span><span class="b">F</span><span class="b">G</span></div>
+        <div class="ex-row"><div class="idx">1</div><div class="q"><b>Café</b> &nbsp; <select data-a="E"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">2</div><div class="q"><b>Information centre</b> &nbsp; <select data-a="F"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">3</div><div class="q"><b>Bike hire</b> &nbsp; <select data-a="G"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">4</div><div class="q"><b>Children's playground</b> &nbsp; <select data-a="C"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">5</div><div class="q"><b>Picnic area</b> &nbsp; <select data-a="D"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">6</div><div class="q"><b>Boat jetty</b> &nbsp; <select data-a="A"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">7</div><div class="q"><b>Birdwatching hide</b> &nbsp; <select data-a="B"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-check"><button class="btn" onclick="checkFill('ex-ielts-1')">Check</button><button class="btn ghost" onclick="revealFill('ex-ielts-1')">Show answers</button><span class="score" id="sc-ex-ielts-1"></span></div>
+      </div>
+    </div>
+
+    <!-- ================== TASK 2 · WESTHAVEN GARDEN ================== -->
+    <div class="ielts-panel" id="ielts-p2">
+      <div class="player">
+        <h5>Task 2 · Westhaven Community Garden · gardener introduces visitors (~60 s)</h5>
+        <audio controls preload="metadata">
+          <source src="assets/audio/ielts_tasks/task2-westhaven-garden.mp3" type="audio/mpeg">
+          Your browser can't play audio.
+        </audio>
+        <div class="trk">A volunteer gardener welcomes a tour group. Signposts: <b>«right beside me, on the right as you come in»</b>, <b>«over on the far left»</b>, <b>«halfway back on the right»</b>.</div>
+      </div>
+      <div class="mapwrap">
+        <div class="mapfr">
+          <img src="assets/img/ielts-2-westhaven-garden.png" alt="Westhaven Community Garden map A-G" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+          <div class="placeholder" style="display:none"><div><b>IELTS MAP · Westhaven Community Garden</b>Entrance bottom · brick wall left · willow trees top · main path up the middle · 7 lettered points A-G<br><span style="opacity:.6">file: assets/img/ielts-2-westhaven-garden.png</span></div></div>
+        </div>
+      </div>
+      <div class="ex" id="ex-ielts-2">
+        <div class="ex-lead">Match each garden feature to a letter <b>A–G</b>.</div>
+        <div class="bank"><span class="bank-ttl">Letters on the map</span><span class="b">A</span><span class="b">B</span><span class="b">C</span><span class="b">D</span><span class="b">E</span><span class="b">F</span><span class="b">G</span></div>
+        <div class="ex-row"><div class="idx">1</div><div class="q"><b>Tool shed</b> &nbsp; <select data-a="A"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">2</div><div class="q"><b>Herb garden</b> &nbsp; <select data-a="B"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">3</div><div class="q"><b>Polytunnel</b> &nbsp; <select data-a="C"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">4</div><div class="q"><b>Compost area</b> &nbsp; <select data-a="D"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">5</div><div class="q"><b>Children's garden</b> &nbsp; <select data-a="E"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">6</div><div class="q"><b>Pond</b> &nbsp; <select data-a="F"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">7</div><div class="q"><b>Apple orchard</b> &nbsp; <select data-a="G"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-check"><button class="btn" onclick="checkFill('ex-ielts-2')">Check</button><button class="btn ghost" onclick="revealFill('ex-ielts-2')">Show answers</button><span class="score" id="sc-ex-ielts-2"></span></div>
+      </div>
+    </div>
+
+    <!-- ================== TASK 3 · SUMMERFIELD MARKET ================== -->
+    <div class="ielts-panel" id="ielts-p3">
+      <div class="player">
+        <h5>Task 3 · Summerfield Farmers' Market · market manager intro (~60 s)</h5>
+        <audio controls preload="metadata">
+          <source src="assets/audio/ielts_tasks/task3-summerfield-market.mp3" type="audio/mpeg">
+          Your browser can't play audio.
+        </audio>
+        <div class="trk">The manager walks shoppers through the stalls. Signposts: <b>«right here at the entrance»</b>, <b>«on your left»</b> / <b>«directly opposite on your right»</b>, <b>«far right beside the playground»</b>.</div>
+      </div>
+      <div class="mapwrap">
+        <div class="mapfr">
+          <img src="assets/img/ielts-3-summerfield-market.png" alt="Summerfield Farmers' Market map A-G" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+          <div class="placeholder" style="display:none"><div><b>IELTS MAP · Summerfield Farmers' Market</b>Open-air market · entrance south · central path · 3 rows of stalls · playground on far right<br><span style="opacity:.6">file: assets/img/ielts-3-summerfield-market.png</span></div></div>
+        </div>
+      </div>
+      <div class="ex" id="ex-ielts-3">
+        <div class="ex-lead">Match each stall to a letter <b>A–G</b>.</div>
+        <div class="bank"><span class="bank-ttl">Letters on the map</span><span class="b">A</span><span class="b">B</span><span class="b">C</span><span class="b">D</span><span class="b">E</span><span class="b">F</span><span class="b">G</span></div>
+        <div class="ex-row"><div class="idx">1</div><div class="q"><b>Information tent</b> &nbsp; <select data-a="A"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">2</div><div class="q"><b>Bread &amp; pastry stall</b> &nbsp; <select data-a="B"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">3</div><div class="q"><b>Cheese counter</b> &nbsp; <select data-a="C"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">4</div><div class="q"><b>Vegetable stalls</b> &nbsp; <select data-a="D"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">5</div><div class="q"><b>Flower corner</b> &nbsp; <select data-a="E"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">6</div><div class="q"><b>Coffee van</b> &nbsp; <select data-a="F"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">7</div><div class="q"><b>Children's workshop tent</b> &nbsp; <select data-a="G"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-check"><button class="btn" onclick="checkFill('ex-ielts-3')">Check</button><button class="btn ghost" onclick="revealFill('ex-ielts-3')">Show answers</button><span class="score" id="sc-ex-ielts-3"></span></div>
+      </div>
+    </div>
+
+    <!-- ================== TASK 4 · OAK HILL LIBRARY ================== -->
+    <div class="ielts-panel" id="ielts-p4">
+      <div class="player">
+        <h5>Task 4 · Oak Hill University Library · staff introduces new students (~65 s)</h5>
+        <audio controls preload="metadata">
+          <source src="assets/audio/ielts_tasks/task4-oakhill-library.mp3" type="audio/mpeg">
+          Your browser can't play audio.
+        </audio>
+        <div class="trk">Harder: moves across <b>two floors + a courtyard</b>. Signposts: <b>«straight in front of you»</b>, <b>«upstairs… on your left / on your right»</b>, <b>«behind the main bookshelves»</b>, <b>«in the far corner under the oak tree»</b>.</div>
+      </div>
+      <div class="mapwrap">
+        <div class="mapfr">
+          <img src="assets/img/ielts-4-oakhill-library.png" alt="Oak Hill University Library map A-G" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+          <div class="placeholder" style="display:none"><div><b>IELTS MAP · Oak Hill University Library</b>Two floors + outdoor courtyard. Ground floor: reception, self-checkout, computer lab; first floor: silent room + group room; courtyard: coffee bar + garden reading area (oak tree). 7 lettered points A-G.<br><span style="opacity:.6">file: assets/img/ielts-4-oakhill-library.png</span></div></div>
+        </div>
+      </div>
+      <div class="ex" id="ex-ielts-4">
+        <div class="ex-lead">Match each area to a letter <b>A–G</b>.</div>
+        <div class="bank"><span class="bank-ttl">Letters on the map</span><span class="b">A</span><span class="b">B</span><span class="b">C</span><span class="b">D</span><span class="b">E</span><span class="b">F</span><span class="b">G</span></div>
+        <div class="ex-row"><div class="idx">1</div><div class="q"><b>Reception desk</b> &nbsp; <select data-a="A"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">2</div><div class="q"><b>Self-checkout machines</b> &nbsp; <select data-a="B"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">3</div><div class="q"><b>Silent study room</b> &nbsp; <select data-a="C"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">4</div><div class="q"><b>Group study room</b> &nbsp; <select data-a="D"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">5</div><div class="q"><b>Computer lab</b> &nbsp; <select data-a="E"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">6</div><div class="q"><b>Coffee bar</b> &nbsp; <select data-a="F"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">7</div><div class="q"><b>Garden reading area</b> &nbsp; <select data-a="G"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-check"><button class="btn" onclick="checkFill('ex-ielts-4')">Check</button><button class="btn ghost" onclick="revealFill('ex-ielts-4')">Show answers</button><span class="score" id="sc-ex-ielts-4"></span></div>
+      </div>
+    </div>
+
+    <!-- ================== TASK 5 · BLACKWATER ZOO ================== -->
+    <div class="ielts-panel" id="ielts-p5">
+      <div class="player">
+        <h5>Task 5 · Blackwater Zoo · tour leader before the walk (~65 s)</h5>
+        <audio controls preload="metadata">
+          <source src="assets/audio/ielts_tasks/task5-blackwater-zoo.mp3" type="audio/mpeg">
+          Your browser can't play audio.
+        </audio>
+        <div class="trk">Hardest: full park layout with 7 enclosures. Signposts: <b>«on your left»</b>, <b>«straight ahead, past the penguins»</b>, <b>«just to the right of…»</b>, <b>«on the far right»</b> / <b>«on the far left»</b>, <b>«in the middle at the back»</b>.</div>
+      </div>
+      <div class="mapwrap">
+        <div class="mapfr">
+          <img src="assets/img/ielts-5-blackwater-zoo.png" alt="Blackwater Zoo map A-G" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+          <div class="placeholder" style="display:none"><div><b>IELTS MAP · Blackwater Zoo</b>Entrance bottom · main path up the middle · 7 enclosures around it (penguins, monkey island on a lake, reptiles, butterflies in trees, elephants, education centre). 7 lettered points A-G.<br><span style="opacity:.6">file: assets/img/ielts-5-blackwater-zoo.png</span></div></div>
+        </div>
+      </div>
+      <div class="ex" id="ex-ielts-5">
+        <div class="ex-lead">Match each zoo area to a letter <b>A–G</b>.</div>
+        <div class="bank"><span class="bank-ttl">Letters on the map</span><span class="b">A</span><span class="b">B</span><span class="b">C</span><span class="b">D</span><span class="b">E</span><span class="b">F</span><span class="b">G</span></div>
+        <div class="ex-row"><div class="idx">1</div><div class="q"><b>Ticket office</b> &nbsp; <select data-a="A"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">2</div><div class="q"><b>Penguin pool</b> &nbsp; <select data-a="B"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">3</div><div class="q"><b>Monkey Island</b> &nbsp; <select data-a="C"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">4</div><div class="q"><b>Reptile house</b> &nbsp; <select data-a="D"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">5</div><div class="q"><b>Butterfly garden</b> &nbsp; <select data-a="E"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">6</div><div class="q"><b>Elephant enclosure</b> &nbsp; <select data-a="F"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-row"><div class="idx">7</div><div class="q"><b>Education centre</b> &nbsp; <select data-a="G"><option></option></select><span class="reveal"></span></div></div>
+        <div class="ex-check"><button class="btn" onclick="checkFill('ex-ielts-5')">Check</button><button class="btn ghost" onclick="revealFill('ex-ielts-5')">Show answers</button><span class="score" id="sc-ex-ielts-5"></span></div>
+      </div>
+    </div>
+
+    <div class="react"><ul><li>«Which signpost phrase ambushed you most often? Replay the audio and listen only for that one.»</li><li>«Pick ONE facility from any task and describe its position back to me from memory — in two sentences.»</li><li>«Compare Task 1 and Task 5 — which was harder, and WHY (the map, the vocab, or the direction phrases)?»</li></ul></div>
+  </div>
+</section>
+
+<!-- ==================================================== -->
+<!-- 09 · SPEAKING · YOUR ROUTE                           -->
+<!-- ==================================================== -->
+<section class="section" id="s9">
+  <div class="section-hdr">
+    <div class="num">09</div>
+    <h2>Speaking · <em>your route from home to school / café / metro</em></h2>
+    <span class="mic-tag">⏱ 8 min</span>
+  </div>
+  <div class="conv">
+    <div class="scene">Everything you've learned, applied to your real life. Pick ONE route you walk often — home to school, home to your favourite café, your flat to the nearest metro.</div>
+    <img src="assets/img/scene-my-route.webp" alt="A girl walking her daily route through the village — past a bus stop, past a shop, over a crosswalk" style="width:100%;max-width:960px;display:block;margin:12px auto;border-radius:14px;box-shadow:0 10px 28px rgba(79,163,209,.14);border:1px solid var(--line)" onerror="this.style.display='none'">
+    <div class="goal">A clear monologue of 6-8 sentences. At least 4 prepositions of movement, at least 2 landmarks (shop, bus stop, park), 1 «on your left/right».</div>
+
+    <div class="mono">
+      <h4>🎤 Monologue · my daily route <span class="time">2-3 min</span></h4>
+      <p class="lead">Don't write it word-for-word. Use the checklist below as a skeleton, then speak freely.</p>
+      <ul>
+        <li><b>Start</b> — «I leave my flat / house at ___ Street.»</li>
+        <li><b>First step</b> — «I <b>go</b> / <b>walk</b> ___ (along · down · up) ___ Street for about ___ minutes.»</li>
+        <li><b>Landmark 1</b> — «I pass ___ on my ___ (left / right).»</li>
+        <li><b>Turn</b> — «Then I <b>turn</b> ___ (right / left) ___ (onto · into) ___ Street.»</li>
+        <li><b>Obstacle / crossing</b> — «I have to <b>cross</b> ___ (the road / the square / the bridge).»</li>
+        <li><b>Landmark 2</b> — «Just past the ___, there's ___.»</li>
+        <li><b>Final step</b> — «I <b>walk / go through</b> ___ and I'm there.»</li>
+        <li><b>Closing line</b> — «The whole route takes me about ___ minutes.»</li>
+      </ul>
+    </div>
+
+    <div class="ask-list">
+      <div class="ask"><div class="mic">🎤</div><div class="txt"><span class="n">9.1</span>Try the monologue once, out loud, without stopping. If you freeze — just keep moving: skip the exact word and say <i>«that thing»</i> + gesture.</div></div>
+      <div class="ask"><div class="mic">🎤</div><div class="txt"><span class="n">9.2</span>Do it <b>again</b>, this time with one <b>past tense</b> sentence: «Yesterday I walked past the pharmacy and I saw ___.»</div></div>
+      <div class="ask"><div class="mic">🎤</div><div class="txt"><span class="n">9.3</span><b>Describe the hardest moment</b> of the walk — the busy crossing, the rainy corner, the sketchy underpass. One sentence.</div></div>
+    </div>
+
+    <div class="react"><ul><li>«How many prepositions of movement did you actually use? Count them. Was it 4?»</li><li>«Replace one <i>go</i> with <i>walk</i>, one <i>turn</i> with <i>take</i>. Say the new version.»</li><li>«If I were coming to visit tomorrow — can I follow your directions? If not, where would I get lost?»</li></ul></div>
+  </div>
+</section>
+
+<!-- ==================================================== -->
+<!-- 10 · VOCAB CAPSULE                                   -->
+<!-- ==================================================== -->
+<section class="caps" id="s10">
+  <h2>📦 Vocab Capsule · all 14 direction words, with audio + spelling</h2>
+  <p class="lead">Tap a word to hear it. Try to spell three of them in the spelling box below (teacher dictates).</p>
+
+  <div class="caps-grid">
+    <div class="caps-item" data-say="along"><div class="w">along <span class="spk">🔊</span></div><div class="ex">Go <b>along</b> this lane.</div></div>
+    <div class="caps-item" data-say="across"><div class="w">across <span class="spk">🔊</span></div><div class="ex">Walk <b>across</b> the bridge.</div></div>
+    <div class="caps-item" data-say="past"><div class="w">past <span class="spk">🔊</span></div><div class="ex">Go <b>past</b> the pond.</div></div>
+    <div class="caps-item" data-say="through"><div class="w">through <span class="spk">🔊</span></div><div class="ex">Go <b>through</b> the gate.</div></div>
+    <div class="caps-item" data-say="onto"><div class="w">onto <span class="spk">🔊</span></div><div class="ex">Turn right <b>onto</b> the lane.</div></div>
+    <div class="caps-item" data-say="into"><div class="w">into <span class="spk">🔊</span></div><div class="ex">Step <b>into</b> the café.</div></div>
+    <div class="caps-item" data-say="straight"><div class="w">straight on <span class="spk">🔊</span></div><div class="ex">Go <b>straight on</b> for 100 m.</div></div>
+    <div class="caps-item" data-say="follow"><div class="w">follow <span class="spk">🔊</span></div><div class="ex">Just <b>follow</b> the footpath.</div></div>
+    <div class="caps-item" data-say="cross"><div class="w">cross <span class="spk">🔊</span></div><div class="ex"><b>Cross</b> the road at the lights.</div></div>
+    <div class="caps-item" data-say="take the first right"><div class="w">take the first right <span class="spk">🔊</span></div><div class="ex"><b>Take the first right</b> after the pub.</div></div>
+    <div class="caps-item" data-say="turn left"><div class="w">turn left / right <span class="spk">🔊</span></div><div class="ex"><b>Turn left</b> at the corner.</div></div>
+    <div class="caps-item" data-say="on your left"><div class="w">on your left <span class="spk">🔊</span></div><div class="ex">The gate is <b>on your left</b>.</div></div>
+    <div class="caps-item" data-say="footpath"><div class="w">footpath <span class="spk">🔊</span></div><div class="ex">Follow the <b>footpath</b> across the field.</div></div>
+    <div class="caps-item" data-say="the end of the road"><div class="w">the end of the road <span class="spk">🔊</span></div><div class="ex">Walk to <b>the end of the road</b>.</div></div>
+  </div>
+
+  <div class="ex" id="ex-spelling" style="margin-top:16px">
+    <div class="ex-lead">Spelling drill · 🔊 tap play, listen, then type what you hear.</div>
+    <div class="ex-sub">Capitals optional. Punctuation ignored. Replay as many times as you need.</div>
+    <div class="ex-row"><div class="idx">1</div><div class="q"><button class="play-btn sm" data-mp3="vocab/through.mp3" aria-label="play">🔊</button> → <input type="text" data-a="through" size="12"><span class="reveal"></span></div></div>
+    <div class="ex-row"><div class="idx">2</div><div class="q"><button class="play-btn sm" data-mp3="vocab/across.mp3" aria-label="play">🔊</button> → <input type="text" data-a="across" size="12"><span class="reveal"></span></div></div>
+    <div class="ex-row"><div class="idx">3</div><div class="q"><button class="play-btn sm" data-mp3="vocab/on-your-left.mp3" aria-label="play">🔊</button> → <input type="text" data-a="on your left" size="18"><span class="reveal"></span></div></div>
+    <div class="ex-row"><div class="idx">4</div><div class="q"><button class="play-btn sm" data-mp3="vocab/take-the-first-right.mp3" aria-label="play">🔊</button> → <input type="text" data-a="take the first right" size="22"><span class="reveal"></span></div></div>
+    <div class="ex-row"><div class="idx">5</div><div class="q"><button class="play-btn sm" data-mp3="vocab/end-of-the-road.mp3" aria-label="play">🔊</button> → <input type="text" data-a="walk to the end of the road" size="30"><span class="reveal"></span></div></div>
+    <div class="ex-check">
+      <button class="btn" onclick="checkFill('ex-spelling')">Check</button>
+      <button class="btn ghost" onclick="revealFill('ex-spelling')">Show answers</button>
+      <span class="score" id="sc-ex-spelling"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================================================== -->
+<!-- WELL-DONE · lesson wrap-up                            -->
+<!-- ==================================================== -->
+<section class="section" id="s-done" style="margin-top:36px">
+  <div class="hero-card" style="min-height:unset;padding:28px clamp(22px,4vw,40px);background:linear-gradient(135deg,var(--card-3) 0%,#FFF 60%,var(--card-2) 100%);border:2px solid var(--line-red);text-align:center">
+    <span class="hero-chip" style="margin-left:auto;margin-right:auto">🎉 Lesson finished · well done, Katya</span>
+    <h2 style="font-family:var(--display);font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:900;color:var(--bone);margin:8px 0 10px;letter-spacing:-.01em">What you can now do in English:</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:14px 0 18px;text-align:left">
+      <div style="background:#FFF;border:1px solid var(--line);border-radius:12px;padding:12px 14px"><b style="color:var(--red-deep)">✓ Understand</b> a British speaker giving directions once and follow a route on a map.</div>
+      <div style="background:#FFF;border:1px solid var(--line);border-radius:12px;padding:12px 14px"><b style="color:var(--red-deep)">✓ Give</b> step-by-step directions through a village or city using 14 direction words.</div>
+      <div style="background:#FFF;border:1px solid var(--line);border-radius:12px;padding:12px 14px"><b style="color:var(--red-deep)">✓ Use</b> 6 prepositions of movement correctly: <code style="background:var(--red-wash);padding:1px 6px;border-radius:4px;color:var(--red-deep);font-family:var(--mono);font-size:.84rem">along · across · past · through · onto · into</code></div>
+      <div style="background:#FFF;border:1px solid var(--line);border-radius:12px;padding:12px 14px"><b style="color:var(--red-deep)">✓ Tackle</b> an IELTS Section 2 map-labelling task at Band 5-6 level.</div>
+      <div style="background:#FFF;border:1px solid var(--line);border-radius:12px;padding:12px 14px"><b style="color:var(--red-deep)">✓ Read</b> any English map with N / S / E / W + diagonals.</div>
+      <div style="background:#FFF;border:1px solid var(--line);border-radius:12px;padding:12px 14px"><b style="color:var(--red-deep)">✓ Describe</b> your own daily route in 6–8 sentences out loud.</div>
+    </div>
+    <div style="font-family:var(--serif);font-style:italic;color:var(--bone);opacity:.9;font-size:1rem;line-height:1.6;max-width:720px;margin:0 auto">Come back to §0d <b>«What can you already say?»</b> and re-tap your chips. You'll see how much the number jumped since the start of the lesson.</div>
+    <div style="margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
+      <a href="#s0d" class="hero-tag red" style="text-decoration:none;cursor:pointer">↻ re-check my words</a>
+      <a href="#s2b" class="hero-tag" style="text-decoration:none;cursor:pointer">🔊 replay the 13 direction clips</a>
+      <a href="#s8" class="hero-tag" style="text-decoration:none;cursor:pointer">◆ try another IELTS task</a>
+      <a href="#s1" class="hero-tag" style="text-decoration:none;cursor:pointer">⤴ back to the top</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <b>New Generation English · Lab · Lesson 12</b> — Katya Zhizhina · A2 → B1 · <b>Directions &amp; Routes</b><br>
+  10 blocks · 13 audio direction cards · 3 Greenton map walks · 5 IELTS Section-2 tasks · 1 full gap-fill listening · 1 role-play · 1 solo monologue · 60-90 minutes total<br>
+  <span style="opacity:.6">All audio recorded with British English voices. Original scripts and images; IELTS tasks follow the standard public Section-2 task format.</span>
+</footer>
+
+<!-- ==================================================== -->
+<!-- SCRIPTS                                              -->
+<!-- ==================================================== -->
+<script>
+/* ============== AUDIO FOR VOCAB (edge-tts files) ============== */
+const SAY_MAP = {
+  'go':'go.mp3','walk':'walk.mp3','turn':'turn.mp3','take':'take.mp3','follow':'follow.mp3','cross':'cross.mp3',
+  'along':'along.mp3','across':'across.mp3','past':'past.mp3','through':'through.mp3','into':'into.mp3','onto':'onto.mp3',
+  'towards':'towards.mp3','up to':'up-to.mp3',
+  'lane':'lane.mp3','road':'road.mp3','path':'path.mp3','footpath':'footpath.mp3','gate':'gate.mp3',
+  'field':'field.mp3','bridge':'bridge.mp3','pond':'pond.mp3','corner':'corner.mp3','end of the road':'end-of-the-road.mp3',
+  'the end of the road':'end-of-the-road.mp3',
+  'straight':'straight-on.mp3','take the first right':'take-the-first-right.mp3','turn left':'turn-left-right.mp3',
+  'on your left':'on-your-left.mp3'
+};
+function say(key){
+  const f = SAY_MAP[key.toLowerCase()];
+  if(!f) return;
+  const a = new Audio('assets/audio/vocab/'+f);
+  a.play().catch(()=>{/* file not ready yet */});
+}
+document.querySelectorAll('[data-say]').forEach(el=>{
+  el.addEventListener('click',()=>say(el.dataset.say));
+});
+
+/* ============== NORMALISE (lowercase, trim, strip punctuation) ============== */
+function norm(s){
+  return (s||'').toString().toLowerCase().trim()
+    .replace(/[.,!?;:'"`]/g,'')
+    .replace(/\s+/g,' ');
+}
+
+/* ============== FILL (text inputs + selects) ============== */
+function checkFill(id){
+  const wrap = document.getElementById(id);
+  const rows = wrap.querySelectorAll('.ex-row');
+  let total=0, ok=0;
+  rows.forEach(row=>{
+    const q = row.querySelector('.q');
+    const reveal = row.querySelector('.reveal');
+    const inputs = row.querySelectorAll('input[type=text], select');
+    let rowOk = true;
+    inputs.forEach(inp=>{
+      total++;
+      const ans = norm(inp.dataset.a);
+      const val = norm(inp.value);
+      if(val===ans){ok++}
+      else{rowOk=false}
+    });
+    q.classList.remove('ok','bad');
+    q.classList.add(rowOk ? 'ok' : 'bad');
+    if(reveal){
+      if(!rowOk){
+        const answers = [...inputs].map(i=>i.dataset.a).join(' / ');
+        reveal.textContent = 'answer: '+answers;
+        reveal.classList.add('show','wrong');
+      }else{
+        reveal.textContent = '✓';
+        reveal.classList.add('show');
+        reveal.classList.remove('wrong');
+      }
+    }
+  });
+  const sc = document.getElementById('sc-'+id);
+  if(sc){
+    sc.textContent = ok+' / '+total;
+    sc.classList.toggle('bad', ok < total*0.7);
+  }
+}
+function revealFill(id){
+  const wrap = document.getElementById(id);
+  wrap.querySelectorAll('.ex-row').forEach(row=>{
+    const inputs = row.querySelectorAll('input[type=text], select');
+    inputs.forEach(inp=>{
+      if(inp.tagName==='SELECT'){
+        const opt = [...inp.options].find(o=>norm(o.value)===norm(inp.dataset.a));
+        if(opt) inp.value = opt.value;
+      }else{
+        inp.value = inp.dataset.a;
+      }
+    });
+    const reveal = row.querySelector('.reveal');
+    if(reveal){reveal.textContent='revealed'; reveal.classList.add('show')}
+  });
+}
+
+/* ============== ORDER (jumble → one input per sentence) ============== */
+function checkOrder(id){
+  const wrap = document.getElementById(id);
+  const rows = wrap.querySelectorAll('.ex-row');
+  let total=0, ok=0;
+  rows.forEach(row=>{
+    const inp = row.querySelector('.jumble-input');
+    const reveal = row.querySelector('.reveal');
+    const q = row.querySelector('.q');
+    total++;
+    const ans = norm(inp.dataset.a);
+    const val = norm(inp.value);
+    if(val===ans){ok++; q.classList.add('ok'); q.classList.remove('bad'); if(reveal){reveal.textContent='✓';reveal.classList.add('show');reveal.classList.remove('wrong')}}
+    else{q.classList.add('bad'); q.classList.remove('ok'); if(reveal){reveal.textContent='answer: '+inp.dataset.a; reveal.classList.add('show','wrong')}}
+  });
+  const sc = document.getElementById('sc-'+id);
+  if(sc){sc.textContent = ok+' / '+total; sc.classList.toggle('bad', ok < total*0.7)}
+}
+function revealOrder(id){
+  const wrap = document.getElementById(id);
+  wrap.querySelectorAll('.jumble-input').forEach(inp=>{inp.value = inp.dataset.a});
+  wrap.querySelectorAll('.reveal').forEach(r=>{r.textContent='revealed'; r.classList.add('show')});
+}
+
+/* ============== POPULATE SELECTS WITH DISTRACTORS ============== */
+/* Section 6 — preposition MCQ */
+const MCQ_POOL = {
+  'across':['across','along','past','through'],
+  'along':['along','across','past','through'],
+  'past':['past','through','along','across'],
+  'through':['through','past','across','into'],
+  'onto':['onto','into','on','in'],
+  'into':['into','onto','in','through'],
+  'straight':['straight','direct','right','along'],
+  'on':['on','in','at','onto'],
+  'second':['second','two','twice','other'],
+  'follow':['follow','go','take','turn']
+};
+function shuffle(arr, seed){
+  const a = [...arr];
+  let m = a.length, i, t, s = seed||42;
+  while(m){
+    s = (s*9301+49297)%233280;
+    i = Math.floor(s/233280 * m--);
+    t = a[m]; a[m] = a[i]; a[i] = t;
+  }
+  return a;
+}
+const HUNT_POOL = ['pharmacy','cash machine (atm)','post office','bus stop','newsagent',
+  "dry cleaner's","hairdresser's","dentist's",'florist','bakery','ice cream shop','bookshop'];
+const GREENTON_POOL = ['13 wood','14 barn','15 small blue cottage','16 orange farmhouse',
+  '17 field left','18 field middle','19 stream','20 pond','21 church','22 yellow house',
+  '23 gate','24 footpath','25 tractor'];
+
+document.querySelectorAll('#ex-mcq select, [id^="ex-ielts"] select, #ex-compass select, #ex-hunt select, #ex-greenton-walk select').forEach((sel, i)=>{
+  const a = sel.dataset.a;
+  let pool;
+  if(sel.closest('[id^="ex-ielts"]')){
+    pool = ['A','B','C','D','E','F','G'];
+  }else if(sel.closest('#ex-compass')){
+    pool = ['north','south','east','west','north-east','north-west','south-east','south-west'];
+  }else if(sel.closest('#ex-hunt')){
+    pool = HUNT_POOL;
+  }else if(sel.closest('#ex-greenton-walk')){
+    pool = GREENTON_POOL;
+  }else{
+    pool = MCQ_POOL[a.toLowerCase()] || [a,'go','take','turn'];
+  }
+  const opts = shuffle(pool, 42+i);
+  sel.innerHTML = '<option value="">—</option>' + opts.map(o=>`<option value="${o}">${o}</option>`).join('');
+});
+
+/* ============== DIRECTION CARD / PLAY BUTTONS ============== */
+let currentAudio = null;
+function playClip(mp3, btn){
+  // stop any currently-playing clip
+  if(currentAudio){
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+    document.querySelectorAll('.play-btn.playing').forEach(b=>b.classList.remove('playing'));
+  }
+  const a = new Audio('assets/audio/' + mp3);
+  currentAudio = a;
+  if(btn){
+    btn.classList.add('playing');
+    a.addEventListener('ended', ()=>btn.classList.remove('playing'));
+    a.addEventListener('error', ()=>btn.classList.remove('playing'));
+  }
+  a.play().catch(err=>{
+    console.warn('audio play failed', mp3, err);
+    if(btn) btn.classList.remove('playing');
+  });
+}
+
+// click anywhere on the card (or on the play button inside) plays the clip
+document.querySelectorAll('.dir-card').forEach(card=>{
+  card.addEventListener('click', e=>{
+    e.stopPropagation();
+    const btn = card.querySelector('.play-btn');
+    playClip(card.dataset.mp3, btn);
+  });
+});
+
+// standalone sm play buttons (in gap-fill, role-play, signpost list)
+document.querySelectorAll('.play-btn[data-mp3]').forEach(btn=>{
+  btn.addEventListener('click', e=>{
+    e.stopPropagation();
+    e.preventDefault();
+    playClip(btn.dataset.mp3, btn);
+  });
+});
+
+// SVG compass hit areas
+document.querySelectorAll('.compass-svg .hit[data-mp3]').forEach(hit=>{
+  const trigger = (e)=>{
+    e.stopPropagation();
+    document.querySelectorAll('.compass-svg .hit.playing').forEach(h=>h.classList.remove('playing'));
+    hit.classList.add('playing');
+    const a = new Audio('assets/audio/' + hit.dataset.mp3);
+    if(currentAudio){currentAudio.pause(); currentAudio=null; document.querySelectorAll('.play-btn.playing').forEach(b=>b.classList.remove('playing'))}
+    currentAudio = a;
+    a.addEventListener('ended', ()=>hit.classList.remove('playing'));
+    a.addEventListener('error', ()=>hit.classList.remove('playing'));
+    a.play().catch(err=>{console.warn(err); hit.classList.remove('playing')});
+  };
+  hit.addEventListener('click', trigger);
+  hit.addEventListener('keydown', e=>{if(e.key==='Enter'||e.key===' ') trigger(e);});
+});
+
+/* ============== HOOK CHOICES (§0a) ============== */
+document.querySelectorAll('#hook-choices .hook-choice').forEach(ch=>{
+  ch.addEventListener('click', ()=>{
+    const correct = ch.dataset.correct === '1';
+    // reset siblings
+    ch.parentElement.querySelectorAll('.hook-choice').forEach(c=>c.classList.remove('correct','wrong'));
+    ch.classList.add(correct ? 'correct' : 'wrong');
+    const reveal = document.getElementById('hook-reveal');
+    reveal.textContent = correct
+      ? '✓ Great listening! You caught "through the glass doors", "second right", "on your left", and "next to the fountain". That is exactly how a tour guide talks in IELTS Section 2.'
+      : 'Not quite. Tap the clue again and listen for: through the doors (= inside) → second right (= not the first) → on your left → next to the fountain.';
+    reveal.classList.add('show');
+    // play the audio reveal
+    if(ch.dataset.reveal) playClip(ch.dataset.reveal);
+  });
+});
+
+/* ============== L/R DRILL (§0b) ============== */
+document.querySelectorAll('#lr-drill .row').forEach(row=>{
+  const ans = row.dataset.a;  // 'L' or 'R'
+  row.querySelectorAll('.ans button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      row.querySelectorAll('.ans button').forEach(b=>b.classList.remove('chosen-l','chosen-r'));
+      btn.classList.add(btn.dataset.v === 'L' ? 'chosen-l' : 'chosen-r');
+      row.classList.remove('ok','bad');
+      row.classList.add(btn.dataset.v === ans ? 'ok' : 'bad');
+      // live score
+      const rows = document.querySelectorAll('#lr-drill .row');
+      const done = [...rows].filter(r=>r.classList.contains('ok')||r.classList.contains('bad')).length;
+      const ok = [...rows].filter(r=>r.classList.contains('ok')).length;
+      const sc = document.getElementById('sc-lr');
+      sc.textContent = ok + ' / ' + done + (done===rows.length ? (ok===rows.length ? '  🎉 perfect!' : '  — replay the ones that went wrong') : '');
+      sc.classList.toggle('bad', done===rows.length && ok<rows.length);
+    });
+  });
+});
+
+/* ============== SELF-CHECK (§0d) ============== */
+document.querySelectorAll('#selfcheck .sc-chip').forEach(chip=>{
+  chip.addEventListener('click', ()=>{
+    chip.classList.toggle('known');
+    // also play audio of the word
+    if(chip.dataset.say) say(chip.dataset.say);
+    const total = document.querySelectorAll('#selfcheck .sc-chip').length;
+    const known = document.querySelectorAll('#selfcheck .sc-chip.known').length;
+    document.getElementById('sc-report').innerHTML =
+      `You already know <b>${known} / ${total}</b> words. Tap a word to mark it known. Each chip also plays its audio.`;
+  });
+});
+
+/* ============== IELTS TABS ============== */
+document.querySelectorAll('.ielts-tab').forEach(tab=>{
+  tab.addEventListener('click', ()=>{
+    // stop any audio when switching tab
+    if(currentAudio){currentAudio.pause(); currentAudio=null; document.querySelectorAll('.play-btn.playing').forEach(b=>b.classList.remove('playing'))}
+    document.querySelectorAll('.ielts-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.ielts-panel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    const panel = document.getElementById(tab.dataset.panel);
+    if(panel) panel.classList.add('active');
+  });
+});
+
+/* ============== PROGRESS BAR ============== */
+const progfill = document.getElementById('progfill');
+window.addEventListener('scroll', ()=>{
+  const h = document.documentElement;
+  const sc = h.scrollTop;
+  const sh = h.scrollHeight - h.clientHeight;
+  progfill.style.width = Math.min(100, (sc/sh)*100) + '%';
+}, {passive:true});
+</script>
+
+</body>
+</html>
